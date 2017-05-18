@@ -1,0 +1,1715 @@
+<!doctype html>
+<html lang="en">
+<head>
+            <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <base href="https://marijnvdwerf.github.io/gba-beyblade-vforce/">
+    
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/main.css">
+    
+    <style>
+        .stage {
+            position: relative;
+            overflow: auto;
+        }
+
+        .stage img {
+            display: block;
+            top: 0;
+            left: 0;
+            position: absolute;
+        }
+
+        .stage img:first-child {
+            position: static;
+        }
+
+        table tr.warn {
+            background-color: #FFECB3;
+        }
+
+        table tr:nth-child(2n).warn {
+            background-color: #FFE082;
+        }
+    </style>
+</head>
+<body>
+    <div class="stage"><img src="img/2 - 5.png" /><img src="img/geometry-2-5.png" width="560" height="1320" /><img src="img/spritesheet-136514028-134732416.png" style="left: 1064px; top: 176px; position: absolute; margin: 0px 0 0 -32px" /><img src="img/spritesheet-136514028-134732416.png" style="left: 392px; top: 160px; position: absolute; margin: 0px 0 0 -32px" /><img src="img/spritesheet-136546908-134732416.png" style="left: 424px; top: 400px; position: absolute; margin: 0px 0 0 -32px" /><img src="img/spritesheet-136546908-134732416.png" style="left: 456px; top: 384px; position: absolute; margin: 0px 0 0 -32px" /><img src="img/spritesheet-136501268-134732416.png" style="left: 616px; top: 464px; position: absolute; margin: -5px 0 0 -15px" /><img src="img/spritesheet-136546908-134732416.png" style="left: 488px; top: 400px; position: absolute; margin: 0px 0 0 -32px" /><img src="img/spritesheet-136546908-134732416.png" style="left: 456px; top: 416px; position: absolute; margin: 0px 0 0 -32px" /></div><details><summary>Points</summary><table>
+ <thead>
+  <tr>
+   <th rowspan="1"></th>
+   <th colspan="1">x</th>
+   <th colspan="1">y</th>
+   <th colspan="1">z</th>
+  </tr>
+ </thead>
+
+ <tbody>
+  <tr>
+   <th>0</th>
+   <td colspan="1">2528</td>
+   <td colspan="1">-96</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>1</th>
+   <td colspan="1">4576</td>
+   <td colspan="1">2208</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>2</th>
+   <td colspan="1">3936</td>
+   <td colspan="1">-1760</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>3</th>
+   <td colspan="1">3936</td>
+   <td colspan="1">-1760</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>4</th>
+   <td colspan="1">4576</td>
+   <td colspan="1">1952</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>5</th>
+   <td colspan="1">6880</td>
+   <td colspan="1">1440</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>6</th>
+   <td colspan="1">6112</td>
+   <td colspan="1">-608</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>7</th>
+   <td colspan="1">6880</td>
+   <td colspan="1">416</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>8</th>
+   <td colspan="1">4064</td>
+   <td colspan="1">-608</td>
+   <td colspan="1">320</td>
+  </tr>
+  <tr>
+   <th>9</th>
+   <td colspan="1">5344</td>
+   <td colspan="1">-1120</td>
+   <td colspan="1">320</td>
+  </tr>
+  <tr>
+   <th>10</th>
+   <td colspan="1">4832</td>
+   <td colspan="1">-96</td>
+   <td colspan="1">320</td>
+  </tr>
+  <tr>
+   <th>11</th>
+   <td colspan="1">1760</td>
+   <td colspan="1">-864</td>
+   <td colspan="1">384</td>
+  </tr>
+  <tr>
+   <th>12</th>
+   <td colspan="1">3552</td>
+   <td colspan="1">-96</td>
+   <td colspan="1">384</td>
+  </tr>
+  <tr>
+   <th>13</th>
+   <td colspan="1">2528</td>
+   <td colspan="1">1696</td>
+   <td colspan="1">384</td>
+  </tr>
+  <tr>
+   <th>14</th>
+   <td colspan="1">6112</td>
+   <td colspan="1">-1632</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>15</th>
+   <td colspan="1">6880</td>
+   <td colspan="1">-864</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>16</th>
+   <td colspan="1">6880</td>
+   <td colspan="1">-1888</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>17</th>
+   <td colspan="1">6112</td>
+   <td colspan="1">-3168</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>18</th>
+   <td colspan="1">5088</td>
+   <td colspan="1">-1120</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>19</th>
+   <td colspan="1">4832</td>
+   <td colspan="1">-2912</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>20</th>
+   <td colspan="1">3552</td>
+   <td colspan="1">-1632</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>21</th>
+   <td colspan="1">4320</td>
+   <td colspan="1">-2144</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>22</th>
+   <td colspan="1">6368</td>
+   <td colspan="1">-2144</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>23</th>
+   <td colspan="1">6624</td>
+   <td colspan="1">-1888</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>24</th>
+   <td colspan="1">3040</td>
+   <td colspan="1">-96</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>25</th>
+   <td colspan="1">3296</td>
+   <td colspan="1">160</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>26</th>
+   <td colspan="1">2016</td>
+   <td colspan="1">1184</td>
+   <td colspan="1">384</td>
+  </tr>
+  <tr>
+   <th>27</th>
+   <td colspan="1">2272</td>
+   <td colspan="1">1440</td>
+   <td colspan="1">384</td>
+  </tr>
+  <tr>
+   <th>28</th>
+   <td colspan="1">5088</td>
+   <td colspan="1">1696</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>29</th>
+   <td colspan="1">5344</td>
+   <td colspan="1">1952</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>30</th>
+   <td colspan="1">5088</td>
+   <td colspan="1">1440</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>31</th>
+   <td colspan="1">5344</td>
+   <td colspan="1">1696</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>32</th>
+   <td colspan="1">4064</td>
+   <td colspan="1">544</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>33</th>
+   <td colspan="1">4192</td>
+   <td colspan="1">672</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>34</th>
+   <td colspan="1">4064</td>
+   <td colspan="1">416</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>35</th>
+   <td colspan="1">4064</td>
+   <td colspan="1">1440</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>36</th>
+   <td colspan="1">2784</td>
+   <td colspan="1">1440</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>37</th>
+   <td colspan="1">2784</td>
+   <td colspan="1">416</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>38</th>
+   <td colspan="1">2720</td>
+   <td colspan="1">864</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>39</th>
+   <td colspan="1">2848</td>
+   <td colspan="1">992</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>40</th>
+   <td colspan="1">2528</td>
+   <td colspan="1">1952</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>41</th>
+   <td colspan="1">4576</td>
+   <td colspan="1">2208</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>42</th>
+   <td colspan="1">4576</td>
+   <td colspan="1">-96</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>43</th>
+   <td colspan="1">4320</td>
+   <td colspan="1">1952</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>44</th>
+   <td colspan="1">6368</td>
+   <td colspan="1">1440</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>45</th>
+   <td colspan="1">6624</td>
+   <td colspan="1">1696</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>46</th>
+   <td colspan="1">6112</td>
+   <td colspan="1">1440</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>47</th>
+   <td colspan="1">3680</td>
+   <td colspan="1">-1760</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>48</th>
+   <td colspan="1">3680</td>
+   <td colspan="1">-1760</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>49</th>
+   <td colspan="1">5344</td>
+   <td colspan="1">-608</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>50</th>
+   <td colspan="1">6112</td>
+   <td colspan="1">1440</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>51</th>
+   <td colspan="1">4576</td>
+   <td colspan="1">1184</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>52</th>
+   <td colspan="1">6112</td>
+   <td colspan="1">1440</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>53</th>
+   <td colspan="1">3680</td>
+   <td colspan="1">-1120</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>54</th>
+   <td colspan="1">4064</td>
+   <td colspan="1">-96</td>
+   <td colspan="1">320</td>
+  </tr>
+  <tr>
+   <th>55</th>
+   <td colspan="1">3552</td>
+   <td colspan="1">-352</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>56</th>
+   <td colspan="1">4064</td>
+   <td colspan="1">-96</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>57</th>
+   <td colspan="1">1344</td>
+   <td colspan="1">-1344</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>58</th>
+   <td colspan="1">3552</td>
+   <td colspan="1">-864</td>
+   <td colspan="1">384</td>
+  </tr>
+  <tr>
+   <th>59</th>
+   <td colspan="1">1376</td>
+   <td colspan="1">-1120</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>60</th>
+   <td colspan="1">1760</td>
+   <td colspan="1">1696</td>
+   <td colspan="1">384</td>
+  </tr>
+  <tr>
+   <th>61</th>
+   <td colspan="1">6112</td>
+   <td colspan="1">-1376</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>62</th>
+   <td colspan="1">6880</td>
+   <td colspan="1">-608</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>63</th>
+   <td colspan="1">6112</td>
+   <td colspan="1">-2400</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>64</th>
+   <td colspan="1">6880</td>
+   <td colspan="1">-1632</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>65</th>
+   <td colspan="1">5344</td>
+   <td colspan="1">-2912</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>66</th>
+   <td colspan="1">6112</td>
+   <td colspan="1">-1120</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>67</th>
+   <td colspan="1">5344</td>
+   <td colspan="1">-1888</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>68</th>
+   <td colspan="1">6112</td>
+   <td colspan="1">-1120</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>69</th>
+   <td colspan="1">3616</td>
+   <td colspan="1">-1440</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>70</th>
+   <td colspan="1">5344</td>
+   <td colspan="1">-1120</td>
+   <td colspan="1">320</td>
+  </tr>
+  <tr>
+   <th>71</th>
+   <td colspan="1">2848</td>
+   <td colspan="1">-2848</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>72</th>
+   <td colspan="1">3552</td>
+   <td colspan="1">-1120</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>73</th>
+   <td colspan="1">2848</td>
+   <td colspan="1">-2848</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>74</th>
+   <td colspan="1">4320</td>
+   <td colspan="1">-2144</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>75</th>
+   <td colspan="1">4128</td>
+   <td colspan="1">-3872</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>76</th>
+   <td colspan="1">4832</td>
+   <td colspan="1">-1632</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>77</th>
+   <td colspan="1">4320</td>
+   <td colspan="1">-2400</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>78</th>
+   <td colspan="1">4832</td>
+   <td colspan="1">-3936</td>
+   <td colspan="1">0</td>
+  </tr>
+  <tr>
+   <th>79</th>
+   <td colspan="1">6880</td>
+   <td colspan="1">-3168</td>
+   <td colspan="1">704</td>
+  </tr>
+  <tr>
+   <th>80</th>
+   <td colspan="1">3488</td>
+   <td colspan="1">-2208</td>
+   <td colspan="1">512</td>
+  </tr>
+  <tr>
+   <th>81</th>
+   <td colspan="1">5088</td>
+   <td colspan="1">-1120</td>
+   <td colspan="1">512</td>
+  </tr>
+  <tr>
+   <th>82</th>
+   <td colspan="1">5344</td>
+   <td colspan="1">1440</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>83</th>
+   <td colspan="1">5600</td>
+   <td colspan="1">1696</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>84</th>
+   <td colspan="1">5344</td>
+   <td colspan="1">1696</td>
+   <td colspan="1">192</td>
+  </tr>
+  <tr>
+   <th>85</th>
+   <td colspan="1">5600</td>
+   <td colspan="1">1952</td>
+   <td colspan="1">192</td>
+  </tr>
+ </tbody>
+</table>
+</details><details><summary>Splines</summary><table>            <thead>
+            <tr>
+                <th rowspan="2">#</th>
+                <th rowspan="2">count</th>
+                <th rowspan="2">bytes</th>
+                <th rowspan="2">unk_8</th>
+                <th rowspan="2">name</th>
+                <th rowspan="2">unk_E</th>
+                <th rowspan="2">points</th>
+                <th colspan="5">lines</th>
+            </tr>
+            <tr>
+                <th>var_0</th>
+                <th>var_1</th>
+                <th>var_8</th>
+                <th>var_A</th>
+                <th>var_C</th>
+            </tr>
+            </thead>
+            <tr><th rowspan="10">0</th><td rowspan="10">5</td><td rowspan="10">116</td><td rowspan="10"><pre><span style="background: #55a540">01</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td><td rowspan="10">10B1</td><td rowspan="10"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td><td rowspan="2">34</td><td colspan="5"></td></tr><tr><td rowspan="2">0</td><td rowspan="2"><pre><span style="background: #83acb6">7F</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #8d39dd">80</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td><td rowspan="2">64</td><td rowspan="2">64</td><td rowspan="2">2048</td></tr><td rowspan="2">35</td></tr><tr><td rowspan="2">-127</td><td rowspan="2"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #9af7c1">A0</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td><td rowspan="2">128</td><td rowspan="2">96</td><td rowspan="2">1638</td></tr><td rowspan="2">36</td></tr><tr><td rowspan="2">0</td><td rowspan="2"><pre><span style="background: #cd2504">81</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #8d39dd">80</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td><td rowspan="2">192</td><td rowspan="2">160</td><td rowspan="2">2048</td></tr><td rowspan="2">37</td></tr><tr><td rowspan="2">127</td><td rowspan="2"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #9af7c1">A0</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td><td rowspan="2">0</td><td rowspan="2">96</td><td rowspan="2">1638</td></tr><td rowspan="2">34</td></tr><tr><td colspan="5"></td></tr></table></details><details><summary>Riders</summary><table>
+ <thead>
+  <tr>
+   <th rowspan="1"></th>
+   <th colspan="1">type</th>
+   <th colspan="1">m_D368</th>
+   <th colspan="1">m_6ACE</th>
+   <th colspan="1">m_5BBE</th>
+   <th colspan="1">m_215D</th>
+   <th colspan="1">m_3AB4</th>
+   <th colspan="1">m_505B</th>
+   <th colspan="1">spline</th>
+   <th colspan="1">m_CF2C</th>
+   <th colspan="1">boss</th>
+   <th colspan="1">item</th>
+   <th colspan="1">indicatorColor</th>
+   <th colspan="1">m_05CF</th>
+  </tr>
+ </thead>
+
+ <tbody>
+  <tr>
+   <th>21</th>
+   <td colspan="1">55</td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"><span style="background: #9028e0">0</span></td>
+   <td colspan="1"></td>
+  </tr>
+  <tr>
+   <th>22</th>
+   <td colspan="1">55</td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"></td>
+   <td colspan="1"><span style="background: #9028e0">0</span></td>
+   <td colspan="1"></td>
+  </tr>
+ </tbody>
+</table>
+</details><details><summary>Lines</summary><table>
+ <thead>
+  <tr>
+   <th rowspan="1"></th>
+   <th colspan="1">from</th>
+   <th colspan="1">to</th>
+   <th colspan="1">var_08</th>
+   <th colspan="1">unk_09</th>
+   <th colspan="1">var_0D</th>
+   <th colspan="1">unk_0E</th>
+   <th colspan="1">lineType</th>
+   <th colspan="1">var_10</th>
+   <th colspan="1">shape</th>
+   <th colspan="1">var_12</th>
+   <th colspan="1">unk_14</th>
+   <th colspan="1">var_16</th>
+   <th colspan="1">var_18</th>
+   <th colspan="1">var_19</th>
+   <th colspan="1">var_1A</th>
+   <th colspan="1">var_1C</th>
+   <th colspan="1">unk_1E</th>
+   <th colspan="9">data</th>
+  </tr>
+ </thead>
+
+ <tbody>
+  <tr>
+   <th>0</th>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">910</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>1</th>
+   <td colspan="1">2</td>
+   <td colspan="1">3</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">134</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">64</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>2</th>
+   <td colspan="1">4</td>
+   <td colspan="1">5</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">4096</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>3</th>
+   <td colspan="1">6</td>
+   <td colspan="1">7</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2048</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>4</th>
+   <td colspan="1">5</td>
+   <td colspan="1">7</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">-128</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">238</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2048</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>5</th>
+   <td colspan="1">8</td>
+   <td colspan="1">9</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">153</td>
+   <td colspan="1">3</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1638</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>6</th>
+   <td colspan="1">6</td>
+   <td colspan="1">9</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">153</td>
+   <td colspan="1">3</td>
+   <td colspan="1">128</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">18</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2730</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>7</th>
+   <td colspan="1">8</td>
+   <td colspan="1">10</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">4096</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>8</th>
+   <td colspan="1">11</td>
+   <td colspan="1">12</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2730</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>9</th>
+   <td colspan="1">11</td>
+   <td colspan="1">13</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">819</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>10</th>
+   <td colspan="1">14</td>
+   <td colspan="1">15</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2730</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>11</th>
+   <td colspan="1">16</td>
+   <td colspan="1">17</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1638</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>12</th>
+   <td colspan="1">18</td>
+   <td colspan="1">19</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">141</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">32</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1170</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>13</th>
+   <td colspan="1">17</td>
+   <td colspan="1">19</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">141</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">32</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">8192</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>14</th>
+   <td colspan="1">20</td>
+   <td colspan="1">21</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">141</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">32</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">4096</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>15</th>
+   <td colspan="1">18</td>
+   <td colspan="1">20</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">141</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">32</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">4096</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>16</th>
+   <td colspan="1">22</td>
+   <td colspan="1">23</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">140</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">65520</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">8192</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT6 id=0B42]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT12 id=0B42]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT8 id=002D values[0]=0x0001(1) values[1]=0x0000(0)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT4 id=B396 values[0]=0x00000000(0) values[1]=0x00000000(0) values[2]=0x00000384(900)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT7 id=0B42 values[0]=0x0003(3) values[1]=0x0002(2)]</td>
+   <td colspan="4"></td>
+  </tr>
+  <tr>
+   <th>17</th>
+   <td colspan="1">24</td>
+   <td colspan="1">25</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">154</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">65520</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">8192</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT6 id=0B41]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT12 id=0B41]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT8 id=002D values[0]=0x0001(1) values[1]=0x0000(0)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT4 id=B396 values[0]=0x00000000(0) values[1]=0x00000000(0) values[2]=0x00000384(900)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT7 id=0B41 values[0]=0x0003(3) values[1]=0x0002(2)]</td>
+   <td colspan="4"></td>
+  </tr>
+  <tr>
+   <th>18</th>
+   <td colspan="1">26</td>
+   <td colspan="1">27</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">139</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">8192</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>19</th>
+   <td colspan="1">28</td>
+   <td colspan="1">29</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">140</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">8192</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT6 id=700D]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT12 id=700D]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT8 id=002D values[0]=0x0001(1) values[1]=0x0000(0)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT4 id=B396 values[0]=0xFFFFFFFFFFFFFC00(-1024) values[1]=0x00000000(0) values[2]=0x00000000(0)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT7 id=700D values[0]=0x0003(3) values[1]=0x0002(2)]</td>
+   <td colspan="4"></td>
+  </tr>
+  <tr>
+   <th>20</th>
+   <td colspan="1">30</td>
+   <td colspan="1">31</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">140</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">8192</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT6 id=3213]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT12 id=3213]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT8 id=002D values[0]=0x0001(1) values[1]=0x0000(0)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT4 id=B396 values[0]=0xFFFFFFFFFFFFFC00(-1024) values[1]=0x00000000(0) values[2]=0x00000000(0)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT7 id=3213 values[0]=0x0003(3) values[1]=0x0002(2)]</td>
+   <td colspan="4"></td>
+  </tr>
+  <tr>
+   <th>21</th>
+   <td colspan="1">32</td>
+   <td colspan="1">33</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">134</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">56</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">16384</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=D368 value=400]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=6ACE value=8]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=5BBE value=8]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=215D value=100]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=3AB4 value=60]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=505B value=1000]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT3 id=59C3 value=0x000010B1(4273)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=CF2C value=1024]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=F0F8 value=1]</td>
+  </tr>
+  <tr>
+   <th>22</th>
+   <td colspan="1">38</td>
+   <td colspan="1">39</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">134</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">56</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">16384</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=D368 value=400]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=6ACE value=8]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=5BBE value=8]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=215D value=100]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=3AB4 value=60]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=505B value=1000]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT3 id=59C3 value=0x000010B1(4273)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=CF2C value=1024]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=F0F8 value=1]</td>
+  </tr>
+  <tr>
+   <th>23</th>
+   <td colspan="1">40</td>
+   <td colspan="1">41</td>
+   <td colspan="1">64</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">148</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">8192</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>24</th>
+   <td colspan="1">42</td>
+   <td colspan="1">43</td>
+   <td colspan="1">1</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">148</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1024</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>25</th>
+   <td colspan="1">44</td>
+   <td colspan="1">45</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">140</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">32</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">8192</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT6 id=B9DE]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT12 id=B9DE]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT8 id=002D values[0]=0x0001(1) values[1]=0x0002(2)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataTA id=D679 values[0]=0x00000000(0) values[1]=0x000003C0(960)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT3 id=37AE value=0x00003C00(15360)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT1 id=37AE value=57]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataTD id=002D 0 <span style="background: #97775b">8C</span> <span style="background: #cfcd20">30</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span>]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT7 id=B9DE values[0]=0x0003(3) values[1]=0x0005(5)]</td>
+   <td colspan="1"></td>
+  </tr>
+  <tr>
+   <th>26</th>
+   <td colspan="1">7</td>
+   <td colspan="1">46</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">-128</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">238</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2048</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>27</th>
+   <td colspan="1">47</td>
+   <td colspan="1">48</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">153</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">64</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>28</th>
+   <td colspan="1">49</td>
+   <td colspan="1">50</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">3</td>
+   <td colspan="1">234</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">30</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2730</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>29</th>
+   <td colspan="1">51</td>
+   <td colspan="1">52</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">192</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">26</td>
+   <td colspan="1">0</td>
+   <td colspan="1">8192</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>30</th>
+   <td colspan="1">53</td>
+   <td colspan="1">54</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">3</td>
+   <td colspan="1">213</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">28</td>
+   <td colspan="1">0</td>
+   <td colspan="1">5461</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>31</th>
+   <td colspan="1">55</td>
+   <td colspan="1">56</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">192</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">26</td>
+   <td colspan="1">0</td>
+   <td colspan="1">8192</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>32</th>
+   <td colspan="1">57</td>
+   <td colspan="1">58</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">204</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">27</td>
+   <td colspan="1">0</td>
+   <td colspan="1">4369</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>33</th>
+   <td colspan="1">59</td>
+   <td colspan="1">60</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">3</td>
+   <td colspan="1">256</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">32</td>
+   <td colspan="1">0</td>
+   <td colspan="1">5461</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>34</th>
+   <td colspan="1">61</td>
+   <td colspan="1">62</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">234</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">30</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2730</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>35</th>
+   <td colspan="1">63</td>
+   <td colspan="1">64</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">234</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">30</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2730</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>36</th>
+   <td colspan="1">65</td>
+   <td colspan="1">66</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">3</td>
+   <td colspan="1">234</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">30</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2730</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>37</th>
+   <td colspan="1">67</td>
+   <td colspan="1">68</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">234</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">30</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2730</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>38</th>
+   <td colspan="1">69</td>
+   <td colspan="1">70</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">256</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">32</td>
+   <td colspan="1">0</td>
+   <td colspan="1">6553</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>39</th>
+   <td colspan="1">71</td>
+   <td colspan="1">72</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">3</td>
+   <td colspan="1">256</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">32</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2978</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>40</th>
+   <td colspan="1">73</td>
+   <td colspan="1">74</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">256</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">32</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2978</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>41</th>
+   <td colspan="1">75</td>
+   <td colspan="1">76</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">3</td>
+   <td colspan="1">256</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">32</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2978</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>42</th>
+   <td colspan="1">76</td>
+   <td colspan="1">77</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">234</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">30</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2730</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>43</th>
+   <td colspan="1">78</td>
+   <td colspan="1">79</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">234</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">30</td>
+   <td colspan="1">0</td>
+   <td colspan="1">2730</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>44</th>
+   <td colspan="1">80</td>
+   <td colspan="1">81</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">3</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">128</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">1927</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="9"></td>
+  </tr>
+  <tr>
+   <th>45</th>
+   <td colspan="1">82</td>
+   <td colspan="1">83</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">140</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">8192</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT6 id=CEE1]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT12 id=CEE1]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT8 id=002D values[0]=0x0001(1) values[1]=0x0000(0)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT4 id=B396 values[0]=0xFFFFFFFFFFFFFC00(-1024) values[1]=0x00000000(0) values[2]=0x00000000(0)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT7 id=CEE1 values[0]=0x0003(3) values[1]=0x0002(2)]</td>
+   <td colspan="4"></td>
+  </tr>
+  <tr>
+   <th>46</th>
+   <td colspan="1">84</td>
+   <td colspan="1">85</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #93b885">00</span> <span style="background: #6b31bd">10</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">140</td>
+   <td colspan="1">153</td>
+   <td colspan="1">1</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">0</td>
+   <td colspan="1">8192</td>
+   <td colspan="1">0</td>
+   <td colspan="1"><pre><span style="background: #93b885">00</span> <span style="background: #93b885">00</span></pre></td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT6 id=CF07]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT12 id=CF07]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT8 id=002D values[0]=0x0001(1) values[1]=0x0000(0)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT4 id=B396 values[0]=0xFFFFFFFFFFFFFC00(-1024) values[1]=0x00000000(0) values[2]=0x00000000(0)]</td>
+   <td>[MarijnvdWerf\Beyblade\LineDataT7 id=CF07 values[0]=0x0003(3) values[1]=0x0002(2)]</td>
+   <td colspan="4"></td>
+  </tr>
+ </tbody>
+</table>
+</details>
+</body>
+</html>
