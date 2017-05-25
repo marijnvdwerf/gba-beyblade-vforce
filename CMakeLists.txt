@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.6)
 
 # project title
-set(PROJECT pokeruby)
+set(PROJECT beybladevforce)
 
 if (CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
     message(FATAL_ERROR "Building in-source is not supported! Create a build dir and remove ${CMAKE_SOURCE_DIR}/CMakeCache.txt")
@@ -126,6 +126,9 @@ add_custom_command(
 )
 
 add_custom_target(beyblade ALL DEPENDS ${OUT_GBA})
+
+file(GLOB_RECURSE SOURCES RELATIVE "${CMAKE_SOURCE_DIR}" "src/*.c" "src/*.h" "asm/*" "data/*" "ld_script.ld")
+add_executable(beyblade_stub ${SOURCES})
 
 #
 #set(POKE_OBJS)
