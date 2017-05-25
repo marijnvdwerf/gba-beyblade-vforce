@@ -92,6 +92,7 @@ foreach (C_NAME ${C_SOURCES})
             COMMAND ${CPP} ${CPP_FLAGS} "${C_SRC}" -o  "${C_INT}"
             COMMAND ${ICONV} --from-code=UTF-8 --to-code=WINDOWS-1252 "${C_INT}" > "${C_INT2}"
             COMMAND ${CC1} ${C_FLAGS} -o  "${C_ASM}" "${C_INT2}"
+            COMMAND printf "\".text\\n\\t.align\\t2,0\\n\"" >> "${C_ASM}"
             COMMAND ${AS} ${AS_FLAGS} -I "${CMAKE_SOURCE_DIR}" -o "${C_OBJ}" "${C_ASM}"
             DEPENDS "${C_SRC}"
     )

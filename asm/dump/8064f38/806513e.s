@@ -1,0 +1,1 @@
+	.include "asm/common.inc"
