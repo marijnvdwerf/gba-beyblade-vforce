@@ -1190,6 +1190,7 @@ SECTIONS {
         asm/dump/8065c50/8067a2c.s.o(.text);
         asm/dump/8065c50/8067a8c.s.o(.text);
 		asm/data10.s.o(.rodata);
+		asm/data12.s.o(.rodata);
 		asm/data11.s.o(.rodata);
 		asm/audio1.s.o(.rodata);
 		asm/data9.s.o(.rodata);
