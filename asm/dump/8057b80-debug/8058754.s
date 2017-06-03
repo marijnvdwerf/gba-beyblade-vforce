@@ -9,7 +9,7 @@ sub_8058754:
 	cmp	r3, #0
 	beq	.L1	@cond_branch
 	add	r0, r2, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 	b	.L2
 .L1:
 	ldr	r0, [r2, #0x4]

@@ -152,7 +152,7 @@ SpriteVRamFree:
 	ldr	r3, [r1]
 	mov	r0, #0x0
 	add	r1, r4, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 .L22:
 	ldr	r0, .L32
 	ldr	r4, [r0]
@@ -166,7 +166,7 @@ SpriteVRamFree:
 	ldr	r3, [r1]
 	mov	r0, #0x0
 	add	r1, r4, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 .L23:
 	ldr	r1, .L32 + 16
 	mov	sl, r1
@@ -287,7 +287,7 @@ SpriteVRamFree:
 	ldr	r0, .L32 + 8
 	ldr	r3, [r0]
 	mov	r0, #0xa0
-	bl	call_via_r3
+	bl	_call_via_r3
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

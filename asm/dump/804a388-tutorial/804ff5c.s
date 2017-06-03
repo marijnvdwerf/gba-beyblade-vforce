@@ -8,7 +8,7 @@ sub_804FF5C:
 	ldr	r3, [r0]
 	mov	r0, #0x0
 	mov	r2, #0x10
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r0, .L1 + 4
 	mov	r1, #0x0
 	strh	r1, [r0]

@@ -27,7 +27,7 @@ sub_8058838:
 	bgt	.L5	@cond_branch
 	add	r0, r6, #0
 	add	r1, r4, #0
-	bl	call_via_r2
+	bl	_call_via_r2
 .L5:
 	ldr	r2, [r4]
 	cmp	r2, #0

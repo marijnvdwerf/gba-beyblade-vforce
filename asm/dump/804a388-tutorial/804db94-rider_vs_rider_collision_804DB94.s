@@ -45,16 +45,16 @@ rider_vs_rider_collision_804DB94:
 .L1:
 	lsl	r0, r7, #0x8
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	add	r7, r0, #0
 	mov	r1, r9
 	lsl	r0, r1, #0x8
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	mov	r9, r0
 	lsl	r0, r5, #0x8
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	add	r5, r0, #0
 	ldr	r3, [r6, #0x40]
 	mov	r2, r8

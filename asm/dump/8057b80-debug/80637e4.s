@@ -29,7 +29,7 @@ sub_80637E4:
 	lsl	r2, r4, #0x1
 	ldr	r3, [r3]
 	add	r0, r5, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0

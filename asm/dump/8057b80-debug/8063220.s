@@ -17,7 +17,7 @@ sub_8063220:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x3
 	add	r1, r5, #0
-	bl	sub_8066084
+	bl	__divsi3
 	str	r0, [sp, #0xc]
 	mov	r1, #0x0
 	mov	ip, r1
@@ -130,7 +130,7 @@ sub_8063220:
 	mov	r0, #0x0
 	ldr	r1, [sp, #0x14]
 	ldr	r2, [sp, #0x20]
-	bl	call_via_r3
+	bl	_call_via_r3
 	b	.L24
 .L8:
 	.align	2, 0

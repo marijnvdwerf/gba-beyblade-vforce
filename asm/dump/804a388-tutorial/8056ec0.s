@@ -84,7 +84,7 @@ sub_8056EC0:
 	add	r1, r1, #0x10
 	ldr	r3, [r2]
 	mov	r2, #0x4
-	bl	call_via_r3
+	bl	_call_via_r3
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}

@@ -190,7 +190,7 @@ sub_805B41C:
 	lsl	r2, r4, #0x5
 	ldr	r3, [r3]
 	mov	r0, #0x0
-	bl	call_via_r3
+	bl	_call_via_r3
 .L16:
 	mov	r7, r9
 	ldrb	r7, [r7]

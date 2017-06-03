@@ -33,7 +33,7 @@ sub_8049AF8:
 	lsl	r2, r2, #0x3
 	ldr	r3, [r0]
 	mov	r0, #0x0
-	bl	call_via_r3
+	bl	_call_via_r3
 	bl	VBlankIntrWait
 	add	r0, r5, #0
 	bl	sub_804A280

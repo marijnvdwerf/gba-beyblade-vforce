@@ -41,7 +41,7 @@ sub_8049458:
 	bl	sub_80490CC
 	ldr	r0, .L15 + 12
 	ldr	r0, [r0]
-	bl	call_via_r0
+	bl	_call_via_r0
 	ldr	r1, [r4]
 	ldr	r0, [r4, #0x4]
 	cmp	r1, r0

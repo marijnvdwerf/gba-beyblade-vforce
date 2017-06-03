@@ -241,7 +241,7 @@ sub_805F47C:
 	ldsh	r2, [r4, r3]
 	add	r0, r4, #0
 	mov	r3, #0x2
-	bl	call_via_r5
+	bl	_call_via_r5
 .L37:
 	mov	r1, #0x3c
 	ldsh	r0, [r4, r1]
@@ -262,7 +262,7 @@ sub_805F47C:
 	ldsh	r2, [r4, r3]
 	add	r0, r4, #0
 	mov	r3, #0x1
-	bl	call_via_r5
+	bl	_call_via_r5
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 .L40:
@@ -355,7 +355,7 @@ sub_805F47C:
 	ldsh	r2, [r4, r3]
 	add	r0, r4, #0
 	mov	r3, #0x1
-	bl	call_via_r5
+	bl	_call_via_r5
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 .L53:

@@ -85,7 +85,7 @@ sub_805D548:
 	add	r0, r7, #0
 	mov	r1, sl
 	add	r2, r5, #0
-	bl	call_via_r4
+	bl	_call_via_r4
 .L5:
 	add	r6, r6, #0x8
 	mov	r3, #0x1

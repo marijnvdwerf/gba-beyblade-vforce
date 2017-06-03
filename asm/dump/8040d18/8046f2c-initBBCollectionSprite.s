@@ -76,7 +76,7 @@ initBBCollectionSprite:
 	ldr	r3, [r0]
 	add	r0, r2, #0
 	mov	r2, #0x20
-	bl	call_via_r3
+	bl	_call_via_r3
 	b	.L7
 .L9:
 	.align	2, 0
@@ -106,7 +106,7 @@ initBBCollectionSprite:
 	ldr	r1, .L11 + 12
 	ldr	r3, [r2]
 	mov	r2, #0x20
-	bl	call_via_r3
+	bl	_call_via_r3
 .L7:
 	ldr	r1, [r6, #0x4]
 	cmp	r1, #0

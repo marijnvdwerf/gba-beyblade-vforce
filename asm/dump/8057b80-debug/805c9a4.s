@@ -618,7 +618,7 @@ sub_805C9A4:
 	add	r0, r7, #0
 	ldr	r1, [sp]
 	ldr	r2, [sp, #0xc]
-	bl	call_via_r3
+	bl	_call_via_r3
 .L73:
 	mov	r0, #0x1
 	ldr	r1, [sp, #0x38]
@@ -679,7 +679,7 @@ sub_805C9A4:
 	ldr	r1, [sp]
 	ldr	r2, [sp, #0xc]
 	ldr	r3, [sp, #0x14]
-	bl	call_via_r4
+	bl	_call_via_r4
 .L82:
 	ldr	r1, [sp, #0x18]
 	add	r1, r1, #0x1

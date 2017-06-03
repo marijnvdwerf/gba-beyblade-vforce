@@ -63,7 +63,7 @@ sub_804A744:
 	lsl	r2, r2, #0x8
 	ldr	r3, [r3]
 	mov	r0, #0x0
-	bl	call_via_r3
+	bl	_call_via_r3
 	add	r0, r6, #0
 	mov	r1, r8
 	bl	sub_8059CC8

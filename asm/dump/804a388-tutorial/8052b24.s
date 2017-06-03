@@ -745,7 +745,7 @@ sub_8052B24:
 .L68:
 	ldr	r0, .L94 + 12
 	ldr	r0, [r0]
-	bl	call_via_r0
+	bl	_call_via_r0
 	ldr	r3, [sp, #0xb0]
 	cmp	r3, #0
 	bne	.L88	@cond_branch

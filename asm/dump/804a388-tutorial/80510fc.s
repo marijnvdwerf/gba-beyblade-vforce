@@ -66,13 +66,13 @@ sub_80510FC:
 	ldr	r3, [r6]
 	mov	r0, #0x0
 	mov	r2, #0x4
-	bl	call_via_r3
+	bl	_call_via_r3
 	add	r1, r4, #0
 	add	r1, r1, #0x14
 	ldr	r3, [r6]
 	mov	r0, #0x0
 	mov	r2, #0x4
-	bl	call_via_r3
+	bl	_call_via_r3
 	add	r5, r5, #0x1
 	cmp	r5, #0x37
 	ble	.L5	@cond_branch
@@ -99,28 +99,28 @@ sub_80510FC:
 	add	r1, r1, r2
 	ldr	r3, [r5]
 	mov	r2, #0x40
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r0, .L8 + 20
 	ldr	r1, [r4]
 	ldr	r3, .L8 + 24
 	add	r1, r1, r3
 	ldr	r3, [r5]
 	mov	r2, #0x40
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r0, .L8 + 28
 	ldr	r1, [r4]
 	ldr	r2, .L8 + 32
 	add	r1, r1, r2
 	ldr	r3, [r5]
 	mov	r2, #0x40
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r0, .L8 + 36
 	ldr	r1, [r4]
 	ldr	r3, .L8 + 40
 	add	r1, r1, r3
 	ldr	r3, [r5]
 	mov	r2, #0x40
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r0, [r4]
 	ldr	r4, .L8 + 44
 	add	r1, r0, r4

@@ -16,7 +16,7 @@ sub_804A7F8:
 	lsl	r2, r2, #0x8
 	ldr	r3, [r3]
 	mov	r0, #0x0
-	bl	call_via_r3
+	bl	_call_via_r3
 	pop	{r0}
 	bx	r0
 .L2:

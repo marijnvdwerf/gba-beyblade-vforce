@@ -20,7 +20,7 @@ sub_805EE78:
 .L1:
 	add	r0, r1, #0
 	add	r1, r2, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 .L2:
 	pop	{r0}
 	bx	r0

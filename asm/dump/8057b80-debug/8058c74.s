@@ -196,7 +196,7 @@ sub_8058C74:
 	ldr	r3, [r0]
 	mov	r0, #0x0
 	add	r2, r7, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 	add	r0, r5, #0
 	bl	GetBGLayerCntPtr
 	ldrb	r4, [r4]

@@ -31,7 +31,7 @@ sub_8063CF4:
 	beq	.L1	@cond_branch
 	ldrh	r1, [r3]
 	add	r0, r2, #0
-	bl	call_via_r4
+	bl	_call_via_r4
 .L1:
 	pop	{r4}
 	pop	{r0}

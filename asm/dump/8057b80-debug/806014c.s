@@ -131,7 +131,7 @@ sub_806014C:
 	ldr	r2, [r0, #0x18]
 	ldr	r3, [r4]
 	add	r0, r6, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r1, [r5]
 	ldr	r0, [r1, #0x24]
 	str	r0, [r1, #0x3c]
@@ -149,7 +149,7 @@ sub_806014C:
 	bl	EnableInterrupt
 	ldr	r0, .L25 + 24
 	ldr	r0, [r0]
-	bl	call_via_r0
+	bl	_call_via_r0
 	mov	r0, sl
 	cmp	r0, #0
 	bne	.L22	@cond_branch
@@ -165,7 +165,7 @@ sub_806014C:
 	mul	r2, r2, r1
 	ldr	r3, [r4]
 	ldr	r1, [sp]
-	bl	call_via_r3
+	bl	_call_via_r3
 	b	.L50
 .L26:
 	.align	2, 0
@@ -193,7 +193,7 @@ sub_806014C:
 	mul	r2, r2, r1
 	ldr	r3, [r3]
 	ldr	r1, [sp]
-	bl	call_via_r3
+	bl	_call_via_r3
 .L28:
 	ldr	r3, .L31
 	ldr	r4, .L31 + 4
@@ -202,7 +202,7 @@ sub_806014C:
 	ldr	r2, [r0, #0x18]
 	ldr	r3, [r3]
 	add	r0, r6, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r4, [r4]
 	ldr	r1, [r4, #0x14]
 	mov	r0, #0x20

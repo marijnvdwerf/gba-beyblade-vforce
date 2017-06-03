@@ -159,11 +159,11 @@ sub_804A908:
 	lsr	r4, r0, #0x10
 	lsl	r0, r5, #0x8
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	mov	r8, r0
 	lsl	r0, r6, #0x8
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	add	r5, r0, #0
 	mov	r0, r8
 	add	r1, r5, #0

@@ -9,7 +9,7 @@ loadPalette:
 	mov	r2, #0x80
 	lsl	r2, r2, #0x2
 	ldr	r3, [r3]
-	bl	call_via_r3
+	bl	_call_via_r3
 	pop	{r0}
 	bx	r0
 .L2:

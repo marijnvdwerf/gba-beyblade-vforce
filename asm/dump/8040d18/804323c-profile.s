@@ -61,14 +61,14 @@ profile:
 	ldr	r5, .L19 + 4
 .L14:
 	add	r0, r1, #0
-	bl	sub_8066B14
+	bl	__floatsisf
 	add	r1, r4, #0
-	bl	sub_8066608
+	bl	__mulsf3
 	add	r4, r0, #0
 	cmp	r5, #0
 	blt	.L17	@cond_branch
 	add	r0, r5, #0
-	bl	sub_8066B14
+	bl	__floatsisf
 	b	.L18
 .L20:
 	.align	2, 0
@@ -77,60 +77,60 @@ profile:
 	.4byte	0xf4240
 .L17:
 	lsr	r0, r5, #0x1
-	bl	sub_8066B14
+	bl	__floatsisf
 	add	r1, r0, #0
-	bl	sub_80665A8
+	bl	__addsf3
 .L18:
 	add	r1, r0, #0
 	add	r0, r4, #0
-	bl	sub_806676C
+	bl	__divsf3
 	add	r4, r0, #0
-	bl	sub_806611C
+	bl	__fixunssfsi
 	lsl	r0, r0, #0x10
 	lsr	r7, r0, #0x10
 	add	r0, r7, #0
-	bl	sub_8066B14
+	bl	__floatsisf
 	add	r1, r0, #0
 	add	r0, r4, #0
-	bl	sub_80665D4
+	bl	__subsf3
 	add	r4, r0, #0
 	cmp	r5, #0
 	blt	.L21	@cond_branch
 	add	r0, r5, #0
-	bl	sub_8066B14
+	bl	__floatsisf
 	b	.L22
 .L21:
 	lsr	r0, r5, #0x1
-	bl	sub_8066B14
+	bl	__floatsisf
 	add	r1, r0, #0
-	bl	sub_80665A8
+	bl	__addsf3
 .L22:
 	add	r1, r0, #0
 	add	r0, r4, #0
-	bl	sub_8066608
-	bl	sub_806611C
+	bl	__mulsf3
+	bl	__fixunssfsi
 	add	r5, r0, #0
 	lsl	r5, r5, #0x10
 	lsr	r5, r5, #0x10
 	add	r0, r5, #0
 	mov	r1, #0x64
-	bl	sub_80661C0
+	bl	__udivsi3
 	add	r6, r0, #0
 	lsl	r6, r6, #0x10
 	lsr	r6, r6, #0x10
 	add	r0, r5, #0
 	mov	r1, #0xa
-	bl	sub_80661C0
+	bl	__udivsi3
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	mov	r1, #0xa
-	bl	sub_8066238
+	bl	__umodsi3
 	add	r4, r0, #0
 	lsl	r4, r4, #0x10
 	lsr	r4, r4, #0x10
 	add	r0, r5, #0
 	mov	r1, #0xa
-	bl	sub_8066238
+	bl	__umodsi3
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	ldr	r1, .L23

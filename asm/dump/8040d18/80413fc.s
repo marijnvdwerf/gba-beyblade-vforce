@@ -334,7 +334,7 @@ sub_80413FC:
 	ldr	r3, [r0]
 	mov	r0, #0x0
 	mov	r2, #0xc
-	bl	call_via_r3
+	bl	_call_via_r3
 	mov	r0, r8
 	bl	sub_8043960
 .L37:

@@ -42,7 +42,7 @@ sub_805EB00:
 .L3:
 	add	r0, r3, #0
 	add	r1, r5, #0
-	bl	call_via_r2
+	bl	_call_via_r2
 	b	.L7
 .L2:
 	mov	r0, #0x2

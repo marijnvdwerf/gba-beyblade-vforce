@@ -14,7 +14,7 @@ renderActor:
 	beq	.L1	@cond_branch
 	add	r0, r5, #0
 	mov	r1, sp
-	bl	call_via_r2
+	bl	_call_via_r2
 	ldr	r0, [sp]
 	asr	r4, r0, #0x8
 	ldr	r0, [sp, #0x4]

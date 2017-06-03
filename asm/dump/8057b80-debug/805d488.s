@@ -82,7 +82,7 @@ sub_805D488:
 	add	r1, r5, #0
 	add	r2, r7, #0
 	add	r3, r6, #0
-	bl	call_via_r4
+	bl	_call_via_r4
 	b	.L6
 .L3:
 	add	r6, r6, #0x1

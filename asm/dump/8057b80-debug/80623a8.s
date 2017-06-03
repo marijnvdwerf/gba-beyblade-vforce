@@ -24,7 +24,7 @@ sub_80623A8:
 	mov	r1, #0x0
 	ldr	r2, .L2 + 12
 	ldr	r3, .L2 + 16
-	bl	sub_8066150
+	bl	__muldi3
 	add	r3, r1, #0
 	add	r2, r0, #0
 	lsr	r5, r2, #0x14
@@ -34,10 +34,10 @@ sub_80623A8:
 	lsl	r0, r2, #0xc
 	ldr	r2, .L2 + 20
 	ldr	r3, .L2 + 24
-	bl	sub_8065C50
+	bl	__divdi3
 	mov	r2, r8
 	mov	r3, #0x0
-	bl	sub_8065C50
+	bl	__divdi3
 	stmia	r7!, {r0}
 	sub	r6, r6, #0x1
 	mov	r0, #0x1

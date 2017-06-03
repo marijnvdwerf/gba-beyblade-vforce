@@ -2,6 +2,7 @@
 
 	.section .rodata
 
+.align 2, 0
 global Unk_872CC3C
     .incbin "data/unk-872cc3c.bin"
 global Unk_874CC3C

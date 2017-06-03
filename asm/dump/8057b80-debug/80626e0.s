@@ -33,7 +33,7 @@ sub_80626E0:
 	ldr	r0, .L1 + 28
 	ldr	r1, [r0]
 	ldr	r0, .L1 + 32
-	bl	sub_80661C0
+	bl	__udivsi3
 	mov	r2, #0x80
 	lsl	r2, r2, #0x9
 	sub	r0, r2, r0

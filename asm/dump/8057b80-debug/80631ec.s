@@ -21,7 +21,7 @@ sub_80631EC:
 	add	r1, r5, r1
 	lsl	r2, r2, #0x1
 	ldr	r3, [r3]
-	bl	call_via_r3
+	bl	_call_via_r3
 .L1:
 	pop	{r4, r5}
 	pop	{r0}

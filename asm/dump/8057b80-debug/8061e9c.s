@@ -26,11 +26,11 @@ sub_8061E9C:
 .L7:
 	add	r0, r7, #0
 	mov	r1, r8
-	bl	sub_8066238
+	bl	__umodsi3
 	add	r4, r0, #0
 	add	r0, r7, #0
 	mov	r1, r8
-	bl	sub_80661C0
+	bl	__udivsi3
 	add	r7, r0, #0
 	cmp	r4, #0x9
 	bgt	.L2	@cond_branch

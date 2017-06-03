@@ -11,7 +11,7 @@ sub_804FFD4:
 	ldr	r3, [r2]
 	mov	r0, #0x0
 	mov	r2, #0x40
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r0, .L1 + 12
 	mov	r1, #0x0
 	strh	r1, [r0]

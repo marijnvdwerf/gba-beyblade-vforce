@@ -27,6 +27,7 @@ s32 Mod(s32 divisor, s32 number) {
 
     return p2;
 }
+ASM_ZEROPAD
 
 
 void Lz77UnCompWram(const void *source, void *destination) {
@@ -46,4 +47,5 @@ u16 Sqrt(u32 x) {
 void VBlankIntrWait() {
     asm("movs r2, #0; swi 0x5;");
 }
+ASM_ZEROPAD
 

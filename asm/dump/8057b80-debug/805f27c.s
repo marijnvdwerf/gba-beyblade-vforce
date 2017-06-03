@@ -97,7 +97,7 @@ sub_805F27C:
 	add	r1, r6, #0
 	add	r2, r3, #0
 	add	r3, r7, #0
-	bl	call_via_r4
+	bl	_call_via_r4
 	b	.L9
 .L11:
 	.align	2, 0
@@ -127,7 +127,7 @@ sub_805F27C:
 	add	r1, r6, #0
 	add	r2, r3, #0
 	add	r3, r7, #0
-	bl	call_via_r4
+	bl	_call_via_r4
 .L9:
 	add	sp, sp, #0x10
 	pop	{r4, r5, r6, r7}

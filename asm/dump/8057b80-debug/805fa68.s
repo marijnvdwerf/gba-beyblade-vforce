@@ -13,7 +13,7 @@ sub_805FA68:
 	ldr	r2, [r0, #0x4]
 	ldr	r3, [r3]
 	add	r0, r4, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 	pop	{r4}
 	pop	{r0}
 	bx	r0

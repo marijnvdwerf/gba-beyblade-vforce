@@ -17,7 +17,7 @@ sub_80490CC:
 	add	r0, r1, #0
 	add	r1, r2, #0
 	add	r2, r4, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 .L2:
 	pop	{r4}
 	pop	{r0}

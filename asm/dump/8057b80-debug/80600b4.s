@@ -31,7 +31,7 @@ sub_80600B4:
 	ldr	r3, [r2]
 	mov	r0, #0x0
 	add	r2, r6, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r1, [r4]
 	ldr	r0, [r1, #0x24]
 	str	r0, [r1, #0x3c]

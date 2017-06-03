@@ -68,7 +68,7 @@ sub_8049344:
 	beq	.L19	@cond_branch
 	add	r0, r3, #0
 	add	r1, r4, #0
-	bl	call_via_r2
+	bl	_call_via_r2
 .L19:
 	pop	{r4}
 	pop	{r0}

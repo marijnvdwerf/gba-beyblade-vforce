@@ -62,7 +62,7 @@ sub_805AFBC:
 	add	r1, r7, #0
 	mov	r2, r8
 	add	r3, r4, #0
-	bl	call_via_r5
+	bl	_call_via_r5
 	b	.L8
 .L5:
 	add	r0, r2, #0

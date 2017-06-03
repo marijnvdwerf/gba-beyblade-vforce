@@ -17,7 +17,7 @@ sub_8063544:
 	mov	r1, #0x8
 	ldsh	r4, [r7, r1]
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	str	r0, [sp, #0x8]
 	mov	r5, #0x0
 	ldr	r2, [r7, #0xc]

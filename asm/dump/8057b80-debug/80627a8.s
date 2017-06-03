@@ -10,7 +10,7 @@ sub_80627A8:
 	ldr	r0, .L5
 	ldr	r3, [r0]
 	add	r0, r4, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r1, [r4]
 	ldr	r0, [r1, #0x4]
 	add	r0, r0, #0x10
@@ -26,7 +26,7 @@ sub_80627A8:
 	beq	.L3	@cond_branch
 	sub	r0, r0, r3
 	sub	r1, r3, r5
-	bl	sub_8066238
+	bl	__umodsi3
 	add	r0, r5, r0
 	str	r0, [r4, #0x4]
 	b	.L4

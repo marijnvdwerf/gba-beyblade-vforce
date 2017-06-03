@@ -8,6 +8,10 @@ SECTIONS {
     ALIGN(4)
     {
         src/ram.c.o(.data);
+        ${LIBGCC_A}:fp-bit.o(.bss);
+        ${LIBGCC_A}:dp-bit.o(.bss);
+        . = 0xDF0;
+        src/ram2.c.o(.data);
 
         _ARM_sub_87569F4 = .;
         . += 0x8C;
@@ -1123,72 +1127,25 @@ SECTIONS {
         asm/dump/8064f38/8065aa0.s.o(.text);
         asm/dump/8064f38/8065b7c-writeToBatteryBackup.s.o(.text);
         asm/dump/8064f38/8065bd4.s.o(.text);
-        asm/dump/8064f38/8065c14-call_via_r0.s.o(.text);
-        asm/dump/8064f38/8065c18-call_via_r1.s.o(.text);
-        asm/dump/8064f38/8065c1c-call_via_r2.s.o(.text);
-        asm/dump/8064f38/8065c20-call_via_r3.s.o(.text);
-        asm/dump/8064f38/8065c24-call_via_r4.s.o(.text);
-        asm/dump/8064f38/8065c28-call_via_r5.s.o(.text);
-        asm/dump/8064f38/8065c2c-call_via_r6.s.o(.text);
-        asm/dump/8064f38/8065c30-call_via_r7.s.o(.text);
-        asm/dump/8064f38/8065c34-call_via_r8.s.o(.text);
-        asm/dump/8064f38/8065c38-call_via_r9.s.o(.text);
-        asm/dump/8064f38/8065c3c-call_via_r10.s.o(.text);
-        asm/dump/8064f38/8065c40-call_via_r11.s.o(.text);
-        asm/dump/8064f38/8065c44-call_via_r12.s.o(.text);
-        asm/dump/8064f38/8065c48-call_via_sp.s.o(.text);
-        asm/dump/8064f38/8065c4c-call_via_lr.s.o(.text);
-        asm/dump/8065c50/8065c50.s.o(.text);
-        asm/dump/8065c50/8066084.s.o(.text);
-        asm/dump/8065c50/8066118-nullsub_13.s.o(.text);
-        asm/dump/8065c50/806611c.s.o(.text);
-        asm/dump/8065c50/8066150.s.o(.text);
-        asm/dump/8065c50/80661c0.s.o(.text);
-        asm/dump/8065c50/8066238.s.o(.text);
-        asm/dump/8065c50/80662f8.s.o(.text);
-        asm/dump/8065c50/80663b0.s.o(.text);
-        asm/dump/8065c50/806642c.s.o(.text);
-        asm/dump/8065c50/80665a8.s.o(.text);
-        asm/dump/8065c50/80665d4.s.o(.text);
-        asm/dump/8065c50/8066608.s.o(.text);
-        asm/dump/8065c50/806676c.s.o(.text);
-        asm/dump/8065c50/8066858.s.o(.text);
-        asm/dump/8065c50/806693c.s.o(.text);
-        asm/dump/8065c50/8066964.s.o(.text);
-        asm/dump/8065c50/80669ac.s.o(.text);
-        asm/dump/8065c50/80669f4.s.o(.text);
-        asm/dump/8065c50/8066a3c.s.o(.text);
-        asm/dump/8065c50/8066a84.s.o(.text);
-        asm/dump/8065c50/8066acc.s.o(.text);
-        asm/dump/8065c50/8066b14.s.o(.text);
-        asm/dump/8065c50/8066b74.s.o(.text);
-        asm/dump/8065c50/8066bdc.s.o(.text);
-        asm/dump/8065c50/8066c00.s.o(.text);
-        asm/dump/8065c50/8066c18.s.o(.text);
-        asm/dump/8065c50/8066c44.s.o(.text);
-        asm/dump/8065c50/8066d8c.s.o(.text);
-        asm/dump/8065c50/8066e64.s.o(.text);
-        asm/dump/8065c50/80670d0.s.o(.text);
-        asm/dump/8065c50/8067100.s.o(.text);
-        asm/dump/8065c50/8067138.s.o(.text);
-        asm/dump/8065c50/80673e0.s.o(.text);
-        asm/dump/8065c50/8067568.s.o(.text);
-        asm/dump/8065c50/8067668.s.o(.text);
-        asm/dump/8065c50/8067694.s.o(.text);
-        asm/dump/8065c50/80676e0.s.o(.text);
-        asm/dump/8065c50/806772c.s.o(.text);
-        asm/dump/8065c50/8067778.s.o(.text);
-        asm/dump/8065c50/80677c4.s.o(.text);
-        asm/dump/8065c50/8067810.s.o(.text);
-        asm/dump/8065c50/806785c.s.o(.text);
-        asm/dump/8065c50/80678d8.s.o(.text);
-        asm/dump/8065c50/806794c.s.o(.text);
-        asm/dump/8065c50/8067974.s.o(.text);
-        asm/dump/8065c50/806799c.s.o(.text);
-        asm/dump/8065c50/80679e0.s.o(.text);
-        asm/dump/8065c50/8067a14.s.o(.text);
-        asm/dump/8065c50/8067a2c.s.o(.text);
-        asm/dump/8065c50/8067a8c.s.o(.text);
+
+        ${LIBGCC_A}:_call_via_rX.o(.text);
+        ${LIBGCC_A}:_divdi3.o(.text);
+        ${LIBGCC_A}:_divsi3.o(.text);
+        ${LIBGCC_A}:_dvmd_tls.o(.text);
+        ${LIBGCC_A}:_fixunssfsi.o(.text);
+        ${LIBGCC_A}:_muldi3.o(.text);
+        ${LIBGCC_A}:_udivsi3.o(.text);
+        ${LIBGCC_A}:_umodsi3.o(.text);
+        ${LIBGCC_A}:fp-bit.o(.text);
+        ${LIBGCC_A}:dp-bit.o(.text);
+        ${LIBGCC_A}:_lshrdi3.o(.text);
+        ${LIBGCC_A}:_negdi2.o(.text);
+        src/libc.c.o(.text);
+    }
+
+    .rodata :
+    ALIGN(4)
+    {
 		asm/data10.s.o(.rodata);
 		asm/data12.s.o(.rodata);
 		asm/data11.s.o(.rodata);
@@ -1266,6 +1223,8 @@ SECTIONS {
 		asm/data5.s.o(.rodata);
 		src/strings6.c.o(.rodata);
 		asm/data3.s.o(.rodata);
+
+        ${LIBGCC_A}:_divdi3.o(.rodata);
 		asm/arm2.s.o(.text);
     } =0
 

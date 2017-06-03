@@ -31,7 +31,7 @@ allocateSoundTables:
 	mov	r9, r6
 	mov	r0, r8
 	mov	r1, #0x28
-	bl	sub_80661C0
+	bl	__udivsi3
 	add	r0, r0, #0xf
 	ldr	r2, .L5 + 12
 	add	r1, r2, #0
@@ -145,7 +145,7 @@ allocateSoundTables:
 	ldr	r4, .L5 + 80
 	ldr	r0, .L5 + 84
 	mov	r1, r8
-	bl	sub_80661C0
+	bl	__udivsi3
 	mov	r1, #0x80
 	lsl	r1, r1, #0x9
 	sub	r1, r1, r0

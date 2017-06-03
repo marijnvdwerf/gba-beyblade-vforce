@@ -7,7 +7,7 @@ sub_8059FB8:
 	asr	r0, r0, #0x8
 	lsl	r1, r1, #0x10
 	asr	r1, r1, #0x10
-	bl	sub_8066084
+	bl	__divsi3
 	lsl	r0, r0, #0x10
 	asr	r0, r0, #0x10
 	pop	{r1}

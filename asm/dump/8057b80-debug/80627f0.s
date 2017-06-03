@@ -93,7 +93,7 @@ sub_80627F0:
 	ldr	r3, [r6]
 	add	r1, r5, #0
 	mov	r2, #0x0
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r0, [r4]
 	add	r1, r0, r5
 	str	r1, [r4]
@@ -107,7 +107,7 @@ sub_80627F0:
 	ldr	r3, [r6]
 	mov	r1, sl
 	add	r2, r5, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r0, [r4]
 	ADD r0, sl
 	str	r0, [r4]

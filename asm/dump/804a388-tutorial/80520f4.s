@@ -24,13 +24,13 @@ sub_80520F4:
 	add	r0, r4, #0
 	mov	r1, #0x0
 	add	r2, r5, #0
-	bl	call_via_r6
+	bl	_call_via_r6
 	mov	r0, r8
 	ldr	r3, [r0, #0x78]
 	add	r0, r4, #0
 	add	r1, r5, #0
 	mov	r2, #0x1
-	bl	call_via_r3
+	bl	_call_via_r3
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6}

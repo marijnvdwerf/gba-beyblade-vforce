@@ -15,7 +15,7 @@ s_rider_804C4B4:
 	ldr	r3, [r0]
 	mov	r0, #0x0
 	add	r1, r7, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 	mov	r0, #0x1a
 	NEG	r0, r0
 	mov	sl, r0

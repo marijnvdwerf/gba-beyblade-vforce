@@ -31,7 +31,7 @@ initCollectables:
 	ldr	r3, [r0]
 	mov	r0, #0x0
 	mov	r1, r8
-	bl	call_via_r3
+	bl	_call_via_r3
 	cmp	r4, #0
 	beq	.L2	@cond_branch
 	cmp	r5, #0
@@ -96,7 +96,7 @@ initCollectables:
 	ldr	r3, [r0]
 	mov	r0, r9
 	mov	r2, #0x4
-	bl	call_via_r3
+	bl	_call_via_r3
 .L2:
 	add	sp, sp, #0x11c
 	pop	{r3, r4}

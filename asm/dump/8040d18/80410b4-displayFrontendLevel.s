@@ -97,7 +97,7 @@ displayFrontendLevel:
 	ldr	r3, [r0]
 	add	r0, r4, #0
 	mov	r2, #0x20
-	bl	call_via_r3
+	bl	_call_via_r3
 .L16:
 	add	sp, sp, #0x10
 	pop	{r4, r5, r6}

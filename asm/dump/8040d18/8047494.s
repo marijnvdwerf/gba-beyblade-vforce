@@ -80,7 +80,7 @@ sub_8047494:
 	ldr	r3, [r0]
 	add	r0, r2, #0
 	mov	r2, #0x20
-	bl	call_via_r3
+	bl	_call_via_r3
 .L8:
 	ldr	r0, [r7, #0x14]
 	ldr	r1, .L12 + 8

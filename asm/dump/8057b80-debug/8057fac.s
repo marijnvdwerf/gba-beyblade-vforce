@@ -11,7 +11,7 @@ sub_8057FAC:
 	add	r5, r3, #0
 	ldr	r7, [sp, #0x18]
 	mov	r2, #0xc4
-	bl	sub_8067A2C
+	bl	memcpy
 	lsl	r4, r4, #0x8
 	str	r4, [r6, #0x4]
 	lsl	r5, r5, #0x8

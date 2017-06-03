@@ -30,22 +30,22 @@ sub_805A0DC:
 	ldr	r0, [r5]
 	lsl	r0, r0, #0x8
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	str	r0, [r5]
 	ldr	r0, [r5, #0x4]
 	lsl	r0, r0, #0x8
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	str	r0, [r5, #0x4]
 	ldr	r0, [r5, #0x8]
 	lsl	r0, r0, #0x8
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	str	r0, [r5, #0x8]
 	ldr	r0, [r5, #0xc]
 	lsl	r0, r0, #0x8
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	str	r0, [r5, #0xc]
 	pop	{r4, r5}
 	pop	{r0}
