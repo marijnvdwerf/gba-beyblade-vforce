@@ -12,6 +12,10 @@ SECTIONS {
         ${LIBGCC_A}:dp-bit.o(.bss);
         . = 0xDF0;
         src/ram2.c.o(.data);
+        src/memory.c.o(.data);
+        . += 12;
+        src/keystate.c.o(.data);
+        src/ram3.c.o(.data);
 
         _ARM_sub_87569F4 = .;
         . += 0x8C;
@@ -425,11 +429,7 @@ SECTIONS {
 		asm/dump/804a388-tutorial/8050574.s.o(.text);
 		asm/dump/804a388-tutorial/8050578.s.o(.text);
 		asm/dump/804a388-tutorial/8050584.s.o(.text);
-		asm/dump/804a388-tutorial/80505a4-mainLoop.s.o(.text);
-		asm/dump/804a388-tutorial/8050694-onVBlank.s.o(.text);
-		asm/dump/804a388-tutorial/80506b0-nullsub_37.s.o(.text);
-		asm/dump/804a388-tutorial/80506b4-onTimer1Overflow.s.o(.text);
-		asm/dump/804a388-tutorial/80506c0.s.o(.text);
+		src/main.c.o(.text.*);
 		asm/dump/804a388-tutorial/80506f4-newLayerManagement.s.o(.text);
 		asm/dump/804a388-tutorial/8050894.s.o(.text);
 		asm/dump/804a388-tutorial/80508a4.s.o(.text);
@@ -641,13 +641,9 @@ SECTIONS {
 		asm/dump/804a388-tutorial/80577d4-fn_aiStubFunc.s.o(.text);
 		asm/dump/804a388-tutorial/80577d8.s.o(.text);
 		asm/dump/804a388-tutorial/8057878.s.o(.text);
-		src/bios.c.o(.text)
-		asm/dump/80578e0/80578e0.s.o(.text);
-		asm/dump/80578e0/805791c.s.o(.text);
-		asm/dump/80578e0/8057930.s.o(.text);
+		src/bios.c.o(.text.*)
 		asm/dump/80578e0/8057944.s.o(.text);
-		asm/dump/80578e0/8057984.s.o(.text);
-		asm/dump/80578e0/80579a8-InitStuff_SetDispStat.s.o(.text);
+		src/irq.c.o(.text.*)
 		asm/dump/80578e0/80579f4-EnableInterrupt.s.o(.text);
 		asm/dump/80578e0/8057a08-DisableInterrupt.s.o(.text);
 		asm/dump/80578e0/8057a1c.s.o(.text);
@@ -656,6 +652,8 @@ SECTIONS {
 		asm/dump/80578e0/8057a7c.s.o(.text);
 		asm/dump/80578e0/8057b30.s.o(.text);
 		asm/dump/80578e0/8057b38-nullsub_31.s.o(.text);
+
+		/* Debug */
 		asm/dump/80578e0/8057b3c-nullsub_8.s.o(.text);
 		asm/dump/80578e0/8057b40-nullsub_9.s.o(.text);
 		asm/dump/80578e0/8057b44-nullsub_10.s.o(.text);
@@ -763,23 +761,26 @@ SECTIONS {
 		asm/dump/8057b80-debug/805a1dc.s.o(.text);
 		asm/dump/8057b80-debug/805a290.s.o(.text);
 		asm/dump/8057b80-debug/805a2dc.s.o(.text);
-		asm/dump/8057b80-debug/805a350-initBlockVariables.s.o(.text);
-		asm/dump/8057b80-debug/805a3a8-fastAllocate.s.o(.text);
-		asm/dump/8057b80-debug/805a420-slowAllocate.s.o(.text);
-		asm/dump/8057b80-debug/805a498-deallocateBlock.s.o(.text);
+
+		src/memory.c.o(.text.initBlockVariables);
+		src/memory.c.o(.text.fastAllocate);
+		src/memory.c.o(.text.slowAllocate);
+		src/memory.c.o(.text.deallocateBlock);
 		asm/dump/8057b80-debug/805a53c.s.o(.text);
 		asm/dump/8057b80-debug/805a5e4-getValidAllocatedBlock.s.o(.text);
-		asm/dump/8057b80-debug/805a614-printTotalWramUsage.s.o(.text);
-		asm/dump/8057b80-debug/805a664-printTotalExramUsage.s.o(.text);
+		src/memory.c.o(.text.printTotalWramUsage);
+		src/memory.c.o(.text.printTotalExramUsage);
+
 		asm/dump/8057b80-debug/805a6b0-nullsub_34.s.o(.text);
 		asm/dump/8057b80-debug/805a6b4-nullsub_35.s.o(.text);
+
 		asm/dump/8057b80-debug/805a6b8-updateKeyState.s.o(.text);
-		asm/dump/8057b80-debug/805a86c-initKeyState.s.o(.text);
-		asm/dump/8057b80-debug/805a914.s.o(.text);
+		src/keystate.c.o(.text.initKeyState);
+		src/keystate.c.o(.text.sub_805A914);
 		asm/dump/8057b80-debug/805a930.s.o(.text);
 		asm/dump/8057b80-debug/805a93c.s.o(.text);
 		asm/dump/8057b80-debug/805a984.s.o(.text);
-		asm/dump/8057b80-debug/805aa50-initKeyRecording.s.o(.text);
+		src/keystate.c.o(.text.initKeyRecording);
 		asm/dump/8057b80-debug/805aab4.s.o(.text);
 		asm/dump/8057b80-debug/805aad4.s.o(.text);
 		asm/dump/8057b80-debug/805aae0.s.o(.text);
@@ -790,6 +791,7 @@ SECTIONS {
 		asm/dump/8057b80-debug/805ab6c.s.o(.text);
 		asm/dump/8057b80-debug/805abb4.s.o(.text);
 		asm/dump/8057b80-debug/805abc0.s.o(.text);
+
 		asm/dump/8057b80-debug/805ac28.s.o(.text);
 		asm/dump/8057b80-debug/805ac5c.s.o(.text);
 		asm/dump/8057b80-debug/805ac68.s.o(.text);
@@ -939,14 +941,15 @@ SECTIONS {
 		asm/dump/8057b80-debug/8060404.s.o(.text);
 		asm/dump/8057b80-debug/8060434.s.o(.text);
 		asm/dump/8057b80-debug/8060454-onSerialCommunication.s.o(.text);
-		asm/dump/8057b80-debug/80604d4.s.o(.text);
+
+		src/sprite.c.o(.text.sub_80604D4);
 		asm/dump/8057b80-debug/8060520-SpriteVRamFree.s.o(.text);
 		asm/dump/8057b80-debug/8060790.s.o(.text);
 		asm/dump/8057b80-debug/8060808-freeSpriteVramLocation.s.o(.text);
-		asm/dump/8057b80-debug/80608cc.s.o(.text);
+		src/sprite.c.o(.text.sub_80608CC);
 		asm/dump/8057b80-debug/8060934.s.o(.text);
-		asm/dump/8057b80-debug/80609c4.s.o(.text);
-		asm/dump/8057b80-debug/80609e0-allocSprite.s.o(.text);
+		src/sprite.c.o(.text.sub_80609C4);
+		src/sprite.c.o(.text.allocSprite);
 		asm/dump/8057b80-debug/8060a60.s.o(.text);
 		asm/dump/8057b80-debug/8060a94.s.o(.text);
 		asm/dump/8057b80-debug/8060b0c.s.o(.text);
@@ -1008,14 +1011,15 @@ SECTIONS {
 		asm/dump/8057b80-debug/8062318.s.o(.text);
 		asm/dump/8057b80-debug/8062328.s.o(.text);
 		asm/dump/8057b80-debug/8062340.s.o(.text);
-		asm/dump/8057b80-debug/806234c.s.o(.text);
-		asm/dump/8057b80-debug/80623a8.s.o(.text);
+
+		src/sound.c.o(.text.sub_806234C);
+		src/sound.c.o(.text.sub_80623A8);
 		asm/dump/8057b80-debug/806246c-allocateSoundTables.s.o(.text);
-		asm/dump/8057b80-debug/806261c.s.o(.text);
-		asm/dump/8057b80-debug/806263c.s.o(.text);
-		asm/dump/8057b80-debug/8062694.s.o(.text);
-		asm/dump/8057b80-debug/80626e0.s.o(.text);
-		asm/dump/8057b80-debug/8062774.s.o(.text);
+		asm/dump/8057b80-debug/806261c.s.o(.text); /* unref */
+		asm/dump/8057b80-debug/806263c.s.o(.text); /* unref */
+		src/sound.c.o(.text.sub_8062694);
+		src/sound.c.o(.text.sub_80626E0);
+		src/sound.c.o(.text.sub_8062774);
 		asm/dump/8057b80-debug/80627a8.s.o(.text);
 		asm/dump/8057b80-debug/80627f0.s.o(.text);
 		asm/dump/8057b80-debug/8062910.s.o(.text);
@@ -1028,13 +1032,14 @@ SECTIONS {
 		asm/dump/8057b80-debug/8062ab8.s.o(.text);
 		asm/dump/8057b80-debug/8062ad4.s.o(.text);
 		asm/dump/8057b80-debug/8062af4.s.o(.text);
-		asm/dump/8057b80-debug/8062b20.s.o(.text);
-		asm/dump/8057b80-debug/8062b2c.s.o(.text);
-		asm/dump/8057b80-debug/8062b90.s.o(.text);
-		asm/dump/8057b80-debug/8062ba8.s.o(.text);
-		asm/dump/8057b80-debug/8062bfc.s.o(.text);
+		src/sound.c.o(.text.sub_8062B20);
+		asm/dump/8057b80-debug/8062b2c.s.o(.text); /* unref */
+		asm/dump/8057b80-debug/8062b90.s.o(.text); /* unref */
+		asm/dump/8057b80-debug/8062ba8.s.o(.text); /* unref */
+		src/sound.c.o(.text.sub_8062BFC);
 		asm/dump/8057b80-debug/8062c24.s.o(.text);
-		asm/dump/8057b80-debug/8062e54.s.o(.text);
+		asm/dump/8057b80-debug/8062e54.s.o(.text); /* unref */
+
 		asm/dump/8057b80-debug/8062e70-allocateActorHeaps.s.o(.text);
 		asm/dump/8057b80-debug/8062efc.s.o(.text);
 		asm/dump/8057b80-debug/8062fa8.s.o(.text);
@@ -1088,13 +1093,7 @@ SECTIONS {
 		asm/dump/8057b80-debug/8064188.s.o(.text);
 
 		asm/arm1.s.o(.text);
-	}
 
-	. = 0x8064f38;
-
-    .text3 :
-    ALIGN(4)
-    {
 		asm/dump/8064f38/8064f38.s.o(.text);
         asm/dump/8064f38/8064f50.s.o(.text);
         asm/dump/8064f38/8064f84.s.o(.text);
@@ -1217,7 +1216,11 @@ SECTIONS {
 		src/strings0.c.o(.rodata);
 		src/strings3.c.o(.rodata);
 		asm/data1.s.o(.rodata);
+		src/memory.c.o(.rodata);
+		src/keystate.c.o(.rodata);
 		src/strings4.c.o(.rodata);
+		src/sprite.c.o(.rodata);
+		src/strings7.c.o(.rodata);
 		asm/data4.s.o(.rodata);
 		src/strings5.c.o(.rodata);
 		asm/data5.s.o(.rodata);

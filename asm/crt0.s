@@ -96,7 +96,7 @@ off_8000134:
      .byte    1,    0, 0xBD, 0xE8, 0x1E, 0xFF, 0x2F, 0xE1
 
 
-  sub_8000168:
+  global sub_8000168
 
                 STMFD   SP!, {LR}
                 MRS     R0, SPSR

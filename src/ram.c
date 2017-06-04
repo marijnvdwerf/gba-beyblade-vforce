@@ -1,4 +1,5 @@
-#include "common.h"
+#include "ram.h"
+#include "keystate.h"
 
 void* _3000000 = NULL;
 void* _3000004 = NULL;

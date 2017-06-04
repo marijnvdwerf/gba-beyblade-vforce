@@ -1,4 +1,7 @@
 #include "bios.h"
+#include "io_reg.h"
+#include "macro.h"
+#include "ram.h"
 
 void CpuSet(const void* source, void* destination, u32 mode)
 {
@@ -45,5 +48,27 @@ u16 Sqrt(u32 x)
     asm("swi 0x8" ::"r"(p1));
 }
 
-void VBlankIntrWait() { asm("movs r2, #0; swi 0x5;"); }
+void VBlankIntrWait()
+{
+    asm("movs r2, #0; swi 0x5;");
+}
 ASM_ZEROPAD
+
+void sub_80578E0()
+{
+    DmaFill32(3, 0, 0x2000000, 0x40000);
+    DmaFill32(3, 0, 0x3000000, 0x7e00);
+}
+
+void sub_805791C()
+{
+    _unk3000E30[0] = 0;
+    _unk3000E30[1] = 0;
+    _unk3000E30[2] = 0x10;
+}
+
+void sub_8057930()
+{
+    _unk3000E30[1] = _unk3000E30[0];
+    _unk3000E30[0] += _unk3000E30[2];
+}
