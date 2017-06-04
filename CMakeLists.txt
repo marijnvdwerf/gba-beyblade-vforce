@@ -31,7 +31,7 @@ set(OBJCOPY ${DEVKITARM}/bin/arm-none-eabi-objcopy)
 # PokeRuby tools
 set(CC1 ${AGBCC}/bin/agbcc)
 set(CC1_OLD ${AGBCC}/bin/old_agbcc)
-set(C_FLAGS -mthumb-interwork -Wimplicit -Wparentheses -Wunused -Werror -O2 -fhex-asm)
+set(C_FLAGS -mthumb-interwork -Wimplicit -Wparentheses -Wunused -Werror -O2 -fhex-asm -ffunction-sections)
 set(LIBGCC_A ${AGBCC}/lib/libgcc.a)
 
 

@@ -1,30 +1,5 @@
 #include "common.h"
 
-// 87551C0
-const u8 Str_87551C0[] = "Error in fastAllocate(), unable to allocate %i bytes\n";
-
-// 87551F8
-const u8 Str_87551F8[] = "Error in slowAllocate(), unable to allocate %i bytes\n";
-
-// 8755230
-const u8 Str_8755230[] = "deallocating block with 0 start\n";
-
-// 8755254
-const u8 Str_8755254[]
-    = "Error in getValidAllocatedBlock(), no further AllocatedBlocks available\n";
-
-// 87552A0
-const u8 Str_87552A0[] = "> %i %i\n";
-
-// 87552AC
-const u8 Str_87552AC[] = "Total Wram usage %i, free %i, blocks used %i\n";
-
-// 87552DC
-const u8 Str_87552DC[] = "Total Exram usage %i, free %i, blocks used %i\n";
-
-// 875530C
-const u8 Str_875530C[] = "Error allocating %i bytes for key recording\n";
-
 // 875533C
 const u8 Str_875533C[] = "0x%x, ";
 
@@ -132,64 +107,3 @@ const u8 Str_8755884[] = "Error allocating %i bytes for multiplayer data\n";
 
 // 87558B4
 const u8 Str_87558B4[] = "Error: The status of this multiplayer unit has not been resolved\n";
-
-// 87558F8
-const u8 Str_87558F8[] = "> First prev is not zero.\n";
-
-// 8755914
-const u8 Str_8755914[] = "> Prev next is not current\n";
-
-// 8755930
-const u8 Str_8755930[] = "> Current prev is not prev\n";
-
-// 875594C
-const u8 Str_875594C[] = "Not enough RAM for sprites";
-
-// 8755968
-const u8 Str_8755968[] = "Not enough RAM for rotation/scale";
-
-// 875598C
-const u8 Str_875598C[] = "Error allocating memory for SpriteVramFree list\n";
-
-// 87559C0
-const u8 Str_87559C0[] = "There was no free space in Sprite VRAM for requested characters (%i)\n";
-
-// 8755A08
-const u8 Str_8755A08[]
-    = "There are no free SpriteVramFree entries remaining on a call to freeSpriteVramLocation()\n";
-
-// 8755A64
-const u8 Str_8755A64[] = "Vram space list\n";
-
-// 8755A78
-const u8 Str_8755A78[] = "  > %i -> %i\n";
-
-// 8755A88
-const u8 Str_8755A88[] = "remaining entries %i\n";
-
-// 8755AA0
-const u8 Str_8755AA0[] = "spritesFree = %i\n";
-
-// 8755AB4
-const u8 Str_8755AB4[] = "No sprites left!";
-
-// 8755AC8
-const u8 Str_8755AC8[] = "No sprites left for block, sprites left: %i, sprites requested: %i\n";
-
-// 8755B0C
-const u8 Str_8755B0C[] = "No sprites left for resize!";
-
-// 8755B28
-const u8 Str_8755B28[] = "resizeSpriteBlock: Reduce. Code needs writing.";
-
-// 8755B58
-const u8 Str_8755B58[] = "ERROR: Not enough sprites for string '%s'\n";
-
-// 8755B84
-const u8 Str_8755B84[] = ":";
-
-// 8755B88
-const u8 Str_8755B88[] = "0";
-
-// 8755B8C
-const u8 Str_8755B8C[] = ".";

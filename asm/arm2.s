@@ -510,7 +510,7 @@ off_8756F60:
 off_8756F64:
     .4byte _unk3005DF8
 off_8756F68:
-    .4byte _spriteEntryCount
+    .4byte _spritesFree
 off_8756F6C:
     .4byte word_807D90C
 off_8756F70:
