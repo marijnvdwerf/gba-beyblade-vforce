@@ -10,7 +10,8 @@ const u8 Str_87551F8[] = "Error in slowAllocate(), unable to allocate %i bytes\n
 const u8 Str_8755230[] = "deallocating block with 0 start\n";
 
 // 8755254
-const u8 Str_8755254[] = "Error in getValidAllocatedBlock(), no further AllocatedBlocks available\n";
+const u8 Str_8755254[]
+    = "Error in getValidAllocatedBlock(), no further AllocatedBlocks available\n";
 
 // 87552A0
 const u8 Str_87552A0[] = "> %i %i\n";
@@ -61,7 +62,8 @@ const u8 Str_87554F0[] = ", ";
 const u8 Str_87554F4[] = "Not enough space allocated for Quad-tree nodes; required ";
 
 // 8755530
-const u8 Str_8755530[] = "Error adding dynamic BoundingAreas to quadtree, exceeded the allocated %i\n";
+const u8 Str_8755530[]
+    = "Error adding dynamic BoundingAreas to quadtree, exceeded the allocated %i\n";
 
 // 875557C
 const u8 Str_875557C[] = "Warning: quadtree BoundingArea overflow\n";
@@ -70,7 +72,8 @@ const u8 Str_875557C[] = "Warning: quadtree BoundingArea overflow\n";
 const u8 Str_87555A8[] = "Warning: not enough nodes available to subdivide the quadtree further\n";
 
 // 87555F0
-const u8 Str_87555F0[] = "Warning: %i areas added to quadtree node; this exceeds the warning threshold (%i)\n";
+const u8 Str_87555F0[]
+    = "Warning: %i areas added to quadtree node; this exceeds the warning threshold (%i)\n";
 
 // 8755644
 const u8 Str_8755644[] = "Error allocating memory for render code";
@@ -121,7 +124,8 @@ const u8 Str_875581C[] = ", endIndex ";
 const u8 Str_8755828[] = "  previous ";
 
 // 8755834
-const u8 Str_8755834[] = "Error: maxPacketSize supplied to initMultiPlayer() needs to be a multiple of 2\n";
+const u8 Str_8755834[]
+    = "Error: maxPacketSize supplied to initMultiPlayer() needs to be a multiple of 2\n";
 
 // 8755884
 const u8 Str_8755884[] = "Error allocating %i bytes for multiplayer data\n";
@@ -151,7 +155,8 @@ const u8 Str_875598C[] = "Error allocating memory for SpriteVramFree list\n";
 const u8 Str_87559C0[] = "There was no free space in Sprite VRAM for requested characters (%i)\n";
 
 // 8755A08
-const u8 Str_8755A08[] = "There are no free SpriteVramFree entries remaining on a call to freeSpriteVramLocation()\n";
+const u8 Str_8755A08[]
+    = "There are no free SpriteVramFree entries remaining on a call to freeSpriteVramLocation()\n";
 
 // 8755A64
 const u8 Str_8755A64[] = "Vram space list\n";
@@ -188,4 +193,3 @@ const u8 Str_8755B88[] = "0";
 
 // 8755B8C
 const u8 Str_8755B8C[] = ".";
-

@@ -8,21 +8,9 @@ void nullsub_31(void);
 
 void onTimer1Overflow(void);
 
-const void *const Unk_872CAF4[] = {
-        onVBlank,
-        nullsub_37,
-        nullsub_31,
-        nullsub_31,
-        onTimer1Overflow,
-        nullsub_31,
-        nullsub_31,
-        nullsub_31,
-        nullsub_31,
-        nullsub_31,
-        nullsub_31,
-        nullsub_31,
-        nullsub_31,
-        nullsub_31,
+const void* const Unk_872CAF4[] = {
+    onVBlank, nullsub_37, nullsub_31, nullsub_31, onTimer1Overflow, nullsub_31, nullsub_31,
+    nullsub_31, nullsub_31, nullsub_31, nullsub_31, nullsub_31, nullsub_31, nullsub_31,
 };
 
 // 872CB2C
@@ -54,4 +42,3 @@ const u8 Str_872CBCC[] = "Error allocating memory for actor motion modifiers\n";
 
 // 872CC00
 const u8 Str_872CC00[] = "Error allocating memory for background motion modifiers\n";
-
