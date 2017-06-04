@@ -35,12 +35,12 @@ sub_80577D8:
 	lsr	r4, r4, #0x10
 	lsl	r0, r6, #0x8
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	add	r7, r0, #0
 	add	r6, r7, #0
 	lsl	r0, r5, #0x8
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	add	r5, r0, #0
 	add	r3, r0, #0
 	cmp	r3, #0

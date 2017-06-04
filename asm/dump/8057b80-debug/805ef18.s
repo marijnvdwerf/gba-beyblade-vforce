@@ -47,7 +47,7 @@ sub_805EF18:
 	ldr	r1, [sp, #0x8]
 	mov	r2, r8
 	mov	r3, sl
-	bl	call_via_r4
+	bl	_call_via_r4
 	mov	r1, #0x1
 	ADD r8, r1
 	mov	r2, sl

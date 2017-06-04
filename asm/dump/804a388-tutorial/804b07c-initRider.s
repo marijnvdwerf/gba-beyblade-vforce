@@ -27,14 +27,14 @@ initRider:
 	mov	r0, #0x0
 	add	r1, r7, #0
 	mov	r2, #0xc4
-	bl	call_via_r3
+	bl	_call_via_r3
 	mov	r2, #0xb8
 	lsl	r2, r2, #0x2
 	add	r1, r6, r2
 	ldr	r3, [r4]
 	mov	r0, #0x0
 	mov	r2, #0x8
-	bl	call_via_r3
+	bl	_call_via_r3
 	add	r0, r5, #0
 	bl	getBeyBladeActorDataForIndex
 	add	r4, r0, #0

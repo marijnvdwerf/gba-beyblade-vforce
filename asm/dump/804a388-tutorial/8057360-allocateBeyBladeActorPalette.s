@@ -17,7 +17,7 @@ allocateBeyBladeActorPalette:
 	ldr	r3, [r1]
 	add	r1, r5, #0
 	mov	r2, #0x20
-	bl	call_via_r3
+	bl	_call_via_r3
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

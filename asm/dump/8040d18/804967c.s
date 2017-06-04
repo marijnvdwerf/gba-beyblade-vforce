@@ -131,7 +131,7 @@ sub_804967C:
 	ldr	r0, [r0]
 	cmp	r0, #0
 	beq	.L13	@cond_branch
-	bl	call_via_r0
+	bl	_call_via_r0
 	b	.L17
 .L16:
 	.align	2, 0
@@ -143,7 +143,7 @@ sub_804967C:
 	ldr	r0, [r0, #0xc]
 	cmp	r0, #0
 	beq	.L17	@cond_branch
-	bl	call_via_r0
+	bl	_call_via_r0
 .L17:
 	mov	r0, #0x0
 	bl	sub_8049330

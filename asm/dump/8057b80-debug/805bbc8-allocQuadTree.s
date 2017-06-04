@@ -111,7 +111,7 @@ allocQuadTree:
 	ldr	r2, [r2, #0x4]
 	ldr	r3, [r0]
 	mov	r0, #0x0
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r3, [sp, #0x14]
 	lsl	r4, r3, #0x2
 	add	r0, r4, #0

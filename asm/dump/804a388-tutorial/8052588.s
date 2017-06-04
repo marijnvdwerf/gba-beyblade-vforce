@@ -94,7 +94,7 @@ sub_8052588:
 	lsl	r2, r4, #0x8
 	ldr	r3, [r0]
 	mov	r0, #0x0
-	bl	call_via_r3
+	bl	_call_via_r3
 	b	.L11
 .L6:
 	.align	2, 0
@@ -144,7 +144,7 @@ sub_8052588:
 	lsl	r2, r2, #0x8
 	ldr	r3, [r0]
 	mov	r0, #0x0
-	bl	call_via_r3
+	bl	_call_via_r3
 .L11:
 	add	sp, sp, #0x18
 	pop	{r3, r4, r5}

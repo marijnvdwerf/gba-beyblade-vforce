@@ -139,7 +139,7 @@ sub_8058AA8:
 	add	r1, r1, r2
 	ldr	r3, [r3]
 	add	r2, r4, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldrb	r0, [r6]
 	add	r0, r0, #0x1
 	ADD r0, r8

@@ -63,7 +63,7 @@ initAiManagement:
 	ldr	r3, [r0]
 	mov	r0, #0x0
 	mov	r2, #0x80
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r4, [r7, #0x10]
 	mov	r5, #0x0
 	b	.L6

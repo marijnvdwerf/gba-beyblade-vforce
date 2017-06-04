@@ -34,7 +34,7 @@ sub_80581B8:
 	beq	.L4	@cond_branch
 	add	r0, r4, #0
 	add	r1, r5, #0
-	bl	call_via_r2
+	bl	_call_via_r2
 	b	.L4
 .L6:
 	.align	2, 0

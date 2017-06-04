@@ -32,7 +32,7 @@ sub_8061F3C:
 	mov	r0, #0x0
 	add	r1, r5, #0
 	mov	r2, r9
-	bl	call_via_r3
+	bl	_call_via_r3
 	b	.L141
 .L5:
 	.align	2, 0

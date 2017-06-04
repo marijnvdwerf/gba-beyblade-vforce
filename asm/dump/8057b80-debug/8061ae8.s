@@ -24,7 +24,7 @@ sub_8061AE8:
 	add	r1, r4, #0
 	bl	Mod
 	mov	r1, #0x64
-	bl	sub_8066084
+	bl	__divsi3
 	add	r5, r0, #0
 	add	r0, r6, #0
 	mov	r1, #0x3c

@@ -64,7 +64,7 @@ initQuadTreeNode:
 	ldr	r0, [sp, #0xc]
 	add	r1, r6, #0
 	ldr	r2, [sp, #0x58]
-	bl	call_via_r2
+	bl	_call_via_r2
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L28	@cond_branch

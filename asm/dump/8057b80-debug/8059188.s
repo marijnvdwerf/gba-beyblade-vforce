@@ -15,7 +15,7 @@ sub_8059188:
 	lsr	r3, r3, #0x10
 	mov	r8, r3
 	mov	r2, #0x88
-	bl	sub_8067A2C
+	bl	memcpy
 	add	r0, r5, #0
 	add	r0, r0, #0x5e
 	mov	r1, #0x0
@@ -77,7 +77,7 @@ sub_8059188:
 	mov	r1, #0x0
 	mov	r2, #0x0
 	mov	r3, #0x0
-	bl	call_via_r4
+	bl	_call_via_r4
 	b	.L3
 .L5:
 	.align	2, 0

@@ -25,7 +25,7 @@ sub_805B700:
 	strb	r0, [r6]
 	mov	r0, r9
 	mov	r1, #0x3c
-	bl	sub_8066238
+	bl	__umodsi3
 	add	r5, r0, #0
 	cmp	r5, #0
 	bne	.L4	@cond_branch
@@ -75,7 +75,7 @@ sub_805B700:
 .L7:
 	mov	r0, r9
 	mov	r1, #0x3c
-	bl	sub_80661C0
+	bl	__udivsi3
 	add	r5, r0, #0
 	cmp	r5, #0
 	bne	.L9	@cond_branch

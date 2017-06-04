@@ -29,7 +29,7 @@ initTutorialManagement:
 	ldr	r3, [r0]
 	mov	r0, #0x0
 	add	r1, r7, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 	cmp	r4, #0
 	beq	.L2	@cond_branch
 	mov	r0, r8

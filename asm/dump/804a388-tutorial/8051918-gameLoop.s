@@ -97,7 +97,7 @@ gameLoop:
 	mov	r0, #0x0
 	mov	r1, #0x0
 	ldr	r2, .L15 + 24
-	bl	call_via_r2
+	bl	_call_via_r2
 	ldr	r4, .L15
 	ldr	r0, [r4]
 	ldr	r3, .L15 + 8
@@ -107,7 +107,7 @@ gameLoop:
 	mov	r0, #0x3
 	mov	r1, #0x0
 	ldr	r5, .L15 + 24
-	bl	call_via_r5
+	bl	_call_via_r5
 	bl	sub_804ACF0
 	bl	getLevelDescription2
 	add	r0, r0, #0xbc
@@ -237,7 +237,7 @@ gameLoop:
 	mov	r0, #0x2
 	mov	r1, #0x0
 	ldr	r3, .L23 + 16
-	bl	call_via_r3
+	bl	_call_via_r3
 	bl	sub_805529C
 	bl	renderEnvironmentActors
 	ldr	r0, [sp, #0x20]
@@ -307,7 +307,7 @@ gameLoop:
 .L20:
 	ldr	r0, .L30
 	ldr	r0, [r0]
-	bl	call_via_r0
+	bl	_call_via_r0
 	bl	updateKeyState
 	bl	sub_8055340
 	ldr	r0, [sp, #0x24]
@@ -445,7 +445,7 @@ gameLoop:
 	mov	r0, #0x4
 	mov	r1, #0x0
 	ldr	r2, .L66 + 20
-	bl	call_via_r2
+	bl	_call_via_r2
 	mov	r3, #0x1
 	str	r3, [sp, #0x18]
 .L41:
@@ -564,7 +564,7 @@ gameLoop:
 	mov	r0, #0x6
 	mov	r1, #0x0
 	ldr	r5, .L66 + 20
-	bl	call_via_r5
+	bl	_call_via_r5
 	bl	sub_804B5C0
 	bl	sub_805AAE0
 	bl	sub_8052B24
@@ -704,7 +704,7 @@ gameLoop:
 	strh	r0, [r3, #0x18]
 	ldr	r0, .L85
 	ldr	r0, [r0]
-	bl	call_via_r0
+	bl	_call_via_r0
 	ldr	r0, .L85 + 4
 	ldrh	r0, [r0]
 	MVN	r0, r0
@@ -907,7 +907,7 @@ gameLoop:
 	mov	r0, #0x1
 	mov	r1, #0x0
 	ldr	r5, .L109 + 16
-	bl	call_via_r5
+	bl	_call_via_r5
 	bl	sub_80556F4
 	add	sp, sp, #0x28
 	pop	{r3, r4, r5}

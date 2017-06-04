@@ -90,7 +90,7 @@ handleEventListeners:
 	ldr	r1, [sp, #0xc]
 	mov	r2, sl
 	mov	r3, r9
-	bl	call_via_r4
+	bl	_call_via_r4
 	ldrh	r2, [r5]
 	add	r5, r2, r5
 	add	r0, r6, #0

@@ -40,7 +40,7 @@ sub_805599C:
 	ldr	r3, [r0]
 	add	r0, r2, #0
 	mov	r2, #0x20
-	bl	call_via_r3
+	bl	_call_via_r3
 .L3:
 	ldr	r1, [r5]
 	ldr	r0, .L5 + 16
@@ -103,7 +103,7 @@ sub_805599C:
 	ldr	r3, [r0]
 	add	r0, r2, #0
 	mov	r2, #0x20
-	bl	call_via_r3
+	bl	_call_via_r3
 .L9:
 	ldr	r0, [r5, #0x4]
 	ldr	r1, .L11 + 16

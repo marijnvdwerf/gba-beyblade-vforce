@@ -155,14 +155,14 @@ sub_804D8D8:
 	ldr	r0, [r7, #0x40]
 	lsl	r0, r0, #0x8
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	add	r5, r7, #0
 	add	r5, r5, #0x5c
 	strh	r0, [r5]
 	ldr	r0, [r7, #0x44]
 	lsl	r0, r0, #0x8
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	add	r1, r7, #0
 	add	r1, r1, #0x5e
 	strh	r0, [r1]

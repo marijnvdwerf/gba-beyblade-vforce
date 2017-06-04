@@ -52,7 +52,7 @@ sub_805F910:
 	ldr	r3, [r0, #0x10]
 	mov	r0, r8
 	add	r2, r7, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 .L5:
 	add	r0, r7, #1
 	lsl	r0, r0, #0x10

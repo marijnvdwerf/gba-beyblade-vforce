@@ -101,7 +101,7 @@ initEventListeners:
 	mov	r0, r8
 	add	r1, r4, #0
 	add	r2, r5, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r0, .L10
 	ldr	r0, [r0]
 	mov	r2, #0xca

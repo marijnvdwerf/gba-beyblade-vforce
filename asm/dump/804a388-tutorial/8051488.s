@@ -66,7 +66,7 @@ sub_8051488:
 	mov	r2, #0xa8
 	lsl	r2, r2, #0x3
 	ldr	r3, [r4]
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r2, .L5 + 32
 	add	r0, r6, r2
 	ldr	r1, [r5]
@@ -74,7 +74,7 @@ sub_8051488:
 	add	r1, r1, r3
 	ldr	r3, [r4]
 	mov	r2, #0x10
-	bl	call_via_r3
+	bl	_call_via_r3
 	mov	r0, #0x1
 	bl	sub_8051640
 .L2:

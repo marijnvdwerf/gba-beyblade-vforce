@@ -427,7 +427,7 @@ collectionListFrontendHandler:
 	ldr	r1, .L44 + 20
 	ldr	r3, [r4]
 	mov	r2, #0x20
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r0, [r7]
 	bl	sub_80570D4
 	lsl	r0, r0, #0x18

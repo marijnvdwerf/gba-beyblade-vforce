@@ -66,7 +66,7 @@ sub_8063F84:
 	sub	r0, r0, #0x26
 	ldrb	r1, [r0]
 	add	r0, r4, #0
-	bl	call_via_r2
+	bl	_call_via_r2
 .L15:
 	add	r0, r4, #0
 	bl	sub_8063CD0
@@ -91,7 +91,7 @@ sub_8063F84:
 	beq	.L20	@cond_branch
 	ldr	r1, [sp]
 	add	r0, r4, #0
-	bl	call_via_r2
+	bl	_call_via_r2
 	b	.L20
 .L10:
 	mov	r6, #0x0
@@ -139,7 +139,7 @@ sub_8063F84:
 	sub	r0, r0, #0x26
 	ldrb	r1, [r0]
 	add	r0, r4, #0
-	bl	call_via_r2
+	bl	_call_via_r2
 .L26:
 	add	r0, r4, #0
 	bl	sub_8063CD0
@@ -170,7 +170,7 @@ sub_8063F84:
 	add	r1, r4, #0
 	add	r1, r1, #0x1c
 	add	r0, r4, #0
-	bl	call_via_r2
+	bl	_call_via_r2
 .L29:
 	add	r0, r4, #0
 	bl	sub_8063B44

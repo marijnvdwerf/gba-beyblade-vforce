@@ -44,7 +44,7 @@ newIconMenu:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x9
 	add	r1, r5, #0
-	bl	sub_8066084
+	bl	__divsi3
 	mov	r1, r8
 	str	r0, [r1, #0xc]
 	str	r4, [r1, #0x10]

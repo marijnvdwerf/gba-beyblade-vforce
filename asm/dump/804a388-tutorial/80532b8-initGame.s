@@ -17,7 +17,7 @@ initGame:
 	ldr	r3, [r0]
 	mov	r0, #0x0
 	mov	r2, #0x18
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r1, [r4]
 	ldr	r3, .L1 + 16
 	add	r2, r1, r3

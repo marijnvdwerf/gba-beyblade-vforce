@@ -21,7 +21,7 @@ sub_80522D4:
 	add	r0, r5, #0
 	mov	r1, #0x0
 	mov	r2, #0xc
-	bl	sub_8067A8C
+	bl	memset
 	mov	r1, #0xd0
 	lsl	r1, r1, #0x1
 	add	r0, r7, r1
@@ -35,7 +35,7 @@ sub_80522D4:
 	add	r0, r4, #0
 	add	r1, r5, #0
 	mov	r2, #0xc
-	bl	sub_8067A2C
+	bl	memcpy
 	add	r0, r6, #0
 	mov	r1, sp
 	bl	sub_8058754

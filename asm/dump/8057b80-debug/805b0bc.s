@@ -15,7 +15,7 @@ sub_805B0BC:
 	beq	.L1	@cond_branch
 	add	r0, r4, #0
 	add	r1, r3, #0
-	bl	call_via_r2
+	bl	_call_via_r2
 .L1:
 	ldr	r0, [r4, #0x48]
 	cmp	r0, #0

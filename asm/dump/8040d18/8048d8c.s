@@ -42,7 +42,7 @@ sub_8048D8C:
 	ldr	r3, [r0]
 	add	r0, r2, #0
 	mov	r2, #0x20
-	bl	call_via_r3
+	bl	_call_via_r3
 .L9:
 	mov	r0, #0x0
 	bl	allocSprite

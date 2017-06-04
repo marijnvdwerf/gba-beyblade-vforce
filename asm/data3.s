@@ -45,6 +45,3 @@ Unk_875689C:
     .4byte _unk_3000DAC
     .4byte _unk_3005E9C
 
-
-global Unk_87568F4
-    .incbin "data/unk-87568f4.bin"

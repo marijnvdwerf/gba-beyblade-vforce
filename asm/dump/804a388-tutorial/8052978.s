@@ -89,7 +89,7 @@ sub_8052978:
 	ldr	r0, [r4]
 	cmp	r0, #0
 	beq	.L20	@cond_branch
-	bl	call_via_r0
+	bl	_call_via_r0
 .L20:
 	str	r5, [r4]
 	b	.L24

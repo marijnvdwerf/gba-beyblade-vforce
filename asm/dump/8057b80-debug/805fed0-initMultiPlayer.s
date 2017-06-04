@@ -87,7 +87,7 @@ initMultiPlayer:
 	ldr	r3, [r0]
 	mov	r0, #0x0
 	ldr	r2, [sp]
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r0, .L3 + 16
 	mov	r1, #0x0
 	strh	r1, [r0]
@@ -107,7 +107,7 @@ initMultiPlayer:
 	mov	r0, r8
 	asr	r1, r0, #0x1
 	ldr	r0, .L3 + 24
-	bl	sub_8066084
+	bl	__divsi3
 	mov	r1, #0x80
 	lsl	r1, r1, #0x9
 	sub	r1, r1, r0

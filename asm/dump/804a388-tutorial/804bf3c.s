@@ -103,7 +103,7 @@ sub_804BF3C:
 	lsl	r2, r7, #0x7
 	ldr	r3, [r3]
 	mov	r0, #0x0
-	bl	call_via_r3
+	bl	_call_via_r3
 	b	.L14
 .L9:
 	.align	2, 0
@@ -160,7 +160,7 @@ sub_804BF3C:
 	lsl	r2, r2, #0x7
 	ldr	r3, [r3]
 	mov	r0, #0x0
-	bl	call_via_r3
+	bl	_call_via_r3
 .L14:
 	mov	r0, r9
 	str	r0, [r6]

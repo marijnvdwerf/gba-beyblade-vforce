@@ -18,7 +18,7 @@ sub_805B394:
 	ldr	r2, [r2, #0x74]
 	ldr	r3, [r5]
 	mov	r0, #0x0
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r0, [r6]
 	add	r0, r0, #0x5c
 	ldrb	r0, [r0]
@@ -28,7 +28,7 @@ sub_805B394:
 	lsl	r2, r2, #0x4
 	ldr	r3, [r5]
 	mov	r0, #0x0
-	bl	call_via_r3
+	bl	_call_via_r3
 	mov	r0, #0x1
 	strh	r0, [r6, #0xe]
 .L1:

@@ -640,7 +640,7 @@ sub_805CEB8:
 	mov	r0, r8
 	ldr	r1, [sp]
 	ldr	r2, [sp, #0xc]
-	bl	call_via_r3
+	bl	_call_via_r3
 .L73:
 	mov	r0, #0x1
 	ldr	r3, [sp, #0x44]
@@ -705,7 +705,7 @@ sub_805CEB8:
 	ldr	r1, [sp]
 	ldr	r2, [sp, #0xc]
 	ldr	r3, [sp, #0x10]
-	bl	call_via_r4
+	bl	_call_via_r4
 .L82:
 	ldr	r4, [sp, #0x14]
 	add	r4, r4, #0x1

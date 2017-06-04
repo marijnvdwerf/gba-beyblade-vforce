@@ -13,7 +13,7 @@ sub_8056F7C:
 	ldr	r3, [r1]
 	add	r1, r4, #0
 	mov	r2, #0x4
-	bl	call_via_r3
+	bl	_call_via_r3
 	pop	{r4}
 	pop	{r0}
 	bx	r0

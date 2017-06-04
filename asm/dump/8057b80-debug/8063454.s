@@ -15,7 +15,7 @@ sub_8063454:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x3
 	add	r1, r4, #0
-	bl	sub_8066084
+	bl	__divsi3
 	str	r0, [sp, #0x4]
 	mov	r1, #0x0
 	mov	r9, r1

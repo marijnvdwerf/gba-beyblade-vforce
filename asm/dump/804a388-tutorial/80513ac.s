@@ -52,7 +52,7 @@ sub_80513AC:
 	mov	r2, #0xa8
 	lsl	r2, r2, #0x3
 	ldr	r3, [r6]
-	bl	call_via_r3
+	bl	_call_via_r3
 	ldr	r0, [r5]
 	ldr	r3, .L2 + 36
 	add	r0, r0, r3
@@ -61,7 +61,7 @@ sub_80513AC:
 	ldr	r3, [r6]
 	add	r1, r4, #0
 	mov	r2, #0x10
-	bl	call_via_r3
+	bl	_call_via_r3
 	mov	r1, #0xa7
 	lsl	r1, r1, #0x1
 	mov	r2, #0x1

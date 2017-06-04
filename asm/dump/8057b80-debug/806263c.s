@@ -19,7 +19,7 @@ sub_806263C:
 	ldr	r4, .L1 + 16
 	ldr	r1, [r4]
 	ldr	r0, .L1 + 20
-	bl	sub_80661C0
+	bl	__udivsi3
 	mov	r1, #0x80
 	lsl	r1, r1, #0x9
 	sub	r1, r1, r0

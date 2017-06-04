@@ -42,7 +42,7 @@ sub_805FAE8:
 	ldr	r4, [r3, #0x28]
 	mov	r0, sl
 	ldr	r3, [sp, #0x20]
-	bl	call_via_r4
+	bl	_call_via_r4
 	mov	r1, #0x2
 	ldsh	r0, [r5, r1]
 	mov	r2, #0x1

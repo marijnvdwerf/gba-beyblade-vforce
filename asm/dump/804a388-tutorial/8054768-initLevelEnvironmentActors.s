@@ -181,7 +181,7 @@ initLevelEnvironmentActors:
 	ldr	r3, [r0]
 	mov	r0, #0x0
 	ldr	r1, [sp, #0x248]
-	bl	call_via_r3
+	bl	_call_via_r3
 	mov	r0, #0x0
 	str	r0, [sp, #0x23c]
 	ldr	r1, [sp, #0x258]

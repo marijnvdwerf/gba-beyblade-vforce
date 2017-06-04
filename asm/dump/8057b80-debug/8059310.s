@@ -84,7 +84,7 @@ sub_8059310:
 	add	r0, r6, #0
 	add	r1, r4, #0
 	ldr	r2, [sp, #0xc]
-	bl	call_via_r9
+	bl	_call_via_r9
 .L9:
 	mov	r1, r8
 	cmp	r1, #0
@@ -106,7 +106,7 @@ sub_8059310:
 	ldr	r1, [sp, #0x14]
 	ldr	r2, [sp, #0xc]
 	add	r3, r7, #0
-	bl	call_via_r9
+	bl	_call_via_r9
 	b	.L12
 .L14:
 	.align	2, 0
@@ -121,7 +121,7 @@ sub_8059310:
 	add	r1, r7, #0
 	ldr	r2, [sp, #0x18]
 	mov	r3, r8
-	bl	call_via_r4
+	bl	_call_via_r4
 .L12:
 	add	sp, sp, #0x1c
 	pop	{r3, r4, r5}

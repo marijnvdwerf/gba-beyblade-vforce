@@ -17,7 +17,7 @@ sub_805D610:
 	add	r0, r0, #0x4
 	ldr	r2, [r0]
 	add	r0, r4, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 .L2:
 	add	r0, r4, #0
 	add	r0, r0, #0x80

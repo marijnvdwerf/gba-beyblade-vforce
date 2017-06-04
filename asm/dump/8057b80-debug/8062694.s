@@ -26,7 +26,7 @@ sub_8062694:
 	add	r2, r2, r4
 	ldr	r3, [r3]
 	mov	r0, #0x0
-	bl	call_via_r3
+	bl	_call_via_r3
 	pop	{r4}
 	pop	{r0}
 	bx	r0

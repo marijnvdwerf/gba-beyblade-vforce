@@ -99,7 +99,7 @@ sub_805A984:
 	cmp	r1, #0
 	beq	.L15	@cond_branch
 	ldr	r0, [r5, #0xc]
-	bl	call_via_r1
+	bl	_call_via_r1
 .L15:
 	strh	r4, [r5, #0x4]
 	mov	r0, #0x1

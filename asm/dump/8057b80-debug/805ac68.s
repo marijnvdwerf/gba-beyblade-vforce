@@ -8,7 +8,7 @@ sub_805AC68:
 	cmp	r0, #0
 	beq	.L1	@cond_branch
 	ldr	r1, [r0]
-	bl	call_via_r1
+	bl	_call_via_r1
 .L1:
 	pop	{r0}
 	bx	r0

@@ -74,7 +74,7 @@ newCollisionDataRam:
 	ldr	r3, [r1]
 	add	r1, r4, #0
 	mov	r2, r8
-	bl	call_via_r3
+	bl	_call_via_r3
 	str	r4, [r5, #0x4]
 	ADD r4, r8
 .L9:
@@ -87,7 +87,7 @@ newCollisionDataRam:
 	ldr	r3, [r1]
 	add	r1, r4, #0
 	mov	r2, r9
-	bl	call_via_r3
+	bl	_call_via_r3
 	str	r4, [r5, #0xc]
 .L10:
 	ldr	r0, [r5]

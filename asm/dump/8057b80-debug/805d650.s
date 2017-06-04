@@ -428,7 +428,7 @@ sub_805D650:
 	ldr	r4, [r2, #0x8]
 	add	r0, r5, #0
 	mov	r2, sl
-	bl	call_via_r4
+	bl	_call_via_r4
 .L54:
 	mov	r1, #0x5
 	add	r0, r6, #0
@@ -489,7 +489,7 @@ sub_805D650:
 	ldr	r4, [r2, #0x8]
 	add	r0, r5, #0
 	mov	r2, sl
-	bl	call_via_r4
+	bl	_call_via_r4
 	b	.L78
 .L56:
 	ldr	r0, [r7, #0x1c]
@@ -595,7 +595,7 @@ sub_805D650:
 	ldr	r0, [r7, #0x34]
 	ldr	r2, [r0, #0x8]
 	add	r0, r5, #0
-	bl	call_via_r3
+	bl	_call_via_r3
 	b	.L78
 .L75:
 	.align	2, 0
