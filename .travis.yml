@@ -13,9 +13,12 @@ addons:
     packages:
       - gcc-multilib
       - clang-5.0
+      - clang-format-5.0
       - cmake
 cache:
   apt: true
+before_install:
+  - cmake -DCLANG_FORMAT=/usr/bin/clang-format-5.0 -P scripts/format.cmake
 install:
   - cd $HOME
   - travis_retry wget http://download.sourceforge.net/devkitpro/devkitARM_r46-x86_64-linux.tar.bz2
