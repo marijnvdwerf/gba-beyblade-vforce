@@ -17,10 +17,10 @@ sub_8062910:
 	add	r1, r1, #0x10
 	str	r1, [r3, #0x4]
 	cmp	r2, #0x7f
-	bls	.L1	@cond_branch
+	bls	_1	@cond_branch
 	mov	r2, #0x7f
-.L1:
-	ldr	r0, .L2
+_1:
+	ldr	r0, _2
 	ldr	r1, [r0]
 	lsl	r0, r2, #0x2
 	add	r0, r0, r1
@@ -33,10 +33,10 @@ sub_8062910:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L3:
+_3:
 	.align	2, 0
-.L2:
-	.4byte	0x3000d98
+_2:
+	.word	_soundTables
 	thumb_func_end sub_8062910
 
 .align 2, 0 @ Don't pad with nop.

@@ -6,13 +6,13 @@ sub_8062AB8:
 	bl	sub_8062A50
 	add	r1, r0, #0
 	cmp	r1, #0
-	beq	.L2	@cond_branch
+	beq	_2	@cond_branch
 	ldrb	r0, [r1, #0x16]
 	cmp	r0, #0x2
-	bne	.L2	@cond_branch
+	bne	_2	@cond_branch
 	mov	r0, #0x1
 	strb	r0, [r1, #0x16]
-.L2:
+_2:
 	pop	{r0}
 	bx	r0
 	thumb_func_end sub_8062AB8
