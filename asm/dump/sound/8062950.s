@@ -20,7 +20,7 @@ sub_8062950:
 	strh	r3, [r0, #0x10]
 	add	r4, r4, #0x10
 	str	r4, [r0, #0x4]
-	ldr	r3, .L1
+	ldr	r3, _1
 	ldr	r3, [r3]
 	ldr	r3, [r3]
 	str	r3, [r0, #0x8]
@@ -31,10 +31,10 @@ sub_8062950:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L2:
+_2:
 	.align	2, 0
-.L1:
-	.4byte	0x3000d98
+_1:
+	.word	_soundTables
 	thumb_func_end sub_8062950
 
 .align 2, 0 @ Don't pad with nop.

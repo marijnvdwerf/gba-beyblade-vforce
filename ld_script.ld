@@ -1014,31 +1014,31 @@ SECTIONS {
 
 		src/sound.c.o(.text.sub_806234C);
 		src/sound.c.o(.text.sub_80623A8);
-		asm/dump/8057b80-debug/806246c-allocateSoundTables.s.o(.text);
-		asm/dump/8057b80-debug/806261c.s.o(.text); /* unref */
-		asm/dump/8057b80-debug/806263c.s.o(.text); /* unref */
+		asm/dump/sound/806246c-allocateSoundTables.s.o(.text);
+		asm/dump/sound/806261c.s.o(.text); /* unref */
+		asm/dump/sound/806263c.s.o(.text); /* unref */
 		src/sound.c.o(.text.sub_8062694);
 		src/sound.c.o(.text.sub_80626E0);
 		src/sound.c.o(.text.sub_8062774);
-		asm/dump/8057b80-debug/80627a8.s.o(.text);
-		asm/dump/8057b80-debug/80627f0.s.o(.text);
-		asm/dump/8057b80-debug/8062910.s.o(.text);
-		asm/dump/8057b80-debug/8062950.s.o(.text);
-		asm/dump/8057b80-debug/8062990.s.o(.text);
-		asm/dump/8057b80-debug/80629f0.s.o(.text);
-		asm/dump/8057b80-debug/8062a50.s.o(.text);
-		asm/dump/8057b80-debug/8062a90.s.o(.text);
-		asm/dump/8057b80-debug/8062aa4.s.o(.text);
-		asm/dump/8057b80-debug/8062ab8.s.o(.text);
-		asm/dump/8057b80-debug/8062ad4.s.o(.text);
-		asm/dump/8057b80-debug/8062af4.s.o(.text);
+		asm/dump/sound/80627a8.s.o(.text);
+		asm/dump/sound/80627f0.s.o(.text);
+		asm/dump/sound/8062910.s.o(.text);
+		asm/dump/sound/8062950.s.o(.text);
+		asm/dump/sound/8062990.s.o(.text);
+		asm/dump/sound/80629f0.s.o(.text);
+		asm/dump/sound/8062a50.s.o(.text);
+		asm/dump/sound/8062a90.s.o(.text);
+		asm/dump/sound/8062aa4.s.o(.text);
+		asm/dump/sound/8062ab8.s.o(.text);
+		asm/dump/sound/8062ad4.s.o(.text);
+		asm/dump/sound/8062af4.s.o(.text);
 		src/sound.c.o(.text.sub_8062B20);
-		asm/dump/8057b80-debug/8062b2c.s.o(.text); /* unref */
-		asm/dump/8057b80-debug/8062b90.s.o(.text); /* unref */
-		asm/dump/8057b80-debug/8062ba8.s.o(.text); /* unref */
+		asm/dump/sound/8062b2c.s.o(.text); /* unref */
+		asm/dump/sound/8062b90.s.o(.text); /* unref */
+		asm/dump/sound/8062ba8.s.o(.text); /* unref */
 		src/sound.c.o(.text.sub_8062BFC);
-		asm/dump/8057b80-debug/8062c24.s.o(.text);
-		asm/dump/8057b80-debug/8062e54.s.o(.text); /* unref */
+		asm/dump/sound/8062c24.s.o(.text);
+		asm/dump/sound/8062e54.s.o(.text); /* unref */
 
 		asm/dump/8057b80-debug/8062e70-allocateActorHeaps.s.o(.text);
 		asm/dump/8057b80-debug/8062efc.s.o(.text);

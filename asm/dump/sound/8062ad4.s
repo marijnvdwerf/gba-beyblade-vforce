@@ -6,15 +6,15 @@ sub_8062AD4:
 	add	r4, r1, #0
 	bl	sub_8062A50
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	_1	@cond_branch
 	mov	r1, #0x80
 	lsl	r1, r1, #0x1
 	cmp	r4, r1
-	bls	.L2	@cond_branch
+	bls	_2	@cond_branch
 	add	r4, r1, #0
-.L2:
+_2:
 	strh	r4, [r0, #0x10]
-.L1:
+_1:
 	pop	{r4}
 	pop	{r0}
 	bx	r0

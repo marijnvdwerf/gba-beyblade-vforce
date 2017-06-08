@@ -6,8 +6,8 @@ sub_80627A8:
 	add	r4, r0, #0
 	ldrb	r0, [r4, #0x16]
 	cmp	r0, #0x1
-	bne	.L4	@cond_branch
-	ldr	r0, .L5
+	bne	_4	@cond_branch
+	ldr	r0, _5
 	ldr	r3, [r0]
 	add	r0, r4, #0
 	bl	_call_via_r3
@@ -21,22 +21,22 @@ sub_80627A8:
 	add	r5, r1, r0
 	ldr	r0, [r4, #0x4]
 	cmp	r0, r3
-	bcc	.L4	@cond_branch
+	bcc	_4	@cond_branch
 	cmp	r2, #0
-	beq	.L3	@cond_branch
+	beq	_3	@cond_branch
 	sub	r0, r0, r3
 	sub	r1, r3, r5
 	bl	__umodsi3
 	add	r0, r5, r0
 	str	r0, [r4, #0x4]
-	b	.L4
-.L6:
+	b	_4
+_6:
 	.align	2, 0
-.L5:
-	.4byte	0x807d964
-.L3:
+_5:
+	.word	__sub_87577B4
+_3:
 	strb	r2, [r4, #0x16]
-.L4:
+_4:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

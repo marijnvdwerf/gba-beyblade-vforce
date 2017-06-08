@@ -5,15 +5,15 @@ sub_8062E54:
 	push	{lr}
 	bl	sub_8062A50
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	_2	@cond_branch
 	ldrb	r0, [r0, #0x16]
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	_2	@cond_branch
 	mov	r0, #0x1
-	b	.L3
-.L2:
+	b	_3
+_2:
 	mov	r0, #0x0
-.L3:
+_3:
 	pop	{r1}
 	bx	r1
 	thumb_func_end sub_8062E54
