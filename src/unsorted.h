@@ -15,7 +15,6 @@ void sub_8063A50(void);
 void sub_8063A68(int, int);
 void sub_8063A7C(int);
 void initMultiPlayer(int, int, int);
-void allocateSoundTables(int, int);
 void allocateActorHeaps(void);
 void SpriteVRamFree(int, int);
 void initGame(void);
@@ -36,7 +35,6 @@ void sub_80512AC(void);
 int sub_8051780(int);
 
 void allocateRenderCode(RenderData*, int);
-void sub_8062774(void);
 
 void sub_805AC28(int, int, int, u16);
 

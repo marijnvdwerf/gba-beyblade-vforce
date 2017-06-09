@@ -1009,36 +1009,36 @@ SECTIONS {
 		asm/dump/8057b80-debug/80622d0.s.o(.text);
 		asm/dump/8057b80-debug/80622e8.s.o(.text);
 		asm/dump/8057b80-debug/8062318.s.o(.text);
-		asm/dump/8057b80-debug/8062328.s.o(.text);
-		asm/dump/8057b80-debug/8062340.s.o(.text);
 
+		src/sound.c.o(.text.sub_8062328);
+		src/sound.c.o(.text.sub_8062340);
 		src/sound.c.o(.text.sub_806234C);
 		src/sound.c.o(.text.sub_80623A8);
-		asm/dump/sound/806246c-allocateSoundTables.s.o(.text);
-		asm/dump/sound/806261c.s.o(.text); /* unref */
-		asm/dump/sound/806263c.s.o(.text); /* unref */
+		src/sound.c.o(.text.allocateSoundTables);
+		src/sound.c.o(.text.sub_806261C);
+		src/sound.c.o(.text.sub_806263C); /* unref */
 		src/sound.c.o(.text.sub_8062694);
 		src/sound.c.o(.text.sub_80626E0);
 		src/sound.c.o(.text.sub_8062774);
-		asm/dump/sound/80627a8.s.o(.text);
+		src/sound.c.o(.text.sub_80627A8);
 		asm/dump/sound/80627f0.s.o(.text);
-		asm/dump/sound/8062910.s.o(.text);
-		asm/dump/sound/8062950.s.o(.text);
-		asm/dump/sound/8062990.s.o(.text);
-		asm/dump/sound/80629f0.s.o(.text);
-		asm/dump/sound/8062a50.s.o(.text);
-		asm/dump/sound/8062a90.s.o(.text);
-		asm/dump/sound/8062aa4.s.o(.text);
-		asm/dump/sound/8062ab8.s.o(.text);
-		asm/dump/sound/8062ad4.s.o(.text);
-		asm/dump/sound/8062af4.s.o(.text);
+		src/sound.c.o(.text.sub_8062910);
+		src/sound.c.o(.text.sub_8062950);
+		src/sound.c.o(.text.sub_8062990);
+		src/sound.c.o(.text.sub_80629F0);
+		src/sound.c.o(.text.sub_8062A50);
+		src/sound.c.o(.text.sub_8062A90);
+		src/sound.c.o(.text.sub_8062AA4);
+		src/sound.c.o(.text.sub_8062AB8);
+		src/sound.c.o(.text.sub_8062AD4);
+		src/sound.c.o(.text.sub_8062AF4);
 		src/sound.c.o(.text.sub_8062B20);
-		asm/dump/sound/8062b2c.s.o(.text); /* unref */
-		asm/dump/sound/8062b90.s.o(.text); /* unref */
-		asm/dump/sound/8062ba8.s.o(.text); /* unref */
+		asm/dump/sound/unref/8062b2c.s.o(.text); /* unref */
+		src/sound.c.o(.text.sub_8062B90); /* unref */
+		src/sound.c.o(.text.sub_8062BA8); /* unref */
 		src/sound.c.o(.text.sub_8062BFC);
 		asm/dump/sound/8062c24.s.o(.text);
-		asm/dump/sound/8062e54.s.o(.text); /* unref */
+		src/sound.c.o(.text.sub_8062E54); /* unref */
 
 		asm/dump/8057b80-debug/8062e70-allocateActorHeaps.s.o(.text);
 		asm/dump/8057b80-debug/8062efc.s.o(.text);
@@ -1222,6 +1222,7 @@ SECTIONS {
 		src/sprite.c.o(.rodata);
 		src/strings7.c.o(.rodata);
 		asm/data4.s.o(.rodata);
+		src/sound.c.o(.rodata);
 		src/strings5.c.o(.rodata);
 		asm/data5.s.o(.rodata);
 		src/strings6.c.o(.rodata);

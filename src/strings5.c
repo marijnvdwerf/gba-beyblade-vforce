@@ -1,14 +1,5 @@
 #include "common.h"
 
-// 8755D90
-const u8 Str_8755D90[] = "Not enough RAM for sound mixer: requires %i bytes\n";
-
-// 8755DC4
-const u8 Str_8755DC4[] = "Not enough EXRAM for sound tables: requires %i bytes\n";
-
-// 8755DFC
-const u8 Str_8755DFC[] = "Out of audio channels\n";
-
 // 8755E14
 const u8 Str_8755E14[] = "End Track Here\n";
 
