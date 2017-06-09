@@ -284,7 +284,7 @@ void sub_80627A8(SoundStructA* arg0, int arg1, int arg2)
     }
 }
 
-void sub_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
+static void sub_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
 {
     arg0->var16 = 1;
     arg0->var00 = arg1;
@@ -302,7 +302,7 @@ void sub_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
     arg0->var24 = 0;
 }
 
-void sub_8062950(SoundStructA* arg0, SoundStructE* (*segments)[], s16 (*order)[])
+static void sub_8062950(SoundStructA* arg0, SoundStructE* (*segments)[], s16 (*order)[])
 {
     SoundStructE* data = (*segments)[(*order)[0]];
 
