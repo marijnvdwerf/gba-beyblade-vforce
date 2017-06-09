@@ -2058,6 +2058,7 @@ global __sub_87576D8
     .4byte nullsub_9 + 1
     .4byte printf + 1
 
+    .align 2, 0
 global __sub_87577B4
     .4byte _sub_87577B4
 
