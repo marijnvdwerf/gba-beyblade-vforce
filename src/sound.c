@@ -63,7 +63,7 @@ typedef struct {
 
 typedef void(ClearFn)(int, void*, int);
 
-extern void* _unk3000D90;
+extern u8* _unk3000D90;
 extern u32 _unk3000D94;
 extern u32 (*_soundTables)[];
 extern u32 _unk3000D9C;
@@ -88,7 +88,12 @@ extern SoundStructC _unk3005E40;
 extern u16 _unk3005E4C;
 extern u16 (*_soundMixerPlus)[];
 
+// Actor?
+extern u8 _unk3005E78;
+
 void (*__sub_87577B4)(SoundStructA*, int, int);
+void (*__sub_8757A64)(int, int, int);
+
 extern ClearFn* __fastMemoryClearARM;
 
 extern u32 Unk_8755B90[];
@@ -142,7 +147,7 @@ static void sub_80623A8(u32 arg0)
         table++;
     }
 
-    _unk3000D90 = _soundMixer;
+    _unk3000D90 = (u8*)_soundMixer;
     _unk3000D94 = 0x10000 - _unk3005E4C;
     _unk3000DA2 = -1;
     _unk3000DA0 = 256;
@@ -242,7 +247,7 @@ void sub_80626E0(void)
     REG_TM1CNT = (0xC4 << 16) | (_unk3005E18 - 2);
     REG_TM0CNT = (0x80 << 16) | (0x10000 - (16780000 / _unk3005E40.var00));
 
-    _unk3000D90 = _soundMixer;
+    _unk3000D90 = (u8*)_soundMixer;
     _unk3000D94 = 0x10000 - _unk3005E4C;
 }
 
@@ -279,6 +284,67 @@ void sub_80627A8(SoundStructA* arg0, int arg1, int arg2)
         arg0->var16 = 0;
     }
 }
+
+#if 0
+void sub_80627F0(void)
+{
+    u32 varA, varB;
+    int r10, r5;
+    u16 var;
+    int i;
+
+    SoundStructA* channel = *_unk3005E24;
+    u8 e04 = _unk3005E04;
+
+    if (_soundMixer == NULL) {
+        return;
+    }
+
+    if (_unk3005E40.var04 == 0) {
+        return;
+    }
+
+    sub_8062C24();
+
+    varA = _unk3000D94;
+    varB = (_unk3005E40.var08 + 1) & -2;
+
+    var = (REG_TM1CNT + 1) & -2;
+    if (var == 0x10000) {
+        var = _unk3005E18;
+    }
+    _unk3000D94 = var;
+
+    if (_unk3000D94 > varA) {
+        r5 = _unk3000D94 - _unk3000D94;
+        r10 = 0;
+    } else {
+        r5 = 0x10000 - _unk3000D94;
+        r10 = _unk3005E4C + 0xFFFF0000 + _unk3000D94;
+    }
+
+    _unk3005E78 = 0;
+
+    for (i = e04 - 1; i != -1; i--) {
+        sub_80627A8(channel, r5 + r10, _unk3000DA0);
+        channel++;
+    }
+    // loop
+
+    __sub_8757A64((int)*_unk3000D90, r5, 0);
+    _unk3000D90 += r5;
+
+    if (r10 != 0) {
+        _unk3000D90 -= _unk3005E4C;
+        __sub_8757A64((int)*_unk3000D90, r10, r5);
+        _unk3000D90 += r10;
+    }
+
+    if (_unk3000D90 == (u8*)_soundMixer + _unk3005E4C) {
+        _unk3000D90 -= _unk3005E4C;
+    }
+}
+#endif
 
 static void sub_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
 {
