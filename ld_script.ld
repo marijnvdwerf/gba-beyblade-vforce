@@ -1033,7 +1033,7 @@ SECTIONS {
 		src/sound.c.o(.text.sub_8062AD4);
 		src/sound.c.o(.text.sub_8062AF4);
 		src/sound.c.o(.text.sub_8062B20);
-		asm/dump/sound/unref/8062b2c.s.o(.text); /* unref */
+		src/sound.c.o(.text.sub_8062B2C);
 		src/sound.c.o(.text.sub_8062B90); /* unref */
 		src/sound.c.o(.text.sub_8062BA8); /* unref */
 		src/sound.c.o(.text.sub_8062BFC);

@@ -5,36 +5,14 @@
 #include "unsorted.h"
 
 typedef struct {
+    u8 var00;
+    u32 var04;
+} SoundStructG;
+
+typedef struct {
     /*0x00*/ u32 var00;
-    /*0x04*/ u8 var04[4][8];
+    /*0x04*/ SoundStructG var04[4];
 } SoundStructF;
-
-extern u8 (*_soundMixer)[];
-extern u32 (*_unk3005E28)[][9];
-extern AllocatedBlock* _soundMixerBlock;
-extern AllocatedBlock* _soundTableBlock;
-
-extern void* _unk3000D90;
-extern u16 _unk3005E4C;
-extern u16 _unk3000DA0;
-extern u16 _unk3000DA2;
-extern u32 _unk3000D94;
-
-extern u32 _unk3005E20;
-
-extern u32 _unk3000D9C;
-
-extern u32 (*_soundTables)[];
-
-extern u32 Unk_8755B90[];
-
-extern u16 (*_soundMixerPlus)[];
-
-typedef void(ClearFn)(int, void*, int);
-
-extern ClearFn* __fastMemoryClearARM;
-
-extern SfxTable* _unk3005E14;
 
 typedef struct {
     /*0x00*/ u8 pad00[4];
@@ -61,43 +39,61 @@ typedef struct {
     /*0x26*/ u8 pad26[2];
 } SoundStructA;
 
-#define FIFO_ENABLE 7
-#define DMA_A_VOLUME_100 2
-#define DMA_A_ENABLE_RIGHT 8
-#define DMA_A_ENABLE_LEFT 9
-#define DMA_A_RESET_FIFO 11
-
-extern u16 _unk3005E18;
-
 typedef struct SoundStructC {
     u32 var00;
     u32 var04;
     u32 var08;
 } SoundStructC;
 
-extern SoundStructC _unk3005E40;
-
-extern u32 _unk3005E0C;
-
-extern u8 _unk3005E04;
-extern SoundStructA (*_unk3005E24)[2];
-
 typedef struct {
     /*0x00*/ s16 var00;
 } SoundStructB;
 
-void (*__sub_87577B4)(SoundStructA*, int, int);
-
-#define min(a, b) (((a) < (b)) ? (a) : (b))
-extern u8 _unk3005E04;
-
-extern s32 _unk3005E08;
-extern s32 _unk3005E10;
 typedef struct {
     /*0x00*/ u8 var00;
 } SoundStructD;
 
+#define FIFO_ENABLE 7
+#define DMA_A_VOLUME_100 2
+#define DMA_A_ENABLE_RIGHT 8
+#define DMA_A_ENABLE_LEFT 9
+#define DMA_A_RESET_FIFO 11
+
+#define min(a, b) (((a) < (b)) ? (a) : (b))
+
+typedef void(ClearFn)(int, void*, int);
+
+extern void* _unk3000D90;
+extern u32 _unk3000D94;
+extern u32 (*_soundTables)[];
+extern u32 _unk3000D9C;
+extern u16 _unk3000DA0;
+extern u16 _unk3000DA2;
+
 extern u8 (*_unk3005E00)[];
+extern u8 _unk3005E04;
+extern s32 _unk3005E08;
+extern u32 _unk3005E0C;
+extern s32 _unk3005E10;
+extern SfxTable* _unk3005E14;
+extern u16 _unk3005E18;
+extern u8 (*_soundMixer)[];
+extern u32 _unk3005E20;
+extern SoundStructA (*_unk3005E24)[2];
+extern SoundStructF (*_unk3005E28)[16];
+extern AllocatedBlock* _soundMixerBlock;
+extern AllocatedBlock* _soundTableBlock;
+// ???
+extern SoundStructC _unk3005E40;
+extern u16 _unk3005E4C;
+extern u16 (*_soundMixerPlus)[];
+
+void (*__sub_87577B4)(SoundStructA*, int, int);
+extern ClearFn* __fastMemoryClearARM;
+
+extern u32 Unk_8755B90[];
+
+void sub_8062C24(void);
 
 void sub_8062328(u32 arg0)
 {
@@ -437,6 +433,26 @@ void sub_8062AF4(int arg0, u32 arg1)
 void sub_8062B20(SfxTable* table)
 {
     _unk3005E14 = table;
+}
+
+void sub_8062B2C(void)
+{
+    u32 i, n;
+
+    if (_unk3005E0C != 1) {
+        return;
+    }
+
+    for (i = 0; i < 16; i++) {
+        for (n = 0; n < 4; n++) {
+            if ((*_unk3005E28)[i].var04[n].var00 != 0) {
+                sub_8062A90((*_unk3005E28)[i].var04[n].var04);
+                (*_unk3005E28)[i].var04[n].var00 = 0;
+            }
+        }
+    }
+
+    _unk3005E0C = 0;
 }
 
 void sub_8062B90()
