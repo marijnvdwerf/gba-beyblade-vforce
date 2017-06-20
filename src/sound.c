@@ -369,7 +369,7 @@ static void Sound_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
     arg0->var24 = 0;
 }
 
-static void Sound_8062950(SoundStructA* arg0, SoundStructE* (* segments)[], s16 (* order)[])
+static void Sound_8062950(SoundStructA* arg0, SoundStructE* (*segments)[], s16 (*order)[])
 {
     SoundStructE* data = (*segments)[(*order)[0]];
 
@@ -386,7 +386,7 @@ static void Sound_8062950(SoundStructA* arg0, SoundStructE* (* segments)[], s16 
     arg0->var24 = 1;
 }
 
-s32 Sound_8062990(SoundStructE* (* segments)[], s16 (* order)[])
+s32 Sound_8062990(SoundStructE* (*segments)[], s16 (*order)[])
 {
     int i;
 
@@ -413,7 +413,7 @@ s32 Sound_80629F0(SoundStructE* arg0, int arg1)
     SoundStructA* var1 = &(*_unk3005E24)[0];
     for (i = _unk3005E04 - 1; i != -1; i--) {
         if (var1->var16 == 0) {
-            Sound_8062910(var1, arg0, (u32) arg1);
+            Sound_8062910(var1, arg0, (u32)arg1);
             var1->var18 = _unk3000D9C++;
 
             return var1->var18;
@@ -555,7 +555,7 @@ s32 Sound_8062BFC(int arg0, int arg1)
         return;
     }
 
-    return Sound_80629F0((SoundStructE*) (*_unk3005E14->data)[arg0], arg1);
+    return Sound_80629F0((SoundStructE*)(*_unk3005E14->data)[arg0], arg1);
 }
 /*
 void sub_8062C24(void) {
