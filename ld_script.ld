@@ -229,16 +229,16 @@ SECTIONS {
 		asm/dump/8040d18/8049458.s.o(.text);
 		asm/dump/8040d18/80495c4.s.o(.text);
 		asm/dump/8040d18/804967c.s.o(.text);
-		src/background.c.o(.text.sub_80498D8);
-		src/background.c.o(.text.sub_80498F8);
-		src/background.c.o(.text.sub_8049950);
-		src/background.c.o(.text.sub_80499BC);
-		src/background.c.o(.text.sub_8049A24);
-		src/background.c.o(.text.sub_8049A84);
-		src/background.c.o(.text.sub_8049AF8);
-		src/background.c.o(.text.sub_8049B68);
-		src/background.c.o(.text.sub_8049BF8);
-		src/background.c.o(.text.sub_8049C70);
+		src/background.c.o(.text.Background_80498D8);
+		src/background.c.o(.text.Background_80498F8);
+		src/background.c.o(.text.Background_8049950);
+		src/background.c.o(.text.Background_80499BC);
+		src/background.c.o(.text.Background_8049A24);
+		src/background.c.o(.text.Background_8049A84);
+		src/background.c.o(.text.Background_8049AF8);
+		src/background.c.o(.text.Background_8049B68);
+		src/background.c.o(.text.Background_8049BF8);
+		src/background.c.o(.text.Background_8049C70);
 		asm/dump/8040d18/8049ce8.s.o(.text);
 		asm/dump/8040d18/8049de0.s.o(.text);
 		asm/dump/8040d18/8049f58.s.o(.text);
@@ -739,7 +739,7 @@ SECTIONS {
 		src/layer.c.o(.text.GetBGLayerVOffsetPtr);
 		src/layer.c.o(.text.GetBGLayerCntPtr);
 		src/layer.c.o(.text.SetBGOffset);
-		src/layer.c.o(.text.sub_8059AB8);
+		src/layer.c.o(.text.SetLayerTransform);
 		asm/dump/8057b80-debug/8059b00.s.o(.text);
 		asm/dump/8057b80-debug/8059c18.s.o(.text);
 		asm/dump/8057b80-debug/8059cb4.s.o(.text);
@@ -1010,35 +1010,35 @@ SECTIONS {
 		asm/dump/8057b80-debug/80622e8.s.o(.text);
 		asm/dump/8057b80-debug/8062318.s.o(.text);
 
-		src/sound.c.o(.text.sub_8062328);
-		src/sound.c.o(.text.sub_8062340);
-		src/sound.c.o(.text.sub_806234C);
-		src/sound.c.o(.text.sub_80623A8);
+		src/sound.c.o(.text.Sound_8062328);
+		src/sound.c.o(.text.Sound_8062340);
+		src/sound.c.o(.text.Sound_806234C);
+		src/sound.c.o(.text.Sound_80623A8);
 		src/sound.c.o(.text.allocateSoundTables);
-		src/sound.c.o(.text.sub_806261C);
-		src/sound.c.o(.text.sub_806263C); /* unref */
-		src/sound.c.o(.text.sub_8062694);
-		src/sound.c.o(.text.sub_80626E0);
-		src/sound.c.o(.text.sound_onTimer1Overflow);
-		src/sound.c.o(.text.sub_80627A8);
+		src/sound.c.o(.text.Sound_806261C);
+		src/sound.c.o(.text.Sound_806263C); /* unref */
+		src/sound.c.o(.text.Sound_8062694);
+		src/sound.c.o(.text.Sound_80626E0);
+		src/sound.c.o(.text.Sound_onTimer1Overflow);
+		src/sound.c.o(.text.Sound_80627A8);
 		asm/dump/sound/80627f0.s.o(.text);
-		src/sound.c.o(.text.sub_8062910);
-		src/sound.c.o(.text.sub_8062950);
-		src/sound.c.o(.text.sub_8062990);
-		src/sound.c.o(.text.sub_80629F0);
-		src/sound.c.o(.text.sub_8062A50);
-		src/sound.c.o(.text.sub_8062A90);
-		src/sound.c.o(.text.sub_8062AA4);
-		src/sound.c.o(.text.sub_8062AB8);
-		src/sound.c.o(.text.sub_8062AD4);
-		src/sound.c.o(.text.sub_8062AF4);
-		src/sound.c.o(.text.sub_8062B20);
-		src/sound.c.o(.text.sub_8062B2C);
-		src/sound.c.o(.text.sub_8062B90); /* unref */
-		src/sound.c.o(.text.sub_8062BA8); /* unref */
-		src/sound.c.o(.text.sub_8062BFC);
+		src/sound.c.o(.text.Sound_8062910);
+		src/sound.c.o(.text.Sound_8062950);
+		src/sound.c.o(.text.Sound_8062990);
+		src/sound.c.o(.text.Sound_80629F0);
+		src/sound.c.o(.text.Sound_8062A50);
+		src/sound.c.o(.text.Sound_8062A90);
+		src/sound.c.o(.text.Sound_8062AA4);
+		src/sound.c.o(.text.Sound_8062AB8);
+		src/sound.c.o(.text.Sound_8062AD4);
+		src/sound.c.o(.text.Sound_8062AF4);
+		src/sound.c.o(.text.Sound_8062B20);
+		src/sound.c.o(.text.Sound_8062B2C);
+		src/sound.c.o(.text.Sound_8062B90); /* unref */
+		src/sound.c.o(.text.Sound_8062BA8); /* unref */
+		src/sound.c.o(.text.Sound_8062BFC);
 		asm/dump/sound/8062c24.s.o(.text);
-		src/sound.c.o(.text.sub_8062E54); /* unref */
+		src/sound.c.o(.text.Sound_8062E54); /* unref */
 
 		asm/dump/8057b80-debug/8062e70-allocateActorHeaps.s.o(.text);
 		asm/dump/8057b80-debug/8062efc.s.o(.text);

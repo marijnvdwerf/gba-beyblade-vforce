@@ -103,18 +103,20 @@ extern u32 Unk_8755B90[];
 
 void sub_8062C24(void);
 
-void sub_8062328(u32 arg0)
+void Sound_8062B2C(void);
+
+void Sound_8062328(u32 arg0)
 {
     arg0 = min(arg0, 256);
     _unk3000DA0 = arg0;
 }
 
-u16 sub_8062340(void)
+u16 Sound_8062340(void)
 {
     return _unk3000DA0;
 }
 
-static void sub_806234C(void)
+static void Sound_806234C(void)
 {
     if (_soundMixerBlock == NULL) {
         return;
@@ -137,7 +139,7 @@ static void sub_806234C(void)
     _soundMixerPlus = NULL;
 }
 
-static void sub_80623A8(u32 arg0)
+static void Sound_80623A8(u32 arg0)
 {
     s32 i;
 
@@ -160,7 +162,7 @@ void allocateSoundTables(u32 arg0, u32 arg1)
 {
     u32 bytes;
 
-    sub_806234C();
+    Sound_806234C();
 
     arg1 = min(arg1, 16);
     arg0 = min(arg0, 44010);
@@ -192,7 +194,7 @@ void allocateSoundTables(u32 arg0, u32 arg1)
     _unk3005E24 = (SoundStructA(*)[2])(&(*_soundMixerPlus)[_unk3005E4C]);
 
     DmaFill32(3, 0, _soundMixer, bytes);
-    sub_80623A8(arg0);
+    Sound_80623A8(arg0);
 
     REG_SOUNDCNT_X = 0x80;
     REG_SOUNDCNT_H = 0xB04;
@@ -208,7 +210,7 @@ void allocateSoundTables(u32 arg0, u32 arg1)
     _unk3005E0C = 0;
 }
 
-void sub_806261C(void)
+void Sound_806261C(void)
 {
     _unk3005E40.var04 = 0;
     REG_DMA1CNT = 0;
@@ -217,7 +219,7 @@ void sub_806261C(void)
     REG_TM0CNT = 0;
 }
 
-void sub_806263C()
+void Sound_806263C()
 {
     REG_DMA1CNT = 0xB6000000;
     REG_TM1CNT = (0xC4 << 16) | (_unk3005E18 - 2);
@@ -225,7 +227,7 @@ void sub_806263C()
     _unk3005E40.var04 = 1;
 }
 
-void sub_8062694(void)
+void Sound_8062694(void)
 {
     REG_SOUNDCNT_X = 0;
     REG_SOUNDCNT_H = 0;
@@ -237,7 +239,7 @@ void sub_8062694(void)
     __fastMemoryClearARM(0, _soundMixer, _unk3005E4C * 3);
 }
 
-void sub_80626E0(void)
+void Sound_80626E0(void)
 {
     REG_SOUNDCNT_X = (1 << FIFO_ENABLE);
     REG_SOUNDCNT_H = (1 << DMA_A_RESET_FIFO) | (1 << DMA_A_ENABLE_LEFT) | (1 << DMA_A_ENABLE_RIGHT)
@@ -254,7 +256,7 @@ void sub_80626E0(void)
     _unk3000D94 = 0x10000 - _unk3005E4C;
 }
 
-void sound_onTimer1Overflow(void)
+void Sound_onTimer1Overflow(void)
 {
     REG_DMA1CNT = 0;
     REG_DMA2CNT = 0;
@@ -263,7 +265,7 @@ void sound_onTimer1Overflow(void)
     REG_DMA1CNT = 0xB6000000;
 }
 
-void sub_80627A8(SoundStructA* arg0, int arg1, int arg2)
+void Sound_80627A8(SoundStructA* arg0, int arg1, int arg2)
 {
     uintptr_t start, end, current;
 
@@ -349,7 +351,7 @@ void sub_80627F0(void)
 }
 #endif
 
-static void sub_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
+static void Sound_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
 {
     arg0->var16 = 1;
     arg0->var00 = arg1;
@@ -367,7 +369,7 @@ static void sub_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
     arg0->var24 = 0;
 }
 
-static void sub_8062950(SoundStructA* arg0, SoundStructE* (*segments)[], s16 (*order)[])
+static void Sound_8062950(SoundStructA* arg0, SoundStructE* (* segments)[], s16 (* order)[])
 {
     SoundStructE* data = (*segments)[(*order)[0]];
 
@@ -384,14 +386,14 @@ static void sub_8062950(SoundStructA* arg0, SoundStructE* (*segments)[], s16 (*o
     arg0->var24 = 1;
 }
 
-s32 sub_8062990(SoundStructE* (*segments)[], s16 (*order)[])
+s32 Sound_8062990(SoundStructE* (* segments)[], s16 (* order)[])
 {
     int i;
 
     SoundStructA* var1 = &(*_unk3005E24)[0];
     for (i = _unk3005E04 - 1; i != -1; i--) {
         if (var1->var16 == 0) {
-            sub_8062950(var1, segments, order);
+            Sound_8062950(var1, segments, order);
             var1->var18 = _unk3000D9C++;
 
             return var1->var18;
@@ -404,14 +406,14 @@ s32 sub_8062990(SoundStructE* (*segments)[], s16 (*order)[])
     return -1;
 }
 
-s32 sub_80629F0(SoundStructE* arg0, int arg1)
+s32 Sound_80629F0(SoundStructE* arg0, int arg1)
 {
     int i;
 
     SoundStructA* var1 = &(*_unk3005E24)[0];
     for (i = _unk3005E04 - 1; i != -1; i--) {
         if (var1->var16 == 0) {
-            sub_8062910(var1, arg0, (u32)arg1);
+            Sound_8062910(var1, arg0, (u32) arg1);
             var1->var18 = _unk3000D9C++;
 
             return var1->var18;
@@ -424,7 +426,7 @@ s32 sub_80629F0(SoundStructE* arg0, int arg1)
     return -1;
 }
 
-static SoundStructA* sub_8062A50(int arg0)
+static SoundStructA* Sound_8062A50(int arg0)
 {
     int i;
 
@@ -440,42 +442,42 @@ static SoundStructA* sub_8062A50(int arg0)
     return NULL;
 }
 
-void sub_8062A90(int arg0)
+void Sound_8062A90(int arg0)
 {
     SoundStructA* var;
 
-    var = sub_8062A50(arg0);
+    var = Sound_8062A50(arg0);
     if (var != NULL) {
         var->var16 = 0;
     }
 }
 
-void sub_8062AA4(int arg0)
+void Sound_8062AA4(int arg0)
 {
     SoundStructA* var;
 
-    var = sub_8062A50(arg0);
+    var = Sound_8062A50(arg0);
     if (var != NULL) {
         var->var16 = 2;
     }
 }
 
-void sub_8062AB8(int arg0)
+void Sound_8062AB8(int arg0)
 {
     SoundStructA* var;
 
-    var = sub_8062A50(arg0);
+    var = Sound_8062A50(arg0);
     if (var != NULL && var->var16 == 2) {
         var->var16 = 1;
     }
 }
 ASM_ZEROPAD
 
-void sub_8062AD4(int arg0, u32 arg1)
+void Sound_8062AD4(int arg0, u32 arg1)
 {
     SoundStructA* var;
 
-    var = sub_8062A50(arg0);
+    var = Sound_8062A50(arg0);
     if (var != NULL) {
         if (arg1 > 256) {
             arg1 = 256;
@@ -485,11 +487,11 @@ void sub_8062AD4(int arg0, u32 arg1)
 }
 ASM_ZEROPAD
 
-void sub_8062AF4(int arg0, u32 arg1)
+void Sound_8062AF4(int arg0, u32 arg1)
 {
     SoundStructA* var;
 
-    var = sub_8062A50(arg0);
+    var = Sound_8062A50(arg0);
     if (var != NULL) {
         if (arg1 > 127) {
             arg1 = 127;
@@ -499,12 +501,12 @@ void sub_8062AF4(int arg0, u32 arg1)
     }
 }
 
-void sub_8062B20(SfxTable* table)
+void Sound_8062B20(SfxTable* table)
 {
     _unk3005E14 = table;
 }
 
-void sub_8062B2C(void)
+void Sound_8062B2C(void)
 {
     u32 i, n;
 
@@ -515,7 +517,7 @@ void sub_8062B2C(void)
     for (i = 0; i < 16; i++) {
         for (n = 0; n < 4; n++) {
             if ((*_unk3005E28)[i].var04[n].var00 != 0) {
-                sub_8062A90((*_unk3005E28)[i].var04[n].var04);
+                Sound_8062A90((*_unk3005E28)[i].var04[n].var04);
                 (*_unk3005E28)[i].var04[n].var00 = 0;
             }
         }
@@ -524,22 +526,20 @@ void sub_8062B2C(void)
     _unk3005E0C = 0;
 }
 
-void sub_8062B90()
+void Sound_8062B90()
 {
     if (_unk3005E00 != NULL) {
         _unk3005E0C = 1;
     }
 }
 
-void sub_8062B2C(void);
-
-void sub_8062BA8(int arg0)
+void Sound_8062BA8(int arg0)
 {
     if (arg0 >= _unk3005E14->var00) {
         return;
     }
 
-    sub_8062B2C();
+    Sound_8062B2C();
 
     _unk3005E00 = (u8(*)[])(*_unk3005E14->var08)[arg0][0];
     _unk3005E20 = (u32)(*_unk3005E14->var08)[arg0][1];
@@ -549,13 +549,13 @@ void sub_8062BA8(int arg0)
     _unk3005E0C = 1;
 }
 
-s32 sub_8062BFC(int arg0, int arg1)
+s32 Sound_8062BFC(int arg0, int arg1)
 {
     if (arg0 >= _unk3005E14->count) {
         return;
     }
 
-    return sub_80629F0((SoundStructE*)(*_unk3005E14->data)[arg0], arg1);
+    return Sound_80629F0((SoundStructE*) (*_unk3005E14->data)[arg0], arg1);
 }
 /*
 void sub_8062C24(void) {
@@ -621,9 +621,9 @@ void sub_8062C24(void) {
 
 }*/
 
-int sub_8062E54(int arg0)
+int Sound_8062E54(int arg0)
 {
-    SoundStructA* var1 = sub_8062A50(arg0);
+    SoundStructA* var1 = Sound_8062A50(arg0);
 
     if (var1 != NULL && var1->var16 != 0) {
         return true;

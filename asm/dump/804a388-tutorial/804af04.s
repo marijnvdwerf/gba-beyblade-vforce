@@ -17,7 +17,7 @@ sub_804AF04:
 	add	r1, r1, #0x4
 	add	r4, r4, r1
 	ldr	r1, [r4]
-	bl	sub_8062990
+	bl	Sound_8062990
 	ldr	r1, [r5]
 	ldr	r2, .L1 + 12
 	add	r1, r1, r2
@@ -27,7 +27,7 @@ sub_804AF04:
 	ldr	r2, .L1 + 20
 	add	r1, r1, r2
 	ldrh	r1, [r1]
-	bl	sub_8062AD4
+	bl	Sound_8062AD4
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

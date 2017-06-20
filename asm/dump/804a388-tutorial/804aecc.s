@@ -18,7 +18,7 @@ sub_804AECC:
 	add	r0, r2, r1
 	ldr	r0, [r0]
 	add	r1, r3, #0
-	bl	sub_8062AF4
+	bl	Sound_8062AF4
 .L1:
 	pop	{r4}
 	pop	{r0}

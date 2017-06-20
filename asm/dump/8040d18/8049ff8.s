@@ -114,7 +114,7 @@ sub_8049FF8:
 	ldrb	r3, [r3]
 	cmp	r3, #0x40
 	bne	.L18	@cond_branch
-	bl	sub_80498D8
+	bl	Background_80498D8
 .L18:
 	pop	{r0}
 	bx	r0

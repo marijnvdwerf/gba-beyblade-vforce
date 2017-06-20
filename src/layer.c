@@ -70,7 +70,7 @@ void SetBGOffset(u8 layer, s32 x, s32 y)
     }
 }
 
-void sub_8059AB8(u8 layer, u16 dx, u16 dmx, u16 dy, u16 dmy)
+void SetLayerTransform(u8 layer, u16 dx, u16 dmx, u16 dy, u16 dmy)
 {
 
     switch (layer) {

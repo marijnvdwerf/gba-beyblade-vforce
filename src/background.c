@@ -115,14 +115,14 @@ void sub_80596AC(void*, int, int);
 #define BLDCNT_EFFECT(val) ((val) << 6)
 #define BLDCNT_TARGET_2(val) ((val) << 8)
 
-void sub_80498D8(void)
+void Background_80498D8(void)
 {
     REG_BLDCNT = BLDCNT_TARGET_1(BLDCNT_BG1) | BLDCNT_EFFECT(BLDCNT_EFFECT_ALPHA)
         | BLDCNT_TARGET_2(BLDCNT_BG0 | BLDCNT_BG1 | BLDCNT_BG2 | BLDCNT_BG3);
     REG_BLDALPHA = (12 << 8) | (6 << 0);
 }
 
-void sub_80498F8(void)
+void Background_80498F8(void)
 {
     sub_80508A4(&_3000000.varBE0);
 
@@ -135,7 +135,7 @@ void sub_80498F8(void)
     }
 }
 
-void sub_8049950(void)
+void Background_8049950(void)
 {
     UnkStruct_sub1* arg0;
     u32* pInt;
@@ -155,7 +155,7 @@ void sub_8049950(void)
     sub_80627F0();
 }
 
-void sub_80499BC(void)
+void Background_80499BC(void)
 {
     UnkStruct_sub1* arg0;
     u32* pInt;
@@ -175,7 +175,7 @@ void sub_80499BC(void)
     sub_80627F0();
 }
 
-void sub_8049A24(void)
+void Background_8049A24(void)
 {
     sub_8049344(0);
     REG_BLDY = 0;
@@ -189,7 +189,7 @@ void sub_8049A24(void)
     }
 }
 
-void sub_8049A84(void)
+void Background_8049A84(void)
 {
     UnkStruct_sub1* arg0;
     u32* pInt;
@@ -207,7 +207,7 @@ void sub_8049A84(void)
     sub_80627F0();
 }
 
-void sub_8049AF8(void)
+void Background_8049AF8(void)
 {
     UnkStruct_sub1* arg0;
     u32* pInt;
@@ -225,7 +225,7 @@ void sub_8049AF8(void)
     sub_80627F0();
 }
 
-void sub_8049B68(void)
+void Background_8049B68(void)
 {
     UnkStruct_sub1* arg0;
     u32* pInt;
@@ -241,13 +241,13 @@ void sub_8049B68(void)
     sub_8050894(arg0);
     _3000000.var80C |= 3;
     __fastMemoryClearARM(0, (void*)0x5000000, 0x400);
-    sub_80498D8();
+    Background_80498D8();
     VBlankIntrWait();
     sub_804A280(pInt);
     sub_80627F0();
 }
 
-void sub_8049BF8(void)
+void Background_8049BF8(void)
 {
     u32* pInt;
 
@@ -259,13 +259,13 @@ void sub_8049BF8(void)
 
     sub_80508CC(&_3000000.varBE0, &_806A828[_3000000.var704[0]], 1);
     sub_80596AC(&_3000000.var818, 0x800, 0x6000);
-    sub_80498D8();
+    Background_80498D8();
     VBlankIntrWait();
     sub_804A280(pInt);
     sub_80627F0();
 }
 
-void sub_8049C70(void)
+void Background_8049C70(void)
 {
     u32* pInt;
 
@@ -277,7 +277,7 @@ void sub_8049C70(void)
 
     sub_80508CC(&_3000000.varBE0, &_806A828[_3000000.var704[0]], 1);
     sub_80596AC(&_3000000.var818, -0x10000, 0);
-    sub_80498D8();
+    Background_80498D8();
     VBlankIntrWait();
     sub_804A280(pInt);
     sub_80627F0();

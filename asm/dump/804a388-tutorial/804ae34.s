@@ -20,7 +20,7 @@ sub_804AE34:
 	strh	r5, [r0]
 	add	r0, r5, #0
 	add	r1, r6, #0
-	bl	sub_8062BFC
+	bl	Sound_8062BFC
 	ldr	r1, [r4]
 	ldr	r2, .L2 + 16
 	add	r1, r1, r2
@@ -29,7 +29,7 @@ sub_804AE34:
 	ldr	r2, .L2 + 4
 	add	r1, r1, r2
 	ldrh	r1, [r1]
-	bl	sub_8062AD4
+	bl	Sound_8062AD4
 .L1:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}

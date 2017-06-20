@@ -30,7 +30,7 @@ mainLoop:
 	mov	r1, #0x2
 	bl	allocateSoundTables
 	ldr	r0, .L3 + 12
-	bl	sub_8062B20
+	bl	Sound_8062B20
 	bl	allocateActorHeaps
 	mov	r0, #0x80
 	mov	r1, #0x20

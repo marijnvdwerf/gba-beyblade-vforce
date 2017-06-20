@@ -2293,301 +2293,301 @@ global _8069FC8
     .byte 0, 0, 0, 0
     .4byte _8069FA0
     .4byte sub_8043A0C + 1
-    .4byte sub_8049A84 + 1
+    .4byte Background_8049A84 + 1
     .4byte sub_8049CE8 + 1
     .4byte sub_8049DE0 + 1
 
     .byte 17,  0,  0,  0
     .4byte _8069FA0
     .4byte sub_8043A0C + 1
-    .4byte sub_8049AF8 + 1
+    .4byte Background_8049AF8 + 1
     .4byte sub_8049DE0 + 1
     .4byte sub_8049DE0 + 1
 
     .byte 18,  0,  0,  0
     .4byte _8069FA0
     .4byte sub_8043A0C + 1
-    .4byte sub_8049AF8 + 1
+    .4byte Background_8049AF8 + 1
     .4byte sub_8049DE0 + 1
     .4byte sub_8049DE0 + 1
 
     .byte 1, 0, 0, 0
     .4byte _8069FA0
     .4byte sub_8043A0C + 1
-    .4byte sub_8049AF8 + 1
+    .4byte Background_8049AF8 + 1
     .4byte sub_8049DE0 + 1
     .4byte sub_8049DE0 + 1
 
     .byte 14,  0,  0,  0
     .4byte _8069FA0
     .4byte sub_8043A0C + 1
-    .4byte sub_8049AF8 + 1
+    .4byte Background_8049AF8 + 1
     .4byte sub_8049DE0 + 1
     .4byte sub_8049DE0 + 1
 
     .byte 19,  0,  0,  0
     .4byte _8069FA0
     .4byte sub_8043A58 + 1
-    .4byte sub_8049AF8 + 1
+    .4byte Background_8049AF8 + 1
     .4byte sub_8049DE0 + 1
     .4byte sub_8049DE0 + 1
 
     .byte 16,  0,  0,  0
     .4byte _80689C8
     .4byte sub_8043AA0 + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049DE0 + 1
 
     .byte 15,  0,  0,  0
     .4byte _8069318
     .4byte sub_804568C + 1
-    .4byte sub_8049AF8 + 1
+    .4byte Background_8049AF8 + 1
     .4byte sub_8049DE0 + 1
     .4byte sub_8049DE0 + 1
 
     .byte 20,  0,  0,  0
     .4byte _80692C8
     .4byte sub_8045638 + 1
-    .4byte sub_8049B68 + 1
+    .4byte Background_8049B68 + 1
     .4byte sub_8049DE0 + 1
     .4byte sub_8049F9C + 1
 
     .byte 20,  0,  0,  0
     .4byte _80692F0
     .4byte sub_804566C + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049DE0 + 1
 
     .byte 11,  0,  0,  0
     .4byte _8069400
     .4byte sub_8045848 + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 11,  0,  0,  0
     .4byte _8068CA4
     .4byte sub_8043CF8 + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 11,  0,  0,  0
     .4byte _806944C
     .4byte sub_8045A7C + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 4, 0, 0, 0
     .4byte _80694EC
     .4byte sub_8045CB4 + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 11,  0,  0,  0
     .4byte _8069538
     .4byte sub_80461D8 + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 7, 0, 0, 0
     .4byte _80699B4
     .4byte selectBladeFrontendHandler + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049FF8 + 1
     .4byte sub_8049FF8 + 1
 
     .byte 7, 0, 0, 0
     .4byte _80696F4
     .4byte sub_8046500 + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 9, 0, 0, 0
     .4byte _8068ED8
     .4byte sub_8044054 + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 11,  0,  0,  0
     .4byte _8068CF8
     .4byte sub_8043D84 + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 9, 0, 0, 0
     .4byte _80690B8
     .4byte sub_804444C + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 11,  0,  0,  0
     .4byte _806927C
     .4byte sub_80453D8 + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 11,  0,  0,  0
     .4byte _806927C
     .4byte sub_804541C + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 11,  0,  0,  0
     .4byte _8069648
     .4byte sub_8046424 + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 11,  0,  0,  0
     .4byte _806971C
     .4byte sub_8046814 + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 9, 0, 0, 0
     .4byte _8069794
     .4byte sub_8046A0C + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 11,  0,  0,  0
     .4byte _80697E4
     .4byte sub_8046CC4 + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 9, 0, 0, 0
     .4byte _8067D3C
     .4byte creditsFrontendHandler + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049FF8 + 1
     .4byte sub_8049FF8 + 1
 
     .byte 7, 0, 0, 0
     .4byte _80686E8
     .4byte sub_80413FC + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049FF8 + 1
     .4byte sub_8049FF8 + 1
 
     .byte 10,  0,  0,  0
     .4byte _806879C
     .4byte sub_80420C4 + 1
-    .4byte sub_80499BC + 1
+    .4byte Background_80499BC + 1
     .4byte sub_8049F58 + 1
     .4byte sub_8049F58 + 1
 
     .byte 9, 0, 0, 0
     .4byte _8069CDC
     .4byte sub_8047E5C + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 11,  0,  0,  0
     .4byte _8069D28
     .4byte sub_80480EC + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 9, 0, 0, 0
     .4byte _8069DE8
     .4byte sub_8048AE8 + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 11,  0,  0,  0
     .4byte _8069D74
     .4byte sub_8048310 + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 11,  0,  0,  0
     .4byte _8069DC0
     .4byte sub_804868C + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 11,  0,  0,  0
     .4byte _80690E0
     .4byte sub_80448F4 + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 5, 0, 0, 0
     .4byte _806912C
     .4byte sub_8044C48 + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 5, 0, 0, 0
     .4byte _8069154
     .4byte sub_8044ED4 + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 5, 0, 0, 0
     .4byte _806917C
     .4byte sub_8045160 + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 9, 0, 0, 0
     .4byte _8069E10
     .4byte sub_8048D8C + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 3, 0, 0, 0
     .4byte _80687C8
     .4byte sub_804257C + 1
-    .4byte sub_80499BC + 1
+    .4byte Background_80499BC + 1
     .4byte sub_8049F58 + 1
     .4byte sub_8049F58 + 1
 
     .byte 2, 0, 0, 0
     .4byte _8068818
     .4byte collectionListFrontendHandler + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049FF8 + 1
     .4byte sub_8049FF8 + 1
 
     .byte 9, 0, 0, 0
     .4byte _80697BC
     .4byte sub_8046B94 + 1
-    .4byte sub_8049A24 + 1
+    .4byte Background_8049A24 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
     .byte 11,  0,  0,  0
     .4byte _8069E64
     .4byte nullsub_33 + 1
-    .4byte sub_80498F8 + 1
+    .4byte Background_80498F8 + 1
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
