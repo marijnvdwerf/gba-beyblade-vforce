@@ -18,4 +18,6 @@ extern u32 _unk3000E30[3];
 extern u8 _unk3000FE0[304];
 extern u32 _unk3001110[16];
 
+extern void* _unk3000DF0[14];
+
 #endif // _RAM_H

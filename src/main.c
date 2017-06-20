@@ -78,7 +78,7 @@ ASM_ZEROPAD
 
 void onTimer1Overflow()
 {
-    sub_8062774();
+    sound_onTimer1Overflow();
 }
 ASM_ZEROPAD
 
