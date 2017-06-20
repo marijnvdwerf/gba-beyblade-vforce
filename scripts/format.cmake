@@ -21,6 +21,7 @@ foreach (FILE ${SOURCE_FILES})
 
     string(FIND "${CLANG_FORMAT_OUT}" "offset" CLANG_FORMAT_REPLACEMENT_OFFSET)
     if (NOT CLANG_FORMAT_REPLACEMENT_OFFSET EQUAL -1)
+        message(${CLANG_FORMAT_OUT})
         message(FATAL_ERROR "clang-format suggested changes")
     endif ()
 endforeach ()
