@@ -81,7 +81,7 @@ _9:
 	ldrh	r2, [r0]
 	add	r0, r6, #0
 	add	r1, r7, #0
-	bl	sub_80627A8
+	bl	Sound_80627A8
 	add	r6, r6, #0x28
 	sub	r4, r4, #0x1
 	cmp	r4, r8

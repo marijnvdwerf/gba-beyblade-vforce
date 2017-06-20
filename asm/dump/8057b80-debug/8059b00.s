@@ -122,7 +122,7 @@ sub_8059B00:
 	ldsh	r3, [r6, r4]
 	str	r0, [sp]
 	ldr	r0, [sp, #0x4]
-	bl	sub_8059AB8
+	bl	SetLayerTransform
 .L1:
 	add	sp, sp, #0x8
 	pop	{r3, r4, r5}

@@ -9,7 +9,7 @@ sub_80515A4:
 	add	r4, r4, r0
 	ldr	r5, .L1 + 8
 	bl	sub_80513AC
-	bl	sub_8062694
+	bl	Sound_8062694
 	add	r0, r4, #0
 	mov	r1, #0x0
 	add	r2, r5, #0
@@ -17,7 +17,7 @@ sub_80515A4:
 	add	r4, r0, #0
 	lsl	r4, r4, #0x18
 	lsr	r4, r4, #0x18
-	bl	sub_80626E0
+	bl	Sound_80626E0
 	add	r0, r4, #0
 	pop	{r4, r5}
 	pop	{r1}

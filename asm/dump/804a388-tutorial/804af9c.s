@@ -8,7 +8,7 @@ sub_804AF9C:
 	ldr	r1, .L1 + 4
 	add	r0, r0, r1
 	ldr	r0, [r0]
-	bl	sub_8062AA4
+	bl	Sound_8062AA4
 	pop	{r0}
 	bx	r0
 .L2:

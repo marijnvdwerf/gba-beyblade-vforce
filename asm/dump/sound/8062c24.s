@@ -93,7 +93,7 @@ _21:
 	cmp	r0, r3
 	bne	_24	@cond_branch
 	ldr	r0, [r4, #0x4]
-	bl	sub_8062A90
+	bl	Sound_8062A90
 	mov	r0, #0x0
 	strb	r0, [r4]
 	b	_62
@@ -166,10 +166,10 @@ _41:
 	beq	_62	@cond_branch
 	add	r0, r2, #0
 	add	r1, r6, #0
-	bl	sub_80629F0
+	bl	Sound_80629F0
 	str	r0, [r4, #0x4]
 	add	r1, r7, #0
-	bl	sub_8062AD4
+	bl	Sound_8062AD4
 	mov	r0, #0x1
 	strb	r0, [r4]
 	strb	r6, [r4, #0x1]

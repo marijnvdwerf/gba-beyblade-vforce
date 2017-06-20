@@ -3,7 +3,7 @@
 	thumb_func_start onTimer1Overflow
 onTimer1Overflow:
 	push	{lr}
-	bl	sound_onTimer1Overflow
+	bl	Sound_onTimer1Overflow
 	pop	{r0}
 	bx	r0
 	thumb_func_end onTimer1Overflow

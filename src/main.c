@@ -29,7 +29,7 @@ void mainLoop(void)
     sub_8063A7C(0);
     initMultiPlayer(2, 16, 3);
     allocateSoundTables(11025, 2);
-    sub_8062B20(&dword_8040CC4);
+    Sound_8062B20(&dword_8040CC4);
     allocateActorHeaps();
     SpriteVRamFree(128, 32);
     initGame();
@@ -78,7 +78,7 @@ ASM_ZEROPAD
 
 void onTimer1Overflow()
 {
-    sound_onTimer1Overflow();
+    Sound_onTimer1Overflow();
 }
 ASM_ZEROPAD
 

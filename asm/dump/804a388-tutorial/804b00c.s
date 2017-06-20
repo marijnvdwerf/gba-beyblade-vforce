@@ -12,7 +12,7 @@ sub_804B00C:
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	add	r1, r4, #0
-	bl	sub_8062AD4
+	bl	Sound_8062AD4
 	ldr	r0, .L1 + 8
 	ldr	r0, [r0]
 	ldr	r1, .L1 + 12

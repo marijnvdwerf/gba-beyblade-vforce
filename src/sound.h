@@ -11,8 +11,8 @@ typedef struct SfxTable {
 } SfxTable;
 
 void sub_80627F0(void);
-void sub_8062B20(SfxTable* table);
+void Sound_8062B20(SfxTable* table);
 void allocateSoundTables(u32, u32);
-void sound_onTimer1Overflow(void);
+void Sound_onTimer1Overflow(void);
 
 #endif // _SOUND_H

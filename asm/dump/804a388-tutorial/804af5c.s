@@ -16,7 +16,7 @@ sub_804AF5C:
 	ldr	r1, .L2 + 8
 	add	r0, r2, r1
 	ldr	r0, [r0]
-	bl	sub_8062A90
+	bl	Sound_8062A90
 .L1:
 	ldr	r0, [r5]
 	add	r0, r0, r4
