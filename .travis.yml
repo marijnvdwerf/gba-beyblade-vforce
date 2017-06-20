@@ -15,6 +15,7 @@ addons:
       - clang-5.0
       - clang-format-5.0
       - cmake
+      - colordiff
 cache:
   apt: true
 before_install:
