@@ -26,7 +26,7 @@ void InitStuff_SetDispStat(u16 dispstat)
     REG_IF = 0;
     REG_DISPSTAT = dispstat;
 
-    DmaCopy32(3, Unk_872CAF4, 0x3000DF0, 56);
+    DmaCopy32(3, Unk_872CAF4, _unk3000DF0, 14 * 4);
 
     i = 13;
     while (true) {

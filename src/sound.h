@@ -10,8 +10,9 @@ typedef struct SfxTable {
     s8* (*data)[];
 } SfxTable;
 
+void sub_80627F0(void);
 void sub_8062B20(SfxTable* table);
 void allocateSoundTables(u32, u32);
-void sub_8062774(void);
+void sound_onTimer1Overflow(void);
 
 #endif // _SOUND_H

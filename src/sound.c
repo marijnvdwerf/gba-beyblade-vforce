@@ -61,6 +61,9 @@ typedef struct {
 
 #define min(a, b) (((a) < (b)) ? (a) : (b))
 
+// Rounds an integer up to the given power of 2. y must be a power of 2.
+#define ceil2(x, y) (((x) + (y)-1) & (~((y)-1)))
+
 typedef void(ClearFn)(int, void*, int);
 
 extern u8* _unk3000D90;
@@ -166,7 +169,7 @@ void allocateSoundTables(u32 arg0, u32 arg1)
     _unk3005E40.var04 = 1;
     _unk3005E40.var08 = 0;
 
-    _unk3005E4C = (arg0 / 40 + 15) & 0xFFF0;
+    _unk3005E4C = ceil2(arg0 / 40, 16);
     _unk3005E18 = -_unk3005E4C;
 
     bytes = _unk3005E4C * 3 + arg1 * 40;
@@ -251,7 +254,7 @@ void sub_80626E0(void)
     _unk3000D94 = 0x10000 - _unk3005E4C;
 }
 
-void sub_8062774(void)
+void sound_onTimer1Overflow(void)
 {
     REG_DMA1CNT = 0;
     REG_DMA2CNT = 0;
