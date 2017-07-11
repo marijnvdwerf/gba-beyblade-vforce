@@ -158,14 +158,14 @@ global SpriteSheet_8251F40
 global SpriteSheet_8252994
     .incbin "data/spritesheet-8252994.bbsprites"
 
-global TileMap_8255780
-    .incbin "data/tilemap-8255780.bbmap"
+global Tilemap_Nintendo
+    .incbin "data/logos/nintendo.bbmap"
 
 global Pal_82567C8
     .incbin "data/palette-82567c8.gbapal"
 
-global TileMap_82569C8
-    .incbin "data/tilemap-82569c8.bbmap"
+global TileMap_Nelvana
+    .incbin "data/logos/nelvana.bbmap"
 
 global Pal_825A44C
     .incbin "data/palette-825a44c.gbapal"
@@ -191,8 +191,8 @@ global Pal_825B5C4
 global TileMap_825B7C4
     .incbin "data/tilemap-825b7c4.bbmap"
 
-global TileMap_825BCA4
-    .incbin "data/tilemap-825bca4.bbmap"
+global TileMap_DRights
+    .incbin "data/logos/d-rights.bbmap"
 
 global Pal_825DBF0
     .incbin "data/palette-825dbf0.gbapal"
@@ -212,14 +212,14 @@ global TileMap_8266860
 global Pal_826EB50
     .incbin "data/palette-826eb50.gbapal"
 
-global TileMap_826ED50
-    .incbin "data/tilemap-826ed50.bbmap"
+global TileMap_Atari
+    .incbin "data/logos/atari.bbmap"
 
 global Pal_82725E8
     .incbin "data/palette-82725e8.gbapal"
 
-global TileMap_82727E8
-    .incbin "data/tilemap-82727e8.bbmap"
+global TileMap_FullFat
+    .incbin "data/logos/fullfat.bbmap"
 
 global Pal_8274708
     .incbin "data/palette-8274708.gbapal"

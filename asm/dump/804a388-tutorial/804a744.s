@@ -1,7 +1,7 @@
 	.include "asm/common.inc"
 
-	thumb_func_start sub_804A744
-sub_804A744:
+	thumb_func_start unref_804A744
+unref_804A744:
 	push	{r4, r5, r6, r7, lr}
 	mov	r7, r8
 	push	{r7}
@@ -21,7 +21,7 @@ sub_804A744:
 	add	r0, r5, #0
 	add	r1, r6, #0
 	mov	r3, #0x0
-	bl	sub_8058C74
+	bl	unref_8058C74
 	add	r0, r5, #0
 	add	r0, r0, #0x88
 	ldr	r2, [r4]
@@ -81,6 +81,6 @@ sub_804A744:
 .L2:
 	.4byte	0x3ff
 	.4byte	0x807d970
-	thumb_func_end sub_804A744
+	thumb_func_end unref_804A744
 
 .align 2, 0 @ Don't pad with nop.
