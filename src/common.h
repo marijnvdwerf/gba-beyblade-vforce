@@ -32,6 +32,9 @@ typedef u32 bool32;
 #define true 1
 #define false 0
 
+#define min(a, b) (((a) < (b)) ? (a) : (b))
+#define max(a, b) (((a) > (b)) ? (a) : (b))
+
 #define ASM_ZEROPAD asm(".align 2, 0\n");
 
 #endif // BEY_COMMON

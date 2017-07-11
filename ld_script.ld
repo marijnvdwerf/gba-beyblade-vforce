@@ -10,7 +10,9 @@ SECTIONS {
         src/ram.c.o(.data);
         ${LIBGCC_A}:fp-bit.o(.bss);
         ${LIBGCC_A}:dp-bit.o(.bss);
-        . = 0xDF0;
+        . = 0xDE0;
+        _unk3000DE0 = .;
+        . += 0x10;
         src/ram2.c.o(.data);
         src/memory.c.o(.data);
         . += 12;
@@ -716,9 +718,9 @@ SECTIONS {
 		asm/dump/8057b80-debug/8058924.s.o(.text);
 		asm/dump/8057b80-debug/805893c.s.o(.text);
 		asm/dump/8057b80-debug/8058968.s.o(.text);
-		asm/dump/8057b80-debug/8058a28.s.o(.text);
-		asm/dump/8057b80-debug/8058aa8.s.o(.text);
-		asm/dump/8057b80-debug/8058c74.s.o(.text);
+		src/layer.c.o(.text.sub_8058A28);
+		src/layer.c.o(.text.sub_8058AA8);
+		src/layer.c.o(.text.unref_8058C74);
 		asm/dump/8057b80-debug/8058e18.s.o(.text);
 		asm/dump/8057b80-debug/8058ef4.s.o(.text);
 		asm/dump/8057b80-debug/8058f60.s.o(.text);

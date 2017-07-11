@@ -1,7 +1,7 @@
 	.include "asm/common.inc"
 
-	thumb_func_start sub_8058C74
-sub_8058C74:
+	thumb_func_start unref_8058C74
+unref_8058C74:
 	push	{r4, r5, r6, r7, lr}
 	mov	r7, sl
 	mov	r6, r9
@@ -220,6 +220,6 @@ sub_8058C74:
 .L16:
 	.4byte	0x3000e3c
 	.4byte	0x807d970
-	thumb_func_end sub_8058C74
+	thumb_func_end unref_8058C74
 
 .align 2, 0 @ Don't pad with nop.

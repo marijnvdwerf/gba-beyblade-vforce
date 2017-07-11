@@ -59,8 +59,6 @@ typedef struct {
 #define DMA_A_ENABLE_LEFT 9
 #define DMA_A_RESET_FIFO 11
 
-#define min(a, b) (((a) < (b)) ? (a) : (b))
-
 // Rounds an integer up to the given power of 2. y must be a power of 2.
 #define ceil2(x, y) (((x) + (y)-1) & (~((y)-1)))
 
