@@ -1,18 +1,26 @@
 cmake_minimum_required(VERSION 3.2.2)
 
 # project title
-set(PROJECT beybladevforce)
+project(
+    beybladevforce
+    LANGUAGES C ASM)
 
 if (CMAKE_BINARY_DIR STREQUAL CMAKE_SOURCE_DIR)
     message(FATAL_ERROR "Building in-source is not supported! Create a build dir and remove ${CMAKE_SOURCE_DIR}/CMakeCache.txt")
 endif ()
 
 set(DEVKITARM "" CACHE PATH "")
+if (DEFINED ENV{DEVKITARM})
+    set(DEVKITARM $ENV{DEVKITARM})
+endif ()
 if (DEVKITARM STREQUAL "")
     message(FATAL_ERROR "DEVKITARM not specified")
 endif ()
 
 set(AGBCC "" CACHE PATH "")
+if (DEFINED ENV{AGBCC})
+    set(AGBCC $ENV{AGBCC})
+endif ()
 if (AGBCC STREQUAL "")
     message(FATAL_ERROR "AGBCC not specified")
 endif ()
@@ -23,16 +31,16 @@ find_program(ICONV iconv)
 set(AS ${DEVKITARM}/bin/arm-none-eabi-as)
 set(AS_FLAGS -mcpu=arm7tdmi)
 set(CPP ${DEVKITARM}/bin/arm-none-eabi-cpp)
-set(CPP_FLAGS -I${AGBCC}/include -nostdinc -undef)
+set(CPP_FLAGS -I${AGBCC}/ginclude -nostdinc -undef)
 set(GBAFIX ${DEVKITARM}/bin/gbafix)
 set(LD ${DEVKITARM}/bin/arm-none-eabi-ld)
 set(OBJCOPY ${DEVKITARM}/bin/arm-none-eabi-objcopy)
 
 # PokeRuby tools
-set(CC1 ${AGBCC}/bin/agbcc)
-set(CC1_OLD ${AGBCC}/bin/old_agbcc)
+set(CC1 ${AGBCC}/agbcc)
+set(CC1_OLD ${AGBCC}/old_agbcc)
 set(C_FLAGS -mthumb-interwork -Wimplicit -Wparentheses -Wunused -Werror -O2 -fhex-asm -ffunction-sections)
-set(LIBGCC_A ${AGBCC}/lib/libgcc.a)
+set(LIBGCC_A ${AGBCC}/libgcc.a)
 
 
 include_directories("${AGBCC}/include")
@@ -126,4 +134,4 @@ add_custom_target(
 add_custom_target(beyblade ALL DEPENDS ${OUT_GBA})
 
 file(GLOB_RECURSE SOURCES RELATIVE "${CMAKE_SOURCE_DIR}" "src/*.c" "src/*.h" "asm/*" "data/*" "ld_script.ld")
-add_executable(beyblade_stub ${SOURCES})
+add_executable(beyblade_stub EXCLUDE_FROM_ALL ${SOURCES})
