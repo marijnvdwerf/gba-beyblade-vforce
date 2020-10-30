@@ -31,16 +31,16 @@ find_program(ICONV iconv)
 set(AS ${DEVKITARM}/bin/arm-none-eabi-as)
 set(AS_FLAGS -mcpu=arm7tdmi)
 set(CPP ${DEVKITARM}/bin/arm-none-eabi-cpp)
-set(CPP_FLAGS -I${AGBCC}/include -nostdinc -undef)
+set(CPP_FLAGS -I${AGBCC}/ginclude -nostdinc -undef)
 set(GBAFIX ${DEVKITARM}/bin/gbafix)
 set(LD ${DEVKITARM}/bin/arm-none-eabi-ld)
 set(OBJCOPY ${DEVKITARM}/bin/arm-none-eabi-objcopy)
 
 # PokeRuby tools
-set(CC1 ${AGBCC}/bin/agbcc)
-set(CC1_OLD ${AGBCC}/bin/old_agbcc)
+set(CC1 ${AGBCC}/agbcc)
+set(CC1_OLD ${AGBCC}/old_agbcc)
 set(C_FLAGS -mthumb-interwork -Wimplicit -Wparentheses -Wunused -Werror -O2 -fhex-asm -ffunction-sections)
-set(LIBGCC_A ${AGBCC}/lib/libgcc.a)
+set(LIBGCC_A ${AGBCC}/libgcc.a)
 
 
 include_directories("${AGBCC}/include")
