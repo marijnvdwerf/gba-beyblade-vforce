@@ -6,9 +6,8 @@ jobs:
   clang-format:
     runs-on: ubuntu-latest
     steps:
-      - run: sudo apt-get install colordiff -y
       - uses: actions/checkout@v2
-      - run: ./scripts/check-git-clang-format.sh
+      - run: scripts/check-code-formatting.sh
 
   build:
     runs-on: ubuntu-latest
