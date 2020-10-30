@@ -134,4 +134,4 @@ add_custom_target(
 add_custom_target(beyblade ALL DEPENDS ${OUT_GBA})
 
 file(GLOB_RECURSE SOURCES RELATIVE "${CMAKE_SOURCE_DIR}" "src/*.c" "src/*.h" "asm/*" "data/*" "ld_script.ld")
-add_executable(beyblade_stub ${SOURCES})
+add_executable(beyblade_stub EXCLUDE_FROM_ALL ${SOURCES})
