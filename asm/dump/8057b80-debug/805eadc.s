@@ -9,7 +9,7 @@ sub_805EADC:
 	add	r1, r0, r3
 	ldrh	r1, [r1]
 	strh	r1, [r2]
-	ldr	r1, .L1
+	ldr	r1, .L805EAFC
 	add	r2, r0, r1
 	mov	r1, #0xff
 	strb	r1, [r2]
@@ -18,9 +18,9 @@ sub_805EADC:
 	mov	r1, #0xf
 	strb	r1, [r0]
 	bx	lr
-.L2:
+.L805EAFC:
 	.align	2, 0
-.L1:
+
 	.4byte	0x356
 	thumb_func_end sub_805EADC
 

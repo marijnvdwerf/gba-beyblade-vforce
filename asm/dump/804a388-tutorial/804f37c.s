@@ -11,46 +11,46 @@ sub_804F37C:
 	add	r4, r4, #0xf4
 	ldr	r0, [r4]
 	cmp	r0, #0
-	bne	.L1	@cond_branch
+	bne	.L804F398	@cond_branch
 	mov	r0, #0x0
 	bl	allocSprite
 	str	r0, [r4]
-.L1:
+.L804F398:
 	mov	r5, r8
 	add	r5, r5, #0xf8
 	ldr	r0, [r5]
 	cmp	r0, #0
-	bne	.L2	@cond_branch
+	bne	.L804F3AA	@cond_branch
 	mov	r0, #0x0
 	bl	allocSprite
 	str	r0, [r5]
-.L2:
+.L804F3AA:
 	mov	r6, r8
 	add	r6, r6, #0xfc
 	ldr	r0, [r6]
 	cmp	r0, #0
-	bne	.L3	@cond_branch
+	bne	.L804F3BC	@cond_branch
 	mov	r0, #0x0
 	bl	allocSprite
 	str	r0, [r6]
-.L3:
+.L804F3BC:
 	mov	r7, #0x80
 	lsl	r7, r7, #0x1
 	ADD r7, r8
 	ldr	r0, [r7]
 	cmp	r0, #0
-	bne	.L4	@cond_branch
+	bne	.L804F3D0	@cond_branch
 	mov	r0, #0x0
 	bl	allocSprite
 	str	r0, [r7]
-.L4:
+.L804F3D0:
 	ldr	r4, [r4]
 	cmp	r4, #0
-	beq	.L5	@cond_branch
-	ldr	r1, .L9
+	beq	.L804F3EE	@cond_branch
+	ldr	r1, .L804F464
 	mov	r2, #0x94
 	lsl	r2, r2, #0x7
-	ldr	r3, .L9 + 4
+	ldr	r3, .L804F464 + 4
 	mov	r0, #0x0
 	str	r0, [sp]
 	str	r0, [sp, #0x4]
@@ -58,14 +58,14 @@ sub_804F37C:
 	str	r0, [sp, #0xc]
 	add	r0, r4, #0
 	bl	LoadSpriteSheet
-.L5:
+.L804F3EE:
 	ldr	r4, [r5]
 	cmp	r4, #0
-	beq	.L6	@cond_branch
-	ldr	r1, .L9 + 8
+	beq	.L804F40C	@cond_branch
+	ldr	r1, .L804F464 + 8
 	mov	r2, #0x8a
 	lsl	r2, r2, #0x8
-	ldr	r3, .L9 + 4
+	ldr	r3, .L804F464 + 4
 	mov	r0, #0x0
 	str	r0, [sp]
 	str	r0, [sp, #0x4]
@@ -73,14 +73,14 @@ sub_804F37C:
 	str	r0, [sp, #0xc]
 	add	r0, r4, #0
 	bl	LoadSpriteSheet
-.L6:
+.L804F40C:
 	ldr	r4, [r6]
 	cmp	r4, #0
-	beq	.L7	@cond_branch
-	ldr	r1, .L9 + 12
+	beq	.L804F42A	@cond_branch
+	ldr	r1, .L804F464 + 12
 	mov	r2, #0xa0
 	lsl	r2, r2, #0x4
-	ldr	r3, .L9 + 4
+	ldr	r3, .L804F464 + 4
 	mov	r0, #0x0
 	str	r0, [sp]
 	str	r0, [sp, #0x4]
@@ -88,14 +88,14 @@ sub_804F37C:
 	str	r0, [sp, #0xc]
 	add	r0, r4, #0
 	bl	LoadSpriteSheet
-.L7:
+.L804F42A:
 	ldr	r4, [r7]
 	cmp	r4, #0
-	beq	.L8	@cond_branch
-	ldr	r1, .L9 + 16
+	beq	.L804F448	@cond_branch
+	ldr	r1, .L804F464 + 16
 	mov	r2, #0x84
 	lsl	r2, r2, #0x7
-	ldr	r3, .L9 + 4
+	ldr	r3, .L804F464 + 4
 	mov	r0, #0x0
 	str	r0, [sp]
 	str	r0, [sp, #0x4]
@@ -103,7 +103,7 @@ sub_804F37C:
 	str	r0, [sp, #0xc]
 	add	r0, r4, #0
 	bl	LoadSpriteSheet
-.L8:
+.L804F448:
 	mov	r1, #0x87
 	lsl	r1, r1, #0x1
 	ADD r1, r8
@@ -117,9 +117,9 @@ sub_804F37C:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L10:
+.L804F462:
 	.align	2, 0
-.L9:
+.L804F464:
 	.4byte	0x8225414
 	.4byte	0xffffe000
 	.4byte	0x82266b4

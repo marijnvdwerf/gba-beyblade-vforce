@@ -8,28 +8,28 @@ sub_8051028:
 	mov	r6, #0x0
 	ldr	r0, [r5]
 	cmp	r6, r0
-	bge	.L1	@cond_branch
+	bge	.L805104E	@cond_branch
 	mov	r7, #0x0
-.L3:
+.L8051038:
 	ldr	r0, [r4, #0x4]
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L8051044	@cond_branch
 	bl	sub_8060A94
 	str	r7, [r4, #0x4]
-.L2:
+.L8051044:
 	add	r4, r4, #0x1c
 	add	r6, r6, #0x1
 	ldr	r0, [r5]
 	cmp	r6, r0
-	blt	.L3	@cond_branch
-.L1:
+	blt	.L8051038	@cond_branch
+.L805104E:
 	ldr	r0, [r5, #0x30]
 	cmp	r0, #0
-	beq	.L4	@cond_branch
+	beq	.L805105C	@cond_branch
 	bl	deallocateBlock
 	mov	r0, #0x0
 	str	r0, [r5, #0x30]
-.L4:
+.L805105C:
 	add	r0, r5, #0
 	add	r0, r0, #0x40
 	bl	sub_8061204

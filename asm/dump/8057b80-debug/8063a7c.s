@@ -2,12 +2,12 @@
 
 	thumb_func_start sub_8063A7C
 sub_8063A7C:
-	ldr	r1, .L1
+	ldr	r1, .L8063A84
 	str	r0, [r1]
 	bx	lr
-.L2:
+.L8063A82:
 	.align	2, 0
-.L1:
+.L8063A84:
 	.4byte	0x3005e98
 	thumb_func_end sub_8063A7C
 

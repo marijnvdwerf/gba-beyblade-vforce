@@ -9,7 +9,7 @@ s_rider_804C4B4:
 	push	{r5, r6, r7}
 	add	r7, r0, #0
 	add	r4, r1, #0
-	ldr	r0, .L2
+	ldr	r0, .L804C840
 	mov	r2, #0x8e
 	lsl	r2, r2, #0x2
 	ldr	r3, [r0]
@@ -31,7 +31,7 @@ s_rider_804C4B4:
 	str	r6, [r0]
 	add	r0, r0, #0x4
 	str	r6, [r0]
-	ldr	r2, .L2 + 4
+	ldr	r2, .L804C840 + 4
 	add	r1, r7, r2
 	mov	r0, #0x10
 	strb	r0, [r1]
@@ -230,7 +230,7 @@ s_rider_804C4B4:
 	lsl	r2, r2, #0x1
 	add	r0, r7, r2
 	strh	r6, [r0]
-	ldr	r3, .L2 + 8
+	ldr	r3, .L804C840 + 8
 	add	r0, r7, r3
 	mov	r5, #0x0
 	strb	r5, [r0]
@@ -256,7 +256,7 @@ s_rider_804C4B4:
 	add	r0, r7, r1
 	mov	r3, #0x0
 	strb	r3, [r0]
-	ldr	r5, .L2 + 12
+	ldr	r5, .L804C840 + 12
 	add	r0, r7, r5
 	strb	r3, [r0]
 	add	r1, r1, #0x2
@@ -308,13 +308,13 @@ s_rider_804C4B4:
 	add	r1, r7, r5
 	mov	r0, #0x1
 	strb	r0, [r1]
-	ldr	r1, .L2 + 16
+	ldr	r1, .L804C840 + 16
 	add	r0, r7, r1
 	mov	r3, #0x0
 	strb	r3, [r0]
 	add	r5, r5, #0x6
 	add	r1, r7, r5
-	ldr	r0, .L2 + 20
+	ldr	r0, .L804C840 + 20
 	ldr	r0, [r0]
 	str	r0, [r1]
 	mov	r1, #0xec
@@ -390,7 +390,7 @@ s_rider_804C4B4:
 	add	r1, r7, r0
 	mov	r0, #0xf0
 	strh	r0, [r1]
-	ldr	r1, .L2 + 24
+	ldr	r1, .L804C840 + 24
 	add	r0, r7, r1
 	strh	r6, [r0]
 	add	r5, r5, #0x10
@@ -401,7 +401,7 @@ s_rider_804C4B4:
 	str	r6, [r0]
 	sub	r5, r5, #0x8
 	add	r1, r7, r5
-	ldr	r0, .L2 + 28
+	ldr	r0, .L804C840 + 28
 	strh	r0, [r1]
 	mov	r1, #0x89
 	lsl	r1, r1, #0x2
@@ -420,25 +420,25 @@ s_rider_804C4B4:
 	add	r5, r5, #0xe
 	add	r0, r7, r5
 	strh	r2, [r0]
-	ldr	r0, .L2 + 32
+	ldr	r0, .L804C840 + 32
 	ldr	r0, [r0]
-	ldr	r2, .L2 + 36
+	ldr	r2, .L804C840 + 36
 	add	r0, r0, r2
 	ldr	r0, [r0]
 	and	r0, r0, r1
 	mov	r1, #0x10
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L804C80E	@cond_branch
 	mov	r1, #0x30
-.L1:
-	ldr	r3, .L2 + 40
+.L804C80E:
+	ldr	r3, .L804C840 + 40
 	add	r0, r7, r3
 	strh	r1, [r0]
 	mov	r5, #0x8d
 	lsl	r5, r5, #0x2
 	add	r0, r7, r5
 	str	r6, [r0]
-	ldr	r1, .L2 + 44
+	ldr	r1, .L804C840 + 44
 	add	r0, r7, r1
 	strh	r6, [r0]
 	mov	r2, #0x8c
@@ -455,9 +455,9 @@ s_rider_804C4B4:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L3:
+.L804C840:
 	.align	2, 0
-.L2:
+
 	.4byte	0x807d970
 	.4byte	0x1c1
 	.4byte	0x103

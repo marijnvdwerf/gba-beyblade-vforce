@@ -15,8 +15,8 @@ sub_806570C:
 	mov	r4, #0x0
 	ldrb	r0, [r5, #0x4]
 	cmp	r4, r0
-	bcs	.L1	@cond_branch
-.L2:
+	bcs	.L8065752	@cond_branch
+.L8065728:
 	mov	r0, #0xc4
 	add	r1, r4, #0
 	mul	r1, r1, r0
@@ -36,8 +36,8 @@ sub_806570C:
 	lsr	r4, r0, #0x10
 	ldrb	r2, [r5, #0x4]
 	cmp	r4, r2
-	bcc	.L2	@cond_branch
-.L1:
+	bcc	.L8065728	@cond_branch
+.L8065752:
 	add	sp, sp, #0x4
 	pop	{r3, r4}
 	mov	r8, r3

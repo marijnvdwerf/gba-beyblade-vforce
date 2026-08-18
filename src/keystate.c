@@ -1,4 +1,5 @@
 #include "keystate.h"
+#include "include_asm.h"
 #include "io_reg.h"
 #include "memory.h"
 #include "unsorted.h"
@@ -49,6 +50,10 @@ KeyState* sub_805A914(u8 arg0)
 
     return &_unk3005CB0[arg0];
 }
+
+INCLUDE_ASM("asm/dump/8057b80-debug/805a930.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805a93c.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805a984.s");
 
 void initKeyRecording(u16 arg0)
 {

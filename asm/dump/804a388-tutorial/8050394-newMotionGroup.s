@@ -13,30 +13,30 @@ newMotionGroup:
 	lsl	r0, r0, #0x3
 	add	r5, r0, #0
 	cmp	r5, #0
-	bne	.L1	@cond_branch
-	ldr	r0, .L3
+	bne	.L80503B8	@cond_branch
+	ldr	r0, .L80503B4
 	bl	printf
-	b	.L9
-.L4:
+	b	.L8050414
+.L80503B4:
 	.align	2, 0
-.L3:
+
 	.4byte	0x8727080
-.L1:
+.L80503B8:
 	add	r0, r5, #0
 	bl	slowAllocate
 	str	r0, [r4]
 	cmp	r0, #0
-	bne	.L5	@cond_branch
-	ldr	r0, .L7
+	bne	.L80503D4	@cond_branch
+	ldr	r0, .L80503D0
 	ldr	r2, [r6, #0x8]
 	add	r1, r5, #0
 	bl	printf
-	b	.L9
-.L8:
+	b	.L8050414
+.L80503D0:
 	.align	2, 0
-.L7:
+
 	.4byte	0x87270b8
-.L5:
+.L80503D4:
 	ldr	r2, [r0]
 	str	r2, [r4, #0x8]
 	ldr	r0, [r6, #0x8]
@@ -52,9 +52,9 @@ newMotionGroup:
 	mov	r3, #0xc
 	ldsh	r0, [r4, r3]
 	cmp	r5, r0
-	bge	.L9	@cond_branch
+	bge	.L8050414	@cond_branch
 	mov	r3, #0x0
-.L10:
+.L80503F6:
 	str	r3, [r2, #0xc]
 	str	r3, [r2, #0x8]
 	str	r3, [r2, #0x14]
@@ -69,8 +69,8 @@ newMotionGroup:
 	mov	r6, #0xc
 	ldsh	r0, [r4, r6]
 	cmp	r5, r0
-	blt	.L10	@cond_branch
-.L9:
+	blt	.L80503F6	@cond_branch
+.L8050414:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0

@@ -9,7 +9,7 @@ sub_8052180:
 	push	{r5, r6, r7}
 	add	sp, sp, #0xffffff7c
 	str	r1, [sp, #0x7c]
-	ldr	r0, .L1
+	ldr	r0, .L80522CC
 	ldr	r6, [r0]
 	ldr	r0, [r6, #0x10]
 	asr	r0, r0, #0x4
@@ -17,7 +17,7 @@ sub_8052180:
 	mov	r5, #0xff
 	add	r2, r5, #0
 	BIC	r2, r0
-	ldr	r4, .L1 + 4
+	ldr	r4, .L80522CC + 4
 	mov	r1, #0xb6
 	lsl	r1, r1, #0x1
 	add	r0, r6, r1
@@ -164,9 +164,9 @@ sub_8052180:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2:
+.L80522CC:
 	.align	2, 0
-.L1:
+
 	.4byte	0x3000fb0
 	.4byte	0x874cc3c
 	thumb_func_end sub_8052180

@@ -14,16 +14,16 @@ sub_8058068:
 	bl	sub_8058038
 	add	r5, r0, #0
 	cmp	r5, #0
-	bne	.L1	@cond_branch
+	bne	.L8058088	@cond_branch
 	mov	r0, #0x0
-	b	.L2
-.L1:
+	b	.L80580A8
+.L8058088:
 	mov	r6, #0x0
 	ldrh	r0, [r5, #0x4]
 	cmp	r8, r0
-	bcs	.L3	@cond_branch
+	bcs	.L80580A6	@cond_branch
 	add	r4, r5, #0
-.L4:
+.L8058092:
 	ldrh	r1, [r4, #0x8]
 	add	r0, r7, #0
 	bl	sub_8057FDC
@@ -32,10 +32,10 @@ sub_8058068:
 	add	r6, r6, #0x1
 	ldrh	r0, [r5, #0x4]
 	cmp	r6, r0
-	bcc	.L4	@cond_branch
-.L3:
+	bcc	.L8058092	@cond_branch
+.L80580A6:
 	mov	r0, r8
-.L2:
+.L80580A8:
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}

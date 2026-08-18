@@ -7,27 +7,27 @@ getLineMetaObjectBytype:
 	mov	r2, #0x0
 	add	r3, r1, #4
 	cmp	r1, #0
-	bne	.L1	@cond_branch
-	b	.L4
-.L5:
+	bne	.L805BB3E	@cond_branch
+	b	.L805BB54
+.L805BB3A:
 	add	r0, r3, #0
-	b	.L3
-.L1:
+	b	.L805BB56
+.L805BB3E:
 	ldrh	r1, [r1]
 	cmp	r2, r1
-	bge	.L4	@cond_branch
-.L6:
+	bge	.L805BB54	@cond_branch
+.L805BB44:
 	ldrh	r0, [r3, #0x2]
 	cmp	r0, r4
-	beq	.L5	@cond_branch
+	beq	.L805BB3A	@cond_branch
 	ldrh	r0, [r3]
 	add	r3, r0, r3
 	add	r2, r2, #0x1
 	cmp	r2, r1
-	blt	.L6	@cond_branch
-.L4:
+	blt	.L805BB44	@cond_branch
+.L805BB54:
 	mov	r0, #0x0
-.L3:
+.L805BB56:
 	pop	{r4}
 	pop	{r1}
 	bx	r1

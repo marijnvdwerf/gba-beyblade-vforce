@@ -47,8 +47,8 @@ sub_8059404:
 	ldr	r1, [sp, #0x3c]
 	add	r0, r3, r1
 	cmp	r3, r0
-	bcs	.L1	@cond_branch
-	ldr	r2, .L4
+	bcs	.L80594EA	@cond_branch
+	ldr	r2, .L80594C4
 	add	r4, r7, #0
 	lsl	r4, r4, #0x1
 	mov	r8, r4
@@ -69,7 +69,7 @@ sub_8059404:
 	lsl	r0, r7, #0x1
 	lsr	r4, r0, #0x1
 	orr	r4, r4, r1
-.L6:
+.L805948A:
 	add	r1, r3, #0
 	ldr	r0, [sp, #0x8]
 	and	r1, r1, r0
@@ -81,7 +81,7 @@ sub_8059404:
 	ADD r0, sl
 	ldr	r7, [sp, #0xc]
 	cmp	r0, r7
-	bls	.L2	@cond_branch
+	bls	.L80594C8	@cond_branch
 	str	r5, [r2]
 	lsl	r1, r1, #0x1
 	ldr	r0, [sp]
@@ -97,12 +97,12 @@ sub_8059404:
 	str	r0, [r2]
 	str	r1, [r2, #0x4]
 	str	r6, [r2, #0x8]
-	b	.L3
-.L5:
+	b	.L80594D6
+.L80594C2:
 	.align	2, 0
-.L4:
+.L80594C4:
 	.4byte	0x40000d4
-.L2:
+.L80594C8:
 	str	r5, [r2]
 	lsl	r0, r1, #0x1
 	ldr	r1, [sp]
@@ -110,7 +110,7 @@ sub_8059404:
 	ADD r0, r8
 	str	r0, [r2, #0x4]
 	str	r4, [r2, #0x8]
-.L3:
+.L80594D6:
 	ldr	r0, [r2, #0x8]
 	ldr	r7, [sp, #0x4]
 	lsl	r0, r7, #0x1
@@ -120,8 +120,8 @@ sub_8059404:
 	ldr	r7, [sp, #0x3c]
 	add	r0, r1, r7
 	cmp	r3, r0
-	bcc	.L6	@cond_branch
-.L1:
+	bcc	.L805948A	@cond_branch
+.L80594EA:
 	add	sp, sp, #0x14
 	pop	{r3, r4, r5}
 	mov	r8, r3

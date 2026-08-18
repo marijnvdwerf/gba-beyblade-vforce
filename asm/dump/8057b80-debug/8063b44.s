@@ -12,8 +12,8 @@ sub_8063B44:
 	ldrb	r1, [r0]
 	mov	r7, #0x0
 	cmp	r1, #0
-	beq	.L1	@cond_branch
-	ldr	r0, .L3
+	beq	.L8063B9C	@cond_branch
+	ldr	r0, .L8063B98
 	add	r0, r1, r0
 	ldrb	r4, [r0]
 	add	r0, r5, #0
@@ -42,14 +42,14 @@ sub_8063B44:
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
 	strb	r0, [r1]
-	b	.L2
-.L4:
+	b	.L8063B9E
+.L8063B98:
 	.align	2, 0
-.L3:
+
 	.4byte	0x807d980
-.L1:
+.L8063B9C:
 	mov	r7, #0x1
-.L2:
+.L8063B9E:
 	add	r0, r7, #0
 	pop	{r4, r5, r6, r7}
 	pop	{r1}

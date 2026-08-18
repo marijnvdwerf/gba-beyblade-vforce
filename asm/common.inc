@@ -1,3 +1,6 @@
+    .ifndef _COMMON_INC_GUARD
+    .set _COMMON_INC_GUARD, 1
+
     .set NULL, 0
 
 	.set DISPCNT     , 0x4000000
@@ -65,8 +68,15 @@
     .set VRAM_OBJ, 0x6010000
     .set OAM     , 0x7000000
 
+	.macro non_matching_marker name
+	.global \name\().NON_MATCHING
+\name\().NON_MATCHING:
+	.size \name\().NON_MATCHING, 0
+	.endm
+
 	.macro arm_func_start name
 	.align 2, 0
+	non_matching_marker \name
 	.global \name
 	.arm
 	.type \name, function
@@ -78,6 +88,7 @@
 
 	.macro thumb_func_start name
 	.align 2, 0
+	non_matching_marker \name
 	.global \name
 	.thumb
 	.thumb_func
@@ -85,6 +96,7 @@
 	.endm
 
 	.macro non_word_aligned_thumb_func_start name
+	non_matching_marker \name
 	.global \name
 	.thumb
 	.thumb_func
@@ -182,6 +194,7 @@
 
 	.macro global label
 	.global \label
+	non_matching_marker \label
 	\label:
 	.endm
 
@@ -208,3 +221,5 @@
 	.4byte \from
 	.4byte \to
 	.endm
+
+    .endif

@@ -9,8 +9,8 @@ sub_80631EC:
 	mov	r2, #0x8
 	ldsh	r0, [r4, r2]
 	cmp	r1, r0
-	bge	.L1	@cond_branch
-	ldr	r3, .L2
+	bge	.L8063216	@cond_branch
+	ldr	r3, .L806321C
 	ldrh	r2, [r4, #0x6]
 	mul	r1, r1, r2
 	lsl	r1, r1, #0x1
@@ -22,13 +22,13 @@ sub_80631EC:
 	lsl	r2, r2, #0x1
 	ldr	r3, [r3]
 	bl	_call_via_r3
-.L1:
+.L8063216:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L3:
+.L806321C:
 	.align	2, 0
-.L2:
+
 	.4byte	0x807d974
 	thumb_func_end sub_80631EC
 

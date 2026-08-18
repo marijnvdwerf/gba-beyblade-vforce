@@ -18,17 +18,17 @@ getLevelGeometryAddresses:
 	mov	r2, #0x4
 	ldsh	r0, [r1, r2]
 	cmp	r0, #0x40
-	ble	.L1	@cond_branch
+	ble	.L805B8EE	@cond_branch
 	mov	r4, #0x40
-	ldr	r0, .L4
+	ldr	r0, .L805B934
 	bl	nullsub_8
-.L1:
+.L805B8EE:
 	lsl	r0, r4, #0x10
 	mov	r1, #0x0
 	add	r6, r0, #0
 	cmp	r6, #0
-	ble	.L2	@cond_branch
-.L3:
+	ble	.L805B918	@cond_branch
+.L805B8F8:
 	lsl	r4, r1, #0x10
 	asr	r4, r4, #0x10
 	add	r0, r5, #0
@@ -43,8 +43,8 @@ getLevelGeometryAddresses:
 	lsl	r4, r4, #0x10
 	lsr	r1, r4, #0x10
 	cmp	r4, r6
-	blt	.L3	@cond_branch
-.L2:
+	blt	.L805B8F8	@cond_branch
+.L805B918:
 	mov	r1, #0x8a
 	lsl	r1, r1, #0x1
 	add	r0, r5, r1
@@ -58,9 +58,9 @@ getLevelGeometryAddresses:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L5:
+.L805B932:
 	.align	2, 0
-.L4:
+.L805B934:
 	.4byte	0x87553d0
 	thumb_func_end getLevelGeometryAddresses
 

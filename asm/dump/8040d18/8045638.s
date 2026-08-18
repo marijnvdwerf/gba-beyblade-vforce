@@ -4,27 +4,27 @@
 sub_8045638:
 	push	{lr}
 	cmp	r1, #0x1
-	beq	.L1	@cond_branch
+	beq	.L804564E	@cond_branch
 	cmp	r1, #0x1
-	bcc	.L2	@cond_branch
+	bcc	.L8045648	@cond_branch
 	cmp	r1, #0x8
-	beq	.L3	@cond_branch
-	b	.L7
-.L2:
+	beq	.L804565A	@cond_branch
+	b	.L8045666
+.L8045648:
 	bl	sub_8049168
-	b	.L7
-.L1:
+	b	.L8045666
+.L804564E:
 	mov	r1, #0xa0
 	lsl	r1, r1, #0x1
 	add	r0, r0, r1
 	bl	sub_80439A0
-	b	.L7
-.L3:
+	b	.L8045666
+.L804565A:
 	cmp	r2, #0x24
-	bne	.L7	@cond_branch
+	bne	.L8045666	@cond_branch
 	bl	sub_8049258
 	bl	sub_80490F8
-.L7:
+.L8045666:
 	pop	{r0}
 	bx	r0
 	thumb_func_end sub_8045638

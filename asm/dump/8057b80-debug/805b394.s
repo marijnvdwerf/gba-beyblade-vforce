@@ -6,8 +6,8 @@ sub_805B394:
 	add	r6, r0, #0
 	ldr	r2, [r6]
 	cmp	r2, #0
-	beq	.L1	@cond_branch
-	ldr	r5, .L2
+	beq	.L805B3D2	@cond_branch
+	ldr	r5, .L805B3D8
 	add	r0, r2, #0
 	add	r0, r0, #0x5d
 	ldrb	r0, [r0]
@@ -31,13 +31,13 @@ sub_805B394:
 	bl	_call_via_r3
 	mov	r0, #0x1
 	strh	r0, [r6, #0xe]
-.L1:
+.L805B3D2:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L3:
+.L805B3D8:
 	.align	2, 0
-.L2:
+
 	.4byte	0x807d970
 	thumb_func_end sub_805B394
 

@@ -2,7 +2,7 @@
 
 	thumb_func_start sub_8061110
 sub_8061110:
-	ldr	r2, .L1
+	ldr	r2, .L806112C
 	ldr	r1, [r0, #0x10]
 	mov	r0, #0xc0
 	lsl	r0, r0, #0x8
@@ -15,9 +15,9 @@ sub_8061110:
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x1
 	bx	lr
-.L2:
+.L806112A:
 	.align	2, 0
-.L1:
+.L806112C:
 	.4byte	0x807d90c
 	thumb_func_end sub_8061110
 

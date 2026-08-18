@@ -12,7 +12,7 @@ sub_805A2DC:
 	mov	r9, r1
 	mov	sl, r2
 	mov	r1, #0x0
-.L2:
+.L805A2F0:
 	mov	r4, #0x0
 	lsl	r0, r1, #0x1
 	add	r2, r1, #1
@@ -27,7 +27,7 @@ sub_805A2DC:
 	mov	r2, sl
 	add	r6, r0, r2
 	ldr	r5, [r1, #0x4]
-.L1:
+.L805A30C:
 	lsl	r2, r4, #0x2
 	add	r3, r2, r6
 	ADD r2, r9
@@ -47,12 +47,12 @@ sub_805A2DC:
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
 	cmp	r4, #0x2
-	bls	.L1	@cond_branch
+	bls	.L805A30C	@cond_branch
 	mov	r2, r8
 	lsl	r0, r2, #0x10
 	lsr	r1, r0, #0x10
 	cmp	r1, #0x2
-	bls	.L2	@cond_branch
+	bls	.L805A2F0	@cond_branch
 	add	sp, sp, #0x4
 	pop	{r3, r4, r5}
 	mov	r8, r3

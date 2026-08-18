@@ -10,35 +10,35 @@ sub_805582C:
 	add	r4, r1, #0
 	mov	r8, r2
 	mov	r9, r3
-	ldr	r0, .L3
+	ldr	r0, .L805585C
 	ldr	r0, [r0]
-	ldr	r1, .L3 + 4
+	ldr	r1, .L805585C + 4
 	add	r6, r0, r1
-	ldr	r7, .L3 + 8
+	ldr	r7, .L805585C + 8
 	ldr	r5, [r0]
 	cmp	r4, #0
-	beq	.L1	@cond_branch
+	beq	.L8055868	@cond_branch
 	ldr	r1, [r4, #0x4]
 	ldr	r2, [r4, #0x8]
 	ldr	r3, [r4, #0xc]
 	str	r7, [sp]
 	add	r0, r6, #0
 	bl	sub_804C3D4
-	b	.L2
-.L4:
+	b	.L8055876
+.L805585C:
 	.align	2, 0
-.L3:
+
 	.4byte	0x3000fb0
 	.4byte	0x1084
 	.4byte	0x8078e88
-.L1:
+.L8055868:
 	ldr	r1, [r5, #0x4]
 	ldr	r2, [r5, #0x8]
 	ldr	r3, [r5, #0xc]
 	str	r7, [sp]
 	add	r0, r6, #0
 	bl	sub_804C3D4
-.L2:
+.L8055876:
 	ldr	r1, [r5, #0x4]
 	ldr	r2, [r5, #0x8]
 	ldr	r3, [r5, #0xc]

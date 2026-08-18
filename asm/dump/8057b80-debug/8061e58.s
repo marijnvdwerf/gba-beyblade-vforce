@@ -14,17 +14,17 @@ sub_8061E58:
 	mov	r0, #0x1
 	NEG	r0, r0
 	cmp	r4, r0
-	beq	.L1	@cond_branch
+	beq	.L8061E84	@cond_branch
 	mov	r8, r0
-.L2:
+.L8061E74:
 	add	r0, r5, #0
 	add	r1, r6, #0
 	bl	sub_8061130
 	ldr	r5, [r5, #0x4]
 	sub	r4, r4, #0x1
 	cmp	r4, r8
-	bne	.L2	@cond_branch
-.L1:
+	bne	.L8061E74	@cond_branch
+.L8061E84:
 	strb	r6, [r7, #0xe]
 	pop	{r3}
 	mov	r8, r3

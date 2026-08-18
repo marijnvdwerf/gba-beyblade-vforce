@@ -20,3 +20,5 @@ CTestTestfile.cmake
 build/
 baserom.gba
 
+
+.claude/

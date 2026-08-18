@@ -3,38 +3,38 @@
 	thumb_func_start sub_8052AB8
 sub_8052AB8:
 	push	{r4, r5, lr}
-	ldr	r4, .L3
+	ldr	r4, .L8052AD0
 	mov	r5, #0x0
-	ldr	r0, .L3 + 4
+	ldr	r0, .L8052AD0 + 4
 	bl	printf
-.L5:
+.L8052AC4:
 	ldr	r0, [r4]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L8052AD8	@cond_branch
 	mov	r5, #0x0
-	b	.L2
-.L4:
+	b	.L8052ADA
+.L8052ACE:
 	.align	2, 0
-.L3:
+.L8052AD0:
 	.4byte	0x3007ec0
 	.4byte	0x8729478
-.L1:
+.L8052AD8:
 	add	r5, r5, #0x1
-.L2:
+.L8052ADA:
 	sub	r4, r4, #0x4
 	cmp	r5, #0xf
-	ble	.L5	@cond_branch
-	ldr	r0, .L6
-	ldr	r1, .L6 + 4
+	ble	.L8052AC4	@cond_branch
+	ldr	r0, .L8052AF4
+	ldr	r1, .L8052AF4 + 4
 	add	r2, r4, #0
 	add	r2, r2, #0x40
 	bl	printf
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L7:
+.L8052AF2:
 	.align	2, 0
-.L6:
+.L8052AF4:
 	.4byte	0x872948c
 	.4byte	0x3007ec0
 	thumb_func_end sub_8052AB8

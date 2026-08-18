@@ -17,8 +17,8 @@ sub_805FA8C:
 	add	r1, r0, r1
 	ldrh	r0, [r3, #0x2]
 	cmp	r2, r0
-	bge	.L1	@cond_branch
-	ldr	r0, .L4
+	bge	.L805FAE0	@cond_branch
+	ldr	r0, .L805FAC4
 	strh	r0, [r1, #0x2]
 	strh	r5, [r1]
 	mov	r0, #0x0
@@ -26,15 +26,15 @@ sub_805FA8C:
 	mov	r0, #0x1
 	NEG	r0, r0
 	cmp	r1, r0
-	bne	.L2	@cond_branch
+	bne	.L805FAC8	@cond_branch
 	ldrh	r0, [r3, #0x4]
 	strh	r0, [r4]
-	b	.L3
-.L5:
+	b	.L805FAD6
+.L805FAC4:
 	.align	2, 0
-.L4:
+
 	.4byte	0xffff
-.L2:
+.L805FAC8:
 	mov	r1, #0x2
 	ldsh	r0, [r4, r1]
 	lsl	r0, r0, #0x2
@@ -42,13 +42,13 @@ sub_805FA8C:
 	add	r1, r1, r0
 	ldrh	r0, [r3, #0x4]
 	strh	r0, [r1, #0x2]
-.L3:
+.L805FAD6:
 	ldrh	r0, [r3, #0x4]
 	strh	r0, [r4, #0x2]
 	ldrh	r0, [r3, #0x4]
 	add	r0, r0, #0x1
 	strh	r0, [r3, #0x4]
-.L1:
+.L805FAE0:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

@@ -14,19 +14,19 @@ sub_805DFD4:
 	add	r2, r1, #0
 	add	r2, r2, #0x20
 	cmp	r7, #0
-	bge	.L1	@cond_branch
+	bge	.L805DFF2	@cond_branch
 	mov	r7, #0x0
-.L1:
+.L805DFF2:
 	asr	r0, r7, #0xa
 	ldr	r1, [r1]
 	cmp	r0, r1
-	blt	.L2	@cond_branch
+	blt	.L805E004	@cond_branch
 	sub	r0, r1, #1
 	lsl	r0, r0, #0xa
-	ldr	r1, .L3
+	ldr	r1, .L805E064
 	and	r7, r7, r1
 	orr	r7, r7, r0
-.L2:
+.L805E004:
 	asr	r0, r7, #0xa
 	mov	r9, r0
 	lsl	r4, r0, #0x2
@@ -41,7 +41,7 @@ sub_805DFD4:
 	ldr	r1, [r0]
 	ldr	r2, [r5]
 	sub	r1, r1, r2
-	ldr	r3, .L3
+	ldr	r3, .L805E064
 	and	r3, r3, r7
 	mul	r1, r1, r3
 	asr	r1, r1, #0xa
@@ -73,9 +73,9 @@ sub_805DFD4:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L4:
+.L805E064:
 	.align	2, 0
-.L3:
+
 	.4byte	0x3ff
 	thumb_func_end sub_805DFD4
 

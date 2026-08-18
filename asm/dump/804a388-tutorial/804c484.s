@@ -7,23 +7,23 @@ sub_804C484:
 	mov	r0, #0x4
 	ldsh	r4, [r6, r0]
 	ldr	r5, [r6, #0x8]
-	b	.L1
-.L2:
+	b	.L804C498
+.L804C490:
 	ldr	r0, [r5, #0x30]
 	bl	sub_804ABE4
 	add	r5, r5, #0x34
-.L1:
+.L804C498:
 	add	r0, r4, #0
 	sub	r4, r4, #0x1
 	cmp	r0, #0
-	bne	.L2	@cond_branch
+	bne	.L804C490	@cond_branch
 	ldr	r0, [r6]
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L804C4AE	@cond_branch
 	bl	deallocateBlock
 	mov	r0, #0x0
 	str	r0, [r6]
-.L3:
+.L804C4AE:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0

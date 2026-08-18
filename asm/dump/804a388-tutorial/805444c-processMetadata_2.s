@@ -5,15 +5,15 @@ processMetadata_2:
 	push	{r4, r5, r6, r7, lr}
 	add	sp, sp, #0xfffffff4
 	ldr	r6, [sp, #0x20]
-	ldr	r0, .L4
+	ldr	r0, .L80544B4
 	ldrh	r1, [r6, #0x4]
 	cmp	r1, r0
-	bne	.L2	@cond_branch
+	bne	.L80544AC	@cond_branch
 	add	r0, r2, #0
 	bl	GetStruct4
 	ldr	r4, [r0]
 	cmp	r4, #0
-	beq	.L2	@cond_branch
+	beq	.L80544AC	@cond_branch
 	add	r5, r4, #0
 	add	r5, r5, #0xb4
 	ldr	r7, [r5]
@@ -21,9 +21,9 @@ processMetadata_2:
 	add	r0, r0, #0xb8
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L805447A	@cond_branch
 	bl	sub_8060A94
-.L3:
+.L805447A:
 	ldr	r1, [r6, #0x8]
 	ldr	r2, [r4, #0x3c]
 	ldr	r3, [r4, #0x4]
@@ -40,7 +40,7 @@ processMetadata_2:
 	bl	actor_8057C58
 	add	r1, r4, #0
 	add	r1, r1, #0xb0
-	ldr	r0, .L4 + 4
+	ldr	r0, .L80544B4 + 4
 	str	r0, [r1]
 	mov	r0, #0x0
 	str	r0, [r4, #0x68]
@@ -48,14 +48,14 @@ processMetadata_2:
 	mov	r0, #0x10
 	strh	r0, [r1]
 	str	r7, [r5]
-.L2:
+.L80544AC:
 	add	sp, sp, #0xc
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L5:
+.L80544B4:
 	.align	2, 0
-.L4:
+
 	.4byte	0x524d
 	.4byte	convert3DCoordsto2DCoords + 1
 	thumb_func_end processMetadata_2

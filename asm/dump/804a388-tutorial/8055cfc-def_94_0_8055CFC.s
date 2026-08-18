@@ -15,18 +15,18 @@ def_94_0_8055CFC:
 	add	r0, r0, #0xb4
 	ldr	r4, [r0]
 	cmp	r4, #0
-	bne	.L1	@cond_branch
+	bne	.L8055D1C	@cond_branch
 	mov	r0, #0x0
-	b	.L5
-.L1:
+	b	.L8055D58
+.L8055D1C:
 	mov	r0, #0x99
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L5	@cond_branch
+	beq	.L8055D58	@cond_branch
 	mov	r0, #0x90
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L4	@cond_branch
+	beq	.L8055D3E	@cond_branch
 	str	r0, [sp]
 	mov	r0, #0x40
 	str	r0, [sp, #0x4]
@@ -35,11 +35,11 @@ def_94_0_8055CFC:
 	add	r2, r7, #0
 	mov	r3, r8
 	bl	sub_8055D64
-.L4:
+.L8055D3E:
 	mov	r0, #0x9
 	and	r0, r0, r6
 	cmp	r0, #0
-	beq	.L5	@cond_branch
+	beq	.L8055D58	@cond_branch
 	str	r0, [sp]
 	mov	r0, #0x0
 	str	r0, [sp, #0x4]
@@ -48,7 +48,7 @@ def_94_0_8055CFC:
 	add	r2, r7, #0
 	mov	r3, r8
 	bl	sub_8055D64
-.L5:
+.L8055D58:
 	add	sp, sp, #0x8
 	pop	{r3}
 	mov	r8, r3

@@ -38,9 +38,9 @@ unref_804A744:
 	lsl	r0, r0, #0x13
 	add	r1, r1, r0
 	mov	r2, #0x0
-	ldr	r3, .L2
+	ldr	r3, .L804A7E0
 	add	r4, r3, #0
-.L1:
+.L804A794:
 	add	r0, r2, #0
 	and	r0, r0, r4
 	orr	r0, r0, r7
@@ -48,8 +48,8 @@ unref_804A744:
 	add	r1, r1, #0x2
 	add	r2, r2, #0x1
 	cmp	r2, r3
-	ble	.L1	@cond_branch
-	ldr	r3, .L2 + 4
+	ble	.L804A794	@cond_branch
+	ldr	r3, .L804A7E0 + 4
 	add	r0, r5, #0
 	add	r0, r0, #0x88
 	ldr	r0, [r0]
@@ -76,9 +76,9 @@ unref_804A744:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L3:
+.L804A7E0:
 	.align	2, 0
-.L2:
+
 	.4byte	0x3ff
 	.4byte	0x807d970
 	thumb_func_end unref_804A744

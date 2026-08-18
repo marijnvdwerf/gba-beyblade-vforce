@@ -7,10 +7,10 @@ sub_805D610:
 	add	r0, r0, #0x90
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L805D632	@cond_branch
 	ldr	r3, [r0, #0x4]
 	cmp	r3, #0
-	beq	.L2	@cond_branch
+	beq	.L805D632	@cond_branch
 	add	r0, r4, #0
 	add	r0, r0, #0x80
 	ldr	r1, [r0]
@@ -18,7 +18,7 @@ sub_805D610:
 	ldr	r2, [r0]
 	add	r0, r4, #0
 	bl	_call_via_r3
-.L2:
+.L805D632:
 	add	r0, r4, #0
 	add	r0, r0, #0x80
 	mov	r2, #0x0

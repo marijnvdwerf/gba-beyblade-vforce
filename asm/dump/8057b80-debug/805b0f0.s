@@ -14,31 +14,31 @@ sub_805B0F0:
 	ldr	r0, [r4, #0xc]
 	add	r5, r0, r1
 	cmp	r3, #0
-	blt	.L2	@cond_branch
+	blt	.L805B134	@cond_branch
 	ldr	r0, [r4, #0x14]
 	cmp	r3, r0
-	bge	.L2	@cond_branch
+	bge	.L805B134	@cond_branch
 	mov	r1, #0x0
 	cmp	r2, #0
-	bne	.L3	@cond_branch
+	bne	.L805B118	@cond_branch
 	mov	r1, #0x1
-.L3:
+.L805B118:
 	add	r0, r5, #0
 	add	r0, r0, #0x44
 	strb	r1, [r0]
 	cmp	r6, #0
-	beq	.L4	@cond_branch
+	beq	.L805B128	@cond_branch
 	add	r0, r4, #0
 	add	r0, r0, #0x2c
-	b	.L5
-.L4:
+	b	.L805B12C
+.L805B128:
 	add	r0, r4, #0
 	add	r0, r0, #0x2d
-.L5:
+.L805B12C:
 	ldrb	r1, [r0]
 	add	r0, r5, #0
 	bl	sub_806185C
-.L2:
+.L805B134:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0

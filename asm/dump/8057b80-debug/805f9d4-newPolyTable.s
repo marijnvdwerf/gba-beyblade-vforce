@@ -14,10 +14,10 @@ newPolyTable:
 	add	r7, r5, #0
 	ldr	r0, [r4, #0x10]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L805F9F4	@cond_branch
 	add	r0, r4, #0
 	bl	sub_805FA4C
-.L1:
+.L805F9F4:
 	lsl	r0, r5, #0x2
 	bl	fastAllocate
 	str	r0, [r4, #0x10]
@@ -26,16 +26,16 @@ newPolyTable:
 	str	r0, [r4, #0x14]
 	ldr	r0, [r4, #0x10]
 	cmp	r0, #0
-	bne	.L2	@cond_branch
-	ldr	r0, .L4
+	bne	.L805FA10	@cond_branch
+	ldr	r0, .L805FA44
 	bl	printf
-.L2:
+.L805FA10:
 	ldr	r0, [r4, #0x14]
 	cmp	r0, #0
-	bne	.L3	@cond_branch
-	ldr	r0, .L4 + 4
+	bne	.L805FA1C	@cond_branch
+	ldr	r0, .L805FA44 + 4
 	bl	printf
-.L3:
+.L805FA1C:
 	ldr	r0, [r4, #0x10]
 	ldr	r0, [r0]
 	str	r0, [r4, #0x8]
@@ -54,9 +54,9 @@ newPolyTable:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L5:
+.L805FA42:
 	.align	2, 0
-.L4:
+.L805FA44:
 	.4byte	0x87556b0
 	.4byte	0x87556f4
 	thumb_func_end newPolyTable

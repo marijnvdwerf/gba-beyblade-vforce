@@ -25,7 +25,7 @@ allocQuadTree:
 	mov	r7, #0xff
 	lsl	r7, r7, #0x8
 	mov	r8, r7
-	ldr	r0, .L9
+	ldr	r0, .L805BC84
 	mov	r9, r0
 	mov	sl, r9
 	mov	r0, #0x2c
@@ -58,31 +58,31 @@ allocQuadTree:
 	ldr	r0, [r3]
 	ldr	r0, [r0]
 	cmp	r0, #0
-	ble	.L1	@cond_branch
-.L6:
+	ble	.L805BC5E	@cond_branch
+.L805BC3A:
 	ldr	r2, [r5]
 	cmp	r2, r7
-	bge	.L2	@cond_branch
+	bge	.L805BC42	@cond_branch
 	add	r7, r2, #0
-.L2:
+.L805BC42:
 	ldr	r1, [r5, #0x4]
 	cmp	r1, r8
-	bge	.L3	@cond_branch
+	bge	.L805BC4A	@cond_branch
 	mov	r8, r1
-.L3:
+.L805BC4A:
 	cmp	r2, sl
-	ble	.L4	@cond_branch
+	ble	.L805BC50	@cond_branch
 	mov	sl, r2
-.L4:
+.L805BC50:
 	cmp	r1, r9
-	ble	.L5	@cond_branch
+	ble	.L805BC56	@cond_branch
 	mov	r9, r1
-.L5:
+.L805BC56:
 	add	r5, r5, #0x10
 	sub	r0, r0, #0x1
 	cmp	r0, #0
-	bne	.L6	@cond_branch
-.L1:
+	bne	.L805BC3A	@cond_branch
+.L805BC5E:
 	str	r7, [r6]
 	mov	r0, sl
 	str	r0, [r6, #0x8]
@@ -97,16 +97,16 @@ allocQuadTree:
 	add	r2, r0, #0
 	str	r2, [r6, #0x24]
 	cmp	r2, #0
-	bne	.L7	@cond_branch
-	ldr	r0, .L9 + 4
-	b	.L8
-.L10:
+	bne	.L805BC8C	@cond_branch
+	ldr	r0, .L805BC84 + 4
+	b	.L805BCAC
+.L805BC82:
 	.align	2, 0
-.L9:
+.L805BC84:
 	.4byte	0xffff0100
 	.4byte	0x8755440
-.L7:
-	ldr	r0, .L13
+.L805BC8C:
+	ldr	r0, .L805BCB4
 	ldr	r1, [r2]
 	ldr	r2, [r2, #0x4]
 	ldr	r3, [r0]
@@ -118,18 +118,18 @@ allocQuadTree:
 	bl	slowAllocate
 	str	r0, [r6, #0x28]
 	cmp	r0, #0
-	bne	.L11	@cond_branch
-	ldr	r0, .L13 + 4
-.L8:
+	bne	.L805BCBC	@cond_branch
+	ldr	r0, .L805BCB4 + 4
+.L805BCAC:
 	add	r1, r4, #0
 	bl	printf
-	b	.L12
-.L14:
+	b	.L805BD9E
+.L805BCB4:
 	.align	2, 0
-.L13:
+
 	.4byte	0x807d970
 	.4byte	0x8755474
-.L11:
+.L805BCBC:
 	ldr	r0, [r0]
 	str	r0, [r6, #0x4c]
 	ldr	r0, [r6, #0x24]
@@ -209,21 +209,21 @@ allocQuadTree:
 	ldrh	r3, [r6, #0x3a]
 	ldrh	r0, [r4]
 	cmp	r3, r0
-	bcc	.L15	@cond_branch
-	ldr	r0, .L17
+	bcc	.L805BD70	@cond_branch
+	ldr	r0, .L805BDB0
 	ldrh	r1, [r4]
-	ldr	r2, .L17 + 4
+	ldr	r2, .L805BDB0 + 4
 	ldrh	r3, [r6, #0x3a]
 	bl	nullsub_10
-.L15:
+.L805BD70:
 	ldrh	r1, [r6, #0x38]
 	ldrh	r2, [r6, #0x3e]
 	cmp	r1, r2
-	bcc	.L16	@cond_branch
-	ldr	r0, .L17 + 8
+	bcc	.L805BD80	@cond_branch
+	ldr	r0, .L805BDB0 + 8
 	ldrh	r1, [r6, #0x38]
 	bl	nullsub_9
-.L16:
+.L805BD80:
 	add	r0, r6, #0
 	ldr	r1, [sp, #0xc]
 	bl	allocateDynamicBoundingAreas
@@ -237,7 +237,7 @@ allocQuadTree:
 	add	r0, r6, #0
 	ldr	r1, [sp, #0xc]
 	bl	sub_805BDBC
-.L12:
+.L805BD9E:
 	add	sp, sp, #0x1c
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -246,9 +246,9 @@ allocQuadTree:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L18:
+.L805BDAE:
 	.align	2, 0
-.L17:
+.L805BDB0:
 	.4byte	0x87554b4
 	.4byte	0x87554f0
 	.4byte	0x87554f4

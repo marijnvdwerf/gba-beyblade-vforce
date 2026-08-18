@@ -7,18 +7,18 @@ sub_8058754:
 	add	r0, r0, #0xb0
 	ldr	r3, [r0]
 	cmp	r3, #0
-	beq	.L1	@cond_branch
+	beq	.L8058768	@cond_branch
 	add	r0, r2, #0
 	bl	_call_via_r3
-	b	.L2
-.L1:
+	b	.L8058774
+.L8058768:
 	ldr	r0, [r2, #0x4]
 	str	r0, [r1]
 	ldr	r0, [r2, #0x8]
 	str	r0, [r1, #0x4]
 	ldr	r0, [r2, #0xc]
 	str	r0, [r1, #0x8]
-.L2:
+.L8058774:
 	pop	{r0}
 	bx	r0
 	thumb_func_end sub_8058754

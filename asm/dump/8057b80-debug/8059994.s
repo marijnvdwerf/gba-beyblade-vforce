@@ -6,12 +6,12 @@ sub_8059994:
 	ldrh	r0, [r0]
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1	@cond_branch
+	bne	.L80599A2	@cond_branch
 	mov	r0, #0x0
-	b	.L2
-.L1:
+	b	.L80599A4
+.L80599A2:
 	mov	r0, #0x1
-.L2:
+.L80599A4:
 	bx	lr
 	thumb_func_end sub_8059994
 

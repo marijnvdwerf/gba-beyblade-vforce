@@ -9,7 +9,7 @@ sub_804393C:
 	add	r2, r2, r1
 	mov	r1, #0x0
 	add	r3, r0, #4
-.L1:
+.L804394A:
 	add	r0, r3, r1
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x18
@@ -17,7 +17,7 @@ sub_804393C:
 	EOR	r2, r0
 	add	r1, r1, #0x1
 	cmp	r1, #0xb
-	ble	.L1	@cond_branch
+	ble	.L804394A	@cond_branch
 	lsl	r0, r2, #0x18
 	lsr	r0, r0, #0x18
 	bx	lr

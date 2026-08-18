@@ -24,9 +24,9 @@ sub_804BF3C:
 	lsl	r6, r6, #0x2
 	ADD r6, ip
 	cmp	r1, #0
-	bne	.L1	@cond_branch
-	b	.L2
-.L1:
+	bne	.L804BF6C	@cond_branch
+	b	.L804C084
+.L804BF6C:
 	ldr	r0, [r1, #0x8]
 	ldr	r4, [r2, #0xc]
 	add	r0, r0, r4
@@ -51,7 +51,7 @@ sub_804BF3C:
 	lsl	r2, r2, #0xb
 	and	r3, r3, r5
 	sub	r2, r2, r3
-	ldr	r0, .L8
+	ldr	r0, .L804C008
 	ADD r0, ip
 	sub	r1, r1, r2
 	asr	r1, r1, #0x8
@@ -60,23 +60,23 @@ sub_804BF3C:
 	add	r1, r0, r1
 	asr	r5, r1, #0x3
 	cmp	r5, #0x4
-	ble	.L3	@cond_branch
+	ble	.L804BFB2	@cond_branch
 	mov	r5, #0x4
-.L3:
+.L804BFB2:
 	str	r4, [r7, #0x8]
 	str	r2, [r7, #0xc]
 	ldr	r0, [r6]
 	cmp	r9, r0
-	bne	.L4	@cond_branch
+	bne	.L804BFC2	@cond_branch
 	ldr	r0, [r6, #0x4]
 	cmp	r8, r0
-	beq	.L5	@cond_branch
-.L4:
+	beq	.L804C018	@cond_branch
+.L804BFC2:
 	ldr	r0, [r6, #0xc]
 	sub	r7, r0, r5
-	ldr	r0, .L8 + 4
+	ldr	r0, .L804C008 + 4
 	ldr	r0, [r0]
-	ldr	r1, .L8 + 8
+	ldr	r1, .L804C008 + 8
 	add	r0, r0, r1
 	str	r5, [sp]
 	mov	r1, #0xe0
@@ -95,8 +95,8 @@ sub_804BF3C:
 	mov	r3, #0x4
 	bl	sub_805EF18
 	cmp	r7, #0
-	ble	.L14	@cond_branch
-	ldr	r3, .L8 + 12
+	ble	.L804C07A	@cond_branch
+	ldr	r3, .L804C008 + 12
 	lsl	r0, r5, #0x7
 	ldr	r1, [r4]
 	add	r1, r1, r0
@@ -104,22 +104,22 @@ sub_804BF3C:
 	ldr	r3, [r3]
 	mov	r0, #0x0
 	bl	_call_via_r3
-	b	.L14
-.L9:
+	b	.L804C07A
+.L804C008:
 	.align	2, 0
-.L8:
+
 	.4byte	0x3ca
 	.4byte	0x3000fb0
 	.4byte	0x434
 	.4byte	0x807d970
-.L5:
+.L804C018:
 	ldr	r4, [r6, #0xc]
 	cmp	r5, r4
-	ble	.L10	@cond_branch
+	ble	.L804C05C	@cond_branch
 	sub	r1, r5, r4
-	ldr	r0, .L12
+	ldr	r0, .L804C054
 	ldr	r0, [r0]
-	ldr	r2, .L12 + 4
+	ldr	r2, .L804C054 + 4
 	add	r0, r0, r2
 	mov	r3, r8
 	add	r2, r3, r4
@@ -140,16 +140,16 @@ sub_804BF3C:
 	mov	r1, r9
 	mov	r3, #0x4
 	bl	sub_805EF18
-	b	.L14
-.L13:
+	b	.L804C07A
+.L804C052:
 	.align	2, 0
-.L12:
+.L804C054:
 	.4byte	0x3000fb0
 	.4byte	0x434
-.L10:
+.L804C05C:
 	cmp	r5, r4
-	bge	.L14	@cond_branch
-	ldr	r3, .L15
+	bge	.L804C07A	@cond_branch
+	ldr	r3, .L804C094
 	mov	r0, #0xf5
 	lsl	r0, r0, #0x2
 	ADD r0, ip
@@ -161,13 +161,13 @@ sub_804BF3C:
 	ldr	r3, [r3]
 	mov	r0, #0x0
 	bl	_call_via_r3
-.L14:
+.L804C07A:
 	mov	r0, r9
 	str	r0, [r6]
 	mov	r1, r8
 	str	r1, [r6, #0x4]
 	str	r5, [r6, #0xc]
-.L2:
+.L804C084:
 	add	sp, sp, #0xc
 	pop	{r3, r4}
 	mov	r8, r3
@@ -175,9 +175,9 @@ sub_804BF3C:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L16:
+.L804C092:
 	.align	2, 0
-.L15:
+.L804C094:
 	.4byte	0x807d970
 	thumb_func_end sub_804BF3C
 

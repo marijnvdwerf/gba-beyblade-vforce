@@ -19,8 +19,8 @@ RiderAI_804C8F0:
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L1	@cond_branch
-	ldr	r2, .L4
+	beq	.L804C97C	@cond_branch
+	ldr	r2, .L804C934
 	add	r0, r7, r2
 	ldrb	r0, [r0]
 	add	r0, r0, #0x10
@@ -28,72 +28,72 @@ RiderAI_804C8F0:
 	and	r0, r0, r1
 	lsr	r0, r0, #0x5
 	cmp	r0, #0x7
-	bls	.L2	@cond_branch
-	b	.L47
-.L2:
+	bls	.L804C92A	@cond_branch
+	b	.L804CA9E
+.L804C92A:
 	lsl	r0, r0, #0x2
-	ldr	r1, .L4 + 4
+	ldr	r1, .L804C934 + 4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L5:
+.L804C934:
 	.align	2, 0
-.L4:
+
 	.4byte	0x1c3
-	.4byte	.L6
-.L6:
-	.4byte	.L7
-	.4byte	.L8
-	.4byte	.L9
-	.4byte	.L10
-	.4byte	.L11
-	.4byte	.L12
-	.4byte	.L13
-	.4byte	.L14
-.L7:
+	.4byte	.L804C93C
+.L804C93C:
+	.4byte	.L804C95C
+	.4byte	.L804C960
+	.4byte	.L804C964
+	.4byte	.L804C968
+	.4byte	.L804C96C
+	.4byte	.L804C970
+	.4byte	.L804C974
+	.4byte	.L804C978
+.L804C95C:
 	mov	r6, #0x20
-	b	.L47
-.L8:
+	b	.L804CA9E
+.L804C960:
 	mov	r6, #0x60
-	b	.L47
-.L9:
+	b	.L804CA9E
+.L804C964:
 	mov	r6, #0x40
-	b	.L47
-.L10:
+	b	.L804CA9E
+.L804C968:
 	mov	r6, #0x50
-	b	.L47
-.L11:
+	b	.L804CA9E
+.L804C96C:
 	mov	r6, #0x10
-	b	.L47
-.L12:
+	b	.L804CA9E
+.L804C970:
 	mov	r6, #0x90
-	b	.L47
-.L13:
+	b	.L804CA9E
+.L804C974:
 	mov	r6, #0x80
-	b	.L47
-.L14:
+	b	.L804CA9E
+.L804C978:
 	mov	r6, #0xa0
-	b	.L47
-.L1:
+	b	.L804CA9E
+.L804C97C:
 	add	r0, r7, #0
 	mov	r1, #0x1
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L23	@cond_branch
+	bne	.L804C998	@cond_branch
 	add	r0, r7, #0
 	mov	r1, #0x40
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L25	@cond_branch
-.L23:
+	beq	.L804CA14	@cond_branch
+.L804C998:
 	mov	r3, #0x83
 	lsl	r3, r3, #0x2
 	add	r0, r7, r3
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L25	@cond_branch
+	beq	.L804CA14	@cond_branch
 	ldr	r2, [r0]
 	ldr	r3, [r7]
 	ldr	r0, [r2, #0x4]
@@ -113,59 +113,59 @@ RiderAI_804C8F0:
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L26	@cond_branch
+	beq	.L804C9D2	@cond_branch
 	NEG	r4, r4
 	NEG	r5, r5
-.L26:
+.L804C9D2:
 	cmp	r4, #0
-	ble	.L27	@cond_branch
+	ble	.L804C9DA	@cond_branch
 	mov	r6, #0x10
-	b	.L29
-.L27:
+	b	.L804C9E0
+.L804C9DA:
 	cmp	r4, #0
-	bge	.L29	@cond_branch
+	bge	.L804C9E0	@cond_branch
 	mov	r6, #0x20
-.L29:
+.L804C9E0:
 	cmp	r5, #0
-	ble	.L30	@cond_branch
+	ble	.L804C9EA	@cond_branch
 	mov	r0, #0x80
 	orr	r6, r6, r0
-	b	.L32
-.L30:
+	b	.L804C9F6
+.L804C9EA:
 	cmp	r5, #0
-	bge	.L32	@cond_branch
+	bge	.L804C9F6	@cond_branch
 	mov	r0, #0x40
 	orr	r6, r6, r0
 	lsl	r0, r6, #0x10
 	lsr	r6, r0, #0x10
-.L32:
-	ldr	r0, .L35
+.L804C9F6:
+	ldr	r0, .L804CA10
 	add	r1, r7, r0
 	ldrh	r0, [r1]
 	sub	r0, r0, #0x1
 	strh	r0, [r1]
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bne	.L47	@cond_branch
+	bne	.L804CA9E	@cond_branch
 	add	r0, r7, #0
 	mov	r1, #0x41
 	bl	UnsetRiderFlag
-	b	.L47
-.L36:
+	b	.L804CA9E
+.L804CA10:
 	.align	2, 0
-.L35:
+
 	.4byte	0x21e
-.L25:
-	ldr	r0, .L40
+.L804CA14:
+	ldr	r0, .L804CA68
 	ldr	r0, [r0]
-	ldr	r1, .L40 + 4
+	ldr	r1, .L804CA68 + 4
 	add	r2, r0, r1
 	mov	r3, #0x85
 	lsl	r3, r3, #0x2
 	add	r0, r7, r3
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L47	@cond_branch
+	beq	.L804CA9E	@cond_branch
 	mov	r1, #0x86
 	lsl	r1, r1, #0x2
 	add	r0, r7, r1
@@ -193,57 +193,57 @@ RiderAI_804C8F0:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x1
 	cmp	r3, r0
-	ble	.L38	@cond_branch
+	ble	.L804CA70	@cond_branch
 	mov	r0, #0x10
-	b	.L39
-.L41:
+	b	.L804CA78
+.L804CA66:
 	.align	2, 0
-.L40:
+.L804CA68:
 	.4byte	0x3000fb0
 	.4byte	0x65c
-.L38:
-	ldr	r0, .L45
+.L804CA70:
+	ldr	r0, .L804CA8C
 	cmp	r3, r0
-	bge	.L42	@cond_branch
+	bge	.L804CA7E	@cond_branch
 	mov	r0, #0x20
-.L39:
+.L804CA78:
 	orr	r6, r6, r0
 	lsl	r0, r6, #0x10
 	lsr	r6, r0, #0x10
-.L42:
+.L804CA7E:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x1
 	cmp	r1, r0
-	ble	.L43	@cond_branch
+	ble	.L804CA90	@cond_branch
 	mov	r0, #0x80
-	b	.L44
-.L46:
+	b	.L804CA98
+.L804CA8A:
 	.align	2, 0
-.L45:
+.L804CA8C:
 	.4byte	0xffffff00
-.L43:
-	ldr	r0, .L50
+.L804CA90:
+	ldr	r0, .L804CB04
 	cmp	r1, r0
-	bge	.L47	@cond_branch
+	bge	.L804CA9E	@cond_branch
 	mov	r0, #0x40
-.L44:
+.L804CA98:
 	orr	r6, r6, r0
 	lsl	r0, r6, #0x10
 	lsr	r6, r0, #0x10
-.L47:
+.L804CA9E:
 	add	r0, r7, #0
 	mov	r1, #0x40
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L49	@cond_branch
+	beq	.L804CACE	@cond_branch
 	mov	r1, #0x80
 	lsl	r1, r1, #0x12
 	add	r0, r7, #0
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L49	@cond_branch
+	beq	.L804CACE	@cond_branch
 	mov	r0, #0x88
 	lsl	r0, r0, #0x2
 	add	r1, r7, r0
@@ -252,7 +252,7 @@ RiderAI_804C8F0:
 	add	r0, r7, #0
 	mov	r1, #0x40
 	bl	UnsetRiderFlag
-.L49:
+.L804CACE:
 	mov	r1, #0xe2
 	lsl	r1, r1, #0x1
 	add	r0, r7, r1
@@ -279,9 +279,9 @@ RiderAI_804C8F0:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L51:
+.L804CB04:
 	.align	2, 0
-.L50:
+
 	.4byte	0xffffff00
 	thumb_func_end RiderAI_804C8F0
 

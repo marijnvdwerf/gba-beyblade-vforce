@@ -3,24 +3,24 @@
 	thumb_func_start sub_8051488
 sub_8051488:
 	push	{r4, r5, r6, lr}
-	ldr	r5, .L3
+	ldr	r5, .L80514A4
 	ldr	r6, [r5]
-	ldr	r0, .L3 + 4
+	ldr	r0, .L80514A4 + 4
 	add	r4, r6, r0
 	bl	sub_8051558
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1	@cond_branch
-	ldr	r0, .L3 + 8
+	bne	.L80514B0	@cond_branch
+	ldr	r0, .L80514A4 + 8
 	bl	printf
-	b	.L2
-.L4:
+	b	.L805152A
+.L80514A4:
 	.align	2, 0
-.L3:
+
 	.4byte	0x3000f48
 	.4byte	0x6fc
 	.4byte	0x87293f0
-.L1:
+.L80514B0:
 	ldr	r1, [r5]
 	ldrb	r0, [r4, #0x4]
 	strb	r0, [r1]
@@ -34,21 +34,21 @@ sub_8051488:
 	ldrb	r0, [r4, #0x7]
 	strb	r0, [r1, #0x3]
 	ldr	r1, [r5]
-	ldr	r2, .L5
+	ldr	r2, .L8051530
 	add	r0, r6, r2
 	ldrh	r2, [r0]
-	ldr	r4, .L5 + 4
+	ldr	r4, .L8051530 + 4
 	add	r0, r1, r4
 	strh	r2, [r0]
-	ldr	r3, .L5 + 8
+	ldr	r3, .L8051530 + 8
 	add	r0, r6, r3
 	ldrh	r0, [r0]
-	ldr	r3, .L5 + 12
+	ldr	r3, .L8051530 + 12
 	add	r2, r1, r3
 	strh	r0, [r2]
-	ldr	r0, .L5 + 16
+	ldr	r0, .L8051530 + 16
 	add	r1, r1, r0
-	ldr	r3, .L5 + 20
+	ldr	r3, .L8051530 + 20
 	add	r0, r6, r3
 	ldr	r0, [r0]
 	str	r0, [r1]
@@ -58,8 +58,8 @@ sub_8051488:
 	add	r0, r0, r4
 	ldrh	r0, [r0]
 	bl	sub_804B00C
-	ldr	r4, .L5 + 24
-	ldr	r1, .L5 + 28
+	ldr	r4, .L8051530 + 24
+	ldr	r1, .L8051530 + 28
 	add	r0, r6, r1
 	ldr	r1, [r5]
 	add	r1, r1, #0x4
@@ -67,23 +67,23 @@ sub_8051488:
 	lsl	r2, r2, #0x3
 	ldr	r3, [r4]
 	bl	_call_via_r3
-	ldr	r2, .L5 + 32
+	ldr	r2, .L8051530 + 32
 	add	r0, r6, r2
 	ldr	r1, [r5]
-	ldr	r3, .L5 + 36
+	ldr	r3, .L8051530 + 36
 	add	r1, r1, r3
 	ldr	r3, [r4]
 	mov	r2, #0x10
 	bl	_call_via_r3
 	mov	r0, #0x1
 	bl	sub_8051640
-.L2:
+.L805152A:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L6:
+.L8051530:
 	.align	2, 0
-.L5:
+
 	.4byte	0xc54
 	.4byte	0x6e4
 	.4byte	0xc56

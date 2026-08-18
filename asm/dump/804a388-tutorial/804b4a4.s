@@ -17,29 +17,29 @@ sub_804B4A4:
 	add	r5, r4, r0
 	ldr	r0, [r5]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L804B4D0	@cond_branch
 	bl	deallocateBlock
 	mov	r0, #0x0
 	str	r0, [r5]
-.L1:
+.L804B4D0:
 	mov	r1, #0xfa
 	lsl	r1, r1, #0x2
 	add	r0, r4, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L804B4E4	@cond_branch
 	add	r1, r1, #0x4
 	add	r0, r4, r1
 	bl	sub_804EBE8
-.L2:
+.L804B4E4:
 	mov	r1, #0xf1
 	lsl	r1, r1, #0x2
 	add	r0, r4, r1
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L804B4F4	@cond_branch
 	bl	sub_8060A94
-.L3:
+.L804B4F4:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

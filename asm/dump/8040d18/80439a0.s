@@ -5,8 +5,8 @@ sub_80439A0:
 	push	{r4, lr}
 	mov	r1, #0x0
 	str	r1, [r0, #0x24]
-	ldr	r3, .L1
-	ldr	r1, .L1 + 4
+	ldr	r3, .L80439E8
+	ldr	r1, .L80439E8 + 4
 	ldr	r2, [r1]
 	lsr	r2, r2, #0x6
 	lsl	r2, r2, #0x18
@@ -16,7 +16,7 @@ sub_80439A0:
 	mov	r4, #0x0
 	ldsh	r1, [r1, r4]
 	lsl	r1, r1, #0x1
-	ldr	r4, .L1 + 8
+	ldr	r4, .L80439E8 + 8
 	add	r1, r1, r4
 	str	r1, [r0, #0x14]
 	add	r2, r2, #0x40
@@ -37,9 +37,9 @@ sub_80439A0:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2:
+.L80439E6:
 	.align	2, 0
-.L1:
+.L80439E8:
 	.4byte	0x874cc3c
 	.4byte	0x3000e30
 	.4byte	0xffffff00

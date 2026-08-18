@@ -18,40 +18,40 @@ GetQuadTreeNodeForPos:
 	asr	r0, r0, #0x1
 	add	r0, r1, r0
 	cmp	ip, r3
-	ble	.L1	@cond_branch
+	ble	.L805C32C	@cond_branch
 	mov	r2, #0x1
-.L1:
+.L805C32C:
 	cmp	r7, r0
-	ble	.L2	@cond_branch
+	ble	.L805C334	@cond_branch
 	mov	r0, #0x2
 	orr	r2, r2, r0
-.L2:
+.L805C334:
 	cmp	r2, #0x1
-	beq	.L3	@cond_branch
+	beq	.L805C350	@cond_branch
 	cmp	r2, #0x1
-	bgt	.L4	@cond_branch
+	bgt	.L805C342	@cond_branch
 	cmp	r2, #0
-	beq	.L5	@cond_branch
-	b	.L25
-.L4:
+	beq	.L805C34C	@cond_branch
+	b	.L805C3A6
+.L805C342:
 	cmp	r2, #0x2
-	beq	.L7	@cond_branch
+	beq	.L805C354	@cond_branch
 	cmp	r2, #0x3
-	beq	.L8	@cond_branch
-	b	.L25
-.L5:
+	beq	.L805C358	@cond_branch
+	b	.L805C3A6
+.L805C34C:
 	ldr	r4, [r6, #0x14]
-	b	.L25
-.L3:
+	b	.L805C3A6
+.L805C350:
 	ldr	r4, [r6, #0x18]
-	b	.L25
-.L7:
+	b	.L805C3A6
+.L805C354:
 	ldr	r4, [r6, #0x1c]
-	b	.L25
-.L8:
+	b	.L805C3A6
+.L805C358:
 	ldr	r4, [r6, #0x20]
-	b	.L25
-.L27:
+	b	.L805C3A6
+.L805C35C:
 	ldr	r3, [r4, #0x18]
 	ldr	r0, [r4, #0x20]
 	ldr	r1, [r4, #0x1c]
@@ -64,46 +64,46 @@ GetQuadTreeNodeForPos:
 	add	r0, r1, r0
 	mov	r2, #0x0
 	cmp	ip, r3
-	ble	.L14	@cond_branch
+	ble	.L805C378	@cond_branch
 	mov	r2, #0x1
-.L14:
+.L805C378:
 	cmp	r7, r0
-	ble	.L15	@cond_branch
+	ble	.L805C380	@cond_branch
 	mov	r0, #0x2
 	orr	r2, r2, r0
-.L15:
+.L805C380:
 	cmp	r2, #0x1
-	beq	.L16	@cond_branch
+	beq	.L805C39C	@cond_branch
 	cmp	r2, #0x1
-	bgt	.L17	@cond_branch
+	bgt	.L805C38E	@cond_branch
 	cmp	r2, #0
-	beq	.L18	@cond_branch
-	b	.L25
-.L17:
+	beq	.L805C398	@cond_branch
+	b	.L805C3A6
+.L805C38E:
 	cmp	r2, #0x2
-	beq	.L20	@cond_branch
+	beq	.L805C3A0	@cond_branch
 	cmp	r2, #0x3
-	beq	.L21	@cond_branch
-	b	.L25
-.L18:
+	beq	.L805C3A4	@cond_branch
+	b	.L805C3A6
+.L805C398:
 	ldr	r4, [r6]
-	b	.L25
-.L16:
+	b	.L805C3A6
+.L805C39C:
 	ldr	r4, [r6, #0x4]
-	b	.L25
-.L20:
+	b	.L805C3A6
+.L805C3A0:
 	ldr	r4, [r6, #0x8]
-	b	.L25
-.L21:
+	b	.L805C3A6
+.L805C3A4:
 	ldr	r4, [r6, #0xc]
-.L25:
+.L805C3A6:
 	cmp	r4, #0
-	beq	.L26	@cond_branch
+	beq	.L805C3B2	@cond_branch
 	add	r6, r4, #0
 	ldrh	r0, [r4, #0x28]
 	cmp	r0, #0
-	beq	.L27	@cond_branch
-.L26:
+	beq	.L805C35C	@cond_branch
+.L805C3B2:
 	add	r0, r4, #0
 	pop	{r4, r5, r6, r7}
 	pop	{r1}

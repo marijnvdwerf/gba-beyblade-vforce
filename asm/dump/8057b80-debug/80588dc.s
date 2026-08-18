@@ -8,13 +8,13 @@ sub_80588DC:
 	mov	r0, #0x1
 	NEG	r0, r0
 	cmp	r2, r0
-	beq	.L1	@cond_branch
+	beq	.L805890E	@cond_branch
 	mov	r0, #0x0
 	cmp	r0, r2
-	bge	.L2	@cond_branch
+	bge	.L805890A	@cond_branch
 	ldr	r4, [r3, #0x78]
 	mov	r5, #0x0
-.L3:
+.L80588F4:
 	lsl	r1, r0, #0x10
 	asr	r1, r1, #0x10
 	lsl	r0, r1, #0x4
@@ -25,11 +25,11 @@ sub_80588DC:
 	lsr	r0, r1, #0x10
 	asr	r1, r1, #0x10
 	cmp	r1, r2
-	blt	.L3	@cond_branch
-.L2:
+	blt	.L80588F4	@cond_branch
+.L805890A:
 	mov	r0, #0x0
 	str	r0, [r3, #0x74]
-.L1:
+.L805890E:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

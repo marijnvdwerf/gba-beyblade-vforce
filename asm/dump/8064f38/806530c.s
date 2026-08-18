@@ -5,8 +5,8 @@ sub_806530C:
 	push	{r4, r5, lr}
 	add	r5, r0, #0
 	mov	r4, #0x0
-	b	.L1
-.L2:
+	b	.L8065328
+.L8065314:
 	mov	r0, #0xc4
 	add	r1, r4, #0
 	mul	r1, r1, r0
@@ -16,10 +16,10 @@ sub_806530C:
 	add	r0, r4, #1
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
-.L1:
+.L8065328:
 	ldrb	r0, [r5, #0x4]
 	cmp	r4, r0
-	bcc	.L2	@cond_branch
+	bcc	.L8065314	@cond_branch
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

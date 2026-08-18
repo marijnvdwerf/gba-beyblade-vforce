@@ -11,12 +11,12 @@ sub_80550B8:
 	bl	GetStruct4
 	add	r2, r0, #0
 	cmp	r6, #0
-	beq	.L1	@cond_branch
+	beq	.L80550D6	@cond_branch
 	ldr	r0, [r5]
 	sub	r0, r0, #0x1
 	cmp	r6, r0
-	bne	.L2	@cond_branch
-.L1:
+	bne	.L80550EE	@cond_branch
+.L80550D6:
 	ldr	r0, [r4, #0x40]
 	str	r0, [r2, #0x2c]
 	ldr	r0, [r4, #0x44]
@@ -29,7 +29,7 @@ sub_80550B8:
 	str	r0, [r4, #0x40]
 	str	r0, [r4, #0x44]
 	str	r0, [r4, #0x48]
-.L2:
+.L80550EE:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1

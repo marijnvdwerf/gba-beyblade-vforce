@@ -8,27 +8,27 @@ sub_8043604:
 	push	{r6, r7}
 	add	sp, sp, #0xfffffffc
 	add	r6, r2, #0
-	ldr	r7, .L2
+	ldr	r7, .L80436A4
 	bl	sub_8048FCC
 	add	r5, r0, #0
 	mov	r0, #0xa5
 	lsl	r0, r0, #0x3
 	add	r0, r0, r5
 	mov	r9, r0
-	ldr	r1, .L2 + 4
+	ldr	r1, .L80436A4 + 4
 	add	r4, r5, r1
-	ldr	r0, .L2 + 8
+	ldr	r0, .L80436A4 + 8
 	add	r0, r0, r5
 	mov	r8, r0
 	mov	r1, r9
 	ldr	r0, [r1]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L804363E	@cond_branch
 	add	r0, r4, #0
 	bl	sub_8061204
 	mov	r0, r8
 	bl	sub_8050584
-.L1:
+.L804363E:
 	add	r0, r6, #0
 	add	r1, r4, #0
 	bl	sub_80622E8
@@ -73,9 +73,9 @@ sub_8043604:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L3:
+.L80436A2:
 	.align	2, 0
-.L2:
+.L80436A4:
 	.4byte	0x8068890
 	.4byte	0x52c
 	.4byte	0x55c

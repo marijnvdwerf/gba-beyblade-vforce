@@ -10,7 +10,7 @@ sub_8061880:
 	lsr	r2, r2, #0x10
 	ldr	r0, [r3, #0x2c]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L80618AA	@cond_branch
 	ldrh	r4, [r0, #0x14]
 	add	r1, r4, r1
 	lsl	r1, r1, #0x10
@@ -21,8 +21,8 @@ sub_8061880:
 	lsr	r2, r2, #0x10
 	add	r0, r3, #0
 	bl	sub_8061684
-	b	.L2
-.L1:
+	b	.L80618CA
+.L80618AA:
 	mov	r4, #0x80
 	lsl	r4, r4, #0x1
 	add	r0, r4, #0
@@ -38,7 +38,7 @@ sub_8061880:
 	lsr	r2, r2, #0x10
 	add	r0, r3, #0
 	bl	sub_8061684
-.L2:
+.L80618CA:
 	pop	{r4}
 	pop	{r0}
 	bx	r0

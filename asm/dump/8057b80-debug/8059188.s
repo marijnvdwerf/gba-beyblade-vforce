@@ -24,7 +24,7 @@ sub_8059188:
 	lsl	r1, r6, #0x1
 	add	r1, r1, r6
 	lsl	r1, r1, #0x3
-	ldr	r0, .L4
+	ldr	r0, .L8059228
 	add	r1, r1, r0
 	str	r1, [r5, #0x8]
 	ldr	r0, [r4, #0x8]
@@ -40,10 +40,10 @@ sub_8059188:
 	bl	sub_8059284
 	lsr	r1, r0, #0xb
 	cmp	r1, #0
-	bne	.L1	@cond_branch
+	bne	.L80591DC	@cond_branch
 	mov	r1, #0x1
-.L1:
-	ldr	r0, .L4 + 4
+.L80591DC:
+	ldr	r0, .L8059228 + 4
 	ldrb	r2, [r0]
 	sub	r1, r2, r1
 	strb	r1, [r0]
@@ -56,8 +56,8 @@ sub_8059188:
 	and	r0, r0, r4
 	add	r7, r2, #0
 	cmp	r0, #0
-	bne	.L2	@cond_branch
-	ldr	r2, .L4 + 8
+	bne	.L8059234	@cond_branch
+	ldr	r2, .L8059228 + 8
 	mov	r4, r9
 	str	r4, [sp]
 	add	r1, r5, #0
@@ -78,14 +78,14 @@ sub_8059188:
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	_call_via_r4
-	b	.L3
-.L5:
+	b	.L805925C
+.L8059226:
 	.align	2, 0
-.L4:
+.L8059228:
 	.4byte	0x3000ca0
 	.4byte	0x3000e3c
 	.4byte	0x807d944
-.L2:
+.L8059234:
 	mov	r0, r9
 	str	r0, [sp]
 	add	r1, r5, #0
@@ -105,7 +105,7 @@ sub_8059188:
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	sub_80594FC
-.L3:
+.L805925C:
 	add	r0, r6, #0
 	bl	GetBGLayerCntPtr
 	ldrb	r7, [r7]

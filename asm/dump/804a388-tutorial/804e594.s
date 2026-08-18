@@ -23,13 +23,13 @@ sub_804E594:
 	lsl	r0, r0, #0x2
 	ldr	r5, [r7, #0x8]
 	add	r5, r5, r0
-	ldr	r0, .L3
+	ldr	r0, .L804E69C
 	ldr	r4, [r0]
 	lsr	r4, r4, #0x3
 	add	r4, r4, r6
 	mov	r0, #0x1f
 	and	r4, r4, r0
-	ldr	r6, .L3 + 4
+	ldr	r6, .L804E69C + 4
 	lsl	r0, r4, #0x1
 	add	r0, r0, r6
 	mov	r3, #0x0
@@ -114,9 +114,9 @@ sub_804E594:
 	strh	r0, [r5, #0x1e]
 	ldr	r3, [sp]
 	cmp	r3, #0
-	beq	.L1	@cond_branch
+	beq	.L804E678	@cond_branch
 	strh	r1, [r3, #0x18]
-.L1:
+.L804E678:
 	ldrh	r0, [r7, #0x6]
 	add	r0, r0, #0x1
 	strh	r0, [r7, #0x6]
@@ -124,10 +124,10 @@ sub_804E594:
 	ldrh	r2, [r7, #0x4]
 	lsl	r1, r2, #0x10
 	cmp	r0, r1
-	blt	.L2	@cond_branch
+	blt	.L804E68C	@cond_branch
 	mov	r3, r8
 	strh	r3, [r7, #0x6]
-.L2:
+.L804E68C:
 	add	sp, sp, #0x8
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -136,9 +136,9 @@ sub_804E594:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L4:
+.L804E69C:
 	.align	2, 0
-.L3:
+
 	.4byte	0x3000e30
 	.4byte	0x8074d64
 	thumb_func_end sub_804E594

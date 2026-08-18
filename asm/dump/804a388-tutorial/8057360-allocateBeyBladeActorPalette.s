@@ -6,13 +6,13 @@ allocateBeyBladeActorPalette:
 	add	r4, r0, #0
 	add	r5, r1, #0
 	bl	getBeybladeData0
-	ldr	r0, .L1
+	ldr	r0, .L805738C
 	lsl	r4, r4, #0x2
 	add	r4, r4, r0
 	ldr	r0, [r4]
-	ldr	r1, .L1 + 4
+	ldr	r1, .L805738C + 4
 	lsl	r5, r5, #0x5
-	ldr	r2, .L1 + 8
+	ldr	r2, .L805738C + 8
 	add	r5, r5, r2
 	ldr	r3, [r1]
 	add	r1, r5, #0
@@ -21,9 +21,9 @@ allocateBeyBladeActorPalette:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L2:
+.L805738A:
 	.align	2, 0
-.L1:
+.L805738C:
 	.4byte	0x807ab38
 	.4byte	0x807d974
 	.4byte	0x5000200

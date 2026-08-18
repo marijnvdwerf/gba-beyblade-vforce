@@ -8,11 +8,11 @@ processMetadata_8:
 	bl	GetStruct4
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L805469C	@cond_branch
 	ldrh	r1, [r4, #0x8]
 	ldrh	r2, [r4, #0xa]
 	bl	actor_80580C0
-.L1:
+.L805469C:
 	pop	{r4}
 	pop	{r0}
 	bx	r0

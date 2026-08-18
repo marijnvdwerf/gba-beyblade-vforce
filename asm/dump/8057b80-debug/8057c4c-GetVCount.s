@@ -2,12 +2,12 @@
 
 	thumb_func_start GetVCount
 GetVCount:
-	ldr	r0, .L1
+	ldr	r0, .L8057C54
 	ldrh	r0, [r0]
 	bx	lr
-.L2:
+.L8057C52:
 	.align	2, 0
-.L1:
+.L8057C54:
 	.4byte	0x4000006
 	thumb_func_end GetVCount
 

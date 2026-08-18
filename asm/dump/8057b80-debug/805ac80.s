@@ -9,31 +9,31 @@ sub_805AC80:
 	ldrb	r5, [r0]
 	ldr	r0, [r4, #0x40]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L805AD0E	@cond_branch
 	ldr	r0, [r4, #0x30]
-	ldr	r6, .L4
+	ldr	r6, .L805AC9C
 	add	r3, r6, #0
 	cmp	r0, #0
-	beq	.L2	@cond_branch
-	b	.L3
-.L5:
+	beq	.L805ACAC	@cond_branch
+	b	.L805ACA6
+.L805AC9C:
 	.align	2, 0
-.L4:
+
 	.4byte	0x3000d30
-.L6:
+.L805ACA0:
 	strb	r1, [r3]
 	add	r0, r0, #0x1
 	add	r3, r3, #0x1
-.L3:
+.L805ACA6:
 	ldrb	r1, [r0]
 	cmp	r1, #0
-	bne	.L6	@cond_branch
-.L2:
+	bne	.L805ACA0	@cond_branch
+.L805ACAC:
 	ldr	r0, [r4, #0x3c]
 	mov	r1, #0x5
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L7	@cond_branch
+	bne	.L805ACDA	@cond_branch
 	mov	r0, ip
 	ldr	r1, [r0, #0x24]
 	mov	r0, #0x4c
@@ -42,18 +42,18 @@ sub_805AC80:
 	ldr	r0, [r2, #0xc]
 	add	r0, r0, r1
 	cmp	r0, r4
-	bne	.L8	@cond_branch
+	bne	.L805ACCE	@cond_branch
 	mov	r0, ip
 	add	r0, r0, #0x2e
 	ldrb	r5, [r0]
-.L8:
+.L805ACCE:
 	mov	r0, #0x3a
 	strb	r0, [r3]
 	add	r3, r3, #0x1
 	mov	r0, #0x20
 	strb	r0, [r3]
 	add	r3, r3, #0x1
-.L7:
+.L805ACDA:
 	ldr	r1, [r4, #0x34]
 	ldr	r2, [r4, #0x40]
 	lsl	r0, r1, #0x2
@@ -65,30 +65,30 @@ sub_805AC80:
 	lsl	r1, r7, #0x2
 	add	r0, r0, r1
 	ldr	r0, [r0]
-	b	.L9
-.L10:
+	b	.L805ACF8
+.L805ACF2:
 	strb	r1, [r3]
 	add	r0, r0, #0x1
 	add	r3, r3, #0x1
-.L9:
+.L805ACF8:
 	ldrb	r1, [r0]
 	cmp	r1, #0
-	bne	.L10	@cond_branch
+	bne	.L805ACF2	@cond_branch
 	mov	r0, #0x0
 	strb	r0, [r3]
 	add	r0, r4, #0
 	add	r1, r6, #0
 	add	r2, r5, #0
 	bl	sub_8061660
-	b	.L12
-.L1:
+	b	.L805AD1C
+.L805AD0E:
 	ldr	r1, [r4, #0x30]
 	cmp	r1, #0
-	beq	.L12	@cond_branch
+	beq	.L805AD1C	@cond_branch
 	add	r0, r4, #0
 	add	r2, r5, #0
 	bl	sub_8061660
-.L12:
+.L805AD1C:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0

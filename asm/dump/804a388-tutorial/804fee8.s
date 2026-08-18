@@ -3,7 +3,7 @@
 	thumb_func_start sub_804FEE8
 sub_804FEE8:
 	push	{r4, r5, r6, lr}
-	ldr	r0, .L2
+	ldr	r0, .L804FF50
 	ldr	r4, [r0]
 	mov	r0, #0xf5
 	lsl	r0, r0, #0x4
@@ -13,22 +13,22 @@ sub_804FEE8:
 	add	r5, r4, r1
 	ldr	r0, [r5]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L804FF24	@cond_branch
 	add	r0, r6, #0
 	bl	sub_8061228
 	mov	r1, #0xf8
 	lsl	r1, r1, #0x4
 	add	r0, r4, r1
 	bl	sub_8061228
-	ldr	r1, .L2 + 4
+	ldr	r1, .L804FF50 + 4
 	add	r0, r4, r1
 	bl	sub_8050584
-	ldr	r1, .L2 + 8
+	ldr	r1, .L804FF50 + 8
 	add	r0, r4, r1
 	bl	sub_8050584
 	mov	r0, #0x0
 	str	r0, [r5]
-.L1:
+.L804FF24:
 	add	r0, r6, #0
 	bl	sub_8061204
 	mov	r1, #0xf8
@@ -46,9 +46,9 @@ sub_804FEE8:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L3:
+.L804FF4E:
 	.align	2, 0
-.L2:
+.L804FF50:
 	.4byte	0x3000fb0
 	.4byte	0x1010
 	.4byte	0x1028

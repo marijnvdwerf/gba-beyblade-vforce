@@ -3,10 +3,10 @@
 	thumb_func_start sub_804FE9C
 sub_804FE9C:
 	push	{r4, lr}
-	ldr	r0, .L1
+	ldr	r0, .L804FEDC
 	ldr	r4, [r0]
 	bl	sub_80518F0
-	ldr	r2, .L1 + 4
+	ldr	r2, .L804FEDC + 4
 	add	r1, r4, r2
 	strb	r0, [r1]
 	mov	r0, #0xfe
@@ -16,7 +16,7 @@ sub_804FE9C:
 	add	r0, r4, #0
 	mov	r2, #0xf
 	bl	showNumber_2
-	ldr	r1, .L1 + 8
+	ldr	r1, .L804FEDC + 8
 	add	r0, r4, #0
 	mov	r2, #0xf
 	bl	showString
@@ -28,9 +28,9 @@ sub_804FE9C:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2:
+.L804FEDA:
 	.align	2, 0
-.L1:
+.L804FEDC:
 	.4byte	0x3000fb0
 	.4byte	0x107d
 	.4byte	0x8727048

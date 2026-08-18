@@ -3,11 +3,11 @@
 	thumb_func_start sub_80515E0
 sub_80515E0:
 	push	{r4, r5, lr}
-	ldr	r0, .L1
+	ldr	r0, .L805160C
 	ldr	r4, [r0]
-	ldr	r0, .L1 + 4
+	ldr	r0, .L805160C + 4
 	add	r4, r4, r0
-	ldr	r5, .L1 + 8
+	ldr	r5, .L805160C + 8
 	bl	Sound_8062694
 	mov	r0, #0x0
 	add	r1, r4, #0
@@ -21,9 +21,9 @@ sub_80515E0:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
-.L2:
+.L805160C:
 	.align	2, 0
-.L1:
+
 	.4byte	0x3000f48
 	.4byte	0x6fc
 	.4byte	0x564

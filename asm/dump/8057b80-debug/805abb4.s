@@ -2,12 +2,12 @@
 
 	thumb_func_start sub_805ABB4
 sub_805ABB4:
-	ldr	r0, .L1
+	ldr	r0, .L805ABBC
 	ldrh	r0, [r0]
 	bx	lr
-.L2:
+.L805ABBA:
 	.align	2, 0
-.L1:
+.L805ABBC:
 	.4byte	0x3005db8
 	thumb_func_end sub_805ABB4
 

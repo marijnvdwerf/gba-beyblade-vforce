@@ -20,10 +20,10 @@ sub_805F784:
 	ldrh	r1, [r3, #0x32]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L805F7AE	@cond_branch
 	ldrh	r0, [r4]
 	strh	r0, [r3, #0x2e]
-.L1:
+.L805F7AE:
 	ldrh	r0, [r2]
 	mov	r1, #0x0
 	strh	r0, [r3, #0x2a]
@@ -45,15 +45,15 @@ sub_805F784:
 	mov	r1, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L805F7E4	@cond_branch
 	ldrh	r1, [r3, #0x2a]
 	ldrh	r2, [r2, #0x2]
 	add	r0, r1, r2
 	sub	r0, r0, #0x1
-	b	.L3
-.L2:
+	b	.L805F7E6
+.L805F7E4:
 	ldrh	r0, [r3, #0x2a]
-.L3:
+.L805F7E6:
 	strh	r0, [r3, #0x2c]
 	add	r0, r3, #0
 	add	r0, r0, #0x42

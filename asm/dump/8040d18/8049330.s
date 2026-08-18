@@ -2,14 +2,14 @@
 
 	thumb_func_start sub_8049330
 sub_8049330:
-	ldr	r1, .L1
-	ldr	r2, .L1 + 4
+	ldr	r1, .L804933C
+	ldr	r2, .L804933C + 4
 	add	r1, r1, r2
 	str	r0, [r1]
 	bx	lr
-.L2:
+.L804933A:
 	.align	2, 0
-.L1:
+.L804933C:
 	.4byte	0x3000650
 	.4byte	0x58c
 	thumb_func_end sub_8049330

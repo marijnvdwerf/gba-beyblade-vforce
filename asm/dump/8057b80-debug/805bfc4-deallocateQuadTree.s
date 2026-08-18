@@ -6,16 +6,16 @@ deallocateQuadTree:
 	add	r4, r0, #0
 	ldr	r0, [r4, #0x24]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L805BFD2	@cond_branch
 	bl	deallocateBlock
-.L1:
+.L805BFD2:
 	mov	r5, #0x0
 	str	r5, [r4, #0x24]
 	ldr	r0, [r4, #0x28]
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L805BFE0	@cond_branch
 	bl	deallocateBlock
-.L2:
+.L805BFE0:
 	str	r5, [r4, #0x28]
 	pop	{r4, r5}
 	pop	{r0}

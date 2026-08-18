@@ -7,7 +7,7 @@ sub_8056C0C:
 	add	r6, r0, #0
 	mov	r4, #0x0
 	bl	GetLevelDescriptionNo
-	ldr	r2, .L4
+	ldr	r2, .L8056C40
 	lsl	r1, r0, #0x5
 	add	r1, r1, r0
 	lsl	r1, r1, #0x2
@@ -15,36 +15,36 @@ sub_8056C0C:
 	add	r1, r1, r2
 	ldr	r1, [r1]
 	cmp	r1, #0
-	beq	.L1	@cond_branch
+	beq	.L8056C30	@cond_branch
 	mov	r0, sp
 	bl	getLevelGeometryAddresses
-.L1:
+.L8056C30:
 	ldr	r2, [sp, #0xc]
 	mov	r3, #0x0
 	ldr	r0, [sp]
 	ldr	r1, [r0, #0x8]
 	add	r5, r0, #0
 	cmp	r4, r1
-	bge	.L6	@cond_branch
-	b	.L3
-.L5:
+	bge	.L8056C56	@cond_branch
+	b	.L8056C4E
+.L8056C40:
 	.align	2, 0
-.L4:
+
 	.4byte	0x806b300
-.L7:
+.L8056C44:
 	add	r2, r2, #0x20
 	add	r3, r3, #0x1
 	ldr	r0, [r5, #0x8]
 	cmp	r3, r0
-	bge	.L6	@cond_branch
-.L3:
+	bge	.L8056C56	@cond_branch
+.L8056C4E:
 	ldrb	r0, [r2, #0xf]
 	cmp	r0, #0x86
-	bne	.L7	@cond_branch
+	bne	.L8056C44	@cond_branch
 	add	r4, r2, #0
-.L6:
+.L8056C56:
 	cmp	r4, #0
-	beq	.L8	@cond_branch
+	beq	.L8056C74	@cond_branch
 	ldr	r0, [r4]
 	lsl	r0, r0, #0x4
 	ldr	r1, [sp, #0x4]
@@ -58,7 +58,7 @@ sub_8056C0C:
 	ldr	r0, [r1, #0x8]
 	asr	r0, r0, #0x3
 	str	r0, [r6, #0x8]
-.L8:
+.L8056C74:
 	add	r0, r4, #0
 	add	sp, sp, #0x11c
 	pop	{r4, r5, r6}

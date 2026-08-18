@@ -1,4 +1,5 @@
 #include "layer.h"
+#include "include_asm.h"
 #include "io_reg.h"
 
 typedef struct {
@@ -299,6 +300,23 @@ void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriorit
         | BGCNT_CHARBASE(bgLayer->characterBaseBlock);
 }
 
+INCLUDE_ASM("asm/dump/8057b80-debug/8058e18.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8058ef4.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8058f60.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059058-allocateActorMotionModifiers.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059110.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059184-nullsub_24.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059188.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059284.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059310.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059404.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/80594fc.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/80595fc.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/80596ac.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059904.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059934.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059994.s");
+
 vu16* GetBGLayerHOffsetPtr(u8 layer)
 {
     switch (layer) {
@@ -386,6 +404,12 @@ void SetLayerTransform(u8 layer, u16 dx, u16 dmx, u16 dy, u16 dmy)
         break;
     }
 }
+
+INCLUDE_ASM("asm/dump/8057b80-debug/8059b00.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059c18.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059cb4.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059cc8.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059cf0.s");
 
 void ToggleLayerVisibility(u8 layer, bool8 enabled)
 {

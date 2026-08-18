@@ -6,9 +6,9 @@ sub_804ABE4:
 	add	r4, r0, #0
 	ldr	r0, [r4, #0xc]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L804ABF2	@cond_branch
 	bl	deallocateBlock
-.L1:
+.L804ABF2:
 	mov	r0, #0x0
 	str	r0, [r4, #0xc]
 	pop	{r4}

@@ -7,7 +7,7 @@ sub_804FC00:
 	push	{r6}
 	add	sp, sp, #0xfffffffc
 	add	r6, r0, #0
-	ldr	r0, .L1
+	ldr	r0, .L804FC94
 	ldr	r4, [r0]
 	mov	r0, #0xf5
 	lsl	r0, r0, #0x4
@@ -16,13 +16,13 @@ sub_804FC00:
 	mov	r0, #0x0
 	bl	sub_804F84C
 	bl	sub_804FD64
-	ldr	r2, .L1 + 4
+	ldr	r2, .L804FC94 + 4
 	add	r1, r4, r2
 	mov	r0, #0x2
 	ldrh	r2, [r1]
 	orr	r0, r0, r2
 	strh	r0, [r1]
-	ldr	r5, .L1 + 8
+	ldr	r5, .L804FC94 + 8
 	bl	getLanguage
 	lsl	r1, r6, #0x2
 	add	r1, r1, r6
@@ -33,9 +33,9 @@ sub_804FC00:
 	mov	r0, r8
 	mov	r2, #0xd
 	bl	sub_8061660
-	ldr	r0, .L1 + 12
+	ldr	r0, .L804FC94 + 12
 	add	r5, r4, r0
-	ldr	r2, .L1 + 16
+	ldr	r2, .L804FC94 + 16
 	add	r1, r4, r2
 	add	r0, r5, #0
 	mov	r2, #0x2
@@ -58,7 +58,7 @@ sub_804FC00:
 	add	r1, r4, r0
 	mov	r0, #0x80
 	str	r0, [r1]
-	ldr	r2, .L1 + 20
+	ldr	r2, .L804FC94 + 20
 	add	r4, r4, r2
 	mov	r0, #0x4
 	strh	r0, [r4]
@@ -68,9 +68,9 @@ sub_804FC00:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L2:
+.L804FC92:
 	.align	2, 0
-.L1:
+.L804FC94:
 	.4byte	0x3000fb0
 	.4byte	0x105e
 	.4byte	0x806e724

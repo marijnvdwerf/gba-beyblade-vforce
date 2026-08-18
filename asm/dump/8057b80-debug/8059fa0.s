@@ -9,9 +9,9 @@ sub_8059FA0:
 	mul	r0, r0, r1
 	add	r1, r0, #0
 	cmp	r0, #0
-	bge	.L1	@cond_branch
+	bge	.L8059FB2	@cond_branch
 	add	r1, r1, #0xff
-.L1:
+.L8059FB2:
 	lsl	r0, r1, #0x8
 	asr	r0, r0, #0x10
 	bx	lr

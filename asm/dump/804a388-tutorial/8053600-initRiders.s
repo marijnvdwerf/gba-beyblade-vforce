@@ -20,15 +20,15 @@ initRiders:
 	bl	loadLevelGeometry
 	add	r1, r0, #0
 	cmp	r1, #0
-	bne	.L1	@cond_branch
-	ldr	r0, .L3
+	bne	.L805363C	@cond_branch
+	ldr	r0, .L8053638
 	bl	printf
-	b	.L2
-.L4:
+	b	.L805389E
+.L8053636:
 	.align	2, 0
-.L3:
+.L8053638:
 	.4byte	0x8729504
-.L1:
+.L805363C:
 	add	r0, sp, #0xc
 	bl	getLevelGeometryAddresses
 	ldr	r1, [r4, #0x2c]
@@ -42,28 +42,28 @@ initRiders:
 	mov	r0, #0x1
 	NEG	r0, r0
 	cmp	sl, r0
-	bne	.L5	@cond_branch
-	ldr	r0, .L7
+	bne	.L8053678	@cond_branch
+	ldr	r0, .L8053668
 	bl	printf
-	b	.L37
-.L8:
+	b	.L8053890
+.L8053666:
 	.align	2, 0
-.L7:
+.L8053668:
 	.4byte	0x8729564
-.L36:
-	ldr	r0, .L10
+.L805366C:
+	ldr	r0, .L8053674
 	bl	printf
-	b	.L37
-.L11:
+	b	.L8053890
+.L8053674:
 	.align	2, 0
-.L10:
+
 	.4byte	0x8729610
-.L5:
+.L8053678:
 	mov	r1, sl
 	cmp	r1, #0
-	bge	.L38	@cond_branch
-	b	.L37
-.L38:
+	bge	.L8053680	@cond_branch
+	b	.L8053890
+.L8053680:
 	mov	r2, sl
 	lsl	r1, r2, #0x5
 	ldr	r0, [sp, #0x18]
@@ -83,10 +83,10 @@ initRiders:
 	ldr	r0, [r1, #0x8]
 	asr	r4, r0, #0x3
 	cmp	r3, #0
-	beq	.L14	@cond_branch
-	b	.L15
-.L14:
-	ldr	r0, .L21
+	beq	.L80536AA	@cond_branch
+	b	.L805381C
+.L80536AA:
+	ldr	r0, .L80536FC
 	ldr	r5, [r0]
 	mov	r1, #0x0
 	str	r1, [sp, #0x128]
@@ -94,22 +94,22 @@ initRiders:
 	ldr	r2, [sp, #0x12c]
 	and	r0, r0, r2
 	cmp	r0, #0
-	bne	.L16	@cond_branch
-	ldr	r3, .L21 + 4
+	bne	.L80537AA	@cond_branch
+	ldr	r3, .L80536FC + 4
 	add	r0, r5, r3
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L20	@cond_branch
+	beq	.L8053734	@cond_branch
 	bl	isMultiplayer
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	beq	.L20	@cond_branch
+	beq	.L8053734	@cond_branch
 	add	r0, sp, #0xc
 	mov	r1, #0x99
 	mov	r2, #0x0
 	bl	GetLineIndexOfType
 	cmp	r0, #0
-	blt	.L19	@cond_branch
+	blt	.L8053704	@cond_branch
 	lsl	r1, r0, #0x5
 	ldr	r0, [sp, #0x18]
 	add	r0, r0, r1
@@ -124,14 +124,14 @@ initRiders:
 	asr	r6, r0, #0x3
 	ldr	r0, [r1, #0x8]
 	asr	r4, r0, #0x3
-	b	.L20
-.L22:
+	b	.L8053734
+.L80536FC:
 	.align	2, 0
-.L21:
+
 	.4byte	0x3000fb0
 	.4byte	0x1618
-.L19:
-	ldr	r2, .L25
+.L8053704:
+	ldr	r2, .L8053770
 	mov	r0, r8
 	ldrb	r1, [r0, #0x8]
 	lsl	r0, r1, #0x1
@@ -149,16 +149,16 @@ initRiders:
 	NEG	r0, r0
 	asr	r0, r0, #0x8
 	add	r6, r6, r0
-	ldr	r3, .L25 + 4
+	ldr	r3, .L8053770 + 4
 	add	r0, r5, r3
 	ldrb	r1, [r0]
-	ldr	r0, .L25 + 8
+	ldr	r0, .L8053770 + 8
 	bl	printf
-.L20:
+.L8053734:
 	bl	sub_8051820
-	ldr	r2, .L25 + 12
+	ldr	r2, .L8053770 + 12
 	ldr	r1, [r2]
-	ldr	r3, .L25 + 16
+	ldr	r3, .L8053770 + 16
 	add	r1, r1, r3
 	add	r2, r4, #0
 	add	r2, r2, #0x80
@@ -176,25 +176,25 @@ initRiders:
 	bl	processRiderMetadata
 	ldr	r3, [sp, #0x128]
 	cmp	r3, #0
-	beq	.L23	@cond_branch
+	beq	.L8053784	@cond_branch
 	mov	r1, #0x80
 	lsl	r1, r1, #0x2
 	add	r0, r5, r1
-	b	.L24
-.L26:
+	b	.L805378C
+.L805376E:
 	.align	2, 0
-.L25:
+.L8053770:
 	.4byte	0x874cc3c
 	.4byte	0x3ce
 	.4byte	0x8729598
 	.4byte	0x3000fb0
 	.4byte	0x434
-.L23:
+.L8053784:
 	mov	r2, #0x80
 	lsl	r2, r2, #0x2
 	add	r0, r5, r2
 	mov	r3, r8
-.L24:
+.L805378C:
 	str	r3, [r0]
 	mov	r0, r8
 	ldrb	r1, [r0, #0x8]
@@ -207,19 +207,19 @@ initRiders:
 	ldr	r1, [sp, #0x12c]
 	orr	r1, r1, r0
 	str	r1, [sp, #0x12c]
-	b	.L27
-.L16:
-	ldr	r0, .L32
+	b	.L80537B0
+.L80537AA:
+	ldr	r0, .L8053808
 	bl	printf
-.L27:
-	ldr	r3, .L32 + 4
+.L80537B0:
+	ldr	r3, .L8053808 + 4
 	ldr	r2, [r3]
-	ldr	r1, .L32 + 8
+	ldr	r1, .L8053808 + 8
 	add	r0, r2, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L34	@cond_branch
-	ldr	r3, .L32 + 12
+	beq	.L8053878	@cond_branch
+	ldr	r3, .L8053808 + 12
 	add	r0, r2, r3
 	mov	r3, r9
 	lsl	r1, r3, #0x5
@@ -230,10 +230,10 @@ initRiders:
 	ldr	r0, [r0]
 	add	r5, r0, r1
 	cmp	r3, #0x9
-	ble	.L29	@cond_branch
-	b	.L36
-.L29:
-	ldr	r0, .L32 + 16
+	ble	.L80537D8	@cond_branch
+	b	.L805366C
+.L80537D8:
+	ldr	r0, .L8053808 + 16
 	add	r1, r2, r0
 	mov	r0, #0x0
 	str	r0, [sp]
@@ -254,24 +254,24 @@ initRiders:
 	bl	SetRiderFlag
 	mov	r3, #0x1
 	ADD r9, r3
-	b	.L34
-.L33:
+	b	.L8053878
+.L8053808:
 	.align	2, 0
-.L32:
+
 	.4byte	0x87295d0
 	.4byte	0x3000fb0
 	.4byte	0x1618
 	.4byte	0x42c
 	.4byte	0x434
-.L15:
-	ldr	r0, .L39
+.L805381C:
+	ldr	r0, .L80538B0
 	ldr	r2, [r0]
-	ldr	r1, .L39 + 4
+	ldr	r1, .L80538B0 + 4
 	add	r0, r2, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L34	@cond_branch
-	ldr	r3, .L39 + 8
+	bne	.L8053878	@cond_branch
+	ldr	r3, .L80538B0 + 8
 	add	r0, r2, r3
 	mov	r3, r9
 	lsl	r1, r3, #0x5
@@ -282,10 +282,10 @@ initRiders:
 	ldr	r0, [r0]
 	add	r5, r0, r1
 	cmp	r3, #0x9
-	ble	.L35	@cond_branch
-	b	.L36
-.L35:
-	ldr	r0, .L39 + 12
+	ble	.L8053844	@cond_branch
+	b	.L805366C
+.L8053844:
+	ldr	r0, .L80538B0 + 12
 	add	r1, r2, r0
 	str	r4, [sp]
 	mov	r4, r9
@@ -308,7 +308,7 @@ initRiders:
 	lsl	r1, r1, #0x13
 	bl	SetRiderFlag
 	mov	r9, r4
-.L34:
+.L8053878:
 	mov	r2, sl
 	add	r2, r2, #0x1
 	lsl	r2, r2, #0x10
@@ -318,17 +318,17 @@ initRiders:
 	bl	GetLineIndexOfType
 	mov	sl, r0
 	cmp	r0, #0
-	blt	.L37	@cond_branch
-	b	.L38
-.L37:
-	ldr	r0, .L39
+	blt	.L8053890	@cond_branch
+	b	.L8053680
+.L8053890:
+	ldr	r0, .L80538B0
 	ldr	r0, [r0]
 	mov	r3, #0x86
 	lsl	r3, r3, #0x3
 	add	r0, r0, r3
 	mov	r1, r9
 	str	r1, [r0]
-.L2:
+.L805389E:
 	add	sp, sp, #0x134
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -337,9 +337,9 @@ initRiders:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L40:
+.L80538AE:
 	.align	2, 0
-.L39:
+.L80538B0:
 	.4byte	0x3000fb0
 	.4byte	0x1618
 	.4byte	0x42c

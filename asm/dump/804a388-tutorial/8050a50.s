@@ -8,18 +8,18 @@ sub_8050A50:
 	ldrh	r2, [r6, #0x4]
 	add	r0, r1, r2
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L8050A72	@cond_branch
 	mov	r5, #0x0
 	add	r4, r0, #0
-.L2:
+.L8050A62:
 	ldr	r0, [r6, #0xc]
 	add	r0, r0, r5
 	bl	sub_8058EF4
 	add	r5, r5, #0x88
 	sub	r4, r4, #0x1
 	cmp	r4, #0
-	bne	.L2	@cond_branch
-.L1:
+	bne	.L8050A62	@cond_branch
+.L8050A72:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0

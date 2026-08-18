@@ -6,11 +6,11 @@ sub_8050584:
 	add	r4, r0, #0
 	ldr	r0, [r4]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L8050596	@cond_branch
 	bl	deallocateBlock
 	mov	r0, #0x0
 	str	r0, [r4]
-.L1:
+.L8050596:
 	add	r0, r4, #0
 	bl	sub_8050384
 	pop	{r4}

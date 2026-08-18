@@ -4,7 +4,7 @@
 loadLevelGeometry:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	ldr	r2, .L1
+	ldr	r2, .L805398C
 	lsl	r1, r0, #0x5
 	add	r1, r1, r0
 	lsl	r1, r1, #0x2
@@ -12,9 +12,9 @@ loadLevelGeometry:
 	add	r1, r1, r2
 	ldr	r0, [r1]
 	bx	lr
-.L2:
+.L805398C:
 	.align	2, 0
-.L1:
+
 	.4byte	0x806b300
 	thumb_func_end loadLevelGeometry
 

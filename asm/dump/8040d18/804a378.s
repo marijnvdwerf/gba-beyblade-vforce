@@ -2,14 +2,14 @@
 
 	thumb_func_start sub_804A378
 sub_804A378:
-	ldr	r1, .L1
+	ldr	r1, .L804A384
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	bx	lr
-.L2:
+.L804A382:
 	.align	2, 0
-.L1:
+.L804A384:
 	.4byte	0x806a77c
 	thumb_func_end sub_804A378
 

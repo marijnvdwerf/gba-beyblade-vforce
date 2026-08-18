@@ -22,12 +22,12 @@ sub_8050C18:
 	mov	r8, r2
 	ldr	r0, [r4]
 	cmp	r8, r0
-	blt	.L1	@cond_branch
-	b	.L16
-.L1:
-	ldr	r3, .L8
+	blt	.L8050C44	@cond_branch
+	b	.L8050D94
+.L8050C44:
+	ldr	r3, .L8050CC4
 	mov	r9, r3
-.L17:
+.L8050C48:
 	mov	r7, sl
 	asr	r1, r7, #0x8
 	lsl	r1, r1, #0x18
@@ -52,7 +52,7 @@ sub_8050C18:
 	asr	r2, r0, #0x8
 	ldr	r0, [r5, #0x4]
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L8050D76	@cond_branch
 	add	r3, r0, #0
 	ldr	r6, [r5, #0x10]
 	mov	r0, #0x1
@@ -60,13 +60,13 @@ sub_8050C18:
 	and	r0, r0, r1
 	ldr	r1, [r4, #0x4]
 	cmp	r0, #0
-	beq	.L5	@cond_branch
+	beq	.L8050D1A	@cond_branch
 	cmp	r8, r1
-	bne	.L5	@cond_branch
+	bne	.L8050D1A	@cond_branch
 	mov	r0, #0x80
 	lsl	r0, r0, #0x1
 	cmp	r6, r0
-	ble	.L6	@cond_branch
+	ble	.L8050CC8	@cond_branch
 	ldr	r2, [r3, #0x8]
 	mov	r1, #0xf0
 	lsl	r1, r1, #0x7
@@ -88,12 +88,12 @@ sub_8050C18:
 	sub	r1, r1, r0
 	asr	r1, r1, #0x3
 	add	r2, r2, r1
-	b	.L7
-.L9:
+	b	.L8050CEA
+.L8050CC2:
 	.align	2, 0
-.L8:
+.L8050CC4:
 	.4byte	0x874cc3c
-.L6:
+.L8050CC8:
 	ldr	r2, [r3, #0x8]
 	mov	r0, #0xf0
 	lsl	r0, r0, #0x7
@@ -111,39 +111,39 @@ sub_8050C18:
 	sub	r0, r0, r1
 	asr	r0, r0, #0x3
 	add	r2, r2, r0
-.L7:
+.L8050CEA:
 	str	r2, [r3, #0xc]
 	ldr	r0, [r4, #0x20]
 	ldr	r1, [r4, #0x24]
 	sub	r0, r0, r1
 	cmp	r0, #0x10
-	ble	.L10	@cond_branch
+	ble	.L8050CFA	@cond_branch
 	mov	r0, #0x4
 	str	r0, [r5, #0x14]
-.L10:
+.L8050CFA:
 	ldr	r0, [r4, #0x20]
 	mov	r1, #0x3
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L14	@cond_branch
+	bne	.L8050D68	@cond_branch
 	ldr	r0, [r5]
 	ldr	r1, [r0, #0x2c]
 	ldrh	r2, [r3, #0x18]
 	ldrh	r7, [r0, #0x2c]
 	cmp	r2, r7
-	bne	.L12	@cond_branch
+	bne	.L8050D14	@cond_branch
 	ldrh	r0, [r0, #0x28]
-	b	.L13
-.L12:
+	b	.L8050D16
+.L8050D14:
 	add	r0, r1, #0
-.L13:
+.L8050D16:
 	strh	r0, [r3, #0x18]
-	b	.L14
-.L5:
+	b	.L8050D68
+.L8050D1A:
 	mov	r0, #0x0
 	str	r0, [sp, #0x8]
 	cmp	r8, r1
-	bne	.L15	@cond_branch
+	bne	.L8050D48	@cond_branch
 	ldr	r1, [r4, #0x20]
 	lsl	r1, r1, #0x1b
 	lsr	r1, r1, #0x18
@@ -163,7 +163,7 @@ sub_8050C18:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	str	r0, [sp, #0x8]
-.L15:
+.L8050D48:
 	ldr	r0, [r5, #0x8]
 	add	r1, r0, #0
 	mul	r1, r1, r6
@@ -180,14 +180,14 @@ sub_8050C18:
 	sub	r0, r0, r1
 	add	r0, r0, r7
 	str	r0, [r3, #0xc]
-.L14:
+.L8050D68:
 	lsl	r2, r6, #0x10
 	lsr	r2, r2, #0x10
 	add	r0, r3, #0
 	add	r1, r2, #0
 	ldr	r3, [sp, #0x8]
 	bl	sub_8060F64
-.L3:
+.L8050D76:
 	ldr	r1, [sp]
 	ADD sl, r1
 	ldr	r0, [r5, #0x14]
@@ -201,9 +201,9 @@ sub_8050C18:
 	ADD r8, r2
 	ldr	r0, [r4]
 	cmp	r8, r0
-	bge	.L16	@cond_branch
-	b	.L17
-.L16:
+	bge	.L8050D94	@cond_branch
+	b	.L8050C48
+.L8050D94:
 	ldrh	r1, [r4, #0x14]
 	str	r1, [r4, #0x14]
 	mov	r0, #0x2
@@ -211,30 +211,30 @@ sub_8050C18:
 	and	r0, r0, r3
 	ldr	r3, [r4, #0x8]
 	cmp	r0, #0
-	bne	.L18	@cond_branch
+	bne	.L8050DC4	@cond_branch
 	sub	r2, r1, r3
 	add	r1, r2, #0
 	cmp	r2, #0
-	bge	.L19	@cond_branch
+	bge	.L8050DAE	@cond_branch
 	NEG	r1, r2
-.L19:
+.L8050DAE:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x8
 	cmp	r1, r0
-	ble	.L20	@cond_branch
-	ldr	r7, .L22
+	ble	.L8050DBA	@cond_branch
+	ldr	r7, .L8050DF0
 	add	r1, r1, r7
-.L20:
+.L8050DBA:
 	asr	r0, r1, #0x3
 	cmp	r2, #0
-	bge	.L21	@cond_branch
+	bge	.L8050DC2	@cond_branch
 	NEG	r0, r0
-.L21:
+.L8050DC2:
 	str	r0, [r4, #0x10]
-.L18:
+.L8050DC4:
 	ldr	r0, [r4, #0x10]
 	add	r0, r3, r0
-	ldr	r1, .L22 + 4
+	ldr	r1, .L8050DF0 + 4
 	and	r0, r0, r1
 	str	r0, [r4, #0x8]
 	ldr	r0, [r4, #0x20]
@@ -254,9 +254,9 @@ sub_8050C18:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L23:
+.L8050DF0:
 	.align	2, 0
-.L22:
+
 	.4byte	0xffff0100
 	.4byte	0xffff
 	thumb_func_end sub_8050C18

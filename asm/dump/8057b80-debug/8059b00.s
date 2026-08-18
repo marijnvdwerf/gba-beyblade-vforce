@@ -22,8 +22,8 @@ sub_8059B00:
 	add	r0, r0, r4
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x2
-	bhi	.L1	@cond_branch
-	ldr	r7, .L2
+	bhi	.L8059BFC	@cond_branch
+	ldr	r7, .L8059C0C
 	lsl	r5, r0, #0x1
 	add	r5, r5, r0
 	lsl	r5, r5, #0x3
@@ -34,11 +34,11 @@ sub_8059B00:
 	add	r0, r1, #0
 	add	r0, r0, #0x40
 	lsl	r0, r0, #0x1
-	ldr	r1, .L2 + 4
+	ldr	r1, .L8059C0C + 4
 	add	r0, r0, r1
 	mov	r2, #0x0
 	ldsh	r0, [r0, r2]
-	ldr	r3, .L2 + 8
+	ldr	r3, .L8059C0C + 8
 	mov	r9, r3
 	ldrh	r2, [r4, #0x2]
 	lsl	r1, r2, #0x1
@@ -55,7 +55,7 @@ sub_8059B00:
 	str	r0, [r1]
 	ldrb	r1, [r4]
 	lsl	r0, r1, #0x1
-	ldr	r2, .L2 + 4
+	ldr	r2, .L8059C0C + 4
 	add	r0, r0, r2
 	mov	r3, #0x0
 	ldsh	r0, [r0, r3]
@@ -75,7 +75,7 @@ sub_8059B00:
 	str	r0, [r2]
 	ldrb	r3, [r4]
 	lsl	r0, r3, #0x1
-	ldr	r1, .L2 + 4
+	ldr	r1, .L8059C0C + 4
 	add	r0, r0, r1
 	ldrh	r0, [r0]
 	NEG	r0, r0
@@ -96,7 +96,7 @@ sub_8059B00:
 	ldrb	r0, [r4]
 	add	r0, r0, #0x40
 	lsl	r0, r0, #0x1
-	ldr	r1, .L2 + 4
+	ldr	r1, .L8059C0C + 4
 	add	r0, r0, r1
 	mov	r2, #0x0
 	ldsh	r0, [r0, r2]
@@ -123,7 +123,7 @@ sub_8059B00:
 	str	r0, [sp]
 	ldr	r0, [sp, #0x4]
 	bl	SetLayerTransform
-.L1:
+.L8059BFC:
 	add	sp, sp, #0x8
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -132,9 +132,9 @@ sub_8059B00:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L3:
+.L8059C0C:
 	.align	2, 0
-.L2:
+
 	.4byte	0x3000d00
 	.4byte	0x874cc3c
 	.4byte	0x872cc3c

@@ -12,23 +12,23 @@ sub_805AC28:
 	bl	slowAllocate
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L805AC4A	@cond_branch
 	str	r5, [r0, #0xc]
 	str	r7, [r0]
 	str	r6, [r0, #0x4]
 	strh	r4, [r0, #0x8]
-	b	.L2
-.L1:
-	ldr	r0, .L3
+	b	.L805AC52
+.L805AC4A:
+	ldr	r0, .L805AC58
 	bl	nullsub_8
 	mov	r0, #0x0
-.L2:
+.L805AC52:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L4:
+.L805AC58:
 	.align	2, 0
-.L3:
+
 	.4byte	0x8755348
 	thumb_func_end sub_805AC28
 

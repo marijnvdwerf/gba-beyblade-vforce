@@ -14,14 +14,14 @@ sub_8058390:
 	ldr	r0, [r1, #0x18]
 	add	r0, r1, r0
 	mov	r1, #0x0
-	b	.L1
-.L5:
+	b	.L80583CE
+.L80583AA:
 	ldrh	r6, [r0]
 	cmp	r6, r5
-	bne	.L3	@cond_branch
+	bne	.L80583C8	@cond_branch
 	ldrh	r6, [r0, #0x4]
 	cmp	r2, r6
-	bcs	.L3	@cond_branch
+	bcs	.L80583C8	@cond_branch
 	strh	r3, [r4, #0x2e]
 	add	r0, r0, #0x8
 	lsl	r1, r2, #0x1
@@ -29,16 +29,16 @@ sub_8058390:
 	ldrh	r1, [r1]
 	add	r0, r4, #0
 	bl	ActorSetFrameSequence
-	b	.L4
-.L3:
+	b	.L80583D4
+.L80583C8:
 	ldrh	r6, [r0, #0x2]
 	add	r0, r6, r0
 	add	r1, r1, #0x1
-.L1:
+.L80583CE:
 	ldrh	r6, [r4, #0x28]
 	cmp	r1, r6
-	bcc	.L5	@cond_branch
-.L4:
+	bcc	.L80583AA	@cond_branch
+.L80583D4:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0

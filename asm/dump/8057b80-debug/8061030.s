@@ -9,7 +9,7 @@ sub_8061030:
 	lsr	r4, r2, #0x10
 	ldr	r3, [r0, #0x30]
 	cmp	r3, #0
-	beq	.L1	@cond_branch
+	beq	.L8061058	@cond_branch
 	ldrh	r2, [r3, #0x14]
 	add	r1, r2, r1
 	lsl	r1, r1, #0x10
@@ -20,8 +20,8 @@ sub_8061030:
 	lsr	r2, r2, #0x10
 	ldrb	r3, [r3, #0x18]
 	bl	sub_8060F64
-	b	.L2
-.L1:
+	b	.L8061070
+.L8061058:
 	mov	r3, #0x80
 	lsl	r3, r3, #0x1
 	add	r2, r3, #0
@@ -33,7 +33,7 @@ sub_8061030:
 	lsr	r2, r2, #0x10
 	mov	r3, #0x0
 	bl	sub_8060F64
-.L2:
+.L8061070:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

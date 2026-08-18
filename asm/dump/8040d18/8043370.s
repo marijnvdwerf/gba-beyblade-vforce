@@ -13,12 +13,12 @@ sub_8043370:
 	ldr	r0, [r0]
 	ldr	r0, [r0, #0x4]
 	ldr	r5, [r0, #0x20]
-	ldr	r0, .L8
+	ldr	r0, .L80434E0
 	mov	r8, r0
 	cmp	r5, #0
-	bne	.L1	@cond_branch
-	b	.L4
-.L1:
+	bne	.L8043390	@cond_branch
+	b	.L80434CE
+.L8043390:
 	mov	r1, #0x8f
 	lsl	r1, r1, #0x3
 	add	r1, r1, r7
@@ -44,7 +44,7 @@ sub_8043370:
 	str	r4, [sp, #0x14]
 	ldrb	r4, [r5, #0x17]
 	str	r4, [sp, #0x18]
-	ldr	r4, .L8 + 4
+	ldr	r4, .L80434E0 + 4
 	str	r4, [sp, #0x1c]
 	mov	r4, #0x0
 	mov	sl, r4
@@ -69,14 +69,14 @@ sub_8043370:
 	add	r0, r7, r1
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L4	@cond_branch
+	beq	.L80434CE	@cond_branch
 	mov	r2, r9
 	ldr	r1, [r2, #0x18]
 	lsl	r0, r1, #0x1
 	add	r0, r0, r1
 	lsl	r0, r0, #0x3
 	bl	slowAllocate
-	ldr	r3, .L8 + 8
+	ldr	r3, .L80434E0 + 8
 	add	r1, r7, r3
 	str	r0, [r1]
 	mov	r4, #0xa4
@@ -107,22 +107,22 @@ sub_8043370:
 	mov	r3, r9
 	ldr	r0, [r3, #0x18]
 	cmp	r7, r0
-	bge	.L4	@cond_branch
-.L7:
+	bge	.L80434CE	@cond_branch
+.L804344A:
 	mov	r0, #0x1
 	and	r0, r0, r7
 	mov	r5, #0x1
 	NEG	r5, r5
 	cmp	r0, #0
-	beq	.L5	@cond_branch
+	beq	.L8043458	@cond_branch
 	mov	r5, #0x1
-.L5:
+.L8043458:
 	mov	r2, #0xf0
 	cmp	r5, #0
-	ble	.L6	@cond_branch
+	ble	.L8043462	@cond_branch
 	mov	r2, #0x10
 	NEG	r2, r2
-.L6:
+.L8043462:
 	add	r0, r6, #0
 	mov	r1, #0x0
 	bl	sub_8061844
@@ -171,8 +171,8 @@ sub_8043370:
 	add	r7, r7, #0x1
 	ldr	r0, [r5, #0x18]
 	cmp	r7, r0
-	blt	.L7	@cond_branch
-.L4:
+	blt	.L804344A	@cond_branch
+.L80434CE:
 	add	sp, sp, #0x28
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -181,9 +181,9 @@ sub_8043370:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L9:
+.L80434DE:
 	.align	2, 0
-.L8:
+.L80434E0:
 	.4byte	0x8068840
 	.4byte	sub_8043604 + 1
 	.4byte	0x524

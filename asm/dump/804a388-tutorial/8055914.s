@@ -17,7 +17,7 @@ sub_8055914:
 	strh	r5, [r4, #0x2a]
 	str	r5, [r4, #0x24]
 	str	r5, [r4, #0x1c]
-	ldr	r6, .L1
+	ldr	r6, .L8055998
 	str	r6, [r4, #0x18]
 	str	r6, [r4, #0x8]
 	mov	r0, #0xf4
@@ -63,9 +63,9 @@ sub_8055914:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2:
+.L8055996:
 	.align	2, 0
-.L1:
+.L8055998:
 	.4byte	0xffffbc00
 	thumb_func_end sub_8055914
 

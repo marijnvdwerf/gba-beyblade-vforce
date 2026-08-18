@@ -19,7 +19,7 @@ sub_8063E18:
 	bl	slowAllocate
 	add	r1, r0, #0
 	cmp	r1, #0
-	beq	.L1	@cond_branch
+	beq	.L8063F20	@cond_branch
 	ldr	r7, [r1]
 	add	r0, r7, #0
 	add	r0, r0, #0xc4
@@ -78,9 +78,9 @@ sub_8063E18:
 	str	r0, [r1]
 	ldr	r6, [r5]
 	cmp	r4, r8
-	bcs	.L2	@cond_branch
+	bcs	.L8063EDA	@cond_branch
 	mov	r5, #0x0
-.L3:
+.L8063EBA:
 	ldr	r1, [r7, #0x4]
 	str	r5, [sp]
 	str	r5, [sp, #0x4]
@@ -95,20 +95,20 @@ sub_8063E18:
 	ldr	r6, [r6, #0x4]
 	add	r4, r4, #0x1
 	cmp	r4, r8
-	bcc	.L3	@cond_branch
-.L2:
+	bcc	.L8063EBA	@cond_branch
+.L8063EDA:
 	add	r1, r7, #0
 	add	r1, r1, #0xdc
-	ldr	r0, .L6
+	ldr	r0, .L8063F30
 	str	r0, [r1]
 	add	r1, r1, #0x4
-	ldr	r0, .L6 + 4
+	ldr	r0, .L8063F30 + 4
 	str	r0, [r1]
 	add	r1, r1, #0x4
-	ldr	r0, .L6 + 8
+	ldr	r0, .L8063F30 + 8
 	str	r0, [r1]
 	add	r1, r1, #0x4
-	ldr	r0, .L6 + 12
+	ldr	r0, .L8063F30 + 12
 	str	r0, [r1]
 	mov	r0, #0x0
 	strb	r0, [r7, #0x13]
@@ -117,24 +117,24 @@ sub_8063E18:
 	add	r3, r3, #0x1c
 	add	r2, r7, #0
 	add	r2, r2, #0x14
-.L4:
+.L8063F02:
 	add	r1, r2, r4
 	mov	r5, r9
 	ldrb	r0, [r5, #0xa]
 	strb	r0, [r1]
 	add	r4, r4, #0x1
 	cmp	r4, #0x7
-	ble	.L4	@cond_branch
+	ble	.L8063F02	@cond_branch
 	add	r1, r3, #0
 	mov	r2, #0x0
 	add	r0, r1, #0
 	add	r0, r0, #0x7f
-.L5:
+.L8063F18:
 	strb	r2, [r0]
 	sub	r0, r0, #0x1
 	cmp	r0, r1
-	bge	.L5	@cond_branch
-.L1:
+	bge	.L8063F18	@cond_branch
+.L8063F20:
 	add	r0, r7, #0
 	add	sp, sp, #0x10
 	pop	{r3, r4}
@@ -143,9 +143,9 @@ sub_8063E18:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L7:
+.L8063F30:
 	.align	2, 0
-.L6:
+
 	.4byte	nullsub_22 + 1
 	.4byte	nullsub_16 + 1
 	.4byte	nullsub_21 + 1

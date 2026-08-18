@@ -7,7 +7,7 @@ sub_805A00C:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	ldr	r5, .L1
+	ldr	r5, .L805A0D8
 	asr	r0, r0, #0x1
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
@@ -103,9 +103,9 @@ sub_805A00C:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L2:
+.L805A0D6:
 	.align	2, 0
-.L1:
+.L805A0D8:
 	.4byte	0x874cc3c
 	thumb_func_end sub_805A00C
 

@@ -16,26 +16,26 @@ sub_805FD80:
 	mov	r1, #0x4
 	ldsh	r0, [r3, r1]
 	cmp	r0, #0
-	bge	.L1	@cond_branch
+	bge	.L805FDA4	@cond_branch
 	ldrh	r0, [r3, #0x2]
 	strh	r0, [r2]
-	b	.L2
-.L1:
+	b	.L805FDB0
+.L805FDA4:
 	mov	r1, #0x4
 	ldsh	r0, [r3, r1]
 	lsl	r0, r0, #0x3
 	add	r0, r4, r0
 	ldrh	r1, [r3, #0x2]
 	strh	r1, [r0, #0x2]
-.L2:
+.L805FDB0:
 	mov	r1, #0x2
 	ldsh	r0, [r3, r1]
 	cmp	r0, #0
-	bge	.L3	@cond_branch
+	bge	.L805FDBE	@cond_branch
 	ldrh	r0, [r3, #0x4]
 	strh	r0, [r2, #0x2]
-	b	.L4
-.L3:
+	b	.L805FDCC
+.L805FDBE:
 	mov	r1, #0x2
 	ldsh	r0, [r3, r1]
 	lsl	r0, r0, #0x3
@@ -43,15 +43,15 @@ sub_805FD80:
 	add	r1, r1, r0
 	ldrh	r0, [r3, #0x4]
 	strh	r0, [r1, #0x4]
-.L4:
+.L805FDCC:
 	mov	r1, #0x2
 	ldsh	r0, [r2, r1]
 	cmp	r0, #0
-	bge	.L6	@cond_branch
+	bge	.L805FDF8	@cond_branch
 	mov	r1, #0x0
 	ldsh	r0, [r2, r1]
 	cmp	r0, #0
-	bge	.L6	@cond_branch
+	bge	.L805FDF8	@cond_branch
 	lsl	r1, r6, #0x10
 	asr	r2, r1, #0x15
 	ldr	r0, [r5, #0x10]
@@ -66,7 +66,7 @@ sub_805FD80:
 	ldr	r0, [r2]
 	BIC	r0, r1
 	str	r0, [r2]
-.L6:
+.L805FDF8:
 	ldrh	r0, [r5]
 	sub	r0, r0, #0x1
 	strh	r0, [r5]

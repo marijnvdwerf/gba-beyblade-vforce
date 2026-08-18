@@ -13,25 +13,25 @@ GetLineIndexOfType:
 	ldr	r0, [r0]
 	ldr	r0, [r0, #0x8]
 	cmp	r2, r0
-	bge	.L1	@cond_branch
+	bge	.L805E86C	@cond_branch
 	add	r3, r0, #0
-.L4:
+.L805E856:
 	ldrb	r0, [r1, #0xf]
 	cmp	r0, r4
-	bne	.L2	@cond_branch
+	bne	.L805E860	@cond_branch
 	add	r0, r2, #0
-	b	.L3
-.L2:
+	b	.L805E870
+.L805E860:
 	add	r1, r1, #0x20
 	add	r0, r2, #1
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
 	cmp	r2, r3
-	blt	.L4	@cond_branch
-.L1:
+	blt	.L805E856	@cond_branch
+.L805E86C:
 	mov	r0, #0x1
 	NEG	r0, r0
-.L3:
+.L805E870:
 	pop	{r4}
 	pop	{r1}
 	bx	r1

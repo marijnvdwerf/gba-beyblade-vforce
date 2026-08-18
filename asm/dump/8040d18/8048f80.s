@@ -10,9 +10,9 @@ sub_8048F80:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x9
-	bhi	.L1	@cond_branch
+	bhi	.L8048FB0	@cond_branch
 	mov	r2, #0x0
-.L2:
+.L8048F94:
 	lsl	r0, r2, #0x2
 	add	r0, r0, r2
 	lsl	r2, r0, #0x1
@@ -26,8 +26,8 @@ sub_8048F80:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0x9
-	bls	.L2	@cond_branch
-.L1:
+	bls	.L8048F94	@cond_branch
+.L8048FB0:
 	add	r0, r2, #0
 	bx	lr
 	thumb_func_end sub_8048F80

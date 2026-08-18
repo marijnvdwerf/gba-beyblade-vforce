@@ -6,35 +6,35 @@ sub_805AAEC:
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
 	cmp	r2, #0
-	beq	.L1	@cond_branch
-	ldr	r0, .L3
+	beq	.L805AB08	@cond_branch
+	ldr	r0, .L805AB00
 	str	r2, [r0]
-	ldr	r0, .L3 + 4
+	ldr	r0, .L805AB00 + 4
 	strh	r1, [r0]
-	b	.L2
-.L4:
+	b	.L805AB1A
+.L805AB00:
 	.align	2, 0
-.L3:
+
 	.4byte	0x3005db0
 	.4byte	0x3005db4
-.L1:
-	ldr	r1, .L5
-	ldr	r0, .L5 + 4
+.L805AB08:
+	ldr	r1, .L805AB24
+	ldr	r0, .L805AB24 + 4
 	ldr	r0, [r0]
 	ldr	r0, [r0]
 	str	r0, [r1]
-	ldr	r1, .L5 + 8
-	ldr	r0, .L5 + 12
+	ldr	r1, .L805AB24 + 8
+	ldr	r0, .L805AB24 + 12
 	ldrh	r0, [r0]
 	strh	r0, [r1]
-.L2:
-	ldr	r1, .L5 + 16
+.L805AB1A:
+	ldr	r1, .L805AB24 + 16
 	mov	r0, #0x2
 	strh	r0, [r1]
 	bx	lr
-.L6:
+.L805AB22:
 	.align	2, 0
-.L5:
+.L805AB24:
 	.4byte	0x3005db0
 	.4byte	0x3005dbc
 	.4byte	0x3005db4

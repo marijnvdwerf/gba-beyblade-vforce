@@ -8,18 +8,18 @@ sub_804EBE8:
 	ldr	r5, [r0, #0x8]
 	ldr	r0, [r0, #0x30]
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L804EC04	@cond_branch
 	bl	deallocateBlock
-	b	.L2
-.L3:
+	b	.L804EC04
+.L804EBFC:
 	ldr	r0, [r5]
 	bl	sub_8060A94
 	add	r5, r5, #0x24
-.L2:
+.L804EC04:
 	add	r0, r4, #0
 	sub	r4, r4, #0x1
 	cmp	r0, #0
-	bne	.L3	@cond_branch
+	bne	.L804EBFC	@cond_branch
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

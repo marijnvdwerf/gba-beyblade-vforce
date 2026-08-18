@@ -10,15 +10,15 @@ creditsFrontendHandler:
 	add	sp, sp, #0xfffffff4
 	mov	sl, r0
 	cmp	r1, #0x1
-	beq	.L1	@cond_branch
+	beq	.L8040DAC	@cond_branch
 	cmp	r1, #0x1
-	bcc	.L2	@cond_branch
-	b	.L38
-.L2:
-	ldr	r0, .L5
-	ldr	r1, .L5 + 4
+	bcc	.L8040D30	@cond_branch
+	b	.L8041030
+.L8040D30:
+	ldr	r0, .L8040D74
+	ldr	r1, .L8040D74 + 4
 	str	r1, [r0]
-	ldr	r0, .L5 + 8
+	ldr	r0, .L8040D74 + 8
 	mov	r4, #0x0
 	str	r4, [r0]
 	mov	r0, #0x94
@@ -26,31 +26,31 @@ creditsFrontendHandler:
 	ADD r0, sl
 	mov	r2, #0x0
 	bl	sub_80596AC
-	ldr	r0, .L5 + 12
+	ldr	r0, .L8040D74 + 12
 	str	r4, [r0]
-	ldr	r0, .L5 + 16
+	ldr	r0, .L8040D74 + 16
 	strb	r4, [r0]
-	ldr	r0, .L5 + 20
+	ldr	r0, .L8040D74 + 20
 	strb	r4, [r0]
-	ldr	r0, .L5 + 24
+	ldr	r0, .L8040D74 + 24
 	str	r4, [r0]
-	ldr	r1, .L5 + 28
-	ldr	r0, .L5 + 32
+	ldr	r1, .L8040D74 + 28
+	ldr	r0, .L8040D74 + 32
 	str	r0, [r1]
-	ldr	r0, .L5 + 36
+	ldr	r0, .L8040D74 + 36
 	str	r4, [r0]
-	ldr	r0, .L5 + 40
+	ldr	r0, .L8040D74 + 40
 	str	r4, [r0]
-	ldr	r0, .L5 + 44
+	ldr	r0, .L8040D74 + 44
 	str	r4, [r0]
-	ldr	r0, .L5 + 48
+	ldr	r0, .L8040D74 + 48
 	str	r4, [r0]
-	ldr	r0, .L5 + 52
+	ldr	r0, .L8040D74 + 52
 	str	r4, [r0]
-	b	.L38
-.L6:
+	b	.L8041030
+.L8040D74:
 	.align	2, 0
-.L5:
+
 	.4byte	0x3000004
 	.4byte	0xffff0000
 	.4byte	0x3000000
@@ -65,37 +65,37 @@ creditsFrontendHandler:
 	.4byte	0x3000014
 	.4byte	0x3000024
 	.4byte	0x3000028
-.L1:
-	ldr	r0, .L10
+.L8040DAC:
+	ldr	r0, .L8040DE4
 	ADD r0, sl
 	ldrh	r0, [r0]
-	ldr	r3, .L10 + 4
+	ldr	r3, .L8040DE4 + 4
 	cmp	r0, #0
-	bne	.L14	@cond_branch
-	ldr	r1, .L10 + 8
+	bne	.L8040E22	@cond_branch
+	ldr	r1, .L8040DE4 + 8
 	mov	r2, #0xf4
 	lsl	r2, r2, #0x4
 	add	r0, r2, #0
 	strh	r0, [r1]
-	ldr	r3, .L10 + 12
-	ldr	r2, .L10 + 16
+	ldr	r3, .L8040DE4 + 12
+	ldr	r2, .L8040DE4 + 16
 	ldr	r1, [r2]
 	mov	r0, #0x10
 	sub	r0, r0, r1
 	lsl	r0, r0, #0x8
 	orr	r1, r1, r0
 	strh	r1, [r3]
-	ldr	r3, .L10 + 20
+	ldr	r3, .L8040DE4 + 20
 	ldr	r1, [r3]
 	cmp	r1, #0
-	beq	.L8	@cond_branch
+	beq	.L8040E00	@cond_branch
 	sub	r0, r1, #1
 	str	r0, [r3]
-	ldr	r0, .L10 + 24
-	b	.L9
-.L11:
+	ldr	r0, .L8040DE4 + 24
+	b	.L8040E04
+.L8040DE2:
 	.align	2, 0
-.L10:
+.L8040DE4:
 	.4byte	0x584
 	.4byte	0x3000020
 	.4byte	0x4000050
@@ -103,76 +103,76 @@ creditsFrontendHandler:
 	.4byte	0x300000c
 	.4byte	0x3000014
 	.4byte	0x3000010
-.L8:
-	ldr	r0, .L23
+.L8040E00:
+	ldr	r0, .L8040E7C
 	str	r1, [r0]
-.L9:
+.L8040E04:
 	ldr	r1, [r2]
 	ldr	r0, [r0]
 	cmp	r1, r0
-	beq	.L12	@cond_branch
+	beq	.L8040E16	@cond_branch
 	sub	r3, r1, #1
 	cmp	r0, r1
-	ble	.L13	@cond_branch
+	ble	.L8040E14	@cond_branch
 	add	r3, r1, #1
-.L13:
+.L8040E14:
 	str	r3, [r2]
-.L12:
+.L8040E16:
 	ldr	r0, [r2]
-	ldr	r3, .L23 + 4
+	ldr	r3, .L8040E7C + 4
 	cmp	r0, #0
-	bne	.L14	@cond_branch
+	bne	.L8040E22	@cond_branch
 	mov	r0, #0x1
 	strb	r0, [r3]
-.L14:
+.L8040E22:
 	ldrb	r0, [r3]
-	ldr	r2, .L23 + 8
+	ldr	r2, .L8040E7C + 8
 	cmp	r0, #0
-	beq	.L16	@cond_branch
-	ldr	r0, .L23 + 12
+	beq	.L8040E3C	@cond_branch
+	ldr	r0, .L8040E7C + 12
 	ldr	r1, [r0]
 	mov	r0, #0x1
 	ldrh	r1, [r1, #0x4]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L16	@cond_branch
+	beq	.L8040E3C	@cond_branch
 	mov	r0, #0x1
 	strb	r0, [r2]
-.L16:
-	ldr	r1, .L23 + 16
+.L8040E3C:
+	ldr	r1, .L8040E7C + 16
 	mov	r0, #0xb
 	ldrh	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L18	@cond_branch
-	ldr	r0, .L23 + 20
+	beq	.L8040E5A	@cond_branch
+	ldr	r0, .L8040E7C + 20
 	ADD r0, sl
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x18
 	asr	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L18	@cond_branch
+	bne	.L8040E5A	@cond_branch
 	mov	r0, #0x1
 	strb	r0, [r2]
-.L18:
+.L8040E5A:
 	ldrb	r0, [r2]
 	cmp	r0, #0
-	beq	.L20	@cond_branch
-	ldr	r0, .L23 + 24
+	beq	.L8040EE6	@cond_branch
+	ldr	r0, .L8040E7C + 24
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L20	@cond_branch
+	beq	.L8040EE6	@cond_branch
 	mov	r0, #0x1
 	strb	r0, [r2]
 	bl	sub_804915C
 	cmp	r0, #0x8
-	bne	.L21	@cond_branch
+	bne	.L8040E98	@cond_branch
 	mov	r0, #0xa
 	bl	sub_80490F8
-	b	.L22
-.L24:
+	b	.L8040E9C
+.L8040E7C:
 	.align	2, 0
-.L23:
+
 	.4byte	0x3000010
 	.4byte	0x3000020
 	.4byte	0x3000021
@@ -180,22 +180,22 @@ creditsFrontendHandler:
 	.4byte	0x3005da0
 	.4byte	0x584
 	.4byte	0x3000008
-.L21:
+.L8040E98:
 	bl	sub_8049178
-.L22:
-	ldr	r1, .L39
-	ldr	r0, .L39 + 4
+.L8040E9C:
+	ldr	r1, .L8041040
+	ldr	r0, .L8041040 + 4
 	str	r0, [r1]
-	ldr	r2, .L39 + 8
+	ldr	r2, .L8041040 + 8
 	ldr	r0, [r2]
 	add	r1, r0, #0
 	sub	r0, r0, #0x1
 	str	r0, [r2]
 	cmp	r1, #0
-	beq	.L25	@cond_branch
-	ldr	r4, .L39 + 12
+	beq	.L8040ECC	@cond_branch
+	ldr	r4, .L8041040 + 12
 	add	r5, r2, #0
-.L26:
+.L8040EB4:
 	ldr	r0, [r4]
 	bl	sub_8061204
 	ldr	r0, [r4]
@@ -206,37 +206,37 @@ creditsFrontendHandler:
 	sub	r0, r0, #0x1
 	str	r0, [r5]
 	cmp	r1, #0
-	bne	.L26	@cond_branch
-.L25:
-	ldr	r0, .L39 + 8
+	bne	.L8040EB4	@cond_branch
+.L8040ECC:
+	ldr	r0, .L8041040 + 8
 	mov	r4, #0x0
 	str	r4, [r0]
-	ldr	r5, .L39 + 16
+	ldr	r5, .L8041040 + 16
 	ldr	r0, [r5]
 	cmp	r0, #0
-	beq	.L27	@cond_branch
+	beq	.L8040EDE	@cond_branch
 	bl	deallocateBlock
-.L27:
+.L8040EDE:
 	str	r4, [r5]
-	ldr	r0, .L39 + 20
+	ldr	r0, .L8041040 + 20
 	strb	r4, [r0]
 	add	r3, r0, #0
-.L20:
+.L8040EE6:
 	ldrb	r0, [r3]
 	cmp	r0, #0
-	bne	.L28	@cond_branch
-	b	.L29
-.L28:
-	ldr	r2, .L39 + 8
+	bne	.L8040EEE	@cond_branch
+	b	.L8041002
+.L8040EEE:
+	ldr	r2, .L8041040 + 8
 	ldr	r0, [r2]
 	add	r1, r0, #0
 	sub	r0, r0, #0x1
 	str	r0, [r2]
 	cmp	r1, #0
-	beq	.L30	@cond_branch
-	ldr	r4, .L39 + 12
+	beq	.L8040F18	@cond_branch
+	ldr	r4, .L8041040 + 12
 	add	r5, r2, #0
-.L31:
+.L8040F00:
 	ldr	r0, [r4]
 	bl	sub_8061204
 	ldr	r0, [r4]
@@ -247,28 +247,28 @@ creditsFrontendHandler:
 	sub	r0, r0, #0x1
 	str	r0, [r5]
 	cmp	r1, #0
-	bne	.L31	@cond_branch
-.L30:
-	ldr	r0, .L39 + 16
+	bne	.L8040F00	@cond_branch
+.L8040F18:
+	ldr	r0, .L8041040 + 16
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L32	@cond_branch
+	beq	.L8040F24	@cond_branch
 	bl	deallocateBlock
-.L32:
-	ldr	r3, .L39 + 8
+.L8040F24:
+	ldr	r3, .L8041040 + 8
 	mov	r0, #0x0
 	str	r0, [r3]
 	mov	r5, #0x0
-	ldr	r1, .L39 + 24
-	ldr	r2, .L39 + 28
+	ldr	r1, .L8041040 + 24
+	ldr	r2, .L8041040 + 28
 	ldr	r0, [r2]
 	str	r0, [r1]
 	ldr	r0, [r0]
 	mov	r8, r3
 	cmp	r0, #0
-	beq	.L33	@cond_branch
+	beq	.L8040F56	@cond_branch
 	add	r4, r2, #0
-.L34:
+.L8040F3E:
 	ldr	r1, [r4]
 	ldrh	r0, [r1, #0x6]
 	add	r5, r0, r5
@@ -280,8 +280,8 @@ creditsFrontendHandler:
 	str	r0, [r3]
 	ldr	r0, [r1, #0xc]
 	cmp	r0, #0
-	bne	.L34	@cond_branch
-.L33:
+	bne	.L8040F3E	@cond_branch
+.L8040F56:
 	ldr	r0, [r2]
 	add	r0, r0, #0xc
 	str	r0, [r2]
@@ -291,14 +291,14 @@ creditsFrontendHandler:
 	add	r0, r0, r1
 	lsl	r0, r0, #0x4
 	bl	slowAllocate
-	ldr	r4, .L39 + 16
+	ldr	r4, .L8041040 + 16
 	str	r0, [r4]
 	cmp	r0, #0
-	bne	.L35	@cond_branch
-	ldr	r0, .L39 + 32
+	bne	.L8040F78	@cond_branch
+	ldr	r0, .L8041040 + 32
 	bl	printf
-.L35:
-	ldr	r2, .L39 + 12
+.L8040F78:
+	ldr	r2, .L8041040 + 12
 	ldr	r0, [r4]
 	ldr	r0, [r0]
 	str	r0, [r2]
@@ -309,13 +309,13 @@ creditsFrontendHandler:
 	mov	r1, r8
 	ldr	r0, [r1]
 	cmp	r7, r0
-	bge	.L36	@cond_branch
+	bge	.L8040FF0	@cond_branch
 	mov	r8, r2
-	ldr	r2, .L39 + 24
+	ldr	r2, .L8041040 + 24
 	mov	r9, r2
 	mov	r5, #0x0
 	mov	r4, #0x0
-.L37:
+.L8040F9A:
 	mov	r1, r8
 	ldr	r0, [r1]
 	add	r0, r0, r4
@@ -326,8 +326,8 @@ creditsFrontendHandler:
 	str	r1, [sp, #0x4]
 	mov	r1, #0x2
 	str	r1, [sp, #0x8]
-	ldr	r1, .L39 + 36
-	ldr	r2, .L39 + 40
+	ldr	r1, .L8041040 + 36
+	ldr	r2, .L8041040 + 40
 	mov	r3, #0x0
 	bl	allocFont
 	mov	r2, r8
@@ -352,31 +352,31 @@ creditsFrontendHandler:
 	add	r5, r5, #0xc
 	add	r4, r4, #0x30
 	add	r7, r7, #0x1
-	ldr	r0, .L39 + 8
+	ldr	r0, .L8041040 + 8
 	ldr	r0, [r0]
 	cmp	r7, r0
-	blt	.L37	@cond_branch
-.L36:
-	ldr	r1, .L39 + 44
+	blt	.L8040F9A	@cond_branch
+.L8040FF0:
+	ldr	r1, .L8041040 + 44
 	mov	r0, #0x10
 	str	r0, [r1]
-	ldr	r1, .L39 + 48
+	ldr	r1, .L8041040 + 48
 	mov	r0, #0x78
 	str	r0, [r1]
-	ldr	r1, .L39 + 20
+	ldr	r1, .L8041040 + 20
 	mov	r0, #0x0
 	strb	r0, [r1]
-.L29:
+.L8041002:
 	mov	r0, #0xa0
 	lsl	r0, r0, #0x1
 	ADD r0, sl
 	bl	sub_80439A0
-	ldr	r0, .L39
-	ldr	r5, .L39 + 52
+	ldr	r0, .L8041040
+	ldr	r5, .L8041040 + 52
 	ldr	r4, [r0]
 	ldr	r0, [r5]
 	cmp	r4, r0
-	beq	.L38	@cond_branch
+	beq	.L8041030	@cond_branch
 	sub	r4, r4, r0
 	asr	r4, r4, #0x2
 	mov	r0, #0x94
@@ -388,7 +388,7 @@ creditsFrontendHandler:
 	ldr	r0, [r5]
 	add	r0, r0, r4
 	str	r0, [r5]
-.L38:
+.L8041030:
 	add	sp, sp, #0xc
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -397,9 +397,9 @@ creditsFrontendHandler:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L40:
+.L8041040:
 	.align	2, 0
-.L39:
+
 	.4byte	0x3000000
 	.4byte	0xffff0000
 	.4byte	0x3000008

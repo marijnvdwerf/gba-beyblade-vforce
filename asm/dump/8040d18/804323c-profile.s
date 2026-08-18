@@ -8,79 +8,79 @@ profile:
 	add	sp, sp, #0xfffffff8
 	mov	r8, r0
 	mov	r5, #0x0
-	ldr	r0, .L6
+	ldr	r0, .L8043268
 	ldr	r1, [r0]
 	lsl	r1, r1, #0x10
 	lsr	r1, r1, #0x10
 	str	r5, [r0]
-	ldr	r0, .L6 + 4
+	ldr	r0, .L8043268 + 4
 	ldrb	r0, [r0]
 	cmp	r0, #0x1
-	beq	.L1	@cond_branch
+	beq	.L8043270	@cond_branch
 	cmp	r0, #0x1
-	ble	.L5	@cond_branch
+	ble	.L8043294	@cond_branch
 	cmp	r0, #0x2
-	beq	.L3	@cond_branch
+	beq	.L804327C	@cond_branch
 	cmp	r0, #0x3
-	beq	.L4	@cond_branch
-	b	.L5
-.L7:
+	beq	.L8043288	@cond_branch
+	b	.L8043294
+.L8043268:
 	.align	2, 0
-.L6:
+
 	.4byte	0x4000108
 	.4byte	0x3000150
-.L1:
-	ldr	r4, .L9
+.L8043270:
+	ldr	r4, .L8043278
 	mov	r5, #0xfa
 	lsl	r5, r5, #0x2
-	b	.L14
-.L10:
+	b	.L8043298
+.L8043278:
 	.align	2, 0
-.L9:
+
 	.4byte	0x40741893
-.L3:
-	ldr	r4, .L12
+.L804327C:
+	ldr	r4, .L8043284
 	mov	r5, #0xfa
 	lsl	r5, r5, #0x2
-	b	.L14
-.L13:
+	b	.L8043298
+.L8043284:
 	.align	2, 0
-.L12:
+
 	.4byte	0x41741893
-.L4:
-	ldr	r4, .L15
+.L8043288:
+	ldr	r4, .L8043290
 	mov	r5, #0xfa
 	lsl	r5, r5, #0x2
-	b	.L14
-.L16:
+	b	.L8043298
+.L8043290:
 	.align	2, 0
-.L15:
+
 	.4byte	0x4274199a
-.L5:
-	ldr	r4, .L19
-	ldr	r5, .L19 + 4
-.L14:
+.L8043294:
+	ldr	r4, .L80432B4
+	ldr	r5, .L80432B4 + 4
+.L8043298:
 	add	r0, r1, #0
 	bl	__floatsisf
 	add	r1, r4, #0
 	bl	__mulsf3
 	add	r4, r0, #0
 	cmp	r5, #0
-	blt	.L17	@cond_branch
+	blt	.L80432BC	@cond_branch
 	add	r0, r5, #0
 	bl	__floatsisf
-	b	.L18
-.L20:
+	b	.L80432C8
+.L80432B2:
 	.align	2, 0
-.L19:
+.L80432B4:
 	.4byte	0x426e6148
 	.4byte	0xf4240
-.L17:
+.L80432BC:
 	lsr	r0, r5, #0x1
 	bl	__floatsisf
 	add	r1, r0, #0
 	bl	__addsf3
-.L18:
+.L80432C8:
 	add	r1, r0, #0
 	add	r0, r4, #0
 	bl	__divsf3
@@ -95,16 +95,16 @@ profile:
 	bl	__subsf3
 	add	r4, r0, #0
 	cmp	r5, #0
-	blt	.L21	@cond_branch
+	blt	.L80432F6	@cond_branch
 	add	r0, r5, #0
 	bl	__floatsisf
-	b	.L22
-.L21:
+	b	.L8043302
+.L80432F6:
 	lsr	r0, r5, #0x1
 	bl	__floatsisf
 	add	r1, r0, #0
 	bl	__addsf3
-.L22:
+.L8043302:
 	add	r1, r0, #0
 	add	r0, r4, #0
 	bl	__mulsf3
@@ -133,7 +133,7 @@ profile:
 	bl	__umodsi3
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	ldr	r1, .L23
+	ldr	r1, .L804336C
 	add	r6, r6, #0x30
 	add	r4, r4, #0x30
 	str	r4, [sp]
@@ -150,9 +150,9 @@ profile:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L24:
+.L804336A:
 	.align	2, 0
-.L23:
+.L804336C:
 	.4byte	0x86fd2a4
 	thumb_func_end profile
 

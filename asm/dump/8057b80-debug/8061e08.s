@@ -6,15 +6,15 @@ sub_8061E08:
 	add	r2, r0, #0
 	ldr	r0, [r2, #0x1c]
 	cmp	r0, #0
-	bne	.L1	@cond_branch
+	bne	.L8061E16	@cond_branch
 	mov	r0, #0x0
-	b	.L2
-.L1:
+	b	.L8061E3E
+.L8061E16:
 	ldr	r4, [r2, #0x18]
 	ldr	r3, [r4, #0x8]
 	ldr	r0, [r2, #0x20]
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L8061E30	@cond_branch
 	ldr	r1, [r2, #0x24]
 	ldrh	r4, [r4, #0x18]
 	add	r0, r4, r0
@@ -23,7 +23,7 @@ sub_8061E08:
 	sub	r0, r1, r0
 	lsl	r0, r0, #0x8
 	add	r3, r3, r0
-.L3:
+.L8061E30:
 	add	r0, r2, #0
 	add	r0, r0, #0x29
 	ldrb	r0, [r0]
@@ -31,7 +31,7 @@ sub_8061E08:
 	asr	r0, r0, #0x18
 	add	r3, r3, r0
 	add	r0, r3, #0
-.L2:
+.L8061E3E:
 	pop	{r4}
 	pop	{r1}
 	bx	r1

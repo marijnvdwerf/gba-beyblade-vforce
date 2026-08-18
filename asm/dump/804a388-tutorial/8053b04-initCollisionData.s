@@ -17,7 +17,7 @@ initCollisionData:
 	add	r7, r0, #0
 	bl	getLevelDescription2
 	mov	r8, r0
-	ldr	r1, .L2
+	ldr	r1, .L8053B84
 	lsl	r4, r4, #0x10
 	asr	r4, r4, #0x10
 	lsl	r0, r4, #0x5
@@ -26,22 +26,22 @@ initCollisionData:
 	add	r1, r1, #0x80
 	add	r0, r0, r1
 	ldr	r1, [r0]
-	ldr	r4, .L2 + 4
+	ldr	r4, .L8053B84 + 4
 	ldr	r0, [r4]
-	ldr	r5, .L2 + 8
+	ldr	r5, .L8053B84 + 8
 	add	r6, r0, r5
 	cmp	r1, #0
-	beq	.L1	@cond_branch
+	beq	.L8053B50	@cond_branch
 	add	r0, r6, #0
 	mov	r2, #0x3
 	bl	newCollisionDataRam
-.L1:
+.L8053B50:
 	ldr	r0, [r4]
 	add	r0, r0, r5
 	add	r1, r7, #0
 	bl	StoreMetadataAddr
 	ldr	r0, [r4]
-	ldr	r1, .L2 + 12
+	ldr	r1, .L8053B84 + 12
 	add	r0, r0, r1
 	mov	r1, r8
 	ldrh	r2, [r1, #0xc]
@@ -59,9 +59,9 @@ initCollisionData:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L3:
+.L8053B82:
 	.align	2, 0
-.L2:
+.L8053B84:
 	.4byte	0x806b300
 	.4byte	0x3000fb0
 	.4byte	0x65c

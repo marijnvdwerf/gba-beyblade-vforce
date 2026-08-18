@@ -21,36 +21,36 @@ sub_804DF88:
 	ldrh	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L804DFF0	@cond_branch
 	mov	r1, #0xa6
 	lsl	r1, r1, #0x1
 	add	r0, r3, r1
 	ldrh	r0, [r0]
-	ldr	r1, .L3
+	ldr	r1, .L804DFCC
 	add	r0, r0, r1
 	cmp	r0, #0x5
-	bhi	.L2	@cond_branch
+	bhi	.L804DFF0	@cond_branch
 	lsl	r0, r0, #0x2
-	ldr	r1, .L3 + 4
+	ldr	r1, .L804DFCC + 4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L4:
+.L804DFCA:
 	.align	2, 0
-.L3:
+.L804DFCC:
 	.4byte	0xfffffc18
-	.4byte	.L5
-.L5:
-	.4byte	.L11
-	.4byte	.L11
-	.4byte	.L11
-	.4byte	.L11
-	.4byte	.L11
-	.4byte	.L11
-.L11:
+	.4byte	.L804DFD4
+.L804DFD4:
+	.4byte	.L804DFEC
+	.4byte	.L804DFEC
+	.4byte	.L804DFEC
+	.4byte	.L804DFEC
+	.4byte	.L804DFEC
+	.4byte	.L804DFEC
+.L804DFEC:
 	mov	r0, #0x10
 	str	r0, [r2, #0x68]
-.L2:
+.L804DFF0:
 	bx	lr
 	thumb_func_end sub_804DF88
 

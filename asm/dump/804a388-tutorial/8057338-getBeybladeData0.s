@@ -4,12 +4,12 @@
 getBeybladeData0:
 	mov	r1, #0x34
 	mul	r0, r0, r1
-	ldr	r1, .L1
+	ldr	r1, .L8057344
 	add	r0, r0, r1
 	bx	lr
-.L2:
+.L8057342:
 	.align	2, 0
-.L1:
+.L8057344:
 	.4byte	0x807ac28
 	thumb_func_end getBeybladeData0
 

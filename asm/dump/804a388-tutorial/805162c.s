@@ -2,15 +2,15 @@
 
 	thumb_func_start sub_805162C
 sub_805162C:
-	ldr	r0, .L1
+	ldr	r0, .L8051638
 	ldr	r0, [r0]
-	ldr	r1, .L1 + 4
+	ldr	r1, .L8051638 + 4
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	bx	lr
-.L2:
+.L8051638:
 	.align	2, 0
-.L1:
+
 	.4byte	0x3000f48
 	.4byte	0x6ab
 	thumb_func_end sub_805162C

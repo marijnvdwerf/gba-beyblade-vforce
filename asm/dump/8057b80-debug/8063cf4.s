@@ -28,11 +28,11 @@ sub_8063CF4:
 	add	r0, r0, #0xe8
 	ldr	r4, [r0]
 	cmp	r4, #0
-	beq	.L1	@cond_branch
+	beq	.L8063D32	@cond_branch
 	ldrh	r1, [r3]
 	add	r0, r2, #0
 	bl	_call_via_r4
-.L1:
+.L8063D32:
 	pop	{r4}
 	pop	{r0}
 	bx	r0

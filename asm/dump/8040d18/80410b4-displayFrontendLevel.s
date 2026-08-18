@@ -10,68 +10,68 @@ displayFrontendLevel:
 	bl	getLanguage
 	ldr	r0, [r6]
 	cmp	r0, #0
-	bne	.L1	@cond_branch
+	bne	.L80410D2	@cond_branch
 	mov	r0, #0x1
 	bl	allocSprite
 	str	r0, [r6]
-	b	.L2
-.L1:
+	b	.L80410D6
+.L80410D2:
 	bl	sub_8060A60
-.L2:
+.L80410D6:
 	mov	r0, #0x2
 	ldrh	r5, [r5]
 	and	r0, r0, r5
 	cmp	r0, #0
-	bne	.L3	@cond_branch
+	bne	.L80410EA	@cond_branch
 	mov	r0, #0x4
 	bl	sub_8051780
 	cmp	r0, #0
-	beq	.L4	@cond_branch
-.L3:
+	beq	.L804112E	@cond_branch
+.L80410EA:
 	mov	r0, #0x4
 	bl	sub_8051780
 	cmp	r0, #0
-	beq	.L5	@cond_branch
-	ldr	r0, .L8
+	beq	.L8041128	@cond_branch
+	ldr	r0, .L8041108
 	ldr	r0, [r0]
-	ldr	r1, .L8 + 4
+	ldr	r1, .L8041108 + 4
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0x2
-	bne	.L6	@cond_branch
-	ldr	r5, .L8 + 8
-	ldr	r4, .L8 + 12
-	b	.L10
-.L9:
+	bne	.L8041118	@cond_branch
+	ldr	r5, .L8041108 + 8
+	ldr	r4, .L8041108 + 12
+	b	.L8041138
+.L8041108:
 	.align	2, 0
-.L8:
+
 	.4byte	0x3000f48
 	.4byte	0x6a4
 	.4byte	0x823aa74
 	.4byte	0x823b2bc
-.L6:
-	ldr	r5, .L11
-	ldr	r4, .L11 + 4
-	b	.L10
-.L12:
+.L8041118:
+	ldr	r5, .L8041120
+	ldr	r4, .L8041120 + 4
+	b	.L8041138
+.L804111E:
 	.align	2, 0
-.L11:
+.L8041120:
 	.4byte	0x823b4bc
 	.4byte	0x823bd04
-.L5:
+.L8041128:
 	add	r0, r4, #0
 	add	r0, r0, #0xc0
-	b	.L13
-.L4:
+	b	.L8041132
+.L804112E:
 	add	r0, r4, #0
 	add	r0, r0, #0xc8
-.L13:
+.L8041132:
 	ldr	r5, [r0]
 	add	r0, r0, #0x4
 	ldr	r4, [r0]
-.L10:
+.L8041138:
 	cmp	r5, #0
-	beq	.L14	@cond_branch
+	beq	.L804115A	@cond_branch
 	ldr	r0, [r6]
 	mov	r2, #0x80
 	lsl	r2, r2, #0x5
@@ -85,27 +85,27 @@ displayFrontendLevel:
 	str	r1, [sp, #0xc]
 	add	r1, r5, #0
 	bl	LoadSpriteSheet
-	b	.L15
-.L14:
-	ldr	r0, .L17
+	b	.L8041160
+.L804115A:
+	ldr	r0, .L804117C
 	bl	printf
-.L15:
+.L8041160:
 	cmp	r4, #0
-	beq	.L16	@cond_branch
-	ldr	r0, .L17 + 4
-	ldr	r1, .L17 + 8
+	beq	.L8041172	@cond_branch
+	ldr	r0, .L804117C + 4
+	ldr	r1, .L804117C + 8
 	ldr	r3, [r0]
 	add	r0, r4, #0
 	mov	r2, #0x20
 	bl	_call_via_r3
-.L16:
+.L8041172:
 	add	sp, sp, #0x10
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L18:
+.L804117A:
 	.align	2, 0
-.L17:
+.L804117C:
 	.4byte	0x86fcf24
 	.4byte	0x807d974
 	.4byte	0x5000200

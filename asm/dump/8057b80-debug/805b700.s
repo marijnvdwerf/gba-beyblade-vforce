@@ -16,7 +16,7 @@ sub_805B700:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	mov	sl, r0
-	ldr	r6, .L10
+	ldr	r6, .L805B7A4
 	mov	r7, #0xf
 	mov	r0, #0x0
 	mov	r8, r0
@@ -28,15 +28,15 @@ sub_805B700:
 	bl	__umodsi3
 	add	r5, r0, #0
 	cmp	r5, #0
-	bne	.L4	@cond_branch
+	bne	.L805B746	@cond_branch
 	sub	r6, r6, #0x1
 	mov	r0, #0x30
 	strb	r0, [r6]
 	mov	r0, #0x1
 	mov	r8, r0
 	cmp	r5, #0
-	beq	.L2	@cond_branch
-.L4:
+	beq	.L805B76E	@cond_branch
+.L805B746:
 	add	r0, r5, #0
 	mov	r1, #0xa
 	bl	Mod
@@ -52,42 +52,42 @@ sub_805B700:
 	ADD r8, r0
 	sub	r7, r7, #0x1
 	cmp	r7, #0
-	beq	.L7	@cond_branch
+	beq	.L805B78C	@cond_branch
 	cmp	r5, #0
-	bne	.L4	@cond_branch
-.L2:
+	bne	.L805B746	@cond_branch
+.L805B76E:
 	cmp	r7, #0
-	beq	.L7	@cond_branch
+	beq	.L805B78C	@cond_branch
 	mov	r0, r8
 	cmp	r0, #0x1
-	bne	.L6	@cond_branch
+	bne	.L805B780	@cond_branch
 	sub	r6, r6, #0x1
 	mov	r0, #0x30
 	strb	r0, [r6]
 	sub	r7, r7, #0x1
-.L6:
+.L805B780:
 	cmp	r7, #0
-	beq	.L7	@cond_branch
+	beq	.L805B78C	@cond_branch
 	sub	r6, r6, #0x1
 	mov	r0, #0x3a
 	strb	r0, [r6]
 	sub	r7, r7, #0x1
-.L7:
+.L805B78C:
 	mov	r0, r9
 	mov	r1, #0x3c
 	bl	__udivsi3
 	add	r5, r0, #0
 	cmp	r5, #0
-	bne	.L9	@cond_branch
+	bne	.L805B7C2	@cond_branch
 	sub	r6, r6, #0x1
 	mov	r0, #0x30
 	strb	r0, [r6]
-	b	.L9
-.L11:
+	b	.L805B7C2
+.L805B7A2:
 	.align	2, 0
-.L10:
+.L805B7A4:
 	.4byte	0x3000d90
-.L13:
+.L805B7A8:
 	add	r0, r5, #0
 	mov	r1, #0xa
 	bl	Mod
@@ -99,14 +99,14 @@ sub_805B700:
 	sub	r6, r6, #0x1
 	add	r4, r4, #0x30
 	strb	r4, [r6]
-.L9:
+.L805B7C2:
 	add	r0, r7, #0
 	sub	r7, r7, #0x1
 	cmp	r0, #0
-	beq	.L12	@cond_branch
+	beq	.L805B7CE	@cond_branch
 	cmp	r5, #0
-	bne	.L13	@cond_branch
-.L12:
+	bne	.L805B7A8	@cond_branch
+.L805B7CE:
 	mov	r0, sl
 	str	r0, [sp]
 	ldr	r0, [sp, #0x4]

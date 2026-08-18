@@ -3,9 +3,9 @@
 	thumb_func_start sub_805253C
 sub_805253C:
 	push	{lr}
-	ldr	r0, .L1
+	ldr	r0, .L8052574
 	ldr	r1, [r0]
-	ldr	r2, .L1 + 4
+	ldr	r2, .L8052574 + 4
 	add	r0, r1, r2
 	mov	r2, #0x0
 	str	r2, [r0]
@@ -16,11 +16,11 @@ sub_805253C:
 	add	r3, r3, #0x4
 	add	r0, r1, r3
 	str	r2, [r0]
-	ldr	r0, .L1 + 8
+	ldr	r0, .L8052574 + 8
 	add	r1, r1, r0
 	str	r2, [r1]
-	ldr	r0, .L1 + 12
-	ldr	r1, .L1 + 16
+	ldr	r0, .L8052574 + 12
+	ldr	r1, .L8052574 + 16
 	mov	r2, #0x80
 	lsl	r2, r2, #0x4
 	ldr	r3, [r0]
@@ -28,9 +28,9 @@ sub_805253C:
 	bl	_call_via_r3
 	pop	{r0}
 	bx	r0
-.L2:
+.L8052572:
 	.align	2, 0
-.L1:
+.L8052574:
 	.4byte	0x3000fb0
 	.4byte	0x153c
 	.4byte	0x1548

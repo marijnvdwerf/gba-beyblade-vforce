@@ -16,9 +16,9 @@ sub_804C0C0:
 	add	r4, r2, r0
 	ldr	r0, [r4]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L804C0E2	@cond_branch
 	bl	sub_8060A94
-.L1:
+.L804C0E2:
 	mov	r0, #0x0
 	str	r0, [r4]
 	pop	{r4}

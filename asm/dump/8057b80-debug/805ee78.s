@@ -13,15 +13,15 @@ sub_805EE78:
 	add	r0, r2, r3
 	ldr	r3, [r0]
 	cmp	r3, #0
-	bne	.L1	@cond_branch
+	bne	.L805EE98	@cond_branch
 	add	r0, r2, #0
 	bl	sub_805ED60
-	b	.L2
-.L1:
+	b	.L805EEA0
+.L805EE98:
 	add	r0, r1, #0
 	add	r1, r2, #0
 	bl	_call_via_r3
-.L2:
+.L805EEA0:
 	pop	{r0}
 	bx	r0
 	thumb_func_end sub_805EE78

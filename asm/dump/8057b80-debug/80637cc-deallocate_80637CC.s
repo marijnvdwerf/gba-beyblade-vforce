@@ -6,11 +6,11 @@ deallocate_80637CC:
 	add	r4, r0, #0
 	ldr	r0, [r4, #0x10]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L80637DE	@cond_branch
 	bl	deallocateBlock
 	mov	r0, #0x0
 	str	r0, [r4, #0x10]
-.L1:
+.L80637DE:
 	pop	{r4}
 	pop	{r0}
 	bx	r0

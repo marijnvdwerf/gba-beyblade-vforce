@@ -9,11 +9,11 @@ sub_8065508:
 	mov	r1, #0x0
 	ldrb	r0, [r6, #0x4]
 	cmp	r1, r0
-	bcs	.L1	@cond_branch
+	bcs	.L8065532	@cond_branch
 	mov	r4, #0xc4
 	ldr	r2, [r6]
 	mov	r3, #0x0
-.L2:
+.L806551E:
 	add	r0, r1, #0
 	mul	r0, r0, r4
 	add	r0, r2, r0
@@ -23,12 +23,12 @@ sub_8065508:
 	lsr	r1, r0, #0x10
 	ldrb	r0, [r6, #0x4]
 	cmp	r1, r0
-	bcc	.L2	@cond_branch
-.L1:
+	bcc	.L806551E	@cond_branch
+.L8065532:
 	cmp	r7, #0
-	bge	.L3	@cond_branch
+	bge	.L8065538	@cond_branch
 	NEG	r7, r7
-.L3:
+.L8065538:
 	add	r0, r7, #0
 	mov	r1, #0x3c
 	bl	Mod
@@ -48,11 +48,11 @@ sub_8065508:
 	ldrb	r2, [r6, #0x4]
 	add	r1, r2, #0
 	mul	r1, r1, r4
-	ldr	r5, .L6
+	ldr	r5, .L806559C
 	add	r1, r1, r5
 	ldr	r0, [r6]
 	add	r0, r0, r1
-	ldr	r1, .L6 + 4
+	ldr	r1, .L806559C + 4
 	add	r1, r1, #0x3a
 	ldrb	r2, [r1]
 	mov	r1, #0x0
@@ -67,20 +67,20 @@ sub_8065508:
 	NEG	r1, r1
 	str	r1, [r0, #0x70]
 	cmp	r7, #0
-	beq	.L4	@cond_branch
+	beq	.L80655A4	@cond_branch
 	add	r0, r7, #0
 	mov	r1, #0x3c
 	bl	Mod
 	add	r1, r0, #0
-	b	.L5
-.L7:
+	b	.L80655A6
+.L806559A:
 	.align	2, 0
-.L6:
+.L806559C:
 	.4byte	0xfffffdb4
 	.4byte	0x807d980
-.L4:
+.L80655A4:
 	mov	r1, #0x0
-.L5:
+.L80655A6:
 	ldrb	r2, [r6, #0x4]
 	sub	r2, r2, #0x4
 	mov	r0, #0x0

@@ -5,44 +5,44 @@ sub_8060934:
 	push	{r4, r5, r6, lr}
 	lsl	r0, r0, #0x10
 	lsr	r6, r0, #0x10
-	ldr	r0, .L7
+	ldr	r0, .L80609B0
 	ldr	r4, [r0]
 	cmp	r4, #0
-	beq	.L1	@cond_branch
+	beq	.L806096E	@cond_branch
 	mov	r5, #0x1
-.L4:
+.L8060944:
 	add	r0, r5, #0
 	ldrh	r1, [r4, #0x20]
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2	@cond_branch
+	bne	.L8060968	@cond_branch
 	ldr	r2, [r4, #0x24]
 	cmp	r2, #0
-	blt	.L3	@cond_branch
+	blt	.L8060962	@cond_branch
 	ldrh	r0, [r4, #0x16]
 	sub	r0, r0, #0x5
 	add	r1, r5, #0
 	LSL	r1, r0
 	add	r0, r2, #0
 	bl	freeSpriteVramLocation
-.L3:
+.L8060962:
 	mov	r0, #0x1
 	NEG	r0, r0
 	str	r0, [r4, #0x24]
-.L2:
+.L8060968:
 	ldr	r4, [r4, #0x4]
 	cmp	r4, #0
-	bne	.L4	@cond_branch
-.L1:
-	ldr	r0, .L7 + 4
+	bne	.L8060944	@cond_branch
+.L806096E:
+	ldr	r0, .L80609B0 + 4
 	str	r6, [r0]
-	ldr	r0, .L7 + 8
+	ldr	r0, .L80609B0 + 8
 	ldr	r3, [r0]
 	cmp	r3, #0
-	beq	.L5	@cond_branch
-	ldr	r0, .L7 + 12
+	beq	.L80609AA	@cond_branch
+	ldr	r0, .L80609B0 + 12
 	str	r3, [r0]
-	ldr	r0, .L7 + 16
+	ldr	r0, .L80609B0 + 16
 	add	r2, r3, #0
 	add	r2, r2, #0x8
 	str	r2, [r0]
@@ -55,7 +55,7 @@ sub_8060934:
 	strh	r0, [r3, #0x2]
 	str	r1, [r3, #0x4]
 	mov	r3, #0x1d
-.L6:
+.L8060998:
 	add	r1, r2, #0
 	add	r1, r1, #0x8
 	str	r1, [r2, #0x4]
@@ -63,15 +63,15 @@ sub_8060934:
 	add	r0, r3, #0
 	sub	r3, r3, #0x1
 	cmp	r0, #0
-	bne	.L6	@cond_branch
+	bne	.L8060998	@cond_branch
 	str	r0, [r1, #0x4]
-.L5:
+.L80609AA:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L8:
+.L80609B0:
 	.align	2, 0
-.L7:
+
 	.4byte	0x3005de4
 	.4byte	0x3005e6c
 	.4byte	0x3005dcc

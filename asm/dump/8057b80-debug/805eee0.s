@@ -10,13 +10,13 @@ sub_805EEE0:
 	add	r0, r0, #0x80
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L805EEF8	@cond_branch
 	add	r2, r2, #0x8
 	add	r0, r1, r2
-	b	.L2
-.L1:
+	b	.L805EEFA
+.L805EEF8:
 	mov	r0, #0x0
-.L2:
+.L805EEFA:
 	bx	lr
 	thumb_func_end sub_805EEE0
 

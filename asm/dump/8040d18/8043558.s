@@ -13,28 +13,28 @@ sub_8043558:
 	ADD r0, r9
 	ldr	r1, [r0]
 	cmp	r1, #0
-	beq	.L2	@cond_branch
-	ldr	r5, .L5
+	beq	.L80435EC	@cond_branch
+	ldr	r5, .L80435FC
 	mov	r0, #0xa4
 	lsl	r0, r0, #0x3
 	ADD r0, r9
 	ldr	r4, [r0]
-	ldr	r0, .L5 + 4
+	ldr	r0, .L80435FC + 4
 	ADD r0, r9
 	ldr	r0, [r0]
 	mov	r8, r0
 	mov	r7, #0x0
 	cmp	r7, r1
-	bge	.L2	@cond_branch
-.L4:
+	bge	.L80435EC	@cond_branch
+.L8043588:
 	mov	r0, #0x1
 	and	r0, r0, r7
 	mov	r6, #0x1
 	NEG	r6, r6
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L8043596	@cond_branch
 	mov	r6, #0x1
-.L3:
+.L8043596:
 	add	r0, r4, #0
 	bl	sub_8050584
 	mov	r1, r8
@@ -72,8 +72,8 @@ sub_8043558:
 	ADD r0, r9
 	ldr	r0, [r0]
 	cmp	r7, r0
-	blt	.L4	@cond_branch
-.L2:
+	blt	.L8043588	@cond_branch
+.L80435EC:
 	add	sp, sp, #0x4
 	pop	{r3, r4}
 	mov	r8, r3
@@ -81,9 +81,9 @@ sub_8043558:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L6:
+.L80435FA:
 	.align	2, 0
-.L5:
+.L80435FC:
 	.4byte	0x8068868
 	.4byte	0x484
 	thumb_func_end sub_8043558

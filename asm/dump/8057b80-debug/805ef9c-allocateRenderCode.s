@@ -4,30 +4,30 @@
 allocateRenderCode:
 	push	{r4, r5, r6, lr}
 	add	r4, r0, #0
-	ldr	r5, .L4
+	ldr	r5, .L805EFC4
 	cmp	r1, #0
-	bne	.L1	@cond_branch
-	ldr	r0, .L4 + 4
-	ldr	r6, .L4 + 8
+	bne	.L805EFF0	@cond_branch
+	ldr	r0, .L805EFC4 + 4
+	ldr	r6, .L805EFC4 + 8
 	sub	r0, r0, r6
 	bl	fastAllocate
 	add	r1, r0, #0
 	str	r1, [r4]
 	cmp	r1, #0
-	bne	.L2	@cond_branch
-	ldr	r0, .L4 + 12
+	bne	.L805EFD4	@cond_branch
+	ldr	r0, .L805EFC4 + 12
 	bl	nullsub_8
 	mov	r0, #0x0
-	b	.L3
-.L5:
+	b	.L805F0AC
+.L805EFC2:
 	.align	2, 0
-.L4:
+.L805EFC4:
 	.4byte	0x8064eb8
 	.4byte	0x8064eb8
 	.4byte	0x8064194
 	.4byte	0x8755644
-.L2:
-	ldr	r2, .L7
+.L805EFD4:
+	ldr	r2, .L805EFEC
 	str	r6, [r2]
 	ldr	r0, [r1]
 	str	r0, [r2, #0x4]
@@ -38,15 +38,15 @@ allocateRenderCode:
 	orr	r0, r0, r1
 	str	r0, [r2, #0x8]
 	ldr	r0, [r2, #0x8]
-	b	.L6
-.L8:
+	b	.L805EFF4
+.L805EFEC:
 	.align	2, 0
-.L7:
+
 	.4byte	0x40000d4
-.L1:
+.L805EFF0:
 	ldr	r0, [r1]
 	str	r0, [r4]
-.L6:
+.L805EFF4:
 	ldr	r0, [r4]
 	ldr	r1, [r0]
 	ldr	r0, [r5]
@@ -139,7 +139,7 @@ allocateRenderCode:
 	add	r1, r1, r0
 	str	r1, [r2]
 	add	r0, r4, #0
-.L3:
+.L805F0AC:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1

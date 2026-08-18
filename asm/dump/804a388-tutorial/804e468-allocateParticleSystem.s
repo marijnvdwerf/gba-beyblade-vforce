@@ -17,21 +17,21 @@ allocateParticleSystem:
 	add	r0, r0, r7
 	lsl	r5, r0, #0x2
 	cmp	r1, #0
-	beq	.L1	@cond_branch
+	beq	.L804E490	@cond_branch
 	add	r0, r5, #0
 	bl	fastAllocate
-	b	.L2
-.L1:
+	b	.L804E496
+.L804E490:
 	add	r0, r5, #0
 	bl	slowAllocate
-.L2:
+.L804E496:
 	add	r6, r0, #0
 	cmp	r6, #0
-	bne	.L3	@cond_branch
-	ldr	r0, .L9
+	bne	.L804E4A4	@cond_branch
+	ldr	r0, .L804E52C
 	add	r1, r5, #0
 	bl	printf
-.L3:
+.L804E4A4:
 	str	r6, [r4, #0x30]
 	mov	r0, #0x0
 	strh	r0, [r4, #0x6]
@@ -41,9 +41,9 @@ allocateParticleSystem:
 	str	r2, [r4]
 	mov	r5, #0x0
 	cmp	r6, #0
-	beq	.L4	@cond_branch
+	beq	.L804E4BA	@cond_branch
 	ldr	r5, [r6]
-.L4:
+.L804E4BA:
 	str	r5, [r4, #0x8]
 	mov	r2, r9
 	str	r2, [r4, #0xc]
@@ -56,12 +56,12 @@ allocateParticleSystem:
 	str	r0, [r4, #0x14]
 	str	r0, [r4, #0x10]
 	cmp	r5, #0
-	beq	.L6	@cond_branch
+	beq	.L804E51C	@cond_branch
 	sub	r7, r7, #0x1
 	cmp	r1, #0
-	beq	.L6	@cond_branch
+	beq	.L804E51C	@cond_branch
 	mov	r4, #0x0
-.L8:
+.L804E4DC:
 	mov	r0, #0x80
 	bl	allocSprite
 	str	r0, [r5]
@@ -77,7 +77,7 @@ allocateParticleSystem:
 	str	r4, [r5, #0x8]
 	str	r4, [r5, #0x4]
 	cmp	r0, #0
-	beq	.L7	@cond_branch
+	beq	.L804E512	@cond_branch
 	str	r4, [sp]
 	str	r4, [sp, #0x4]
 	str	r4, [sp, #0x8]
@@ -87,13 +87,13 @@ allocateParticleSystem:
 	mov	r3, #0xa0
 	lsl	r3, r3, #0x8
 	bl	LoadSpriteSheet
-.L7:
+.L804E512:
 	add	r5, r5, #0x24
 	add	r0, r7, #0
 	sub	r7, r7, #0x1
 	cmp	r0, #0
-	bne	.L8	@cond_branch
-.L6:
+	bne	.L804E4DC	@cond_branch
+.L804E51C:
 	add	sp, sp, #0x10
 	pop	{r3, r4}
 	mov	r8, r3
@@ -101,9 +101,9 @@ allocateParticleSystem:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L10:
+.L804E52A:
 	.align	2, 0
-.L9:
+.L804E52C:
 	.4byte	0x8727018
 	thumb_func_end allocateParticleSystem
 

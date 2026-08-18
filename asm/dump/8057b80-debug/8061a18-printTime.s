@@ -41,7 +41,7 @@ printTime:
 	mov	r2, r8
 	bl	showNumber
 	and	r7, r7, r0
-	ldr	r1, .L3
+	ldr	r1, .L8061ADC
 	mov	r0, r9
 	mov	r2, r8
 	bl	showString
@@ -49,19 +49,19 @@ printTime:
 	lsl	r0, r7, #0x18
 	lsr	r7, r0, #0x18
 	cmp	r4, #0x9
-	bhi	.L1	@cond_branch
-	ldr	r1, .L3 + 4
+	bhi	.L8061A92	@cond_branch
+	ldr	r1, .L8061ADC + 4
 	mov	r0, r9
 	mov	r2, r8
 	bl	showString
 	and	r7, r7, r0
-.L1:
+.L8061A92:
 	mov	r0, r9
 	add	r1, r4, #0
 	mov	r2, r8
 	bl	showNumber
 	and	r7, r7, r0
-	ldr	r1, .L3 + 8
+	ldr	r1, .L8061ADC + 8
 	mov	r0, r9
 	mov	r2, r8
 	bl	showString
@@ -69,13 +69,13 @@ printTime:
 	lsl	r0, r7, #0x18
 	lsr	r7, r0, #0x18
 	cmp	r5, #0x9
-	bhi	.L2	@cond_branch
-	ldr	r1, .L3 + 4
+	bhi	.L8061ABE	@cond_branch
+	ldr	r1, .L8061ADC + 4
 	mov	r0, r9
 	mov	r2, r8
 	bl	showString
 	and	r7, r7, r0
-.L2:
+.L8061ABE:
 	mov	r0, r9
 	mov	r1, sl
 	ldr	r2, [sp]
@@ -90,9 +90,9 @@ printTime:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L4:
+.L8061ADC:
 	.align	2, 0
-.L3:
+
 	.4byte	0x8755b84
 	.4byte	0x8755b88
 	.4byte	0x8755b8c

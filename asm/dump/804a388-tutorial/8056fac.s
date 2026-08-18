@@ -6,21 +6,21 @@ sub_8056FAC:
 	mov	r7, r9
 	mov	r6, r8
 	push	{r6, r7}
-	ldr	r0, .L6
+	ldr	r0, .L8057028
 	ldr	r0, [r0]
-	ldr	r1, .L6 + 4
+	ldr	r1, .L8057028 + 4
 	add	r7, r0, r1
-	ldr	r3, .L6 + 8
+	ldr	r3, .L8057028 + 8
 	add	r6, r0, r3
-	ldr	r1, .L6 + 12
+	ldr	r1, .L8057028 + 12
 	add	r1, r1, r0
 	mov	r9, r1
 	mov	r5, #0x0
 	ldr	r0, [r7]
 	cmp	r5, r0
-	bge	.L1	@cond_branch
+	bge	.L805701C	@cond_branch
 	mov	r8, r5
-.L5:
+.L8056FD0:
 	asr	r0, r5, #0x5
 	lsl	r0, r0, #0x2
 	mov	r3, #0x82
@@ -34,12 +34,12 @@ sub_8056FAC:
 	ldr	r0, [r2]
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L2	@cond_branch
+	bne	.L8056FF6	@cond_branch
 	mov	r0, #0x4
 	bl	sub_8051780
 	cmp	r0, #0
-	beq	.L3	@cond_branch
-.L2:
+	beq	.L8057012	@cond_branch
+.L8056FF6:
 	ldr	r0, [r6, #0x4]
 	lsl	r2, r0, #0x5
 	mov	r3, r9
@@ -48,28 +48,28 @@ sub_8056FAC:
 	bl	GetStruct4
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L4	@cond_branch
+	beq	.L805700E	@cond_branch
 	mov	r1, r8
 	str	r1, [r0, #0x70]
-.L4:
+.L805700E:
 	mov	r3, r8
 	strb	r3, [r4, #0x10]
-.L3:
+.L8057012:
 	add	r6, r6, #0x8
 	add	r5, r5, #0x1
 	ldr	r0, [r7]
 	cmp	r5, r0
-	blt	.L5	@cond_branch
-.L1:
+	blt	.L8056FD0	@cond_branch
+.L805701C:
 	pop	{r3, r4}
 	mov	r8, r3
 	mov	r9, r4
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L7:
+.L8057028:
 	.align	2, 0
-.L6:
+
 	.4byte	0x3000fb0
 	.4byte	0x12f4
 	.4byte	0x12f8

@@ -6,7 +6,7 @@ sub_80637E4:
 	add	r4, r0, #0
 	add	r5, r1, #0
 	ldr	r1, [sp, #0x10]
-	ldr	r6, .L1
+	ldr	r6, .L8063828
 	add	r0, r6, #0
 	and	r2, r2, r0
 	strh	r2, [r4, #0x4]
@@ -21,7 +21,7 @@ sub_80637E4:
 	str	r0, [r4, #0x10]
 	ldr	r1, [r0]
 	str	r1, [r4, #0xc]
-	ldr	r3, .L1 + 4
+	ldr	r3, .L8063828 + 4
 	ldrh	r2, [r4, #0x4]
 	lsl	r0, r2, #0x1
 	add	r5, r5, r0
@@ -33,9 +33,9 @@ sub_80637E4:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L2:
+.L8063826:
 	.align	2, 0
-.L1:
+.L8063828:
 	.4byte	0xfffe
 	.4byte	0x807d974
 	thumb_func_end sub_80637E4

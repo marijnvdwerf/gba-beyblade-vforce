@@ -18,33 +18,33 @@ showNumber:
 	mov	r7, #0x3
 	mov	r6, #0xe
 	cmp	r5, #0
-	bge	.L1	@cond_branch
+	bge	.L80618F8	@cond_branch
 	mov	r1, #0x1
 	mov	sl, r1
 	NEG	r5, r5
-.L1:
+.L80618F8:
 	mov	r4, sp
 	add	r4, r4, #0xf
 	mov	r0, #0x0
 	strb	r0, [r4]
 	cmp	r5, #0
-	bne	.L7	@cond_branch
+	bne	.L806190C	@cond_branch
 	sub	r4, r4, #0x1
 	mov	r0, #0x30
 	strb	r0, [r4]
-	b	.L6
-.L7:
+	b	.L8061956
+.L806190C:
 	mov	r0, #0x40
 	mov	r2, r8
 	ldrh	r2, [r2, #0x8]
 	and	r0, r0, r2
 	cmp	r0, #0
-	bne	.L5	@cond_branch
+	bne	.L8061930	@cond_branch
 	sub	r0, r7, #1
 	lsl	r0, r0, #0x18
 	lsr	r7, r0, #0x18
 	cmp	r7, #0xff
-	bne	.L5	@cond_branch
+	bne	.L8061930	@cond_branch
 	sub	r4, r4, #0x1
 	mov	r0, #0x2c
 	strb	r0, [r4]
@@ -52,7 +52,7 @@ showNumber:
 	sub	r0, r6, #1
 	lsl	r0, r0, #0x18
 	lsr	r6, r0, #0x18
-.L5:
+.L8061930:
 	add	r0, r5, #0
 	mov	r1, #0xa
 	bl	Mod
@@ -67,17 +67,17 @@ showNumber:
 	lsl	r0, r0, #0x18
 	lsr	r6, r0, #0x18
 	cmp	r5, #0
-	beq	.L6	@cond_branch
+	beq	.L8061956	@cond_branch
 	cmp	r6, #0
-	bne	.L7	@cond_branch
-.L6:
+	bne	.L806190C	@cond_branch
+.L8061956:
 	mov	r0, sl
 	cmp	r0, #0
-	beq	.L8	@cond_branch
+	beq	.L8061962	@cond_branch
 	sub	r4, r4, #0x1
 	mov	r0, #0x2d
 	strb	r0, [r4]
-.L8:
+.L8061962:
 	mov	r0, r8
 	add	r1, r4, #0
 	mov	r2, r9

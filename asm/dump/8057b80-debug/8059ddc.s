@@ -35,32 +35,32 @@ sub_8059DDC:
 	add	r3, r3, r0
 	add	r1, r2, r4
 	cmp	r2, r1
-	bcs	.L1	@cond_branch
+	bcs	.L8059E4A	@cond_branch
 	lsl	r5, r5, #0x1
 	mov	ip, r5
 	add	r5, r1, #0
-	ldr	r0, .L5
+	ldr	r0, .L8059E58
 	mov	r8, r0
-.L4:
+.L8059E2A:
 	mov	r1, sl
 	add	r0, r1, r6
 	add	r2, r2, #0x1
 	cmp	r1, r0
-	bcs	.L2	@cond_branch
+	bcs	.L8059E44	@cond_branch
 	mov	r4, r9
 	mov	r7, r8
 	and	r4, r4, r7
-.L3:
+.L8059E3A:
 	strh	r4, [r3]
 	add	r3, r3, #0x2
 	add	r1, r1, #0x1
 	cmp	r1, r0
-	bcc	.L3	@cond_branch
-.L2:
+	bcc	.L8059E3A	@cond_branch
+.L8059E44:
 	ADD r3, ip
 	cmp	r2, r5
-	bcc	.L4	@cond_branch
-.L1:
+	bcc	.L8059E2A	@cond_branch
+.L8059E4A:
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -68,9 +68,9 @@ sub_8059DDC:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L6:
+.L8059E58:
 	.align	2, 0
-.L5:
+
 	.4byte	0x3ff
 	thumb_func_end sub_8059DDC
 

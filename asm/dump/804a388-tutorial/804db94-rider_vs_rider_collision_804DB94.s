@@ -40,9 +40,9 @@ rider_vs_rider_collision_804DB94:
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
 	cmp	r4, #0x15
-	ble	.L1	@cond_branch
-	b	.L12
-.L1:
+	ble	.L804DBE6	@cond_branch
+	b	.L804DDDC
+.L804DBE6:
 	lsl	r0, r7, #0x8
 	add	r1, r4, #0
 	bl	__divsi3
@@ -96,7 +96,7 @@ rider_vs_rider_collision_804DB94:
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L804DC8E	@cond_branch
 	mov	r2, #0x8a
 	lsl	r2, r2, #0x2
 	ADD r2, sl
@@ -121,8 +121,8 @@ rider_vs_rider_collision_804DB94:
 	ldr	r0, [r6, #0x48]
 	sub	r0, r0, r1
 	str	r0, [r6, #0x48]
-	b	.L4
-.L3:
+	b	.L804DCB2
+.L804DC8E:
 	mov	r2, #0x8a
 	lsl	r2, r2, #0x2
 	ADD r2, sl
@@ -141,13 +141,13 @@ rider_vs_rider_collision_804DB94:
 	ldr	r0, [r4, #0x44]
 	add	r0, r0, r1
 	str	r0, [r4, #0x44]
-.L4:
+.L804DCB2:
 	ldr	r0, [sp]
 	mov	r1, #0x2
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L5	@cond_branch
+	beq	.L804DCF6	@cond_branch
 	ldr	r0, [sp]
 	mov	r1, #0x8a
 	lsl	r1, r1, #0x2
@@ -174,8 +174,8 @@ rider_vs_rider_collision_804DB94:
 	ldr	r0, [r4, #0x48]
 	add	r0, r0, r1
 	str	r0, [r4, #0x48]
-	b	.L6
-.L5:
+	b	.L804DD1C
+.L804DCF6:
 	ldr	r0, [sp]
 	mov	r1, #0x8a
 	lsl	r1, r1, #0x2
@@ -195,7 +195,7 @@ rider_vs_rider_collision_804DB94:
 	ldr	r0, [r4, #0x44]
 	sub	r0, r0, r1
 	str	r0, [r4, #0x44]
-.L6:
+.L804DD1C:
 	mov	r4, #0x80
 	lsl	r4, r4, #0x13
 	mov	r0, sl
@@ -203,7 +203,7 @@ rider_vs_rider_collision_804DB94:
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L7	@cond_branch
+	bne	.L804DD48	@cond_branch
 	mov	r0, #0x4
 	mov	r1, #0x0
 	mov	r2, #0x0
@@ -213,42 +213,42 @@ rider_vs_rider_collision_804DB94:
 	bl	sub_80558E8
 	mov	r0, #0x1
 	bl	sub_804ABFC
-.L7:
+.L804DD48:
 	mov	r0, sl
 	add	r1, r4, #0
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L9	@cond_branch
+	beq	.L804DD8E	@cond_branch
 	ldr	r0, [sp]
 	add	r1, r4, #0
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L9	@cond_branch
+	bne	.L804DD8E	@cond_branch
 	ldr	r7, [sp]
 	mov	r1, #0x82
 	lsl	r1, r1, #0x2
 	add	r0, r7, r1
 	ldr	r1, [r0]
-	ldr	r0, .L15
+	ldr	r0, .L804DDF0
 	cmp	r1, r0
-	ble	.L10	@cond_branch
+	ble	.L804DD82	@cond_branch
 	mov	r1, #0x82
 	lsl	r1, r1, #0x2
 	ADD r1, sl
 	ldr	r0, [r1]
-	ldr	r2, .L15 + 4
+	ldr	r2, .L804DDF0 + 4
 	add	r0, r0, r2
 	str	r0, [r1]
-.L10:
+.L804DD82:
 	mov	r1, #0x88
 	lsl	r1, r1, #0x2
 	ADD r1, sl
 	ldrh	r0, [r1]
 	add	r0, r0, #0xf0
 	strh	r0, [r1]
-.L9:
+.L804DD8E:
 	mov	r4, #0x80
 	lsl	r4, r4, #0x13
 	ldr	r0, [sp]
@@ -256,30 +256,30 @@ rider_vs_rider_collision_804DB94:
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L12	@cond_branch
+	beq	.L804DDDC	@cond_branch
 	mov	r0, sl
 	add	r1, r4, #0
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L12	@cond_branch
+	bne	.L804DDDC	@cond_branch
 	ldr	r3, [sp]
 	mov	r4, #0x82
 	lsl	r4, r4, #0x2
 	add	r1, r3, r4
 	ldr	r0, [r1]
-	ldr	r2, .L15
+	ldr	r2, .L804DDF0
 	cmp	r0, r2
-	ble	.L14	@cond_branch
-	ldr	r7, .L15 + 4
+	ble	.L804DDCE	@cond_branch
+	ldr	r7, .L804DDF0 + 4
 	add	r0, r0, r7
 	str	r0, [r1]
 	cmp	r0, r2
-	bgt	.L14	@cond_branch
+	bgt	.L804DDCE	@cond_branch
 	mov	r0, #0x80
 	lsl	r0, r0, #0x2
 	str	r0, [r1]
-.L14:
+.L804DDCE:
 	ldr	r0, [sp]
 	mov	r2, #0x88
 	lsl	r2, r2, #0x2
@@ -287,7 +287,7 @@ rider_vs_rider_collision_804DB94:
 	ldrh	r0, [r1]
 	add	r0, r0, #0xf0
 	strh	r0, [r1]
-.L12:
+.L804DDDC:
 	mov	r0, #0x0
 	add	sp, sp, #0x4
 	pop	{r3, r4, r5}
@@ -297,9 +297,9 @@ rider_vs_rider_collision_804DB94:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L16:
+.L804DDEE:
 	.align	2, 0
-.L15:
+.L804DDF0:
 	.4byte	0x1ff
 	.4byte	0xfffffe00
 	thumb_func_end rider_vs_rider_collision_804DB94

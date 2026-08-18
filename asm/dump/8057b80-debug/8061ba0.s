@@ -39,7 +39,7 @@ sub_8061BA0:
 	mov	r2, r8
 	bl	showNumber
 	and	r4, r4, r0
-	ldr	r1, .L1
+	ldr	r1, .L8061C20
 	mov	r0, sl
 	mov	r2, r8
 	bl	showString
@@ -57,9 +57,9 @@ sub_8061BA0:
 	pop	{r4, r5, r6}
 	pop	{r1}
 	bx	r1
-.L2:
+.L8061C1E:
 	.align	2, 0
-.L1:
+.L8061C20:
 	.4byte	0x8755b8c
 	thumb_func_end sub_8061BA0
 

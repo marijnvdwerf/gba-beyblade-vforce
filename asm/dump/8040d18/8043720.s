@@ -13,16 +13,16 @@ sub_8043720:
 	add	r0, r4, #0
 	bl	sub_805B210
 	lsl	r5, r5, #0x10
-	ldr	r1, .L1
+	ldr	r1, .L8043748
 	and	r1, r1, r0
 	orr	r5, r5, r1
 	add	r0, r5, #0
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1
-.L2:
+.L8043748:
 	.align	2, 0
-.L1:
+
 	.4byte	0xffff
 	thumb_func_end sub_8043720
 

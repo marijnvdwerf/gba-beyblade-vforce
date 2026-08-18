@@ -38,7 +38,7 @@ sub_8061AE8:
 	mov	r2, r8
 	bl	showNumber
 	and	r7, r7, r0
-	ldr	r1, .L2
+	ldr	r1, .L8061B94
 	mov	r0, r9
 	mov	r2, r8
 	bl	showString
@@ -46,19 +46,19 @@ sub_8061AE8:
 	lsl	r0, r7, #0x18
 	lsr	r7, r0, #0x18
 	cmp	r4, #0x9
-	bhi	.L1	@cond_branch
-	ldr	r1, .L2 + 4
+	bhi	.L8061B5C	@cond_branch
+	ldr	r1, .L8061B94 + 4
 	mov	r0, r9
 	mov	r2, r8
 	bl	showString
 	and	r7, r7, r0
-.L1:
+.L8061B5C:
 	mov	r0, r9
 	add	r1, r4, #0
 	mov	r2, sl
 	bl	showNumber
 	and	r7, r7, r0
-	ldr	r1, .L2 + 8
+	ldr	r1, .L8061B94 + 8
 	mov	r0, r9
 	mov	r2, sl
 	bl	showString
@@ -78,9 +78,9 @@ sub_8061AE8:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L3:
+.L8061B94:
 	.align	2, 0
-.L2:
+
 	.4byte	0x8755b84
 	.4byte	0x8755b88
 	.4byte	0x8755b8c

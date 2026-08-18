@@ -24,13 +24,13 @@ sub_80508CC:
 	mov	r0, #0x4
 	sub	r0, r0, r1
 	cmp	r2, r0
-	blt	.L1	@cond_branch
-	b	.L23
-.L1:
+	blt	.L80508FC	@cond_branch
+	b	.L8050A18
+.L80508FC:
 	ldr	r3, [sp, #0x10]
 	add	r3, r3, #0x74
 	mov	r9, r3
-.L24:
+.L8050902:
 	lsl	r0, r5, #0x1
 	add	r0, r0, r5
 	lsl	r0, r0, #0x3
@@ -48,7 +48,7 @@ sub_80508CC:
 	add	r2, r5, #1
 	str	r2, [sp, #0x20]
 	cmp	r0, #0
-	beq	.L7	@cond_branch
+	beq	.L8050A08	@cond_branch
 	mov	r1, #0x1
 	ldrb	r0, [r0, #0x18]
 	and	r1, r1, r0
@@ -60,27 +60,27 @@ sub_80508CC:
 	add	r0, r6, #0
 	ASR	r0, r2
 	mov	r4, #0x1
-	b	.L4
-.L5:
+	b	.L8050948
+.L805093E:
 	add	r0, r2, #1
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
 	add	r0, r6, #0
 	ASR	r0, r2
-.L4:
+.L8050948:
 	and	r0, r0, r4
 	cmp	r0, #0
-	bne	.L5	@cond_branch
+	bne	.L805093E	@cond_branch
 	cmp	r2, #0x3
-	bls	.L6	@cond_branch
-	ldr	r0, .L8
+	bls	.L8050960	@cond_branch
+	ldr	r0, .L805095C
 	bl	printf
-	b	.L7
-.L9:
+	b	.L8050A08
+.L805095A:
 	.align	2, 0
-.L8:
+.L805095C:
 	.4byte	0x872934c
-.L6:
+.L8050960:
 	mov	r0, #0x1
 	LSL	r0, r2
 	orr	r6, r6, r0
@@ -92,9 +92,9 @@ sub_80508CC:
 	mov	r7, #0x40
 	mov	sl, r0
 	cmp	r1, #0
-	beq	.L10	@cond_branch
-	ldr	r7, .L15
-.L10:
+	beq	.L805097A	@cond_branch
+	ldr	r7, .L80509B0
+.L805097A:
 	ldr	r0, [r3, #0xc]
 	mov	r1, #0x1
 	orr	r0, r0, r1
@@ -114,46 +114,46 @@ sub_80508CC:
 	add	r3, r7, #0
 	bl	sub_8058968
 	cmp	r5, #0x1
-	beq	.L11	@cond_branch
+	beq	.L80509C6	@cond_branch
 	cmp	r5, #0x1
-	bgt	.L12	@cond_branch
+	bgt	.L80509B4	@cond_branch
 	cmp	r5, #0
-	beq	.L13	@cond_branch
-	b	.L22
-.L16:
+	beq	.L80509BE	@cond_branch
+	b	.L80509E2
+.L80509AE:
 	.align	2, 0
-.L15:
+.L80509B0:
 	.4byte	0x4040
-.L12:
+.L80509B4:
 	cmp	r5, #0x2
-	beq	.L17	@cond_branch
+	beq	.L80509CE	@cond_branch
 	cmp	r5, #0x3
-	beq	.L18	@cond_branch
-	b	.L22
-.L13:
+	beq	.L80509DA	@cond_branch
+	b	.L80509E2
+.L80509BE:
 	mov	r2, r9
 	ldrb	r2, [r2]
 	lsl	r0, r2, #0x1e
-	b	.L21
-.L11:
+	b	.L80509D4
+.L80509C6:
 	mov	r3, r9
 	ldrb	r3, [r3]
 	lsl	r0, r3, #0x1c
-	b	.L21
-.L17:
+	b	.L80509D4
+.L80509CE:
 	mov	r4, r9
 	ldrb	r4, [r4]
 	lsl	r0, r4, #0x1a
-.L21:
+.L80509D4:
 	lsr	r0, r0, #0x1e
 	mov	r8, r0
-	b	.L22
-.L18:
+	b	.L80509E2
+.L80509DA:
 	mov	r0, r9
 	ldrb	r1, [r0]
 	lsr	r1, r1, #0x6
 	mov	r8, r1
-.L22:
+.L80509E2:
 	mov	r2, sl
 	lsr	r0, r2, #0x18
 	bl	GetBGLayerCntPtr
@@ -172,16 +172,16 @@ sub_80508CC:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	str	r0, [sp, #0x1c]
-.L7:
+.L8050A08:
 	ldr	r5, [sp, #0x20]
 	ldr	r0, [sp, #0xc]
 	ldrh	r1, [r0, #0x2]
 	mov	r0, #0x4
 	sub	r0, r0, r1
 	cmp	r5, r0
-	bge	.L23	@cond_branch
-	b	.L24
-.L23:
+	bge	.L8050A18	@cond_branch
+	b	.L8050902
+.L8050A18:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x13
 	lsl	r1, r6, #0x8
@@ -195,12 +195,12 @@ sub_80508CC:
 	ldr	r3, [sp, #0x10]
 	ldr	r0, [r3, #0x78]
 	cmp	r0, #0
-	beq	.L26	@cond_branch
+	beq	.L8050A3E	@cond_branch
 	ldr	r4, [sp, #0x14]
 	cmp	r4, #0
-	beq	.L26	@cond_branch
+	beq	.L8050A3E	@cond_branch
 	bl	loadPalette
-.L26:
+.L8050A3E:
 	add	sp, sp, #0x24
 	pop	{r3, r4, r5}
 	mov	r8, r3

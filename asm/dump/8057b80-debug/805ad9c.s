@@ -6,23 +6,23 @@ sub_805AD9C:
 	add	r6, r0, #0
 	ldr	r5, [r6, #0xc]
 	ldr	r4, [r6, #0x18]
-	b	.L1
-.L2:
+	b	.L805ADAE
+.L805ADA6:
 	add	r0, r5, #0
 	bl	sub_8061204
 	add	r5, r5, #0x4c
-.L1:
+.L805ADAE:
 	add	r0, r4, #0
 	sub	r4, r4, #0x1
 	cmp	r0, #0
-	bne	.L2	@cond_branch
+	bne	.L805ADA6	@cond_branch
 	ldr	r0, [r6, #0x10]
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L805ADC4	@cond_branch
 	bl	deallocateBlock
 	mov	r0, #0x0
 	str	r0, [r6, #0x10]
-.L3:
+.L805ADC4:
 	mov	r0, #0x0
 	str	r0, [r6, #0x14]
 	str	r0, [r6, #0x18]

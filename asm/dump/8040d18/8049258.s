@@ -2,12 +2,12 @@
 
 	thumb_func_start sub_8049258
 sub_8049258:
-	ldr	r0, .L1
+	ldr	r0, .L8049260
 	ldr	r0, [r0, #0x10]
 	bx	lr
-.L2:
+.L804925E:
 	.align	2, 0
-.L1:
+.L8049260:
 	.4byte	0x3000650
 	thumb_func_end sub_8049258
 

@@ -6,28 +6,28 @@ sub_804E3B0:
 	sub	r3, r1, r0
 	add	r5, r3, #0
 	cmp	r3, #0
-	bge	.L1	@cond_branch
+	bge	.L804E3BC	@cond_branch
 	NEG	r3, r3
-.L1:
+.L804E3BC:
 	add	r0, r2, #1
 	lsr	r1, r0, #0x1
 	add	r4, r0, #0
 	cmp	r3, r1
-	bls	.L2	@cond_branch
+	bls	.L804E3CC	@cond_branch
 	sub	r0, r3, #1
 	sub	r2, r2, r0
-	b	.L3
-.L2:
+	b	.L804E3CE
+.L804E3CC:
 	add	r2, r3, #0
-.L3:
+.L804E3CE:
 	cmp	r5, #0
-	blt	.L4	@cond_branch
+	blt	.L804E3D8	@cond_branch
 	lsr	r0, r4, #0x1
 	cmp	r3, r0
-	bls	.L5	@cond_branch
-.L4:
+	bls	.L804E3DA	@cond_branch
+.L804E3D8:
 	NEG	r2, r2
-.L5:
+.L804E3DA:
 	add	r0, r2, #0
 	pop	{r4, r5}
 	pop	{r1}

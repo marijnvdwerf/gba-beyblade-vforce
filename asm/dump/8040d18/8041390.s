@@ -6,12 +6,12 @@ sub_8041390:
 	add	r5, r0, #0
 	ldr	r2, [r5]
 	cmp	r2, #0
-	beq	.L1	@cond_branch
+	beq	.L80413A2	@cond_branch
 	mov	r3, #0x80
 	lsl	r3, r3, #0x5
 	add	r0, r1, r3
 	str	r0, [r2, #0x8]
-.L1:
+.L80413A2:
 	ldr	r0, [r5, #0x4]
 	asr	r4, r1, #0x8
 	add	r1, r4, #0

@@ -2,19 +2,19 @@
 
 	thumb_func_start sub_8063058
 sub_8063058:
-	ldr	r0, .L3
+	ldr	r0, .L8063068
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
-.L2:
+	beq	.L8063066	@cond_branch
+.L8063060:
 	ldr	r0, [r0, #0x10]
 	cmp	r0, #0
-	bne	.L2	@cond_branch
-.L1:
+	bne	.L8063060	@cond_branch
+.L8063066:
 	bx	lr
-.L4:
+.L8063068:
 	.align	2, 0
-.L3:
+
 	.4byte	0x3005e60
 	thumb_func_end sub_8063058
 

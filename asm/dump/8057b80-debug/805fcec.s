@@ -31,7 +31,7 @@ sub_805FCEC:
 	mov	r7, #0x0
 	ldsh	r0, [r1, r7]
 	cmp	r0, #0
-	bge	.L1	@cond_branch
+	bge	.L805FD4A	@cond_branch
 	strh	r5, [r1]
 	strh	r5, [r1, #0x2]
 	MVN	r0, r4
@@ -48,8 +48,8 @@ sub_805FCEC:
 	ldr	r0, [r2]
 	orr	r0, r0, r1
 	str	r0, [r2]
-	b	.L2
-.L1:
+	b	.L805FD5A
+.L805FD4A:
 	mov	r4, #0x2
 	ldsh	r0, [r1, r4]
 	lsl	r0, r0, #0x3
@@ -58,7 +58,7 @@ sub_805FCEC:
 	ldrh	r0, [r1, #0x2]
 	strh	r0, [r6, #0x4]
 	strh	r5, [r1, #0x2]
-.L2:
+.L805FD5A:
 	mov	r7, ip
 	lsl	r0, r7, #0x10
 	asr	r0, r0, #0x10

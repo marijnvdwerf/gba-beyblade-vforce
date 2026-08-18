@@ -2,14 +2,14 @@
 
 	thumb_func_start sub_8057B64
 sub_8057B64:
-	ldr	r1, .L1
+	ldr	r1, .L8057B70
 	ldr	r0, [r1]
 	add	r0, r0, #0x1
 	str	r0, [r1]
 	bx	lr
-.L2:
+.L8057B6E:
 	.align	2, 0
-.L1:
+.L8057B70:
 	.4byte	0x3000ee0
 	thumb_func_end sub_8057B64
 

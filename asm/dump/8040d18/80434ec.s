@@ -9,7 +9,7 @@ sub_80434EC:
 	add	r0, r6, r1
 	ldr	r4, [r0]
 	cmp	r4, #0
-	beq	.L2	@cond_branch
+	beq	.L804351C	@cond_branch
 	add	r1, r1, #0x90
 	add	r0, r6, r1
 	ldr	r5, [r0]
@@ -17,23 +17,23 @@ sub_80434EC:
 	mov	r0, #0x1
 	NEG	r0, r0
 	cmp	r4, r0
-	beq	.L2	@cond_branch
+	beq	.L804351C	@cond_branch
 	add	r7, r0, #0
-.L3:
+.L804350E:
 	add	r0, r5, #0
 	bl	sub_805041C
 	add	r5, r5, #0x18
 	sub	r4, r4, #0x1
 	cmp	r4, r7
-	bne	.L3	@cond_branch
-.L2:
+	bne	.L804350E	@cond_branch
+.L804351C:
 	mov	r0, #0xa5
 	lsl	r0, r0, #0x3
 	add	r4, r6, r0
 	ldr	r0, [r4]
 	cmp	r0, #0
-	beq	.L5	@cond_branch
-	ldr	r1, .L6
+	beq	.L804354A	@cond_branch
+	ldr	r1, .L8043550
 	add	r5, r6, r1
 	add	r0, r5, #0
 	bl	sub_805041C
@@ -41,19 +41,19 @@ sub_80434EC:
 	sub	r0, r0, #0x1
 	str	r0, [r4]
 	cmp	r0, #0
-	bne	.L5	@cond_branch
+	bne	.L804354A	@cond_branch
 	add	r0, r5, #0
 	bl	sub_8050584
-	ldr	r1, .L6 + 4
+	ldr	r1, .L8043550 + 4
 	add	r0, r6, r1
 	bl	sub_8061204
-.L5:
+.L804354A:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L7:
+.L8043550:
 	.align	2, 0
-.L6:
+
 	.4byte	0x55c
 	.4byte	0x52c
 	thumb_func_end sub_80434EC

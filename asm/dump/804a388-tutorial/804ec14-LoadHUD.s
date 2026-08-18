@@ -8,15 +8,15 @@ LoadHUD:
 	mov	r5, r8
 	push	{r5, r6, r7}
 	add	sp, sp, #0xfffffff0
-	ldr	r0, .L1
+	ldr	r0, .L804EDD8
 	ldr	r5, [r0]
 	mov	r0, #0xf5
 	lsl	r0, r0, #0x4
 	add	r0, r0, r5
 	mov	sl, r0
-	ldr	r1, .L1 + 4
+	ldr	r1, .L804EDD8 + 4
 	mov	r8, r1
-	ldr	r2, .L1 + 8
+	ldr	r2, .L804EDD8 + 8
 	mov	r9, r2
 	mov	r0, #0x10
 	NEG	r0, r0
@@ -60,14 +60,14 @@ LoadHUD:
 	str	r1, [sp, #0x4]
 	mov	r4, #0x0
 	str	r4, [sp, #0x8]
-	ldr	r1, .L1 + 12
-	ldr	r2, .L1 + 16
+	ldr	r1, .L804EDD8 + 12
+	ldr	r2, .L804EDD8 + 16
 	mov	r3, #0x0
 	bl	allocFont
-	ldr	r1, .L1 + 20
+	ldr	r1, .L804EDD8 + 20
 	add	r0, r5, r1
 	str	r4, [r0]
-	ldr	r2, .L1 + 24
+	ldr	r2, .L804EDD8 + 24
 	add	r0, r5, r2
 	str	r4, [r0]
 	add	r1, r1, #0x8
@@ -102,27 +102,27 @@ LoadHUD:
 	str	r0, [r6]
 	mov	r0, #0x0
 	bl	allocSprite
-	ldr	r2, .L1 + 28
+	ldr	r2, .L804EDD8 + 28
 	add	r2, r2, r5
 	mov	r8, r2
 	str	r0, [r2]
 	mov	r0, #0x0
 	bl	allocSprite
-	ldr	r1, .L1 + 32
+	ldr	r1, .L804EDD8 + 32
 	add	r1, r1, r5
 	mov	r9, r1
 	str	r0, [r1]
-	ldr	r2, .L1 + 36
+	ldr	r2, .L804EDD8 + 36
 	add	r0, r5, r2
 	str	r4, [r0]
-	ldr	r1, .L1 + 40
+	ldr	r1, .L804EDD8 + 40
 	add	r0, r5, r1
 	str	r4, [r0]
 	ldr	r0, [r6]
-	ldr	r1, .L1 + 44
+	ldr	r1, .L804EDD8 + 44
 	mov	r2, #0x80
 	lsl	r2, r2, #0x2
-	ldr	r6, .L1 + 48
+	ldr	r6, .L804EDD8 + 48
 	str	r4, [sp]
 	str	r4, [sp, #0x4]
 	str	r4, [sp, #0x8]
@@ -131,7 +131,7 @@ LoadHUD:
 	bl	LoadSpriteSheet
 	mov	r2, r8
 	ldr	r0, [r2]
-	ldr	r1, .L1 + 52
+	ldr	r1, .L804EDD8 + 52
 	mov	r2, #0x84
 	lsl	r2, r2, #0x7
 	str	r4, [sp]
@@ -142,7 +142,7 @@ LoadHUD:
 	bl	LoadSpriteSheet
 	mov	r1, r9
 	ldr	r0, [r1]
-	ldr	r1, .L1 + 56
+	ldr	r1, .L804EDD8 + 56
 	mov	r2, #0xce
 	lsl	r2, r2, #0x8
 	str	r4, [sp]
@@ -160,19 +160,19 @@ LoadHUD:
 	str	r0, [sp, #0x4]
 	str	r7, [sp, #0x8]
 	add	r0, r6, #0
-	ldr	r1, .L1 + 12
-	ldr	r2, .L1 + 16
+	ldr	r1, .L804EDD8 + 12
+	ldr	r2, .L804EDD8 + 16
 	mov	r3, #0x0
 	bl	allocFont
 	bl	sub_80518F0
-	ldr	r2, .L1 + 60
+	ldr	r2, .L804EDD8 + 60
 	add	r1, r5, r2
 	strb	r0, [r1]
 	ldrb	r1, [r1]
 	add	r0, r6, #0
 	mov	r2, #0xf
 	bl	showNumber_2
-	ldr	r1, .L1 + 64
+	ldr	r1, .L804EDD8 + 64
 	add	r0, r6, #0
 	mov	r2, #0xf
 	bl	showString
@@ -181,10 +181,10 @@ LoadHUD:
 	add	r0, r6, #0
 	mov	r2, #0xf
 	bl	showNumber
-	ldr	r1, .L1 + 68
+	ldr	r1, .L804EDD8 + 68
 	add	r0, r5, r1
 	strh	r4, [r0]
-	ldr	r2, .L1 + 72
+	ldr	r2, .L804EDD8 + 72
 	add	r0, r5, r2
 	strh	r4, [r0]
 	sub	r1, r1, #0xa
@@ -196,9 +196,9 @@ LoadHUD:
 	strb	r1, [r0]
 	add	r2, r2, #0x4
 	add	r1, r5, r2
-	ldr	r0, .L1 + 76
+	ldr	r0, .L804EDD8 + 76
 	str	r0, [r1]
-	ldr	r0, .L1 + 80
+	ldr	r0, .L804EDD8 + 80
 	add	r5, r5, r0
 	strh	r4, [r5]
 	add	sp, sp, #0x10
@@ -209,9 +209,9 @@ LoadHUD:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2:
+.L804EDD6:
 	.align	2, 0
-.L1:
+.L804EDD8:
 	.4byte	0x3000fb0
 	.4byte	0x82b1a84
 	.4byte	0x8067c0d

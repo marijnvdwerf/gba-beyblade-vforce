@@ -17,14 +17,14 @@ sub_80539E8:
 	lsr	r4, r4, #0x10
 	bl	getLevelDescription2
 	add	r7, r0, #0
-	ldr	r6, .L4
+	ldr	r6, .L8053AE8
 	add	r0, r4, #0
 	bl	getLevelMetadata
 	add	r0, r5, #0
 	mov	r1, sp
 	bl	sub_8058754
 	ldr	r0, [sp]
-	ldr	r1, .L4 + 4
+	ldr	r1, .L8053AE8 + 4
 	add	r2, r0, r1
 	add	r0, r5, #0
 	add	r0, r0, #0xa2
@@ -35,18 +35,18 @@ sub_80539E8:
 	lsr	r1, r5, #0x1
 	sub	r0, r0, r1
 	lsl	r0, r0, #0x8
-	ldr	r1, .L4 + 8
+	ldr	r1, .L8053AE8 + 8
 	add	r0, r0, r1
 	ldr	r1, [sp, #0x4]
 	sub	r0, r1, r0
 	cmp	r2, #0
-	bge	.L1	@cond_branch
+	bge	.L8053A42	@cond_branch
 	mov	r2, #0x0
-.L1:
+.L8053A42:
 	cmp	r0, #0
-	bge	.L2	@cond_branch
+	bge	.L8053A48	@cond_branch
 	mov	r0, #0x0
-.L2:
+.L8053A48:
 	add	r3, sp, #0xc
 	asr	r1, r2, #0x8
 	str	r1, [sp, #0xc]
@@ -60,7 +60,7 @@ sub_80539E8:
 	str	r5, [r3, #0x18]
 	str	r5, [r3, #0x1c]
 	ldr	r0, [r6]
-	ldr	r2, .L4 + 12
+	ldr	r2, .L8053AE8 + 12
 	add	r0, r0, r2
 	mov	r1, r8
 	lsl	r4, r1, #0x10
@@ -68,7 +68,7 @@ sub_80539E8:
 	lsl	r1, r4, #0x5
 	add	r1, r1, r4
 	lsl	r1, r1, #0x2
-	ldr	r2, .L4 + 16
+	ldr	r2, .L8053AE8 + 16
 	add	r1, r1, r2
 	mov	r2, #0x82
 	lsl	r2, r2, #0x5
@@ -83,18 +83,18 @@ sub_80539E8:
 	strh	r5, [r0]
 	ldr	r1, [r7, #0x30]
 	cmp	r1, #0
-	beq	.L3	@cond_branch
-	ldr	r3, .L4 + 12
+	beq	.L8053A9E	@cond_branch
+	ldr	r3, .L8053AE8 + 12
 	add	r0, r2, r3
 	ldr	r2, [r7, #0x34]
 	bl	sub_805EEFC
-.L3:
+.L8053A9E:
 	bl	initCollisionData
 	ldr	r1, [r6]
 	mov	r0, #0xef
 	lsl	r0, r0, #0x3
 	add	r2, r1, r0
-	ldr	r0, .L4 + 20
+	ldr	r0, .L8053AE8 + 20
 	str	r0, [r2]
 	mov	r2, #0xb5
 	lsl	r2, r2, #0x4
@@ -102,7 +102,7 @@ sub_80539E8:
 	mov	r0, #0x3
 	strb	r0, [r1]
 	ldr	r0, [r6]
-	ldr	r3, .L4 + 24
+	ldr	r3, .L8053AE8 + 24
 	add	r0, r0, r3
 	mov	r1, #0x40
 	strb	r1, [r0]
@@ -124,9 +124,9 @@ sub_80539E8:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L5:
+.L8053AE6:
 	.align	2, 0
-.L4:
+.L8053AE8:
 	.4byte	0x3000fb0
 	.4byte	0xffff8800
 	.4byte	0xffff8000

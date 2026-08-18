@@ -45,9 +45,9 @@ sub_80594FC:
 	and	r5, r5, r3
 	and	r7, r7, r3
 	cmp	r6, #0
-	bne	.L1	@cond_branch
+	bne	.L8059556	@cond_branch
 	mov	r6, #0x2
-.L1:
+.L8059556:
 	ldr	r1, [sp, #0x4]
 	mov	r0, r9
 	mul	r0, r0, r1
@@ -59,8 +59,8 @@ sub_80594FC:
 	ldr	r7, [sp, #0x3c]
 	add	r0, r3, r7
 	cmp	r3, r0
-	bcs	.L2	@cond_branch
-	ldr	r2, .L5
+	bcs	.L80595EC	@cond_branch
+	ldr	r2, .L80595C8
 	ldr	r0, [sp, #0xc]
 	sub	r0, r0, r5
 	mov	sl, r0
@@ -80,7 +80,7 @@ sub_80594FC:
 	asr	r0, r0, #0x1
 	orr	r0, r0, r1
 	str	r0, [sp, #0x10]
-.L7:
+.L8059596:
 	add	r1, r3, #0
 	ldr	r7, [sp, #0x8]
 	and	r1, r1, r7
@@ -91,7 +91,7 @@ sub_80594FC:
 	add	r0, r5, r6
 	ldr	r7, [sp, #0xc]
 	cmp	r0, r7
-	bls	.L3	@cond_branch
+	bls	.L80595CC	@cond_branch
 	str	r4, [r2]
 	ldr	r0, [sp]
 	add	r1, r0, r1
@@ -105,19 +105,19 @@ sub_80594FC:
 	str	r0, [r2]
 	str	r1, [r2, #0x4]
 	mov	r0, r8
-	b	.L4
-.L6:
+	b	.L80595D8
+.L80595C8:
 	.align	2, 0
-.L5:
+
 	.4byte	0x40000d4
-.L3:
+.L80595CC:
 	str	r4, [r2]
 	ldr	r7, [sp]
 	add	r0, r7, r1
 	add	r0, r0, r5
 	str	r0, [r2, #0x4]
 	ldr	r0, [sp, #0x10]
-.L4:
+.L80595D8:
 	str	r0, [r2, #0x8]
 	ldr	r0, [r2, #0x8]
 	ldr	r1, [sp, #0x4]
@@ -127,8 +127,8 @@ sub_80594FC:
 	ldr	r1, [sp, #0x3c]
 	add	r0, r7, r1
 	cmp	r3, r0
-	bcc	.L7	@cond_branch
-.L2:
+	bcc	.L8059596	@cond_branch
+.L80595EC:
 	add	sp, sp, #0x14
 	pop	{r3, r4, r5}
 	mov	r8, r3

@@ -9,27 +9,27 @@ collectionListFrontendHandler:
 	add	sp, sp, #0xffffffec
 	mov	r8, r0
 	cmp	r1, #0x1
-	bne	.L1	@cond_branch
-	b	.L2
-.L1:
+	bne	.L80427F6	@cond_branch
+	b	.L8042AB4
+.L80427F6:
 	cmp	r1, #0x1
-	bcc	.L3	@cond_branch
+	bcc	.L804280E	@cond_branch
 	cmp	r1, #0x2
-	bne	.L4	@cond_branch
-	bl	.L5
-.L4:
+	bne	.L8042802	@cond_branch
+	bl	.L8043118
+.L8042802:
 	cmp	r1, #0x7
-	bne	.L6	@cond_branch
-	bl	.L7
-.L6:
-	bl	.L112
-.L3:
+	bne	.L804280A	@cond_branch
+	bl	.L8043144
+.L804280A:
+	bl	.L80431B6
+.L804280E:
 	mov	r4, #0x9a
 	lsl	r4, r4, #0x1
-	ldr	r0, .L12
-	ldr	r1, .L12 + 4
+	ldr	r0, .L80428D4
+	ldr	r1, .L80428D4 + 4
 	str	r1, [r0]
-	ldr	r0, .L12 + 8
+	ldr	r0, .L80428D4 + 8
 	mov	r5, #0x0
 	str	r5, [r0]
 	mov	r0, #0x94
@@ -39,45 +39,45 @@ collectionListFrontendHandler:
 	bl	sub_80596AC
 	add	r0, r4, #0
 	bl	slowAllocate
-	ldr	r6, .L12 + 12
+	ldr	r6, .L80428D4 + 12
 	str	r0, [r6]
 	cmp	r0, #0
-	bne	.L9	@cond_branch
-	ldr	r0, .L12 + 16
+	bne	.L804283E	@cond_branch
+	ldr	r0, .L80428D4 + 16
 	bl	printf
-.L9:
-	ldr	r3, .L12 + 20
+.L804283E:
+	ldr	r3, .L80428D4 + 20
 	ldr	r0, [r6]
 	ldr	r1, [r0]
 	str	r1, [r3]
-	ldr	r2, .L12 + 24
+	ldr	r2, .L80428D4 + 24
 	add	r0, r1, #0
 	add	r0, r0, #0xf0
 	str	r0, [r2]
-	ldr	r0, .L12 + 28
+	ldr	r0, .L80428D4 + 28
 	mov	r2, #0x82
 	lsl	r2, r2, #0x1
 	add	r1, r1, r2
 	str	r1, [r0]
-	ldr	r0, .L12 + 32
+	ldr	r0, .L80428D4 + 32
 	str	r5, [r0]
-	ldr	r0, .L12 + 36
+	ldr	r0, .L80428D4 + 36
 	str	r5, [r0]
-	ldr	r0, .L12 + 40
+	ldr	r0, .L80428D4 + 40
 	str	r5, [r0]
-	ldr	r0, .L12 + 44
+	ldr	r0, .L80428D4 + 44
 	str	r5, [r0]
-	ldr	r0, .L12 + 48
+	ldr	r0, .L80428D4 + 48
 	str	r5, [r0]
-	ldr	r0, .L12 + 52
+	ldr	r0, .L80428D4 + 52
 	str	r5, [r0]
-	ldr	r0, .L12 + 56
+	ldr	r0, .L80428D4 + 56
 	str	r5, [r0]
-	ldr	r0, .L12 + 60
+	ldr	r0, .L80428D4 + 60
 	str	r5, [r0]
 	mov	r6, #0x0
 	add	r7, r3, #0
-.L23:
+.L804287C:
 	lsl	r0, r6, #0x1
 	add	r0, r0, r6
 	lsl	r5, r0, #0x4
@@ -93,8 +93,8 @@ collectionListFrontendHandler:
 	str	r1, [sp, #0x4]
 	mov	r1, #0x0
 	str	r1, [sp, #0x8]
-	ldr	r1, .L12 + 64
-	ldr	r2, .L12 + 68
+	ldr	r1, .L80428D4 + 64
+	ldr	r2, .L80428D4 + 68
 	mov	r3, #0x42
 	bl	allocFont
 	ldr	r0, [r7]
@@ -105,7 +105,7 @@ collectionListFrontendHandler:
 	bl	sub_80570D4
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L10	@cond_branch
+	beq	.L804291C	@cond_branch
 	ldr	r4, [r7]
 	add	r4, r4, r5
 	add	r0, r6, #0
@@ -115,10 +115,10 @@ collectionListFrontendHandler:
 	mov	r2, #0xf
 	bl	sub_8061660
 	add	r4, r6, #1
-	b	.L11
-.L13:
+	b	.L8042936
+.L80428D2:
 	.align	2, 0
-.L12:
+.L80428D4:
 	.4byte	0x30000fc
 	.4byte	0xffff0000
 	.4byte	0x30000f8
@@ -137,10 +137,10 @@ collectionListFrontendHandler:
 	.4byte	0x300011c
 	.4byte	0x82b05ec
 	.4byte	0x8067ae0
-.L10:
+.L804291C:
 	ldr	r0, [r7]
 	add	r0, r0, r5
-	ldr	r1, .L17
+	ldr	r1, .L8042964
 	mov	r2, #0xc
 	bl	sub_8061660
 	ldr	r0, [r7]
@@ -149,41 +149,41 @@ collectionListFrontendHandler:
 	add	r1, r4, #0
 	mov	r2, #0xc
 	bl	showNumber
-.L11:
+.L8042936:
 	mov	r0, #0x0
 	bl	allocSprite
-	ldr	r1, .L17 + 4
+	ldr	r1, .L8042964 + 4
 	ldr	r1, [r1]
 	lsl	r2, r6, #0x2
 	add	r1, r2, r1
 	str	r0, [r1]
 	add	r5, r2, #0
 	cmp	r0, #0
-	beq	.L14	@cond_branch
+	beq	.L80429A8	@cond_branch
 	add	r0, r6, #0
 	bl	sub_80570D4
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L15	@cond_branch
+	beq	.L804296C	@cond_branch
 	add	r0, r6, #0
 	bl	sub_805703C
 	lsl	r0, r0, #0x18
 	lsr	r2, r0, #0x17
-	b	.L16
-.L18:
+	b	.L804297A
+.L8042964:
 	.align	2, 0
-.L17:
+
 	.4byte	0x86fd25c
 	.4byte	0x300012c
-.L15:
+.L804296C:
 	add	r0, r6, #0
 	bl	sub_805703C
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x17
 	add	r0, r0, #0x1
 	add	r2, r0, #0
-.L16:
-	ldr	r0, .L20
+.L804297A:
+	ldr	r0, .L80429A0
 	ldr	r0, [r0]
 	add	r0, r5, r0
 	ldr	r0, [r0]
@@ -196,28 +196,28 @@ collectionListFrontendHandler:
 	str	r1, [sp, #0x4]
 	str	r1, [sp, #0x8]
 	str	r2, [sp, #0xc]
-	ldr	r1, .L20 + 4
+	ldr	r1, .L80429A0 + 4
 	mov	r2, #0x0
 	bl	LoadSpriteSheet
-	b	.L19
-.L21:
+	b	.L80429AE
+.L804299E:
 	.align	2, 0
-.L20:
+.L80429A0:
 	.4byte	0x300012c
 	.4byte	0x823c150
-.L14:
-	ldr	r0, .L27
+.L80429A8:
+	ldr	r0, .L8042A74
 	bl	printf
-.L19:
+.L80429AE:
 	add	r6, r4, #0
 	cmp	r6, #0x4
-	bgt	.L22	@cond_branch
-	b	.L23
-.L22:
-	ldr	r4, .L27 + 4
+	bgt	.L80429B6	@cond_branch
+	b	.L804287C
+.L80429B6:
+	ldr	r4, .L8042A74 + 4
 	ldr	r0, [r4]
-	ldr	r1, .L27 + 8
-	ldr	r2, .L27 + 12
+	ldr	r1, .L8042A74 + 8
+	ldr	r2, .L8042A74 + 12
 	mov	r3, #0x28
 	str	r3, [sp]
 	mov	r3, #0x70
@@ -232,11 +232,11 @@ collectionListFrontendHandler:
 	mov	r0, #0x0
 	bl	allocSprite
 	add	r4, r0, #0
-	ldr	r0, .L27 + 16
+	ldr	r0, .L8042A74 + 16
 	str	r4, [r0]
 	cmp	r4, #0
-	beq	.L24	@cond_branch
-	ldr	r1, .L27 + 20
+	beq	.L8042A02	@cond_branch
+	ldr	r1, .L8042A74 + 20
 	mov	r2, #0xc6
 	lsl	r2, r2, #0x8
 	mov	r3, #0xbe
@@ -248,15 +248,15 @@ collectionListFrontendHandler:
 	str	r0, [sp, #0xc]
 	add	r0, r4, #0
 	bl	LoadSpriteSheet
-.L24:
+.L8042A02:
 	mov	r0, #0x0
 	bl	allocSprite
 	add	r2, r0, #0
-	ldr	r0, .L27 + 24
+	ldr	r0, .L8042A74 + 24
 	str	r2, [r0]
 	cmp	r2, #0
-	beq	.L25	@cond_branch
-	ldr	r1, .L27 + 28
+	beq	.L8042A2C	@cond_branch
+	ldr	r1, .L8042A74 + 28
 	mov	r0, #0x0
 	str	r0, [sp]
 	str	r0, [sp, #0x4]
@@ -268,27 +268,27 @@ collectionListFrontendHandler:
 	mov	r2, #0x0
 	mov	r3, #0x0
 	bl	LoadSpriteSheet
-.L25:
-	ldr	r0, .L27 + 32
+.L8042A2C:
+	ldr	r0, .L8042A74 + 32
 	mov	r1, #0x0
 	str	r1, [r0]
-	ldr	r0, .L27 + 36
+	ldr	r0, .L8042A74 + 36
 	str	r1, [r0]
-	ldr	r1, .L27 + 40
-	ldr	r2, .L27 + 44
+	ldr	r1, .L8042A74 + 40
+	ldr	r2, .L8042A74 + 44
 	add	r0, r2, #0
 	strh	r0, [r1]
 	add	r1, r1, #0x2
 	mov	r0, #0x2f
 	strh	r0, [r1]
-	ldr	r0, .L27 + 48
+	ldr	r0, .L8042A74 + 48
 	mov	r2, #0xf0
 	strh	r2, [r0]
 	sub	r1, r1, #0x6
-	ldr	r3, .L27 + 52
+	ldr	r3, .L8042A74 + 52
 	add	r0, r3, #0
 	strh	r0, [r1]
-	ldr	r0, .L27 + 56
+	ldr	r0, .L8042A74 + 56
 	strh	r2, [r0]
 	add	r1, r1, #0x2
 	mov	r0, #0x47
@@ -301,12 +301,12 @@ collectionListFrontendHandler:
 	add	r1, r3, #0
 	orr	r0, r0, r1
 	strh	r0, [r2]
-	ldr	r0, .L27 + 60
+	ldr	r0, .L8042A74 + 60
 	bl	sub_8055C4C
-	b	.L112
-.L28:
+	b	.L80431B6
+.L8042A74:
 	.align	2, 0
-.L27:
+
 	.4byte	0x86fd264
 	.4byte	0x3000128
 	.4byte	0x82b05ec
@@ -323,77 +323,77 @@ collectionListFrontendHandler:
 	.4byte	0x5692
 	.4byte	0x4000042
 	.4byte	0x3000140
-.L2:
-	ldr	r0, .L39
+.L8042AB4:
+	ldr	r0, .L8042B18
 	ADD r0, r8
 	ldrh	r0, [r0]
 	cmp	r0, #0
-	beq	.L29	@cond_branch
-	b	.L36
-.L29:
-	ldr	r1, .L39 + 4
+	beq	.L8042AC0	@cond_branch
+	b	.L8042C6C
+.L8042AC0:
+	ldr	r1, .L8042B18 + 4
 	mov	r2, #0xf4
 	lsl	r2, r2, #0x4
 	add	r0, r2, #0
 	strh	r0, [r1]
-	ldr	r2, .L39 + 8
-	ldr	r1, .L39 + 12
+	ldr	r2, .L8042B18 + 8
+	ldr	r1, .L8042B18 + 12
 	ldr	r3, [r1]
 	mov	r0, #0x10
 	sub	r0, r0, r3
 	lsl	r0, r0, #0x8
 	orr	r0, r0, r3
 	strh	r0, [r2]
-	ldr	r0, .L39 + 16
+	ldr	r0, .L8042B18 + 16
 	ldr	r0, [r0]
 	cmp	r3, r0
-	beq	.L31	@cond_branch
+	beq	.L8042AEC	@cond_branch
 	sub	r2, r3, #1
 	cmp	r0, r3
-	ble	.L32	@cond_branch
+	ble	.L8042AEA	@cond_branch
 	add	r2, r3, #1
-.L32:
+.L8042AEA:
 	str	r2, [r1]
-.L31:
+.L8042AEC:
 	ldr	r0, [r1]
 	cmp	r0, #0
-	beq	.L33	@cond_branch
-	b	.L36
-.L33:
+	beq	.L8042AF4	@cond_branch
+	b	.L8042C6C
+.L8042AF4:
 	bl	sub_8057C40
 	asr	r0, r0, #0x4
 	mov	r1, #0x3
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L35	@cond_branch
-	b	.L36
-.L35:
-	ldr	r4, .L39 + 20
+	beq	.L8042B04	@cond_branch
+	b	.L8042C6C
+.L8042B04:
+	ldr	r4, .L8042B18 + 20
 	ldr	r0, [r4]
 	cmp	r0, #0
-	bne	.L37	@cond_branch
+	bne	.L8042B30	@cond_branch
 	mov	r0, #0x0
 	bl	allocSprite
 	str	r0, [r4]
-	b	.L38
-.L40:
+	b	.L8042B34
+.L8042B16:
 	.align	2, 0
-.L39:
+.L8042B18:
 	.4byte	0x584
 	.4byte	0x4000050
 	.4byte	0x4000052
 	.4byte	0x3000118
 	.4byte	0x300011c
 	.4byte	0x3000138
-.L37:
+.L8042B30:
 	bl	sub_8060A60
-.L38:
-	ldr	r5, .L44
+.L8042B34:
+	ldr	r5, .L8042BC8
 	ldr	r0, [r5]
 	cmp	r0, #0
-	beq	.L43	@cond_branch
-	ldr	r4, .L44 + 4
-	ldr	r7, .L44 + 8
+	beq	.L8042BF0	@cond_branch
+	ldr	r4, .L8042BC8 + 4
+	ldr	r7, .L8042BC8 + 8
 	ldr	r0, [r7]
 	bl	sub_8057094
 	add	r1, r0, #0
@@ -413,7 +413,7 @@ collectionListFrontendHandler:
 	str	r4, [sp, #0xc]
 	bl	LoadSpriteSheet
 	ldr	r2, [r5]
-	ldr	r0, .L44 + 12
+	ldr	r0, .L8042BC8 + 12
 	ldrh	r3, [r2, #0x14]
 	and	r0, r0, r3
 	mov	r3, #0xc0
@@ -421,10 +421,10 @@ collectionListFrontendHandler:
 	add	r1, r3, #0
 	orr	r0, r0, r1
 	strh	r0, [r2, #0x14]
-	ldr	r4, .L44 + 16
+	ldr	r4, .L8042BC8 + 16
 	ldr	r0, [r7]
 	bl	sub_8057068
-	ldr	r1, .L44 + 20
+	ldr	r1, .L8042BC8 + 20
 	ldr	r3, [r4]
 	mov	r2, #0x20
 	bl	_call_via_r3
@@ -432,10 +432,10 @@ collectionListFrontendHandler:
 	bl	sub_80570D4
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L42	@cond_branch
-	ldr	r6, .L44 + 24
+	beq	.L8042BE8	@cond_branch
+	ldr	r6, .L8042BC8 + 24
 	ldr	r5, [r6]
-	ldr	r4, .L44 + 28
+	ldr	r4, .L8042BC8 + 28
 	bl	getLanguage
 	lsl	r0, r0, #0x2
 	add	r0, r0, r4
@@ -450,10 +450,10 @@ collectionListFrontendHandler:
 	add	r0, r4, #0
 	mov	r2, #0xf
 	bl	showString
-	b	.L43
-.L45:
+	b	.L8042BF0
+.L8042BC6:
 	.align	2, 0
-.L44:
+.L8042BC8:
 	.4byte	0x3000138
 	.4byte	0x3000140
 	.4byte	0x3000114
@@ -462,53 +462,53 @@ collectionListFrontendHandler:
 	.4byte	0x5000260
 	.4byte	0x3000128
 	.4byte	0x806e8b0
-.L42:
-	ldr	r0, .L50
+.L8042BE8:
+	ldr	r0, .L8042C1C
 	ldr	r0, [r0]
 	bl	sub_8061228
-.L43:
-	ldr	r4, .L50 + 4
+.L8042BF0:
+	ldr	r4, .L8042C1C + 4
 	ldr	r0, [r4]
 	bl	sub_805703C
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L47	@cond_branch
+	bne	.L8042C2E	@cond_branch
 	ldr	r0, [r4]
 	bl	sub_80570D4
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L47	@cond_branch
-	ldr	r4, .L50 + 8
+	beq	.L8042C2E	@cond_branch
+	ldr	r4, .L8042C1C + 8
 	ldr	r0, [r4]
 	cmp	r0, #0
-	bne	.L48	@cond_branch
+	bne	.L8042C28	@cond_branch
 	mov	r0, #0x0
 	bl	allocSprite
-	b	.L49
-.L51:
+	b	.L8042C3C
+.L8042C1A:
 	.align	2, 0
-.L50:
+.L8042C1C:
 	.4byte	0x3000128
 	.4byte	0x3000114
 	.4byte	0x300013c
-.L48:
+.L8042C28:
 	bl	sub_8060A60
-	b	.L52
-.L47:
-	ldr	r4, .L74
+	b	.L8042C3E
+.L8042C2E:
+	ldr	r4, .L8042DAC
 	ldr	r0, [r4]
 	cmp	r0, #0
-	beq	.L54	@cond_branch
+	beq	.L8042C66	@cond_branch
 	bl	sub_8060A94
 	mov	r0, #0x0
-.L49:
+.L8042C3C:
 	str	r0, [r4]
-.L52:
-	ldr	r0, .L74
+.L8042C3E:
+	ldr	r0, .L8042DAC
 	ldr	r4, [r0]
 	cmp	r4, #0
-	beq	.L54	@cond_branch
-	ldr	r1, .L74 + 4
+	beq	.L8042C66	@cond_branch
+	ldr	r1, .L8042DAC + 4
 	mov	r2, #0xb0
 	lsl	r2, r2, #0x7
 	mov	r3, #0xdc
@@ -518,26 +518,26 @@ collectionListFrontendHandler:
 	mov	r0, #0x0
 	str	r0, [sp, #0x4]
 	str	r0, [sp, #0x8]
-	ldr	r0, .L74 + 8
+	ldr	r0, .L8042DAC + 8
 	ldrh	r0, [r0]
 	str	r0, [sp, #0xc]
 	add	r0, r4, #0
 	bl	LoadSpriteSheet
-.L54:
-	ldr	r1, .L74 + 12
+.L8042C66:
+	ldr	r1, .L8042DAC + 12
 	mov	r0, #0x10
 	str	r0, [r1]
-.L36:
+.L8042C6C:
 	mov	r0, #0xa0
 	lsl	r0, r0, #0x1
 	ADD r0, r8
 	bl	sub_80439A0
-	ldr	r0, .L74 + 16
-	ldr	r5, .L74 + 20
+	ldr	r0, .L8042DAC + 16
+	ldr	r5, .L8042DAC + 20
 	ldr	r4, [r0]
 	ldr	r0, [r5]
 	cmp	r4, r0
-	beq	.L55	@cond_branch
+	beq	.L8042C9A	@cond_branch
 	sub	r4, r4, r0
 	asr	r4, r4, #0x2
 	mov	r0, #0x94
@@ -549,145 +549,145 @@ collectionListFrontendHandler:
 	ldr	r0, [r5]
 	add	r0, r0, r4
 	str	r0, [r5]
-.L55:
-	ldr	r1, .L74 + 24
+.L8042C9A:
+	ldr	r1, .L8042DAC + 24
 	mov	r0, #0x40
 	ldrh	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L57	@cond_branch
-	ldr	r1, .L74 + 8
+	beq	.L8042CBE	@cond_branch
+	ldr	r1, .L8042DAC + 8
 	ldr	r0, [r1]
 	cmp	r0, #0
-	beq	.L57	@cond_branch
+	beq	.L8042CBE	@cond_branch
 	sub	r0, r0, #0x1
 	str	r0, [r1]
-	ldr	r1, .L74 + 12
+	ldr	r1, .L8042DAC + 12
 	mov	r0, #0x0
 	str	r0, [r1]
 	mov	r0, #0x7
 	bl	sub_804ABFC
-.L57:
-	ldr	r1, .L74 + 24
+.L8042CBE:
+	ldr	r1, .L8042DAC + 24
 	mov	r0, #0x80
 	ldrh	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L59	@cond_branch
-	ldr	r1, .L74 + 8
+	beq	.L8042CE2	@cond_branch
+	ldr	r1, .L8042DAC + 8
 	ldr	r0, [r1]
 	cmp	r0, #0x6b
-	bgt	.L59	@cond_branch
+	bgt	.L8042CE2	@cond_branch
 	add	r0, r0, #0x1
 	str	r0, [r1]
-	ldr	r1, .L74 + 12
+	ldr	r1, .L8042DAC + 12
 	mov	r0, #0x0
 	str	r0, [r1]
 	mov	r0, #0x7
 	bl	sub_804ABFC
-.L59:
-	ldr	r1, .L74 + 28
+.L8042CE2:
+	ldr	r1, .L8042DAC + 28
 	mov	r0, #0x40
 	ldrh	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L63	@cond_branch
-	ldr	r4, .L74 + 8
+	beq	.L8042D20	@cond_branch
+	ldr	r4, .L8042DAC + 8
 	ldr	r0, [r4]
 	cmp	r0, #0
-	beq	.L63	@cond_branch
+	beq	.L8042D20	@cond_branch
 	mov	r0, #0x6
 	bl	sub_805A914
 	ldr	r0, [r0, #0x8]
 	cmp	r0, #0xf0
-	bls	.L63	@cond_branch
+	bls	.L8042D20	@cond_branch
 	bl	sub_8057C40
 	asr	r1, r0, #0x4
 	mov	r0, #0x3
 	and	r1, r1, r0
 	cmp	r1, #0
-	bne	.L63	@cond_branch
+	bne	.L8042D20	@cond_branch
 	ldr	r0, [r4]
 	sub	r0, r0, #0x1
 	str	r0, [r4]
-	ldr	r0, .L74 + 12
+	ldr	r0, .L8042DAC + 12
 	str	r1, [r0]
 	mov	r0, #0x7
 	bl	sub_804ABFC
-.L63:
-	ldr	r1, .L74 + 28
+.L8042D20:
+	ldr	r1, .L8042DAC + 28
 	mov	r0, #0x80
 	ldrh	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L67	@cond_branch
-	ldr	r4, .L74 + 8
+	beq	.L8042D5E	@cond_branch
+	ldr	r4, .L8042DAC + 8
 	ldr	r0, [r4]
 	cmp	r0, #0x6b
-	bgt	.L67	@cond_branch
+	bgt	.L8042D5E	@cond_branch
 	mov	r0, #0x7
 	bl	sub_805A914
 	ldr	r0, [r0, #0x8]
 	cmp	r0, #0xf0
-	bls	.L67	@cond_branch
+	bls	.L8042D5E	@cond_branch
 	bl	sub_8057C40
 	asr	r1, r0, #0x4
 	mov	r0, #0x3
 	and	r1, r1, r0
 	cmp	r1, #0
-	bne	.L67	@cond_branch
+	bne	.L8042D5E	@cond_branch
 	ldr	r0, [r4]
 	add	r0, r0, #0x1
 	str	r0, [r4]
-	ldr	r0, .L74 + 12
+	ldr	r0, .L8042DAC + 12
 	str	r1, [r0]
 	mov	r0, #0x7
 	bl	sub_804ABFC
-.L67:
-	ldr	r0, .L74 + 8
+.L8042D5E:
+	ldr	r0, .L8042DAC + 8
 	ldr	r0, [r0]
 	sub	r0, r0, #0x2
 	lsl	r1, r0, #0x4
 	sub	r1, r1, r0
 	lsl	r1, r1, #0x8
-	ldr	r0, .L74 + 32
+	ldr	r0, .L8042DAC + 32
 	sub	r0, r0, r1
-	ldr	r1, .L74 + 36
-	ldr	r4, .L74 + 40
+	ldr	r1, .L8042DAC + 36
+	ldr	r4, .L8042DAC + 40
 	ldr	r2, [r4]
 	sub	r0, r0, r2
 	asr	r0, r0, #0x2
 	str	r0, [r1]
-	ldr	r3, .L74 + 44
+	ldr	r3, .L8042DAC + 44
 	ldr	r1, [r3]
 	add	r1, r1, r0
 	str	r1, [r3]
 	add	r2, r2, r0
 	str	r2, [r4]
 	cmp	r1, #0
-	bgt	.L68	@cond_branch
-	b	.L84
-.L68:
-	ldr	r2, .L74 + 48
+	bgt	.L8042D8C	@cond_branch
+	b	.L8042EA8
+.L8042D8C:
+	ldr	r2, .L8042DAC + 48
 	ldr	r0, [r2]
 	cmp	r0, #0
-	bne	.L70	@cond_branch
-	b	.L71
-.L70:
+	bne	.L8042D96	@cond_branch
+	b	.L8042EA4
+.L8042D96:
 	sub	r0, r0, #0x1
 	str	r0, [r2]
-	ldr	r2, .L74 + 52
+	ldr	r2, .L8042DAC + 52
 	add	r0, r1, r2
 	str	r0, [r3]
-	ldr	r1, .L74 + 56
+	ldr	r1, .L8042DAC + 56
 	ldr	r0, [r1]
 	cmp	r0, #0
-	ble	.L72	@cond_branch
+	ble	.L8042DE8	@cond_branch
 	sub	r0, r0, #0x1
-	b	.L73
-.L75:
+	b	.L8042DEA
+.L8042DAC:
 	.align	2, 0
-.L74:
+
 	.4byte	0x300013c
 	.4byte	0x823c2c8
 	.4byte	0x3000114
@@ -703,18 +703,18 @@ collectionListFrontendHandler:
 	.4byte	0x3000110
 	.4byte	0xfffff100
 	.4byte	0x300010c
-.L72:
+.L8042DE8:
 	mov	r0, #0x4
-.L73:
+.L8042DEA:
 	str	r0, [r1]
-	ldr	r6, .L78
+	ldr	r6, .L8042E1C
 	ldr	r0, [r6]
 	bl	sub_80570D4
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L76	@cond_branch
-	ldr	r2, .L78 + 4
-	ldr	r0, .L78 + 8
+	beq	.L8042E28	@cond_branch
+	ldr	r2, .L8042E1C + 4
+	ldr	r0, .L8042E1C + 8
 	ldr	r1, [r0]
 	lsl	r0, r1, #0x1
 	add	r0, r0, r1
@@ -727,23 +727,23 @@ collectionListFrontendHandler:
 	add	r0, r4, #0
 	mov	r2, #0xf
 	bl	sub_8061660
-	b	.L77
-.L79:
+	b	.L8042E56
+.L8042E1C:
 	.align	2, 0
-.L78:
+
 	.4byte	0x3000110
 	.4byte	0x3000124
 	.4byte	0x300010c
-.L76:
-	ldr	r5, .L82
-	ldr	r4, .L82 + 4
+.L8042E28:
+	ldr	r5, .L8042E80
+	ldr	r4, .L8042E80 + 4
 	ldr	r0, [r4]
 	lsl	r1, r0, #0x1
 	add	r1, r1, r0
 	lsl	r1, r1, #0x4
 	ldr	r0, [r5]
 	add	r0, r0, r1
-	ldr	r1, .L82 + 8
+	ldr	r1, .L8042E80 + 8
 	mov	r2, #0xc
 	bl	sub_8061660
 	ldr	r0, [r4]
@@ -756,64 +756,64 @@ collectionListFrontendHandler:
 	add	r1, r1, #0x1
 	mov	r2, #0xc
 	bl	showNumber
-.L77:
-	ldr	r0, .L82 + 4
+.L8042E56:
+	ldr	r0, .L8042E80 + 4
 	ldr	r0, [r0]
-	ldr	r1, .L82 + 12
+	ldr	r1, .L8042E80 + 12
 	ldr	r1, [r1]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldr	r5, [r0]
-	ldr	r4, .L82 + 16
+	ldr	r4, .L8042E80 + 16
 	ldr	r0, [r4]
 	bl	sub_80570D4
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L80	@cond_branch
+	beq	.L8042E94	@cond_branch
 	ldr	r0, [r4]
 	bl	sub_805703C
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x17
-	b	.L81
-.L83:
+	b	.L8042EA0
+.L8042E7E:
 	.align	2, 0
-.L82:
+.L8042E80:
 	.4byte	0x3000124
 	.4byte	0x300010c
 	.4byte	0x86fd25c
 	.4byte	0x300012c
 	.4byte	0x3000110
-.L80:
+.L8042E94:
 	ldr	r0, [r4]
 	bl	sub_805703C
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x17
 	add	r0, r0, #0x1
-.L81:
+.L8042EA0:
 	strh	r0, [r5, #0x18]
-	b	.L84
-.L71:
+	b	.L8042EA8
+.L8042EA4:
 	str	r0, [r3]
 	str	r0, [r4]
-.L84:
-	ldr	r2, .L90
+.L8042EA8:
+	ldr	r2, .L8042EEC
 	ldr	r1, [r2]
-	ldr	r0, .L90 + 4
+	ldr	r0, .L8042EEC + 4
 	cmp	r1, r0
-	ble	.L85	@cond_branch
-	b	.L86
-.L85:
-	ldr	r6, .L90 + 8
+	ble	.L8042EB4	@cond_branch
+	b	.L8042FBA
+.L8042EB4:
+	ldr	r6, .L8042EEC + 8
 	ldr	r0, [r6]
 	add	r0, r0, #0x5
 	cmp	r0, #0x6c
-	bgt	.L87	@cond_branch
+	bgt	.L8042FB0	@cond_branch
 	bl	sub_80570D4
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L88	@cond_branch
-	ldr	r2, .L90 + 12
-	ldr	r0, .L90 + 16
+	beq	.L8042F00	@cond_branch
+	ldr	r2, .L8042EEC + 12
+	ldr	r0, .L8042EEC + 16
 	ldr	r1, [r0]
 	lsl	r0, r1, #0x1
 	add	r0, r0, r1
@@ -827,25 +827,25 @@ collectionListFrontendHandler:
 	add	r0, r4, #0
 	mov	r2, #0xf
 	bl	sub_8061660
-	b	.L89
-.L91:
+	b	.L8042F2E
+.L8042EEC:
 	.align	2, 0
-.L90:
+
 	.4byte	0x3000100
 	.4byte	0xfffff100
 	.4byte	0x3000110
 	.4byte	0x3000124
 	.4byte	0x300010c
-.L88:
-	ldr	r5, .L94
-	ldr	r4, .L94 + 4
+.L8042F00:
+	ldr	r5, .L8042F5C
+	ldr	r4, .L8042F5C + 4
 	ldr	r0, [r4]
 	lsl	r1, r0, #0x1
 	add	r1, r1, r0
 	lsl	r1, r1, #0x4
 	ldr	r0, [r5]
 	add	r0, r0, r1
-	ldr	r1, .L94 + 8
+	ldr	r1, .L8042F5C + 8
 	mov	r2, #0xc
 	bl	sub_8061660
 	ldr	r0, [r4]
@@ -858,98 +858,98 @@ collectionListFrontendHandler:
 	add	r1, r1, #0x6
 	mov	r2, #0xc
 	bl	showNumber
-.L89:
-	ldr	r0, .L94 + 4
+.L8042F2E:
+	ldr	r0, .L8042F5C + 4
 	ldr	r0, [r0]
-	ldr	r1, .L94 + 12
+	ldr	r1, .L8042F5C + 12
 	ldr	r1, [r1]
 	lsl	r0, r0, #0x2
 	add	r0, r0, r1
 	ldr	r5, [r0]
-	ldr	r4, .L94 + 16
+	ldr	r4, .L8042F5C + 16
 	ldr	r0, [r4]
 	add	r0, r0, #0x5
 	bl	sub_80570D4
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L92	@cond_branch
+	beq	.L8042F70	@cond_branch
 	ldr	r0, [r4]
 	add	r0, r0, #0x5
 	bl	sub_805703C
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x17
-	b	.L93
-.L95:
+	b	.L8042F7E
+.L8042F5A:
 	.align	2, 0
-.L94:
+.L8042F5C:
 	.4byte	0x3000124
 	.4byte	0x300010c
 	.4byte	0x86fd25c
 	.4byte	0x300012c
 	.4byte	0x3000110
-.L92:
+.L8042F70:
 	ldr	r0, [r4]
 	add	r0, r0, #0x5
 	bl	sub_805703C
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x17
 	add	r0, r0, #0x1
-.L93:
+.L8042F7E:
 	strh	r0, [r5, #0x18]
-	ldr	r1, .L98
+	ldr	r1, .L8042FA0
 	ldr	r0, [r1]
 	mov	r3, #0xf0
 	lsl	r3, r3, #0x4
 	add	r0, r0, r3
 	str	r0, [r1]
-	ldr	r1, .L98 + 4
+	ldr	r1, .L8042FA0 + 4
 	ldr	r0, [r1]
 	add	r0, r0, #0x1
 	str	r0, [r1]
-	ldr	r1, .L98 + 8
+	ldr	r1, .L8042FA0 + 8
 	ldr	r0, [r1]
 	cmp	r0, #0x3
-	bgt	.L96	@cond_branch
+	bgt	.L8042FAC	@cond_branch
 	add	r0, r0, #0x1
-	b	.L100
-.L99:
+	b	.L8042FB8
+.L8042FA0:
 	.align	2, 0
-.L98:
+
 	.4byte	0x3000100
 	.4byte	0x3000110
 	.4byte	0x300010c
-.L96:
+.L8042FAC:
 	mov	r0, #0x0
-	b	.L100
-.L87:
-	ldr	r0, .L109
+	b	.L8042FB8
+.L8042FB0:
+	ldr	r0, .L80430D8
 	str	r0, [r2]
-	ldr	r1, .L109 + 4
-	ldr	r0, .L109 + 8
-.L100:
+	ldr	r1, .L80430D8 + 4
+	ldr	r0, .L80430D8 + 8
+.L8042FB8:
 	str	r0, [r1]
-.L86:
+.L8042FBA:
 	mov	r6, #0x0
 	mov	r3, #0xac
 	lsl	r3, r3, #0x7
 	mov	r7, #0x56
-	ldr	r0, .L109 + 12
+	ldr	r0, .L80430D8 + 12
 	mov	r9, r0
-.L103:
-	ldr	r0, .L109 + 16
+.L8042FC6:
+	ldr	r0, .L80430D8 + 16
 	ldr	r0, [r0]
 	add	r4, r6, r0
 	cmp	r4, #0x4
-	ble	.L101	@cond_branch
+	ble	.L8042FD2	@cond_branch
 	sub	r4, r4, #0x5
-.L101:
+.L8042FD2:
 	lsl	r1, r4, #0x1
 	add	r1, r1, r4
 	lsl	r1, r1, #0x4
 	mov	r2, r9
 	ldr	r0, [r2]
 	add	r0, r0, r1
-	ldr	r1, .L109 + 20
+	ldr	r1, .L80430D8 + 20
 	mov	r8, r1
 	ldr	r1, [r1]
 	asr	r1, r1, #0x8
@@ -957,7 +957,7 @@ collectionListFrontendHandler:
 	add	r1, r1, #0x42
 	lsl	r1, r1, #0x10
 	asr	r1, r1, #0x10
-	ldr	r5, .L109 + 24
+	ldr	r5, .L80430D8 + 24
 	ldr	r2, [r5]
 	asr	r2, r2, #0x8
 	add	r2, r2, r7
@@ -965,14 +965,14 @@ collectionListFrontendHandler:
 	asr	r2, r2, #0x10
 	str	r3, [sp, #0x10]
 	bl	sub_8061844
-	ldr	r0, .L109 + 28
+	ldr	r0, .L80430D8 + 28
 	ldr	r1, [r0]
 	lsl	r0, r4, #0x2
 	add	r0, r0, r1
 	ldr	r1, [r0]
 	ldr	r3, [sp, #0x10]
 	cmp	r1, #0
-	beq	.L102	@cond_branch
+	beq	.L8043024	@cond_branch
 	mov	r2, r8
 	ldr	r0, [r2]
 	NEG	r0, r0
@@ -983,15 +983,15 @@ collectionListFrontendHandler:
 	ldr	r0, [r5]
 	add	r0, r0, r3
 	str	r0, [r1, #0xc]
-.L102:
+.L8043024:
 	mov	r0, #0xf0
 	lsl	r0, r0, #0x4
 	add	r3, r3, r0
 	add	r7, r7, #0xf
 	add	r6, r6, #0x1
 	cmp	r6, #0x4
-	ble	.L103	@cond_branch
-	ldr	r0, .L109 + 32
+	ble	.L8042FC6	@cond_branch
+	ldr	r0, .L80430D8 + 32
 	ldr	r0, [r0]
 	mov	r5, r8
 	ldr	r1, [r5]
@@ -1002,16 +1002,16 @@ collectionListFrontendHandler:
 	asr	r1, r1, #0x10
 	mov	r2, #0x28
 	bl	sub_8061844
-	ldr	r0, .L109 + 36
+	ldr	r0, .L80430D8 + 36
 	ldr	r2, [r0]
 	cmp	r2, #0
-	beq	.L104	@cond_branch
+	beq	.L804306E	@cond_branch
 	ldr	r1, [r5]
 	mov	r0, #0xc6
 	lsl	r0, r0, #0x8
 	sub	r0, r0, r1
 	str	r0, [r2, #0x8]
-	ldr	r0, .L109 + 40
+	ldr	r0, .L80430D8 + 40
 	ldr	r1, [r0]
 	lsl	r0, r1, #0x1
 	add	r0, r0, r1
@@ -1020,15 +1020,15 @@ collectionListFrontendHandler:
 	lsl	r1, r1, #0x7
 	add	r0, r0, r1
 	str	r0, [r2, #0xc]
-.L104:
-	ldr	r4, .L109 + 44
+.L804306E:
+	ldr	r4, .L80430D8 + 44
 	ldr	r0, [r4]
 	cmp	r0, #0
-	beq	.L105	@cond_branch
+	beq	.L80430B0	@cond_branch
 	bl	sub_8057C40
 	ldr	r3, [r4]
 	ldr	r2, [r5]
-	ldr	r1, .L109 + 48
+	ldr	r1, .L80430D8 + 48
 	asr	r0, r0, #0x7
 	lsl	r0, r0, #0x1d
 	lsr	r0, r0, #0x17
@@ -1041,43 +1041,43 @@ collectionListFrontendHandler:
 	add	r0, r0, r1
 	sub	r0, r0, r2
 	str	r0, [r3, #0x8]
-	ldr	r0, .L109 + 52
+	ldr	r0, .L80430D8 + 52
 	ldr	r0, [r0]
 	lsl	r1, r0, #0x4
 	sub	r1, r1, r0
 	lsl	r1, r1, #0x8
-	ldr	r0, .L109 + 4
+	ldr	r0, .L80430D8 + 4
 	ldr	r0, [r0]
 	add	r0, r0, r1
 	mov	r2, #0xa4
 	lsl	r2, r2, #0x7
 	add	r0, r0, r2
 	str	r0, [r3, #0xc]
-.L105:
-	ldr	r0, .L109 + 56
+.L80430B0:
+	ldr	r0, .L80430D8 + 56
 	ldr	r2, [r0]
 	cmp	r2, #0
-	beq	.L106	@cond_branch
+	beq	.L80430C2	@cond_branch
 	ldr	r1, [r5]
 	mov	r0, #0xa4
 	lsl	r0, r0, #0x6
 	sub	r0, r0, r1
 	str	r0, [r2, #0x8]
-.L106:
-	ldr	r0, .L109 + 60
+.L80430C2:
+	ldr	r0, .L80430D8 + 60
 	ldr	r2, [r0]
 	cmp	r2, #0
-	beq	.L112	@cond_branch
+	beq	.L80431B6	@cond_branch
 	mov	r3, r8
 	ldr	r1, [r3]
 	mov	r0, #0xb0
 	lsl	r0, r0, #0x7
 	sub	r0, r0, r1
 	str	r0, [r2, #0x8]
-	b	.L112
-.L110:
+	b	.L80431B6
+.L80430D8:
 	.align	2, 0
-.L109:
+
 	.4byte	0xfffff101
 	.4byte	0x3000104
 	.4byte	0xfff9d901
@@ -1094,83 +1094,83 @@ collectionListFrontendHandler:
 	.4byte	0x3000114
 	.4byte	0x3000138
 	.4byte	0x300013c
-.L5:
-	ldr	r1, .L113
+.L8043118:
+	ldr	r1, .L8043138
 	mov	r0, #0xb
 	ldrh	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L112	@cond_branch
+	beq	.L80431B6	@cond_branch
 	bl	sub_8049178
-	ldr	r1, .L113 + 4
-	ldr	r0, .L113 + 8
+	ldr	r1, .L8043138 + 4
+	ldr	r0, .L8043138 + 8
 	str	r0, [r1]
 	mov	r0, #0x9
 	bl	sub_804ABFC
-	b	.L112
-.L114:
+	b	.L80431B6
+.L8043136:
 	.align	2, 0
-.L113:
+.L8043138:
 	.4byte	0x3005da0
 	.4byte	0x30000f8
 	.4byte	0xffff0000
-.L7:
+.L8043144:
 	mov	r6, #0x0
-	ldr	r5, .L122
+	ldr	r5, .L80431C4
 	mov	r4, #0x0
-.L116:
+.L804314A:
 	ldr	r0, [r5]
 	add	r0, r0, r4
 	bl	sub_8061204
-	ldr	r0, .L122 + 4
+	ldr	r0, .L80431C4 + 4
 	ldr	r1, [r0]
 	lsl	r0, r6, #0x2
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L115	@cond_branch
+	beq	.L8043164	@cond_branch
 	bl	sub_8060A94
-.L115:
+.L8043164:
 	add	r4, r4, #0x30
 	add	r6, r6, #0x1
 	cmp	r6, #0x4
-	ble	.L116	@cond_branch
-	ldr	r0, .L122 + 8
+	ble	.L804314A	@cond_branch
+	ldr	r0, .L80431C4 + 8
 	ldr	r0, [r0]
 	bl	sub_8061204
-	ldr	r0, .L122 + 12
+	ldr	r0, .L80431C4 + 12
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L117	@cond_branch
+	beq	.L8043180	@cond_branch
 	bl	sub_8060A94
-.L117:
-	ldr	r0, .L122 + 16
+.L8043180:
+	ldr	r0, .L80431C4 + 16
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L118	@cond_branch
+	beq	.L804318C	@cond_branch
 	bl	sub_8060A94
-.L118:
-	ldr	r0, .L122 + 20
+.L804318C:
+	ldr	r0, .L80431C4 + 20
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L119	@cond_branch
+	beq	.L8043198	@cond_branch
 	bl	sub_8060A94
-.L119:
-	ldr	r0, .L122 + 24
+.L8043198:
+	ldr	r0, .L80431C4 + 24
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L120	@cond_branch
+	beq	.L80431A4	@cond_branch
 	bl	sub_8060A94
-.L120:
-	ldr	r0, .L122 + 28
+.L80431A4:
+	ldr	r0, .L80431C4 + 28
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L121	@cond_branch
+	beq	.L80431B0	@cond_branch
 	bl	deallocateBlock
-.L121:
-	ldr	r0, .L122 + 32
+.L80431B0:
+	ldr	r0, .L80431C4 + 32
 	bl	sub_8055CA0
-.L112:
+.L80431B6:
 	add	sp, sp, #0x14
 	pop	{r3, r4}
 	mov	r8, r3
@@ -1178,9 +1178,9 @@ collectionListFrontendHandler:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L123:
+.L80431C4:
 	.align	2, 0
-.L122:
+
 	.4byte	0x3000124
 	.4byte	0x300012c
 	.4byte	0x3000128

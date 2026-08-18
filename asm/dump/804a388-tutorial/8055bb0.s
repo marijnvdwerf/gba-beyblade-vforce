@@ -4,12 +4,12 @@
 sub_8055BB0:
 	lsl	r1, r1, #0x18
 	cmp	r1, #0
-	beq	.L1	@cond_branch
+	beq	.L8055BBA	@cond_branch
 	str	r2, [r0, #0x20]
-	b	.L2
-.L1:
+	b	.L8055BBC
+.L8055BBA:
 	str	r2, [r0, #0x18]
-.L2:
+.L8055BBC:
 	bx	lr
 	thumb_func_end sub_8055BB0
 

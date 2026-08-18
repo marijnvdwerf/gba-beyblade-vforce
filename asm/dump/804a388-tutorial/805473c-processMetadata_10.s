@@ -8,7 +8,7 @@ processMetadata_10:
 	bl	GetStruct4
 	ldr	r1, [r0]
 	cmp	r1, #0
-	beq	.L1	@cond_branch
+	beq	.L805475E	@cond_branch
 	ldr	r0, [r4, #0x8]
 	lsl	r0, r0, #0x8
 	str	r0, [r1, #0x4]
@@ -18,7 +18,7 @@ processMetadata_10:
 	ldr	r0, [r4, #0x10]
 	lsl	r0, r0, #0x8
 	str	r0, [r1, #0xc]
-.L1:
+.L805475E:
 	pop	{r4}
 	pop	{r0}
 	bx	r0

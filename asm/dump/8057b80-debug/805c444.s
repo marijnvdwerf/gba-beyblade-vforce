@@ -13,27 +13,27 @@ sub_805C444:
 	bl	sub_805DBF0
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L805C482	@cond_branch
 	ldr	r0, [sp, #0x4]
 	ldr	r0, [r0]
 	cmp	r0, #0x1
-	bgt	.L2	@cond_branch
+	bgt	.L805C46A	@cond_branch
 	mov	r0, #0x0
-	b	.L3
-.L2:
+	b	.L805C482
+.L805C46A:
 	ldr	r1, [sp, #0x8]
 	lsl	r3, r1, #0xa
 	sub	r0, r0, #0x1
 	cmp	r1, r0
-	bne	.L4	@cond_branch
+	bne	.L805C476	@cond_branch
 	sub	r3, r3, #0x10
-.L4:
+.L805C476:
 	ldr	r2, [sp, #0xc]
 	add	r0, r4, #0
 	add	r1, r5, #0
 	bl	sub_805C3BC
 	mov	r0, #0x1
-.L3:
+.L805C482:
 	add	sp, sp, #0x18
 	pop	{r4, r5}
 	pop	{r1}

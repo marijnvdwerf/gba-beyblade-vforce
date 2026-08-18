@@ -3,24 +3,24 @@
 	thumb_func_start sub_804F824
 sub_804F824:
 	add	r1, r0, #0
-	ldr	r0, .L3
+	ldr	r0, .L804F840
 	ldr	r0, [r0]
-	ldr	r2, .L3 + 4
+	ldr	r2, .L804F840 + 4
 	cmp	r1, r2
-	ble	.L1	@cond_branch
+	ble	.L804F832	@cond_branch
 	add	r1, r2, #0
-.L1:
+.L804F832:
 	cmp	r1, #0
-	bge	.L2	@cond_branch
+	bge	.L804F838	@cond_branch
 	mov	r1, #0x0
-.L2:
-	ldr	r2, .L3 + 8
+.L804F838:
+	ldr	r2, .L804F840 + 8
 	add	r0, r0, r2
 	strh	r1, [r0]
 	bx	lr
-.L4:
+.L804F840:
 	.align	2, 0
-.L3:
+
 	.4byte	0x3000fb0
 	.4byte	0xffff
 	.4byte	0x107a

@@ -9,7 +9,7 @@ actor_8057C58:
 	ldr	r5, [sp, #0x1c]
 	ldr	r6, [sp, #0x20]
 	str	r1, [r7]
-	ldr	r0, .L1
+	ldr	r0, .L8057D80
 	ldr	r0, [r0]
 	str	r0, [r7, #0x58]
 	str	r2, [r7, #0x3c]
@@ -49,7 +49,7 @@ actor_8057C58:
 	strh	r4, [r7, #0x22]
 	add	r3, r7, #0
 	add	r3, r3, #0x60
-	ldr	r0, .L1 + 4
+	ldr	r0, .L8057D80 + 4
 	add	r2, r0, #0
 	ldrh	r0, [r3]
 	orr	r0, r0, r2
@@ -146,9 +146,9 @@ actor_8057C58:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2:
+.L8057D7E:
 	.align	2, 0
-.L1:
+.L8057D80:
 	.4byte	0x3000e30
 	.4byte	0xffff
 	thumb_func_end actor_8057C58

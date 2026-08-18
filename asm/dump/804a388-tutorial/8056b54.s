@@ -16,62 +16,62 @@ sub_8056B54:
 	ldrb	r0, [r4, #0xf]
 	sub	r0, r0, #0x80
 	cmp	r0, #0x12
-	bhi	.L20	@cond_branch
+	bhi	.L8056BD0	@cond_branch
 	lsl	r0, r0, #0x2
-	ldr	r1, .L3
+	ldr	r1, .L8056B80
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	mov	pc, r0
-.L4:
+.L8056B7E:
 	.align	2, 0
-.L3:
-	.4byte	.L2
-.L2:
-	.4byte	.L25
-	.4byte	.L20
-	.4byte	.L25
-	.4byte	.L20
-	.4byte	.L20
-	.4byte	.L20
-	.4byte	.L25
-	.4byte	.L25
-	.4byte	.L20
-	.4byte	.L25
-	.4byte	.L20
-	.4byte	.L25
-	.4byte	.L25
-	.4byte	.L25
-	.4byte	.L25
-	.4byte	.L20
-	.4byte	.L25
-	.4byte	.L25
-	.4byte	.L25
-.L20:
+.L8056B80:
+	.4byte	.L8056B84
+.L8056B84:
+	.4byte	.L8056BF4
+	.4byte	.L8056BD0
+	.4byte	.L8056BF4
+	.4byte	.L8056BD0
+	.4byte	.L8056BD0
+	.4byte	.L8056BD0
+	.4byte	.L8056BF4
+	.4byte	.L8056BF4
+	.4byte	.L8056BD0
+	.4byte	.L8056BF4
+	.4byte	.L8056BD0
+	.4byte	.L8056BF4
+	.4byte	.L8056BF4
+	.4byte	.L8056BF4
+	.4byte	.L8056BF4
+	.4byte	.L8056BD0
+	.4byte	.L8056BF4
+	.4byte	.L8056BF4
+	.4byte	.L8056BF4
+.L8056BD0:
 	mov	r0, #0x4
 	ldrb	r1, [r4, #0x11]
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L24	@cond_branch
+	bne	.L8056BE8	@cond_branch
 	add	r0, r6, #0
 	add	r1, r4, #0
 	add	r2, r5, #0
 	mov	r3, sp
 	bl	sub_80567E4
-	b	.L25
-.L24:
+	b	.L8056BF4
+.L8056BE8:
 	add	r0, r6, #0
 	add	r1, r4, #0
 	add	r2, r5, #0
 	mov	r3, sp
 	bl	sub_8056910
-.L25:
+.L8056BF4:
 	ldr	r0, [sp, #0x8]
 	asr	r0, r0, #0x8
 	ldrh	r1, [r7, #0x12]
 	cmp	r1, r0
-	bge	.L26	@cond_branch
+	bge	.L8056C00	@cond_branch
 	strh	r0, [r7, #0x12]
-.L26:
+.L8056C00:
 	add	sp, sp, #0x28
 	pop	{r4, r5, r6, r7}
 	pop	{r1}

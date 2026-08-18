@@ -6,16 +6,16 @@ sub_805F1F4:
 	add	r4, r0, #0
 	ldr	r0, [r4, #0x5c]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L805F202	@cond_branch
 	bl	deallocateBlock
-.L1:
+.L805F202:
 	mov	r5, #0x0
 	str	r5, [r4, #0x60]
 	ldr	r0, [r4, #0xc]
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L805F210	@cond_branch
 	bl	deallocateBlock
-.L2:
+.L805F210:
 	str	r5, [r4, #0xc]
 	pop	{r4, r5}
 	pop	{r0}

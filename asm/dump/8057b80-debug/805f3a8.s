@@ -13,18 +13,18 @@ sub_805F3A8:
 	asr	r1, r1, #0x10
 	ldrh	r0, [r0, #0x18]
 	cmp	r1, r0
-	bge	.L1	@cond_branch
+	bge	.L805F3D0	@cond_branch
 	cmp	r1, #0
-	blt	.L2	@cond_branch
+	blt	.L805F3CC	@cond_branch
 	mul	r1, r1, r2
 	ldr	r0, [r3, #0x14]
 	add	r0, r0, r1
-	b	.L3
-.L2:
+	b	.L805F3CE
+.L805F3CC:
 	ldr	r0, [r3, #0x20]
-.L3:
+.L805F3CE:
 	str	r0, [r3, #0x4]
-.L1:
+.L805F3D0:
 	pop	{r4}
 	pop	{r0}
 	bx	r0

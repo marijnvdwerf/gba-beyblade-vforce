@@ -11,18 +11,18 @@ sub_8043970:
 	lsr	r0, r0, #0x18
 	ldrb	r1, [r4, #0x3]
 	cmp	r1, r0
-	bne	.L2	@cond_branch
+	bne	.L8043994	@cond_branch
 	ldrb	r4, [r4, #0x2]
 	lsl	r0, r4, #0x1c
 	lsr	r0, r0, #0x1c
 	cmp	r0, r5
-	bne	.L2	@cond_branch
+	bne	.L8043994	@cond_branch
 	mov	r0, #0x1
-	b	.L3
-.L2:
+	b	.L804399A
+.L8043994:
 	bl	sub_80603E8
 	mov	r0, #0x0
-.L3:
+.L804399A:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1

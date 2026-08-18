@@ -3,7 +3,7 @@
 	thumb_func_start sub_804EE2C
 sub_804EE2C:
 	push	{r4, lr}
-	ldr	r0, .L1
+	ldr	r0, .L804EE50
 	ldr	r4, [r0]
 	mov	r1, #0xf5
 	lsl	r1, r1, #0x4
@@ -17,9 +17,9 @@ sub_804EE2C:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2:
+.L804EE4E:
 	.align	2, 0
-.L1:
+.L804EE50:
 	.4byte	0x3000fb0
 	thumb_func_end sub_804EE2C
 

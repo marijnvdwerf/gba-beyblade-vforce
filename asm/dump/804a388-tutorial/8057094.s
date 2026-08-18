@@ -7,25 +7,25 @@ sub_8057094:
 	bl	sub_80570D4
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1	@cond_branch
-	ldr	r0, .L3
-	b	.L2
-.L4:
+	bne	.L80570AC	@cond_branch
+	ldr	r0, .L80570A8
+	b	.L80570B4
+.L80570A6:
 	.align	2, 0
-.L3:
+.L80570A8:
 	.4byte	0x836087c
-.L1:
-	ldr	r0, .L5
+.L80570AC:
+	ldr	r0, .L80570BC
 	lsl	r1, r4, #0x2
 	add	r1, r1, r0
 	ldr	r0, [r1]
-.L2:
+.L80570B4:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.L6:
+.L80570BA:
 	.align	2, 0
-.L5:
+.L80570BC:
 	.4byte	0x8079950
 	thumb_func_end sub_8057094
 

@@ -1,4 +1,5 @@
 #include "memory.h"
+#include "include_asm.h"
 #include "ram.h"
 #include "unsorted.h"
 
@@ -133,6 +134,9 @@ void deallocateBlock(AllocatedBlock* block)
     block->next = NULL;
     block->previous = NULL;
 }
+
+INCLUDE_ASM("asm/dump/8057b80-debug/805a53c.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805a5e4-getValidAllocatedBlock.s");
 
 const u8 Str_8755254[]
     = "Error in getValidAllocatedBlock(), no further AllocatedBlocks available\n";

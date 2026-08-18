@@ -4,57 +4,57 @@
 onSerialCommunication:
 	push	{lr}
 	mov	r1, #0x0
-	ldr	r0, .L6
+	ldr	r0, .L80604B0
 	ldrh	r0, [r0]
-	ldr	r2, .L6 + 4
+	ldr	r2, .L80604B0 + 4
 	cmp	r0, r2
-	bne	.L1	@cond_branch
+	bne	.L8060464	@cond_branch
 	mov	r1, #0x1
-.L1:
-	ldr	r0, .L6 + 8
+.L8060464:
+	ldr	r0, .L80604B0 + 8
 	ldrh	r0, [r0]
 	cmp	r0, r2
-	bne	.L2	@cond_branch
+	bne	.L8060472	@cond_branch
 	add	r0, r1, #1
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
-.L2:
-	ldr	r0, .L6 + 12
+.L8060472:
+	ldr	r0, .L80604B0 + 12
 	ldrh	r0, [r0]
 	cmp	r0, r2
-	bne	.L3	@cond_branch
+	bne	.L8060480	@cond_branch
 	add	r0, r1, #1
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
-.L3:
-	ldr	r0, .L6 + 16
+.L8060480:
+	ldr	r0, .L80604B0 + 16
 	ldrh	r0, [r0]
 	cmp	r0, r2
-	bne	.L4	@cond_branch
+	bne	.L806048E	@cond_branch
 	add	r0, r1, #1
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
-.L4:
-	ldr	r0, .L6 + 20
+.L806048E:
+	ldr	r0, .L80604B0 + 20
 	ldr	r2, [r0]
 	ldrb	r0, [r2, #0x4]
 	cmp	r1, r0
-	bcc	.L5	@cond_branch
-	ldr	r1, .L6 + 24
-	ldr	r0, .L6 + 28
+	bcc	.L80604AC	@cond_branch
+	ldr	r1, .L80604B0 + 24
+	ldr	r0, .L80604B0 + 28
 	ldr	r0, [r0]
 	str	r0, [r1, #0x1c]
-	ldr	r1, .L6 + 32
+	ldr	r1, .L80604B0 + 32
 	ldr	r0, [r2, #0x3c]
 	ldrh	r0, [r0]
 	strh	r0, [r1]
 	bl	sub_8060404
-.L5:
+.L80604AC:
 	pop	{r0}
 	bx	r0
-.L7:
+.L80604B0:
 	.align	2, 0
-.L6:
+
 	.4byte	0x4000120
 	.4byte	0xdeaf
 	.4byte	0x4000122

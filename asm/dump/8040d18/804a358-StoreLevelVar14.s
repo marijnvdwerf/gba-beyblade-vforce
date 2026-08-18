@@ -2,12 +2,12 @@
 
 	thumb_func_start StoreLevelVar14
 StoreLevelVar14:
-	ldr	r1, .L1
+	ldr	r1, .L804A360
 	str	r0, [r1]
 	bx	lr
-.L2:
+.L804A35E:
 	.align	2, 0
-.L1:
+.L804A360:
 	.4byte	0x3000c00
 	thumb_func_end StoreLevelVar14
 

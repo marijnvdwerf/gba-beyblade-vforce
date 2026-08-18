@@ -4,14 +4,14 @@
 DisableInterrupt:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
-	ldr	r2, .L1
+	ldr	r2, .L8057A18
 	ldrh	r1, [r2]
 	BIC	r1, r0
 	strh	r1, [r2]
 	bx	lr
-.L2:
+.L8057A16:
 	.align	2, 0
-.L1:
+.L8057A18:
 	.4byte	0x4000200
 	thumb_func_end DisableInterrupt
 

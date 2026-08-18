@@ -8,16 +8,16 @@ sub_80588A8:
 	add	r5, r5, #0xb8
 	ldr	r0, [r5]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L80588BE	@cond_branch
 	bl	sub_8060A94
 	mov	r0, #0x0
 	str	r0, [r5]
-.L1:
+.L80588BE:
 	ldr	r0, [r4, #0x7c]
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L80588C8	@cond_branch
 	bl	deallocateBlock
-.L2:
+.L80588C8:
 	mov	r0, #0x1
 	NEG	r0, r0
 	str	r0, [r4, #0x74]

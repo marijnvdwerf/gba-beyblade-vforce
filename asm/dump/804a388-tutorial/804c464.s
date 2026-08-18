@@ -8,16 +8,16 @@ sub_804C464:
 	add	r0, r1, #0
 	sub	r1, r1, #0x1
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L804C480	@cond_branch
 	mov	r3, #0x0
-.L2:
+.L804C474:
 	strh	r3, [r2, #0x2a]
 	add	r2, r2, #0x34
 	add	r0, r1, #0
 	sub	r1, r1, #0x1
 	cmp	r0, #0
-	bne	.L2	@cond_branch
-.L1:
+	bne	.L804C474	@cond_branch
+.L804C480:
 	bx	lr
 	thumb_func_end sub_804C464
 

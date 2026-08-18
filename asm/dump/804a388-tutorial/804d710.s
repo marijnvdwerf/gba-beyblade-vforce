@@ -9,10 +9,10 @@ sub_804D710:
 	add	r0, r4, r1
 	ldr	r0, [r0]
 	cmp	r0, #0x4
-	bne	.L1	@cond_branch
+	bne	.L804D726	@cond_branch
 	mov	r0, #0x2
 	bl	sub_804ABFC
-.L1:
+.L804D726:
 	mov	r5, #0x80
 	lsl	r5, r5, #0xc
 	add	r0, r4, #0
@@ -20,16 +20,16 @@ sub_804D710:
 	bl	sub_804E440
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L804D74C	@cond_branch
 	add	r0, r4, #0
 	add	r1, r5, #0
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L804D74C	@cond_branch
 	mov	r0, #0x11
 	bl	sub_804ABFC
-.L3:
+.L804D74C:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

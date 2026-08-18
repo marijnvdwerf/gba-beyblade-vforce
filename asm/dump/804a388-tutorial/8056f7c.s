@@ -3,12 +3,12 @@
 	thumb_func_start sub_8056F7C
 sub_8056F7C:
 	push	{r4, lr}
-	ldr	r0, .L1
+	ldr	r0, .L8056FA0
 	ldr	r4, [r0]
 	bl	sub_8051734
-	ldr	r1, .L1 + 4
+	ldr	r1, .L8056FA0 + 4
 	add	r0, r0, #0x10
-	ldr	r2, .L1 + 8
+	ldr	r2, .L8056FA0 + 8
 	add	r4, r4, r2
 	ldr	r3, [r1]
 	add	r1, r4, #0
@@ -17,9 +17,9 @@ sub_8056F7C:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2:
+.L8056F9E:
 	.align	2, 0
-.L1:
+.L8056FA0:
 	.4byte	0x3000fb0
 	.4byte	0x807d974
 	.4byte	0x13f8

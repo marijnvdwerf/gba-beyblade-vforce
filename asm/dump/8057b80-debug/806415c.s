@@ -6,7 +6,7 @@ sub_806415C:
 	add	r4, r0, #0
 	bl	sub_8063CF4
 	add	r4, r4, #0xba
-	ldr	r0, .L1
+	ldr	r0, .L8064178
 	ldrh	r1, [r4]
 	and	r0, r0, r1
 	mov	r1, #0x10
@@ -15,9 +15,9 @@ sub_806415C:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2:
+.L8064178:
 	.align	2, 0
-.L1:
+
 	.4byte	0xfffb
 	thumb_func_end sub_806415C
 

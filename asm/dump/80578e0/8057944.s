@@ -2,31 +2,31 @@
 
 	thumb_func_start sub_8057944
 sub_8057944:
-	ldr	r2, .L2
-	ldr	r1, .L2 + 4
+	ldr	r2, .L8057970
+	ldr	r1, .L8057970 + 4
 	str	r1, [r2]
-	ldr	r3, .L2 + 8
+	ldr	r3, .L8057970 + 8
 	str	r3, [r2, #0x4]
-	ldr	r0, .L2 + 12
+	ldr	r0, .L8057970 + 12
 	sub	r1, r0, r1
 	add	r0, r1, #0
 	add	r0, r0, #0x20
 	cmp	r0, #0
-	bge	.L1	@cond_branch
+	bge	.L805795C	@cond_branch
 	add	r0, r0, #0x3
-.L1:
+.L805795C:
 	asr	r0, r0, #0x2
 	mov	r1, #0x84
 	lsl	r1, r1, #0x18
 	orr	r0, r0, r1
 	str	r0, [r2, #0x8]
 	ldr	r0, [r2, #0x8]
-	ldr	r0, .L2 + 16
+	ldr	r0, .L8057970 + 16
 	str	r3, [r0]
 	bx	lr
-.L3:
+.L805796E:
 	.align	2, 0
-.L2:
+.L8057970:
 	.4byte	0x40000d4
 	.4byte	0x8000168
 	.4byte	0x3000fe0

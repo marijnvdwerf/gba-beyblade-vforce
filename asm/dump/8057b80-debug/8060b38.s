@@ -5,30 +5,30 @@ sub_8060B38:
 	add	r3, r0, #0
 	ldrb	r0, [r3, #0x19]
 	cmp	r0, #0
-	bne	.L1	@cond_branch
+	bne	.L8060B5E	@cond_branch
 	ldr	r2, [r3]
 	ldr	r1, [r3, #0x4]
 	cmp	r2, #0
-	beq	.L2	@cond_branch
+	beq	.L8060B4C	@cond_branch
 	str	r1, [r2, #0x4]
-	b	.L3
-.L2:
-	ldr	r0, .L5
+	b	.L8060B50
+.L8060B4C:
+	ldr	r0, .L8060B60
 	str	r1, [r0]
-.L3:
+.L8060B50:
 	cmp	r1, #0
-	beq	.L4	@cond_branch
+	beq	.L8060B56	@cond_branch
 	str	r2, [r1]
-.L4:
-	ldr	r1, .L5 + 4
+.L8060B56:
+	ldr	r1, .L8060B60 + 4
 	ldr	r0, [r1]
 	str	r0, [r3, #0x4]
 	str	r3, [r1]
-.L1:
+.L8060B5E:
 	bx	lr
-.L6:
+.L8060B60:
 	.align	2, 0
-.L5:
+
 	.4byte	0x3005df8
 	.4byte	0x3005de8
 	thumb_func_end sub_8060B38

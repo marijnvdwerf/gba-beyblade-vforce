@@ -8,58 +8,58 @@ sub_8058838:
 	mov	r0, #0x1
 	NEG	r0, r0
 	cmp	r7, r0
-	beq	.L2	@cond_branch
+	beq	.L80588A0	@cond_branch
 	mov	r5, #0x0
 	cmp	r5, r7
-	bge	.L2	@cond_branch
-.L12:
+	bge	.L80588A0	@cond_branch
+.L805884C:
 	lsl	r1, r5, #0x4
 	ldr	r0, [r6, #0x78]
 	add	r4, r0, r1
 	ldr	r2, [r4, #0x8]
 	cmp	r2, #0
-	beq	.L5	@cond_branch
+	beq	.L805886C	@cond_branch
 	ldr	r0, [r4]
 	cmp	r0, #0
-	beq	.L11	@cond_branch
+	beq	.L805889A	@cond_branch
 	ldr	r0, [r4, #0x4]
 	cmp	r0, #0
-	bgt	.L5	@cond_branch
+	bgt	.L805886C	@cond_branch
 	add	r0, r6, #0
 	add	r1, r4, #0
 	bl	_call_via_r2
-.L5:
+.L805886C:
 	ldr	r2, [r4]
 	cmp	r2, #0
-	ble	.L11	@cond_branch
-	ldr	r0, .L9
+	ble	.L805889A	@cond_branch
+	ldr	r0, .L8058888
 	ldr	r1, [r0]
 	ldr	r0, [r0, #0x4]
 	sub	r1, r1, r0
 	ldr	r0, [r4, #0x4]
 	cmp	r0, #0
-	ble	.L7	@cond_branch
+	ble	.L805888C	@cond_branch
 	sub	r0, r0, r1
 	str	r0, [r4, #0x4]
-	b	.L8
-.L10:
+	b	.L8058890
+.L8058886:
 	.align	2, 0
-.L9:
+.L8058888:
 	.4byte	0x3000e30
-.L7:
+.L805888C:
 	sub	r0, r2, r1
 	str	r0, [r4]
-.L8:
+.L8058890:
 	ldr	r0, [r4]
 	cmp	r0, #0
-	bge	.L11	@cond_branch
+	bge	.L805889A	@cond_branch
 	mov	r0, #0x0
 	str	r0, [r4]
-.L11:
+.L805889A:
 	add	r5, r5, #0x1
 	cmp	r5, r7
-	blt	.L12	@cond_branch
-.L2:
+	blt	.L805884C	@cond_branch
+.L80588A0:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0

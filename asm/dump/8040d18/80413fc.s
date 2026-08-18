@@ -11,109 +11,109 @@ sub_80413FC:
 	mov	sl, r0
 	add	r4, r1, #0
 	bl	isMultiplayer
-	ldr	r2, .L9
+	ldr	r2, .L8041448
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	mov	r1, #0x1
 	sub	r1, r1, r0
 	lsl	r1, r1, #0x4
-	ldr	r0, .L9 + 4
+	ldr	r0, .L8041448 + 4
 	add	r1, r1, r0
 	ldr	r0, [r2]
 	add	r1, r1, r0
 	mov	r9, r1
-	ldr	r1, .L9 + 8
+	ldr	r1, .L8041448 + 8
 	add	r1, r1, r0
 	mov	r8, r1
 	cmp	r4, #0x1
-	bne	.L1	@cond_branch
-	b	.L2
-.L1:
+	bne	.L8041432	@cond_branch
+	b	.L8041734
+.L8041432:
 	cmp	r4, #0x1
-	bcc	.L3	@cond_branch
+	bcc	.L8041454	@cond_branch
 	cmp	r4, #0x2
-	bne	.L4	@cond_branch
-	b	.L5
-.L4:
+	bne	.L804143C	@cond_branch
+	b	.L80419E4
+.L804143C:
 	cmp	r4, #0x7
-	bne	.L6	@cond_branch
-	b	.L7
-.L6:
-	bl	.L115
-.L10:
+	bne	.L8041442	@cond_branch
+	b	.L8041700
+.L8041442:
+	bl	.L8041E7C
+.L8041446:
 	.align	2, 0
-.L9:
+.L8041448:
 	.4byte	0x3000fb0
 	.4byte	0x15d4
 	.4byte	0x15c4
-.L3:
+.L8041454:
 	mov	r0, #0x1
 	bl	sub_8051780
 	cmp	r0, #0
-	beq	.L11	@cond_branch
-	ldr	r1, .L13
-	ldr	r0, .L13 + 4
+	beq	.L8041478	@cond_branch
+	ldr	r1, .L804146C
+	ldr	r0, .L804146C + 4
 	ldr	r0, [r0]
-	ldr	r2, .L13 + 8
+	ldr	r2, .L804146C + 8
 	add	r0, r0, r2
-	b	.L21
-.L14:
+	b	.L80414D2
+.L804146A:
 	.align	2, 0
-.L13:
+.L804146C:
 	.4byte	0x3000074
 	.4byte	0x3000f48
 	.4byte	0x5a4
-.L11:
+.L8041478:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x1
 	bl	sub_8051780
 	cmp	r0, #0
-	beq	.L15	@cond_branch
-	ldr	r1, .L17
-	ldr	r0, .L17 + 4
+	beq	.L804149C	@cond_branch
+	ldr	r1, .L8041490
+	ldr	r0, .L8041490 + 4
 	ldr	r0, [r0]
-	ldr	r3, .L17 + 8
+	ldr	r3, .L8041490 + 8
 	add	r0, r0, r3
-	b	.L21
-.L18:
+	b	.L80414D2
+.L8041490:
 	.align	2, 0
-.L17:
+
 	.4byte	0x3000074
 	.4byte	0x3000f48
 	.4byte	0x5e4
-.L15:
+.L804149C:
 	mov	r0, #0x4
 	bl	sub_8051780
 	cmp	r0, #0
-	beq	.L19	@cond_branch
-	ldr	r0, .L22
+	beq	.L80414D4	@cond_branch
+	ldr	r0, .L80414BC
 	ldr	r2, [r0]
-	ldr	r4, .L22 + 4
+	ldr	r4, .L80414BC + 4
 	add	r0, r2, r4
 	ldrb	r0, [r0]
 	cmp	r0, #0x1
-	bne	.L20	@cond_branch
-	ldr	r1, .L22 + 8
-	ldr	r3, .L22 + 12
+	bne	.L80414CC	@cond_branch
+	ldr	r1, .L80414BC + 8
+	ldr	r3, .L80414BC + 12
 	add	r0, r2, r3
-	b	.L21
-.L23:
+	b	.L80414D2
+.L80414BC:
 	.align	2, 0
-.L22:
+
 	.4byte	0x3000f48
 	.4byte	0x6a4
 	.4byte	0x3000074
 	.4byte	0x624
-.L20:
-	ldr	r1, .L30
-	ldr	r4, .L30 + 4
+.L80414CC:
+	ldr	r1, .L8041580
+	ldr	r4, .L8041580 + 4
 	add	r0, r2, r4
-.L21:
+.L80414D2:
 	str	r0, [r1]
-.L19:
-	ldr	r0, .L30
+.L80414D4:
+	ldr	r0, .L8041580
 	ldr	r2, [r0]
-	ldr	r1, .L30 + 8
+	ldr	r1, .L8041580 + 8
 	mov	r0, #0x0
 	strb	r0, [r1]
 	mov	r0, #0x0
@@ -126,9 +126,9 @@ sub_80413FC:
 	ADD r1, sl
 	mov	r9, r1
 	cmp	r0, r3
-	beq	.L24	@cond_branch
+	beq	.L8041506	@cond_branch
 	add	r1, r4, #0
-.L25:
+.L80414F6:
 	ldrb	r0, [r1]
 	add	r0, r0, #0x1
 	strb	r0, [r1]
@@ -136,17 +136,17 @@ sub_80413FC:
 	ldsb	r0, [r2, r0]
 	add	r2, r2, #0x1
 	cmp	r0, r3
-	bne	.L25	@cond_branch
-.L24:
+	bne	.L80414F6	@cond_branch
+.L8041506:
 	mov	r0, #0x0
 	bl	allocSprite
 	add	r4, r0, #0
-	ldr	r0, .L30 + 12
+	ldr	r0, .L8041580 + 12
 	str	r4, [r0]
 	cmp	r4, #0
-	beq	.L26	@cond_branch
-	ldr	r1, .L30 + 16
-	ldr	r2, .L30 + 20
+	beq	.L804152E	@cond_branch
+	ldr	r1, .L8041580 + 16
+	ldr	r2, .L8041580 + 20
 	mov	r3, #0xa8
 	lsl	r3, r3, #0x7
 	mov	r0, #0x0
@@ -156,15 +156,15 @@ sub_80413FC:
 	str	r0, [sp, #0xc]
 	add	r0, r4, #0
 	bl	LoadSpriteSheet
-.L26:
+.L804152E:
 	mov	r0, #0x0
 	bl	allocSprite
 	add	r5, r0, #0
-	ldr	r0, .L30 + 24
+	ldr	r0, .L8041580 + 24
 	str	r5, [r0]
 	cmp	r5, #0
-	beq	.L27	@cond_branch
-	ldr	r1, .L30 + 16
+	beq	.L804155A	@cond_branch
+	ldr	r1, .L8041580 + 16
 	mov	r2, #0xc0
 	lsl	r2, r2, #0x9
 	mov	r3, #0xa8
@@ -177,28 +177,28 @@ sub_80413FC:
 	str	r4, [sp, #0xc]
 	add	r0, r5, #0
 	bl	LoadSpriteSheet
-.L27:
-	ldr	r1, .L30 + 28
+.L804155A:
+	ldr	r1, .L8041580 + 28
 	mov	r0, #0x80
 	lsl	r0, r0, #0x4
 	str	r0, [r1]
-	ldr	r1, .L30 + 32
+	ldr	r1, .L8041580 + 32
 	mov	r0, #0xd8
 	lsl	r0, r0, #0x8
 	str	r0, [r1]
 	mov	r0, #0x4
 	bl	sub_8051780
 	cmp	r0, #0
-	beq	.L28	@cond_branch
-	ldr	r0, .L30 + 36
+	beq	.L80415AC	@cond_branch
+	ldr	r0, .L8041580 + 36
 	ldr	r0, [r0]
-	ldr	r2, .L30 + 40
+	ldr	r2, .L8041580 + 40
 	add	r0, r0, r2
 	ldrb	r3, [r0]
-	b	.L29
-.L31:
+	b	.L80415B2
+.L8041580:
 	.align	2, 0
-.L30:
+
 	.4byte	0x3000074
 	.4byte	0x664
 	.4byte	0x3000078
@@ -210,42 +210,42 @@ sub_80413FC:
 	.4byte	0x3000068
 	.4byte	0x3000f48
 	.4byte	0x6a9
-.L28:
+.L80415AC:
 	bl	sub_805137C
 	add	r3, r0, #0
-.L29:
+.L80415B2:
 	mov	r2, #0x0
-	ldr	r0, .L39
+	ldr	r0, .L80416D4
 	add	r4, r0, #0
-	ldr	r6, .L39 + 4
-	ldr	r7, .L39 + 8
+	ldr	r6, .L80416D4 + 4
+	ldr	r7, .L80416D4 + 8
 	ldrb	r0, [r4]
 	cmp	r2, r0
-	bge	.L34	@cond_branch
-	ldr	r0, .L39 + 12
+	bge	.L80415EC	@cond_branch
+	ldr	r0, .L80416D4 + 12
 	ldr	r1, [r0]
 	ldrb	r1, [r1]
 	lsl	r1, r1, #0x18
 	asr	r1, r1, #0x18
 	add	r5, r0, #0
 	cmp	r1, r3
-	beq	.L33	@cond_branch
-.L35:
+	beq	.L80415E8	@cond_branch
+.L80415D2:
 	add	r2, r2, #0x1
 	ldrb	r1, [r4]
 	cmp	r2, r1
-	bge	.L34	@cond_branch
+	bge	.L80415EC	@cond_branch
 	ldr	r0, [r5]
 	add	r0, r0, r2
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x18
 	asr	r0, r0, #0x18
 	cmp	r0, r3
-	bne	.L35	@cond_branch
-.L33:
-	ldr	r0, .L39 + 16
+	bne	.L80415D2	@cond_branch
+.L80415E8:
+	ldr	r0, .L80416D4 + 16
 	strb	r2, [r0, #0x1d]
-.L34:
+.L80415EC:
 	mov	r1, #0x80
 	lsl	r1, r1, #0x9
 	str	r1, [r6]
@@ -260,7 +260,7 @@ sub_80413FC:
 	bl	sub_80596AC
 	mov	r0, #0x0
 	bl	sub_804A0E0
-	ldr	r4, .L39 + 16
+	ldr	r4, .L80416D4 + 16
 	str	r0, [r4, #0x4]
 	mov	r0, #0x1
 	bl	sub_804A0E0
@@ -297,11 +297,11 @@ sub_80413FC:
 	mov	r1, #0x1
 	bl	sub_8062318
 	str	r5, [r4]
-	ldr	r0, .L39 + 20
+	ldr	r0, .L80416D4 + 20
 	strb	r5, [r0]
-	ldr	r0, .L39 + 24
+	ldr	r0, .L80416D4 + 24
 	strb	r5, [r0]
-	ldr	r0, .L39 + 28
+	ldr	r0, .L80416D4 + 28
 	strb	r5, [r0]
 	mov	r0, #0x30
 	mov	r2, r9
@@ -313,11 +313,11 @@ sub_80413FC:
 	bl	sub_805FFE4
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L37	@cond_branch
+	beq	.L80416C6	@cond_branch
 	bl	sub_8060070
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L37	@cond_branch
+	beq	.L80416C6	@cond_branch
 	mov	r0, #0x10
 	NEG	r0, r0
 	mov	r4, r8
@@ -329,7 +329,7 @@ sub_80413FC:
 	and	r0, r0, r1
 	mov	r1, r8
 	strb	r0, [r1, #0x2]
-	ldr	r0, .L39 + 32
+	ldr	r0, .L80416D4 + 32
 	add	r1, r1, #0x4
 	ldr	r3, [r0]
 	mov	r0, #0x0
@@ -337,16 +337,16 @@ sub_80413FC:
 	bl	_call_via_r3
 	mov	r0, r8
 	bl	sub_8043960
-.L37:
-	ldr	r1, .L39 + 36
+.L80416C6:
+	ldr	r1, .L80416D4 + 36
 	mov	r0, #0x0
 	str	r0, [r1]
-	ldr	r1, .L39 + 40
+	ldr	r1, .L80416D4 + 40
 	mov	r0, #0x10
-	bl	.L38
-.L40:
+	bl	.L8041E7A
+.L80416D4:
 	.align	2, 0
-.L39:
+
 	.4byte	0x3000078
 	.4byte	0x3000030
 	.4byte	0x300002c
@@ -358,77 +358,77 @@ sub_80413FC:
 	.4byte	0x807d970
 	.4byte	0x300006c
 	.4byte	0x3000070
-.L7:
-	ldr	r0, .L46
+.L8041700:
+	ldr	r0, .L8041728
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L41	@cond_branch
+	beq	.L804170C	@cond_branch
 	bl	sub_8060A94
-.L41:
-	ldr	r0, .L46 + 4
+.L804170C:
+	ldr	r0, .L8041728 + 4
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L42	@cond_branch
+	beq	.L8041718	@cond_branch
 	bl	sub_8060A94
-.L42:
-	ldr	r0, .L46 + 8
+.L8041718:
+	ldr	r0, .L8041728 + 8
 	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.L43	@cond_branch
-	b	.L115
-.L43:
+	bne	.L8041722	@cond_branch
+	b	.L8041E7C
+.L8041722:
 	bl	sub_8060A94
-	b	.L115
-.L47:
+	b	.L8041E7C
+.L8041728:
 	.align	2, 0
-.L46:
+
 	.4byte	0x300005c
 	.4byte	0x3000060
 	.4byte	0x3000038
-.L2:
-	ldr	r0, .L64
+.L8041734:
+	ldr	r0, .L80419A4
 	ADD r0, sl
 	ldrh	r0, [r0]
 	cmp	r0, #0
-	beq	.L48	@cond_branch
-	b	.L55
-.L48:
-	ldr	r1, .L64 + 4
+	beq	.L8041740	@cond_branch
+	b	.L804185A
+.L8041740:
+	ldr	r1, .L80419A4 + 4
 	mov	r2, #0xf4
 	lsl	r2, r2, #0x4
 	add	r0, r2, #0
 	strh	r0, [r1]
 	add	r1, r1, #0x2
-	ldr	r3, .L64 + 8
+	ldr	r3, .L80419A4 + 8
 	ldr	r2, [r3]
 	mov	r0, #0x10
 	sub	r0, r0, r2
 	lsl	r0, r0, #0x8
 	orr	r0, r0, r2
 	strh	r0, [r1]
-	ldr	r0, .L64 + 12
+	ldr	r0, .L80419A4 + 12
 	ldr	r0, [r0]
 	cmp	r2, r0
-	beq	.L50	@cond_branch
+	beq	.L804176C	@cond_branch
 	sub	r1, r2, #1
 	cmp	r0, r2
-	ble	.L51	@cond_branch
+	ble	.L804176A	@cond_branch
 	add	r1, r2, #1
-.L51:
+.L804176A:
 	str	r1, [r3]
-.L50:
-	ldr	r7, .L64 + 16
+.L804176C:
+	ldr	r7, .L80419A4 + 16
 	ldrb	r0, [r7]
 	cmp	r0, #0
-	bne	.L52	@cond_branch
-	ldr	r4, .L64 + 20
+	bne	.L8041830	@cond_branch
+	ldr	r4, .L80419A4 + 20
 	add	r0, r4, #0
 	bl	sub_8041078
 	mov	r0, #0x1
 	bl	sub_8041324
 	mov	r1, #0x1d
 	ldsb	r1, [r4, r1]
-	ldr	r5, .L64 + 24
+	ldr	r5, .L80419A4 + 24
 	ldr	r0, [r5]
 	add	r0, r0, r1
 	ldrb	r0, [r0]
@@ -504,41 +504,41 @@ sub_80413FC:
 	bl	sub_8041188
 	mov	r0, #0x1
 	strb	r0, [r7]
-.L52:
-	ldr	r4, .L64 + 8
+.L8041830:
+	ldr	r4, .L80419A4 + 8
 	ldr	r0, [r4]
 	cmp	r0, #0x10
-	bne	.L53	@cond_branch
-	ldr	r0, .L64 + 20
+	bne	.L8041840	@cond_branch
+	ldr	r0, .L80419A4 + 20
 	mov	r1, #0x0
 	bl	sub_8041344
-.L53:
+.L8041840:
 	ldr	r0, [r4]
 	cmp	r0, #0
-	bne	.L55	@cond_branch
-	ldr	r0, .L64 + 28
+	bne	.L804185A	@cond_branch
+	ldr	r0, .L80419A4 + 28
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L55	@cond_branch
-	ldr	r1, .L64 + 32
+	bne	.L804185A	@cond_branch
+	ldr	r1, .L80419A4 + 32
 	mov	r0, #0x1
 	strb	r0, [r1]
-	ldr	r1, .L64 + 12
+	ldr	r1, .L80419A4 + 12
 	mov	r0, #0x10
 	str	r0, [r1]
-.L55:
-	ldr	r0, .L64 + 16
+.L804185A:
+	ldr	r0, .L80419A4 + 16
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L57	@cond_branch
-	ldr	r7, .L64 + 32
+	beq	.L80418DE	@cond_branch
+	ldr	r7, .L80419A4 + 32
 	ldrb	r0, [r7]
 	cmp	r0, #0
-	beq	.L57	@cond_branch
-	ldr	r4, .L64 + 20
+	beq	.L80418DE	@cond_branch
+	ldr	r4, .L80419A4 + 20
 	mov	r1, #0x1d
 	ldsb	r1, [r4, r1]
-	ldr	r5, .L64 + 24
+	ldr	r5, .L80419A4 + 24
 	ldr	r0, [r5]
 	add	r0, r0, r1
 	ldrb	r0, [r0]
@@ -587,7 +587,7 @@ sub_80413FC:
 	bl	sub_8041188
 	mov	r0, #0x0
 	strb	r0, [r7]
-.L57:
+.L80418DE:
 	mov	r0, #0xa0
 	lsl	r0, r0, #0x1
 	ADD r0, sl
@@ -595,38 +595,38 @@ sub_80413FC:
 	bl	sub_805FFE4
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L59	@cond_branch
+	beq	.L804191C	@cond_branch
 	bl	sub_8060070
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L59	@cond_branch
+	beq	.L804191C	@cond_branch
 	bl	sub_8060040
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L60	@cond_branch
-	ldr	r0, .L64 + 20
+	beq	.L804190E	@cond_branch
+	ldr	r0, .L80419A4 + 20
 	ldrb	r0, [r0, #0x1d]
 	mov	r3, r8
 	strb	r0, [r3, #0x4]
-.L60:
+.L804190E:
 	bl	sub_8051820
 	mov	r4, r8
 	strb	r0, [r4, #0x5]
 	mov	r0, r8
 	bl	sub_8043960
-.L59:
-	ldr	r5, .L64 + 36
+.L804191C:
+	ldr	r5, .L80419A4 + 36
 	ldr	r0, [r5]
 	cmp	r0, #0
-	beq	.L61	@cond_branch
+	beq	.L804194E	@cond_branch
 	bl	sub_8057C40
 	ldr	r5, [r5]
-	ldr	r1, .L64 + 40
+	ldr	r1, .L80419A4 + 40
 	ldr	r2, [r1]
 	ldr	r3, [r5, #0x8]
 	sub	r2, r2, r3
 	asr	r2, r2, #0x2
-	ldr	r4, .L64 + 44
+	ldr	r4, .L80419A4 + 44
 	mov	r1, #0xff
 	lsl	r1, r1, #0x1
 	and	r1, r1, r0
@@ -634,24 +634,24 @@ sub_80413FC:
 	mov	r4, #0x0
 	ldsh	r0, [r1, r4]
 	add	r2, r2, r0
-	ldr	r0, .L64 + 48
+	ldr	r0, .L80419A4 + 48
 	ldr	r0, [r0]
 	sub	r2, r2, r0
 	add	r3, r3, r2
 	str	r3, [r5, #0x8]
-.L61:
-	ldr	r5, .L64 + 52
+.L804194E:
+	ldr	r5, .L80419A4 + 52
 	ldr	r0, [r5]
 	cmp	r0, #0
-	beq	.L62	@cond_branch
+	beq	.L8041980	@cond_branch
 	bl	sub_8057C40
 	ldr	r5, [r5]
-	ldr	r1, .L64 + 56
+	ldr	r1, .L80419A4 + 56
 	ldr	r2, [r1]
 	ldr	r3, [r5, #0x8]
 	sub	r2, r2, r3
 	asr	r2, r2, #0x2
-	ldr	r4, .L64 + 44
+	ldr	r4, .L80419A4 + 44
 	mov	r1, #0xff
 	lsl	r1, r1, #0x1
 	and	r1, r1, r0
@@ -659,14 +659,14 @@ sub_80413FC:
 	mov	r4, #0x0
 	ldsh	r0, [r1, r4]
 	sub	r2, r2, r0
-	ldr	r0, .L64 + 48
+	ldr	r0, .L80419A4 + 48
 	ldr	r0, [r0]
 	add	r2, r2, r0
 	add	r3, r3, r2
 	str	r3, [r5, #0x8]
-.L62:
-	ldr	r0, .L64 + 48
-	ldr	r5, .L64 + 60
+.L8041980:
+	ldr	r0, .L80419A4 + 48
+	ldr	r5, .L80419A4 + 60
 	ldr	r4, [r0]
 	ldr	r0, [r5]
 	sub	r4, r4, r0
@@ -680,10 +680,10 @@ sub_80413FC:
 	ldr	r0, [r5]
 	add	r0, r0, r4
 	str	r0, [r5]
-	b	.L115
-.L65:
+	b	.L8041E7C
+.L80419A2:
 	.align	2, 0
-.L64:
+.L80419A4:
 	.4byte	0x584
 	.4byte	0x4000050
 	.4byte	0x300006c
@@ -700,96 +700,96 @@ sub_80413FC:
 	.4byte	0x3000060
 	.4byte	0x3000068
 	.4byte	0x3000030
-.L5:
-	ldr	r5, .L83
+.L80419E4:
+	ldr	r5, .L8041A70
 	mov	r0, #0x30
 	ldrh	r1, [r5]
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L66	@cond_branch
-	b	.L88
-.L66:
-	ldr	r0, .L83 + 4
+	bne	.L80419F2	@cond_branch
+	b	.L8041B96
+.L80419F2:
+	ldr	r0, .L8041A70 + 4
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L68	@cond_branch
-	b	.L88
-.L68:
+	beq	.L80419FC	@cond_branch
+	b	.L8041B96
+.L80419FC:
 	bl	sub_8060070
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L75	@cond_branch
+	beq	.L8041A2A	@cond_branch
 	bl	sub_805FFE4
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L71	@cond_branch
-	b	.L88
-.L71:
+	bne	.L8041A12	@cond_branch
+	b	.L8041B96
+.L8041A12:
 	bl	sub_8060070
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L73	@cond_branch
-	b	.L88
-.L73:
+	bne	.L8041A1E	@cond_branch
+	b	.L8041B96
+.L8041A1E:
 	bl	sub_8060040
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L75	@cond_branch
-	b	.L88
-.L75:
+	bne	.L8041A2A	@cond_branch
+	b	.L8041B96
+.L8041A2A:
 	mov	r4, #0x20
 	add	r0, r4, #0
 	ldrh	r5, [r5]
 	and	r0, r0, r5
 	cmp	r0, #0
-	beq	.L80	@cond_branch
+	beq	.L8041ADA	@cond_branch
 	mov	r0, #0x5
 	bl	sub_805A914
 	add	r2, r0, #0
-	ldr	r1, .L83 + 8
+	ldr	r1, .L8041A70 + 8
 	add	r0, r4, #0
 	ldrh	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L78	@cond_branch
+	bne	.L8041A5E	@cond_branch
 	ldr	r0, [r2, #0x8]
 	cmp	r0, #0xf0
-	bls	.L80	@cond_branch
+	bls	.L8041ADA	@cond_branch
 	bl	sub_8057C40
 	asr	r0, r0, #0x4
 	mov	r1, #0x7
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L80	@cond_branch
-.L78:
-	ldr	r0, .L83 + 12
+	bne	.L8041ADA	@cond_branch
+.L8041A5E:
+	ldr	r0, .L8041A70 + 12
 	ldrb	r2, [r0, #0x1d]
 	mov	r1, #0x1d
 	ldsb	r1, [r0, r1]
 	add	r6, r0, #0
 	cmp	r1, #0
-	ble	.L81	@cond_branch
+	ble	.L8041A80	@cond_branch
 	sub	r0, r2, #1
-	b	.L82
-.L84:
+	b	.L8041A86
+.L8041A70:
 	.align	2, 0
-.L83:
+
 	.4byte	0x3005ca0
 	.4byte	0x300005a
 	.4byte	0x3005da0
 	.4byte	0x3000038
-.L81:
-	ldr	r0, .L91
+.L8041A80:
+	ldr	r0, .L8041B28
 	ldrb	r0, [r0]
 	sub	r0, r0, #0x1
-.L82:
+.L8041A86:
 	strb	r0, [r6, #0x1d]
 	add	r0, r6, #0
 	mov	r1, #0x0
 	bl	sub_8041344
 	mov	r1, #0x1d
 	ldsb	r1, [r6, r1]
-	ldr	r4, .L91 + 4
+	ldr	r4, .L8041B28 + 4
 	ldr	r0, [r4]
 	add	r0, r0, r1
 	ldrb	r0, [r0]
@@ -815,69 +815,69 @@ sub_80413FC:
 	add	r0, r6, #0
 	add	r1, r5, #0
 	bl	sub_8041288
-	ldr	r1, .L91 + 8
+	ldr	r1, .L8041B28 + 8
 	mov	r0, #0x0
 	str	r0, [r1]
 	mov	r0, #0x7
 	bl	sub_804ABFC
-.L80:
-	ldr	r1, .L91 + 12
+.L8041ADA:
+	ldr	r1, .L8041B28 + 12
 	mov	r4, #0x10
 	add	r0, r4, #0
 	ldrh	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L88	@cond_branch
+	beq	.L8041B96	@cond_branch
 	mov	r0, #0x4
 	bl	sub_805A914
 	add	r2, r0, #0
-	ldr	r1, .L91 + 16
+	ldr	r1, .L8041B28 + 16
 	add	r0, r4, #0
 	ldrh	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L86	@cond_branch
+	bne	.L8041B10	@cond_branch
 	ldr	r0, [r2, #0x8]
 	cmp	r0, #0xf0
-	bls	.L88	@cond_branch
+	bls	.L8041B96	@cond_branch
 	bl	sub_8057C40
 	asr	r0, r0, #0x4
 	mov	r1, #0x7
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L88	@cond_branch
-.L86:
-	ldr	r1, .L91 + 20
+	bne	.L8041B96	@cond_branch
+.L8041B10:
+	ldr	r1, .L8041B28 + 20
 	mov	r2, #0x1d
 	ldsb	r2, [r1, r2]
-	ldr	r0, .L91
+	ldr	r0, .L8041B28
 	ldrb	r0, [r0]
 	sub	r0, r0, #0x1
 	add	r6, r1, #0
 	cmp	r2, r0
-	bge	.L89	@cond_branch
+	bge	.L8041B40	@cond_branch
 	ldrb	r0, [r6, #0x1d]
 	add	r0, r0, #0x1
-	b	.L90
-.L92:
+	b	.L8041B42
+.L8041B28:
 	.align	2, 0
-.L91:
+
 	.4byte	0x3000078
 	.4byte	0x3000074
 	.4byte	0x3000070
 	.4byte	0x3005ca0
 	.4byte	0x3005da0
 	.4byte	0x3000038
-.L89:
+.L8041B40:
 	mov	r0, #0x0
-.L90:
+.L8041B42:
 	strb	r0, [r6, #0x1d]
 	add	r0, r6, #0
 	mov	r1, #0x0
 	bl	sub_8041344
 	mov	r1, #0x1d
 	ldsb	r1, [r6, r1]
-	ldr	r4, .L108
+	ldr	r4, .L8041CFC
 	ldr	r0, [r4]
 	add	r0, r0, r1
 	ldrb	r0, [r0]
@@ -903,34 +903,34 @@ sub_80413FC:
 	add	r0, r6, #0
 	add	r1, r5, #0
 	bl	sub_8041288
-	ldr	r1, .L108 + 4
+	ldr	r1, .L8041CFC + 4
 	mov	r0, #0x0
 	str	r0, [r1]
 	mov	r0, #0x7
 	bl	sub_804ABFC
-.L88:
+.L8041B96:
 	bl	sub_805FFE4
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L93	@cond_branch
-	b	.L96
-.L93:
+	bne	.L8041BA2	@cond_branch
+	b	.L8041D20
+.L8041BA2:
 	bl	sub_8060070
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L95	@cond_branch
-	b	.L96
-.L95:
+	bne	.L8041BAE	@cond_branch
+	b	.L8041D20
+.L8041BAE:
 	bl	sub_8060040
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L100	@cond_branch
-	ldr	r2, .L108 + 8
+	beq	.L8041BFC	@cond_branch
+	ldr	r2, .L8041CFC + 8
 	mov	r0, #0x1
 	ldrh	r3, [r2]
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L98	@cond_branch
+	beq	.L8041BD4	@cond_branch
 	mov	r0, #0xf
 	mov	r4, r8
 	ldrb	r4, [r4, #0x2]
@@ -939,19 +939,19 @@ sub_80413FC:
 	orr	r0, r0, r1
 	mov	r1, r8
 	strb	r0, [r1, #0x2]
-.L98:
+.L8041BD4:
 	mov	r0, #0x2
 	ldrh	r2, [r2]
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L100	@cond_branch
-	ldr	r0, .L108 + 12
+	beq	.L8041BFC	@cond_branch
+	ldr	r0, .L8041CFC + 12
 	ldr	r0, [r0]
-	ldr	r2, .L108 + 16
+	ldr	r2, .L8041CFC + 16
 	add	r0, r0, r2
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	bne	.L100	@cond_branch
+	bne	.L8041BFC	@cond_branch
 	mov	r0, #0xf
 	mov	r3, r8
 	ldrb	r3, [r3, #0x2]
@@ -960,16 +960,16 @@ sub_80413FC:
 	orr	r0, r0, r1
 	mov	r4, r8
 	strb	r0, [r4, #0x2]
-.L100:
+.L8041BFC:
 	mov	r0, r9
 	mov	r1, #0x4
 	bl	sub_8043970
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L101	@cond_branch
-	b	.L112
-.L101:
-	ldr	r0, .L108 + 20
+	bne	.L8041C0C	@cond_branch
+	b	.L8041D7A
+.L8041C0C:
+	ldr	r0, .L8041CFC + 20
 	ldr	r0, [r0]
 	mov	r2, r9
 	mov	r1, #0x5
@@ -982,18 +982,18 @@ sub_80413FC:
 	lsl	r0, r0, #0x18
 	lsr	r7, r0, #0x18
 	cmp	r7, #0
-	bne	.L104	@cond_branch
-	ldr	r6, .L108 + 24
+	bne	.L8041C7C	@cond_branch
+	ldr	r6, .L8041CFC + 24
 	mov	r4, r9
 	ldrb	r0, [r4, #0x4]
 	add	r1, r0, #0
 	ldrb	r2, [r6, #0x1d]
 	cmp	r1, r2
-	beq	.L104	@cond_branch
+	beq	.L8041C7C	@cond_branch
 	strb	r0, [r6, #0x1d]
 	mov	r1, #0x1d
 	ldsb	r1, [r6, r1]
-	ldr	r4, .L108
+	ldr	r4, .L8041CFC
 	ldr	r0, [r4]
 	add	r0, r0, r1
 	ldrb	r0, [r0]
@@ -1019,20 +1019,20 @@ sub_80413FC:
 	add	r0, r6, #0
 	add	r1, r5, #0
 	bl	sub_8041288
-	ldr	r0, .L108 + 4
+	ldr	r0, .L8041CFC + 4
 	str	r7, [r0]
-.L104:
+.L8041C7C:
 	mov	r6, #0xf0
 	add	r0, r6, #0
 	mov	r3, r9
 	ldrb	r3, [r3, #0x2]
 	and	r0, r0, r3
 	cmp	r0, #0x10
-	bne	.L105	@cond_branch
-	ldr	r1, .L108 + 28
+	bne	.L8041CD0	@cond_branch
+	ldr	r1, .L8041CFC + 28
 	mov	r0, #0x1
 	strb	r0, [r1]
-	ldr	r1, .L108 + 4
+	ldr	r1, .L8041CFC + 4
 	mov	r0, #0x0
 	str	r0, [r1]
 	mov	r0, #0xf
@@ -1043,33 +1043,33 @@ sub_80413FC:
 	orr	r0, r0, r1
 	mov	r1, r8
 	strb	r0, [r1, #0x2]
-	ldr	r5, .L108 + 24
+	ldr	r5, .L8041CFC + 24
 	mov	r1, #0x1d
 	ldsb	r1, [r5, r1]
-	ldr	r4, .L108
+	ldr	r4, .L8041CFC
 	ldr	r0, [r4]
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x18
 	asr	r0, r0, #0x18
 	bl	sub_8051688
-	ldr	r0, .L108 + 12
+	ldr	r0, .L8041CFC + 12
 	ldr	r1, [r0]
 	mov	r2, #0x1d
 	ldsb	r2, [r5, r2]
 	ldr	r0, [r4]
 	add	r0, r0, r2
 	ldrb	r0, [r0]
-	ldr	r2, .L108 + 32
+	ldr	r2, .L8041CFC + 32
 	add	r1, r1, r2
 	strb	r0, [r1]
-.L105:
+.L8041CD0:
 	add	r0, r6, #0
 	mov	r3, r9
 	ldrb	r3, [r3, #0x2]
 	and	r0, r0, r3
 	cmp	r0, #0x20
-	bne	.L112	@cond_branch
+	bne	.L8041D7A	@cond_branch
 	mov	r0, #0xf
 	mov	r4, r8
 	ldrb	r4, [r4, #0x2]
@@ -1078,16 +1078,16 @@ sub_80413FC:
 	orr	r0, r0, r1
 	mov	r1, r8
 	strb	r0, [r1, #0x2]
-	ldr	r1, .L108 + 28
+	ldr	r1, .L8041CFC + 28
 	mov	r0, #0x2
 	strb	r0, [r1]
-	ldr	r1, .L108 + 4
+	ldr	r1, .L8041CFC + 4
 	mov	r0, #0x0
 	str	r0, [r1]
-	b	.L112
-.L109:
+	b	.L8041D7A
+.L8041CFA:
 	.align	2, 0
-.L108:
+.L8041CFC:
 	.4byte	0x3000074
 	.4byte	0x3000070
 	.4byte	0x3005da0
@@ -1097,32 +1097,32 @@ sub_80413FC:
 	.4byte	0x3000038
 	.4byte	0x300005a
 	.4byte	0x6a9
-.L96:
-	ldr	r4, .L120
+.L8041D20:
+	ldr	r4, .L8041DB8
 	mov	r0, #0x2
 	ldrh	r2, [r4]
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L110	@cond_branch
-	ldr	r1, .L120 + 4
+	beq	.L8041D40	@cond_branch
+	ldr	r1, .L8041DB8 + 4
 	mov	r0, #0x2
 	strb	r0, [r1]
-	ldr	r1, .L120 + 8
+	ldr	r1, .L8041DB8 + 8
 	mov	r0, #0x0
 	str	r0, [r1]
-	ldr	r0, .L120 + 12
+	ldr	r0, .L8041DB8 + 12
 	mov	r1, #0x1
 	bl	sub_8041344
-.L110:
+.L8041D40:
 	mov	r0, #0x1
 	ldrh	r4, [r4]
 	and	r0, r0, r4
 	cmp	r0, #0
-	beq	.L112	@cond_branch
-	ldr	r4, .L120 + 12
+	beq	.L8041D7A	@cond_branch
+	ldr	r4, .L8041DB8 + 12
 	mov	r1, #0x1d
 	ldsb	r1, [r4, r1]
-	ldr	r0, .L120 + 16
+	ldr	r0, .L8041DB8 + 16
 	ldr	r0, [r0]
 	add	r0, r0, r1
 	ldrb	r0, [r0]
@@ -1131,69 +1131,69 @@ sub_80413FC:
 	bl	sub_80517E8
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L112	@cond_branch
-	ldr	r1, .L120 + 4
+	beq	.L8041D7A	@cond_branch
+	ldr	r1, .L8041DB8 + 4
 	mov	r0, #0x1
 	strb	r0, [r1]
-	ldr	r1, .L120 + 8
+	ldr	r1, .L8041DB8 + 8
 	mov	r0, #0x0
 	str	r0, [r1]
 	add	r0, r4, #0
 	mov	r1, #0x1
 	bl	sub_8041344
-.L112:
-	ldr	r4, .L120 + 4
+.L8041D7A:
+	ldr	r4, .L8041DB8 + 4
 	ldrb	r0, [r4]
 	cmp	r0, #0
-	bne	.L113	@cond_branch
-	b	.L115
-.L113:
-	ldr	r0, .L120 + 20
-	ldr	r1, .L120 + 8
+	bne	.L8041D84	@cond_branch
+	b	.L8041E7C
+.L8041D84:
+	ldr	r0, .L8041DB8 + 20
+	ldr	r1, .L8041DB8 + 8
 	ldr	r2, [r0]
 	ldr	r0, [r1]
 	cmp	r2, r0
-	bne	.L115	@cond_branch
+	bne	.L8041E7C	@cond_branch
 	bl	sub_805FFE4
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L117	@cond_branch
+	beq	.L8041DDE	@cond_branch
 	bl	sub_8060070
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L117	@cond_branch
+	beq	.L8041DDE	@cond_branch
 	ldrb	r4, [r4]
 	cmp	r4, #0x1
-	bne	.L118	@cond_branch
+	bne	.L8041DD0	@cond_branch
 	mov	r0, #0x13
 	bl	sub_804924C
 	mov	r0, #0x8
 	bl	sub_8049234
-	b	.L125
-.L121:
+	b	.L8041E4C
+.L8041DB8:
 	.align	2, 0
-.L120:
+
 	.4byte	0x3005da0
 	.4byte	0x300005a
 	.4byte	0x3000070
 	.4byte	0x3000038
 	.4byte	0x3000074
 	.4byte	0x300006c
-.L118:
+.L8041DD0:
 	mov	r0, #0x21
 	bl	sub_80490F8
 	mov	r0, #0x9
 	bl	sub_804ABFC
-	b	.L129
-.L117:
-	ldr	r0, .L127
+	b	.L8041E60
+.L8041DDE:
+	ldr	r0, .L8041E3C
 	ldrb	r5, [r0]
 	cmp	r5, #0x1
-	bne	.L123	@cond_branch
-	ldr	r0, .L127 + 4
+	bne	.L8041E54	@cond_branch
+	ldr	r0, .L8041E3C + 4
 	mov	r1, #0x1d
 	ldsb	r1, [r0, r1]
-	ldr	r0, .L127 + 8
+	ldr	r0, .L8041E3C + 8
 	ldr	r0, [r0]
 	add	r0, r0, r1
 	ldrb	r0, [r0]
@@ -1210,51 +1210,51 @@ sub_80413FC:
 	bl	sub_804924C
 	ldrb	r0, [r4, #0x10]
 	cmp	r0, #0
-	beq	.L125	@cond_branch
+	beq	.L8041E4C	@cond_branch
 	ldrh	r6, [r6]
 	and	r5, r5, r6
 	cmp	r5, #0
-	bne	.L125	@cond_branch
+	bne	.L8041E4C	@cond_branch
 	bl	getLevelDescription2
 	ldr	r0, [r0, #0x14]
 	bl	StoreLevelVar14
-	ldr	r0, .L127 + 12
+	ldr	r0, .L8041E3C + 12
 	bl	StoreFunction
 	mov	r0, #0x1c
 	bl	sub_80490F8
-	b	.L129
-.L128:
+	b	.L8041E60
+.L8041E3A:
 	.align	2, 0
-.L127:
+.L8041E3C:
 	.4byte	0x300005a
 	.4byte	0x3000038
 	.4byte	0x3000074
 	.4byte	sub_8049DE0 + 1
-.L125:
+.L8041E4C:
 	mov	r0, #0x9
 	bl	sub_80490F8
-	b	.L129
-.L123:
+	b	.L8041E60
+.L8041E54:
 	mov	r0, #0xa
 	bl	sub_80490F8
 	mov	r0, #0x9
 	bl	sub_804ABFC
-.L129:
-	ldr	r0, .L130
+.L8041E60:
+	ldr	r0, .L8041E8C
 	bl	sub_8041364
-	ldr	r1, .L130 + 4
-	ldr	r0, .L130 + 8
+	ldr	r1, .L8041E8C + 4
+	ldr	r0, .L8041E8C + 8
 	str	r0, [r1]
-	ldr	r1, .L130 + 12
+	ldr	r1, .L8041E8C + 12
 	mov	r0, #0xf0
 	lsl	r0, r0, #0x9
 	str	r0, [r1]
-	ldr	r1, .L130 + 16
+	ldr	r1, .L8041E8C + 16
 	mov	r0, #0x80
 	lsl	r0, r0, #0x9
-.L38:
+.L8041E7A:
 	str	r0, [r1]
-.L115:
+.L8041E7C:
 	add	sp, sp, #0x10
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -1263,9 +1263,9 @@ sub_80413FC:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L131:
+.L8041E8C:
 	.align	2, 0
-.L130:
+
 	.4byte	0x3000038
 	.4byte	0x3000064
 	.4byte	0xffff0000

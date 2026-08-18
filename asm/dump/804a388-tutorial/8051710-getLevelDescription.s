@@ -4,12 +4,12 @@
 getLevelDescription:
 	mov	r1, #0xd0
 	mul	r0, r0, r1
-	ldr	r1, .L1
+	ldr	r1, .L805171C
 	add	r0, r0, r1
 	bx	lr
-.L2:
+.L805171A:
 	.align	2, 0
-.L1:
+.L805171C:
 	.4byte	0x8075b4c
 	thumb_func_end getLevelDescription
 

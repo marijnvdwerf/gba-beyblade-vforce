@@ -11,16 +11,16 @@ call_rider_94_8:
 	add	r0, r0, #0x94
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L805D426	@cond_branch
 	ldr	r4, [r0, #0x8]
 	cmp	r4, #0
-	beq	.L2	@cond_branch
+	beq	.L805D426	@cond_branch
 	add	r0, r5, #0
 	add	r1, r6, #0
 	bl	_call_via_r4
 	lsl	r0, r0, #0x18
 	lsr	r1, r0, #0x18
-.L2:
+.L805D426:
 	add	r0, r1, #0
 	pop	{r4, r5, r6}
 	pop	{r1}

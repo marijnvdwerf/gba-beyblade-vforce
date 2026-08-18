@@ -25,9 +25,9 @@ actor_805C48C:
 	ldr	r0, [r0, #0x8]
 	ldr	r5, [sp, #0x10]
 	cmp	r5, r0
-	blt	.L84	@cond_branch
-	b	.L83
-.L84:
+	blt	.L805C4BE	@cond_branch
+	b	.L805C990
+.L805C4BE:
 	mov	r0, #0x0
 	str	r0, [sp, #0x3c]
 	mov	r1, #0x0
@@ -63,29 +63,29 @@ actor_805C48C:
 	lsl	r0, r0, #0x5
 	mov	ip, r0
 	cmp	r2, r1
-	bge	.L3	@cond_branch
+	bge	.L805C50C	@cond_branch
 	str	r6, [sp, #0x30]
 	str	r3, [sp, #0x34]
-	b	.L4
-.L3:
+	b	.L805C510
+.L805C50C:
 	str	r3, [sp, #0x30]
 	str	r6, [sp, #0x34]
-.L4:
+.L805C510:
 	ldr	r1, [r5, #0x4]
 	ldr	r0, [r4, #0x4]
 	cmp	r1, r0
-	bge	.L5	@cond_branch
+	bge	.L805C522	@cond_branch
 	mov	r3, r8
 	str	r3, [sp, #0x1c]
 	mov	r5, ip
 	str	r5, [sp, #0x20]
-	b	.L6
-.L5:
+	b	.L805C52A
+.L805C522:
 	mov	r0, ip
 	str	r0, [sp, #0x1c]
 	mov	r1, r8
 	str	r1, [sp, #0x20]
-.L6:
+.L805C52A:
 	add	r2, r7, #0
 	add	r2, r2, #0xaa
 	mov	r3, #0x0
@@ -103,7 +103,7 @@ actor_805C48C:
 	ldr	r0, [r7, #0x44]
 	mov	r8, r0
 	cmp	r0, #0
-	ble	.L7	@cond_branch
+	ble	.L805C560	@cond_branch
 	add	r5, r3, r5
 	str	r5, [sp, #0x24]
 	add	r0, r5, #0
@@ -112,8 +112,8 @@ actor_805C48C:
 	str	r0, [sp, #0x28]
 	add	r6, r3, r6
 	str	r0, [sp, #0x2c]
-	b	.L8
-.L7:
+	b	.L805C570
+.L805C560:
 	add	r6, r3, r6
 	str	r6, [sp, #0x28]
 	add	r0, r6, #0
@@ -122,7 +122,7 @@ actor_805C48C:
 	str	r6, [sp, #0x24]
 	add	r3, r3, r5
 	str	r3, [sp, #0x2c]
-.L8:
+.L805C570:
 	add	r3, r7, #0
 	add	r3, r3, #0xa8
 	mov	r1, #0x0
@@ -140,32 +140,32 @@ actor_805C48C:
 	str	r2, [sp, #0x4c]
 	ldr	r0, [sp, #0x30]
 	cmp	r1, r0
-	blt	.L9	@cond_branch
+	blt	.L805C59A	@cond_branch
 	ldr	r2, [sp, #0x34]
 	cmp	r2, r4
-	bge	.L13	@cond_branch
-.L9:
+	bge	.L805C5AC	@cond_branch
+.L805C59A:
 	ldr	r3, [sp, #0x2c]
 	ldr	r5, [sp, #0x1c]
 	cmp	r3, r5
-	bge	.L11	@cond_branch
-	b	.L82
-.L11:
+	bge	.L805C5A4	@cond_branch
+	b	.L805C97E
+.L805C5A4:
 	ldr	r0, [sp, #0x20]
 	cmp	r0, r6
-	bge	.L13	@cond_branch
-	b	.L82
-.L13:
+	bge	.L805C5AC	@cond_branch
+	b	.L805C97E
+.L805C5AC:
 	ldr	r2, [sp, #0x30]
 	cmp	r1, r2
-	bgt	.L15	@cond_branch
-	b	.L40
-.L15:
+	bgt	.L805C5B4	@cond_branch
+	b	.L805C728
+.L805C5B4:
 	ldr	r3, [sp, #0x34]
 	cmp	r3, r4
-	bgt	.L17	@cond_branch
-	b	.L40
-.L17:
+	bgt	.L805C5BC	@cond_branch
+	b	.L805C728
+.L805C5BC:
 	mov	r0, #0x1
 	ldr	r5, [sp, #0x3c]
 	orr	r5, r5, r0
@@ -173,34 +173,34 @@ actor_805C48C:
 	ldr	r0, [sp, #0x24]
 	ldr	r1, [sp, #0x1c]
 	cmp	r0, r1
-	bgt	.L29	@cond_branch
+	bgt	.L805C676	@cond_branch
 	ldr	r2, [sp, #0x28]
 	cmp	r2, r1
-	blt	.L29	@cond_branch
+	blt	.L805C676	@cond_branch
 	mov	r0, #0x3
 	mov	r3, sl
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L29	@cond_branch
+	beq	.L805C676	@cond_branch
 	ldr	r5, [sp, #0x40]
 	cmp	r5, #0
-	bne	.L22	@cond_branch
+	bne	.L805C61C	@cond_branch
 	ldr	r0, [r7, #0x44]
 	cmp	r0, #0
-	ble	.L23	@cond_branch
+	ble	.L805C5F2	@cond_branch
 	mov	r0, #0x1
 	mov	r1, r9
 	orr	r1, r1, r0
 	mov	r9, r1
-	b	.L24
-.L23:
+	b	.L805C5FE
+.L805C5F2:
 	mov	r2, r9
 	mov	r3, #0x2
 	orr	r2, r2, r3
 	lsl	r0, r2, #0x10
 	lsr	r0, r0, #0x10
 	mov	r9, r0
-.L24:
+.L805C5FE:
 	add	r0, r7, #0
 	ldr	r1, [sp]
 	ldr	r2, [sp, #0xc]
@@ -208,23 +208,23 @@ actor_805C48C:
 	bl	call_rider_94_8
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L25	@cond_branch
+	bne	.L805C614	@cond_branch
 	mov	r5, #0x0
 	mov	sl, r5
-.L25:
+.L805C614:
 	mov	r0, #0x1
 	str	r0, [sp, #0x40]
 	ldr	r1, [r7, #0x44]
 	mov	r8, r1
-.L22:
+.L805C61C:
 	mov	r2, r8
 	cmp	r2, #0
-	ble	.L26	@cond_branch
+	ble	.L805C64A	@cond_branch
 	mov	r0, #0x1
 	mov	r3, sl
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L29	@cond_branch
+	beq	.L805C676	@cond_branch
 	ldr	r5, [sp, #0x50]
 	mov	r1, #0x0
 	ldsh	r0, [r5, r1]
@@ -239,13 +239,13 @@ actor_805C48C:
 	ldr	r5, [sp, #0x14]
 	orr	r5, r5, r0
 	str	r5, [sp, #0x14]
-	b	.L29
-.L26:
+	b	.L805C676
+.L805C64A:
 	mov	r0, #0x2
 	mov	r1, sl
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L29	@cond_branch
+	beq	.L805C676	@cond_branch
 	ldr	r2, [sp, #0x48]
 	mov	r3, #0x0
 	ldsh	r0, [r2, r3]
@@ -263,36 +263,36 @@ actor_805C48C:
 	lsl	r0, r1, #0x10
 	lsr	r0, r0, #0x10
 	str	r0, [sp, #0x14]
-.L29:
+.L805C676:
 	ldr	r3, [sp, #0x24]
 	ldr	r5, [sp, #0x20]
 	cmp	r3, r5
-	bgt	.L40	@cond_branch
+	bgt	.L805C728	@cond_branch
 	ldr	r0, [sp, #0x28]
 	cmp	r0, r5
-	blt	.L40	@cond_branch
+	blt	.L805C728	@cond_branch
 	mov	r0, #0xc
 	mov	r1, sl
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L40	@cond_branch
+	beq	.L805C728	@cond_branch
 	ldr	r2, [sp, #0x40]
 	cmp	r2, #0
-	bne	.L33	@cond_branch
+	bne	.L805C6CE	@cond_branch
 	ldr	r0, [r7, #0x44]
 	cmp	r0, #0
-	ble	.L34	@cond_branch
+	ble	.L805C6A4	@cond_branch
 	mov	r0, #0x4
 	mov	r3, r9
 	orr	r3, r3, r0
 	lsl	r0, r3, #0x10
-	b	.L35
-.L34:
+	b	.L805C6AC
+.L805C6A4:
 	mov	r0, #0x8
 	mov	r5, r9
 	orr	r5, r5, r0
 	lsl	r0, r5, #0x10
-.L35:
+.L805C6AC:
 	lsr	r0, r0, #0x10
 	mov	r9, r0
 	add	r0, r7, #0
@@ -302,23 +302,23 @@ actor_805C48C:
 	bl	call_rider_94_8
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L36	@cond_branch
+	bne	.L805C6C6	@cond_branch
 	mov	r0, #0x0
 	mov	sl, r0
-.L36:
+.L805C6C6:
 	mov	r1, #0x1
 	str	r1, [sp, #0x40]
 	ldr	r2, [r7, #0x44]
 	mov	r8, r2
-.L33:
+.L805C6CE:
 	mov	r3, r8
 	cmp	r3, #0
-	ble	.L37	@cond_branch
+	ble	.L805C6FC	@cond_branch
 	mov	r0, #0x4
 	mov	r5, sl
 	and	r0, r0, r5
 	cmp	r0, #0
-	beq	.L40	@cond_branch
+	beq	.L805C728	@cond_branch
 	ldr	r1, [sp, #0x50]
 	mov	r2, #0x0
 	ldsh	r0, [r1, r2]
@@ -333,13 +333,13 @@ actor_805C48C:
 	ldr	r1, [sp, #0x14]
 	orr	r1, r1, r0
 	lsl	r0, r1, #0x10
-	b	.L39
-.L37:
+	b	.L805C724
+.L805C6FC:
 	mov	r0, #0x8
 	mov	r2, sl
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L40	@cond_branch
+	beq	.L805C728	@cond_branch
 	ldr	r3, [sp, #0x48]
 	mov	r5, #0x0
 	ldsh	r0, [r3, r5]
@@ -355,13 +355,13 @@ actor_805C48C:
 	ldr	r3, [sp, #0x14]
 	orr	r3, r3, r0
 	lsl	r0, r3, #0x10
-.L39:
+.L805C724:
 	lsr	r0, r0, #0x10
 	str	r0, [sp, #0x14]
-.L40:
+.L805C728:
 	ldr	r2, [r7, #0x40]
 	cmp	r2, #0
-	ble	.L41	@cond_branch
+	ble	.L805C742	@cond_branch
 	ldr	r5, [sp, #0x4c]
 	mov	r1, #0x0
 	ldsh	r0, [r5, r1]
@@ -371,8 +371,8 @@ actor_805C48C:
 	add	r1, r4, r2
 	ldr	r0, [r7, #0x4c]
 	add	r5, r1, r0
-	b	.L42
-.L41:
+	b	.L805C754
+.L805C742:
 	ldr	r3, [sp, #0x44]
 	mov	r5, #0x0
 	ldsh	r0, [r3, r5]
@@ -382,18 +382,18 @@ actor_805C48C:
 	add	r1, r5, r2
 	ldr	r0, [r7, #0x4c]
 	add	r4, r1, r0
-.L42:
+.L805C754:
 	ldr	r0, [sp, #0x2c]
 	ldr	r1, [sp, #0x1c]
 	cmp	r0, r1
-	bgt	.L43	@cond_branch
-	b	.L68
-.L43:
+	bgt	.L805C75E	@cond_branch
+	b	.L805C8D0
+.L805C75E:
 	ldr	r3, [sp, #0x20]
 	cmp	r3, r6
-	bgt	.L45	@cond_branch
-	b	.L68
-.L45:
+	bgt	.L805C766	@cond_branch
+	b	.L805C8D0
+.L805C766:
 	ldr	r0, [sp, #0x3c]
 	mov	r1, #0x2
 	orr	r0, r0, r1
@@ -402,31 +402,31 @@ actor_805C48C:
 	str	r0, [sp, #0x3c]
 	ldr	r3, [sp, #0x30]
 	cmp	r4, r3
-	bgt	.L57	@cond_branch
+	bgt	.L805C81E	@cond_branch
 	cmp	r5, r3
-	blt	.L57	@cond_branch
+	blt	.L805C81E	@cond_branch
 	mov	r0, #0x30
 	mov	r1, sl
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L57	@cond_branch
+	beq	.L805C81E	@cond_branch
 	ldr	r3, [sp, #0x40]
 	cmp	r3, #0
-	bne	.L50	@cond_branch
+	bne	.L805C7C4	@cond_branch
 	ldr	r0, [r7, #0x40]
 	cmp	r0, #0
-	ble	.L51	@cond_branch
+	ble	.L805C79C	@cond_branch
 	mov	r0, #0x10
 	mov	r1, r9
 	orr	r1, r1, r0
 	lsl	r0, r1, #0x10
-	b	.L52
-.L51:
+	b	.L805C7A4
+.L805C79C:
 	mov	r0, #0x20
 	mov	r2, r9
 	orr	r2, r2, r0
 	lsl	r0, r2, #0x10
-.L52:
+.L805C7A4:
 	lsr	r0, r0, #0x10
 	mov	r9, r0
 	add	r0, r7, #0
@@ -436,21 +436,21 @@ actor_805C48C:
 	bl	call_rider_94_8
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L53	@cond_branch
+	bne	.L805C7BE	@cond_branch
 	mov	r3, #0x0
 	mov	sl, r3
-.L53:
+.L805C7BE:
 	mov	r0, #0x1
 	str	r0, [sp, #0x40]
 	ldr	r2, [r7, #0x40]
-.L50:
+.L805C7C4:
 	cmp	r2, #0
-	ble	.L54	@cond_branch
+	ble	.L805C7EC	@cond_branch
 	mov	r0, #0x10
 	mov	r1, sl
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L57	@cond_branch
+	beq	.L805C81E	@cond_branch
 	ldr	r3, [sp, #0x4c]
 	mov	r1, #0x0
 	ldsh	r0, [r3, r1]
@@ -463,13 +463,13 @@ actor_805C48C:
 	orr	r0, r0, r1
 	str	r0, [sp, #0x38]
 	mov	r0, #0x10
-	b	.L56
-.L54:
+	b	.L805C814
+.L805C7EC:
 	mov	r0, #0x20
 	mov	r1, sl
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L57	@cond_branch
+	beq	.L805C81E	@cond_branch
 	ldr	r3, [sp, #0x44]
 	mov	r1, #0x0
 	ldsh	r0, [r3, r1]
@@ -485,40 +485,40 @@ actor_805C48C:
 	lsr	r0, r0, #0x18
 	str	r0, [sp, #0x38]
 	mov	r0, #0x20
-.L56:
+.L805C814:
 	ldr	r3, [sp, #0x14]
 	orr	r3, r3, r0
 	lsl	r0, r3, #0x10
 	lsr	r0, r0, #0x10
 	str	r0, [sp, #0x14]
-.L57:
+.L805C81E:
 	ldr	r0, [sp, #0x34]
 	cmp	r4, r0
-	bgt	.L68	@cond_branch
+	bgt	.L805C8D0	@cond_branch
 	cmp	r5, r0
-	blt	.L68	@cond_branch
+	blt	.L805C8D0	@cond_branch
 	mov	r0, #0xc0
 	mov	r1, sl
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L68	@cond_branch
+	beq	.L805C8D0	@cond_branch
 	ldr	r3, [sp, #0x40]
 	cmp	r3, #0
-	bne	.L61	@cond_branch
+	bne	.L805C86C	@cond_branch
 	ldr	r0, [r7, #0x40]
 	cmp	r0, #0
-	ble	.L62	@cond_branch
+	ble	.L805C848	@cond_branch
 	mov	r0, #0x40
 	mov	r5, r9
 	orr	r5, r5, r0
 	lsl	r0, r5, #0x10
-	b	.L63
-.L62:
+	b	.L805C850
+.L805C848:
 	mov	r0, #0x80
 	mov	r1, r9
 	orr	r1, r1, r0
 	lsl	r0, r1, #0x10
-.L63:
+.L805C850:
 	lsr	r0, r0, #0x10
 	mov	r9, r0
 	add	r0, r7, #0
@@ -528,19 +528,19 @@ actor_805C48C:
 	bl	call_rider_94_8
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L64	@cond_branch
+	bne	.L805C86A	@cond_branch
 	mov	r2, #0x0
 	mov	sl, r2
-.L64:
+.L805C86A:
 	ldr	r2, [r7, #0x40]
-.L61:
+.L805C86C:
 	cmp	r2, #0
-	ble	.L65	@cond_branch
+	ble	.L805C89E	@cond_branch
 	mov	r0, #0x40
 	mov	r3, sl
 	and	r3, r3, r0
 	cmp	r3, #0
-	beq	.L68	@cond_branch
+	beq	.L805C8D0	@cond_branch
 	ldr	r5, [sp, #0x4c]
 	mov	r1, #0x0
 	ldsh	r0, [r5, r1]
@@ -558,13 +558,13 @@ actor_805C48C:
 	ldr	r1, [sp, #0x14]
 	orr	r1, r1, r0
 	lsl	r0, r1, #0x10
-	b	.L67
-.L65:
+	b	.L805C8CC
+.L805C89E:
 	mov	r0, #0x80
 	mov	r2, sl
 	and	r2, r2, r0
 	cmp	r2, #0
-	beq	.L68	@cond_branch
+	beq	.L805C8D0	@cond_branch
 	ldr	r3, [sp, #0x44]
 	mov	r5, #0x0
 	ldsh	r0, [r3, r5]
@@ -583,20 +583,20 @@ actor_805C48C:
 	ldr	r5, [sp, #0x14]
 	orr	r5, r5, r0
 	lsl	r0, r5, #0x10
-.L67:
+.L805C8CC:
 	lsr	r0, r0, #0x10
 	str	r0, [sp, #0x14]
-.L68:
+.L805C8D0:
 	ldr	r0, [sp, #0x3c]
 	cmp	r0, #0x3
-	bne	.L73	@cond_branch
+	bne	.L805C910	@cond_branch
 	ldr	r1, [sp, #0x4]
 	cmp	r1, #0
-	beq	.L71	@cond_branch
+	beq	.L805C8F6	@cond_branch
 	ldr	r2, [sp, #0x10]
 	ldr	r3, [sp, #0x8]
 	cmp	r2, r3
-	bcs	.L71	@cond_branch
+	bcs	.L805C8F6	@cond_branch
 	lsl	r0, r2, #0x2
 	add	r0, r0, r1
 	ldr	r5, [sp, #0xc]
@@ -606,25 +606,25 @@ actor_805C48C:
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	str	r0, [sp, #0x10]
-.L71:
+.L805C8F6:
 	add	r0, r7, #0
 	add	r0, r0, #0x94
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L73	@cond_branch
+	beq	.L805C910	@cond_branch
 	ldr	r3, [r0, #0x4]
 	cmp	r3, #0
-	beq	.L73	@cond_branch
+	beq	.L805C910	@cond_branch
 	add	r0, r7, #0
 	ldr	r1, [sp]
 	ldr	r2, [sp, #0xc]
 	bl	_call_via_r3
-.L73:
+.L805C910:
 	mov	r0, #0x1
 	ldr	r1, [sp, #0x38]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L74	@cond_branch
+	beq	.L805C936	@cond_branch
 	ldr	r0, [r7, #0x44]
 	ldr	r2, [sp, #0xc]
 	ldrb	r2, [r2, #0xd]
@@ -632,21 +632,21 @@ actor_805C48C:
 	asr	r0, r0, #0x7
 	add	r1, r0, #0
 	cmp	r0, #0
-	bge	.L75	@cond_branch
+	bge	.L805C92C	@cond_branch
 	NEG	r1, r0
-.L75:
+.L805C92C:
 	cmp	r1, #0xff
-	bgt	.L76	@cond_branch
+	bgt	.L805C932	@cond_branch
 	mov	r0, #0x0
-.L76:
+.L805C932:
 	NEG	r0, r0
 	str	r0, [r7, #0x44]
-.L74:
+.L805C936:
 	mov	r0, #0x2
 	ldr	r3, [sp, #0x38]
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L77	@cond_branch
+	beq	.L805C95C	@cond_branch
 	ldr	r0, [r7, #0x40]
 	ldr	r5, [sp, #0xc]
 	ldrb	r5, [r5, #0xd]
@@ -654,33 +654,33 @@ actor_805C48C:
 	asr	r0, r0, #0x7
 	add	r1, r0, #0
 	cmp	r0, #0
-	bge	.L78	@cond_branch
+	bge	.L805C952	@cond_branch
 	NEG	r1, r0
-.L78:
+.L805C952:
 	cmp	r1, #0xff
-	bgt	.L79	@cond_branch
+	bgt	.L805C958	@cond_branch
 	mov	r0, #0x0
-.L79:
+.L805C958:
 	NEG	r0, r0
 	str	r0, [r7, #0x40]
-.L77:
+.L805C95C:
 	ldr	r0, [sp, #0x38]
 	cmp	r0, #0
-	beq	.L82	@cond_branch
+	beq	.L805C97E	@cond_branch
 	add	r0, r7, #0
 	add	r0, r0, #0x94
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L82	@cond_branch
+	beq	.L805C97E	@cond_branch
 	ldr	r4, [r0]
 	cmp	r4, #0
-	beq	.L82	@cond_branch
+	beq	.L805C97E	@cond_branch
 	add	r0, r7, #0
 	ldr	r1, [sp]
 	ldr	r2, [sp, #0xc]
 	ldr	r3, [sp, #0x14]
 	bl	_call_via_r4
-.L82:
+.L805C97E:
 	ldr	r1, [sp, #0x18]
 	add	r1, r1, #0x1
 	str	r1, [sp, #0x18]
@@ -688,9 +688,9 @@ actor_805C48C:
 	ldr	r0, [r2]
 	ldr	r0, [r0, #0x8]
 	cmp	r1, r0
-	bge	.L83	@cond_branch
-	b	.L84
-.L83:
+	bge	.L805C990	@cond_branch
+	b	.L805C4BE
+.L805C990:
 	ldr	r0, [sp, #0x10]
 	add	sp, sp, #0x54
 	pop	{r3, r4, r5}

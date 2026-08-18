@@ -8,20 +8,20 @@ initProjectileSystem:
 	mov	r5, r8
 	push	{r5, r6, r7}
 	add	sp, sp, #0xffffffec
-	ldr	r0, .L1
+	ldr	r0, .L8055234
 	ldr	r5, [r0]
-	ldr	r0, .L1 + 4
+	ldr	r0, .L8055234 + 4
 	add	r0, r0, r5
 	mov	sl, r0
-	ldr	r2, .L1 + 8
-	ldr	r1, .L1 + 12
+	ldr	r2, .L8055234 + 8
+	ldr	r1, .L8055234 + 12
 	add	r0, r5, r1
 	str	r0, [sp]
 	mov	r0, sl
 	mov	r1, #0x3
 	mov	r3, #0x6
 	bl	newProjectileSystem
-	ldr	r3, .L1 + 16
+	ldr	r3, .L8055234 + 16
 	add	r4, r5, r3
 	mov	r0, #0xa0
 	lsl	r0, r0, #0x13
@@ -39,7 +39,7 @@ initProjectileSystem:
 	add	r0, r4, #0
 	add	r1, r7, #0
 	bl	sub_8063640
-	ldr	r1, .L1 + 20
+	ldr	r1, .L8055234 + 20
 	add	r4, r5, r1
 	str	r6, [sp]
 	add	r0, r4, #0
@@ -75,10 +75,10 @@ initProjectileSystem:
 	mov	r2, #0xe
 	mov	r3, #0x0
 	bl	sub_8063544
-	ldr	r1, .L1 + 24
+	ldr	r1, .L8055234 + 24
 	add	r0, r5, r1
 	strh	r4, [r0]
-	ldr	r3, .L1 + 28
+	ldr	r3, .L8055234 + 28
 	add	r0, r5, r3
 	strh	r4, [r0]
 	add	r1, r1, #0x4
@@ -105,32 +105,32 @@ initProjectileSystem:
 	add	r3, r3, #0x6
 	add	r0, r5, r3
 	strh	r1, [r0]
-	ldr	r1, .L1 + 32
+	ldr	r1, .L8055234 + 32
 	add	r0, r5, r1
 	str	r4, [r0]
 	add	r3, r3, #0x6
 	add	r0, r5, r3
 	str	r4, [r0]
-	ldr	r0, .L1 + 36
+	ldr	r0, .L8055234 + 36
 	add	r5, r5, r0
 	str	r4, [r5]
-	ldr	r0, .L1 + 40
+	ldr	r0, .L8055234 + 40
 	strh	r4, [r0]
-	ldr	r1, .L1 + 44
-	ldr	r3, .L1 + 48
+	ldr	r1, .L8055234 + 44
+	ldr	r3, .L8055234 + 48
 	add	r0, r3, #0
 	strh	r0, [r1]
-	ldr	r0, .L1 + 52
+	ldr	r0, .L8055234 + 52
 	mov	r1, #0xf0
 	strh	r1, [r0]
 	add	r0, r0, #0x2
 	strh	r1, [r0]
-	ldr	r1, .L1 + 56
+	ldr	r1, .L8055234 + 56
 	ldrh	r3, [r2]
 	lsl	r0, r3, #0x10
 	asr	r0, r0, #0x14
 	strh	r0, [r1]
-	ldr	r3, .L1 + 60
+	ldr	r3, .L8055234 + 60
 	ldrh	r2, [r2]
 	lsl	r0, r2, #0x10
 	asr	r0, r0, #0x14
@@ -155,9 +155,9 @@ initProjectileSystem:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2:
+.L8055234:
 	.align	2, 0
-.L1:
+
 	.4byte	0x3000fb0
 	.4byte	0x1084
 	.4byte	0x86fbf94

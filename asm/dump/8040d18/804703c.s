@@ -5,7 +5,7 @@ sub_804703C:
 	push	{r4, r5, lr}
 	add	r5, r0, #0
 	mov	r4, #0x0
-.L1:
+.L8047042:
 	add	r0, r4, #0
 	bl	sub_804A0E0
 	add	r1, r5, #0
@@ -14,7 +14,7 @@ sub_804703C:
 	ldsb	r3, [r1, r3]
 	lsl	r3, r3, #0x7
 	lsl	r1, r4, #0x4
-	ldr	r2, .L2
+	ldr	r2, .L804707C
 	add	r1, r1, r2
 	add	r3, r3, r1
 	ldr	r1, [r3, #0x8]
@@ -29,13 +29,13 @@ sub_804703C:
 	strh	r1, [r0, #0x8]
 	add	r4, r4, #0x1
 	cmp	r4, #0x7
-	ble	.L1	@cond_branch
+	ble	.L8047042	@cond_branch
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L3:
+.L804707A:
 	.align	2, 0
-.L2:
+.L804707C:
 	.4byte	0x80699dc
 	thumb_func_end sub_804703C
 

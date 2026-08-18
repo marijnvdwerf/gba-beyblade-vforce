@@ -3,35 +3,35 @@
 	thumb_func_start sub_80558E8
 sub_80558E8:
 	add	r2, r0, #0
-	ldr	r0, .L4
+	ldr	r0, .L80558F8
 	ldr	r0, [r0]
 	cmp	r2, #0
-	beq	.L1	@cond_branch
+	beq	.L80558FC	@cond_branch
 	cmp	r2, #0x1
-	beq	.L2	@cond_branch
-	b	.L3
-.L5:
+	beq	.L8055904	@cond_branch
+	b	.L805590C
+.L80558F8:
 	.align	2, 0
-.L4:
+
 	.4byte	0x3000fb0
-.L1:
-	ldr	r2, .L7
-	b	.L6
-.L8:
+.L80558FC:
+	ldr	r2, .L8055900
+	b	.L8055906
+.L8055900:
 	.align	2, 0
-.L7:
+
 	.4byte	0x10f6
-.L2:
-	ldr	r2, .L9
-.L6:
+.L8055904:
+	ldr	r2, .L8055910
+.L8055906:
 	add	r1, r0, r2
 	mov	r0, #0x8
 	strh	r0, [r1]
-.L3:
+.L805590C:
 	bx	lr
-.L10:
+.L805590E:
 	.align	2, 0
-.L9:
+.L8055910:
 	.4byte	0x10f4
 	thumb_func_end sub_80558E8
 

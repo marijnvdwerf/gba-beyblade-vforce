@@ -3,14 +3,14 @@
 	thumb_func_start initGame
 initGame:
 	push	{r4, r5, lr}
-	ldr	r0, .L1
+	ldr	r0, .L8053344
 	bl	slowAllocate
-	ldr	r1, .L1 + 4
+	ldr	r1, .L8053344 + 4
 	str	r0, [r1]
-	ldr	r4, .L1 + 8
+	ldr	r4, .L8053344 + 8
 	ldr	r1, [r0]
 	str	r1, [r4]
-	ldr	r0, .L1 + 12
+	ldr	r0, .L8053344 + 12
 	mov	r2, #0xb1
 	lsl	r2, r2, #0x5
 	add	r1, r1, r2
@@ -19,22 +19,22 @@ initGame:
 	mov	r2, #0x18
 	bl	_call_via_r3
 	ldr	r1, [r4]
-	ldr	r3, .L1 + 16
+	ldr	r3, .L8053344 + 16
 	add	r2, r1, r3
-	ldr	r5, .L1 + 20
+	ldr	r5, .L8053344 + 20
 	add	r3, r5, #0
 	ldrh	r0, [r2]
 	orr	r0, r0, r3
 	strh	r0, [r2]
-	ldr	r2, .L1 + 24
+	ldr	r2, .L8053344 + 24
 	add	r0, r1, r2
 	mov	r2, #0x1
 	NEG	r2, r2
 	str	r2, [r0]
-	ldr	r5, .L1 + 28
+	ldr	r5, .L8053344 + 28
 	add	r0, r1, r5
 	str	r2, [r0]
-	ldr	r2, .L1 + 32
+	ldr	r2, .L8053344 + 32
 	add	r0, r1, r2
 	ldrh	r5, [r0]
 	orr	r3, r3, r5
@@ -44,14 +44,14 @@ initGame:
 	add	r0, r1, r2
 	mov	r2, #0x0
 	str	r2, [r0]
-	ldr	r3, .L1 + 36
+	ldr	r3, .L8053344 + 36
 	add	r1, r1, r3
 	strb	r2, [r1]
 	ldr	r0, [r4]
-	ldr	r5, .L1 + 40
+	ldr	r5, .L8053344 + 40
 	add	r1, r0, r5
 	str	r2, [r1]
-	ldr	r1, .L1 + 44
+	ldr	r1, .L8053344 + 44
 	add	r0, r0, r1
 	strb	r2, [r0]
 	ldr	r0, [r4]
@@ -68,9 +68,9 @@ initGame:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L2:
+.L8053342:
 	.align	2, 0
-.L1:
+.L8053344:
 	.4byte	0x1644
 	.4byte	0x3000fac
 	.4byte	0x3000fb0

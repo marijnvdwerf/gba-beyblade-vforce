@@ -25,7 +25,7 @@ sub_8056910:
 	ldrb	r1, [r1, #0x11]
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1	@cond_branch
+	bne	.L805697C	@cond_branch
 	mov	r2, r9
 	ldr	r2, [r2, #0x4]
 	lsl	r2, r2, #0x5
@@ -52,9 +52,9 @@ sub_8056910:
 	mov	r2, r9
 	ldr	r2, [r2, #0x4]
 	cmp	r4, r2
-	blt	.L2	@cond_branch
-	b	.L4
-.L1:
+	blt	.L80569B2	@cond_branch
+	b	.L80569BC
+.L805697C:
 	mov	r3, r9
 	ldr	r3, [r3]
 	lsl	r3, r3, #0x5
@@ -81,19 +81,19 @@ sub_8056910:
 	mov	r2, r9
 	ldr	r2, [r2]
 	cmp	r4, r2
-	bge	.L4	@cond_branch
-.L2:
+	bge	.L80569BC	@cond_branch
+.L80569B2:
 	add	r4, r6, #0
 	mov	r5, ip
 	mov	r3, sl
 	mov	ip, r9
-	b	.L5
-.L4:
+	b	.L80569C4
+.L80569BC:
 	mov	r4, ip
 	add	r5, r6, #0
 	mov	r3, r9
 	mov	ip, sl
-.L5:
+.L80569C4:
 	mov	r6, #0x0
 	ldsh	r0, [r0, r6]
 	lsl	r0, r0, #0x8
@@ -118,9 +118,9 @@ sub_8056910:
 	asr	r5, r0, #0x10
 	ldr	r0, [sp, #0x4]
 	cmp	r0, #0
-	bge	.L6	@cond_branch
+	bge	.L80569F8	@cond_branch
 	NEG	r5, r5
-.L6:
+.L80569F8:
 	ldr	r1, [sp]
 	mov	r0, #0x18
 	ldsb	r0, [r1, r0]
@@ -135,11 +135,11 @@ sub_8056910:
 	lsr	r1, r0, #0x10
 	ldr	r4, [sp, #0x4]
 	cmp	r4, #0
-	bge	.L7	@cond_branch
+	bge	.L8056A1C	@cond_branch
 	lsl	r0, r1, #0x10
 	NEG	r0, r0
 	lsr	r1, r0, #0x10
-.L7:
+.L8056A1C:
 	mov	r0, #0x2
 	ldr	r6, [sp]
 	ldrb	r6, [r6, #0x11]
@@ -147,26 +147,26 @@ sub_8056910:
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L8	@cond_branch
+	bne	.L8056A3A	@cond_branch
 	strb	r0, [r7, #0xd]
 	strb	r1, [r7, #0xe]
 	mov	r0, #0x2
 	NEG	r0, r0
 	ldrb	r4, [r7, #0xc]
 	and	r0, r0, r4
-	b	.L9
-.L8:
+	b	.L8056A46
+.L8056A3A:
 	mov	r0, #0x0
 	strb	r1, [r7, #0xd]
 	strb	r0, [r7, #0xe]
 	mov	r0, #0x1
 	ldrb	r6, [r7, #0xc]
 	orr	r0, r0, r6
-.L9:
+.L8056A46:
 	strb	r0, [r7, #0xc]
 	strb	r1, [r7, #0xf]
 	cmp	r2, #0
-	bge	.L10	@cond_branch
+	bge	.L8056A5E	@cond_branch
 	ldr	r0, [r3, #0x8]
 	lsl	r0, r0, #0x5
 	str	r0, [r7, #0x8]
@@ -174,11 +174,11 @@ sub_8056910:
 	NEG	r0, r0
 	ldrb	r1, [r7, #0xc]
 	and	r0, r0, r1
-	b	.L13
-.L10:
+	b	.L8056ACA
+.L8056A5E:
 	ldr	r3, [sp, #0x8]
 	cmp	r2, r3
-	blt	.L12	@cond_branch
+	blt	.L8056A76	@cond_branch
 	mov	r4, ip
 	ldr	r0, [r4, #0x8]
 	lsl	r0, r0, #0x5
@@ -187,8 +187,8 @@ sub_8056910:
 	NEG	r0, r0
 	ldrb	r5, [r7, #0xc]
 	and	r0, r0, r5
-	b	.L13
-.L12:
+	b	.L8056ACA
+.L8056A76:
 	ldr	r6, [sp]
 	mov	r1, #0x1c
 	ldsh	r0, [r6, r1]
@@ -231,7 +231,7 @@ sub_8056910:
 	mov	r0, #0x2
 	ldrb	r1, [r7, #0xc]
 	orr	r0, r0, r1
-.L13:
+.L8056ACA:
 	strb	r0, [r7, #0xc]
 	add	sp, sp, #0x10
 	pop	{r3, r4, r5}

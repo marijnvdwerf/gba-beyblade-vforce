@@ -11,17 +11,17 @@ sub_8063DAC:
 	add	r0, r1, #0
 	sub	r1, r1, #0x1
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L8063DD0	@cond_branch
 	mov	r4, #0xa0
 	lsl	r4, r4, #0x8
-.L2:
+.L8063DC4:
 	str	r4, [r2, #0xc]
 	ldr	r2, [r2, #0x4]
 	add	r0, r1, #0
 	sub	r1, r1, #0x1
 	cmp	r0, #0
-	bne	.L2	@cond_branch
-.L1:
+	bne	.L8063DC4	@cond_branch
+.L8063DD0:
 	add	r0, r3, #0
 	bl	sub_8063AB4
 	pop	{r4}

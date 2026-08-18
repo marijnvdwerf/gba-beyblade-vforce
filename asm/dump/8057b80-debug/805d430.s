@@ -11,7 +11,7 @@ sub_805D430:
 	mov	r0, #0x1
 	NEG	r0, r0
 	cmp	r1, r0
-	bne	.L1	@cond_branch
+	bne	.L805D47E	@cond_branch
 	mov	r0, ip
 	add	r0, r0, #0x9a
 	mov	r1, #0x0
@@ -40,7 +40,7 @@ sub_805D430:
 	mov	r0, ip
 	add	r1, r5, #0
 	bl	sub_805D488
-.L1:
+.L805D47E:
 	add	sp, sp, #0x8
 	pop	{r4, r5, r6}
 	pop	{r0}

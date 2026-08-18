@@ -6,24 +6,24 @@ sub_804AFD4:
 	add	r4, r0, #0
 	lsl	r4, r4, #0x10
 	lsr	r4, r4, #0x10
-	ldr	r0, .L1
+	ldr	r0, .L804AFFC
 	ldr	r0, [r0]
-	ldr	r1, .L1 + 4
+	ldr	r1, .L804AFFC + 4
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	add	r1, r4, #0
 	bl	Sound_8062AD4
-	ldr	r0, .L1 + 8
+	ldr	r0, .L804AFFC + 8
 	ldr	r0, [r0]
-	ldr	r1, .L1 + 12
+	ldr	r1, .L804AFFC + 12
 	add	r0, r0, r1
 	strh	r4, [r0]
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2:
+.L804AFFC:
 	.align	2, 0
-.L1:
+
 	.4byte	0x3000fb0
 	.4byte	0xc2c
 	.4byte	0x3000f48

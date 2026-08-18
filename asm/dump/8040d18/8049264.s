@@ -3,13 +3,13 @@
 	thumb_func_start sub_8049264
 sub_8049264:
 	push	{r4, r5, r6, lr}
-	ldr	r0, .L1
+	ldr	r0, .L8049304
 	ldr	r0, [r0]
-	ldr	r1, .L1 + 4
+	ldr	r1, .L8049304 + 4
 	add	r0, r0, r1
-	ldr	r1, .L1 + 8
+	ldr	r1, .L8049304 + 8
 	strh	r1, [r0]
-	ldr	r4, .L1 + 12
+	ldr	r4, .L8049304 + 12
 	mov	r5, #0x0
 	str	r5, [r4, #0x4]
 	str	r5, [r4, #0xc]
@@ -26,14 +26,14 @@ sub_8049264:
 	lsl	r2, r2, #0x3
 	add	r0, r4, r2
 	bl	sub_8050384
-	ldr	r6, .L1 + 16
+	ldr	r6, .L8049304 + 16
 	add	r0, r4, r6
 	str	r5, [r0]
 	mov	r1, #0x8e
 	lsl	r1, r1, #0x3
 	add	r0, r4, r1
 	str	r5, [r0]
-	ldr	r2, .L1 + 20
+	ldr	r2, .L8049304 + 20
 	add	r0, r4, r2
 	mov	r1, #0x0
 	strh	r5, [r0]
@@ -55,7 +55,7 @@ sub_8049264:
 	strb	r1, [r0]
 	sub	r0, r0, #0x1
 	strb	r1, [r0]
-	ldr	r2, .L1 + 24
+	ldr	r2, .L8049304 + 24
 	add	r0, r4, r2
 	strb	r1, [r0]
 	add	r6, r6, #0x5
@@ -79,9 +79,9 @@ sub_8049264:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L2:
+.L8049302:
 	.align	2, 0
-.L1:
+.L8049304:
 	.4byte	0x3000fb0
 	.4byte	0xc26
 	.4byte	0xffff

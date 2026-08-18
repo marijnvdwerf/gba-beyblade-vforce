@@ -18,21 +18,21 @@ ActorSetFrame:
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L8058402	@cond_branch
 	add	r1, r1, #0x2
-.L1:
+.L8058402:
 	mov	r0, #0x10
 	ldrb	r3, [r2, #0x7]
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L805842E	@cond_branch
 	ldr	r0, [r2, #0x8]
 	lsl	r0, r0, #0x3
 	add	r0, r0, #0x20
 	add	r0, r2, r0
 	add	r2, r0, r1
 	cmp	r2, #0
-	beq	.L3	@cond_branch
+	beq	.L805842E	@cond_branch
 	lsl	r0, r7, #0x4
 	add	r2, r2, r0
 	ldrb	r1, [r2]
@@ -43,12 +43,12 @@ ActorSetFrame:
 	add	r2, r4, #0
 	add	r2, r2, #0xa5
 	strb	r0, [r2]
-.L3:
+.L805842E:
 	ldrh	r0, [r5]
 	mov	ip, r0
 	ldrh	r6, [r5, #0x2]
 	cmp	r8, r6
-	bcs	.L4	@cond_branch
+	bcs	.L805846E	@cond_branch
 	ldrb	r1, [r5, #0x7]
 	ldrb	r0, [r5, #0x6]
 	add	r2, r4, #0
@@ -76,7 +76,7 @@ ActorSetFrame:
 	add	r0, r4, #0
 	add	r0, r0, #0x31
 	strb	r1, [r0]
-.L4:
+.L805846E:
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}

@@ -20,9 +20,9 @@ sub_80567E4:
 	bl	GetPointAtIndex
 	add	r4, r0, #0
 	cmp	r7, #0
-	beq	.L2	@cond_branch
+	beq	.L8056900	@cond_branch
 	cmp	r4, #0
-	beq	.L2	@cond_branch
+	beq	.L8056900	@cond_branch
 	mov	r0, #0x2
 	mov	r1, r8
 	ldrb	r1, [r1, #0x11]
@@ -30,7 +30,7 @@ sub_80567E4:
 	lsl	r0, r0, #0x18
 	lsr	r3, r0, #0x18
 	cmp	r3, #0
-	bne	.L3	@cond_branch
+	bne	.L8056862	@cond_branch
 	ldr	r0, [r7, #0x4]
 	lsl	r2, r0, #0x5
 	ldr	r0, [r4, #0x4]
@@ -62,8 +62,8 @@ sub_80567E4:
 	mov	r1, r8
 	ldrb	r0, [r1, #0x18]
 	strb	r0, [r5, #0xe]
-	b	.L4
-.L3:
+	b	.L80568A0
+.L8056862:
 	ldr	r0, [r7]
 	lsl	r2, r0, #0x5
 	ldr	r0, [r4]
@@ -95,18 +95,18 @@ sub_80567E4:
 	mov	r1, #0x0
 	strb	r0, [r5, #0xd]
 	strb	r1, [r5, #0xe]
-.L4:
+.L80568A0:
 	mov	r1, r8
 	ldrb	r0, [r1, #0x18]
 	strb	r0, [r5, #0xf]
 	cmp	r2, ip
-	bge	.L5	@cond_branch
+	bge	.L80568B4	@cond_branch
 	ldr	r0, [r7, #0x8]
 	lsl	r3, r0, #0x5
 	ldr	r0, [r4, #0x8]
 	lsl	r7, r0, #0x5
-	b	.L6
-.L5:
+	b	.L80568C2
+.L80568B4:
 	ldr	r0, [r7, #0x8]
 	lsl	r7, r0, #0x5
 	ldr	r0, [r4, #0x8]
@@ -114,20 +114,20 @@ sub_80567E4:
 	add	r0, r2, #0
 	mov	r2, ip
 	mov	ip, r0
-.L6:
+.L80568C2:
 	mov	r0, ip
 	sub	r4, r0, r2
 	sub	r1, r6, r2
 	cmp	r1, #0
-	bge	.L7	@cond_branch
+	bge	.L80568D0	@cond_branch
 	str	r3, [r5, #0x8]
-	b	.L10
-.L7:
+	b	.L80568E6
+.L80568D0:
 	cmp	r1, r4
-	blt	.L9	@cond_branch
+	blt	.L80568D8	@cond_branch
 	str	r7, [r5, #0x8]
-	b	.L10
-.L9:
+	b	.L80568E6
+.L80568D8:
 	mov	r2, r8
 	mov	r6, #0x12
 	ldsh	r0, [r2, r6]
@@ -135,23 +135,23 @@ sub_80567E4:
 	asr	r0, r0, #0x8
 	add	r0, r3, r0
 	str	r0, [r5, #0x8]
-.L10:
+.L80568E6:
 	cmp	r1, #0
-	blt	.L12	@cond_branch
+	blt	.L80568F6	@cond_branch
 	cmp	r1, r4
-	bgt	.L12	@cond_branch
+	bgt	.L80568F6	@cond_branch
 	mov	r0, #0x2
 	ldrb	r1, [r5, #0xc]
 	orr	r0, r0, r1
-	b	.L13
-.L12:
+	b	.L80568FE
+.L80568F6:
 	mov	r0, #0x3
 	NEG	r0, r0
 	ldrb	r2, [r5, #0xc]
 	and	r0, r0, r2
-.L13:
+.L80568FE:
 	strb	r0, [r5, #0xc]
-.L2:
+.L8056900:
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

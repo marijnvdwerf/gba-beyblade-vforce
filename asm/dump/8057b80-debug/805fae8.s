@@ -24,9 +24,9 @@ sub_805FAE8:
 	mov	r2, #0x1
 	NEG	r2, r2
 	cmp	r0, r2
-	beq	.L1	@cond_branch
-	b	.L2
-.L4:
+	beq	.L805FB4C	@cond_branch
+	b	.L805FB46
+.L805FB18:
 	mov	r1, #0x0
 	ldsh	r0, [r5, r1]
 	lsl	r0, r0, #0x3
@@ -48,15 +48,15 @@ sub_805FAE8:
 	mov	r2, #0x1
 	NEG	r2, r2
 	cmp	r0, r2
-	beq	.L3	@cond_branch
-.L2:
+	beq	.L805FB50	@cond_branch
+.L805FB46:
 	lsl	r0, r0, #0x2
 	ldr	r1, [r7, #0xc]
 	add	r5, r1, r0
-.L1:
+.L805FB4C:
 	cmp	r5, #0
-	bne	.L4	@cond_branch
-.L3:
+	bne	.L805FB18	@cond_branch
+.L805FB50:
 	mov	r0, r8
 	pop	{r3, r4, r5}
 	mov	r8, r3

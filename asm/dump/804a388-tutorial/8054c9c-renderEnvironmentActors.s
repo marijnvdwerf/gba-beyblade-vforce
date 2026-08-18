@@ -8,9 +8,9 @@ renderEnvironmentActors:
 	mov	r5, r8
 	push	{r5, r6, r7}
 	add	sp, sp, #0xffffffdc
-	ldr	r0, .L5
+	ldr	r0, .L8054D48
 	ldr	r0, [r0]
-	ldr	r2, .L5 + 4
+	ldr	r2, .L8054D48 + 4
 	add	r1, r0, r2
 	ldr	r1, [r1]
 	str	r1, [sp, #0x10]
@@ -19,7 +19,7 @@ renderEnvironmentActors:
 	add	r1, r0, r3
 	ldr	r1, [r1]
 	str	r1, [sp, #0x14]
-	ldr	r6, .L5 + 8
+	ldr	r6, .L8054D48 + 8
 	add	r1, r0, r6
 	ldr	r1, [r1]
 	mov	r9, r1
@@ -27,20 +27,20 @@ renderEnvironmentActors:
 	add	r1, r0, r2
 	ldr	r1, [r1]
 	mov	r8, r1
-	ldr	r3, .L5 + 12
+	ldr	r3, .L8054D48 + 12
 	add	r0, r0, r3
 	bl	nullsub_12
 	str	r0, [sp, #0x1c]
 	ldr	r6, [sp, #0x10]
 	cmp	r6, #0
-	bne	.L1	@cond_branch
-	b	.L14
-.L1:
+	bne	.L8054CE0	@cond_branch
+	b	.L8054EA2
+.L8054CE0:
 	sub	r6, r6, #0x1
 	str	r6, [sp, #0x10]
 	mov	r6, r9
 	add	r6, r6, #0xa0
-.L12:
+.L8054CE8:
 	mov	r0, r9
 	ldr	r1, [r0, #0x4]
 	ldr	r2, [r0, #0x8]
@@ -79,44 +79,44 @@ renderEnvironmentActors:
 	add	r2, r0, #0
 	ldr	r3, [sp, #0x20]
 	cmp	r2, #0
-	bne	.L3	@cond_branch
+	bne	.L8054D58	@cond_branch
 	add	r6, r6, #0xc4
 	mov	r3, #0xc4
 	ADD r9, r3
-	b	.L8
-.L6:
+	b	.L8054DB6
+.L8054D46:
 	.align	2, 0
-.L5:
+.L8054D48:
 	.4byte	0x3000fb0
 	.4byte	0xc84
 	.4byte	0xc7c
 	.4byte	0x434
-.L3:
+.L8054D58:
 	ldr	r1, [r2, #0x4]
 	cmp	r1, #0
-	bne	.L7	@cond_branch
+	bne	.L8054D66	@cond_branch
 	add	r6, r6, #0xc4
 	mov	r0, #0xc4
 	ADD r9, r0
-	b	.L8
-.L7:
+	b	.L8054DB6
+.L8054D66:
 	ldr	r0, [r6, #0x18]
 	cmp	r0, #0
-	beq	.L9	@cond_branch
+	beq	.L8054D70	@cond_branch
 	ldrh	r0, [r0, #0x18]
 	strh	r0, [r1, #0x18]
-.L9:
+.L8054D70:
 	mov	r0, r9
 	ldr	r1, [r0, #0x3c]
 	cmp	r1, #0
-	beq	.L10	@cond_branch
+	beq	.L8054D84	@cond_branch
 	ldr	r0, [r1, #0x40]
 	asr	r0, r0, #0x8
 	sub	r3, r3, r0
 	ldr	r0, [r1, #0x44]
 	asr	r0, r0, #0x8
 	sub	r7, r7, r0
-.L10:
+.L8054D84:
 	ldr	r0, [r2, #0x8]
 	add	r0, r0, r3
 	mov	r1, sl
@@ -133,32 +133,32 @@ renderEnvironmentActors:
 	mov	r0, #0xe0
 	lsl	r0, r0, #0x8
 	cmp	r1, r0
-	bls	.L11	@cond_branch
+	bls	.L8054DAA	@cond_branch
 	mov	r7, #0xa0
 	lsl	r7, r7, #0x8
-.L11:
+.L8054DAA:
 	ldr	r0, [r2, #0x4]
 	str	r3, [r0, #0x8]
 	str	r7, [r0, #0xc]
 	add	r6, r6, #0xc4
 	mov	r1, #0xc4
 	ADD r9, r1
-.L8:
+.L8054DB6:
 	ldr	r0, [sp, #0x10]
 	add	r2, r0, #0
 	sub	r2, r2, #0x1
 	str	r2, [sp, #0x10]
 	cmp	r0, #0
-	bne	.L12	@cond_branch
+	bne	.L8054CE8	@cond_branch
 	ldr	r3, [sp, #0x14]
 	cmp	r3, #0
-	beq	.L14	@cond_branch
+	beq	.L8054EA2	@cond_branch
 	mov	r6, r8
 	cmp	r6, #0
-	beq	.L14	@cond_branch
+	beq	.L8054EA2	@cond_branch
 	sub	r3, r3, #0x1
 	str	r3, [sp, #0x14]
-.L29:
+.L8054DD2:
 	mov	r0, r8
 	ldr	r1, [r0, #0x4]
 	ldr	r0, [r0, #0x8]
@@ -173,67 +173,67 @@ renderEnvironmentActors:
 	sub	r3, r3, r0
 	ldr	r0, [r6, #0x44]
 	sub	r7, r7, r0
-	ldr	r0, .L21
+	ldr	r0, .L8054E20
 	add	r3, r3, r0
-	ldr	r0, .L21 + 4
+	ldr	r0, .L8054E20 + 4
 	cmp	r3, r0
-	blt	.L17	@cond_branch
+	blt	.L8054E08	@cond_branch
 	cmp	r7, r0
-	blt	.L17	@cond_branch
-	ldr	r0, .L21 + 8
+	blt	.L8054E08	@cond_branch
+	ldr	r0, .L8054E20 + 8
 	cmp	r3, r0
-	bgt	.L17	@cond_branch
-	ldr	r0, .L21 + 12
+	bgt	.L8054E08	@cond_branch
+	ldr	r0, .L8054E20 + 12
 	cmp	r7, r0
-	ble	.L18	@cond_branch
-.L17:
+	ble	.L8054E30	@cond_branch
+.L8054E08:
 	mov	r1, r8
 	ldr	r0, [r1]
 	cmp	r0, #0
-	beq	.L19	@cond_branch
+	beq	.L8054E14	@cond_branch
 	bl	sub_8060A94
-.L19:
+.L8054E14:
 	mov	r0, #0x0
 	mov	r2, r8
 	str	r0, [r2]
 	mov	r3, #0x1c
 	ADD r8, r3
-	b	.L25
-.L22:
+	b	.L8054E96
+.L8054E20:
 	.align	2, 0
-.L21:
+
 	.4byte	0xfffffc00
 	.4byte	0xffffe000
 	.4byte	0xefff
 	.4byte	0x9fff
-.L18:
+.L8054E30:
 	mov	r6, r8
 	ldr	r5, [r6]
 	cmp	r5, #0
-	beq	.L23	@cond_branch
+	beq	.L8054E4E	@cond_branch
 	ldr	r0, [r6, #0x18]
 	ldr	r4, [r0, #0x70]
 	cmp	r4, #0
-	bne	.L24	@cond_branch
+	bne	.L8054E8C	@cond_branch
 	add	r0, r5, #0
 	bl	sub_8060A94
 	str	r4, [r6]
 	mov	r0, #0x1c
 	ADD r8, r0
-	b	.L25
-.L23:
+	b	.L8054E96
+.L8054E4E:
 	mov	r1, r8
 	ldr	r0, [r1, #0x18]
 	ldr	r0, [r0, #0x70]
 	cmp	r0, #0
-	beq	.L28	@cond_branch
+	beq	.L8054E92	@cond_branch
 	mov	r0, #0x80
 	str	r3, [sp, #0x20]
 	bl	allocSprite
 	add	r4, r0, #0
 	ldr	r3, [sp, #0x20]
 	cmp	r4, #0
-	beq	.L27	@cond_branch
+	beq	.L8054E86	@cond_branch
 	mov	r2, r8
 	ldr	r1, [r2, #0x14]
 	mov	r0, #0x3
@@ -248,25 +248,25 @@ renderEnvironmentActors:
 	add	r2, r3, #0
 	add	r3, r7, #0
 	bl	LoadSpriteSheet
-.L27:
+.L8054E86:
 	mov	r0, r8
 	str	r4, [r0]
-	b	.L28
-.L24:
+	b	.L8054E92
+.L8054E8C:
 	add	r4, r5, #0
 	str	r3, [r4, #0x8]
 	str	r7, [r4, #0xc]
-.L28:
+.L8054E92:
 	mov	r1, #0x1c
 	ADD r8, r1
-.L25:
+.L8054E96:
 	ldr	r0, [sp, #0x14]
 	add	r2, r0, #0
 	sub	r2, r2, #0x1
 	str	r2, [sp, #0x14]
 	cmp	r0, #0
-	bne	.L29	@cond_branch
-.L14:
+	bne	.L8054DD2	@cond_branch
+.L8054EA2:
 	add	sp, sp, #0x24
 	pop	{r3, r4, r5}
 	mov	r8, r3

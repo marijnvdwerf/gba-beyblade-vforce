@@ -15,12 +15,12 @@ sub_8058F60:
 	add	r0, r1, r0
 	str	r0, [r6, #0x28]
 	cmp	r0, #0
-	bge	.L1	@cond_branch
+	bge	.L8058F84	@cond_branch
 	mov	r1, #0x80
 	lsl	r1, r1, #0x9
 	add	r0, r0, r1
 	str	r0, [r6, #0x28]
-.L1:
+.L8058F84:
 	ldr	r2, [r6, #0x30]
 	ldr	r0, [r6, #0x38]
 	add	r2, r2, r0
@@ -40,7 +40,7 @@ sub_8058F60:
 	lsr	r3, r3, #0x10
 	bl	sub_8059B00
 	ldrb	r0, [r4]
-	ldr	r7, .L9
+	ldr	r7, .L8059054
 	mov	ip, r7
 	lsl	r3, r5, #0x1
 	add	r3, r3, r5
@@ -83,7 +83,7 @@ sub_8058F60:
 	bl	SetBGOffset
 	ldr	r4, [r6, #0x24]
 	cmp	r4, #0
-	beq	.L8	@cond_branch
+	beq	.L805904C	@cond_branch
 	ldr	r3, [r6, #0x2c]
 	add	r0, r3, #0
 	mul	r0, r0, r4
@@ -103,31 +103,31 @@ sub_8058F60:
 	sub	r1, r1, r4
 	str	r1, [r6, #0x3c]
 	cmp	r5, #0
-	bne	.L4	@cond_branch
+	bne	.L8059034	@cond_branch
 	cmp	r3, #0
-	beq	.L4	@cond_branch
+	beq	.L8059034	@cond_branch
 	str	r5, [r6, #0x2c]
-.L4:
+.L8059034:
 	cmp	r7, #0
-	bne	.L6	@cond_branch
+	bne	.L8059040	@cond_branch
 	ldr	r0, [r6, #0x38]
 	cmp	r0, #0
-	beq	.L6	@cond_branch
+	beq	.L8059040	@cond_branch
 	str	r7, [r6, #0x38]
-.L6:
+.L8059040:
 	cmp	r4, #0
-	bne	.L8	@cond_branch
+	bne	.L805904C	@cond_branch
 	ldr	r0, [r6, #0x3c]
 	cmp	r0, #0
-	beq	.L8	@cond_branch
+	beq	.L805904C	@cond_branch
 	str	r4, [r6, #0x3c]
-.L8:
+.L805904C:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L10:
+.L8059052:
 	.align	2, 0
-.L9:
+.L8059054:
 	.4byte	0x3000d00
 	thumb_func_end sub_8058F60
 

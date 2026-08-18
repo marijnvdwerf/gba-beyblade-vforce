@@ -15,8 +15,8 @@ sub_804C3D4:
 	mov	r1, #0x4
 	ldsh	r3, [r0, r1]
 	ldr	r6, [r0, #0x8]
-	b	.L1
-.L2:
+	b	.L804C44C
+.L804C3F0:
 	ldr	r4, [r7]
 	ADD r4, sl
 	str	r4, [r6]
@@ -61,11 +61,11 @@ sub_804C3D4:
 	add	r7, r7, #0x30
 	add	r6, r6, #0x34
 	ldr	r3, [sp]
-.L1:
+.L804C44C:
 	add	r0, r3, #0
 	sub	r3, r3, #0x1
 	cmp	r0, #0
-	bne	.L2	@cond_branch
+	bne	.L804C3F0	@cond_branch
 	add	sp, sp, #0x4
 	pop	{r3, r4, r5}
 	mov	r8, r3

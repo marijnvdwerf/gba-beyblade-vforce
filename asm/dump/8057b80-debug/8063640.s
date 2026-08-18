@@ -22,8 +22,8 @@ sub_8063640:
 	str	r0, [sp, #0x4]
 	mov	r2, #0x0
 	cmp	r2, r4
-	bge	.L1	@cond_branch
-.L4:
+	bge	.L80636F4	@cond_branch
+.L806366C:
 	ldrh	r7, [r5, #0x4]
 	lsl	r1, r7, #0x1
 	ldr	r0, [r5]
@@ -37,9 +37,9 @@ sub_8063640:
 	mov	sl, r2
 	ldrh	r7, [r5, #0x6]
 	cmp	ip, r7
-	bge	.L2	@cond_branch
+	bge	.L80636E8	@cond_branch
 	mov	r6, #0x1f
-.L3:
+.L806368A:
 	ldrh	r2, [r4]
 	add	r3, r2, #0
 	and	r3, r3, r6
@@ -86,15 +86,15 @@ sub_8063640:
 	ADD ip, r1
 	ldrh	r7, [r5, #0x6]
 	cmp	ip, r7
-	blt	.L3	@cond_branch
-.L2:
+	blt	.L806368A	@cond_branch
+.L80636E8:
 	mov	r8, r9
 	mov	r2, sl
 	mov	r1, #0x8
 	ldsh	r0, [r5, r1]
 	cmp	r2, r0
-	blt	.L4	@cond_branch
-.L1:
+	blt	.L806366C	@cond_branch
+.L80636F4:
 	add	sp, sp, #0x8
 	pop	{r3, r4, r5}
 	mov	r8, r3

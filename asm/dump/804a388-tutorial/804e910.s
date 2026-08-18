@@ -26,7 +26,7 @@ sub_804E910:
 	ldsh	r2, [r0, r3]
 	mov	ip, r2
 	ldr	r7, [r0, #0x8]
-	ldr	r2, .L4
+	ldr	r2, .L804EA80
 	ldr	r2, [r2]
 	lsr	r5, r2, #0x3
 	mov	r2, #0x1f
@@ -63,8 +63,8 @@ sub_804E910:
 	NEG	r1, r1
 	ADD ip, r1
 	cmp	r0, #0
-	beq	.L1	@cond_branch
-	ldr	r6, .L4 + 4
+	beq	.L804EA6E	@cond_branch
+	ldr	r6, .L804EA80 + 4
 	mov	r2, r8
 	lsl	r0, r2, #0x10
 	asr	r0, r0, #0x10
@@ -78,7 +78,7 @@ sub_804E910:
 	str	r0, [sp, #0x14]
 	ldr	r4, [sp]
 	str	r4, [sp, #0x18]
-.L3:
+.L804E9A8:
 	ldr	r0, [r7]
 	mov	r8, r0
 	lsl	r0, r5, #0x1
@@ -169,17 +169,17 @@ sub_804E910:
 	strh	r0, [r7, #0x1e]
 	mov	r0, r8
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L804EA60	@cond_branch
 	strh	r1, [r0, #0x18]
-.L2:
+.L804EA60:
 	add	r7, r7, #0x24
 	mov	r0, ip
 	mov	r1, #0x1
 	NEG	r1, r1
 	ADD ip, r1
 	cmp	r0, #0
-	bne	.L3	@cond_branch
-.L1:
+	bne	.L804E9A8	@cond_branch
+.L804EA6E:
 	add	sp, sp, #0x24
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -188,9 +188,9 @@ sub_804E910:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L5:
+.L804EA7E:
 	.align	2, 0
-.L4:
+.L804EA80:
 	.4byte	0x3000e30
 	.4byte	0x8074d64
 	thumb_func_end sub_804E910

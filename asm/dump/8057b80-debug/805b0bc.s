@@ -12,16 +12,16 @@ sub_805B0BC:
 	add	r4, r0, r1
 	ldr	r2, [r5, #0x34]
 	cmp	r2, #0
-	beq	.L1	@cond_branch
+	beq	.L805B0DA	@cond_branch
 	add	r0, r4, #0
 	add	r1, r3, #0
 	bl	_call_via_r2
-.L1:
+.L805B0DA:
 	ldr	r0, [r4, #0x48]
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L805B0E2	@cond_branch
 	add	r4, r0, #0
-.L2:
+.L805B0E2:
 	ldr	r1, [r4, #0x34]
 	lsl	r1, r1, #0x10
 	ldr	r0, [r5, #0x24]

@@ -13,10 +13,10 @@ sub_805000C:
 	ldr	r2, [r4, #0xc]
 	asr	r2, r2, #0x8
 	strh	r2, [r0, #0x4]
-	ldr	r3, .L1
+	ldr	r3, .L8050048
 	ldrh	r4, [r4, #0x22]
 	and	r3, r3, r4
-	ldr	r2, .L1 + 4
+	ldr	r2, .L8050048 + 4
 	ldrh	r4, [r0, #0x6]
 	and	r2, r2, r4
 	orr	r2, r2, r3
@@ -31,9 +31,9 @@ sub_805000C:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2:
+.L8050048:
 	.align	2, 0
-.L1:
+
 	.4byte	0x3ff
 	.4byte	0xfffffc00
 	thumb_func_end sub_805000C

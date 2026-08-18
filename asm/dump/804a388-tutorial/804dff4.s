@@ -31,19 +31,19 @@ sub_804DFF4:
 	add	r0, r0, #0xb8
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L804E04C	@cond_branch
 	mov	r1, #0x80
 	lsl	r1, r1, #0x13
 	add	r0, r5, #0
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L2	@cond_branch
+	bne	.L804E04C	@cond_branch
 	add	r0, r5, #0
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	sub_804E154
-.L2:
+.L804E04C:
 	add	r0, r5, #0
 	mov	r1, #0x20
 	bl	UnsetRiderFlag
@@ -57,24 +57,24 @@ sub_804DFF4:
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L4	@cond_branch
+	bne	.L804E07C	@cond_branch
 	mov	r1, #0xcc
 	lsl	r1, r1, #0x1
 	add	r0, r5, r1
 	ldr	r0, [r0]
 	cmp	r0, #0x8
-	ble	.L4	@cond_branch
+	ble	.L804E07C	@cond_branch
 	bl	sub_80558B8
-.L4:
-	ldr	r1, .L5
+.L804E07C:
+	ldr	r1, .L804E08C
 	add	r0, r5, #0
 	bl	UnsetRiderFlag
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L6:
+.L804E08A:
 	.align	2, 0
-.L5:
+.L804E08C:
 	.4byte	0x4010
 	thumb_func_end sub_804DFF4
 

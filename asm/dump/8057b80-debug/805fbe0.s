@@ -33,10 +33,10 @@ sub_805FBE0:
 	strh	r6, [r4, #0x2c]
 	ldr	r0, [r4, #0x28]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L805FC26	@cond_branch
 	add	r0, r4, #0
 	bl	sub_805FCC8
-.L1:
+.L805FC26:
 	mov	r0, r8
 	lsl	r0, r0, #0x5
 	str	r0, [sp]
@@ -65,25 +65,25 @@ sub_805FBE0:
 	str	r0, [r4, #0x1c]
 	ldr	r0, [r4, #0x28]
 	cmp	r0, #0
-	bne	.L2	@cond_branch
-	ldr	r0, .L5
+	bne	.L805FC6E	@cond_branch
+	ldr	r0, .L805FCBC
 	add	r1, r6, #0
 	bl	nullsub_9
-.L2:
+.L805FC6E:
 	ldr	r0, [r4, #0x18]
 	cmp	r0, #0
-	bne	.L3	@cond_branch
-	ldr	r0, .L5 + 4
+	bne	.L805FC7C	@cond_branch
+	ldr	r0, .L805FCBC + 4
 	add	r1, r7, #0
 	bl	nullsub_9
-.L3:
+.L805FC7C:
 	ldr	r0, [r4, #0x1c]
 	cmp	r0, #0
-	bne	.L4	@cond_branch
-	ldr	r0, .L5 + 8
+	bne	.L805FC8A	@cond_branch
+	ldr	r0, .L805FCBC + 8
 	add	r1, r5, #0
 	bl	nullsub_9
-.L4:
+.L805FC8A:
 	ldr	r0, [r4, #0x28]
 	ldr	r1, [r0]
 	str	r1, [r4, #0x20]
@@ -108,9 +108,9 @@ sub_805FBE0:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L6:
+.L805FCBA:
 	.align	2, 0
-.L5:
+.L805FCBC:
 	.4byte	0x8755764
 	.4byte	0x8755794
 	.4byte	0x87557c8

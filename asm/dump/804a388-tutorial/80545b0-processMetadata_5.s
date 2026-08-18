@@ -13,14 +13,14 @@ processMetadata_5:
 	ldr	r7, [r0]
 	mov	r4, #0x0
 	cmp	r7, #0
-	beq	.L11	@cond_branch
+	beq	.L8054676	@cond_branch
 	mov	r2, #0x0
 	mov	r1, r8
 	ldr	r0, [r1]
 	ldr	r1, [r0, #0x4]
 	add	r5, r0, #0
 	cmp	r4, r1
-	bge	.L5	@cond_branch
+	bge	.L8054608	@cond_branch
 	mov	r3, r8
 	ldr	r1, [r3, #0x14]
 	ldr	r3, [sp, #0x20]
@@ -28,14 +28,14 @@ processMetadata_5:
 	add	r3, r0, #0
 	ldrh	r0, [r1, #0xc]
 	cmp	r0, r3
-	bne	.L6	@cond_branch
+	bne	.L80545EC	@cond_branch
 	add	r4, r1, #0
-	b	.L4
-.L6:
+	b	.L8054606
+.L80545EC:
 	add	r2, r2, #0x1
 	ldr	r0, [r5, #0x4]
 	cmp	r2, r0
-	bge	.L5	@cond_branch
+	bge	.L8054608	@cond_branch
 	lsl	r1, r2, #0x2
 	mov	r0, r8
 	add	r0, r0, #0x14
@@ -43,21 +43,21 @@ processMetadata_5:
 	ldr	r0, [r0]
 	ldrh	r1, [r0, #0xc]
 	cmp	r1, r3
-	bne	.L6	@cond_branch
+	bne	.L80545EC	@cond_branch
 	add	r4, r0, #0
-.L4:
+.L8054606:
 	mov	sl, r2
-.L5:
+.L8054608:
 	cmp	r4, #0
-	bne	.L7	@cond_branch
-	ldr	r0, .L9
+	bne	.L8054618	@cond_branch
+	ldr	r0, .L8054614
 	bl	printf
-	b	.L11
-.L10:
+	b	.L8054676
+.L8054614:
 	.align	2, 0
-.L9:
+
 	.4byte	0x87296e8
-.L7:
+.L8054618:
 	ldr	r3, [sp, #0x20]
 	ldr	r3, [r3, #0x10]
 	mov	r9, r3
@@ -67,7 +67,7 @@ processMetadata_5:
 	bl	GetPointAtSplineIndex
 	add	r1, r0, #0
 	cmp	r1, #0
-	beq	.L11	@cond_branch
+	beq	.L8054676	@cond_branch
 	ldr	r6, [r1]
 	lsl	r6, r6, #0x5
 	ldr	r0, [r7, #0x4]
@@ -102,7 +102,7 @@ processMetadata_5:
 	asr	r4, r4, #0x8
 	add	r0, r0, #0x2
 	strh	r4, [r0]
-.L11:
+.L8054676:
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

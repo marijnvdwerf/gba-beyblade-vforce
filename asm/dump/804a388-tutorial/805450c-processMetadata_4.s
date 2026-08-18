@@ -7,10 +7,10 @@ processMetadata_4:
 	add	r0, r2, #0
 	ldr	r4, [sp, #0x14]
 	bl	GetStruct4
-	ldr	r0, .L5
+	ldr	r0, .L8054564
 	ldr	r3, [r0]
 	cmp	r3, #0
-	beq	.L4	@cond_branch
+	beq	.L80545A2	@cond_branch
 	ldr	r2, [r3]
 	ldr	r0, [r3, #0x40]
 	ldr	r1, [r4, #0x8]
@@ -30,42 +30,42 @@ processMetadata_4:
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L4	@cond_branch
+	bne	.L80545A2	@cond_branch
 	ldr	r0, [r4, #0x10]
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L8054568	@cond_branch
 	mov	r0, #0xd
 	bl	sub_804ABFC
 	mov	r0, #0x3
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	sub_8055734
-	b	.L4
-.L6:
+	b	.L80545A2
+.L8054562:
 	.align	2, 0
-.L5:
+.L8054564:
 	.4byte	0x3000c10
-.L3:
+.L8054568:
 	mov	r5, #0x0
 	mov	r6, #0x0
 	ldr	r0, [r4, #0x8]
 	cmp	r0, #0
-	beq	.L8	@cond_branch
-	ldr	r5, .L11
+	beq	.L805457C	@cond_branch
+	ldr	r5, .L80545AC
 	cmp	r0, #0
-	ble	.L8	@cond_branch
+	ble	.L805457C	@cond_branch
 	mov	r5, #0xe6
 	lsl	r5, r5, #0x1
-.L8:
+.L805457C:
 	ldr	r4, [r4, #0xc]
 	cmp	r4, #0
-	beq	.L10	@cond_branch
-	ldr	r6, .L11
+	beq	.L805458C	@cond_branch
+	ldr	r6, .L80545AC
 	cmp	r4, #0
-	ble	.L10	@cond_branch
+	ble	.L805458C	@cond_branch
 	mov	r6, #0xe6
 	lsl	r6, r6, #0x1
-.L10:
+.L805458C:
 	mov	r0, #0xe
 	bl	sub_804ABFC
 	lsl	r2, r5, #0x2
@@ -75,14 +75,14 @@ processMetadata_4:
 	str	r0, [sp]
 	mov	r1, #0x0
 	bl	sub_805582C
-.L4:
+.L80545A2:
 	add	sp, sp, #0x4
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L12:
+.L80545AA:
 	.align	2, 0
-.L11:
+.L80545AC:
 	.4byte	0xfffffe34
 	thumb_func_end processMetadata_4
 

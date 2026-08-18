@@ -7,17 +7,17 @@ sub_806185C:
 	lsr	r6, r1, #0x18
 	ldr	r5, [r0, #0x14]
 	ldr	r4, [r0, #0x1c]
-	b	.L1
-.L2:
+	b	.L8061872
+.L8061868:
 	add	r0, r5, #0
 	add	r1, r6, #0
 	bl	sub_8061168
 	ldr	r5, [r5, #0x4]
-.L1:
+.L8061872:
 	add	r0, r4, #0
 	sub	r4, r4, #0x1
 	cmp	r0, #0
-	bne	.L2	@cond_branch
+	bne	.L8061868	@cond_branch
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0

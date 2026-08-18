@@ -8,23 +8,23 @@ sub_805893C:
 	mov	r0, #0x2
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L805894C	@cond_branch
 	add	r2, r2, #0x2
-.L1:
+.L805894C:
 	mov	r0, #0x10
 	ldrb	r3, [r1, #0x7]
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L8058962	@cond_branch
 	ldr	r0, [r1, #0x8]
 	lsl	r0, r0, #0x3
 	add	r0, r0, #0x20
 	add	r0, r1, r0
 	add	r0, r0, r2
-	b	.L3
-.L2:
+	b	.L8058964
+.L8058962:
 	mov	r0, #0x0
-.L3:
+.L8058964:
 	bx	lr
 	thumb_func_end sub_805893C
 

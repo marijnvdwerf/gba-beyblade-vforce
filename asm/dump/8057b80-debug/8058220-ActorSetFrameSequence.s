@@ -14,21 +14,21 @@ ActorSetFrameSequence:
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L805823C	@cond_branch
 	add	r1, r1, #0x2
-.L1:
+.L805823C:
 	mov	r0, #0x10
 	ldrb	r4, [r2, #0x7]
 	and	r0, r0, r4
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L8058268	@cond_branch
 	ldr	r0, [r2, #0x8]
 	lsl	r0, r0, #0x3
 	add	r0, r0, #0x20
 	add	r0, r2, r0
 	add	r2, r0, r1
 	cmp	r2, #0
-	beq	.L3	@cond_branch
+	beq	.L8058268	@cond_branch
 	lsl	r0, r6, #0x4
 	add	r2, r2, r0
 	ldrb	r1, [r2]
@@ -39,7 +39,7 @@ ActorSetFrameSequence:
 	add	r2, r3, #0
 	add	r2, r2, #0xa5
 	strb	r0, [r2]
-.L3:
+.L8058268:
 	ldrh	r0, [r5]
 	mov	ip, r0
 	ldrh	r7, [r5, #0x2]
@@ -56,7 +56,7 @@ ActorSetFrameSequence:
 	mov	r2, #0x0
 	strh	r0, [r3, #0x34]
 	strh	r1, [r3, #0x36]
-	ldr	r0, .L6
+	ldr	r0, .L80582AC
 	ldr	r0, [r0]
 	str	r0, [r3, #0x58]
 	strh	r7, [r3, #0x26]
@@ -67,21 +67,21 @@ ActorSetFrameSequence:
 	mov	r0, #0x2
 	and	r0, r0, r4
 	cmp	r0, #0
-	beq	.L4	@cond_branch
-	ldr	r1, .L6 + 4
+	beq	.L80582B4	@cond_branch
+	ldr	r1, .L80582AC + 4
 	add	r0, r7, r1
 	ADD r0, ip
 	strh	r0, [r3, #0x22]
-	b	.L5
-.L7:
+	b	.L80582B8
+.L80582AA:
 	.align	2, 0
-.L6:
+.L80582AC:
 	.4byte	0x3000e30
 	.4byte	0xffff
-.L4:
+.L80582B4:
 	mov	r2, ip
 	strh	r2, [r3, #0x22]
-.L5:
+.L80582B8:
 	add	r1, r3, #0
 	add	r1, r1, #0x31
 	mov	r0, #0xc

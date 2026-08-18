@@ -6,11 +6,11 @@ sub_8055CA0:
 	add	r4, r0, #0
 	ldr	r0, [r4]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L8055CB2	@cond_branch
 	bl	deallocateBlock
 	mov	r0, #0x0
 	str	r0, [r4]
-.L1:
+.L8055CB2:
 	pop	{r4}
 	pop	{r0}
 	bx	r0

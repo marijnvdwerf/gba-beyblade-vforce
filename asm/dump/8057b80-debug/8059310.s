@@ -28,29 +28,29 @@ sub_8059310:
 	ldrh	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1	@cond_branch
-	ldr	r1, .L3
+	beq	.L8059350	@cond_branch
+	ldr	r1, .L805934C
 	mov	r9, r1
-	b	.L2
-.L4:
+	b	.L8059356
+.L805934C:
 	.align	2, 0
-.L3:
+
 	.4byte	sub_80594FC + 1
-.L1:
-	ldr	r0, .L13
+.L8059350:
+	ldr	r0, .L80593D8
 	ldr	r0, [r0]
 	mov	r9, r0
-.L2:
+.L8059356:
 	ldr	r0, [sp, #0x40]
 	add	r5, r4, r0
 	ldr	r1, [r6]
 	cmp	r5, r1
-	ble	.L5	@cond_branch
+	ble	.L8059376	@cond_branch
 	mov	r2, #0x0
 	cmp	r4, r1
-	bge	.L6	@cond_branch
+	bge	.L8059368	@cond_branch
 	sub	r2, r1, r4
-.L6:
+.L8059368:
 	ldr	r0, [sp, #0x40]
 	sub	r0, r0, r2
 	mov	r8, r0
@@ -58,14 +58,14 @@ sub_8059310:
 	sub	r0, r0, r1
 	str	r0, [sp, #0x14]
 	add	r7, r7, r2
-.L5:
+.L8059376:
 	cmp	r4, #0
-	bge	.L7	@cond_branch
+	bge	.L8059390	@cond_branch
 	add	r2, r5, #0
 	cmp	r2, #0
-	bge	.L8	@cond_branch
+	bge	.L8059382	@cond_branch
 	mov	r2, #0x0
-.L8:
+.L8059382:
 	ldr	r0, [sp, #0x40]
 	sub	r0, r0, r2
 	mov	r8, r0
@@ -73,9 +73,9 @@ sub_8059310:
 	str	r4, [sp, #0x14]
 	mov	r4, #0x0
 	ADD r3, r8
-.L7:
+.L8059390:
 	cmp	r2, #0
-	ble	.L9	@cond_branch
+	ble	.L80593A8	@cond_branch
 	mov	r1, ip
 	str	r1, [sp]
 	str	r2, [sp, #0x4]
@@ -85,17 +85,17 @@ sub_8059310:
 	add	r1, r4, #0
 	ldr	r2, [sp, #0xc]
 	bl	_call_via_r9
-.L9:
+.L80593A8:
 	mov	r1, r8
 	cmp	r1, #0
-	ble	.L12	@cond_branch
+	ble	.L80593F0	@cond_branch
 	add	r1, r6, #0
 	add	r1, r1, #0x7c
 	mov	r0, #0x8
 	ldrb	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L11	@cond_branch
+	beq	.L80593DC	@cond_branch
 	ldr	r0, [sp, #0x18]
 	str	r0, [sp]
 	mov	r1, r8
@@ -107,13 +107,13 @@ sub_8059310:
 	ldr	r2, [sp, #0xc]
 	add	r3, r7, #0
 	bl	_call_via_r9
-	b	.L12
-.L14:
+	b	.L80593F0
+.L80593D6:
 	.align	2, 0
-.L13:
+.L80593D8:
 	.4byte	0x807d944
-.L11:
-	ldr	r0, .L15
+.L80593DC:
+	ldr	r0, .L8059400
 	ldr	r1, [sp, #0x10]
 	str	r1, [sp]
 	ldr	r4, [r0]
@@ -122,7 +122,7 @@ sub_8059310:
 	ldr	r2, [sp, #0x18]
 	mov	r3, r8
 	bl	_call_via_r4
-.L12:
+.L80593F0:
 	add	sp, sp, #0x1c
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -131,9 +131,9 @@ sub_8059310:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L16:
+.L8059400:
 	.align	2, 0
-.L15:
+
 	.4byte	0x807d948
 	thumb_func_end sub_8059310
 

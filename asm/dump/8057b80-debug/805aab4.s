@@ -3,8 +3,8 @@
 	thumb_func_start sub_805AAB4
 sub_805AAB4:
 	push	{r4, lr}
-	ldr	r1, .L1
-	ldr	r2, .L1 + 4
+	ldr	r1, .L805AACC
+	ldr	r2, .L805AACC + 4
 	ldrh	r3, [r1]
 	ldrh	r4, [r2]
 	sub	r0, r3, r4
@@ -14,9 +14,9 @@ sub_805AAB4:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2:
+.L805AACC:
 	.align	2, 0
-.L1:
+
 	.4byte	0x3005db8
 	.4byte	0x3005db4
 	thumb_func_end sub_805AAB4

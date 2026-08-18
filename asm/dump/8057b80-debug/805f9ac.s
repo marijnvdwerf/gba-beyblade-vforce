@@ -6,14 +6,14 @@ sub_805F9AC:
 	add	r4, r0, #0
 	ldr	r0, [r4, #0xc]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L805F9BA	@cond_branch
 	bl	deallocateBlock
-.L1:
+.L805F9BA:
 	ldr	r0, [r4, #0x5c]
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L805F9C4	@cond_branch
 	bl	deallocateBlock
-.L2:
+.L805F9C4:
 	mov	r0, #0x0
 	str	r0, [r4, #0xc]
 	str	r0, [r4, #0x10]

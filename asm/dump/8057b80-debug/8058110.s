@@ -9,25 +9,25 @@ sub_8058110:
 	ldr	r0, [r1, #0x18]
 	add	r1, r1, r0
 	mov	r2, #0x0
-	b	.L1
-.L4:
+	b	.L8058136
+.L8058120:
 	ldrh	r0, [r1]
 	cmp	r0, r4
-	bne	.L2	@cond_branch
+	bne	.L8058130	@cond_branch
 	ldrh	r1, [r1, #0x8]
 	add	r0, r3, #0
 	bl	GetSpriteSheetStructA
-	b	.L3
-.L2:
+	b	.L805813E
+.L8058130:
 	ldrh	r0, [r1, #0x2]
 	add	r1, r0, r1
 	add	r2, r2, #0x1
-.L1:
+.L8058136:
 	ldrh	r0, [r3, #0x28]
 	cmp	r2, r0
-	bcc	.L4	@cond_branch
+	bcc	.L8058120	@cond_branch
 	mov	r0, #0x0
-.L3:
+.L805813E:
 	pop	{r4}
 	pop	{r1}
 	bx	r1

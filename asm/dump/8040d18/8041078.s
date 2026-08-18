@@ -4,11 +4,11 @@
 sub_8041078:
 	push	{r4, lr}
 	mov	r4, #0x0
-.L1:
+.L804107C:
 	add	r0, r4, #0
 	bl	sub_804A0E0
 	lsl	r2, r4, #0x4
-	ldr	r1, .L2
+	ldr	r1, .L80410B0
 	add	r2, r2, r1
 	ldr	r1, [r2, #0x8]
 	strh	r1, [r0, #0xc]
@@ -24,13 +24,13 @@ sub_8041078:
 	bl	sub_8061E58
 	add	r4, r4, #0x1
 	cmp	r4, #0x5
-	ble	.L1	@cond_branch
+	ble	.L804107C	@cond_branch
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L3:
+.L80410AE:
 	.align	2, 0
-.L2:
+.L80410B0:
 	.4byte	0x8068710
 	thumb_func_end sub_8041078
 

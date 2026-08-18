@@ -9,14 +9,14 @@ sub_806100C:
 	lsr	r2, r2, #0x10
 	ldr	r3, [r0, #0x30]
 	cmp	r3, #0
-	beq	.L1	@cond_branch
+	beq	.L8061024	@cond_branch
 	ldrb	r3, [r3, #0x18]
 	bl	sub_8060F64
-	b	.L2
-.L1:
+	b	.L806102A
+.L8061024:
 	mov	r3, #0x0
 	bl	sub_8060F64
-.L2:
+.L806102A:
 	pop	{r0}
 	bx	r0
 	thumb_func_end sub_806100C

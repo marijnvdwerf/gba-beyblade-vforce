@@ -3,32 +3,32 @@
 	thumb_func_start def_94_4_AddWithBoundingAreaMessage
 def_94_4_AddWithBoundingAreaMessage:
 	push	{r4, lr}
-	ldr	r4, .L3
+	ldr	r4, .L8056180
 	ldr	r3, [r4]
 	cmp	r3, #0x1f
-	ble	.L1	@cond_branch
-	ldr	r0, .L3 + 4
+	ble	.L8056188	@cond_branch
+	ldr	r0, .L8056180 + 4
 	bl	printf
-	b	.L2
-.L4:
+	b	.L8056194
+.L805617E:
 	.align	2, 0
-.L3:
+.L8056180:
 	.4byte	0x3000c18
 	.4byte	0x87297d0
-.L1:
-	ldr	r0, .L5
+.L8056188:
+	ldr	r0, .L805619C
 	lsl	r1, r3, #0x2
 	add	r1, r1, r0
 	str	r2, [r1]
 	add	r0, r3, #1
 	str	r0, [r4]
-.L2:
+.L8056194:
 	pop	{r4}
 	pop	{r1}
 	bx	r1
-.L6:
+.L805619A:
 	.align	2, 0
-.L5:
+.L805619C:
 	.4byte	0x3000c20
 	thumb_func_end def_94_4_AddWithBoundingAreaMessage
 

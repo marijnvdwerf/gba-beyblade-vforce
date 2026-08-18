@@ -6,13 +6,13 @@ getLevelDescription2:
 	bl	getSomeLevelID
 	mov	r1, #0xd0
 	mul	r0, r0, r1
-	ldr	r1, .L1
+	ldr	r1, .L805170C
 	add	r0, r0, r1
 	pop	{r1}
 	bx	r1
-.L2:
+.L805170A:
 	.align	2, 0
-.L1:
+.L805170C:
 	.4byte	0x8075b4c
 	thumb_func_end getLevelDescription2
 

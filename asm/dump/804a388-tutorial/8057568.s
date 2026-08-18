@@ -18,40 +18,40 @@ sub_8057568:
 	sub	r5, r5, #0x1
 	sub	r0, r0, #0x2
 	cmp	r5, r0
-	beq	.L1	@cond_branch
-	ldr	r1, .L6
+	beq	.L80575DA	@cond_branch
+	ldr	r1, .L80575EC
 	mov	sl, r1
-.L5:
+.L805758E:
 	mov	r4, #0x7
 	mov	r0, #0x8
 	add	r0, r0, r7
 	mov	r8, r0
 	add	r1, r6, #1
 	mov	r9, r1
-.L3:
+.L805759A:
 	add	r0, r6, #0
 	add	r1, r7, #0
 	bl	sub_80659F0
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
 	cmp	r1, #0
-	bne	.L2	@cond_branch
+	bne	.L80575AC	@cond_branch
 	mov	r4, #0x0
-.L2:
+.L80575AC:
 	sub	r0, r4, #1
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
 	cmp	r4, sl
-	bne	.L3	@cond_branch
+	bne	.L805759A	@cond_branch
 	cmp	r1, #0
-	beq	.L4	@cond_branch
-	ldr	r0, .L6 + 4
+	beq	.L80575C8	@cond_branch
+	ldr	r0, .L80575EC + 4
 	add	r1, r6, #0
 	bl	printf
 	mov	r0, #0x0
 	str	r0, [sp]
 	mov	r5, #0x0
-.L4:
+.L80575C8:
 	mov	r7, r8
 	mov	r1, r9
 	lsl	r0, r1, #0x10
@@ -60,8 +60,8 @@ sub_8057568:
 	mov	r0, #0x1
 	NEG	r0, r0
 	cmp	r5, r0
-	bne	.L5	@cond_branch
-.L1:
+	bne	.L805758E	@cond_branch
+.L80575DA:
 	ldr	r0, [sp]
 	add	sp, sp, #0x4
 	pop	{r3, r4, r5}
@@ -71,9 +71,9 @@ sub_8057568:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L7:
+.L80575EC:
 	.align	2, 0
-.L6:
+
 	.4byte	0xffff
 	.4byte	0x872c960
 	thumb_func_end sub_8057568

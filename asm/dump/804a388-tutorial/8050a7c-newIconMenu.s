@@ -22,11 +22,11 @@ newIconMenu:
 	mov	r1, r8
 	str	r0, [r1, #0x30]
 	cmp	r0, #0
-	bne	.L1	@cond_branch
-	ldr	r0, .L5
+	bne	.L8050AB0	@cond_branch
+	ldr	r0, .L8050B44
 	add	r1, r4, #0
 	bl	printf
-.L1:
+.L8050AB0:
 	mov	r2, r8
 	ldr	r0, [r2, #0x30]
 	ldr	r6, [r0]
@@ -51,7 +51,7 @@ newIconMenu:
 	ldr	r2, [sp, #0x10]
 	add	r1, r2, #0
 	mul	r1, r1, r0
-	ldr	r0, .L5 + 4
+	ldr	r0, .L8050B44 + 4
 	sub	r0, r0, r1
 	mov	r3, r8
 	str	r0, [r3, #0x14]
@@ -69,14 +69,14 @@ newIconMenu:
 	add	r3, r3, #0x40
 	str	r3, [sp, #0x20]
 	cmp	sl, r5
-	bge	.L2	@cond_branch
-.L9:
+	bge	.L8050BBA	@cond_branch
+.L8050B08:
 	ldr	r3, [sp, #0x1c]
 	asr	r1, r3, #0x8
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
 	lsl	r0, r1, #0x1
-	ldr	r5, .L5 + 8
+	ldr	r5, .L8050B44 + 8
 	add	r0, r0, r5
 	mov	r2, #0x0
 	ldsh	r0, [r0, r2]
@@ -98,18 +98,18 @@ newIconMenu:
 	str	r0, [r6, #0x10]
 	ldr	r0, [sp, #0x10]
 	cmp	sl, r0
-	bne	.L3	@cond_branch
+	bne	.L8050B50	@cond_branch
 	ldr	r0, [r4, #0x24]
-	b	.L4
-.L6:
+	b	.L8050B52
+.L8050B44:
 	.align	2, 0
-.L5:
+
 	.4byte	0x8729398
 	.4byte	0xffff
 	.4byte	0x874cc3c
-.L3:
+.L8050B50:
 	ldr	r0, [r4, #0x20]
-.L4:
+.L8050B52:
 	str	r0, [r6, #0x14]
 	ldr	r0, [r4, #0x18]
 	str	r0, [r6, #0x8]
@@ -118,16 +118,16 @@ newIconMenu:
 	mov	r0, #0x2
 	ldr	r1, [sp, #0x10]
 	cmp	sl, r1
-	bne	.L7	@cond_branch
+	bne	.L8050B66	@cond_branch
 	mov	r0, #0x1
-.L7:
+.L8050B66:
 	bl	allocSprite
 	add	r5, r0, #0
 	str	r5, [r6, #0x4]
 	mov	r7, #0x0
 	strh	r7, [r6, #0x18]
 	cmp	r5, #0
-	beq	.L8	@cond_branch
+	beq	.L8050BA0	@cond_branch
 	ldr	r1, [r4]
 	mov	r3, r9
 	ldr	r2, [r3, #0xc]
@@ -148,7 +148,7 @@ newIconMenu:
 	str	r0, [sp, #0xc]
 	add	r0, r5, #0
 	bl	LoadSpriteSheet
-.L8:
+.L8050BA0:
 	add	r6, r6, #0x1c
 	add	r4, r4, #0x30
 	mov	r1, r8
@@ -161,8 +161,8 @@ newIconMenu:
 	mov	r5, r9
 	ldr	r0, [r5, #0x4]
 	cmp	sl, r0
-	blt	.L9	@cond_branch
-.L2:
+	blt	.L8050B08	@cond_branch
+.L8050BBA:
 	mov	r0, r9
 	ldr	r4, [r0]
 	ldr	r1, [r4]

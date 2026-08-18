@@ -24,8 +24,8 @@ sub_8063544:
 	mov	ip, r2
 	mov	r2, #0x0
 	cmp	r2, r4
-	bge	.L1	@cond_branch
-.L10:
+	bge	.L806362E	@cond_branch
+.L8063574:
 	ldrh	r0, [r7, #0x4]
 	lsl	r1, r0, #0x1
 	ldr	r0, [r7]
@@ -39,8 +39,8 @@ sub_8063544:
 	mov	sl, r2
 	ldrh	r1, [r7, #0x6]
 	cmp	r8, r1
-	bge	.L2	@cond_branch
-.L9:
+	bge	.L8063622	@cond_branch
+.L8063590:
 	ldrh	r1, [r6]
 	mov	r4, #0x1f
 	and	r4, r4, r1
@@ -59,12 +59,12 @@ sub_8063544:
 	asr	r0, r2, #0x1
 	add	r1, r1, r0
 	cmp	r1, #0x1f
-	ble	.L3	@cond_branch
+	ble	.L80635B8	@cond_branch
 	mov	r1, #0x1f
-.L3:
+.L80635B8:
 	ldr	r0, [sp]
 	cmp	r1, r0
-	bge	.L4	@cond_branch
+	bge	.L80635D6	@cond_branch
 	ldr	r1, [sp, #0x4]
 	sub	r0, r1, r4
 	mul	r0, r0, r5
@@ -76,8 +76,8 @@ sub_8063544:
 	asr	r0, r0, #0xa
 	add	r3, r3, r0
 	ldr	r1, [sp, #0x30]
-	b	.L5
-.L4:
+	b	.L80635EC
+.L80635D6:
 	ldr	r1, [sp, #0x34]
 	sub	r0, r1, r4
 	mul	r0, r0, r5
@@ -89,23 +89,23 @@ sub_8063544:
 	asr	r0, r0, #0xa
 	add	r3, r3, r0
 	ldr	r1, [sp, #0x3c]
-.L5:
+.L80635EC:
 	sub	r0, r1, r2
 	mul	r0, r0, r5
 	asr	r0, r0, #0xa
 	add	r2, r2, r0
 	cmp	r4, #0x1f
-	ble	.L6	@cond_branch
+	ble	.L80635FA	@cond_branch
 	mov	r4, #0x1f
-.L6:
+.L80635FA:
 	cmp	r3, #0x1f
-	ble	.L7	@cond_branch
+	ble	.L8063600	@cond_branch
 	mov	r3, #0x1f
-.L7:
+.L8063600:
 	cmp	r2, #0x1f
-	ble	.L8	@cond_branch
+	ble	.L8063606	@cond_branch
 	mov	r2, #0x1f
-.L8:
+.L8063606:
 	lsl	r0, r3, #0x5
 	add	r0, r4, r0
 	lsl	r1, r2, #0xa
@@ -119,15 +119,15 @@ sub_8063544:
 	ADD r8, r1
 	ldrh	r2, [r7, #0x6]
 	cmp	r8, r2
-	blt	.L9	@cond_branch
-.L2:
+	blt	.L8063590	@cond_branch
+.L8063622:
 	mov	r5, r9
 	mov	r2, sl
 	mov	r1, #0x8
 	ldsh	r0, [r7, r1]
 	cmp	r2, r0
-	blt	.L10	@cond_branch
-.L1:
+	blt	.L8063574	@cond_branch
+.L806362E:
 	add	sp, sp, #0xc
 	pop	{r3, r4, r5}
 	mov	r8, r3

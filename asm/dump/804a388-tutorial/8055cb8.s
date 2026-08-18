@@ -4,15 +4,15 @@
 sub_8055CB8:
 	push	{r4, lr}
 	add	sp, sp, #0xfffffffc
-	ldr	r0, .L1
+	ldr	r0, .L8055CE4
 	mov	r4, #0x0
 	str	r4, [r0]
-	ldr	r0, .L1 + 4
-	ldr	r1, .L1 + 8
-	ldr	r2, .L1 + 12
-	ldr	r3, .L1 + 16
+	ldr	r0, .L8055CE4 + 4
+	ldr	r1, .L8055CE4 + 8
+	ldr	r2, .L8055CE4 + 12
+	ldr	r3, .L8055CE4 + 16
 	bl	sub_805E50C
-	ldr	r0, .L1 + 20
+	ldr	r0, .L8055CE4 + 20
 	str	r4, [sp]
 	mov	r1, #0x0
 	mov	r2, #0x0
@@ -22,9 +22,9 @@ sub_8055CB8:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2:
+.L8055CE4:
 	.align	2, 0
-.L1:
+
 	.4byte	0x3000c18
 	.4byte	0x3000fc0
 	.4byte	def_94_0_8055CFC + 1

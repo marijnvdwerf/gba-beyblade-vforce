@@ -6,14 +6,14 @@ sub_80513AC:
 	mov	r7, r9
 	mov	r6, r8
 	push	{r6, r7}
-	ldr	r5, .L2
+	ldr	r5, .L805145C
 	ldr	r4, [r5]
-	ldr	r0, .L2 + 4
+	ldr	r0, .L805145C + 4
 	add	r7, r4, r0
 	mov	r1, #0x0
 	mov	r8, r1
 	mov	r9, r7
-	ldr	r0, .L2 + 8
+	ldr	r0, .L805145C + 8
 	str	r0, [r7]
 	ldrb	r0, [r4]
 	strb	r0, [r7, #0x4]
@@ -27,36 +27,36 @@ sub_80513AC:
 	ldrb	r0, [r0, #0x3]
 	strb	r0, [r7, #0x7]
 	ldr	r0, [r5]
-	ldr	r2, .L2 + 12
+	ldr	r2, .L805145C + 12
 	add	r1, r0, r2
 	ldrh	r2, [r1]
-	ldr	r3, .L2 + 16
+	ldr	r3, .L805145C + 16
 	add	r1, r4, r3
 	strh	r2, [r1]
-	ldr	r2, .L2 + 20
+	ldr	r2, .L805145C + 20
 	add	r1, r0, r2
 	ldrh	r2, [r1]
 	add	r3, r3, #0x2
 	add	r1, r4, r3
 	strh	r2, [r1]
-	ldr	r1, .L2 + 24
+	ldr	r1, .L805145C + 24
 	add	r2, r4, r1
 	add	r3, r3, #0x12
 	add	r1, r0, r3
 	ldr	r1, [r1]
 	str	r1, [r2]
-	ldr	r6, .L2 + 28
+	ldr	r6, .L805145C + 28
 	add	r0, r0, #0x4
-	ldr	r2, .L2 + 32
+	ldr	r2, .L805145C + 32
 	add	r1, r4, r2
 	mov	r2, #0xa8
 	lsl	r2, r2, #0x3
 	ldr	r3, [r6]
 	bl	_call_via_r3
 	ldr	r0, [r5]
-	ldr	r3, .L2 + 36
+	ldr	r3, .L805145C + 36
 	add	r0, r0, r3
-	ldr	r1, .L2 + 40
+	ldr	r1, .L805145C + 40
 	add	r4, r4, r1
 	ldr	r3, [r6]
 	add	r1, r4, #0
@@ -66,7 +66,7 @@ sub_80513AC:
 	lsl	r1, r1, #0x1
 	mov	r2, #0x1
 	NEG	r2, r2
-.L1:
+.L8051430:
 	mov	r3, r9
 	add	r3, r3, #0x4
 	mov	r9, r3
@@ -77,7 +77,7 @@ sub_80513AC:
 	mov	r8, r3
 	sub	r1, r1, #0x1
 	cmp	r1, r2
-	bne	.L1	@cond_branch
+	bne	.L8051430	@cond_branch
 	mov	r1, #0xac
 	lsl	r1, r1, #0x3
 	add	r0, r7, r1
@@ -88,9 +88,9 @@ sub_80513AC:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L3:
+.L805145A:
 	.align	2, 0
-.L2:
+.L805145C:
 	.4byte	0x3000f48
 	.4byte	0x6fc
 	.4byte	0xdead

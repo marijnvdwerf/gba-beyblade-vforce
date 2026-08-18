@@ -16,31 +16,31 @@ sub_804E154:
 	lsl	r0, r0, #0x18
 	lsr	r2, r0, #0x18
 	cmp	r2, #0
-	bne	.L3	@cond_branch
+	bne	.L804E1A2	@cond_branch
 	mov	r0, #0xf7
 	lsl	r0, r0, #0x1
 	add	r1, r5, r0
 	ldrh	r3, [r1]
-	ldr	r4, .L4
+	ldr	r4, .L804E1D4
 	add	r0, r3, r4
 	strh	r0, [r1]
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bge	.L2	@cond_branch
+	bge	.L804E18C	@cond_branch
 	strh	r2, [r1]
-.L2:
+.L804E18C:
 	mov	r0, #0xf9
 	lsl	r0, r0, #0x1
 	add	r1, r5, r0
 	ldrh	r3, [r1]
-	ldr	r4, .L4 + 4
+	ldr	r4, .L804E1D4 + 4
 	add	r0, r3, r4
 	strh	r0, [r1]
 	lsl	r0, r0, #0x10
 	cmp	r0, #0
-	bge	.L3	@cond_branch
+	bge	.L804E1A2	@cond_branch
 	strh	r2, [r1]
-.L3:
+.L804E1A2:
 	mov	r1, #0xa2
 	lsl	r1, r1, #0x1
 	add	r0, r5, r1
@@ -65,9 +65,9 @@ sub_804E154:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L5:
+.L804E1D4:
 	.align	2, 0
-.L4:
+
 	.4byte	0xfffffc00
 	.4byte	0xfffffe00
 	thumb_func_end sub_804E154

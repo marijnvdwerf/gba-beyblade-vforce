@@ -6,20 +6,20 @@ sub_80658A4:
 	mov	r7, r9
 	mov	r6, r8
 	push	{r6, r7}
-	ldr	r2, .L1
-	ldr	r1, .L1 + 4
+	ldr	r2, .L8065910
+	ldr	r1, .L8065910 + 4
 	mov	r9, r1
 	ldrh	r1, [r1]
 	strh	r1, [r2]
 	mov	r6, #0x0
 	mov	r2, r9
 	strh	r6, [r2]
-	ldr	r3, .L1 + 8
+	ldr	r3, .L8065910 + 8
 	mov	r8, r3
 	ldr	r5, [r3]
 	strh	r6, [r5, #0x2]
-	ldr	r3, .L1 + 12
-	ldr	r4, .L1 + 16
+	ldr	r3, .L8065910 + 12
+	ldr	r4, .L8065910 + 16
 	ldrb	r1, [r4]
 	mov	r2, #0x8
 	add	r7, r2, #0
@@ -32,9 +32,9 @@ sub_80658A4:
 	ldrh	r1, [r3]
 	orr	r1, r1, r2
 	strh	r1, [r3]
-	ldr	r1, .L1 + 20
+	ldr	r1, .L8065910 + 20
 	strb	r6, [r1]
-	ldr	r2, .L1 + 24
+	ldr	r2, .L8065910 + 24
 	ldrh	r1, [r0]
 	strh	r1, [r2]
 	add	r0, r0, #0x2
@@ -55,9 +55,9 @@ sub_80658A4:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L2:
+.L806590E:
 	.align	2, 0
-.L1:
+.L8065910:
 	.4byte	0x3000db4
 	.4byte	0x4000208
 	.4byte	0x3000db0

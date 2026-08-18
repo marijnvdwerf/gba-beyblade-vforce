@@ -7,19 +7,19 @@ sub_80518F0:
 	ldr	r1, [r0, #0x10]
 	mov	r2, #0x0
 	cmp	r1, #0
-	beq	.L1	@cond_branch
+	beq	.L8051910	@cond_branch
 	mov	r3, #0x1
-.L3:
+.L8051900:
 	add	r0, r1, #0
 	and	r0, r0, r3
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L805190A	@cond_branch
 	add	r2, r2, #0x1
-.L2:
+.L805190A:
 	lsr	r1, r1, #0x1
 	cmp	r1, #0
-	bne	.L3	@cond_branch
-.L1:
+	bne	.L8051900	@cond_branch
+.L8051910:
 	add	r0, r2, #0
 	pop	{r1}
 	bx	r1

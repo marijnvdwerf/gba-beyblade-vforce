@@ -1,4 +1,5 @@
 #include "common.h"
+#include "include_asm.h"
 #include "unsorted.h"
 
 typedef struct SpriteEntry SpriteEntry;
@@ -49,6 +50,10 @@ void sub_80604D4(SpriteEntry* current)
         current = current->next;
     } while (current != NULL);
 }
+
+INCLUDE_ASM("asm/dump/8057b80-debug/8060520-SpriteVRamFree.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8060790.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8060808-freeSpriteVramLocation.s");
 
 // 875594C
 const u8 Str_875594C[] = "Not enough RAM for sprites";
@@ -101,6 +106,8 @@ void sub_80608CC(void)
 
     printf("spritesFree = %i\n", _spritesFree);
 }
+
+INCLUDE_ASM("asm/dump/8057b80-debug/8060934.s");
 
 SpriteEntry* sub_80609C4(SpriteEntry* arg0, u16 arg1)
 {

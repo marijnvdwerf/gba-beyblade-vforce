@@ -25,7 +25,7 @@ sub_8058E18:
 	lsl	r0, r5, #0x1
 	add	r0, r0, r5
 	lsl	r0, r0, #0x3
-	ldr	r1, .L4
+	ldr	r1, .L8058EEC
 	add	r6, r0, r1
 	str	r6, [r2, #0x8]
 	mov	r1, #0x0
@@ -50,7 +50,7 @@ sub_8058E18:
 	LSL	r0, r1
 	sub	r0, r0, #0x1
 	str	r0, [r6, #0xc]
-	ldr	r2, .L4 + 4
+	ldr	r2, .L8058EEC + 4
 	str	r4, [r2]
 	mov	r0, ip
 	add	r0, r0, #0x5d
@@ -78,22 +78,22 @@ sub_8058E18:
 	mov	r5, ip
 	ldr	r0, [r5]
 	cmp	r0, r7
-	bge	.L1	@cond_branch
+	bge	.L8058EB4	@cond_branch
 	add	r7, r0, #0
-.L1:
+.L8058EB4:
 	mov	r1, ip
 	ldr	r0, [r1, #0x4]
 	cmp	r0, r4
-	bge	.L2	@cond_branch
+	bge	.L8058EBE	@cond_branch
 	add	r4, r0, #0
-.L2:
+.L8058EBE:
 	mov	r1, ip
 	add	r1, r1, #0x64
 	mov	r0, #0x2
 	ldrh	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L3	@cond_branch
+	bne	.L8058EE0	@cond_branch
 	ldr	r1, [r6]
 	ldr	r2, [r6, #0x4]
 	ldr	r3, [r6, #0x10]
@@ -103,16 +103,16 @@ sub_8058E18:
 	str	r4, [sp, #0x8]
 	mov	r0, ip
 	bl	sub_8059310
-.L3:
+.L8058EE0:
 	add	sp, sp, #0xc
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L5:
+.L8058EEC:
 	.align	2, 0
-.L4:
+
 	.4byte	0x3000ca0
 	.4byte	0x40000d4
 	thumb_func_end sub_8058E18

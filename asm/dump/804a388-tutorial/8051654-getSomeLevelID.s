@@ -6,29 +6,29 @@ getSomeLevelID:
 	mov	r0, #0x20
 	bl	sub_8051780
 	cmp	r0, #0
-	bne	.L1	@cond_branch
-	ldr	r0, .L3
+	bne	.L8051670	@cond_branch
+	ldr	r0, .L805166C
 	ldr	r0, [r0]
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x18
 	asr	r0, r0, #0x18
-	b	.L2
-.L4:
+	b	.L805167A
+.L805166C:
 	.align	2, 0
-.L3:
+
 	.4byte	0x3000f48
-.L1:
-	ldr	r0, .L5
+.L8051670:
+	ldr	r0, .L8051680
 	ldr	r0, [r0]
-	ldr	r1, .L5 + 4
+	ldr	r1, .L8051680 + 4
 	add	r0, r0, r1
 	ldrh	r0, [r0]
-.L2:
+.L805167A:
 	pop	{r1}
 	bx	r1
-.L6:
+.L805167E:
 	.align	2, 0
-.L5:
+.L8051680:
 	.4byte	0x3000f48
 	.4byte	0x6c4
 	thumb_func_end getSomeLevelID

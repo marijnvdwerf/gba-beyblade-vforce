@@ -13,15 +13,15 @@ sub_805E77C:
 	ldr	r0, [r4]
 	ldr	r0, [r0, #0x8]
 	cmp	r1, r0
-	bge	.L5	@cond_branch
-.L4:
+	bge	.L805E7B6	@cond_branch
+.L805E794:
 	ldrb	r0, [r3, #0xf]
 	cmp	r0, r5
-	bne	.L2	@cond_branch
+	bne	.L805E7A0	@cond_branch
 	ldrh	r0, [r3, #0x16]
 	cmp	r0, r2
-	beq	.L3	@cond_branch
-.L2:
+	beq	.L805E7B2	@cond_branch
+.L805E7A0:
 	add	r3, r3, #0x20
 	add	r0, r1, #1
 	lsl	r0, r0, #0x10
@@ -29,14 +29,14 @@ sub_805E77C:
 	ldr	r0, [r4]
 	ldr	r0, [r0, #0x8]
 	cmp	r1, r0
-	blt	.L4	@cond_branch
-	b	.L5
-.L3:
+	blt	.L805E794	@cond_branch
+	b	.L805E7B6
+.L805E7B2:
 	add	r0, r3, #0
-	b	.L6
-.L5:
+	b	.L805E7B8
+.L805E7B6:
 	mov	r0, #0x0
-.L6:
+.L805E7B8:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1

@@ -5,7 +5,7 @@ sub_805FA68:
 	push	{r4, lr}
 	mov	r1, #0x0
 	strh	r1, [r0, #0x4]
-	ldr	r3, .L1
+	ldr	r3, .L805FA88
 	mov	r4, #0x1
 	NEG	r4, r4
 	ldr	r1, [r0, #0x8]
@@ -17,9 +17,9 @@ sub_805FA68:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L2:
+.L805FA88:
 	.align	2, 0
-.L1:
+
 	.4byte	0x807d970
 	thumb_func_end sub_805FA68
 

@@ -2,7 +2,7 @@
 
 	thumb_func_start sub_804903C
 sub_804903C:
-	ldr	r3, .L1
+	ldr	r3, .L8049070
 	mov	ip, r3
 	add	r3, r3, #0x8c
 	lsl	r1, r1, #0x8
@@ -27,9 +27,9 @@ sub_804903C:
 	lsl	r0, r0, #0x8
 	str	r0, [r1]
 	bx	lr
-.L2:
+.L804906E:
 	.align	2, 0
-.L1:
+.L8049070:
 	.4byte	0x3000650
 	thumb_func_end sub_804903C
 

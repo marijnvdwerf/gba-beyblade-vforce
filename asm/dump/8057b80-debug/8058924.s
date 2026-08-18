@@ -9,12 +9,12 @@ sub_8058924:
 	ldr	r1, [r0, #0x18]
 	add	r0, r0, r1
 	cmp	r2, r0
-	beq	.L1	@cond_branch
+	beq	.L8058938	@cond_branch
 	add	r0, r2, #0
-	b	.L2
-.L1:
+	b	.L805893A
+.L8058938:
 	mov	r0, #0x0
-.L2:
+.L805893A:
 	bx	lr
 	thumb_func_end sub_8058924
 

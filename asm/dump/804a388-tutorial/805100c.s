@@ -6,15 +6,15 @@ sub_805100C:
 	add	r4, r0, #0
 	ldr	r2, [r4, #0x28]
 	mov	r3, #0x0
-	b	.L1
-.L2:
+	b	.L805101C
+.L8051016:
 	str	r1, [r2, #0x14]
 	add	r2, r2, #0x1c
 	add	r3, r3, #0x1
-.L1:
+.L805101C:
 	ldr	r0, [r4]
 	cmp	r3, r0
-	blt	.L2	@cond_branch
+	blt	.L8051016	@cond_branch
 	pop	{r4}
 	pop	{r0}
 	bx	r0

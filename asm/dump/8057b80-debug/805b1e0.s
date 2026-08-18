@@ -10,24 +10,24 @@ sub_805B1E0:
 	ldr	r0, [r3, #0xc]
 	add	r1, r0, r1
 	cmp	r2, #0
-	blt	.L4	@cond_branch
+	blt	.L805B20A	@cond_branch
 	ldr	r0, [r3, #0x14]
 	cmp	r2, r0
-	bge	.L4	@cond_branch
+	bge	.L805B20A	@cond_branch
 	ldr	r0, [r1, #0x48]
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L805B200	@cond_branch
 	add	r1, r0, #0
-.L3:
+.L805B200:
 	ldr	r0, [r1, #0x40]
 	cmp	r0, #0
-	beq	.L4	@cond_branch
+	beq	.L805B20A	@cond_branch
 	ldr	r0, [r1, #0x34]
-	b	.L5
-.L4:
+	b	.L805B20E
+.L805B20A:
 	mov	r0, #0x1
 	NEG	r0, r0
-.L5:
+.L805B20E:
 	bx	lr
 	thumb_func_end sub_805B1E0
 

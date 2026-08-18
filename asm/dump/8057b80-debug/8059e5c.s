@@ -31,11 +31,11 @@ sub_8059E5C:
 	lsl	r4, r4, #0x1
 	add	r2, r2, r4
 	cmp	r6, #0
-	beq	.L1	@cond_branch
+	beq	.L8059EB6	@cond_branch
 	lsl	r1, r7, #0x1
 	add	r3, r0, #0
 	mov	r4, #0x2
-.L2:
+.L8059E9E:
 	ldrh	r0, [r5]
 	strh	r0, [r2]
 	add	r5, r5, r1
@@ -47,8 +47,8 @@ sub_8059E5C:
 	lsl	r0, r0, #0x18
 	lsr	r6, r0, #0x18
 	cmp	r6, #0
-	bne	.L2	@cond_branch
-.L1:
+	bne	.L8059E9E	@cond_branch
+.L8059EB6:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0

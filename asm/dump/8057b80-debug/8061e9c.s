@@ -21,9 +21,9 @@ sub_8061E9C:
 	mov	sl, r0
 	mov	r5, sp
 	cmp	r6, #0x10
-	ble	.L7	@cond_branch
+	ble	.L8061EC6	@cond_branch
 	mov	r6, #0x10
-.L7:
+.L8061EC6:
 	add	r0, r7, #0
 	mov	r1, r8
 	bl	__umodsi3
@@ -33,51 +33,51 @@ sub_8061E9C:
 	bl	__udivsi3
 	add	r7, r0, #0
 	cmp	r4, #0x9
-	bgt	.L2	@cond_branch
+	bgt	.L8061EE2	@cond_branch
 	add	r4, r4, #0x30
-	b	.L5
-.L2:
+	b	.L8061EEE
+.L8061EE2:
 	mov	r0, sl
 	cmp	r0, #0
-	beq	.L4	@cond_branch
+	beq	.L8061EEC	@cond_branch
 	add	r4, r4, #0x37
-	b	.L5
-.L4:
+	b	.L8061EEE
+.L8061EEC:
 	add	r4, r4, #0x57
-.L5:
+.L8061EEE:
 	strb	r4, [r5]
 	add	r5, r5, #0x1
 	cmp	r7, #0
-	beq	.L6	@cond_branch
+	beq	.L8061EFC	@cond_branch
 	sub	r6, r6, #0x1
 	cmp	r6, #0
-	bne	.L7	@cond_branch
-.L6:
+	bne	.L8061EC6	@cond_branch
+.L8061EFC:
 	ldr	r0, [sp, #0x10]
 	cmp	r0, #0
-	beq	.L11	@cond_branch
+	beq	.L8061F26	@cond_branch
 	add	r0, r6, #0
 	sub	r6, r6, #0x1
 	cmp	r0, #0
-	ble	.L11	@cond_branch
+	ble	.L8061F26	@cond_branch
 	mov	r1, #0x30
-.L10:
+.L8061F0C:
 	strb	r1, [r5]
 	add	r5, r5, #0x1
 	add	r0, r6, #0
 	sub	r6, r6, #0x1
 	cmp	r0, #0
-	bgt	.L10	@cond_branch
-	b	.L11
-.L12:
+	bgt	.L8061F0C	@cond_branch
+	b	.L8061F26
+.L8061F1A:
 	sub	r5, r5, #0x1
 	ldrb	r1, [r5]
 	mov	r0, r9
 	bl	sub_8061E94
 	mov	r9, r0
-.L11:
+.L8061F26:
 	cmp	r5, sp
-	bhi	.L12	@cond_branch
+	bhi	.L8061F1A	@cond_branch
 	mov	r0, r9
 	add	sp, sp, #0x14
 	pop	{r3, r4, r5}

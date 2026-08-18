@@ -6,7 +6,7 @@ sub_804C888:
 	add	r4, r0, #0
 	lsl	r1, r1, #0x18
 	cmp	r1, #0
-	beq	.L1	@cond_branch
+	beq	.L804C8AA	@cond_branch
 	mov	r1, #0x81
 	lsl	r1, r1, #0x1
 	bl	SetRiderFlag
@@ -16,8 +16,8 @@ sub_804C888:
 	ldr	r0, [r4, #0x4]
 	mov	r1, #0x1
 	bl	sub_804C0EC
-	b	.L2
-.L1:
+	b	.L804C8BA
+.L804C8AA:
 	ldr	r0, [r4]
 	mov	r1, #0x1a
 	NEG	r1, r1
@@ -25,7 +25,7 @@ sub_804C888:
 	ldr	r0, [r4, #0x4]
 	mov	r1, #0x0
 	bl	sub_804C0EC
-.L2:
+.L804C8BA:
 	pop	{r4}
 	pop	{r0}
 	bx	r0

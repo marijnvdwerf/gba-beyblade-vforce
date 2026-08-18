@@ -17,15 +17,15 @@ newProjectileSystem:
 	bl	slowAllocate
 	add	r1, r0, #0
 	cmp	r1, #0
-	bne	.L1	@cond_branch
-	ldr	r0, .L3
+	bne	.L804C190	@cond_branch
+	ldr	r0, .L804C18C
 	bl	printf
-	b	.L5
-.L4:
+	b	.L804C1F8
+.L804C18A:
 	.align	2, 0
-.L3:
+.L804C18C:
 	.4byte	0x8726fe4
-.L1:
+.L804C190:
 	ldr	r4, [r1]
 	mov	r0, #0x34
 	mul	r0, r0, r7
@@ -42,10 +42,10 @@ newProjectileSystem:
 	str	r0, [r5, #0x14]
 	str	r0, [r5, #0x10]
 	cmp	r7, #0
-	ble	.L5	@cond_branch
+	ble	.L804C1F8	@cond_branch
 	mov	r8, r0
 	add	r5, r7, #0
-.L6:
+.L804C1B6:
 	mov	r1, #0x2a
 	ldsh	r0, [r4, r1]
 	str	r0, [r4, #0x20]
@@ -77,8 +77,8 @@ newProjectileSystem:
 	add	r4, r4, #0x34
 	sub	r5, r5, #0x1
 	cmp	r5, #0
-	bne	.L6	@cond_branch
-.L5:
+	bne	.L804C1B6	@cond_branch
+.L804C1F8:
 	add	sp, sp, #0xc
 	pop	{r3, r4, r5}
 	mov	r8, r3

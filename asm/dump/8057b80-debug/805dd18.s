@@ -21,18 +21,18 @@ sub_805DD18:
 	add	r0, r0, r6
 	mov	r9, r0
 	cmp	r5, #0
-	bge	.L1	@cond_branch
+	bge	.L805DD44	@cond_branch
 	mov	r5, #0x0
-.L1:
+.L805DD44:
 	asr	r0, r5, #0xa
 	cmp	r0, r1
-	blt	.L2	@cond_branch
+	blt	.L805DD54	@cond_branch
 	sub	r0, r1, #1
 	lsl	r0, r0, #0xa
-	ldr	r1, .L5
+	ldr	r1, .L805DD98
 	and	r5, r5, r1
 	orr	r5, r5, r0
-.L2:
+.L805DD54:
 	asr	r0, r5, #0xa
 	mov	sl, r0
 	lsl	r4, r0, #0x2
@@ -45,7 +45,7 @@ sub_805DD18:
 	add	r0, r7, #0
 	bl	GetPointAtIndex
 	str	r0, [sp, #0x4]
-	ldr	r1, .L5
+	ldr	r1, .L805DD98
 	mov	ip, r1
 	mov	r2, ip
 	and	r2, r2, r5
@@ -58,33 +58,33 @@ sub_805DD18:
 	ldr	r0, [r6]
 	sub	r0, r0, #0x2
 	cmp	sl, r0
-	bge	.L3	@cond_branch
+	bge	.L805DD9C	@cond_branch
 	add	r0, r1, #0
 	add	r0, r0, #0x10
 	ldrh	r2, [r0, #0x8]
 	ldrh	r4, [r0, #0xa]
-	b	.L4
-.L6:
+	b	.L805DDA0
+.L805DD96:
 	.align	2, 0
-.L5:
+.L805DD98:
 	.4byte	0x3ff
-.L3:
+.L805DD9C:
 	ldrh	r2, [r1, #0x8]
 	add	r4, r2, #0
-.L4:
+.L805DDA0:
 	lsl	r0, r2, #0x10
-	ldr	r1, .L12
+	ldr	r1, .L805DDE4
 	add	r0, r0, r1
 	lsr	r2, r0, #0x10
 	asr	r0, r0, #0x10
 	cmp	r0, #0
-	bge	.L7	@cond_branch
+	bge	.L805DDB8	@cond_branch
 	mov	r2, #0x80
 	lsl	r2, r2, #0x1
 	add	r0, r0, r2
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
-.L7:
+.L805DDB8:
 	mov	r3, sl
 	lsl	r0, r3, #0x4
 	mov	r1, r9
@@ -94,27 +94,27 @@ sub_805DD18:
 	mov	r5, #0x8
 	ldsh	r1, [r3, r5]
 	cmp	r0, r1
-	beq	.L9	@cond_branch
+	beq	.L805DEA8	@cond_branch
 	lsl	r0, r4, #0x10
 	asr	r0, r0, #0x10
 	cmp	r0, r1
-	beq	.L9	@cond_branch
+	beq	.L805DEA8	@cond_branch
 	mov	r0, sl
 	cmp	r0, #0
-	ble	.L10	@cond_branch
+	ble	.L805DDE8	@cond_branch
 	add	r0, r3, #0
 	sub	r0, r0, #0x10
 	ldrh	r0, [r0, #0x8]
-	b	.L11
-.L13:
+	b	.L805DDEC
+.L805DDE2:
 	.align	2, 0
-.L12:
+.L805DDE4:
 	.4byte	0xff800000
-.L10:
+.L805DDE8:
 	mov	r1, r9
 	ldrh	r0, [r1, #0x8]
-.L11:
-	ldr	r3, .L15
+.L805DDEC:
+	ldr	r3, .L805DEA4
 	lsl	r1, r0, #0x18
 	lsr	r1, r1, #0x18
 	add	r0, r1, #0
@@ -205,12 +205,12 @@ sub_805DD18:
 	mov	r3, r8
 	str	r7, [r3]
 	str	r6, [r3, #0x4]
-	b	.L14
-.L16:
+	b	.L805DED2
+.L805DEA4:
 	.align	2, 0
-.L15:
+
 	.4byte	0x874cc3c
-.L9:
+.L805DEA8:
 	ldr	r4, [sp, #0x4]
 	ldr	r0, [r4]
 	ldr	r5, [sp]
@@ -232,7 +232,7 @@ sub_805DD18:
 	asr	r0, r0, #0xa
 	add	r1, r1, r0
 	str	r1, [r3, #0x4]
-.L14:
+.L805DED2:
 	ldr	r5, [sp, #0x4]
 	ldr	r0, [r5, #0x8]
 	ldr	r2, [sp]

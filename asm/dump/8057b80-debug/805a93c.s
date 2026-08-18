@@ -20,8 +20,8 @@ sub_805A93C:
 	str	r4, [r0]
 	mov	r4, #0x0
 	cmp	r4, r6
-	bcs	.L1	@cond_branch
-.L2:
+	bcs	.L805A97C	@cond_branch
+.L805A962:
 	lsl	r0, r4, #0x1
 	add	r0, r0, r4
 	lsl	r0, r0, #0x2
@@ -33,8 +33,8 @@ sub_805A93C:
 	lsl	r0, r0, #0x10
 	lsr	r4, r0, #0x10
 	cmp	r4, r6
-	bcc	.L2	@cond_branch
-.L1:
+	bcc	.L805A962	@cond_branch
+.L805A97C:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0

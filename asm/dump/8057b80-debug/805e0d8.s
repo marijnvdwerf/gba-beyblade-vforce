@@ -10,7 +10,7 @@ sub_805E0D8:
 	add	r4, r0, #0
 	mov	r8, r2
 	cmp	r1, #0
-	beq	.L2	@cond_branch
+	beq	.L805E17A	@cond_branch
 	add	r0, r1, #0
 	add	r0, r0, #0x20
 	lsl	r1, r3, #0x2
@@ -44,7 +44,7 @@ sub_805E0D8:
 	mul	r0, r0, r7
 	sub	r5, r1, r0
 	cmp	r5, #0
-	beq	.L2	@cond_branch
+	beq	.L805E17A	@cond_branch
 	ldr	r1, [sp, #0x24]
 	sub	r0, r3, r1
 	mul	r0, r0, r7
@@ -81,10 +81,10 @@ sub_805E0D8:
 	str	r2, [r3, #0x8]
 	str	r0, [r3, #0xc]
 	mov	r0, #0x1
-	b	.L3
-.L2:
+	b	.L805E17C
+.L805E17A:
 	mov	r0, #0x0
-.L3:
+.L805E17C:
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

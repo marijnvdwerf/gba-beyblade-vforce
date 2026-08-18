@@ -6,12 +6,12 @@ GetTalkingHead:
 	lsl	r0, r1, #0x2
 	add	r0, r0, r1
 	lsl	r0, r0, #0x3
-	ldr	r1, .L1
+	ldr	r1, .L80571F4
 	add	r0, r0, r1
 	bx	lr
-.L2:
+.L80571F2:
 	.align	2, 0
-.L1:
+.L80571F4:
 	.4byte	0x807a5c0
 	thumb_func_end GetTalkingHead
 

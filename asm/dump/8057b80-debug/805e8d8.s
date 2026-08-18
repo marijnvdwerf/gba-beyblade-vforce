@@ -43,18 +43,18 @@ sub_805E8D8:
 	add	r0, r5, r4
 	ldr	r7, [sp, #0x14]
 	str	r7, [r0]
-	ldr	r0, .L6
+	ldr	r0, .L805EA1C
 	add	r1, r5, r0
 	mov	r0, #0xf
 	strb	r0, [r1]
-	ldr	r2, .L6 + 4
+	ldr	r2, .L805EA1C + 4
 	add	r1, r5, r2
 	mov	r0, #0xff
 	strb	r0, [r1]
 	add	r3, r3, #0x18
 	add	r0, r5, r3
 	strh	r7, [r0]
-	ldr	r7, .L6 + 8
+	ldr	r7, .L805EA1C + 8
 	add	r0, r5, r7
 	mov	r1, sp
 	ldrh	r1, [r1, #0x14]
@@ -75,8 +75,8 @@ sub_805E8D8:
 	lsl	r1, r1, #0x2
 	add	r0, r5, r1
 	str	r7, [r0]
-	ldr	r1, .L6 + 12
-	ldr	r2, .L6 + 16
+	ldr	r1, .L805EA1C + 12
+	ldr	r2, .L805EA1C + 16
 	add	r0, r2, #0
 	strh	r0, [r1]
 	bl	sub_8059934
@@ -86,7 +86,7 @@ sub_805E8D8:
 	str	r3, [sp, #0x1c]
 	mov	r2, #0x0
 	str	r3, [sp, #0x20]
-.L8:
+.L805E982:
 	lsl	r2, r2, #0x18
 	asr	r3, r2, #0x18
 	lsl	r1, r3, #0x3
@@ -108,7 +108,7 @@ sub_805E8D8:
 	mov	ip, r0
 	add	r6, r2, #0
 	cmp	r0, #0
-	beq	.L5	@cond_branch
+	beq	.L805EA68	@cond_branch
 	mov	r0, #0x1
 	LSL	r0, r3
 	ldr	r1, [sp, #0x14]
@@ -123,7 +123,7 @@ sub_805E8D8:
 	str	r0, [sp, #0x24]
 	ldr	r2, [sp, #0x18]
 	cmp	r0, r2
-	beq	.L4	@cond_branch
+	beq	.L805EA30	@cond_branch
 	mov	r0, r8
 	add	r0, r0, #0x18
 	add	r0, r0, r4
@@ -131,12 +131,12 @@ sub_805E8D8:
 	mov	r2, r8
 	add	r2, r2, #0x1c
 	cmp	r3, #0
-	bne	.L3	@cond_branch
+	bne	.L805E9E4	@cond_branch
 	add	r0, r2, r4
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L4	@cond_branch
-.L3:
+	beq	.L805EA30	@cond_branch
+.L805E9E4:
 	lsr	r1, r6, #0x18
 	mov	r0, r8
 	add	r0, r0, #0x20
@@ -162,16 +162,16 @@ sub_805E8D8:
 	mov	r2, ip
 	mov	r3, #0x40
 	bl	sub_8058968
-	b	.L5
-.L7:
+	b	.L805EA68
+.L805EA1A:
 	.align	2, 0
-.L6:
+.L805EA1C:
 	.4byte	0x355
 	.4byte	0x356
 	.4byte	0x35e
 	.4byte	0x4000050
 	.4byte	0x3fff
-.L4:
+.L805EA30:
 	asr	r2, r6, #0x18
 	lsl	r0, r2, #0x4
 	add	r0, r0, r2
@@ -199,14 +199,14 @@ sub_805E8D8:
 	str	r3, [sp, #0x8]
 	mov	r3, #0x40
 	bl	sub_8058968
-.L5:
+.L805EA68:
 	mov	r4, #0x80
 	lsl	r4, r4, #0x11
 	add	r0, r6, r4
 	lsr	r2, r0, #0x18
 	asr	r0, r0, #0x18
 	cmp	r0, #0x3
-	ble	.L8	@cond_branch
+	ble	.L805E982	@cond_branch
 	mov	r0, r8
 	add	r0, r0, #0x74
 	ldrb	r3, [r0]
@@ -221,25 +221,25 @@ sub_805E8D8:
 	mov	r7, r8
 	ldr	r0, [r7, #0x78]
 	cmp	r0, #0
-	beq	.L9	@cond_branch
+	beq	.L805EA9A	@cond_branch
 	bl	loadPalette
-.L9:
+.L805EA9A:
 	mov	r1, r8
 	ldr	r0, [r1, #0x7c]
 	cmp	r0, #0
-	beq	.L10	@cond_branch
+	beq	.L805EAA6	@cond_branch
 	bl	loadPalette2
-.L10:
+.L805EAA6:
 	mov	r0, r8
 	add	r0, r0, #0x80
 	ldr	r1, [r0]
 	cmp	r1, #0
-	beq	.L11	@cond_branch
+	beq	.L805EABA	@cond_branch
 	mov	r2, #0x8a
 	lsl	r2, r2, #0x2
 	add	r0, r5, r2
 	bl	getLevelGeometryAddresses
-.L11:
+.L805EABA:
 	ldr	r3, [sp, #0x14]
 	lsl	r0, r3, #0x18
 	asr	r0, r0, #0x10

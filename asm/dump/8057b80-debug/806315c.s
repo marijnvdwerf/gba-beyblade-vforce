@@ -7,25 +7,25 @@ sub_806315C:
 	mov	r2, #0x0
 	ldr	r0, [r5, #0x4]
 	cmp	r2, r0
-	bge	.L1	@cond_branch
-.L3:
+	bge	.L806318A	@cond_branch
+.L8063168:
 	lsl	r0, r2, #0x10
 	asr	r4, r0, #0x10
 	add	r0, r5, #0
 	add	r1, r4, #0
 	bl	sub_8063190
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L806317C	@cond_branch
 	bl	sub_80588A8
-.L2:
+.L806317C:
 	add	r0, r4, #1
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
 	asr	r0, r0, #0x10
 	ldr	r1, [r5, #0x4]
 	cmp	r0, r1
-	blt	.L3	@cond_branch
-.L1:
+	blt	.L8063168	@cond_branch
+.L806318A:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

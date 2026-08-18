@@ -22,27 +22,27 @@ newSpriteTrail:
 	sub	r0, r0, r7
 	lsl	r5, r0, #0x2
 	cmp	r1, #0
-	beq	.L1	@cond_branch
+	beq	.L804A86A	@cond_branch
 	add	r0, r5, #0
 	bl	fastAllocate
-	b	.L2
-.L1:
+	b	.L804A870
+.L804A86A:
 	add	r0, r5, #0
 	bl	slowAllocate
-.L2:
+.L804A870:
 	add	r6, r0, #0
 	cmp	r6, #0
-	bne	.L3	@cond_branch
-	ldr	r0, .L5
+	bne	.L804A888	@cond_branch
+	ldr	r0, .L804A884
 	add	r1, r5, #0
 	bl	printf
 	str	r6, [r4, #0xc]
-	b	.L7
-.L6:
+	b	.L804A8F4
+.L804A882:
 	.align	2, 0
-.L5:
+.L804A884:
 	.4byte	0x8726f84
-.L3:
+.L804A888:
 	ldr	r5, [r6]
 	mov	r0, #0x0
 	strh	r0, [r4, #0x2]
@@ -66,17 +66,17 @@ newSpriteTrail:
 	strh	r7, [r4]
 	str	r6, [r4, #0xc]
 	cmp	r7, #0
-	ble	.L7	@cond_branch
+	ble	.L804A8F4	@cond_branch
 	mov	r4, #0x0
 	add	r6, r7, #0
-.L10:
+.L804A8BC:
 	mov	r0, #0x1
 	bl	allocSprite
 	add	r1, r0, #0
 	str	r1, [r5, #0x18]
 	strh	r4, [r5, #0xc]
 	cmp	r1, #0
-	beq	.L8	@cond_branch
+	beq	.L804A8E6	@cond_branch
 	mov	r0, #0x1
 	str	r0, [sp]
 	str	r4, [sp, #0x4]
@@ -88,16 +88,16 @@ newSpriteTrail:
 	mov	r3, #0xa0
 	lsl	r3, r3, #0x8
 	bl	LoadSpriteSheet
-	b	.L9
-.L8:
-	ldr	r0, .L11
+	b	.L804A8EC
+.L804A8E6:
+	ldr	r0, .L804A904
 	bl	printf
-.L9:
+.L804A8EC:
 	add	r5, r5, #0x1c
 	sub	r6, r6, #0x1
 	cmp	r6, #0
-	bne	.L10	@cond_branch
-.L7:
+	bne	.L804A8BC	@cond_branch
+.L804A8F4:
 	add	sp, sp, #0x10
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -106,9 +106,9 @@ newSpriteTrail:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L12:
+.L804A904:
 	.align	2, 0
-.L11:
+
 	.4byte	0x8726fb4
 	thumb_func_end newSpriteTrail
 

@@ -15,7 +15,7 @@ sub_804C35C:
 	add	r0, r5, #0
 	sub	r5, r5, #0x1
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L804C3C0	@cond_branch
 	mov	r2, #0x0
 	mov	sl, r2
 	mov	r0, r9
@@ -25,7 +25,7 @@ sub_804C35C:
 	sub	r0, r0, r3
 	sub	r7, r0, r1
 	add	r6, r1, r3
-.L2:
+.L804C38A:
 	mov	r3, r9
 	str	r3, [r4]
 	mov	r0, r8
@@ -47,12 +47,12 @@ sub_804C35C:
 	mov	r3, #0x80
 	lsl	r3, r3, #0x4
 	add	r7, r7, r3
-	ldr	r1, .L3
+	ldr	r1, .L804C3D0
 	add	r6, r6, r1
 	sub	r5, r5, #0x1
 	cmp	r0, #0
-	bne	.L2	@cond_branch
-.L1:
+	bne	.L804C38A	@cond_branch
+.L804C3C0:
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4
@@ -60,9 +60,9 @@ sub_804C35C:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L4:
+.L804C3CE:
 	.align	2, 0
-.L3:
+.L804C3D0:
 	.4byte	0xfffff800
 	thumb_func_end sub_804C35C
 

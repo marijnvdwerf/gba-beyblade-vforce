@@ -10,53 +10,53 @@ assert:
 	mov	r8, r3
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1	@cond_branch
-	ldr	r5, .L3
+	bne	.L8057BF2	@cond_branch
+	ldr	r5, .L8057BFC
 	add	r0, r5, #0
 	bl	printf
-	ldr	r0, .L3 + 4
+	ldr	r0, .L8057BFC + 4
 	bl	printf
-	ldr	r4, .L3 + 8
+	ldr	r4, .L8057BFC + 8
 	add	r0, r4, #0
 	bl	printf
-	ldr	r0, .L3 + 12
+	ldr	r0, .L8057BFC + 12
 	add	r1, r6, #0
 	bl	printf
 	add	r0, r4, #0
 	bl	printf
-	ldr	r0, .L3 + 16
+	ldr	r0, .L8057BFC + 16
 	add	r1, r7, #0
 	bl	printf
 	add	r0, r4, #0
 	bl	printf
-	ldr	r0, .L3 + 20
+	ldr	r0, .L8057BFC + 20
 	mov	r1, r8
 	bl	printf
-	ldr	r0, .L3 + 24
+	ldr	r0, .L8057BFC + 24
 	ldr	r1, [sp, #0x18]
 	bl	printf
 	add	r0, r4, #0
 	bl	printf
 	add	r0, r5, #0
 	bl	printf
-	ldr	r4, .L3 + 28
+	ldr	r4, .L8057BFC + 28
 	mov	r5, #0x1
-.L2:
+.L8057BE4:
 	bl	updateKeyState
 	add	r0, r5, #0
 	ldrh	r1, [r4]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L2	@cond_branch
-.L1:
+	beq	.L8057BE4	@cond_branch
+.L8057BF2:
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L4:
+.L8057BFC:
 	.align	2, 0
-.L3:
+
 	.4byte	0x872cb38
 	.4byte	0x872cb74
 	.4byte	0x872cb88

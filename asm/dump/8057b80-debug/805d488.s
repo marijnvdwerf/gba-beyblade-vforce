@@ -17,10 +17,10 @@ sub_805D488:
 	mov	r0, #0x1
 	NEG	r0, r0
 	cmp	r1, r0
-	bne	.L6	@cond_branch
+	bne	.L805D538	@cond_branch
 	mov	r6, #0x0
-	b	.L2
-.L7:
+	b	.L805D530
+.L805D4AC:
 	lsl	r1, r6, #0x2
 	add	r0, r5, #0
 	add	r0, r0, #0x14
@@ -44,7 +44,7 @@ sub_805D488:
 	lsl	r0, r0, #0x18
 	lsr	r2, r0, #0x18
 	cmp	r2, #0x1
-	bne	.L3	@cond_branch
+	bne	.L805D52E	@cond_branch
 	ldr	r0, [r7]
 	lsl	r0, r0, #0x2
 	add	r0, r0, #0x20
@@ -56,7 +56,7 @@ sub_805D488:
 	ldrb	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L4	@cond_branch
+	bne	.L805D508	@cond_branch
 	ldr	r3, [sp, #0x1c]
 	lsl	r3, r3, #0xa
 	ldr	r0, [sp, #0x18]
@@ -65,12 +65,12 @@ sub_805D488:
 	mov	r1, r8
 	add	r2, r6, #0
 	bl	sub_805C3BC
-.L4:
+.L805D508:
 	mov	r0, r8
 	add	r0, r0, #0x90
 	ldr	r4, [r0]
 	cmp	r4, #0
-	beq	.L6	@cond_branch
+	beq	.L805D538	@cond_branch
 	ldr	r0, [sp, #0x1c]
 	lsl	r0, r0, #0x4
 	ADD r0, r9
@@ -83,15 +83,15 @@ sub_805D488:
 	add	r2, r7, #0
 	add	r3, r6, #0
 	bl	_call_via_r4
-	b	.L6
-.L3:
+	b	.L805D538
+.L805D52E:
 	add	r6, r6, #0x1
-.L2:
+.L805D530:
 	ldr	r0, [r5]
 	ldr	r0, [r0, #0x4]
 	cmp	r6, r0
-	blt	.L7	@cond_branch
-.L6:
+	blt	.L805D4AC	@cond_branch
+.L805D538:
 	add	sp, sp, #0x24
 	pop	{r3, r4, r5}
 	mov	r8, r3

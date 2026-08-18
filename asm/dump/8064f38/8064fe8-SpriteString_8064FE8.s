@@ -22,15 +22,15 @@ SpriteString_8064FE8:
 	bl	sub_8062EFC
 	add	r7, r0, #0
 	cmp	r7, #0
-	bne	.L1	@cond_branch
-	ldr	r0, .L4
+	bne	.L806501A	@cond_branch
+	ldr	r0, .L8065084
 	bl	nullsub_8
-.L1:
+.L806501A:
 	mov	r5, #0x0
 	cmp	r5, r8
-	bcs	.L2	@cond_branch
+	bcs	.L806504E	@cond_branch
 	mov	r6, #0x0
-.L3:
+.L8065022:
 	mov	r0, #0xc4
 	mul	r0, r0, r5
 	ldr	r4, [r7, #0x8]
@@ -50,8 +50,8 @@ SpriteString_8064FE8:
 	lsl	r0, r0, #0x10
 	lsr	r5, r0, #0x10
 	cmp	r5, r8
-	bcc	.L3	@cond_branch
-.L2:
+	bcc	.L8065022	@cond_branch
+.L806504E:
 	ldr	r0, [r7, #0x8]
 	str	r0, [sp]
 	ldrb	r0, [r7, #0x4]
@@ -77,9 +77,9 @@ SpriteString_8064FE8:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L5:
+.L8065082:
 	.align	2, 0
-.L4:
+.L8065084:
 	.4byte	0x8756844
 	thumb_func_end SpriteString_8064FE8
 

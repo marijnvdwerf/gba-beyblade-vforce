@@ -7,22 +7,22 @@ sub_8054278:
 	lsr	r4, r1, #0x10
 	add	r1, r4, #0
 	bl	handleEventListeners
-	ldr	r0, .L2
+	ldr	r0, .L80542A0
 	ldr	r0, [r0]
-	ldr	r1, .L2 + 4
+	ldr	r1, .L80542A0 + 4
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L8054298	@cond_branch
 	add	r0, r4, #0
 	bl	sub_804FF88
-.L1:
+.L8054298:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L3:
+.L805429E:
 	.align	2, 0
-.L2:
+.L80542A0:
 	.4byte	0x3000fb0
 	.4byte	0x1618
 	thumb_func_end sub_8054278

@@ -10,40 +10,40 @@ sub_804E258:
 	sub	r2, r1, r0
 	add	r1, r2, #0
 	cmp	r2, #0
-	bge	.L1	@cond_branch
+	bge	.L804E26C	@cond_branch
 	NEG	r1, r2
-.L1:
+.L804E26C:
 	asr	r0, r4, #0x1
 	cmp	r1, r0
-	ble	.L2	@cond_branch
+	ble	.L804E274	@cond_branch
 	sub	r1, r1, r4
-.L2:
+.L804E274:
 	add	r0, r1, #0
 	mul	r0, r0, r3
 	asr	r0, r0, #0x8
 	add	r3, r0, #0
 	cmp	r0, #0
-	bge	.L3	@cond_branch
+	bge	.L804E282	@cond_branch
 	NEG	r0, r0
-.L3:
+.L804E282:
 	cmp	r3, #0
-	bne	.L5	@cond_branch
+	bne	.L804E28C	@cond_branch
 	cmp	r1, #0
-	beq	.L5	@cond_branch
+	beq	.L804E28C	@cond_branch
 	add	r0, r1, #0
-.L5:
+.L804E28C:
 	cmp	r0, r5
-	ble	.L6	@cond_branch
+	ble	.L804E292	@cond_branch
 	add	r0, r5, #0
-.L6:
+.L804E292:
 	cmp	r3, #0
-	bge	.L7	@cond_branch
+	bge	.L804E298	@cond_branch
 	NEG	r0, r0
-.L7:
+.L804E298:
 	cmp	r2, #0
-	bge	.L8	@cond_branch
+	bge	.L804E29E	@cond_branch
 	NEG	r0, r0
-.L8:
+.L804E29E:
 	pop	{r4, r5}
 	pop	{r1}
 	bx	r1

@@ -25,21 +25,21 @@ sub_8059F20:
 	ldrb	r2, [r0]
 	add	r5, r5, #0x1
 	cmp	r2, #0
-	beq	.L6	@cond_branch
+	beq	.L8059F8C	@cond_branch
 	add	r7, r3, r1
 	cmp	r5, r7
-	bgt	.L6	@cond_branch
-.L7:
+	bgt	.L8059F8C	@cond_branch
+.L8059F56:
 	cmp	r2, #0xa
-	bne	.L3	@cond_branch
+	bne	.L8059F60	@cond_branch
 	add	r6, r6, #0x2
 	mov	r4, r8
-	b	.L4
-.L3:
+	b	.L8059F7C
+.L8059F60:
 	cmp	r2, #0x20
-	beq	.L5	@cond_branch
+	beq	.L8059F7A	@cond_branch
 	str	r6, [sp]
-	ldr	r0, .L8
+	ldr	r0, .L8059F9C
 	add	r0, r2, r0
 	ldrb	r0, [r0]
 	str	r0, [sp, #0x4]
@@ -48,18 +48,18 @@ sub_8059F20:
 	mov	r2, #0x2
 	add	r3, r4, #0
 	bl	sub_8059E5C
-.L5:
+.L8059F7A:
 	add	r4, r4, #0x1
-.L4:
+.L8059F7C:
 	mov	r1, r9
 	add	r0, r1, r5
 	ldrb	r2, [r0]
 	add	r5, r5, #0x1
 	cmp	r2, #0
-	beq	.L6	@cond_branch
+	beq	.L8059F8C	@cond_branch
 	cmp	r5, r7
-	ble	.L7	@cond_branch
-.L6:
+	ble	.L8059F56	@cond_branch
+.L8059F8C:
 	add	sp, sp, #0x8
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -68,9 +68,9 @@ sub_8059F20:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L9:
+.L8059F9C:
 	.align	2, 0
-.L8:
+
 	.4byte	0x807d7fc
 	thumb_func_end sub_8059F20
 

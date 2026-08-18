@@ -27,20 +27,20 @@ sub_804E090:
 	add	r0, r5, #0
 	bl	UnsetRiderFlag
 	cmp	r4, #0
-	ble	.L5	@cond_branch
+	ble	.L804E11E	@cond_branch
 	add	r0, r5, #0
 	add	r0, r0, #0x80
 	ldr	r0, [r0]
 	cmp	r0, #0
-	ble	.L5	@cond_branch
+	ble	.L804E11E	@cond_branch
 	add	r0, r5, #0
 	add	r0, r0, #0xec
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L4	@cond_branch
+	beq	.L804E114	@cond_branch
 	ldrb	r0, [r0, #0xf]
 	cmp	r0, #0x81
-	bne	.L4	@cond_branch
+	bne	.L804E114	@cond_branch
 	mov	r2, #0xb6
 	lsl	r2, r2, #0x1
 	add	r0, r5, r2
@@ -65,14 +65,14 @@ sub_804E090:
 	mov	r0, #0xff
 	and	r1, r1, r0
 	str	r1, [r5, #0xc]
-	b	.L5
-.L4:
+	b	.L804E11E
+.L804E114:
 	add	r0, r5, #0
 	add	r0, r0, #0x90
 	ldr	r1, [r5]
 	ldr	r1, [r1, #0xc]
 	str	r1, [r0]
-.L5:
+.L804E11E:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

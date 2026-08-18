@@ -33,9 +33,9 @@ sub_8052588:
 	add	r3, r3, r2
 	ldrb	r3, [r3]
 	str	r3, [sp, #0xc]
-	ldr	r1, .L5
+	ldr	r1, .L8052648
 	ldr	r3, [r1]
-	ldr	r1, .L5 + 4
+	ldr	r1, .L8052648 + 4
 	add	r7, r3, r1
 	lsl	r5, r5, #0xb
 	mov	r1, #0xe0
@@ -59,11 +59,11 @@ sub_8052588:
 	str	r2, [r0, #0xc]
 	ldr	r0, [r7]
 	cmp	sl, r0
-	bne	.L1	@cond_branch
+	bne	.L8052602	@cond_branch
 	ldr	r0, [r7, #0x4]
 	cmp	ip, r0
-	beq	.L2	@cond_branch
-.L1:
+	beq	.L805265C	@cond_branch
+.L8052602:
 	ldr	r0, [r7, #0xc]
 	mov	r2, r9
 	sub	r4, r0, r2
@@ -72,45 +72,45 @@ sub_8052588:
 	mov	r0, ip
 	str	r0, [r7, #0x4]
 	str	r2, [r7, #0xc]
-	ldr	r1, .L5 + 8
+	ldr	r1, .L8052648 + 8
 	add	r0, r3, r1
 	str	r2, [sp]
 	ldr	r1, [sp, #0xc]
 	sub	r1, r1, #0x1
 	str	r1, [sp, #0x4]
-	ldr	r1, .L5 + 12
+	ldr	r1, .L8052648 + 12
 	str	r1, [sp, #0x8]
 	mov	r1, sl
 	mov	r2, ip
 	mov	r3, #0x8
 	bl	sub_805EF18
 	cmp	r4, #0
-	ble	.L11	@cond_branch
-	ldr	r0, .L5 + 16
+	ble	.L80526AE	@cond_branch
+	ldr	r0, .L8052648 + 16
 	mov	r2, r9
 	lsl	r1, r2, #0x8
-	ldr	r3, .L5 + 12
+	ldr	r3, .L8052648 + 12
 	add	r1, r1, r3
 	lsl	r2, r4, #0x8
 	ldr	r3, [r0]
 	mov	r0, #0x0
 	bl	_call_via_r3
-	b	.L11
-.L6:
+	b	.L80526AE
+.L8052646:
 	.align	2, 0
-.L5:
+.L8052648:
 	.4byte	0x3000fb0
 	.4byte	0x153c
 	.4byte	0x434
 	.4byte	0x6012000
 	.4byte	0x807d970
-.L2:
+.L805265C:
 	ldr	r2, [r7, #0xc]
 	cmp	r9, r2
-	ble	.L7	@cond_branch
+	ble	.L8052694	@cond_branch
 	mov	r4, r9
 	sub	r1, r4, r2
-	ldr	r5, .L9
+	ldr	r5, .L805268C
 	add	r0, r3, r5
 	ADD r2, ip
 	str	r1, [sp]
@@ -119,33 +119,33 @@ sub_8052588:
 	str	r1, [sp, #0x4]
 	ldr	r1, [r7, #0xc]
 	lsl	r1, r1, #0x8
-	ldr	r3, .L9 + 4
+	ldr	r3, .L805268C + 4
 	add	r1, r1, r3
 	str	r1, [sp, #0x8]
 	mov	r1, sl
 	mov	r3, #0x8
 	bl	sub_805EF18
 	str	r4, [r7, #0xc]
-	b	.L11
-.L10:
+	b	.L80526AE
+.L805268A:
 	.align	2, 0
-.L9:
+.L805268C:
 	.4byte	0x434
 	.4byte	0x6012000
-.L7:
+.L8052694:
 	cmp	r9, r2
-	bge	.L11	@cond_branch
-	ldr	r0, .L12
+	bge	.L80526AE	@cond_branch
+	ldr	r0, .L80526C0
 	mov	r4, r9
 	lsl	r1, r4, #0x8
-	ldr	r5, .L12 + 4
+	ldr	r5, .L80526C0 + 4
 	add	r1, r1, r5
 	sub	r2, r2, r4
 	lsl	r2, r2, #0x8
 	ldr	r3, [r0]
 	mov	r0, #0x0
 	bl	_call_via_r3
-.L11:
+.L80526AE:
 	add	sp, sp, #0x18
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -154,9 +154,9 @@ sub_8052588:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L13:
+.L80526BE:
 	.align	2, 0
-.L12:
+.L80526C0:
 	.4byte	0x807d970
 	.4byte	0x6012000
 	thumb_func_end sub_8052588

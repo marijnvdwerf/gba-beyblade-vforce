@@ -3,9 +3,9 @@
 	thumb_func_start closeGame
 closeGame:
 	push	{r4, lr}
-	ldr	r4, .L2
+	ldr	r4, .L8053D44
 	ldr	r0, [r4]
-	ldr	r1, .L2 + 4
+	ldr	r1, .L8053D44 + 4
 	add	r0, r0, r1
 	bl	sub_8060CDC
 	ldr	r0, [r4]
@@ -19,7 +19,7 @@ closeGame:
 	add	r0, r0, r1
 	bl	sub_8061204
 	ldr	r0, [r4]
-	ldr	r1, .L2 + 8
+	ldr	r1, .L8053D44 + 8
 	add	r0, r0, r1
 	bl	sub_8061204
 	bl	deallocBeybladeActorData
@@ -30,7 +30,7 @@ closeGame:
 	add	r0, r0, r1
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L8053D0A	@cond_branch
 	bl	deallocateBlock
 	ldr	r0, [r4]
 	mov	r1, #0x85
@@ -38,7 +38,7 @@ closeGame:
 	add	r0, r0, r1
 	mov	r1, #0x0
 	str	r1, [r0]
-.L1:
+.L8053D0A:
 	bl	sub_8054FE0
 	bl	deallocEventListeners
 	bl	nullsub_7
@@ -46,11 +46,11 @@ closeGame:
 	bl	nullsub_4
 	bl	sub_804FEE8
 	ldr	r0, [r4]
-	ldr	r1, .L2 + 12
+	ldr	r1, .L8053D44 + 12
 	add	r0, r0, r1
 	bl	sub_805BA3C
 	ldr	r0, [r4]
-	ldr	r1, .L2 + 16
+	ldr	r1, .L8053D44 + 16
 	add	r0, r0, r1
 	bl	deallocateQuadTree
 	mov	r0, #0x1
@@ -58,9 +58,9 @@ closeGame:
 	pop	{r4}
 	pop	{r0}
 	bx	r0
-.L3:
+.L8053D42:
 	.align	2, 0
-.L2:
+.L8053D44:
 	.4byte	0x3000fb0
 	.4byte	0x92c
 	.4byte	0x8a8

@@ -8,16 +8,16 @@ sub_8063AB4:
 	ldr	r5, [r1]
 	add	r0, r0, #0xf4
 	ldr	r4, [r0]
-	b	.L1
-.L2:
+	b	.L8063ACA
+.L8063AC2:
 	add	r0, r5, #0
 	bl	sub_8060A60
 	ldr	r5, [r5, #0x4]
-.L1:
+.L8063ACA:
 	add	r0, r4, #0
 	sub	r4, r4, #0x1
 	cmp	r0, #0
-	bne	.L2	@cond_branch
+	bne	.L8063AC2	@cond_branch
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

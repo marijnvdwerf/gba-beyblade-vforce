@@ -8,12 +8,12 @@ sub_8051804:
 	ldrh	r0, [r0]
 	and	r1, r1, r0
 	cmp	r1, #0
-	bne	.L1	@cond_branch
+	bne	.L8051818	@cond_branch
 	mov	r0, #0x0
-	b	.L2
-.L1:
+	b	.L805181A
+.L8051818:
 	mov	r0, #0x1
-.L2:
+.L805181A:
 	pop	{r1}
 	bx	r1
 	thumb_func_end sub_8051804

@@ -6,7 +6,7 @@ sub_804F878:
 	mov	r7, r8
 	push	{r7}
 	add	sp, sp, #0xfffffffc
-	ldr	r0, .L4
+	ldr	r0, .L804F8C8
 	ldr	r5, [r0]
 	mov	r0, #0xf5
 	lsl	r0, r0, #0x4
@@ -14,7 +14,7 @@ sub_804F878:
 	bl	getLevelDescription2
 	add	r6, r0, #0
 	bl	sub_804FD64
-	ldr	r1, .L4 + 4
+	ldr	r1, .L804F8C8 + 4
 	add	r1, r1, r5
 	mov	r8, r1
 	mov	r0, #0x2
@@ -25,39 +25,39 @@ sub_804F878:
 	mov	r0, #0x4
 	bl	sub_8051780
 	cmp	r0, #0
-	beq	.L1	@cond_branch
-	ldr	r0, .L4 + 8
+	beq	.L804F8F0	@cond_branch
+	ldr	r0, .L804F8C8 + 8
 	ldr	r0, [r0]
-	ldr	r1, .L4 + 12
+	ldr	r1, .L804F8C8 + 12
 	add	r0, r0, r1
 	ldrb	r0, [r0]
 	cmp	r0, #0x2
-	bne	.L2	@cond_branch
+	bne	.L804F8D8	@cond_branch
 	bl	getLanguage
 	lsl	r0, r0, #0x2
 	add	r1, r6, #0
 	add	r1, r1, #0x94
-	b	.L3
-.L5:
+	b	.L804F8E2
+.L804F8C8:
 	.align	2, 0
-.L4:
+
 	.4byte	0x3000fb0
 	.4byte	0x105e
 	.4byte	0x3000f48
 	.4byte	0x6a4
-.L2:
+.L804F8D8:
 	bl	getLanguage
 	lsl	r0, r0, #0x2
 	add	r1, r6, #0
 	add	r1, r1, #0xa8
-.L3:
+.L804F8E2:
 	add	r1, r1, r0
 	ldr	r1, [r1]
 	add	r0, r7, #0
 	mov	r2, #0xd
 	bl	sub_8061660
-	b	.L6
-.L1:
+	b	.L804F960
+.L804F8F0:
 	bl	getLanguage
 	lsl	r0, r0, #0x2
 	add	r1, r6, #0
@@ -79,9 +79,9 @@ sub_804F878:
 	add	r0, r4, #0
 	mov	r2, #0xd
 	bl	sub_8061660
-	ldr	r0, .L7
+	ldr	r0, .L804F9AC
 	add	r4, r5, r0
-	ldr	r2, .L7 + 4
+	ldr	r2, .L804F9AC + 4
 	add	r1, r5, r2
 	add	r0, r4, #0
 	mov	r2, #0x2
@@ -107,7 +107,7 @@ sub_804F878:
 	orr	r0, r0, r1
 	mov	r2, r8
 	strh	r0, [r2]
-.L6:
+.L804F960:
 	add	r4, r7, #0
 	add	r4, r4, #0xc0
 	add	r1, r7, #0
@@ -142,9 +142,9 @@ sub_804F878:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L8:
+.L804F9AA:
 	.align	2, 0
-.L7:
+.L804F9AC:
 	.4byte	0x1028
 	.4byte	0xf94
 	thumb_func_end sub_804F878

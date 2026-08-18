@@ -8,13 +8,13 @@ sub_8061204:
 	bl	sub_8060CDC
 	ldr	r0, [r4, #0x2c]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L8061222	@cond_branch
 	bl	sub_8061160
 	ldr	r0, [r4, #0x2c]
 	bl	sub_8060B38
 	mov	r0, #0x0
 	str	r0, [r4, #0x2c]
-.L1:
+.L8061222:
 	pop	{r4}
 	pop	{r0}
 	bx	r0

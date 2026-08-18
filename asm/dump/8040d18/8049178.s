@@ -3,18 +3,18 @@
 	thumb_func_start sub_8049178
 sub_8049178:
 	push	{r4, r5, lr}
-	ldr	r4, .L2
+	ldr	r4, .L80491BC
 	add	r5, r4, #0
 	add	r5, r5, #0x7c
 	ldrb	r0, [r5]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L80491B2	@cond_branch
 	mov	r0, #0x3
 	bl	sub_8049344
 	mov	r0, #0x3
 	mov	r1, #0x1
 	bl	sub_80490CC
-	ldr	r1, .L2 + 4
+	ldr	r1, .L80491BC + 4
 	mov	r0, #0x1
 	strb	r0, [r1]
 	ldrb	r0, [r5]
@@ -29,14 +29,14 @@ sub_8049178:
 	str	r0, [r4, #0x4]
 	ldr	r0, [r4]
 	str	r0, [r4, #0x8]
-.L1:
+.L80491B2:
 	bl	sub_80495C4
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L3:
+.L80491BC:
 	.align	2, 0
-.L2:
+
 	.4byte	0x3000650
 	.4byte	0x3000bfc
 	thumb_func_end sub_8049178

@@ -5,13 +5,13 @@ sub_804A26C:
 	mov	r2, #0x80
 	lsl	r2, r2, #0x13
 	ldrh	r1, [r2]
-	ldr	r0, .L1
+	ldr	r0, .L804A27C
 	and	r0, r0, r1
 	strh	r0, [r2]
 	bx	lr
-.L2:
+.L804A27A:
 	.align	2, 0
-.L1:
+.L804A27C:
 	.4byte	0xdfff
 	thumb_func_end sub_804A26C
 

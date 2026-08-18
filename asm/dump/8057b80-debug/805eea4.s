@@ -10,15 +10,15 @@ sub_805EEA4:
 	lsl	r2, r2, #0x10
 	asr	r2, r2, #0x10
 	cmp	r3, r2
-	bge	.L1	@cond_branch
-.L4:
+	bge	.L805EED4	@cond_branch
+.L805EEB6:
 	ldr	r0, [r4]
 	cmp	r1, r0
-	bne	.L2	@cond_branch
+	bne	.L805EEC2	@cond_branch
 	lsl	r0, r3, #0x10
 	asr	r0, r0, #0x10
-	b	.L3
-.L2:
+	b	.L805EED8
+.L805EEC2:
 	add	r4, r4, #0x84
 	lsl	r0, r3, #0x10
 	mov	r3, #0x80
@@ -27,11 +27,11 @@ sub_805EEA4:
 	lsr	r3, r0, #0x10
 	asr	r0, r0, #0x10
 	cmp	r0, r2
-	blt	.L4	@cond_branch
-.L1:
+	blt	.L805EEB6	@cond_branch
+.L805EED4:
 	mov	r0, #0x1
 	NEG	r0, r0
-.L3:
+.L805EED8:
 	pop	{r4}
 	pop	{r1}
 	bx	r1

@@ -64,10 +64,10 @@ LoadSpriteSheet:
 	mov	r1, ip
 	ldr	r0, [r1, #0x1c]
 	cmp	r0, #0
-	bne	.L1	@cond_branch
+	bne	.L8060BEA	@cond_branch
 	mov	r2, ip
 	ldr	r0, [r2, #0x10]
-.L1:
+.L8060BEA:
 	ADD r0, ip
 	str	r0, [r7, #0x28]
 	mov	r1, ip
@@ -76,7 +76,7 @@ LoadSpriteSheet:
 	strh	r0, [r7, #0x16]
 	mov	r2, sl
 	strh	r2, [r7, #0x18]
-	ldr	r0, .L2
+	ldr	r0, .L8060C18
 	strh	r0, [r7, #0x1a]
 	strh	r1, [r7, #0x1c]
 	strh	r1, [r7, #0x20]
@@ -90,9 +90,9 @@ LoadSpriteSheet:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L3:
+.L8060C16:
 	.align	2, 0
-.L2:
+.L8060C18:
 	.4byte	0xffff
 	thumb_func_end LoadSpriteSheet
 

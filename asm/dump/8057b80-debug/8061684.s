@@ -16,24 +16,24 @@ sub_8061684:
 	add	r7, r5, #0
 	ldr	r1, [r6, #0x1c]
 	cmp	r1, #0
-	bne	.L1	@cond_branch
-	b	.L2
-.L1:
+	bne	.L80616A4	@cond_branch
+	b	.L8061814
+.L80616A4:
 	mov	r0, #0x4
 	ldrh	r2, [r6, #0x8]
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L80616D2	@cond_branch
 	ldr	r5, [r6, #0x14]
 	sub	r4, r1, #1
 	mov	r0, #0x1
 	NEG	r0, r0
 	cmp	r4, r0
-	bne	.L4	@cond_branch
-	b	.L28
-.L4:
+	bne	.L80616BC	@cond_branch
+	b	.L806180E
+.L80616BC:
 	mov	r9, r0
-.L6:
+.L80616BE:
 	add	r0, r5, #0
 	mov	r1, r8
 	add	r2, r7, #0
@@ -41,12 +41,12 @@ sub_8061684:
 	ldr	r5, [r5, #0x4]
 	sub	r4, r4, #0x1
 	cmp	r4, r9
-	bne	.L6	@cond_branch
-	b	.L28
-.L3:
+	bne	.L80616BE	@cond_branch
+	b	.L806180E
+.L80616D2:
 	ldr	r4, [r6, #0x2c]
 	cmp	r4, #0
-	beq	.L8	@cond_branch
+	beq	.L8061790	@cond_branch
 	add	r0, r4, #0
 	bl	sub_8061160
 	ldrb	r3, [r4, #0x18]
@@ -57,20 +57,20 @@ sub_8061684:
 	str	r0, [r6, #0x2c]
 	add	r4, r0, #0
 	cmp	r4, #0
-	bne	.L9	@cond_branch
+	bne	.L8061720	@cond_branch
 	ldr	r1, [r6, #0x14]
 	ldr	r2, [r6, #0x1c]
 	sub	r2, r2, #0x1
 	mov	r0, #0x1
 	NEG	r0, r0
 	cmp	r2, r0
-	bne	.L10	@cond_branch
-	b	.L28
-.L10:
+	bne	.L8061702	@cond_branch
+	b	.L806180E
+.L8061702:
 	mov	r5, #0x0
-	ldr	r4, .L14
+	ldr	r4, .L806171C
 	add	r3, r0, #0
-.L12:
+.L8061708:
 	str	r5, [r1, #0x30]
 	ldr	r0, [r1, #0x10]
 	and	r0, r0, r4
@@ -78,13 +78,13 @@ sub_8061684:
 	ldr	r1, [r1, #0x4]
 	sub	r2, r2, #0x1
 	cmp	r2, r3
-	bne	.L12	@cond_branch
-	b	.L28
-.L15:
+	bne	.L8061708	@cond_branch
+	b	.L806180E
+.L806171A:
 	.align	2, 0
-.L14:
+.L806171C:
 	.4byte	0xc1fffcff
-.L9:
+.L8061720:
 	ldr	r0, [r4, #0x8]
 	mov	r1, #0xf8
 	lsl	r1, r1, #0x2
@@ -99,37 +99,37 @@ sub_8061684:
 	ldrh	r7, [r6, #0x8]
 	and	r0, r0, r7
 	cmp	r0, #0
-	bne	.L22	@cond_branch
+	bne	.L8061764	@cond_branch
 	ldrb	r0, [r4, #0x18]
 	cmp	r0, #0
-	beq	.L17	@cond_branch
+	beq	.L8061752	@cond_branch
 	ldrh	r0, [r4, #0x14]
 	cmp	r0, #0xb0
-	bhi	.L21	@cond_branch
+	bhi	.L806175E	@cond_branch
 	ldrh	r7, [r4, #0x16]
 	cmp	r7, #0xb0
-	bls	.L22	@cond_branch
-	b	.L21
-.L17:
+	bls	.L8061764	@cond_branch
+	b	.L806175E
+.L8061752:
 	ldrh	r0, [r4, #0x14]
 	cmp	r0, r5
-	bhi	.L21	@cond_branch
+	bhi	.L806175E	@cond_branch
 	ldrh	r7, [r4, #0x16]
 	cmp	r7, r5
-	bls	.L22	@cond_branch
-.L21:
+	bls	.L8061764	@cond_branch
+.L806175E:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x2
 	orr	r3, r3, r0
-.L22:
+.L8061764:
 	sub	r2, r2, #0x1
 	mov	r0, #0x1
 	NEG	r0, r0
 	cmp	r2, r0
-	beq	.L23	@cond_branch
-	ldr	r7, .L26
+	beq	.L8061784	@cond_branch
+	ldr	r7, .L806178C
 	add	r5, r0, #0
-.L24:
+.L8061772:
 	str	r4, [r1, #0x30]
 	ldr	r0, [r1, #0x10]
 	and	r0, r0, r7
@@ -138,16 +138,16 @@ sub_8061684:
 	ldr	r1, [r1, #0x4]
 	sub	r2, r2, #0x1
 	cmp	r2, r5
-	bne	.L24	@cond_branch
-.L23:
+	bne	.L8061772	@cond_branch
+.L8061784:
 	add	r0, r4, #0
 	bl	sub_8061158
-	b	.L28
-.L27:
+	b	.L806180E
+.L806178C:
 	.align	2, 0
-.L26:
+
 	.4byte	0xc1fffcff
-.L8:
+.L8061790:
 	mov	r0, #0x0
 	mov	r1, r8
 	add	r2, r7, #0
@@ -156,7 +156,7 @@ sub_8061684:
 	str	r0, [r6, #0x2c]
 	add	r4, r0, #0
 	cmp	r4, #0
-	beq	.L28	@cond_branch
+	beq	.L806180E	@cond_branch
 	ldr	r0, [r4, #0x8]
 	mov	r1, #0xf8
 	lsl	r1, r1, #0x2
@@ -171,37 +171,37 @@ sub_8061684:
 	ldrh	r7, [r6, #0x8]
 	and	r0, r0, r7
 	cmp	r0, #0
-	bne	.L35	@cond_branch
+	bne	.L80617E8	@cond_branch
 	ldrb	r0, [r4, #0x18]
 	cmp	r0, #0
-	beq	.L30	@cond_branch
+	beq	.L80617D6	@cond_branch
 	ldrh	r0, [r4, #0x14]
 	cmp	r0, #0xb0
-	bhi	.L34	@cond_branch
+	bhi	.L80617E2	@cond_branch
 	ldrh	r7, [r4, #0x16]
 	cmp	r7, #0xb0
-	bls	.L35	@cond_branch
-	b	.L34
-.L30:
+	bls	.L80617E8	@cond_branch
+	b	.L80617E2
+.L80617D6:
 	ldrh	r0, [r4, #0x14]
 	cmp	r0, r5
-	bhi	.L34	@cond_branch
+	bhi	.L80617E2	@cond_branch
 	ldrh	r7, [r4, #0x16]
 	cmp	r7, r5
-	bls	.L35	@cond_branch
-.L34:
+	bls	.L80617E8	@cond_branch
+.L80617E2:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x2
 	orr	r3, r3, r0
-.L35:
+.L80617E8:
 	sub	r2, r2, #0x1
 	mov	r0, #0x1
 	NEG	r0, r0
 	cmp	r2, r0
-	beq	.L36	@cond_branch
-	ldr	r7, .L38
+	beq	.L8061808	@cond_branch
+	ldr	r7, .L8061820
 	add	r5, r0, #0
-.L37:
+.L80617F6:
 	str	r4, [r1, #0x30]
 	ldr	r0, [r1, #0x10]
 	and	r0, r0, r7
@@ -210,23 +210,23 @@ sub_8061684:
 	ldr	r1, [r1, #0x4]
 	sub	r2, r2, #0x1
 	cmp	r2, r5
-	bne	.L37	@cond_branch
-.L36:
+	bne	.L80617F6	@cond_branch
+.L8061808:
 	add	r0, r4, #0
 	bl	sub_8061158
-.L28:
+.L806180E:
 	add	r0, r6, #0
 	bl	sub_806123C
-.L2:
+.L8061814:
 	pop	{r3, r4}
 	mov	r8, r3
 	mov	r9, r4
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L39:
+.L8061820:
 	.align	2, 0
-.L38:
+
 	.4byte	0xc1fffcff
 	thumb_func_end sub_8061684
 

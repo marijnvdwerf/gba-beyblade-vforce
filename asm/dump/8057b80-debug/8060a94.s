@@ -8,58 +8,58 @@ sub_8060A94:
 	ldr	r5, [r4, #0x4]
 	ldr	r2, [r4, #0x24]
 	cmp	r2, #0
-	blt	.L2	@cond_branch
+	blt	.L8060ABA	@cond_branch
 	mov	r1, #0x1
 	add	r0, r1, #0
 	ldrh	r3, [r4, #0x20]
 	and	r0, r0, r3
 	cmp	r0, #0
-	bne	.L2	@cond_branch
+	bne	.L8060ABA	@cond_branch
 	ldrh	r0, [r4, #0x16]
 	sub	r0, r0, #0x5
 	LSL	r1, r0
 	add	r0, r2, #0
 	bl	freeSpriteVramLocation
-.L2:
+.L8060ABA:
 	mov	r0, #0x1
 	NEG	r0, r0
 	str	r0, [r4, #0x24]
 	cmp	r6, #0
-	beq	.L3	@cond_branch
+	beq	.L8060AC8	@cond_branch
 	str	r5, [r6, #0x4]
-	b	.L4
-.L3:
-	ldr	r0, .L7
+	b	.L8060ACC
+.L8060AC8:
+	ldr	r0, .L8060B00
 	str	r5, [r0]
-.L4:
+.L8060ACC:
 	cmp	r5, #0
-	beq	.L5	@cond_branch
+	beq	.L8060AD2	@cond_branch
 	str	r6, [r5]
-.L5:
-	ldr	r1, .L7 + 4
+.L8060AD2:
+	ldr	r1, .L8060B00 + 4
 	ldr	r0, [r1]
 	str	r0, [r4, #0x4]
 	str	r4, [r1]
 	ldr	r0, [r4, #0x30]
 	cmp	r0, #0
-	beq	.L6	@cond_branch
+	beq	.L8060AE8	@cond_branch
 	bl	sub_8060B38
 	mov	r0, #0x0
 	str	r0, [r4, #0x30]
-.L6:
-	ldr	r1, .L7 + 8
+.L8060AE8:
+	ldr	r1, .L8060B00 + 8
 	ldr	r0, [r1]
 	add	r0, r0, #0x1
 	str	r0, [r1]
-	ldr	r0, .L7
+	ldr	r0, .L8060B00
 	ldr	r0, [r0]
 	bl	sub_80604D4
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L8:
+.L8060AFE:
 	.align	2, 0
-.L7:
+.L8060B00:
 	.4byte	0x3005de4
 	.4byte	0x3005dec
 	.4byte	0x3005df4

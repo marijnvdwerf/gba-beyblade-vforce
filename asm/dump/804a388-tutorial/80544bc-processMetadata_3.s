@@ -9,21 +9,21 @@ processMetadata_3:
 	bl	GetStruct4
 	add	r2, r0, #0
 	ldrh	r1, [r5, #0x4]
-	ldr	r0, .L4
+	ldr	r0, .L80544E0
 	cmp	r1, r0
-	beq	.L1	@cond_branch
-	ldr	r0, .L4 + 4
+	beq	.L80544E8	@cond_branch
+	ldr	r0, .L80544E0 + 4
 	cmp	r1, r0
-	bne	.L3	@cond_branch
+	bne	.L8054504	@cond_branch
 	ldr	r0, [r5, #0x8]
 	strh	r0, [r2, #0x3e]
-	b	.L3
-.L5:
+	b	.L8054504
+.L80544DE:
 	.align	2, 0
-.L4:
+.L80544E0:
 	.4byte	0x37ae
 	.4byte	0x4ecb
-.L1:
+.L80544E8:
 	add	r0, r4, #0
 	bl	sub_8056E2C
 	mov	r0, #0x2
@@ -34,7 +34,7 @@ processMetadata_3:
 	bl	sub_80558E8
 	mov	r0, #0x10
 	bl	sub_804ABFC
-.L3:
+.L8054504:
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0

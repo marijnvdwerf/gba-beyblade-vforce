@@ -8,7 +8,7 @@ sub_805F3D8:
 	add	r2, r2, r3
 	ldr	r1, [r0, #0x4]
 	ldr	r0, [r0, #0x10]
-	ldr	r3, .L1
+	ldr	r3, .L805F3FC
 	str	r0, [r3]
 	str	r1, [r3, #0x4]
 	lsl	r0, r2, #0x1
@@ -19,9 +19,9 @@ sub_805F3D8:
 	str	r0, [r3, #0x8]
 	ldr	r0, [r3, #0x8]
 	bx	lr
-.L2:
+.L805F3FA:
 	.align	2, 0
-.L1:
+.L805F3FC:
 	.4byte	0x40000d4
 	thumb_func_end sub_805F3D8
 

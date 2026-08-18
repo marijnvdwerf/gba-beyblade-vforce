@@ -1,4 +1,5 @@
 #include "sound.h"
+#include "include_asm.h"
 #include "io_reg.h"
 #include "macro.h"
 #include "memory.h"
@@ -288,6 +289,8 @@ void Sound_80627A8(SoundStructA* arg0, int arg1, int arg2)
     }
 }
 
+INCLUDE_ASM("asm/dump/sound/80627f0.s");
+
 #if 0
 void sub_80627F0(void)
 {
@@ -555,6 +558,9 @@ s32 Sound_8062BFC(int arg0, int arg1)
 
     return Sound_80629F0((SoundStructE*)(*_unk3005E14->data)[arg0], arg1);
 }
+
+INCLUDE_ASM("asm/dump/sound/8062c24.s");
+
 /*
 void sub_8062C24(void) {
     if (_unk3005E0C != 1) {

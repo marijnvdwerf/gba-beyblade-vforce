@@ -21,22 +21,22 @@ allocateMenuItems:
 	add	r0, r6, r2
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L805AE14	@cond_branch
 	mov	r7, #0x1
-.L3:
+.L805ADFE:
 	ldr	r0, [r1, #0x14]
 	and	r0, r0, r7
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L805AE08	@cond_branch
 	add	r3, r3, #0x1
-.L2:
+.L805AE08:
 	add	r1, r1, #0x20
 	add	r5, r5, #0x1
 	add	r0, r1, r2
 	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.L3	@cond_branch
-.L1:
+	bne	.L805ADFE	@cond_branch
+.L805AE14:
 	mov	r1, #0xa
 	ldsh	r0, [r4, r1]
 	add	r2, r5, r3
@@ -59,10 +59,10 @@ allocateMenuItems:
 	bl	slowAllocate
 	str	r0, [r4, #0x10]
 	cmp	r0, #0
-	bne	.L4	@cond_branch
-	ldr	r0, .L6
+	bne	.L805AE4A	@cond_branch
+	ldr	r0, .L805AE60
 	bl	printf
-.L4:
+.L805AE4A:
 	ldr	r0, [r4, #0x10]
 	ldr	r0, [r0]
 	str	r0, [r4, #0xc]
@@ -73,12 +73,12 @@ allocateMenuItems:
 	mov	r8, r0
 	ldrb	r1, [r4, #0x8]
 	lsl	r0, r1, #0x2
-	b	.L5
-.L7:
+	b	.L805AF9E
+.L805AE60:
 	.align	2, 0
-.L6:
+
 	.4byte	0x8755370
-.L16:
+.L805AE64:
 	mov	r3, #0x0
 	str	r3, [sp, #0x14]
 	ldr	r0, [r6, #0x18]
@@ -105,22 +105,22 @@ allocateMenuItems:
 	add	r1, r1, #0x20
 	str	r1, [sp, #0x2c]
 	cmp	r0, #0
-	beq	.L8	@cond_branch
+	beq	.L805AEB2	@cond_branch
 	add	r1, r0, #0
 	ldrb	r0, [r4, #0x8]
 	lsl	r2, r0, #0x2
-	b	.L9
-.L10:
+	b	.L805AEAA
+.L805AEA2:
 	add	r1, r1, #0x14
 	ldr	r0, [sp, #0x14]
 	add	r0, r0, #0x1
 	str	r0, [sp, #0x14]
-.L9:
+.L805AEAA:
 	add	r0, r1, r2
 	ldr	r0, [r0]
 	cmp	r0, #0
-	bne	.L10	@cond_branch
-.L8:
+	bne	.L805AEA2	@cond_branch
+.L805AEB2:
 	ADD r9, ip
 	add	r3, r7, r3
 	lsl	r3, r3, #0x10
@@ -161,12 +161,12 @@ allocateMenuItems:
 	bl	sub_805AC80
 	ldr	r0, [r6, #0x18]
 	cmp	r0, #0
-	beq	.L12	@cond_branch
+	beq	.L805AF72	@cond_branch
 	ldr	r0, [r6, #0x14]
 	mov	r1, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L12	@cond_branch
+	beq	.L805AF72	@cond_branch
 	mov	r1, #0xa
 	ldsh	r0, [r4, r1]
 	ADD r9, r0
@@ -212,20 +212,20 @@ allocateMenuItems:
 	bl	sub_805AC80
 	mov	r0, #0x4c
 	ADD r8, r0
-.L12:
+.L805AF72:
 	ldr	r0, [sp, #0x10]
 	ldr	r1, [sp, #0x24]
 	str	r1, [sp, #0x10]
 	ldr	r3, [sp, #0xc]
 	cmp	r0, r3
-	bne	.L13	@cond_branch
+	bne	.L805AF84	@cond_branch
 	add	r0, r4, #0
 	add	r0, r0, #0x2e
-	b	.L14
-.L13:
+	b	.L805AF88
+.L805AF84:
 	add	r0, r4, #0
 	add	r0, r0, #0x2c
-.L14:
+.L805AF88:
 	ldrb	r1, [r0]
 	add	r0, r5, #0
 	bl	sub_806185C
@@ -236,13 +236,13 @@ allocateMenuItems:
 	ldr	r6, [sp, #0x2c]
 	ldrb	r3, [r4, #0x8]
 	lsl	r0, r3, #0x2
-.L5:
+.L805AF9E:
 	add	r0, r6, r0
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L15	@cond_branch
-	b	.L16
-.L15:
+	beq	.L805AFA8	@cond_branch
+	b	.L805AE64
+.L805AFA8:
 	add	sp, sp, #0x30
 	pop	{r3, r4, r5}
 	mov	r8, r3

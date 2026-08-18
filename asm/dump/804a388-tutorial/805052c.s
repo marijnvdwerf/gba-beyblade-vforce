@@ -14,8 +14,8 @@ sub_805052C:
 	add	r5, r3, #0
 	ldr	r1, [r4, #0x8]
 	mov	r2, #0x0
-	b	.L1
-.L2:
+	b	.L8050560
+.L8050546:
 	mov	r0, ip
 	mul	r0, r0, r5
 	asr	r0, r0, #0x8
@@ -29,11 +29,11 @@ sub_805052C:
 	add	r3, r3, r0
 	add	r1, r1, #0x18
 	add	r2, r2, #0x1
-.L1:
+.L8050560:
 	mov	r7, #0xc
 	ldsh	r0, [r4, r7]
 	cmp	r2, r0
-	blt	.L2	@cond_branch
+	blt	.L8050546	@cond_branch
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}

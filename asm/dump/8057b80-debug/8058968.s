@@ -77,7 +77,7 @@ sub_8058968:
 	mov	r1, r8
 	and	r0, r0, r1
 	cmp	r0, #0
-	bne	.L1	@cond_branch
+	bne	.L8058A1A	@cond_branch
 	ldr	r1, [r4]
 	ldr	r2, [r4, #0x4]
 	ldr	r3, [r4, #0x10]
@@ -87,7 +87,7 @@ sub_8058968:
 	str	r5, [sp, #0x8]
 	add	r0, r7, #0
 	bl	sub_8059310
-.L1:
+.L8058A1A:
 	add	sp, sp, #0xc
 	pop	{r3}
 	mov	r8, r3

@@ -14,7 +14,7 @@ sub_805FE04:
 	mov	r1, #0x1
 	NEG	r1, r1
 	str	r1, [sp]
-	ldr	r5, .L1
+	ldr	r5, .L805FE64
 	mov	r1, sp
 	str	r1, [r5]
 	ldr	r4, [r0, #0x1c]
@@ -49,9 +49,9 @@ sub_805FE04:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L2:
+.L805FE62:
 	.align	2, 0
-.L1:
+.L805FE64:
 	.4byte	0x40000d4
 	thumb_func_end sub_805FE04
 

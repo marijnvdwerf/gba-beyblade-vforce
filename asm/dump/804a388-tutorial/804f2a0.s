@@ -10,29 +10,29 @@ sub_804F2A0:
 	add	r0, r5, r1
 	ldrb	r6, [r0]
 	cmp	r6, #0
-	bne	.L1	@cond_branch
+	bne	.L804F2C6	@cond_branch
 	mov	r2, #0x90
 	lsl	r2, r2, #0x1
 	add	r4, r5, r2
 	ldr	r0, [r4]
 	cmp	r0, #0
-	beq	.L13	@cond_branch
+	beq	.L804F374	@cond_branch
 	bl	sub_8060A94
 	str	r6, [r4]
-	b	.L3
-.L1:
+	b	.L804F2F2
+.L804F2C6:
 	mov	r0, #0x90
 	lsl	r0, r0, #0x1
 	add	r6, r5, r0
 	ldr	r4, [r6]
 	cmp	r4, #0
-	bne	.L4	@cond_branch
+	bne	.L804F2FE	@cond_branch
 	mov	r0, #0x0
 	bl	allocSprite
 	str	r0, [r6]
 	cmp	r0, #0
-	beq	.L13	@cond_branch
-	ldr	r1, .L10
+	beq	.L804F374	@cond_branch
+	ldr	r1, .L804F330
 	mov	r2, #0xd0
 	lsl	r2, r2, #0x4
 	str	r4, [sp]
@@ -41,14 +41,14 @@ sub_804F2A0:
 	str	r4, [sp, #0xc]
 	mov	r3, #0x0
 	bl	LoadSpriteSheet
-.L3:
+.L804F2F2:
 	mov	r1, #0x90
 	lsl	r1, r1, #0x1
 	add	r0, r5, r1
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L13	@cond_branch
-.L4:
+	beq	.L804F374	@cond_branch
+.L804F2FE:
 	mov	r2, #0x87
 	lsl	r2, r2, #0x1
 	add	r1, r5, r2
@@ -56,35 +56,35 @@ sub_804F2A0:
 	ldrh	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L7	@cond_branch
+	beq	.L804F33E	@cond_branch
 	mov	r1, #0x90
 	lsl	r1, r1, #0x1
 	add	r0, r5, r1
 	ldr	r2, [r0]
-	ldr	r0, .L10 + 4
+	ldr	r0, .L804F330 + 4
 	ldr	r0, [r0]
 	lsr	r0, r0, #0x4
 	mov	r1, #0x3
 	and	r0, r0, r1
 	cmp	r0, #0x1
-	bhi	.L8	@cond_branch
+	bhi	.L804F338	@cond_branch
 	mov	r1, #0x96
 	lsl	r1, r1, #0x1
 	add	r0, r5, r1
 	ldrb	r0, [r0]
 	sub	r0, r0, #0x1
-	b	.L9
-.L11:
+	b	.L804F33A
+.L804F330:
 	.align	2, 0
-.L10:
+
 	.4byte	0x8224dc4
 	.4byte	0x3000e30
-.L8:
+.L804F338:
 	mov	r0, #0x5
-.L9:
+.L804F33A:
 	strh	r0, [r2, #0x18]
-	b	.L12
-.L7:
+	b	.L804F350
+.L804F33E:
 	mov	r2, #0x90
 	lsl	r2, r2, #0x1
 	add	r0, r5, r2
@@ -94,13 +94,13 @@ sub_804F2A0:
 	ldrb	r0, [r0]
 	sub	r0, r0, #0x1
 	strh	r0, [r1, #0x18]
-.L12:
+.L804F350:
 	mov	r1, #0x8c
 	lsl	r1, r1, #0x1
 	add	r0, r5, r1
 	ldr	r0, [r0]
 	cmp	r0, #0
-	beq	.L13	@cond_branch
+	beq	.L804F374	@cond_branch
 	mov	r2, #0x90
 	lsl	r2, r2, #0x1
 	add	r0, r5, r2
@@ -113,7 +113,7 @@ sub_804F2A0:
 	lsl	r2, r2, #0x3
 	add	r0, r0, r2
 	str	r0, [r1, #0xc]
-.L13:
+.L804F374:
 	add	sp, sp, #0x10
 	pop	{r4, r5, r6}
 	pop	{r0}

@@ -2,10 +2,10 @@
 
 	thumb_func_start sub_80508A4
 sub_80508A4:
-	ldr	r2, .L1
+	ldr	r2, .L80508C4
 	ldrb	r1, [r0]
 	strb	r1, [r2]
-	ldr	r2, .L1 + 4
+	ldr	r2, .L80508C4 + 4
 	ldrb	r1, [r0, #0x1]
 	strb	r1, [r2]
 	mov	r2, #0x80
@@ -18,9 +18,9 @@ sub_80508A4:
 	mov	r1, #0x0
 	strh	r1, [r0, #0x4]
 	bx	lr
-.L2:
+.L80508C4:
 	.align	2, 0
-.L1:
+
 	.4byte	0x3000de0
 	.4byte	0x3000e3c
 	thumb_func_end sub_80508A4

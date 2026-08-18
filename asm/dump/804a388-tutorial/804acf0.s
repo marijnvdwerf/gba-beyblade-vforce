@@ -2,25 +2,25 @@
 
 	thumb_func_start sub_804ACF0
 sub_804ACF0:
-	ldr	r2, .L1
-	ldr	r0, .L1 + 4
+	ldr	r2, .L804AD10
+	ldr	r0, .L804AD10 + 4
 	ldr	r1, [r0]
-	ldr	r3, .L1 + 8
+	ldr	r3, .L804AD10 + 8
 	add	r0, r1, r3
 	ldrh	r0, [r0]
 	strh	r0, [r2]
-	ldr	r2, .L1 + 12
-	ldr	r0, .L1 + 16
+	ldr	r2, .L804AD10 + 12
+	ldr	r0, .L804AD10 + 16
 	add	r1, r1, r0
 	ldrh	r0, [r1]
 	strh	r0, [r2]
-	ldr	r1, .L1 + 20
+	ldr	r1, .L804AD10 + 20
 	mov	r0, #0x0
 	strh	r0, [r1]
 	bx	lr
-.L2:
+.L804AD10:
 	.align	2, 0
-.L1:
+
 	.4byte	0x3000f18
 	.4byte	0x3000f48
 	.4byte	0x6e4

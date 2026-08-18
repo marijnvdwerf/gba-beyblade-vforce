@@ -5,10 +5,10 @@ sub_8062318:
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L8062324	@cond_branch
 	add	r0, r0, #0x2b
 	strb	r1, [r0]
-.L1:
+.L8062324:
 	bx	lr
 	thumb_func_end sub_8062318
 

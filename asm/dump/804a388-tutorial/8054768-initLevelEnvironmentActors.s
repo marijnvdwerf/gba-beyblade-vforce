@@ -7,14 +7,14 @@ initLevelEnvironmentActors:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	ldr	r4, .L20
+	ldr	r4, .L8054A4C
 	ADD sp, r4
 	add	r4, r0, #0
 	lsl	r4, r4, #0x10
 	lsr	r4, r4, #0x10
-	ldr	r0, .L20 + 4
+	ldr	r0, .L8054A4C + 4
 	ldr	r7, [r0]
-	ldr	r0, .L20 + 8
+	ldr	r0, .L8054A4C + 8
 	add	r0, r7, r0
 	str	r0, [sp, #0x238]
 	add	r0, r4, #0
@@ -28,13 +28,13 @@ initLevelEnvironmentActors:
 	mov	r2, #0x0
 	str	r2, [sp, #0x244]
 	cmp	r6, #0
-	bne	.L1	@cond_branch
-	b	.L39
-.L1:
+	bne	.L80547A4	@cond_branch
+	b	.L8054C84
+.L80547A4:
 	cmp	r5, #0
-	bne	.L3	@cond_branch
-	b	.L39
-.L3:
+	bne	.L80547AA	@cond_branch
+	b	.L8054C84
+.L80547AA:
 	add	r4, sp, #0x110
 	add	r0, r4, #0
 	add	r1, r5, #0
@@ -45,15 +45,15 @@ initLevelEnvironmentActors:
 	mov	r3, #0xc9
 	lsl	r3, r3, #0x4
 	add	r0, r7, r3
-	ldr	r3, .L20 + 12
+	ldr	r3, .L8054A4C + 12
 	ldr	r1, [sp, #0x240]
 	str	r1, [sp]
 	mov	r1, #0x0
 	mov	r2, #0x0
 	bl	sub_805E514
 	add	r0, sp, #0x22c
-	ldr	r2, .L20 + 16
-	ldr	r3, .L20 + 20
+	ldr	r2, .L8054A4C + 16
+	ldr	r3, .L8054A4C + 20
 	mov	r1, #0x0
 	bl	sub_805E50C
 	mov	r2, #0x0
@@ -62,24 +62,24 @@ initLevelEnvironmentActors:
 	ldr	r0, [r0, #0x8]
 	ldr	r3, [sp, #0x240]
 	cmp	r3, r0
-	bge	.L5	@cond_branch
+	bge	.L8054848	@cond_branch
 	add	r4, sp, #0x110
 	add	r6, sp, #0x10
-.L9:
+.L80547EE:
 	add	r0, r4, #0
 	ldr	r1, [sp, #0x23c]
 	bl	GetLineMetaData
 	mov	r8, r0
 	cmp	r0, #0
-	beq	.L8	@cond_branch
+	beq	.L805483A	@cond_branch
 	add	r0, r4, #0
 	mov	r1, r8
 	mov	r2, #0x2
-	ldr	r3, .L20 + 24
+	ldr	r3, .L8054A4C + 24
 	bl	getLineMetaobjectByTypeAndId
 	add	r5, r0, #0
 	cmp	r5, #0
-	beq	.L8	@cond_branch
+	beq	.L805483A	@cond_branch
 	ldr	r0, [r5, #0x8]
 	ldr	r2, [sp, #0x240]
 	lsl	r1, r2, #0x2
@@ -93,30 +93,30 @@ initLevelEnvironmentActors:
 	add	r0, r4, #0
 	mov	r1, r8
 	mov	r2, #0x1
-	ldr	r3, .L20 + 28
+	ldr	r3, .L8054A4C + 28
 	bl	getLineMetaobjectByTypeAndId
 	add	r5, r0, #0
 	cmp	r5, #0
-	beq	.L8	@cond_branch
+	beq	.L805483A	@cond_branch
 	ldr	r0, [sp, #0x244]
 	add	r0, r0, #0x1
 	str	r0, [sp, #0x244]
-.L8:
+.L805483A:
 	ldr	r1, [sp, #0x23c]
 	add	r1, r1, #0x1
 	str	r1, [sp, #0x23c]
 	ldr	r0, [r4]
 	ldr	r0, [r0, #0x8]
 	cmp	r1, r0
-	blt	.L9	@cond_branch
-.L5:
+	blt	.L80547EE	@cond_branch
+.L8054848:
 	ldr	r2, [sp, #0x238]
 	ldr	r4, [r2]
 	cmp	r4, #0
-	beq	.L10	@cond_branch
+	beq	.L8054856	@cond_branch
 	add	r0, r4, #0
 	bl	deallocateBlock
-.L10:
+.L8054856:
 	mov	r0, #0xc4
 	ldr	r1, [sp, #0x240]
 	add	r3, r1, #0
@@ -152,11 +152,11 @@ initLevelEnvironmentActors:
 	ldr	r0, [sp, #0x240]
 	str	r0, [r3, #0x10]
 	cmp	r4, #0
-	bne	.L11	@cond_branch
-	ldr	r0, .L20 + 32
+	bne	.L80548A8	@cond_branch
+	ldr	r0, .L8054A4C + 32
 	add	r1, r6, #0
 	bl	printf
-.L11:
+.L80548A8:
 	ldr	r7, [r4]
 	ldr	r1, [sp, #0x238]
 	str	r7, [r1, #0x8]
@@ -174,7 +174,7 @@ initLevelEnvironmentActors:
 	str	r0, [r1, #0x4]
 	ldr	r2, [sp, #0x244]
 	str	r2, [r1, #0xc]
-	ldr	r0, .L20 + 36
+	ldr	r0, .L8054A4C + 36
 	mov	r3, r8
 	add	r2, r3, r5
 	ADD r2, sl
@@ -189,9 +189,9 @@ initLevelEnvironmentActors:
 	ldr	r0, [r0, #0x8]
 	ldr	r2, [sp, #0x23c]
 	cmp	r2, r0
-	bge	.L12	@cond_branch
+	bge	.L8054932	@cond_branch
 	add	r6, sp, #0x110
-.L15:
+.L80548EE:
 	ldr	r3, [sp, #0x23c]
 	lsl	r1, r3, #0x5
 	ldr	r0, [r6, #0xc]
@@ -201,15 +201,15 @@ initLevelEnvironmentActors:
 	bl	GetLineMetaData
 	mov	r8, r0
 	cmp	r0, #0
-	beq	.L14	@cond_branch
+	beq	.L8054924	@cond_branch
 	add	r0, r6, #0
 	mov	r1, r8
 	mov	r2, #0x1
-	ldr	r3, .L20 + 40
+	ldr	r3, .L8054A4C + 40
 	bl	getLineMetaobjectByTypeAndId
 	add	r5, r0, #0
 	cmp	r5, #0
-	beq	.L14	@cond_branch
+	beq	.L8054924	@cond_branch
 	ldr	r0, [r5, #0x8]
 	lsl	r0, r0, #0x3
 	ADD r0, r9
@@ -217,22 +217,22 @@ initLevelEnvironmentActors:
 	add	r1, sp, #0x23c
 	ldrh	r1, [r1]
 	strh	r1, [r0]
-.L14:
+.L8054924:
 	ldr	r2, [sp, #0x23c]
 	add	r2, r2, #0x1
 	str	r2, [sp, #0x23c]
 	ldr	r0, [r6]
 	ldr	r0, [r0, #0x8]
 	cmp	r2, r0
-	blt	.L15	@cond_branch
-.L12:
+	blt	.L80548EE	@cond_branch
+.L8054932:
 	mov	r3, #0x0
 	str	r3, [sp, #0x23c]
 	ldr	r0, [sp, #0x240]
 	cmp	r3, r0
-	blt	.L16	@cond_branch
-	b	.L39
-.L16:
+	blt	.L805493E	@cond_branch
+	b	.L8054C84
+.L805493E:
 	mov	r1, #0x88
 	lsl	r1, r1, #0x1
 	ADD r1, sp
@@ -242,7 +242,7 @@ initLevelEnvironmentActors:
 	add	r3, r7, #0
 	add	r3, r3, #0x90
 	str	r3, [sp, #0x264]
-.L40:
+.L8054950:
 	add	r6, sp, #0x90
 	ldr	r0, [sp, #0x23c]
 	lsl	r2, r0, #0x2
@@ -269,9 +269,9 @@ initLevelEnvironmentActors:
 	str	r1, [sp, #0x254]
 	mov	r0, #0x0
 	mov	sl, r0
-	ldr	r1, .L20 + 4
+	ldr	r1, .L8054A4C + 4
 	ldr	r0, [r1]
-	ldr	r3, .L20 + 44
+	ldr	r3, .L8054A4C + 44
 	add	r4, r0, r3
 	mov	r0, sp
 	add	r0, r0, r2
@@ -297,7 +297,7 @@ initLevelEnvironmentActors:
 	add	r0, r0, #0x39
 	mov	r3, sl
 	strb	r3, [r0]
-	ldr	r0, .L20 + 48
+	ldr	r0, .L8054A4C + 48
 	ldr	r1, [sp, #0x264]
 	str	r0, [r1, #0x20]
 	mov	r2, sl
@@ -359,14 +359,14 @@ initLevelEnvironmentActors:
 	bl	GetLineMetaData
 	mov	r8, r0
 	cmp	r0, #0
-	bne	.L18	@cond_branch
+	bne	.L8054A80	@cond_branch
 	ldr	r0, [sp, #0x264]
 	add	r0, r0, #0xc4
 	str	r0, [sp, #0x264]
-	b	.L19
-.L21:
+	b	.L8054C6E
+.L8054A4A:
 	.align	2, 0
-.L20:
+.L8054A4C:
 	.4byte	0xfffffd98
 	.4byte	0x3000fb0
 	.4byte	0xc74
@@ -380,46 +380,46 @@ initLevelEnvironmentActors:
 	.4byte	0xaf90
 	.4byte	0x434
 	.4byte	convert3DCoordsto2DCoords + 1
-.L18:
+.L8054A80:
 	ldr	r0, [sp, #0x25c]
 	mov	r1, r8
 	mov	r2, #0x1
-	ldr	r3, .L26
+	ldr	r3, .L8054AB8
 	bl	getLineMetaobjectByTypeAndId
 	add	r5, r0, #0
 	cmp	r5, #0
-	beq	.L22	@cond_branch
+	beq	.L8054A96	@cond_branch
 	ldr	r5, [r5, #0x8]
 	mov	sl, r5
-.L22:
+.L8054A96:
 	mov	r1, sl
 	lsl	r0, r1, #0x4
 	ADD r0, sl
 	lsl	r0, r0, #0x3
-	ldr	r2, .L26 + 4
+	ldr	r2, .L8054AB8 + 4
 	add	r0, r0, r2
-	ldr	r3, .L26 + 8
+	ldr	r3, .L8054AB8 + 8
 	ldr	r1, [r3]
 	add	r4, r1, r0
 	mov	r0, sl
 	cmp	r0, #0x1
-	beq	.L23	@cond_branch
+	beq	.L8054AC4	@cond_branch
 	cmp	r0, #0x2
-	beq	.L24	@cond_branch
+	beq	.L8054AC8	@cond_branch
 	mov	r6, #0x0
-	b	.L28
-.L27:
+	b	.L8054ACA
+.L8054AB6:
 	.align	2, 0
-.L26:
+.L8054AB8:
 	.4byte	0xf70c
 	.4byte	0x434
 	.4byte	0x3000fb0
-.L23:
+.L8054AC4:
 	mov	r6, #0x2
-	b	.L28
-.L24:
+	b	.L8054ACA
+.L8054AC8:
 	mov	r6, #0x1
-.L28:
+.L8054ACA:
 	str	r4, [r7, #0x3c]
 	mov	r1, #0x88
 	lsl	r1, r1, #0x1
@@ -428,11 +428,11 @@ initLevelEnvironmentActors:
 	mov	r0, sl
 	mov	r1, r8
 	mov	r2, #0x2
-	ldr	r3, .L35
+	ldr	r3, .L8054BC8
 	bl	getLineMetaobjectByTypeAndId
 	add	r5, r0, #0
 	cmp	r5, #0
-	beq	.L30	@cond_branch
+	beq	.L8054B34	@cond_branch
 	ldr	r2, [sp, #0x260]
 	mov	r3, #0x80
 	lsl	r3, r3, #0x2
@@ -459,26 +459,26 @@ initLevelEnvironmentActors:
 	mov	r0, sl
 	mov	r1, r8
 	mov	r2, #0x4
-	ldr	r3, .L35
+	ldr	r3, .L8054BC8
 	bl	getLineMetaobjectByTypeAndId
 	add	r5, r0, #0
 	cmp	r5, #0
-	beq	.L30	@cond_branch
+	beq	.L8054B34	@cond_branch
 	ldr	r0, [r5, #0x8]
 	mov	r3, r9
 	str	r0, [r3, #0x8]
 	ldr	r0, [r5, #0xc]
 	str	r0, [r3, #0xc]
-.L30:
+.L8054B34:
 	add	r4, sp, #0x110
 	add	r0, r4, #0
 	mov	r1, r8
 	mov	r2, #0x1
-	ldr	r3, .L35 + 4
+	ldr	r3, .L8054BC8 + 4
 	bl	getLineMetaobjectByTypeAndId
 	add	r5, r0, #0
 	cmp	r5, #0
-	beq	.L31	@cond_branch
+	beq	.L8054B7C	@cond_branch
 	ldr	r1, [sp, #0x250]
 	ldr	r0, [r1]
 	ldr	r2, [sp, #0x254]
@@ -500,20 +500,20 @@ initLevelEnvironmentActors:
 	mov	r0, #0x0
 	strh	r0, [r3, #0x12]
 	strh	r0, [r3, #0x10]
-	ldr	r0, .L35 + 8
+	ldr	r0, .L8054BC8 + 8
 	str	r0, [r3, #0x14]
 	str	r7, [r3, #0x18]
 	add	r3, r3, #0x1c
 	str	r3, [sp, #0x24c]
-.L31:
+.L8054B7C:
 	add	r0, r4, #0
 	mov	r1, r8
 	mov	r2, #0x4
-	ldr	r3, .L35 + 12
+	ldr	r3, .L8054BC8 + 12
 	bl	getLineMetaobjectByTypeAndId
 	add	r5, r0, #0
 	cmp	r5, #0
-	beq	.L32	@cond_branch
+	beq	.L8054BAC	@cond_branch
 	ldr	r1, [r5, #0x8]
 	lsl	r1, r1, #0x8
 	ldr	r0, [r7, #0x4]
@@ -529,61 +529,61 @@ initLevelEnvironmentActors:
 	ldr	r0, [r7, #0xc]
 	add	r0, r0, r1
 	str	r0, [r7, #0xc]
-.L32:
+.L8054BAC:
 	add	r0, r4, #0
 	mov	r1, r8
 	mov	r2, #0x1
-	ldr	r3, .L35 + 16
+	ldr	r3, .L8054BC8 + 16
 	bl	getLineMetaobjectByTypeAndId
 	add	r5, r0, #0
 	cmp	r5, #0
-	beq	.L33	@cond_branch
+	beq	.L8054BDC	@cond_branch
 	ldr	r0, [r5, #0x8]
 	mov	r1, r9
 	strh	r0, [r1, #0x3a]
-	b	.L34
-.L36:
+	b	.L8054BE0
+.L8054BC6:
 	.align	2, 0
-.L35:
+.L8054BC8:
 	.4byte	0xfb93
 	.4byte	0xf4fa
 	.4byte	0x86faeac
 	.4byte	0xd679
 	.4byte	0xbf84
-.L33:
+.L8054BDC:
 	mov	r2, r9
 	strh	r5, [r2, #0x3a]
-.L34:
+.L8054BE0:
 	add	r4, sp, #0x110
 	add	r0, r4, #0
 	mov	r1, r8
 	mov	r2, #0xe
-	ldr	r3, .L41
+	ldr	r3, .L8054C98
 	bl	getLineMetaobjectByTypeAndId
 	add	r5, r0, #0
 	cmp	r5, #0
-	beq	.L37	@cond_branch
+	beq	.L8054C02	@cond_branch
 	mov	r3, #0x8
 	ldsh	r1, [r5, r3]
 	mov	r0, #0xc
 	ldsh	r2, [r5, r0]
 	add	r0, r7, #0
 	bl	ActorSetSpriteOffset
-.L37:
+.L8054C02:
 	add	r0, r4, #0
 	mov	r1, r8
 	mov	r2, #0xb
 	bl	getLineMetaObjectBytype
 	add	r5, r0, #0
 	cmp	r5, #0
-	beq	.L38	@cond_branch
+	beq	.L8054C1E	@cond_branch
 	mov	r0, #0x1
 	mov	r1, r9
 	ldrh	r1, [r1, #0x10]
 	orr	r0, r0, r1
 	mov	r2, r9
 	strh	r0, [r2, #0x10]
-.L38:
+.L8054C1E:
 	ldr	r1, [r7, #0x4]
 	asr	r1, r1, #0x5
 	ldr	r3, [sp, #0x250]
@@ -624,7 +624,7 @@ initLevelEnvironmentActors:
 	ldr	r1, [sp, #0x264]
 	add	r1, r1, #0xc4
 	str	r1, [sp, #0x264]
-.L19:
+.L8054C6E:
 	add	r7, r7, #0xc4
 	ldr	r2, [sp, #0x260]
 	add	r2, r2, #0x8
@@ -634,9 +634,9 @@ initLevelEnvironmentActors:
 	str	r3, [sp, #0x23c]
 	ldr	r0, [sp, #0x240]
 	cmp	r3, r0
-	bge	.L39	@cond_branch
-	b	.L40
-.L39:
+	bge	.L8054C84	@cond_branch
+	b	.L8054950
+.L8054C84:
 	mov	r3, #0x9a
 	lsl	r3, r3, #0x2
 	ADD sp, r3
@@ -647,9 +647,9 @@ initLevelEnvironmentActors:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L42:
+.L8054C98:
 	.align	2, 0
-.L41:
+
 	.4byte	0xd679
 	thumb_func_end initLevelEnvironmentActors
 

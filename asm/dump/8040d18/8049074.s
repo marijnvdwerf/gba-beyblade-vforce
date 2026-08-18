@@ -4,7 +4,7 @@
 sub_8049074:
 	push	{r4, r5, r6, lr}
 	add	r6, r0, #0
-	ldr	r4, .L1
+	ldr	r4, .L80490C8
 	add	r0, r4, #0
 	add	r0, r0, #0x8c
 	add	r5, r4, #0
@@ -41,9 +41,9 @@ sub_8049074:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0
-.L2:
+.L80490C6:
 	.align	2, 0
-.L1:
+.L80490C8:
 	.4byte	0x3000650
 	thumb_func_end sub_8049074
 

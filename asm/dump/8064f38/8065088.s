@@ -8,11 +8,11 @@ sub_8065088:
 	mov	r4, #0x0
 	ldrb	r0, [r2, #0x4]
 	cmp	r4, r0
-	bcs	.L1	@cond_branch
+	bcs	.L80650D0	@cond_branch
 	mov	r3, #0x0
 	mov	r6, #0x80
 	lsl	r6, r6, #0x1
-.L2:
+.L806509C:
 	mov	r0, #0xc4
 	mul	r0, r0, r4
 	ldr	r1, [r2]
@@ -38,8 +38,8 @@ sub_8065088:
 	lsr	r4, r0, #0x10
 	ldrb	r0, [r2, #0x4]
 	cmp	r4, r0
-	bcc	.L2	@cond_branch
-.L1:
+	bcc	.L806509C	@cond_branch
+.L80650D0:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x1
 	strh	r0, [r2, #0x24]

@@ -88,9 +88,9 @@ sub_804423C:
 	and	r0, r0, r1
 	mov	r1, #0xf
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L8044302	@cond_branch
 	mov	r1, #0xe
-.L1:
+.L8044302:
 	add	r0, r4, #0
 	bl	sub_806185C
 	pop	{r3}

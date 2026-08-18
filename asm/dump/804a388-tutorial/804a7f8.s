@@ -3,7 +3,7 @@
 	thumb_func_start sub_804A7F8
 sub_804A7F8:
 	push	{lr}
-	ldr	r3, .L1
+	ldr	r3, .L804A81C
 	add	r0, r0, #0x88
 	ldr	r0, [r0]
 	add	r0, r0, #0x5d
@@ -19,9 +19,9 @@ sub_804A7F8:
 	bl	_call_via_r3
 	pop	{r0}
 	bx	r0
-.L2:
+.L804A81C:
 	.align	2, 0
-.L1:
+
 	.4byte	0x807d970
 	thumb_func_end sub_804A7F8
 

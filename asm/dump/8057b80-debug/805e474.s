@@ -30,15 +30,15 @@ sub_805E474:
 	sub	r0, r1, r0
 	mov	r7, r8
 	cmp	r7, #0
-	bgt	.L1	@cond_branch
+	bgt	.L805E4B6	@cond_branch
 	cmp	r0, #0
-	blt	.L6	@cond_branch
+	blt	.L805E4F4	@cond_branch
 	cmp	r7, #0
-	blt	.L3	@cond_branch
-.L1:
+	blt	.L805E4BA	@cond_branch
+.L805E4B6:
 	cmp	r0, #0
-	bgt	.L6	@cond_branch
-.L3:
+	bgt	.L805E4F4	@cond_branch
+.L805E4BA:
 	ldr	r0, [sp, #0x18]
 	ldr	r1, [sp, #0x20]
 	sub	r2, r0, r1
@@ -61,24 +61,24 @@ sub_805E474:
 	mul	r0, r0, r3
 	sub	r0, r1, r0
 	cmp	r6, #0
-	bgt	.L5	@cond_branch
+	bgt	.L805E4F0	@cond_branch
 	cmp	r0, #0
-	blt	.L6	@cond_branch
+	blt	.L805E4F4	@cond_branch
 	cmp	r6, #0
-	blt	.L8	@cond_branch
-.L5:
+	blt	.L805E4F8	@cond_branch
+.L805E4F0:
 	cmp	r0, #0
-	ble	.L8	@cond_branch
-.L6:
+	ble	.L805E4F8	@cond_branch
+.L805E4F4:
 	mov	r0, #0x0
-	b	.L10
-.L8:
+	b	.L805E502
+.L805E4F8:
 	mov	r0, #0x2
 	mov	r2, r8
 	cmp	r2, #0
-	blt	.L10	@cond_branch
+	blt	.L805E502	@cond_branch
 	mov	r0, #0x1
-.L10:
+.L805E502:
 	pop	{r3}
 	mov	r8, r3
 	pop	{r4, r5, r6, r7}

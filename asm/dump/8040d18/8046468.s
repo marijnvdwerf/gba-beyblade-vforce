@@ -12,22 +12,22 @@ sub_8046468:
 	ldrb	r1, [r4, #0xe]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L8046486	@cond_branch
 	ldr	r0, [r4]
 	bl	sub_8060A60
-.L1:
+.L8046486:
 	mov	r0, #0x1
 	ldrb	r1, [r4, #0xe]
 	orr	r1, r1, r0
 	strb	r1, [r4, #0xe]
 	cmp	r5, #0
-	beq	.L2	@cond_branch
+	beq	.L804649A	@cond_branch
 	mov	r0, #0x2
 	orr	r1, r1, r0
 	strb	r1, [r4, #0xe]
-	b	.L3
-.L2:
-	ldr	r1, .L4
+	b	.L80464B2
+.L804649A:
+	ldr	r1, .L80464BC
 	mov	r0, #0x10
 	str	r0, [sp]
 	str	r0, [sp, #0x4]
@@ -37,14 +37,14 @@ sub_8046468:
 	bl	sub_8063830
 	add	r0, sp, #0x8
 	bl	deallocate_80637CC
-.L3:
+.L80464B2:
 	add	sp, sp, #0x1c
 	pop	{r4, r5}
 	pop	{r0}
 	bx	r0
-.L5:
+.L80464BA:
 	.align	2, 0
-.L4:
+.L80464BC:
 	.4byte	0x5000200
 	thumb_func_end sub_8046468
 

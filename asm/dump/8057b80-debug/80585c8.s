@@ -9,16 +9,16 @@ sub_80585C8:
 	add	r2, r2, #0x98
 	ldrb	r0, [r2]
 	cmp	r1, r0
-	beq	.L1	@cond_branch
-	ldr	r0, .L2
+	beq	.L80585DE	@cond_branch
+	ldr	r0, .L80585E4
 	ldr	r0, [r0]
 	str	r0, [r3, #0x58]
-.L1:
+.L80585DE:
 	strb	r1, [r2]
 	bx	lr
-.L3:
+.L80585E2:
 	.align	2, 0
-.L2:
+.L80585E4:
 	.4byte	0x3000e30
 	thumb_func_end sub_80585C8
 

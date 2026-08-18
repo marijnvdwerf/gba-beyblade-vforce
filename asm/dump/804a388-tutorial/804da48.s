@@ -11,7 +11,7 @@ sub_804DA48:
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	bne	.L1	@cond_branch
+	bne	.L804DA92	@cond_branch
 	ldr	r3, [r5, #0x4]
 	ldr	r4, [r5, #0x8]
 	ldr	r5, [r5, #0xc]
@@ -37,13 +37,13 @@ sub_804DA48:
 	add	r1, r7, #0
 	mul	r1, r1, r7
 	cmp	r0, r1
-	blt	.L2	@cond_branch
-.L1:
+	blt	.L804DA96	@cond_branch
+.L804DA92:
 	mov	r0, #0x0
-	b	.L3
-.L2:
+	b	.L804DA98
+.L804DA96:
 	mov	r0, #0x1
-.L3:
+.L804DA98:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1

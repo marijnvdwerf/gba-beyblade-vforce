@@ -24,7 +24,7 @@ sub_80619A4:
 	add	r2, r6, #0
 	bl	showNumber
 	and	r5, r5, r0
-	ldr	r1, .L2
+	ldr	r1, .L8061A14
 	add	r0, r7, #0
 	add	r2, r6, #0
 	bl	showString
@@ -33,13 +33,13 @@ sub_80619A4:
 	lsr	r5, r0, #0x18
 	mov	r0, r8
 	cmp	r0, #0x9
-	bhi	.L1	@cond_branch
+	bhi	.L80619F8	@cond_branch
 	add	r0, r7, #0
 	mov	r1, #0x0
 	add	r2, r6, #0
 	bl	showNumber
 	and	r5, r5, r0
-.L1:
+.L80619F8:
 	add	r0, r7, #0
 	mov	r1, r8
 	mov	r2, r9
@@ -52,9 +52,9 @@ sub_80619A4:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L3:
+.L8061A12:
 	.align	2, 0
-.L2:
+.L8061A14:
 	.4byte	0x8755b84
 	thumb_func_end sub_80619A4
 

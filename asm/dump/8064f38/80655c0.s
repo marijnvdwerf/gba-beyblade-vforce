@@ -20,19 +20,19 @@ sub_80655C0:
 	mov	r0, #0x0
 	mov	r8, r0
 	cmp	r1, #0
-	bge	.L1	@cond_branch
+	bge	.L80655E8	@cond_branch
 	NEG	r1, r1
-.L1:
+.L80655E8:
 	add	r6, r1, #0
 	lsl	r0, r2, #0x10
 	asr	r4, r0, #0x10
 	mov	r1, r9
 	ldrb	r1, [r1, #0x4]
 	cmp	r4, r1
-	blt	.L2	@cond_branch
+	blt	.L80655FA	@cond_branch
 	mov	r0, #0x0
-	b	.L3
-.L2:
+	b	.L80656A2
+.L80655FA:
 	lsr	r7, r0, #0x10
 	lsl	r2, r7, #0x10
 	asr	r1, r2, #0x10
@@ -41,9 +41,9 @@ sub_80655C0:
 	sub	r0, r4, r0
 	mov	r3, #0x0
 	cmp	r1, r0
-	ble	.L10	@cond_branch
+	ble	.L80656A0	@cond_branch
 	mov	sl, r0
-.L13:
+.L806560E:
 	asr	r1, r2, #0x10
 	mov	r0, #0xc4
 	mul	r1, r1, r0
@@ -51,28 +51,28 @@ sub_80655C0:
 	ldr	r0, [r2]
 	add	r4, r0, r1
 	cmp	r6, #0
-	ble	.L5	@cond_branch
+	ble	.L806562A	@cond_branch
 	add	r0, r6, #0
 	mov	r1, #0xa
 	bl	Mod
 	add	r2, r0, #0
-	b	.L6
-.L5:
+	b	.L806562C
+.L806562A:
 	mov	r2, #0x0
-.L6:
+.L806562C:
 	cmp	r2, #0
-	bne	.L9	@cond_branch
+	bne	.L806565C	@cond_branch
 	cmp	r6, #0
-	bne	.L9	@cond_branch
+	bne	.L806565C	@cond_branch
 	mov	r1, r8
 	lsl	r0, r1, #0x10
 	asr	r5, r0, #0x10
 	add	r3, r0, #0
 	cmp	r5, #0
-	beq	.L9	@cond_branch
+	beq	.L806565C	@cond_branch
 	ldr	r2, [sp]
 	cmp	r2, #0
-	beq	.L10	@cond_branch
+	beq	.L80656A0	@cond_branch
 	mov	r0, #0x1
 	NEG	r0, r0
 	str	r0, [r4, #0x70]
@@ -82,8 +82,8 @@ sub_80655C0:
 	bl	ActorSetFrame
 	add	r0, r5, #1
 	lsl	r0, r0, #0x10
-	b	.L11
-.L9:
+	b	.L806567A
+.L806565C:
 	mov	r0, #0x1
 	NEG	r0, r0
 	str	r0, [r4, #0x70]
@@ -98,18 +98,18 @@ sub_80655C0:
 	mov	r2, #0x80
 	lsl	r2, r2, #0x9
 	add	r0, r0, r2
-.L11:
+.L806567A:
 	lsr	r0, r0, #0x10
 	mov	r8, r0
 	cmp	r6, #0
-	ble	.L12	@cond_branch
+	ble	.L806568C	@cond_branch
 	add	r0, r6, #0
 	mov	r1, #0xa
 	bl	Div
 	add	r6, r0, #0
-.L12:
+.L806568C:
 	lsl	r0, r7, #0x10
-	ldr	r1, .L14
+	ldr	r1, .L80656B4
 	add	r0, r0, r1
 	lsr	r7, r0, #0x10
 	lsl	r2, r7, #0x10
@@ -117,10 +117,10 @@ sub_80655C0:
 	mov	r1, r8
 	lsl	r3, r1, #0x10
 	cmp	r0, sl
-	bgt	.L13	@cond_branch
-.L10:
+	bgt	.L806560E	@cond_branch
+.L80656A0:
 	lsr	r0, r3, #0x10
-.L3:
+.L80656A2:
 	add	sp, sp, #0x4
 	pop	{r3, r4, r5}
 	mov	r8, r3
@@ -129,9 +129,9 @@ sub_80655C0:
 	pop	{r4, r5, r6, r7}
 	pop	{r1}
 	bx	r1
-.L15:
+.L80656B2:
 	.align	2, 0
-.L14:
+.L80656B4:
 	.4byte	0xffff0000
 	thumb_func_end sub_80655C0
 

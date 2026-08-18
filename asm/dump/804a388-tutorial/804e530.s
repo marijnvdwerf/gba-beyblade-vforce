@@ -9,21 +9,21 @@ sub_804E530:
 	add	r0, r4, #0
 	sub	r4, r4, #0x1
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L804E558	@cond_branch
 	lsl	r6, r1, #0x10
-.L3:
+.L804E542:
 	ldr	r0, [r5]
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L804E54E	@cond_branch
 	lsr	r1, r6, #0x10
 	bl	sub_8061078
-.L2:
+.L804E54E:
 	add	r5, r5, #0x24
 	add	r0, r4, #0
 	sub	r4, r4, #0x1
 	cmp	r0, #0
-	bne	.L3	@cond_branch
-.L1:
+	bne	.L804E542	@cond_branch
+.L804E558:
 	pop	{r4, r5, r6}
 	pop	{r0}
 	bx	r0

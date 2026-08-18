@@ -11,17 +11,17 @@ sub_804E328:
 	lsl	r0, r0, #0x10
 	asr	r1, r0, #0x10
 	cmp	r1, #0x3f
-	ble	.L1	@cond_branch
+	ble	.L804E348	@cond_branch
 	add	r0, r1, #0
 	sub	r0, r0, #0x40
 	lsl	r0, r0, #0x11
 	NEG	r0, r0
-	b	.L2
-.L1:
+	b	.L804E34E
+.L804E348:
 	mov	r0, #0x40
 	sub	r0, r0, r1
 	lsl	r0, r0, #0x11
-.L2:
+.L804E34E:
 	lsr	r0, r0, #0x10
 	lsl	r0, r0, #0x10
 	asr	r0, r0, #0x10

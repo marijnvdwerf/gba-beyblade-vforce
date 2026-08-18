@@ -43,9 +43,9 @@ initQuadTreeNode:
 	ldr	r0, [r0, #0x8]
 	ldr	r2, [sp, #0x20]
 	cmp	r2, r0
-	blt	.L32	@cond_branch
-	b	.L31
-.L32:
+	blt	.L805C096	@cond_branch
+	b	.L805C1BA
+.L805C096:
 	ldr	r0, [r6]
 	lsl	r0, r0, #0x4
 	ldr	r1, [sp, #0x10]
@@ -57,125 +57,125 @@ initQuadTreeNode:
 	ldrb	r2, [r6, #0x11]
 	and	r0, r0, r2
 	cmp	r0, #0
-	bne	.L28	@cond_branch
+	bne	.L805C1A6	@cond_branch
 	ldr	r0, [sp, #0x58]
 	cmp	r0, #0
-	beq	.L4	@cond_branch
+	beq	.L805C0C4	@cond_branch
 	ldr	r0, [sp, #0xc]
 	add	r1, r6, #0
 	ldr	r2, [sp, #0x58]
 	bl	_call_via_r2
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
-	beq	.L28	@cond_branch
-.L4:
+	beq	.L805C1A6	@cond_branch
+.L805C0C4:
 	ldr	r0, [r6]
 	cmp	r0, #0
-	blt	.L28	@cond_branch
+	blt	.L805C1A6	@cond_branch
 	ldr	r0, [r6, #0x4]
 	cmp	r0, #0
-	blt	.L28	@cond_branch
+	blt	.L805C1A6	@cond_branch
 	ldr	r2, [r4]
 	ldr	r4, [r4, #0x4]
 	ldr	r3, [r5]
 	ldr	r5, [r5, #0x4]
 	cmp	r2, r3
-	ble	.L8	@cond_branch
+	ble	.L805C0E2	@cond_branch
 	add	r0, r3, #0
 	add	r3, r2, #0
 	add	r2, r0, #0
-.L8:
+.L805C0E2:
 	cmp	r4, r5
-	ble	.L9	@cond_branch
+	ble	.L805C0EC	@cond_branch
 	add	r0, r5, #0
 	add	r5, r4, #0
 	add	r4, r0, #0
-.L9:
+.L805C0EC:
 	sub	r2, r2, #0x10
 	add	r3, r3, #0x10
 	sub	r4, r4, #0x10
 	add	r5, r5, #0x10
 	mov	r1, #0x0
 	cmp	r2, sl
-	blt	.L11	@cond_branch
+	blt	.L805C102	@cond_branch
 	ldr	r0, [sp, #0x50]
 	cmp	r2, r0
-	bgt	.L11	@cond_branch
+	bgt	.L805C102	@cond_branch
 	mov	r1, #0x1
-.L11:
+.L805C102:
 	cmp	r3, sl
-	blt	.L13	@cond_branch
+	blt	.L805C110	@cond_branch
 	ldr	r0, [sp, #0x50]
 	cmp	r3, r0
-	bgt	.L13	@cond_branch
+	bgt	.L805C110	@cond_branch
 	mov	r0, #0x1
 	orr	r1, r1, r0
-.L13:
+.L805C110:
 	cmp	r4, r9
-	blt	.L15	@cond_branch
+	blt	.L805C122	@cond_branch
 	ldr	r0, [sp, #0x54]
 	cmp	r4, r0
-	bgt	.L15	@cond_branch
+	bgt	.L805C122	@cond_branch
 	mov	r0, #0x2
 	orr	r1, r1, r0
 	lsl	r0, r1, #0x10
 	lsr	r1, r0, #0x10
-.L15:
+.L805C122:
 	cmp	r5, r9
-	blt	.L17	@cond_branch
+	blt	.L805C134	@cond_branch
 	ldr	r0, [sp, #0x54]
 	cmp	r5, r0
-	bgt	.L17	@cond_branch
+	bgt	.L805C134	@cond_branch
 	mov	r0, #0x2
 	orr	r1, r1, r0
 	lsl	r0, r1, #0x10
 	lsr	r1, r0, #0x10
-.L17:
+.L805C134:
 	cmp	r2, sl
-	bgt	.L20	@cond_branch
+	bgt	.L805C148	@cond_branch
 	ldr	r0, [sp, #0x50]
 	cmp	r3, r0
-	blt	.L20	@cond_branch
+	blt	.L805C148	@cond_branch
 	mov	r0, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L20	@cond_branch
+	beq	.L805C148	@cond_branch
 	mov	r1, #0x3
-.L20:
+.L805C148:
 	cmp	r4, r9
-	bgt	.L23	@cond_branch
+	bgt	.L805C15C	@cond_branch
 	ldr	r0, [sp, #0x54]
 	cmp	r5, r0
-	blt	.L23	@cond_branch
+	blt	.L805C15C	@cond_branch
 	mov	r0, #0x1
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L23	@cond_branch
+	beq	.L805C15C	@cond_branch
 	mov	r1, #0x3
-.L23:
+.L805C15C:
 	cmp	r2, sl
-	bgt	.L27	@cond_branch
+	bgt	.L805C178	@cond_branch
 	ldr	r2, [sp, #0x50]
 	cmp	r3, r2
-	blt	.L27	@cond_branch
+	blt	.L805C178	@cond_branch
 	cmp	r4, r9
-	bgt	.L27	@cond_branch
+	bgt	.L805C178	@cond_branch
 	ldr	r0, [sp, #0x54]
 	cmp	r5, r0
-	blt	.L27	@cond_branch
+	blt	.L805C178	@cond_branch
 	mov	r1, #0x3
 	ldr	r2, [sp, #0x28]
 	add	r2, r2, #0x1
 	str	r2, [sp, #0x28]
-.L27:
+.L805C178:
 	cmp	r1, #0x3
-	bne	.L28	@cond_branch
+	bne	.L805C1A6	@cond_branch
 	mov	r0, r8
 	add	r0, r0, #0x40
 	ldr	r1, [sp, #0x24]
 	ldrh	r0, [r0]
 	cmp	r1, r0
-	bge	.L29	@cond_branch
+	bge	.L805C19A	@cond_branch
 	mov	r2, r8
 	ldr	r1, [r2, #0x30]
 	ldr	r2, [sp, #0x24]
@@ -184,15 +184,15 @@ initQuadTreeNode:
 	str	r6, [r0]
 	add	r2, r2, #0x1
 	str	r2, [sp, #0x24]
-	b	.L30
-.L29:
-	ldr	r0, .L39
+	b	.L805C1A0
+.L805C19A:
+	ldr	r0, .L805C2B0
 	bl	printf
-.L30:
+.L805C1A0:
 	ldr	r0, [sp, #0x20]
 	add	r0, r0, #0x1
 	str	r0, [sp, #0x20]
-.L28:
+.L805C1A6:
 	add	r6, r6, #0x20
 	ldr	r1, [sp, #0x1c]
 	add	r1, r1, #0x1
@@ -201,23 +201,23 @@ initQuadTreeNode:
 	ldr	r0, [r2]
 	ldr	r0, [r0, #0x8]
 	cmp	r1, r0
-	bge	.L31	@cond_branch
-	b	.L32
-.L31:
+	bge	.L805C1BA	@cond_branch
+	b	.L805C096
+.L805C1BA:
 	mov	r1, r8
 	ldrh	r0, [r1, #0x3c]
 	ldr	r2, [sp, #0x20]
 	cmp	r2, r0
-	ble	.L36	@cond_branch
+	ble	.L805C2B8	@cond_branch
 	ldr	r1, [sp, #0x28]
 	cmp	r1, r0
-	bge	.L36	@cond_branch
+	bge	.L805C2B8	@cond_branch
 	ldr	r2, [sp, #0x14]
 	cmp	r2, #0x7f
-	ble	.L36	@cond_branch
+	ble	.L805C2B8	@cond_branch
 	ldr	r0, [sp, #0x18]
 	cmp	r0, #0x7f
-	ble	.L36	@cond_branch
+	ble	.L805C2B8	@cond_branch
 	ldr	r1, [sp, #0x50]
 	mov	r2, sl
 	sub	r0, r1, r2
@@ -239,10 +239,10 @@ initQuadTreeNode:
 	add	r0, r0, #0x4
 	ldrh	r2, [r1, #0x3e]
 	cmp	r0, r2
-	blt	.L37	@cond_branch
-	ldr	r0, .L39 + 4
+	blt	.L805C208	@cond_branch
+	ldr	r0, .L805C2B0 + 4
 	bl	printf
-.L37:
+.L805C208:
 	mov	r0, r8
 	ldrh	r1, [r0, #0x38]
 	add	r0, r1, #1
@@ -322,13 +322,13 @@ initQuadTreeNode:
 	bl	initQuadTreeNode
 	str	r0, [r7, #0xc]
 	add	r0, r7, #0
-	b	.L43
-.L40:
+	b	.L805C2F6
+.L805C2B0:
 	.align	2, 0
-.L39:
+
 	.4byte	0x875557c
 	.4byte	0x87555a8
-.L36:
+.L805C2B8:
 	mov	r0, #0x0
 	mov	r1, sp
 	ldrh	r1, [r1, #0x20]
@@ -347,23 +347,23 @@ initQuadTreeNode:
 	strh	r0, [r2, #0x3a]
 	ldr	r1, [sp, #0x20]
 	cmp	r1, #0x20
-	ble	.L41	@cond_branch
-	ldr	r0, .L44
+	ble	.L805C2E6	@cond_branch
+	ldr	r0, .L805C2F0
 	mov	r2, #0x20
 	bl	printf
-.L41:
+.L805C2E6:
 	ldr	r2, [sp, #0x20]
 	cmp	r2, #0
-	beq	.L42	@cond_branch
+	beq	.L805C2F4	@cond_branch
 	add	r0, r7, #0
-	b	.L43
-.L45:
+	b	.L805C2F6
+.L805C2F0:
 	.align	2, 0
-.L44:
+
 	.4byte	0x87555f0
-.L42:
+.L805C2F4:
 	mov	r0, #0x0
-.L43:
+.L805C2F6:
 	add	sp, sp, #0x30
 	pop	{r3, r4, r5}
 	mov	r8, r3

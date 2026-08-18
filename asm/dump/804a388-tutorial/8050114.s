@@ -26,37 +26,37 @@ sub_8050114:
 	ldrb	r0, [r0, #0x7]
 	lsr	r0, r0, #0x2
 	cmp	r0, r1
-	beq	.L1	@cond_branch
-	ldr	r0, .L3
+	beq	.L8050164	@cond_branch
+	ldr	r0, .L805015C
 	ldr	r0, [r0]
-	ldr	r3, .L3 + 4
+	ldr	r3, .L805015C + 4
 	add	r0, r0, r3
 	mov	r1, #0x1
 	ldrh	r2, [r0]
 	orr	r1, r1, r2
 	strh	r1, [r0]
 	mov	r0, #0x0
-	b	.L2
-.L4:
+	b	.L8050176
+.L805015A:
 	.align	2, 0
-.L3:
+.L805015C:
 	.4byte	0x3000fb0
 	.4byte	0x161c
-.L1:
-	ldr	r0, .L5
+.L8050164:
+	ldr	r0, .L8050178
 	ldr	r1, [r0]
-	ldr	r3, .L5 + 4
+	ldr	r3, .L8050178 + 4
 	add	r1, r1, r3
-	ldr	r0, .L5 + 8
+	ldr	r0, .L8050178 + 8
 	ldrh	r2, [r1]
 	and	r0, r0, r2
 	strh	r0, [r1]
 	mov	r0, #0x1
-.L2:
+.L8050176:
 	bx	lr
-.L6:
+.L8050178:
 	.align	2, 0
-.L5:
+
 	.4byte	0x3000fb0
 	.4byte	0x161c
 	.4byte	0xfffe

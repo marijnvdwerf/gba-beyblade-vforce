@@ -7,15 +7,15 @@ sub_80512AC:
 	mov	r6, r9
 	mov	r5, r8
 	push	{r5, r6, r7}
-	ldr	r0, .L4
+	ldr	r0, .L80512F4
 	ldr	r0, [r0]
-	ldr	r1, .L4 + 4
+	ldr	r1, .L80512F4 + 4
 	add	r0, r0, r1
-	ldr	r1, .L4 + 8
+	ldr	r1, .L80512F4 + 8
 	strh	r1, [r0]
 	mov	r0, #0x0
 	mov	r8, r0
-.L14:
+.L80512C6:
 	mov	r0, r8
 	bl	sub_8051720
 	add	r7, r0, #0
@@ -29,26 +29,26 @@ sub_80512AC:
 	ADD r1, r8
 	mov	sl, r1
 	cmp	r0, #0
-	bne	.L13	@cond_branch
+	bne	.L8051366	@cond_branch
 	ldrb	r0, [r6, #0x1c]
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L8051348	@cond_branch
 	mov	r0, #0x1
 	mov	r9, r0
 	ldr	r5, [r6, #0x24]
-	b	.L3
-.L5:
+	b	.L8051302
+.L80512F4:
 	.align	2, 0
-.L4:
+
 	.4byte	0x3000f48
 	.4byte	0x6ea
 	.4byte	0xffff
-.L7:
+.L8051300:
 	add	r5, r5, #0x1
-.L3:
+.L8051302:
 	ldr	r0, [r6, #0x28]
 	cmp	r5, r0
-	bgt	.L6	@cond_branch
+	bgt	.L8051324	@cond_branch
 	add	r0, r5, #0
 	bl	getLevelDescription
 	add	r4, r0, #0
@@ -58,49 +58,49 @@ sub_80512AC:
 	ldr	r1, [r1, #0x4]
 	ldr	r0, [r4, #0x8]
 	cmp	r1, r0
-	ble	.L7	@cond_branch
+	ble	.L8051300	@cond_branch
 	mov	r1, #0x0
 	mov	r9, r1
-.L6:
+.L8051324:
 	mov	r0, r9
 	cmp	r0, #0
-	beq	.L13	@cond_branch
+	beq	.L8051366	@cond_branch
 	mov	r0, #0x2
 	ldrh	r1, [r7]
 	orr	r0, r0, r1
 	strh	r0, [r7]
-	ldr	r0, .L10
+	ldr	r0, .L8051340
 	ldr	r0, [r0]
-	ldr	r1, .L10 + 4
+	ldr	r1, .L8051340 + 4
 	add	r0, r0, r1
 	mov	r1, r8
 	strh	r1, [r0]
-	b	.L13
-.L11:
+	b	.L8051366
+.L8051340:
 	.align	2, 0
-.L10:
+
 	.4byte	0x3000f48
 	.4byte	0x6ea
-.L2:
+.L8051348:
 	ldr	r0, [r6, #0x20]
 	cmp	r0, #0
-	blt	.L13	@cond_branch
+	blt	.L8051366	@cond_branch
 	bl	sub_8051720
 	add	r1, r0, #0
 	mov	r0, #0x1
 	ldrh	r1, [r1]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L13	@cond_branch
+	beq	.L8051366	@cond_branch
 	mov	r0, #0x2
 	ldrh	r1, [r7]
 	orr	r0, r0, r1
 	strh	r0, [r7]
-.L13:
+.L8051366:
 	mov	r8, sl
 	mov	r0, r8
 	cmp	r0, #0x37
-	ble	.L14	@cond_branch
+	ble	.L80512C6	@cond_branch
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

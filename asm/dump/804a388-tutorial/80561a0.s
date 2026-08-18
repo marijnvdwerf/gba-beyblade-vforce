@@ -8,14 +8,14 @@ sub_80561A0:
 	add	r6, r0, #0
 	add	r5, r1, #0
 	mov	r4, #0x0
-	ldr	r1, .L3
+	ldr	r1, .L80561E4
 	ldr	r0, [r1]
 	cmp	r4, r0
-	bge	.L1	@cond_branch
-	ldr	r0, .L3 + 4
+	bge	.L80561D4	@cond_branch
+	ldr	r0, .L80561E4 + 4
 	mov	r8, r0
 	add	r7, r1, #0
-.L2:
+.L80561BA:
 	mov	r0, r8
 	add	r0, r0, #0x4
 	mov	r8, r0
@@ -27,9 +27,9 @@ sub_80561A0:
 	add	r4, r4, #0x1
 	ldr	r0, [r7]
 	cmp	r4, r0
-	blt	.L2	@cond_branch
-.L1:
-	ldr	r1, .L3
+	blt	.L80561BA	@cond_branch
+.L80561D4:
+	ldr	r1, .L80561E4
 	mov	r0, #0x0
 	str	r0, [r1]
 	pop	{r3}
@@ -37,9 +37,9 @@ sub_80561A0:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L4:
+.L80561E4:
 	.align	2, 0
-.L3:
+
 	.4byte	0x3000c18
 	.4byte	0x3000c20
 	thumb_func_end sub_80561A0

@@ -84,7 +84,7 @@ sub_8043F40:
 	ldrh	r1, [r1, #0xc]
 	and	r0, r0, r1
 	cmp	r0, #0
-	beq	.L1	@cond_branch
+	beq	.L8044030	@cond_branch
 	ldr	r4, [r7, #0x8]
 	bl	sub_8057C40
 	asr	r0, r0, #0x4
@@ -93,9 +93,9 @@ sub_8043F40:
 	and	r0, r0, r5
 	mov	r1, #0xf
 	cmp	r0, #0
-	beq	.L2	@cond_branch
+	beq	.L8044010	@cond_branch
 	mov	r1, #0xe
-.L2:
+.L8044010:
 	add	r0, r4, #0
 	bl	sub_806185C
 	ldr	r4, [r7, #0xc]
@@ -105,12 +105,12 @@ sub_8043F40:
 	and	r0, r0, r5
 	mov	r1, #0xf
 	cmp	r0, #0
-	beq	.L3	@cond_branch
+	beq	.L804402A	@cond_branch
 	mov	r1, #0xd
-.L3:
+.L804402A:
 	add	r0, r4, #0
 	bl	sub_806185C
-.L1:
+.L8044030:
 	ldr	r4, [r7, #0x24]
 	bl	sub_8057C40
 	asr	r0, r0, #0x4
@@ -118,9 +118,9 @@ sub_8043F40:
 	and	r0, r0, r1
 	mov	r1, #0xf
 	cmp	r0, #0
-	beq	.L4	@cond_branch
+	beq	.L8044044	@cond_branch
 	mov	r1, #0xe
-.L4:
+.L8044044:
 	add	r0, r4, #0
 	bl	sub_806185C
 	pop	{r3}

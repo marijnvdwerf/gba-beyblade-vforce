@@ -22,7 +22,7 @@ sub_8057A7C:
 	mov	r4, #0xf8
 	lsl	r4, r4, #0x7
 	mov	r8, r4
-.L7:
+.L8057AA4:
 	ldrh	r2, [r7]
 	mov	r3, #0x1f
 	add	r0, r2, #0
@@ -45,36 +45,36 @@ sub_8057A7C:
 	lsr	r1, r2, #0x10
 	asr	r2, r2, #0x10
 	cmp	r2, #0x1f
-	ble	.L1	@cond_branch
+	ble	.L8057AD4	@cond_branch
 	mov	r1, #0x1f
-.L1:
+.L8057AD4:
 	lsl	r0, r3, #0x10
 	asr	r0, r0, #0x10
 	cmp	r0, #0x1f
-	ble	.L2	@cond_branch
+	ble	.L8057ADE	@cond_branch
 	mov	r3, #0x1f
-.L2:
+.L8057ADE:
 	lsl	r0, r4, #0x10
 	asr	r0, r0, #0x10
 	cmp	r0, #0x1f
-	ble	.L3	@cond_branch
+	ble	.L8057AE8	@cond_branch
 	mov	r4, #0x1f
-.L3:
+.L8057AE8:
 	lsl	r0, r1, #0x10
 	cmp	r0, #0
-	bge	.L4	@cond_branch
+	bge	.L8057AF0	@cond_branch
 	mov	r1, #0x0
-.L4:
+.L8057AF0:
 	lsl	r0, r3, #0x10
 	cmp	r0, #0
-	bge	.L5	@cond_branch
+	bge	.L8057AF8	@cond_branch
 	mov	r3, #0x0
-.L5:
+.L8057AF8:
 	lsl	r0, r4, #0x10
 	cmp	r0, #0
-	bge	.L6	@cond_branch
+	bge	.L8057B00	@cond_branch
 	mov	r4, #0x0
-.L6:
+.L8057B00:
 	lsl	r0, r3, #0x10
 	asr	r0, r0, #0xb
 	lsl	r1, r1, #0x10
@@ -92,7 +92,7 @@ sub_8057A7C:
 	lsr	r0, r0, #0x10
 	mov	ip, r0
 	cmp	r0, #0x7
-	bls	.L7	@cond_branch
+	bls	.L8057AA4	@cond_branch
 	pop	{r3, r4}
 	mov	r8, r3
 	mov	r9, r4

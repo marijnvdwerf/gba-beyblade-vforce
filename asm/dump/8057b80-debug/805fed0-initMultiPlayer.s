@@ -26,20 +26,20 @@ initMultiPlayer:
 	mov	r2, r8
 	and	r0, r0, r2
 	cmp	r0, #0
-	beq	.L1	@cond_branch
-	ldr	r0, .L3
+	beq	.L805FF08	@cond_branch
+	ldr	r0, .L805FFC8
 	bl	printf
-.L1:
+.L805FF08:
 	add	r0, r4, #0
 	bl	slowAllocate
 	add	r7, r0, #0
 	cmp	r7, #0
-	bne	.L2	@cond_branch
-	ldr	r0, .L3 + 4
+	bne	.L805FF1C	@cond_branch
+	ldr	r0, .L805FFC8 + 4
 	add	r1, r4, #0
 	bl	printf
-.L2:
-	ldr	r4, .L3 + 8
+.L805FF1C:
+	ldr	r4, .L805FFC8 + 8
 	ldr	r0, [r7]
 	str	r0, [r4]
 	str	r7, [r0, #0xc]
@@ -83,15 +83,15 @@ initMultiPlayer:
 	str	r6, [r0, #0x40]
 	str	r2, [r0, #0x34]
 	str	r3, [r0, #0x38]
-	ldr	r0, .L3 + 12
+	ldr	r0, .L805FFC8 + 12
 	ldr	r3, [r0]
 	mov	r0, #0x0
 	ldr	r2, [sp]
 	bl	_call_via_r3
-	ldr	r0, .L3 + 16
+	ldr	r0, .L805FFC8 + 16
 	mov	r1, #0x0
 	strh	r1, [r0]
-	ldr	r1, .L3 + 20
+	ldr	r1, .L805FFC8 + 20
 	mov	r2, #0x80
 	lsl	r2, r2, #0x6
 	add	r0, r2, #0
@@ -106,7 +106,7 @@ initMultiPlayer:
 	ldr	r4, [r4]
 	mov	r0, r8
 	asr	r1, r0, #0x1
-	ldr	r0, .L3 + 24
+	ldr	r0, .L805FFC8 + 24
 	bl	__divsi3
 	mov	r1, #0x80
 	lsl	r1, r1, #0x9
@@ -122,9 +122,9 @@ initMultiPlayer:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-.L4:
+.L805FFC6:
 	.align	2, 0
-.L3:
+.L805FFC8:
 	.4byte	0x8755834
 	.4byte	0x8755884
 	.4byte	0x3005dc4
