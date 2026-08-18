@@ -26,18 +26,22 @@ that model with the n64-decomp convention: every ROM code region lives in a C
 translation unit, not-yet-decompiled functions are pulled in via
 `INCLUDE_ASM` at their exact source position, `-ffunction-sections` is
 dropped, each TU emits **one plain `.text` whose internal layout is source
-order**, and the linker script collapses to a short generated file — one
-`(.text)` placement per file. This is also closer to how the original was
+order**, and the linker script collapses to a short, checked-in,
+hand-maintained file — one `(.text)` placement per file. This is also closer to how the original was
 built (one `.text` per TU; the level `metadata.s` files defaulting into
 `.text` are the same phenomenon).
 
 Goals, in priority order:
 
 1. Byte-identical ROM (hard invariant, verified after every migration step).
-2. Full INCLUDE_ASM migration: all dump stubs referenced from C TUs; ld
-   script generated from a manifest; `-ffunction-sections` removed.
-3. A platform-agnostic `CMakeLists.txt`; all toolchain mechanics in a
-   toolchain file plus two small scripts (compiler driver, linker driver).
+2. Full INCLUDE_ASM migration: all dump stubs referenced from C TUs;
+   `-ffunction-sections` removed; the ld script collapses to a short,
+   hand-maintained, checked-in file (~100 file-level lines).
+3. A **platform-agnostic `CMakeLists.txt`**: project + source list + include
+   of the platform layer. Everything GBA — the ld script, agbcc flags,
+   objcopy, the SHA1 gate — lives in the toolchain file and
+   `cmake/gba.cmake`; a future port would supply a different toolchain and
+   simply not use the ld file.
 4. Correct incremental builds: header edits, dump edits, tool changes each
    rebuild exactly what they should.
 5. `compile_commands.json` that works with clangd.
@@ -51,12 +55,14 @@ data files (`asm/data*.s`, `geometry.s`, audio) — they stay standalone `.s`.
 ## Architecture overview
 
 ```
-CMakeLists.txt                  – project(), source list, flags, targets
+CMakeLists.txt                  – project() + source list + include(gba.cmake)
+                                  (platform-neutral; nothing GBA in it)
 CMakePresets.json               – 'default' preset (toolchain, Ninja, build/)
-rom.manifest                    – ordered section→entries lists (THE manifest)
+ld_script.ld                    – checked in, hand-maintained; THE GBA layout
+                                  (post-migration: ~100 file-level lines)
 cmake/toolchain-agbcc.cmake     – finds tools, wires drivers into CMake
-cmake/gen-ld-script.cmake       – manifest + fragments → build/ld_script.ld
-cmake/ld/iwram.ld.in            – hand-written iwram fragment (verbatim)
+cmake/gba.cmake                 – the GBA platform layer: matching flags,
+                                  ld script wiring, rom.gba, SHA1 test, objdiff
 tools/agbcc                     – POSIX sh compiler driver (cpp→iconv→cc1→as)
 tools/gba-link                  – POSIX sh linker driver (stage objects, run ld)
 tools/objdiff-build             – 3-line ninja wrapper for objdiff
@@ -66,8 +72,11 @@ src/include_asm.h               – the INCLUDE_ASM macro
 ```
 
 Deleted after migration: `scripts/compare.cmake`, `beyblade_stub`,
-`DEVKITARM`/`GBAFIX`, `configure_file` templating, `-ffunction-sections`, and
-`ld_script.ld` (replaced by the generated script; kept in git history).
+`DEVKITARM`/`GBAFIX`, `configure_file` templating, `-ffunction-sections`.
+`ld_script.ld` is NOT deleted — it is rewritten (once, by the migration tool)
+into the short per-file form and stays the hand-maintained platform artifact.
+A port would supply a different toolchain + platform layer and never touch
+it.
 
 ## Component 1: INCLUDE_ASM and the dump transformation
 
@@ -142,66 +151,50 @@ is actually understood.
 Decompiling a function = replace its INCLUDE_ASM line with a C definition in
 place; delete the dump when it matches. Standalone `.s` code inputs that stay
 outside TUs (`asm/crt0.s`, `asm/arm1.s`, `asm/arm2.s`, audio) remain direct
-manifest entries.
+sources with their own ld-script placement lines.
 
 **Single-owner invariant (transactional):** at every migration step, each
-dump is either a direct manifest object or referenced by exactly one
-INCLUDE_ASM — never both, never neither. The migration tool validates this
+dump is either a directly placed object (own ld-script line) or referenced
+by exactly one INCLUDE_ASM — never both, never neither. The migration tool validates this
 globally before and after each converted chunk and refuses to proceed on
 violations (duplicate/missing symbols are the failure it prevents).
 
-## Component 2: manifest + generated ld script
+## Component 2: the ld script (checked in, hand-maintained)
 
-`rom.manifest` — plain, ordered, comment-friendly; entries grouped by
-section:
+No manifest, no generator. `ld_script.ld` stays a checked-in file — it *is*
+the GBA layout, and only the GBA build consumes it. The migration rewrites it
+once into the short per-file form (~100 lines):
 
 ```
-[iwram]           # sources placed by cmake/ld/iwram.ld.in (fragment is authoritative
-src/ram.c         # for PLACEMENT; listing here makes them part of the BUILD)
-src/ram2.c
-src/ram3.c
-src/memory.c
-src/keystate.c
-[text]
-asm/crt0.s
-data/7-7/metadata.s
-…
-src/frontend.c
-src/tutorial.c
-…
-libgcc:_call_via_rX.o
-…
-src/libc.c
-[rodata]
-asm/data10.s
-…
+INPUT(libgcc.a)                        /* ld does NOT open archives merely
+                                          named in filespecs (review-verified);
+                                          plain objects it does */
+SECTIONS {
+    . = 0x3000000;
+    iwram (NOLOAD) : { … }             /* hand-maintained gaps/symbols,
+                                          unchanged from today */
+    . = 0x8000000;
+    .text : {
+        asm/crt0.s.o(.text);
+        data/7-7/metadata.s.o(.text);
+        …
+        src/code_8040d18.c.o(.text);
+        src/code_804a388.c.o(.text);
+        …
+        libgcc.a:_call_via_rX.o(.text);
+        …
+        src/libc.c.o(.text);
+    }
+    .rodata : { … }                    /* per-file, as today */
+    /* DWARF passthrough + /DISCARD/ : { *(*) } as today */
+}
 ```
 
-`cmake/gen-ld-script.cmake` expands this to `build/ld_script.ld`:
-
-- prologue + `iwram.ld.in` verbatim (hand-maintained gaps/symbols),
-- `[text]` entries → `<obj>(.text);` in order; `libgcc:<member>` → the
-  member name **verbatim** → `libgcc.a:<member>(.text);` (no suffix
-  appending — the manifest spells the full member name, validated at
-  configure time against `arm-none-eabi-ar t libgcc.a`; unknown or ambiguous
-  members are configure errors),
-- `[rodata]` entries → `<obj>(.rodata);`,
-- an **`INPUT(libgcc.a)`** directive — ld does *not* open archives merely
-  named in section filespecs (review-verified); plain objects it does,
-- DWARF passthrough + `/DISCARD/ : { *(*) }` epilogue.
-
-Manifest rules:
-
-- The manifest is the **complete source list** — including `[iwram]` sources
-  whose placement lives in the hand-written fragment. Rule: listed = built;
-  `[text]`/`[rodata]` listed = placed by the generator; `[iwram]` listed =
-  built, placed by the fragment.
-- The generator cross-validates: every object referenced by the fragment or
-  generated sections maps to exactly one listed source; unplaced or
-  double-placed entries are configure errors.
-- Both `rom.manifest` and `iwram.ld.in` are registered in
-  `CMAKE_CONFIGURE_DEPENDS` so edits rerun CMake; the generated script is
-  written only on content change (no spurious relinks).
+Adding a TU = one source-list line in CMake + one placement line here. The
+two lists can drift exactly as far as today (an unplaced object falls into
+`/DISCARD/`); a small optional configure-time check greps the ld script and
+warns about sources with no placement line. `LINK_DEPENDS` covers rebuild on
+edit.
 
 ## Component 3: `tools/agbcc` compiler driver
 
@@ -258,7 +251,12 @@ agbcc [options] -c file.c -o file.o
 - `CMAKE_C_STANDARD_LIBRARIES ""`; link rule = `tools/gba-link` (Component
   6).
 
-## Component 5: `CMakeLists.txt`
+## Component 5: `CMakeLists.txt` + `cmake/gba.cmake`
+
+`CMakeLists.txt` is deliberately boring — nothing in it says "GBA". Flags,
+the ld script, objcopy, the SHA1 gate: all of that is platform, not project
+(the `target_compile_options` block from earlier drafts was platform-specific
+and moves out):
 
 ```cmake
 cmake_minimum_required(VERSION 3.21)
@@ -266,10 +264,24 @@ project(beybladevforce LANGUAGES C ASM)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-include(cmake/gen-ld-script.cmake)   # rom.manifest → MANIFEST_C_SOURCES,
-                                     # MANIFEST_ASM_SOURCES, build/ld_script.ld
+add_executable(rom
+    src/main.c
+    src/sound.c
+    src/code_8040d18.c
+    …                       # the full, explicit source list (no glob)
+    asm/crt0.s
+    asm/audio0.s
+    data/1-1/metadata.s
+    …
+)
 
-add_executable(rom ${MANIFEST_C_SOURCES} ${MANIFEST_ASM_SOURCES})
+include(cmake/gba.cmake OPTIONAL)   # no-op for a future non-GBA toolchain
+```
+
+`cmake/gba.cmake` — the platform layer (guarded so it only applies under the
+agbcc toolchain):
+
+```cmake
 set_target_properties(rom PROPERTIES SUFFIX ".elf")
 
 # agbcc headers: C-only, plain -I routed to the preprocessor. NOT `SYSTEM`
@@ -281,9 +293,9 @@ target_compile_options(rom PRIVATE
 set_source_files_properties(src/libc.c PROPERTIES
     COMPILE_OPTIONS "--reset-flags;-O2")
 
-target_link_options(rom PRIVATE -T ${CMAKE_BINARY_DIR}/ld_script.ld)
+target_link_options(rom PRIVATE -T ${CMAKE_SOURCE_DIR}/ld_script.ld)
 set_property(TARGET rom APPEND PROPERTY LINK_DEPENDS
-    ${CMAKE_BINARY_DIR}/ld_script.ld ${AGBCC}/lib/libgcc.a)
+    ${CMAKE_SOURCE_DIR}/ld_script.ld ${AGBCC}/lib/libgcc.a)
 
 # rom.gba is a real output with its own dependency edge (POST_BUILD would
 # neither recreate a deleted rom.gba nor rerun after a failed objcopy).
@@ -310,7 +322,8 @@ by inspecting the generated Ninja/Make rules and `compile_commands.json`, not
 just by configure succeeding. C objects additionally depend on the driver
 script and `old_agbcc` via `OBJECT_DEPENDS`/a toolchain stamp file (hash of
 driver + cc1 + as), so tool changes invalidate objects. The in-source-build
-guard stays.
+guard stays. Source order in `add_executable` is irrelevant (the ld script
+orders); keeping the list roughly ROM-ordered anyway aids humans.
 
 ## Component 6: linking — `tools/gba-link`
 
@@ -371,7 +384,8 @@ step. Order of operations:
    possible, chunk boundaries are adapted to existing source order instead of
    reordering code.
 6. **Rewrite TUs / create container TUs**, insert INCLUDE_ASM lines; update
-   `rom.manifest` in the same transactional step (single-owner invariant).
+   the ld script and the CMake source list in the same transactional step
+   (single-owner invariant).
 7. **Build + compare** after every chunk; a mismatch bisects to one chunk.
 
 ## Component 8: developer experience
@@ -415,12 +429,12 @@ objects. Schema per objdiff v3.8.0 (`config.schema.json`, researched):
   `ninja -C build <target>` with proper quoting; clear error if the target
   doesn't exist.
 - `watch_patterns`: `src/**/*.c`, `src/**/*.h`, `asm/dump/**/*.s`,
-  `rom.manifest`; default `ignore_patterns` (`build/**/*`) kept.
+  `ld_script.ld`; default `ignore_patterns` (`build/**/*`) kept.
 - **`update-expected` enforces its own gate** (review finding: "only
   meaningful after compare" as documentation is how baselines get poisoned):
-  it runs the SHA1 comparison itself, enumerates objects from the manifest
-  (not a glob), verifies all exist, snapshots into a temp dir with metadata
-  (ROM SHA1, git commit, manifest hash, toolchain stamp), and atomically
+  it runs the SHA1 comparison itself, enumerates objects from the CMake source
+  list (not a glob), verifies all exist, snapshots into a temp dir with metadata
+  (ROM SHA1, git commit, ld-script hash, toolchain stamp), and atomically
   replaces `expected/`. A missing snapshot produces a "run update-expected
   after a matching build" message, not an objdiff file-not-found.
 - **Progress reporting (decomp.dev)** — via `mapfile_parser objdiff_report`
@@ -497,7 +511,7 @@ toolchain):
 1. Full pipeline on macOS and Linux (CI): configure, build, ctest pass; both
    Ninja and Unix Makefiles generators.
 2. Incremental correctness: touching a header / a dump / `common.inc` / an
-   `.incbin` payload / `rom.manifest` / `iwram.ld.in` / `tools/agbcc` /
+   `.incbin` payload / `ld_script.ld` / `tools/agbcc` /
    `old_agbcc` / `libgcc.a` each rebuilds exactly the affected steps; ROM
    still matches. Inode test: recompile one source, relink, staged object is
    byte-identical to the new object (not the old inode).
