@@ -56,7 +56,7 @@ main:
         MSR     CPSR_cf, R0
         LDR     SP, off_8000130
         LDR     R1, off_800026C
-        ADR     R0, sub_8000168
+        ADR     R0, intr_main
         STR     R0, [R1]
         MOV     R1, #0x3000000
         MOV     R2, #0
@@ -96,7 +96,7 @@ off_8000134:
      .byte    1,    0, 0xBD, 0xE8, 0x1E, 0xFF, 0x2F, 0xE1
 
 
-  global sub_8000168
+  global intr_main
 
                 STMFD   SP!, {LR}
                 MRS     R0, SPSR
@@ -166,6 +166,7 @@ loc_800023C:
                 MSR     SPSR_cf, R0
                 LDMFD   SP!, {LR}
                 BX      LR
+  global intr_main_end
 off_800026C:
         .4byte 0x3007FFC
 off_8000270:
