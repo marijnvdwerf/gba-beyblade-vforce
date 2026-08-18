@@ -1,0 +1,81 @@
+name: Build
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+env:
+  AGBCC_COMMIT: da598c1d918402c42c0c0d7128ba14567f3175e9
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    container:
+      # Digest-pinned: this also pins the host compiler that builds agbcc.
+      image: ubuntu:24.04@sha256:561618e2c15bf2397621dd04f96926663a3b5616c189cf7e38db7e82f5c538ea
+    env:
+      AGBCC: ${{ github.workspace }}/.ci/agbcc-install/tools/agbcc
+
+    steps:
+      - name: Install build dependencies
+        run: |
+          apt-get update
+          DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
+            binutils-arm-none-eabi=2.42-1ubuntu1+23 \
+            ninja-build=1.11.1-2 \
+            build-essential ca-certificates cmake gcc-multilib git python3
+
+      - name: Check out repository
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
+
+      - name: Restore agbcc cache
+        id: agbcc-cache
+        uses: actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830 # v4.3.0
+        with:
+          path: ${{ env.AGBCC }}
+          key: agbcc-${{ env.AGBCC_COMMIT }}-ubuntu24.04-561618e2
+
+      - name: Build agbcc
+        if: steps.agbcc-cache.outputs.cache-hit != 'true'
+        run: |
+          git clone --no-checkout https://github.com/pret/agbcc.git agbcc-src
+          git -C agbcc-src checkout "$AGBCC_COMMIT"
+          cd agbcc-src
+          ./build.sh
+          mkdir -p "${AGBCC%/tools/agbcc}"
+          ./install.sh "${AGBCC%/tools/agbcc}"
+
+      - name: Log toolchain versions
+        run: |
+          cc --version | head -n 1
+          arm-none-eabi-as --version | head -n 1
+          cmake --version | head -n 1
+          test -x "$AGBCC/bin/old_agbcc" && test -f "$AGBCC/lib/libgcc.a"
+
+      - name: Configure
+        run: cmake --preset default
+
+      - name: Build
+        run: cmake --build build
+
+      - name: Test matching ROM
+        run: ctest --test-dir build --output-on-failure
+
+      - name: Progress report (optional)
+        continue-on-error: true
+        run: |
+          curl -LsSf https://astral.sh/uv/install.sh | sh
+          "$HOME/.local/bin/uvx" mapfile_parser objdiff_report -i 1 build/rom.map build/progress.json
+
+      - name: Upload progress report
+        if: ${{ always() && hashFiles('build/progress.json') != '' }}
+        continue-on-error: true
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: progress-report
+          path: build/progress.json
+          if-no-files-found: ignore
+          retention-days: 14

@@ -46,3 +46,54 @@ add_custom_target(compare
     COMMAND "${CMAKE_CTEST_COMMAND}" --output-on-failure -R rom-matches
     DEPENDS rom_gba
     VERBATIM)
+
+set(_canonical_binary_dir "${CMAKE_SOURCE_DIR}/build")
+if("${CMAKE_BINARY_DIR}" STREQUAL "${_canonical_binary_dir}")
+    set(_objdiff_units "")
+    set(_objdiff_first_unit TRUE)
+    foreach(_source IN LISTS _rom_sources)
+        if(NOT _source MATCHES "^src/.+\\.c$")
+            continue()
+        endif()
+
+        if(_objdiff_first_unit)
+            set(_objdiff_first_unit FALSE)
+        else()
+            string(APPEND _objdiff_units ",\n")
+        endif()
+
+        string(APPEND _objdiff_units
+            "    {\n"
+            "      \"name\": \"${_source}\",\n"
+            "      \"target_path\": \"expected/${_source}.o\",\n"
+            "      \"base_path\": \"build/CMakeFiles/rom.dir/${_source}.o\",\n"
+            "      \"metadata\": {\n"
+            "        \"source_path\": \"${_source}\",\n"
+            "        \"progress_categories\": [\"game\"]\n"
+            "      }\n"
+            "    }")
+    endforeach()
+
+    file(WRITE "${CMAKE_SOURCE_DIR}/objdiff.json"
+        "{\n"
+        "  \"min_version\": \"3.0.0\",\n"
+        "  \"custom_make\": \"tools/objdiff-build\",\n"
+        "  \"custom_args\": [],\n"
+        "  \"build_base\": true,\n"
+        "  \"build_target\": false,\n"
+        "  \"options\": {\"arm.archVersion\": \"v4t\"},\n"
+        "  \"watch_patterns\": [\n"
+        "    \"src/**/*.c\",\n"
+        "    \"src/**/*.h\",\n"
+        "    \"asm/dump/**/*.s\",\n"
+        "    \"ld_script.ld\"\n"
+        "  ],\n"
+        "  \"progress_categories\": [\n"
+        "    {\"id\": \"game\", \"name\": \"Game\"}\n"
+        "  ],\n"
+        "  \"units\": [\n"
+        "${_objdiff_units}\n"
+        "  ]\n"
+        "}\n")
+
+endif()

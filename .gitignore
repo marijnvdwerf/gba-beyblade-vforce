@@ -18,6 +18,8 @@ CTestTestfile.cmake
 #
 
 build/
+expected/
+objdiff.json
 baserom.gba
 
 
