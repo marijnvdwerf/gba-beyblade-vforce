@@ -26,7 +26,7 @@ jobs:
           DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
             binutils-arm-none-eabi=2.42-1ubuntu1+23 \
             ninja-build=1.11.1-2 \
-            build-essential ca-certificates cmake gcc-multilib git python3
+            build-essential ca-certificates cmake curl gcc-multilib git python3
 
       - name: Check out repository
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
