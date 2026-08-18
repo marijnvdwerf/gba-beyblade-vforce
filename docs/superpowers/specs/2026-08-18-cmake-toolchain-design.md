@@ -1,7 +1,9 @@
 # Build system rewrite: agbcc as a first-class CMake toolchain, INCLUDE_ASM migration
 
 **Date:** 2026-08-18
-**Status:** Draft (pending adversarial review)
+**Status:** Draft v3 — post adversarial review (gpt-5.6-sol), simplified per
+review findings: `-ffunction-sections` dropped, dumps transformed for
+inclusion, all toolchain-side blockers addressed.
 
 ## Context and goals
 
@@ -15,57 +17,59 @@ The compile pipeline per C file is fixed by matching requirements:
 host cc -E  (preprocess)  →  iconv UTF-8→WINDOWS-1252  →  old_agbcc (C→asm)  →  arm-none-eabi-as (asm→obj)
 ```
 
-Today, `ld_script.ld` (~1250 hand-maintained lines) places objects — and, via
-`-ffunction-sections`, *individual C functions* — at exact ROM positions,
-interleaved with ~2900 one-function asm dump stubs. This design replaces that
-model with the n64-decomp convention: **every ROM code region lives in a C
-translation unit**, and not-yet-decompiled functions are pulled in via
-`INCLUDE_ASM` at their exact position in the file. The `.text` section then
-contains (almost) only C objects in file order, and the linker script
-collapses to a short, *generated* file — the manifest becomes "a list of
-source files added to the proper sections", which is the end state this
-project always wanted.
+Today, `ld_script.ld` (~1250 hand-maintained lines) places objects and — via
+`-ffunction-sections` — individual C functions at exact ROM positions,
+interleaved with ~2900 one-function asm dump stubs. **`-ffunction-sections`
+was only ever a workaround for not having INCLUDE_ASM**: it provided
+link-time granularity to skip not-yet-matched functions. This design replaces
+that model with the n64-decomp convention: every ROM code region lives in a C
+translation unit, not-yet-decompiled functions are pulled in via
+`INCLUDE_ASM` at their exact source position, `-ffunction-sections` is
+dropped, each TU emits **one plain `.text` whose internal layout is source
+order**, and the linker script collapses to a short generated file — one
+`(.text)` placement per file. This is also closer to how the original was
+built (one `.text` per TU; the level `metadata.s` files defaulting into
+`.text` are the same phenomenon).
 
 Goals, in priority order:
 
-1. Byte-identical ROM (hard invariant, verified by CTest after every step of
-   the migration).
-2. Full INCLUDE_ASM migration: all asm dump stubs referenced from C TUs; ld
-   script generated from a manifest.
-3. A platform-agnostic `CMakeLists.txt`: sources + flags + targets only; all
-   toolchain mechanics live in a toolchain file and one small driver script.
-4. Correct incremental builds: header edits and edits to INCLUDE_ASM'd dump
-   files must trigger rebuilds.
+1. Byte-identical ROM (hard invariant, verified after every migration step).
+2. Full INCLUDE_ASM migration: all dump stubs referenced from C TUs; ld
+   script generated from a manifest; `-ffunction-sections` removed.
+3. A platform-agnostic `CMakeLists.txt`; all toolchain mechanics in a
+   toolchain file plus two small scripts (compiler driver, linker driver).
+4. Correct incremental builds: header edits, dump edits, tool changes each
+   rebuild exactly what they should.
 5. `compile_commands.json` that works with clangd.
 6. CI on GitHub Actions verifying the matching build on Linux.
 7. objdiff wired up for diffing work-in-progress functions.
 8. macOS + Linux. No Windows support.
 
-Non-goals: tool provisioning (agbcc/binutils installation is the user's
-problem; the build only *finds* tools and fails clearly), CLion-specific
-support, converting `data/` or the asm data files (`asm/data*.s`,
-`geometry.s`, audio) to anything else — they stay standalone `.s` inputs.
+Non-goals: tool provisioning; CLion support; converting `data/` or the asm
+data files (`asm/data*.s`, `geometry.s`, audio) — they stay standalone `.s`.
 
 ## Architecture overview
 
 ```
 CMakeLists.txt                  – project(), source list, flags, targets
-CMakePresets.json               – default preset (toolchain, Ninja, build/)
+CMakePresets.json               – 'default' preset (toolchain, Ninja, build/)
 rom.manifest                    – ordered section→entries lists (THE manifest)
-cmake/toolchain-agbcc.cmake     – finds tools, wires driver/as/ld into CMake
+cmake/toolchain-agbcc.cmake     – finds tools, wires drivers into CMake
 cmake/gen-ld-script.cmake       – manifest + fragments → build/ld_script.ld
 cmake/ld/iwram.ld.in            – hand-written iwram fragment (verbatim)
 tools/agbcc                     – POSIX sh compiler driver (cpp→iconv→cc1→as)
-tools/migrate_include_asm.py    – one-shot migration script (uv script)
+tools/gba-link                  – POSIX sh linker driver (stage objects, run ld)
+tools/objdiff-build             – 3-line ninja wrapper for objdiff
+tools/migrate_include_asm.py    – migration tool (uv script)
 src/include_asm.h               – the INCLUDE_ASM macro
 .clangd, .github/workflows/     – tooling & CI
 ```
 
-Deleted after migration: `scripts/compare.cmake`, the `beyblade_stub` target,
-`DEVKITARM`/`GBAFIX` variables, `configure_file` templating, and
-`ld_script.ld` itself (replaced by the generated script; kept in git history).
+Deleted after migration: `scripts/compare.cmake`, `beyblade_stub`,
+`DEVKITARM`/`GBAFIX`, `configure_file` templating, `-ffunction-sections`, and
+`ld_script.ld` (replaced by the generated script; kept in git history).
 
-## Component 1: INCLUDE_ASM
+## Component 1: INCLUDE_ASM and the dump transformation
 
 `src/include_asm.h`:
 
@@ -73,43 +77,67 @@ Deleted after migration: `scripts/compare.cmake`, the `beyblade_stub` target,
 #define INCLUDE_ASM(path) __asm__(".include \"" path "\"")
 ```
 
-Usage in a TU, at top level, at the exact ROM position between C functions:
+Used at top level, at the exact ROM position between C function definitions.
+GCC 2.x emits top-level `asm()` verbatim into its output `.s`, in source
+order relative to functions; without `-ffunction-sections` everything —
+functions and included dump text alike — flows into one plain `.text` in
+emission order. No section directives are needed anywhere: gas's initial
+section is `.text`, so container TUs (only includes, no C functions yet) work
+too. The driver's assembler stage resolves the `.include` via
+`-I <repo root>`.
 
-```c
-INCLUDE_ASM("asm/dump/8040d18/8041078.s");
-```
+**Dump transformation** (one-time, part of migration; the review proved
+unchanged dumps cannot be textually merged):
 
-Mechanics: GCC 2.x emits top-level `asm()` statements verbatim into its
-output `.s`, in source order relative to function definitions. The driver's
-assembler stage runs `arm-none-eabi-as -I <repo root>`, which resolves the
-`.include`. The dump files already carry their own `.include "asm/common.inc"`
-and section state; nothing about them changes. iconv is irrelevant here (the
-dump text never passes through the C pipeline).
+1. Strip each dump's `.include "asm/common.inc"` line. Instead, each TU that
+   uses INCLUDE_ASM starts with `INCLUDE_ASM("asm/common.inc")` once (via a
+   dedicated `INCLUDE_ASM_PRELUDE` spelling if clearer). `common.inc` defines
+   macros; defining them once per assembled TU is required — gas macro
+   definitions are not idempotent.
+2. Rename every file-local `.L<n>` label (definitions and references) to a
+   globally unique, information-carrying name: **`.L<ROM address>`**
+   (e.g. `.L805795C`). Pipeline (validated hands-on against the real
+   `build/rom.map` and a real dump): per-dump base = the dump's `.text`
+   **VMA** from the linker map of a known-matching build (VMA, not VROM —
+   labels carry the CPU address); label offsets = assemble the dump
+   standalone with `arm-none-eabi-as -L` (without `-L`, gas discards `.L`
+   locals) and read `arm-none-eabi-nm -a -n`; label address = base + offset.
+   Map parsing uses a **bespoke ~20-line GNU-map regex parser** (research
+   verdict: `mapfile-parser` v2.13.0 parses this map fine and stays useful
+   for validation/JSON export, but it silently omits zero-sized sections and
+   misses linker-script assignment symbols — the bespoke parser keeps those
+   diagnostics). The rewrite covers all reference forms (branch operands,
+   data directives, expressions); the tool refuses a dump it cannot rewrite
+   completely, and explicitly reports: dumps with no map row (26 exist
+   today), zero-sized map rows (e.g. `806513e.s.o` — its code lives in
+   `8065108.s.o`, one object holding two functions), and any dump whose
+   global-symbol count ≠ 1 rather than assuming one function per file.
 
-Ordering rule this creates: **a TU's ROM layout is its source order.** C
-functions land in `.text.<name>` subsections, INCLUDE_ASM blocks in plain
-`.text` chunks, in emission order; the generated ld script places each object
-with a single wildcard `(.text*)`, which GNU ld fills in input-section order.
-(Two patterns — `(.text .text.*)` — would group instead of interleave; the
-single-pattern form is load-bearing.)
+Regions with no C file yet get **container TUs** (`src/frontend.c`,
+`src/tutorial.c`, `src/debug.c`, … — names confirmed with the user).
+Decompiling a function = replace its INCLUDE_ASM line with a C definition in
+place; delete the dump when it matches. Standalone `.s` code inputs that stay
+outside TUs (`asm/crt0.s`, `asm/arm1.s`, `asm/arm2.s`, audio) remain direct
+manifest entries.
 
-Regions that currently have no C file at all (pure dump runs, e.g. the
-tutorial region) get **container TUs** — `src/tutorial.c` consisting of an
-include of `include_asm.h` plus INCLUDE_ASM lines. Decompiling a function
-becomes: replace its INCLUDE_ASM line with a C definition in place; delete
-the dump file when it matches.
-
-The handful of standalone `.s` code inputs that don't belong to any TU
-(`asm/crt0.s`, `asm/arm1.s`, `asm/arm2.s`, `asm/audio0.s` if not absorbed)
-remain direct manifest entries — the manifest is a list of *files*, C or asm.
+**Single-owner invariant (transactional):** at every migration step, each
+dump is either a direct manifest object or referenced by exactly one
+INCLUDE_ASM — never both, never neither. The migration tool validates this
+globally before and after each converted chunk and refuses to proceed on
+violations (duplicate/missing symbols are the failure it prevents).
 
 ## Component 2: manifest + generated ld script
 
-`rom.manifest` — a plain, ordered, comment-friendly text file; one entry per
-line, grouped by section:
+`rom.manifest` — plain, ordered, comment-friendly; entries grouped by
+section:
 
 ```
-[iwram]     # placement handled by cmake/ld/iwram.ld.in verbatim fragment
+[iwram]           # sources placed by cmake/ld/iwram.ld.in (fragment is authoritative
+src/ram.c         # for PLACEMENT; listing here makes them part of the BUILD)
+src/ram2.c
+src/ram3.c
+src/memory.c
+src/keystate.c
 [text]
 asm/crt0.s
 data/7-7/metadata.s
@@ -125,74 +153,86 @@ asm/data10.s
 …
 ```
 
-`cmake/gen-ld-script.cmake` (run at configure time, and re-run when the
-manifest or the iwram fragment changes) expands this to `build/ld_script.ld`:
+`cmake/gen-ld-script.cmake` expands this to `build/ld_script.ld`:
 
-- prologue + the `iwram.ld.in` fragment verbatim (the hard-coded gaps and
-  `_sub_*` symbols are hand-maintained knowledge, not generated),
-- `[text]` entries → `<obj path>(.text*);` in order; `libgcc:member` entries
-  → `libgcc.a:member.o(.text);`,
-- `[rodata]` entries → `<obj path>(.rodata);`,
-- DWARF passthrough + `/DISCARD/ : { *(*) }` epilogue as today.
+- prologue + `iwram.ld.in` verbatim (hand-maintained gaps/symbols),
+- `[text]` entries → `<obj>(.text);` in order; `libgcc:<member>` → the
+  member name **verbatim** → `libgcc.a:<member>(.text);` (no suffix
+  appending — the manifest spells the full member name, validated at
+  configure time against `arm-none-eabi-ar t libgcc.a`; unknown or ambiguous
+  members are configure errors),
+- `[rodata]` entries → `<obj>(.rodata);`,
+- an **`INPUT(libgcc.a)`** directive — ld does *not* open archives merely
+  named in section filespecs (review-verified); plain objects it does,
+- DWARF passthrough + `/DISCARD/ : { *(*) }` epilogue.
 
-The manifest is also the **source list**: CMake derives the compile list from
-it (no glob, no drift — a file is built iff it is placed). `CONFIGURE_DEPENDS`
-globbing dies.
+Manifest rules:
 
-## Component 3: `tools/agbcc` driver
+- The manifest is the **complete source list** — including `[iwram]` sources
+  whose placement lives in the hand-written fragment. Rule: listed = built;
+  `[text]`/`[rodata]` listed = placed by the generator; `[iwram]` listed =
+  built, placed by the fragment.
+- The generator cross-validates: every object referenced by the fragment or
+  generated sections maps to exactly one listed source; unplaced or
+  double-placed entries are configure errors.
+- Both `rom.manifest` and `iwram.ld.in` are registered in
+  `CMAKE_CONFIGURE_DEPENDS` so edits rerun CMake; the generated script is
+  written only on content change (no spurious relinks).
 
-A ~50-line POSIX sh script that presents the fixed 4-stage pipeline as a
-normal gcc-style compiler driver, so CMake (and clangd, and a human at a
-shell) can treat agbcc as "just a C compiler".
+## Component 3: `tools/agbcc` compiler driver
 
-**Interface:**
+POSIX sh; presents the 4-stage pipeline as a gcc-style driver.
 
 ```
 agbcc [options] -c file.c -o file.o
 ```
 
-- `-I`, `-D`, `-U` → routed to the preprocessor stage (host `cc -E -nostdinc
-  -undef`).
-- `-MD -MF <file> -MT <target>` → routed to the preprocessor; emits a
-  gcc-format depfile. This buys header dependency tracking. **Additionally**
-  the driver appends the `.s` files named by INCLUDE_ASM lines to the depfile
-  (grep the preprocessed source for `.include` directives inside asm
-  statements) — editing a dump stub must rebuild the TU that includes it.
-- `--agbcc=<dir>` → agbcc install prefix (locates `bin/old_agbcc`,
-  `lib/libgcc.a`). Falls back to `$AGBCC` env var; clear error otherwise.
-- `--reset-flags` → clears cc1 flags accumulated so far. Per-file override
-  mechanism: `src/libc.c` compiles with *only* `-O2`, and CMake per-source
-  `COMPILE_OPTIONS` can only append (they come after target options, so
-  `--reset-flags;-O2` yields exactly `-O2`). (Risk R3.)
-- Everything else → passed to `old_agbcc` (cc1) verbatim.
-- Assembler stage: `arm-none-eabi-as -mcpu=arm7tdmi -I <repo root>` (repo
-  root passed by the toolchain via a driver flag, e.g. `--as-include=<dir>`).
-- Intermediates kept next to the object (`file.o.i`, `file.o.s`) —
-  inspecting agbcc's asm output is a core matching-workflow activity.
-- `iconv --from-code=UTF-8 --to-code=WINDOWS-1252` from PATH.
-- Any stage failing aborts with that stage's exit code; no partial `.o` left
-  behind (write to temp, move on success).
-
-The driver is deliberately self-contained: it must work when invoked by hand
-outside CMake.
+- `-I`, `-D`, `-U` → preprocessor stage (host cc `-E -nostdinc -undef`).
+- `-MD -MF <file> -MT <target>` → preprocessor emits the C-side depfile.
+  The **assembler stage additionally runs `as --MD <tmp>`** and the driver
+  merges both into the final depfile — this natively captures INCLUDE_ASM'd
+  dumps, nested includes (`common.inc`), and `.incbin` payloads, instead of
+  the fragile "grep the preprocessed source" approach.
+- Tool paths: `--cpp=`, `--iconv=`, `--cc1=`, `--as=` (absolute paths passed
+  by the toolchain from its `find_program` results — configure-time discovery
+  and build-time execution use the same binaries). Standalone invocation
+  falls back to `$AGBCC` + PATH.
+- `--reset-flags` → clears accumulated cc1 flags; per-source override for
+  `src/libc.c` (`--reset-flags;-O2`), which per-source `COMPILE_OPTIONS`
+  appends after target options (documented CMake order; verified by
+  acceptance test).
+- Everything else → old_agbcc verbatim.
+- Assembler stage: `<as> -mcpu=arm7tdmi -I <repo root>` (`--as-include=`).
+- **Atomicity**: all outputs — `.o`, kept intermediates `.o.i` / `.o.s`, and
+  the depfile — are written to temp names and moved into place only as one
+  successful completion; on failure temps are removed and no output is
+  touched. Intermediates are registered via `ADDITIONAL_CLEAN_FILES`.
 
 ## Component 4: `cmake/toolchain-agbcc.cmake`
 
-Passed via `-DCMAKE_TOOLCHAIN_FILE=` (in practice: via the preset). Contents:
-
 - `CMAKE_SYSTEM_NAME Generic`, `CMAKE_SYSTEM_PROCESSOR arm`.
-- `CMAKE_C_COMPILER` = `tools/agbcc`. Detection skipped:
-  `CMAKE_C_COMPILER_WORKS TRUE`, `CMAKE_C_COMPILER_FORCED TRUE`,
-  `CMAKE_C_COMPILER_ID GNU` (so CMake emits gcc-style `-MD -MT -MF`
-  dependency flags), `CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY`.
-- `CMAKE_ASM_COMPILER` = `arm-none-eabi-as` (find_program REQUIRED); rule
-  override `CMAKE_ASM_COMPILE_OBJECT "<CMAKE_ASM_COMPILER> <FLAGS> <INCLUDES>
-  -o <OBJECT> <SOURCE>"` since raw `as` is not a driver.
-- `find_program(REQUIRED)`: `arm-none-eabi-ld`, `arm-none-eabi-objcopy`,
-  `iconv`, host `cc`.
-- `AGBCC` cache variable (default `$ENV{AGBCC}`), validated; forwarded via
-  `--agbcc=` in `CMAKE_C_FLAGS_INIT`.
-- Link rule override (Component 6), `CMAKE_C_STANDARD_LIBRARIES ""`.
+- Forced compiler, done completely: `CMAKE_C_COMPILER` = `tools/agbcc`,
+  `CMAKE_C_COMPILER_ID GNU`, **`CMAKE_C_COMPILER_ID_RUN TRUE`** (without it
+  CMake clears the ID and re-runs identification against a driver that can't
+  answer), `CMAKE_C_COMPILER_WORKS TRUE`, `CMAKE_C_COMPILER_FORCED TRUE`,
+  `CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY`.
+- **`CMAKE_C_OUTPUT_EXTENSION ".o"` and `CMAKE_ASM_OUTPUT_EXTENSION ".o"`**
+  — `Generic` defaults to `.obj` (review finding), which would break every
+  generated filespec.
+- `CMAKE_ASM_COMPILER` = `arm-none-eabi-as`; rule override
+  `CMAKE_ASM_COMPILE_OBJECT "<CMAKE_ASM_COMPILER> <FLAGS> <INCLUDES> -o
+  <OBJECT> <SOURCE>"`.
+- `find_program(REQUIRED)`: ld, objcopy, iconv, host cc, as; results injected
+  into the driver command line via rule variables (not `CMAKE_C_FLAGS_INIT`,
+  which caches once and goes stale when `AGBCC` changes — review finding).
+- `AGBCC` cache var (default `$ENV{AGBCC}`), validated for `bin/old_agbcc`
+  and `lib/libgcc.a`.
+- **Flag hygiene**: this is a canonical matching build — the toolchain file
+  hard-sets `CMAKE_C_FLAGS`, `CMAKE_ASM_FLAGS`, per-config flag variables,
+  and link flags to empty/known values and warns if the environment supplied
+  `CFLAGS`/`ASMFLAGS`. Unknown flags must never leak into old_agbcc.
+- `CMAKE_C_STANDARD_LIBRARIES ""`; link rule = `tools/gba-link` (Component
+  6).
 
 ## Component 5: `CMakeLists.txt`
 
@@ -202,32 +242,33 @@ project(beybladevforce LANGUAGES C ASM)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-include(cmake/gen-ld-script.cmake)   # reads rom.manifest →
-                                     #   MANIFEST_C_SOURCES, MANIFEST_ASM_SOURCES,
-                                     #   build/ld_script.ld
+include(cmake/gen-ld-script.cmake)   # rom.manifest → MANIFEST_C_SOURCES,
+                                     # MANIFEST_ASM_SOURCES, build/ld_script.ld
 
 add_executable(rom ${MANIFEST_C_SOURCES} ${MANIFEST_ASM_SOURCES})
 set_target_properties(rom PROPERTIES SUFFIX ".elf")
 
-target_include_directories(rom SYSTEM PRIVATE ${AGBCC}/include)
+# agbcc headers: C-only, plain -I routed to the preprocessor. NOT `SYSTEM`
+# (would become -isystem, which neither old_agbcc nor raw `as` accepts) and
+# NOT target-wide (must not leak into ASM compiles).
 target_compile_options(rom PRIVATE
-    $<$<COMPILE_LANGUAGE:C>:-mthumb-interwork -Wimplicit -Wparentheses
-        -Wunused -Werror -O2 -fhex-asm -ffunction-sections>
-    $<$<COMPILE_LANGUAGE:ASM>:-mcpu=arm7tdmi -I${CMAKE_SOURCE_DIR}>)
+    "$<$<COMPILE_LANGUAGE:C>:-I${AGBCC}/include;-mthumb-interwork;-Wimplicit;-Wparentheses;-Wunused;-Werror;-O2;-fhex-asm>"
+    "$<$<COMPILE_LANGUAGE:ASM>:-mcpu=arm7tdmi;-I${CMAKE_SOURCE_DIR}>")
 set_source_files_properties(src/libc.c PROPERTIES
     COMPILE_OPTIONS "--reset-flags;-O2")
 
-target_link_options(rom PRIVATE
-    -T ${CMAKE_BINARY_DIR}/ld_script.ld -Map rom.map)
+target_link_options(rom PRIVATE -T ${CMAKE_BINARY_DIR}/ld_script.ld)
 set_property(TARGET rom APPEND PROPERTY LINK_DEPENDS
-    ${CMAKE_BINARY_DIR}/ld_script.ld)
+    ${CMAKE_BINARY_DIR}/ld_script.ld ${AGBCC}/lib/libgcc.a)
 
-# rom.gba: objcopy + pad
-add_custom_command(TARGET rom POST_BUILD
+# rom.gba is a real output with its own dependency edge (POST_BUILD would
+# neither recreate a deleted rom.gba nor rerun after a failed objcopy).
+add_custom_command(OUTPUT ${CMAKE_BINARY_DIR}/rom.gba
     COMMAND ${CMAKE_OBJCOPY} -O binary --pad-to 0x8800000
-            $<TARGET_FILE:rom> ${CMAKE_BINARY_DIR}/rom.gba)
+            $<TARGET_FILE:rom> ${CMAKE_BINARY_DIR}/rom.gba
+    DEPENDS rom)
+add_custom_target(rom_gba ALL DEPENDS ${CMAKE_BINARY_DIR}/rom.gba)
 
-# verification
 enable_testing()
 add_test(NAME rom-matches
     COMMAND ${CMAKE_COMMAND} -E sha1sum ${CMAKE_BINARY_DIR}/rom.gba)
@@ -235,180 +276,200 @@ set_tests_properties(rom-matches PROPERTIES PASS_REGULAR_EXPRESSION
     "^cd527c8c24e20e33913fc45199e64b3e6138a6e5")
 add_custom_target(compare
     COMMAND ${CMAKE_CTEST_COMMAND} --output-on-failure -R rom-matches
-    DEPENDS rom)
+    DEPENDS rom_gba)
 ```
 
-The in-source-build guard stays. The old stub target dies: `rom` carries the
-real sources.
+Notes: generator expressions are single quoted arguments with
+semicolon-separated options (unquoted space-separated forms are malformed —
+review finding). Genex-quoting, flags, and every compile command are verified
+by inspecting the generated Ninja/Make rules and `compile_commands.json`, not
+just by configure succeeding. C objects additionally depend on the driver
+script and `old_agbcc` via `OBJECT_DEPENDS`/a toolchain stamp file (hash of
+driver + cc1 + as), so tool changes invalidate objects. The in-source-build
+guard stays.
 
-## Component 6: linking
+## Component 6: linking — `tools/gba-link`
 
-Objects are *not* passed on the linker command line: GNU ld opens every file
-named in the (generated) script as an input, resolved relative to its CWD.
-The build materializes objects at script-matching paths and runs `ld` from
-the directory above them. `CMAKE_C_LINK_EXECUTABLE` is a two-command
-sequence:
+Objects are not passed to ld: GNU ld opens plain object files named in the
+script relative to its CWD (archives it does not — hence `INPUT(libgcc.a)`).
+The build stages objects at script-matching paths and links from the staging
+root.
 
-1. `${CMAKE_COMMAND} -DOBJECTS="<OBJECTS>" -DDEST=<bindir>/link -P
-   cmake/link-layout.cmake` — hardlinks (copy fallback) each object into
-   `<bindir>/link/`, stripping everything up to and including the `*.dir/`
-   component → `link/src/tutorial.c.o`, `link/asm/crt0.s.o`, …; also links
-   `${AGBCC}/lib/libgcc.a` to `link/libgcc.a`. The script **first clears
-   stale entries**: any object in `link/` not in the current `<OBJECTS>` list
-   is deleted — a leftover hardlink for a removed source would otherwise be
-   silently pulled in by the ld script.
-2. `${CMAKE_COMMAND} -E chdir <bindir>/link <LD> <LINK_FLAGS> -o <TARGET>` —
-   no `<OBJECTS>` on the ld command line; the script pulls them.
+`CMAKE_C_LINK_EXECUTABLE` invokes a single linker-driver script (no `<LD>`
+pseudo-placeholder, no `-DOBJECTS="…"` string smuggling — both review
+findings):
 
-`rom.map` lands in `link/` (documented in README).
+```
+tools/gba-link --ld=<abs ld> --script=<abs ld_script> --out=<abs TARGET>
+               --map=<abs map> --libgcc=<abs libgcc.a> --stage=<bindir>/link
+               <OBJECTS>
+```
+
+- Objects arrive as ordinary argv; the script handles CMake **response files**
+  (`@file`) since large object lists get one on both generators.
+- `--out` is resolved to an absolute path *before* any chdir, so the ELF
+  lands exactly where CMake declared it (`build/rom.elf`); `rom.map` goes to
+  `build/rom.map` the same way.
+- **Staging is rebuilt fully on every link**: fresh temp directory, hardlink
+  (copy fallback) every object to its `*.dir/`-stripped path plus
+  `libgcc.a`, atomically swap into `<bindir>/link`. This fixes both staleness
+  classes the review found: removed sources leaving live hardlinks, and —
+  worse — recompiled objects whose atomic-rename created a *new inode* while
+  the old hardlink kept feeding ld the previous bytes (a silent false-match
+  generator). Staging cost is hardlinks; negligible.
+- Then `cd` into the staging dir and exec
+  `<ld> -T <script> -Map <map> -o <out>`.
+- The `CMakeFiles/<target>.dir/` prefix-stripping is the single place the
+  undocumented object layout is assumed; a missing staged file makes ld fail
+  loudly.
 
 ## Component 7: migration (`tools/migrate_include_asm.py`)
 
-One-shot, uv-scripted Python; converts the whole tree, verifiable at every
-step against the SHA1. Steps:
+uv-scripted Python; converts the tree chunk-by-chunk, SHA1-verified at every
+step. Order of operations:
 
-1. **Parse `ld_script.ld`** into the ordered `[text]`/`[rodata]` entry lists
-   (objects, subsection placements, libgcc members, comments preserved where
-   feasible).
-2. **Chunk `.text`** into TU-sized runs: maximal contiguous spans whose C
-   placements all belong to one `.c` file. Dump runs between two different C
-   files' spans attach to a chosen side (heuristic: same `asm/dump/<dir>`
-   family; overridable). Pure-dump spans become container TUs named after
-   their dump directory (`src/frontend.c` for `8040d18`, `src/tutorial.c`,
-   `src/debug.c`, …; names confirmed with the user before running).
-3. **Verify source order**: for each existing C file, the ld-script order of
-   its functions must equal the definition order in the file. Mismatches are
-   *reported*, then fixed by mechanically reordering function definitions
-   (with user review — this touches real code).
-4. **Rewrite the C files**: insert `INCLUDE_ASM("…")` lines at the correct
-   positions between function definitions; create container TUs.
-5. **Emit `rom.manifest`** ([text] = crt0, level metadata, TUs, standalone
-   asm, libgcc members, libc; [rodata] = unchanged file-level list).
-6. **Build + compare.** The script supports converting one chunk at a time
-   (leaving the rest as direct manifest entries) so a mismatch bisects to a
-   single chunk instead of a 2900-file diff.
-
-After the migration lands and matches, the dump `.s` files stop being linker
-inputs — they are compile-time includes of their TU. `asm/dump/` stays until
-each function is decompiled, exactly as today.
+1. **Spike gate first** (acceptance 0): before anything runs at scale, a
+   hand-built matrix must hold — see Testing.
+2. **Dump transformation** (Component 1): strip `common.inc` includes; rename
+   `.L` labels to `.L<ROM address>` using map base + `as -L`/`nm` offsets.
+   Bytes must be provably unchanged: each transformed dump is re-assembled
+   and section contents compared against the original object.
+3. **Parse `ld_script.ld`** into ordered entry lists.
+4. **Chunk `.text`** into TU-sized runs. Ownership of dump runs between two
+   TUs is **deterministic and explicit**: recorded in a reviewed override
+   file, not a silent heuristic — object boundaries are visible to assembler
+   and linker, so ownership changes are matching-sensitive (review finding).
+5. **Source-order check**: a TU's ROM order must equal its definition order.
+   The tool emits a **dry-run plan** for any file needing function
+   reordering; reorders preserve source slices byte-for-byte, refuse
+   conditional-compilation or syntactically ambiguous regions, and are
+   applied per-file with user review and a build+compare after each. Where
+   possible, chunk boundaries are adapted to existing source order instead of
+   reordering code.
+6. **Rewrite TUs / create container TUs**, insert INCLUDE_ASM lines; update
+   `rom.manifest` in the same transactional step (single-owner invariant).
+7. **Build + compare** after every chunk; a mismatch bisects to one chunk.
 
 ## Component 8: developer experience
 
-- **`CMakePresets.json`**: `default` preset — toolchain file, Ninja,
-  `build/`. Entry point: `cmake --preset default && cmake --build build &&
-  ctest --test-dir build`. `AGBCC` is the only knob.
-- **`compile_commands.json`**: native (real language rules). Checked-in
-  **`.clangd`**:
+- `CMakePresets.json`: `default` = toolchain + Ninja + `build/`. Entry point:
+  `cmake --preset default && cmake --build build && ctest --test-dir build`.
+  `build/` under the `default` preset is the **canonical build directory**;
+  objdiff and expected-snapshots are defined against it.
+- `compile_commands.json`: native. Checked-in `.clangd` does more than strip
+  flags (review finding — clangd needs a target and dialect, not just the
+  absence of unknown flags):
 
   ```yaml
   CompileFlags:
-    Remove: [-fhex-asm, -mthumb-interwork, --agbcc=*, --reset-flags, --as-include=*]
+    Compiler: clang
+    Remove: [-fhex-asm, -mthumb-interwork, --reset-flags, --agbcc=*, --cpp=*, --iconv=*, --cc1=*, --as=*, --as-include=*]
+    Add: [--target=arm-none-eabi, -mcpu=arm7tdmi, -mthumb, -std=gnu89, -fno-builtin]
   ```
 
-- **README**: install arm-none-eabi binutils, build pret/agbcc, `export
-  AGBCC=…`, run the preset.
+  Validated on real files (diagnostics, include resolution, type sizes), not
+  just "clangd starts".
+- README: install binutils, build pret/agbcc, `export AGBCC=…`, preset.
 
 ## Component 9: objdiff
 
-[objdiff](https://github.com/encounter/objdiff) diffs a *target* (expected)
-object against a *base* (current) object per unit. With the INCLUDE_ASM
-model, units are simply **one per C translation unit**, and the expected side
-uses the **snapshot pattern** common in n64 projects:
+Units = one per C TU; expected side = snapshot of last-known-matching
+objects. Schema per objdiff v3.8.0 (`config.schema.json`, researched):
 
-- `expected/` (gitignored) mirrors the build's object tree. A CMake target
-  `update-expected` — only meaningful after `compare` passes — copies
-  `link/src/*.o` into `expected/src/`.
-- `objdiff.json` is generated at configure time from the manifest, directly
-  into the **repo root** (gitignored) — objdiff requires the config at the
-  project root, and all paths inside it are project-root-relative. Modern
-  schema (verified against objdiff v3.8.0 / `config.schema.json`):
-  - `min_version: "3.0.0"`, `$schema` pointer.
-  - `options: { "arm.archVersion": "v4t" }` (ARM7TDMI; auto-detection is the
-    default but pinning is prudent for agbcc-produced objects).
-  - Per unit: `target_path: "expected/src/<file>.o"`, `base_path:
-    "build/CMakeFiles/rom.dir/src/<file>.o"`, `metadata: { source_path,
-    progress_categories }`; `build_base: true`, `build_target: false`.
-    (`target_dir`/`base_dir`/`units[].path` are deprecated — not used.)
-  - Rebuilds: objdiff invokes `<custom_make> <custom_args…> <base_path>`
-    from the project root. Since `base_path` is root-relative but ninja runs
-    in `build/`, plain `["-C","build"]` would mis-spell the target
-    (`build/build/…` pitfall). `custom_make` is therefore a 3-line wrapper,
-    `tools/objdiff-build`, that strips the leading `build/` and execs
-    `ninja -C build <target>`.
-  - `watch_patterns`: `src/**/*.c`, `src/**/*.h`, `asm/dump/**/*.s`,
-    `rom.manifest` (globset syntax, recursive forms required); the default
-    `ignore_patterns` (`build/**/*`) is kept.
-- Workflow: after any matching build, refresh the snapshot; while
-  reimplementing a function, objdiff shows the per-symbol diff of your TU
-  against the last-known-matching object. Symbol matching within a unit's
-  object pair is by name (with `symbol_mappings` available for renames), and
-  unmatched symbols on either side are tolerated — so untouched functions
-  pair trivially and the WIP one highlights.
-- **CI (optional, non-blocking)**: `objdiff-cli report generate --format
-  json` for decomp.dev progress. Not part of acceptance. Known caveat:
-  `symbol_mappings` has been reported ignored by `report generate` (objdiff
-  issue #279) — verify before relying on mapped symbols in progress stats.
+- `objdiff.json` generated at the **repo root** (required location; all paths
+  project-root-relative), gitignored, and **only for the canonical `default`
+  preset**: the generator refuses to (re)write it from a non-canonical binary
+  dir, so a second build directory can't repoint it (review finding).
+- `min_version: "3.0.0"`; `options: {"arm.archVersion": "v4t"}`.
+- Per unit: `target_path: "expected/src/<file>.o"`, `base_path:
+  "build/CMakeFiles/rom.dir/src/<file>.o"`, `metadata: {source_path,
+  progress_categories}`; `build_base: true`, `build_target: false`.
+- Rebuilds: objdiff runs `<custom_make> <custom_args…> <base_path>` from the
+  repo root; `base_path` is root-relative while ninja runs in `build/`, so
+  `custom_make` = `tools/objdiff-build`, which canonicalizes against the repo
+  root, rejects paths outside `build/`, strips the prefix, and execs
+  `ninja -C build <target>` with proper quoting; clear error if the target
+  doesn't exist.
+- `watch_patterns`: `src/**/*.c`, `src/**/*.h`, `asm/dump/**/*.s`,
+  `rom.manifest`; default `ignore_patterns` (`build/**/*`) kept.
+- **`update-expected` enforces its own gate** (review finding: "only
+  meaningful after compare" as documentation is how baselines get poisoned):
+  it runs the SHA1 comparison itself, enumerates objects from the manifest
+  (not a glob), verifies all exist, snapshots into a temp dir with metadata
+  (ROM SHA1, git commit, manifest hash, toolchain stamp), and atomically
+  replaces `expected/`. A missing snapshot produces a "run update-expected
+  after a matching build" message, not an objdiff file-not-found.
+- CI (optional, non-blocking): `objdiff-cli report generate --format json`
+  for decomp.dev. Caveat: `symbol_mappings` reportedly ignored by `report
+  generate` (objdiff #279) — verify before relying on it.
 
 ## Component 10: GitHub Actions CI
 
-`.github/workflows/build.yml`, one job on `ubuntu-latest`:
+`.github/workflows/build.yml`, one job, **digest-pinned container** (or
+pinned runner + pinned package versions — review finding: `ubuntu-latest` +
+floating apt binutils is not reproducible enough for a byte-matching
+toolchain):
 
-1. `apt-get install binutils-arm-none-eabi ninja-build` (iconv, cc are in the
-   base image).
-2. Build agbcc from `pret/agbcc`, cached via `actions/cache` keyed on a
-   pinned agbcc commit (cache hit skips the slow GCC 2.x build). Export
-   `AGBCC`.
+1. Install pinned `binutils-arm-none-eabi`, `ninja-build`.
+2. Build agbcc from `pret/agbcc` at a pinned commit; `actions/cache` keyed on
+   **agbcc commit + container/runner identity + host compiler version + build
+   script hash**. On cache hit, verify tool hashes before use.
 3. `cmake --preset default && cmake --build build && ctest --test-dir build
    --output-on-failure`.
-
-Policy: the built ROM is copyrighted — **no step uploads `rom.gba` or the ELF
-as artifacts**; CI outputs are pass/fail and logs. The agbcc commit is pinned
-at the top of the workflow, not `master`.
+4. Log non-copyrighted diagnostics: tool versions/hashes, ROM SHA1, map
+   summary. No ROM/ELF artifacts uploaded (policy; low stakes given the repo
+   contents, but free to keep).
 
 ## Testing / acceptance
 
-0. **Spike gate (before the full migration runs):** convert one small region
-   by hand to INCLUDE_ASM; ROM must still match. This validates the two
-   critical assumptions: GCC 2.x preserves top-level `asm()` position between
-   functions under `-ffunction-sections`, and `as`-resolved same-object
-   branches produce the same bytes as the previous link-time resolution.
-1. Full pipeline on macOS and Linux (CI): configure, build, `ctest` passes.
-2. Incremental correctness: touching a header, a dump stub referenced by
-   INCLUDE_ASM, the manifest, or the iwram fragment each rebuilds exactly the
-   affected steps; ROM still matches.
-3. Flag override: `src/libc.c.o.s` compiled with only `-O2` (byte-compare
-   against a reference from the old build).
-4. Both Ninja and Unix Makefiles generators produce a matching ROM.
-5. clangd opens `src/sound.c` and a container TU without configuration
-   errors.
-6. objdiff end-to-end: snapshot, perturb a function, objdiff shows the diff
-   of exactly that symbol.
+0. **Spike matrix gate** (before migration runs at scale) — each case built
+   both ways and compared on section bytes, symbols, relocations, map order,
+   and final SHA1:
+   - top-level `asm()` position between functions (plain `.text`, no
+     function-sections) — before first function, between functions,
+     container TU with no functions;
+   - two includes that both used `.L1` and both formerly included
+     `common.inc` (post-transformation);
+   - branch/reloc matrix: Thumb→Thumb, ARM→ARM, interworking, C↔include both
+     directions, include→include, local vs global targets, near and far
+     branches, literal pools, alignment boundaries;
+   - transition of an already-matched C file from N `.text.<fn>` sections to
+     one contiguous `.text`.
+1. Full pipeline on macOS and Linux (CI): configure, build, ctest pass; both
+   Ninja and Unix Makefiles generators.
+2. Incremental correctness: touching a header / a dump / `common.inc` / an
+   `.incbin` payload / `rom.manifest` / `iwram.ld.in` / `tools/agbcc` /
+   `old_agbcc` / `libgcc.a` each rebuilds exactly the affected steps; ROM
+   still matches. Inode test: recompile one source, relink, staged object is
+   byte-identical to the new object (not the old inode).
+3. Flag override: `src/libc.c.o.s` compiled with only `-O2` (byte-compare vs
+   old build). Reconfigure with a different `AGBCC` in the same build dir:
+   every compile command updates.
+4. Clean-tree behaviors: delete `rom.gba` → one build recreates it; failed
+   objcopy reruns; second build after success is a no-op.
+5. `compile_commands.json` inspected: no `-isystem` reaches old_agbcc or
+   `as`; clangd validated on real files.
+6. objdiff end-to-end: snapshot, perturb a function, objdiff shows exactly
+   that symbol diffing; `update-expected` refuses on a non-matching build.
 
 ## Risks and fallbacks
 
-- **R0 — INCLUDE_ASM byte-compat** (top-level asm ordering in GCC 2.x;
-  same-object branch resolution; literal-pool/alignment behavior when many
-  stubs share one object). Gated by acceptance step 0 *before* the migration
-  script runs at scale. Fallback if it fails: the pivot is off; revert to
-  per-object placement (previous revision of this spec).
-- **R1 — object path layout** (`CMakeFiles/<target>.dir/…`) is undocumented.
-  Contained in `cmake/link-layout.cmake` (strips `*.dir/` generically);
-  validated every link — ld fails loudly on a missing input.
-- **R2 — forced `CMAKE_C_COMPILER_ID GNU`**: CMake may assume other GNU
-  behaviors. Mitigated by `SYSTEM_NAME Generic` + fully overridden link rule;
-  covered by acceptance 4.
-- **R3 — `--reset-flags` ordering** assumes per-source `COMPILE_OPTIONS`
-  follow target options (CMake's documented order); verified by acceptance 3.
-  Fallback: separate OBJECT library for libc.c; `link-layout.cmake` already
-  merges multiple `.dir` trees.
-- **R4 — migration chunking ambiguity**: dumps between two C files' spans
-  have two legal homes; wrong choice can't break bytes (order is preserved
-  either way) but can be ugly. Heuristic + manual override list in the
-  script's input.
-- **R5 — function order mismatches** between C files and ld script require
-  touching real code (reordering definitions). Script reports; reorders are
-  reviewed by the user; SHA1 re-verified per file.
-- **R6 — depfile completeness for INCLUDE_ASM**: the driver's `.include`
-  scraping must catch all spellings the macro produces (it produces exactly
-  one). Nested `.include` inside dump files (`asm/common.inc`) is added
-  unconditionally as a dependency of every TU that has any INCLUDE_ASM.
+- **R0 — INCLUDE_ASM byte-compat** (asm() ordering; same-object resolution;
+  literal pools; the function-sections→plain-.text transition). Gated by the
+  acceptance-0 matrix. Fallback: keep dumps as separate objects and generate
+  the current per-object placement model (toolchain work is unaffected).
+- **R1 — object path layout** (`CMakeFiles/<t>.dir/…`): assumed only inside
+  `tools/gba-link`; fails loudly.
+- **R2 — forced compiler**: completed per review (`ID_RUN`, output
+  extensions, flag hygiene); verified on clean configures of both generators.
+- **R3 — `--reset-flags` ordering**: documented CMake order; acceptance 3.
+  Fallback: separate OBJECT library for libc.c (staging already merges
+  multiple `.dir` trees).
+- **R4 — chunk ownership**: explicit reviewed override file; every ownership
+  decision verified by clean build + SHA1.
+- **R5 — function reordering in real C files**: dry-run plan, byte-preserving
+  slices, refuse-on-ambiguity, per-file verification; prefer boundary
+  adaptation over reordering.
+- **R6 — `.L` rename correctness**: transformed dumps re-assembled and
+  byte-compared against originals before use; the mapfile tooling choice
+  (mapfile-parser vs bespoke parser) follows the pending research pass.
