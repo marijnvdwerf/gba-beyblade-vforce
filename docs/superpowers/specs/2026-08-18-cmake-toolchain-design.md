@@ -132,8 +132,13 @@ unchanged dumps cannot be textually merged):
    `8065108.s.o`, one object holding two functions), and any dump whose
    global-symbol count ≠ 1 rather than assuming one function per file.
 
-Regions with no C file yet get **container TUs** (`src/frontend.c`,
-`src/tutorial.c`, `src/debug.c`, … — names confirmed with the user).
+Regions with no C file yet get **container TUs** named *numerically by their
+start ROM address* — `src/code_8040d18.c`, `src/code_804a388.c`, … (matching
+the `asm/dump/<addr>` convention). Deliberately NOT semantic names: the
+region boundaries don't correspond to known original TUs yet, and moving
+functions out of an address-named file later beats living with a wrongly
+named one. Semantic naming happens per-file, later, when a region's identity
+is actually understood.
 Decompiling a function = replace its INCLUDE_ASM line with a C definition in
 place; delete the dump when it matches. Standalone `.s` code inputs that stay
 outside TUs (`asm/crt0.s`, `asm/arm1.s`, `asm/arm2.s`, audio) remain direct
@@ -418,9 +423,35 @@ objects. Schema per objdiff v3.8.0 (`config.schema.json`, researched):
   (ROM SHA1, git commit, manifest hash, toolchain stamp), and atomically
   replaces `expected/`. A missing snapshot produces a "run update-expected
   after a matching build" message, not an objdiff file-not-found.
-- CI (optional, non-blocking): `objdiff-cli report generate --format json`
-  for decomp.dev. Caveat: `symbol_mappings` reportedly ignored by `report
-  generate` (objdiff #279) — verify before relying on it.
+- **Progress reporting (decomp.dev)** — via `mapfile_parser objdiff_report`
+  (researched hands-on against `build/rom.map`; it emits objdiff report
+  schema v2, works on this GNU ARM map, and is preferred over its legacy
+  `progress` subcommand, which has a broken `.text` filter and a path-index
+  failure mode on this repo's shallow paths — `-i 1` required either way):
+
+  - Matched/unmatched detection is **not** path-magic: a symbol is unmatched
+    iff (a) the whole derived `.s` file exists under `--asmpath`, (b) a
+    per-function `.s` exists under `--nonmatchingspath`, or (c) the map
+    contains a `<symbol>.NON_MATCHING` marker symbol.
+  - Pre-migration, signal (a) works as-is: dump objects' source `.s` files
+    exist, so dump functions count unmatched (verified: 197/1160 functions,
+    64.8% code matched today).
+  - **Post-migration the path signal disappears** (the map attributes
+    everything to `src/*.c.o`), so the design adopts signal (c): the
+    `global` macro in `common.inc` (which every dump already uses to define
+    its symbols) is extended to also define a zero-size
+    `<name>.NON_MATCHING` label. Markers then exist exactly while a dump
+    exists — created by INCLUDE_ASM inclusion, gone when the function is
+    decompiled and its dump deleted. No per-function bookkeeping, no ROM
+    byte impact (symbols never reach `objcopy -O binary`; verified by the
+    SHA1 gate anyway). Fallback if the macro route misbehaves: a two-arg
+    `INCLUDE_ASM(path, name)` emitting the marker from C.
+  - `report_data: false` — counting data without full marker coverage
+    inflates progress.
+- CI (optional, non-blocking): run `mapfile_parser objdiff_report` on the CI
+  map and publish the JSON for decomp.dev. objdiff-cli's own `report
+  generate` is the alternative; caveat there: `symbol_mappings` reportedly
+  ignored (objdiff #279).
 
 ## Component 10: GitHub Actions CI
 
