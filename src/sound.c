@@ -1,7 +1,8 @@
 #include "sound.h"
+
+#include <agb/macro.h>
+
 #include "include_asm.h"
-#include "io_reg.h"
-#include "macro.h"
 #include "memory.h"
 #include "unsorted.h"
 
@@ -53,12 +54,6 @@ typedef struct {
 typedef struct {
     /*0x00*/ u8 var00;
 } SoundStructD;
-
-#define FIFO_ENABLE 7
-#define DMA_A_VOLUME_100 2
-#define DMA_A_ENABLE_RIGHT 8
-#define DMA_A_ENABLE_LEFT 9
-#define DMA_A_RESET_FIFO 11
 
 // Rounds an integer up to the given power of 2. y must be a power of 2.
 #define ceil2(x, y) (((x) + (y) - 1) & (~((y) - 1)))
@@ -121,10 +116,10 @@ static void Sound_806234C(void)
         return;
     }
 
-    REG_DMA1CNT = 0;
-    REG_DMA2CNT = 0;
-    REG_TM1CNT = 0;
-    REG_TM0CNT = 0;
+    *(vu32*)REG_DMA1CNT = 0;
+    *(vu32*)REG_DMA2CNT = 0;
+    *(vu32*)REG_TM1CNT = 0;
+    *(vu32*)REG_TM0CNT = 0;
 
     deallocateBlock(_soundMixerBlock);
 
@@ -192,18 +187,19 @@ void allocateSoundTables(u32 arg0, u32 arg1)
 
     _unk3005E24 = (SoundStructA(*)[2])(&(*_soundMixerPlus)[_unk3005E4C]);
 
-    DmaFill32(3, 0, _soundMixer, bytes);
+    DmaClear(3, 0, _soundMixer, bytes, 32);
     Sound_80623A8(arg0);
 
-    REG_SOUNDCNT_X = 0x80;
-    REG_SOUNDCNT_H = 0xB04;
+    *(vu16*)REG_SOUNDCNT_X = SOUND_DMG_ON;
+    *(vu16*)REG_SOUNDCNT_H
+        = SOUND_A_MIX_FULL | ((SOUND_A_FIFO_RESET | SOUND_A_SO2_ON | SOUND_A_SO1_ON) << 8);
 
-    REG_DMA1SAD = (uintptr_t)_soundMixer;
-    REG_DMA1DAD = (uintptr_t)&REG_FIFO_A;
-    REG_DMA1CNT = 0xB6000000;
+    *(vu32*)REG_DMA1SAD = (uintptr_t)_soundMixer;
+    *(vu32*)REG_DMA1DAD = REG_FIFO_A;
+    *(vu32*)REG_DMA1CNT = DMA_ENABLE | DMA_TIMMING_SOUND | DMA_32BIT_BUS | DMA_CONTINUOUS_ON;
 
-    REG_TM1CNT = (0xC4 << 16) | (_unk3005E18 - 2);
-    REG_TM0CNT = (0x80 << 16) | (0x10000 - (16780000 / arg0));
+    *(vu32*)REG_TM1CNT = (0xC4 << 16) | (_unk3005E18 - 2);
+    *(vu32*)REG_TM0CNT = (0x80 << 16) | (0x10000 - (16780000 / arg0));
 
     _unk3005E00 = NULL;
     _unk3005E0C = 0;
@@ -212,44 +208,44 @@ void allocateSoundTables(u32 arg0, u32 arg1)
 void Sound_806261C(void)
 {
     _unk3005E40.var04 = 0;
-    REG_DMA1CNT = 0;
-    REG_DMA2CNT = 0;
-    REG_TM1CNT = 0;
-    REG_TM0CNT = 0;
+    *(vu32*)REG_DMA1CNT = 0;
+    *(vu32*)REG_DMA2CNT = 0;
+    *(vu32*)REG_TM1CNT = 0;
+    *(vu32*)REG_TM0CNT = 0;
 }
 
 void Sound_806263C()
 {
-    REG_DMA1CNT = 0xB6000000;
-    REG_TM1CNT = (0xC4 << 16) | (_unk3005E18 - 2);
-    REG_TM0CNT = (0x80 << 16) | (0x10000 - (16780000 / _unk3005E40.var00));
+    *(vu32*)REG_DMA1CNT = DMA_ENABLE | DMA_TIMMING_SOUND | DMA_32BIT_BUS | DMA_CONTINUOUS_ON;
+    *(vu32*)REG_TM1CNT = (0xC4 << 16) | (_unk3005E18 - 2);
+    *(vu32*)REG_TM0CNT = (0x80 << 16) | (0x10000 - (16780000 / _unk3005E40.var00));
     _unk3005E40.var04 = 1;
 }
 
 void Sound_8062694(void)
 {
-    REG_SOUNDCNT_X = 0;
-    REG_SOUNDCNT_H = 0;
-    REG_DMA1CNT = 0;
-    REG_DMA2CNT = 0;
-    REG_TM1CNT = 0;
-    REG_TM0CNT = 0;
+    *(vu16*)REG_SOUNDCNT_X = 0;
+    *(vu16*)REG_SOUNDCNT_H = 0;
+    *(vu32*)REG_DMA1CNT = 0;
+    *(vu32*)REG_DMA2CNT = 0;
+    *(vu32*)REG_TM1CNT = 0;
+    *(vu32*)REG_TM0CNT = 0;
 
     __fastMemoryClearARM(0, _soundMixer, _unk3005E4C * 3);
 }
 
 void Sound_80626E0(void)
 {
-    REG_SOUNDCNT_X = (1 << FIFO_ENABLE);
-    REG_SOUNDCNT_H = (1 << DMA_A_RESET_FIFO) | (1 << DMA_A_ENABLE_LEFT) | (1 << DMA_A_ENABLE_RIGHT)
-        | (1 << DMA_A_VOLUME_100);
+    *(vu16*)REG_SOUNDCNT_X = SOUND_DMG_ON;
+    *(vu16*)REG_SOUNDCNT_H
+        = SOUND_A_MIX_FULL | ((SOUND_A_FIFO_RESET | SOUND_A_SO2_ON | SOUND_A_SO1_ON) << 8);
 
-    REG_DMA1SAD = (uintptr_t)_soundMixer;
-    REG_DMA1DAD = (uintptr_t)&REG_FIFO_A;
-    REG_DMA1CNT = 0xB6000000;
+    *(vu32*)REG_DMA1SAD = (uintptr_t)_soundMixer;
+    *(vu32*)REG_DMA1DAD = REG_FIFO_A;
+    *(vu32*)REG_DMA1CNT = DMA_ENABLE | DMA_TIMMING_SOUND | DMA_32BIT_BUS | DMA_CONTINUOUS_ON;
 
-    REG_TM1CNT = (0xC4 << 16) | (_unk3005E18 - 2);
-    REG_TM0CNT = (0x80 << 16) | (0x10000 - (16780000 / _unk3005E40.var00));
+    *(vu32*)REG_TM1CNT = (0xC4 << 16) | (_unk3005E18 - 2);
+    *(vu32*)REG_TM0CNT = (0x80 << 16) | (0x10000 - (16780000 / _unk3005E40.var00));
 
     _unk3000D90 = (u8*)_soundMixer;
     _unk3000D94 = 0x10000 - _unk3005E4C;
@@ -257,11 +253,11 @@ void Sound_80626E0(void)
 
 void Sound_onTimer1Overflow(void)
 {
-    REG_DMA1CNT = 0;
-    REG_DMA2CNT = 0;
-    REG_TM1CNT = 0;
-    REG_TM1CNT = (0xC4 << 16) | _unk3005E18;
-    REG_DMA1CNT = 0xB6000000;
+    *(vu32*)REG_DMA1CNT = 0;
+    *(vu32*)REG_DMA2CNT = 0;
+    *(vu32*)REG_TM1CNT = 0;
+    *(vu32*)REG_TM1CNT = (0xC4 << 16) | _unk3005E18;
+    *(vu32*)REG_DMA1CNT = DMA_ENABLE | DMA_TIMMING_SOUND | DMA_32BIT_BUS | DMA_CONTINUOUS_ON;
 }
 
 void Sound_80627A8(SoundStructA* arg0, int arg1, int arg2)
@@ -315,7 +311,7 @@ void sub_80627F0(void)
     varA = _unk3000D94;
     varB = (_unk3005E40.var08 + 1) & -2;
 
-    var = (REG_TM1CNT + 1) & -2;
+    var = (*(vu32 *)REG_TM1CNT + 1) & -2;
     if (var == 0x10000) {
         var = _unk3005E18;
     }

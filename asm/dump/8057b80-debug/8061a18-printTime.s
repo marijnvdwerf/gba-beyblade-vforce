@@ -24,14 +24,14 @@ printTime:
 	add	r6, r0, #0
 	add	r0, r5, #0
 	add	r1, r4, #0
-	bl	Mod
+	bl	DivRem
 	mov	r1, #0xa
 	bl	__divsi3
 	add	r5, r0, #0
 	mov	sl, r5
 	add	r0, r6, #0
 	mov	r1, #0x3c
-	bl	Mod
+	bl	DivRem
 	add	r4, r0, #0
 	add	r0, r6, #0
 	mov	r1, #0x3c

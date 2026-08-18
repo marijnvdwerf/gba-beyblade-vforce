@@ -8,6 +8,9 @@ endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+add_library(agb INTERFACE)
+target_include_directories(agb INTERFACE "${CMAKE_SOURCE_DIR}/lib/agb/include")
+
 add_executable(rom
     asm/arm1.s
     asm/arm2.s
@@ -198,5 +201,7 @@ add_executable(rom
     src/strings6.c
     src/strings7.c
 )
+
+target_link_libraries(rom PRIVATE agb)
 
 include(cmake/gba.cmake OPTIONAL)

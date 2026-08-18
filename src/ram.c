@@ -1,4 +1,5 @@
 #include "ram.h"
+
 #include "keystate.h"
 
 void* _3000000 = NULL;

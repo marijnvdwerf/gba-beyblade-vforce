@@ -34,7 +34,7 @@ sub_805B668:
 .L805B6A0:
 	add	r0, r5, #0
 	mov	r1, #0xa
-	bl	Mod
+	bl	DivRem
 	add	r6, r0, #0
 	add	r0, r5, #0
 	mov	r1, #0xa

@@ -23,7 +23,7 @@ getDecompressorData:
 	ldr	r6, [r0]
 	add	r0, r5, #0
 	add	r1, r6, #0
-	bl	Lz77UnCompWram
+	bl	LZ77UnCompWram
 	b	.L8055C92
 .L8055C8A:
 	ldr	r0, .L8055C9C

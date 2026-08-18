@@ -14,7 +14,7 @@ sub_80619A4:
 	mov	r5, #0x1
 	add	r0, r4, #0
 	mov	r1, #0x3c
-	bl	Mod
+	bl	DivRem
 	mov	r8, r0
 	add	r0, r4, #0
 	mov	r1, #0x3c

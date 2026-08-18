@@ -23,13 +23,13 @@ sub_8061BA0:
 	mov	r9, r0
 	add	r0, r6, #0
 	add	r1, r5, #0
-	bl	Mod
+	bl	DivRem
 	mov	r1, #0x64
 	bl	__divsi3
 	add	r6, r0, #0
 	mov	r0, r9
 	mov	r1, #0x3c
-	bl	Mod
+	bl	DivRem
 	add	r5, r0, #0
 	mov	r0, r9
 	mov	r1, #0x3c

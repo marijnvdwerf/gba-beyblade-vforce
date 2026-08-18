@@ -55,7 +55,7 @@ showNumber:
 .L8061930:
 	add	r0, r5, #0
 	mov	r1, #0xa
-	bl	Mod
+	bl	DivRem
 	sub	r4, r4, #0x1
 	add	r0, r0, #0x30
 	strb	r0, [r4]

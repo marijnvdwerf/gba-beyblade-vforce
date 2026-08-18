@@ -1,6 +1,9 @@
 #include "layer.h"
+
+#include <agb/define.h>
+#include <agb/memory_map.h>
+
 #include "include_asm.h"
-#include "io_reg.h"
 
 typedef struct {
     u8 filler00[4]; // 0x00
@@ -199,8 +202,9 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
     }
 
     layerCnt = GetBGLayerCntPtr(layerIndex);
-    *layerCnt = BGCNT_SCREENBASE(bgLayer->screenBaseBlock) | BGCNT_PRIORITY(bgPriority)
-        | BGCNT_CHARBASE(bgLayer->characterBaseBlock) | (((colorMode & 1) ^ 0x1) << 7);
+    *layerCnt = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
+        | ((bgPriority) << BG_PRIORITY_SHIFT)
+        | ((bgLayer->characterBaseBlock) << BG_CHAR_BASE_SHIFT) | (((colorMode & 1) ^ 0x1) << 7);
 }
 
 void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriority)
@@ -296,8 +300,9 @@ void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriorit
     __fastMemoryClearARM(0, dest, var0);
 
     layerCnt = GetBGLayerCntPtr(layerIndex);
-    *layerCnt = BGCNT_SCREENBASE(bgLayer->screenBaseBlock) | BGCNT_PRIORITY(bgPriority)
-        | BGCNT_CHARBASE(bgLayer->characterBaseBlock);
+    *layerCnt = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
+        | ((bgPriority) << BG_PRIORITY_SHIFT)
+        | ((bgLayer->characterBaseBlock) << BG_CHAR_BASE_SHIFT);
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8058e18.s");
@@ -321,16 +326,16 @@ vu16* GetBGLayerHOffsetPtr(u8 layer)
 {
     switch (layer) {
     case 0:
-        return &REG_BG0HOFS;
+        return (vu16*)REG_BG0HOFS;
 
     case 1:
-        return &REG_BG1HOFS;
+        return (vu16*)REG_BG1HOFS;
 
     case 2:
-        return &REG_BG2HOFS;
+        return (vu16*)REG_BG2HOFS;
 
     case 3:
-        return &REG_BG3HOFS;
+        return (vu16*)REG_BG3HOFS;
     }
 }
 
@@ -338,16 +343,16 @@ vu16* GetBGLayerVOffsetPtr(u8 layer)
 {
     switch (layer) {
     case 0:
-        return &REG_BG0VOFS;
+        return (vu16*)REG_BG0VOFS;
 
     case 1:
-        return &REG_BG1VOFS;
+        return (vu16*)REG_BG1VOFS;
 
     case 2:
-        return &REG_BG2VOFS;
+        return (vu16*)REG_BG2VOFS;
 
     case 3:
-        return &REG_BG3VOFS;
+        return (vu16*)REG_BG3VOFS;
     }
 }
 
@@ -355,16 +360,16 @@ vu16* GetBGLayerCntPtr(u8 layer)
 {
     switch (layer) {
     case 0:
-        return &REG_BG0CNT;
+        return (vu16*)REG_BG0CNT;
 
     case 1:
-        return &REG_BG1CNT;
+        return (vu16*)REG_BG1CNT;
 
     case 2:
-        return &REG_BG2CNT;
+        return (vu16*)REG_BG2CNT;
 
     case 3:
-        return &REG_BG3CNT;
+        return (vu16*)REG_BG3CNT;
     }
 }
 
@@ -372,16 +377,16 @@ void SetBGOffset(u8 layer, s32 x, s32 y)
 {
     switch (layer) {
     case 2:
-        REG_BG2X_L = x;
-        REG_BG2X_H = x >> 16;
-        REG_BG2Y_L = y;
-        REG_BG2Y_H = y >> 16;
+        *(vu16*)REG_BG2X_L = x;
+        *(vu16*)REG_BG2X_H = x >> 16;
+        *(vu16*)REG_BG2Y_L = y;
+        *(vu16*)REG_BG2Y_H = y >> 16;
         break;
     case 3:
-        REG_BG3X_L = x;
-        REG_BG3X_H = x >> 16;
-        REG_BG3Y_L = y;
-        REG_BG3Y_H = y >> 16;
+        *(vu16*)REG_BG3X_L = x;
+        *(vu16*)REG_BG3X_H = x >> 16;
+        *(vu16*)REG_BG3Y_L = y;
+        *(vu16*)REG_BG3Y_H = y >> 16;
         break;
     }
 }
@@ -391,16 +396,16 @@ void SetLayerTransform(u8 layer, u16 dx, u16 dmx, u16 dy, u16 dmy)
 
     switch (layer) {
     case 2:
-        REG_BG2PA = dx;
-        REG_BG2PB = dmx;
-        REG_BG2PC = dy;
-        REG_BG2PD = dmy;
+        *(vu16*)REG_BG2PA = dx;
+        *(vu16*)REG_BG2PB = dmx;
+        *(vu16*)REG_BG2PC = dy;
+        *(vu16*)REG_BG2PD = dmy;
         break;
     case 3:
-        REG_BG3PA = dx;
-        REG_BG3PB = dmx;
-        REG_BG3PC = dy;
-        REG_BG3PD = dmy;
+        *(vu16*)REG_BG3PA = dx;
+        *(vu16*)REG_BG3PB = dmx;
+        *(vu16*)REG_BG3PC = dy;
+        *(vu16*)REG_BG3PD = dmy;
         break;
     }
 }
@@ -416,37 +421,37 @@ void ToggleLayerVisibility(u8 layer, bool8 enabled)
     if (enabled) {
         switch (layer) {
         case 0:
-            REG_DISPCNT |= (1 << 8);
+            *(vu16*)REG_DISPCNT |= DISP_BG0_ON;
             break;
 
         case 1:
-            REG_DISPCNT |= (1 << 9);
+            *(vu16*)REG_DISPCNT |= DISP_BG1_ON;
             break;
 
         case 2:
-            REG_DISPCNT |= (1 << 10);
+            *(vu16*)REG_DISPCNT |= DISP_BG2_ON;
             break;
 
         case 3:
-            REG_DISPCNT |= (1 << 11);
+            *(vu16*)REG_DISPCNT |= DISP_BG3_ON;
             break;
         }
     } else {
         switch (layer) {
         case 0:
-            REG_DISPCNT &= ~(1 << 8);
+            *(vu16*)REG_DISPCNT &= ~DISP_BG0_ON;
             break;
 
         case 1:
-            REG_DISPCNT &= ~(1 << 9);
+            *(vu16*)REG_DISPCNT &= ~DISP_BG1_ON;
             break;
 
         case 2:
-            REG_DISPCNT &= ~(1 << 10);
+            *(vu16*)REG_DISPCNT &= ~DISP_BG2_ON;
             break;
 
         case 3:
-            REG_DISPCNT &= ~(1 << 11);
+            *(vu16*)REG_DISPCNT &= ~DISP_BG3_ON;
             break;
         }
     }

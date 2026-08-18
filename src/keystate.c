@@ -1,6 +1,8 @@
 #include "keystate.h"
+
+#include <agb/memory_map.h>
+
 #include "include_asm.h"
-#include "io_reg.h"
 #include "memory.h"
 #include "unsorted.h"
 
@@ -23,7 +25,7 @@ void initKeyState(void)
 {
     u8 i;
 
-    _keyInput = ~REG_KEYINPUT;
+    _keyInput = ~*(vu16*)REG_KEYINPUT;
     _unk3005DA0 = _keyInput;
     _unk3005DAC = 0;
     _unk3005DA4 = _keyInput;

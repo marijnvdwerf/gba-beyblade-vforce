@@ -31,7 +31,7 @@ sub_8065508:
 .L8065538:
 	add	r0, r7, #0
 	mov	r1, #0x3c
-	bl	Mod
+	bl	DivRem
 	add	r1, r0, #0
 	ldrb	r2, [r6, #0x4]
 	sub	r2, r2, #0x1
@@ -70,7 +70,7 @@ sub_8065508:
 	beq	.L80655A4	@cond_branch
 	add	r0, r7, #0
 	mov	r1, #0x3c
-	bl	Mod
+	bl	DivRem
 	add	r1, r0, #0
 	b	.L80655A6
 .L806559A:

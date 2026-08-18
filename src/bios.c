@@ -1,31 +1,31 @@
-#include "bios.h"
-#include "io_reg.h"
-#include "macro.h"
+#include <agb/bios.h>
+#include <agb/macro.h>
+
 #include "ram.h"
 
-void CpuSet(const void* source, void* destination, u32 mode)
+void CpuSet(void* Srcp, void* Destp, u32 DmaCntData)
 {
-    register const void* p1 asm("r0") = source;
-    register void* p2 asm("r1") = destination;
-    register u32 p3 asm("r2") = mode;
+    register void* p1 asm("r0") = Srcp;
+    register void* p2 asm("r1") = Destp;
+    register u32 p3 asm("r2") = DmaCntData;
 
     asm("swi 0xB;" ::"r"(p1), "r"(p2), "r"(p3));
 }
 
-s32 Div(s32 divisor, s32 number)
+s32 Div(s32 Number, s32 Denom)
 {
-    register s32 p1 asm("r0") = divisor;
-    register s32 p2 asm("r1") = number;
+    register s32 p1 asm("r0") = Number;
+    register s32 p2 asm("r1") = Denom;
 
     asm("swi 0x6;" : "+r"(p1) : "r"(p2));
 
     return p1;
 }
 
-s32 Mod(s32 divisor, s32 number)
+s32 DivRem(s32 Number, s32 Denom)
 {
-    register s32 p1 asm("r0") = divisor;
-    register s32 p2 asm("r1") = number;
+    register s32 p1 asm("r0") = Number;
+    register s32 p2 asm("r1") = Denom;
 
     asm("swi 0x6;" : "+r"(p2) : "r"(p1));
 
@@ -33,10 +33,10 @@ s32 Mod(s32 divisor, s32 number)
 }
 ASM_ZEROPAD
 
-void Lz77UnCompWram(const void* source, void* destination)
+void LZ77UnCompWram(void* Srcp, void* Destp)
 {
-    register const void* p1 asm("r0") = source;
-    register void* p2 asm("r1") = destination;
+    register void* p1 asm("r0") = Srcp;
+    register void* p2 asm("r1") = Destp;
 
     asm("swi 0x11;" ::"r"(p1), "r"(p2));
 }
@@ -56,8 +56,8 @@ ASM_ZEROPAD
 
 void sub_80578E0()
 {
-    DmaFill32(3, 0, 0x2000000, 0x40000);
-    DmaFill32(3, 0, 0x3000000, 0x7e00);
+    DmaClear(3, 0, EX_WRAM, EX_WRAM_SIZE, 32);
+    DmaClear(3, 0, CPU_WRAM, 0x7e00, 32);
 }
 
 void sub_805791C()

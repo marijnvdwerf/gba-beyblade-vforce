@@ -1,5 +1,6 @@
-#include "common.h"
 #include <stddef.h>
+
+#include "common.h"
 
 #define LBLOCKSIZE (sizeof(long))
 

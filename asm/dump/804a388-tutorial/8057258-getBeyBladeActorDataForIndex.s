@@ -61,7 +61,7 @@ getBeyBladeActorDataForIndex:
 	ldr	r4, [r0]
 	add	r0, r5, #0
 	add	r1, r4, #0
-	bl	Lz77UnCompWram
+	bl	LZ77UnCompWram
 	mov	r2, #0x0
 	ldr	r1, .L8057314 + 4
 	add	r0, r7, r1

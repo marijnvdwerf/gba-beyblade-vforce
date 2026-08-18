@@ -1,6 +1,8 @@
-#include "bios.h"
+#include <agb/bios.h>
+#include <agb/define.h>
+#include <agb/memory_map.h>
+
 #include "common.h"
-#include "io_reg.h"
 #include "keystate.h"
 #include "sound.h"
 #include "unsorted.h"
@@ -16,7 +18,7 @@ extern UnkStruct3005e40 _unk3005E40;
 
 void mainLoop(void)
 {
-    REG_WAITCNT = 0x4014;
+    *(vu16*)REG_WAITCNT = CST_PREFETCH_ENABLE | CST_ROM0_2ND_1WAIT | CST_ROM0_1ST_3WAIT;
     sub_8057944();
     InitStuff_SetDispStat(0x8);
     EnableInterrupt(0x11);
@@ -48,11 +50,11 @@ void mainLoop(void)
             sub_80627F0();
             updateKeyState();
             SpriteVRamFree(128, 32);
-            REG_DISPCNT = 0;
+            *(vu16*)REG_DISPCNT = 0;
 
             initGameLoop();
             gameLoop();
-            REG_DISPCNT = 0;
+            *(vu16*)REG_DISPCNT = 0;
 
             VBlankIntrWait();
             sub_80627F0();
@@ -66,9 +68,9 @@ void mainLoop(void)
 
 void onVBlank()
 {
-    _unk3005E40.tm1cntL = REG_TM1CNT_L;
+    _unk3005E40.tm1cntL = *(vu16*)REG_TM1CNT_L;
 
-    ((u16*)0x3007FF8)[0] = 1;
+    ((u16*)INTR_CHECK_BUF)[0] = 1;
 }
 
 void nullsub_37()
@@ -85,7 +87,7 @@ ASM_ZEROPAD
 void sub_80506C0()
 {
     sub_805AC28(0, 0, 0, 0);
-    Mod(10, 1);
+    DivRem(10, 1);
     Div(10, 1);
     CpuSet(NULL, NULL, 0x4000000);
     Sqrt(128);

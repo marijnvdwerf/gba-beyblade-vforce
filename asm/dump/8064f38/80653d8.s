@@ -38,7 +38,7 @@ sub_80653D8:
 	ble	.L8065424	@cond_branch
 	add	r0, r7, #0
 	mov	r1, #0xa
-	bl	Mod
+	bl	DivRem
 	add	r2, r0, #0
 	b	.L8065426
 .L8065424:

@@ -10,7 +10,7 @@ sub_80506C0:
 	bl	sub_805AC28
 	mov	r0, #0xa
 	mov	r1, #0x1
-	bl	Mod
+	bl	DivRem
 	mov	r0, #0xa
 	mov	r1, #0x1
 	bl	Div

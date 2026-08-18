@@ -1,6 +1,6 @@
+#include <agb/macro.h>
+
 #include "common.h"
-#include "io_reg.h"
-#include "macro.h"
 #include "ram.h"
 #include "unsorted.h"
 
@@ -21,12 +21,12 @@ void InitStuff_SetDispStat(u16 dispstat)
 {
     s32 i;
 
-    REG_IME = 1;
-    REG_IE = 0;
-    REG_IF = 0;
-    REG_DISPSTAT = dispstat;
+    *(vu16*)REG_IME = 1;
+    *(vu16*)REG_IE = 0;
+    *(vu16*)REG_IF = 0;
+    *(vu16*)REG_STAT = dispstat;
 
-    DmaCopy32(3, Unk_872CAF4, _unk3000DF0, 14 * 4);
+    DmaCopy(3, Unk_872CAF4, _unk3000DF0, 14 * 4, 32);
 
     i = 13;
     while (true) {

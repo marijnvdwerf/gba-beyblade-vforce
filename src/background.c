@@ -1,5 +1,7 @@
+#include <agb/define.h>
+#include <agb/memory_map.h>
+
 #include "common.h"
-#include "io_reg.h"
 #include "sound.h"
 #include "unsorted.h"
 
@@ -76,50 +78,11 @@ extern ClearFn* __fastMemoryClearARM;
 
 void sub_80596AC(void*, int, int);
 
-/**
- *
-  Bit   Expl.
-  0     BG0 1st Target Pixel (Background 0)
-  1     BG1 1st Target Pixel (Background 1)
-  2     BG2 1st Target Pixel (Background 2)
-  3     BG3 1st Target Pixel (Background 3)
-  4     OBJ 1st Target Pixel (Top-most OBJ pixel)
-  5     BD  1st Target Pixel (Backdrop)
-  6-7   Color Special Effect (0-3, see below)
-         0 = None                (Special effects disabled)
-         1 = Alpha Blending      (1st+2nd Target mixed)
-         2 = Brightness Increase (1st Target becomes whiter)
-         3 = Brightness Decrease (1st Target becomes blacker)
-  8     BG0 2nd Target Pixel (Background 0)
-  9     BG1 2nd Target Pixel (Background 1)
-  10    BG2 2nd Target Pixel (Background 2)
-  11    BG3 2nd Target Pixel (Background 3)
-  12    OBJ 2nd Target Pixel (Top-most OBJ pixel)
-  13    BD  2nd Target Pixel (Backdrop)
-  14-15 Not used
- */
-
-#define BLDCNT_BG0 (1 << 0)
-#define BLDCNT_BG1 (1 << 1)
-#define BLDCNT_BG2 (1 << 2)
-#define BLDCNT_BG3 (1 << 3)
-#define BLDCNT_TOPMOST_OBJ (1 << 4)
-#define BLDCNT_BACKDROP (1 << 5)
-
-#define BLDCNT_EFFECT_NONE (0)
-#define BLDCNT_EFFECT_ALPHA (1)
-#define BLDCNT_EFFECT_LIGHTEN (2)
-#define BLDCNT_EFFECT_DARKEN (3)
-
-#define BLDCNT_TARGET_1(val) ((val) << 0)
-#define BLDCNT_EFFECT(val) ((val) << 6)
-#define BLDCNT_TARGET_2(val) ((val) << 8)
-
 void Background_80498D8(void)
 {
-    REG_BLDCNT = BLDCNT_TARGET_1(BLDCNT_BG1) | BLDCNT_EFFECT(BLDCNT_EFFECT_ALPHA)
-        | BLDCNT_TARGET_2(BLDCNT_BG0 | BLDCNT_BG1 | BLDCNT_BG2 | BLDCNT_BG3);
-    REG_BLDALPHA = (12 << 8) | (6 << 0);
+    *(vu16*)REG_BLDCNT
+        = BLD_BG1_1ST | BLD_A_BLEND_MODE | BLD_BG0_2ND | BLD_BG1_2ND | BLD_BG2_2ND | BLD_BG3_2ND;
+    *(vu16*)REG_BLDALPHA = (12 << 8) | (6 << 0);
 }
 
 void Background_80498F8(void)
@@ -142,7 +105,7 @@ void Background_8049950(void)
     u32* arg1;
 
     sub_8049344(0);
-    REG_BLDY = 0;
+    *(vu16*)REG_BLDY = 0;
 
     arg0 = &_3000000.varBE0;
     arg1 = &(_3000000.var708);
@@ -162,8 +125,8 @@ void Background_80499BC(void)
     u32* arg1;
 
     sub_8049344(0);
-    REG_BLDY = 0;
-    REG_DISPCNT = 0;
+    *(vu16*)REG_BLDY = 0;
+    *(vu16*)REG_DISPCNT = 0;
 
     arg0 = &_3000000.varBE0;
     arg1 = &(_3000000.var708);
@@ -178,7 +141,7 @@ void Background_80499BC(void)
 void Background_8049A24(void)
 {
     sub_8049344(0);
-    REG_BLDY = 0;
+    *(vu16*)REG_BLDY = 0;
 
     sub_80508A4(&_3000000.varBE0);
 
@@ -231,7 +194,7 @@ void Background_8049B68(void)
     u32* pInt;
     u32* arg1;
 
-    REG_BLDY = 0;
+    *(vu16*)REG_BLDY = 0;
 
     arg0 = &_3000000.varBE0;
     arg1 = &(_3000000.var708);
@@ -252,7 +215,7 @@ void Background_8049BF8(void)
     u32* pInt;
 
     sub_8049344(0);
-    REG_BLDY = 0;
+    *(vu16*)REG_BLDY = 0;
     sub_80508A4(&_3000000.varBE0);
 
     pInt = &_3000000.var650;
@@ -270,7 +233,7 @@ void Background_8049C70(void)
     u32* pInt;
 
     sub_8049344(0);
-    REG_BLDY = 0;
+    *(vu16*)REG_BLDY = 0;
     sub_80508A4(&_3000000.varBE0);
 
     pInt = &_3000000.var650;

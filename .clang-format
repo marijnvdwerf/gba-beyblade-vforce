@@ -3,3 +3,12 @@ BasedOnStyle: WebKit
 IndentWidth: 4
 ColumnLimit: 100
 AllowShortFunctionsOnASingleLine: None
+SortIncludes: CaseSensitive
+IncludeBlocks: Regroup
+IncludeCategories:
+  - Regex: '^<agb/'
+    Priority: 1
+  - Regex: '^<'
+    Priority: 2
+  - Regex: '^"'
+    Priority: 3
