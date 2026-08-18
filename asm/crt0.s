@@ -172,9 +172,9 @@ off_800026C:
 off_8000270:
         .4byte fn_end
 off_8000274:
-        .4byte _ARM_sub_87569F4
+        .4byte ARM_sub_87569F4      @ IWRAM destination (VMA)
 off_8000278:
-        .4byte ARM_sub_87569F4
+        .4byte __iwram_code_lma     @ ROM source (LMA)
 off_800027C:
         .4byte mainLoop+1
 off_8000280:

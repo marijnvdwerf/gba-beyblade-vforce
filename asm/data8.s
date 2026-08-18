@@ -2010,16 +2010,16 @@ global GlyphIndexes
     .byte    0,   0,   0,   0
 
 global __sub_8757CD0
-    .4byte _sub_8757CD0
+    .4byte sub_8757CD0
 
 global __sub_8757D24
-    .4byte _sub_8757D24
+    .4byte sub_8757D24
 
 global __sub_8757E4C
-    .4byte _sub_8757E4C
+    .4byte sub_8757E4C
 
 global __sub_8757FCC
-    .4byte _sub_8757FCC
+    .4byte sub_8757FCC
 
 global word_807D90C
     .2byte  0x404,  0x808, 0x1010, 0x2020,  0x804, 0x1004
@@ -2036,23 +2036,23 @@ global off_807D938
     .4byte freeSpriteVramLocation + 1
 
 global __oam_8756CC0
-    .4byte _oam_8756CC0
+    .4byte oam_8756CC0
 
     .4byte printf + 1
 
 global __sub_8756FC0
-    .4byte _sub_8756FC0
+    .4byte sub_8756FC0
 
 global __sub_8757380
-    .4byte _sub_8757380
+    .4byte sub_8757380
 
 global __sub_8757494
-    .4byte _sub_8757494
+    .4byte sub_8757494
 
-    .4byte _sub_8757574
+    .4byte sub_8757574
 
 global __sub_87576D8
-    .4byte _sub_87576D8
+    .4byte sub_87576D8
 
     .4byte nullsub_8 + 1
     .4byte nullsub_9 + 1
@@ -2060,22 +2060,22 @@ global __sub_87576D8
 
     .align 2, 0
 global __sub_87577B4
-    .4byte _sub_87577B4
+    .4byte sub_87577B4
 
 global __sound_8757A64
-    .4byte _sound_8757A64
+    .4byte sound_8757A64
 
 global off_807D96C
     .4byte printf + 1
 
 global __fastMemoryClearARM
-    .4byte _fastMemoryClearARM
+    .4byte fastMemoryClearARM
 
 global __fastMemoryCopyARM
-    .4byte _fastMemoryCopyARM
+    .4byte fastMemoryCopyARM
 
-    .4byte _fastMemoryClear16ARM
-    .4byte _fastMemoryCopy16ARM
+    .4byte fastMemoryClear16ARM
+    .4byte fastMemoryCopy16ARM
 
 global byte_807D980
     .byte    0, 0x5F, 0x60, 0x61, 0x62, 0x63, 0x64, 0x61

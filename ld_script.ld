@@ -19,43 +19,7 @@ SECTIONS {
         src/keystate.c.o(.data);
         src/ram3.c.o(.data);
 
-        _ARM_sub_87569F4 = .;
-        . += 0x8C;
-        _ARM_sub_8756A84 = .;
-        . += 0x240;
-        _oam_8756CC0 = .;
-        . += 0x300;
-        _sub_8756FC0 = .;
-        . += 960;
-        _sub_8757380 = .;
-        . += 276;
-        _sub_8757494 = .;
-        . += 224;
-        _sub_8757574 = .;
-        . += 356;
-        _sub_87576D8 = .;
-        . += 220;
-        _sub_87577B4 = .;
-        . += 688;
-        _sound_8757A64 = .;
-        . += 156;
-        _fastMemoryClearARM = .;
-        . += 136;
-        _fastMemoryCopyARM = .;
-        . += 132;
-        _fastMemoryClear16ARM = .;
-        . += 100;
-        _fastMemoryCopy16ARM = .;
-        . += 96;
-        _sub_8757CD0 = .;
-        . += 84;
-        _sub_8757D24 = .;
-        . += 296;
-        _sub_8757E4C = .;
-        . += 384;
-        _sub_8757FCC = .;
-        . += 488;
-        fn_end = .;
+        _iwram_code_start = .;
     }
 
     . = 0x8000000;
@@ -288,8 +252,17 @@ SECTIONS {
 		asm/data3.s.o(.rodata);
 
         *libgcc.a:_divdi3.o(.rodata);
-		asm/arm2.s.o(.text);
     } =0
+
+    /* ARM routines that run from IWRAM: linked at their IWRAM run-time
+     * addresses (VMA), stored in ROM right after .rodata (LMA). crt0
+     * copies LOADADDR(.iwram_code)..+SIZEOF into place at boot. */
+    .iwram_code _iwram_code_start : AT(ADDR(.rodata) + SIZEOF(.rodata))
+    {
+        asm/arm2.s.o(.text);
+        fn_end = .;
+    }
+    __iwram_code_lma = LOADADDR(.iwram_code);
 
     /* DWARF 2 sections */
     .debug_aranges  0 : { *(.debug_aranges) }
