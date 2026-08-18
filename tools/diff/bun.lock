@@ -1,0 +1,15 @@
+{
+  "lockfileVersion": 1,
+  "configVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "init",
+      "dependencies": {
+        "objdiff-wasm": "^3.8.0",
+      },
+    },
+  },
+  "packages": {
+    "objdiff-wasm": ["objdiff-wasm@3.8.0", "", {}, "sha512-SL1InmSXJXzm4DjmYxB5RwvTktlG6QGaxM1+ZmrbkpK7xnYDpU8xSHZIVSQiD4DItbixgRTRw3RJM5q1uDgUeg=="],
+  }
+}
