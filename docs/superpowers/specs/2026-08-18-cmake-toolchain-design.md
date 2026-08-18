@@ -360,33 +360,34 @@ tools/gba-link --ld=<abs ld> --script=<abs ld_script> --out=<abs TARGET>
   undocumented object layout is assumed; a missing staged file makes ld fail
   loudly.
 
-## Component 7: migration (`tools/migrate_include_asm.py`)
+## Component 7: migration (throwaway script)
 
-uv-scripted Python; converts the tree chunk-by-chunk, SHA1-verified at every
-step. Order of operations:
+The migration is a **one-shot, disposable** uv-scripted Python tool. It does
+not need to be robust, resumable, or preserved: git is the undo button, and
+the SHA1 is a perfect oracle — duplicate symbols fail the link loudly,
+missing/misplaced code fails the hash. Worst case: it fails, we revert, we
+fix the script, we rerun. What it does:
 
-1. **Spike gate first** (acceptance 0): before anything runs at scale, a
-   hand-built matrix must hold — see Testing.
-2. **Dump transformation** (Component 1): strip `common.inc` includes; rename
-   `.L` labels to `.L<ROM address>` using map base + `as -L`/`nm` offsets.
-   Bytes must be provably unchanged: each transformed dump is re-assembled
-   and section contents compared against the original object.
-3. **Parse `ld_script.ld`** into ordered entry lists.
-4. **Chunk `.text`** into TU-sized runs. Ownership of dump runs between two
-   TUs is **deterministic and explicit**: recorded in a reviewed override
-   file, not a silent heuristic — object boundaries are visible to assembler
-   and linker, so ownership changes are matching-sensitive (review finding).
-5. **Source-order check**: a TU's ROM order must equal its definition order.
-   The tool emits a **dry-run plan** for any file needing function
-   reordering; reorders preserve source slices byte-for-byte, refuse
-   conditional-compilation or syntactically ambiguous regions, and are
-   applied per-file with user review and a build+compare after each. Where
-   possible, chunk boundaries are adapted to existing source order instead of
-   reordering code.
-6. **Rewrite TUs / create container TUs**, insert INCLUDE_ASM lines; update
-   the ld script and the CMake source list in the same transactional step
-   (single-owner invariant).
-7. **Build + compare** after every chunk; a mismatch bisects to one chunk.
+1. Rename `.L` labels in all dumps to `.L<ROM address>` (Component 1
+   mechanics: map VMA base + `as -L`/`nm` offsets); guard `common.inc`.
+2. Parse the old `ld_script.ld`; chunk `.text` into TU-sized runs (dump runs
+   between two TUs attach to whichever side — pick a simple heuristic;
+   `chunk boundaries are byte-neutral either way` is verified by the hash,
+   not argued about).
+3. Where a C file's ld-script function order ≠ its definition order, reorder
+   the definitions (this touches real code — eyeball the diff, then let the
+   hash judge).
+4. Write the TUs (INCLUDE_ASM lines inserted / container TUs created), the
+   short ld script, and the CMake source list.
+5. Build. `ctest`. Matching → commit the result, delete or archive the
+   script. Not matching → debug or `git checkout .` and rerun.
+
+The **spike gate** (acceptance 0) still runs first — it's cheap and it
+de-risks writing the script at all. Chunk-at-a-time conversion, dry-run
+plans, override files, and transactional invariants from earlier drafts are
+dropped as overengineering; if the one-shot run mismatches and the cause
+isn't obvious, bisecting by rerunning the script on half the chunks is a
+debugging *technique*, not a designed-in feature.
 
 ## Component 8: developer experience
 
@@ -538,11 +539,7 @@ toolchain):
 - **R3 — `--reset-flags` ordering**: documented CMake order; acceptance 3.
   Fallback: separate OBJECT library for libc.c (staging already merges
   multiple `.dir` trees).
-- **R4 — chunk ownership**: explicit reviewed override file; every ownership
-  decision verified by clean build + SHA1.
-- **R5 — function reordering in real C files**: dry-run plan, byte-preserving
-  slices, refuse-on-ambiguity, per-file verification; prefer boundary
-  adaptation over reordering.
-- **R6 — `.L` rename correctness**: transformed dumps re-assembled and
-  byte-compared against originals before use; the mapfile tooling choice
-  (mapfile-parser vs bespoke parser) follows the pending research pass.
+- **R4 — migration mistakes** (chunk ownership, function reordering, `.L`
+  rename slips): all caught by the oracle — link errors or SHA1 mismatch —
+  and undone by git. Eyeball the C-reordering diffs before committing;
+  everything else is the throwaway script's problem, not the design's.
