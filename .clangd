@@ -1,0 +1,4 @@
+CompileFlags:
+  Compiler: clang
+  Remove: [-fhex-asm, -mthumb-interwork, --reset-flags, --agbcc=*, --cpp=*, --iconv=*, --cc1=*, --as=*, --as-include=*]
+  Add: [--target=arm-none-eabi, -mcpu=arm7tdmi, -mthumb, -std=gnu89, -fno-builtin]

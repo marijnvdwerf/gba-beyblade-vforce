@@ -1,0 +1,157 @@
+#!/bin/sh
+
+set -eu
+
+cpp=${CC:-cc}
+iconv=iconv
+cc1=
+as=arm-none-eabi-as
+as_include=
+source_file=
+output_file=
+depfile=
+dep_target=
+want_deps=false
+
+cpp_args=
+cc1_args=
+
+quote_arg() {
+    printf "'%s'" "$(printf '%s' "$1" | sed "s/'/'\\\\''/g")"
+}
+
+append_cpp_arg() {
+    quoted=$(quote_arg "$1")
+    cpp_args="${cpp_args} ${quoted}"
+}
+
+append_cc1_arg() {
+    quoted=$(quote_arg "$1")
+    cc1_args="${cc1_args} ${quoted}"
+}
+
+while [ "$#" -gt 0 ]; do
+    case $1 in
+        --cpp=*) cpp=${1#--cpp=} ;;
+        --iconv=*) iconv=${1#--iconv=} ;;
+        --cc1=*) cc1=${1#--cc1=} ;;
+        --as=*) as=${1#--as=} ;;
+        --as-include=*) as_include=${1#--as-include=} ;;
+        --reset-flags) cc1_args= ;;
+        -I|-D|-U)
+            [ "$#" -ge 2 ] || { printf '%s\n' "agbcc: missing argument for $1" >&2; exit 2; }
+            append_cpp_arg "$1"
+            shift
+            append_cpp_arg "$1"
+            ;;
+        -I*|-D*|-U*) append_cpp_arg "$1" ;;
+        -MD) want_deps=true ;;
+        -MF)
+            [ "$#" -ge 2 ] || { printf '%s\n' 'agbcc: missing argument for -MF' >&2; exit 2; }
+            shift
+            depfile=$1
+            ;;
+        -MT)
+            [ "$#" -ge 2 ] || { printf '%s\n' 'agbcc: missing argument for -MT' >&2; exit 2; }
+            shift
+            dep_target=$1
+            ;;
+        -c)
+            [ "$#" -ge 2 ] || { printf '%s\n' 'agbcc: missing argument for -c' >&2; exit 2; }
+            shift
+            source_file=$1
+            ;;
+        -o)
+            [ "$#" -ge 2 ] || { printf '%s\n' 'agbcc: missing argument for -o' >&2; exit 2; }
+            shift
+            output_file=$1
+            ;;
+        --) shift; break ;;
+        -*) append_cc1_arg "$1" ;;
+        *)
+            if [ -z "$source_file" ]; then
+                source_file=$1
+            else
+                append_cc1_arg "$1"
+            fi
+            ;;
+    esac
+    shift
+done
+
+[ -n "$source_file" ] || { printf '%s\n' 'agbcc: no input file' >&2; exit 2; }
+[ -n "$output_file" ] || { printf '%s\n' 'agbcc: no output file' >&2; exit 2; }
+
+if [ -z "$cc1" ]; then
+    [ -n "${AGBCC:-}" ] || { printf '%s\n' 'agbcc: set AGBCC or pass --cc1=' >&2; exit 2; }
+    cc1=$AGBCC/bin/old_agbcc
+fi
+if [ -z "$as_include" ]; then
+    as_include=$(pwd)
+fi
+if [ "$want_deps" = true ] && [ -z "$depfile" ]; then
+    depfile=$output_file.d
+fi
+if [ -z "$dep_target" ]; then
+    dep_target=$output_file
+fi
+
+output_dir=$(dirname "$output_file")
+output_base=$(basename "$output_file")
+mkdir -p "$output_dir"
+
+tmp_prefix=$output_dir/.${output_base}.tmp.$$
+tmp_i=${tmp_prefix}.i
+tmp_i2=${tmp_prefix}.i2
+tmp_s=${tmp_prefix}.s
+tmp_o=${tmp_prefix}.o
+tmp_cpp_dep=${tmp_prefix}.cpp.d
+tmp_as_dep=${tmp_prefix}.as.d
+tmp_dep=${tmp_prefix}.d
+
+cleanup() {
+    rm -f "$tmp_i" "$tmp_i2" "$tmp_s" "$tmp_o" \
+        "$tmp_cpp_dep" "$tmp_as_dep" "$tmp_dep"
+}
+trap cleanup EXIT HUP INT TERM
+
+cpp_dep_args=
+if [ "$want_deps" = true ]; then
+    cpp_dep_args="-MD -MF $(quote_arg "$tmp_cpp_dep") -MT $(quote_arg "$dep_target")"
+fi
+
+eval "$(quote_arg "$cpp") -E -nostdinc -undef${cpp_args} ${cpp_dep_args} $(quote_arg "$source_file") -o $(quote_arg "$tmp_i")"
+"$iconv" --from-code=UTF-8 --to-code=WINDOWS-1252 "$tmp_i" > "$tmp_i2"
+eval "$(quote_arg "$cc1")${cc1_args} -o $(quote_arg "$tmp_s") $(quote_arg "$tmp_i2")"
+
+if [ "$want_deps" = true ]; then
+    "$as" -mcpu=arm7tdmi -I "$as_include" --MD "$tmp_as_dep" -o "$tmp_o" "$tmp_s"
+    awk -v target="$dep_target" -v assembler_source="$tmp_s" '
+        function add_file(path) {
+            if (path != "" && path != assembler_source && !seen[path]++) deps = deps " " path
+        }
+        {
+            line = $0
+            sub(/^[^:]*:[[:space:]]*/, "", line)
+            sub(/[[:space:]]*\\$/, "", line)
+            count = split(line, words, /[[:space:]]+/)
+            for (i = 1; i <= count; ++i) add_file(words[i])
+        }
+        END { print target ":" deps }
+    ' "$tmp_cpp_dep" "$tmp_as_dep" > "$tmp_dep"
+else
+    "$as" -mcpu=arm7tdmi -I "$as_include" -o "$tmp_o" "$tmp_s"
+fi
+
+# Publish only after every stage has succeeded.
+mv -f "$tmp_i" "$output_file.i"
+mv -f "$tmp_s" "$output_file.s"
+mv -f "$tmp_o" "$output_file"
+if [ "$want_deps" = true ]; then
+    dep_dir=$(dirname "$depfile")
+    mkdir -p "$dep_dir"
+    mv -f "$tmp_dep" "$depfile"
+fi
+
+trap - EXIT HUP INT TERM
+cleanup

@@ -8,8 +8,8 @@ SECTIONS {
     ALIGN(4)
     {
         src/ram.c.o(.data);
-        ${LIBGCC_A}:fp-bit.o(.bss);
-        ${LIBGCC_A}:dp-bit.o(.bss);
+        libgcc.a:fp-bit.o(.bss);
+        libgcc.a:dp-bit.o(.bss);
         . = 0xDE0;
         _unk3000DE0 = .;
         . += 0x10;
@@ -1129,18 +1129,18 @@ SECTIONS {
         asm/dump/8064f38/8065b7c-writeToBatteryBackup.s.o(.text);
         asm/dump/8064f38/8065bd4.s.o(.text);
 
-        ${LIBGCC_A}:_call_via_rX.o(.text);
-        ${LIBGCC_A}:_divdi3.o(.text);
-        ${LIBGCC_A}:_divsi3.o(.text);
-        ${LIBGCC_A}:_dvmd_tls.o(.text);
-        ${LIBGCC_A}:_fixunssfsi.o(.text);
-        ${LIBGCC_A}:_muldi3.o(.text);
-        ${LIBGCC_A}:_udivsi3.o(.text);
-        ${LIBGCC_A}:_umodsi3.o(.text);
-        ${LIBGCC_A}:fp-bit.o(.text);
-        ${LIBGCC_A}:dp-bit.o(.text);
-        ${LIBGCC_A}:_lshrdi3.o(.text);
-        ${LIBGCC_A}:_negdi2.o(.text);
+        libgcc.a:_call_via_rX.o(.text);
+        libgcc.a:_divdi3.o(.text);
+        libgcc.a:_divsi3.o(.text);
+        libgcc.a:_dvmd_tls.o(.text);
+        libgcc.a:_fixunssfsi.o(.text);
+        libgcc.a:_muldi3.o(.text);
+        libgcc.a:_udivsi3.o(.text);
+        libgcc.a:_umodsi3.o(.text);
+        libgcc.a:fp-bit.o(.text);
+        libgcc.a:dp-bit.o(.text);
+        libgcc.a:_lshrdi3.o(.text);
+        libgcc.a:_negdi2.o(.text);
         src/libc.c.o(.text);
     }
 
@@ -1230,7 +1230,7 @@ SECTIONS {
 		src/strings6.c.o(.rodata);
 		asm/data3.s.o(.rodata);
 
-        ${LIBGCC_A}:_divdi3.o(.rodata);
+        libgcc.a:_divdi3.o(.rodata);
 		asm/arm2.s.o(.text);
     } =0
 
