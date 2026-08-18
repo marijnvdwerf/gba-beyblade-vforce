@@ -376,11 +376,14 @@ fix the script, we rerun. What it does:
    dumps between `layer.c`'s clusters). A dump run between two *different*
    TUs — or touching none — becomes its own address-named container TU.
    Existing TUs never absorb neighboring code they don't already surround.
-3. Where a C file's ld-script function order ≠ its definition order, reorder
-   the definitions (this touches real code — eyeball the diff, then let the
-   hash judge).
-4. Write the TUs (INCLUDE_ASM lines inserted / container TUs created), the
-   short ld script, and the CMake source list.
+3. Edits to **existing** C files — reordering definitions where ld-script
+   order ≠ source order, and inserting INCLUDE_ASM lines at the right
+   positions between functions — are **not done mechanically**: an LLM agent
+   rewrites those files from the script's per-file worklist (ordered list of
+   function names + dump paths). The hash judges the result; the diff gets
+   eyeballed. No parsing-C-with-regexes machinery.
+4. Container TUs, the short ld script, and the CMake source list are pure
+   generation — the script writes those directly.
 5. Build. `ctest`. Matching → commit the result, delete or archive the
    script. Not matching → debug or `git checkout .` and rerun.
 
