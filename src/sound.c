@@ -61,7 +61,7 @@ typedef struct {
 #define DMA_A_RESET_FIFO 11
 
 // Rounds an integer up to the given power of 2. y must be a power of 2.
-#define ceil2(x, y) (((x) + (y)-1) & (~((y)-1)))
+#define ceil2(x, y) (((x) + (y) - 1) & (~((y) - 1)))
 
 typedef void(ClearFn)(int, void*, int);
 

@@ -9,8 +9,20 @@ void nullsub_31(void);
 void onTimer1Overflow(void);
 
 const void* const Unk_872CAF4[] = {
-    onVBlank, nullsub_37, nullsub_31, nullsub_31, onTimer1Overflow, nullsub_31, nullsub_31,
-    nullsub_31, nullsub_31, nullsub_31, nullsub_31, nullsub_31, nullsub_31, nullsub_31,
+    onVBlank,
+    nullsub_37,
+    nullsub_31,
+    nullsub_31,
+    onTimer1Overflow,
+    nullsub_31,
+    nullsub_31,
+    nullsub_31,
+    nullsub_31,
+    nullsub_31,
+    nullsub_31,
+    nullsub_31,
+    nullsub_31,
+    nullsub_31,
 };
 
 // 872CB2C
