@@ -370,10 +370,12 @@ fix the script, we rerun. What it does:
 
 1. Rename `.L` labels in all dumps to `.L<ROM address>` (Component 1
    mechanics: map VMA base + `as -L`/`nm` offsets); guard `common.inc`.
-2. Parse the old `ld_script.ld`; chunk `.text` into TU-sized runs (dump runs
-   between two TUs attach to whichever side — pick a simple heuristic;
-   `chunk boundaries are byte-neutral either way` is verified by the hash,
-   not argued about).
+2. Parse the old `ld_script.ld`; chunk `.text` into TU-sized runs. Ownership
+   rule, deterministic, no heuristic: a dump run goes **inside an existing
+   TU only when it sits between two placements of that same TU** (e.g. the
+   dumps between `layer.c`'s clusters). A dump run between two *different*
+   TUs — or touching none — becomes its own address-named container TU.
+   Existing TUs never absorb neighboring code they don't already surround.
 3. Where a C file's ld-script function order ≠ its definition order, reorder
    the definitions (this touches real code — eyeball the diff, then let the
    hash judge).
