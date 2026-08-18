@@ -318,22 +318,36 @@ uses the **snapshot pattern** common in n64 projects:
 - `expected/` (gitignored) mirrors the build's object tree. A CMake target
   `update-expected` — only meaningful after `compare` passes — copies
   `link/src/*.o` into `expected/src/`.
-- `objdiff.json` is generated at configure time from the manifest:
-  `custom_make: "ninja"`, `custom_args: ["-C", "build"]` (ninja accepts
-  output paths as targets, so objdiff rebuilds exactly one object); per unit
-  `base_path` = the object in the build tree, `target_path` =
-  `expected/src/<file>.o`; `watch_patterns` = `src/**/*.c`, `src/**/*.h`,
-  `asm/dump/**/*.s`. Generated into `build/`, symlinked from the repo root
-  (gitignored).
+- `objdiff.json` is generated at configure time from the manifest, directly
+  into the **repo root** (gitignored) — objdiff requires the config at the
+  project root, and all paths inside it are project-root-relative. Modern
+  schema (verified against objdiff v3.8.0 / `config.schema.json`):
+  - `min_version: "3.0.0"`, `$schema` pointer.
+  - `options: { "arm.archVersion": "v4t" }` (ARM7TDMI; auto-detection is the
+    default but pinning is prudent for agbcc-produced objects).
+  - Per unit: `target_path: "expected/src/<file>.o"`, `base_path:
+    "build/CMakeFiles/rom.dir/src/<file>.o"`, `metadata: { source_path,
+    progress_categories }`; `build_base: true`, `build_target: false`.
+    (`target_dir`/`base_dir`/`units[].path` are deprecated — not used.)
+  - Rebuilds: objdiff invokes `<custom_make> <custom_args…> <base_path>`
+    from the project root. Since `base_path` is root-relative but ninja runs
+    in `build/`, plain `["-C","build"]` would mis-spell the target
+    (`build/build/…` pitfall). `custom_make` is therefore a 3-line wrapper,
+    `tools/objdiff-build`, that strips the leading `build/` and execs
+    `ninja -C build <target>`.
+  - `watch_patterns`: `src/**/*.c`, `src/**/*.h`, `asm/dump/**/*.s`,
+    `rom.manifest` (globset syntax, recursive forms required); the default
+    `ignore_patterns` (`build/**/*`) is kept.
 - Workflow: after any matching build, refresh the snapshot; while
   reimplementing a function, objdiff shows the per-symbol diff of your TU
-  against the last-known-matching object. Symbol matching is by name, so
-  untouched functions pair trivially and the WIP one highlights.
-- Exact schema field names to be confirmed against current objdiff docs
-  during implementation (a research pass on the objdiff repo is running;
-  its findings supersede the field spellings above).
-- **CI (optional, non-blocking)**: `objdiff-cli` progress report for
-  decomp.dev. Not part of acceptance.
+  against the last-known-matching object. Symbol matching within a unit's
+  object pair is by name (with `symbol_mappings` available for renames), and
+  unmatched symbols on either side are tolerated — so untouched functions
+  pair trivially and the WIP one highlights.
+- **CI (optional, non-blocking)**: `objdiff-cli report generate --format
+  json` for decomp.dev progress. Not part of acceptance. Known caveat:
+  `symbol_mappings` has been reported ignored by `report generate` (objdiff
+  issue #279) — verify before relying on mapped symbols in progress stats.
 
 ## Component 10: GitHub Actions CI
 
