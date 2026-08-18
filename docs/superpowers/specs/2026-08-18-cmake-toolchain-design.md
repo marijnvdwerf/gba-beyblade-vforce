@@ -33,6 +33,8 @@ Goals, in priority order:
    setup only depended on the `.c` file — a real footgun for matching work).
 4. `compile_commands.json` that works with clangd.
 5. macOS + Linux. No Windows support.
+6. CI on GitHub Actions verifying the matching build on Linux.
+7. objdiff wired up for diffing work-in-progress functions.
 
 Non-goals: tool provisioning (agbcc/binutils installation is the user's
 problem; the build only *finds* tools and fails clearly), CLion-specific
@@ -219,6 +221,72 @@ two-command sequence:
   `-I`/`-D` normally; the `Remove` list drops flags clang would reject.
 - **README** gains a short "building" section: install arm-none-eabi
   binutils, build pret/agbcc, `export AGBCC=…`, run the preset.
+
+## Component 6: GitHub Actions CI
+
+`.github/workflows/build.yml`, one job on `ubuntu-latest`:
+
+1. `apt-get install binutils-arm-none-eabi ninja-build` (iconv and cc are in
+   the base image).
+2. Build agbcc from `pret/agbcc`, cached with `actions/cache` keyed on the
+   pinned agbcc commit hash — a cache hit skips the (slow) GCC 2.x build
+   entirely. Export `AGBCC` for later steps.
+3. `cmake --preset default && cmake --build build && ctest --test-dir build
+   --output-on-failure`.
+
+Policy points:
+
+- CI is the second platform required by acceptance test 1 — Linux
+  verification stops being manual.
+- The built ROM is copyrighted content: **no step uploads `rom.gba` (or the
+  ELF) as an artifact**. CI's only outputs are pass/fail and logs.
+- The agbcc commit is pinned in the workflow (a variable at the top), not
+  `master` — matching builds must not drift because upstream moved.
+
+## Component 7: objdiff integration
+
+[objdiff](https://github.com/encounter/objdiff) diffs a *target* object (the
+expected original) against a *base* object (the current build), per unit,
+rebuilding bases automatically via `custom_make`.
+
+The repo-specific twist: there is no natural per-C-file expected object. The
+originals exist as one-function-per-file stubs under `asm/dump/`, interleaved
+with C placements in the ld script — and a stub is deleted precisely when its
+function is decompiled, so fully-matched C files have no original asm left in
+the tree. Diffing those is pointless anyway (the ROM hash already proves
+them); objdiff's value here is for **work-in-progress functions**, whose dump
+stubs are still present by definition.
+
+Design:
+
+- **`objdiff-units.txt`** (checked in, hand-maintained, small): the WIP
+  mapping. One line per active unit:
+  `src/foo.c : asm/dump/<dir>/<a>.s asm/dump/<dir>/<b>.s …` — the dump stubs
+  whose functions `foo.c` is currently reimplementing. Only files being
+  actively worked on appear here; the file is usually a handful of lines.
+- For each unit, CMake adds a **target-object rule**: assemble each listed
+  dump stub and merge them with `arm-none-eabi-ld -r` into
+  `build/expected/src/foo.c.o`. objdiff matches symbols by name across
+  objects, so the merged stub object and the C object pair up per-function;
+  unmatched symbols (already-matched functions with no remaining stub) are
+  simply not diffed.
+- **`objdiff.json`** is generated at configure time from `objdiff-units.txt`
+  by CMake (`file(GENERATE)`), with:
+  - `custom_make: "ninja"`, `custom_args: ["-C", "build"]` — ninja accepts
+    output paths as targets, so objdiff can rebuild exactly one object.
+  - per unit: `base_path` = the C object in the build tree, `target_path` =
+    `build/expected/src/foo.c.o`, `build_target: true`.
+  - `watch_patterns`: `src/**/*.c`, `src/**/*.h`, `asm/dump/**/*.s`.
+  - `build/objdiff.json` is where it lands; `objdiff.json` at the repo root
+    is a gitignored symlink created at configure time (objdiff expects it at
+    the project root).
+- **CI (optional step, non-blocking)**: `objdiff-cli report generate` for
+  progress metrics. Not part of the acceptance criteria; listed so the
+  workflow leaves room for it.
+
+Deliberately out of scope: generating expected objects for *finished* files
+from the baseline ROM + map (only becomes cleanly possible once the ld script
+is generated from a manifest — same milestone).
 
 ## Testing / acceptance
 
