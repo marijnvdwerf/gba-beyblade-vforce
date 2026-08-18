@@ -2,6 +2,7 @@
 #include <agb/memory_map.h>
 
 #include "common.h"
+#include "include_asm.h"
 #include "sound.h"
 #include "unsorted.h"
 
@@ -245,6 +246,12 @@ void Background_8049C70(void)
     sub_804A280(pInt);
     sub_80627F0();
 }
+
+INCLUDE_ASM("asm/dump/8040d18/8049ce8.s");
+INCLUDE_ASM("asm/dump/8040d18/8049de0.s");
+INCLUDE_ASM("asm/dump/8040d18/8049f58.s");
+INCLUDE_ASM("asm/dump/8040d18/8049f9c.s");
+INCLUDE_ASM("asm/dump/8040d18/8049ff8.s");
 
 #if 0
 void sub_8049CE8(UnkStructA* arg0, int arg1) {

@@ -21,6 +21,10 @@ u8 _pad4[2] = { 0 };
 u16 _unk3005DB8 = 0;
 AllocatedBlock* _keyRecordingBlock = 0;
 
+INCLUDE_ASM("asm/dump/8057b80-debug/805a6b0-nullsub_34.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805a6b4-nullsub_35.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805a6b8-updateKeyState.s");
+
 void initKeyState(void)
 {
     u8 i;
@@ -77,3 +81,14 @@ void initKeyRecording(u16 arg0)
     _keyRecordingData = _keyRecordingBlock->address;
     _isKeyRecording[0] = 1;
 }
+
+INCLUDE_ASM("asm/dump/8057b80-debug/805aab4.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805aad4.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805aae0.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805aaec.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805ab38.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805ab44.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805ab58.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805ab6c.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805abb4.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805abc0.s");

@@ -190,3 +190,25 @@ void sub_8060A60(SpriteEntry* spriteEntry)
     spriteEntry->var24 = -1;
 }
 #endif
+
+INCLUDE_ASM("asm/dump/8057b80-debug/8060a60.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8060a94.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8060b0c.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8060b38.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8060b68-LoadSpriteSheet.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8060c1c.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8060cdc.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8060d98-resizeSpriteBlock.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8060e8c.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8060f64.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/806100c.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8061030.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8061078.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/80610ec.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8061110.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8061130.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/806114c.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8061158.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8061160.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8061168.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8061184.s");

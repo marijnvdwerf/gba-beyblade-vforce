@@ -89,6 +89,8 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
 
 void sub_8059310(BGLayer* r0, int r1, int r2, int r3, int sp0, int sp4, int sp8);
 
+INCLUDE_ASM("asm/dump/8057b80-debug/8058968.s");
+
 void sub_8058A28(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgPriority, u16 sp0)
 {
     int a, b;
@@ -456,3 +458,9 @@ void ToggleLayerVisibility(u8 layer, bool8 enabled)
         }
     }
 }
+
+INCLUDE_ASM("asm/dump/8057b80-debug/8059db8.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059ddc.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059e5c.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059ebc.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/8059f20.s");

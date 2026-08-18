@@ -170,30 +170,74 @@ add_executable(rom
     data/7-7/metadata.s
     data/7-8/geometry.s
     data/7-8/metadata.s
+    src/actor.c
+    src/actorheap.c
+    src/ai.c
+    src/anim.c
+    src/animevent.c
     src/background.c
+    src/backup.c
+    src/battery.c
+    src/beyblade.c
     src/bios.c
-    src/code_8040d18.c
-    src/code_8049ce8.c
-    src/code_80506f4.c
+    src/camera.c
     src/code_8057944.c
-    src/code_80579f4.c
-    src/code_8059db8.c
-    src/code_805a6b0.c
-    src/code_805aab4.c
-    src/code_8060a60.c
-    src/code_8062e70.c
-    src/code_8064f38.c
+    src/collectable.c
+    src/collection.c
+    src/collision.c
+    src/credits.c
+    src/debug.c
+    src/dialogue.c
+    src/display.c
+    src/effects.c
+    src/envactor.c
+    src/event.c
+    src/festate.c
+    src/frontend.c
+    src/gameinit.c
+    src/gameloop.c
+    src/gamestate.c
+    src/geometry.c
+    src/hud.c
+    src/iconmenu.c
     src/irq.c
     src/keystate.c
+    src/language.c
     src/layer.c
+    src/levelhud.c
+    src/levelrow.c
+    src/levelselect.c
     src/libc.c
     src/main.c
+    src/math.c
     src/memory.c
+    src/menu.c
+    src/menuobject.c
+    src/motion.c
+    src/multiplayer.c
+    src/music.c
+    src/packet.c
+    src/palette.c
+    src/particle.c
+    src/profile.c
+    src/projectile.c
     src/ram.c
     src/ram2.c
     src/ram3.c
+    src/results.c
+    src/rider.c
+    src/riderphysics.c
+    src/riderstate.c
     src/sound.c
     src/sprite.c
+    src/spritestring.c
+    src/spritetext.c
+    src/system.c
+    src/teletype.c
+    src/text.c
+    src/trail.c
+    src/transition.c
+    src/tutorial.c
     src/strings0.c
     src/strings3.c
     src/strings4.c
