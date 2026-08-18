@@ -71,29 +71,48 @@ Deleted after migration: `scripts/compare.cmake`, `beyblade_stub`,
 
 ## Component 1: INCLUDE_ASM and the dump transformation
 
-`src/include_asm.h`:
+`src/include_asm.h`, modeled on splat's reference implementation
+(`test/basic_app/expected/include/include_asm.h`):
 
 ```c
-#define INCLUDE_ASM(path) __asm__(".include \"" path "\"")
+#ifndef INCLUDE_ASM_H
+#define INCLUDE_ASM_H
+
+#if defined(M2CTX) || defined(PERMUTER)
+/* context generators / decomp.me permuter parse the TU without the asm */
+#define INCLUDE_ASM(path)
+#else
+#define INCLUDE_ASM(path) __asm__(".text\n.include \"" path "\"")
+#endif
+
+#endif
 ```
+
+Two splat conventions adopted:
+
+- **The macro selects `.text` explicitly.** Even without
+  `-ffunction-sections` the current gas section at an arbitrary top-level
+  position isn't guaranteed to be `.text` (agbcc emits `.rodata` blocks for
+  string/const data and switches back around functions); one directive makes
+  every include position-independent, including container TUs.
+- **No-op fallback under `M2CTX`/`PERMUTER`**, so decomp.me context
+  generation and the permuter can consume TUs without the assembly.
 
 Used at top level, at the exact ROM position between C function definitions.
 GCC 2.x emits top-level `asm()` verbatim into its output `.s`, in source
-order relative to functions; without `-ffunction-sections` everything —
-functions and included dump text alike — flows into one plain `.text` in
-emission order. No section directives are needed anywhere: gas's initial
-section is `.text`, so container TUs (only includes, no C functions yet) work
-too. The driver's assembler stage resolves the `.include` via
-`-I <repo root>`.
+order relative to functions; everything — functions and included dump text
+alike — flows into one plain `.text` in emission order. The driver's
+assembler stage resolves the `.include` via `-I <repo root>`.
 
 **Dump transformation** (one-time, part of migration; the review proved
 unchanged dumps cannot be textually merged):
 
-1. Strip each dump's `.include "asm/common.inc"` line. Instead, each TU that
-   uses INCLUDE_ASM starts with `INCLUDE_ASM("asm/common.inc")` once (via a
-   dedicated `INCLUDE_ASM_PRELUDE` spelling if clearer). `common.inc` defines
-   macros; defining them once per assembled TU is required — gas macro
-   definitions are not idempotent.
+1. Make `common.inc` multiple-inclusion-safe with a gas include guard
+   (`.ifndef _COMMON_INC_GUARD` … `.endif` — the pattern splat's `macro.inc`
+   uses), instead of stripping the `.include "asm/common.inc"` line from 956
+   dumps. One-file change, and — decisively — dumps remain **individually
+   assemblable**, which the `.L`-rename pipeline (standalone `as -L` per
+   dump) and any per-dump tooling depend on.
 2. Rename every file-local `.L<n>` label (definitions and references) to a
    globally unique, information-carrying name: **`.L<ROM address>`**
    (e.g. `.L805795C`). Pipeline (validated hands-on against the real
