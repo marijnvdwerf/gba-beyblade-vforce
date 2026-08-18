@@ -7,8 +7,6 @@ set(CMAKE_USER_MAKE_RULES_OVERRIDE
 
 get_filename_component(_AGBCC_DRIVER
     "${CMAKE_CURRENT_LIST_DIR}/../tools/agbcc" ABSOLUTE)
-get_filename_component(_GBA_LINK_DRIVER
-    "${CMAKE_CURRENT_LIST_DIR}/../tools/gba-link" ABSOLUTE)
 
 set(CMAKE_C_COMPILER "${_AGBCC_DRIVER}" CACHE FILEPATH "agbcc compiler driver" FORCE)
 set(CMAKE_C_COMPILER_ID GNU)
@@ -79,8 +77,10 @@ set(CMAKE_ASM_COMPILE_OBJECT
 set(CMAKE_ASM_DEPFILE_FORMAT gcc)
 set(CMAKE_ASM_DEPENDS_USE_COMPILER TRUE)
 
+# The linker script references objects as src/foo.c.o etc., so ld must run
+# from the object directory, which mirrors the source tree.
 set(CMAKE_C_LINK_EXECUTABLE
-    "${_GBA_LINK_DRIVER} --ld=${CMAKE_LINKER} --script=${CMAKE_SOURCE_DIR}/ld_script.ld --out=<TARGET> --map=${CMAKE_BINARY_DIR}/rom.map --libgcc=${AGBCC}/lib/libgcc.a --stage=${CMAKE_BINARY_DIR}/link <LINK_FLAGS> <OBJECTS> <LINK_LIBRARIES>")
+    "cd CMakeFiles/rom.dir && ${CMAKE_LINKER} -T ${CMAKE_SOURCE_DIR}/ld_script.ld -Map ../../rom.map -o ../../<TARGET> ${AGBCC}/lib/libgcc.a")
 
 set(AGBCC_TOOLCHAIN TRUE CACHE INTERNAL "Using the agbcc GBA toolchain")
 set(AGBCC_DRIVER "${_AGBCC_DRIVER}" CACHE INTERNAL "agbcc compiler driver")

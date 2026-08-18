@@ -10,7 +10,6 @@ target_compile_options(rom PRIVATE
 set_source_files_properties(src/libc.c PROPERTIES
     COMPILE_OPTIONS "--reset-flags;-O2")
 
-target_link_options(rom PRIVATE -T "${CMAKE_SOURCE_DIR}/ld_script.ld")
 set_property(TARGET rom APPEND PROPERTY LINK_DEPENDS
     "${CMAKE_SOURCE_DIR}/ld_script.ld"
     "${AGBCC}/lib/libgcc.a")

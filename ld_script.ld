@@ -1,5 +1,4 @@
 ENTRY(Start)
-INPUT(libgcc.a)
 
 SECTIONS {
 
@@ -9,8 +8,8 @@ SECTIONS {
     ALIGN(4)
     {
         src/ram.c.o(.data);
-        libgcc.a:fp-bit.o(.bss);
-        libgcc.a:dp-bit.o(.bss);
+        *libgcc.a:fp-bit.o(.bss);
+        *libgcc.a:dp-bit.o(.bss);
         . = 0xDE0;
         _unk3000DE0 = .;
         . += 0x10;
@@ -143,18 +142,18 @@ SECTIONS {
         src/code_8062e70.c.o(.text);
         asm/arm1.s.o(.text);
         src/code_8064f38.c.o(.text);
-        libgcc.a:_call_via_rX.o(.text);
-        libgcc.a:_divdi3.o(.text);
-        libgcc.a:_divsi3.o(.text);
-        libgcc.a:_dvmd_tls.o(.text);
-        libgcc.a:_fixunssfsi.o(.text);
-        libgcc.a:_muldi3.o(.text);
-        libgcc.a:_udivsi3.o(.text);
-        libgcc.a:_umodsi3.o(.text);
-        libgcc.a:fp-bit.o(.text);
-        libgcc.a:dp-bit.o(.text);
-        libgcc.a:_lshrdi3.o(.text);
-        libgcc.a:_negdi2.o(.text);
+        *libgcc.a:_call_via_rX.o(.text);
+        *libgcc.a:_divdi3.o(.text);
+        *libgcc.a:_divsi3.o(.text);
+        *libgcc.a:_dvmd_tls.o(.text);
+        *libgcc.a:_fixunssfsi.o(.text);
+        *libgcc.a:_muldi3.o(.text);
+        *libgcc.a:_udivsi3.o(.text);
+        *libgcc.a:_umodsi3.o(.text);
+        *libgcc.a:fp-bit.o(.text);
+        *libgcc.a:dp-bit.o(.text);
+        *libgcc.a:_lshrdi3.o(.text);
+        *libgcc.a:_negdi2.o(.text);
         src/libc.c.o(.text);
     }
 
@@ -244,7 +243,7 @@ SECTIONS {
 		src/strings6.c.o(.rodata);
 		asm/data3.s.o(.rodata);
 
-        libgcc.a:_divdi3.o(.rodata);
+        *libgcc.a:_divdi3.o(.rodata);
 		asm/arm2.s.o(.text);
     } =0
 
