@@ -433,9 +433,18 @@ objects. Schema per objdiff v3.8.0 (`config.schema.json`, researched):
     iff (a) the whole derived `.s` file exists under `--asmpath`, (b) a
     per-function `.s` exists under `--nonmatchingspath`, or (c) the map
     contains a `<symbol>.NON_MATCHING` marker symbol.
-  - Pre-migration, signal (a) works as-is: dump objects' source `.s` files
-    exist, so dump functions count unmatched (verified: 197/1160 functions,
-    64.8% code matched today).
+  - Pre-migration, signal (a) works for dumps (their `.s` files exist, so
+    they correctly count unmatched), but **overstates matched code**:
+    "matched" is the fall-through, so `data/*/metadata.s` objects placed in
+    `.text` (whose lookup path reverse-maps outside `asm/`), libgcc members,
+    and anything else without a discoverable `.s` all count as matched. The
+    measured "64.8% code matched" is an upper bound, not a baseline — do not
+    quote it as progress.
+  - Post-migration the markers fix this automatically and completely: since
+    `data/*/metadata.s` and the other standalone `.s` files also define
+    their symbols via `common.inc`'s `global` macro, they receive
+    `.NON_MATCHING` markers too and count unmatched-until-converted. libgcc
+    stays matched (original object code; nothing to decompile).
   - **Post-migration the path signal disappears** (the map attributes
     everything to `src/*.c.o`), so the design adopts signal (c): the
     `global` macro in `common.inc` (which every dump already uses to define
