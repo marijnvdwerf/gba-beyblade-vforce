@@ -32,32 +32,6 @@ add_executable(rom
     asm/dataA.s
     asm/dataB.s
     asm/dataC.s
-    asm/dump/804a388-tutorial/80505a4-mainLoop.s
-    asm/dump/804a388-tutorial/8050694-onVBlank.s
-    asm/dump/804a388-tutorial/80506b0-nullsub_37.s
-    asm/dump/804a388-tutorial/80506b4-onTimer1Overflow.s
-    asm/dump/804a388-tutorial/80506c0.s
-    asm/dump/80578e0/80578e0.s
-    asm/dump/80578e0/805791c.s
-    asm/dump/80578e0/8057930.s
-    asm/dump/80578e0/8057984.s
-    asm/dump/80578e0/80579a8-InitStuff_SetDispStat.s
-    asm/dump/8057b80-debug/8058c74.s
-    asm/dump/8057b80-debug/8059a68-SetBGOffset.s
-    asm/dump/8057b80-debug/8059d04-ToggleLayerVisibility.s
-    asm/dump/8057b80-debug/805a350-initBlockVariables.s
-    asm/dump/8057b80-debug/805a3a8-fastAllocate.s
-    asm/dump/8057b80-debug/805a420-slowAllocate.s
-    asm/dump/8057b80-debug/805a498-deallocateBlock.s
-    asm/dump/8057b80-debug/805a614-printTotalWramUsage.s
-    asm/dump/8057b80-debug/805a664-printTotalExramUsage.s
-    asm/dump/8057b80-debug/805a86c-initKeyState.s
-    asm/dump/8057b80-debug/805a914.s
-    asm/dump/8057b80-debug/805aa50-initKeyRecording.s
-    asm/dump/8057b80-debug/80604d4.s
-    asm/dump/8057b80-debug/80608cc.s
-    asm/dump/8057b80-debug/80609c4.s
-    asm/dump/8057b80-debug/80609e0-allocSprite.s
     data/1-1/geometry.s
     data/1-1/metadata.s
     data/1-2/geometry.s
