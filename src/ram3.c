@@ -43,5 +43,5 @@ u8 _unk3005E6C[8] = { 0 };
 void* _unk3005E74 = NULL;
 u8 _unk3005E78[8] = { 0 };
 u8 _unk3005E80[24] = { 0 };
-void* _unk3005E98 = NULL;
+unk32 _unk3005E98 = 0;
 void* _unk_3005E9C = NULL;

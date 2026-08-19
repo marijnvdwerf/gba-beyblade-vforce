@@ -6,7 +6,9 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805e8b0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e8d8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805eadc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805eb00.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805ebc8-nullsub_12.s");
+void nullsub_12(void)
+{
+}
 INCLUDE_ASM("asm/dump/8057b80-debug/805ebcc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ed60.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ee78.s");

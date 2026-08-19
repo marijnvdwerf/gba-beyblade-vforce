@@ -1,4 +1,7 @@
+#include <agb/types.h>
+
 #include "include_asm.h"
+#include "unsorted.h"
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8057c58-actor_8057C58.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8057d88-renderActor.s");
@@ -21,7 +24,10 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8058478.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80584b8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80585c8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80585e8.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/80585f0-actor_80585F0.s");
+void actor_80585F0(UnkActor* arg0, unk8 arg1)
+{
+    arg0->unk8D = arg1;
+}
 INCLUDE_ASM("asm/dump/8057b80-debug/80585f8-actor_80585F8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058614-rider_8058614.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058624-ActorSetSpriteOffset.s");
@@ -36,7 +42,9 @@ INCLUDE_ASM("asm/dump/8057b80-debug/80588a8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80588dc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058914-nullsub_49.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058918-nullsub_50.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805891c-nullsub_11.s");
+void nullsub_11(void)
+{
+}
 INCLUDE_ASM("asm/dump/8057b80-debug/8058920-nullsub_51.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058924.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805893c.s");

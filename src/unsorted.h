@@ -13,7 +13,7 @@ void sub_805791C(void);
 void initBattery(void);
 void sub_8063A50(void);
 void sub_8063A68(int, int);
-void sub_8063A7C(int);
+void sub_8063A7C(unk32);
 void initMultiPlayer(int, int, int);
 void allocateActorHeaps(void);
 void SpriteVRamFree(int, int);
@@ -34,6 +34,12 @@ void sub_80512AC(void);
 int sub_8051780(int);
 
 void allocateRenderCode(RenderData*, int);
+
+extern Unk3000650 _unk3000650;
+extern unk32 _unk3000C00;
+extern unk32 _unk3000C10[2];
+extern unk32 _unk3000E30[3];
+extern unk32 _unk3005E98;
 
 void sub_805AC28(int, int, int, u16);
 

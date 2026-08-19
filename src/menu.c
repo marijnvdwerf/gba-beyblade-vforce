@@ -1,4 +1,7 @@
+#include <agb/types.h>
+
 #include "include_asm.h"
+#include "unsorted.h"
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805ac28.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ac5c.s");
@@ -16,4 +19,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805b13c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805b1a0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805b1e0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805b210.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805b240.s");
+unk32 sub_805B240(UnkMenu* arg0)
+{
+    return arg0->unk24;
+}

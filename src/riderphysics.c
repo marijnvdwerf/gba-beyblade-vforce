@@ -13,7 +13,9 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804d110.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d710.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d754.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d8d8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804da44-nullsub_5.s");
+void nullsub_5(void)
+{
+}
 INCLUDE_ASM("asm/dump/804a388-tutorial/804da48.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804daa0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804db94-rider_vs_rider_collision_804DB94.s");
