@@ -48,6 +48,23 @@ typedef struct UnkSpriteText {
     unk8 unk2A;
 } UnkSpriteText;
 
+typedef struct LevelState {
+    unk16 unk0;
+    unk16 unk2;
+    s32 unk4;
+} LevelState;
+
+typedef struct LevelDescription {
+    unk8 unk0[8];
+    s32 unk8;
+    unk8 unkC[0x10];
+    unk8 unk1C;
+    unk8 unk1D[3];
+    s32 unk20;
+    s32 unk24;
+    s32 unk28;
+} LevelDescription;
+
 #define true 1
 #define false 0
 
