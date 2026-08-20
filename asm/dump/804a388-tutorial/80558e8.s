@@ -13,7 +13,7 @@ sub_80558E8:
 .L80558F8:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 .L80558FC:
 	ldr	r2, .L8055900
 	b	.L8055906

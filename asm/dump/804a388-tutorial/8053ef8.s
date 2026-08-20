@@ -12,7 +12,7 @@ sub_8053EF8:
 .L8053F06:
 	.align	2, 0
 .L8053F08:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	thumb_func_end sub_8053EF8
 
 .align 2, 0 @ Don't pad with nop.

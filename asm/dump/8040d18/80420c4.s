@@ -179,28 +179,28 @@ sub_80420C4:
 .L804223C:
 	.4byte	0xfffffa00
 	.4byte	0xfffff400
-	.4byte	0x80688b8
-	.4byte	0x300007c
+	.4byte	FontStyle_80688B8
+	.4byte	_unk300007C
 	.4byte	teletypeDefaultUserCodeHandler + 1
-	.4byte	0x3000ee8
-	.4byte	0x3000080
-	.4byte	0x3000eec
-	.4byte	0x30000d4
-	.4byte	0x30000d5
-	.4byte	0x30000d6
-	.4byte	0x30000bc
-	.4byte	0x30000c0
-	.4byte	0x30000c4
-	.4byte	0x30000c8
+	.4byte	_unk3000EE8
+	.4byte	_unk3000080
+	.4byte	_unk3000EEC
+	.4byte	_unk30000D4
+	.4byte	_unk30000D5
+	.4byte	_unk30000D6
+	.4byte	_unk30000BC
+	.4byte	_unk30000C0
+	.4byte	_unk30000C4
+	.4byte	_unk30000C8
 	.4byte	0x4000048
 	.4byte	0x1f3f
 	.4byte	0x400004a
 	.4byte	0x4000046
 	.4byte	0x60a0
-	.4byte	0x30000d8
-	.4byte	0x821cb80
-	.4byte	0x30000cc
-	.4byte	0x30000d0
+	.4byte	_unk30000D8
+	.4byte	SpriteSheet_821CB80
+	.4byte	_unk30000CC
+	.4byte	_unk30000D0
 .L804229C:
 	ldr	r4, .L80423CC
 	ldrb	r0, [r4]
@@ -358,21 +358,21 @@ sub_80420C4:
 .L80423CC:
 	.align	2, 0
 
-	.4byte	0x30000d6
+	.4byte	_unk30000D6
 	.4byte	0xf1ff
-	.4byte	0x30000bc
-	.4byte	0x30000c0
-	.4byte	0x30000c4
-	.4byte	0x30000c8
+	.4byte	_unk30000BC
+	.4byte	_unk30000C0
+	.4byte	_unk30000C4
+	.4byte	_unk30000C8
 	.4byte	0x4000044
 	.4byte	0x4000046
-	.4byte	0x3000eec
-	.4byte	0x30000d0
+	.4byte	_unk3000EEC
+	.4byte	_unk30000D0
 	.4byte	0xf0ff
-	.4byte	0x30000cc
+	.4byte	_unk30000CC
 	.4byte	0xffffc3ff
-	.4byte	0x30000d8
-	.4byte	0x300007c
+	.4byte	_unk30000D8
+	.4byte	_unk300007C
 .L8042408:
 	ldr	r1, [r4]
 	mov	r0, #0xa0
@@ -385,7 +385,7 @@ sub_80420C4:
 .L8042418:
 	.align	2, 0
 
-	.4byte	0x3000080
+	.4byte	_unk3000080
 .L804241C:
 	ldr	r0, .L8042434
 	ldr	r0, [r0]
@@ -399,9 +399,9 @@ sub_80420C4:
 .L8042434:
 	.align	2, 0
 
-	.4byte	0x300007c
-	.4byte	0x30000d8
-	.4byte	0x3000080
+	.4byte	_unk300007C
+	.4byte	_unk30000D8
+	.4byte	_unk3000080
 .L8042440:
 	ldr	r1, .L8042464
 	mov	r0, #0x9f
@@ -428,8 +428,8 @@ sub_80420C4:
 
 	.4byte	0x4000050
 	.4byte	0x4000054
-	.4byte	0x30000cc
-	.4byte	0x30000d0
+	.4byte	_unk30000CC
+	.4byte	_unk30000D0
 .L8042474:
 	ldr	r5, .L804253C
 	ldr	r0, [r5]
@@ -531,15 +531,15 @@ sub_80420C4:
 .L804253A:
 	.align	2, 0
 .L804253C:
-	.4byte	0x300007c
-	.4byte	0x30000d4
-	.4byte	0x30000c4
-	.4byte	0x30000c8
-	.4byte	0x3005da0
-	.4byte	0x30000d5
-	.4byte	0x30000c0
-	.4byte	0x30000d0
-	.4byte	0x30000bc
+	.4byte	_unk300007C
+	.4byte	_unk30000D4
+	.4byte	_unk30000C4
+	.4byte	_unk30000C8
+	.4byte	_unk3005DA0
+	.4byte	_unk30000D5
+	.4byte	_unk30000C0
+	.4byte	_unk30000D0
+	.4byte	_unk30000BC
 .L8042560:
 	mov	r0, #0x8
 	bl	sub_80490F8

@@ -177,7 +177,7 @@ sub_804DDF8:
 .L804DF60:
 	.align	2, 0
 
-	.4byte	0x874cc3c
+	.4byte	Unk_874CC3C
 .L804DF64:
 	add	r0, r7, #0
 	add	r0, r0, #0x88

@@ -368,15 +368,15 @@ initLevelEnvironmentActors:
 	.align	2, 0
 .L8054A4C:
 	.4byte	0xfffffd98
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xc74
 	.4byte	sub_80550B8 + 1
 	.4byte	sub_8056B54 + 1
 	.4byte	_return_false + 1
 	.4byte	0xd679
 	.4byte	0xf4fa
-	.4byte	0x8729738
-	.4byte	0x807d970
+	.4byte	Str_8729738
+	.4byte	__fastMemoryClearARM
 	.4byte	0xaf90
 	.4byte	0x434
 	.4byte	convert3DCoordsto2DCoords + 1
@@ -413,7 +413,7 @@ initLevelEnvironmentActors:
 .L8054AB8:
 	.4byte	0xf70c
 	.4byte	0x434
-	.4byte	0x3000fb0
+	.4byte	_gameData
 .L8054AC4:
 	mov	r6, #0x2
 	b	.L8054ACA
@@ -547,7 +547,7 @@ initLevelEnvironmentActors:
 .L8054BC8:
 	.4byte	0xfb93
 	.4byte	0xf4fa
-	.4byte	0x86faeac
+	.4byte	SpriteSheet_86FAEAC
 	.4byte	0xd679
 	.4byte	0xbf84
 .L8054BDC:

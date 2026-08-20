@@ -112,8 +112,8 @@ sub_8041188:
 .L8041280:
 	.align	2, 0
 
-	.4byte	0x806e97c
-	.4byte	0x86fcf54
+	.4byte	_806E97C
+	.4byte	Str_86FCF54
 	thumb_func_end sub_8041188
 
 .align 2, 0 @ Don't pad with nop.

@@ -15,7 +15,7 @@ sub_804A504:
 .L804A518:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	thumb_func_end sub_804A504
 
 .align 2, 0 @ Don't pad with nop.

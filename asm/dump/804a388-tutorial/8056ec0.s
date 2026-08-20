@@ -20,7 +20,7 @@ sub_8056EC0:
 .L8056EE0:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x65c
 	.4byte	0x12f4
 .L8056EEC:
@@ -93,8 +93,8 @@ sub_8056EC0:
 .L8056F72:
 	.align	2, 0
 .L8056F74:
-	.4byte	0x8729838
-	.4byte	0x807d974
+	.4byte	Str_8729838
+	.4byte	__fastMemoryCopyARM
 	thumb_func_end sub_8056EC0
 
 .align 2, 0 @ Don't pad with nop.

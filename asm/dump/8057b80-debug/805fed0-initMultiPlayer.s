@@ -125,10 +125,10 @@ initMultiPlayer:
 .L805FFC6:
 	.align	2, 0
 .L805FFC8:
-	.4byte	0x8755834
-	.4byte	0x8755884
-	.4byte	0x3005dc4
-	.4byte	0x807d970
+	.4byte	Str_8755834
+	.4byte	Str_8755884
+	.4byte	_unk3005DC4
+	.4byte	__fastMemoryClearARM
 	.4byte	0x4000134
 	.4byte	0x4000128
 	.4byte	0x359e4

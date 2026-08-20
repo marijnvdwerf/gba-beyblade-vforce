@@ -158,9 +158,9 @@ initProjectileSystem:
 .L8055234:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1084
-	.4byte	0x86fbf94
+	.4byte	SpriteSheet_86FBF94
 	.4byte	0x434
 	.4byte	0x10b8
 	.4byte	0x10cc

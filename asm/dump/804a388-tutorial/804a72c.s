@@ -12,7 +12,7 @@ sub_804A72C:
 .L804A73A:
 	.align	2, 0
 .L804A73C:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x13fc
 	thumb_func_end sub_804A72C
 

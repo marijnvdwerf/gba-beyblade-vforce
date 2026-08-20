@@ -50,8 +50,8 @@ sub_805ABC0:
 .L805AC16:
 	.align	2, 0
 .L805AC18:
-	.4byte	0x3005da0
-	.4byte	0x3000e30
+	.4byte	_unk3005DA0
+	.4byte	_unk3000E30
 .L805AC20:
 	mov	r0, #0x0
 .L805AC22:

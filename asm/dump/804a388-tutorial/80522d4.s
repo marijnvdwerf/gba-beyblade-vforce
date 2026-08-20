@@ -96,7 +96,7 @@ sub_80522D4:
 .L8052392:
 	.align	2, 0
 .L8052394:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xb53
 	.4byte	0xffff8000
 .L80523A0:
@@ -200,7 +200,7 @@ sub_80522D4:
 .L805244E:
 	.align	2, 0
 .L8052450:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xb53
 	.4byte	0x1ff
 	.4byte	0x3fe

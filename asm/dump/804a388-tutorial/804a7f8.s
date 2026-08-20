@@ -22,7 +22,7 @@ sub_804A7F8:
 .L804A81C:
 	.align	2, 0
 
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 	thumb_func_end sub_804A7F8
 
 .align 2, 0 @ Don't pad with nop.

@@ -41,8 +41,8 @@ resizeSpriteBlock:
 .L8060DE0:
 	.align	2, 0
 
-	.4byte	0x3005df4
-	.4byte	0x8755b0c
+	.4byte	_spritesFree
+	.4byte	Str_8755B0C
 .L8060DE8:
 	ldr	r1, .L8060E4C
 	ldr	r3, [r1]
@@ -99,8 +99,8 @@ resizeSpriteBlock:
 .L8060E4C:
 	.align	2, 0
 
-	.4byte	0x3005dec
-	.4byte	0x3005de4
+	.4byte	_spritesLeft
+	.4byte	_unk3005DE4
 .L8060E54:
 	add	r0, r5, #0
 	add	r2, r3, #0
@@ -128,7 +128,7 @@ resizeSpriteBlock:
 .L8060E86:
 	.align	2, 0
 .L8060E88:
-	.4byte	0x8755b28
+	.4byte	Str_8755B28
 	thumb_func_end resizeSpriteBlock
 
 .align 2, 0 @ Don't pad with nop.

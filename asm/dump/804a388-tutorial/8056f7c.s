@@ -20,8 +20,8 @@ sub_8056F7C:
 .L8056F9E:
 	.align	2, 0
 .L8056FA0:
-	.4byte	0x3000fb0
-	.4byte	0x807d974
+	.4byte	_gameData
+	.4byte	__fastMemoryCopyARM
 	.4byte	0x13f8
 	thumb_func_end sub_8056F7C
 

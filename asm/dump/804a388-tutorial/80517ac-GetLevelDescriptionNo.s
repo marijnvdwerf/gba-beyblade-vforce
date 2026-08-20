@@ -29,8 +29,8 @@ GetLevelDescriptionNo:
 .L80517DC:
 	.align	2, 0
 
-	.4byte	0x8075b4c
-	.4byte	0x3000f48
+	.4byte	LevelDescriptions
+	.4byte	_currentGameState
 	.4byte	0x6c4
 	thumb_func_end GetLevelDescriptionNo
 

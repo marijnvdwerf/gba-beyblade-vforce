@@ -120,11 +120,11 @@ sub_804F37C:
 .L804F462:
 	.align	2, 0
 .L804F464:
-	.4byte	0x8225414
+	.4byte	SpriteSheet_8225414
 	.4byte	0xffffe000
-	.4byte	0x82266b4
-	.4byte	0x8227954
-	.4byte	0x8227c24
+	.4byte	SpriteSheet_82266B4
+	.4byte	SpriteSheet_8227954
+	.4byte	SpriteSheet_8227C24
 	thumb_func_end sub_804F37C
 
 .align 2, 0 @ Don't pad with nop.

@@ -17,7 +17,7 @@ sub_8063190:
 .L80631A8:
 	.align	2, 0
 
-	.4byte	0x3005e68
+	.4byte	_actorsHeapPtr
 .L80631AC:
 	mov	r0, #0x0
 .L80631AE:

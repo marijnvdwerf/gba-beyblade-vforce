@@ -82,13 +82,13 @@ sub_8046814:
 .L80468B4:
 	.align	2, 0
 
-	.4byte	0x30004a4
-	.4byte	0x823bf04
+	.4byte	_unk30004A4
+	.4byte	SpriteSheet_823BF04
 	.4byte	0xffff0000
-	.4byte	0x30004a8
-	.4byte	0x30004ac
-	.4byte	0x30004b0
-	.4byte	0x8069108
+	.4byte	_unk30004A8
+	.4byte	_unk30004AC
+	.4byte	_unk30004B0
+	.4byte	_8069108
 .L80468D0:
 	mov	r1, #0x96
 	lsl	r1, r1, #0x3
@@ -111,8 +111,8 @@ sub_8046814:
 .L80468F6:
 	.align	2, 0
 .L80468F8:
-	.4byte	0x30004a4
-	.4byte	0x30004a8
+	.4byte	_unk30004A4
+	.4byte	_unk30004A8
 .L8046900:
 	ldr	r5, .L8046970
 	ldr	r0, [r5]
@@ -170,11 +170,11 @@ sub_8046814:
 .L804696E:
 	.align	2, 0
 .L8046970:
-	.4byte	0x30004a4
-	.4byte	0x30004ac
-	.4byte	0x874cc3c
-	.4byte	0x30004a8
-	.4byte	0x30004b0
+	.4byte	_unk30004A4
+	.4byte	_unk30004AC
+	.4byte	Unk_874CC3C
+	.4byte	_unk30004A8
+	.4byte	_unk30004B0
 .L8046984:
 	ldr	r5, .L80469E8
 	mov	r0, #0x20
@@ -226,8 +226,8 @@ sub_8046814:
 .L80469E6:
 	.align	2, 0
 .L80469E8:
-	.4byte	0x3005da0
-	.4byte	0x3000648
+	.4byte	_unk3005DA0
+	.4byte	_unk3000648
 	.4byte	0x4b4
 .L80469F4:
 	mov	r0, #0x18

@@ -11,7 +11,7 @@ sub_804A364:
 .L804A372:
 	.align	2, 0
 .L804A374:
-	.4byte	0x3000c00
+	.4byte	_unk3000C00
 	thumb_func_end sub_804A364
 
 .align 2, 0 @ Don't pad with nop.

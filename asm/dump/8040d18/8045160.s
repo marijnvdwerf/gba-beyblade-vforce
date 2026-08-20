@@ -144,23 +144,23 @@ sub_8045160:
 .L8045286:
 	.align	2, 0
 .L8045288:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a7
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1618
 	.4byte	0x161a
-	.4byte	0x30002f4
-	.4byte	0x30002f8
-	.4byte	0x3000368
-	.4byte	0x30002fc
-	.4byte	0x3000300
-	.4byte	0x8243874
-	.4byte	0x3000308
-	.4byte	0x82b05ec
-	.4byte	0x8067ae0
-	.4byte	0x806db8c
-	.4byte	0x3000338
-	.4byte	0x86fd470
+	.4byte	_unk30002F4
+	.4byte	_unk30002F8
+	.4byte	_unk3000368
+	.4byte	_unk30002FC
+	.4byte	_unk3000300
+	.4byte	SpriteSheet_8243874
+	.4byte	_unk3000308
+	.4byte	SpriteSheet_82B05EC
+	.4byte	ShadowFontMeta
+	.4byte	_806DB8C
+	.4byte	_unk3000338
+	.4byte	Str_86FD470
 .L80452CC:
 	ldr	r0, .L80452E8
 	bl	sub_8061204
@@ -175,9 +175,9 @@ sub_8045160:
 .L80452E6:
 	.align	2, 0
 .L80452E8:
-	.4byte	0x3000338
-	.4byte	0x3000308
-	.4byte	0x30002f4
+	.4byte	_unk3000338
+	.4byte	_unk3000308
+	.4byte	_unk30002F4
 .L80452F4:
 	ldr	r0, .L8045378
 	ldr	r1, [r0]
@@ -244,13 +244,13 @@ sub_8045160:
 .L8045378:
 	.align	2, 0
 
-	.4byte	0x3000308
-	.4byte	0x3000338
-	.4byte	0x30002f4
-	.4byte	0x30002f8
-	.4byte	0x3000368
-	.4byte	0x30002fc
-	.4byte	0x3000300
+	.4byte	_unk3000308
+	.4byte	_unk3000338
+	.4byte	_unk30002F4
+	.4byte	_unk30002F8
+	.4byte	_unk3000368
+	.4byte	_unk30002FC
+	.4byte	_unk3000300
 .L8045394:
 	ldr	r1, .L80453C8
 	mov	r0, #0x1
@@ -280,10 +280,10 @@ sub_8045160:
 .L80453C6:
 	.align	2, 0
 .L80453C8:
-	.4byte	0x3005da0
-	.4byte	0x30002f8
-	.4byte	0x3000368
-	.4byte	0x30002fc
+	.4byte	_unk3005DA0
+	.4byte	_unk30002F8
+	.4byte	_unk3000368
+	.4byte	_unk30002FC
 	thumb_func_end sub_8045160
 
 .align 2, 0 @ Don't pad with nop.

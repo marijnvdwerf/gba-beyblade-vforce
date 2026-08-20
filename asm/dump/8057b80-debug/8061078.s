@@ -19,7 +19,7 @@ sub_8061078:
 .L8061094:
 	.align	2, 0
 
-	.4byte	0x3005de4
+	.4byte	_unk3005DE4
 .L8061098:
 	ldr	r1, .L80610D0
 	ldr	r0, [r4, #0x4]
@@ -53,7 +53,7 @@ sub_8061078:
 .L80610CE:
 	.align	2, 0
 .L80610D0:
-	.4byte	0x3005de4
+	.4byte	_unk3005DE4
 .L80610D4:
 	ldr	r0, [r1, #0x4]
 	cmp	r0, #0

@@ -61,7 +61,7 @@ closeGame:
 .L8053D42:
 	.align	2, 0
 .L8053D44:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x92c
 	.4byte	0x8a8
 	.4byte	0x65c

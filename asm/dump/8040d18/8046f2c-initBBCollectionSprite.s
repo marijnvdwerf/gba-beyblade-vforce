@@ -81,8 +81,8 @@ initBBCollectionSprite:
 .L8046FCE:
 	.align	2, 0
 .L8046FD0:
-	.4byte	0x823c2c8
-	.4byte	0x807d974
+	.4byte	SpriteSheet_823C2C8
+	.4byte	__fastMemoryCopyARM
 	.4byte	0x5000200
 .L8046FDC:
 	ldr	r1, .L804702C
@@ -127,9 +127,9 @@ initBBCollectionSprite:
 .L804702A:
 	.align	2, 0
 .L804702C:
-	.4byte	0x824f010
-	.4byte	0x807d974
-	.4byte	0x825105c
+	.4byte	SpriteSheet_824F010
+	.4byte	__fastMemoryCopyARM
+	.4byte	Pal_825105C
 	.4byte	0x5000200
 	thumb_func_end initBBCollectionSprite
 

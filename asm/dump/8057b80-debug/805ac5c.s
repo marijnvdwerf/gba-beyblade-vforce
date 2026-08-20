@@ -8,7 +8,7 @@ sub_805AC5C:
 .L805AC62:
 	.align	2, 0
 .L805AC64:
-	.4byte	0x3005dc0
+	.4byte	_unk3005DC0
 	thumb_func_end sub_805AC5C
 
 .align 2, 0 @ Don't pad with nop.

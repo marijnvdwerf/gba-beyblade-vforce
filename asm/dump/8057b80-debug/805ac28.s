@@ -29,7 +29,7 @@ sub_805AC28:
 .L805AC58:
 	.align	2, 0
 
-	.4byte	0x8755348
+	.4byte	Str_8755348
 	thumb_func_end sub_805AC28
 
 .align 2, 0 @ Don't pad with nop.

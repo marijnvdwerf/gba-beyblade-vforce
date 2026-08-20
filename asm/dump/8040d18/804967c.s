@@ -93,10 +93,10 @@ sub_804967C:
 .L804972E:
 	.align	2, 0
 .L8049730:
-	.4byte	0x3000650
+	.4byte	_unk3000650
 	.4byte	0x424
 	.4byte	0x464
-	.4byte	0x8069fc8
+	.4byte	_8069FC8
 .L8049740:
 	add	r1, r5, #0
 	add	r1, r1, #0xb4
@@ -175,7 +175,7 @@ sub_804967C:
 .L80497D8:
 	.align	2, 0
 
-	.4byte	0x3000650
+	.4byte	_unk3000650
 	.4byte	0x424
 .L80497E0:
 	ldr	r0, [r4, #0x8]
@@ -293,8 +293,8 @@ sub_804967C:
 .L80498D0:
 	.align	2, 0
 
-	.4byte	0x3000a78
-	.4byte	0x3000650
+	.4byte	_unk3000A78
+	.4byte	_unk3000650
 	thumb_func_end sub_804967C
 
 .align 2, 0 @ Don't pad with nop.

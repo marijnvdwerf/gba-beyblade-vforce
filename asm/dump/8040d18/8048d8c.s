@@ -119,20 +119,20 @@ sub_8048D8C:
 .L8048E78:
 	.align	2, 0
 
-	.4byte	0x3000644
-	.4byte	0x3000f48
+	.4byte	_unk3000644
+	.4byte	_currentGameState
 	.4byte	0x6ea
-	.4byte	0x807d974
+	.4byte	__fastMemoryCopyARM
 	.4byte	0x5000200
-	.4byte	0x3000600
-	.4byte	0x3000604
-	.4byte	0x3000640
-	.4byte	0x3000608
-	.4byte	0x300060c
-	.4byte	0x3000610
-	.4byte	0x82b05ec
-	.4byte	0x8067ae0
-	.4byte	0x806e650
+	.4byte	_unk3000600
+	.4byte	_unk3000604
+	.4byte	_unk3000640
+	.4byte	_unk3000608
+	.4byte	_unk300060C
+	.4byte	_unk3000610
+	.4byte	SpriteSheet_82B05EC
+	.4byte	ShadowFontMeta
+	.4byte	_806E650
 .L8048EB0:
 	ldr	r0, .L8048EC4
 	bl	sub_8061204
@@ -145,8 +145,8 @@ sub_8048D8C:
 .L8048EC4:
 	.align	2, 0
 
-	.4byte	0x3000610
-	.4byte	0x3000600
+	.4byte	_unk3000610
+	.4byte	_unk3000600
 .L8048ECC:
 	ldr	r5, .L8048F28
 	ldr	r4, [r5]
@@ -193,12 +193,12 @@ sub_8048D8C:
 .L8048F26:
 	.align	2, 0
 .L8048F28:
-	.4byte	0x3000610
-	.4byte	0x3000600
-	.4byte	0x3000604
-	.4byte	0x3000640
-	.4byte	0x3000608
-	.4byte	0x300060c
+	.4byte	_unk3000610
+	.4byte	_unk3000600
+	.4byte	_unk3000604
+	.4byte	_unk3000640
+	.4byte	_unk3000608
+	.4byte	_unk300060C
 .L8048F40:
 	ldr	r1, .L8048F70
 	mov	r0, #0x1
@@ -226,10 +226,10 @@ sub_8048D8C:
 .L8048F6E:
 	.align	2, 0
 .L8048F70:
-	.4byte	0x3005da0
-	.4byte	0x3000604
-	.4byte	0x3000640
-	.4byte	0x3000608
+	.4byte	_unk3005DA0
+	.4byte	_unk3000604
+	.4byte	_unk3000640
+	.4byte	_unk3000608
 	thumb_func_end sub_8048D8C
 
 .align 2, 0 @ Don't pad with nop.

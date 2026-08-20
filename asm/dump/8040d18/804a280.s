@@ -53,8 +53,8 @@ sub_804A280:
 .L804A2E0:
 	.align	2, 0
 
-	.4byte	0x8069fc8
-	.4byte	0x3000fb0
+	.4byte	_8069FC8
+	.4byte	_gameData
 	.4byte	0xc26
 	.4byte	0x586
 	thumb_func_end sub_804A280

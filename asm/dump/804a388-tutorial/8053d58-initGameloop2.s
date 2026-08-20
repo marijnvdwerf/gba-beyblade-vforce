@@ -71,7 +71,7 @@ initGameloop2:
 .L8053DFC:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xb53
 	.4byte	0xc6e
 	.4byte	0x163c

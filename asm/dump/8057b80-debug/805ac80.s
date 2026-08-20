@@ -19,7 +19,7 @@ sub_805AC80:
 .L805AC9C:
 	.align	2, 0
 
-	.4byte	0x3000d30
+	.4byte	_unk3000D30
 .L805ACA0:
 	strb	r1, [r3]
 	add	r0, r0, #0x1

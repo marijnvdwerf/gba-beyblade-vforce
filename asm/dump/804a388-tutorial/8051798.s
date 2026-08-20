@@ -11,7 +11,7 @@ sub_8051798:
 .L80517A4:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6b4
 	thumb_func_end sub_8051798
 

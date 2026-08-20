@@ -89,14 +89,14 @@ sub_80461D8:
 .L8046282:
 	.align	2, 0
 .L8046284:
-	.4byte	0x3000464
-	.4byte	0x823bf04
+	.4byte	_unk3000464
+	.4byte	SpriteSheet_823BF04
 	.4byte	0xffff0000
-	.4byte	0x3000468
-	.4byte	0x300046c
-	.4byte	0x3000470
-	.4byte	0x8069514
-	.4byte	0x3000f48
+	.4byte	_unk3000468
+	.4byte	_unk300046C
+	.4byte	_unk3000470
+	.4byte	_8069514
+	.4byte	_currentGameState
 	.4byte	0xc68
 .L80462A8:
 	mov	r4, #0x96
@@ -120,8 +120,8 @@ sub_80461D8:
 .L80462CE:
 	.align	2, 0
 .L80462D0:
-	.4byte	0x3000464
-	.4byte	0x3000468
+	.4byte	_unk3000464
+	.4byte	_unk3000468
 .L80462D8:
 	ldr	r5, .L8046364
 	ldr	r0, [r5]
@@ -192,12 +192,12 @@ sub_80461D8:
 .L8046362:
 	.align	2, 0
 .L8046364:
-	.4byte	0x3000464
-	.4byte	0x300046c
-	.4byte	0x874cc3c
-	.4byte	0x3000468
-	.4byte	0x3000470
-	.4byte	0x3005da0
+	.4byte	_unk3000464
+	.4byte	_unk300046C
+	.4byte	Unk_874CC3C
+	.4byte	_unk3000468
+	.4byte	_unk3000470
+	.4byte	_unk3005DA0
 .L804637C:
 	add	r0, r4, #0
 	bl	sub_8050E80
@@ -232,10 +232,10 @@ sub_80461D8:
 .L80463BA:
 	.align	2, 0
 .L80463BC:
-	.4byte	0x3005da0
-	.4byte	0x300046c
+	.4byte	_unk3005DA0
+	.4byte	_unk300046C
 	.4byte	0xffff0000
-	.4byte	0x3000470
+	.4byte	_unk3000470
 	.4byte	0x4b4
 .L80463D0:
 	ldr	r0, .L80463DC
@@ -247,7 +247,7 @@ sub_80461D8:
 .L80463DC:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0xc68
 .L80463E4:
 	ldr	r0, .L8046418
@@ -279,9 +279,9 @@ sub_80461D8:
 .L8046418:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0xc68
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 	thumb_func_end sub_80461D8
 
 .align 2, 0 @ Don't pad with nop.

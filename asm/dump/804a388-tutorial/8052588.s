@@ -99,11 +99,11 @@ sub_8052588:
 .L8052646:
 	.align	2, 0
 .L8052648:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x153c
 	.4byte	0x434
 	.4byte	0x6012000
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 .L805265C:
 	ldr	r2, [r7, #0xc]
 	cmp	r9, r2
@@ -157,7 +157,7 @@ sub_8052588:
 .L80526BE:
 	.align	2, 0
 .L80526C0:
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 	.4byte	0x6012000
 	thumb_func_end sub_8052588
 

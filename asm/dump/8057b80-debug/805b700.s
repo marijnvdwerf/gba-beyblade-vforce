@@ -86,7 +86,7 @@ sub_805B700:
 .L805B7A2:
 	.align	2, 0
 .L805B7A4:
-	.4byte	0x3000d90
+	.4byte	_unk3000D90
 .L805B7A8:
 	add	r0, r5, #0
 	mov	r1, #0xa

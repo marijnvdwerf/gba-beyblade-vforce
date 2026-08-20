@@ -153,10 +153,10 @@ sub_8049458:
 .L80495A2:
 	.align	2, 0
 .L80495A4:
-	.4byte	0x3000650
-	.4byte	0x3000bfc
+	.4byte	_unk3000650
+	.4byte	_unk3000BFC
 	.4byte	0x3000bfd
-	.4byte	0x807d93c
+	.4byte	__oam_8756CC0
 	.4byte	0x584
 	.4byte	0x586
 	.4byte	0x464

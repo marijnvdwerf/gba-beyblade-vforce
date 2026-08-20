@@ -9,7 +9,7 @@ sub_805185C:
 .L8051864:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	thumb_func_end sub_805185C
 
 .align 2, 0 @ Don't pad with nop.

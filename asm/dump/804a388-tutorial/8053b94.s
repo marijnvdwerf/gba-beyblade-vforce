@@ -43,9 +43,9 @@ sub_8053B94:
 .L8053BE6:
 	.align	2, 0
 .L8053BE8:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6ec
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x6bc
 	.4byte	0x161b
 .L8053BFC:
@@ -71,7 +71,7 @@ sub_8053B94:
 .L8053C24:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1641
 .L8053C2C:
 	mov	r1, #0xfa
@@ -136,7 +136,7 @@ sub_8053B94:
 .L8053CAC:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x163c
 	thumb_func_end sub_8053B94
 

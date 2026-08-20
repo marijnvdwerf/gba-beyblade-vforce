@@ -45,9 +45,9 @@ sub_804444C:
 	.align	2, 0
 
 	.4byte	0x15d4
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x15c4
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6ec
 .L80444AC:
 	bl	sub_8049168
@@ -164,13 +164,13 @@ sub_804444C:
 	.align	2, 0
 
 	.4byte	0x6a6
-	.4byte	0x30001b0
-	.4byte	0x30001ac
-	.4byte	0x30001b4
-	.4byte	0x30001bc
-	.4byte	0x30001c0
-	.4byte	0x30001b8
-	.4byte	0x30001c8
+	.4byte	_unk30001B0
+	.4byte	_unk30001AC
+	.4byte	_unk30001B4
+	.4byte	_unk30001BC
+	.4byte	_unk30001C0
+	.4byte	_unk30001B8
+	.4byte	_unk30001C8
 .L80445C8:
 	ldr	r0, .L8044628
 	ldr	r1, .L8044628 + 4
@@ -222,12 +222,12 @@ sub_804444C:
 .L8044628:
 	.align	2, 0
 
-	.4byte	0x30001c8
-	.4byte	0x30001b0
-	.4byte	0x30001b8
-	.4byte	0x3000fb0
+	.4byte	_unk30001C8
+	.4byte	_unk30001B0
+	.4byte	_unk30001B8
+	.4byte	_gameData
 	.4byte	0x161b
-	.4byte	0x30001bc
+	.4byte	_unk30001BC
 .L8044640:
 	mov	r2, r9
 	ldr	r0, [r2]
@@ -255,7 +255,7 @@ sub_804444C:
 	.align	2, 0
 .L8044670:
 	.4byte	0x6a4
-	.4byte	0x30001bc
+	.4byte	_unk30001BC
 .L8044678:
 	mov	r1, #0x80
 	lsl	r1, r1, #0x4
@@ -275,7 +275,7 @@ sub_804444C:
 .L8044696:
 	.align	2, 0
 .L8044698:
-	.4byte	0x30001bc
+	.4byte	_unk30001BC
 .L804469C:
 	mov	r1, #0x80
 	lsl	r1, r1, #0x14
@@ -295,7 +295,7 @@ sub_804444C:
 .L80446BC:
 	.align	2, 0
 
-	.4byte	0x30001bc
+	.4byte	_unk30001BC
 .L80446C0:
 	mov	r1, #0x80
 	lsl	r1, r1, #0x14
@@ -314,7 +314,7 @@ sub_804444C:
 .L80446DE:
 	.align	2, 0
 .L80446E0:
-	.4byte	0x30001bc
+	.4byte	_unk30001BC
 .L80446E4:
 	ldr	r1, .L8044700
 	mov	r0, #0x0
@@ -334,8 +334,8 @@ sub_804444C:
 .L80446FE:
 	.align	2, 0
 .L8044700:
-	.4byte	0x30001bc
-	.4byte	0x3000f48
+	.4byte	_unk30001BC
+	.4byte	_currentGameState
 .L8044708:
 	cmp	r0, #0x1
 	bne	.L804471A	@cond_branch
@@ -368,10 +368,10 @@ sub_804444C:
 .L804473E:
 	.align	2, 0
 .L8044740:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a7
-	.4byte	0x30001ac
-	.4byte	0x30001b0
+	.4byte	_unk30001AC
+	.4byte	_unk30001B0
 .L8044750:
 	ldr	r0, .L8044784
 	ldr	r0, [r0]
@@ -400,11 +400,11 @@ sub_804444C:
 .L8044782:
 	.align	2, 0
 .L8044784:
-	.4byte	0x30001b8
-	.4byte	0x30001c8
-	.4byte	0x30001b4
-	.4byte	0x30001bc
-	.4byte	0x30001c0
+	.4byte	_unk30001B8
+	.4byte	_unk30001C8
+	.4byte	_unk30001B4
+	.4byte	_unk30001BC
+	.4byte	_unk30001C0
 .L8044798:
 	cmp	r1, #0
 	bne	.L80447A2	@cond_branch
@@ -463,8 +463,8 @@ sub_804444C:
 .L8044802:
 	.align	2, 0
 .L8044804:
-	.4byte	0x3005da0
-	.4byte	0x30001c0
+	.4byte	_unk3005DA0
+	.4byte	_unk30001C0
 .L804480C:
 	mov	r0, #0x1
 	strb	r0, [r5, #0xa]
@@ -543,11 +543,11 @@ sub_804444C:
 .L80448A4:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a5
 	.4byte	0x6a6
-	.4byte	0x30001c0
-	.4byte	0x30001ac
+	.4byte	_unk30001C0
+	.4byte	_unk30001AC
 .L80448B8:
 	sub	r0, r6, r4
 	cmp	r0, #0

@@ -12,7 +12,7 @@ GetTalkingHead:
 .L80571F2:
 	.align	2, 0
 .L80571F4:
-	.4byte	0x807a5c0
+	.4byte	TalkingHeads
 	thumb_func_end GetTalkingHead
 
 .align 2, 0 @ Don't pad with nop.

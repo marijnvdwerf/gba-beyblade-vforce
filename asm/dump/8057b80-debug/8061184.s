@@ -8,7 +8,7 @@ sub_8061184:
 .L806118A:
 	.align	2, 0
 .L806118C:
-	.4byte	0x3005df4
+	.4byte	_spritesFree
 	thumb_func_end sub_8061184
 
 .align 2, 0 @ Don't pad with nop.

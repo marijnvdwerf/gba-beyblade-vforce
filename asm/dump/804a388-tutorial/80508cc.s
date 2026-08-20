@@ -79,7 +79,7 @@ sub_80508CC:
 .L805095A:
 	.align	2, 0
 .L805095C:
-	.4byte	0x872934c
+	.4byte	Str_872934C
 .L8050960:
 	mov	r0, #0x1
 	LSL	r0, r2

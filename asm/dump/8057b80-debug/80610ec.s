@@ -21,7 +21,7 @@ sub_80610EC:
 .L806110C:
 	.align	2, 0
 
-	.4byte	0x807d90c
+	.4byte	word_807D90C
 	thumb_func_end sub_80610EC
 
 .align 2, 0 @ Don't pad with nop.

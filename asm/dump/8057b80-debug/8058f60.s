@@ -128,7 +128,7 @@ sub_8058F60:
 .L8059052:
 	.align	2, 0
 .L8059054:
-	.4byte	0x3000d00
+	.4byte	_unk3000D00
 	thumb_func_end sub_8058F60
 
 .align 2, 0 @ Don't pad with nop.

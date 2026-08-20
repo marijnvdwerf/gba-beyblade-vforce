@@ -30,7 +30,7 @@ sub_8046424:
 .L8046456:
 	.align	2, 0
 .L8046458:
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 .L804645C:
 	mov	r0, #0xf
 	bl	sub_80490F8

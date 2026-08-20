@@ -40,7 +40,7 @@ sub_8062FE0:
 .L8063024:
 	.align	2, 0
 
-	.4byte	0x3005e58
+	.4byte	_unk3005E58
 .L8063028:
 	ldr	r0, .L8063030
 	str	r7, [r0]
@@ -49,7 +49,7 @@ sub_8062FE0:
 .L8063030:
 	.align	2, 0
 
-	.4byte	0x3005e60
+	.4byte	_unk3005E60
 .L8063034:
 	str	r7, [r1, #0x10]
 	cmp	r7, #0
@@ -72,7 +72,7 @@ sub_8062FE0:
 .L8063054:
 	.align	2, 0
 
-	.4byte	0x3005e64
+	.4byte	_unk3005E64
 	thumb_func_end sub_8062FE0
 
 .align 2, 0 @ Don't pad with nop.

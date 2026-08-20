@@ -113,7 +113,7 @@ sub_8058E18:
 .L8058EEC:
 	.align	2, 0
 
-	.4byte	0x3000ca0
+	.4byte	_unk3000CA0
 	.4byte	0x40000d4
 	thumb_func_end sub_8058E18
 

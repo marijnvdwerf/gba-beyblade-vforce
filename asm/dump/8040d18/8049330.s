@@ -10,7 +10,7 @@ sub_8049330:
 .L804933A:
 	.align	2, 0
 .L804933C:
-	.4byte	0x3000650
+	.4byte	_unk3000650
 	.4byte	0x58c
 	thumb_func_end sub_8049330
 

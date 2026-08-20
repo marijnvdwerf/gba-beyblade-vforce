@@ -44,8 +44,8 @@ sub_8059934:
 	.align	2, 0
 .L8059988:
 	.4byte	0x3000de0
-	.4byte	0x3000e40
-	.4byte	0x3000e3c
+	.4byte	_unk3000E40
+	.4byte	_unk3000E3C
 	thumb_func_end sub_8059934
 
 .align 2, 0 @ Don't pad with nop.

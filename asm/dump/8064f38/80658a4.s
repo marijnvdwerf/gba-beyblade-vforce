@@ -58,13 +58,13 @@ sub_80658A4:
 .L806590E:
 	.align	2, 0
 .L8065910:
-	.4byte	0x3000db4
+	.4byte	_unk_3000DB4
 	.4byte	0x4000208
-	.4byte	0x3000db0
+	.4byte	_batteryBackupTimer_REG
 	.4byte	0x4000202
-	.4byte	0x3000da8
-	.4byte	0x3000dac
-	.4byte	0x3000daa
+	.4byte	_batteryBackupTimer
+	.4byte	_unk_3000DAC
+	.4byte	_unk_3000DAA
 	thumb_func_end sub_80658A4
 
 .align 2, 0 @ Don't pad with nop.

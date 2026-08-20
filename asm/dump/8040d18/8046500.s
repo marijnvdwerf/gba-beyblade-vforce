@@ -115,17 +115,17 @@ sub_8046500:
 .L80465F0:
 	.align	2, 0
 
-	.4byte	0x3000494
-	.4byte	0x823bf04
+	.4byte	_unk3000494
+	.4byte	SpriteSheet_823BF04
 	.4byte	0xffff0000
-	.4byte	0x3000498
-	.4byte	0x300049c
-	.4byte	0x30004a0
-	.4byte	0x3000478
-	.4byte	0x3000474
-	.4byte	0x3000480
+	.4byte	_unk3000498
+	.4byte	_unk300049C
+	.4byte	_unk30004A0
+	.4byte	_unk3000478
+	.4byte	_unk3000474
+	.4byte	_unk3000480
 	.4byte	0x3000491
-	.4byte	0x3000490
+	.4byte	_unk3000490
 .L804661C:
 	ldr	r0, .L8046644
 	ldr	r0, [r0]
@@ -150,9 +150,9 @@ sub_8046500:
 .L8046644:
 	.align	2, 0
 
-	.4byte	0x3000494
-	.4byte	0x3000498
-	.4byte	0x3000480
+	.4byte	_unk3000494
+	.4byte	_unk3000498
+	.4byte	_unk3000480
 .L8046650:
 	cmp	r2, #0x1
 	beq	.L8046656	@cond_branch
@@ -176,7 +176,7 @@ sub_8046500:
 	.align	2, 0
 
 	.4byte	0x3000491
-	.4byte	0x3000480
+	.4byte	_unk3000480
 .L8046680:
 	mov	r2, #0xa0
 	lsl	r2, r2, #0x1
@@ -279,15 +279,15 @@ sub_8046500:
 .L804674C:
 	.align	2, 0
 
-	.4byte	0x3000494
-	.4byte	0x300049c
-	.4byte	0x874cc3c
-	.4byte	0x3000474
-	.4byte	0x3000498
-	.4byte	0x30004a0
+	.4byte	_unk3000494
+	.4byte	_unk300049C
+	.4byte	Unk_874CC3C
+	.4byte	_unk3000474
+	.4byte	_unk3000498
+	.4byte	_unk30004A0
 	.4byte	0x3000491
-	.4byte	0x3000478
-	.4byte	0x3000480
+	.4byte	_unk3000478
+	.4byte	_unk3000480
 .L8046770:
 	ldr	r4, .L80467C4
 	mov	r0, #0x3
@@ -334,13 +334,13 @@ sub_8046500:
 .L80467C4:
 	.align	2, 0
 
-	.4byte	0x3005da0
-	.4byte	0x300049c
+	.4byte	_unk3005DA0
+	.4byte	_unk300049C
 	.4byte	0xffff0000
-	.4byte	0x30004a0
-	.4byte	0x3000474
+	.4byte	_unk30004A0
+	.4byte	_unk3000474
 	.4byte	0x3000491
-	.4byte	0x3000480
+	.4byte	_unk3000480
 .L80467E0:
 	mov	r0, #0x6c
 	strh	r0, [r1, #0xc]
@@ -358,7 +358,7 @@ sub_8046500:
 .L80467F8:
 	.align	2, 0
 
-	.4byte	0x3000480
+	.4byte	_unk3000480
 .L80467FC:
 	strh	r3, [r1, #0xc]
 .L80467FE:
@@ -374,7 +374,7 @@ sub_8046500:
 .L804680E:
 	.align	2, 0
 .L8046810:
-	.4byte	0x3000474
+	.4byte	_unk3000474
 	thumb_func_end sub_8046500
 
 .align 2, 0 @ Don't pad with nop.

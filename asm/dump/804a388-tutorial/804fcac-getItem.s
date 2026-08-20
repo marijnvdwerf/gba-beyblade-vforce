@@ -75,7 +75,7 @@ getItem:
 .L804FD4A:
 	.align	2, 0
 .L804FD4C:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x105e
 	.4byte	0x806e774
 	.4byte	0x1010

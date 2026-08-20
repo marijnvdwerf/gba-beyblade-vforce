@@ -20,7 +20,7 @@ sub_804EE2C:
 .L804EE4E:
 	.align	2, 0
 .L804EE50:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	thumb_func_end sub_804EE2C
 
 .align 2, 0 @ Don't pad with nop.

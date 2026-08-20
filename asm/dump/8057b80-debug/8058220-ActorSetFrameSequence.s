@@ -76,7 +76,7 @@ ActorSetFrameSequence:
 .L80582AA:
 	.align	2, 0
 .L80582AC:
-	.4byte	0x3000e30
+	.4byte	_unk3000E30
 	.4byte	0xffff
 .L80582B4:
 	mov	r2, ip

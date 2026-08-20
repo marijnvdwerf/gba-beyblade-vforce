@@ -80,7 +80,7 @@ SpriteString_8064FE8:
 .L8065082:
 	.align	2, 0
 .L8065084:
-	.4byte	0x8756844
+	.4byte	Str_8756844
 	thumb_func_end SpriteString_8064FE8
 
 .align 2, 0 @ Don't pad with nop.

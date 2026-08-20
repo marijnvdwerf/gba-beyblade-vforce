@@ -209,7 +209,7 @@ sub_8055D64:
 .L8055EF6:
 	.align	2, 0
 .L8055EF8:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0xc64
 	.4byte	0xffffff00
 	thumb_func_end sub_8055D64

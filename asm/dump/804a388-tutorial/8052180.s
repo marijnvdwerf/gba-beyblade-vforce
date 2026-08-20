@@ -167,8 +167,8 @@ sub_8052180:
 .L80522CC:
 	.align	2, 0
 
-	.4byte	0x3000fb0
-	.4byte	0x874cc3c
+	.4byte	_gameData
+	.4byte	Unk_874CC3C
 	thumb_func_end sub_8052180
 
 .align 2, 0 @ Don't pad with nop.

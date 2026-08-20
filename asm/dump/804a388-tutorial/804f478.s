@@ -262,8 +262,8 @@ sub_804F478:
 .L804F674:
 	.4byte	0xffffff00
 	.4byte	0xfffff800
-	.4byte	0x3000fb0
-	.4byte	0x3005da0
+	.4byte	_gameData
+	.4byte	_unk3005DA0
 .L804F684:
 	mov	r0, #0x4
 	bl	sub_804ABFC
@@ -280,7 +280,7 @@ sub_804F478:
 .L804F69E:
 	.align	2, 0
 .L804F6A0:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 .L804F6A4:
 	mov	r3, #0x83
 	lsl	r3, r3, #0x1

@@ -209,7 +209,7 @@ sub_805DD18:
 .L805DEA4:
 	.align	2, 0
 
-	.4byte	0x874cc3c
+	.4byte	Unk_874CC3C
 .L805DEA8:
 	ldr	r4, [sp, #0x4]
 	ldr	r0, [r4]

@@ -9,7 +9,7 @@ isMultiplayer:
 .L80600B0:
 	.align	2, 0
 
-	.4byte	0x3005dc4
+	.4byte	_unk3005DC4
 	thumb_func_end isMultiplayer
 
 .align 2, 0 @ Don't pad with nop.

@@ -135,7 +135,7 @@ sub_8063220:
 .L8063320:
 	.align	2, 0
 
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 .L8063324:
 	sub	r5, r5, #0x1
 	b	.L8063438

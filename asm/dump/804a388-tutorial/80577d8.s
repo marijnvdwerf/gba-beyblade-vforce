@@ -83,7 +83,7 @@ sub_80577D8:
 .L8057870:
 	.align	2, 0
 
-	.4byte	0x874cebc
+	.4byte	Unk_874CEBC
 	.4byte	0xffffff00
 	thumb_func_end sub_80577D8
 

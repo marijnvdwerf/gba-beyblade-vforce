@@ -115,8 +115,8 @@ sub_804F05C:
 .L804F13A:
 	.align	2, 0
 .L804F13C:
-	.4byte	0x821dff0
-	.4byte	0x8224868
+	.4byte	SpriteSheet_821DFF0
+	.4byte	SpriteSheet_8224868
 .L804F144:
 	mov	r1, #0x19
 .L804F146:
@@ -164,7 +164,7 @@ sub_804F05C:
 .L804F192:
 	.align	2, 0
 .L804F194:
-	.4byte	0x3000e30
+	.4byte	_unk3000E30
 .L804F198:
 	ldr	r0, .L804F1C8
 	cmp	r1, r0
@@ -194,7 +194,7 @@ sub_804F05C:
 	.align	2, 0
 .L804F1C8:
 	.4byte	0x2fff
-	.4byte	0x3000e30
+	.4byte	_unk3000E30
 .L804F1D0:
 	mov	r2, #0x88
 	lsl	r2, r2, #0x1
@@ -290,7 +290,7 @@ sub_804F05C:
 .L804F288:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 .L804F28C:
 	mov	r2, #0xf
 .L804F28E:

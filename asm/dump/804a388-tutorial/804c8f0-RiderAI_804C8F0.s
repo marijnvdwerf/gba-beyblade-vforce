@@ -199,7 +199,7 @@ RiderAI_804C8F0:
 .L804CA66:
 	.align	2, 0
 .L804CA68:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x65c
 .L804CA70:
 	ldr	r0, .L804CA8C

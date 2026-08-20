@@ -37,15 +37,15 @@ sub_804568C:
 .L80456D2:
 	.align	2, 0
 .L80456D4:
-	.4byte	0x3000380
+	.4byte	_unk3000380
 	.4byte	0x80693a0
-	.4byte	0x3000388
+	.4byte	_unk3000388
 	.4byte	0x8069378
-	.4byte	0x3000390
+	.4byte	_unk3000390
 	.4byte	0x806938c
-	.4byte	0x3000398
+	.4byte	_unk3000398
 	.4byte	0x80693b4
-	.4byte	0x30003a0
+	.4byte	_unk30003A0
 	.4byte	0x80693c8
 .L80456FC:
 	ldr	r4, .L80457F0
@@ -162,13 +162,13 @@ sub_804568C:
 .L80457F0:
 	.align	2, 0
 
-	.4byte	0x3000380
-	.4byte	0x3000388
-	.4byte	0x3000f48
+	.4byte	_unk3000380
+	.4byte	_unk3000388
+	.4byte	_currentGameState
 	.4byte	0xc64
-	.4byte	0x3000390
-	.4byte	0x3000398
-	.4byte	0x30003a0
+	.4byte	_unk3000390
+	.4byte	_unk3000398
+	.4byte	_unk30003A0
 	.4byte	0xefff
 .L8045810:
 	ldr	r1, .L804582C
@@ -185,7 +185,7 @@ sub_804568C:
 .L804582A:
 	.align	2, 0
 .L804582C:
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 .L8045830:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x13

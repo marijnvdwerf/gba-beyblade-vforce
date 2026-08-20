@@ -30,7 +30,7 @@ sub_8056C0C:
 .L8056C40:
 	.align	2, 0
 
-	.4byte	0x806b300
+	.4byte	LevelDesigns
 .L8056C44:
 	add	r2, r2, #0x20
 	add	r3, r3, #0x1

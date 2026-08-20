@@ -28,7 +28,7 @@ profile:
 	.align	2, 0
 
 	.4byte	0x4000108
-	.4byte	0x3000150
+	.4byte	_unk3000150
 .L8043270:
 	ldr	r4, .L8043278
 	mov	r5, #0xfa
@@ -153,7 +153,7 @@ profile:
 .L804336A:
 	.align	2, 0
 .L804336C:
-	.4byte	0x86fd2a4
+	.4byte	Str_86FD2A4
 	thumb_func_end profile
 
 .align 2, 0 @ Don't pad with nop.

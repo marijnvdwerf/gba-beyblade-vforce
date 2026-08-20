@@ -42,9 +42,9 @@ sub_8052978:
 .L80529CA:
 	.align	2, 0
 .L80529CC:
-	.4byte	0x3000c0c
-	.4byte	0x3000c04
-	.4byte	0x3000c08
+	.4byte	_unk3000C0C
+	.4byte	_unk3000C04
+	.4byte	_unk3000C08
 	.4byte	0x4000050
 .L80529DC:
 	ldr	r0, .L80529E4
@@ -53,7 +53,7 @@ sub_8052978:
 .L80529E2:
 	.align	2, 0
 .L80529E4:
-	.4byte	0x3000c0c
+	.4byte	_unk3000C0C
 .L80529E8:
 	ldr	r1, .L8052A34
 	mov	r0, #0x0
@@ -97,11 +97,11 @@ sub_8052978:
 	.align	2, 0
 .L8052A34:
 	.4byte	0x4000054
-	.4byte	0x3000c04
-	.4byte	0x3000c08
+	.4byte	_unk3000C04
+	.4byte	_unk3000C08
 	.4byte	0x4000050
 	.4byte	0xe41
-	.4byte	0x3000c0c
+	.4byte	_unk3000C0C
 .L8052A4C:
 	ldr	r1, .L8052A5C
 	mov	r0, #0x2
@@ -112,7 +112,7 @@ sub_8052978:
 .L8052A5A:
 	.align	2, 0
 .L8052A5C:
-	.4byte	0x3000c08
+	.4byte	_unk3000C08
 .L8052A60:
 	ldr	r1, .L8052A70
 	mov	r0, #0x2
@@ -125,7 +125,7 @@ sub_8052978:
 .L8052A70:
 	.align	2, 0
 
-	.4byte	0x3000c08
+	.4byte	_unk3000C08
 	thumb_func_end sub_8052978
 
 .align 2, 0 @ Don't pad with nop.

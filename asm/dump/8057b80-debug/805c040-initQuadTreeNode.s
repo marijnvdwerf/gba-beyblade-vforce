@@ -326,8 +326,8 @@ initQuadTreeNode:
 .L805C2B0:
 	.align	2, 0
 
-	.4byte	0x875557c
-	.4byte	0x87555a8
+	.4byte	Str_875557C
+	.4byte	Str_87555A8
 .L805C2B8:
 	mov	r0, #0x0
 	mov	r1, sp
@@ -360,7 +360,7 @@ initQuadTreeNode:
 .L805C2F0:
 	.align	2, 0
 
-	.4byte	0x87555f0
+	.4byte	Str_87555F0
 .L805C2F4:
 	mov	r0, #0x0
 .L805C2F6:

@@ -13,7 +13,7 @@ sub_8057094:
 .L80570A6:
 	.align	2, 0
 .L80570A8:
-	.4byte	0x836087c
+	.4byte	SpriteSheet_836087C
 .L80570AC:
 	ldr	r0, .L80570BC
 	lsl	r1, r4, #0x2
@@ -26,7 +26,7 @@ sub_8057094:
 .L80570BA:
 	.align	2, 0
 .L80570BC:
-	.4byte	0x8079950
+	.4byte	CollectionSpriteSheets
 	thumb_func_end sub_8057094
 
 .align 2, 0 @ Don't pad with nop.

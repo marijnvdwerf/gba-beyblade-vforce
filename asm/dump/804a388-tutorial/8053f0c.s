@@ -16,7 +16,7 @@ sub_8053F0C:
 .L8053F22:
 	.align	2, 0
 .L8053F24:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 .L8053F28:
 	cmp	r5, #0x3
 	beq	.L8053FF0	@cond_branch
@@ -58,7 +58,7 @@ sub_8053F0C:
 .L8053F70:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x7fc
 	.4byte	0x7fe
 	.4byte	0x802
@@ -105,7 +105,7 @@ sub_8053F0C:
 .L8053FD4:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x7fc
 	.4byte	0x7fe
 	.4byte	0x804
@@ -153,7 +153,7 @@ sub_8053F0C:
 .L805403A:
 	.align	2, 0
 .L805403C:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x7fc
 	.4byte	0x7fe
 	.4byte	0x802
@@ -205,7 +205,7 @@ sub_8053F0C:
 .L80540A6:
 	.align	2, 0
 .L80540A8:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x7fc
 	.4byte	0x7fe
 	.4byte	0x802

@@ -54,9 +54,9 @@ sub_80493C8:
 .L8049432:
 	.align	2, 0
 .L8049434:
-	.4byte	0x3000650
+	.4byte	_unk3000650
 	.4byte	0x584
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1619
 	.4byte	0x15d4
 	.4byte	0x1618

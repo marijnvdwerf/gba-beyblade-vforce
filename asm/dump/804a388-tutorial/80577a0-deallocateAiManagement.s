@@ -16,9 +16,9 @@ deallocateAiManagement:
 .L80577B8:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xcbc
-	.4byte	0x872ca94
+	.4byte	Str_872CA94
 .L80577C4:
 	ldr	r2, .L80577D0
 	add	r0, r1, r2

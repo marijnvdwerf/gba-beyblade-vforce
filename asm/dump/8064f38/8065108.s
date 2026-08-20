@@ -83,7 +83,7 @@ sub_806513E:
 .L8065194:
 	.align	2, 0
 
-	.4byte	0x3000e30
+	.4byte	_unk3000E30
 .L8065198:
 	add	r0, r5, #0
 	bl	sub_80653D8

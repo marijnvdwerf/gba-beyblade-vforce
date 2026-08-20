@@ -37,7 +37,7 @@ sub_80637E4:
 	.align	2, 0
 .L8063828:
 	.4byte	0xfffe
-	.4byte	0x807d974
+	.4byte	__fastMemoryCopyARM
 	thumb_func_end sub_80637E4
 
 .align 2, 0 @ Don't pad with nop.

@@ -24,7 +24,7 @@ newProjectileSystem:
 .L804C18A:
 	.align	2, 0
 .L804C18C:
-	.4byte	0x8726fe4
+	.4byte	Str_8726FE4
 .L804C190:
 	ldr	r4, [r1]
 	mov	r0, #0x34

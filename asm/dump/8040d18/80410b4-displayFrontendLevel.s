@@ -45,10 +45,10 @@ displayFrontendLevel:
 .L8041108:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a4
-	.4byte	0x823aa74
-	.4byte	0x823b2bc
+	.4byte	SpriteSheet_823AA74
+	.4byte	Pal_823B2BC
 .L8041118:
 	ldr	r5, .L8041120
 	ldr	r4, .L8041120 + 4
@@ -56,8 +56,8 @@ displayFrontendLevel:
 .L804111E:
 	.align	2, 0
 .L8041120:
-	.4byte	0x823b4bc
-	.4byte	0x823bd04
+	.4byte	SpriteSheet_823B4BC
+	.4byte	Pal_823BD04
 .L8041128:
 	add	r0, r4, #0
 	add	r0, r0, #0xc0
@@ -106,8 +106,8 @@ displayFrontendLevel:
 .L804117A:
 	.align	2, 0
 .L804117C:
-	.4byte	0x86fcf24
-	.4byte	0x807d974
+	.4byte	Str_86FCF24
+	.4byte	__fastMemoryCopyARM
 	.4byte	0x5000200
 	thumb_func_end displayFrontendLevel
 

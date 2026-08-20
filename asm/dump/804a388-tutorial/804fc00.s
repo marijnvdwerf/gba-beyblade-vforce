@@ -71,9 +71,9 @@ sub_804FC00:
 .L804FC92:
 	.align	2, 0
 .L804FC94:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x105e
-	.4byte	0x806e724
+	.4byte	_806E724
 	.4byte	0x1010
 	.4byte	0xf64
 	.4byte	0x105a

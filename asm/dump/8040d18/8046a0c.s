@@ -37,12 +37,12 @@ sub_8046A0C:
 .L8046A4C:
 	.align	2, 0
 
-	.4byte	0x30004b8
+	.4byte	_unk30004B8
 	.4byte	0xffff0000
-	.4byte	0x30004b4
-	.4byte	0x30004c0
+	.4byte	_unk30004B4
+	.4byte	_unk30004C0
 	.4byte	0x30004c1
-	.4byte	0x30004bc
+	.4byte	_unk30004BC
 .L8046A64:
 	mov	r1, #0xa0
 	lsl	r1, r1, #0x1
@@ -136,12 +136,12 @@ sub_8046A0C:
 .L8046B26:
 	.align	2, 0
 .L8046B28:
-	.4byte	0x30004b8
+	.4byte	_unk30004B8
 	.4byte	0x30004c1
-	.4byte	0x30004c0
-	.4byte	0x806e0dc
-	.4byte	0x30004b4
-	.4byte	0x30004bc
+	.4byte	_unk30004C0
+	.4byte	_806E0DC
+	.4byte	_unk30004B4
+	.4byte	_unk30004BC
 .L8046B40:
 	ldr	r0, .L8046B7C
 	ldrb	r0, [r0]
@@ -178,11 +178,11 @@ sub_8046A0C:
 .L8046B7A:
 	.align	2, 0
 .L8046B7C:
-	.4byte	0x30004c0
-	.4byte	0x3005da0
-	.4byte	0x30004bc
-	.4byte	0x3000648
-	.4byte	0x30004b4
+	.4byte	_unk30004C0
+	.4byte	_unk3005DA0
+	.4byte	_unk30004BC
+	.4byte	_unk3000648
+	.4byte	_unk30004B4
 	.4byte	0xffff0000
 	thumb_func_end sub_8046A0C
 

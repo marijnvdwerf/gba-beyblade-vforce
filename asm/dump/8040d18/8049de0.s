@@ -75,8 +75,8 @@ sub_8049DE0:
 .L8049E68:
 	.align	2, 0
 
-	.4byte	0x30006a4
-	.4byte	0x806a828
+	.4byte	_unk30006A4
+	.4byte	_806A828
 	.4byte	0x584
 	.4byte	0x585
 	.4byte	0x586
@@ -131,8 +131,8 @@ sub_8049DE0:
 .L8049EDE:
 	.align	2, 0
 .L8049EE0:
-	.4byte	0x30006a4
-	.4byte	0x806a828
+	.4byte	_unk30006A4
+	.4byte	_806A828
 	.4byte	0x584
 	.4byte	0x585
 	.4byte	0x586
@@ -147,7 +147,7 @@ sub_8049DE0:
 .L8049F06:
 	.align	2, 0
 .L8049F08:
-	.4byte	0x30006b8
+	.4byte	_unk30006B8
 .L8049F0C:
 	ldr	r5, .L8049F4C
 	mov	r1, #0xa0
@@ -183,7 +183,7 @@ sub_8049DE0:
 .L8049F4C:
 	.align	2, 0
 
-	.4byte	0x30006a4
+	.4byte	_unk30006A4
 	.4byte	0x584
 	.4byte	0x5000200
 	thumb_func_end sub_8049DE0

@@ -119,24 +119,24 @@ collectionListFrontendHandler:
 .L80428D2:
 	.align	2, 0
 .L80428D4:
-	.4byte	0x30000fc
+	.4byte	_unk30000FC
 	.4byte	0xffff0000
-	.4byte	0x30000f8
-	.4byte	0x3000120
-	.4byte	0x86fd214
-	.4byte	0x3000124
-	.4byte	0x300012c
-	.4byte	0x3000128
-	.4byte	0x3000100
-	.4byte	0x3000104
-	.4byte	0x3000108
-	.4byte	0x300010c
-	.4byte	0x3000110
-	.4byte	0x3000114
-	.4byte	0x3000118
-	.4byte	0x300011c
-	.4byte	0x82b05ec
-	.4byte	0x8067ae0
+	.4byte	_unk30000F8
+	.4byte	_collectionListFontBlock
+	.4byte	Str_86FD214
+	.4byte	_collectionListFont
+	.4byte	_unk300012C
+	.4byte	_unk3000128
+	.4byte	_unk3000100
+	.4byte	_unk3000104
+	.4byte	_unk3000108
+	.4byte	_unk300010C
+	.4byte	_unk3000110
+	.4byte	_unk3000114
+	.4byte	_unk3000118
+	.4byte	_unk300011C
+	.4byte	SpriteSheet_82B05EC
+	.4byte	ShadowFontMeta
 .L804291C:
 	ldr	r0, [r7]
 	add	r0, r0, r5
@@ -173,8 +173,8 @@ collectionListFrontendHandler:
 .L8042964:
 	.align	2, 0
 
-	.4byte	0x86fd25c
-	.4byte	0x300012c
+	.4byte	Str_86FD25C
+	.4byte	_unk300012C
 .L804296C:
 	add	r0, r6, #0
 	bl	sub_805703C
@@ -203,8 +203,8 @@ collectionListFrontendHandler:
 .L804299E:
 	.align	2, 0
 .L80429A0:
-	.4byte	0x300012c
-	.4byte	0x823c150
+	.4byte	_unk300012C
+	.4byte	SpriteSheet_823C150
 .L80429A8:
 	ldr	r0, .L8042A74
 	bl	printf
@@ -307,22 +307,22 @@ collectionListFrontendHandler:
 .L8042A74:
 	.align	2, 0
 
-	.4byte	0x86fd264
-	.4byte	0x3000128
-	.4byte	0x82b05ec
-	.4byte	0x8067ae0
-	.4byte	0x3000130
-	.4byte	0x823c260
-	.4byte	0x3000134
-	.4byte	0x82b1a84
-	.4byte	0x3000138
-	.4byte	0x300013c
+	.4byte	Str_86FD264
+	.4byte	_unk3000128
+	.4byte	SpriteSheet_82B05EC
+	.4byte	ShadowFontMeta
+	.4byte	_unk3000130
+	.4byte	SpriteSheet_823C260
+	.4byte	_unk3000134
+	.4byte	SpriteSheet_82B1A84
+	.4byte	_unk3000138
+	.4byte	_unk300013C
 	.4byte	0x4000048
 	.4byte	0x3f3f
 	.4byte	0x4000040
 	.4byte	0x5692
 	.4byte	0x4000042
-	.4byte	0x3000140
+	.4byte	_unk3000140
 .L8042AB4:
 	ldr	r0, .L8042B18
 	ADD r0, r8
@@ -382,9 +382,9 @@ collectionListFrontendHandler:
 	.4byte	0x584
 	.4byte	0x4000050
 	.4byte	0x4000052
-	.4byte	0x3000118
-	.4byte	0x300011c
-	.4byte	0x3000138
+	.4byte	_unk3000118
+	.4byte	_unk300011C
+	.4byte	_unk3000138
 .L8042B30:
 	bl	sub_8060A60
 .L8042B34:
@@ -454,14 +454,14 @@ collectionListFrontendHandler:
 .L8042BC6:
 	.align	2, 0
 .L8042BC8:
-	.4byte	0x3000138
-	.4byte	0x3000140
-	.4byte	0x3000114
+	.4byte	_unk3000138
+	.4byte	_unk3000140
+	.4byte	_unk3000114
 	.4byte	0xfff
-	.4byte	0x807d974
+	.4byte	__fastMemoryCopyARM
 	.4byte	0x5000260
-	.4byte	0x3000128
-	.4byte	0x806e8b0
+	.4byte	_unk3000128
+	.4byte	_806E8B0
 .L8042BE8:
 	ldr	r0, .L8042C1C
 	ldr	r0, [r0]
@@ -488,9 +488,9 @@ collectionListFrontendHandler:
 .L8042C1A:
 	.align	2, 0
 .L8042C1C:
-	.4byte	0x3000128
-	.4byte	0x3000114
-	.4byte	0x300013c
+	.4byte	_unk3000128
+	.4byte	_unk3000114
+	.4byte	_unk300013C
 .L8042C28:
 	bl	sub_8060A60
 	b	.L8042C3E
@@ -688,21 +688,21 @@ collectionListFrontendHandler:
 .L8042DAC:
 	.align	2, 0
 
-	.4byte	0x300013c
-	.4byte	0x823c2c8
-	.4byte	0x3000114
-	.4byte	0x300011c
-	.4byte	0x30000f8
-	.4byte	0x30000fc
-	.4byte	0x3005da0
-	.4byte	0x3005ca0
+	.4byte	_unk300013C
+	.4byte	SpriteSheet_823C2C8
+	.4byte	_unk3000114
+	.4byte	_unk300011C
+	.4byte	_unk30000F8
+	.4byte	_unk30000FC
+	.4byte	_unk3005DA0
+	.4byte	_keyInput
 	.4byte	0xfffffc00
-	.4byte	0x3000108
-	.4byte	0x3000104
-	.4byte	0x3000100
-	.4byte	0x3000110
+	.4byte	_unk3000108
+	.4byte	_unk3000104
+	.4byte	_unk3000100
+	.4byte	_unk3000110
 	.4byte	0xfffff100
-	.4byte	0x300010c
+	.4byte	_unk300010C
 .L8042DE8:
 	mov	r0, #0x4
 .L8042DEA:
@@ -731,9 +731,9 @@ collectionListFrontendHandler:
 .L8042E1C:
 	.align	2, 0
 
-	.4byte	0x3000110
-	.4byte	0x3000124
-	.4byte	0x300010c
+	.4byte	_unk3000110
+	.4byte	_collectionListFont
+	.4byte	_unk300010C
 .L8042E28:
 	ldr	r5, .L8042E80
 	ldr	r4, .L8042E80 + 4
@@ -778,11 +778,11 @@ collectionListFrontendHandler:
 .L8042E7E:
 	.align	2, 0
 .L8042E80:
-	.4byte	0x3000124
-	.4byte	0x300010c
-	.4byte	0x86fd25c
-	.4byte	0x300012c
-	.4byte	0x3000110
+	.4byte	_collectionListFont
+	.4byte	_unk300010C
+	.4byte	Str_86FD25C
+	.4byte	_unk300012C
+	.4byte	_unk3000110
 .L8042E94:
 	ldr	r0, [r4]
 	bl	sub_805703C
@@ -831,11 +831,11 @@ collectionListFrontendHandler:
 .L8042EEC:
 	.align	2, 0
 
-	.4byte	0x3000100
+	.4byte	_unk3000100
 	.4byte	0xfffff100
-	.4byte	0x3000110
-	.4byte	0x3000124
-	.4byte	0x300010c
+	.4byte	_unk3000110
+	.4byte	_collectionListFont
+	.4byte	_unk300010C
 .L8042F00:
 	ldr	r5, .L8042F5C
 	ldr	r4, .L8042F5C + 4
@@ -882,11 +882,11 @@ collectionListFrontendHandler:
 .L8042F5A:
 	.align	2, 0
 .L8042F5C:
-	.4byte	0x3000124
-	.4byte	0x300010c
-	.4byte	0x86fd25c
-	.4byte	0x300012c
-	.4byte	0x3000110
+	.4byte	_collectionListFont
+	.4byte	_unk300010C
+	.4byte	Str_86FD25C
+	.4byte	_unk300012C
+	.4byte	_unk3000110
 .L8042F70:
 	ldr	r0, [r4]
 	add	r0, r0, #0x5
@@ -915,9 +915,9 @@ collectionListFrontendHandler:
 .L8042FA0:
 	.align	2, 0
 
-	.4byte	0x3000100
-	.4byte	0x3000110
-	.4byte	0x300010c
+	.4byte	_unk3000100
+	.4byte	_unk3000110
+	.4byte	_unk300010C
 .L8042FAC:
 	mov	r0, #0x0
 	b	.L8042FB8
@@ -1079,21 +1079,21 @@ collectionListFrontendHandler:
 	.align	2, 0
 
 	.4byte	0xfffff101
-	.4byte	0x3000104
+	.4byte	_unk3000104
 	.4byte	0xfff9d901
-	.4byte	0x3000124
-	.4byte	0x300010c
-	.4byte	0x30000fc
-	.4byte	0x3000100
-	.4byte	0x300012c
-	.4byte	0x3000128
-	.4byte	0x3000130
-	.4byte	0x3000110
-	.4byte	0x3000134
-	.4byte	0x874cc3c
-	.4byte	0x3000114
-	.4byte	0x3000138
-	.4byte	0x300013c
+	.4byte	_collectionListFont
+	.4byte	_unk300010C
+	.4byte	_unk30000FC
+	.4byte	_unk3000100
+	.4byte	_unk300012C
+	.4byte	_unk3000128
+	.4byte	_unk3000130
+	.4byte	_unk3000110
+	.4byte	_unk3000134
+	.4byte	Unk_874CC3C
+	.4byte	_unk3000114
+	.4byte	_unk3000138
+	.4byte	_unk300013C
 .L8043118:
 	ldr	r1, .L8043138
 	mov	r0, #0xb
@@ -1111,8 +1111,8 @@ collectionListFrontendHandler:
 .L8043136:
 	.align	2, 0
 .L8043138:
-	.4byte	0x3005da0
-	.4byte	0x30000f8
+	.4byte	_unk3005DA0
+	.4byte	_unk30000F8
 	.4byte	0xffff0000
 .L8043144:
 	mov	r6, #0x0
@@ -1181,15 +1181,15 @@ collectionListFrontendHandler:
 .L80431C4:
 	.align	2, 0
 
-	.4byte	0x3000124
-	.4byte	0x300012c
-	.4byte	0x3000128
-	.4byte	0x3000130
-	.4byte	0x3000134
-	.4byte	0x3000138
-	.4byte	0x300013c
-	.4byte	0x3000120
-	.4byte	0x3000140
+	.4byte	_collectionListFont
+	.4byte	_unk300012C
+	.4byte	_unk3000128
+	.4byte	_unk3000130
+	.4byte	_unk3000134
+	.4byte	_unk3000138
+	.4byte	_unk300013C
+	.4byte	_collectionListFontBlock
+	.4byte	_unk3000140
 	thumb_func_end collectionListFrontendHandler
 
 .align 2, 0 @ Don't pad with nop.

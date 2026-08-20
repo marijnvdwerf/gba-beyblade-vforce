@@ -129,8 +129,8 @@ sub_804712C:
 .L8047246:
 	.align	2, 0
 .L8047248:
-	.4byte	0x806e240
-	.4byte	0x806e31c
+	.4byte	_806E240
+	.4byte	_806E31C
 .L8047250:
 	ldr	r0, [r7, #0x14]
 	ldr	r6, .L80472C4
@@ -184,8 +184,8 @@ sub_804712C:
 .L80472C2:
 	.align	2, 0
 .L80472C4:
-	.4byte	0x806e240
-	.4byte	0x806e31c
+	.4byte	_806E240
+	.4byte	_806E31C
 .L80472CC:
 	ldr	r0, [r7, #0x14]
 	ldr	r6, .L8047344
@@ -241,8 +241,8 @@ sub_804712C:
 .L8047342:
 	.align	2, 0
 .L8047344:
-	.4byte	0x806e240
-	.4byte	0x806e31c
+	.4byte	_806E240
+	.4byte	_806E31C
 .L804734C:
 	ldr	r0, [r7, #0x14]
 	ldr	r6, .L80473C4
@@ -298,8 +298,8 @@ sub_804712C:
 .L80473C2:
 	.align	2, 0
 .L80473C4:
-	.4byte	0x806e240
-	.4byte	0x806e31c
+	.4byte	_806E240
+	.4byte	_806E31C
 .L80473CC:
 	ldr	r0, [r7, #0x14]
 	ldr	r1, .L8047404
@@ -328,8 +328,8 @@ sub_804712C:
 .L8047402:
 	.align	2, 0
 .L8047404:
-	.4byte	0x806e240
-	.4byte	0x806e31c
+	.4byte	_806E240
+	.4byte	_806E31C
 .L804740C:
 	ldr	r0, [r7, #0x14]
 	ldr	r1, .L8047440
@@ -359,7 +359,7 @@ sub_804712C:
 .L804743E:
 	.align	2, 0
 .L8047440:
-	.4byte	0x806e240
+	.4byte	_806E240
 .L8047444:
 	mov	r0, #0x0
 .L8047446:

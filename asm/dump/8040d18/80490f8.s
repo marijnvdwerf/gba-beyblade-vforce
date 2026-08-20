@@ -50,8 +50,8 @@ sub_80490F8:
 .L8049152:
 	.align	2, 0
 .L8049154:
-	.4byte	0x3000650
-	.4byte	0x3000bfc
+	.4byte	_unk3000650
+	.4byte	_unk3000BFC
 	thumb_func_end sub_80490F8
 
 .align 2, 0 @ Don't pad with nop.

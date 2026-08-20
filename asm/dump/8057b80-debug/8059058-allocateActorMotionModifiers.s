@@ -29,7 +29,7 @@ allocateActorMotionModifiers:
 .L805908C:
 	.align	2, 0
 
-	.4byte	0x872cc00
+	.4byte	Str_872CC00
 .L8059090:
 	add	r1, r4, #0
 	add	r1, r1, #0x84

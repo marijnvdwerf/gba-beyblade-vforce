@@ -68,14 +68,14 @@ sub_804257C:
 .L8042604:
 	.align	2, 0
 
-	.4byte	0x30000dc
+	.4byte	_unk30000DC
 	.4byte	0x30000dd
-	.4byte	0x30000e0
-	.4byte	0x30000e4
-	.4byte	0x30000e8
-	.4byte	0x30000ec
-	.4byte	0x30000f0
-	.4byte	0x30000f4
+	.4byte	_unk30000E0
+	.4byte	_unk30000E4
+	.4byte	_unk30000E8
+	.4byte	_unk30000EC
+	.4byte	_unk30000F0
+	.4byte	_unk30000F4
 	.4byte	0x4000048
 	.4byte	0x1f3f
 	.4byte	0x400004a
@@ -117,11 +117,11 @@ sub_804257C:
 .L8042672:
 	.align	2, 0
 .L8042674:
-	.4byte	0x30000e4
-	.4byte	0x30000e8
+	.4byte	_unk30000E4
+	.4byte	_unk30000E8
 	.4byte	0x4000044
-	.4byte	0x30000f4
-	.4byte	0x30000f0
+	.4byte	_unk30000F4
+	.4byte	_unk30000F0
 .L8042688:
 	ldr	r1, .L80426AC
 	mov	r0, #0x9f
@@ -148,8 +148,8 @@ sub_804257C:
 
 	.4byte	0x4000050
 	.4byte	0x4000054
-	.4byte	0x30000ec
-	.4byte	0x30000f0
+	.4byte	_unk30000EC
+	.4byte	_unk30000F0
 .L80426BC:
 	ldr	r3, .L8042704
 	ldrb	r0, [r3]
@@ -190,12 +190,12 @@ sub_804257C:
 .L8042702:
 	.align	2, 0
 .L8042704:
-	.4byte	0x30000dc
+	.4byte	_unk30000DC
 	.4byte	0x30000dd
-	.4byte	0x30000e4
-	.4byte	0x30000e0
-	.4byte	0x30000e8
-	.4byte	0x30000f0
+	.4byte	_unk30000E4
+	.4byte	_unk30000E0
+	.4byte	_unk30000E8
+	.4byte	_unk30000F0
 .L804271C:
 	mov	r0, #0x1
 	strb	r0, [r4]
@@ -282,14 +282,14 @@ sub_804257C:
 .L80427C2:
 	.align	2, 0
 .L80427C4:
-	.4byte	0x3005da0
-	.4byte	0x30000f0
-	.4byte	0x30000e8
-	.4byte	0x30000dc
+	.4byte	_unk3005DA0
+	.4byte	_unk30000F0
+	.4byte	_unk30000E8
+	.4byte	_unk30000DC
 	.4byte	0x30000dd
-	.4byte	0x80687f0
-	.4byte	0x30000e0
-	.4byte	0x30000f4
+	.4byte	_80687F0
+	.4byte	_unk30000E0
+	.4byte	_unk30000F4
 	thumb_func_end sub_804257C
 
 .align 2, 0 @ Don't pad with nop.

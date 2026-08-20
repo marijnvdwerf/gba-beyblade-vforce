@@ -95,14 +95,14 @@ sub_8046CC4:
 .L8046D7E:
 	.align	2, 0
 .L8046D80:
-	.4byte	0x30004d0
-	.4byte	0x823bf04
+	.4byte	_unk30004D0
+	.4byte	SpriteSheet_823BF04
 	.4byte	0xffff0000
-	.4byte	0x30004d4
-	.4byte	0x30004d8
-	.4byte	0x30004dc
-	.4byte	0x30004e0
-	.4byte	0x806980c
+	.4byte	_unk30004D4
+	.4byte	_unk30004D8
+	.4byte	_unk30004DC
+	.4byte	_unk30004E0
+	.4byte	_806980C
 .L8046DA0:
 	bl	sub_8051618
 	lsl	r0, r0, #0x18
@@ -126,7 +126,7 @@ sub_8046CC4:
 .L8046DCA:
 	.align	2, 0
 .L8046DCC:
-	.4byte	0x8069830
+	.4byte	_8069830
 .L8046DD0:
 	mov	r4, #0x96
 	lsl	r4, r4, #0x3
@@ -149,8 +149,8 @@ sub_8046CC4:
 .L8046DF6:
 	.align	2, 0
 .L8046DF8:
-	.4byte	0x30004d0
-	.4byte	0x30004d4
+	.4byte	_unk30004D0
+	.4byte	_unk30004D4
 .L8046E00:
 	ldr	r5, .L8046E70
 	ldr	r0, [r5]
@@ -208,11 +208,11 @@ sub_8046CC4:
 .L8046E6E:
 	.align	2, 0
 .L8046E70:
-	.4byte	0x30004d0
-	.4byte	0x30004d8
-	.4byte	0x874cc3c
-	.4byte	0x30004d4
-	.4byte	0x30004dc
+	.4byte	_unk30004D0
+	.4byte	_unk30004D8
+	.4byte	Unk_874CC3C
+	.4byte	_unk30004D4
+	.4byte	_unk30004DC
 .L8046E84:
 	ldr	r5, .L8046F0C
 	mov	r0, #0x20
@@ -281,9 +281,9 @@ sub_8046CC4:
 .L8046F0A:
 	.align	2, 0
 .L8046F0C:
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 	.4byte	0x4b4
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0xc64
 .L8046F1C:
 	mov	r0, #0x1b

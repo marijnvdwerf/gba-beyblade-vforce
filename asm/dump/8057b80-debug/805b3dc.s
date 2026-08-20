@@ -37,7 +37,7 @@ sub_805B3DC:
 .L805B416:
 	.align	2, 0
 .L805B418:
-	.4byte	0x807d980
+	.4byte	byte_807D980
 	thumb_func_end sub_805B3DC
 
 .align 2, 0 @ Don't pad with nop.

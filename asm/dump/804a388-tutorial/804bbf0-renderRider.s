@@ -193,7 +193,7 @@ renderRider:
 .L804BD5E:
 	.align	2, 0
 .L804BD60:
-	.4byte	0x874cc3c
+	.4byte	Unk_874CC3C
 	.4byte	0xfffff900
 	.4byte	0xffffe400
 	.4byte	0xfff

@@ -17,7 +17,7 @@ sub_804B754:
 .L804B76E:
 	.align	2, 0
 .L804B770:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1638
 .L804B778:
 	mov	r4, #0x0
@@ -65,7 +65,7 @@ sub_804B754:
 	.align	2, 0
 
 	.4byte	0x42c
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 .L804B7D8:
 	bl	sub_804FE30
 	mov	r3, #0x85

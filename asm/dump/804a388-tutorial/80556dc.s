@@ -13,7 +13,7 @@ sub_80556DC:
 .L80556EC:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1104
 	thumb_func_end sub_80556DC
 

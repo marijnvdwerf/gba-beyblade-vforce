@@ -38,7 +38,7 @@ sub_805B394:
 .L805B3D8:
 	.align	2, 0
 
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 	thumb_func_end sub_805B394
 
 .align 2, 0 @ Don't pad with nop.

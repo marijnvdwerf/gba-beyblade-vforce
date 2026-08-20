@@ -46,9 +46,9 @@ initTutorialManagement:
 .L804A3E6:
 	.align	2, 0
 .L804A3E8:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x13fc
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 .L804A3F4:
 	add	r4, r4, #0x1
 	cmp	r1, #0
@@ -118,9 +118,9 @@ initTutorialManagement:
 
 	.4byte	0x8cec
 	.4byte	0x806cfe0
-	.4byte	0x87233e8
-	.4byte	0x82b05ec
-	.4byte	0x8067ae0
+	.4byte	Str_87233E8
+	.4byte	SpriteSheet_82B05EC
+	.4byte	ShadowFontMeta
 	thumb_func_end initTutorialManagement
 
 .align 2, 0 @ Don't pad with nop.

@@ -51,9 +51,9 @@ initCollectables:
 .L8056DAC:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x12f4
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 	.4byte	0x12f8
 .L8056DBC:
 	cmp	r1, #0
@@ -109,8 +109,8 @@ initCollectables:
 	.align	2, 0
 .L8056E20:
 	.4byte	0x37ae
-	.4byte	0x8729804
-	.4byte	0x807d974
+	.4byte	Str_8729804
+	.4byte	__fastMemoryCopyARM
 	thumb_func_end initCollectables
 
 .align 2, 0 @ Don't pad with nop.

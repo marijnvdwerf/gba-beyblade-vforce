@@ -78,8 +78,8 @@ sub_804CB08:
 	.4byte	0x22a
 	.4byte	0x1ff
 	.4byte	0xffffff00
-	.4byte	0x3005ca0
-	.4byte	0x3005da0
+	.4byte	_keyInput
+	.4byte	_unk3005DA0
 .L804CBA4:
 	add	r0, r5, #0
 	bl	RiderAI_804C8F0
@@ -288,9 +288,9 @@ sub_804CB08:
 .L804CD24:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0xc68
-	.4byte	0x874cc3c
+	.4byte	Unk_874CC3C
 .L804CD30:
 	ldr	r0, [r5, #0x40]
 	add	r0, r0, r6
@@ -395,7 +395,7 @@ sub_804CB08:
 	.align	2, 0
 
 	.4byte	0x22e
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0xc64
 	.4byte	0x1ff
 .L804CE00:
@@ -496,7 +496,7 @@ sub_804CB08:
 	.align	2, 0
 .L804CEC0:
 	.4byte	0x8ff
-	.4byte	0x874cc3c
+	.4byte	Unk_874CC3C
 .L804CEC8:
 	mov	r1, #0x80
 	lsl	r1, r1, #0x13

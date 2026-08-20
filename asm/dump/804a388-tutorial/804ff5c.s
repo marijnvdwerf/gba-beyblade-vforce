@@ -19,9 +19,9 @@ sub_804FF5C:
 .L804FF7A:
 	.align	2, 0
 .L804FF7C:
-	.4byte	0x807d970
-	.4byte	0x3000f44
-	.4byte	0x3000f40
+	.4byte	__fastMemoryClearARM
+	.4byte	_unk3000F44
+	.4byte	_unk3000F40
 	thumb_func_end sub_804FF5C
 
 .align 2, 0 @ Don't pad with nop.

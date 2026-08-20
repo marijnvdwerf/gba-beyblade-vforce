@@ -201,11 +201,11 @@ gameLoop:
 .L8051ADE:
 	.align	2, 0
 .L8051AE0:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x15c4
 	.4byte	0x434
-	.4byte	0x3000f50
-	.4byte	0x86fbc4c
+	.4byte	_unk3000F50
+	.4byte	SpriteSheet_86FBC4C
 	.4byte	0x1618
 	.4byte	sub_8052978 + 1
 	.4byte	0xc6c
@@ -276,7 +276,7 @@ gameLoop:
 
 	.4byte	0x1619
 	.4byte	0x161b
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x434
 	.4byte	sub_8052978 + 1
 	.4byte	0xfffffbd8
@@ -352,8 +352,8 @@ gameLoop:
 .L8051C30:
 	.align	2, 0
 
-	.4byte	0x807d93c
-	.4byte	0x3000fb0
+	.4byte	__oam_8756CC0
+	.4byte	_gameData
 	.4byte	0x1618
 	.4byte	0xb53
 .L8051C40:
@@ -616,16 +616,16 @@ gameLoop:
 .L8051E5E:
 	.align	2, 0
 .L8051E60:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xc6e
 	.4byte	0xb53
 	.4byte	0x161b
 	.4byte	0xc6c
 	.4byte	sub_8052978 + 1
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 	.4byte	0x1618
 	.4byte	0x161a
-	.4byte	0x3000e30
+	.4byte	_unk3000E30
 .L8051E88:
 	mov	r1, #0x0
 	mov	r5, r9
@@ -724,7 +724,7 @@ gameLoop:
 .L8051F4A:
 	.align	2, 0
 .L8051F4C:
-	.4byte	0x807d93c
+	.4byte	__oam_8756CC0
 	.4byte	0x4000130
 .L8051F54:
 	mov	r5, r9
@@ -848,7 +848,7 @@ gameLoop:
 .L8052046:
 	.align	2, 0
 .L8052048:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1618
 	.4byte	0xc6c
 .L8052054:
@@ -921,7 +921,7 @@ gameLoop:
 	.align	2, 0
 .L80520E0:
 	.4byte	0x161b
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xc6c
 	.4byte	0x4000006
 	.4byte	sub_8052978 + 1

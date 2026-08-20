@@ -74,7 +74,7 @@ sub_804FD64:
 .L804FDF2:
 	.align	2, 0
 .L804FDF4:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x105e
 	.4byte	0x1010
 	.4byte	0xfffd

@@ -67,7 +67,7 @@ handleEventListeners:
 .L8054326:
 	.align	2, 0
 .L8054328:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xca4
 	.4byte	0xca8
 .L8054334:
@@ -116,7 +116,7 @@ handleEventListeners:
 .L8054382:
 	.align	2, 0
 .L8054384:
-	.4byte	0x8078990
+	.4byte	_8078990
 	thumb_func_end handleEventListeners
 
 .align 2, 0 @ Don't pad with nop.

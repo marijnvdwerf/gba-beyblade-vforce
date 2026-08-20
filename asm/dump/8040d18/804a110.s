@@ -72,7 +72,7 @@ sub_804A110:
 .L804A192:
 	.align	2, 0
 .L804A194:
-	.4byte	0x3000650
+	.4byte	_unk3000650
 	.4byte	0x585
 	.4byte	0xffffff00
 .L804A1A0:

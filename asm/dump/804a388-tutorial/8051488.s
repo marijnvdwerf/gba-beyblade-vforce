@@ -17,9 +17,9 @@ sub_8051488:
 .L80514A4:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6fc
-	.4byte	0x87293f0
+	.4byte	Str_87293F0
 .L80514B0:
 	ldr	r1, [r5]
 	ldrb	r0, [r4, #0x4]
@@ -90,7 +90,7 @@ sub_8051488:
 	.4byte	0x6e6
 	.4byte	0xc68
 	.4byte	0xc58
-	.4byte	0x807d974
+	.4byte	__fastMemoryCopyARM
 	.4byte	0x704
 	.4byte	0xc44
 	.4byte	0x594

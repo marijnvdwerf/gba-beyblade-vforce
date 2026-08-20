@@ -24,8 +24,8 @@ allocateBeyBladeActorPalette:
 .L805738A:
 	.align	2, 0
 .L805738C:
-	.4byte	0x807ab38
-	.4byte	0x807d974
+	.4byte	RiderPalettes
+	.4byte	__fastMemoryCopyARM
 	.4byte	0x5000200
 	thumb_func_end allocateBeyBladeActorPalette
 

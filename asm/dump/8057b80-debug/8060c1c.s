@@ -22,8 +22,8 @@ sub_8060C1C:
 .L8060C40:
 	.align	2, 0
 
-	.4byte	0x3005df4
-	.4byte	0x8755ac8
+	.4byte	_spritesFree
+	.4byte	Str_8755AC8
 .L8060C48:
 	sub	r0, r1, r5
 	str	r0, [r2]
@@ -44,8 +44,8 @@ sub_8060C1C:
 .L8060C6A:
 	.align	2, 0
 .L8060C6C:
-	.4byte	0x3005dec
-	.4byte	0x3005de4
+	.4byte	_spritesLeft
+	.4byte	_unk3005DE4
 .L8060C74:
 	ldr	r4, [r4, #0x4]
 	strh	r7, [r4, #0x22]
@@ -79,8 +79,8 @@ sub_8060C1C:
 .L8060CAA:
 	.align	2, 0
 .L8060CAC:
-	.4byte	0x3005dec
-	.4byte	0x3005de4
+	.4byte	_spritesLeft
+	.4byte	_unk3005DE4
 .L8060CB4:
 	ldr	r0, [r2, #0x4]
 	cmp	r0, #0
@@ -105,7 +105,7 @@ sub_8060C1C:
 .L8060CD8:
 	.align	2, 0
 
-	.4byte	0x3005de4
+	.4byte	_unk3005DE4
 	thumb_func_end sub_8060C1C
 
 .align 2, 0 @ Don't pad with nop.

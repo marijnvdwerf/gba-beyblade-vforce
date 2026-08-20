@@ -72,9 +72,9 @@ initGame:
 	.align	2, 0
 .L8053344:
 	.4byte	0x1644
-	.4byte	0x3000fac
-	.4byte	0x3000fb0
-	.4byte	0x807d970
+	.4byte	_levelDataBlockPtr
+	.4byte	_gameData
+	.4byte	__fastMemoryClearARM
 	.4byte	0xc24
 	.4byte	0xffff
 	.4byte	0xc28

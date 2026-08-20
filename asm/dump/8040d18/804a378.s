@@ -10,7 +10,7 @@ sub_804A378:
 .L804A382:
 	.align	2, 0
 .L804A384:
-	.4byte	0x806a77c
+	.4byte	_806A77C
 	thumb_func_end sub_804A378
 
 .align 2, 0 @ Don't pad with nop.

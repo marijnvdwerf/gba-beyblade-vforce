@@ -36,10 +36,10 @@ sub_804FF88:
 .L804FFC4:
 	.align	2, 0
 
-	.4byte	0x3000f40
-	.4byte	0x872704c
-	.4byte	0x3000f44
-	.4byte	0x3000f20
+	.4byte	_unk3000F40
+	.4byte	Str_872704C
+	.4byte	_unk3000F44
+	.4byte	_unk3000F20
 	thumb_func_end sub_804FF88
 
 .align 2, 0 @ Don't pad with nop.

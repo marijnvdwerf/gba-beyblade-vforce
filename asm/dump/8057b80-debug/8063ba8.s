@@ -44,7 +44,7 @@ sub_8063BA8:
 .L8063BF4:
 	.align	2, 0
 
-	.4byte	0x807d980
+	.4byte	byte_807D980
 .L8063BF8:
 	cmp	r3, #0xc
 	beq	.L8063C40	@cond_branch

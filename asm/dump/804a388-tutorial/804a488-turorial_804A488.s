@@ -63,7 +63,7 @@ turorial_804A488:
 .L804A4FA:
 	.align	2, 0
 .L804A4FC:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x13fc
 	thumb_func_end turorial_804A488
 

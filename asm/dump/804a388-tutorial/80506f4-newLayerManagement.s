@@ -74,7 +74,7 @@ newLayerManagement:
 .L805077C:
 	.align	2, 0
 
-	.4byte	0x872934c
+	.4byte	Str_872934C
 .L8050780:
 	mov	r0, #0x1
 	LSL	r0, r1
@@ -221,7 +221,7 @@ newLayerManagement:
 	.align	2, 0
 .L805088C:
 	.4byte	0x3000de0
-	.4byte	0x3000e3c
+	.4byte	_unk3000E3C
 	thumb_func_end newLayerManagement
 
 .align 2, 0 @ Don't pad with nop.

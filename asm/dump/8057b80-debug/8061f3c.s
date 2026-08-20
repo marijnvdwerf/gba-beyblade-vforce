@@ -37,7 +37,7 @@ sub_8061F3C:
 .L8061F7E:
 	.align	2, 0
 .L8061F80:
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 .L8061F84:
 	mov	r2, sl
 	cmp	r2, #0

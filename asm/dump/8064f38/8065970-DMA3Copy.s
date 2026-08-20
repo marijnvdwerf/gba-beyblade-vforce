@@ -57,7 +57,7 @@ DMA3Copy:
 	.4byte	0x4000208
 	.4byte	0x4000204
 	.4byte	0xf8ff
-	.4byte	0x3005e9c
+	.4byte	_unk_3005E9C
 	.4byte	0x40000d4
 	.4byte	0x40000d8
 	.4byte	0x40000dc

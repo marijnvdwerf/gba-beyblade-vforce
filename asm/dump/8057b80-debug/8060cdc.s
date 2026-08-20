@@ -64,8 +64,8 @@ sub_8060CDC:
 .L8060D4E:
 	.align	2, 0
 .L8060D50:
-	.4byte	0x3005df4
-	.4byte	0x3005de4
+	.4byte	_spritesFree
+	.4byte	_unk3005DE4
 .L8060D58:
 	ldr	r0, .L8060D90
 	str	r7, [r0]
@@ -100,8 +100,8 @@ sub_8060CDC:
 .L8060D90:
 	.align	2, 0
 
-	.4byte	0x3005de4
-	.4byte	0x3005dec
+	.4byte	_unk3005DE4
+	.4byte	_spritesLeft
 	thumb_func_end sub_8060CDC
 
 .align 2, 0 @ Don't pad with nop.

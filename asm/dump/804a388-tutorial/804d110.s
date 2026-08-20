@@ -121,7 +121,7 @@ sub_804D110:
 	.4byte	0x1000004
 	.4byte	0xfff
 	.4byte	0x22e
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0xc64
 .L804D20C:
 	mov	r4, #0x82
@@ -567,7 +567,7 @@ sub_804D110:
 	.4byte	0xfffffdff
 	.4byte	0x9fe
 	.4byte	0xffff0000
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xfff
 	.4byte	0x65c
 	.4byte	0x21a

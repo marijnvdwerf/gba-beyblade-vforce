@@ -127,17 +127,17 @@ sub_8048AE8:
 .L8048BF0:
 	.align	2, 0
 
-	.4byte	0x30005f0
-	.4byte	0x8251f40
-	.4byte	0x8252994
-	.4byte	0x30005e2
-	.4byte	0x30005ec
-	.4byte	0x3000fb0
+	.4byte	_unk30005F0
+	.4byte	SpriteSheet_8251F40
+	.4byte	SpriteSheet_8252994
+	.4byte	_unk30005E2
+	.4byte	_unk30005EC
+	.4byte	_gameData
 	.4byte	0x1618
 	.4byte	0x161a
-	.4byte	0x30005e0
-	.4byte	0x30005e8
-	.4byte	0x30005e4
+	.4byte	_unk30005E0
+	.4byte	_unk30005E8
+	.4byte	_unk30005E4
 .L8048C1C:
 	ldr	r4, .L8048C40
 	ldr	r0, [r4]
@@ -160,7 +160,7 @@ sub_8048AE8:
 .L8048C40:
 	.align	2, 0
 
-	.4byte	0x30005f0
+	.4byte	_unk30005F0
 .L8048C44:
 	mov	r1, #0xa0
 	lsl	r1, r1, #0x1
@@ -191,9 +191,9 @@ sub_8048AE8:
 .L8048C7C:
 	.align	2, 0
 
-	.4byte	0x30005e4
-	.4byte	0x30005e8
-	.4byte	0x30005f0
+	.4byte	_unk30005E4
+	.4byte	_unk30005E8
+	.4byte	_unk30005F0
 .L8048C88:
 	cmp	r2, #0x1
 	bne	.L8048D5E	@cond_branch
@@ -203,7 +203,7 @@ sub_8048AE8:
 .L8048C92:
 	.align	2, 0
 .L8048C94:
-	.4byte	0x30005ec
+	.4byte	_unk30005EC
 .L8048C98:
 	add	r0, r7, #0
 	add	r0, r0, #0x7f
@@ -306,14 +306,14 @@ sub_8048AE8:
 .L8048D66:
 	.align	2, 0
 .L8048D68:
-	.4byte	0x3005da0
-	.4byte	0x3000fb0
+	.4byte	_unk3005DA0
+	.4byte	_gameData
 	.4byte	0x1618
-	.4byte	0x30005e4
-	.4byte	0x30005f0
+	.4byte	_unk30005E4
+	.4byte	_unk30005F0
 	.4byte	0x1619
-	.4byte	0x30005e2
-	.4byte	0x30005e0
+	.4byte	_unk30005E2
+	.4byte	_unk30005E0
 	.4byte	0x3e70000
 	thumb_func_end sub_8048AE8
 

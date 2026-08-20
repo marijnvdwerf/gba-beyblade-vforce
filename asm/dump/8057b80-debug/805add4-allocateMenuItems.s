@@ -77,7 +77,7 @@ allocateMenuItems:
 .L805AE60:
 	.align	2, 0
 
-	.4byte	0x8755370
+	.4byte	Str_8755370
 .L805AE64:
 	mov	r3, #0x0
 	str	r3, [sp, #0x14]

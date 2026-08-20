@@ -34,11 +34,11 @@ sub_804AF04:
 .L804AF44:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xc26
-	.4byte	0x807561c
+	.4byte	_807561C
 	.4byte	0xc2c
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6e6
 	thumb_func_end sub_804AF04
 

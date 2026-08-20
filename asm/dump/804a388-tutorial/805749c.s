@@ -9,7 +9,7 @@ sub_805749C:
 .L80574A4:
 	.align	2, 0
 
-	.4byte	0x807d7c0
+	.4byte	byte_807D7C0
 	thumb_func_end sub_805749C
 
 .align 2, 0 @ Don't pad with nop.

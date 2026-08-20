@@ -12,7 +12,7 @@ sub_80570C0:
 .L80570CE:
 	.align	2, 0
 .L80570D0:
-	.4byte	0x8078f18
+	.4byte	ItemDescription
 	thumb_func_end sub_80570C0
 
 .align 2, 0 @ Don't pad with nop.

@@ -80,7 +80,7 @@ sub_80576EC:
 .L8057786:
 	.align	2, 0
 .L8057788:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xcbc
 	.4byte	0xddc
 	.4byte	0xeb4

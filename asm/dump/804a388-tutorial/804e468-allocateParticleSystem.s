@@ -104,7 +104,7 @@ allocateParticleSystem:
 .L804E52A:
 	.align	2, 0
 .L804E52C:
-	.4byte	0x8727018
+	.4byte	Str_8727018
 	thumb_func_end allocateParticleSystem
 
 .align 2, 0 @ Don't pad with nop.

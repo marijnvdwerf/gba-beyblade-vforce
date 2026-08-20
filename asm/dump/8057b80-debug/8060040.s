@@ -15,7 +15,7 @@ sub_8060040:
 .L8060054:
 	.align	2, 0
 
-	.4byte	0x3005dc4
+	.4byte	_unk3005DC4
 .L8060058:
 	mov	r0, #0x10
 	and	r1, r1, r0
@@ -31,7 +31,7 @@ sub_8060040:
 .L806006C:
 	.align	2, 0
 
-	.4byte	0x87558b4
+	.4byte	Str_87558B4
 	thumb_func_end sub_8060040
 
 .align 2, 0 @ Don't pad with nop.

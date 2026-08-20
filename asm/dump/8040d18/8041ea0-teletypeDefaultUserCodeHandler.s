@@ -31,7 +31,7 @@ teletypeDefaultUserCodeHandler:
 	.align	2, 0
 .L8041ED0:
 	.4byte	0xffffff
-	.4byte	0x3000ee8
+	.4byte	_unk3000EE8
 	.4byte	.L8041EDC
 .L8041EDC:
 	.4byte	.L8041FBC
@@ -188,7 +188,7 @@ teletypeDefaultUserCodeHandler:
 .L8042068:
 	.align	2, 0
 
-	.4byte	0x3000eec
+	.4byte	_unk3000EEC
 	.4byte	0xfffffcff
 .L8042070:
 	ldr	r3, .L804208C
@@ -207,7 +207,7 @@ teletypeDefaultUserCodeHandler:
 .L804208A:
 	.align	2, 0
 .L804208C:
-	.4byte	0x3000eec
+	.4byte	_unk3000EEC
 	.4byte	0xffffc3ff
 .L8042094:
 	add	r0, r4, #0
@@ -234,7 +234,7 @@ teletypeDefaultUserCodeHandler:
 .L80420BE:
 	.align	2, 0
 .L80420C0:
-	.4byte	0x86fcf58
+	.4byte	Str_86FCF58
 	thumb_func_end teletypeDefaultUserCodeHandler
 
 .align 2, 0 @ Don't pad with nop.

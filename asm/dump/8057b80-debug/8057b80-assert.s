@@ -57,14 +57,14 @@ assert:
 .L8057BFC:
 	.align	2, 0
 
-	.4byte	0x872cb38
-	.4byte	0x872cb74
-	.4byte	0x872cb88
-	.4byte	0x872cb8c
-	.4byte	0x872cb9c
-	.4byte	0x872cbac
-	.4byte	0x872cbbc
-	.4byte	0x3005ca0
+	.4byte	Str_872CB38
+	.4byte	Str_872CB74
+	.4byte	Str_872CB88
+	.4byte	Str_872CB8C
+	.4byte	Str_872CB9C
+	.4byte	Str_872CBAC
+	.4byte	Str_872CBBC
+	.4byte	_keyInput
 	thumb_func_end assert
 
 .align 2, 0 @ Don't pad with nop.

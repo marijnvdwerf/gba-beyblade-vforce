@@ -130,12 +130,12 @@ initEventListeners:
 .L80541F2:
 	.align	2, 0
 .L80541F4:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xca4
 	.4byte	0xca8
-	.4byte	0x8729658
-	.4byte	0x87296a4
-	.4byte	0x807d974
+	.4byte	Str_8729658
+	.4byte	Str_87296A4
+	.4byte	__fastMemoryCopyARM
 	thumb_func_end initEventListeners
 
 .align 2, 0 @ Don't pad with nop.

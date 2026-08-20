@@ -81,13 +81,13 @@ sub_8045848:
 .L80458E6:
 	.align	2, 0
 .L80458E8:
-	.4byte	0x30003a8
-	.4byte	0x823bf04
+	.4byte	_unk30003A8
+	.4byte	SpriteSheet_823BF04
 	.4byte	0xffff0000
-	.4byte	0x30003ac
-	.4byte	0x30003b0
-	.4byte	0x30003b4
-	.4byte	0x80693dc
+	.4byte	_unk30003AC
+	.4byte	_unk30003B0
+	.4byte	_unk30003B4
+	.4byte	_80693DC
 .L8045904:
 	mov	r1, #0x96
 	lsl	r1, r1, #0x3
@@ -110,8 +110,8 @@ sub_8045848:
 .L804592A:
 	.align	2, 0
 .L804592C:
-	.4byte	0x30003a8
-	.4byte	0x30003ac
+	.4byte	_unk30003A8
+	.4byte	_unk30003AC
 .L8045934:
 	ldr	r5, .L80459C0
 	ldr	r0, [r5]
@@ -182,12 +182,12 @@ sub_8045848:
 .L80459BE:
 	.align	2, 0
 .L80459C0:
-	.4byte	0x30003a8
-	.4byte	0x30003b0
-	.4byte	0x874cc3c
-	.4byte	0x30003ac
-	.4byte	0x30003b4
-	.4byte	0x3005da0
+	.4byte	_unk30003A8
+	.4byte	_unk30003B0
+	.4byte	Unk_874CC3C
+	.4byte	_unk30003AC
+	.4byte	_unk30003B4
+	.4byte	_unk3005DA0
 .L80459D8:
 	add	r0, r4, #0
 	bl	sub_8050E80
@@ -223,10 +223,10 @@ sub_8045848:
 .L8045A18:
 	.align	2, 0
 
-	.4byte	0x3005da0
-	.4byte	0x30003b0
+	.4byte	_unk3005DA0
+	.4byte	_unk30003B0
 	.4byte	0xffff0000
-	.4byte	0x30003b4
+	.4byte	_unk30003B4
 	.4byte	0x4b4
 	.4byte	.L8045A30
 .L8045A30:

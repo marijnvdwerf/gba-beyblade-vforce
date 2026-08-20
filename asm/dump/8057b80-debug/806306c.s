@@ -17,7 +17,7 @@ sub_806306C:
 .L8063084:
 	.align	2, 0
 
-	.4byte	0x3005e60
+	.4byte	_unk3005E60
 .L8063088:
 	ldr	r4, [r3, #0x10]
 	cmp	r4, #0

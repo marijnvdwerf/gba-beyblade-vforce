@@ -22,7 +22,7 @@ sub_80570D4:
 .L80570F6:
 	.align	2, 0
 .L80570F8:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x594
 .L8057100:
 	mov	r0, #0x1

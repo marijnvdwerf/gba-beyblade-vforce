@@ -53,7 +53,7 @@ sub_8057164:
 .L80571BC:
 	.align	2, 0
 
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 .L80571C0:
 	cmp	r1, #0
 	beq	.L80571CA	@cond_branch

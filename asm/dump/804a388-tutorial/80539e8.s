@@ -127,11 +127,11 @@ sub_80539E8:
 .L8053AE6:
 	.align	2, 0
 .L8053AE8:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xffff8800
 	.4byte	0xffff8000
 	.4byte	0x434
-	.4byte	0x806b300
+	.4byte	LevelDesigns
 	.4byte	sub_80522D4 + 1
 	.4byte	0xb51
 	thumb_func_end sub_80539E8

@@ -52,9 +52,9 @@ sub_8041288:
 .L80412EC:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a4
-	.4byte	0x806ea70
+	.4byte	_806EA70
 .L80412F8:
 	ldr	r0, [r6, #0x8]
 	lsl	r4, r4, #0x2
@@ -77,7 +77,7 @@ sub_8041288:
 .L804131E:
 	.align	2, 0
 .L8041320:
-	.4byte	0x806ea5c
+	.4byte	_806EA5C
 	thumb_func_end sub_8041288
 
 .align 2, 0 @ Don't pad with nop.

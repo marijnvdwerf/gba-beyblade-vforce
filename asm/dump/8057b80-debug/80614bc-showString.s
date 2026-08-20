@@ -62,7 +62,7 @@ showString:
 .L8061530:
 	.align	2, 0
 
-	.4byte	0x8755b58
+	.4byte	Str_8755B58
 .L8061534:
 	cmp	r6, #0
 	beq	.L806153A	@cond_branch
@@ -220,7 +220,7 @@ showString:
 .L8061656:
 	.align	2, 0
 .L8061658:
-	.4byte	0x807d980
+	.4byte	byte_807D980
 	.4byte	0xc1fffcff
 	thumb_func_end showString
 

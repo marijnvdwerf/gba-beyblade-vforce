@@ -16,7 +16,7 @@ getSomeLevelID:
 .L805166C:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 .L8051670:
 	ldr	r0, .L8051680
 	ldr	r0, [r0]
@@ -29,7 +29,7 @@ getSomeLevelID:
 .L805167E:
 	.align	2, 0
 .L8051680:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6c4
 	thumb_func_end getSomeLevelID
 

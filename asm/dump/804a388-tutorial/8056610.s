@@ -77,7 +77,7 @@ sub_8056610:
 .L8056698:
 	.align	2, 0
 
-	.4byte	0x3000e30
+	.4byte	_unk3000E30
 .L805669C:
 	mov	r0, #0xb8
 	lsl	r0, r0, #0x1

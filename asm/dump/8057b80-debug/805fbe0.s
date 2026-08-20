@@ -111,9 +111,9 @@ sub_805FBE0:
 .L805FCBA:
 	.align	2, 0
 .L805FCBC:
-	.4byte	0x8755764
-	.4byte	0x8755794
-	.4byte	0x87557c8
+	.4byte	Str_8755764
+	.4byte	Str_8755794
+	.4byte	Str_87557C8
 	thumb_func_end sub_805FBE0
 
 .align 2, 0 @ Don't pad with nop.

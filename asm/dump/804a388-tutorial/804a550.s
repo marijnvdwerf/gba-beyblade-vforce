@@ -136,13 +136,13 @@ sub_804A550:
 .L804A664:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x13fc
 	.4byte	0x1504
 	.4byte	0x1538
-	.4byte	0x821ccc8
-	.4byte	0x821cb80
-	.4byte	0x3005da0
+	.4byte	SpriteSheet_821CCC8
+	.4byte	SpriteSheet_821CB80
+	.4byte	_unk3005DA0
 .L804A680:
 	mov	r4, #0x1
 	mov	r8, r4
@@ -231,8 +231,8 @@ sub_804A550:
 .L804A722:
 	.align	2, 0
 .L804A724:
-	.4byte	0x3005da0
-	.4byte	0x807d93c
+	.4byte	_unk3005DA0
+	.4byte	__oam_8756CC0
 	thumb_func_end sub_804A550
 
 .align 2, 0 @ Don't pad with nop.

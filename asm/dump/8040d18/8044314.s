@@ -34,7 +34,7 @@ sub_8044314:
 .L804434C:
 	.align	2, 0
 
-	.4byte	0x806e8d8
+	.4byte	_806E8D8
 .L8044350:
 	ldr	r0, [r5, #0x8]
 	ldr	r1, .L8044360
@@ -46,7 +46,7 @@ sub_8044314:
 .L804435E:
 	.align	2, 0
 .L8044360:
-	.4byte	0x806e8d8
+	.4byte	_806E8D8
 .L8044364:
 	ldr	r0, [r5, #0x10]
 	ldr	r1, .L8044374
@@ -58,7 +58,7 @@ sub_8044314:
 .L8044372:
 	.align	2, 0
 .L8044374:
-	.4byte	0x806e8d8
+	.4byte	_806E8D8
 .L8044378:
 	ldr	r0, [r5, #0x24]
 	ldr	r2, .L8044390
@@ -76,7 +76,7 @@ sub_8044314:
 .L8044390:
 	.align	2, 0
 
-	.4byte	0x806e914
+	.4byte	_806E914
 .L8044394:
 	cmp	r4, #0x1
 	beq	.L80443FC	@cond_branch
@@ -123,10 +123,10 @@ sub_8044314:
 .L80443EA:
 	.align	2, 0
 .L80443EC:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a7
 	.4byte	0x6a6
-	.4byte	0x86fd470
+	.4byte	Str_86FD470
 .L80443FC:
 	ldr	r0, [r5, #0xc]
 	ldr	r1, .L8044418
@@ -143,7 +143,7 @@ sub_8044314:
 .L8044416:
 	.align	2, 0
 .L8044418:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 .L804441C:
 	ldr	r0, .L8044440
 	ldr	r0, [r0]
@@ -166,7 +166,7 @@ sub_8044314:
 .L8044440:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a5
 	.4byte	0x6a6
 	thumb_func_end sub_8044314

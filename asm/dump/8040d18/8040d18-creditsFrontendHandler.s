@@ -51,20 +51,20 @@ creditsFrontendHandler:
 .L8040D74:
 	.align	2, 0
 
-	.4byte	0x3000004
+	.4byte	_3000004
 	.4byte	0xffff0000
-	.4byte	0x3000000
-	.4byte	0x3000008
-	.4byte	0x3000020
+	.4byte	_3000000
+	.4byte	_3000008
+	.4byte	_3000020
 	.4byte	0x3000021
-	.4byte	0x3000018
-	.4byte	0x300001c
-	.4byte	0x8067d64
-	.4byte	0x300000c
-	.4byte	0x3000010
-	.4byte	0x3000014
-	.4byte	0x3000024
-	.4byte	0x3000028
+	.4byte	_currentCreditsPtr
+	.4byte	_creditsPtr
+	.4byte	Credits
+	.4byte	_300000C
+	.4byte	_3000010
+	.4byte	_3000014
+	.4byte	_3000024
+	.4byte	_fontPtr
 .L8040DAC:
 	ldr	r0, .L8040DE4
 	ADD r0, sl
@@ -97,12 +97,12 @@ creditsFrontendHandler:
 	.align	2, 0
 .L8040DE4:
 	.4byte	0x584
-	.4byte	0x3000020
+	.4byte	_3000020
 	.4byte	0x4000050
 	.4byte	0x4000052
-	.4byte	0x300000c
-	.4byte	0x3000014
-	.4byte	0x3000010
+	.4byte	_300000C
+	.4byte	_3000014
+	.4byte	_3000010
 .L8040E00:
 	ldr	r0, .L8040E7C
 	str	r1, [r0]
@@ -173,13 +173,13 @@ creditsFrontendHandler:
 .L8040E7C:
 	.align	2, 0
 
-	.4byte	0x3000010
-	.4byte	0x3000020
+	.4byte	_3000010
+	.4byte	_3000020
 	.4byte	0x3000021
-	.4byte	0x300001c
-	.4byte	0x3005da0
+	.4byte	_creditsPtr
+	.4byte	_unk3005DA0
 	.4byte	0x584
-	.4byte	0x3000008
+	.4byte	_3000008
 .L8040E98:
 	bl	sub_8049178
 .L8040E9C:
@@ -400,20 +400,20 @@ creditsFrontendHandler:
 .L8041040:
 	.align	2, 0
 
-	.4byte	0x3000000
+	.4byte	_3000000
 	.4byte	0xffff0000
-	.4byte	0x3000008
-	.4byte	0x3000028
-	.4byte	0x3000024
-	.4byte	0x3000020
-	.4byte	0x3000018
-	.4byte	0x300001c
-	.4byte	0x86fced8
-	.4byte	0x82b05ec
-	.4byte	0x8067ae0
-	.4byte	0x3000010
-	.4byte	0x3000014
-	.4byte	0x3000004
+	.4byte	_3000008
+	.4byte	_fontPtr
+	.4byte	_3000024
+	.4byte	_3000020
+	.4byte	_currentCreditsPtr
+	.4byte	_creditsPtr
+	.4byte	Str_86FCED8
+	.4byte	SpriteSheet_82B05EC
+	.4byte	ShadowFontMeta
+	.4byte	_3000010
+	.4byte	_3000014
+	.4byte	_3000004
 	thumb_func_end creditsFrontendHandler
 
 .align 2, 0 @ Don't pad with nop.

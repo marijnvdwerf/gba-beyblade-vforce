@@ -79,12 +79,12 @@ sub_8044054:
 .L8044100:
 	.align	2, 0
 
-	.4byte	0x3000174
-	.4byte	0x3000178
-	.4byte	0x30001a8
-	.4byte	0x3000180
-	.4byte	0x3000170
-	.4byte	0x300016c
+	.4byte	_unk3000174
+	.4byte	_unk3000178
+	.4byte	_unk30001A8
+	.4byte	_unk3000180
+	.4byte	_unk3000170
+	.4byte	_unk300016C
 .L8044118:
 	mov	r1, #0xa0
 	lsl	r1, r1, #0x1
@@ -115,10 +115,10 @@ sub_8044054:
 .L8044152:
 	.align	2, 0
 .L8044154:
-	.4byte	0x300016c
-	.4byte	0x3000170
-	.4byte	0x3000180
-	.4byte	0x3000f48
+	.4byte	_unk300016C
+	.4byte	_unk3000170
+	.4byte	_unk3000180
+	.4byte	_currentGameState
 	.4byte	0x6ec
 .L8044168:
 	ldr	r1, .L804419C
@@ -147,9 +147,9 @@ sub_8044054:
 .L804419A:
 	.align	2, 0
 .L804419C:
-	.4byte	0x3005da0
-	.4byte	0x30001a8
-	.4byte	0x3000f48
+	.4byte	_unk3005DA0
+	.4byte	_unk30001A8
+	.4byte	_currentGameState
 	.4byte	0x6ea
 .L80441AC:
 	mov	r0, #0x15
@@ -163,7 +163,7 @@ sub_8044054:
 .L80441BC:
 	.align	2, 0
 
-	.4byte	0x300016c
+	.4byte	_unk300016C
 .L80441C0:
 	ldr	r2, .L8044224
 	ldr	r0, [r2]
@@ -219,11 +219,11 @@ sub_8044054:
 .L8044224:
 	.align	2, 0
 
-	.4byte	0x3000174
-	.4byte	0x3000178
-	.4byte	0x30001a8
-	.4byte	0x3000180
-	.4byte	0x3000f48
+	.4byte	_unk3000174
+	.4byte	_unk3000178
+	.4byte	_unk30001A8
+	.4byte	_unk3000180
+	.4byte	_currentGameState
 	.4byte	0x6ec
 	thumb_func_end sub_8044054
 

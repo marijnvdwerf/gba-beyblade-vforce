@@ -80,7 +80,7 @@ sub_805B668:
 .L805B6FC:
 	.align	2, 0
 
-	.4byte	0x3000d80
+	.4byte	_unk3000D80
 	thumb_func_end sub_805B668
 
 .align 2, 0 @ Don't pad with nop.

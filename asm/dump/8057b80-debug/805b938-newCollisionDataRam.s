@@ -62,7 +62,7 @@ newCollisionDataRam:
 .L805B9A6:
 	.align	2, 0
 .L805B9A8:
-	.4byte	0x875540c
+	.4byte	Str_875540C
 .L805B9AC:
 	ldr	r4, [r1]
 	mov	r0, #0x1
@@ -136,8 +136,8 @@ newCollisionDataRam:
 .L805BA34:
 	.align	2, 0
 
-	.4byte	0x807d974
-	.4byte	0x87553d0
+	.4byte	__fastMemoryCopyARM
+	.4byte	Str_87553D0
 	thumb_func_end newCollisionDataRam
 
 .align 2, 0 @ Don't pad with nop.

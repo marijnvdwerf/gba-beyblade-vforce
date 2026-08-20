@@ -26,7 +26,7 @@ deallocBeybladeActorData:
 .L8057250:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1110
 	thumb_func_end deallocBeybladeActorData
 

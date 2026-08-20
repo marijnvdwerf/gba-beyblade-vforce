@@ -60,9 +60,9 @@ onSerialCommunication:
 	.4byte	0x4000122
 	.4byte	0x4000124
 	.4byte	0x4000126
-	.4byte	0x3005dc4
-	.4byte	0x3000df0
-	.4byte	0x807d908
+	.4byte	_unk3005DC4
+	.4byte	_unk3000DF0
+	.4byte	__sub_8757FCC
 	.4byte	0x400012a
 	thumb_func_end onSerialCommunication
 

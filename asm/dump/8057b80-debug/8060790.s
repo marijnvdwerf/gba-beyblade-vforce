@@ -33,7 +33,7 @@ sub_8060790:
 .L80607C4:
 	.align	2, 0
 
-	.4byte	0x3005dc8
+	.4byte	_unk3005DC8
 	.4byte	0x87559c0
 .L80607CC:
 	ldrh	r4, [r2]
@@ -72,7 +72,7 @@ sub_8060790:
 .L8060804:
 	.align	2, 0
 
-	.4byte	0x3005dd8
+	.4byte	_unk3005DD8
 	thumb_func_end sub_8060790
 
 .align 2, 0 @ Don't pad with nop.

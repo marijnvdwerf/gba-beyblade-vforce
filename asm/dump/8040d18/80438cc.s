@@ -53,9 +53,9 @@ sub_80438CC:
 .L8043930:
 	.align	2, 0
 
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 	.4byte	0xffffff00
-	.4byte	0x86fd2d0
+	.4byte	Str_86FD2D0
 	thumb_func_end sub_80438CC
 
 .align 2, 0 @ Don't pad with nop.

@@ -54,7 +54,7 @@ sub_8063830:
 .L8063894:
 	.align	2, 0
 
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 .L8063898:
 	mov	r2, #0x1
 	NEG	r2, r2

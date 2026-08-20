@@ -31,10 +31,10 @@ sub_805253C:
 .L8052572:
 	.align	2, 0
 .L8052574:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x153c
 	.4byte	0x1548
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 	.4byte	0x6012000
 	thumb_func_end sub_805253C
 

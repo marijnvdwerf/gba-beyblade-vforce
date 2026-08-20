@@ -60,9 +60,9 @@ sub_8060A94:
 .L8060AFE:
 	.align	2, 0
 .L8060B00:
-	.4byte	0x3005de4
-	.4byte	0x3005dec
-	.4byte	0x3005df4
+	.4byte	_unk3005DE4
+	.4byte	_spritesLeft
+	.4byte	_spritesFree
 	thumb_func_end sub_8060A94
 
 .align 2, 0 @ Don't pad with nop.

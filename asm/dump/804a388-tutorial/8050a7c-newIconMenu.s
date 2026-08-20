@@ -104,9 +104,9 @@ newIconMenu:
 .L8050B44:
 	.align	2, 0
 
-	.4byte	0x8729398
+	.4byte	Str_8729398
 	.4byte	0xffff
-	.4byte	0x874cc3c
+	.4byte	Unk_874CC3C
 .L8050B50:
 	ldr	r0, [r4, #0x20]
 .L8050B52:

@@ -38,7 +38,7 @@ sub_804EE54:
 .L804EE90:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x105a
 	.4byte	.L804EE9C
 .L804EE9C:

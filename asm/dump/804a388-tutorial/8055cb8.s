@@ -25,12 +25,12 @@ sub_8055CB8:
 .L8055CE4:
 	.align	2, 0
 
-	.4byte	0x3000c18
-	.4byte	0x3000fc0
+	.4byte	withBoundingAreaCount
+	.4byte	_unk3000FC0
 	.4byte	def_94_0_8055CFC + 1
 	.4byte	def_94_4_AddWithBoundingAreaMessage + 1
 	.4byte	def_94_8_collision_8055F2C + 1
-	.4byte	0x3000fd0
+	.4byte	_unk3000FD0
 	thumb_func_end sub_8055CB8
 
 .align 2, 0 @ Don't pad with nop.

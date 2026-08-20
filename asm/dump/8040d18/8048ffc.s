@@ -15,7 +15,7 @@ sub_8048FFC:
 .L8049010:
 	.align	2, 0
 
-	.4byte	0x3000be0
+	.4byte	_unk3000BE0
 .L8049014:
 	mov	r0, #0x1
 .L8049016:

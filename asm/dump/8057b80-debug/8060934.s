@@ -72,11 +72,11 @@ sub_8060934:
 .L80609B0:
 	.align	2, 0
 
-	.4byte	0x3005de4
-	.4byte	0x3005e6c
-	.4byte	0x3005dcc
-	.4byte	0x3005dc8
-	.4byte	0x3005dd8
+	.4byte	_unk3005DE4
+	.4byte	_unk3005E6C
+	.4byte	_SpriteVramFreeList
+	.4byte	_unk3005DC8
+	.4byte	_unk3005DD8
 	thumb_func_end sub_8060934
 
 .align 2, 0 @ Don't pad with nop.

@@ -46,7 +46,7 @@ sub_8043DB8:
 .L8043E12:
 	.align	2, 0
 .L8043E14:
-	.4byte	0x806e97c
+	.4byte	_806E97C
 .L8043E18:
 	ldr	r0, [r5, #0x4]
 	ldr	r1, .L8043F10
@@ -168,9 +168,9 @@ sub_8043DB8:
 .L8043F0E:
 	.align	2, 0
 .L8043F10:
-	.4byte	0x86fd468
-	.4byte	0x806e97c
-	.4byte	0x86fd46c
+	.4byte	Str_86FD468
+	.4byte	_806E97C
+	.4byte	Str_86FD46C
 .L8043F1C:
 	ldr	r0, [r5, #0x24]
 	ldr	r1, .L8043F3C
@@ -191,7 +191,7 @@ sub_8043DB8:
 .L8043F3C:
 	.align	2, 0
 
-	.4byte	0x806e97c
+	.4byte	_806E97C
 	thumb_func_end sub_8043DB8
 
 .align 2, 0 @ Don't pad with nop.

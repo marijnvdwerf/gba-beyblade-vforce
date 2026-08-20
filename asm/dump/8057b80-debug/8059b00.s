@@ -135,9 +135,9 @@ sub_8059B00:
 .L8059C0C:
 	.align	2, 0
 
-	.4byte	0x3000d00
-	.4byte	0x874cc3c
-	.4byte	0x872cc3c
+	.4byte	_unk3000D00
+	.4byte	Unk_874CC3C
+	.4byte	Unk_872CC3C
 	thumb_func_end sub_8059B00
 
 .align 2, 0 @ Don't pad with nop.

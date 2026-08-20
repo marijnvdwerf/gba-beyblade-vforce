@@ -40,8 +40,8 @@ sub_80439A0:
 .L80439E6:
 	.align	2, 0
 .L80439E8:
-	.4byte	0x874cc3c
-	.4byte	0x3000e30
+	.4byte	Unk_874CC3C
+	.4byte	_unk3000E30
 	.4byte	0xffffff00
 	thumb_func_end sub_80439A0
 

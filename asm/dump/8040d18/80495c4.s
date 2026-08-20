@@ -24,8 +24,8 @@ sub_80495C4:
 .L80495EA:
 	.align	2, 0
 .L80495EC:
-	.4byte	0x3000650
-	.4byte	0x8069fc8
+	.4byte	_unk3000650
+	.4byte	_8069FC8
 .L80495F4:
 	mov	r6, #0x0
 .L80495F6:
@@ -90,7 +90,7 @@ sub_80495C4:
 .L8049672:
 	.align	2, 0
 .L8049674:
-	.4byte	0x3000650
+	.4byte	_unk3000650
 	.4byte	0x464
 	thumb_func_end sub_80495C4
 

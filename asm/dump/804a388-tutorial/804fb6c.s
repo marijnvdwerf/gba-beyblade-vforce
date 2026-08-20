@@ -60,9 +60,9 @@ sub_804FB6C:
 .L804FBE6:
 	.align	2, 0
 .L804FBE8:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x105e
-	.4byte	0x806e8c4
+	.4byte	_806E8C4
 	.4byte	0x1010
 	.4byte	0xf64
 	.4byte	0x105a

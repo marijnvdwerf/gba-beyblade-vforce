@@ -15,7 +15,7 @@ sub_806008C:
 .L80600A0:
 	.align	2, 0
 
-	.4byte	0x3005dc4
+	.4byte	_unk3005DC4
 .L80600A4:
 	mov	r0, #0x1
 .L80600A6:

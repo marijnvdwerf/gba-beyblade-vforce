@@ -41,7 +41,7 @@ newSpriteTrail:
 .L804A882:
 	.align	2, 0
 .L804A884:
-	.4byte	0x8726f84
+	.4byte	Str_8726F84
 .L804A888:
 	ldr	r5, [r6]
 	mov	r0, #0x0
@@ -109,7 +109,7 @@ newSpriteTrail:
 .L804A904:
 	.align	2, 0
 
-	.4byte	0x8726fb4
+	.4byte	Str_8726FB4
 	thumb_func_end newSpriteTrail
 
 .align 2, 0 @ Don't pad with nop.

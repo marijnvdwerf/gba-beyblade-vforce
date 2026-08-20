@@ -92,7 +92,7 @@ sub_8050C18:
 .L8050CC2:
 	.align	2, 0
 .L8050CC4:
-	.4byte	0x874cc3c
+	.4byte	Unk_874CC3C
 .L8050CC8:
 	ldr	r2, [r3, #0x8]
 	mov	r0, #0xf0

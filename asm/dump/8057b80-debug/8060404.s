@@ -26,7 +26,7 @@ sub_8060404:
 .L806042C:
 	.align	2, 0
 
-	.4byte	0x3005dc4
+	.4byte	_unk3005DC4
 	.4byte	0x4000128
 	thumb_func_end sub_8060404
 

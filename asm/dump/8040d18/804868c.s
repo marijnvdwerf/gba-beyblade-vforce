@@ -38,7 +38,7 @@ sub_804868C:
 .L80486CC:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x15d4
 	.4byte	0x15c4
 .L80486D8:
@@ -120,13 +120,13 @@ sub_804868C:
 .L8048778:
 	.align	2, 0
 
-	.4byte	0x30005d0
-	.4byte	0x823bf04
+	.4byte	_unk30005D0
+	.4byte	SpriteSheet_823BF04
 	.4byte	0xffff0000
-	.4byte	0x30005d4
-	.4byte	0x30005d8
-	.4byte	0x30005dc
-	.4byte	0x8069d9c
+	.4byte	_unk30005D4
+	.4byte	_unk30005D8
+	.4byte	_unk30005DC
+	.4byte	_8069D9C
 .L8048794:
 	mov	r1, #0x96
 	lsl	r1, r1, #0x3
@@ -149,8 +149,8 @@ sub_804868C:
 .L80487BA:
 	.align	2, 0
 .L80487BC:
-	.4byte	0x30005d0
-	.4byte	0x30005d4
+	.4byte	_unk30005D0
+	.4byte	_unk30005D4
 .L80487C4:
 	ldr	r5, .L804886C
 	ldr	r0, [r5]
@@ -233,12 +233,12 @@ sub_804868C:
 .L804886C:
 	.align	2, 0
 
-	.4byte	0x30005d0
-	.4byte	0x30005d8
-	.4byte	0x874cc3c
-	.4byte	0x30005d4
-	.4byte	0x30005dc
-	.4byte	0x3005da0
+	.4byte	_unk30005D0
+	.4byte	_unk30005D8
+	.4byte	Unk_874CC3C
+	.4byte	_unk30005D4
+	.4byte	_unk30005DC
+	.4byte	_unk3005DA0
 .L8048884:
 	add	r0, r4, #0
 	bl	sub_8050E80
@@ -359,7 +359,7 @@ sub_804868C:
 .L8048966:
 	.align	2, 0
 .L8048968:
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 	.4byte	0x4b4
 	.4byte	.L8048974
 .L8048974:
@@ -378,7 +378,7 @@ sub_804868C:
 .L8048994:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a5
 .L804899C:
 	ldr	r0, .L80489A8
@@ -390,7 +390,7 @@ sub_804868C:
 .L80489A8:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a5
 .L80489B0:
 	ldr	r0, .L80489BC
@@ -402,7 +402,7 @@ sub_804868C:
 .L80489BC:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a5
 .L80489C4:
 	ldr	r0, .L80489D0
@@ -414,7 +414,7 @@ sub_804868C:
 .L80489D0:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a5
 .L80489D8:
 	ldr	r0, .L8048A40
@@ -470,11 +470,11 @@ sub_804868C:
 .L8048A3E:
 	.align	2, 0
 .L8048A40:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a5
-	.4byte	0x30005d8
+	.4byte	_unk30005D8
 	.4byte	0xffff0000
-	.4byte	0x30005dc
+	.4byte	_unk30005DC
 .L8048A54:
 	ldr	r0, .L8048A70
 	ldrh	r0, [r0]
@@ -492,7 +492,7 @@ sub_804868C:
 .L8048A6E:
 	.align	2, 0
 .L8048A70:
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 	thumb_func_end sub_804868C
 
 .align 2, 0 @ Don't pad with nop.

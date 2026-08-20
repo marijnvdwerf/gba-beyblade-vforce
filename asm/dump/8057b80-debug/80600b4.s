@@ -70,8 +70,8 @@ sub_80600B4:
 .L806013A:
 	.align	2, 0
 .L806013C:
-	.4byte	0x3005dc4
-	.4byte	0x807d970
+	.4byte	_unk3005DC4
+	.4byte	__fastMemoryClearARM
 	.4byte	0x4000128
 	.4byte	0x400012a
 	thumb_func_end sub_80600B4

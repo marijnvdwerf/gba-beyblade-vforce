@@ -91,8 +91,8 @@ sub_8060E8C:
 .L8060F34:
 	.align	2, 0
 
-	.4byte	0x874cc3c
-	.4byte	0x872cc3c
+	.4byte	Unk_874CC3C
+	.4byte	Unk_872CC3C
 .L8060F3C:
 	ldr	r1, .L8060F60
 	lsl	r0, r7, #0x1
@@ -117,7 +117,7 @@ sub_8060E8C:
 .L8060F60:
 	.align	2, 0
 
-	.4byte	0x872cc3c
+	.4byte	Unk_872CC3C
 	thumb_func_end sub_8060E8C
 
 .align 2, 0 @ Don't pad with nop.

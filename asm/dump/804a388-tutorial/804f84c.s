@@ -16,7 +16,7 @@ sub_804F84C:
 .L804F862:
 	.align	2, 0
 .L804F864:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 .L804F868:
 	mov	r0, #0x84
 	lsl	r0, r0, #0x5

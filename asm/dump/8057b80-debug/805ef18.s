@@ -70,7 +70,7 @@ sub_805EF18:
 .L805EF96:
 	.align	2, 0
 .L805EF98:
-	.4byte	0x807d954
+	.4byte	__sub_87576D8
 	thumb_func_end sub_805EF18
 
 .align 2, 0 @ Don't pad with nop.

@@ -34,7 +34,7 @@ sub_804374C:
 .L8043788:
 	.align	2, 0
 
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 .L804378C:
 	mov	r0, #0x80
 	and	r0, r0, r1
@@ -74,7 +74,7 @@ sub_804374C:
 .L80437D8:
 	.align	2, 0
 
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 .L80437DC:
 	mov	r0, #0x10
 	and	r0, r0, r1
@@ -124,7 +124,7 @@ sub_804374C:
 .L8043840:
 	.align	2, 0
 
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 .L8043844:
 	mov	r0, #0x2
 	and	r0, r0, r1

@@ -30,8 +30,8 @@ freeSpriteVramLocation:
 .L8060838:
 	.align	2, 0
 
-	.4byte	0x3005dc8
-	.4byte	0x3005dd8
+	.4byte	_unk3005DC8
+	.4byte	_unk3005DD8
 .L8060840:
 	ldrh	r1, [r2, #0x2]
 	add	r0, r3, r1
@@ -52,7 +52,7 @@ freeSpriteVramLocation:
 .L806085E:
 	.align	2, 0
 .L8060860:
-	.4byte	0x8755a08
+	.4byte	Str_8755A08
 .L8060864:
 	ldr	r0, [r4, #0x4]
 	mov	r3, r9
@@ -102,7 +102,7 @@ freeSpriteVramLocation:
 .L80608B4:
 	.align	2, 0
 
-	.4byte	0x3005dd8
+	.4byte	_unk3005DD8
 .L80608B8:
 	add	r6, r2, #0
 	ldr	r2, [r2, #0x4]

@@ -23,7 +23,7 @@ sub_8055624:
 .L8055648:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1102
 	.4byte	0x10fc
 	.4byte	0xffff

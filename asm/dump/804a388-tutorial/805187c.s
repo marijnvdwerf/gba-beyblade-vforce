@@ -36,7 +36,7 @@ sub_805187C:
 .L80518BA:
 	.align	2, 0
 .L80518BC:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6bc
 	.4byte	0x6ca
 	thumb_func_end sub_805187C

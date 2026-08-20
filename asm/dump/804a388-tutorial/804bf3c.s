@@ -109,9 +109,9 @@ sub_804BF3C:
 	.align	2, 0
 
 	.4byte	0x3ca
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x434
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 .L804C018:
 	ldr	r4, [r6, #0xc]
 	cmp	r5, r4
@@ -144,7 +144,7 @@ sub_804BF3C:
 .L804C052:
 	.align	2, 0
 .L804C054:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x434
 .L804C05C:
 	cmp	r5, r4
@@ -178,7 +178,7 @@ sub_804BF3C:
 .L804C092:
 	.align	2, 0
 .L804C094:
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 	thumb_func_end sub_804BF3C
 
 .align 2, 0 @ Don't pad with nop.

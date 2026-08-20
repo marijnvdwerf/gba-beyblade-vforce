@@ -51,11 +51,11 @@ sub_805FB60:
 .L805FBBE:
 	.align	2, 0
 .L805FBC0:
-	.4byte	0x8755730
-	.4byte	0x8755738
-	.4byte	0x8755748
-	.4byte	0x8755754
-	.4byte	0x875575c
+	.4byte	Str_8755730
+	.4byte	Str_8755738
+	.4byte	Str_8755748
+	.4byte	Str_8755754
+	.4byte	Str_875575C
 .L805FBD4:
 	mov	r4, #0x0
 .L805FBD6:

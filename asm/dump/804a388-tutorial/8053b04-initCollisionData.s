@@ -62,8 +62,8 @@ initCollisionData:
 .L8053B82:
 	.align	2, 0
 .L8053B84:
-	.4byte	0x806b300
-	.4byte	0x3000fb0
+	.4byte	LevelDesigns
+	.4byte	_gameData
 	.4byte	0x65c
 	.4byte	0x7a4
 	thumb_func_end initCollisionData

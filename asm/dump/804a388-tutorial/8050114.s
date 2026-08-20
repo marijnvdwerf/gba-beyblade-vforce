@@ -40,7 +40,7 @@ sub_8050114:
 .L805015A:
 	.align	2, 0
 .L805015C:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x161c
 .L8050164:
 	ldr	r0, .L8050178
@@ -57,7 +57,7 @@ sub_8050114:
 .L8050178:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x161c
 	.4byte	0xfffe
 	thumb_func_end sub_8050114

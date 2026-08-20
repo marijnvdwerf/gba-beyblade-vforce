@@ -60,7 +60,7 @@ sub_8061BA0:
 .L8061C1E:
 	.align	2, 0
 .L8061C20:
-	.4byte	0x8755b8c
+	.4byte	Str_8755B8C
 	thumb_func_end sub_8061BA0
 
 .align 2, 0 @ Don't pad with nop.

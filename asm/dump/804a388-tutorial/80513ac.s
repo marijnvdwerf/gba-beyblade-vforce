@@ -91,14 +91,14 @@ sub_80513AC:
 .L805145A:
 	.align	2, 0
 .L805145C:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6fc
 	.4byte	0xdead
 	.4byte	0x6e4
 	.4byte	0xc54
 	.4byte	0x6e6
 	.4byte	0xc58
-	.4byte	0x807d974
+	.4byte	__fastMemoryCopyARM
 	.4byte	0x704
 	.4byte	0x594
 	.4byte	0xc44

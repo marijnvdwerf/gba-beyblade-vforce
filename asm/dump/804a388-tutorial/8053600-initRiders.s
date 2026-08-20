@@ -27,7 +27,7 @@ initRiders:
 .L8053636:
 	.align	2, 0
 .L8053638:
-	.4byte	0x8729504
+	.4byte	Str_8729504
 .L805363C:
 	add	r0, sp, #0xc
 	bl	getLevelGeometryAddresses
@@ -49,7 +49,7 @@ initRiders:
 .L8053666:
 	.align	2, 0
 .L8053668:
-	.4byte	0x8729564
+	.4byte	Str_8729564
 .L805366C:
 	ldr	r0, .L8053674
 	bl	printf
@@ -57,7 +57,7 @@ initRiders:
 .L8053674:
 	.align	2, 0
 
-	.4byte	0x8729610
+	.4byte	Str_8729610
 .L8053678:
 	mov	r1, sl
 	cmp	r1, #0
@@ -128,7 +128,7 @@ initRiders:
 .L80536FC:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1618
 .L8053704:
 	ldr	r2, .L8053770
@@ -184,10 +184,10 @@ initRiders:
 .L805376E:
 	.align	2, 0
 .L8053770:
-	.4byte	0x874cc3c
+	.4byte	Unk_874CC3C
 	.4byte	0x3ce
-	.4byte	0x8729598
-	.4byte	0x3000fb0
+	.4byte	Str_8729598
+	.4byte	_gameData
 	.4byte	0x434
 .L8053784:
 	mov	r2, #0x80
@@ -258,8 +258,8 @@ initRiders:
 .L8053808:
 	.align	2, 0
 
-	.4byte	0x87295d0
-	.4byte	0x3000fb0
+	.4byte	Str_87295D0
+	.4byte	_gameData
 	.4byte	0x1618
 	.4byte	0x42c
 	.4byte	0x434
@@ -340,7 +340,7 @@ initRiders:
 .L80538AE:
 	.align	2, 0
 .L80538B0:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1618
 	.4byte	0x42c
 	.4byte	0x434

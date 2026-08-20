@@ -22,7 +22,7 @@ sub_80501C8:
 .L80501EA:
 	.align	2, 0
 .L80501EC:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x161c
 .L80501F4:
 	mov	r0, #0x0

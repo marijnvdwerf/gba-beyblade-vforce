@@ -46,7 +46,7 @@ sub_8063B44:
 .L8063B98:
 	.align	2, 0
 
-	.4byte	0x807d980
+	.4byte	byte_807D980
 .L8063B9C:
 	mov	r7, #0x1
 .L8063B9E:

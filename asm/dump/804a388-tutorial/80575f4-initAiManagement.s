@@ -23,10 +23,10 @@ initAiManagement:
 .L805761C:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xcbc
-	.4byte	0x8075b4c
-	.4byte	0x872c99c
+	.4byte	LevelDescriptions
+	.4byte	Str_872C99C
 .L805762C:
 	mov	r2, #0xcc
 	lsl	r2, r2, #0x4
@@ -73,7 +73,7 @@ initAiManagement:
 	.4byte	0xddc
 	.4byte	0xeb4
 	.4byte	fn_aiStubFunc + 1
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 	.4byte	0xe34
 .L8057698:
 	ldrb	r3, [r4, #0xf]
@@ -90,7 +90,7 @@ initAiManagement:
 .L80576B0:
 	.align	2, 0
 
-	.4byte	0x872c9e4
+	.4byte	Str_872C9E4
 .L80576B4:
 	ldrh	r2, [r4, #0x16]
 	lsl	r0, r2, #0x2
@@ -108,7 +108,7 @@ initAiManagement:
 .L80576D0:
 	.align	2, 0
 
-	.4byte	0x872ca48
+	.4byte	Str_872CA48
 .L80576D4:
 	str	r4, [r1]
 .L80576D6:

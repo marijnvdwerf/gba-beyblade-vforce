@@ -77,7 +77,7 @@ sub_8065508:
 	.align	2, 0
 .L806559C:
 	.4byte	0xfffffdb4
-	.4byte	0x807d980
+	.4byte	byte_807D980
 .L80655A4:
 	mov	r1, #0x0
 .L80655A6:

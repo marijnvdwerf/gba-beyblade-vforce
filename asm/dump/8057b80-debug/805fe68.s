@@ -46,11 +46,11 @@ sub_805FE68:
 .L805FEBC:
 	.align	2, 0
 
-	.4byte	0x87557fc
-	.4byte	0x8755810
-	.4byte	0x875581c
-	.4byte	0x8755828
-	.4byte	0x875575c
+	.4byte	Str_87557FC
+	.4byte	Str_8755810
+	.4byte	Str_875581C
+	.4byte	Str_8755828
+	.4byte	Str_875575C
 	thumb_func_end sub_805FE68
 
 .align 2, 0 @ Don't pad with nop.

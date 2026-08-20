@@ -15,7 +15,7 @@ processMetadata_default:
 .L80543A0:
 	.align	2, 0
 
-	.4byte	0x87296d8
+	.4byte	Str_87296D8
 	thumb_func_end processMetadata_default
 
 .align 2, 0 @ Don't pad with nop.

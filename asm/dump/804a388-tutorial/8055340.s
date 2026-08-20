@@ -50,7 +50,7 @@ sub_8055340:
 .L8055396:
 	.align	2, 0
 .L8055398:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1084
 	.4byte	0x10fe
 	.4byte	0x1108
@@ -189,7 +189,7 @@ sub_8055340:
 .L80554BE:
 	.align	2, 0
 .L80554C0:
-	.4byte	0x3000e30
+	.4byte	_unk3000E30
 .L80554C4:
 	add	r3, r5, #0
 	add	r3, r3, #0x76

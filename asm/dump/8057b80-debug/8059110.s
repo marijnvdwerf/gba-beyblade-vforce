@@ -48,7 +48,7 @@ sub_8059110:
 .L8059164:
 	.align	2, 0
 
-	.4byte	0x3000e30
+	.4byte	_unk3000E30
 .L8059168:
 	sub	r0, r2, r1
 	str	r0, [r4]

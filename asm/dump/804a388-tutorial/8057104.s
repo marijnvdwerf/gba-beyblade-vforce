@@ -23,7 +23,7 @@ sub_8057104:
 .L8057128:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x594
 .L8057130:
 	ldr	r0, .L8057150
@@ -45,7 +45,7 @@ sub_8057104:
 .L805714E:
 	.align	2, 0
 .L8057150:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x594
 	thumb_func_end sub_8057104
 

@@ -42,10 +42,10 @@ sub_8062EFC:
 .L8062F46:
 	.align	2, 0
 .L8062F48:
-	.4byte	0x3005e60
-	.4byte	0x3005e5c
-	.4byte	0x3005e54
-	.4byte	0x3005e64
+	.4byte	_unk3005E60
+	.4byte	_unk3005E5C
+	.4byte	_actorBlocksHeapPtr
+	.4byte	_unk3005E64
 .L8062F58:
 	add	r3, r2, #0
 	ldr	r0, .L8062F68
@@ -58,7 +58,7 @@ sub_8062EFC:
 .L8062F68:
 	.align	2, 0
 
-	.4byte	0x3005e58
+	.4byte	_unk3005E58
 .L8062F6C:
 	str	r5, [r4, #0xc]
 .L8062F6E:
@@ -90,9 +90,9 @@ sub_8062EFC:
 .L8062F9A:
 	.align	2, 0
 .L8062F9C:
-	.4byte	0x3005e68
-	.4byte	0x3005e58
-	.4byte	0x3005e64
+	.4byte	_actorsHeapPtr
+	.4byte	_unk3005E58
+	.4byte	_unk3005E64
 	thumb_func_end sub_8062EFC
 
 .align 2, 0 @ Don't pad with nop.

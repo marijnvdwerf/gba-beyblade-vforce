@@ -32,7 +32,7 @@ sub_8053E18:
 .L8053E4E:
 	.align	2, 0
 .L8053E50:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xc6c
 	.4byte	0x161b
 .L8053E5C:
@@ -69,7 +69,7 @@ sub_8053E18:
 .L8053E98:
 	.4byte	0xc6c
 	.4byte	0x1618
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a4
 .L8053EA8:
 	mov	r1, #0x80
@@ -108,7 +108,7 @@ sub_8053E18:
 .L8053EEE:
 	.align	2, 0
 .L8053EF0:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6c4
 	thumb_func_end sub_8053E18
 

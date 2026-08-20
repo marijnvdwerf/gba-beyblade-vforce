@@ -81,13 +81,13 @@ sub_80480EC:
 .L804818A:
 	.align	2, 0
 .L804818C:
-	.4byte	0x30005b0
-	.4byte	0x823bf04
+	.4byte	_unk30005B0
+	.4byte	SpriteSheet_823BF04
 	.4byte	0xffff0000
-	.4byte	0x30005b4
-	.4byte	0x30005b8
-	.4byte	0x30005bc
-	.4byte	0x8069d04
+	.4byte	_unk30005B4
+	.4byte	_unk30005B8
+	.4byte	_unk30005BC
+	.4byte	_8069D04
 .L80481A8:
 	mov	r1, #0x96
 	lsl	r1, r1, #0x3
@@ -110,8 +110,8 @@ sub_80480EC:
 .L80481CE:
 	.align	2, 0
 .L80481D0:
-	.4byte	0x30005b0
-	.4byte	0x30005b4
+	.4byte	_unk30005B0
+	.4byte	_unk30005B4
 .L80481D8:
 	ldr	r5, .L8048264
 	ldr	r0, [r5]
@@ -182,12 +182,12 @@ sub_80480EC:
 .L8048262:
 	.align	2, 0
 .L8048264:
-	.4byte	0x30005b0
-	.4byte	0x30005b8
-	.4byte	0x874cc3c
-	.4byte	0x30005b4
-	.4byte	0x30005bc
-	.4byte	0x3005da0
+	.4byte	_unk30005B0
+	.4byte	_unk30005B8
+	.4byte	Unk_874CC3C
+	.4byte	_unk30005B4
+	.4byte	_unk30005BC
+	.4byte	_unk3005DA0
 .L804827C:
 	add	r0, r4, #0
 	bl	sub_8050E80
@@ -221,10 +221,10 @@ sub_80480EC:
 .L80482B8:
 	.align	2, 0
 
-	.4byte	0x3005da0
-	.4byte	0x30005b8
+	.4byte	_unk3005DA0
+	.4byte	_unk30005B8
 	.4byte	0xffff0000
-	.4byte	0x30005bc
+	.4byte	_unk30005BC
 	.4byte	0x4b4
 .L80482CC:
 	mov	r0, #0x1f
@@ -254,7 +254,7 @@ sub_80480EC:
 .L80482FE:
 	.align	2, 0
 .L8048300:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1618
 	.4byte	0x1619
 	.4byte	0x161a

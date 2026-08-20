@@ -15,7 +15,7 @@ loadLevelGeometry:
 .L805398C:
 	.align	2, 0
 
-	.4byte	0x806b300
+	.4byte	LevelDesigns
 	thumb_func_end loadLevelGeometry
 
 .align 2, 0 @ Don't pad with nop.

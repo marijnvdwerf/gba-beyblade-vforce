@@ -55,7 +55,7 @@ sub_80619A4:
 .L8061A12:
 	.align	2, 0
 .L8061A14:
-	.4byte	0x8755b84
+	.4byte	Str_8755B84
 	thumb_func_end sub_80619A4
 
 .align 2, 0 @ Don't pad with nop.

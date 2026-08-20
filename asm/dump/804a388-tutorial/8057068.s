@@ -13,7 +13,7 @@ sub_8057068:
 .L805707A:
 	.align	2, 0
 .L805707C:
-	.4byte	0x836067c
+	.4byte	Pal_836067C
 .L8057080:
 	ldr	r0, .L8057090
 	lsl	r1, r4, #0x2
@@ -26,7 +26,7 @@ sub_8057068:
 .L805708E:
 	.align	2, 0
 .L8057090:
-	.4byte	0x8079b04
+	.4byte	CollectionPalettes
 	thumb_func_end sub_8057068
 
 .align 2, 0 @ Don't pad with nop.

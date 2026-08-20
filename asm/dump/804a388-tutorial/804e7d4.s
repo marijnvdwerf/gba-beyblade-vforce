@@ -161,7 +161,7 @@ sub_804E7D4:
 .L804E908:
 	.align	2, 0
 
-	.4byte	0x3000e30
+	.4byte	_unk3000E30
 	.4byte	0x8074d64
 	thumb_func_end sub_804E7D4
 

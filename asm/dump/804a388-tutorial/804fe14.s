@@ -14,7 +14,7 @@ sub_804FE14:
 .L804FE26:
 	.align	2, 0
 .L804FE28:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x105e
 	thumb_func_end sub_804FE14
 

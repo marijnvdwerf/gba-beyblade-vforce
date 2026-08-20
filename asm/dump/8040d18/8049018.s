@@ -18,7 +18,7 @@ sub_8049018:
 .L8049032:
 	.align	2, 0
 .L8049034:
-	.4byte	0x3000650
+	.4byte	_unk3000650
 	.4byte	0xffff0000
 	thumb_func_end sub_8049018
 

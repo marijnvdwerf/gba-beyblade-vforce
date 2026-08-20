@@ -53,7 +53,7 @@ sub_80431E8:
 	.align	2, 0
 .L8043234:
 	.4byte	0x4000108
-	.4byte	0x3000150
+	.4byte	_unk3000150
 	thumb_func_end sub_80431E8
 
 .align 2, 0 @ Don't pad with nop.

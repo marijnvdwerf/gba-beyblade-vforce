@@ -48,7 +48,7 @@ allocateDynamicBoundingAreas:
 .L805C03A:
 	.align	2, 0
 .L805C03C:
-	.4byte	0x8755530
+	.4byte	Str_8755530
 	thumb_func_end allocateDynamicBoundingAreas
 
 .align 2, 0 @ Don't pad with nop.

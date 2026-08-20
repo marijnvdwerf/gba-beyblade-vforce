@@ -61,7 +61,7 @@ sub_805B41C:
 .L805B48E:
 	.align	2, 0
 .L805B490:
-	.4byte	0x875539c
+	.4byte	Str_875539C
 .L805B494:
 	ldr	r7, [sp, #0x4]
 	ldr	r1, [r7, #0x4]
@@ -307,8 +307,8 @@ sub_805B41C:
 	.align	2, 0
 .L805B65C:
 	.4byte	0xfff
-	.4byte	0x807d970
-	.4byte	0x807d980
+	.4byte	__fastMemoryClearARM
+	.4byte	byte_807D980
 	thumb_func_end sub_805B41C
 
 .align 2, 0 @ Don't pad with nop.

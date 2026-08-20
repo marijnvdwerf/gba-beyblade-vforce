@@ -57,7 +57,7 @@ sub_8059EBC:
 .L8059F1C:
 	.align	2, 0
 
-	.4byte	0x807d7fc
+	.4byte	GlyphIndexes
 	thumb_func_end sub_8059EBC
 
 .align 2, 0 @ Don't pad with nop.

@@ -15,7 +15,7 @@ sub_8063058:
 .L8063068:
 	.align	2, 0
 
-	.4byte	0x3005e60
+	.4byte	_unk3005E60
 	thumb_func_end sub_8063058
 
 .align 2, 0 @ Don't pad with nop.

@@ -212,23 +212,23 @@ LoadHUD:
 .L804EDD6:
 	.align	2, 0
 .L804EDD8:
-	.4byte	0x3000fb0
-	.4byte	0x82b1a84
-	.4byte	0x8067c0d
-	.4byte	0x82b05ec
-	.4byte	0x8067ae0
+	.4byte	_gameData
+	.4byte	SpriteSheet_82B1A84
+	.4byte	LargeFontMeta
+	.4byte	SpriteSheet_82B05EC
+	.4byte	ShadowFontMeta
 	.4byte	0x1044
 	.4byte	0x1048
 	.4byte	0x1064
 	.4byte	0x1074
 	.4byte	0x1068
 	.4byte	0x106c
-	.4byte	0x821cf10
+	.4byte	SpriteSheet_821CF10
 	.4byte	0xffffe000
-	.4byte	0x821db5c
-	.4byte	0x821dea8
+	.4byte	SpriteSheet_821DB5C
+	.4byte	SpriteSheet_821DEA8
 	.4byte	0x107d
-	.4byte	0x8727048
+	.4byte	Str_8727048
 	.4byte	0x107a
 	.4byte	0x1078
 	.4byte	0xffffc000

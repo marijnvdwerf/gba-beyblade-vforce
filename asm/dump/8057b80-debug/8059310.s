@@ -111,7 +111,7 @@ sub_8059310:
 .L80593D6:
 	.align	2, 0
 .L80593D8:
-	.4byte	0x807d944
+	.4byte	__sub_8756FC0
 .L80593DC:
 	ldr	r0, .L8059400
 	ldr	r1, [sp, #0x10]
@@ -134,7 +134,7 @@ sub_8059310:
 .L8059400:
 	.align	2, 0
 
-	.4byte	0x807d948
+	.4byte	__sub_8757380
 	thumb_func_end sub_8059310
 
 .align 2, 0 @ Don't pad with nop.

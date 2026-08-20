@@ -93,9 +93,9 @@ printTime:
 .L8061ADC:
 	.align	2, 0
 
-	.4byte	0x8755b84
-	.4byte	0x8755b88
-	.4byte	0x8755b8c
+	.4byte	Str_8755B84
+	.4byte	Str_8755B88
+	.4byte	Str_8755B8C
 	thumb_func_end printTime
 
 .align 2, 0 @ Don't pad with nop.

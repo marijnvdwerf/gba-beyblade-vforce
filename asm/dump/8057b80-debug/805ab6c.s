@@ -13,8 +13,8 @@ sub_805AB6C:
 .L805AB7C:
 	.align	2, 0
 
-	.4byte	0x3005db8
-	.4byte	0x3005dbc
+	.4byte	_unk3005DB8
+	.4byte	_keyRecordingBlock
 .L805AB84:
 	ldrh	r1, [r5]
 	ldr	r0, .L805ABAC
@@ -38,8 +38,8 @@ sub_805AB6C:
 .L805ABAA:
 	.align	2, 0
 .L805ABAC:
-	.4byte	0x875533c
-	.4byte	0x8755344
+	.4byte	Str_875533C
+	.4byte	Str_8755344
 	thumb_func_end sub_805AB6C
 
 .align 2, 0 @ Don't pad with nop.

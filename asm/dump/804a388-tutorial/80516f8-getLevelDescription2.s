@@ -13,7 +13,7 @@ getLevelDescription2:
 .L805170A:
 	.align	2, 0
 .L805170C:
-	.4byte	0x8075b4c
+	.4byte	LevelDescriptions
 	thumb_func_end getLevelDescription2
 
 .align 2, 0 @ Don't pad with nop.

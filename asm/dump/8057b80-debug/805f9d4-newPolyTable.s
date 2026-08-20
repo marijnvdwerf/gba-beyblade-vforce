@@ -57,8 +57,8 @@ newPolyTable:
 .L805FA42:
 	.align	2, 0
 .L805FA44:
-	.4byte	0x87556b0
-	.4byte	0x87556f4
+	.4byte	Str_87556B0
+	.4byte	Str_87556F4
 	thumb_func_end newPolyTable
 
 .align 2, 0 @ Don't pad with nop.

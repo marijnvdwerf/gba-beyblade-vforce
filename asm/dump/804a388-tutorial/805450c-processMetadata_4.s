@@ -44,7 +44,7 @@ processMetadata_4:
 .L8054562:
 	.align	2, 0
 .L8054564:
-	.4byte	0x3000c10
+	.4byte	_unk3000C10
 .L8054568:
 	mov	r5, #0x0
 	mov	r6, #0x0

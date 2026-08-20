@@ -29,7 +29,7 @@ sub_805FFE4:
 .L8060012:
 	.align	2, 0
 .L8060014:
-	.4byte	0x3005dc4
+	.4byte	_unk3005DC4
 	.4byte	0x4000128
 .L806001C:
 	orr	r2, r2, r5

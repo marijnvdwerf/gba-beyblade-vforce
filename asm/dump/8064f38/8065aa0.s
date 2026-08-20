@@ -17,7 +17,7 @@ sub_8065AA0:
 .L8065AB8:
 	.align	2, 0
 
-	.4byte	0x3005e9c
+	.4byte	_unk_3005E9C
 	.4byte	0x80ff
 .L8065AC0:
 	ldr	r0, .L8065B00
@@ -57,7 +57,7 @@ sub_8065AA0:
 .L8065B00:
 	.align	2, 0
 
-	.4byte	0x3005e9c
+	.4byte	_unk_3005E9C
 .L8065B04:
 	strh	r4, [r3]
 	sub	r3, r3, #0x2
@@ -115,9 +115,9 @@ sub_8065AA0:
 .L8065B6C:
 	.align	2, 0
 
-	.4byte	0x3005e9c
-	.4byte	0x8756894
-	.4byte	0x3000dac
+	.4byte	_unk_3005E9C
+	.4byte	Unk_8756894
+	.4byte	_unk_3000DAC
 	.4byte	0xc001
 	thumb_func_end sub_8065AA0
 

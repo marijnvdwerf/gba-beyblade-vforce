@@ -46,9 +46,9 @@ sub_8050050:
 .L80500A0:
 	.align	2, 0
 
-	.4byte	0x3000f20
-	.4byte	0x3000f44
-	.4byte	0x3000f40
+	.4byte	_unk3000F20
+	.4byte	_unk3000F44
+	.4byte	_unk3000F40
 .L80500AC:
 	mov	r1, #0x0
 .L80500AE:
@@ -94,9 +94,9 @@ sub_8050050:
 .L80500FE:
 	.align	2, 0
 .L8050100:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x161c
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a4
 	.4byte	0x65c
 	thumb_func_end sub_8050050

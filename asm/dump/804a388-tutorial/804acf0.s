@@ -21,12 +21,12 @@ sub_804ACF0:
 .L804AD10:
 	.align	2, 0
 
-	.4byte	0x3000f18
-	.4byte	0x3000f48
+	.4byte	_unk3000F18
+	.4byte	_currentGameState
 	.4byte	0x6e4
-	.4byte	0x3000f14
+	.4byte	_unk3000F14
 	.4byte	0x6e6
-	.4byte	0x3000f1c
+	.4byte	_unk3000F1C
 	thumb_func_end sub_804ACF0
 
 .align 2, 0 @ Don't pad with nop.

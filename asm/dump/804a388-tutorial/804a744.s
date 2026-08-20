@@ -80,7 +80,7 @@ unref_804A744:
 	.align	2, 0
 
 	.4byte	0x3ff
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 	thumb_func_end unref_804A744
 
 .align 2, 0 @ Don't pad with nop.

@@ -69,8 +69,8 @@ sub_805A984:
 .L805A9FE:
 	.align	2, 0
 .L805AA00:
-	.4byte	0x3005da0
-	.4byte	0x3000e30
+	.4byte	_unk3005DA0
+	.4byte	_unk3000E30
 .L805AA08:
 	mov	r0, #0x0
 .L805AA0A:

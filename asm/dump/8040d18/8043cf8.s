@@ -30,7 +30,7 @@ sub_8043CF8:
 .L8043D2A:
 	.align	2, 0
 .L8043D2C:
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 .L8043D30:
 	mov	r1, #0x8f
 	lsl	r1, r1, #0x3

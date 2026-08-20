@@ -104,7 +104,7 @@ allocQuadTree:
 	.align	2, 0
 .L805BC84:
 	.4byte	0xffff0100
-	.4byte	0x8755440
+	.4byte	Str_8755440
 .L805BC8C:
 	ldr	r0, .L805BCB4
 	ldr	r1, [r2]
@@ -127,8 +127,8 @@ allocQuadTree:
 .L805BCB4:
 	.align	2, 0
 
-	.4byte	0x807d970
-	.4byte	0x8755474
+	.4byte	__fastMemoryClearARM
+	.4byte	Str_8755474
 .L805BCBC:
 	ldr	r0, [r0]
 	str	r0, [r6, #0x4c]
@@ -249,9 +249,9 @@ allocQuadTree:
 .L805BDAE:
 	.align	2, 0
 .L805BDB0:
-	.4byte	0x87554b4
-	.4byte	0x87554f0
-	.4byte	0x87554f4
+	.4byte	Str_87554B4
+	.4byte	Str_87554F0
+	.4byte	Str_87554F4
 	thumb_func_end allocQuadTree
 
 .align 2, 0 @ Don't pad with nop.

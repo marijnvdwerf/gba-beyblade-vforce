@@ -82,10 +82,10 @@ sub_8049264:
 .L8049302:
 	.align	2, 0
 .L8049304:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xc26
 	.4byte	0xffff
-	.4byte	0x3000650
+	.4byte	_unk3000650
 	.4byte	0x424
 	.4byte	0x474
 	.4byte	0x584

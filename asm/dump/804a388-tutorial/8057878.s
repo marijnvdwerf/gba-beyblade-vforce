@@ -41,7 +41,7 @@ sub_8057878:
 .L80578B6:
 	.align	2, 0
 .L80578B8:
-	.4byte	0x874cebc
+	.4byte	Unk_874CEBC
 	.4byte	0xffffff00
 	thumb_func_end sub_8057878
 

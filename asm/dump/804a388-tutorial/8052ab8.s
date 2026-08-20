@@ -17,7 +17,7 @@ sub_8052AB8:
 	.align	2, 0
 .L8052AD0:
 	.4byte	0x3007ec0
-	.4byte	0x8729478
+	.4byte	Str_8729478
 .L8052AD8:
 	add	r5, r5, #0x1
 .L8052ADA:
@@ -35,7 +35,7 @@ sub_8052AB8:
 .L8052AF2:
 	.align	2, 0
 .L8052AF4:
-	.4byte	0x872948c
+	.4byte	Str_872948C
 	.4byte	0x3007ec0
 	thumb_func_end sub_8052AB8
 

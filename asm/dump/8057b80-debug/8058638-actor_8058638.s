@@ -80,7 +80,7 @@ actor_8058638:
 .L80586C4:
 	.align	2, 0
 
-	.4byte	0x3000e30
+	.4byte	_unk3000E30
 .L80586C8:
 	ldrh	r0, [r2, #0x22]
 	add	r0, r0, #0x1

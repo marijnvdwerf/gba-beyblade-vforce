@@ -48,7 +48,7 @@ allocFXSprite:
 .L804BF32:
 	.align	2, 0
 .L804BF34:
-	.4byte	0x86fba14
+	.4byte	SpriteSheet_86FBA14
 	.4byte	0x3ce
 	thumb_func_end allocFXSprite
 

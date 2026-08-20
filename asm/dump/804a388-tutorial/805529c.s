@@ -66,10 +66,10 @@ sub_805529C:
 .L8055318:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1084
-	.4byte	0x874cc3c
-	.4byte	0x3000e30
+	.4byte	Unk_874CC3C
+	.4byte	_unk3000E30
 	.4byte	0x434
 .L805532C:
 	str	r0, [r7, #0x2c]

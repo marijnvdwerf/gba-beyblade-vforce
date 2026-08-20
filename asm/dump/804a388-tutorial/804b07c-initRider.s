@@ -208,17 +208,17 @@ initRider:
 .L804B230:
 	.align	2, 0
 
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 	.4byte	0x3cf
-	.4byte	0x3000fc0
-	.4byte	0x3000fd0
+	.4byte	_unk3000FC0
+	.4byte	_unk3000FD0
 	.4byte	convert3DCoordsto2DCoords + 1
-	.4byte	0x86faeac
+	.4byte	SpriteSheet_86FAEAC
 	.4byte	0xffff8300
 	.4byte	0x335
 	.4byte	0x6010000
 	.4byte	0x3ca
-	.4byte	0x86faf34
+	.4byte	SpriteSheet_86FAF34
 .L804B25C:
 	mov	r2, #0xf1
 	lsl	r2, r2, #0x2
@@ -274,7 +274,7 @@ initRider:
 .L804B2C0:
 	.align	2, 0
 
-	.4byte	0x86fb40c
+	.4byte	SpriteSheet_86FB40C
 	.4byte	0x424
 	.4byte	0xffff
 	thumb_func_end initRider

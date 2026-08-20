@@ -458,15 +458,15 @@ s_rider_804C4B4:
 .L804C840:
 	.align	2, 0
 
-	.4byte	0x807d970
+	.4byte	__fastMemoryClearARM
 	.4byte	0x1c1
 	.4byte	0x103
 	.4byte	0x1c3
 	.4byte	0x1cf
-	.4byte	0x3000e30
+	.4byte	_unk3000E30
 	.4byte	0x21e
 	.4byte	0xffff
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0xc64
 	.4byte	0x22a
 	.4byte	0x22e

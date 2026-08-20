@@ -24,7 +24,7 @@ sub_8051820:
 .L8051846:
 	.align	2, 0
 .L8051848:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0xc64
 .L8051850:
 	bl	getLevelDescription2

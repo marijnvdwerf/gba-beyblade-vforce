@@ -38,7 +38,7 @@ getDecompressorData:
 .L8055C9C:
 	.align	2, 0
 
-	.4byte	0x8729780
+	.4byte	Str_8729780
 	thumb_func_end getDecompressorData
 
 .align 2, 0 @ Don't pad with nop.

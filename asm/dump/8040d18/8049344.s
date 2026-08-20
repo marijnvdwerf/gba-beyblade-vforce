@@ -18,7 +18,7 @@ sub_8049344:
 .L804935E:
 	.align	2, 0
 .L8049360:
-	.4byte	0x3000650
+	.4byte	_unk3000650
 .L8049364:
 	cmp	r4, #0x4
 	bhi	.L80493B4	@cond_branch

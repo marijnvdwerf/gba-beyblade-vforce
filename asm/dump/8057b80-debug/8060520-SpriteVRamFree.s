@@ -91,15 +91,15 @@ SpriteVRamFree:
 .L80605D0:
 	.align	2, 0
 
-	.4byte	0x3005e74
-	.4byte	0x3005e6c
-	.4byte	0x3005de0
-	.4byte	0x3005ddc
-	.4byte	0x3005dd4
-	.4byte	0x875594c
-	.4byte	0x8755968
-	.4byte	0x875598c
-	.4byte	0x3005dcc
+	.4byte	_unk3005E74
+	.4byte	_unk3005E6C
+	.4byte	_spritesBlock
+	.4byte	_rotationScaleBlock
+	.4byte	_SpriteVramFreeList_block
+	.4byte	Str_875594C
+	.4byte	Str_8755968
+	.4byte	Str_875598C
+	.4byte	_SpriteVramFreeList
 .L80605F4:
 	ldr	r1, .L806060C
 	ldr	r0, [r4]
@@ -117,9 +117,9 @@ SpriteVRamFree:
 .L806060C:
 	.align	2, 0
 
-	.4byte	0x3005dcc
-	.4byte	0x3005de0
-	.4byte	0x3005dd0
+	.4byte	_SpriteVramFreeList
+	.4byte	_spritesBlock
+	.4byte	_sprites
 .L8060618:
 	ldr	r0, .L806062C
 	str	r2, [r0]
@@ -135,9 +135,9 @@ SpriteVRamFree:
 .L806062C:
 	.align	2, 0
 
-	.4byte	0x3005dd0
-	.4byte	0x3005ddc
-	.4byte	0x3005df0
+	.4byte	_sprites
+	.4byte	_rotationScaleBlock
+	.4byte	_rotationScale
 .L8060638:
 	ldr	r0, .L8060760
 	str	r2, [r0]
@@ -298,18 +298,18 @@ SpriteVRamFree:
 .L8060760:
 	.align	2, 0
 
-	.4byte	0x3005df0
-	.4byte	0x3005dd0
-	.4byte	0x807d970
-	.4byte	0x3005ddc
-	.4byte	0x3005dcc
-	.4byte	0x3005de4
-	.4byte	0x3005dec
-	.4byte	0x3005df4
-	.4byte	0x3005df8
-	.4byte	0x3005de8
-	.4byte	0x3005dc8
-	.4byte	0x3005dd8
+	.4byte	_rotationScale
+	.4byte	_sprites
+	.4byte	__fastMemoryClearARM
+	.4byte	_rotationScaleBlock
+	.4byte	_SpriteVramFreeList
+	.4byte	_unk3005DE4
+	.4byte	_spritesLeft
+	.4byte	_spritesFree
+	.4byte	_unk3005DF8
+	.4byte	_rotationScale_end
+	.4byte	_unk3005DC8
+	.4byte	_unk3005DD8
 	thumb_func_end SpriteVRamFree
 
 .align 2, 0 @ Don't pad with nop.

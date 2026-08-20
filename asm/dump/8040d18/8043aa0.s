@@ -84,14 +84,14 @@ sub_8043AA0:
 .L8043B44:
 	.align	2, 0
 
-	.4byte	0x3000158
-	.4byte	0x823bf04
+	.4byte	_unk3000158
+	.4byte	SpriteSheet_823BF04
 	.4byte	0xffff0000
-	.4byte	0x300015c
-	.4byte	0x3000160
-	.4byte	0x3000164
-	.4byte	0x80689a4
-	.4byte	0x3000168
+	.4byte	_unk300015C
+	.4byte	_unk3000160
+	.4byte	_unk3000164
+	.4byte	_80689A4
+	.4byte	_unk3000168
 .L8043B64:
 	mov	r1, #0x96
 	lsl	r1, r1, #0x3
@@ -114,8 +114,8 @@ sub_8043AA0:
 .L8043B8A:
 	.align	2, 0
 .L8043B8C:
-	.4byte	0x3000158
-	.4byte	0x300015c
+	.4byte	_unk3000158
+	.4byte	_unk300015C
 .L8043B94:
 	ldr	r5, .L8043C20
 	ldr	r0, [r5]
@@ -186,12 +186,12 @@ sub_8043AA0:
 .L8043C1E:
 	.align	2, 0
 .L8043C20:
-	.4byte	0x3000158
-	.4byte	0x3000160
-	.4byte	0x874cc3c
-	.4byte	0x300015c
-	.4byte	0x3000164
-	.4byte	0x3005da0
+	.4byte	_unk3000158
+	.4byte	_unk3000160
+	.4byte	Unk_874CC3C
+	.4byte	_unk300015C
+	.4byte	_unk3000164
+	.4byte	_unk3005DA0
 .L8043C38:
 	add	r0, r4, #0
 	bl	sub_8050E80
@@ -210,7 +210,7 @@ sub_8043AA0:
 .L8043C56:
 	.align	2, 0
 .L8043C58:
-	.4byte	0x3000168
+	.4byte	_unk3000168
 .L8043C5C:
 	ldr	r1, .L8043C9C
 	mov	r0, #0x9
@@ -246,11 +246,11 @@ sub_8043AA0:
 .L8043C9C:
 	.align	2, 0
 
-	.4byte	0x3005da0
-	.4byte	0x3000168
-	.4byte	0x3000160
+	.4byte	_unk3005DA0
+	.4byte	_unk3000168
+	.4byte	_unk3000160
 	.4byte	0xffff0000
-	.4byte	0x3000164
+	.4byte	_unk3000164
 	.4byte	0x4b4
 	.4byte	.L8043CB8
 .L8043CB8:
@@ -287,7 +287,7 @@ sub_8043AA0:
 .L8043CF2:
 	.align	2, 0
 .L8043CF4:
-	.4byte	0x3000168
+	.4byte	_unk3000168
 	thumb_func_end sub_8043AA0
 
 .align 2, 0 @ Don't pad with nop.

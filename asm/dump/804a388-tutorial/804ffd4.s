@@ -22,11 +22,11 @@ sub_804FFD4:
 .L804FFF8:
 	.align	2, 0
 
-	.4byte	0x807d970
-	.4byte	0x3000fb0
+	.4byte	__fastMemoryClearARM
+	.4byte	_gameData
 	.4byte	0x15d4
-	.4byte	0x3000f44
-	.4byte	0x3000f40
+	.4byte	_unk3000F44
+	.4byte	_unk3000F40
 	thumb_func_end sub_804FFD4
 
 .align 2, 0 @ Don't pad with nop.

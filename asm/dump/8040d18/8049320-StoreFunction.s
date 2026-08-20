@@ -11,7 +11,7 @@ StoreFunction:
 .L804932C:
 	.align	2, 0
 
-	.4byte	0x3000650
+	.4byte	_unk3000650
 	thumb_func_end StoreFunction
 
 .align 2, 0 @ Don't pad with nop.

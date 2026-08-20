@@ -28,9 +28,9 @@ updateKeyState:
 .L805A6E6:
 	.align	2, 0
 .L805A6E8:
-	.4byte	0x3005ca4
-	.4byte	0x3005db4
-	.4byte	0x3005db0
+	.4byte	_isKeyRecording
+	.4byte	_unk3005DB4
+	.4byte	_keyRecordingData
 .L805A6F4:
 	strh	r0, [r4]
 .L805A6F6:
@@ -125,17 +125,17 @@ updateKeyState:
 .L805A79E:
 	.align	2, 0
 .L805A7A0:
-	.4byte	0x3005da8
-	.4byte	0x3000e30
+	.4byte	_unk3005DA8
+	.4byte	_unk3000E30
 	.4byte	0x4000130
 	.4byte	0x3ff
-	.4byte	0x3005db4
-	.4byte	0x3005db0
-	.4byte	0x3005da0
-	.4byte	0x3005ca0
-	.4byte	0x3005dac
-	.4byte	0x3005da4
-	.4byte	0x3005cb0
+	.4byte	_unk3005DB4
+	.4byte	_keyRecordingData
+	.4byte	_unk3005DA0
+	.4byte	_keyInput
+	.4byte	_unk3005DAC
+	.4byte	_unk3005DA4
+	.4byte	_unk3005CB0
 .L805A7CC:
 	add	r1, r3, r4
 	ldrh	r0, [r1, #0x10]
@@ -219,8 +219,8 @@ updateKeyState:
 .L805A862:
 	.align	2, 0
 .L805A864:
-	.4byte	0x3005ca0
-	.4byte	0x3005da4
+	.4byte	_keyInput
+	.4byte	_unk3005DA4
 	thumb_func_end updateKeyState
 
 .align 2, 0 @ Don't pad with nop.

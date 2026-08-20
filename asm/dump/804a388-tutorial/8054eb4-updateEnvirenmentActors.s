@@ -150,7 +150,7 @@ updateEnvirenmentActors:
 .L8054FD2:
 	.align	2, 0
 .L8054FD4:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0xc84
 	.4byte	0x65c
 	thumb_func_end updateEnvirenmentActors

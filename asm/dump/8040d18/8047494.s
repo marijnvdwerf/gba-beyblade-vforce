@@ -160,10 +160,10 @@ sub_8047494:
 .L80475D0:
 	.align	2, 0
 
-	.4byte	0x807d974
+	.4byte	__fastMemoryCopyARM
 	.4byte	0x5000200
-	.4byte	0x806e240
-	.4byte	0x806e31c
+	.4byte	_806E240
+	.4byte	_806E31C
 	thumb_func_end sub_8047494
 
 .align 2, 0 @ Don't pad with nop.

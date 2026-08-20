@@ -82,9 +82,9 @@ sub_8059188:
 .L8059226:
 	.align	2, 0
 .L8059228:
-	.4byte	0x3000ca0
-	.4byte	0x3000e3c
-	.4byte	0x807d944
+	.4byte	_unk3000CA0
+	.4byte	_unk3000E3C
+	.4byte	__sub_8756FC0
 .L8059234:
 	mov	r0, r9
 	str	r0, [sp]

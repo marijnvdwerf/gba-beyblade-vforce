@@ -25,7 +25,7 @@ processMetadata_1:
 .L80543D2:
 	.align	2, 0
 .L80543D4:
-	.4byte	0x3000c10
+	.4byte	_unk3000C10
 	.4byte	0x4ecb
 	.4byte	0x2a39
 .L80543E0:
@@ -83,7 +83,7 @@ processMetadata_1:
 .L8054444:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x161b
 	thumb_func_end processMetadata_1
 

@@ -10,7 +10,7 @@ sub_8062FA8:
 .L8062FB2:
 	.align	2, 0
 .L8062FB4:
-	.4byte	0x3005e54
+	.4byte	_actorBlocksHeapPtr
 .L8062FB8:
 	cmp	r2, #0xff
 	bls	.L8062FCC	@cond_branch
@@ -21,7 +21,7 @@ sub_8062FA8:
 .L8062FC6:
 	.align	2, 0
 .L8062FC8:
-	.4byte	0x8755e8c
+	.4byte	Str_8755E8C
 .L8062FCC:
 	add	r0, r2, #1
 	lsl	r0, r0, #0x10

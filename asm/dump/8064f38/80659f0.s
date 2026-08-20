@@ -17,7 +17,7 @@ sub_80659F0:
 .L8065A08:
 	.align	2, 0
 
-	.4byte	0x3005e9c
+	.4byte	_unk_3005E9C
 	.4byte	0x80ff
 .L8065A10:
 	ldr	r0, .L8065A9C
@@ -95,7 +95,7 @@ sub_80659F0:
 .L8065A9A:
 	.align	2, 0
 .L8065A9C:
-	.4byte	0x3005e9c
+	.4byte	_unk_3005E9C
 	thumb_func_end sub_80659F0
 
 .align 2, 0 @ Don't pad with nop.

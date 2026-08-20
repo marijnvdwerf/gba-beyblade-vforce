@@ -20,7 +20,7 @@ newMotionGroup:
 .L80503B4:
 	.align	2, 0
 
-	.4byte	0x8727080
+	.4byte	Str_8727080
 .L80503B8:
 	add	r0, r5, #0
 	bl	slowAllocate
@@ -35,7 +35,7 @@ newMotionGroup:
 .L80503D0:
 	.align	2, 0
 
-	.4byte	0x87270b8
+	.4byte	Str_87270B8
 .L80503D4:
 	ldr	r2, [r0]
 	str	r2, [r4, #0x8]

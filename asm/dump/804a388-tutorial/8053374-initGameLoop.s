@@ -87,9 +87,9 @@ initGameLoop:
 .L8053422:
 	.align	2, 0
 .L8053424:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x434
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6c4
 	.4byte	0x161c
 	.4byte	0x998
@@ -251,22 +251,22 @@ initGameLoop:
 .L805359E:
 	.align	2, 0
 .L80535A0:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x161b
 	.4byte	0x1641
 	.4byte	0x978
-	.4byte	0x3000e30
+	.4byte	_unk3000E30
 	.4byte	0x988
 	.4byte	0x91c
 	.4byte	0x2990
-	.4byte	0x87294cc
+	.4byte	Str_87294CC
 	.4byte	0x42c
 	.4byte	0x1638
 	.4byte	0xc28
 	.4byte	0x984
 	.4byte	0xb22
 	.4byte	0x99c
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6bc
 	.4byte	0x8ca0
 .L80535E8:

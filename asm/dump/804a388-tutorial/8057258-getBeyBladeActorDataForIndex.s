@@ -32,10 +32,10 @@ getBeyBladeActorDataForIndex:
 .L8057292:
 	.align	2, 0
 .L8057294:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1110
-	.4byte	0x807aa48
-	.4byte	0x872ae20
+	.4byte	RiderSpriteSheets
+	.4byte	Str_872AE20
 .L80572A4:
 	add	r0, r2, #0
 	add	r0, r0, #0x31
@@ -96,7 +96,7 @@ getBeyBladeActorDataForIndex:
 .L8057312:
 	.align	2, 0
 .L8057314:
-	.4byte	0x872ae64
+	.4byte	Str_872AE64
 	.4byte	0x12f0
 .L805731C:
 	ldr	r0, .L8057324
@@ -105,7 +105,7 @@ getBeyBladeActorDataForIndex:
 .L8057324:
 	.align	2, 0
 
-	.4byte	0x872aec0
+	.4byte	Str_872AEC0
 .L8057328:
 	add	r4, r5, #0
 .L805732A:

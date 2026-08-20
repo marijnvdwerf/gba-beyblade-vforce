@@ -29,7 +29,7 @@ sub_806014C:
 .L806017C:
 	.align	2, 0
 
-	.4byte	0x3005dc4
+	.4byte	_unk3005DC4
 .L8060180:
 	mov	r0, #0xc0
 	and	r0, r0, r3
@@ -171,12 +171,12 @@ sub_806014C:
 	.align	2, 0
 
 	.4byte	0xfffffdff
-	.4byte	0x807d974
-	.4byte	0x3000df0
-	.4byte	0x807d900
+	.4byte	__fastMemoryCopyARM
+	.4byte	_unk3000DF0
+	.4byte	__sub_8757D24
 	.4byte	0x400010c
 	.4byte	0x400010e
-	.4byte	0x807d8fc
+	.4byte	__sub_8757CD0
 .L80602A0:
 	mov	r0, sl
 	cmp	r0, #0
@@ -215,8 +215,8 @@ sub_806014C:
 .L80602E4:
 	.align	2, 0
 
-	.4byte	0x807d974
-	.4byte	0x3005dc4
+	.4byte	__fastMemoryCopyARM
+	.4byte	_unk3005DC4
 .L80602EC:
 	mov	r0, #0x80
 	orr	r1, r1, r0
@@ -233,7 +233,7 @@ sub_806014C:
 .L8060302:
 	.align	2, 0
 .L8060304:
-	.4byte	0x3005dc4
+	.4byte	_unk3005DC4
 .L8060308:
 	mov	r4, #0x0
 	ldr	r0, .L8060378
@@ -300,7 +300,7 @@ sub_806014C:
 	.4byte	0x4000120
 	.4byte	0x4000122
 	.4byte	0x4000124
-	.4byte	0x3005dc4
+	.4byte	_unk3005DC4
 	.4byte	0x4000126
 .L8060394:
 	ldr	r2, .L80603AC
@@ -347,7 +347,7 @@ sub_806014C:
 .L80603E0:
 	.align	2, 0
 
-	.4byte	0x3000df0
+	.4byte	_unk3000DF0
 	.4byte	onSerialCommunication + 1
 	thumb_func_end sub_806014C
 

@@ -77,8 +77,8 @@ sub_804F2A0:
 .L804F330:
 	.align	2, 0
 
-	.4byte	0x8224dc4
-	.4byte	0x3000e30
+	.4byte	SpriteSheet_8224DC4
+	.4byte	_unk3000E30
 .L804F338:
 	mov	r0, #0x5
 .L804F33A:

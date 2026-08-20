@@ -11,7 +11,7 @@ sub_80516B0:
 .L80516BC:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	thumb_func_end sub_80516B0
 
 .align 2, 0 @ Don't pad with nop.

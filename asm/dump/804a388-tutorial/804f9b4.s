@@ -58,7 +58,7 @@ sub_804F9B4:
 .L804FA1E:
 	.align	2, 0
 .L804FA20:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1054
 	.4byte	0x105c
 	.4byte	0x1056

@@ -23,7 +23,7 @@ emptyBeybladeActorData:
 .L805721A:
 	.align	2, 0
 .L805721C:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1110
 	.4byte	0x12f0
 	thumb_func_end emptyBeybladeActorData

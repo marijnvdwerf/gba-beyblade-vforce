@@ -40,8 +40,8 @@ sub_80561A0:
 .L80561E4:
 	.align	2, 0
 
-	.4byte	0x3000c18
-	.4byte	0x3000c20
+	.4byte	withBoundingAreaCount
+	.4byte	withBoundingAreas
 	thumb_func_end sub_80561A0
 
 .align 2, 0 @ Don't pad with nop.

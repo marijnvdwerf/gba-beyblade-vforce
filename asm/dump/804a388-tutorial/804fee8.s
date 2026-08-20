@@ -49,7 +49,7 @@ sub_804FEE8:
 .L804FF4E:
 	.align	2, 0
 .L804FF50:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1010
 	.4byte	0x1028
 	thumb_func_end sub_804FEE8

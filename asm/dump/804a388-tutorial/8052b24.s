@@ -62,11 +62,11 @@ sub_8052B24:
 .L8052BA2:
 	.align	2, 0
 .L8052BA4:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x15c4
-	.4byte	0x8078954
-	.4byte	0x8078968
-	.4byte	0x807897c
+	.4byte	_8078954
+	.4byte	_8078968
+	.4byte	_807897c
 	.4byte	0x1618
 .L8052BBC:
 	mov	r1, #0x0
@@ -118,10 +118,10 @@ sub_8052B24:
 .L8052C20:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x8a8
-	.4byte	0x82b1a84
-	.4byte	0x8067c0d
+	.4byte	SpriteSheet_82B1A84
+	.4byte	LargeFontMeta
 	.4byte	0x806e79c
 .L8052C34:
 	ldr	r4, .L8052C90
@@ -170,10 +170,10 @@ sub_8052B24:
 	.align	2, 0
 .L8052C90:
 	.4byte	0x806e788
-	.4byte	0x82b05ec
-	.4byte	0x8067ae0
+	.4byte	SpriteSheet_82B05EC
+	.4byte	ShadowFontMeta
 	.4byte	sub_8052B08 + 1
-	.4byte	0x806e870
+	.4byte	_806E870
 .L8052CA4:
 	ldr	r0, .L8052CC0
 	ldr	r0, [r0]
@@ -192,8 +192,8 @@ sub_8052B24:
 .L8052CC0:
 	.align	2, 0
 
-	.4byte	0x3000fb0
-	.4byte	0x806e810
+	.4byte	_gameData
+	.4byte	_806E810
 .L8052CC8:
 	ldr	r1, .L8052D3C
 	mov	r0, r9
@@ -252,10 +252,10 @@ sub_8052B24:
 	.align	2, 0
 
 	.4byte	0x806e7b0
-	.4byte	0x82b1a84
+	.4byte	SpriteSheet_82B1A84
 	.4byte	0xfffed400
 	.4byte	0xffff3800
-	.4byte	0x3000fb0
+	.4byte	_gameData
 .L8052D50:
 	bl	VBlankIntrWait
 	bl	sub_80627F0
@@ -346,7 +346,7 @@ sub_8052B24:
 .L8052E14:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1618
 	.4byte	0x15d4
 	.4byte	0x15c4
@@ -391,7 +391,7 @@ sub_8052B24:
 	.align	2, 0
 
 	.4byte	0xffff3800
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 .L8052E80:
 	bl	updateKeyState
 .L8052E84:
@@ -439,8 +439,8 @@ sub_8052B24:
 .L8052ED2:
 	.align	2, 0
 .L8052ED4:
-	.4byte	0x3005da0
-	.4byte	0x807894c
+	.4byte	_unk3005DA0
+	.4byte	_807894c
 .L8052EDC:
 	add	r0, r3, #0
 	add	r0, r0, #0x1
@@ -600,7 +600,7 @@ sub_8052B24:
 .L805301A:
 	.align	2, 0
 .L805301C:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1641
 	.4byte	0x1638
 	.4byte	0x42c
@@ -906,14 +906,14 @@ sub_8052B24:
 .L8053292:
 	.align	2, 0
 .L8053294:
-	.4byte	0x874cc3c
+	.4byte	Unk_874CC3C
 	.4byte	0xffffff00
 	.4byte	0xfffffc00
-	.4byte	0x807d93c
-	.4byte	0x3000fb0
+	.4byte	__oam_8756CC0
+	.4byte	_gameData
 	.4byte	0x1618
 	.4byte	0x161a
-	.4byte	0x3005da0
+	.4byte	_unk3005DA0
 	.4byte	0xffff3800
 	thumb_func_end sub_8052B24
 

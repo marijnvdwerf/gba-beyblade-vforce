@@ -10,7 +10,7 @@ getBeybladeData0:
 .L8057342:
 	.align	2, 0
 .L8057344:
-	.4byte	0x807ac28
+	.4byte	_807ac28
 	thumb_func_end getBeybladeData0
 
 .align 2, 0 @ Don't pad with nop.

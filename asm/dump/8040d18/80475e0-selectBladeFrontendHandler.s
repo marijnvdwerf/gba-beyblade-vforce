@@ -81,10 +81,10 @@ selectBladeFrontendHandler:
 .L8047682:
 	.align	2, 0
 .L8047684:
-	.4byte	0x86fd640
-	.4byte	0x30004f0
-	.4byte	0x300053c
-	.4byte	0x823bf04
+	.4byte	Str_86FD640
+	.4byte	_unk30004F0
+	.4byte	_unk300053C
+	.4byte	SpriteSheet_823BF04
 	.4byte	0xffff0000
 .L8047698:
 	ldr	r0, .L80476CC
@@ -114,9 +114,9 @@ selectBladeFrontendHandler:
 .L80476CC:
 	.align	2, 0
 
-	.4byte	0x86fd68c
-	.4byte	0x3000540
-	.4byte	0x823bf04
+	.4byte	Str_86FD68C
+	.4byte	_unk3000540
+	.4byte	SpriteSheet_823BF04
 .L80476D8:
 	ldr	r0, .L804770C
 	bl	printf
@@ -145,9 +145,9 @@ selectBladeFrontendHandler:
 .L804770C:
 	.align	2, 0
 
-	.4byte	0x86fd6c8
-	.4byte	0x3000544
-	.4byte	0x823bf04
+	.4byte	Str_86FD6C8
+	.4byte	_unk3000544
+	.4byte	SpriteSheet_823BF04
 .L8047718:
 	ldr	r0, .L804774C
 	bl	printf
@@ -175,9 +175,9 @@ selectBladeFrontendHandler:
 .L804774A:
 	.align	2, 0
 .L804774C:
-	.4byte	0x86fd704
-	.4byte	0x30004f0
-	.4byte	0x825125c
+	.4byte	Str_86FD704
+	.4byte	_unk30004F0
+	.4byte	SpriteSheet_825125C
 .L8047758:
 	ldr	r0, .L804778C
 	bl	printf
@@ -205,9 +205,9 @@ selectBladeFrontendHandler:
 .L804778A:
 	.align	2, 0
 .L804778C:
-	.4byte	0x86fd740
-	.4byte	0x30004f0
-	.4byte	0x82516a8
+	.4byte	Str_86FD740
+	.4byte	_unk30004F0
+	.4byte	SpriteSheet_82516A8
 .L8047798:
 	ldr	r0, .L80477CC
 	bl	printf
@@ -235,9 +235,9 @@ selectBladeFrontendHandler:
 .L80477CA:
 	.align	2, 0
 .L80477CC:
-	.4byte	0x86fd77c
-	.4byte	0x30004f0
-	.4byte	0x8251af4
+	.4byte	Str_86FD77C
+	.4byte	_unk30004F0
+	.4byte	SpriteSheet_8251AF4
 .L80477D8:
 	ldr	r0, .L80478E8
 	bl	printf
@@ -359,22 +359,22 @@ selectBladeFrontendHandler:
 .L80478E6:
 	.align	2, 0
 .L80478E8:
-	.4byte	0x86fd7b8
-	.4byte	0x3000548
-	.4byte	0x300054c
-	.4byte	0x3000550
-	.4byte	0x3000554
-	.4byte	0x3000558
-	.4byte	0x300055c
-	.4byte	0x30004e8
-	.4byte	0x30004e4
-	.4byte	0x30004f0
-	.4byte	0x3000539
-	.4byte	0x3000538
-	.4byte	0x300053a
-	.4byte	0x300053b
-	.4byte	0x3000560
-	.4byte	0x3000564
+	.4byte	Str_86FD7B8
+	.4byte	_unk3000548
+	.4byte	_unk300054C
+	.4byte	_unk3000550
+	.4byte	_unk3000554
+	.4byte	_unk3000558
+	.4byte	_unk300055C
+	.4byte	_unk30004E8
+	.4byte	_unk30004E4
+	.4byte	_unk30004F0
+	.4byte	_unk3000539
+	.4byte	_unk3000538
+	.4byte	_unk300053A
+	.4byte	_unk300053B
+	.4byte	_unk3000560
+	.4byte	_unk3000564
 .L8047928:
 	ldr	r4, .L8047980
 	ldr	r0, [r4, #0x8]
@@ -422,10 +422,10 @@ selectBladeFrontendHandler:
 .L8047980:
 	.align	2, 0
 
-	.4byte	0x30004f0
-	.4byte	0x300053c
-	.4byte	0x3000540
-	.4byte	0x3000544
+	.4byte	_unk30004F0
+	.4byte	_unk300053C
+	.4byte	_unk3000540
+	.4byte	_unk3000544
 .L8047990:
 	cmp	r2, #0x1
 	beq	.L8047996	@cond_branch
@@ -437,7 +437,7 @@ selectBladeFrontendHandler:
 .L804799C:
 	.align	2, 0
 
-	.4byte	0x3000539
+	.4byte	_unk3000539
 .L80479A0:
 	mov	r2, #0xa0
 	lsl	r2, r2, #0x1
@@ -618,22 +618,22 @@ selectBladeFrontendHandler:
 	.4byte	0x584
 	.4byte	0x4000050
 	.4byte	0x4000052
-	.4byte	0x3000560
-	.4byte	0x3000564
-	.4byte	0x300053b
-	.4byte	0x30004f0
-	.4byte	0x300053a
-	.4byte	0x300053c
-	.4byte	0x3000548
-	.4byte	0x874cc3c
-	.4byte	0x30004e4
-	.4byte	0x3000540
-	.4byte	0x300054c
-	.4byte	0x3000544
-	.4byte	0x3000554
-	.4byte	0x300055c
-	.4byte	0x3000539
-	.4byte	0x30004e8
+	.4byte	_unk3000560
+	.4byte	_unk3000564
+	.4byte	_unk300053B
+	.4byte	_unk30004F0
+	.4byte	_unk300053A
+	.4byte	_unk300053C
+	.4byte	_unk3000548
+	.4byte	Unk_874CC3C
+	.4byte	_unk30004E4
+	.4byte	_unk3000540
+	.4byte	_unk300054C
+	.4byte	_unk3000544
+	.4byte	_unk3000554
+	.4byte	_unk300055C
+	.4byte	_unk3000539
+	.4byte	_unk30004E8
 .L8047B44:
 	ldr	r4, .L8047BE4
 	mov	r0, #0x2
@@ -715,18 +715,18 @@ selectBladeFrontendHandler:
 .L8047BE4:
 	.align	2, 0
 
-	.4byte	0x3005da0
-	.4byte	0x300053b
-	.4byte	0x3000564
-	.4byte	0x30004f0
-	.4byte	0x3000560
-	.4byte	0x30004e4
-	.4byte	0x3000539
-	.4byte	0x3000548
+	.4byte	_unk3005DA0
+	.4byte	_unk300053B
+	.4byte	_unk3000564
+	.4byte	_unk30004F0
+	.4byte	_unk3000560
+	.4byte	_unk30004E4
+	.4byte	_unk3000539
+	.4byte	_unk3000548
 	.4byte	0xffff0000
-	.4byte	0x300054c
-	.4byte	0x3000550
-	.4byte	0x3000554
+	.4byte	_unk300054C
+	.4byte	_unk3000550
+	.4byte	_unk3000554
 .L8047C14:
 	ldr	r0, .L8047C44
 	ldr	r0, [r0]
@@ -752,7 +752,7 @@ selectBladeFrontendHandler:
 .L8047C42:
 	.align	2, 0
 .L8047C44:
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0xc64
 .L8047C4C:
 	mov	r0, #0x9
@@ -820,10 +820,10 @@ selectBladeFrontendHandler:
 .L8047CCC:
 	.align	2, 0
 
-	.4byte	0x3005ca0
-	.4byte	0x300053a
-	.4byte	0x3005da0
-	.4byte	0x30004f0
+	.4byte	_keyInput
+	.4byte	_unk300053A
+	.4byte	_unk3005DA0
+	.4byte	_unk30004F0
 .L8047CDC:
 	sub	r6, r6, #0x1
 	cmp	r6, #0
@@ -860,8 +860,8 @@ selectBladeFrontendHandler:
 .L8047D1E:
 	.align	2, 0
 .L8047D20:
-	.4byte	0x30004f0
-	.4byte	0x3000564
+	.4byte	_unk30004F0
+	.4byte	_unk3000564
 .L8047D28:
 	ldr	r1, .L8047D6C
 	mov	r2, #0x10
@@ -900,9 +900,9 @@ selectBladeFrontendHandler:
 .L8047D6C:
 	.align	2, 0
 
-	.4byte	0x3005da0
-	.4byte	0x3005ca0
-	.4byte	0x30004f0
+	.4byte	_unk3005DA0
+	.4byte	_keyInput
+	.4byte	_unk30004F0
 .L8047D78:
 	add	r6, r6, #0x1
 	cmp	r6, #0x3b
@@ -961,9 +961,9 @@ selectBladeFrontendHandler:
 .L8047DE4:
 	.align	2, 0
 
-	.4byte	0x30004f0
-	.4byte	0x3000564
-	.4byte	0x3005da0
+	.4byte	_unk30004F0
+	.4byte	_unk3000564
+	.4byte	_unk3005DA0
 .L8047DF0:
 	mov	r0, #0x4
 .L8047DF2:
@@ -979,8 +979,8 @@ selectBladeFrontendHandler:
 .L8047E08:
 	.align	2, 0
 
-	.4byte	0x3000564
-	.4byte	0x30004f0
+	.4byte	_unk3000564
+	.4byte	_unk30004F0
 .L8047E10:
 	ldr	r0, .L8047E28
 	add	r1, r0, #0
@@ -996,7 +996,7 @@ selectBladeFrontendHandler:
 .L8047E26:
 	.align	2, 0
 .L8047E28:
-	.4byte	0x30004f0
+	.4byte	_unk30004F0
 .L8047E2C:
 	strb	r3, [r1]
 .L8047E2E:
@@ -1020,8 +1020,8 @@ selectBladeFrontendHandler:
 .L8047E52:
 	.align	2, 0
 .L8047E54:
-	.4byte	0x3000564
-	.4byte	0x30004f0
+	.4byte	_unk3000564
+	.4byte	_unk30004F0
 	thumb_func_end selectBladeFrontendHandler
 
 .align 2, 0 @ Don't pad with nop.

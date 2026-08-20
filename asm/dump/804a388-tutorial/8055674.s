@@ -13,7 +13,7 @@ sub_8055674:
 .L8055684:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1102
 	thumb_func_end sub_8055674
 

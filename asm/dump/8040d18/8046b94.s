@@ -35,11 +35,11 @@ sub_8046B94:
 .L8046BD2:
 	.align	2, 0
 .L8046BD4:
-	.4byte	0x30004c8
+	.4byte	_unk30004C8
 	.4byte	0xffff0000
-	.4byte	0x30004c4
-	.4byte	0x30004cc
-	.4byte	0x3000648
+	.4byte	_unk30004C4
+	.4byte	_unk30004CC
+	.4byte	_unk3000648
 .L8046BE8:
 	ldr	r1, .L8046BF0
 	mov	r0, #0x15
@@ -47,7 +47,7 @@ sub_8046B94:
 .L8046BEE:
 	.align	2, 0
 .L8046BF0:
-	.4byte	0x3000648
+	.4byte	_unk3000648
 .L8046BF4:
 	ldr	r7, .L8046C64
 	ldr	r0, [r7]
@@ -102,10 +102,10 @@ sub_8046B94:
 .L8046C64:
 	.align	2, 0
 
-	.4byte	0x30004cc
-	.4byte	0x806e0dc
-	.4byte	0x30004c8
-	.4byte	0x30004c4
+	.4byte	_unk30004CC
+	.4byte	_806E0DC
+	.4byte	_unk30004C8
+	.4byte	_unk30004C4
 .L8046C74:
 	ldr	r1, .L8046CB4
 	mov	r0, #0x1
@@ -144,9 +144,9 @@ sub_8046B94:
 .L8046CB4:
 	.align	2, 0
 
-	.4byte	0x3005da0
-	.4byte	0x30004cc
-	.4byte	0x30004c4
+	.4byte	_unk3005DA0
+	.4byte	_unk30004CC
+	.4byte	_unk30004C4
 	.4byte	0xffff0000
 	thumb_func_end sub_8046B94
 

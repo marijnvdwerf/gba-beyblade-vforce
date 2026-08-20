@@ -41,9 +41,9 @@ sub_804F878:
 .L804F8C8:
 	.align	2, 0
 
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x105e
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a4
 .L804F8D8:
 	bl	getLanguage

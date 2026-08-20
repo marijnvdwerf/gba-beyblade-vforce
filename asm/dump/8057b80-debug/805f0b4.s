@@ -112,7 +112,7 @@ sub_805F0B4:
 .L805F180:
 	.align	2, 0
 
-	.4byte	0x875566c
+	.4byte	Str_875566C
 .L805F184:
 	ldr	r0, [r5]
 	str	r0, [r4, #0x10]

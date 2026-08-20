@@ -13,8 +13,8 @@ def_94_4_AddWithBoundingAreaMessage:
 .L805617E:
 	.align	2, 0
 .L8056180:
-	.4byte	0x3000c18
-	.4byte	0x87297d0
+	.4byte	withBoundingAreaCount
+	.4byte	Str_87297D0
 .L8056188:
 	ldr	r0, .L805619C
 	lsl	r1, r3, #0x2
@@ -29,7 +29,7 @@ def_94_4_AddWithBoundingAreaMessage:
 .L805619A:
 	.align	2, 0
 .L805619C:
-	.4byte	0x3000c20
+	.4byte	withBoundingAreas
 	thumb_func_end def_94_4_AddWithBoundingAreaMessage
 
 .align 2, 0 @ Don't pad with nop.

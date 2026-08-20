@@ -18,7 +18,7 @@ sub_80573FC:
 .L8057418:
 	.align	2, 0
 
-	.4byte	0x807c49c
+	.4byte	_807C49C
 	thumb_func_end sub_80573FC
 
 .align 2, 0 @ Don't pad with nop.

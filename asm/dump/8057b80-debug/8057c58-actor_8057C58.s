@@ -149,7 +149,7 @@ actor_8057C58:
 .L8057D7E:
 	.align	2, 0
 .L8057D80:
-	.4byte	0x3000e30
+	.4byte	_unk3000E30
 	.4byte	0xffff
 	thumb_func_end actor_8057C58
 

@@ -27,7 +27,7 @@ sub_8058794:
 .L80587C4:
 	.align	2, 0
 
-	.4byte	0x872cbcc
+	.4byte	Str_872CBCC
 .L80587C8:
 	str	r0, [r4, #0x7c]
 	ldr	r0, [r0]

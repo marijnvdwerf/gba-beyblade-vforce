@@ -43,7 +43,7 @@ sub_80413FC:
 .L8041446:
 	.align	2, 0
 .L8041448:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x15d4
 	.4byte	0x15c4
 .L8041454:
@@ -60,8 +60,8 @@ sub_80413FC:
 .L804146A:
 	.align	2, 0
 .L804146C:
-	.4byte	0x3000074
-	.4byte	0x3000f48
+	.4byte	_unk3000074
+	.4byte	_currentGameState
 	.4byte	0x5a4
 .L8041478:
 	mov	r0, #0x80
@@ -78,8 +78,8 @@ sub_80413FC:
 .L8041490:
 	.align	2, 0
 
-	.4byte	0x3000074
-	.4byte	0x3000f48
+	.4byte	_unk3000074
+	.4byte	_currentGameState
 	.4byte	0x5e4
 .L804149C:
 	mov	r0, #0x4
@@ -100,9 +100,9 @@ sub_80413FC:
 .L80414BC:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6a4
-	.4byte	0x3000074
+	.4byte	_unk3000074
 	.4byte	0x624
 .L80414CC:
 	ldr	r1, .L8041580
@@ -199,16 +199,16 @@ sub_80413FC:
 .L8041580:
 	.align	2, 0
 
-	.4byte	0x3000074
+	.4byte	_unk3000074
 	.4byte	0x664
-	.4byte	0x3000078
-	.4byte	0x300005c
-	.4byte	0x823bf04
+	.4byte	_unk3000078
+	.4byte	_unk300005C
+	.4byte	SpriteSheet_823BF04
 	.4byte	0xffff0000
-	.4byte	0x3000060
-	.4byte	0x3000064
-	.4byte	0x3000068
-	.4byte	0x3000f48
+	.4byte	_unk3000060
+	.4byte	_unk3000064
+	.4byte	_unk3000068
+	.4byte	_currentGameState
 	.4byte	0x6a9
 .L80415AC:
 	bl	sub_805137C
@@ -347,17 +347,17 @@ sub_80413FC:
 .L80416D4:
 	.align	2, 0
 
-	.4byte	0x3000078
-	.4byte	0x3000030
-	.4byte	0x300002c
-	.4byte	0x3000074
-	.4byte	0x3000038
-	.4byte	0x3000058
-	.4byte	0x3000059
-	.4byte	0x300005a
-	.4byte	0x807d970
-	.4byte	0x300006c
-	.4byte	0x3000070
+	.4byte	_unk3000078
+	.4byte	_3000030
+	.4byte	_300002C
+	.4byte	_unk3000074
+	.4byte	_3000038
+	.4byte	_unk3000058
+	.4byte	_unk3000059
+	.4byte	_unk300005A
+	.4byte	__fastMemoryClearARM
+	.4byte	_unk300006C
+	.4byte	_unk3000070
 .L8041700:
 	ldr	r0, .L8041728
 	ldr	r0, [r0]
@@ -382,9 +382,9 @@ sub_80413FC:
 .L8041728:
 	.align	2, 0
 
-	.4byte	0x300005c
-	.4byte	0x3000060
-	.4byte	0x3000038
+	.4byte	_unk300005C
+	.4byte	_unk3000060
+	.4byte	_3000038
 .L8041734:
 	ldr	r0, .L80419A4
 	ADD r0, sl
@@ -686,20 +686,20 @@ sub_80413FC:
 .L80419A4:
 	.4byte	0x584
 	.4byte	0x4000050
-	.4byte	0x300006c
-	.4byte	0x3000070
-	.4byte	0x3000059
-	.4byte	0x3000038
-	.4byte	0x3000074
-	.4byte	0x300005a
-	.4byte	0x3000058
-	.4byte	0x300005c
-	.4byte	0x3000064
-	.4byte	0x874cc3c
-	.4byte	0x300002c
-	.4byte	0x3000060
-	.4byte	0x3000068
-	.4byte	0x3000030
+	.4byte	_unk300006C
+	.4byte	_unk3000070
+	.4byte	_unk3000059
+	.4byte	_3000038
+	.4byte	_unk3000074
+	.4byte	_unk300005A
+	.4byte	_unk3000058
+	.4byte	_unk300005C
+	.4byte	_unk3000064
+	.4byte	Unk_874CC3C
+	.4byte	_300002C
+	.4byte	_unk3000060
+	.4byte	_unk3000068
+	.4byte	_3000030
 .L80419E4:
 	ldr	r5, .L8041A70
 	mov	r0, #0x30
@@ -774,10 +774,10 @@ sub_80413FC:
 .L8041A70:
 	.align	2, 0
 
-	.4byte	0x3005ca0
-	.4byte	0x300005a
-	.4byte	0x3005da0
-	.4byte	0x3000038
+	.4byte	_keyInput
+	.4byte	_unk300005A
+	.4byte	_unk3005DA0
+	.4byte	_3000038
 .L8041A80:
 	ldr	r0, .L8041B28
 	ldrb	r0, [r0]
@@ -862,12 +862,12 @@ sub_80413FC:
 .L8041B28:
 	.align	2, 0
 
-	.4byte	0x3000078
-	.4byte	0x3000074
-	.4byte	0x3000070
-	.4byte	0x3005ca0
-	.4byte	0x3005da0
-	.4byte	0x3000038
+	.4byte	_unk3000078
+	.4byte	_unk3000074
+	.4byte	_unk3000070
+	.4byte	_keyInput
+	.4byte	_unk3005DA0
+	.4byte	_3000038
 .L8041B40:
 	mov	r0, #0x0
 .L8041B42:
@@ -1088,14 +1088,14 @@ sub_80413FC:
 .L8041CFA:
 	.align	2, 0
 .L8041CFC:
-	.4byte	0x3000074
-	.4byte	0x3000070
-	.4byte	0x3005da0
-	.4byte	0x3000f48
+	.4byte	_unk3000074
+	.4byte	_unk3000070
+	.4byte	_unk3005DA0
+	.4byte	_currentGameState
 	.4byte	0x6a6
-	.4byte	0x3000fb0
-	.4byte	0x3000038
-	.4byte	0x300005a
+	.4byte	_gameData
+	.4byte	_3000038
+	.4byte	_unk300005A
 	.4byte	0x6a9
 .L8041D20:
 	ldr	r4, .L8041DB8
@@ -1173,12 +1173,12 @@ sub_80413FC:
 .L8041DB8:
 	.align	2, 0
 
-	.4byte	0x3005da0
-	.4byte	0x300005a
-	.4byte	0x3000070
-	.4byte	0x3000038
-	.4byte	0x3000074
-	.4byte	0x300006c
+	.4byte	_unk3005DA0
+	.4byte	_unk300005A
+	.4byte	_unk3000070
+	.4byte	_3000038
+	.4byte	_unk3000074
+	.4byte	_unk300006C
 .L8041DD0:
 	mov	r0, #0x21
 	bl	sub_80490F8
@@ -1226,9 +1226,9 @@ sub_80413FC:
 .L8041E3A:
 	.align	2, 0
 .L8041E3C:
-	.4byte	0x300005a
-	.4byte	0x3000038
-	.4byte	0x3000074
+	.4byte	_unk300005A
+	.4byte	_3000038
+	.4byte	_unk3000074
 	.4byte	sub_8049DE0 + 1
 .L8041E4C:
 	mov	r0, #0x9
@@ -1266,11 +1266,11 @@ sub_80413FC:
 .L8041E8C:
 	.align	2, 0
 
-	.4byte	0x3000038
-	.4byte	0x3000064
+	.4byte	_3000038
+	.4byte	_unk3000064
 	.4byte	0xffff0000
-	.4byte	0x3000068
-	.4byte	0x300002c
+	.4byte	_unk3000068
+	.4byte	_300002C
 	thumb_func_end sub_80413FC
 
 .align 2, 0 @ Don't pad with nop.

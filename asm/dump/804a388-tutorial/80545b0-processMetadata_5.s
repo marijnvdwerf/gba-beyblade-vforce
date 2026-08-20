@@ -56,7 +56,7 @@ processMetadata_5:
 .L8054614:
 	.align	2, 0
 
-	.4byte	0x87296e8
+	.4byte	Str_87296E8
 .L8054618:
 	ldr	r3, [sp, #0x20]
 	ldr	r3, [r3, #0x10]

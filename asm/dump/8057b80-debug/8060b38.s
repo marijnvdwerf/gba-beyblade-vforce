@@ -29,8 +29,8 @@ sub_8060B38:
 .L8060B60:
 	.align	2, 0
 
-	.4byte	0x3005df8
-	.4byte	0x3005de8
+	.4byte	_unk3005DF8
+	.4byte	_rotationScale_end
 	thumb_func_end sub_8060B38
 
 .align 2, 0 @ Don't pad with nop.

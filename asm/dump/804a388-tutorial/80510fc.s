@@ -51,12 +51,12 @@ sub_80510FC:
 .L8051158:
 	.align	2, 0
 
-	.4byte	0x3000f48
+	.4byte	_currentGameState
 	.4byte	0x6ab
 	.4byte	0x6ea
 	.4byte	0xffff
-	.4byte	0x807d970
-	.4byte	0x8075b4c
+	.4byte	__fastMemoryClearARM
+	.4byte	LevelDescriptions
 .L8051170:
 	mov	r0, #0x4
 .L8051172:
@@ -154,20 +154,20 @@ sub_80510FC:
 .L8051232:
 	.align	2, 0
 .L8051234:
-	.4byte	0x807582c
-	.4byte	0x807d974
-	.4byte	0x807572c
-	.4byte	0x3000f48
+	.4byte	_807582c
+	.4byte	__fastMemoryCopyARM
+	.4byte	_807572c
+	.4byte	_currentGameState
 	.4byte	0x5a4
-	.4byte	0x807576c
+	.4byte	_807576c
 	.4byte	0x5e4
-	.4byte	0x80757ac
+	.4byte	_80757ac
 	.4byte	0x624
-	.4byte	0x80757ec
+	.4byte	_80757ec
 	.4byte	0x664
 	.4byte	0x6a9
 	.4byte	0x6a4
-	.4byte	0x80788cc
+	.4byte	_80788cc
 .L805126C:
 	add	r2, r2, #0x1
 	lsl	r0, r2, #0x2
@@ -201,7 +201,7 @@ sub_80510FC:
 .L80512A2:
 	.align	2, 0
 .L80512A4:
-	.4byte	0x3000fb0
+	.4byte	_gameData
 	.4byte	0x1638
 	thumb_func_end sub_80510FC
 

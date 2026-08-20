@@ -58,7 +58,7 @@ sub_805599C:
 
 	.4byte	0xfffe
 	.4byte	0xffffbc00
-	.4byte	0x807d974
+	.4byte	__fastMemoryCopyARM
 	.4byte	0x5000200
 	.4byte	0xfff
 .L8055A1C:
@@ -125,7 +125,7 @@ sub_805599C:
 
 	.4byte	0xfffe
 	.4byte	0xffffbc00
-	.4byte	0x807d974
+	.4byte	__fastMemoryCopyARM
 	.4byte	0x5000220
 	.4byte	0xfff
 .L8055AA8:
