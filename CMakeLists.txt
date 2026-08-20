@@ -147,6 +147,7 @@ add_executable(rom
     src/actor.c
     src/actorheap.c
     src/ai.c
+    src/render.c
     src/anim.c
     src/animevent.c
     src/background.c

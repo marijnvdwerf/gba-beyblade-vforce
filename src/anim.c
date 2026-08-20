@@ -1,6 +1,5 @@
 #include "include_asm.h"
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805ef9c-allocateRenderCode.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805f0b4.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805f1e4.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805f1ec.s");

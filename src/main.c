@@ -40,7 +40,7 @@ void mainLoop(void)
     InitCurrentGameState();
     sub_8055CB8();
     nullsub_11();
-    allocateRenderCode(&_gameData->varBA0, 0);
+    allocateRenderCode(&_gameData->renderCode, NULL);
     sub_8052514();
     sub_8049264();
 

@@ -1,5 +1,6 @@
 #include "common.h"
 #include "include_asm.h"
+#include "system.h"
 #include "unsorted.h"
 
 typedef struct SpriteEntry SpriteEntry;
@@ -126,8 +127,6 @@ SpriteEntry* sub_80609C4(SpriteEntry* arg0, u16 arg1)
 
     return retval;
 }
-
-void nullsub_8(const char*);
 
 SpriteEntry* _unk3005DE4;
 

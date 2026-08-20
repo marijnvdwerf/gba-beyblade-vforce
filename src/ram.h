@@ -1,22 +1,18 @@
 #ifndef _RAM_H
 #define _RAM_H
 
+#include "render.h"
 #include "common.h"
 #include "memory.h"
 
-typedef struct RenderData {
-    u8 data;
-} RenderData;
-
 typedef struct GameData {
-    unk8 pad0[0xB88];
-    unk8 unkB88[0x18];
-    RenderData varBA0;
-    unk8 unkBA4[0x80];
-    s16 unkC24;
-    s16 unkC26;
-    unk32 unkC28;
-    unk32 unkC2C;
+    unk8 pad0[0xB88];   /* 0x000 */
+    unk8 unkB88[0x18];  /* 0xB88 */
+    RenderCode renderCode; /* 0xBA0 */
+    s16 unkC24;         /* 0xC24 */
+    s16 unkC26;         /* 0xC26 */
+    unk32 unkC28;       /* 0xC28 */
+    unk32 unkC2C;       /* 0xC2C */
 } GameData;
 
 typedef struct CurrentGameState {

@@ -137,6 +137,7 @@ SECTIONS {
         src/text.c.o(.text);
         src/geometry.c.o(.text);
         src/camera.c.o(.text);
+        src/render.c.o(.text);
         src/anim.c.o(.text);
         src/animevent.c.o(.text);
         src/multiplayer.c.o(.text);
