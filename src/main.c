@@ -7,6 +7,7 @@
 #include "common.h"
 #include "keystate.h"
 #include "sound.h"
+#include "sprite.h"
 #include "system.h"
 #include "unsorted.h"
 

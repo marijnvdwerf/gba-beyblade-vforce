@@ -12,7 +12,6 @@ extern CopyFn* __fastMemoryCopyARM;
 extern ClearFn* __fastMemoryClearARM;
 
 void initMultiPlayer(int, int, int);
-void SpriteVRamFree(int, int);
 void initGame(void);
 void InitCurrentGameState(void);
 void sub_8055CB8(void);
