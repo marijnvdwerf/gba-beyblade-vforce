@@ -1,6 +1,7 @@
 #include <agb/macro.h>
 
 #include "common.h"
+#include "debug.h"
 #include "ram.h"
 #include "system.h"
 #include "unsorted.h"

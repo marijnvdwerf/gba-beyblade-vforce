@@ -5,7 +5,7 @@
 
 #include "include_asm.h"
 
-unk32 initBatteryBackup(unk16 arg0)
+unk16 initBatteryBackup(unk16 arg0)
 {
     unk32 result;
 

@@ -2,11 +2,10 @@
 #define _UNSORTED_H
 
 #include "common.h"
+#include "debug.h"
 #include "language.h"
 #include "ram.h"
 
-int printf(const char* format, ...);
-void initBattery(void);
 void initMultiPlayer(int, int, int);
 void allocateActorHeaps(void);
 void SpriteVRamFree(int, int);

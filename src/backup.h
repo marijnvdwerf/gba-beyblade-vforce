@@ -32,13 +32,13 @@ typedef struct TimerConfig {
 
 extern const TimerConfig Unk_8756894;
 
-unk32 initBatteryBackup(unk16 arg0);
+unk16 initBatteryBackup(unk16 arg0);
 void onTimer2Overflow(void);
 unk32 sub_806586C(unk8 timerIndex, void** isrOut);
 void sub_80658A4(const TimerConfig* config);
 void sub_806592C(void);
 void DMA3Copy(unk32 src, unk32 dst, unk16 count);
-unk32 sub_80659F0(unk16 sector, unk16* buffer);
+unk32 sub_80659F0(unk16 sector, void* buffer);
 unk16 sub_8065AA0(unk16 sector, unk32 data);
 unk32 writeToBatteryBackup(unk16 sector, unk16* data);
 unk16 sub_8065BD4(unk16 sector, unk32 data);
