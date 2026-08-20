@@ -17,7 +17,6 @@ void sub_8052514(void);
 void sub_8049264(void);
 void sub_8049458(void);
 void VBlankIntrWait(void);
-void updateKeyState(void);
 void initGameLoop(void);
 void gameLoop(void);
 void sub_8053B94(void);

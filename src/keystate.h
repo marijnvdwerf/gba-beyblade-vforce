@@ -13,9 +13,9 @@ typedef struct KeyState {
 } KeyState;
 
 void initKeyState(void);
+void updateKeyState(void);
+KeyState* sub_805A914(u8);
+void initKeyRecording(u16);
+unk32 sub_805AB58(void);
 
-KeyState* sub_805A914(u8 arg0);
-
-void initKeyRecording(u16 arg0);
-
-#endif // _KEYSTATE_H
+#endif /* _KEYSTATE_H */
