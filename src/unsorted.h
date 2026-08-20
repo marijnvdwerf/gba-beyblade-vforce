@@ -6,11 +6,6 @@
 #include "ram.h"
 
 int printf(const char* format, ...);
-
-void sub_8057944(void);
-void InitStuff_SetDispStat(u16);
-void EnableInterrupt(u16);
-void sub_805791C(void);
 void initBattery(void);
 void initMultiPlayer(int, int, int);
 void allocateActorHeaps(void);

@@ -2,6 +2,7 @@
 
 #include "common.h"
 #include "ram.h"
+#include "system.h"
 #include "unsorted.h"
 
 extern u8 const Str_872CB2C[];

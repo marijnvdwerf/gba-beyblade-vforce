@@ -2,6 +2,7 @@
 #include <agb/macro.h>
 
 #include "ram.h"
+#include "system.h"
 
 void CpuSet(void* Srcp, void* Destp, u32 DmaCntData)
 {

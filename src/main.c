@@ -5,6 +5,7 @@
 #include "common.h"
 #include "keystate.h"
 #include "sound.h"
+#include "system.h"
 #include "unsorted.h"
 
 extern SfxTable dword_8040CC4;

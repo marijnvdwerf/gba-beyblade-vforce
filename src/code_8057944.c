@@ -1,6 +1,7 @@
 #include <agb/macro.h>
 
 #include "ram.h"
+#include "system.h"
 
 extern void intr_main(void);
 extern void intr_main_end(void);

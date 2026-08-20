@@ -4,6 +4,7 @@
 #include "common.h"
 #include "include_asm.h"
 #include "sound.h"
+#include "system.h"
 #include "unsorted.h"
 
 typedef struct {

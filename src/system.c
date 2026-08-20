@@ -1,13 +1,57 @@
+#include <agb/define.h>
+#include <agb/macro.h>
+#include <agb/memory_map.h>
+
+#include "common.h"
 #include "include_asm.h"
 
-INCLUDE_ASM("asm/dump/80578e0/80579f4-EnableInterrupt.s");
-INCLUDE_ASM("asm/dump/80578e0/8057a08-DisableInterrupt.s");
-INCLUDE_ASM("asm/dump/80578e0/8057a1c.s");
-INCLUDE_ASM("asm/dump/80578e0/8057a44-loadPalette.s");
-INCLUDE_ASM("asm/dump/80578e0/8057a60-loadPalette2.s");
+typedef struct Unk3000EE0 {
+    volatile unk32 unk0;
+    volatile unk32 unk4;
+} Unk3000EE0;
+
+extern Unk3000EE0 _unk3000EE0;
+
+typedef void CopyFn(void* src, void* dest, unk32 size);
+extern CopyFn* __fastMemoryCopyARM;
+
+void EnableInterrupt(u16 value)
+{
+    *(vu16*)REG_IE |= value;
+}
+
+void DisableInterrupt(u16 value)
+{
+    *(vu16*)REG_IE &= ~value;
+}
+
+void sub_8057A1C(unk32 value)
+{
+    DmaSet(3, value, OBJ_PLTT, DMA_ENABLE | DMA_32BIT_BUS | 0x80);
+    DmaSet(3, value, BG_PLTT, DMA_ENABLE | DMA_32BIT_BUS | 0x80);
+}
+
+void loadPalette(void* src)
+{
+    __fastMemoryCopyARM(src, (void*)BG_PLTT, 0x200);
+}
+
+void loadPalette2(void* src)
+{
+    __fastMemoryCopyARM(src, (void*)OBJ_PLTT, 0x200);
+}
+
 INCLUDE_ASM("asm/dump/80578e0/8057a7c.s");
-INCLUDE_ASM("asm/dump/80578e0/8057b30.s");
-INCLUDE_ASM("asm/dump/80578e0/8057b38-nullsub_31.s");
+
+void sub_8057B30(unk32* ptr, unk32 value0, unk32 value1)
+{
+    ptr[0] = value0;
+    ptr[1] = value1;
+}
+
+void nullsub_31(void)
+{
+}
 
 void nullsub_8(void)
 {
@@ -21,11 +65,39 @@ void nullsub_10(void)
 {
 }
 
-INCLUDE_ASM("asm/dump/80578e0/8057b48-nullsub_25.s");
-INCLUDE_ASM("asm/dump/80578e0/8057b4c-nullsub_26.s");
-INCLUDE_ASM("asm/dump/80578e0/8057b50-nullsub_27.s");
-INCLUDE_ASM("asm/dump/80578e0/8057b54.s");
-INCLUDE_ASM("asm/dump/80578e0/8057b64.s");
-INCLUDE_ASM("asm/dump/80578e0/8057b74-nullsub_28.s");
-INCLUDE_ASM("asm/dump/80578e0/8057b78-nullsub_29.s");
-INCLUDE_ASM("asm/dump/80578e0/8057b7c-nullsub_30.s");
+void nullsub_25(void)
+{
+}
+
+void nullsub_26(void)
+{
+}
+
+void nullsub_27(void)
+{
+}
+
+void sub_8057B54(void)
+{
+    _unk3000EE0.unk4 = 0;
+    _unk3000EE0.unk0 = 0;
+}
+
+void sub_8057B64(void)
+{
+    _unk3000EE0.unk0 += 1;
+}
+
+void nullsub_28(void)
+{
+}
+
+void nullsub_29(void)
+{
+}
+
+void nullsub_30(void)
+{
+}
+
+asm(".align 2, 0");
