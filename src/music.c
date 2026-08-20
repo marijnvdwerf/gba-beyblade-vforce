@@ -1,21 +1,120 @@
 #include "include_asm.h"
+#include "ram.h"
+#include "sound.h"
+
+extern unk32 _unk3000F14;
+extern unk32 _unk3000F18;
+extern s16 _unk3000F1C;
+
+extern const unk32 _807561C[];
+
+typedef struct MusicState {
+    unk8 pad[0xC24];
+    s16 unkC24;
+    s16 unkC26;
+    unk32 unkC28;
+    unk32 unkC2C;
+} MusicState;
+
+#define MUSIC ((MusicState*)_gameData)
+
+void sub_804AE8C(void);
+void sub_804AFD4(u16);
+void sub_804AF5C(void);
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804abfc.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804acf0.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ad28.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ad44.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ad50.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ad60.s");
+
+void sub_804AD28(void)
+{
+    sub_804AFD4(_unk3000F14);
+    _unk3000F1C = 0;
+}
+
+void sub_804AD44(void)
+{
+    _unk3000F1C = 1;
+}
+
+void sub_804AD50(void)
+{
+    _unk3000F1C = -0x18;
+}
+
+unk32 sub_804AD60(void)
+{
+    return _unk3000F1C != 0;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ad74.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ae30-nullsub_40.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ae34.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ae8c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804aecc.s");
+
+void nullsub_40(void)
+{
+}
+
+void sub_804AE34(unk32 arg0, unk32 arg1)
+{
+    sub_804AE8C();
+    if (_currentGameState->unk6E4 != 0) {
+        MUSIC->unkC24 = arg0;
+        MUSIC->unkC28 = Sound_8062BFC(arg0, arg1);
+        Sound_8062AD4(MUSIC->unkC28, _currentGameState->unk6E4);
+    }
+}
+
+void sub_804AE8C(void)
+{
+    if (MUSIC->unkC24 != -1) {
+        Sound_8062A90(MUSIC->unkC28);
+    }
+    MUSIC->unkC24 = -1;
+}
+
+void sub_804AECC(unk32 arg0)
+{
+    if (MUSIC->unkC24 != -1) {
+        Sound_8062AF4(MUSIC->unkC28, arg0);
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804af04.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804af5c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804af9c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804afb8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804afd4.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804b00c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804b044.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804b060.s");
+
+void sub_804AF5C(void)
+{
+    if (MUSIC->unkC26 != -1) {
+        Sound_8062A90(MUSIC->unkC2C);
+    }
+    MUSIC->unkC26 = -1;
+}
+
+void sub_804AF9C(void)
+{
+    Sound_8062AA4(MUSIC->unkC2C);
+}
+
+void sub_804AFB8(void)
+{
+    Sound_8062AB8(MUSIC->unkC2C);
+}
+
+void sub_804AFD4(u16 arg0)
+{
+    Sound_8062AD4(MUSIC->unkC2C, arg0);
+    _currentGameState->unk6E6 = arg0;
+}
+
+void sub_804B00C(u16 arg0)
+{
+    Sound_8062AD4(MUSIC->unkC28, arg0);
+    _currentGameState->unk6E4 = arg0;
+}
+
+void sub_804B044(void)
+{
+    Sound_8062AA4(MUSIC->unkC28);
+}
+
+void sub_804B060(void)
+{
+    Sound_8062AB8(MUSIC->unkC28);
+}
