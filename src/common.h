@@ -18,11 +18,6 @@ typedef struct Unk3000650 {
     unk8 unk14[0x40];
 } Unk3000650;
 
-typedef struct UnkMotion {
-    unk8 unk0[0xE];
-    unk16 unkE;
-} UnkMotion;
-
 typedef struct UnkMenu {
     unk8 unk0[0x24];
     unk32 unk24;
