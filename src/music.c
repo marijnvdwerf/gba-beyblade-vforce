@@ -8,16 +8,6 @@ extern s16 _unk3000F1C;
 
 extern const unk32 _807561C[];
 
-typedef struct MusicState {
-    unk8 pad[0xC24];
-    s16 unkC24;
-    s16 unkC26;
-    unk32 unkC28;
-    unk32 unkC2C;
-} MusicState;
-
-#define MUSIC ((MusicState*)_gameData)
-
 void sub_804AE8C(void);
 void sub_804AFD4(u16);
 void sub_804AF5C(void);
@@ -56,24 +46,24 @@ void sub_804AE34(unk32 arg0, unk32 arg1)
 {
     sub_804AE8C();
     if (_currentGameState->unk6E4 != 0) {
-        MUSIC->unkC24 = arg0;
-        MUSIC->unkC28 = Sound_8062BFC(arg0, arg1);
-        Sound_8062AD4(MUSIC->unkC28, _currentGameState->unk6E4);
+        _gameData->unkC24 = arg0;
+        _gameData->unkC28 = Sound_8062BFC(arg0, arg1);
+        Sound_8062AD4(_gameData->unkC28, _currentGameState->unk6E4);
     }
 }
 
 void sub_804AE8C(void)
 {
-    if (MUSIC->unkC24 != -1) {
-        Sound_8062A90(MUSIC->unkC28);
+    if (_gameData->unkC24 != -1) {
+        Sound_8062A90(_gameData->unkC28);
     }
-    MUSIC->unkC24 = -1;
+    _gameData->unkC24 = -1;
 }
 
 void sub_804AECC(unk32 arg0)
 {
-    if (MUSIC->unkC24 != -1) {
-        Sound_8062AF4(MUSIC->unkC28, arg0);
+    if (_gameData->unkC24 != -1) {
+        Sound_8062AF4(_gameData->unkC28, arg0);
     }
 }
 
@@ -81,40 +71,40 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804af04.s");
 
 void sub_804AF5C(void)
 {
-    if (MUSIC->unkC26 != -1) {
-        Sound_8062A90(MUSIC->unkC2C);
+    if (_gameData->unkC26 != -1) {
+        Sound_8062A90(_gameData->unkC2C);
     }
-    MUSIC->unkC26 = -1;
+    _gameData->unkC26 = -1;
 }
 
 void sub_804AF9C(void)
 {
-    Sound_8062AA4(MUSIC->unkC2C);
+    Sound_8062AA4(_gameData->unkC2C);
 }
 
 void sub_804AFB8(void)
 {
-    Sound_8062AB8(MUSIC->unkC2C);
+    Sound_8062AB8(_gameData->unkC2C);
 }
 
 void sub_804AFD4(u16 arg0)
 {
-    Sound_8062AD4(MUSIC->unkC2C, arg0);
+    Sound_8062AD4(_gameData->unkC2C, arg0);
     _currentGameState->unk6E6 = arg0;
 }
 
 void sub_804B00C(u16 arg0)
 {
-    Sound_8062AD4(MUSIC->unkC28, arg0);
+    Sound_8062AD4(_gameData->unkC28, arg0);
     _currentGameState->unk6E4 = arg0;
 }
 
 void sub_804B044(void)
 {
-    Sound_8062AA4(MUSIC->unkC28);
+    Sound_8062AA4(_gameData->unkC28);
 }
 
 void sub_804B060(void)
 {
-    Sound_8062AB8(MUSIC->unkC28);
+    Sound_8062AB8(_gameData->unkC28);
 }

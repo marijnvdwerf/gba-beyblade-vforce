@@ -1,16 +1,8 @@
+#include "palette.h"
+
 #include "include_asm.h"
 #include "memory.h"
 #include "unsorted.h"
-
-typedef struct Palette {
-    unk8* source; /* 0x00 */
-    unk16 unk4; /* 0x04 */
-    unk16 unk6; /* 0x06 */
-    s16 unk8; /* 0x08 */
-    unk8 unkA[2]; /* 0x0A */
-    unk32 unkC; /* 0x0C */
-    AllocatedBlock* block; /* 0x10 */
-} Palette;
 
 void sub_80631B0(Palette* arg0, unk8* arg1, unk32 arg2, unk32 arg3, unk32 arg4)
 {
@@ -24,14 +16,13 @@ void sub_80631B0(Palette* arg0, unk8* arg1, unk32 arg2, unk32 arg3, unk32 arg4)
     arg0->unk6 = arg3;
     arg0->unk8 = arg4;
     arg0->source = arg1;
-    arg0->unkC = (unk32)arg0->block->address;
+    arg0->unkC = arg0->block->address;
 }
 
 void sub_80631EC(Palette* arg0, unk8* arg1, s32 arg2)
 {
     if (arg2 < arg0->unk8) {
-        __fastMemoryCopyARM(
-            (void*)(arg0->unkC + arg2 * arg0->unk6 * 2), arg1 + arg0->unk4 * 2, arg0->unk6 * 2);
+        __fastMemoryCopyARM(arg0->unkC + arg2 * arg0->unk6, arg1 + arg0->unk4 * 2, arg0->unk6 * 2);
     }
 }
 
@@ -55,7 +46,7 @@ void sub_8063544(
 
     step = (arg1 << 0xA >> 8) / arg0->unk8;
     row = 0;
-    destination = (unk16*)arg0->unkC;
+    destination = arg0->unkC;
     for (intensity = 0; intensity < arg0->unk8; intensity++) {
         source = (unk16*)arg0->source + arg0->unk4;
         for (col = 0; col < arg0->unk6; col++) {
@@ -112,7 +103,7 @@ void sub_8063640(Palette* arg0, s32 arg1)
     height = arg0->unk8;
     step = numerator / height;
     intensity = 0;
-    destination = (unk16*)arg0->unkC;
+    destination = arg0->unkC;
     row = 0;
     if (row < height) {
         do {
@@ -159,7 +150,7 @@ void sub_8063704(Palette* arg0, s32 arg1)
     step = numerator / height;
     intensity = 0;
     row = 0;
-    destination = (unk16*)arg0->unkC;
+    destination = arg0->unkC;
     if (intensity < height) {
         do {
             source = (unk16*)arg0->source + arg0->unk4;

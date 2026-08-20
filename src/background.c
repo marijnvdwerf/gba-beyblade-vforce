@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "include_asm.h"
+#include "palette.h"
 #include "sound.h"
 #include "system.h"
 #include "unsorted.h"
@@ -69,9 +70,6 @@ extern void sub_804A280(void*);
 extern void sub_8050894(void*);
 
 extern void newLayerManagement(void* arg0, void* arg1, ScreenLayout* arg2, u16 arg3, u8 sp0);
-
-void deallocate_80637CC(UnkStruct_sub2*);
-void sub_8063830(UnkStruct_sub2* arg0, u16* arg1, int arg2, int arg3, int sp0, int sp4);
 
 void sub_80508CC(void*, ScreenLayout*, int);
 

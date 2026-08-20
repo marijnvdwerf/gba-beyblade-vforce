@@ -12,8 +12,11 @@ typedef struct GameData {
     unk8 pad0[0xB88];
     unk8 unkB88[0x18];
     RenderData varBA0;
-    unk8 unkBA1[0x185];
-    unk16 unkC26;
+    unk8 unkBA4[0x80];
+    s16 unkC24;
+    s16 unkC26;
+    unk32 unkC28;
+    unk32 unkC2C;
 } GameData;
 
 typedef struct CurrentGameState {
