@@ -240,7 +240,7 @@ def index_c_sources(functions: Functions) -> None:
 
 def make_unknown(functions: Functions, name: str) -> None:
     if name and name not in functions:
-        functions[name] = Function(name=name, file="not in src", kind="unknown")
+        functions[name] = Function(name=name, file="", kind="unknown")
 
 
 def resolve_name(functions: Functions, name: str) -> str:
@@ -297,7 +297,7 @@ def render(functions: Functions, root: str) -> str:
     def walk(name: str, prefix: str, is_last: bool, depth: int, is_root: bool) -> None:
         function = functions.get(name)
         if function is None:
-            function = Function(name=name, file="not in src", kind="unknown")
+            function = Function(name=name, file="", kind="unknown")
         suffix = ""
         if depth >= MAX_RENDER_DEPTH:
             suffix = " … (depth limit)"
@@ -307,7 +307,8 @@ def render(functions: Functions, root: str) -> str:
             suffix = " (see above)"
 
         branch = "" if is_root else ("└─ " if is_last else "├─ ")
-        lines.append(f"{prefix}{branch}{function.marker} {name} [{function.file}]{suffix}")
+        location = f" [{function.file}]" if function.file else ""
+        lines.append(f"{prefix}{branch}{function.marker} {name}{location}{suffix}")
         if suffix:
             return
 
