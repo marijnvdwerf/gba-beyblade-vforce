@@ -15,7 +15,7 @@ The canonical build directory is `build/` (tools assume it).
 
 ## Diffing a function
 
-Objects are compared against the baseline snapshot in `expected/` (gitignored).
+Objects are compared against the baseline snapshot in `expected/` (gitignored), which mirrors the `build/` directory layout.
 
 ```sh
 bun run tools/diff/diff.ts <symbolName>   # instruction diff + match % (bun install --cwd tools/diff once)

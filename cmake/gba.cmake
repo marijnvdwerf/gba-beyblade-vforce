@@ -64,7 +64,7 @@ if("${CMAKE_BINARY_DIR}" STREQUAL "${_canonical_binary_dir}")
         string(APPEND _objdiff_units
             "    {\n"
             "      \"name\": \"${_source}\",\n"
-            "      \"target_path\": \"expected/${_source}.o\",\n"
+            "      \"target_path\": \"expected/CMakeFiles/rom.dir/${_source}.o\",\n"
             "      \"base_path\": \"build/CMakeFiles/rom.dir/${_source}.o\",\n"
             "      \"metadata\": {\n"
             "        \"source_path\": \"${_source}\",\n"

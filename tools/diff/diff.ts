@@ -2,6 +2,8 @@ import { resolve, relative } from "node:path";
 import { init, diff, display } from "objdiff-wasm";
 
 const repoRoot = resolve(import.meta.dir, "../..");
+const expectedRoot = resolve(repoRoot, "expected");
+const baseRoot = resolve(repoRoot, "build");
 const symbolName = Bun.argv[2];
 
 if (!symbolName || Bun.argv.length !== 3) {
@@ -42,7 +44,7 @@ function listSymbols(objectDiff: diff.ObjectDiff): display.SymbolDisplay[] {
 
 async function findExpectedObjects(): Promise<ObjectMatch[]> {
   const matches: ObjectMatch[] = [];
-  const expectedGlob = new Bun.Glob("expected/src/*.c.o");
+  const expectedGlob = new Bun.Glob("expected/CMakeFiles/rom.dir/src/*.c.o");
 
   for await (const relativeExpectedPath of expectedGlob.scan({ cwd: repoRoot })) {
     const expectedPath = resolve(repoRoot, relativeExpectedPath);
@@ -57,10 +59,7 @@ async function findExpectedObjects(): Promise<ObjectMatch[]> {
     )?.info;
     if (!expectedSymbol) continue;
 
-    const basePath = resolve(
-      repoRoot,
-      relativeExpectedPath.replace(/^expected\//, "build/CMakeFiles/rom.dir/"),
-    );
+    const basePath = resolve(baseRoot, relative(expectedRoot, expectedPath));
     matches.push({ expectedPath, basePath, expectedObject, expectedSymbol });
   }
 
@@ -132,7 +131,7 @@ function colorStatus(status: string): string {
 
 const matches = await findExpectedObjects();
 if (matches.length === 0) {
-  console.error(`Could not find function ${JSON.stringify(symbolName)} in expected/src/*.c.o`);
+  console.error(`Could not find function ${JSON.stringify(symbolName)} in expected/CMakeFiles/rom.dir/src/*.c.o`);
   process.exit(1);
 }
 if (matches.length > 1) {

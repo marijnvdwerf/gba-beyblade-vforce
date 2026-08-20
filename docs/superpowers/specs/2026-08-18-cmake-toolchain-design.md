@@ -425,8 +425,8 @@ objects. Schema per objdiff v3.8.0 (`config.schema.json`, researched):
   preset**: the generator refuses to (re)write it from a non-canonical binary
   dir, so a second build directory can't repoint it (review finding).
 - `min_version: "3.0.0"`; `options: {"arm.archVersion": "v4t"}`.
-- Per unit: `target_path: "expected/src/<file>.o"`, `base_path:
-  "build/CMakeFiles/rom.dir/src/<file>.o"`, `metadata: {source_path,
+- Per unit: `target_path: "expected/CMakeFiles/rom.dir/src/<file>.o"`,
+  `base_path: "build/CMakeFiles/rom.dir/src/<file>.o"`, `metadata: {source_path,
   progress_categories}`; `build_base: true`, `build_target: false`.
 - Rebuilds: objdiff runs `<custom_make> <custom_args…> <base_path>` from the
   repo root; `base_path` is root-relative while ninja runs in `build/`, so

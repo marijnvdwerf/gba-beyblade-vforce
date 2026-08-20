@@ -4,6 +4,6 @@ set -e
 cd "$(dirname "$0")/.."
 echo "cd527c8c24e20e33913fc45199e64b3e6138a6e5  build/rom.gba" | shasum -c
 rm -rf expected
-mkdir -p expected
-cp -R build/CMakeFiles/rom.dir/src expected/src
+mkdir expected
+cp -R build/. expected/
 echo "expected/ updated"

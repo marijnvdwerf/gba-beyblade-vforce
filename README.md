@@ -33,7 +33,7 @@ ctest --test-dir build
 
 Undecompiled functions are included from `asm/dump/` with `INCLUDE_ASM`. To decompile one, replace its `INCLUDE_ASM` line with the C implementation and diff against the baseline while iterating. Delete the dump once the function matches.
 
-Diffs compare freshly built objects in `build/` against the gitignored baseline snapshot in `expected/`. After any matching build, refresh the baseline with:
+Diffs compare freshly built objects in `build/` against the gitignored baseline snapshot in `expected/`, which mirrors the build directory layout. After any matching build, refresh the baseline with:
 
 ```sh
 tools/update-expected
