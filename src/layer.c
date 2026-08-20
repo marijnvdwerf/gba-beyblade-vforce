@@ -4,6 +4,7 @@
 #include <agb/memory_map.h>
 
 #include "include_asm.h"
+#include "unsorted.h"
 
 typedef struct {
     u8 filler00[4]; // 0x00
@@ -79,11 +80,6 @@ extern u8 _unk3000E3C;
 int sub_8059284(BGLayer* r0, u16 r1, u16 r2);
 vu16* GetBGLayerHOffsetPtr(u8 layer);
 vu16* GetBGLayerVOffsetPtr(u8 layer);
-
-typedef void(CopyFn)(void* src, void* dest, int size);
-extern CopyFn* __fastMemoryCopyARM;
-typedef void(ClearFn)(int, void*, int);
-extern ClearFn* __fastMemoryClearARM;
 
 void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgPriority, u16 sp0);
 

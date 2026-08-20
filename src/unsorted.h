@@ -6,6 +6,11 @@
 #include "language.h"
 #include "ram.h"
 
+typedef void CopyFn(void*, void*, int);
+typedef void ClearFn(int, void*, int);
+extern CopyFn* __fastMemoryCopyARM;
+extern ClearFn* __fastMemoryClearARM;
+
 void initMultiPlayer(int, int, int);
 void allocateActorHeaps(void);
 void SpriteVRamFree(int, int);

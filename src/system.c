@@ -4,6 +4,7 @@
 
 #include "common.h"
 #include "include_asm.h"
+#include "unsorted.h"
 
 typedef struct Unk3000EE0 {
     volatile unk32 unk0;
@@ -11,9 +12,6 @@ typedef struct Unk3000EE0 {
 } Unk3000EE0;
 
 extern Unk3000EE0 _unk3000EE0;
-
-typedef void CopyFn(void* src, void* dest, unk32 size);
-extern CopyFn* __fastMemoryCopyARM;
 
 void EnableInterrupt(u16 value)
 {

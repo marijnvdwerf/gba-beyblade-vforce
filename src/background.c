@@ -75,9 +75,6 @@ void sub_8063830(UnkStruct_sub2* arg0, u16* arg1, int arg2, int arg3, int sp0, i
 
 void sub_80508CC(void*, ScreenLayout*, int);
 
-typedef void(ClearFn)(int, void*, int);
-extern ClearFn* __fastMemoryClearARM;
-
 void sub_80596AC(void*, int, int);
 
 void Background_80498D8(void)

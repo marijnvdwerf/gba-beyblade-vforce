@@ -58,8 +58,6 @@ typedef struct {
 // Rounds an integer up to the given power of 2. y must be a power of 2.
 #define ceil2(x, y) (((x) + (y) - 1) & (~((y) - 1)))
 
-typedef void(ClearFn)(int, void*, int);
-
 extern u8* _unk3000D90;
 extern u32 _unk3000D94;
 extern u32 (*_soundTables)[];
@@ -90,8 +88,6 @@ extern u8 _unk3005E78;
 
 void (*__sub_87577B4)(SoundStructA*, int, int);
 void (*__sub_8757A64)(int, int, int);
-
-extern ClearFn* __fastMemoryClearARM;
 
 extern u32 Unk_8755B90[];
 
