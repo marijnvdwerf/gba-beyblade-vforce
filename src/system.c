@@ -8,15 +8,19 @@ INCLUDE_ASM("asm/dump/80578e0/8057a60-loadPalette2.s");
 INCLUDE_ASM("asm/dump/80578e0/8057a7c.s");
 INCLUDE_ASM("asm/dump/80578e0/8057b30.s");
 INCLUDE_ASM("asm/dump/80578e0/8057b38-nullsub_31.s");
+
 void nullsub_8(void)
 {
 }
+
 void nullsub_9(void)
 {
 }
+
 void nullsub_10(void)
 {
 }
+
 INCLUDE_ASM("asm/dump/80578e0/8057b48-nullsub_25.s");
 INCLUDE_ASM("asm/dump/80578e0/8057b4c-nullsub_26.s");
 INCLUDE_ASM("asm/dump/80578e0/8057b50-nullsub_27.s");

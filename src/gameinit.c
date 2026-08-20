@@ -22,6 +22,7 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8053e18.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053ef8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053f0c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80540c8.s");
+
 void SetRiderGlobal(unk32 arg0)
 {
     _unk3000C10[0] = arg0;

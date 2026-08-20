@@ -4,15 +4,19 @@
 #include "unsorted.h"
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8061190-allocFont.s");
+
 void sub_80611EC(UnkSpriteText* arg0, unk8 arg1)
 {
     arg0->unk2A = arg1;
 }
+
 INCLUDE_ASM("asm/dump/8057b80-debug/80611f4.s");
+
 void sub_80611FC(UnkSpriteText* arg0, unk8 arg1)
 {
     arg0->unk28 = arg1;
 }
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8061204.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061228.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/806123c.s");

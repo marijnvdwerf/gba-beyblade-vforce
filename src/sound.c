@@ -468,6 +468,7 @@ void Sound_8062AB8(int arg0)
         var->var16 = 1;
     }
 }
+
 ASM_ZEROPAD
 
 void Sound_8062AD4(int arg0, u32 arg1)
@@ -482,6 +483,7 @@ void Sound_8062AD4(int arg0, u32 arg1)
         var->var10 = arg1;
     }
 }
+
 ASM_ZEROPAD
 
 void Sound_8062AF4(int arg0, u32 arg1)
@@ -631,4 +633,5 @@ int Sound_8062E54(int arg0)
 
     return false;
 }
+
 ASM_ZEROPAD

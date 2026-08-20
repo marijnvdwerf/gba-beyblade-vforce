@@ -30,7 +30,9 @@ void InitCurrentGameState(void)
     _currentGameState->unkC68 = 0;
     sub_80510FC();
 }
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80510fc.s");
+
 void sub_80512AC(void)
 {
     LevelDescription* description;
@@ -73,6 +75,7 @@ void sub_80512AC(void)
         index++;
     } while (index <= 0x37);
 }
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/805137c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80513ac.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051488.s");
@@ -95,10 +98,12 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8051720.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051734.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051744.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805176c.s");
+
 unk32 sub_8051780(unk32 arg0)
 {
     return _currentGameState->unk6B4 & arg0;
 }
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051798.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80517ac-GetLevelDescriptionNo.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80517e8.s");

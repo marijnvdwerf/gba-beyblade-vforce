@@ -22,15 +22,19 @@ INCLUDE_ASM("asm/dump/8040d18/8049178.s");
 INCLUDE_ASM("asm/dump/8040d18/80491c4.s");
 INCLUDE_ASM("asm/dump/8040d18/80491e0.s");
 INCLUDE_ASM("asm/dump/8040d18/8049210.s");
+
 void sub_8049234(unk32 arg0)
 {
     _unk3000650.unkC = arg0;
 }
+
 INCLUDE_ASM("asm/dump/8040d18/8049240.s");
+
 void sub_804924C(unk32 arg0)
 {
     _unk3000650.unk10 = arg0;
 }
+
 INCLUDE_ASM("asm/dump/8040d18/8049258.s");
 INCLUDE_ASM("asm/dump/8040d18/8049264.s");
 INCLUDE_ASM("asm/dump/8040d18/8049320-StoreFunction.s");

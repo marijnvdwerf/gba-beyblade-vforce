@@ -97,4 +97,5 @@ void* memset(void* m, int c, size_t n)
 
     return m;
 }
+
 ASM_ZEROPAD

@@ -19,6 +19,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805b13c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805b1a0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805b1e0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805b210.s");
+
 unk32 sub_805B240(UnkMenu* arg0)
 {
     return arg0->unk24;

@@ -10,10 +10,12 @@ INCLUDE_ASM("asm/dump/8040d18/804a320.s");
 INCLUDE_ASM("asm/dump/8040d18/804a330.s");
 INCLUDE_ASM("asm/dump/8040d18/804a33c.s");
 INCLUDE_ASM("asm/dump/8040d18/804a348.s");
+
 void StoreLevelVar14(unk32 arg0)
 {
     _unk3000C00 = arg0;
 }
+
 INCLUDE_ASM("asm/dump/8040d18/804a364.s");
 INCLUDE_ASM("asm/dump/8040d18/804a378.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a388-initTutorialManagement.s");

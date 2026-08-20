@@ -31,6 +31,7 @@ s32 DivRem(s32 Number, s32 Denom)
 
     return p2;
 }
+
 ASM_ZEROPAD
 
 void LZ77UnCompWram(void* Srcp, void* Destp)
@@ -52,6 +53,7 @@ void VBlankIntrWait()
 {
     asm("movs r2, #0; swi 0x5;");
 }
+
 ASM_ZEROPAD
 
 void sub_80578E0()
