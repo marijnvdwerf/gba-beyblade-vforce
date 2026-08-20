@@ -12,7 +12,6 @@ extern CopyFn* __fastMemoryCopyARM;
 extern ClearFn* __fastMemoryClearARM;
 
 void initMultiPlayer(int, int, int);
-void allocateActorHeaps(void);
 void SpriteVRamFree(int, int);
 void initGame(void);
 void InitCurrentGameState(void);

@@ -2,6 +2,7 @@
 #include <agb/define.h>
 #include <agb/memory_map.h>
 
+#include "actorheap.h"
 #include "battery.h"
 #include "common.h"
 #include "keystate.h"
