@@ -1,6 +1,8 @@
 #include "common.h"
 #include "include_asm.h"
 
+extern s32 Div(s32, s32);
+
 s32 sub_8064F38(const u8* str)
 {
     s32 count;
@@ -20,7 +22,30 @@ s32 sub_8064F38(const u8* str)
     return count;
 }
 
-INCLUDE_ASM("asm/dump/8064f38/8064f50.s");
+unk32 sub_8064F50(unk32 value)
+{
+    unk32 count;
+    unk32 group;
+    unk32 temp;
+
+    count = 0;
+    group = 3;
+    if (value == 0) {
+        return 1;
+    }
+    do {
+        temp = group;
+        group--;
+        if (temp == 0) {
+            group = 3;
+            count++;
+        }
+        count++;
+        value = Div(value, 10);
+    } while (value != 0);
+    return count;
+}
+
 INCLUDE_ASM("asm/dump/8064f38/8064f84.s");
 INCLUDE_ASM("asm/dump/8064f38/8064f9c.s");
 INCLUDE_ASM("asm/dump/8064f38/8064fe8-SpriteString_8064FE8.s");
