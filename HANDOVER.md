@@ -139,7 +139,8 @@ regenerate with `tools/callgraph.py mainLoop` + `tools/worklist.py`.
 - `LevelGeometryAddresses`/`LevelGeometryTable` (common.h) are canonical; `getLevelGeometryAddresses(LevelGeometryAddresses*, void*)`.
 - `RiderBase` (0x428) is the rider layout; GameData begins with it; `GameData.unk42C` is `RiderBase*`.
 - `LevelDescription` is 0xD0 and indexed (`LevelDescriptions[i]`); ActiveLevelDescription no longer exists.
-- No unions; no casts on field reads (`(s8)p->f` ⇒ field is s8).
+- No unions except for asm-proven width puns (strh/ldrb on the same bytes),
+  documented with a comment; no casts on field reads (`(s8)p->f` ⇒ field is s8).
 
 ## Open questions for the user
 
