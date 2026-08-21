@@ -1,3 +1,5 @@
+#include "geometry.h"
+
 #include "include_asm.h"
 #include "ram.h"
 #include "system.h"
@@ -177,7 +179,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805e18c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e320.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e474.s");
 
-void sub_805E50C(unk32* arg0, unk32 arg1, unk32 arg2, unk32 arg3)
+void sub_805E50C(void** arg0, void* arg1, void* arg2, void* arg3)
 {
     arg0[0] = arg1;
     arg0[1] = arg2;

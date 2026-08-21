@@ -19,8 +19,6 @@ extern void sub_80550B8(void);
 extern const u8 SpriteSheet_86FAEAC[];
 extern const u8 Str_8729738[];
 extern void convert3DCoordsto2DCoords(void);
-extern unk32* sub_805E514(unk32*, unk32, unk32, unk32, unk32);
-extern void sub_805E50C(unk32*, unk32, unk32, unk32);
 
 void initLevelEnvironmentActors(u16 level)
 {

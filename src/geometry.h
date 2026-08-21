@@ -14,5 +14,7 @@ LineMetaObject* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, LineMetada
 s32 GetLineIndexOfType(LevelGeometryAddresses*, u16, u16);
 void sub_805BA3C(GeometryAddressTable*);
 void deallocateQuadTree(QuadTree*);
+void sub_805E50C(void**, void*, void*, void*);
+unk32* sub_805E514(unk32*, unk32, unk32, unk32, unk32);
 
 #endif /* _GEOMETRY_H */

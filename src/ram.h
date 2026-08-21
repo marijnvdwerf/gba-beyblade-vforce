@@ -107,8 +107,7 @@ typedef struct GameData {
     unk32 unkC84; /* 0xC84 */
     EnvironmentObject* unkC88; /* 0xC88 */
     unk32 unkC8C; /* 0xC8C */
-    unk32 unkC90; /* 0xC90 */
-    unk8 padC94[0x0C]; /* 0xC94 */
+    unk32 unkC90[4]; /* 0xC90 */
     AllocatedBlock* unkCA0; /* 0xCA0 */
     void* unkCA4; /* 0xCA4 */
     unk32 unkCA8; /* 0xCA8 */
@@ -204,8 +203,8 @@ extern GameData* _gameData;
 extern EnvironmentObject* GetStruct4(unk32);
 extern u32 _unk3000E30[3];
 extern CurrentGameState* _currentGameState;
-extern u8 _unk3000FC0[16];
-extern u8 _unk3000FD0[16];
+extern void* _unk3000FC0[4];
+extern unk32 _unk3000FD0[4];
 extern u8 _unk3000FE0[304];
 extern u32 _unk3001110[16];
 
