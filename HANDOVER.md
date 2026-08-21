@@ -94,7 +94,7 @@ grep INCLUDE_ASM.
 | small leaves | sub_8061204, sub_805BA3C, deallocateQuadTree, sub_804A72C, emptyBeybladeActorData, deallocBeybladeActorData, sub_8055CB8, sub_804F800, sub_804FEE8 | 9/9 MERGED c1313c1 (QuadTree @0x7A4 = 0x58 bytes; sub_804F800/sub_804FEE8 need a `GameData* base` local — see small-leaves.md); worktree removed |
 | temp-reduction | 11 merged fns | MERGED (sub_8053F0C direct `_gameData->` per case, sub_8055CB8 no fn-ptr casts, sub_804FEE8 no status alias; 8 already minimal — see temp-reduction.md); worktree removed |
 | leaves-round2 | 5 leaves | 5/5 MERGED 3c82864 (RiderBase now 0x428, replaces RiderBlock); worktree removed |
-| init-functions | initCollectables, initTutorialManagement, initMultiPlayer | running |
+| init-functions | initCollectables, initTutorialManagement, initMultiPlayer | 2/3 MERGED (both need a `GameData* gameData` local live across the loader calls); initMultiPlayer PARKED (#if 0 draft; arg regs r8/r5 + normalization — see init-functions.md); worktree removed |
 | skill distill (gpt-5.6-sol) | SKILL.md rewritten + committed; now moving processed learnings to docs/learnings/processed/ |
 | review-round3 (opus) | done → docs/learnings/review-round3.md; canonical LevelGeometryAddresses added to common.h (3c82864); follow-ups sent to all agents |
 | gamestate-cleanup | 10 gamestate.c fns | MERGED 02ed7cf (typed LevelDescription[] 0xD0, LevelState unk4[0x38], s8 unk0, no union); worktree removed |
