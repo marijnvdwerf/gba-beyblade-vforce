@@ -63,7 +63,8 @@ typedef struct RiderBase {
     unk8 unk3E9[3];
     unk8 unk3EC[0x34];
     struct AllocatedBlock* unk420;
-} RiderBase;
+    unk8 pad424[4];
+} RiderBase; /* 0x428; GameData begins with this layout */
 
 typedef struct PolyTable {
     unk16 unk0;
@@ -75,6 +76,25 @@ typedef struct PolyTable {
     struct AllocatedBlock* unk10;
     struct AllocatedBlock* unk14;
 } PolyTable;
+
+/* Canonical level-geometry handle (0x11C bytes); filled by
+ * getLevelGeometryAddresses(LevelGeometryAddresses*, void* geometryData). */
+typedef struct LevelGeometryTable {
+    unk8 pad0[8];
+    s32 unk8;
+} LevelGeometryTable;
+
+typedef struct LevelGeometryAddresses {
+    LevelGeometryTable* unk0;
+    void* unk4;
+    void* unk8;
+    void* unkC;
+    void* unk10;
+    void* unk14[0x40];
+    void* unk114;
+    unk16 unk118;
+    unk8 pad11A[2];
+} LevelGeometryAddresses;
 
 typedef struct LevelState {
     unk16 unk0;

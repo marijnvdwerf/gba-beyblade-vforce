@@ -6,10 +6,6 @@
 #include "motion.h"
 #include "render.h"
 
-typedef struct RiderBlock {
-    unk8 data[0x428];
-} RiderBlock;
-
 typedef struct GeometryAddressTable {
     unk8 pad0[0x10];
     AllocatedBlock* block;
@@ -33,7 +29,7 @@ typedef struct GameData {
     s32 unk234; /* 0x234 */
     unk8 pad238[0x1F0]; /* 0x238 */
     AllocatedBlock* unk428; /* 0x428 */
-    RiderBlock* unk42C; /* 0x42C */
+    RiderBase* unk42C; /* 0x42C */
     s32 unk430; /* 0x430 */
     void* unk434; /* 0x434 */
     unk8 pad438[0x224]; /* 0x438 */
