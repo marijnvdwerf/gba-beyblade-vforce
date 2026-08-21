@@ -234,7 +234,17 @@ s32 sub_8065334(SpriteString* string)
     return total;
 }
 
-INCLUDE_ASM("asm/dump/8064f38/80653b0.s");
+void sub_80653B0(SpriteString* string)
+{
+    unk16 i;
+
+    i = 0;
+    while (i < string->count) {
+        renderActor2(&string->actors[i]);
+        i++;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8064f38/80653d8.s");
 INCLUDE_ASM("asm/dump/8064f38/8065508.s");
 INCLUDE_ASM("asm/dump/8064f38/80655c0.s");
