@@ -8,6 +8,7 @@ extern void nullsub_12(void*);
 extern unk32 getSomeLevelID(void);
 extern unk32 GetLevelDescriptionNo(void);
 extern LevelDescription* getLevelDescription2(void);
+extern LevelDescription* getLevelDescription(u16);
 extern void emptyBeybladeActorData(void);
 extern void initRiders(void);
 extern void initLevelEnvironmentActors(u16);
@@ -160,7 +161,12 @@ void sub_80538C0(void)
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053920.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053954.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053978-loadLevelGeometry.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8053990-getLevelMetadata.s");
+
+LineMetadata** getLevelMetadata(u16 arg0)
+{
+    return getLevelDescription(arg0)->metadata;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80539a0-GetStruct4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80539c4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80539e8.s");

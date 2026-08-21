@@ -254,7 +254,8 @@ typedef struct LevelDescription {
     s32 unk20;
     s32 unk24;
     s32 unk28;
-    unk8 pad2C[0xA4];
+    LineMetadata** metadata;
+    unk8 pad30[0xA0];
 } LevelDescription;
 
 #define true 1
