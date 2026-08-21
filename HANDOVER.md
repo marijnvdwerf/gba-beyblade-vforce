@@ -75,8 +75,8 @@ Last updated: 2026-08-21, end of session 2 (main at 09b7c1c+).
 
 ## State
 
-Progress: 9/66 TUs done, 259 C functions, 748 INCLUDE_ASM remaining (26%)
-per `tu-progress.py` before the round-5 merges. Session 2 merged 45
+Progress: 9/66 TUs done, 260 C functions, 747 INCLUDE_ASM remaining (26%)
+after the envactor merge. Session 2 merged 46
 functions; session 1 merged 8.
 
 ### Agents running at last update
@@ -84,7 +84,6 @@ functions; session 1 merged 8.
 | worktree | scope | status |
 |---|---|---|
 | showString | spritetext.c showString (227) | running |
-| envactor-sound | envactor.c sub_8054FE0 (116) → sound.c sub_8062C24 (310) → envactor.c initLevelEnvironmentActors (656) | running |
 | leaves-round4 | debug.c printf (10); geometry.c GetSplineAtIndex (33), getLineMetaobjectByTypeAndId (45) | running |
 
 ### Parked (attempted, not matched)
@@ -96,7 +95,9 @@ functions; session 1 merged 8.
 | initRiders (gameinit.c) | 349 | `#if 0` | frame 0x138 vs 0x134 (one extra spilled local); riderIndex r8 vs r9 — processed/initriders.md |
 | initMultiPlayer (multiplayer.c) | 137 | `#if 0` | arg regs r8/r5 + normalization sequence — processed/init-functions.md |
 | LoadSpriteSheet (sprite.c) | 99 | `#if 0` | proven pun at SpriteEntry+0x18 (strh) / +0x19 (ldrb); user approved a documented 2-byte union, which reproduces both in isolation, but the function still diverges on stack-arg scheduling ([sp,#36] must load before [sp,#40]) — u16-byte-narrowing.md; next attempt: union sized exactly 2 bytes + consume 5th param first |
-| sub_80627F0 (sound.c) | 145 | `#if 0` BELOW its INCLUDE_ASM (pre-session raw-decomp draft) | never attempted this session; its callee sub_8062C24 is with the envactor-sound agent |
+| sub_80627F0 (sound.c) | 145 | `#if 0` BELOW its INCLUDE_ASM (pre-session raw-decomp draft) | never attempted this session |
+| sub_8062C24 (sound.c) | 310 | `#if 0` | envactor-sound agent draft; byte-cursor sequencer — envactor-sound.md |
+| initLevelEnvironmentActors (envactor.c) | 656 | none | unassigned after sub_8054FE0 landed (merged 18a1525) |
 | sub_80510FC (gamestate.c) | 208 | none | final table scan compiles to pointer-increment instead of indexed — processed/gamestate.md |
 | updateKeyState (keystate.c) | 226 | none | body identical; only hard-reg choice for base+4/base+8 invariants differs — processed/updateKeyState.md |
 | freeSpriteVramLocation (sprite.c) | 121 | none | earlier "match" used register pinning, discarded — processed/sprite-vram.md |
