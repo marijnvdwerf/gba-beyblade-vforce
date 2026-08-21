@@ -5,7 +5,7 @@ endif()
 set_target_properties(rom PROPERTIES SUFFIX ".elf")
 
 target_compile_options(rom PRIVATE
-    "$<$<COMPILE_LANGUAGE:C>:-I${AGBCC}/include;-mthumb-interwork;-Wimplicit;-Wparentheses;-Wunused;-Werror;-O2;-fhex-asm>"
+    "$<$<COMPILE_LANGUAGE:C>:-I${AGBCC}/include;-mthumb-interwork;-Wimplicit;-Wparentheses;-Wunused;-Werror;-O2;-fhex-asm;-g>"
     "$<$<COMPILE_LANGUAGE:ASM>:-mcpu=arm7tdmi;-I${CMAKE_SOURCE_DIR}>")
 set_source_files_properties(src/libc.c PROPERTIES
     COMPILE_OPTIONS "--reset-flags;-O2")

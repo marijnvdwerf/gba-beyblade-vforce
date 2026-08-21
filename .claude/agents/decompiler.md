@@ -28,7 +28,7 @@ that has no caller in current C.
 4. Replace the `INCLUDE_ASM` line with the C implementation **in exactly the
    same position** in the file (emission order is layout).
 5. Build: `cmake --build build`. Diff: `bun run tools/diff/diff.ts <symbol>`.
-   Iterate to 100%.
+   Iterate until no instructions differ.
 6. Run `cmake --build build --target compare` — must pass.
 7. `git rm` the dump file. (The worklist needs no bookkeeping — a decompiled
    function drops out of `uv run tools/worklist.py` automatically.)
@@ -86,8 +86,8 @@ that has no caller in current C.
   unsigned or unk.
 - An empty function body isn't always enough for a nullsub — check the bytes
   after the function (alignment/padding is part of the target).
-- A 100% instruction diff can still change ROM bytes (padding/literal pools).
-  `compare` after every function, no exceptions.
+- A diff with no differing instructions can still change ROM bytes (padding/literal
+  pools). `compare` after every function, no exceptions.
 
 ## When diffs look impossible
 

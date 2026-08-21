@@ -42,7 +42,7 @@ tools/update-expected
 Two ways to diff:
 
 - **objdiff (GUI):** launch [objdiff](https://github.com/encounter/objdiff) from the repository root; it picks up `objdiff.json` and rebuilds objects on save.
-- **`tools/diff` (CLI):** print the instruction diff and match percentage for a single function:
+- **`tools/diff` (CLI):** print the instruction diff for a single function; iterate until no instructions differ:
 
   ```sh
   bun install --cwd tools/diff   # once

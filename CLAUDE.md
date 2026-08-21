@@ -18,7 +18,7 @@ The canonical build directory is `build/` (tools assume it).
 Objects are compared against the baseline snapshot in `expected/` (gitignored), which mirrors the `build/` directory layout.
 
 ```sh
-bun run tools/diff/diff.ts <symbolName>   # instruction diff + match % (bun install --cwd tools/diff once)
+bun run tools/diff/diff.ts <symbolName>   # instruction diff (bun install --cwd tools/diff once)
 ```
 
 objdiff (GUI) also works from the repository root via `objdiff.json`.
@@ -29,7 +29,7 @@ After the ROM matches, refresh the baseline: `tools/update-expected`.
 
 - Undecompiled functions live as asm in `asm/dump/`, pulled into C files via
   `INCLUDE_ASM("asm/dump/...")`. Replace the line with a C implementation,
-  iterate with the diff tools until 100%, then delete the dump file.
+  iterate with the diff tools until no instructions differ, then delete the dump file.
 - Link order is fixed by `ld_script.ld` (object paths relative to
   `build/CMakeFiles/rom.dir/`, where ld runs). New source files need an entry
   there and in `CMakeLists.txt`.

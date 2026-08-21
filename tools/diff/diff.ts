@@ -159,9 +159,6 @@ const baseDisplay = baseDiff && baseSymbol ? display.displaySymbol(baseDiff, bas
 console.log(`Symbol: ${symbolName}`);
 console.log(`Expected: ${relative(repoRoot, match.expectedPath)}`);
 console.log(`Base:     ${relative(repoRoot, match.basePath)}${baseObject ? "" : " (missing)"}`);
-if (targetDisplay?.matchPercent !== undefined) {
-  console.log(`Match:    ${targetDisplay.matchPercent.toFixed(1)}%`);
-}
 console.log("");
 const targetRows = targetDiff && targetSymbol
   ? Array.from({ length: targetDisplay?.rowCount ?? 0 }, (_, row) =>
