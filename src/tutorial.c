@@ -55,7 +55,7 @@ void initTutorialManagement(u16 levelId)
         getLevelGeometryAddresses(&geometry, geometryData);
         StoreMetadataAddr(&geometry, metadata);
         line = 0;
-        while (line < geometry.unk0->unk8) {
+        while (line < geometry.unk0->lineCount) {
             lineMetadata = GetLineMetaData(&geometry, line);
             if (count > 0x1F) {
                 printf(Str_87233E8);

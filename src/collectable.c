@@ -20,7 +20,7 @@ void initCollectables(u16 levelId)
     void* metadata;
     LevelState* state;
     CollectableEntry* entry;
-    LevelGeometryLine* line;
+    GeometryLine* line;
     void* lineMeta;
     s32 count;
     s32 i;
@@ -35,7 +35,7 @@ void initCollectables(u16 levelId)
         getLevelGeometryAddresses(&geometry, geometryData);
         StoreMetadataAddr(&geometry, metadata);
         entry = gameData->collectables.entries;
-        for (i = 0; i < geometry.unk0->unk8; i++) {
+        for (i = 0; i < geometry.unk0->lineCount; i++) {
             line = &geometry.unkC[i];
             lineMeta = GetLineMetaData(&geometry, i);
             if (count > 0x1F) {

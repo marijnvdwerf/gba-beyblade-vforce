@@ -162,23 +162,70 @@ typedef struct ParticleSystem {
 
 /* Canonical level-geometry handle (0x11C bytes); filled by
  * getLevelGeometryAddresses(LevelGeometryAddresses*, void* geometryData). */
-typedef struct LevelGeometryLine {
-    unk8 unk0[0x20];
-} LevelGeometryLine;
+typedef struct GeometryPoint {
+    unk32 x;
+    unk32 y;
+    unk32 z;
+    unk32 padC;
+} GeometryPoint;
 
-typedef struct LevelGeometryTable {
-    unk8 pad0[8];
-    s32 unk8;
-} LevelGeometryTable;
+typedef struct GeometryLine {
+    unk32 point0;
+    unk32 point1;
+    unk8 pad8[0x18];
+} GeometryLine; /* 0x20; stride proven by line-table indexing */
+
+typedef struct GeometrySpline {
+    unk32 pointCount;
+    unk32 size;
+    unk8 pad8[0x18];
+    unk32 pointIndices[1];
+} GeometrySpline;
+
+typedef struct LevelGeometryTable LevelGeometryTable;
+
+typedef struct LevelDesign {
+    unk8 pad0[0x80];
+    LevelGeometryTable* geometry;
+} LevelDesign;
+
+struct LevelGeometryTable {
+    unk32 pointCount;
+    s16 splineCount;
+    unk16 pad6;
+    s32 lineCount;
+    unk32 padC;
+    unk32 pointOffset;
+    unk32 splineOffset;
+    unk32 lineOffset;
+    unk32 pad1C;
+};
+
+typedef struct LineMetaObject LineMetaObject;
+typedef struct LineMetadata LineMetadata;
+
+struct LineMetaObject {
+    unk16 size; /* byte size of this record */
+    unk16 type;
+    unk16 id;
+    unk16 unk6;
+    unk32 unk8;
+};
+
+struct LineMetadata {
+    unk16 count;
+    unk16 pad2;
+    LineMetaObject objects[1];
+};
 
 typedef struct LevelGeometryAddresses {
     LevelGeometryTable* unk0;
-    void* unk4;
-    void* unk8;
-    LevelGeometryLine* unkC;
+    GeometryPoint* unk4;
+    GeometrySpline* unk8;
+    GeometryLine* unkC;
     void* unk10;
-    void* unk14[0x40];
-    void* unk114;
+    GeometrySpline* unk14[0x40];
+    LineMetadata** unk114;
     unk16 unk118;
     unk8 pad11A[2];
 } LevelGeometryAddresses;
@@ -194,7 +241,7 @@ typedef struct LevelState {
 } LevelState;
 
 typedef struct CollectableEntry {
-    LevelGeometryLine* geometry;
+    GeometryLine* geometry;
     unk32 line;
 } CollectableEntry;
 
@@ -203,11 +250,6 @@ typedef struct CollectableData {
     CollectableEntry entries[0x20];
     unk32 collectedBits;
 } CollectableData;
-
-typedef struct LineMetaObject {
-    unk8 unk0[8];
-    unk32 unk8;
-} LineMetaObject;
 
 typedef struct TutorialPage {
     unk8 data[0xB4];
@@ -279,7 +321,8 @@ typedef struct LevelDescription {
     s32 unk20;
     s32 unk24;
     s32 unk28;
-    unk8 pad2C[0xA4];
+    LineMetadata** metadata;
+    unk8 pad30[0xA0];
 } LevelDescription;
 
 #define true 1

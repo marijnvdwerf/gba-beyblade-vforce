@@ -1,7 +1,34 @@
 #include "include_asm.h"
 #include "ram.h"
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805b8c4-getLevelGeometryAddresses.s");
+extern const u8 Str_87553D0[];
+extern void nullsub_8(const char*);
+extern GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses*, s32);
+
+void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, void* arg1)
+{
+    LevelGeometryTable* geometry;
+    s16 count;
+    s16 i;
+
+    geometry = arg1;
+    arg0->unk0 = geometry;
+    arg0->unk4 = (GeometryPoint*)((unk8*)geometry + geometry->pointOffset);
+    arg0->unk8 = (GeometrySpline*)((unk8*)geometry + geometry->splineOffset);
+    arg0->unkC = (GeometryLine*)((unk8*)geometry + geometry->lineOffset);
+    count = geometry->splineCount;
+    if (geometry->splineCount > 0x40) {
+        count = 0x40;
+        nullsub_8(Str_87553D0);
+    }
+    for (i = 0; i < (s16)count; i++) {
+        arg0->unk14[i] = GetSplineAtIndex(arg0, i);
+    }
+    arg0->unk114 = NULL;
+    arg0->unk10 = NULL;
+    arg0->unk118 = 0;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805b938-newCollisionDataRam.s");
 
 void sub_805BA3C(GeometryAddressTable* arg0)
@@ -12,13 +39,47 @@ void sub_805BA3C(GeometryAddressTable* arg0)
     arg0->block = NULL;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805ba54-StoreMetadataAddr.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805ba60-GetLineMetaData.s");
+void StoreMetadataAddr(LevelGeometryAddresses* arg0, LineMetadata** value)
+{
+    arg0->unk114 = value;
+}
+
+LineMetadata* GetLineMetaData(LevelGeometryAddresses* arg0, s32 index)
+{
+    LineMetadata** metadata;
+
+    metadata = arg0->unk114;
+    if (metadata == NULL) {
+        return NULL;
+    }
+    return metadata[index];
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805ba7c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bac0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bad8-getLineMetaAtIndex.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bafc.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805bb2c-getLineMetaObjectBytype.s");
+
+LineMetaObject* getLineMetaObjectBytype(
+    LevelGeometryAddresses* arg0, LineMetadata* metadata, unk32 type)
+{
+    LineMetaObject* ptr;
+    s32 index;
+
+    index = 0;
+    ptr = &metadata->objects[0];
+    if (metadata == NULL) {
+        return NULL;
+    }
+    for (; index < metadata->count; index++) {
+        if (ptr->type == type) {
+            return ptr;
+        }
+        ptr = (LineMetaObject*)((unk8*)ptr + ptr->size);
+    }
+    return NULL;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805bb5c-getLineMetaobjectByTypeAndId.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bb9c-initQuadTree.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bbc8-allocQuadTree.s");
