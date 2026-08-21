@@ -72,8 +72,13 @@ Last updated: 2026-08-21, end of session 2 (round 6: six luna agents running; ke
 - `uv run tools/worklist.py` — functions called from C but still asm.
 - `uv run tools/lint.py src/*.c` — lint (first check: prototypes for functions
   defined in another TU → belong in that TU's header); exit 1 on findings.
-  Rule: no conditional-prototype macros; conflicting signatures stay local
-  until resolved.
+  Header pass (c5146ca..bac86d6) done: lint exits 0; every cross-TU prototype
+  lives in the defining TU's header (new: display/levelrow/menuobject/
+  multiplayer/riderphysics/particle/animevent/camera/frontend/... .h).
+  Rules: no conditional-prototype macros; the *definition's* signature wins;
+  fix callers by typing their variables/fields, never by casting. Side-fixes
+  found: sub_8060CDC/resizeSpriteBlock take `SpriteTextBlock*`; RiderBase has
+  `Actor unk238/unk2FC`, `SpriteEntry* unk3C4`, `ParticleSystem unk3EC`.
 - `expected/` is a flat copy of `build/` (`tools/update-expected`).
 - `raw-decomp` worktree (`.claude/worktrees/raw-decomp`, ~700 C functions) is
   a read-only reference with different headers; never merge it wholesale.
@@ -88,7 +93,7 @@ functions; session 1 merged 8.
 
 | worktree | scope | status |
 |---|---|---|
-| header-consolidation | move foreign externs into per-TU headers (tools/lint.py); stages 1+2 merged (c5146ca, b244799; 110→37 findings). Remaining 37 = 26 signature conflicts (agent's list in session log; mostly `void*` externs vs typed definitions, e.g. sub_8060A94, allocFont, showString, sub_805E50C/514, resizeSpriteBlock). Stage 3 = fix each conflict to the definition's signature, then move. Worktree kept for revival | paused |
+| temp-reduction-6 | revisit functions whose bodies changed in the header pass (list derived from `git diff c5146ca^..` ) | running (worktree) |
 
 ### Parked (attempted, not matched)
 
