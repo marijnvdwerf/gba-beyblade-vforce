@@ -93,7 +93,7 @@ functions; session 1 merged 8.
 
 | worktree | scope | status |
 |---|---|---|
-| temp-reduction-6 | revisit functions whose bodies changed in the header pass (list derived from `git diff c5146ca^..` ) | running (worktree) |
+| (none) | header pass + temp-reduction-6 merged; temp-reduction-6.md awaits next sol batch | — |
 
 ### Parked (attempted, not matched)
 
