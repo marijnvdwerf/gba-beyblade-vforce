@@ -271,6 +271,25 @@ void sub_806570C(SpriteString* string, unk32 arg1, unk32 arg2, unk32 arg3, unk32
     }
 }
 
-INCLUDE_ASM("asm/dump/8064f38/8065760.s");
+void sub_8065760(SpriteString* string, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 step,
+    unk32 maxCount)
+{
+    unk16 i;
+    unk16 count;
+    unk32 offset;
+
+    count = (unk16)maxCount;
+    offset = 0;
+    if (count > string->count) {
+        count = string->count;
+    }
+    i = 0;
+    while (i < count) {
+        sub_8058794(&string->actors[i], arg1, arg2, arg3, arg4 + offset);
+        offset += step;
+        i++;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8064f38/80657c4.s");
 INCLUDE_ASM("asm/dump/8064f38/80657ec.s");
