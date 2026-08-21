@@ -49,6 +49,13 @@ typedef struct LevelState {
     s32 unk4;
 } LevelState;
 
+typedef struct ActiveLevelDescription {
+    unk8 pad0[0x11];
+    unk8 unk11;
+    unk8 pad12[6];
+    unk32 unk18;
+} ActiveLevelDescription;
+
 typedef struct LevelDescription {
     unk8 unk0[8];
     s32 unk8;
