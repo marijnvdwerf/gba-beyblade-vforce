@@ -88,11 +88,11 @@ grep INCLUDE_ASM.
 | event.c | deallocEventListeners, initEventListeners | 1/2; 0x80-byte local aggregate in init; review-event.md sent |
 | small leaves | sub_8061204, sub_805BA3C, deallocateQuadTree, sub_804A72C, emptyBeybladeActorData, deallocBeybladeActorData, sub_8055CB8, sub_804F800, sub_804FEE8 | 9/9 MERGED c1313c1 (QuadTree @0x7A4 = 0x58 bytes; sub_804F800/sub_804FEE8 need a `GameData* base` local — see small-leaves.md); worktree removed |
 | temp-reduction | the 11 merged functions + gamestate.c cleanup (typed LevelDescriptions[], LevelState[] in CurrentGameState) (gameinit, beyblade, collision, geometry, hud, levelhud, spritetext, tutorial) | DONE in worktree (3 simplified: sub_8053F0C, sub_8055CB8, sub_804FEE8; 8 already minimal); awaiting review-round3 then merge |
-| leaves-round2 | sub_805E50C, sub_805E514 (geometry.c), sub_8061228 (spritetext.c), sub_804B4A4 (rider.c), newPolyTable (animevent.c) | 5/5 match in worktree (uncommitted); RiderBase(0x424) vs RiderBlock(0x428) must be unified; awaiting review-round3 then merge |
+| leaves-round2 | 5 leaves | 5/5 MERGED 3c82864 (RiderBase now 0x428, replaces RiderBlock); worktree removed |
 | init-functions | initCollectables, initTutorialManagement, initMultiPlayer | running |
 | skill distill (gpt-5.6-sol) | SKILL.md rewritten + committed; now moving processed learnings to docs/learnings/processed/ |
-| review-round3 (opus) | bulk C-only review of leaves-round2 + temp-reduction + all in-progress worktrees → docs/learnings/review-round3.md | running |
-| gamestate-cleanup | the 10 merged gamestate.c functions | running: typed LevelDescriptions[] (unify ActiveLevelDescription), LevelState[] in CurrentGameState, s8 unk0, no field casts → docs/learnings/gamestate-cleanup.md |
+| review-round3 (opus) | done → docs/learnings/review-round3.md; canonical LevelGeometryAddresses added to common.h (3c82864); follow-ups sent to all agents |
+| gamestate-cleanup | 10 gamestate.c fns | MERGED 02ed7cf (typed LevelDescription[] 0xD0, LevelState unk4[0x38], s8 unk0, no union); worktree removed |
 
 Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
 sub_8054FE0), sub_8062C24 (sound), LoadHUD, sub_8060CDC. Red set on
@@ -113,6 +113,13 @@ gameLoop (927 lines), initGameLoop, updateKeyState, sub_8049458,
 sub_8053B94 ✅, initMultiPlayer, sub_8049264, initGame ✅, initGameLoop ✅, closeGame ✅,
 sub_8055CB8. Full reachable-graph report was only in an agent transcript;
 regenerate with `tools/callgraph.py mainLoop` + `tools/worklist.py`.
+
+## Header conventions decided this session
+
+- `LevelGeometryAddresses`/`LevelGeometryTable` (common.h) are canonical; `getLevelGeometryAddresses(LevelGeometryAddresses*, void*)`.
+- `RiderBase` (0x428) is the rider layout; GameData begins with it; `GameData.unk42C` is `RiderBase*`.
+- `LevelDescription` is 0xD0 and indexed (`LevelDescriptions[i]`); ActiveLevelDescription no longer exists.
+- No unions; no casts on field reads (`(s8)p->f` ⇒ field is s8).
 
 ## Open questions for the user
 
