@@ -84,7 +84,7 @@ functions; session 1 merged 8.
 
 | worktree | scope | status |
 |---|---|---|
-| sol learnings pass | envactor-init.md → skill | running (main, uncommitted) |
+| (none) | round 6 fully merged; all learnings archived; keepalive stopped | — |
 
 ### Parked (attempted, not matched)
 
