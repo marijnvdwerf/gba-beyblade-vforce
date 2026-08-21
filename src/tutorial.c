@@ -25,7 +25,7 @@ extern void StoreMetadataAddr(LevelGeometryAddresses*, LineMetadata**);
 extern void* GetLineMetaData(LevelGeometryAddresses*, s32);
 extern void sub_8051734(void);
 extern LineMetaObject* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, void*, unk32, unk32);
-extern void allocFont(void*, const void*, const void*, unk32, unk32, unk32, unk32);
+extern void allocFont(void*, const void*, const void*, s16, s16, unk16, unk16);
 extern const char Str_87233E8[];
 extern const u8 SpriteSheet_82B05EC[];
 extern const u8 ShadowFontMeta[];
