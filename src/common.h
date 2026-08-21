@@ -146,8 +146,6 @@ typedef struct SpriteTextCleanup {
     SpriteEntry* ptr2C;
 } SpriteTextCleanup;
 
-typedef SpriteTextCleanup UnkSpriteText;
-
 typedef struct RiderBase {
     unk8 unk0[0x238];
     unk8 unk238[4];

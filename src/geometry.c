@@ -5,13 +5,11 @@ extern const u8 Str_87553D0[];
 extern void nullsub_8(const char*);
 extern GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses*, s32);
 
-void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, void* arg1)
+void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable* geometry)
 {
-    LevelGeometryTable* geometry;
     s16 count;
     s16 i;
 
-    geometry = arg1;
     arg0->unk0 = geometry;
     arg0->unk4 = (GeometryPoint*)((unk8*)geometry + geometry->pointOffset);
     arg0->unk8 = (GeometrySpline*)((unk8*)geometry + geometry->splineOffset);
@@ -21,7 +19,7 @@ void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, void* arg1)
         count = 0x40;
         nullsub_8(Str_87553D0);
     }
-    for (i = 0; i < (s16)count; i++) {
+    for (i = 0; i < count; i++) {
         arg0->unk14[i] = GetSplineAtIndex(arg0, i);
     }
     arg0->unk114 = NULL;
@@ -67,7 +65,7 @@ LineMetaObject* getLineMetaObjectBytype(
     s32 index;
 
     index = 0;
-    ptr = &metadata->objects[0];
+    ptr = metadata->objects;
     if (metadata == NULL) {
         return NULL;
     }

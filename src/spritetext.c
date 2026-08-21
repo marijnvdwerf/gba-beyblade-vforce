@@ -10,11 +10,11 @@ extern s32 Div(s32, s32);
 extern s32 DivRem(s32, s32);
 extern unk8 showString(void*, const u8*, unk8);
 
-void allocFont(SpriteTextCleanup* arg0, const u8* arg1, const u8* arg2, s32 arg3, s32 arg4,
+void allocFont(SpriteTextCleanup* arg0, const u8* arg1, const u8* arg2, s16 arg3, s16 arg4,
     unk16 arg5, unk16 arg6)
 {
-    arg0->x = (arg3 << 16) >> 8;
-    arg0->y = (arg4 << 16) >> 8;
+    arg0->x = arg3 << 8;
+    arg0->y = arg4 << 8;
     arg0->unkC = arg5;
     arg0->unkA = 0;
     arg0->unk14.count = 0;
@@ -34,14 +34,14 @@ void allocFont(SpriteTextCleanup* arg0, const u8* arg1, const u8* arg2, s32 arg3
     arg0->unk2A = arg1[5] + 4;
 }
 
-void sub_80611EC(UnkSpriteText* arg0, unk8 arg1)
+void sub_80611EC(SpriteTextCleanup* arg0, unk8 arg1)
 {
     arg0->unk2A = arg1;
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/80611f4.s");
 
-void sub_80611FC(UnkSpriteText* arg0, unk8 arg1)
+void sub_80611FC(SpriteTextCleanup* arg0, unk8 arg1)
 {
     arg0->unk28 = arg1;
 }
@@ -121,7 +121,7 @@ unk8 showNumber(SpriteTextCleanup* arg0, s32 arg1, unk8 arg2)
     return showString(arg0, ptr, arg2);
 }
 
-unk8 showNumber_2(void* arg0, unk32 arg1, unk8 arg2)
+unk8 showNumber_2(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
 {
     sub_8061228(arg0);
     return showNumber(arg0, arg1, arg2);

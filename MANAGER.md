@@ -7,6 +7,9 @@ description: Session rules for orchestrating decompilation subagents
 
 - Use the **Agent tool** only — never Workflow, never `subagent_type: "fork"`.
 - Default model: **gpt-5.6-luna** unless the user says otherwise.
+- **No Anthropic-model subagents (opus/sonnet/fable) until the user lifts
+  this** (2026-08-21). Reviews use gpt-5.6-luna; skill distillation uses
+  gpt-5.6-sol.
 - Every agent prompt must say **"Do not spawn subagents."**
 - Follow `~/.claude/skills/prompting-codex/SKILL.md` when writing prompts.
 - Point agents to `.claude/agents/decompiler.md` for code style.

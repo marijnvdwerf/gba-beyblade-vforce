@@ -1,16 +1,12 @@
 #!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.10"
-# dependencies = []
+# dependencies = [
+#   "tree-sitter==0.26.0",
+#   "tree-sitter-c==0.24.2",
+# ]
 # ///
-"""Print a source-oriented call graph for the GBA decompilation.
-
-This deliberately follows calldiff's small, syntax-oriented approach: index
-C function definitions first, collect ordered call steps, then render a tree
-with cycle/repetition guards.  It does not try to be a C compiler; this
-repository's C90 headers and INCLUDE_ASM macro make a lightweight source scan
-more useful than a general-purpose parser.
-"""
+"""Print a source-oriented call graph for the GBA decompilation."""
 
 from __future__ import annotations
 
@@ -20,10 +16,14 @@ import sys
 from collections import OrderedDict
 from dataclasses import dataclass, field
 from pathlib import Path
-from typing import Iterable
+from typing import Iterable, Iterator
+
+import tree_sitter_c
+from tree_sitter import Language, Parser
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC_DIR = ROOT / "src"
+C_LANGUAGE = Language(tree_sitter_c.language())
 
 # A safety valve for malformed or unexpectedly recursive input.  Repetition is
 # normally collapsed before this is reached, so ordinary trees do not truncate.
@@ -42,7 +42,13 @@ CONTROL_WORDS = {
     "typeof",
     "defined",
     "__attribute__",
+    "asm",
+    "__asm",
+    "__asm__",
+    "__volatile__",
 }
+
+
 @dataclass
 class Function:
     name: str
@@ -66,171 +72,85 @@ def relpath(path: Path) -> str:
         return str(path)
 
 
-def mask_comments_and_strings(text: str) -> str:
-    """Replace comments/string contents with spaces, preserving newlines."""
-    out = list(text)
-    i = 0
-    state = "code"
-    quote = ""
-    while i < len(text):
-        c = text[i]
-        nxt = text[i + 1] if i + 1 < len(text) else ""
-        if state == "code":
-            if c == "/" and nxt == "/":
-                out[i] = out[i + 1] = " "
-                i += 2
-                state = "line"
+def node_text(source: bytes, node) -> str:
+    return source[node.start_byte : node.end_byte].decode("utf-8", errors="replace")
+
+
+def is_literal_zero(source: bytes, node) -> bool:
+    return node is not None and node_text(source, node).strip() == "0"
+
+
+def same_node(left, right) -> bool:
+    return right is not None and left.start_byte == right.start_byte and left.end_byte == right.end_byte
+
+
+def iter_active_preprocessor_branch(node, source: bytes) -> Iterator:
+    """Yield nodes from the selected branch of a definitely-false #if 0."""
+    if node.type == "preproc_else":
+        for child in node.named_children:
+            yield from iter_active_nodes(child, source)
+        return
+    if node.type == "preproc_elif":
+        condition = node.child_by_field_name("condition")
+        alternative = node.child_by_field_name("alternative")
+        if is_literal_zero(source, condition):
+            if alternative is not None:
+                yield from iter_active_preprocessor_branch(alternative, source)
+            return
+        # The first non-zero/unknown elif is the conservatively active branch.
+        for child in node.named_children:
+            if same_node(child, condition) or same_node(child, alternative):
                 continue
-            if c == "/" and nxt == "*":
-                out[i] = out[i + 1] = " "
-                i += 2
-                state = "block"
-                continue
-            if c in ('"', "'"):
-                quote = c
-                out[i] = " "
-                i += 1
-                state = "string"
-                continue
-            i += 1
-            continue
-        if state == "line":
-            if c == "\n":
-                state = "code"
-            else:
-                out[i] = " "
-            i += 1
-            continue
-        if state == "block":
-            if c == "*" and nxt == "/":
-                out[i] = out[i + 1] = " "
-                i += 2
-                state = "code"
-            else:
-                if c != "\n":
-                    out[i] = " "
-                i += 1
-            continue
-        # string or character literal
-        if c == "\\":
-            out[i] = " "
-            if i + 1 < len(text):
-                if text[i + 1] != "\n":
-                    out[i + 1] = " "
-                i += 2
-            else:
-                i += 1
-            continue
-        if c == quote:
-            out[i] = " "
-            i += 1
-            state = "code"
-        else:
-            if c != "\n":
-                out[i] = " "
-            i += 1
-    return "".join(out)
+            yield from iter_active_nodes(child, source)
+        return
+    yield from iter_active_nodes(node, source)
 
 
-def mask_if_zero_regions(masked: str) -> str:
-    """Mask definitely-disabled ``#if 0`` branches while preserving lines."""
-    # Parked drafts live under #if 0 above INCLUDE_ASM; do not index them as C.
-    conditional_stack: list[tuple[bool, bool, bool]] = []
-    out: list[str] = []
-    directive_re = re.compile(r"^[ \t]*#[ \t]*(if|ifdef|ifndef|elif|else|endif)\b(.*)$")
-    if_zero_re = re.compile(r"^0[ \t]*$")
-
-    def active() -> bool:
-        return not conditional_stack or conditional_stack[-1][1]
-
-    for line in masked.splitlines(keepends=True):
-        match = directive_re.match(line.rstrip("\r\n"))
-        directive = match.group(1) if match else ""
-        argument = match.group(2) if match else ""
-        current_active = active()
-        if directive in ("if", "ifdef", "ifndef"):
-            is_if_zero = directive == "if" and bool(if_zero_re.fullmatch(argument.strip()))
-            conditional_stack.append((is_if_zero, current_active and not is_if_zero, False))
-            out.append(line)
-            continue
-        if directive in ("elif", "else") and conditional_stack:
-            is_if_zero, branch_active, branch_taken = conditional_stack[-1]
-            if is_if_zero:
-                branch_active = conditional_stack[-1][1]
-                if not branch_taken:
-                    branch_active = not any(not entry[1] for entry in conditional_stack[:-1])
-                conditional_stack[-1] = (is_if_zero, branch_active, True)
-            out.append(line)
-            continue
-        if directive == "endif" and conditional_stack:
-            out.append(line)
-            conditional_stack.pop()
-            continue
-        if current_active:
-            out.append(line)
-        else:
-            out.append("".join("\n" if char == "\n" else "\r" if char == "\r" else " " for char in line))
-    return "".join(out)
+def iter_active_nodes(node, source: bytes) -> Iterator:
+    """Walk syntax nodes, omitting the definitely-disabled side of #if 0."""
+    if node.type == "preproc_if":
+        condition = node.child_by_field_name("condition")
+        alternative = node.child_by_field_name("alternative")
+        if is_literal_zero(source, condition):
+            if alternative is not None:
+                yield from iter_active_preprocessor_branch(alternative, source)
+            return
+    yield node
+    for child in node.named_children:
+        yield from iter_active_nodes(child, source)
 
 
-def matching_brace(text: str, opening: int) -> int | None:
-    depth = 0
-    for i in range(opening, len(text)):
-        if text[i] == "{":
-            depth += 1
-        elif text[i] == "}":
-            depth -= 1
-            if depth == 0:
-                return i
+def function_name(node, source: bytes) -> str | None:
+    """Find the identifier at the end of a possibly wrapped declarator."""
+    if node is None:
+        return None
+    if node.type == "identifier":
+        return node_text(source, node)
+    declarator = node.child_by_field_name("declarator")
+    if declarator is not None:
+        name = function_name(declarator, source)
+        if name is not None:
+            return name
+    for child in node.named_children:
+        name = function_name(child, source)
+        if name is not None:
+            return name
     return None
 
 
-def function_header_before(masked: str, opening: int) -> tuple[str, str] | None:
-    """Return (name, header) when an opening brace starts a C function."""
-    # A function definition's declaration follows the previous top-level
-    # declaration.  Looking back to punctuation keeps this independent of
-    # include order and preprocessor lines.
-    start = max(
-        masked.rfind(";", 0, opening),
-        masked.rfind("}", 0, opening),
-        masked.rfind("{", 0, opening),
-    ) + 1
-    header = masked[start:opening].strip()
-    match = re.search(r"([A-Za-z_]\w*)\s*\(([^;{}]*)\)\s*$", header, re.S)
-    if not match:
-        return None
-    name = match.group(1)
-    if name in CONTROL_WORDS:
-        return None
-    # Function pointers and control constructs can end in ') {' too.  Require
-    # a plausible return-type/declaration prefix, or a constructor-like name.
-    prefix = header[: match.start(1)].strip()
-    if not prefix or prefix.endswith(("=", ",")):
-        return None
-    if re.search(r"\b(if|for|while|switch|catch)\s*\([^)]*\)\s*$", header):
-        return None
-    return name, header
-
-
-def extract_c_calls(body: str, macros: set[str]) -> list[str]:
-    calls: list[str] = []
-    seen_at: set[tuple[str, int]] = set()
-    for match in re.finditer(r"\b([A-Za-z_]\w*)\s*\(", body):
-        name = match.group(1)
+def extract_c_calls(body, source: bytes, macros: set[str]) -> list[str]:
+    calls: list[tuple[int, str]] = []
+    for node in iter_active_nodes(body, source):
+        if node.type != "call_expression":
+            continue
+        function = node.child_by_field_name("function")
+        if function is None or function.type != "identifier":
+            continue
+        name = node_text(source, function)
         if name in CONTROL_WORDS or name in macros:
             continue
-        # A cast to a pointer-to-array/type is written as Type(*)[N].  It
-        # matches the call-shaped regex but is not a function call.
-        after_open = body[match.end() :].lstrip()
-        if after_open.startswith("*"):
-            continue
-        # Unresolved names are intentionally retained because they are useful
-        # red nodes (library, BIOS, or unresolved calls).
-        key = (name, match.start())
-        if key not in seen_at:
-            calls.append(name)
-            seen_at.add(key)
-    return calls
+        calls.append((node.start_byte, name))
+    return [name for _, name in sorted(calls)]
 
 
 def add_function(functions: Functions, function: Function) -> None:
@@ -239,44 +159,37 @@ def add_function(functions: Functions, function: Function) -> None:
         functions[function.name] = function
 
 
-def index_c_sources(functions: Functions) -> None:
+def macro_names() -> set[str]:
     macro_files = list(SRC_DIR.rglob("*.c")) + list(SRC_DIR.rglob("*.h")) + list((ROOT / "lib").rglob("*.h"))
     macros: set[str] = set()
-    for macro_path in macro_files:
-        macro_text = macro_path.read_text(encoding="utf-8", errors="replace")
-        macros.update(re.findall(r"(?m)^\s*#\s*define\s+([A-Za-z_]\w*)\s*\(", macro_text))
+    for path in macro_files:
+        text = path.read_text(encoding="utf-8", errors="replace")
+        macros.update(re.findall(r"(?m)^\s*#\s*define\s+([A-Za-z_]\w*)\s*\(", text))
+    return macros
 
+
+def index_c_sources(functions: Functions) -> None:
+    macros = macro_names()
+    parser = Parser(C_LANGUAGE)
     for path in sorted(SRC_DIR.rglob("*.c")):
-        original = path.read_text(encoding="utf-8", errors="replace")
-        masked = mask_if_zero_regions(mask_comments_and_strings(original))
-        depth = 0
-        i = 0
-        while i < len(masked):
-            char = masked[i]
-            if char == "{":
-                if depth == 0:
-                    header = function_header_before(masked, i)
-                    if header is not None:
-                        name, _ = header
-                        end = matching_brace(masked, i)
-                        if end is not None:
-                            add_function(
-                                functions,
-                                Function(
-                                    name=name,
-                                    file=relpath(path),
-                                    kind="c",
-                                    calls=extract_c_calls(masked[i + 1 : end], macros),
-                                ),
-                            )
-                            # Count the function body as one top-level region;
-                            # nested braces must not be mistaken for functions.
-                            i = end + 1
-                            continue
-                depth += 1
-            elif char == "}":
-                depth = max(0, depth - 1)
-            i += 1
+        source = path.read_bytes()
+        tree = parser.parse(source)
+        for node in iter_active_nodes(tree.root_node, source):
+            if node.type != "function_definition":
+                continue
+            name = function_name(node.child_by_field_name("declarator"), source)
+            if name is None:
+                continue
+            body = node.child_by_field_name("body")
+            add_function(
+                functions,
+                Function(
+                    name=name,
+                    file=relpath(path),
+                    kind="c",
+                    calls=extract_c_calls(body, source, macros) if body is not None else [],
+                ),
+            )
 
 
 def make_unknown(functions: Functions, name: str) -> None:

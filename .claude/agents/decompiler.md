@@ -83,6 +83,11 @@ that has no caller in current C.
   fields and `*(u8*)&p->unkNN` on halfwords: find the real field shape.
   Tables walked with `base + i * SIZE` are arrays of a SIZE-byte struct —
   declare them as such and index.
+- **Unions only for proven puns.** A union is allowed solely when the asm
+  proves the same storage is written at one width and read at another
+  (e.g. `strh` at +N in one function, `ldrb` at +N+1 in another — agbcc never
+  narrows loads, so the original source punned it). Add a one-line comment
+  citing both instructions. Never use a union to paper over an unknown layout.
 - C90: declarations before statements. Run `clang-format -i` on every file
   you touched before committing/reporting (config in `.clang-format`).
 

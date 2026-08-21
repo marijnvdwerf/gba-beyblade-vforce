@@ -1,7 +1,10 @@
 #!/usr/bin/env -S uv run --script
 # /// script
 # requires-python = ">=3.10"
-# dependencies = []
+# dependencies = [
+#   "tree-sitter==0.26.0",
+#   "tree-sitter-c==0.24.2",
+# ]
 # ///
 """Print translation-unit decompilation progress for the GBA project."""
 
@@ -12,25 +15,14 @@ import re
 import sys
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Iterable
+from typing import Iterator, Iterable
+
+import tree_sitter_c
+from tree_sitter import Language, Parser
 
 ROOT = Path(__file__).resolve().parents[1]
 SRC_DIR = ROOT / "src"
-
-CONTROL_WORDS = {
-    "if",
-    "else",
-    "for",
-    "while",
-    "switch",
-    "case",
-    "do",
-    "sizeof",
-    "return",
-    "typeof",
-    "defined",
-    "__attribute__",
-}
+C_LANGUAGE = Language(tree_sitter_c.language())
 
 
 @dataclass
@@ -65,168 +57,57 @@ class TranslationUnit:
         return total
 
 
-def mask_comments_and_strings(text: str) -> str:
-    """Replace comments/string contents with spaces, preserving newlines."""
-    out = list(text)
-    i = 0
-    state = "code"
-    quote = ""
-    while i < len(text):
-        c = text[i]
-        nxt = text[i + 1] if i + 1 < len(text) else ""
-        if state == "code":
-            if c == "/" and nxt == "/":
-                out[i] = out[i + 1] = " "
-                i += 2
-                state = "line"
+def node_text(source: bytes, node) -> str:
+    return source[node.start_byte : node.end_byte].decode("utf-8", errors="replace")
+
+
+def is_literal_zero(source: bytes, node) -> bool:
+    return node is not None and node_text(source, node).strip() == "0"
+
+
+def same_node(left, right) -> bool:
+    return right is not None and left.start_byte == right.start_byte and left.end_byte == right.end_byte
+
+
+def iter_active_preprocessor_branch(node, source: bytes) -> Iterator:
+    """Yield nodes from the selected branch of a definitely-false #if 0."""
+    if node.type == "preproc_else":
+        for child in node.named_children:
+            yield from iter_active_nodes(child, source)
+        return
+    if node.type == "preproc_elif":
+        condition = node.child_by_field_name("condition")
+        alternative = node.child_by_field_name("alternative")
+        if is_literal_zero(source, condition):
+            if alternative is not None:
+                yield from iter_active_preprocessor_branch(alternative, source)
+            return
+        for child in node.named_children:
+            if same_node(child, condition) or same_node(child, alternative):
                 continue
-            if c == "/" and nxt == "*":
-                out[i] = out[i + 1] = " "
-                i += 2
-                state = "block"
-                continue
-            if c in ('"', "'"):
-                quote = c
-                out[i] = " "
-                i += 1
-                state = "string"
-                continue
-            i += 1
-            continue
-        if state == "line":
-            if c == "\n":
-                state = "code"
-            else:
-                out[i] = " "
-            i += 1
-            continue
-        if state == "block":
-            if c == "*" and nxt == "/":
-                out[i] = out[i + 1] = " "
-                i += 2
-                state = "code"
-            else:
-                if c != "\n":
-                    out[i] = " "
-                i += 1
-            continue
-        # string or character literal
-        if c == "\\":
-            out[i] = " "
-            if i + 1 < len(text):
-                if text[i + 1] != "\n":
-                    out[i + 1] = " "
-                i += 2
-            else:
-                i += 1
-            continue
-        if c == quote:
-            out[i] = " "
-            i += 1
-            state = "code"
-        else:
-            if c != "\n":
-                out[i] = " "
-            i += 1
-    return "".join(out)
+            yield from iter_active_nodes(child, source)
+        return
+    yield from iter_active_nodes(node, source)
 
 
-def mask_if_zero_regions(masked: str) -> str:
-    """Mask definitely-disabled ``#if 0`` branches while preserving lines."""
-    # Parked drafts live under #if 0 above INCLUDE_ASM; do not index them as C.
-    conditional_stack: list[tuple[bool, bool, bool]] = []
-    out: list[str] = []
-    directive_re = re.compile(r"^[ \t]*#[ \t]*(if|ifdef|ifndef|elif|else|endif)\b(.*)$")
-    if_zero_re = re.compile(r"^0[ \t]*$")
-
-    def active() -> bool:
-        return not conditional_stack or conditional_stack[-1][1]
-
-    for line in masked.splitlines(keepends=True):
-        match = directive_re.match(line.rstrip("\r\n"))
-        directive = match.group(1) if match else ""
-        argument = match.group(2) if match else ""
-        current_active = active()
-        if directive in ("if", "ifdef", "ifndef"):
-            is_if_zero = directive == "if" and bool(if_zero_re.fullmatch(argument.strip()))
-            conditional_stack.append((is_if_zero, current_active and not is_if_zero, False))
-            out.append(line)
-            continue
-        if directive in ("elif", "else") and conditional_stack:
-            is_if_zero, branch_active, branch_taken = conditional_stack[-1]
-            if is_if_zero:
-                branch_active = conditional_stack[-1][1]
-                if not branch_taken:
-                    branch_active = not any(not entry[1] for entry in conditional_stack[:-1])
-                conditional_stack[-1] = (is_if_zero, branch_active, True)
-            out.append(line)
-            continue
-        if directive == "endif" and conditional_stack:
-            out.append(line)
-            conditional_stack.pop()
-            continue
-        if current_active:
-            out.append(line)
-        else:
-            out.append("".join("\n" if char == "\n" else "\r" if char == "\r" else " " for char in line))
-    return "".join(out)
-
-
-def matching_brace(text: str, opening: int) -> int | None:
-    depth = 0
-    for i in range(opening, len(text)):
-        if text[i] == "{":
-            depth += 1
-        elif text[i] == "}":
-            depth -= 1
-            if depth == 0:
-                return i
-    return None
-
-
-def function_header_before(masked: str, opening: int) -> tuple[str, str] | None:
-    """Return (name, header) when an opening brace starts a C function."""
-    start = max(
-        masked.rfind(";", 0, opening),
-        masked.rfind("}", 0, opening),
-        masked.rfind("{", 0, opening),
-    ) + 1
-    header = masked[start:opening].strip()
-    match = re.search(r"([A-Za-z_]\w*)\s*\(([^;{}]*)\)\s*$", header, re.S)
-    if not match:
-        return None
-    name = match.group(1)
-    if name in CONTROL_WORDS:
-        return None
-    prefix = header[: match.start(1)].strip()
-    if not prefix or prefix.endswith(("=", ",")):
-        return None
-    if re.search(r"\b(if|for|while|switch|catch)\s*\([^)]*\)\s*$", header):
-        return None
-    return name, header
+def iter_active_nodes(node, source: bytes) -> Iterator:
+    """Walk syntax nodes, omitting the definitely-disabled side of #if 0."""
+    if node.type == "preproc_if":
+        condition = node.child_by_field_name("condition")
+        alternative = node.child_by_field_name("alternative")
+        if is_literal_zero(source, condition):
+            if alternative is not None:
+                yield from iter_active_preprocessor_branch(alternative, source)
+            return
+    yield node
+    for child in node.named_children:
+        yield from iter_active_nodes(child, source)
 
 
 def count_c_functions(text: str) -> int:
-    masked = mask_if_zero_regions(mask_comments_and_strings(text))
-    count = 0
-    depth = 0
-    i = 0
-    while i < len(masked):
-        char = masked[i]
-        if char == "{":
-            if depth == 0:
-                header = function_header_before(masked, i)
-                if header is not None:
-                    end = matching_brace(masked, i)
-                    if end is not None:
-                        count += 1
-                        i = end + 1
-                        continue
-            depth += 1
-        elif char == "}":
-            depth = max(0, depth - 1)
-        i += 1
-    return count
+    source = text.encode("utf-8")
+    tree = Parser(C_LANGUAGE).parse(source)
+    return sum(node.type == "function_definition" for node in iter_active_nodes(tree.root_node, source))
 
 
 def read_translation_units() -> list[TranslationUnit]:
