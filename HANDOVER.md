@@ -36,6 +36,10 @@ Last updated: 2026-08-21 (session 2).
   `n-2 … cmp #-1` = `while (n--)`, fresh `mov #0` = literal NULL, `Str_*`
   right after a function = inline literals, independent `cmp #-1` after
   each store = chained/sequential assignments.
+- NEVER `git commit -a` from a shell that is cd'd into a worktree: it lands
+  on the agent's branch and sweeps its in-progress files into the commit
+  (happened in session 2; fixed by exporting patches). Always `cd` back to
+  the main checkout first, or use `git -C`.
 - Agents occasionally edit the *main* checkout instead of their worktree.
   Check `git status` on main periodically; revert strays, tell the agent to
   `pwd` before every command.
@@ -78,12 +82,12 @@ grep INCLUDE_ASM.
 
 | scope | functions | status |
 |---|---|---|
-| gamestate.c | getLevelDescription(2), sub_8051734/640/720/744, sub_80518F0, getSomeLevelID, GetLevelDescriptionNo, sub_80510FC | 8/10 match (uncommitted); on sub_80510FC; reviews sent (review-gamestate.md, review-round2.md) |
+| gamestate.c | 10 leaves + sub_80510FC | 10 MERGED e5a2582 (applied as patch; worktree removed); sub_80510FC parked (table scan becomes pointer-increment — see gamestate.md); style debt (offset arithmetic on LevelDescriptions, unk4 byte-indexing) handed to temp-reduction agent |
 | gameinit.c | sub_80538C0, sub_8053F0C, initRiders | 2/3 MERGED da06486 (unk42C = RiderBlock* of 0x428-byte elems; sub_8053F0C needs case-scoped GameData*); initRiders in progress |
 | frontend.c | sub_8049264, sub_8049458 | 0/2; review-frontend.md sent (single `offset` local; use FrontendState fields) |
 | event.c | deallocEventListeners, initEventListeners | 1/2; 0x80-byte local aggregate in init; review-event.md sent |
 | small leaves | sub_8061204, sub_805BA3C, deallocateQuadTree, sub_804A72C, emptyBeybladeActorData, deallocBeybladeActorData, sub_8055CB8, sub_804F800, sub_804FEE8 | 9/9 MERGED c1313c1 (QuadTree @0x7A4 = 0x58 bytes; sub_804F800/sub_804FEE8 need a `GameData* base` local — see small-leaves.md); worktree removed |
-| temp-reduction | the 11 merged functions (gameinit, beyblade, collision, geometry, hud, levelhud, spritetext, tutorial) | running: remove optional local aliases while keeping the match → docs/learnings/temp-reduction.md |
+| temp-reduction | the 11 merged functions + gamestate.c cleanup (typed LevelDescriptions[], LevelState[] in CurrentGameState) (gameinit, beyblade, collision, geometry, hud, levelhud, spritetext, tutorial) | running: remove optional local aliases while keeping the match → docs/learnings/temp-reduction.md |
 | leaves-round2 | sub_805E50C, sub_805E514 (geometry.c), sub_8061228 (spritetext.c), sub_804B4A4 (rider.c), newPolyTable (animevent.c) | running |
 | init-functions | initCollectables, initTutorialManagement, initMultiPlayer | running |
 | skill distill (gpt-5.6-sol) | .claude/skills/agbcc/SKILL.md from all learnings | running; review diff before commit |
