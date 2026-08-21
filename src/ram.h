@@ -199,6 +199,7 @@ typedef struct CurrentGameState {
 
 extern void* _levelDataBlockPtr;
 extern GameData* _gameData;
+extern EnvironmentObject* GetStruct4(unk32);
 extern u32 _unk3000E30[3];
 extern CurrentGameState* _currentGameState;
 extern u8 _unk3000FC0[16];

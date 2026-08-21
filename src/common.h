@@ -118,6 +118,7 @@ typedef struct EnvironmentNode {
 typedef struct EnvironmentObject {
     unk8 pad0[4];
     SpriteEntry* sprite;
+    unk8 pad8[0x44];
 } EnvironmentObject;
 
 typedef struct SpriteTextBlock {

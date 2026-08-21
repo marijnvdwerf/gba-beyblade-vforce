@@ -2,7 +2,6 @@
 #include "memory.h"
 #include "ram.h"
 
-extern EnvironmentObject* GetStruct4(unk32);
 extern void sub_8060A94(SpriteEntry*);
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054768-initLevelEnvironmentActors.s");

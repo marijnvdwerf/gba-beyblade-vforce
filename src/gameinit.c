@@ -293,7 +293,13 @@ LineMetadata** getLevelMetadata(u16 arg0)
     return getLevelDescription(arg0)->metadata;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80539a0-GetStruct4.s");
+EnvironmentObject* GetStruct4(unk32 arg0)
+{
+    if (_gameData->unkC88 == NULL)
+        return NULL;
+    return &_gameData->unkC88[arg0];
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80539c4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80539e8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053b04-initCollisionData.s");
