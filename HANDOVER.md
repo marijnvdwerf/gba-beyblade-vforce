@@ -104,8 +104,10 @@ grep INCLUDE_ASM.
 | leaves-round3 | 4 leaves (actor/animevent/particle) | 4/4 MERGED; worktree removed |
 | hud-sprite | sub_8060CDC (sprite.c), LoadHUD (hud.c) | 2/2 MERGED (LoadHUD needs a `GameData*` local; sub_8060CDC natural `while (n--)` list unlink); worktree removed |
 | geometry-loaders | 6 loaders (geometry.c ×4, gameinit.c ×2) | 6/6 MERGED (LevelGeometryAddresses fully typed: GeometryPoint/Line(0x20)/Spline, LineMetadata/LineMetaObject, LevelDesign[]; hoisted found-block = early-return + plain for); worktree removed |
-| spritetext | showNumber_2, allocFont, showNumber, LoadSpriteSheet, showString | 3/5 MERGED; LoadSpriteSheet PARKED (#if 0 draft; original source punned SpriteEntry+0x18 u16 write vs +0x19 u8 read — POLICY QUESTION open with user; also arg5-before-arg6 ordering); showString (227) not attempted; worktree removed |
+| spritetext | showNumber_2, allocFont, showNumber, LoadSpriteSheet, showString | 3/5 MERGED; LoadSpriteSheet PARKED (#if 0 draft; original source punned SpriteEntry+0x18 u16 write vs +0x19 u8 read — hypothesis: field is `u16 unk18`, readers are `>> 8` (GCC narrows to a byte load) — agent testing; also arg5-before-arg6 ordering); showString (227) not attempted; worktree removed |
 | temp-reduction-2 | 23 fns | MERGED (4 simplified: sub_8051744, GetLevelDescriptionNo, sub_80518F0, LoadHUD; 19 already minimal — temp-reduction-2.md); worktree removed |
+| u16-narrowing + LoadSpriteSheet | sprite.h SpriteEntry +0x18, readers sub_8060B38/sub_8061158/sub_8061160, LoadSpriteSheet | running |
+| temp-reduction-3 | geometry loaders, spritetext ×3, init-functions ×2 | running |
 
 Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
 sub_8054FE0), sub_8062C24 (sound), LoadHUD, sub_8060CDC. Red set after the
@@ -137,8 +139,6 @@ regenerate with `tools/callgraph.py mainLoop` + `tools/worklist.py`.
 
 ## Open questions for the user
 
-- LoadSpriteSheet: allow a documented union (or cast) for the proven
-  original-source pun at SpriteEntry+0x18/0x19? Options given; awaiting answer.
 
 - ASM_ZEROPAD: 7 mid-TU uses are no-ops (agbcc pre-aligns each function with zero fill); only the 2 EOF uses (sound.c, libc.c) matter. Not TU-split evidence. Cleanup offered, not yet approved.
 
