@@ -1,7 +1,85 @@
+#include <agb/types.h>
+
+#include "debug.h"
 #include "include_asm.h"
+#include "memory.h"
+#include "ram.h"
+#include "unsorted.h"
+
+extern const u8 Str_8729658[];
+extern const u8 Str_87296A4[];
+extern void* loadLevelGeometry(u16);
+extern void* getLevelMetadata(u16);
+extern void getLevelGeometryAddresses(LevelGeometryAddresses*, void*);
+extern void StoreMetadataAddr(LevelGeometryAddresses*, void*);
+extern void* GetLineMetaData(LevelGeometryAddresses*, s32);
+extern void* getLineMetaObjectBytype(LevelGeometryAddresses*, void*, unk32);
+extern void SetRiderGlobal(unk32);
+
+#if 0
+void initEventListeners(unk32 levelId)
+{
+    LevelGeometryAddresses geometry;
+    void* geometryData = loadLevelGeometry(levelId);
+    void* metadata = getLevelMetadata(levelId);
+    s32 listenerCount = 0;
+    s32 maxListeners = 0x20;
+    s32 listenerIds[maxListeners];
+    s32* listenerPtr;
+    s32 i;
+    void* lineMetadata;
+    AllocatedBlock* block;
+    u32 bytes;
+
+    _gameData->unkCA4 = NULL;
+    _gameData->unkCA0 = NULL;
+    _gameData->unkCA8 = 0;
+    if (metadata != NULL && geometryData != NULL) {
+        getLevelGeometryAddresses(&geometry, geometryData);
+        StoreMetadataAddr(&geometry, metadata);
+        i = 0;
+        if (listenerCount < geometry.unk0->unk8) {
+            listenerPtr = listenerIds;
+            for (; i < geometry.unk0->unk8; i++) {
+                lineMetadata = GetLineMetaData(&geometry, i);
+                if (lineMetadata != NULL
+                    && getLineMetaObjectBytype(&geometry, lineMetadata, 7) != NULL) {
+                    *listenerPtr++ = i;
+                    listenerCount = listenerCount + 1;
+                    if (listenerCount > maxListeners) {
+                        printf((const char*)Str_8729658, maxListeners);
+                    }
+                }
+            }
+        }
+        if (listenerCount != 0) {
+            bytes = listenerCount * sizeof(s32);
+            block = slowAllocate(bytes);
+            if (block == NULL) {
+                printf((const char*)Str_87296A4, bytes);
+            }
+            __fastMemoryCopyARM(listenerIds, block->address, bytes);
+            _gameData->unkCA0 = block;
+            _gameData->unkCA4 = block->address;
+            _gameData->unkCA8 = listenerCount;
+            SetRiderGlobal(0);
+        }
+    }
+}
+#endif
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80540ec-initEventListeners.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/805420c-deallocEventListeners.s");
+
+void deallocEventListeners(void)
+{
+    if (_gameData->unkCA0 != NULL) {
+        deallocateBlock(_gameData->unkCA0);
+    }
+    _gameData->unkCA0 = NULL;
+    _gameData->unkCA4 = NULL;
+    _gameData->unkCA8 = 0;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054248-processMetadata_6.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054278.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80542a8-handleEventListeners.s");

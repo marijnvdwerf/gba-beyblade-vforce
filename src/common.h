@@ -130,6 +130,22 @@ typedef struct LevelDescription {
     unk8 pad2C[0xA4];
 } LevelDescription;
 
+typedef struct LevelGeometryTable {
+    unk8 pad0[8];
+    s32 unk8;
+} LevelGeometryTable;
+
+typedef struct LevelGeometryAddresses {
+    LevelGeometryTable* unk0;
+    void* unk4;
+    void* unk8;
+    void* unkC;
+    unk32 unk10;
+    void* spline[0x40];
+    void* metadata;
+    u16 lineCount;
+} LevelGeometryAddresses;
+
 #define true 1
 #define false 0
 
