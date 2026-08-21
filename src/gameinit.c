@@ -31,6 +31,7 @@ extern void sub_8060CDC(void*);
 extern void sub_8061204(void*);
 extern void deallocBeybladeActorData(void);
 extern void sub_80538C0(void);
+extern void sub_804B4A4(void*);
 extern void sub_8054FE0(void);
 extern void deallocEventListeners(void);
 extern void nullsub_7(void);
@@ -141,7 +142,19 @@ void initGameLoop(void)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053600-initRiders.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80538c0.s");
+void sub_80538C0(void)
+{
+    s32 i;
+    void *rider;
+
+    for (i = 0; i < (_gameData->unk430 + 1); i++) {
+        if (i != 0)
+            rider = &_gameData->unk42C[i - 1];
+        else
+            rider = _gameData;
+        sub_804B4A4(rider);
+    }
+}
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053920.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053954.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053978-loadLevelGeometry.s");
@@ -225,7 +238,67 @@ void closeGame(void)
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053d58-initGameloop2.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053e18.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053ef8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8053f0c.s");
+void sub_8053F0C(unk32 arg0)
+{
+    switch (_currentGameState->unk3) {
+    case 1: {
+        GameData *gameData;
+
+        gameData = _gameData;
+        gameData->unk7FC = 0x200;
+        gameData->unk7FE = 0x100;
+        gameData->unk800 = 2;
+        gameData->unk802 = 1;
+        gameData->unk804 = 9;
+        gameData->unk806 = 8;
+        gameData->unk808 = 1;
+        gameData->unk80A = 0;
+        return;
+    }
+    case 2: {
+        GameData *gameData;
+
+        gameData = _gameData;
+        gameData->unk7FC = 0x100;
+        gameData->unk7FE = 0x200;
+        gameData->unk800 = 2;
+        gameData->unk802 = 1;
+        gameData->unk804 = 8;
+        gameData->unk806 = 9;
+        gameData->unk808 = 1;
+        gameData->unk80A = 0;
+        return;
+    }
+    case 3: {
+        GameData *gameData;
+
+        gameData = _gameData;
+        gameData->unk7FC = 0x100;
+        gameData->unk7FE = 2;
+        gameData->unk800 = 1;
+        gameData->unk802 = 0x200;
+        gameData->unk804 = 8;
+        gameData->unk806 = 1;
+        gameData->unk808 = 0;
+        gameData->unk80A = 9;
+        return;
+    }
+    default: {
+        GameData *gameData;
+
+        gameData = _gameData;
+        gameData->unk7FC = 0x200;
+        gameData->unk7FE = 0x100;
+        gameData->unk800 = 1;
+        gameData->unk802 = 2;
+        gameData->unk804 = 9;
+        gameData->unk806 = 8;
+        gameData->unk808 = 0;
+        gameData->unk80A = 1;
+        return;
+    }
+    }
+}
 INCLUDE_ASM("asm/dump/804a388-tutorial/80540c8.s");
 
 void SetRiderGlobal(unk32 arg0)
