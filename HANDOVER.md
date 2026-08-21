@@ -76,8 +76,8 @@ Last updated: 2026-08-21, end of session 2 (round 6: six luna agents running; ke
 
 ## State
 
-Progress: 9/66 TUs done, 268 C functions, 739 INCLUDE_ASM remaining (26%)
-after the envactor + leaves-round4 + showString merges. Session 2 merged 54 (round 6 so far: gameinit 4)
+Progress: 9/66 TUs done, 284 C functions, 723 INCLUDE_ASM remaining (28%)
+after the envactor + leaves-round4 + showString merges. Session 2 merged 69 (round 6: gameinit 4, spritestring 15)
 functions; session 1 merged 8.
 
 ### Agents running at last update
@@ -85,9 +85,6 @@ functions; session 1 merged 8.
 | worktree | scope | status |
 |---|---|---|
 | envactor-init | envactor.c initLevelEnvironmentActors (656) | running (round 6) |
-| sprite-resize | resizeSpriteBlock parked draft; cleaning names/volatile | fixing |
-| sound-2 | sub_80627F0 + sub_8062C24 parked drafts; cleaning names/volatile | fixing |
-| spritestring | sub_8064F38, sub_80657EC, sub_80656B8 matched; applying review fixes (volatile, register, casts) | fixing |
 
 ### Parked (attempted, not matched)
 
@@ -102,6 +99,7 @@ functions; session 1 merged 8.
 | sub_806123C (spritetext.c) | 356 | `#if 0` | push mask/frame/slots match; early register roles + spills differ — spritetext-2.md |
 | resizeSpriteBlock (sprite.c) | 134 | `#if 0` | register allocation of normalized args/list nodes — sprite-resize.md |
 | sub_80655C0, sub_8065508 (spritestring.c) | — | `#if 0` | register/stack shape diverged |
+| sub_8065334 (spritestring.c) | — | `#if 0` | target reloads `string->actors` each iteration with no call/aliasing store; only `volatile` reproduces it (rejected) — spritestring.md |
 | sub_8062C24 (sound.c) | 310 | `#if 0` | envactor-sound agent draft; byte-cursor sequencer — envactor-sound.md |
 | initLevelEnvironmentActors (envactor.c) | 656 | none | unassigned after sub_8054FE0 landed (merged 18a1525) |
 | sub_80510FC (gamestate.c) | 208 | none | final table scan compiles to pointer-increment instead of indexed — processed/gamestate.md |
