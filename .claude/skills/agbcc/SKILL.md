@@ -32,7 +32,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 
 ## Locals and register pressure
 
-- Read the prologue first: a wrong push mask means the lifetime set is wrong, so fix that before downstream instructions.
+- Read the prologue and frame size first: a wrong push mask or one-word-larger frame usually exposes an extra live pseudo or spill, so fix the lifetime set before downstream instructions.
 - Values live across calls prefer callee-saved registers or spills; one extra live value across one call can change the push mask or spill slot.
 - Keep explicit cursor/count/end temporaries when the target keeps distinct values, including separate count and loop-limit copies when the bound occupies a different register; remove them when the target reloads or coalesces instead.
 - A separate successor temporary can keep a moving cursor and freshly loaded pointer in distinct registers: `candidate = cur->next; next = candidate;`.
