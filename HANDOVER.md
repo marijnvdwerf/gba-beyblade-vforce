@@ -93,7 +93,7 @@ functions; session 1 merged 8.
 
 | worktree | scope | status |
 |---|---|---|
-| (none) | header pass + temp-reduction-6 merged; temp-reduction-6.md awaits next sol batch | — |
+| (none) | header pass + temp-reduction-6 merged; all learnings archived | — |
 
 ### Parked (attempted, not matched)
 
