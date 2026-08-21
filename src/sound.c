@@ -284,20 +284,20 @@ void Sound_80627A8(SoundStructA* arg0, int arg1, int arg2)
 #if 0
 void sub_80627F0(void)
 {
-    s32 temp_r0;
-    s32 temp_r1;
-    s32 var_r0;
-    s32 var_r4;
-    s32 var_r5;
-    s32 var_r6;
-    s32 var_r7;
-    u32 var_r1;
-    u32 temp_r2;
-    volatile SoundStructC* state;
+    u8* audioCursor;
+    s32 channelCount;
+    s32 firstChunkLength;
+    s32 mixLength;
+    s32 wrapDistance;
+    u32 alignedFrameCount;
+    u32 nextTimerPosition;
+    u32 previousTimerPosition;
+    SoundStructA* channel;
+    SoundStructC* state;
     u32* position;
 
-    var_r6 = (s32)*_unk3005E24;
-    var_r4 = _unk3005E04;
+    channel = &(*_unk3005E24)[0];
+    channelCount = _unk3005E04;
     if (_soundMixer != 0) {
         state = &_unk3005E40;
         if (state->var04 == 0) {
@@ -305,38 +305,39 @@ void sub_80627F0(void)
         }
         sub_8062C24();
         position = &_unk3000D94;
-        temp_r2 = *position;
-        var_r0 = (state->var08 + 1) & -2;
-        var_r1 = (*(vu16*)REG_TM1CNT + 1) & ~1;
-        if (var_r1 == 0x10000) {
-            var_r1 = _unk3005E18;
+        previousTimerPosition = *position;
+        alignedFrameCount = (state->var08 + 1) & -2;
+        nextTimerPosition = (*(vu16*)REG_TM1CNT + 1) & ~1;
+        if (nextTimerPosition == 0x10000) {
+            nextTimerPosition = _unk3005E18;
         }
-        *position = var_r1;
-        if (var_r1 > temp_r2) {
-            var_r5 = var_r1 - temp_r2;
-            var_r0 = 0;
+        *position = nextTimerPosition;
+        if (nextTimerPosition > previousTimerPosition) {
+            firstChunkLength = nextTimerPosition - previousTimerPosition;
+            wrapDistance = 0;
         } else {
-            var_r5 = 0x10000 - temp_r2;
-            var_r0 = _unk3005E4C + 0xFFFF0000 + var_r1;
+            firstChunkLength = 0x10000 - previousTimerPosition;
+            wrapDistance = _unk3005E4C + 0xFFFF0000 + nextTimerPosition;
         }
-        var_r7 = var_r5 + var_r0;
+        mixLength = firstChunkLength + wrapDistance;
         _unk3005E78 = 0;
-        var_r4 -= 1;
-        if (var_r4 != -1) {
+        channelCount -= 1;
+        if (channelCount != -1) {
             do {
-                Sound_80627A8((SoundStructA*)var_r6, var_r7, _unk3000DA0);
-                var_r6 += 0x28;
-                var_r4 -= 1;
-            } while (var_r4 != -1);
+                Sound_80627A8(channel, mixLength, _unk3000DA0);
+                channel++;
+                channelCount -= 1;
+            } while (channelCount != -1);
         }
-        __sound_8757A64((int)_unk3000D90, var_r5, 0);
-        temp_r1 = (int)_unk3000D90 + var_r5;
-        _unk3000D90 = (u8*)temp_r1;
-        if (var_r0 != 0) {
-            temp_r0 = temp_r1 - _unk3005E4C;
-            _unk3000D90 = (u8*)temp_r0;
-            __sound_8757A64(temp_r0, var_r0, var_r5);
-            _unk3000D90 = (u8*)((int)_unk3000D90 + var_r0);
+        __sound_8757A64((int)_unk3000D90, firstChunkLength, 0);
+        audioCursor = _unk3000D90 + firstChunkLength;
+        _unk3000D90 = audioCursor;
+        if (wrapDistance != 0) {
+            audioCursor -= _unk3005E4C;
+            _unk3000D90 = audioCursor;
+            __sound_8757A64((int)audioCursor, wrapDistance, firstChunkLength);
+            audioCursor += wrapDistance;
+            _unk3000D90 = audioCursor;
         }
         if (_unk3000D90 == ((u8*)_soundMixer + _unk3005E4C)) {
             _unk3000D90 -= _unk3005E4C;
@@ -575,6 +576,7 @@ void sub_8062C24(void)
         return;
     }
 
+    /* The target's entry guard keeps the body out when the adjusted time is positive; zero enters it. */
     do {
         opcode = (*_unk3005E00)[0];
         _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);

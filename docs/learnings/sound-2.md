@@ -44,3 +44,10 @@ versus `while`, volatile timing globals, explicit timing temporaries and
 pointer scopes, reordered declarations, and widening the opcode local. These
 changed register pressure, branches, or literal-pool layout but did not resolve
 the stream-pointer/opcode allocation without introducing an artificial shape.
+
+The do-while form preserves the target's entry semantics because the draft
+retains the preceding `if (_unk3005E08 > 0) return;` guard. The assembly
+subtracts the delay, branches to the body for zero or negative results, and
+exits for positive results; therefore zero must enter the body, while positive
+values must not. The do-while executes exactly once only after that guard has
+accepted the value.
