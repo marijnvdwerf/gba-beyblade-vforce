@@ -104,7 +104,7 @@ void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
     SpriteStruct2* vram_entry;
     SpriteStruct2* next;
     unk32 rotation_address;
-    s32 i;
+    u32 n;
 
     _unk3005E74 = 0x800;
     _unk3005E6C = 0;
@@ -170,8 +170,8 @@ void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
         sprite = _sprites;
         rotation = _rotationScale;
         prev = NULL;
-        /* Reversed loops reproduce agbcc's loop reversal. */
-        for (i = max_sprites - 2; i != -1; i--) {
+        n = max_sprites - 1;
+        while (n--) {
             sprite->prev = prev;
             sprite->next = sprite + 1;
             sprite->var24 = -1;
@@ -188,7 +188,8 @@ void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
     if (max_rotation_scale != 0) {
         prev = NULL;
         rotation_address = 0x07000000;
-        for (i = max_rotation_scale - 2; i != -1; i--) {
+        n = max_rotation_scale - 1;
+        while (n--) {
             rotation->prev = prev;
             rotation->next = rotation + 1;
             rotation->oamAddr = rotation_address;
@@ -212,7 +213,8 @@ void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
         vram_entry->var02 = 0x400;
         vram_entry->next = NULL;
         next = free_entry;
-        for (i = 29; i != -1; i--) {
+        n = 30;
+        while (n--) {
             next->next = next + 1;
             next = next->next;
         }
