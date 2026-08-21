@@ -77,6 +77,28 @@ typedef struct PolyTable {
     struct AllocatedBlock* unk14;
 } PolyTable;
 
+typedef struct Particle {
+    void* sprite;
+    unk8 pad4[0x20];
+} Particle;
+
+typedef struct ParticleSystem {
+    unk32 unk0;
+    s16 count;
+    unk16 unk6;
+    Particle* particles;
+    unk32 unkC;
+    unk32 unk10;
+    unk32 unk14;
+    unk32 unk18;
+    unk32 unk1C;
+    unk32 unk20;
+    unk32 unk24;
+    unk32 unk28;
+    unk32 unk2C;
+    struct AllocatedBlock* unk30;
+} ParticleSystem;
+
 /* Canonical level-geometry handle (0x11C bytes); filled by
  * getLevelGeometryAddresses(LevelGeometryAddresses*, void* geometryData). */
 typedef struct LevelGeometryTable {
