@@ -63,14 +63,15 @@ Last updated: 2026-08-21 (session 1).
 Main: `9ed9bdc` + later merges; clean; compare passing.
 
 Merged this session: SpriteVRamFree (sprite.c, loops as `while (n--)`),
-sub_806306C (actorheap.c, ActorBlock fields named).
+sub_806306C (actorheap.c, ActorBlock fields named), sub_805A53C +
+getValidAllocatedBlock (memory.c).
 
 Active worktrees / agents (id → file → status):
 
 | worktree | file | done (uncommitted, in worktree) | in progress / notes |
 |---|---|---|---|
 | agent-a05734a49c7bdaff9 | sprite.c | freeSpriteVramLocation | sub_8060E8C (regalloc); then LoadSpriteSheet, sub_8060C1C, sub_8060CDC, resizeSpriteBlock, sub_8061078 as callers appear |
-| agent-abb23f448b7c48bf5 | memory.c | sub_805A53C | getValidAllocatedBlock: hint sent — `while (count-- != 0)`, inline string, drop NONMATCHING block |
+| agent-abb23f448b7c48bf5 | memory.c | (merged) | debrief in progress → remove worktree after `docs/learnings/memory-allocator.md` exists |
 | agent-aee513f785706f4b3 | gameinit.c | initGame, initGameLoop | experiment pending: unkC24/unkC26 as `s16` + `\|= 0xFFFF` to avoid `(s16)` casts in music.c; then sub_8053B94, closeGame |
 | agent-a358a3f24f8bdfae8 | keystate.c | — | updateKeyState: pre-loop matches after keeping `void* _unk3005DA8`; loop regalloc still off. Read its asm if stuck |
 | agent-a7d4f3a332d49ca2f | system.c | — (restored to asm) | sub_8057A7C orphan (no callers) didn't match; writing `docs/learnings/sub_8057A7C.md`; remove worktree after |
