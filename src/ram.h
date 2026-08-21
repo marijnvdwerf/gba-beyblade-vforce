@@ -97,7 +97,16 @@ typedef struct GameData {
     unk8 padC30[0x3C]; /* 0xC30 */
     u16 unkC6C; /* 0xC6C */
     u16 unkC6E; /* 0xC6E */
-    unk8 padC70[0x30]; /* 0xC70 */
+    unk8 padC70[4]; /* 0xC70 */
+    AllocatedBlock* unkC74; /* 0xC74 */
+    EnvironmentNode* unkC78; /* 0xC78 */
+    EnvironmentActorContainer* unkC7C; /* 0xC7C */
+    unk32 unkC80; /* 0xC80 */
+    unk32 unkC84; /* 0xC84 */
+    EnvironmentObject* unkC88; /* 0xC88 */
+    unk32 unkC8C; /* 0xC8C */
+    unk32 unkC90; /* 0xC90 */
+    unk8 padC94[0x0C]; /* 0xC94 */
     AllocatedBlock* unkCA0; /* 0xCA0 */
     void* unkCA4; /* 0xCA4 */
     unk32 unkCA8; /* 0xCA8 */

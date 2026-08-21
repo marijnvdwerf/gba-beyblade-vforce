@@ -99,6 +99,27 @@ typedef struct UnkActor {
 
 typedef struct SpriteEntry SpriteEntry;
 
+typedef struct EnvironmentActorSlot {
+    unk32 objectId;
+    SpriteEntry* sprite;
+    unk8 pad8[0xBC];
+} EnvironmentActorSlot;
+
+typedef struct EnvironmentActorContainer {
+    unk8 pad0[0xB4];
+    EnvironmentActorSlot slots[1];
+} EnvironmentActorContainer;
+
+typedef struct EnvironmentNode {
+    SpriteEntry* sprite;
+    unk8 pad4[0x18];
+} EnvironmentNode;
+
+typedef struct EnvironmentObject {
+    unk8 pad0[4];
+    SpriteEntry* sprite;
+} EnvironmentObject;
+
 typedef struct SpriteTextBlock {
     SpriteEntry* prev;
     SpriteEntry* next;
