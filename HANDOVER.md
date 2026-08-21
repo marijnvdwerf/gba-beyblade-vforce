@@ -78,11 +78,11 @@ grep INCLUDE_ASM.
 
 | scope | functions | status |
 |---|---|---|
-| gamestate.c | getLevelDescription(2), sub_8051734/640/720/744, sub_80518F0, getSomeLevelID, GetLevelDescriptionNo, sub_80510FC | running |
-| gameinit.c | sub_80538C0, sub_8053F0C, initRiders | running |
-| frontend.c | sub_8049264, sub_8049458 | running |
-| event.c | deallocEventListeners, initEventListeners | running |
-| small leaves | sub_8061204, sub_805BA3C, deallocateQuadTree, sub_804A72C, emptyBeybladeActorData, deallocBeybladeActorData, sub_8055CB8, sub_804F800, sub_804FEE8 | running |
+| gamestate.c | getLevelDescription(2), sub_8051734/640/720/744, sub_80518F0, getSomeLevelID, GetLevelDescriptionNo, sub_80510FC | 8/10 match (uncommitted); on sub_80510FC; reviews sent (review-gamestate.md, review-round2.md) |
+| gameinit.c | sub_80538C0, sub_8053F0C, initRiders | 2/3 MERGED da06486 (unk42C = RiderBlock* of 0x428-byte elems; sub_8053F0C needs case-scoped GameData*); initRiders in progress |
+| frontend.c | sub_8049264, sub_8049458 | 0/2; review-frontend.md sent (single `offset` local; use FrontendState fields) |
+| event.c | deallocEventListeners, initEventListeners | 1/2; 0x80-byte local aggregate in init; review-event.md sent |
+| small leaves | sub_8061204, sub_805BA3C, deallocateQuadTree, sub_804A72C, emptyBeybladeActorData, deallocBeybladeActorData, sub_8055CB8, sub_804F800, sub_804FEE8 | 9/9 match; cleanup pass per review-round2.md; QuadTree at 0x7A4 must be 0x58 bytes (0x7FC.. fields belong to gameinit) |
 
 Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
 sub_8054FE0), initMultiPlayer, sub_8062C24 (sound), LoadHUD, initCollectables,
