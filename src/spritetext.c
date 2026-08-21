@@ -70,6 +70,147 @@ void sub_8061228(SpriteTextCleanup* arg0)
     arg0->unkA = 0;
 }
 
+#if 0
+void sub_806123C(SpriteTextCleanup* text)
+{
+    const u8* widths;
+    unk8 char_width;
+    unk32 x;
+    unk32 y;
+    unk32 font_width;
+    unk32 offset;
+    unk32 count;
+    SpriteEntry* current;
+    SpriteEntry* cursor;
+    SpriteEntry* marked;
+    unk16 mode;
+    unk32 scale;
+    SpriteEntry* child;
+    unk32 line_shift;
+    SpriteEntry* next_line;
+    s32 delta;
+    s32 advance;
+    s32 position;
+    s32 adjustment;
+    SpriteEntry* saved_first;
+
+    widths = text->unk20;
+    char_width = text->unk24[4];
+    x = text->x;
+    y = text->y;
+    font_width = text->unkC;
+    offset = 0;
+    count = text->unk14.count;
+    cursor = text->unk14.prev;
+    marked = NULL;
+    current = cursor;
+    scale = 0x100;
+    child = text->ptr2C;
+    line_shift = 0;
+    text->unkF = 0;
+    if (count == 0) {
+        return;
+    }
+    if (child != NULL) {
+        scale = child->oam_attr_2;
+    }
+    mode = text->unk8;
+    switch (mode & 3) {
+    case 1:
+        x += font_width << 8;
+        break;
+    case 2:
+        x += (-2 & font_width) << 7;
+        break;
+    }
+    saved_first = text->unk14.prev;
+    while (count != 0) {
+        if ((current->unk1E & 0x8000) != 0) {
+            marked = current;
+        }
+        advance = (current->unk1E & 0x7FFF) - offset;
+        delta = text->unk29;
+        if (widths != NULL) {
+            advance += delta + char_width - widths[current->frame];
+            if (advance <= font_width && count > 1) {
+                current = current->next;
+                count--;
+                continue;
+            }
+        } else if (advance + delta + char_width <= font_width && count > 1) {
+            current = current->next;
+            count--;
+            continue;
+        }
+        if (count > 1) {
+            if (marked != NULL) {
+                next_line = marked->prev;
+            } else {
+                next_line = current->prev;
+            }
+        } else {
+            next_line = current;
+        }
+        adjustment = 0;
+        switch (mode & 3) {
+        case 1:
+            position = (next_line->unk1E & 0x7FFF) - offset;
+            delta = text->unk29;
+            if (widths != NULL) {
+                position += delta + char_width - widths[next_line->frame];
+            } else {
+                position += delta + char_width;
+            }
+            adjustment = -(position << 8);
+            break;
+        case 2:
+            position = (next_line->unk1E & 0x7FFF) - offset;
+            delta = text->unk29;
+            if (widths != NULL) {
+                position += delta + char_width - widths[next_line->frame];
+            } else {
+                position += delta + char_width;
+            }
+            adjustment = -((position & ~1) << 7);
+            break;
+        }
+        next_line = next_line->next;
+        while (cursor != next_line) {
+            cursor->x = x + (((adjustment - (offset << 8)) * scale) >> 8)
+                + ((((cursor->unk1E & 0x7FFF) << 8) * scale) >> 8);
+            cursor->y = y;
+            cursor = cursor->next;
+        }
+        if (next_line != NULL) {
+            offset = next_line->unk1E & 0x7FFF;
+        } else {
+            offset = 0;
+        }
+        marked = NULL;
+        delta = text->unk2A;
+        y += delta << 8;
+        line_shift += delta << 8;
+        text->unkF++;
+        mode = text->unk8;
+        current = current->next;
+        count--;
+    }
+    count = text->unk14.count;
+    current = saved_first;
+    if ((text->unk8 & 0x30) == 0) {
+        return;
+    }
+    if ((text->unk8 & 0x30) == 0x10) {
+        line_shift >>= 1;
+    }
+    while (line_shift != 0 && count != 0) {
+        current->y -= line_shift;
+        current = current->next;
+        count--;
+    }
+}
+#endif
+
 INCLUDE_ASM("asm/dump/8057b80-debug/806123c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80614b0.s");
 

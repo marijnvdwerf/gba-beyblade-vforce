@@ -141,7 +141,7 @@ typedef struct SpriteTextCleanup {
     const u8* unk24;
     unk8 unk28;
     s8 unk29;
-    unk8 unk2A;
+    s8 unk2A; /* ldsb r0, [r7, r0] at .L8061430 in sub_806123C */
     unk8 unk2B;
     SpriteEntry* ptr2C;
 } SpriteTextCleanup;
