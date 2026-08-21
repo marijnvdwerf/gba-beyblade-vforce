@@ -1,3 +1,5 @@
+#include "animevent.h"
+
 #include "debug.h"
 #include "include_asm.h"
 #include "memory.h"

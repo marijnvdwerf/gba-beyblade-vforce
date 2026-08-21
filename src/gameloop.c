@@ -1,7 +1,6 @@
+#include "animevent.h"
 #include "include_asm.h"
 #include "ram.h"
-
-extern void newPolyTable(void*, unk32, unk32);
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051918-gameLoop.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80520f4.s");
