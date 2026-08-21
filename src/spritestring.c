@@ -7,7 +7,6 @@
 #include "system.h"
 
 extern void sub_8065088(SpriteString*);
-extern void actor_8057C58(Actor*, unk32, unk32, unk32, unk32, unk32, unk32);
 extern const u8 Str_8756844[];
 extern const u8 byte_807D980[];
 extern unk32 sub_80655C0(SpriteString*, s32, unk16, unk16, unk8);
@@ -102,7 +101,7 @@ void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthT
 }
 
 SpriteStringActorBlock* SpriteString_8064FE8(SpriteString* string, const u8* arg1, unk32 arg2,
-    unk16 count, unk32 argA, const u8* argB, unk32 argC, unk32 argD, unk8 argE)
+    unk16 count, void* argA, const u8* argB, unk32 argC, unk32 argD, unk8 argE)
 {
     SpriteStringActorBlock* state;
     unk16 i;

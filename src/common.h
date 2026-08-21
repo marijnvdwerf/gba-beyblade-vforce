@@ -99,6 +99,35 @@ typedef struct UnkActor {
 
 typedef struct SpriteEntry SpriteEntry;
 
+typedef struct Actor {
+    unk8 pad0[4];
+    unk32 x;
+    unk32 y;
+    unk8 padC[4];
+    unk8 unk10;
+    unk8 pad11;
+    unk16 unk12;
+    unk16 unk14;
+    unk16 unk16;
+    unk8 pad18[0xA];
+    s16 unk22;
+    unk8 pad24[0x1C];
+    unk32 unk40;
+    unk32 unk44;
+    unk32 unk48;
+    unk32 unk4C;
+    unk32 unk50;
+    unk32 unk54;
+    unk8 pad58[0x18];
+    unk32 unk70;
+    unk32 unk74;
+    unk32 unk78;
+    struct AllocatedBlock* unk7C;
+    unk8 pad80[0x38];
+    SpriteEntry* unkB8;
+    unk8 padBC[8];
+} Actor;
+
 typedef struct EnvironmentActorSlot {
     unk32 objectId;
     SpriteEntry* sprite;
@@ -181,10 +210,9 @@ struct SpriteString {
 
 typedef struct RiderBase {
     unk8 unk0[0x238];
-    unk8 unk238[4];
-    unk8 unk23C[0xC0];
-    unk8 unk2FC[4];
-    unk8 unk300[0xC4];
+    Actor unk238;
+    Actor unk2FC;
+    unk8 pad3C0[4];
     SpriteEntry* unk3C4;
     unk8 unk3C8[0x20];
     unk8 unk3E8;
