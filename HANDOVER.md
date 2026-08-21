@@ -81,7 +81,6 @@ functions; session 1 merged 8.
 
 | worktree | scope | status |
 |---|---|---|
-| LoadSpriteSheet | sprite.c LoadSpriteSheet + readers sub_8060B38/sub_8061158/sub_8061160 | user approved a documented **union** at SpriteEntry+0x18 (`u16 whole` / `b.lo,b.hi`) for the proven strh/ldrb pun; agent matching the rest (5th arg consumed before 6th, live in r9) |
 | showString | spritetext.c showString (227) | running |
 | envactor-sound | envactor.c sub_8054FE0 (116) → sound.c sub_8062C24 (310) → envactor.c initLevelEnvironmentActors (656) | running |
 | leaves-round4 | debug.c printf (10); geometry.c GetSplineAtIndex (33), getLineMetaobjectByTypeAndId (45) | running |
@@ -94,6 +93,7 @@ functions; session 1 merged 8.
 | sub_8049458 (frontend.c) | 166 | `#if 0` | only the final `unk584 == unk586` block's temps permute; odd early `mov r4,#0` across a call — processed/frontend.md |
 | initRiders (gameinit.c) | 349 | `#if 0` | frame 0x138 vs 0x134 (one extra spilled local); riderIndex r8 vs r9 — processed/initriders.md |
 | initMultiPlayer (multiplayer.c) | 137 | `#if 0` | arg regs r8/r5 + normalization sequence — processed/init-functions.md |
+| LoadSpriteSheet (sprite.c) | 99 | `#if 0` | proven pun at SpriteEntry+0x18 (strh) / +0x19 (ldrb); user approved a documented 2-byte union, which reproduces both in isolation, but the function still diverges on stack-arg scheduling ([sp,#36] must load before [sp,#40]) — u16-byte-narrowing.md; next attempt: union sized exactly 2 bytes + consume 5th param first |
 | sub_80627F0 (sound.c) | 145 | `#if 0` BELOW its INCLUDE_ASM (pre-session raw-decomp draft) | never attempted this session; its callee sub_8062C24 is with the envactor-sound agent |
 | sub_80510FC (gamestate.c) | 208 | none | final table scan compiles to pointer-increment instead of indexed — processed/gamestate.md |
 | updateKeyState (keystate.c) | 226 | none | body identical; only hard-reg choice for base+4/base+8 invariants differs — processed/updateKeyState.md |
