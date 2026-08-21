@@ -14,8 +14,8 @@ void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable*
     arg0->unk4 = (GeometryPoint*)((unk8*)geometry + geometry->pointOffset);
     arg0->unk8 = (GeometrySpline*)((unk8*)geometry + geometry->splineOffset);
     arg0->unkC = (GeometryLine*)((unk8*)geometry + geometry->lineOffset);
-    count = geometry->splineCount;
-    if (geometry->splineCount > 0x40) {
+    count = geometry->count.splineCount;
+    if (geometry->count.splineCount > 0x40) {
         count = 0x40;
         nullsub_8(Str_87553D0);
     }
@@ -111,7 +111,31 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805d548.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805d610.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805d650.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805db6c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805db80-GetSplineAtIndex.s");
+
+GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses* arg0, s32 arg1)
+{
+    GeometrySpline* spline;
+    s32 index;
+    s32 count;
+    s32 limit;
+
+    spline = arg0->unk8;
+    index = 0;
+    count = arg0->unk0->count.splineCountWord;
+    if (index < count) {
+        limit = count;
+        do {
+            if (index != arg1) {
+                spline = (GeometrySpline*)((unk8*)spline + spline->size);
+                index += 1;
+            } else {
+                return spline;
+            }
+        } while (index < limit);
+    }
+    return NULL;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805dbac-GetPointAtIndex.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805dbc0-GetPointAtSplineIndex.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805dbf0.s");
