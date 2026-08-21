@@ -77,7 +77,7 @@ unk32 sub_8064F84(const u8* str)
 }
 
 void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthTable, Actor* actors,
-    unk8 count, unk32 y, unk32 field18)
+    unk8 count, unk32 y, unk32 unk18)
 {
     unk32 zero;
     unk32 mask;
@@ -88,7 +88,7 @@ void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthT
     zero = 0;
     string->count = count;
     string->y = y;
-    string->field18 = field18;
+    string->unk18 = unk18;
     string->text = text;
     string->x = x;
     string->previousX = x - 1;
@@ -153,7 +153,7 @@ void sub_8065088(SpriteString* string)
         do {
             actor = &string->actors[i];
             actor->x = x << 8;
-            actor->y = string->field18 << 8;
+            actor->y = string->unk18 << 8;
             actor->unk16 = zero;
             actor->unk12 = scale;
             actor->unk14 = scale;

@@ -169,7 +169,7 @@ struct SpriteString {
     unk32 previousX;
     const u8* text;
     unk32 y;
-    unk32 field18;
+    unk32 unk18;
     unk8 pad1C[4];
     unk32 width;
     s16 scaleX;
