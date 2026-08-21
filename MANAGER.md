@@ -21,7 +21,8 @@ description: Session rules for orchestrating decompilation subagents
 - Merging: commit in the worktree, `git merge` into main, take the delete
   on dump-file modify/delete conflicts, run `compare`, `tools/update-expected`.
 - When an agent says it is done, spawn an **opus-4.8** reviewer on its
-  worktree's C diff only (`git diff main...<branch> -- src`; it must not read
+  worktree's C diff only (`git diff main...<branch> -- src`; shape and field
+  types only, no rename proposals — sub_*/unkNN names stay; it must not read
   asm) that writes the most natural C for each function to
   `docs/learnings/review-<scope>.md`; send the decomp agent that path as its
   new goal and let it try to simplify while keeping the match. Only then
