@@ -66,24 +66,15 @@ typedef struct Unk80516E0 {
     void* unk4;
 } Unk80516E0;
 
-typedef struct LevelDescriptionActiveFields {
-    unk8 padC[5];
-    unk8 unk11;
-    unk8 pad12[6];
-    unk32 unk18;
-} LevelDescriptionActiveFields;
-
-typedef union LevelDescriptionUnkC {
-    unk8 bytes[0x10];
-    LevelDescriptionActiveFields active;
-} LevelDescriptionUnkC;
-
 typedef struct LevelDescription {
     unk8 unk0;
     unk8 pad1[3];
     s32 unk4;
     s32 unk8;
-    LevelDescriptionUnkC unkC;
+    unk8 padC[5];
+    unk8 unk11;
+    unk8 pad12[6];
+    unk32 unk18;
     unk8 unk1C;
     unk8 unk1D[3];
     s32 unk20;

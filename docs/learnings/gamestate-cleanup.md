@@ -15,7 +15,7 @@
 
 ## Shared layout changes
 
-`LevelDescription` is now one fixed `0xD0`-byte record rather than separate partial views. Its named fields cover the byte at `unk0`, words at `unk4` and `unk8`, the overlapping `unkC` region, active-view fields at offsets `unk11` and `unk18`, and the existing fields through `unk28`; explicit padding carries the record to `0xD0`. The overlapping `unkC` representations use a named union because this agbcc rejects anonymous struct/union members. The active-view users were updated to `LevelDescription`.
+`LevelDescription` is now one fixed `0xD0`-byte record rather than separate partial views. Its named fields cover the byte at `unk0`, words at `unk4` and `unk8`, explicit padding at `unkC`, fields at offsets `unk11` and `unk18`, and the existing fields through `unk28`; explicit trailing padding carries the record to `0xD0`. All users now access the flattened fields directly.
 
 `CurrentGameState` keeps its original total size (`0xC6C`) and all later offsets. The typed level-state array occupies `0x540` bytes at offset `0x4`; explicit padding reaches `unk6AB`, after which the existing fields continue unchanged.
 
@@ -23,6 +23,6 @@
 
 - A typed array only reproduces byte-identical pointer arithmetic when its element size is the original stride. Verify the element size and every following field offset before changing a cast.
 - A field cast on a load is usually evidence that the declaration has the wrong width or signedness. Moving the type to the field can preserve the target normalization sequence while removing the cast from source.
-- Overlapping views should use a named union or nested view type when anonymous members trigger old-compiler warnings. This preserves layout without introducing raw pointer arithmetic.
+- When a region is accessed at one width, model it as one typed field with explicit padding rather than introducing a union solely for alternate storage views.
 - Register allocation can require two otherwise redundant pointer locals. Removing one is a source cleanup, not necessarily an equivalent agbcc input.
 - A byte-level C field can coexist with an assembly halfword access at the same address when the surrounding fixed layout is preserved; do not add a C cast merely to model an access that is not present in C.

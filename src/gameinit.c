@@ -204,8 +204,8 @@ void sub_8053B94(void)
             if ((sub_8051744() << 24) != 0) {
                 StoreLevelVar14(0x29);
                 sub_8049234(0x1C);
-            } else if (levelDescription->unkC.active.unk11 != 0) {
-                StoreLevelVar14(getLevelDescription2()->unkC.active.unk18);
+            } else if (levelDescription->unk11 != 0) {
+                StoreLevelVar14(getLevelDescription2()->unk18);
                 sub_8049234(0x1C);
             }
         }
