@@ -13,7 +13,9 @@ Last updated: 2026-08-21 (session 1).
   use `subagent_type: decompiler` with `isolation: worktree`, one source file
   per agent. Prompts follow `~/.claude/skills/prompting-codex/SKILL.md`.
 - Agent lifecycle: match → review → merge → debrief → remove worktree.
-  Ask for `docs/learnings/<function>.md` before removing a worktree; an agent
+  Ask for `docs/learnings/<function>.md` before removing a worktree —
+  worktree-isolated agents cannot write to the main checkout, so have them
+  write it inside their worktree and copy it over; an agent
   whose worktree is gone can be revived by recreating the worktree at the
   same path (`git worktree add .claude/worktrees/agent-<id> -b
   worktree-agent-<id> HEAD`) and sending it a message.
