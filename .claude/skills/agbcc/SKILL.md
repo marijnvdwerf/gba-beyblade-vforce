@@ -19,7 +19,9 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - `lsl #16; asr #16` versus `lsl #16; lsr #16` → signed versus unsigned halfword normalization; `#24` pairs do the same for bytes.
 - Default to `unk8/16/32`; use signed types only on evidence, because one wrong sign produces one wrong branch or shift opcode.
 - Narrow locals insert normalization pairs; wide locals remove them. A plain `int` index often matches where `u8`/`u16` adds masking.
+- A dedicated `unk16` conversion temporary can preserve zero-extension and keep a narrowed compare value separate from its wide source; a wider temporary may coalesce them and change saved-register allocation.
 - Cast placement is conversion placement: keep a producer wide and cast or assign narrow only where the target performs the conversion.
+- Staging a narrow field in a signed `s32` temporary can keep arithmetic wide and delay normalization until the result is narrowed; using the field directly may reorder the add or conversion.
 - Entry normalization proves narrowing at entry, not a narrow formal parameter; try a wide ABI parameter assigned or cast to a narrow local.
 - Promotion chooses shifts: an unsigned intermediate yields `lsr`, while a signed intermediate yields `asr`, even with identical stored width.
 - Lvalue type selects `ldr`/`str`, `ldrh`/`strh`, or byte access; trust the opcode over the field's apparent semantics.
@@ -31,7 +33,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 
 - Read the prologue first: a wrong push mask means the lifetime set is wrong, so fix that before downstream instructions.
 - Values live across calls prefer callee-saved registers or spills; one extra live value across one call can change the push mask or spill slot.
-- Keep explicit cursor/count/end temporaries when the target keeps distinct values; remove them when the target reloads or coalesces instead.
+- Keep explicit cursor/count/end temporaries when the target keeps distinct values, including separate count and loop-limit copies when the bound occupies a different register; remove them when the target reloads or coalesces instead.
 - A separate successor temporary can keep a moving cursor and freshly loaded pointer in distinct registers: `candidate = cur->next; next = candidate;`.
 - A scalar temporary can force a field load before a later zero initialization; removing it may reorder the first instructions.
 - Assignment and initialization order set live-range boundaries and address-materialization order; spell them in target order.
@@ -61,10 +63,10 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 
 ## Loops
 
-- `while (n-- != 0)`, decrement-before-test, `do/while`, and top-tested `while` are distinct; a top-tested loop may emit body first with an entry branch.
+- `while (n-- != 0)`, decrement-before-test, `do/while`, and top-tested `while` are distinct; a top-tested loop may emit body first with an entry branch, and a separate initial zero-count guard must remain separate when the target has it.
 - Signed and unsigned post-decrement can differ even when both end in `bne`; test both when one form introduces an unwanted `-1` sentinel.
 - `u32 n = count; while (n--)` naturally yields a compare-against-`-1` countdown and fits counted list walks; do not hand-write the sentinel unless the diff requires it.
-- Variable-size record walks should advance a byte cursor by each record's runtime size; array indexing falsely implies a fixed stride and changes liveness.
+- Variable-size record walks should advance by the current record's runtime size, e.g. `ptr = (Record *)((unk8 *)ptr + ptr->size)`; array indexing falsely implies a fixed stride and changes liveness.
 - Loop reversal accepts signed `<`/`<=` forms and emits a countdown to zero; unsigned `<` and `!=` generally remain ascending.
 - Do not assume an eligible ascending loop actually reverses; if experiments stay ascending, retain the explicit matching countdown source.
 - A target rotated search CFG may not come from plain `while` or `for (;;)`; spell the entry test and bottom break explicitly when proven.
@@ -74,6 +76,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 ## Switches and branches
 
 - Condition spelling picks branch polarity and fall-through: early return, nested `if`, and result-variable forms are not interchangeable.
+- In old GCC, a value-less `return;` in a non-void function can reproduce fall-through to the epilogue with `r0` still holding the just-tested value; use it only when that undefined return path is proven by the target.
 - Preserve redundant-looking compares when present; identical function size alone does not validate branch targets.
 - Switch case order controls block and jump-table layout; empty cases can preserve a table while sparse cases may become compares.
 - Identical case bodies may merge; an unsigned normalized dispatch expression can sometimes restore the expected table form.
@@ -95,13 +98,15 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 
 - agbcc accepts GNU VLAs even with a local `const` bound; they can fold the byte count yet retain a second, late stack adjustment that a fixed array merges into the main frame.
 - A `const` bound can also eliminate a live maximum or turn a register comparison into an immediate one; compare the whole frame and loop setup.
-- A variadic definition saves argument registers even with an empty body; wrong arity or prototype changes stack arguments and frame size.
+- A variadic definition saves `r0`–`r3` and emits the ABI frame even with an empty body; wrong arity or prototype changes stack arguments and frame size.
 
 ## Structs and fixed layout
 
 - Struct members and raw byte offsets can produce different address temporaries; if a typed field doesn't match, the field's type/width or the struct nesting is wrong — fix the layout, don't fall back to byte arithmetic.
 - Overlay only proven fields and preserve all padding; a correct offset with the wrong type still gives the wrong access width.
-- A field that is both compared/stored as a word and dereferenced is a pointer — type it so; don't invent unions. A field accessed at two widths is usually two adjacent narrower fields (a byte read at +0 of a halfword = `unk8 a; unk8 b;`), not a union.
+- A field that is both compared/stored as a word and dereferenced is a pointer — type it so.
+- Later shifts, masks, or division do not narrow a field's memory access. If assembly proves the same storage is intentionally accessed at incompatible widths (`strh`/`ldrb`, `ldr`/`ldrsh`), model a documented whole/parts union; this proven width pun is the only sanctioned union use. Otherwise, prefer adjacent narrower fields.
+- An embedded header whose address is passed to list helpers must be an embedded struct field, not a pointer; the pointer spelling changes layout and cleanup codegen.
 - An opaque region only passed by address is naturally `unk8 region[N]`; a scalar member there introduces an unwanted load.
 - Allocation/resource handles with repeatedly accessed address, size, or owner slots should be typed structs; returning or passing the usable address often means accessing the first pointer member.
 - Out-parameter bundles of related pointers, tables, and counts should use one typed address-table struct; field offsets and pointee types determine loads and liveness.
@@ -132,6 +137,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 ## Zeroing and volatile
 
 - A shared zero register does not prove a source zero local; direct `= 0` assignments can be CSE'd to one register.
+- When the target keeps one typed zero value live across two pointer-field clears, reusing a local such as `T *zero = NULL;` can preserve the required pseudo and allocation where two direct `NULL` stores do not.
 - A fresh `mov #0` immediately before pointer clears favors direct `NULL` stores; a shared zero local may suppress that materialization.
 - `= {0}` or `memset` may become a library call; explicit fields or a plain `int` loop can produce inline stores or a pointer walk.
 - `volatile` preserves only the marked hardware access or readback; it does not order ordinary work and is not a register-allocation tool.
