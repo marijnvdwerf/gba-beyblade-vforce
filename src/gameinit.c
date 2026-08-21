@@ -9,6 +9,7 @@
 #include "geometry.h"
 #include "hud.h"
 #include "include_asm.h"
+#include "keystate.h"
 #include "levelhud.h"
 #include "multiplayer.h"
 #include "rider.h"
@@ -21,9 +22,6 @@ extern void sub_8053F0C(unk32);
 extern void nullsub_12(void*);
 extern LevelDesign LevelDesigns[];
 extern void initRiders(void);
-extern void initKeyRecording(unk32);
-extern void sub_805AAEC(unk32, u16);
-extern void sub_805AB38(void);
 extern const u8 Str_87294CC[];
 extern void sub_80538C0(void);
 extern void sub_804B4A4(void*);

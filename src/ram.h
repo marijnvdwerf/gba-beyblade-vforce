@@ -183,7 +183,7 @@ typedef struct CurrentGameState {
     AllocatedBlock* unk6B0;
     unk32 unk6B4;
     unk8 unk6B8[4];
-    unk32 unk6BC;
+    void* unk6BC;
     unk32 unk6C0;
     unk16 unk6C4;
     unk16 unk6C6;
