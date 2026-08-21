@@ -280,8 +280,19 @@ void sub_80538C0(void)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8053920.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8053954.s");
+void sub_8053920(void)
+{
+    _gameData->unk1638++;
+    if (_gameData->unk1638 > 5)
+        _gameData->unk1638 = 5;
+    sub_804F800(_gameData->unk1638);
+}
+
+void sub_8053954(void)
+{
+    _gameData->unk1638 = 5;
+    sub_804F800(_gameData->unk1638);
+}
 
 LevelGeometryTable* loadLevelGeometry(u16 arg0)
 {
@@ -293,7 +304,13 @@ LineMetadata** getLevelMetadata(u16 arg0)
     return getLevelDescription(arg0)->metadata;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80539a0-GetStruct4.s");
+EnvironmentObject* GetStruct4(unk32 arg0)
+{
+    if (_gameData->unkC88 == NULL)
+        return NULL;
+    return &_gameData->unkC88[arg0];
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80539c4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80539e8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053b04-initCollisionData.s");
@@ -423,7 +440,20 @@ void sub_8053F0C(unk32 arg0)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80540c8.s");
+s32 sub_80540C8(s32 arg0, s32 arg1, s32 arg2)
+{
+    s32 result;
+
+    result = arg0;
+    if (result < 0)
+        result = -result;
+    result >>= 3;
+    if (result > arg2)
+        result = arg2;
+    if (arg0 < 0)
+        result = -result;
+    return result;
+}
 
 void SetRiderGlobal(unk32 arg0)
 {
