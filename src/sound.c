@@ -553,6 +553,148 @@ s32 Sound_8062BFC(int arg0, int arg1)
     return Sound_80629F0((SoundStructE*)(*_unk3005E14->data)[arg0], arg1);
 }
 
+#if 0
+void sub_8062C24(void)
+{
+    u8 opcode;
+    SoundStructF* event;
+    SoundStructG* channel;
+    s32 i;
+    s32 found;
+
+    if (_unk3005E0C != 1) {
+        return;
+    }
+
+    _unk3005E08 -= _unk3005E10;
+    if (_unk3005E08 > 0) {
+        return;
+    }
+
+    while (_unk3005E08 <= 0) {
+        opcode = (*_unk3005E00)[0];
+        _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+
+        if ((opcode & 0x80) == 0) {
+            u8 value;
+
+            value = (*_unk3005E00)[0];
+            _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+            _unk3005E08 += (opcode << 8 | value) << 16;
+            continue;
+        }
+
+        switch (opcode >> 4) {
+        case 8: {
+            u8 value8;
+
+            value8 = (*_unk3005E00)[0];
+            _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 2);
+            event = &(*_unk3005E28)[opcode & 0xF];
+            channel = &event->var04[0];
+            i = 4;
+            while (i-- != 0) {
+                if (channel->var00 != 0 && channel->var01 == value8) {
+                    Sound_8062A90(channel->var04);
+                    channel->var00 = 0;
+                    break;
+                }
+                channel++;
+            }
+            break;
+        }
+        case 9: {
+            u8 value9;
+            u8 value2;
+
+            value9 = (*_unk3005E00)[0];
+            _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+            value2 = (*_unk3005E00)[1];
+            _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+            event = &(*_unk3005E28)[opcode & 0xF];
+            if (event->var00 == 0) {
+                break;
+            }
+
+            channel = &event->var04[0];
+            found = 0;
+            i = 3;
+            for (;;) {
+                if (channel->var00 != 0 && channel->var01 == value9) {
+                    found = 1;
+                    break;
+                }
+                channel++;
+                if (i-- == -1) {
+                    break;
+                }
+            }
+            if (found != 0) {
+                break;
+            }
+
+            channel = &(*_unk3005E28)[opcode & 0xF].var04[0];
+            i = 3;
+            for (;;) {
+                if (channel->var00 == 0) {
+                    channel->var04 = Sound_80629F0(event->var00, value9);
+                    Sound_8062AD4(channel->var04, value2);
+                    channel->var00 = 1;
+                    channel->var01 = value9;
+                    break;
+                }
+                channel++;
+                if (i-- == -1) {
+                    break;
+                }
+            }
+            break;
+        }
+        case 0xB:
+            switch (opcode & 0xF) {
+            case 0:
+                _unk3005E00 = (u8(*)[])_unk3005E20;
+                break;
+            case 1:
+                _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+                break;
+            case 2:
+                _unk3005E10 = (*_unk3005E00)[0] << 24;
+                _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+                _unk3005E10 |= (*_unk3005E00)[0] << 16;
+                _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+                _unk3005E10 |= (*_unk3005E00)[0] << 8;
+                _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+                _unk3005E10 |= (*_unk3005E00)[0];
+                _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+                break;
+            case 3:
+                printf(Str_8755E14);
+                break;
+            }
+            break;
+        case 0xC: {
+            u8 value;
+
+            value = (*_unk3005E00)[0];
+            _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+            event = &(*_unk3005E28)[opcode & 0xF];
+            event->var00 = (SoundStructE*)(*_unk3005E14->var08)[value][0];
+            break;
+        }
+        case 0xD:
+            _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+            break;
+        }
+
+        if (_unk3005E08 > 0) {
+            break;
+        }
+    }
+}
+
+#endif
+
 INCLUDE_ASM("asm/dump/sound/8062c24.s");
 
 /*

@@ -2,155 +2,143 @@
 
 Living document for the next manager session. Rules of engagement are in
 `MANAGER.md`; this file is the *state* — what is running, what landed, what
-is stuck, and what to do next. Update it whenever something changes.
+is stuck, and what to do next. Update it on every merge, agent start/finish
+and change of plan.
 
-Last updated: 2026-08-21 (session 2).
+Last updated: 2026-08-21, end of session 2 (main at 09b7c1c+).
 
 ## How to work
 
-- You are a manager. Do research/decomp via subagents (`model: gpt-5.6-luna`,
-  Agent tool only, every prompt says "Do not spawn subagents"). Decomp agents
-  use `subagent_type: decompiler` with `isolation: worktree`, one source file
-  per agent. Prompts follow `~/.claude/skills/prompting-codex/SKILL.md`.
-- Agent lifecycle: match → opus natural-C review (C diff only, no asm; agent
-  retries with that as goal) → my review → merge → debrief → remove worktree.
-  Ask for `docs/learnings/<function>.md` before removing a worktree —
-  worktree-isolated agents cannot write to the main checkout, so have them
-  write it inside their worktree and copy it over; an agent
-  whose worktree is gone can be revived by recreating the worktree at the
-  same path (`git worktree add .claude/worktrees/agent-<id> -b
-  worktree-agent-<id> HEAD`) and sending it a message.
-- Merge recipe: `git -C <wt> add -A src asm && git -C <wt> commit`, then
-  `git merge <branch>` on main; modify/delete conflicts on dump files → take
-  the delete (`git rm`); `cmake --build build --target compare`;
-  `tools/update-expected`; commit; later remove worktree + branch.
-- Before merging, read the C yourself. "Matches" ≠ done: compiler-shaped code
-  (hand-written loop rotation, `block = &global` dances, per-use casts) goes
-  back for a cleanup pass. If the natural shape cannot match, the agent must
-  show what diverged, and that goes into the learnings file.
-- When an agent stalls, read the target dump yourself (`asm/dump/...`, or
-  `git show <rev>:asm/dump/...` if already deleted) and send concrete C.
-  Things that paid off: reload patterns after `strb` = char-typed fields
-  (aliasing), `bls/bhi` = unsigned params, `b .Ltest` at loop start =
-  top-tested `while`, `r0 = n; n--; cmp r0` = `while (n-- != 0)`,
-  `n-2 … cmp #-1` = `while (n--)`, fresh `mov #0` = literal NULL, `Str_*`
-  right after a function = inline literals, independent `cmp #-1` after
-  each store = chained/sequential assignments.
-- NEVER use `git commit -a` at all (it sweeps concurrent agents' in-progress
-  edits on main, e.g. tool files, into unrelated commits); stage paths
-  explicitly. Never commit from a shell cd'd into a worktree: it lands
-  on the agent's branch and sweeps its in-progress files into the commit
-  (happened in session 2; fixed by exporting patches). Always `cd` back to
-  the main checkout first, or use `git -C`.
-- Agents occasionally edit the *main* checkout instead of their worktree.
-  Check `git status` on main periodically; revert strays, tell the agent to
-  `pwd` before every command.
-- Status pings: one short SendMessage per agent ("2-3 lines, then continue").
-  Cross-agent findings go in a shared file (`docs/learnings/review-<date>.md`)
-  and agents get the path + heading, not pasted text.
-- Run a temp-reduction pass over every batch of merged functions (after
-  review/merge, before the next sol skill pass). Done: pass 1 (11 fns),
-  passes 1–3 merged.
-- Skill hygiene: `.claude/skills/agbcc/SKILL.md` takes only generic,
-  repeatable patterns — no function names. Read only the unprocessed top-level
-  `docs/learnings/*.md`; `processed/` is history and not required reading.
+- You are a manager. All research/decomp goes through subagents
+  (`model: gpt-5.6-luna`, Agent tool only, every prompt says "Do not spawn
+  subagents"). Decomp agents: `subagent_type: decompiler`,
+  `isolation: worktree`, one TU (or one small cluster of leaves) per agent.
+  Prompts follow `~/.claude/skills/prompting-codex/SKILL.md`.
+- NO Anthropic-model subagents (opus/sonnet/fable) until the user says so
+  (standing order from 2026-08-21); use gpt-5.6-luna for reviews.
+- Lifecycle: match → **bulk review** (one reviewer per round — luna for now
+  over all current worktrees' C diffs; C only, no asm; shape + field types
+  only, no renames; any layout claim is a hypothesis the agent verifies
+  against asm) → agent simplifies → **my own read of the diff** → merge →
+  temp-reduction pass over the batch → sol skill pass → remove worktree.
+  Ask agents proactively (before they burn hours) whether they want a
+  natural-C draft; when one stalls, read the dump yourself and send concrete
+  C — this resolved most stalls this session.
+- Agents must commit in their worktree after every matched function (rule
+  is in `.claude/agents/decompiler.md`; older agents may still refuse — then
+  `git -C <wt> add -A src asm docs && git -C <wt> commit` yourself).
+  Learnings (`docs/learnings/<scope>.md`) are written inside the worktree and
+  arrive via the merge.
+- Merge recipe, ALWAYS from the main checkout (`pwd` first; never from a
+  shell cd'd into a worktree — that merges the branch into itself and then
+  `worktree remove` pulls the rug): `git merge <branch>`; resolve header
+  conflicts (common.h/ram.h accrue parallel typedefs — unify, keep sizeof);
+  `clang-format -i` touched src; `cmake --build build --target compare`;
+  `tools/update-expected`; commit with explicit paths; `git worktree remove
+  --force <wt>`; `git branch -D <branch>`.
+- NEVER `git commit -a`: it sweeps concurrent agents' in-progress edits on
+  main (tool files, skill) into unrelated commits. Stage paths explicitly.
+- Agents sometimes edit the main checkout instead of their worktree. On every
+  keepalive tick: `git status --short | grep -v '^??'` on main; if dirty, save
+  the diff to /tmp, `git checkout` the files, tell the agent to `pwd`.
+- Verify every agent claim yourself before merging: compare in its worktree,
+  read the C. "Matches" is not "done": house rules (typed fields, no
+  cast-and-offset, no casts on field reads, no m2c names, no raw ROM
+  addresses, full prototypes) are enforced at merge time.
+- Skill maintenance is batched: do not hand-edit
+  `.claude/skills/agbcc/SKILL.md`. Periodically run a **gpt-5.6-sol** agent
+  that folds the top-level `docs/learnings/*.md` into the skill and `git mv`s
+  them to `docs/learnings/processed/` (the permission classifier may block
+  `git mv` for agents — do the move yourself then). Review its diff.
+- Temp-reduction pass after every merged batch (done: passes 1–3).
+- Tool-building agents (`general-purpose`, luna) work on main and don't
+  commit; review and commit their files explicitly.
 
 ## Tooling (all on main)
 
-- Build/verify: `cmake --build build --target compare` (SHA1 = truth).
-  C is built with `-g` (verified byte-neutral on main and raw-decomp).
-- `bun run tools/diff/diff.ts <sym>` — instruction diff with C line numbers;
-  no match % any more. `.word` rows differing only in symbol display are
-  relocation noise.
-- `uv run tools/callgraph.py [root]` — C-only call tree (tree-sitter), 🔴 = not in
-  C; `#if 0` drafts count as not decompiled.
+- `cmake --build build --target compare` — SHA1 is the only truth. C is built
+  with `-g` (byte-neutral).
+- `bun run tools/diff/diff.ts <sym>` — instruction diff with C line numbers.
+  `.word` rows differing only in symbol display are relocation noise. The
+  hook forbids piping its output through grep/head.
+- `uv run tools/callgraph.py [root]` — tree-sitter C call tree; 🔴 = not in
+  C; `#if 0` drafts count as not decompiled; `asm()` is not a call.
+- `uv run tools/tu-progress.py [--asm-lines] [--all]` — per-TU INCLUDE_ASM
+  remaining vs C count, done TUs green, totals line.
 - `uv run tools/asm-annotated.py src/<f>.c <fn> [--all-passes]` — agbcc asm
-  + `.lreg`/`.greg` (and `.loop` …) dumps for the current C.
+  plus `.lreg`/`.greg` dumps for the current C (allocator priority ≈
+  refs / live_length is readable there).
 - `uv run tools/worklist.py` — functions called from C but still asm.
-- `uv run tools/tu-progress.py [--asm-lines]` — per-TU INCLUDE_ASM remaining vs C
-  count; done TUs green.
 - `expected/` is a flat copy of `build/` (`tools/update-expected`).
-- `raw-decomp` worktree (`.claude/worktrees/raw-decomp`, 709 C functions vs
-  main's ~215) is a read-only reference; never merge it wholesale.
+- `raw-decomp` worktree (`.claude/worktrees/raw-decomp`, ~700 C functions) is
+  a read-only reference with different headers; never merge it wholesale.
 
-## State at last update
+## State
 
-Main: see `git log`; clean; compare passing. Session 1 ended ~06:45.
+Progress: 9/66 TUs done, 260 C functions, 747 INCLUDE_ASM remaining (26%)
+after the envactor merge. Session 2 merged 46
+functions; session 1 merged 8.
 
-Merged this session: SpriteVRamFree (sprite.c, loops as `while (n--)`; sprite worktree closed),
-sub_806306C (actorheap.c, ActorBlock fields named), sub_805A53C +
-getValidAllocatedBlock (memory.c), initGame + initGameLoop + sub_8053B94 +
-closeGame (gameinit.c, with large GameData/CurrentGameState upgrades in ram.h;
-music.c keeps `(s16)` casts on unkC24/unkC26 — s16 field broke initGameLoop).
+### Agents running at last update
 
-Session 2 agents (all gpt-5.6-luna decompiler, worktree-isolated). At
-last update: NO agent worktrees open; only raw-decomp remains. 45 functions
-merged in session 2. Red-function→TU map for the mainLoop graph is in
-the session-2 transcript; regenerate with `tools/callgraph.py mainLoop` +
-grep INCLUDE_ASM.
-
-| scope | functions | status |
+| worktree | scope | status |
 |---|---|---|
-| gamestate.c | 10 leaves + sub_80510FC | 10 MERGED e5a2582 (applied as patch; worktree removed); sub_80510FC parked (table scan becomes pointer-increment — see gamestate.md); style debt (offset arithmetic on LevelDescriptions, unk4 byte-indexing) handed to temp-reduction agent |
-| gameinit.c | sub_80538C0, sub_8053F0C, initRiders | 2/3 MERGED; initRiders PARKED (#if 0 draft merged; frame 0x138 vs 0x134 = one extra spilled local, riderIndex r8 vs r9 — see initriders.md); worktree removed |
-| frontend.c | sub_8049264, sub_8049458 | sub_8049264 MERGED (straight-line stores + chained `unk578 = unk57C = unk580 = 0`; FrontendState typed, `UnkMotion motion` @0x458); sub_8049458 PARKED (#if 0 draft; only the final 0x584/0x586 block's temp registers permute — see frontend.md); worktree removed |
-| event.c | deallocEventListeners, initEventListeners | dealloc MERGED 1c97097; initEventListeners PARKED (#if 0 draft in event.c; VLA proven; count/max register swap: agbcc priority ≈ refs/live-length, count 14/184 vs max 5/114 — see event.md); worktree removed |
-| small leaves | sub_8061204, sub_805BA3C, deallocateQuadTree, sub_804A72C, emptyBeybladeActorData, deallocBeybladeActorData, sub_8055CB8, sub_804F800, sub_804FEE8 | 9/9 MERGED c1313c1 (QuadTree @0x7A4 = 0x58 bytes; sub_804F800/sub_804FEE8 need a `GameData* base` local — see small-leaves.md); worktree removed |
-| temp-reduction | 11 merged fns | MERGED (sub_8053F0C direct `_gameData->` per case, sub_8055CB8 no fn-ptr casts, sub_804FEE8 no status alias; 8 already minimal — see temp-reduction.md); worktree removed |
-| leaves-round2 | 5 leaves | 5/5 MERGED 3c82864 (RiderBase now 0x428, replaces RiderBlock); worktree removed |
-| init-functions | initCollectables, initTutorialManagement, initMultiPlayer | 2/3 MERGED (both need a `GameData* gameData` local live across the loader calls); initMultiPlayer PARKED (#if 0 draft; arg regs r8/r5 + normalization — see init-functions.md); worktree removed |
-| skill distill (gpt-5.6-sol) | SKILL.md rewritten + committed; now moving processed learnings to docs/learnings/processed/ |
-| review-round3 (opus) | done → docs/learnings/review-round3.md; canonical LevelGeometryAddresses added to common.h (3c82864); follow-ups sent to all agents |
-| gamestate-cleanup | 10 gamestate.c fns | MERGED 02ed7cf (typed LevelDescription[] 0xD0, LevelState unk4[0x38], s8 unk0, no union); worktree removed |
-| leaves-round3 | 4 leaves (actor/animevent/particle) | 4/4 MERGED; worktree removed |
-| hud-sprite | sub_8060CDC (sprite.c), LoadHUD (hud.c) | 2/2 MERGED (LoadHUD needs a `GameData*` local; sub_8060CDC natural `while (n--)` list unlink); worktree removed |
-| geometry-loaders | 6 loaders (geometry.c ×4, gameinit.c ×2) | 6/6 MERGED (LevelGeometryAddresses fully typed: GeometryPoint/Line(0x20)/Spline, LineMetadata/LineMetaObject, LevelDesign[]; hoisted found-block = early-return + plain for); worktree removed |
-| spritetext | showNumber_2, allocFont, showNumber, LoadSpriteSheet, showString | 3/5 MERGED; LoadSpriteSheet PARKED (#if 0 draft; original source punned SpriteEntry+0x18 u16 write vs +0x19 u8 read — hypothesis: field is `u16 unk18`, readers are `>> 8` (GCC narrows to a byte load) — agent testing; also arg5-before-arg6 ordering); showString (227) not attempted; worktree removed |
-| temp-reduction-2 | 23 fns | MERGED (4 simplified: sub_8051744, GetLevelDescriptionNo, sub_80518F0, LoadHUD; 19 already minimal — temp-reduction-2.md); worktree removed |
-| u16-narrowing + LoadSpriteSheet | sprite.h SpriteEntry +0x18, readers sub_8060B38/sub_8061158/sub_8061160, LoadSpriteSheet | running |
-| temp-reduction-3 | geometry loaders, spritetext, init-functions | MERGED (6 simplified; allocFont takes s16; new src/geometry.h; UnkSpriteText alias gone); worktree removed |
-| showString | showString (spritetext.c, 227) | running |
-| envactor-sound | sub_8054FE0 (envactor.c), sub_8062C24 (sound.c), then initLevelEnvironmentActors | running |
-| callgraph rewrite | DONE fceff06: callgraph.py/tu-progress.py on tree-sitter (uv deps tree-sitter 0.26.0, tree-sitter-c 0.24.2), #if 0 skipped, asm() not a call |
+| showString | spritetext.c showString (227) | running |
+| leaves-round4 | debug.c printf (10); geometry.c GetSplineAtIndex (33), getLineMetaobjectByTypeAndId (45) | running |
 
-Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
-sub_8054FE0), sub_8062C24 (sound), LoadHUD, sub_8060CDC. Red set after the
-round-2 merges: 22 functions / 4,193 lines (gameLoop 930, envactor 772,
-sub_8062C24 310 are the big unassigned ones).
+### Parked (attempted, not matched)
+
+| function | lines | draft | why / notes |
+|---|---:|---|---|
+| initEventListeners (event.c) | 141 | `#if 0` | VLA proven (`s32 ids[max]`); count/max land in swapped regs: agbcc priority ≈ refs/live_length (count 14/184 vs max 5/114); all permutations tried — processed/event.md |
+| sub_8049458 (frontend.c) | 166 | `#if 0` | only the final `unk584 == unk586` block's temps permute; odd early `mov r4,#0` across a call — processed/frontend.md |
+| initRiders (gameinit.c) | 349 | `#if 0` | frame 0x138 vs 0x134 (one extra spilled local); riderIndex r8 vs r9 — processed/initriders.md |
+| initMultiPlayer (multiplayer.c) | 137 | `#if 0` | arg regs r8/r5 + normalization sequence — processed/init-functions.md |
+| LoadSpriteSheet (sprite.c) | 99 | `#if 0` | proven pun at SpriteEntry+0x18 (strh) / +0x19 (ldrb); user approved a documented 2-byte union, which reproduces both in isolation, but the function still diverges on stack-arg scheduling ([sp,#36] must load before [sp,#40]) — u16-byte-narrowing.md; next attempt: union sized exactly 2 bytes + consume 5th param first |
+| sub_80627F0 (sound.c) | 145 | `#if 0` BELOW its INCLUDE_ASM (pre-session raw-decomp draft) | never attempted this session |
+| sub_8062C24 (sound.c) | 310 | `#if 0` | envactor-sound agent draft; byte-cursor sequencer — envactor-sound.md |
+| initLevelEnvironmentActors (envactor.c) | 656 | none | unassigned after sub_8054FE0 landed (merged 18a1525) |
+| sub_80510FC (gamestate.c) | 208 | none | final table scan compiles to pointer-increment instead of indexed — processed/gamestate.md |
+| updateKeyState (keystate.c) | 226 | none | body identical; only hard-reg choice for base+4/base+8 invariants differs — processed/updateKeyState.md |
+| freeSpriteVramLocation (sprite.c) | 121 | none | earlier "match" used register pinning, discarded — processed/sprite-vram.md |
+| sub_8057A7C (system.c) | — | none | orphan, no C caller — processed/sub_8057A7C.md |
 
 Skipped (no C caller): sub_8062EFC (actorheap.c).
 
-Parked (attempted, not matched — see docs/learnings/): sub_8060E8C and
-freeSpriteVramLocation (sprite.c; the agent's earlier "match" relied on
-register pinning and was discarded), sub_8057A7C (system.c orphan), updateKeyState (keystate.c; body and
-invariant set identical to target, only the hard-reg assignment of the
-base+4/base+8 invariants differs — see docs/learnings/updateKeyState.md).
+### Unassigned red functions
 
-## Next candidates
+gameLoop (gameloop.c, 930 lines) — the last big one reachable from mainLoop.
+Regenerate the full picture with `uv run tools/callgraph.py mainLoop` and
+`uv run tools/tu-progress.py`; after the round-5 merges the reachable red set
+should be gameLoop + the parked list above.
 
-Direct `mainLoop` callees still in asm (types pinned by C call sites):
-gameLoop (927 lines), initGameLoop, updateKeyState, sub_8049458,
-sub_8053B94 ✅, initMultiPlayer, sub_8049264, initGame ✅, initGameLoop ✅, closeGame ✅,
-sub_8055CB8. Full reachable-graph report was only in an agent transcript;
-regenerate with `tools/callgraph.py mainLoop` + `tools/worklist.py`.
+### Header conventions decided in session 2
 
-## Header conventions decided this session
-
-- `LevelGeometryAddresses`/`LevelGeometryTable` (common.h) are canonical; `getLevelGeometryAddresses(LevelGeometryAddresses*, void*)`.
-- `RiderBase` (0x428) is the rider layout; GameData begins with it; `GameData.unk42C` is `RiderBase*`.
-- `LevelDescription` is 0xD0 and indexed (`LevelDescriptions[i]`); ActiveLevelDescription no longer exists.
-- No unions except for asm-proven width puns (strh/ldrb on the same bytes),
-  documented with a comment; no casts on field reads (`(s8)p->f` ⇒ field is s8).
+- `LevelGeometryAddresses`/`LevelGeometryTable` (common.h) + `src/geometry.h`
+  prototypes are canonical; fully typed (GeometryPoint s32 x/y/z, GeometryLine
+  0x20, GeometrySpline, LineMetadata/LineMetaObject, LevelDesign[]).
+- `RiderBase` (0x428) is the rider layout; GameData begins with it;
+  `GameData.unk42C` is `RiderBase*`.
+- `LevelDescription` is 0xD0 and indexed (`LevelDescriptions[i]`), has
+  `LineMetadata** metadata` at 0x2C; ActiveLevelDescription no longer exists.
+- `CurrentGameState`: `s8 unk0`, `LevelState unk4[0x38]`, bytes unk6E8/unk6E9.
+- `GameData` sub-structs: collectables (0x12F4), tutorial, levelHud0–3 +
+  motions, PolyTable unkB88, unkCA0/CA4/CA8 event listeners.
+- Unions only for asm-proven width puns (strh/ldrb on the same bytes), with a
+  comment citing both instructions. No casts on field reads. Raw-offset blobs
+  with offset tables may use `(unk8*)base + offset`; fixed-stride tables are
+  arrays. Variable-size records advance a byte cursor.
 
 ## Open questions for the user
 
-
-- ASM_ZEROPAD: 7 mid-TU uses are no-ops (agbcc pre-aligns each function with zero fill); only the 2 EOF uses (sound.c, libc.c) matter. Not TU-split evidence. Cleanup offered, not yet approved.
+- ASM_ZEROPAD: 7 mid-TU uses are no-ops; only the 2 EOF uses matter; not
+  TU-split evidence (processed/asm-zeropad.md). Cleanup offered, not approved.
 
 ## Session housekeeping
 
-- (Session 1's keepalive Monitor was stopped at wind-down.) A persistent
-  55-minute keepalive Monitor ticks while agents run (keeps the
-  prompt cache warm). Stop it with TaskStop once all agents are done and the
-  session winds down. Each tick: check `git status` on main for stray agent
-  edits, update this file if anything changed.
+- A persistent 55-minute keepalive Monitor runs while agents are active
+  (task id in the session; stop it with TaskStop once all agents are done
+  and the session winds down). Each tick: check `git status` on main for stray
+  agent edits, update this file if anything changed.
+- Wind-down checklist: merge or park every worktree, run a temp-reduction
+  pass and a sol skill pass on the batch, update this file, stop the monitor.
