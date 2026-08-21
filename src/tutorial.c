@@ -23,7 +23,10 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804a488-turorial_804A488.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a504.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a51c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a550.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804a72c.s");
+void sub_804A72C(void)
+{
+    _gameData->unk13FC = 0;
+}
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a744.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a7e8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a7f8.s");

@@ -1,6 +1,23 @@
 #include "include_asm.h"
+#include "ram.h"
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055cb8.s");
+extern unk32 withBoundingAreaCount[2];
+extern void sub_805E50C(void*, void*, void*, void*);
+extern void sub_805E514(void*, unk32, unk32, unk32, unk32);
+extern void def_94_0_8055CFC(void*, void*, void*, unk32);
+extern void def_94_4_AddWithBoundingAreaMessage(void*, unk32, void*);
+extern unk32 def_94_8_collision_8055F2C(void*, void*, void*, unk32);
+
+void sub_8055CB8(void)
+{
+    withBoundingAreaCount[0] = 0;
+    sub_805E50C(
+        _unk3000FC0,
+        (void*)((unk32)def_94_0_8055CFC + 1),
+        (void*)((unk32)def_94_4_AddWithBoundingAreaMessage + 1),
+        (void*)((unk32)def_94_8_collision_8055F2C + 1));
+    sub_805E514(_unk3000FD0, 0, 0, 0, 0);
+}
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055cfc-def_94_0_8055CFC.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055d64.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055f04.s");

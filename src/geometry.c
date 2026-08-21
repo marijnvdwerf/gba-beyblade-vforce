@@ -1,8 +1,16 @@
 #include "include_asm.h"
+#include "ram.h"
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805b8c4-getLevelGeometryAddresses.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805b938-newCollisionDataRam.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805ba3c.s");
+
+void sub_805BA3C(GeometryAddressTable* arg0)
+{
+    if (arg0->block != NULL) {
+        deallocateBlock(arg0->block);
+    }
+    arg0->block = NULL;
+}
 INCLUDE_ASM("asm/dump/8057b80-debug/805ba54-StoreMetadataAddr.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ba60-GetLineMetaData.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ba7c.s");
@@ -15,7 +23,21 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805bb9c-initQuadTree.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bbc8-allocQuadTree.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bdbc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bf18.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805bfc4-deallocateQuadTree.s");
+void deallocateQuadTree(QuadTree* arg0)
+{
+    unk32 block;
+
+    block = (unk32)arg0->block24;
+    if (block != 0) {
+        deallocateBlock((AllocatedBlock*)block);
+    }
+    arg0->block24 = NULL;
+    block = (unk32)arg0->block28;
+    if (block != 0) {
+        deallocateBlock((AllocatedBlock*)block);
+    }
+    arg0->block28 = NULL;
+}
 INCLUDE_ASM("asm/dump/8057b80-debug/805bfe8-allocateDynamicBoundingAreas.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805c040-initQuadTreeNode.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805c308-GetQuadTreeNodeForPos.s");

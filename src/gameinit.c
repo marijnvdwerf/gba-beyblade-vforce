@@ -16,7 +16,7 @@ extern void initCollectables(u16);
 extern void initTutorialManagement(u16);
 extern void nullsub_2(void);
 extern void LoadHUD(void);
-extern void sub_804F800(u8);
+extern void sub_804F800(s32);
 extern void initKeyRecording(unk32);
 extern void sub_805AAEC(unk32, u16);
 extern LevelState* sub_8051734(void);
@@ -37,8 +37,8 @@ extern void nullsub_7(void);
 extern void sub_804A72C(void);
 extern void nullsub_4(void);
 extern void sub_804FEE8(void);
-extern void sub_805BA3C(void*);
-extern void deallocateQuadTree(void*);
+extern void sub_805BA3C(GeometryAddressTable*);
+extern void deallocateQuadTree(QuadTree*);
 
 void initGame(void)
 {

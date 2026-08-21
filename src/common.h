@@ -43,6 +43,12 @@ typedef struct UnkSpriteText {
     unk8 unk2A;
 } UnkSpriteText;
 
+typedef struct SpriteTextCleanup {
+    unk8 unk0[0x14];
+    unk8 unk14[0x18];
+    void* ptr2C;
+} SpriteTextCleanup;
+
 typedef struct LevelState {
     unk16 unk0;
     unk16 unk2;
