@@ -36,7 +36,9 @@ Last updated: 2026-08-21 (session 2).
   `n-2 … cmp #-1` = `while (n--)`, fresh `mov #0` = literal NULL, `Str_*`
   right after a function = inline literals, independent `cmp #-1` after
   each store = chained/sequential assignments.
-- NEVER `git commit -a` from a shell that is cd'd into a worktree: it lands
+- NEVER use `git commit -a` at all (it sweeps concurrent agents' in-progress
+  edits on main, e.g. tool files, into unrelated commits); stage paths
+  explicitly. Never commit from a shell cd'd into a worktree: it lands
   on the agent's branch and sweeps its in-progress files into the commit
   (happened in session 2; fixed by exporting patches). Always `cd` back to
   the main checkout first, or use `git -C`.
@@ -46,6 +48,9 @@ Last updated: 2026-08-21 (session 2).
 - Status pings: one short SendMessage per agent ("2-3 lines, then continue").
   Cross-agent findings go in a shared file (`docs/learnings/review-<date>.md`)
   and agents get the path + heading, not pasted text.
+- Run a temp-reduction pass over every batch of merged functions (after
+  review/merge, before the next sol skill pass). Done: pass 1 (11 fns),
+  pass 2 merged.
 - Skill hygiene: `.claude/skills/agbcc/SKILL.md` takes only generic,
   repeatable patterns — no function names. Read only the unprocessed top-level
   `docs/learnings/*.md`; `processed/` is history and not required reading.
@@ -61,6 +66,8 @@ Last updated: 2026-08-21 (session 2).
 - `uv run tools/asm-annotated.py src/<f>.c <fn> [--all-passes]` — agbcc asm
   + `.lreg`/`.greg` (and `.loop` …) dumps for the current C.
 - `uv run tools/worklist.py` — functions called from C but still asm.
+- `uv run tools/tu-progress.py [--asm-lines]` — per-TU INCLUDE_ASM remaining vs C
+  count; done TUs green.
 - `expected/` is a flat copy of `build/` (`tools/update-expected`).
 - `raw-decomp` worktree (`.claude/worktrees/raw-decomp`, 709 C functions vs
   main's ~215) is a read-only reference; never merge it wholesale.
@@ -83,18 +90,21 @@ grep INCLUDE_ASM.
 | scope | functions | status |
 |---|---|---|
 | gamestate.c | 10 leaves + sub_80510FC | 10 MERGED e5a2582 (applied as patch; worktree removed); sub_80510FC parked (table scan becomes pointer-increment — see gamestate.md); style debt (offset arithmetic on LevelDescriptions, unk4 byte-indexing) handed to temp-reduction agent |
-| gameinit.c | sub_80538C0, sub_8053F0C, initRiders | 2/3 MERGED da06486 (unk42C = RiderBlock* of 0x428-byte elems; sub_8053F0C needs case-scoped GameData*); initRiders in progress |
+| gameinit.c | sub_80538C0, sub_8053F0C, initRiders | 2/3 MERGED; initRiders PARKED (#if 0 draft merged; frame 0x138 vs 0x134 = one extra spilled local, riderIndex r8 vs r9 — see initriders.md); worktree removed |
 | frontend.c | sub_8049264, sub_8049458 | sub_8049264 MERGED (straight-line stores + chained `unk578 = unk57C = unk580 = 0`; FrontendState typed, `UnkMotion motion` @0x458); sub_8049458 PARKED (#if 0 draft; only the final 0x584/0x586 block's temp registers permute — see frontend.md); worktree removed |
 | event.c | deallocEventListeners, initEventListeners | dealloc MERGED 1c97097; initEventListeners PARKED (#if 0 draft in event.c; VLA proven; count/max register swap: agbcc priority ≈ refs/live-length, count 14/184 vs max 5/114 — see event.md); worktree removed |
 | small leaves | sub_8061204, sub_805BA3C, deallocateQuadTree, sub_804A72C, emptyBeybladeActorData, deallocBeybladeActorData, sub_8055CB8, sub_804F800, sub_804FEE8 | 9/9 MERGED c1313c1 (QuadTree @0x7A4 = 0x58 bytes; sub_804F800/sub_804FEE8 need a `GameData* base` local — see small-leaves.md); worktree removed |
 | temp-reduction | 11 merged fns | MERGED (sub_8053F0C direct `_gameData->` per case, sub_8055CB8 no fn-ptr casts, sub_804FEE8 no status alias; 8 already minimal — see temp-reduction.md); worktree removed |
 | leaves-round2 | 5 leaves | 5/5 MERGED 3c82864 (RiderBase now 0x428, replaces RiderBlock); worktree removed |
-| init-functions | initCollectables, initTutorialManagement, initMultiPlayer | running |
+| init-functions | initCollectables, initTutorialManagement, initMultiPlayer | 2/3 MERGED (both need a `GameData* gameData` local live across the loader calls); initMultiPlayer PARKED (#if 0 draft; arg regs r8/r5 + normalization — see init-functions.md); worktree removed |
 | skill distill (gpt-5.6-sol) | SKILL.md rewritten + committed; now moving processed learnings to docs/learnings/processed/ |
 | review-round3 (opus) | done → docs/learnings/review-round3.md; canonical LevelGeometryAddresses added to common.h (3c82864); follow-ups sent to all agents |
 | gamestate-cleanup | 10 gamestate.c fns | MERGED 02ed7cf (typed LevelDescription[] 0xD0, LevelState unk4[0x38], s8 unk0, no union); worktree removed |
 | leaves-round3 | 4 leaves (actor/animevent/particle) | 4/4 MERGED; worktree removed |
 | hud-sprite | sub_8060CDC (sprite.c), LoadHUD (hud.c) | 2/2 MERGED (LoadHUD needs a `GameData*` local; sub_8060CDC natural `while (n--)` list unlink); worktree removed |
+| geometry-loaders | 6 loaders (geometry.c ×4, gameinit.c ×2) | 6/6 MERGED (LevelGeometryAddresses fully typed: GeometryPoint/Line(0x20)/Spline, LineMetadata/LineMetaObject, LevelDesign[]; hoisted found-block = early-return + plain for); worktree removed |
+| spritetext | showNumber_2, allocFont, showNumber, LoadSpriteSheet, showString | running |
+| temp-reduction-2 | 23 fns | MERGED (4 simplified: sub_8051744, GetLevelDescriptionNo, sub_80518F0, LoadHUD; 19 already minimal — temp-reduction-2.md); worktree removed |
 
 Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
 sub_8054FE0), sub_8062C24 (sound), LoadHUD, sub_8060CDC. Red set after the

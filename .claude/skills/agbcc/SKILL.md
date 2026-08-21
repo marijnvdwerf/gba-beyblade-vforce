@@ -35,19 +35,23 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - A separate successor temporary can keep a moving cursor and freshly loaded pointer in distinct registers: `candidate = cur->next; next = candidate;`.
 - A scalar temporary can force a field load before a later zero initialization; removing it may reorder the first instructions.
 - Assignment and initialization order set live-range boundaries and address-materialization order; spell them in target order.
+- In `.greg`, global-allocation priority is roughly `refs / live_length`: more references help, while a longer-lived pseudo gets lower priority; use this to explain saved-register choices.
+- For a pure register-role swap, declaration order, scopes, and equivalent VLA-bound spellings may not change allocator rank; compare `.greg` before churning permutations.
 - Nested scopes shorten lifetimes, but a switch-arm-local pointer also defers its global load until that arm; hoisting it changes dispatch allocation.
 - Reuse one compatible local across similar loops when the target preserves one pseudo/register history; separate locals may reshuffle both loops.
 - Conversely, keep initial-pointer and mutable-cursor locals separate when the target keeps both roles live in different registers.
 - A redundant-looking temporary can add the exact pseudo pressure needed, or an unwanted save; judge it by the prologue and first divergence.
+- Alias removals interact: one failed simplification may match after another alias is removed, so probe combinations while checking the first divergence.
 - Early `result = 0` or a real 0/1 flag can reproduce early return-register setup and later separate tests; do not fold proven source state away.
 
 ## Expressions and store shape
 
 - Stage pointer arithmetic when asm stages base, displacement, and scaled index separately; a folded expression invites reassociation or indexed loads.
 - Typed-pointer addition scales by the pointed-to type; a `base + i * SIZE` walk is an array of SIZE-byte structs — declare it and index, never `(unk8 *)` arithmetic in final code.
+- Runtime offset tables into packed or variable-size blobs legitimately use `(unk8 *)base + offset`; do not force them into fixed-stride arrays.
 - Commutative operand order is visible in load and `add` order; write the target's expression-tree order.
 - `field += 1`, compute-then-assign, and read-modify-write through an explicit accumulator are distinct source shapes.
-- Chained assignment stores right-to-left and keeps the value live: `a = obj->f = call();`; splitting can reverse stores or add a `mov`.
+- Straight-line struct initialization preserves lexical store order; chained assignment stores right-to-left and keeps the value live, while splitting it can reverse stores or add a `mov`.
 - `*out++ = value` can select `stmia`; a separated store and increment selects `str` plus `add`.
 - A target induction initialized to `-stride` may be strength-reduced `array[i - 1]`; try the indexed source before preserving a negative cursor.
 - Constant spelling matters: shifted small constants favor `mov`/`lsl`, while a large literal may use the pool; grouped multiplies may strength-reduce differently.
@@ -59,7 +63,8 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 
 - `while (n-- != 0)`, decrement-before-test, `do/while`, and top-tested `while` are distinct; a top-tested loop may emit body first with an entry branch.
 - Signed and unsigned post-decrement can differ even when both end in `bne`; test both when one form introduces an unwanted `-1` sentinel.
-- `u32 n = count; while (n--)` naturally yields a compare-against-`-1` countdown; do not hand-write the sentinel unless the diff requires it.
+- `u32 n = count; while (n--)` naturally yields a compare-against-`-1` countdown and fits counted list walks; do not hand-write the sentinel unless the diff requires it.
+- Variable-size record walks should advance a byte cursor by each record's runtime size; array indexing falsely implies a fixed stride and changes liveness.
 - Loop reversal accepts signed `<`/`<=` forms and emits a countdown to zero; unsigned `<` and `!=` generally remain ascending.
 - Do not assume an eligible ascending loop actually reverses; if experiments stay ascending, retain the explicit matching countdown source.
 - A target rotated search CFG may not come from plain `while` or `for (;;)`; spell the entry test and bottom break explicitly when proven.
@@ -72,7 +77,8 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Preserve redundant-looking compares when present; identical function size alone does not validate branch targets.
 - Switch case order controls block and jump-table layout; empty cases can preserve a table while sparse cases may become compares.
 - Identical case bodies may merge; an unsigned normalized dispatch expression can sometimes restore the expected table form.
-- Per-case locals and constants affect only that arm's liveness; do not normalize every arm to one shared temporary without evidence.
+- If each switch arm loads a global only after dispatch, use case-local aliases or direct global access; a shared pre-switch alias changes dispatch liveness and load order.
+- A search whose success/return block is hoisted above the loop usually comes from a plain top-tested `for` with an early `return` inside (and any `NULL` guard as an early return before it); try that before a `found` flag + `break`, and never a nested `if (i < n) do { } while`.
 
 ## Pointers, globals, and aliasing
 
@@ -80,14 +86,14 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Keep `base = global` when the target loads it before clamps/branches or keeps derived addresses live; otherwise test direct global access first.
 - Decisive test: a global pointer's *value* still in a register after a `bl` (no reload) ⇒ the source copied it into a local before the call (the compiler may not keep a global live across calls). A fresh `ldr` of the global after each call ⇒ direct `global->` access.
 - Cache only the expression whose lifetime is proven; mixing a scoped local with direct accesses can preserve both a distinct value and target reloads.
+- If one global aggregate supplies several nested subobject addresses across calls, cache its pointer and any proven subobject pointers; repeated chains alter reloads and saved-register lifetimes.
 - A `strb` through a typed object may force later global-pointer reloads because agbcc treats byte stores as broadly aliasing; do not use `volatile` to fake it.
 - Long-lived global addresses consume callee-saved registers and can push incoming arguments into higher registers; preserve the source access pattern.
 - Global addresses may be loaded separately or derived from a nearby loaded address with `add`/`sub`; mirror whichever shape the target shows.
 
 ## Stack and frame shape
 
-- A local-integer-bound VLA can create a second stack adjustment after earlier calls; a fixed array usually merges it into one frame allocation.
-- Even a constant-valued VLA bound may fold the byte count yet retain split dynamic-stack timing; try VLA syntax when the target adjusts `sp` late.
+- agbcc accepts GNU VLAs even with a local `const` bound; they can fold the byte count yet retain a second, late stack adjustment that a fixed array merges into the main frame.
 - A `const` bound can also eliminate a live maximum or turn a register comparison into an immediate one; compare the whole frame and loop setup.
 - A variadic definition saves argument registers even with an empty body; wrong arity or prototype changes stack arguments and frame size.
 
@@ -97,6 +103,8 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Overlay only proven fields and preserve all padding; a correct offset with the wrong type still gives the wrong access width.
 - A field that is both compared/stored as a word and dereferenced is a pointer — type it so; don't invent unions. A field accessed at two widths is usually two adjacent narrower fields (a byte read at +0 of a halfword = `unk8 a; unk8 b;`), not a union.
 - An opaque region only passed by address is naturally `unk8 region[N]`; a scalar member there introduces an unwanted load.
+- Allocation/resource handles with repeatedly accessed address, size, or owner slots should be typed structs; returning or passing the usable address often means accessing the first pointer member.
+- Out-parameter bundles of related pointers, tables, and counts should use one typed address-table struct; field offsets and pointee types determine loads and liveness.
 - Repeated fixed-stride records are naturally an array of structs; this gives honest field widths and pointer/index arithmetic.
 - After splitting or nesting a fixed-layout struct, verify `sizeof` and every later offset; natural tail padding can shift unrelated code and pools.
 - Retyping fixed globals must preserve both accessed width and total byte extent, especially in address-pinned RAM layouts.
@@ -108,6 +116,8 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Direct calls emit `bl`; function-pointer lvalues emit a load plus `_call_via_rN`; match the indirection level.
 - Pass direct function names before adding explicit Thumb-bit arithmetic; relocation handling may already encode the callable address.
 - Passing a call result directly versus storing it in a local can differ by a `mov` and by how long the value remains live.
+- A call result forwarded into an argument register for the next `bl` proves that source dataflow; preserve it rather than substituting `NULL` or a reload.
+- Mixed pointer types in `?:` can warn or lower differently under old agbcc; a `void *` temporary can preserve a common call after an explicit branch.
 - Replacing `void *` with a proven typed pointer can remove casts without changing bytes, but verify pointee width and conversion placement.
 - Keep dead-looking calls, divisions, readbacks, and copies that asm shows; optimizer-visible useless work may have existed in source.
 
@@ -131,4 +141,4 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Start with dump, hosting translation unit, declarations, and every caller; use mechanical decompilation only as a semantic draft.
 - Change one source-shape variable at a time and inspect the prologue plus first divergent instruction before interpreting later noise.
 - Verify every instruction and branch target, then run the full-ROM SHA1 compare; a local function match is insufficient when layout changed.
-- Treat reviewer claims about types, layout, or "natural" source as hypotheses; assembly, controlled experiments, and ROM bytes decide.
+- Treat raw-decomp and reviewer claims about types, layout, or "natural" source as hypotheses; verify them against assembly, controlled experiments, and ROM bytes.

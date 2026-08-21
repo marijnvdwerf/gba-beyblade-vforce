@@ -11,7 +11,7 @@ extern const u8 Str_87296A4[];
 extern void* loadLevelGeometry(u16);
 extern void* getLevelMetadata(u16);
 extern void getLevelGeometryAddresses(LevelGeometryAddresses*, void*);
-extern void StoreMetadataAddr(LevelGeometryAddresses*, void*);
+extern void StoreMetadataAddr(LevelGeometryAddresses*, LineMetadata**);
 extern void* GetLineMetaData(LevelGeometryAddresses*, s32);
 extern void* getLineMetaObjectBytype(LevelGeometryAddresses*, void*, unk32);
 extern void SetRiderGlobal(unk32);
@@ -38,9 +38,9 @@ void initEventListeners(unk32 levelId)
         getLevelGeometryAddresses(&geometry, geometryData);
         StoreMetadataAddr(&geometry, metadata);
         i = 0;
-        if (listenerCount < geometry.unk0->unk8) {
+        if (listenerCount < geometry.unk0->lineCount) {
             listenerPtr = listenerIds;
-            for (; i < geometry.unk0->unk8; i++) {
+            for (; i < geometry.unk0->lineCount; i++) {
                 lineMetadata = GetLineMetaData(&geometry, i);
                 if (lineMetadata != NULL
                     && getLineMetaObjectBytype(&geometry, lineMetadata, 7) != NULL) {

@@ -177,19 +177,73 @@ typedef struct ParticleSystem {
 
 /* Canonical level-geometry handle (0x11C bytes); filled by
  * getLevelGeometryAddresses(LevelGeometryAddresses*, void* geometryData). */
-typedef struct LevelGeometryTable {
-    unk8 pad0[8];
-    s32 unk8;
-} LevelGeometryTable;
+typedef struct GeometryPoint {
+    s32 x;
+    s32 y;
+    s32 z;
+    unk32 padC;
+} GeometryPoint;
+
+typedef struct GeometryLine {
+    unk32 point0;
+    unk32 point1;
+    unk8 unk8;
+    unk8 pad9[0xD];
+    unk16 type;
+    unk8 pad18[8];
+} GeometryLine; /* 0x20; stride proven by line-table indexing */
+
+typedef struct GeometrySpline {
+    unk32 pointCount;
+    unk32 size;
+    unk8 pad8[0x18];
+    unk32 pointIndices[1];
+} GeometrySpline;
+
+typedef struct LevelGeometryTable LevelGeometryTable;
+
+typedef struct LevelDesign {
+    unk8 pad0[0x80];
+    LevelGeometryTable* geometry;
+} LevelDesign;
+
+struct LevelGeometryTable {
+    unk32 pointCount;
+    s16 splineCount;
+    unk16 pad6;
+    s32 lineCount;
+    unk32 padC;
+    unk32 pointOffset;
+    unk32 splineOffset;
+    unk32 lineOffset;
+    unk32 pad1C;
+};
+
+typedef struct LineMetaObject LineMetaObject;
+typedef struct LineMetadata LineMetadata;
+
+struct LineMetaObject {
+    unk16 size; /* byte size of this record */
+    unk16 type;
+    unk16 id;
+    unk16 unk6;
+    unk32 unk8;
+};
+
+struct LineMetadata {
+    unk16 count;
+    unk16 pad2;
+    LineMetaObject objects[1];
+};
 
 typedef struct LevelGeometryAddresses {
     LevelGeometryTable* unk0;
-    void* unk4;
-    void* unk8;
-    void* unkC;
+    GeometryPoint* unk4;
+    GeometrySpline* unk8;
+    GeometryLine* unkC;
     void* unk10;
-    void* unk14[0x40];
-    void* unk114;
+    GeometrySpline* unk14[0x40];
+    LineMetadata** unk114;
     unk16 unk118;
     unk8 pad11A[2];
 } LevelGeometryAddresses;
@@ -203,6 +257,65 @@ typedef struct LevelState {
     unk32 unk10;
     unk32 unk14;
 } LevelState;
+
+typedef struct CollectableEntry {
+    GeometryLine* geometry;
+    unk32 line;
+} CollectableEntry;
+
+typedef struct CollectableData {
+    unk32 count;
+    CollectableEntry entries[0x20];
+    unk32 collectedBits;
+} CollectableData;
+
+typedef struct TutorialPage {
+    unk8 data[0xB4];
+} TutorialPage;
+
+typedef struct TutorialEntry {
+    unk32 line;
+    TutorialPage* sprite;
+} TutorialEntry;
+
+typedef struct TutorialData {
+    unk32 count;
+    TutorialEntry entries[0x20];
+    unk32 unk104;
+    unk8 fontData[0x30];
+    unk32 unk138;
+    unk32 unk13C;
+} TutorialData;
+
+typedef struct MultiPlayerState {
+    unk8 unk0;
+    unk8 unk1;
+    unk8 unk2;
+    unk8 unk3;
+    unk8 unk4;
+    unk8 unk5;
+    unk8 unk6;
+    unk8 pad7[5];
+    struct AllocatedBlock* unkC;
+    unk32 unk10;
+    unk32 unk14;
+    unk32 unk18;
+    unk32 unk1C;
+    unk32 unk20;
+    void* unk24;
+    void* unk28;
+    void* unk2C;
+    void* unk30;
+    void* unk34;
+    void* unk38;
+    void* unk3C;
+    void* unk40;
+} MultiPlayerState;
+
+typedef struct MultiPlayerAllocation {
+    MultiPlayerState state;
+    unk8 data[1];
+} MultiPlayerAllocation;
 
 typedef struct Unk80516E0 {
     unk8 unk0;
@@ -226,7 +339,8 @@ typedef struct LevelDescription {
     s32 unk20;
     s32 unk24;
     s32 unk28;
-    unk8 pad2C[0xA4];
+    LineMetadata** metadata;
+    unk8 pad30[0xA0];
 } LevelDescription;
 
 #define true 1

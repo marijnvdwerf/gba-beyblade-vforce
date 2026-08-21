@@ -132,6 +132,47 @@ def mask_comments_and_strings(text: str) -> str:
     return "".join(out)
 
 
+def mask_if_zero_regions(masked: str) -> str:
+    """Mask definitely-disabled ``#if 0`` branches while preserving lines."""
+    # Parked drafts live under #if 0 above INCLUDE_ASM; do not index them as C.
+    conditional_stack: list[tuple[bool, bool, bool]] = []
+    out: list[str] = []
+    directive_re = re.compile(r"^[ \t]*#[ \t]*(if|ifdef|ifndef|elif|else|endif)\b(.*)$")
+    if_zero_re = re.compile(r"^0[ \t]*$")
+
+    def active() -> bool:
+        return not conditional_stack or conditional_stack[-1][1]
+
+    for line in masked.splitlines(keepends=True):
+        match = directive_re.match(line.rstrip("\r\n"))
+        directive = match.group(1) if match else ""
+        argument = match.group(2) if match else ""
+        current_active = active()
+        if directive in ("if", "ifdef", "ifndef"):
+            is_if_zero = directive == "if" and bool(if_zero_re.fullmatch(argument.strip()))
+            conditional_stack.append((is_if_zero, current_active and not is_if_zero, False))
+            out.append(line)
+            continue
+        if directive in ("elif", "else") and conditional_stack:
+            is_if_zero, branch_active, branch_taken = conditional_stack[-1]
+            if is_if_zero:
+                branch_active = conditional_stack[-1][1]
+                if not branch_taken:
+                    branch_active = not any(not entry[1] for entry in conditional_stack[:-1])
+                conditional_stack[-1] = (is_if_zero, branch_active, True)
+            out.append(line)
+            continue
+        if directive == "endif" and conditional_stack:
+            out.append(line)
+            conditional_stack.pop()
+            continue
+        if current_active:
+            out.append(line)
+        else:
+            out.append("".join("\n" if char == "\n" else "\r" if char == "\r" else " " for char in line))
+    return "".join(out)
+
+
 def matching_brace(text: str, opening: int) -> int | None:
     depth = 0
     for i in range(opening, len(text)):
@@ -207,7 +248,7 @@ def index_c_sources(functions: Functions) -> None:
 
     for path in sorted(SRC_DIR.rglob("*.c")):
         original = path.read_text(encoding="utf-8", errors="replace")
-        masked = mask_comments_and_strings(original)
+        masked = mask_if_zero_regions(mask_comments_and_strings(original))
         depth = 0
         i = 0
         while i < len(masked):
