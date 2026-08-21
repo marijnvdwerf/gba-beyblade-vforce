@@ -130,7 +130,41 @@ void* SpriteString_8064FE8(SpriteString* string, const u8* arg1, unk32 arg2, unk
     return state;
 }
 
-INCLUDE_ASM("asm/dump/8064f38/8065088.s");
+void sub_8065088(SpriteString* string)
+{
+    unk32 x;
+    unk16 i;
+    Actor* actor;
+    unk32 zero;
+    unk32 scale;
+
+    x = string->y;
+    i = 0;
+    if (i < string->count) {
+        zero = 0;
+        scale = 0x80;
+        scale <<= 1;
+        do {
+            actor = &string->actors[i];
+            actor->x = x << 8;
+            actor->y = string->field18 << 8;
+            actor->unk16 = (unk16)zero;
+            actor->unk12 = (unk16)scale;
+            actor->unk14 = (unk16)scale;
+            actor->unk40 = zero;
+            actor->unk44 = zero;
+            actor->unk48 = zero;
+            actor->unk4C = zero;
+            actor->unk50 = zero;
+            actor->unk54 = zero;
+            x += actor->unk10;
+            i++;
+        } while (i < string->count);
+    }
+    string->scaleX = 0x100;
+    string->scaleY = 0x100;
+}
+
 INCLUDE_ASM("asm/dump/8064f38/80650e0.s");
 INCLUDE_ASM("asm/dump/8064f38/80650f8.s");
 INCLUDE_ASM("asm/dump/8064f38/80650fc.s");
