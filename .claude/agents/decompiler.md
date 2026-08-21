@@ -28,7 +28,10 @@ that has no caller in current C.
 4. Replace the `INCLUDE_ASM` line with the C implementation **in exactly the
    same position** in the file (emission order is layout).
 5. Build: `cmake --build build`. Diff: `bun run tools/diff/diff.ts <symbol>`.
-   Iterate until no instructions differ.
+   Iterate until no instructions differ. `.word` rows that differ only in
+   relocation display (symbol vs raw number) are noise — `compare` is the
+   authority. The diff shows C source line numbers (objects are built with
+   `-g`), so you can see which statement each instruction came from.
 6. Run `cmake --build build --target compare` — must pass.
 7. `git rm` the dump file. (The worklist needs no bookkeeping — a decompiled
    function drops out of `uv run tools/worklist.py` automatically.)
@@ -88,6 +91,24 @@ that has no caller in current C.
   after the function (alignment/padding is part of the target).
 - A diff with no differing instructions can still change ROM bytes (padding/literal
   pools). `compare` after every function, no exceptions.
+
+## Extra tools
+
+- `uv run tools/asm-annotated.py src/<file>.c <function>` — recompiles the
+  TU in a temp dir and prints agbcc's generated asm plus the `.lreg`/`.greg`
+  register-allocation dumps (pseudo → hard reg, spills) for your CURRENT C.
+  `--all-passes` adds `.loop`, `.cse`, `.combine`, … Use it when a regalloc
+  or loop-shape diff is stubborn instead of guessing.
+- `uv run tools/callgraph.py <function>` — C-only call tree; 🔴 leaves are
+  not yet in C.
+- `docs/learnings/*.md` — per-function write-ups of what actually moved the
+  diff (e.g. `while (n--)` gives the `n-2 … cmp #-1` loop; loop reversal
+  only fires for signed `<`/`<=`). Read them and `.claude/skills/agbcc/SKILL.md`
+  before starting.
+- The `raw-decomp` worktree (`.claude/worktrees/raw-decomp`, read-only) has
+  many more functions in C. Use it for semantics, names and struct layouts,
+  but re-verify everything here and follow this repo's style rules — it may
+  not match byte-for-byte.
 
 ## When diffs look impossible
 
