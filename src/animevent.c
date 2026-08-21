@@ -1,6 +1,7 @@
 #include "debug.h"
 #include "include_asm.h"
 #include "memory.h"
+#include "unsorted.h"
 
 void sub_805FA4C(PolyTable* arg0);
 void sub_805FA68(PolyTable* arg0);
@@ -36,7 +37,12 @@ void sub_805FA4C(PolyTable* arg0)
     arg0->unk14 = NULL;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805fa68.s");
+void sub_805FA68(PolyTable* arg0)
+{
+    arg0->unk4 = 0;
+    __fastMemoryClearARM(-1, arg0->unk8, arg0->unk10->size);
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805fa8c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805fae8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805fb60.s");
