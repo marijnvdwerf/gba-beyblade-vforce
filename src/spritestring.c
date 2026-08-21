@@ -165,7 +165,14 @@ void sub_8065088(SpriteString* string)
     string->scaleY = 0x100;
 }
 
-INCLUDE_ASM("asm/dump/8064f38/80650e0.s");
+void sub_80650E0(SpriteString* string, unk32 value)
+{
+    if (string->timer == 0 && value != 0) {
+        string->previousX = string->x - 1;
+    }
+    string->timer = value;
+}
+
 INCLUDE_ASM("asm/dump/8064f38/80650f8.s");
 INCLUDE_ASM("asm/dump/8064f38/80650fc.s");
 INCLUDE_ASM("asm/dump/8064f38/8065108.s");
