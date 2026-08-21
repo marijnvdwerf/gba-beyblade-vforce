@@ -8,7 +8,7 @@ extern void sub_80611EC(void*, unk8);
 extern void sub_80611FC(void*, unk8);
 extern unk32 sub_80518F0(void);
 extern unk8 showNumber(void*, unk32, unk8);
-extern unk8 showNumber_2(void*, unk32, unk8);
+extern unk8 showNumber_2(SpriteTextCleanup*, unk32, unk8);
 extern unk8 showString(void*, const u8*, unk8);
 extern LevelDescription* getLevelDescription2(void);
 

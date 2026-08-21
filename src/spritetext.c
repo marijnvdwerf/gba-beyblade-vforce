@@ -121,7 +121,7 @@ unk8 showNumber(SpriteTextCleanup* arg0, s32 arg1, unk8 arg2)
     return showString(arg0, ptr, arg2);
 }
 
-unk8 showNumber_2(void* arg0, unk32 arg1, unk8 arg2)
+unk8 showNumber_2(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
 {
     sub_8061228(arg0);
     return showNumber(arg0, arg1, arg2);
