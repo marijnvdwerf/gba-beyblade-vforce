@@ -21,8 +21,8 @@ u32 _wramBlocksUsed = 0;
 void* _unk3005C8C = NULL;
 AllocatedBlock (*_exramBlocks)[BLOCK_COUNT] = NULL;
 
-AllocatedBlock* sub_805A53C(u32 size, u8* base, u32 totalSize, AllocatedBlock* current,
-    AllocatedBlock* block, AllocatedBlock** nextBlock);
+AllocatedBlock* sub_805A53C(u32 size, u8* base, u32 capacity, AllocatedBlock* current,
+    AllocatedBlock* block, AllocatedBlock** nextBlockPtr);
 
 void initBlockVariables(void)
 {
