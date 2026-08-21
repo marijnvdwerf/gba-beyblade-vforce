@@ -21,7 +21,7 @@ void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, void* arg1)
         count = 0x40;
         nullsub_8(Str_87553D0);
     }
-    for (i = 0; i < (s16)count; i++) {
+    for (i = 0; i < count; i++) {
         arg0->unk14[i] = GetSplineAtIndex(arg0, i);
     }
     arg0->unk114 = NULL;
