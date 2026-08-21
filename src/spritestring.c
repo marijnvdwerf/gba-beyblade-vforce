@@ -1,7 +1,9 @@
 #include "common.h"
 #include "include_asm.h"
+#include "sprite.h"
 
 extern s32 Div(s32, s32);
+extern void sub_8065088(SpriteString*);
 
 s32 sub_8064F38(const u8* str)
 {
@@ -62,7 +64,41 @@ unk32 sub_8064F84(const u8* str)
     return length;
 }
 
-INCLUDE_ASM("asm/dump/8064f38/8064f9c.s");
+void sub_8064F9C(SpriteString* string, unk32 text, unk32 x, unk32 widthTable, unk32 actors,
+    unk32 count, unk32 y, unk32 field18)
+{
+    unk32 zero;
+    unk32 mask;
+    unk32 negativeOne;
+    unk32 scale;
+
+    string->actors = (SpriteEntry*)actors;
+    zero = 0;
+    string->count = (unk8)count;
+    string->y = y;
+    string->field18 = field18;
+    string->text = (const u8*)text;
+    string->x = x;
+    string->previousX = x - 1;
+    mask = 0x10;
+    mask = -mask;
+    string->flags &= (unk8)mask;
+    mask = 0x11;
+    mask = -mask;
+    string->flags &= (unk8)mask;
+    string->widthTable = (const u8*)widthTable;
+    negativeOne = 1;
+    negativeOne = -negativeOne;
+    string->timer = negativeOne;
+    string->mode = (unk16)zero;
+    scale = 0x80;
+    scale <<= 1;
+    string->scaleX = (unk16)scale;
+    string->scaleY = (unk16)scale;
+    string->width = zero;
+    sub_8065088(string);
+}
+
 INCLUDE_ASM("asm/dump/8064f38/8064fe8-SpriteString_8064FE8.s");
 INCLUDE_ASM("asm/dump/8064f38/8065088.s");
 INCLUDE_ASM("asm/dump/8064f38/80650e0.s");

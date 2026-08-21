@@ -146,6 +146,26 @@ typedef struct SpriteTextCleanup {
     SpriteEntry* ptr2C;
 } SpriteTextCleanup;
 
+typedef struct SpriteString SpriteString;
+
+struct SpriteString {
+    SpriteEntry* actors;
+    unk8 count;
+    unk8 flags;
+    unk16 mode;
+    unk32 x;
+    unk32 previousX;
+    const u8* text;
+    unk32 y;
+    unk32 field18;
+    unk8 pad1C[4];
+    unk32 width;
+    unk16 scaleX;
+    unk16 scaleY;
+    const u8* widthTable;
+    unk32 timer;
+};
+
 typedef struct RiderBase {
     unk8 unk0[0x238];
     unk8 unk238[4];
