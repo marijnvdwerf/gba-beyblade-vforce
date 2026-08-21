@@ -78,6 +78,11 @@ that has no caller in current C.
 - **Never emit fake symbols** (zero-size markers, `.NON_MATCHING` labels).
   If trailing bytes differ, the legitimate tool is file-scope
   `asm(".align 2, 0\n");` (the original zero-pads where agbcc emits `0xC046`).
+- **No casts on struct-field reads/writes.** `(s8)p->unk0` means `unk0` *is*
+  `s8` — fix the declaration. The same goes for `(T*)p->unkNN` on pointer
+  fields and `*(u8*)&p->unkNN` on halfwords: find the real field shape.
+  Tables walked with `base + i * SIZE` are arrays of a SIZE-byte struct —
+  declare them as such and index.
 - C90: declarations before statements. Run `clang-format -i` on every file
   you touched before committing/reporting (config in `.clang-format`).
 

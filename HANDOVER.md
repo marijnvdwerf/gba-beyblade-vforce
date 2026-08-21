@@ -91,6 +91,7 @@ grep INCLUDE_ASM.
 | leaves-round2 | sub_805E50C, sub_805E514 (geometry.c), sub_8061228 (spritetext.c), sub_804B4A4 (rider.c), newPolyTable (animevent.c) | running |
 | init-functions | initCollectables, initTutorialManagement, initMultiPlayer | running |
 | skill distill (gpt-5.6-sol) | .claude/skills/agbcc/SKILL.md from all learnings | running; review diff before commit |
+| gamestate-cleanup | the 10 merged gamestate.c functions | running: typed LevelDescriptions[] (unify ActiveLevelDescription), LevelState[] in CurrentGameState, s8 unk0, no field casts → docs/learnings/gamestate-cleanup.md |
 
 Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
 sub_8054FE0), sub_8062C24 (sound), LoadHUD, sub_8060CDC. Red set on
