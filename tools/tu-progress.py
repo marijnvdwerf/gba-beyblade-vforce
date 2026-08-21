@@ -136,14 +136,14 @@ def mask_if_zero_regions(masked: str) -> str:
     # Parked drafts live under #if 0 above INCLUDE_ASM; do not index them as C.
     conditional_stack: list[tuple[bool, bool, bool]] = []
     out: list[str] = []
-    directive_re = re.compile(r"^[ \\t]*#[ \\t]*(if|ifdef|ifndef|elif|else|endif)\\b(.*)$")
-    if_zero_re = re.compile(r"^0[ \\t]*$")
+    directive_re = re.compile(r"^[ \t]*#[ \t]*(if|ifdef|ifndef|elif|else|endif)\b(.*)$")
+    if_zero_re = re.compile(r"^0[ \t]*$")
 
     def active() -> bool:
         return not conditional_stack or conditional_stack[-1][1]
 
     for line in masked.splitlines(keepends=True):
-        match = directive_re.match(line.rstrip("\\r\\n"))
+        match = directive_re.match(line.rstrip("\r\n"))
         directive = match.group(1) if match else ""
         argument = match.group(2) if match else ""
         current_active = active()
@@ -168,7 +168,7 @@ def mask_if_zero_regions(masked: str) -> str:
         if current_active:
             out.append(line)
         else:
-            out.append("".join("\\n" if char == "\\n" else "\\r" if char == "\\r" else " " for char in line))
+            out.append("".join("\n" if char == "\n" else "\r" if char == "\r" else " " for char in line))
     return "".join(out)
 
 
