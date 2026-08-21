@@ -3,12 +3,12 @@
 #include "unsorted.h"
 
 extern void* loadLevelGeometry(u16);
-extern unk32 getLevelMetadata(u16);
+extern void* getLevelMetadata(u16);
 extern void getLevelGeometryAddresses(LevelGeometryAddresses*, void*);
-extern void StoreMetadataAddr(LevelGeometryAddresses*, unk32);
-extern unk32 GetLineMetaData(LevelGeometryAddresses*, unk32);
+extern void StoreMetadataAddr(LevelGeometryAddresses*, void*);
+extern void* GetLineMetaData(LevelGeometryAddresses*, s32);
 extern LevelState* sub_8051734(void);
-extern void* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, unk32, unk32, unk32);
+extern void* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, void*, unk32, unk32);
 extern const char Str_8729804[];
 
 void initCollectables(u16 levelId)
@@ -17,11 +17,11 @@ void initCollectables(u16 levelId)
     GameData* gameData = _gameData;
     CollectableData* data;
     void* geometryData;
-    unk32 metadata;
+    void* metadata;
     LevelState* state;
     CollectableEntry* entry;
     LevelGeometryLine* line;
-    unk32 lineMeta;
+    void* lineMeta;
     s32 count;
     s32 i;
 

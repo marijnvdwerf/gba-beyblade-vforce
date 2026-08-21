@@ -19,14 +19,17 @@ void StoreLevelVar14(unk32 arg0)
 INCLUDE_ASM("asm/dump/8040d18/804a364.s");
 INCLUDE_ASM("asm/dump/8040d18/804a378.s");
 extern void* loadLevelGeometry(u16);
-extern unk32 getLevelMetadata(u16);
+extern void* getLevelMetadata(u16);
 extern void getLevelGeometryAddresses(LevelGeometryAddresses*, void*);
-extern void StoreMetadataAddr(LevelGeometryAddresses*, unk32);
-extern unk32 GetLineMetaData(LevelGeometryAddresses*, unk32);
+extern void StoreMetadataAddr(LevelGeometryAddresses*, void*);
+extern void* GetLineMetaData(LevelGeometryAddresses*, s32);
 extern void sub_8051734(void);
-extern LineMetaObject* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, unk32, unk32, unk32);
-extern void allocFont(void*, void*, void*, unk32, unk32, unk32, unk32);
+extern LineMetaObject* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, void*, unk32, unk32);
+extern void allocFont(void*, const void*, const void*, unk32, unk32, unk32, unk32);
 extern const char Str_87233E8[];
+extern const u8 SpriteSheet_82B05EC[];
+extern const u8 ShadowFontMeta[];
+extern TutorialPage TutorialPages[];
 
 void initTutorialManagement(u16 levelId)
 {
@@ -35,8 +38,8 @@ void initTutorialManagement(u16 levelId)
     TutorialData* data;
     TutorialEntry* entry;
     void* geometryData;
-    unk32 metadata;
-    unk32 lineMetadata;
+    void* metadata;
+    void* lineMetadata;
     LineMetaObject* metaobject;
     s32 count;
     s32 line;
@@ -63,7 +66,7 @@ void initTutorialManagement(u16 levelId)
                 metaobject = getLineMetaobjectByTypeAndId(&geometry, lineMetadata, 1, 0x8CEC);
                 if (metaobject != NULL) {
                     entry->line = line;
-                    entry->sprite = (void*)(0x0806CFE0 + metaobject->unk8 * 0xB4);
+                    entry->sprite = &TutorialPages[metaobject->unk8];
                     count++;
                     entry++;
                 }
@@ -71,7 +74,7 @@ void initTutorialManagement(u16 levelId)
         }
         data->unk104 = 0;
         data->count = count;
-        allocFont(data->fontData, (void*)0x082B05EC, (void*)0x08067AE0, 0x24, 0x73, 0xBA, 0);
+        allocFont(data->fontData, SpriteSheet_82B05EC, ShadowFontMeta, 0x24, 0x73, 0xBA, 0);
         data->unk138 = 0;
         data->unk13C = 0;
     }

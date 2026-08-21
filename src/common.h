@@ -209,9 +209,13 @@ typedef struct LineMetaObject {
     unk32 unk8;
 } LineMetaObject;
 
+typedef struct TutorialPage {
+    unk8 data[0xB4];
+} TutorialPage;
+
 typedef struct TutorialEntry {
     unk32 line;
-    void* sprite;
+    TutorialPage* sprite;
 } TutorialEntry;
 
 typedef struct TutorialData {
