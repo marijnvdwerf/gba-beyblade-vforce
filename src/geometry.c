@@ -32,9 +32,35 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805ba7c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bac0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bad8-getLineMetaAtIndex.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bafc.s");
+
+#if 0
+LineMetaObject* getLineMetaObjectBytype(
+    LevelGeometryAddresses* arg0, LineMetadata* metadata, unk32 type)
+{
+    LineMetaObject* ptr;
+    s32 index;
+    unk16 count;
+
+    index = 0;
+    ptr = &metadata->objects[0];
+    if (metadata != NULL) {
+        count = metadata->count;
+        if (index < count) {
+            do {
+                if (ptr->type == type) {
+                    return ptr;
+                }
+                ptr = (LineMetaObject*)((unk8*)ptr + ptr->size);
+                index++;
+            } while (index < count);
+        }
+    }
+    return NULL;
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/805bb2c-getLineMetaObjectBytype.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805bb5c-getLineMetaobjectByTypeAndId.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805bb9c-initQuadTree.s");
+- getLineMetaobjectByTypeAndId.s ");
+    INCLUDE_ASM("asm/dump/8057b80-debug/805bb9c-initQuadTree.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bbc8-allocQuadTree.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bdbc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bf18.s");
