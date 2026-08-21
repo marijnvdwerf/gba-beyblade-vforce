@@ -1,6 +1,7 @@
 #include "common.h"
 #include "include_asm.h"
 #include "memory.h"
+#include "sprite.h"
 #include "system.h"
 #include "unsorted.h"
 
@@ -46,9 +47,9 @@ extern AllocatedBlock* _spritesBlock;
 extern AllocatedBlock* _rotationScaleBlock;
 extern AllocatedBlock* _SpriteVramFreeList_block;
 extern SpriteStruct2* _SpriteVramFreeList;
-extern SpriteEntry* _rotationScale;
-extern SpriteEntry* _unk3005DF8;
-extern SpriteEntry* _rotationScale_end;
+extern SpriteRotationScaleEntry* _rotationScale;
+extern void* _unk3005DF8;
+extern SpriteRotationScaleEntry* _rotationScale_end;
 extern SpriteEntry* _spritesLeft;
 extern unk32 _spritesFree;
 extern SpriteEntry* _sprites;
@@ -93,16 +94,132 @@ void sub_80604D4(SpriteEntry* current)
     } while (current != NULL);
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8060520-SpriteVRamFree.s");
+void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
+{
+    AllocatedBlock* block;
+    SpriteEntry* sprite;
+    void* prev;
+    SpriteRotationScaleEntry* rotation;
+    SpriteStruct2* free_entry;
+    SpriteStruct2* vram_entry;
+    SpriteStruct2* next;
+    unk32 rotation_address;
+    s32 i;
 
-// 875594C
-const u8 Str_875594C[] = "Not enough RAM for sprites";
+    _unk3005E74 = 0x800;
+    _unk3005E6C = 0;
+    if (max_sprites > 0x80) {
+        max_sprites = 0x80;
+    }
+    if (max_rotation_scale > 0x20) {
+        max_rotation_scale = 0x20;
+    }
+    if (_spritesBlock != NULL) {
+        deallocateBlock(_spritesBlock);
+        _spritesBlock = NULL;
+    }
+    if (_rotationScaleBlock != NULL) {
+        deallocateBlock(_rotationScaleBlock);
+        _rotationScaleBlock = NULL;
+    }
+    if (_SpriteVramFreeList_block != NULL) {
+        deallocateBlock(_SpriteVramFreeList_block);
+        _SpriteVramFreeList_block = NULL;
+    }
 
-// 8755968
-const u8 Str_8755968[] = "Not enough RAM for rotation/scale";
+    if (max_sprites != 0) {
+        _spritesBlock = fastAllocate(max_sprites * 0x34);
+        if (_spritesBlock == NULL) {
+            nullsub_8("Not enough RAM for sprites");
+        }
+    }
+    if (max_rotation_scale != 0) {
+        _rotationScaleBlock = fastAllocate(max_rotation_scale * 0x1C);
+        if (_rotationScaleBlock == NULL) {
+            nullsub_8("Not enough RAM for rotation/scale");
+        }
+    }
 
-// 875598C
-const u8 Str_875598C[] = "Error allocating memory for SpriteVramFree list\n";
+    block = fastAllocate(0x100);
+    _SpriteVramFreeList_block = block;
+    if (block == NULL) {
+        printf("Error allocating memory for SpriteVramFree list\n");
+        _SpriteVramFreeList = NULL;
+    } else {
+        _SpriteVramFreeList = (SpriteStruct2*)block->address;
+    }
+
+    if (_spritesBlock != NULL) {
+        _sprites = (SpriteEntry*)_spritesBlock->address;
+    } else {
+        _sprites = NULL;
+    }
+    if (_rotationScaleBlock != NULL) {
+        _rotationScale = (SpriteRotationScaleEntry*)_rotationScaleBlock->address;
+    } else {
+        _rotationScale = NULL;
+    }
+    if (_sprites != NULL) {
+        __fastMemoryClearARM(0, _sprites, _spritesBlock->size);
+    }
+    if (_rotationScale != NULL) {
+        __fastMemoryClearARM(0, _rotationScale, _rotationScaleBlock->size);
+    }
+
+    if (max_sprites != 0) {
+        sprite = _sprites;
+        rotation = _rotationScale;
+        prev = NULL;
+        /* Reversed loops reproduce agbcc's loop reversal. */
+        for (i = max_sprites - 2; i != -1; i--) {
+            sprite->prev = prev;
+            sprite->next = sprite + 1;
+            sprite->var24 = -1;
+            prev = sprite;
+            sprite = sprite->next;
+        }
+        sprite->prev = prev;
+        sprite->next = NULL;
+        _unk3005DE4 = NULL;
+        _spritesLeft = _sprites;
+        _spritesFree = max_sprites;
+    }
+
+    if (max_rotation_scale != 0) {
+        prev = NULL;
+        rotation_address = 0x07000000;
+        for (i = max_rotation_scale - 2; i != -1; i--) {
+            rotation->prev = prev;
+            rotation->next = rotation + 1;
+            rotation->oamAddr = rotation_address;
+            rotation_address += 0x20;
+            prev = rotation;
+            rotation = rotation->next;
+        }
+        rotation->prev = prev;
+        rotation->next = NULL;
+        rotation->oamAddr = rotation_address;
+        _unk3005DF8 = NULL;
+        _rotationScale_end = _rotationScale;
+    }
+
+    vram_entry = _SpriteVramFreeList;
+    if (vram_entry != NULL) {
+        _unk3005DC8 = vram_entry;
+        _unk3005DD8 = vram_entry + 1;
+        free_entry = vram_entry + 1;
+        vram_entry->var00 = 0;
+        vram_entry->var02 = 0x400;
+        vram_entry->next = NULL;
+        next = free_entry;
+        for (i = 29; i != -1; i--) {
+            next->next = next + 1;
+            next = next->next;
+        }
+        next->next = NULL;
+    }
+    __fastMemoryClearARM(0xA0, (void*)0x07000000, 0x400);
+}
 
 s32 sub_8060790(s32 arg0)
 {
@@ -350,8 +467,8 @@ void sub_8060B38(SpriteEntry* spriteEntry)
         if (next != NULL) {
             next->prev = prev;
         }
-        spriteEntry->next = _rotationScale_end;
-        _rotationScale_end = spriteEntry;
+        spriteEntry->next = (SpriteEntry*)_rotationScale_end;
+        _rotationScale_end = (SpriteRotationScaleEntry*)spriteEntry;
     }
 }
 
