@@ -1,8 +1,29 @@
 #include "include_asm.h"
+#include "memory.h"
+
+extern void sub_80588A8(unk8*);
+extern void sub_804EBE8(unk8*);
+extern void sub_8060A94(void);
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b07c-initRider.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b2cc-processRiderMetadata.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804b4a4.s");
+
+void sub_804B4A4(RiderBase* arg0)
+{
+    sub_80588A8(arg0->unk238);
+    sub_80588A8(arg0->unk2FC);
+    if (arg0->unk420 != NULL) {
+        deallocateBlock(arg0->unk420);
+        arg0->unk420 = NULL;
+    }
+    if (arg0->unk3E8 != 0) {
+        sub_804EBE8(arg0->unk3EC);
+    }
+    if (arg0->unk3C4 != 0) {
+        sub_8060A94();
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b4fc.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b5c0.s");
 

@@ -66,8 +66,23 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805e0d8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e18c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e320.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e474.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805e50c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805e514.s");
+
+void sub_805E50C(unk32* arg0, unk32 arg1, unk32 arg2, unk32 arg3)
+{
+    arg0[0] = arg1;
+    arg0[1] = arg2;
+    arg0[2] = arg3;
+}
+
+unk32* sub_805E514(unk32* arg0, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4)
+{
+    arg0[0] = arg1;
+    arg0[1] = arg2;
+    arg0[3] = arg4;
+    arg0[2] = arg3;
+    return arg0;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805e528.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e648.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e77c.s");
