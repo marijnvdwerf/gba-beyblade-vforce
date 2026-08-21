@@ -10,6 +10,12 @@ extern void nullsub_8(const char*);
 extern void actor_8057C58(Actor*, unk32, unk32, unk32, unk32, unk32, unk32);
 extern void sub_80585C8(Actor*, unk32);
 extern const u8 Str_8756844[];
+extern const u8 byte_807D980[];
+extern void ActorSetFrame(Actor*, s32, unk8);
+extern s32 DivRem(s32, s32);
+extern unk32 sub_80655C0(SpriteString*, s32, unk16, unk16, unk8);
+extern void sub_8058794(Actor*, unk32, unk32, unk32, unk32);
+extern void sub_80588DC(Actor*);
 
 s32 sub_8064F38(const u8* str)
 {
@@ -246,10 +252,25 @@ void sub_80653B0(SpriteString* string)
 }
 
 INCLUDE_ASM("asm/dump/8064f38/80653d8.s");
+
 INCLUDE_ASM("asm/dump/8064f38/8065508.s");
 INCLUDE_ASM("asm/dump/8064f38/80655c0.s");
 INCLUDE_ASM("asm/dump/8064f38/80656b8.s");
-INCLUDE_ASM("asm/dump/8064f38/806570c.s");
+
+void sub_806570C(SpriteString* string, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 step)
+{
+    unk16 i;
+    unk32 offset;
+
+    offset = 0;
+    i = 0;
+    while (i < string->count) {
+        sub_8058794(&string->actors[i], arg1, arg2, arg3, arg4 + offset);
+        offset += step;
+        i++;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8064f38/8065760.s");
 INCLUDE_ASM("asm/dump/8064f38/80657c4.s");
 INCLUDE_ASM("asm/dump/8064f38/80657ec.s");
