@@ -35,8 +35,8 @@ typedef struct GameData {
     AllocatedBlock* unk428; /* 0x428 */
     RiderBase* unk42C; /* 0x42C */
     s32 unk430; /* 0x430 */
-    void* unk434; /* 0x434 */
-    unk8 pad438[0x224]; /* 0x438 */
+    EnvironmentActorCallbackData unk434[4]; /* 0x434 */
+    unk8 pad654[8]; /* 0x654 */
     GeometryAddressTable unk65C; /* 0x65C */
     unk8 pad670[0x4C]; /* 0x670 */
     unk32 unk6BC; /* 0x6BC */
