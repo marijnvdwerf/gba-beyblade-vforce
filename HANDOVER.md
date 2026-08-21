@@ -84,10 +84,13 @@ grep INCLUDE_ASM.
 | event.c | deallocEventListeners, initEventListeners | 1/2; 0x80-byte local aggregate in init; review-event.md sent |
 | small leaves | sub_8061204, sub_805BA3C, deallocateQuadTree, sub_804A72C, emptyBeybladeActorData, deallocBeybladeActorData, sub_8055CB8, sub_804F800, sub_804FEE8 | 9/9 MERGED c1313c1 (QuadTree @0x7A4 = 0x58 bytes; sub_804F800/sub_804FEE8 need a `GameData* base` local — see small-leaves.md); worktree removed |
 | temp-reduction | the 11 merged functions (gameinit, beyblade, collision, geometry, hud, levelhud, spritetext, tutorial) | running: remove optional local aliases while keeping the match → docs/learnings/temp-reduction.md |
+| leaves-round2 | sub_805E50C, sub_805E514 (geometry.c), sub_8061228 (spritetext.c), sub_804B4A4 (rider.c), newPolyTable (animevent.c) | running |
+| init-functions | initCollectables, initTutorialManagement, initMultiPlayer | running |
+| skill distill (gpt-5.6-sol) | .claude/skills/agbcc/SKILL.md from all learnings | running; review diff before commit |
 
 Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
-sub_8054FE0), initMultiPlayer, sub_8062C24 (sound), LoadHUD, initCollectables,
-initTutorialManagement, newPolyTable, sub_8060CDC.
+sub_8054FE0), sub_8062C24 (sound), LoadHUD, sub_8060CDC. Red set on
+2026-08-21 after merges: 31 functions / 4,335 lines.
 
 Skipped (no C caller): sub_8062EFC (actorheap.c).
 
