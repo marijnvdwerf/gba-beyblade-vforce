@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-08-21, end of session 2 (main at 09b7c1c+).
+Last updated: 2026-08-21, end of session 2 (all agents finished; keepalive stopped).
 
 ## How to work
 
@@ -50,7 +50,8 @@ Last updated: 2026-08-21, end of session 2 (main at 09b7c1c+).
   that folds the top-level `docs/learnings/*.md` into the skill and `git mv`s
   them to `docs/learnings/processed/` (the permission classifier may block
   `git mv` for agents — do the move yourself then). Review its diff.
-- Temp-reduction pass after every merged batch (done: passes 1–3).
+- Temp-reduction pass after every merged batch (done: passes 1–4;
+  `docs/learnings/temp-reduction-4.md` is still top-level for the next sol batch).
 - Tool-building agents (`general-purpose`, luna) work on main and don't
   commit; review and commit their files explicitly.
 
@@ -83,8 +84,7 @@ functions; session 1 merged 8.
 
 | worktree | scope | status |
 |---|---|---|
-| temp-reduction-4 | sub_8054FE0, GetSplineAtIndex, getLineMetaobjectByTypeAndId, showString, printf | running (worktree) |
-| sol learnings pass | fold 6 top-level docs/learnings into agbcc skill, move to processed/ | running (main, uncommitted) |
+| (none) | all worktrees merged and removed; temp-reduction pass 4 and sol skill pass done | — |
 
 ### Parked (attempted, not matched)
 
