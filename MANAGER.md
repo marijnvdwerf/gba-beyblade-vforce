@@ -44,6 +44,11 @@ description: Session rules for orchestrating decompilation subagents
 - `-g` is in the build (verified byte-neutral); `diff.ts` shows source
   lines and no match %; `.word` rows differing only in symbol display are
   noise — `compare` is the authority.
+- Skill maintenance is batched: the manager does NOT edit
+  `.claude/skills/agbcc/SKILL.md` by hand. New patterns go into the agents'
+  `docs/learnings/*.md`; periodically a **gpt-5.6-sol** agent processes the
+  batch (folds generic patterns into the skill, then `git mv`s the consumed
+  files to `docs/learnings/processed/`). The manager only reviews its diff.
 - `HANDOVER.md` is the living state file for the next session (active
   agents, merged work, stuck points, next candidates). Update it on every
   merge, every agent start/finish, and every change of plan.

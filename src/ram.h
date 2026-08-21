@@ -105,9 +105,29 @@ typedef struct GameData {
     UnkMotion levelHudMotion0; /* 0x1010 */
     UnkMotion levelHudMotion1; /* 0x1028 */
     unk32 levelHudStatus; /* 0x1040 */
-    unk8 pad1044[0x38]; /* 0x1044 */
+    unk32 unk1044; /* 0x1044 */
+    unk32 unk1048; /* 0x1048 */
+    unk32 unk104C; /* 0x104C */
+    unk32 unk1050; /* 0x1050 */
+    unk16 unk1054; /* 0x1054 */
+    unk16 unk1056; /* 0x1056 */
+    unk16 unk1058; /* 0x1058 */
+    unk16 unk105A; /* 0x105A */
+    unk16 unk105C; /* 0x105C */
+    unk16 unk105E; /* 0x105E */
+    void* unk1060; /* 0x1060 */
+    void* unk1064; /* 0x1064 */
+    void* unk1068; /* 0x1068 */
+    unk32 unk106C; /* 0x106C */
+    unk32 unk1070; /* 0x1070 */
+    void* unk1074; /* 0x1074 */
+    unk16 unk1078; /* 0x1078 */
+    unk16 unk107A; /* 0x107A */
     unk8 unk107C; /* 0x107C */
-    unk8 pad107D[0x93]; /* 0x107D */
+    unk8 unk107D; /* 0x107D */
+    unk8 pad107E[2]; /* 0x107E */
+    unk32 unk1080; /* 0x1080 */
+    unk8 pad1084[0x8C]; /* 0x1084 */
     BeybladeActorData actorData[0x3C]; /* 0x1110 */
     u16 unk12F0; /* 0x12F0 */
     unk8 pad12F2[0x10A]; /* 0x12F2 */

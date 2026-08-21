@@ -52,7 +52,7 @@ extern SpriteRotationScaleEntry* _rotationScale;
 extern void* _unk3005DF8;
 extern SpriteRotationScaleEntry* _rotationScale_end;
 extern SpriteEntry* _spritesLeft;
-extern unk32 _spritesFree;
+extern u32 _spritesFree;
 extern SpriteEntry* _sprites;
 
 SpriteEntry* _unk3005DE4;
@@ -105,7 +105,7 @@ void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
     SpriteStruct2* vram_entry;
     SpriteStruct2* next;
     unk32 rotation_address;
-    u32 n;
+    unk32 n;
 
     _unk3005E74 = 0x800;
     _unk3005E6C = 0;
@@ -477,7 +477,54 @@ void sub_8060B38(SpriteEntry* spriteEntry)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8060b68-LoadSpriteSheet.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8060c1c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8060cdc.s");
+
+void sub_8060CDC(SpriteEntry* block)
+{
+    SpriteEntry* first;
+    SpriteEntry* last;
+    SpriteEntry* prev;
+    SpriteEntry* next;
+    SpriteEntry* cur;
+    unk32 n;
+
+    if (block->x == 0) {
+        return;
+    }
+
+    first = block->prev;
+    last = block->next;
+    prev = first->prev;
+    next = last->next;
+    _spritesFree += block->x;
+    cur = first;
+    n = block->x;
+    while (n--) {
+        if (cur->unk30 != NULL) {
+            sub_8060B38(cur->unk30);
+            cur->unk30 = NULL;
+        }
+        if (cur->var24 >= 0) {
+            freeSpriteVramLocation(cur->var24, 1 << (cur->var16 - 5));
+        }
+        cur->var24 = -1;
+        cur = cur->next;
+    }
+    if (prev != NULL) {
+        prev->next = next;
+    } else {
+        _unk3005DE4 = next;
+    }
+    if (next != NULL) {
+        next->prev = prev;
+    }
+    last->next = _spritesLeft;
+    _spritesLeft = first;
+    block->x = 0;
+    block->prev = NULL;
+    block->next = NULL;
+    sub_80604D4(_unk3005DE4);
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8060d98-resizeSpriteBlock.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8060e8c.s");
 

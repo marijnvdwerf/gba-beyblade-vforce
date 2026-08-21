@@ -1,7 +1,74 @@
 #include "include_asm.h"
 #include "ram.h"
+#include "sprite.h"
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ec14-LoadHUD.s");
+extern void allocFont(void*, const void*, const void*, unk32, unk32, unk32, unk32);
+extern void LoadSpriteSheet(void*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);
+extern void sub_80611EC(void*, unk8);
+extern void sub_80611FC(void*, unk8);
+extern unk32 sub_80518F0(void);
+extern unk8 showNumber(void*, unk32, unk8);
+extern unk8 showNumber_2(void*, unk32, unk8);
+extern unk8 showString(void*, const u8*, unk8);
+extern LevelDescription* getLevelDescription2(void);
+
+extern const u8 SpriteSheet_82B1A84[];
+extern const u8 LargeFontMeta[];
+extern const u8 SpriteSheet_82B05EC[];
+extern const u8 ShadowFontMeta[];
+extern const u8 SpriteSheet_821CF10[];
+extern const u8 SpriteSheet_821DB5C[];
+extern const u8 SpriteSheet_821DEA8[];
+extern const u8 Str_8727048[];
+
+void LoadHUD(void)
+{
+    SpriteTextCleanup* hud0;
+    SpriteTextCleanup* hud1;
+    GameData* gameData;
+    SpriteTextCleanup* hud3;
+
+    gameData = _gameData;
+    hud0 = &gameData->levelHud0;
+    allocFont(hud0, SpriteSheet_82B1A84, LargeFontMeta, 0, -0x10, 0xF0, 2);
+    hud1 = &gameData->levelHud1;
+    allocFont(hud1, SpriteSheet_82B1A84, LargeFontMeta, 0, 0xA0, 0xF0, 2);
+    sub_80611FC(hud0, 4);
+    sub_80611FC(hud1, 4);
+    sub_80611EC(hud1, 0xE);
+    allocFont(&gameData->levelHud2, SpriteSheet_82B05EC, ShadowFontMeta, 0, -0x20, 0xEE, 0);
+    gameData->unk1044 = 0;
+    gameData->unk1048 = 0;
+    gameData->unk104C = 0;
+    gameData->unk1050 = 0;
+    gameData->unk105C = 0;
+    gameData->unk1054 = 0;
+    gameData->unk1056 = 0;
+    gameData->unk1058 = 0;
+    gameData->levelHudStatus = 0;
+    gameData->unk105A = 0;
+    gameData->unk1060 = allocSprite(0);
+    gameData->unk1064 = allocSprite(0);
+    gameData->unk1074 = allocSprite(0);
+    gameData->unk1068 = 0;
+    gameData->unk106C = 0;
+    LoadSpriteSheet(gameData->unk1060, SpriteSheet_821CF10, 0x200, -0x2000, 0, 0, 0, 0);
+    LoadSpriteSheet(gameData->unk1064, SpriteSheet_821DB5C, 0x4200, -0x2000, 0, 0, 0, 0);
+    LoadSpriteSheet(gameData->unk1074, SpriteSheet_821DEA8, 0xCE00, -0x2000, 0, 0, 0, 0);
+    hud3 = &gameData->levelHud3;
+    allocFont(hud3, SpriteSheet_82B05EC, ShadowFontMeta, 0, -0x20, 0x1C, 2);
+    gameData->unk107D = sub_80518F0();
+    showNumber_2(hud3, gameData->unk107D, 0xF);
+    showString(hud3, Str_8727048, 0xF);
+    showNumber(hud3, getLevelDescription2()->unk1, 0xF);
+    gameData->unk107A = 0;
+    gameData->unk1078 = 0;
+    gameData->unk1070 = 0;
+    gameData->unk107C = 0;
+    gameData->unk1080 = -0x4000;
+    gameData->unk105E = 0;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ee2c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ee54.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f05c.s");
