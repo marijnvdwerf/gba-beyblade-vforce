@@ -52,7 +52,7 @@ extern SpriteRotationScaleEntry* _rotationScale;
 extern void* _unk3005DF8;
 extern SpriteRotationScaleEntry* _rotationScale_end;
 extern SpriteEntry* _spritesLeft;
-extern unk32 _spritesFree;
+extern u32 _spritesFree;
 extern SpriteEntry* _sprites;
 
 SpriteEntry* _unk3005DE4;
@@ -105,7 +105,7 @@ void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
     SpriteStruct2* vram_entry;
     SpriteStruct2* next;
     unk32 rotation_address;
-    u32 n;
+    unk32 n;
 
     _unk3005E74 = 0x800;
     _unk3005E6C = 0;
@@ -172,7 +172,7 @@ void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
         rotation = _rotationScale;
         prev = NULL;
         n = max_sprites - 1;
-        while (n--) {
+        for (; n > 0; n--) {
             sprite->prev = prev;
             sprite->next = sprite + 1;
             sprite->var24 = -1;
@@ -190,7 +190,7 @@ void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
         prev = NULL;
         rotation_address = 0x07000000;
         n = max_rotation_scale - 1;
-        while (n--) {
+        for (; n > 0; n--) {
             rotation->prev = prev;
             rotation->next = rotation + 1;
             rotation->oamAddr = rotation_address;
@@ -215,7 +215,7 @@ void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
         vram_entry->next = NULL;
         next = free_entry;
         n = 30;
-        while (n--) {
+        for (; n > 0; n--) {
             next->next = next + 1;
             next = next->next;
         }
@@ -480,68 +480,49 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8060c1c.s");
 
 void sub_8060CDC(SpriteEntry* block)
 {
-    u32 size;
-    u32 count;
     SpriteEntry* first;
-    SpriteEntry* current;
-    SpriteEntry* previous;
-    SpriteEntry* block_next;
+    SpriteEntry* last;
+    SpriteEntry* prev;
     SpriteEntry* next;
-    SpriteEntry* saved_next;
-    SpriteEntry** head_ptr;
-    SpriteEntry** storage;
-    SpriteEntry** free_list;
-    SpriteEntry* free_value;
-    u32 sentinel;
+    SpriteEntry* cur;
+    unk32 n;
 
-    size = block->x;
-    if (size == 0) {
+    if (block->x == 0) {
         return;
     }
 
     first = block->prev;
-    block_next = block->next;
-    saved_next = block_next;
-    previous = first->prev;
-    next = block_next->next;
-    *(u32*)&_spritesFree += size;
-    current = first;
-    count = size - 1;
-    if (count != (u32)-1) {
-        sentinel = (u32)-1;
-        do {
-            if (current->unk30 != NULL) {
-                sub_8060B38(current->unk30);
-                current->unk30 = NULL;
-            }
-            if (current->var24 >= 0) {
-                freeSpriteVramLocation(current->var24, 1 << (current->var16 - 5));
-            }
-            current->var24 = sentinel;
-            current = current->next;
-            count -= 1;
-        } while (count != sentinel);
+    last = block->next;
+    prev = first->prev;
+    next = last->next;
+    _spritesFree += block->x;
+    cur = first;
+    n = block->x;
+    while (n--) {
+        if (cur->unk30 != NULL) {
+            sub_8060B38(cur->unk30);
+            cur->unk30 = NULL;
+        }
+        if (cur->var24 >= 0) {
+            freeSpriteVramLocation(cur->var24, 1 << (cur->var16 - 5));
+        }
+        cur->var24 = -1;
+        cur = cur->next;
     }
-
-    if (previous != NULL) {
-        previous->next = next;
-        head_ptr = &_unk3005DE4;
+    if (prev != NULL) {
+        prev->next = next;
     } else {
-        storage = &_unk3005DE4;
-        *storage = next;
-        head_ptr = storage;
+        _unk3005DE4 = next;
     }
     if (next != NULL) {
-        next->prev = previous;
+        next->prev = prev;
     }
-    free_list = &_spritesLeft;
-    free_value = *free_list;
-    saved_next->next = free_value;
-    *free_list = first;
+    last->next = _spritesLeft;
+    _spritesLeft = first;
     block->x = 0;
     block->prev = NULL;
     block->next = NULL;
-    sub_80604D4(*head_ptr);
+    sub_80604D4(_unk3005DE4);
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8060d98-resizeSpriteBlock.s");
