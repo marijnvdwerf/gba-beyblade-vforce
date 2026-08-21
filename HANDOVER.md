@@ -36,7 +36,9 @@ Last updated: 2026-08-21 (session 2).
   `n-2 … cmp #-1` = `while (n--)`, fresh `mov #0` = literal NULL, `Str_*`
   right after a function = inline literals, independent `cmp #-1` after
   each store = chained/sequential assignments.
-- NEVER `git commit -a` from a shell that is cd'd into a worktree: it lands
+- NEVER use `git commit -a` at all (it sweeps concurrent agents' in-progress
+  edits on main, e.g. tool files, into unrelated commits); stage paths
+  explicitly. Never commit from a shell cd'd into a worktree: it lands
   on the agent's branch and sweeps its in-progress files into the commit
   (happened in session 2; fixed by exporting patches). Always `cd` back to
   the main checkout first, or use `git -C`.
