@@ -61,6 +61,8 @@ Last updated: 2026-08-21 (session 2).
 - `uv run tools/asm-annotated.py src/<f>.c <fn> [--all-passes]` — agbcc asm
   + `.lreg`/`.greg` (and `.loop` …) dumps for the current C.
 - `uv run tools/worklist.py` — functions called from C but still asm.
+- `uv run tools/tu-progress.py [--asm-lines]` — per-TU INCLUDE_ASM remaining vs C
+  count; done TUs green.
 - `expected/` is a flat copy of `build/` (`tools/update-expected`).
 - `raw-decomp` worktree (`.claude/worktrees/raw-decomp`, 709 C functions vs
   main's ~215) is a read-only reference; never merge it wholesale.
