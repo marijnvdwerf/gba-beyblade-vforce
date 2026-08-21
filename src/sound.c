@@ -575,7 +575,7 @@ void sub_8062C24(void)
         return;
     }
 
-    while (_unk3005E08 <= 0) {
+    do {
         opcode = (*_unk3005E00)[0];
         _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
 
@@ -691,10 +691,7 @@ void sub_8062C24(void)
             break;
         }
 
-        if (_unk3005E08 > 0) {
-            break;
-        }
-    }
+    } while (_unk3005E08 <= 0);
 }
 
 #endif

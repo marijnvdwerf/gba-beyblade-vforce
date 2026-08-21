@@ -28,3 +28,19 @@ timer mask. Volatile locals added stack stores; volatile fields retained only
 the load; guards added branches. All ordinary C forms dead-code-eliminated the
 alignment arithmetic. No inline assembly or register-pinning workaround was
 used.
+
+## `sub_8062C24`
+
+The parser draft remains parked under `#if 0` above its active
+`INCLUDE_ASM`. Changing the outer `while (_unk3005E08 <= 0)` into a `do`/`while`
+loop removes the extra high-register save in the matching prologue shape. The
+remaining divergence begins immediately after the prologue, where the stream
+pointer and opcode receive different low-register assignments than the target.
+
+Parser source shapes tried included the original scoped-local draft, raw-decomp
+function-scope locals, explicit `found` and `handle` temporaries, sentinel
+loops versus ordinary decrementing loops, `for (;;)` plus return, `do`/`while`
+versus `while`, volatile timing globals, explicit timing temporaries and
+pointer scopes, reordered declarations, and widening the opcode local. These
+changed register pressure, branches, or literal-pool layout but did not resolve
+the stream-pointer/opcode allocation without introducing an artificial shape.
