@@ -288,7 +288,11 @@ void sub_8053920(void)
     sub_804F800(_gameData->unk1638);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8053954.s");
+void sub_8053954(void)
+{
+    _gameData->unk1638 = 5;
+    sub_804F800(_gameData->unk1638);
+}
 
 LevelGeometryTable* loadLevelGeometry(u16 arg0)
 {
