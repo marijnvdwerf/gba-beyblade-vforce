@@ -1,3 +1,5 @@
+#include "particle.h"
+
 #include "common.h"
 #include "include_asm.h"
 #include "memory.h"

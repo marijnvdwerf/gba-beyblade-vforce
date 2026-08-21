@@ -208,31 +208,6 @@ struct SpriteString {
     unk32 timer;
 };
 
-typedef struct RiderBase {
-    unk8 unk0[0x238];
-    Actor unk238;
-    Actor unk2FC;
-    unk8 pad3C0[4];
-    SpriteEntry* unk3C4;
-    unk8 unk3C8[0x20];
-    unk8 unk3E8;
-    unk8 unk3E9[3];
-    unk8 unk3EC[0x34];
-    struct AllocatedBlock* unk420;
-    unk8 pad424[4];
-} RiderBase; /* 0x428; GameData begins with this layout */
-
-typedef struct PolyTable {
-    unk16 unk0;
-    unk16 unk2;
-    unk16 unk4;
-    unk16 unk6;
-    void* unk8;
-    void* unkC;
-    struct AllocatedBlock* unk10;
-    struct AllocatedBlock* unk14;
-} PolyTable;
-
 typedef struct Particle {
     SpriteEntry* sprite;
     unk8 pad4[0x20];
@@ -254,6 +229,31 @@ typedef struct ParticleSystem {
     unk32 unk2C;
     struct AllocatedBlock* unk30;
 } ParticleSystem;
+
+typedef struct RiderBase {
+    unk8 unk0[0x238];
+    Actor unk238;
+    Actor unk2FC;
+    unk8 pad3C0[4];
+    SpriteEntry* unk3C4;
+    unk8 unk3C8[0x20];
+    unk8 unk3E8;
+    unk8 unk3E9[3];
+    ParticleSystem unk3EC;
+    struct AllocatedBlock* unk420;
+    unk8 pad424[4];
+} RiderBase; /* 0x428; GameData begins with this layout */
+
+typedef struct PolyTable {
+    unk16 unk0;
+    unk16 unk2;
+    unk16 unk4;
+    unk16 unk6;
+    void* unk8;
+    void* unkC;
+    struct AllocatedBlock* unk10;
+    struct AllocatedBlock* unk14;
+} PolyTable;
 
 /* Canonical level-geometry handle (0x11C bytes); filled by
  * getLevelGeometryAddresses(LevelGeometryAddresses*, void* geometryData). */
