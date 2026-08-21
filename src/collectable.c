@@ -11,12 +11,12 @@ void initCollectables(u16 levelId)
     LevelGeometryAddresses geometry;
     GameData* gameData = _gameData;
     CollectableData* data;
-    void* geometryData;
-    void* metadata;
+    LevelGeometryTable* geometryData;
+    LineMetadata** metadata;
     LevelState* state;
     CollectableEntry* entry;
     GeometryLine* line;
-    void* lineMeta;
+    LineMetadata* lineMeta;
     s32 count;
     s32 i;
 
@@ -26,10 +26,10 @@ void initCollectables(u16 levelId)
     state = sub_8051734();
     count = 0;
     __fastMemoryClearARM(0, data, sizeof(CollectableData));
-    if (metadata != 0 && geometryData != NULL) {
+    if (metadata != NULL && geometryData != NULL) {
         getLevelGeometryAddresses(&geometry, geometryData);
         StoreMetadataAddr(&geometry, metadata);
-        entry = gameData->collectables.entries;
+        entry = data->entries;
         for (i = 0; i < geometry.unk0->lineCount; i++) {
             line = &geometry.unkC[i];
             lineMeta = GetLineMetaData(&geometry, i);
@@ -37,7 +37,7 @@ void initCollectables(u16 levelId)
                 printf(Str_8729804);
                 break;
             }
-            if (lineMeta != 0
+            if (lineMeta != NULL
                 && getLineMetaobjectByTypeAndId(&geometry, lineMeta, 3, 0x37AE) != NULL) {
                 entry->geometry = line;
                 entry->line = i;
