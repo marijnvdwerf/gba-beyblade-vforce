@@ -71,8 +71,8 @@ Active worktrees / agents (id → file → status):
 | worktree | file | done (uncommitted, in worktree) | in progress / notes |
 |---|---|---|---|
 | agent-abb23f448b7c48bf5 | memory.c | (merged) | debrief in progress → remove worktree after `docs/learnings/memory-allocator.md` exists |
-| agent-aee513f785706f4b3 | gameinit.c | initGame, initGameLoop | experiment pending: unkC24/unkC26 as `s16` + `\|= 0xFFFF` to avoid `(s16)` casts in music.c; then sub_8053B94, closeGame |
-| agent-a358a3f24f8bdfae8 | keystate.c | — | updateKeyState: I read the asm — loop bit tests are `> 0` (`ble`), not `!= 0`; hint sent with full shape (u16 i for-loop, plain struct access, literal 1, reload `_unk3000E30[0]` each use) |
+| agent-aee513f785706f4b3 | gameinit.c | initGame, initGameLoop, sub_8053B94 (diff clean) | BLOCKER: its GameData retype in ram.h shrank results.c.o by 8 bytes → compare fails; agent told to find the results.c function whose diff changed and fix the type honestly. s16 experiment done: u16 + `(s16)` casts in music.c stays. closeGame not started |
+| agent-a358a3f24f8bdfae8 | keystate.c | — | updateKeyState: `> 0` tests fixed the body (clean to 0xA6); remaining: preheader hoists base+4→r8, base+8→ip — told to combine the `field04/field08` pointer form with `> 0` |
 
 Skipped (no C caller): sub_8062EFC (actorheap.c).
 
