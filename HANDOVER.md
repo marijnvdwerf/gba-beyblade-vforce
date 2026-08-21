@@ -70,6 +70,10 @@ Last updated: 2026-08-21, end of session 2 (round 6: six luna agents running; ke
   plus `.lreg`/`.greg` dumps for the current C (allocator priority ≈
   refs / live_length is readable there).
 - `uv run tools/worklist.py` — functions called from C but still asm.
+- `uv run tools/lint.py src/*.c` — lint (first check: prototypes for functions
+  defined in another TU → belong in that TU's header); exit 1 on findings.
+  Rule: no conditional-prototype macros; conflicting signatures stay local
+  until resolved.
 - `expected/` is a flat copy of `build/` (`tools/update-expected`).
 - `raw-decomp` worktree (`.claude/worktrees/raw-decomp`, ~700 C functions) is
   a read-only reference with different headers; never merge it wholesale.
@@ -84,7 +88,7 @@ functions; session 1 merged 8.
 
 | worktree | scope | status |
 |---|---|---|
-| (none) | round 6 fully merged; all learnings archived; keepalive stopped | — |
+| header-consolidation | move foreign externs into per-TU headers (tools/lint.py); stage 1 merged (c5146ca, 110→61 findings); stage 2 (asm-defined, consistent sigs) in progress; conflicts deferred | running |
 
 ### Parked (attempted, not matched)
 
