@@ -229,6 +229,8 @@ typedef struct LevelDesign {
 struct LevelGeometryTable {
     unk32 pointCount;
 
+    /* Width pun proven by asm: getLevelGeometryAddresses reads this with
+     * ldrsh/ldrh [r1,#4]; GetSplineAtIndex reads it with ldr [r0,#4]. */
     union {
         s16 splineCount;
         unk32 splineCountWord;
