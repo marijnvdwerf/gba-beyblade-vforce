@@ -15,37 +15,29 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80571e4-GetTalkingHead.s");
 void emptyBeybladeActorData(void)
 {
     BeybladeActorData* record;
-    s32 count;
-    unk32 zero;
+    s32 i;
 
     record = _gameData->actorData;
     _gameData->unk12F0 = 0xE;
-    zero = 0;
-    count = 0x3B;
-    do {
-        record->block = zero;
-        record->unk4 = zero;
-        record += 1;
-        count--;
-    } while (count >= 0);
+    for (i = 0; i < 0x3C; i++) {
+        record->block = NULL;
+        record->unk4 = 0;
+        record++;
+    }
 }
 void deallocBeybladeActorData(void)
 {
     BeybladeActorData* record;
-    s32 count;
-    unk32 zero;
+    s32 i;
 
     record = _gameData->actorData;
-    zero = 0;
-    count = 0x3B;
-    do {
-        if (record->block != 0) {
-            deallocateBlock((AllocatedBlock*)record->block);
-            record->block = zero;
+    for (i = 0; i < 0x3C; i++) {
+        if (record->block != NULL) {
+            deallocateBlock(record->block);
+            record->block = NULL;
         }
-        record += 1;
-        count--;
-    } while (count >= 0);
+        record++;
+    }
 }
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057258-getBeyBladeActorDataForIndex.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057338-getBeybladeData0.s");

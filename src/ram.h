@@ -15,11 +15,11 @@ typedef struct QuadTree {
     unk8 pad0[0x24];
     AllocatedBlock* block24;
     AllocatedBlock* block28;
-    unk8 pad2C[0x40];
+    unk8 pad2C[0x2C];
 } QuadTree;
 
 typedef struct BeybladeActorData {
-    unk32 block;
+    AllocatedBlock* block;
     unk8 unk4;
     unk8 pad5[3];
 } BeybladeActorData;
@@ -41,6 +41,7 @@ typedef struct GameData {
     unk8 pad77C[0x24]; /* 0x77C */
     unk32 unk7A0; /* 0x7A0 */
     QuadTree unk7A4; /* 0x7A4 */
+    unk8 pad7FC[0x14]; /* 0x7FC */
     unk8 unk810[0x30]; /* 0x810 */
     unk8 unk840[0x68]; /* 0x840 */
     unk8 unk8A8[4]; /* 0x8A8 */

@@ -25,16 +25,12 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805bdbc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bf18.s");
 void deallocateQuadTree(QuadTree* arg0)
 {
-    unk32 block;
-
-    block = (unk32)arg0->block24;
-    if (block != 0) {
-        deallocateBlock((AllocatedBlock*)block);
+    if (arg0->block24 != NULL) {
+        deallocateBlock(arg0->block24);
     }
     arg0->block24 = NULL;
-    block = (unk32)arg0->block28;
-    if (block != 0) {
-        deallocateBlock((AllocatedBlock*)block);
+    if (arg0->block28 != NULL) {
+        deallocateBlock(arg0->block28);
     }
     arg0->block28 = NULL;
 }
