@@ -85,7 +85,7 @@ grep INCLUDE_ASM.
 | gamestate.c | 10 leaves + sub_80510FC | 10 MERGED e5a2582 (applied as patch; worktree removed); sub_80510FC parked (table scan becomes pointer-increment — see gamestate.md); style debt (offset arithmetic on LevelDescriptions, unk4 byte-indexing) handed to temp-reduction agent |
 | gameinit.c | sub_80538C0, sub_8053F0C, initRiders | 2/3 MERGED da06486 (unk42C = RiderBlock* of 0x428-byte elems; sub_8053F0C needs case-scoped GameData*); initRiders in progress |
 | frontend.c | sub_8049264, sub_8049458 | 0/2; review-frontend.md sent (single `offset` local; use FrontendState fields) |
-| event.c | deallocEventListeners, initEventListeners | 1/2; 0x80-byte local aggregate in init; review-event.md sent |
+| event.c | deallocEventListeners, initEventListeners | dealloc MERGED 1c97097; initEventListeners PARKED (#if 0 draft in event.c; VLA proven; count/max register swap: agbcc priority ≈ refs/live-length, count 14/184 vs max 5/114 — see event.md); worktree removed |
 | small leaves | sub_8061204, sub_805BA3C, deallocateQuadTree, sub_804A72C, emptyBeybladeActorData, deallocBeybladeActorData, sub_8055CB8, sub_804F800, sub_804FEE8 | 9/9 MERGED c1313c1 (QuadTree @0x7A4 = 0x58 bytes; sub_804F800/sub_804FEE8 need a `GameData* base` local — see small-leaves.md); worktree removed |
 | temp-reduction | 11 merged fns | MERGED (sub_8053F0C direct `_gameData->` per case, sub_8055CB8 no fn-ptr casts, sub_804FEE8 no status alias; 8 already minimal — see temp-reduction.md); worktree removed |
 | leaves-round2 | 5 leaves | 5/5 MERGED 3c82864 (RiderBase now 0x428, replaces RiderBlock); worktree removed |
@@ -93,7 +93,7 @@ grep INCLUDE_ASM.
 | skill distill (gpt-5.6-sol) | SKILL.md rewritten + committed; now moving processed learnings to docs/learnings/processed/ |
 | review-round3 (opus) | done → docs/learnings/review-round3.md; canonical LevelGeometryAddresses added to common.h (3c82864); follow-ups sent to all agents |
 | gamestate-cleanup | 10 gamestate.c fns | MERGED 02ed7cf (typed LevelDescription[] 0xD0, LevelState unk4[0x38], s8 unk0, no union); worktree removed |
-| leaves-round3 | sub_80588A8 (actor.c), sub_805FA4C + sub_805FA68 (animevent.c), sub_804EBE8 (particle.c) | running |
+| leaves-round3 | 4 leaves (actor/animevent/particle) | 4/4 MERGED; worktree removed |
 | hud-sprite | sub_8060CDC (sprite.c), LoadHUD (hud.c) | running |
 
 Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
