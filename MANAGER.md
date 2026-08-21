@@ -19,7 +19,8 @@ description: Session rules for orchestrating decompilation subagents
   fold in repeatable, generic patterns, never function names or one-offs — an agent whose worktree is gone cannot be resumed. If it
   happens anyway, recreating the worktree at the same path revives it.
 - Merging: commit in the worktree, `git merge` into main, take the delete
-  on dump-file modify/delete conflicts, run `compare`, `tools/update-expected`.
+  on dump-file modify/delete conflicts, `clang-format -i` the touched src
+  files, run `compare`, `tools/update-expected`.
 - When an agent says it is done, spawn an **opus-4.8** reviewer on its
   worktree's C diff only (`git diff main...<branch> -- src`; shape and field
   types only, no rename proposals — sub_*/unkNN names stay; it must not read

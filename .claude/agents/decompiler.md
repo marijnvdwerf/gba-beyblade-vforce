@@ -75,7 +75,8 @@ that has no caller in current C.
 - **Never emit fake symbols** (zero-size markers, `.NON_MATCHING` labels).
   If trailing bytes differ, the legitimate tool is file-scope
   `asm(".align 2, 0\n");` (the original zero-pads where agbcc emits `0xC046`).
-- C90: declarations before statements. Follow `.clang-format`.
+- C90: declarations before statements. Run `clang-format -i` on every file
+  you touched before committing/reporting (config in `.clang-format`).
 
 ## Matching technique (hard-won)
 
