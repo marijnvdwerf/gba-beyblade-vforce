@@ -32,9 +32,9 @@ void initTutorialManagement(u16 levelId)
     GameData* gameData = _gameData;
     TutorialData* data;
     TutorialEntry* entry;
-    void* geometryData;
-    void* metadata;
-    void* lineMetadata;
+    LevelGeometryTable* geometryData;
+    LineMetadata** metadata;
+    LineMetadata* lineMetadata;
     LineMetaObject* metaobject;
     s32 count;
     s32 line;
@@ -46,7 +46,7 @@ void initTutorialManagement(u16 levelId)
     sub_8051734();
     count = 0;
     __fastMemoryClearARM(0, data, sizeof(TutorialData));
-    if (metadata != 0 && geometryData != NULL) {
+    if (metadata != NULL && geometryData != NULL) {
         getLevelGeometryAddresses(&geometry, geometryData);
         StoreMetadataAddr(&geometry, metadata);
         line = 0;
