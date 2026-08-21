@@ -50,7 +50,7 @@ Last updated: 2026-08-21 (session 2).
   and agents get the path + heading, not pasted text.
 - Run a temp-reduction pass over every batch of merged functions (after
   review/merge, before the next sol skill pass). Done: pass 1 (11 fns),
-  pass 2 merged.
+  passes 1–3 merged.
 - Skill hygiene: `.claude/skills/agbcc/SKILL.md` takes only generic,
   repeatable patterns — no function names. Read only the unprocessed top-level
   `docs/learnings/*.md`; `processed/` is history and not required reading.
@@ -107,7 +107,7 @@ grep INCLUDE_ASM.
 | spritetext | showNumber_2, allocFont, showNumber, LoadSpriteSheet, showString | 3/5 MERGED; LoadSpriteSheet PARKED (#if 0 draft; original source punned SpriteEntry+0x18 u16 write vs +0x19 u8 read — hypothesis: field is `u16 unk18`, readers are `>> 8` (GCC narrows to a byte load) — agent testing; also arg5-before-arg6 ordering); showString (227) not attempted; worktree removed |
 | temp-reduction-2 | 23 fns | MERGED (4 simplified: sub_8051744, GetLevelDescriptionNo, sub_80518F0, LoadHUD; 19 already minimal — temp-reduction-2.md); worktree removed |
 | u16-narrowing + LoadSpriteSheet | sprite.h SpriteEntry +0x18, readers sub_8060B38/sub_8061158/sub_8061160, LoadSpriteSheet | running |
-| temp-reduction-3 | geometry loaders, spritetext ×3, init-functions ×2 | running |
+| temp-reduction-3 | geometry loaders, spritetext, init-functions | MERGED (6 simplified; allocFont takes s16; new src/geometry.h; UnkSpriteText alias gone); worktree removed |
 | showString | showString (spritetext.c, 227) | running |
 | envactor-sound | sub_8054FE0 (envactor.c), sub_8062C24 (sound.c), then initLevelEnvironmentActors | running |
 | callgraph rewrite | asm()/__asm__ not calls; then rewrite callgraph.py (+tu-progress.py scanner) on tree-sitter (uv deps), output byte-identical | running |
