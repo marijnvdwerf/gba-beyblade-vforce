@@ -185,7 +185,7 @@ typedef struct RiderBase {
     unk8 unk23C[0xC0];
     unk8 unk2FC[4];
     unk8 unk300[0xC4];
-    unk32 unk3C4;
+    SpriteEntry* unk3C4;
     unk8 unk3C8[0x20];
     unk8 unk3E8;
     unk8 unk3E9[3];
