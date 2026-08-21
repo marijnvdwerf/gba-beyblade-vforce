@@ -11,7 +11,7 @@ extern const u8 Str_87296A4[];
 extern void* loadLevelGeometry(u16);
 extern void* getLevelMetadata(u16);
 extern void getLevelGeometryAddresses(LevelGeometryAddresses*, void*);
-extern void StoreMetadataAddr(LevelGeometryAddresses*, void*);
+extern void StoreMetadataAddr(LevelGeometryAddresses*, LineMetadata**);
 extern void* GetLineMetaData(LevelGeometryAddresses*, s32);
 extern void* getLineMetaObjectBytype(LevelGeometryAddresses*, void*, unk32);
 extern void SetRiderGlobal(unk32);

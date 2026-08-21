@@ -191,7 +191,7 @@ typedef struct LevelDesign {
 
 struct LevelGeometryTable {
     unk32 pointCount;
-    unk16 splineCount;
+    s16 splineCount;
     unk16 pad6;
     s32 lineCount;
     unk32 padC;

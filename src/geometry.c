@@ -8,7 +8,7 @@ extern GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses*, s32);
 void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, void* arg1)
 {
     LevelGeometryTable* geometry;
-    unk16 count;
+    s16 count;
     s16 i;
 
     geometry = arg1;
@@ -17,7 +17,7 @@ void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, void* arg1)
     arg0->unk8 = (GeometrySpline*)((unk8*)geometry + geometry->splineOffset);
     arg0->unkC = (GeometryLine*)((unk8*)geometry + geometry->lineOffset);
     count = geometry->splineCount;
-    if ((s16)geometry->splineCount > 0x40) {
+    if (geometry->splineCount > 0x40) {
         count = 0x40;
         nullsub_8(Str_87553D0);
     }
@@ -39,7 +39,7 @@ void sub_805BA3C(GeometryAddressTable* arg0)
     arg0->block = NULL;
 }
 
-void StoreMetadataAddr(LevelGeometryAddresses* arg0, void* value)
+void StoreMetadataAddr(LevelGeometryAddresses* arg0, LineMetadata** value)
 {
     arg0->unk114 = value;
 }
