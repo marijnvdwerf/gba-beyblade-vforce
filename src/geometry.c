@@ -1,8 +1,8 @@
 #include "include_asm.h"
 #include "ram.h"
+#include "system.h"
 
 extern const u8 Str_87553D0[];
-extern void nullsub_8(const char*);
 extern GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses*, s32);
 
 void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable* geometry)

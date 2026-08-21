@@ -1,18 +1,13 @@
 #include <agb/types.h>
 
+#include "bios.h"
 #include "include_asm.h"
 #include "sprite.h"
+#include "spritestring.h"
 #include "unsorted.h"
 
 extern void sub_8060CDC(void*);
-extern void sub_8061160(SpriteEntry*);
-extern void sub_8060B38(SpriteEntry*);
-extern s32 Div(s32, s32);
-extern s32 DivRem(s32, s32);
-extern void sub_8061130(SpriteEntry*, unk8);
-extern void sub_8061168(SpriteEntry*, unk32);
 extern void sub_806123C(SpriteTextCleanup*);
-extern s32 sub_8064F38(const u8*);
 extern void* resizeSpriteBlock(SpriteTextBlock*, unk16, unk8);
 extern void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);
 extern const u8 Str_8755B58[];

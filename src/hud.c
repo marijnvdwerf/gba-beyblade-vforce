@@ -1,17 +1,15 @@
+#include "gamestate.h"
 #include "include_asm.h"
 #include "ram.h"
 #include "sprite.h"
+#include "spritetext.h"
 
 extern void allocFont(SpriteTextCleanup*, const u8*, const u8*, s16, s16, unk16, unk16);
 extern void LoadSpriteSheet(void*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);
 extern void sub_80611EC(void*, unk8);
 extern void sub_80611FC(void*, unk8);
-extern unk32 sub_80518F0(void);
 extern unk8 showNumber(void*, unk32, unk8);
-extern unk8 showNumber_2(SpriteTextCleanup*, unk32, unk8);
 extern unk8 showString(void*, const u8*, unk8);
-extern LevelDescription* getLevelDescription2(void);
-
 extern const u8 SpriteSheet_82B1A84[];
 extern const u8 LargeFontMeta[];
 extern const u8 SpriteSheet_82B05EC[];

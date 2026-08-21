@@ -1,12 +1,6 @@
 #include "common.h"
-
-void onVBlank(void);
-
-void nullsub_37(void);
-
-void nullsub_31(void);
-
-void onTimer1Overflow(void);
+#include "main.h"
+#include "system.h"
 
 const void* const Unk_872CAF4[] = {
     onVBlank,

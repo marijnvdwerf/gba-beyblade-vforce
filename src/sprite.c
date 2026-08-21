@@ -39,7 +39,6 @@ extern const u8 Str_8755AC8[];
 extern const u8 Str_8755B0C[];
 extern const u8 Str_8755B28[];
 
-void nullsub_8(const char*);
 void freeSpriteVramLocation(s32, s32);
 void sub_8060B38(SpriteEntry*);
 SpriteEntry* sub_8060E8C(SpriteEntry*, u16, u16, u8);

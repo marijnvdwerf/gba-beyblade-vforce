@@ -1,6 +1,7 @@
 #include <agb/types.h>
 
 #include "debug.h"
+#include "gameinit.h"
 #include "geometry.h"
 #include "include_asm.h"
 #include "memory.h"
@@ -9,8 +10,6 @@
 
 extern const u8 Str_8729658[];
 extern const u8 Str_87296A4[];
-extern void SetRiderGlobal(unk32);
-
 #if 0
 void initEventListeners(unk32 levelId)
 {

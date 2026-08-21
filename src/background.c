@@ -62,9 +62,6 @@ extern UnkStruct _3000000;
 extern ScreenLayout _806A828[];
 
 extern void sub_80508A4(UnkStruct_sub1*);
-extern void loadPalette(void*);
-extern void loadPalette2(void*);
-
 extern void sub_8049344(int);
 extern void sub_804A280(void*);
 extern void sub_8050894(void*);

@@ -1,7 +1,7 @@
 #include "include_asm.h"
 #include "ram.h"
+#include "spritetext.h"
 
-extern void sub_8061228(SpriteTextCleanup*);
 extern void sub_8061204(SpriteTextCleanup*);
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f878.s");

@@ -1,7 +1,9 @@
 #include <agb/types.h>
 
 #include "include_asm.h"
+#include "keystate.h"
 #include "motion.h"
+#include "sound.h"
 #include "unsorted.h"
 
 INCLUDE_ASM("asm/dump/8040d18/8048f80.s");
@@ -51,8 +53,6 @@ extern void sub_804A110(void);
 extern void sub_8050A50(FrontendState*);
 extern void sub_805041C(UnkMotion*);
 extern void sub_8057930(void);
-extern void sub_80627F0(void);
-extern void updateKeyState(void);
 extern unk8 _unk3000BFC;
 extern u16 _unk3000BFD;
 extern void (*__oam_8756CC0)(void);

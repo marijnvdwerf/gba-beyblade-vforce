@@ -12,6 +12,7 @@ void nullsub_8(const char*);
 void sub_8057A1C(unk32);
 void loadPalette(void*);
 void loadPalette2(void*);
+void nullsub_31(void);
 void sub_8057B30(unk32*, unk32, unk32);
 
 #endif /* _SYSTEM_H */

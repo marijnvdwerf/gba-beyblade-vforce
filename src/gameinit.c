@@ -1,47 +1,34 @@
 #include <agb/types.h>
 
+#include "beyblade.h"
+#include "collectable.h"
+#include "envactor.h"
+#include "event.h"
+#include "frontend.h"
+#include "gamestate.h"
 #include "geometry.h"
+#include "hud.h"
 #include "include_asm.h"
+#include "levelhud.h"
+#include "rider.h"
+#include "tutorial.h"
 #include "unsorted.h"
 
 extern void sub_8053F0C(unk32);
 extern void nullsub_12(void*);
 extern unk32 getSomeLevelID(void);
-extern unk32 GetLevelDescriptionNo(void);
-extern LevelDescription* getLevelDescription2(void);
 extern LevelDescription* getLevelDescription(u16);
 extern LevelDesign LevelDesigns[];
-extern void emptyBeybladeActorData(void);
 extern void initRiders(void);
-extern void initLevelEnvironmentActors(u16);
-extern void initEventListeners(unk32);
-extern void initCollectables(u16);
-extern void initTutorialManagement(u16);
-extern void nullsub_2(void);
-extern void LoadHUD(void);
-extern void sub_804F800(s32);
 extern void initKeyRecording(unk32);
 extern void sub_805AAEC(unk32, u16);
-extern LevelState* sub_8051734(void);
 extern void sub_805AB38(void);
-extern void sub_8051640(unk32);
-extern unk32 sub_8051744(void);
-extern void StoreLevelVar14(unk32);
-extern void sub_8049234(unk32);
-extern unk32 sub_80518F0(void);
+extern LevelState* sub_8051734(void);
 extern const u8 Str_87294CC[];
 extern void sub_8060CDC(void*);
 extern void sub_8061204(void*);
-extern void deallocBeybladeActorData(void);
 extern void sub_80538C0(void);
 extern void sub_804B4A4(void*);
-extern void sub_8054FE0(void);
-extern void deallocEventListeners(void);
-extern void nullsub_7(void);
-extern void sub_804A72C(void);
-extern void nullsub_4(void);
-extern void sub_804FEE8(void);
-extern void sub_805BA3C(GeometryAddressTable*);
 extern s32 GetLineIndexOfType(LevelGeometryAddresses*, u16, u16);
 extern unk32 isMultiplayer(void);
 extern unk32 sub_8051820(void);
@@ -56,7 +43,6 @@ extern const u8 Str_8729564[];
 extern const u8 Str_8729598[];
 extern const u8 Str_87295D0[];
 extern const u8 Str_8729610[];
-extern void deallocateQuadTree(QuadTree*);
 
 void initGame(void)
 {
