@@ -50,7 +50,7 @@ Last updated: 2026-08-21, end of session 2 (round 6: six luna agents running; ke
   that folds the top-level `docs/learnings/*.md` into the skill and `git mv`s
   them to `docs/learnings/processed/` (the permission classifier may block
   `git mv` for agents — do the move yourself then). Review its diff.
-- Temp-reduction pass after every merged batch (done: passes 1–4;
+- Temp-reduction pass after every merged batch (done: passes 1–5;
   all notes archived; docs/learnings top level is empty except README).
 - Tool-building agents (`general-purpose`, luna) work on main and don't
   commit; review and commit their files explicitly.
@@ -84,7 +84,8 @@ functions; session 1 merged 8.
 
 | worktree | scope | status |
 |---|---|---|
-| envactor-init | envactor.c initLevelEnvironmentActors (656) | running (round 6) |
+| envactor-init | envactor.c initLevelEnvironmentActors (656) | running; push mask + slots match, frame +4 (one extra local) |
+| sol learnings pass | round-6 notes → skill, move to processed/ | running (main, uncommitted) |
 
 ### Parked (attempted, not matched)
 
