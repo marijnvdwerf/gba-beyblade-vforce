@@ -1,7 +1,34 @@
 #include "include_asm.h"
 #include "ram.h"
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805b8c4-getLevelGeometryAddresses.s");
+extern const u8 Str_87553D0[];
+extern void nullsub_8(const char*);
+extern GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses*, s32);
+
+void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, void* arg1)
+{
+    LevelGeometryTable* geometry;
+    unk16 count;
+    s16 i;
+
+    geometry = arg1;
+    arg0->unk0 = geometry;
+    arg0->unk4 = (GeometryPoint*)((unk8*)geometry + geometry->pointOffset);
+    arg0->unk8 = (GeometrySpline*)((unk8*)geometry + geometry->splineOffset);
+    arg0->unkC = (GeometryLine*)((unk8*)geometry + geometry->lineOffset);
+    count = geometry->splineCount;
+    if ((s16)geometry->splineCount > 0x40) {
+        count = 0x40;
+        nullsub_8(Str_87553D0);
+    }
+    for (i = 0; i < (s16)count; i++) {
+        arg0->unk14[i] = GetSplineAtIndex(arg0, i);
+    }
+    arg0->unk114 = NULL;
+    arg0->unk10 = NULL;
+    arg0->unk118 = 0;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805b938-newCollisionDataRam.s");
 
 void sub_805BA3C(GeometryAddressTable* arg0)
