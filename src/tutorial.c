@@ -1,5 +1,6 @@
 #include <agb/types.h>
 
+#include "geometry.h"
 #include "include_asm.h"
 #include "unsorted.h"
 
@@ -18,14 +19,8 @@ void StoreLevelVar14(unk32 arg0)
 
 INCLUDE_ASM("asm/dump/8040d18/804a364.s");
 INCLUDE_ASM("asm/dump/8040d18/804a378.s");
-extern void* loadLevelGeometry(u16);
-extern void* getLevelMetadata(u16);
-extern void getLevelGeometryAddresses(LevelGeometryAddresses*, void*);
-extern void StoreMetadataAddr(LevelGeometryAddresses*, LineMetadata**);
-extern void* GetLineMetaData(LevelGeometryAddresses*, s32);
 extern void sub_8051734(void);
-extern LineMetaObject* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, void*, unk32, unk32);
-extern void allocFont(void*, const void*, const void*, unk32, unk32, unk32, unk32);
+extern void allocFont(void*, const void*, const void*, s16, s16, unk16, unk16);
 extern const char Str_87233E8[];
 extern const u8 SpriteSheet_82B05EC[];
 extern const u8 ShadowFontMeta[];
@@ -37,9 +32,9 @@ void initTutorialManagement(u16 levelId)
     GameData* gameData = _gameData;
     TutorialData* data;
     TutorialEntry* entry;
-    void* geometryData;
-    void* metadata;
-    void* lineMetadata;
+    LevelGeometryTable* geometryData;
+    LineMetadata** metadata;
+    LineMetadata* lineMetadata;
     LineMetaObject* metaobject;
     s32 count;
     s32 line;
@@ -51,7 +46,7 @@ void initTutorialManagement(u16 levelId)
     sub_8051734();
     count = 0;
     __fastMemoryClearARM(0, data, sizeof(TutorialData));
-    if (metadata != 0 && geometryData != NULL) {
+    if (metadata != NULL && geometryData != NULL) {
         getLevelGeometryAddresses(&geometry, geometryData);
         StoreMetadataAddr(&geometry, metadata);
         line = 0;
