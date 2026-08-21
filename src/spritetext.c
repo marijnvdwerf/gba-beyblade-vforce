@@ -78,7 +78,6 @@ unk8 showString(SpriteTextCleanup* arg0, const u8* text, unk8 mode)
     SpriteEntry* sprite;
     SpriteEntry* child;
     SpriteEntry* result;
-    unk32 mode_value;
     unk32 char_width;
     const u8* width;
     unk32 x;
@@ -91,7 +90,6 @@ unk8 showString(SpriteTextCleanup* arg0, const u8* text, unk8 mode)
     s32 offset;
     unk8 ch;
 
-    mode_value = mode;
     text_width = sub_8064F38(text);
     char_width = arg0->unk24[4];
     width = arg0->unk20;
@@ -138,7 +136,7 @@ unk8 showString(SpriteTextCleanup* arg0, const u8* text, unk8 mode)
         } else {
             ch = byte_807D980[ch];
             LoadSpriteSheet(sprite, arg0->unk24, 0, 0, 0, load_flags, 0, ch);
-            sub_8061168(sprite, mode_value);
+            sub_8061168(sprite, mode);
             sub_8061130(sprite, arg0->unkE);
             if (width != NULL) {
                 advance = (unk16)(advance - width[ch]);
