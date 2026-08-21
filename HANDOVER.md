@@ -50,7 +50,7 @@ Last updated: 2026-08-21 (session 2).
   and agents get the path + heading, not pasted text.
 - Run a temp-reduction pass over every batch of merged functions (after
   review/merge, before the next sol skill pass). Done: pass 1 (11 fns),
-  pass 2 running.
+  pass 2 merged.
 - Skill hygiene: `.claude/skills/agbcc/SKILL.md` takes only generic,
   repeatable patterns — no function names. Read only the unprocessed top-level
   `docs/learnings/*.md`; `processed/` is history and not required reading.
@@ -104,7 +104,7 @@ grep INCLUDE_ASM.
 | hud-sprite | sub_8060CDC (sprite.c), LoadHUD (hud.c) | 2/2 MERGED (LoadHUD needs a `GameData*` local; sub_8060CDC natural `while (n--)` list unlink); worktree removed |
 | geometry-loaders | StoreMetadataAddr, GetLineMetaData, getLineMetaObjectBytype, getLevelGeometryAddresses (geometry.c); getLevelMetadata, loadLevelGeometry (gameinit.c) | running; should pin LevelGeometryAddresses field types |
 | spritetext | showNumber_2, allocFont, showNumber, LoadSpriteSheet, showString | running |
-| temp-reduction-2 | the 23 functions merged since pass 1 (gamestate ×10, leaves r2/r3, deallocEventListeners, LoadHUD, sub_8060CDC, sub_8049264) | running |
+| temp-reduction-2 | 23 fns | MERGED (4 simplified: sub_8051744, GetLevelDescriptionNo, sub_80518F0, LoadHUD; 19 already minimal — temp-reduction-2.md); worktree removed |
 
 Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
 sub_8054FE0), sub_8062C24 (sound), LoadHUD, sub_8060CDC. Red set after the
