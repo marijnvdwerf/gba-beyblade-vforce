@@ -134,8 +134,6 @@ typedef struct CurrentGameStateTail {
     unk16 unkC;
 } CurrentGameStateTail;
 
-typedef unk16 CurrentGameStateUnk6E8;
-
 typedef struct CurrentGameState {
     unk8 unk0;
     unk8 unk1;
@@ -154,7 +152,7 @@ typedef struct CurrentGameState {
     unk8 unk6C8[0x1C];
     unk16 unk6E4;
     unk16 unk6E6;
-    CurrentGameStateUnk6E8 unk6E8;
+    unk8 unk6E8[2];
     unk16 unk6EA;
     CurrentGameStateTail unk6EC;
     unk8 pad6FC[0x568];

@@ -53,30 +53,17 @@ typedef struct LevelState {
     unk16 unk0;
     unk16 unk2;
     s32 unk4;
-    s32 unk8;
-    struct LevelDescription* unkC;
-    unk32 unk10;
-    unk32 unk14;
 } LevelState;
 
-typedef struct Unk80516E0 {
-    unk8 unk0;
-    unk8 pad1;
-    unk16 unk2;
-    void* unk4;
-} Unk80516E0;
-
 typedef struct ActiveLevelDescription {
-    unk8 unk0;
-    unk8 pad1[0x10];
+    unk8 pad0[0x11];
     unk8 unk11;
     unk8 pad12[6];
     unk32 unk18;
 } ActiveLevelDescription;
 
 typedef struct LevelDescription {
-    unk8 pad0[4];
-    s32 unk4;
+    unk8 unk0[8];
     s32 unk8;
     unk8 unkC[0x10];
     unk8 unk1C;

@@ -3,19 +3,10 @@
 #include "unsorted.h"
 
 extern const u8 Str_87293C0[];
-extern const unk8 LevelDescriptions[];
-extern unk8 _807572c[];
-extern unk8 _807576c[];
-extern unk8 _80757ac[];
-extern unk8 _80757ec[];
-extern unk8 _807582c[];
-extern s32 _80788cc[];
 
 void sub_80510FC(void);
-extern s32 getSomeLevelID(void);
-extern Unk80516E0* sub_80516E0(unk32);
+
 extern LevelState* sub_8051720(s32);
-extern void sub_8057104(unk32, unk32);
 extern LevelDescription* getLevelDescription(s32);
 
 void InitCurrentGameState(void)
@@ -93,68 +84,20 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80515a4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80515e0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051618.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805162c.s");
-
-void sub_8051640(unk32 value)
-{
-    _currentGameState->unk4[0x6A7] = value;
-}
-
-s32 getSomeLevelID(void)
-{
-    if (sub_8051780(0x20) != 0) {
-        return _currentGameState->unk6C4;
-    }
-    return (s8)_currentGameState->unk0;
-}
-
+INCLUDE_ASM("asm/dump/804a388-tutorial/8051640.s");
+INCLUDE_ASM("asm/dump/804a388-tutorial/8051654-getSomeLevelID.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051688.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051694.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80516b0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80516c0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80516d4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80516e0.s");
-
-ActiveLevelDescription* getLevelDescription2(void)
-{
-    return (ActiveLevelDescription*)((unk8*)LevelDescriptions + getSomeLevelID() * 0xD0);
-}
-
-LevelDescription* getLevelDescription(s32 level)
-{
-    return (LevelDescription*)((unk8*)LevelDescriptions + level * 0xD0);
-}
-
-LevelState* sub_8051720(s32 index)
-{
-    return (LevelState*)&_currentGameState->unk4[index * 0x18];
-}
-
-LevelState* sub_8051734(void)
-{
-    return sub_8051720(getSomeLevelID());
-}
-
-unk32 sub_8051744(void)
-{
-    s32 index;
-    LevelState* state;
-
-    index = 0;
-    do {
-        state = sub_8051720(index);
-        if ((state->unk0 & 1) != 0) {
-            index++;
-        } else {
-            return 0;
-        }
-    } while (index <= 0x37);
-    return 1;
-}
-
-unk8 sub_805176C(void)
-{
-    return *(unk8*)&_currentGameState->unk6E8;
-}
+INCLUDE_ASM("asm/dump/804a388-tutorial/80516f8-getLevelDescription2.s");
+INCLUDE_ASM("asm/dump/804a388-tutorial/8051710-getLevelDescription.s");
+INCLUDE_ASM("asm/dump/804a388-tutorial/8051720.s");
+INCLUDE_ASM("asm/dump/804a388-tutorial/8051734.s");
+INCLUDE_ASM("asm/dump/804a388-tutorial/8051744.s");
+INCLUDE_ASM("asm/dump/804a388-tutorial/805176c.s");
 
 unk32 sub_8051780(unk32 arg0)
 {
@@ -162,21 +105,7 @@ unk32 sub_8051780(unk32 arg0)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051798.s");
-
-unk32 GetLevelDescriptionNo(void)
-{
-    ActiveLevelDescription* description;
-    ActiveLevelDescription* descriptions;
-
-    description = getLevelDescription2();
-    if (sub_8051780(0x20) != 0) {
-        descriptions = (ActiveLevelDescription*)LevelDescriptions;
-        return ((ActiveLevelDescription*)((unk8*)descriptions + _currentGameState->unk6C4 * 0xD0))
-            ->unk0;
-    }
-    return description->unk0;
-}
-
+INCLUDE_ASM("asm/dump/804a388-tutorial/80517ac-GetLevelDescriptionNo.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80517e8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051804.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051820.s");
@@ -184,25 +113,4 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/805185c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051868.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805187c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80518c8.s");
-
-unk32 sub_80518F0(void)
-{
-    LevelState* state;
-    unk32 value;
-    unk32 count;
-
-    state = sub_8051734();
-    value = state->unk10;
-    count = 0;
-    if (value != 0) {
-        do {
-            if ((value & 1) != 0) {
-                count++;
-            }
-            value >>= 1;
-        } while (value != 0);
-    }
-    return count;
-}
-
-ASM_ZEROPAD
+INCLUDE_ASM("asm/dump/804a388-tutorial/80518f0.s");
