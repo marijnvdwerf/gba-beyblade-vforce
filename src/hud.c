@@ -23,19 +23,14 @@ extern const u8 Str_8727048[];
 
 void LoadHUD(void)
 {
-    SpriteTextCleanup* hud0;
-    SpriteTextCleanup* hud1;
     GameData* gameData;
-    SpriteTextCleanup* hud3;
 
     gameData = _gameData;
-    hud0 = &gameData->levelHud0;
-    allocFont(hud0, SpriteSheet_82B1A84, LargeFontMeta, 0, -0x10, 0xF0, 2);
-    hud1 = &gameData->levelHud1;
-    allocFont(hud1, SpriteSheet_82B1A84, LargeFontMeta, 0, 0xA0, 0xF0, 2);
-    sub_80611FC(hud0, 4);
-    sub_80611FC(hud1, 4);
-    sub_80611EC(hud1, 0xE);
+    allocFont(&gameData->levelHud0, SpriteSheet_82B1A84, LargeFontMeta, 0, -0x10, 0xF0, 2);
+    allocFont(&gameData->levelHud1, SpriteSheet_82B1A84, LargeFontMeta, 0, 0xA0, 0xF0, 2);
+    sub_80611FC(&gameData->levelHud0, 4);
+    sub_80611FC(&gameData->levelHud1, 4);
+    sub_80611EC(&gameData->levelHud1, 0xE);
     allocFont(&gameData->levelHud2, SpriteSheet_82B05EC, ShadowFontMeta, 0, -0x20, 0xEE, 0);
     gameData->unk1044 = 0;
     gameData->unk1048 = 0;
@@ -55,12 +50,11 @@ void LoadHUD(void)
     LoadSpriteSheet(gameData->unk1060, SpriteSheet_821CF10, 0x200, -0x2000, 0, 0, 0, 0);
     LoadSpriteSheet(gameData->unk1064, SpriteSheet_821DB5C, 0x4200, -0x2000, 0, 0, 0, 0);
     LoadSpriteSheet(gameData->unk1074, SpriteSheet_821DEA8, 0xCE00, -0x2000, 0, 0, 0, 0);
-    hud3 = &gameData->levelHud3;
-    allocFont(hud3, SpriteSheet_82B05EC, ShadowFontMeta, 0, -0x20, 0x1C, 2);
+    allocFont(&gameData->levelHud3, SpriteSheet_82B05EC, ShadowFontMeta, 0, -0x20, 0x1C, 2);
     gameData->unk107D = sub_80518F0();
-    showNumber_2(hud3, gameData->unk107D, 0xF);
-    showString(hud3, Str_8727048, 0xF);
-    showNumber(hud3, getLevelDescription2()->unk1, 0xF);
+    showNumber_2(&gameData->levelHud3, gameData->unk107D, 0xF);
+    showString(&gameData->levelHud3, Str_8727048, 0xF);
+    showNumber(&gameData->levelHud3, getLevelDescription2()->unk1, 0xF);
     gameData->unk107A = 0;
     gameData->unk1078 = 0;
     gameData->unk1070 = 0;

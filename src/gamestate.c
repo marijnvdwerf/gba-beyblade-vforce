@@ -137,12 +137,10 @@ LevelState* sub_8051734(void)
 unk32 sub_8051744(void)
 {
     s32 index;
-    LevelState* state;
 
     index = 0;
     do {
-        state = sub_8051720(index);
-        if ((state->unk0 & 1) != 0) {
+        if ((sub_8051720(index)->unk0 & 1) != 0) {
             index++;
         } else {
             return 0;
@@ -166,12 +164,10 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8051798.s");
 unk32 GetLevelDescriptionNo(void)
 {
     LevelDescription* description;
-    LevelDescription* descriptions;
 
     description = getLevelDescription2();
     if (sub_8051780(0x20) != 0) {
-        descriptions = LevelDescriptions;
-        return descriptions[_currentGameState->unk6C4].unk0;
+        return LevelDescriptions[_currentGameState->unk6C4].unk0;
     }
     return description->unk0;
 }
@@ -186,12 +182,10 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80518c8.s");
 
 unk32 sub_80518F0(void)
 {
-    LevelState* state;
     unk32 value;
     unk32 count;
 
-    state = sub_8051734();
-    value = state->unk10;
+    value = sub_8051734()->unk10;
     count = 0;
     if (value != 0) {
         do {
