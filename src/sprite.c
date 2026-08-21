@@ -564,7 +564,7 @@ void sub_8060CDC(SpriteTextBlock* block)
 }
 
 #if 0
-SpriteEntry* resizeSpriteBlock(SpriteEntry* block, unk16 new_size, unk16 arg2)
+SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, unk16 new_size, unk16 arg2)
 {
     /* The target narrows extra with lsl/lsr #16 at 0x2C-0x30. */
     unk16 extra;
@@ -578,12 +578,12 @@ SpriteEntry* resizeSpriteBlock(SpriteEntry* block, unk16 new_size, unk16 arg2)
     SpriteEntry* previous;
     unk16 count;
 
-    if (block->x == new_size) {
+    if (block->count == new_size) {
         return block->prev;
     }
-    if (block->x < new_size) {
-        if (block->x != 0) {
-            extra = new_size - block->x;
+    if (block->count < new_size) {
+        if (block->count != 0) {
+            extra = new_size - block->count;
             sprites_free = _spritesFree;
             if (sprites_free < extra) {
                 nullsub_8(Str_8755B0C);
@@ -595,7 +595,7 @@ SpriteEntry* resizeSpriteBlock(SpriteEntry* block, unk16 new_size, unk16 arg2)
             previous = new_first;
             first = block->prev;
             _spritesFree = sprites_free - extra;
-            block->x = block->x + extra;
+            block->count = block->count + extra;
             new_first->var22 = first->var22;
             count = extra - 1;
             while (count != 0) {
