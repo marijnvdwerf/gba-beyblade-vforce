@@ -45,6 +45,8 @@ Allocation follows live ranges, types, and expression trees — never variable n
 - Nested scopes shorten lifetimes and free registers for later reuse.
 - Chained assignment (`a = obj->f = call();`) keeps the value live for the following store/move; splitting adds a `mov`.
 - A "redundant" temp doesn't reserve a register — non-overlapping lifetimes get coalesced; it can instead add an unwanted save and shift every stack offset.
+- One shared `void *prev` reused across two list-building loops keeps a single pseudo (and the same callee-saved reg, e.g. r4) in both; separate typed locals split it and shuffle neighbouring temps. Conversely a "redundant" cursor temp (`next = entry; … next = next->next;`) can be required when the target keeps the initial pointer and the moving cursor in different registers.
+- Long-lived `&global` addresses parked in r9/sl push incoming args out to r7/r8 — if the target's arg registers are high, look for globals whose address is kept live across the function rather than reloaded.
 
 Read the prologue first: a wrong push mask means the lifetime set is wrong — fix that before anything downstream.
 
@@ -64,12 +66,15 @@ Read the prologue first: a wrong push mask means the lifetime set is wrong — f
 - `switch`: lexical case order affects block layout and jump-table targets; explicit empty cases can keep the jump table where a sparse switch degrades to compares; identical case bodies may merge (breaking the table); an unsigned dispatch expression (`(u32)v - K`) can sometimes force the table form. `switch` and if/else chains lower to different comparison trees.
 - Loops: `while (count-- != 0)`, decrement-then-`while (c != -1)`, `do/while`, and top-tested `while` are distinct shapes; agbcc may rotate a loop (entry branch to a shared test block). A separate `count--;` statement matters when the target compares the decremented value.
 - `*out++ = v` can select `stmia`; separated store + increment selects `str` + `add`.
+- Don't assume an ascending `for` with an unused index will be loop-reversed into the target's `i = n-2 … != -1` countdown: in SpriteVRamFree signed and unsigned counters, hoisted bounds, and `u32` params all stayed ascending. If the target has the sentinel countdown, write it explicitly and note why.
 
 ## Globals & literal pools
 
 - Global addresses generally come from the literal pool, but agbcc may reuse a loaded address and derive nearby ones with `add`/`sub`. Whether the target loads fresh or derives is visible — mirror it.
 - Pool placement and reach follow code size and block layout — never chase pool offsets; fix the code above them.
 - Calls through a function-pointer lvalue emit load + `_call_via_rN`; direct calls emit `bl`. Match the indirection level.
+- String literals passed to calls are emitted right after the function's code; if `Str_*` globals sit immediately after the function in address order, they were inline literals — write them inline.
+- `diff.ts` shows expected pool words numerically and current ones by symbol, flagging them `!` even when equal. `.word` rows are relocation display noise; the ROM SHA1 compare is the authority.
 
 ## Structs vs raw offsets
 
