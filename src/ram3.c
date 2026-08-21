@@ -1,4 +1,5 @@
 #include "keystate.h"
+#include "sprite.h"
 #include "ram.h"
 
 void* _unk3005DC0 = NULL;
@@ -11,11 +12,12 @@ void* _unk3005DD8 = NULL;
 void* _rotationScaleBlock = NULL;
 void* _spritesBlock = NULL;
 void* _unk3005DE4 = NULL;
-void* _rotationScale_end = NULL;
+SpriteRotationScaleEntry* _rotationScale_end = NULL;
 void* _spritesLeft = NULL;
-void* _rotationScale = NULL;
+SpriteRotationScaleEntry* _rotationScale = NULL;
 void* _spritesFree = NULL;
-u8 _unk3005DF8[8] = { 0 };
+void* _unk3005DF8 = NULL;
+void* _unk3005DFC = NULL;
 void* _unk3005E00 = NULL;
 void* _unk3005E04 = NULL;
 void* _unk3005E08 = NULL;
