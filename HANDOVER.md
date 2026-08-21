@@ -90,7 +90,7 @@ grep INCLUDE_ASM.
 | scope | functions | status |
 |---|---|---|
 | gamestate.c | 10 leaves + sub_80510FC | 10 MERGED e5a2582 (applied as patch; worktree removed); sub_80510FC parked (table scan becomes pointer-increment — see gamestate.md); style debt (offset arithmetic on LevelDescriptions, unk4 byte-indexing) handed to temp-reduction agent |
-| gameinit.c | sub_80538C0, sub_8053F0C, initRiders | 2/3 MERGED da06486 (unk42C = RiderBlock* of 0x428-byte elems; sub_8053F0C needs case-scoped GameData*); initRiders in progress |
+| gameinit.c | sub_80538C0, sub_8053F0C, initRiders | 2/3 MERGED; initRiders PARKED (#if 0 draft merged a2862ed; frame 0x138 vs 0x134 = one extra spilled local, riderIndex r8 vs r9 — see initriders.md); worktree removed |
 | frontend.c | sub_8049264, sub_8049458 | sub_8049264 MERGED (straight-line stores + chained `unk578 = unk57C = unk580 = 0`; FrontendState typed, `UnkMotion motion` @0x458); sub_8049458 PARKED (#if 0 draft; only the final 0x584/0x586 block's temp registers permute — see frontend.md); worktree removed |
 | event.c | deallocEventListeners, initEventListeners | dealloc MERGED 1c97097; initEventListeners PARKED (#if 0 draft in event.c; VLA proven; count/max register swap: agbcc priority ≈ refs/live-length, count 14/184 vs max 5/114 — see event.md); worktree removed |
 | small leaves | sub_8061204, sub_805BA3C, deallocateQuadTree, sub_804A72C, emptyBeybladeActorData, deallocBeybladeActorData, sub_8055CB8, sub_804F800, sub_804FEE8 | 9/9 MERGED c1313c1 (QuadTree @0x7A4 = 0x58 bytes; sub_804F800/sub_804FEE8 need a `GameData* base` local — see small-leaves.md); worktree removed |

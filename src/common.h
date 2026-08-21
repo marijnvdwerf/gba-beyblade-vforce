@@ -163,16 +163,19 @@ typedef struct ParticleSystem {
 /* Canonical level-geometry handle (0x11C bytes); filled by
  * getLevelGeometryAddresses(LevelGeometryAddresses*, void* geometryData). */
 typedef struct GeometryPoint {
-    unk32 x;
-    unk32 y;
-    unk32 z;
+    s32 x;
+    s32 y;
+    s32 z;
     unk32 padC;
 } GeometryPoint;
 
 typedef struct GeometryLine {
     unk32 point0;
     unk32 point1;
-    unk8 pad8[0x18];
+    unk8 unk8;
+    unk8 pad9[0xD];
+    unk16 type;
+    unk8 pad18[8];
 } GeometryLine; /* 0x20; stride proven by line-table indexing */
 
 typedef struct GeometrySpline {
