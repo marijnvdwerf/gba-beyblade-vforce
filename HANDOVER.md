@@ -71,7 +71,7 @@ Active worktrees / agents (id → file → status):
 |---|---|---|---|
 | agent-a05734a49c7bdaff9 | sprite.c | freeSpriteVramLocation | sub_8060E8C (regalloc); then LoadSpriteSheet, sub_8060C1C, sub_8060CDC, resizeSpriteBlock, sub_8061078 as callers appear |
 | agent-abb23f448b7c48bf5 | memory.c | sub_805A53C | getValidAllocatedBlock: hint sent — `while (count-- != 0)`, inline string, drop NONMATCHING block |
-| agent-aee513f785706f4b3 | gameinit.c | initGame | initGameLoop; experiment pending: unkC24/unkC26 as `s16` + `\|= 0xFFFF` to avoid `(s16)` casts in music.c; then sub_8053B94, closeGame |
+| agent-aee513f785706f4b3 | gameinit.c | initGame, initGameLoop | experiment pending: unkC24/unkC26 as `s16` + `\|= 0xFFFF` to avoid `(s16)` casts in music.c; then sub_8053B94, closeGame |
 | agent-a358a3f24f8bdfae8 | keystate.c | — | updateKeyState: pre-loop matches after keeping `void* _unk3005DA8`; loop regalloc still off. Read its asm if stuck |
 | agent-a7d4f3a332d49ca2f | system.c | — (restored to asm) | sub_8057A7C orphan (no callers) didn't match; writing `docs/learnings/sub_8057A7C.md`; remove worktree after |
 
@@ -81,7 +81,7 @@ Skipped (no C caller): sub_8062EFC (actorheap.c).
 
 Direct `mainLoop` callees still in asm (types pinned by C call sites):
 gameLoop (927 lines), initGameLoop, updateKeyState, sub_8049458,
-sub_8053B94, initMultiPlayer, sub_8049264, initGame ✅, closeGame,
+sub_8053B94, initMultiPlayer, sub_8049264, initGame ✅, initGameLoop ✅, closeGame,
 sub_8055CB8. Full reachable-graph report was only in an agent transcript;
 regenerate with `tools/callgraph.py mainLoop` + `tools/worklist.py`.
 
