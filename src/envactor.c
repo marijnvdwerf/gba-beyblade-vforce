@@ -9,8 +9,6 @@
 #if 0
 extern void ActorSetSpriteOffset(EnvironmentActorSlot*, s16, s16);
 extern void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);
-extern void actor_8057C58(
-    EnvironmentActorSlot*, EnvironmentActorConfig*, void*, s32, s32, s32, s32);
 extern void actor_80585F8(EnvironmentActorSlot*, unk16, unk16, unk16, unk16);
 extern void actor_805C48C(EnvironmentActorSlot*, LevelGeometryAddresses*, unk32, unk32);
 extern void sub_8056B54(void);
