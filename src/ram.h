@@ -97,7 +97,11 @@ typedef struct GameData {
     unk8 padC30[0x3C]; /* 0xC30 */
     u16 unkC6C; /* 0xC6C */
     u16 unkC6E; /* 0xC6E */
-    unk8 padC70[0x2E0]; /* 0xC70 */
+    unk8 padC70[0x30]; /* 0xC70 */
+    AllocatedBlock* unkCA0; /* 0xCA0 */
+    void* unkCA4; /* 0xCA4 */
+    unk32 unkCA8; /* 0xCA8 */
+    unk8 padCAC[0x2A4]; /* 0xCAC */
     SpriteTextCleanup levelHud0; /* 0xF50 */
     SpriteTextCleanup levelHud1; /* 0xF80 */
     SpriteTextCleanup levelHud2; /* 0xFB0 */
