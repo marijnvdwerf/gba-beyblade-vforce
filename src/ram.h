@@ -62,8 +62,8 @@ typedef struct GameData {
     unk8 pad8D8[0x44]; /* 0x8D8 */
     unk32 unk91C; /* 0x91C */
     unk8 pad920[0x0C]; /* 0x920 */
-    SpriteEntry unk92C; /* 0x92C */
-    unk8 pad960[0x18]; /* 0x960 */
+    SpriteTextBlock unk92C; /* 0x92C */
+    unk8 pad938[0x40]; /* 0x938 */
     unk32 unk978; /* 0x978 */
     unk32 unk97C; /* 0x97C */
     unk32 unk980; /* 0x980 */

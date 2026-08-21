@@ -6,7 +6,6 @@
 #include "spritestring.h"
 #include "unsorted.h"
 
-extern void sub_8060CDC(void*);
 extern void sub_806123C(SpriteTextCleanup*);
 extern void* resizeSpriteBlock(SpriteTextBlock*, unk16, unk8);
 extern const u8 Str_8755B58[];

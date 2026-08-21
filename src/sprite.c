@@ -516,7 +516,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8060b68-LoadSpriteSheet.s");
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8060c1c.s");
 
-void sub_8060CDC(SpriteEntry* block)
+void sub_8060CDC(SpriteTextBlock* block)
 {
     SpriteEntry* first;
     SpriteEntry* last;
@@ -525,7 +525,7 @@ void sub_8060CDC(SpriteEntry* block)
     SpriteEntry* cur;
     unk32 n;
 
-    if (block->x == 0) {
+    if (block->count == 0) {
         return;
     }
 
@@ -533,9 +533,9 @@ void sub_8060CDC(SpriteEntry* block)
     last = block->next;
     prev = first->prev;
     next = last->next;
-    _spritesFree += block->x;
+    _spritesFree += block->count;
     cur = first;
-    n = block->x;
+    n = block->count;
     while (n--) {
         if (cur->unk30 != NULL) {
             sub_8060B38(cur->unk30);
@@ -557,7 +557,7 @@ void sub_8060CDC(SpriteEntry* block)
     }
     last->next = _spritesLeft;
     _spritesLeft = first;
-    block->x = 0;
+    block->count = 0;
     block->prev = NULL;
     block->next = NULL;
     sub_80604D4(_unk3005DE4);
