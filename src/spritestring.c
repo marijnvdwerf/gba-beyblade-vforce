@@ -46,7 +46,22 @@ unk32 sub_8064F50(unk32 value)
     return count;
 }
 
-INCLUDE_ASM("asm/dump/8064f38/8064f84.s");
+unk32 sub_8064F84(const u8* str)
+{
+    unk32 length;
+    u8 c;
+
+    c = *str;
+    length = 1;
+    if (c != 0) {
+        do {
+            c = str[length];
+            length++;
+        } while (c != 0);
+    }
+    return length;
+}
+
 INCLUDE_ASM("asm/dump/8064f38/8064f9c.s");
 INCLUDE_ASM("asm/dump/8064f38/8064fe8-SpriteString_8064FE8.s");
 INCLUDE_ASM("asm/dump/8064f38/8065088.s");
