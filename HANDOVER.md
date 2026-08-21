@@ -74,13 +74,14 @@ Active worktrees / agents (id → file → status):
 |---|---|---|---|
 | agent-abb23f448b7c48bf5 | memory.c | (merged) | debrief in progress → remove worktree after `docs/learnings/memory-allocator.md` exists |
 | agent-aee513f785706f4b3 | gameinit.c | (merged: initGame, initGameLoop, sub_8053B94, closeGame) | debrief pending → remove worktree after `docs/learnings/gameinit.md` exists. 15 INCLUDE_ASM remain in gameinit.c |
-| agent-a358a3f24f8bdfae8 | keystate.c | — | updateKeyState: `> 0` tests fixed the body (clean to 0xA6); remaining: preheader hoists base+4→r8, base+8→ip — told to combine the `field04/field08` pointer form with `> 0` |
 
 Skipped (no C caller): sub_8062EFC (actorheap.c).
 
 Parked (attempted, not matched — see docs/learnings/): sub_8060E8C and
 freeSpriteVramLocation (sprite.c; the agent's earlier "match" relied on
-register pinning and was discarded), sub_8057A7C (system.c orphan).
+register pinning and was discarded), sub_8057A7C (system.c orphan), updateKeyState (keystate.c; body and
+invariant set identical to target, only the hard-reg assignment of the
+base+4/base+8 invariants differs — see docs/learnings/updateKeyState.md).
 
 ## Next candidates
 
