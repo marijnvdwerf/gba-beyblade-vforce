@@ -6,8 +6,6 @@
 #include "system.h"
 #include "unsorted.h"
 
-typedef struct SpriteEntry SpriteEntry;
-
 struct SpriteEntry {
     SpriteEntry* prev; // 0x00
     SpriteEntry* next; // 0x04

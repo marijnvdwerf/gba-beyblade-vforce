@@ -8,7 +8,29 @@ extern void sub_8061160(void*);
 extern void sub_8060B38(void*);
 extern unk8 showNumber(void*, unk32, unk8);
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8061190-allocFont.s");
+void allocFont(SpriteTextCleanup* arg0, const u8* arg1, const u8* arg2, s32 arg3, s32 arg4,
+    unk16 arg5, unk16 arg6)
+{
+    arg0->x = (arg3 << 16) >> 8;
+    arg0->y = (arg4 << 16) >> 8;
+    arg0->unkC = arg5;
+    arg0->unkA = 0;
+    arg0->unk14.count = 0;
+    arg0->unk14.next = NULL;
+    arg0->unk14.prev = NULL;
+    arg0->unk20 = arg2;
+    arg0->unk24 = arg1;
+    arg0->unk8 = arg6;
+    arg0->ptr2C = NULL;
+    arg0->unkE = 0;
+    arg0->unk10 = 0x100;
+    arg0->unk12 = 0x100;
+    arg0->unkF = 0;
+    arg0->unk2B = 0;
+    arg0->unk28 = 5;
+    arg0->unk29 = 0;
+    arg0->unk2A = arg1[5] + 4;
+}
 
 void sub_80611EC(UnkSpriteText* arg0, unk8 arg1)
 {
@@ -24,7 +46,7 @@ void sub_80611FC(UnkSpriteText* arg0, unk8 arg1)
 
 void sub_8061204(SpriteTextCleanup* arg0)
 {
-    sub_8060CDC(arg0->unk14);
+    sub_8060CDC(&arg0->unk14);
     if (arg0->ptr2C != NULL) {
         sub_8061160(arg0->ptr2C);
         sub_8060B38(arg0->ptr2C);
@@ -34,7 +56,7 @@ void sub_8061204(SpriteTextCleanup* arg0)
 
 void sub_8061228(SpriteTextCleanup* arg0)
 {
-    sub_8060CDC(arg0->unk14);
+    sub_8060CDC(&arg0->unk14);
     arg0->unkA = 0;
 }
 

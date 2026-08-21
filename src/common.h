@@ -97,20 +97,35 @@ typedef struct UnkActor {
     unk8 unk8D;
 } UnkActor;
 
-typedef struct UnkSpriteText {
-    unk8 unk0[0x28];
-    unk8 unk28;
-    unk8 unk29;
-    unk8 unk2A;
-} UnkSpriteText;
+typedef struct SpriteEntry SpriteEntry;
+
+typedef struct SpriteTextBlock {
+    SpriteEntry* prev;
+    SpriteEntry* next;
+    unk32 count;
+} SpriteTextBlock;
 
 typedef struct SpriteTextCleanup {
-    unk8 unk0[0xA];
+    unk32 x;
+    unk32 y;
+    unk16 unk8;
     unk16 unkA;
-    unk8 unkC[0x8];
-    unk8 unk14[0x18];
-    void* ptr2C;
+    unk16 unkC;
+    unk8 unkE;
+    unk8 unkF;
+    unk16 unk10;
+    unk16 unk12;
+    SpriteTextBlock unk14;
+    const u8* unk20;
+    const u8* unk24;
+    unk8 unk28;
+    s8 unk29;
+    unk8 unk2A;
+    unk8 unk2B;
+    SpriteEntry* ptr2C;
 } SpriteTextCleanup;
+
+typedef SpriteTextCleanup UnkSpriteText;
 
 typedef struct RiderBase {
     unk8 unk0[0x238];
