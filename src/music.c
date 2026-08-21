@@ -54,7 +54,7 @@ void sub_804AE34(unk32 arg0, unk32 arg1)
 
 void sub_804AE8C(void)
 {
-    if (_gameData->unkC24 != -1) {
+    if ((s16)_gameData->unkC24 != -1) {
         Sound_8062A90(_gameData->unkC28);
     }
     _gameData->unkC24 = -1;
@@ -62,7 +62,7 @@ void sub_804AE8C(void)
 
 void sub_804AECC(unk32 arg0)
 {
-    if (_gameData->unkC24 != -1) {
+    if ((s16)_gameData->unkC24 != -1) {
         Sound_8062AF4(_gameData->unkC28, arg0);
     }
 }
@@ -71,7 +71,7 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804af04.s");
 
 void sub_804AF5C(void)
 {
-    if (_gameData->unkC26 != -1) {
+    if ((s16)_gameData->unkC26 != -1) {
         Sound_8062A90(_gameData->unkC2C);
     }
     _gameData->unkC26 = -1;
