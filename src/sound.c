@@ -87,7 +87,7 @@ extern u16 (*_soundMixerPlus)[];
 extern u8 _unk3005E78;
 
 void (*__sub_87577B4)(SoundStructA*, int, int);
-void (*__sub_8757A64)(int, int, int);
+void (*__sound_8757A64)(int, int, int);
 
 extern u32 Unk_8755B90[];
 
@@ -281,68 +281,72 @@ void Sound_80627A8(SoundStructA* arg0, int arg1, int arg2)
     }
 }
 
-INCLUDE_ASM("asm/dump/sound/80627f0.s");
-
 #if 0
 void sub_80627F0(void)
 {
-    u32 varA, varB;
-    int r10, r5;
-    u16 var;
-    int i;
+    s32 temp_r0;
+    s32 temp_r1;
+    s32 var_r0;
+    s32 var_r4;
+    s32 var_r5;
+    s32 var_r6;
+    s32 var_r7;
+    u32 var_r1;
+    u32 temp_r2;
+    volatile SoundStructC* state;
+    u32* position;
 
-    SoundStructA* channel = *_unk3005E24;
-    u8 e04 = _unk3005E04;
-
-    if (_soundMixer == NULL) {
-        return;
-    }
-
-    if (_unk3005E40.var04 == 0) {
-        return;
-    }
-
-    sub_8062C24();
-
-    varA = _unk3000D94;
-    varB = (_unk3005E40.var08 + 1) & -2;
-
-    var = (*(vu32 *)REG_TM1CNT + 1) & -2;
-    if (var == 0x10000) {
-        var = _unk3005E18;
-    }
-    _unk3000D94 = var;
-
-    if (_unk3000D94 > varA) {
-        r5 = _unk3000D94 - _unk3000D94;
-        r10 = 0;
-    } else {
-        r5 = 0x10000 - _unk3000D94;
-        r10 = _unk3005E4C + 0xFFFF0000 + _unk3000D94;
-    }
-
-    _unk3005E78 = 0;
-
-    for (i = e04 - 1; i != -1; i--) {
-        sub_80627A8(channel, r5 + r10, _unk3000DA0);
-        channel++;
-    }
-    // loop
-
-    __sub_8757A64((int)*_unk3000D90, r5, 0);
-    _unk3000D90 += r5;
-
-    if (r10 != 0) {
-        _unk3000D90 -= _unk3005E4C;
-        __sub_8757A64((int)*_unk3000D90, r10, r5);
-        _unk3000D90 += r10;
-    }
-
-    if (_unk3000D90 == (u8*)_soundMixer + _unk3005E4C) {
-        _unk3000D90 -= _unk3005E4C;
+    var_r6 = (s32)*_unk3005E24;
+    var_r4 = _unk3005E04;
+    if (_soundMixer != 0) {
+        state = &_unk3005E40;
+        if (state->var04 == 0) {
+            return;
+        }
+        sub_8062C24();
+        position = &_unk3000D94;
+        temp_r2 = *position;
+        var_r0 = (state->var08 + 1) & -2;
+        var_r1 = (*(vu16*)REG_TM1CNT + 1) & ~1;
+        if (var_r1 == 0x10000) {
+            var_r1 = _unk3005E18;
+        }
+        *position = var_r1;
+        if (var_r1 > temp_r2) {
+            var_r5 = var_r1 - temp_r2;
+            var_r0 = 0;
+        } else {
+            var_r5 = 0x10000 - temp_r2;
+            var_r0 = _unk3005E4C + 0xFFFF0000 + var_r1;
+        }
+        var_r7 = var_r5 + var_r0;
+        _unk3005E78 = 0;
+        var_r4 -= 1;
+        if (var_r4 != -1) {
+            do {
+                Sound_80627A8((SoundStructA*)var_r6, var_r7, _unk3000DA0);
+                var_r6 += 0x28;
+                var_r4 -= 1;
+            } while (var_r4 != -1);
+        }
+        __sound_8757A64((int)_unk3000D90, var_r5, 0);
+        temp_r1 = (int)_unk3000D90 + var_r5;
+        _unk3000D90 = (u8*)temp_r1;
+        if (var_r0 != 0) {
+            temp_r0 = temp_r1 - _unk3005E4C;
+            _unk3000D90 = (u8*)temp_r0;
+            __sound_8757A64(temp_r0, var_r0, var_r5);
+            _unk3000D90 = (u8*)((int)_unk3000D90 + var_r0);
+        }
+        if (_unk3000D90 == ((u8*)_soundMixer + _unk3005E4C)) {
+            _unk3000D90 -= _unk3005E4C;
+        }
     }
 }
+
 #endif
+
+INCLUDE_ASM("asm/dump/sound/80627f0.s");
 
 static void Sound_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
 {
