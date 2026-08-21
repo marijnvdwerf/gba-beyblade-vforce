@@ -26,7 +26,7 @@ void sub_804FEE8(void)
     base = _gameData;
     hud = &base->levelHud0;
     status = &base->levelHudStatus;
-    if (*status != 0) {
+    if (base->levelHudStatus != 0) {
         sub_8061228(hud);
         sub_8061228(&base->levelHud1);
         sub_8050584(&base->levelHudMotion0);
