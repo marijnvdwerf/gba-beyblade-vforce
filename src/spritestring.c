@@ -94,19 +94,19 @@ void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthT
     string->previousX = x - 1;
     mask = 0x10;
     mask = -mask;
-    string->flags &= (unk8)mask;
+    string->flags &= mask;
     mask = 0x11;
     mask = -mask;
-    string->flags &= (unk8)mask;
+    string->flags &= mask;
     string->widthTable = widthTable;
     negativeOne = 1;
     negativeOne = -negativeOne;
     string->timer = negativeOne;
-    string->mode = (unk16)zero;
+    string->mode = zero;
     scale = 0x80;
     scale <<= 1;
-    string->scaleX = (unk16)scale;
-    string->scaleY = (unk16)scale;
+    string->scaleX = scale;
+    string->scaleY = scale;
     string->width = zero;
     sub_8065088(string);
 }
