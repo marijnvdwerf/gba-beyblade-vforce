@@ -108,3 +108,40 @@ These are observations from matching `SpriteVRamFree` at `0x08060520`. The exist
 +  byte/SHA1 comparison as the authority.
 *** End Patch
 ```
+
+## Loop reversal experiment
+
+The temporary-source experiments used `tools/asm-annotated.py --all-passes` on
+copies of the first sprite-list loop. `bun run tools/diff/diff.ts` was not used:
+the copies have no corresponding object in the repository's expected/build
+layout, so the comparison here is an assembly eyeball against the original
+reversed output.
+
+| spelling | `.loop` says `Reversed loop` | first-loop final assembly |
+|---|---:|---|
+| `int i; for (i = 0; i < (int)max_sprites - 1; i++)` | yes | countdown, signed zero test (`sub`, then `cmp #0`/`bne`) |
+| `u32 i; for (i = 0; i != max_sprites - 1; i++)` | no | ascending (`i++`, `cmp` bound, `bne`) |
+| `int i; for (i = 0; i != (int)max_sprites - 1; i++)` | no | ascending (`i++`, `cmp` bound, `bne`) |
+| `int n; n = (int)max_sprites - 1; for (i = 0; i < n; i++)` | yes | countdown, signed zero test (`sub`, then `cmp #0`/`bne`) |
+| `u32 n; n = max_sprites - 1; while (n--)` | no reversal needed | countdown sentinel; `sub rN, r7, #2`, compare against `-1`, then decrement |
+| `u32 n; n = max_sprites - 1; do { ... } while (--n)` | no reversal needed | countdown, but `sub rN, r7, #1` and compare against zero |
+| `int i; for (i = 1; i < (int)max_sprites; i++)` | yes | countdown, signed zero test (`sub`, then `cmp #0`/`bne`) |
+
+The important distinction is between the two `.loop` messages. The broad
+eligibility gate at `/tmp/agbcc/gcc/loop.c:7310-7323` prints `Can reverse loop`,
+but that is not success. The actual reversal path only accepts `LT` (or the
+special `LE` case) at `/tmp/agbcc/gcc/loop.c:7334-7338`; an unsigned `LTU`
+comparison and both `NE` spellings therefore reach the later return without
+printing the success message. The successful path prints
+`Reversed loop and added reg_nonneg` at `/tmp/agbcc/gcc/loop.c:7602-7608`.
+For nonconstant bounds, the alternate `add_val == 1`/`loop_info->vtop` and
+counting-only conditions at `/tmp/agbcc/gcc/loop.c:7419-7427` explain why the
+signed and hoisted-bound forms can still reverse.
+
+The `while (n--)` spelling is the useful natural source form: its first-loop
+assembly visibly reproduces the target's `sub r1, r7, #2` plus compare-against-
+`-1` shape (with different register numbers in the standalone experiment).
+It is therefore a better source candidate than an explicit reversed `for`,
+subject to restoring the surrounding register allocation in the matched
+function.
+

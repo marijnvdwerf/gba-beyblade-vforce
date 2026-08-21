@@ -66,7 +66,7 @@ Read the prologue first: a wrong push mask means the lifetime set is wrong — f
 - `switch`: lexical case order affects block layout and jump-table targets; explicit empty cases can keep the jump table where a sparse switch degrades to compares; identical case bodies may merge (breaking the table); an unsigned dispatch expression (`(u32)v - K`) can sometimes force the table form. `switch` and if/else chains lower to different comparison trees.
 - Loops: `while (count-- != 0)`, decrement-then-`while (c != -1)`, `do/while`, and top-tested `while` are distinct shapes; agbcc may rotate a loop (entry branch to a shared test block). A separate `count--;` statement matters when the target compares the decremented value.
 - `*out++ = v` can select `stmia`; separated store + increment selects `str` + `add`.
-- Don't assume an ascending `for` with an unused index will be loop-reversed into the target's `i = n-2 … != -1` countdown: in SpriteVRamFree signed and unsigned counters, hoisted bounds, and `u32` params all stayed ascending. If the target has the sentinel countdown, write it explicitly and note why.
+- Loop reversal (`check_dbra_loop`) only fires for a *signed* `<`/`<=` bound and yields a countdown to `cmp #0`; unsigned `<` and `!=` loops stay ascending even when the `.loop` dump says "Can reverse loop". The `i = n-2 … cmp #-1` sentinel shape is not reversal at all — it is how `u32 n = count; while (n--) { … }` lowers. Write that, not an explicit sentinel loop.
 
 ## Globals & literal pools
 
