@@ -84,8 +84,7 @@ functions; session 1 merged 8.
 
 | worktree | scope | status |
 |---|---|---|
-| envactor-init | envactor.c initLevelEnvironmentActors (656) | running; push mask + slots match, frame +4 (one extra local) |
-| sol learnings pass | round-6 notes → skill, move to processed/ | running (main, uncommitted) |
+| sol learnings pass | envactor-init.md → skill | running (main, uncommitted) |
 
 ### Parked (attempted, not matched)
 
@@ -102,7 +101,7 @@ functions; session 1 merged 8.
 | sub_80655C0, sub_8065508 (spritestring.c) | — | `#if 0` | register/stack shape diverged |
 | sub_8065334 (spritestring.c) | — | `#if 0` | target reloads `string->actors` each iteration with no call/aliasing store; only `volatile` reproduces it (rejected) — spritestring.md |
 | sub_8062C24 (sound.c) | 310 | `#if 0` | envactor-sound agent draft; byte-cursor sequencer — envactor-sound.md |
-| initLevelEnvironmentActors (envactor.c) | 656 | none | unassigned after sub_8054FE0 landed (merged 18a1525) |
+| initLevelEnvironmentActors (envactor.c) | 656 | `#if 0` | push mask/hi-regs/slots match; frame 0x26C vs 0x268 (one extra local); point-init loop allocation — envactor-init.md (speculative layouts live in the draft, not headers) |
 | sub_80510FC (gamestate.c) | 208 | none | final table scan compiles to pointer-increment instead of indexed — processed/gamestate.md |
 | updateKeyState (keystate.c) | 226 | none | body identical; only hard-reg choice for base+4/base+8 invariants differs — processed/updateKeyState.md |
 | freeSpriteVramLocation (sprite.c) | 121 | none | earlier "match" used register pinning, discarded — processed/sprite-vram.md |
