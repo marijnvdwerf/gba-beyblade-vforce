@@ -6,6 +6,7 @@
 extern void sub_8060CDC(void*);
 extern void sub_8061160(void*);
 extern void sub_8060B38(void*);
+extern unk8 showNumber(void*, unk32, unk8);
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8061190-allocFont.s");
 
@@ -47,7 +48,13 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8061844.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/806185c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061880.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80618d0-showNumber.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8061980-showNumber_2.s");
+
+unk8 showNumber_2(void* arg0, unk32 arg1, unk8 arg2)
+{
+    sub_8061228(arg0);
+    return showNumber(arg0, arg1, arg2);
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/80619a4.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061a18-printTime.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061ae8.s");
