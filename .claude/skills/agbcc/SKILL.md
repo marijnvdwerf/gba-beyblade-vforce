@@ -40,6 +40,7 @@ A mnemonic shows the type of the expression *at that point*, not necessarily the
 Allocation follows live ranges, types, and expression trees — never variable names. Levers:
 
 - Explicit temporaries mirroring asm values (cursor, count, end-ptr). Keep two locals when the target keeps two registers; drop the temp when the target reloads the field each time.
+- A list walk that keeps the moving cursor and the freshly loaded successor in distinct registers needs a separate `candidate` temp (`candidate = cur->next; next = candidate;`) even though it looks redundant.
 - Assignment order moves live-range boundaries (`count = f->n; temp = count; count--;` ≠ computing via the temp first). An early `result = 0` set-on-success reproduces early return-register setup.
 - Values live across calls land in callee-saved regs; repeated global accesses can keep the global's address in a saved reg where a cached local frees it.
 - Nested scopes shorten lifetimes and free registers for later reuse.
@@ -66,6 +67,7 @@ Read the prologue first: a wrong push mask means the lifetime set is wrong — f
 - `switch`: lexical case order affects block layout and jump-table targets; explicit empty cases can keep the jump table where a sparse switch degrades to compares; identical case bodies may merge (breaking the table); an unsigned dispatch expression (`(u32)v - K`) can sometimes force the table form. `switch` and if/else chains lower to different comparison trees.
 - Loops: `while (count-- != 0)`, decrement-then-`while (c != -1)`, `do/while`, and top-tested `while` are distinct shapes; agbcc may rotate a loop (entry branch to a shared test block). A separate `count--;` statement matters when the target compares the decremented value.
 - `*out++ = v` can select `stmia`; separated store + increment selects `str` + `add`.
+- A rotated CFG in the target is not always reproducible from the plain `while (cond)`: in sub_806306C both `while (next == NULL || gap < size)` and `for (;;)` with the same body changed regalloc and shortened the CFG; only spelling out the entry test + bottom test (`if (next && gap >= size) break;`) matched. Try the natural form first, but accept the rotated spelling when the diff proves it.
 - Loop reversal (`check_dbra_loop`) only fires for a *signed* `<`/`<=` bound and yields a countdown to `cmp #0`; unsigned `<` and `!=` loops stay ascending even when the `.loop` dump says "Can reverse loop". The `i = n-2 … cmp #-1` sentinel shape is not reversal at all — it is how `u32 n = count; while (n--) { … }` lowers. Write that, not an explicit sentinel loop.
 
 ## Globals & literal pools
