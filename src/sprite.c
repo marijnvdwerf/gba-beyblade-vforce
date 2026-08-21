@@ -534,7 +534,7 @@ void sub_8060CDC(SpriteTextBlock* block)
     prev = first->prev;
     next = last->next;
     _spritesFree += block->count;
-    cur = first;
+    cur = block->prev;
     n = block->count;
     while (n--) {
         if (cur->unk30 != NULL) {
