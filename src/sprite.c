@@ -6,27 +6,6 @@
 #include "system.h"
 #include "unsorted.h"
 
-struct SpriteEntry {
-    SpriteEntry* prev; // 0x00
-    SpriteEntry* next; // 0x04
-    u32 x; // 0x08
-    u32 y; // 0x0C
-    s32 unk10; // 0x10
-    u16 oam_attr_2; // 0x14
-    u16 var16; // 0x16
-    u8 frame; // 0x18
-    u8 unk19; // 0x19
-    u16 unk1A; // 0x1A
-    u16 flip_h_v; // 0x1C
-    u8 unk1E[2]; // 0x1E
-    u16 var20; // 0x20
-    u16 var22; // 0x22
-    s32 var24; // 0x24
-    const u8* unk28; // 0x28
-    const u8* unk2C; // 0x2C
-    SpriteEntry* unk30; // 0x30
-};
-
 typedef struct SpriteStruct2 SpriteStruct2;
 
 struct SpriteStruct2 {
