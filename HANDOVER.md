@@ -64,14 +64,16 @@ Main: `9ed9bdc` + later merges; clean; compare passing.
 
 Merged this session: SpriteVRamFree (sprite.c, loops as `while (n--)`; sprite worktree closed),
 sub_806306C (actorheap.c, ActorBlock fields named), sub_805A53C +
-getValidAllocatedBlock (memory.c).
+getValidAllocatedBlock (memory.c), initGame + initGameLoop + sub_8053B94 +
+closeGame (gameinit.c, with large GameData/CurrentGameState upgrades in ram.h;
+music.c keeps `(s16)` casts on unkC24/unkC26 — s16 field broke initGameLoop).
 
 Active worktrees / agents (id → file → status):
 
 | worktree | file | done (uncommitted, in worktree) | in progress / notes |
 |---|---|---|---|
 | agent-abb23f448b7c48bf5 | memory.c | (merged) | debrief in progress → remove worktree after `docs/learnings/memory-allocator.md` exists |
-| agent-aee513f785706f4b3 | gameinit.c | initGame, initGameLoop, sub_8053B94 (diff clean) | BLOCKER: its GameData retype in ram.h shrank results.c.o by 8 bytes → compare fails; agent told to find the results.c function whose diff changed and fix the type honestly. s16 experiment done: u16 + `(s16)` casts in music.c stays. closeGame not started |
+| agent-aee513f785706f4b3 | gameinit.c | (merged: initGame, initGameLoop, sub_8053B94, closeGame) | debrief pending → remove worktree after `docs/learnings/gameinit.md` exists. 15 INCLUDE_ASM remain in gameinit.c |
 | agent-a358a3f24f8bdfae8 | keystate.c | — | updateKeyState: `> 0` tests fixed the body (clean to 0xA6); remaining: preheader hoists base+4→r8, base+8→ip — told to combine the `field04/field08` pointer form with `> 0` |
 
 Skipped (no C caller): sub_8062EFC (actorheap.c).
@@ -84,7 +86,7 @@ register pinning and was discarded), sub_8057A7C (system.c orphan).
 
 Direct `mainLoop` callees still in asm (types pinned by C call sites):
 gameLoop (927 lines), initGameLoop, updateKeyState, sub_8049458,
-sub_8053B94, initMultiPlayer, sub_8049264, initGame ✅, initGameLoop ✅, closeGame,
+sub_8053B94 ✅, initMultiPlayer, sub_8049264, initGame ✅, initGameLoop ✅, closeGame ✅,
 sub_8055CB8. Full reachable-graph report was only in an agent transcript;
 regenerate with `tools/callgraph.py mainLoop` + `tools/worklist.py`.
 
