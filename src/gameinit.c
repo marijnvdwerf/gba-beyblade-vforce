@@ -24,7 +24,6 @@ extern LevelDesign LevelDesigns[];
 extern void initRiders(void);
 extern const u8 Str_87294CC[];
 extern void sub_80538C0(void);
-extern void sub_804B4A4(void*);
 extern const s16 Unk_874CC3C[];
 extern const u8 Str_8729504[];
 extern const u8 Str_8729564[];
