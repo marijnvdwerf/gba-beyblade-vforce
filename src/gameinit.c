@@ -16,7 +16,7 @@ extern void initCollectables(u16);
 extern void initTutorialManagement(u16);
 extern void nullsub_2(void);
 extern void LoadHUD(void);
-extern void sub_804F800(u8);
+extern void sub_804F800(s32);
 extern void initKeyRecording(unk32);
 extern void sub_805AAEC(unk32, u16);
 extern LevelState* sub_8051734(void);
@@ -38,8 +38,8 @@ extern void nullsub_7(void);
 extern void sub_804A72C(void);
 extern void nullsub_4(void);
 extern void sub_804FEE8(void);
-extern void sub_805BA3C(void*);
-extern void deallocateQuadTree(void*);
+extern void sub_805BA3C(GeometryAddressTable*);
+extern void deallocateQuadTree(QuadTree*);
 
 void initGame(void)
 {
@@ -142,10 +142,11 @@ void initGameLoop(void)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053600-initRiders.s");
+
 void sub_80538C0(void)
 {
     s32 i;
-    void *rider;
+    void* rider;
 
     for (i = 0; i < (_gameData->unk430 + 1); i++) {
         if (i != 0)
@@ -155,6 +156,7 @@ void sub_80538C0(void)
         sub_804B4A4(rider);
     }
 }
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053920.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053954.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053978-loadLevelGeometry.s");
@@ -238,11 +240,12 @@ void closeGame(void)
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053d58-initGameloop2.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053e18.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053ef8.s");
+
 void sub_8053F0C(unk32 arg0)
 {
     switch (_currentGameState->unk3) {
     case 1: {
-        GameData *gameData;
+        GameData* gameData;
 
         gameData = _gameData;
         gameData->unk7FC = 0x200;
@@ -256,7 +259,7 @@ void sub_8053F0C(unk32 arg0)
         return;
     }
     case 2: {
-        GameData *gameData;
+        GameData* gameData;
 
         gameData = _gameData;
         gameData->unk7FC = 0x100;
@@ -270,7 +273,7 @@ void sub_8053F0C(unk32 arg0)
         return;
     }
     case 3: {
-        GameData *gameData;
+        GameData* gameData;
 
         gameData = _gameData;
         gameData->unk7FC = 0x100;
@@ -284,7 +287,7 @@ void sub_8053F0C(unk32 arg0)
         return;
     }
     default: {
-        GameData *gameData;
+        GameData* gameData;
 
         gameData = _gameData;
         gameData->unk7FC = 0x200;
@@ -299,6 +302,7 @@ void sub_8053F0C(unk32 arg0)
     }
     }
 }
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80540c8.s");
 
 void SetRiderGlobal(unk32 arg0)

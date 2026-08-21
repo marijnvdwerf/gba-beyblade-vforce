@@ -3,6 +3,10 @@
 #include "include_asm.h"
 #include "unsorted.h"
 
+extern void sub_8060CDC(void*);
+extern void sub_8061160(void*);
+extern void sub_8060B38(void*);
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8061190-allocFont.s");
 
 void sub_80611EC(UnkSpriteText* arg0, unk8 arg1)
@@ -17,7 +21,16 @@ void sub_80611FC(UnkSpriteText* arg0, unk8 arg1)
     arg0->unk28 = arg1;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8061204.s");
+void sub_8061204(SpriteTextCleanup* arg0)
+{
+    sub_8060CDC(arg0->unk14);
+    if (arg0->ptr2C != NULL) {
+        sub_8061160(arg0->ptr2C);
+        sub_8060B38(arg0->ptr2C);
+        arg0->ptr2C = NULL;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8061228.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/806123c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80614b0.s");

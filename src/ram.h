@@ -3,11 +3,30 @@
 
 #include "common.h"
 #include "memory.h"
+#include "motion.h"
 #include "render.h"
 
 typedef struct RiderBlock {
     unk8 data[0x428];
 } RiderBlock;
+
+typedef struct GeometryAddressTable {
+    unk8 pad0[0x10];
+    AllocatedBlock* block;
+} GeometryAddressTable;
+
+typedef struct QuadTree {
+    unk8 pad0[0x24];
+    AllocatedBlock* block24;
+    AllocatedBlock* block28;
+    unk8 pad2C[0x2C];
+} QuadTree;
+
+typedef struct BeybladeActorData {
+    AllocatedBlock* block;
+    unk8 unk4;
+    unk8 pad5[3];
+} BeybladeActorData;
 
 typedef struct GameData {
     unk8 pad0[0x234]; /* 0x000 */
@@ -18,14 +37,14 @@ typedef struct GameData {
     s32 unk430; /* 0x430 */
     void* unk434; /* 0x434 */
     unk8 pad438[0x224]; /* 0x438 */
-    unk8 unk65C[4]; /* 0x65C */
-    unk8 pad660[0x5C]; /* 0x660 */
+    GeometryAddressTable unk65C; /* 0x65C */
+    unk8 pad670[0x4C]; /* 0x670 */
     unk32 unk6BC; /* 0x6BC */
     unk8 pad6C0[0xB8]; /* 0x6C0 */
     void* unk778; /* 0x778 */
     unk8 pad77C[0x24]; /* 0x77C */
     unk32 unk7A0; /* 0x7A0 */
-    unk8 unk7A4[0x58]; /* 0x7A4 */
+    QuadTree unk7A4; /* 0x7A4 */
     unk16 unk7FC; /* 0x7FC */
     unk16 unk7FE; /* 0x7FE */
     unk16 unk800; /* 0x800 */
@@ -78,7 +97,22 @@ typedef struct GameData {
     unk8 padC30[0x3C]; /* 0xC30 */
     u16 unkC6C; /* 0xC6C */
     u16 unkC6E; /* 0xC6E */
-    unk8 padC70[0x9A8]; /* 0xC70 */
+    unk8 padC70[0x2E0]; /* 0xC70 */
+    SpriteTextCleanup levelHud0; /* 0xF50 */
+    SpriteTextCleanup levelHud1; /* 0xF80 */
+    SpriteTextCleanup levelHud2; /* 0xFB0 */
+    SpriteTextCleanup levelHud3; /* 0xFE0 */
+    UnkMotion levelHudMotion0; /* 0x1010 */
+    UnkMotion levelHudMotion1; /* 0x1028 */
+    unk32 levelHudStatus; /* 0x1040 */
+    unk8 pad1044[0x38]; /* 0x1044 */
+    unk8 unk107C; /* 0x107C */
+    unk8 pad107D[0x93]; /* 0x107D */
+    BeybladeActorData actorData[0x3C]; /* 0x1110 */
+    u16 unk12F0; /* 0x12F0 */
+    unk8 pad12F2[0x10A]; /* 0x12F2 */
+    unk32 unk13FC; /* 0x13FC */
+    unk8 pad1400[0x218]; /* 0x1400 */
     unk8 unk1618; /* 0x1618 */
     unk8 pad1619[2]; /* 0x1619 */
     unk8 unk161B; /* 0x161B */
@@ -130,6 +164,8 @@ extern void* _levelDataBlockPtr;
 extern GameData* _gameData;
 extern u32 _unk3000E30[3];
 extern CurrentGameState* _currentGameState;
+extern u8 _unk3000FC0[16];
+extern u8 _unk3000FD0[16];
 extern u8 _unk3000FE0[304];
 extern u32 _unk3001110[16];
 

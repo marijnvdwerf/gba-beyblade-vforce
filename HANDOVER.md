@@ -106,7 +106,7 @@ regenerate with `tools/callgraph.py mainLoop` + `tools/worklist.py`.
 
 ## Open questions for the user
 
-- None pending.
+- ASM_ZEROPAD: 7 mid-TU uses are no-ops (agbcc pre-aligns each function with zero fill); only the 2 EOF uses (sound.c, libc.c) matter. Not TU-split evidence. Cleanup offered, not yet approved.
 
 ## Session housekeeping
 

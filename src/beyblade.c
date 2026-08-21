@@ -1,4 +1,5 @@
 #include "include_asm.h"
+#include "ram.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805703c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057048.s");
@@ -11,8 +12,36 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8057158.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057164.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80571d0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80571e4-GetTalkingHead.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80571f8-emptyBeybladeActorData.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8057228-deallocBeybladeActorData.s");
+
+void emptyBeybladeActorData(void)
+{
+    BeybladeActorData* record;
+    s32 i;
+
+    record = _gameData->actorData;
+    _gameData->unk12F0 = 0xE;
+    for (i = 0; i < 0x3C; i++) {
+        record->block = NULL;
+        record->unk4 = 0;
+        record++;
+    }
+}
+
+void deallocBeybladeActorData(void)
+{
+    BeybladeActorData* record;
+    s32 i;
+
+    record = _gameData->actorData;
+    for (i = 0; i < 0x3C; i++) {
+        if (record->block != NULL) {
+            deallocateBlock(record->block);
+            record->block = NULL;
+        }
+        record++;
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057258-getBeyBladeActorDataForIndex.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057338-getBeybladeData0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057348-getBeybladeActorData.s");
