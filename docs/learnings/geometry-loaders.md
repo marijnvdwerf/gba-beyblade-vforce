@@ -32,15 +32,14 @@ object payload is variable-sized and is advanced by its stored size.
 These typed layouts avoid raw offset dereferences while preserving all
 accessed widths and fixed extents.
 
-## Unmatched function
+## Variable-sized metadata search
 
-`getLineMetaObjectBytype` (`0x0805BB2C`) was not converted.  The natural typed
-search draft was parked above its assembly inclusion, but agbcc consistently
-emitted the null path before the search body (`beq null`), whereas the target
-has the body as the fall-through path (`bne body; b null`).  Tested loop,
-condition, temporary, and pointer-layout variants preserved the same CFG
-ordering difference.  The parked draft is disabled with `#if 0`, so it does
-not affect the ROM.
+`getLineMetaObjectBytype` (`0x0805BB2C`) matches with the record cursor and
+index initialized before the null test, followed by a top-tested `for` loop.
+The metadata count is loaded once and agbcc hoists the successful return block
+above the loop.  The cursor advances by each object's stored two-byte size;
+this is a genuinely byte-sized variable-record walk, so the explicit
+`(unk8 *)` conversion is appropriate.
 
 ## General agbcc observations
 
