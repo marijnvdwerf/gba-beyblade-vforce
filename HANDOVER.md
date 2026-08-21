@@ -110,7 +110,7 @@ grep INCLUDE_ASM.
 | temp-reduction-3 | geometry loaders, spritetext ×3, init-functions ×2 | running |
 | showString | showString (spritetext.c, 227) | running |
 | envactor-sound | sub_8054FE0 (envactor.c), sub_8062C24 (sound.c), then initLevelEnvironmentActors | running |
-| callgraph fix | treat asm()/__asm__ as keywords, not calls | running |
+| callgraph rewrite | asm()/__asm__ not calls; then rewrite callgraph.py (+tu-progress.py scanner) on tree-sitter (uv deps), output byte-identical | running |
 
 Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
 sub_8054FE0), sub_8062C24 (sound), LoadHUD, sub_8060CDC. Red set after the
