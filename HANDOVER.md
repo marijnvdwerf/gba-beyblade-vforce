@@ -75,16 +75,15 @@ Last updated: 2026-08-21, end of session 2 (main at 09b7c1c+).
 
 ## State
 
-Progress: 9/66 TUs done, 260 C functions, 747 INCLUDE_ASM remaining (26%)
-after the envactor merge. Session 2 merged 46
+Progress: 9/66 TUs done, 263 C functions, 744 INCLUDE_ASM remaining (26%)
+after the envactor + leaves-round4 merges. Session 2 merged 49
 functions; session 1 merged 8.
 
 ### Agents running at last update
 
 | worktree | scope | status |
 |---|---|---|
-| showString | spritetext.c showString (227) | running |
-| leaves-round4 | debug.c printf (10); geometry.c GetSplineAtIndex (33), getLineMetaobjectByTypeAndId (45) | running |
+| showString | spritetext.c showString (227) | matched (bcdfb08); cleanup requested: no gotos/value-less return, drop stale extern, duplicate if/else branches |
 
 ### Parked (attempted, not matched)
 
@@ -124,6 +123,9 @@ should be gameLoop + the parked list above.
 - `CurrentGameState`: `s8 unk0`, `LevelState unk4[0x38]`, bytes unk6E8/unk6E9.
 - `GameData` sub-structs: collectables (0x12F4), tutorial, levelHud0–3 +
   motions, PolyTable unkB88, unkCA0/CA4/CA8 event listeners.
+- `LevelGeometryTable.count` is a documented union (s16 splineCount /
+  unk32 splineCountWord): ldrsh in getLevelGeometryAddresses, ldr in
+  GetSplineAtIndex.
 - Unions only for asm-proven width puns (strh/ldrb on the same bytes), with a
   comment citing both instructions. No casts on field reads. Raw-offset blobs
   with offset tables may use `(unk8*)base + offset`; fixed-stride tables are
