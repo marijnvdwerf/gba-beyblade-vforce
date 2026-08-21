@@ -5,6 +5,7 @@
 #include "display.h"
 #include "include_asm.h"
 #include "layer.h"
+#include "levelrow.h"
 #include "palette.h"
 #include "sound.h"
 #include "system.h"
@@ -45,7 +46,6 @@ extern UnkStruct _3000000;
 extern ScreenLayout _806A828[];
 
 extern void sub_8049344(int);
-extern void sub_804A280(void*);
 
 void Background_80498D8(void)
 {
@@ -70,7 +70,7 @@ void Background_80498F8(void)
 void Background_8049950(void)
 {
     UnkStruct_sub1* arg0;
-    u32* pInt;
+    void* pInt;
     u32* arg1;
 
     sub_8049344(0);
@@ -90,7 +90,7 @@ void Background_8049950(void)
 void Background_80499BC(void)
 {
     UnkStruct_sub1* arg0;
-    u32* pInt;
+    void* pInt;
     u32* arg1;
 
     sub_8049344(0);
@@ -124,7 +124,7 @@ void Background_8049A24(void)
 void Background_8049A84(void)
 {
     UnkStruct_sub1* arg0;
-    u32* pInt;
+    void* pInt;
     u32* arg1;
 
     arg0 = &_3000000.varBE0;
@@ -142,7 +142,7 @@ void Background_8049A84(void)
 void Background_8049AF8(void)
 {
     UnkStruct_sub1* arg0;
-    u32* pInt;
+    void* pInt;
     u32* arg1;
 
     arg0 = &_3000000.varBE0;
@@ -160,7 +160,7 @@ void Background_8049AF8(void)
 void Background_8049B68(void)
 {
     UnkStruct_sub1* arg0;
-    u32* pInt;
+    void* pInt;
     u32* arg1;
 
     *(vu16*)REG_BLDY = 0;
@@ -181,7 +181,7 @@ void Background_8049B68(void)
 
 void Background_8049BF8(void)
 {
-    u32* pInt;
+    void* pInt;
 
     sub_8049344(0);
     *(vu16*)REG_BLDY = 0;
@@ -199,7 +199,7 @@ void Background_8049BF8(void)
 
 void Background_8049C70(void)
 {
-    u32* pInt;
+    void* pInt;
 
     sub_8049344(0);
     *(vu16*)REG_BLDY = 0;
