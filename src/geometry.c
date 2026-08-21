@@ -59,8 +59,8 @@ LineMetaObject* getLineMetaObjectBytype(
 }
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/805bb2c-getLineMetaObjectBytype.s");
-- getLineMetaobjectByTypeAndId.s ");
-    INCLUDE_ASM("asm/dump/8057b80-debug/805bb9c-initQuadTree.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805bb5c-getLineMetaobjectByTypeAndId.s");
+INCLUDE_ASM("asm/dump/8057b80-debug/805bb9c-initQuadTree.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bbc8-allocQuadTree.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bdbc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bf18.s");
