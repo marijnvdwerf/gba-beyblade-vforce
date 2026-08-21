@@ -205,6 +205,7 @@ void sub_806530C(SpriteString* string)
     }
 }
 
+#if 0
 s32 sub_8065334(SpriteString* string)
 {
     unk16 textOffset;
@@ -239,6 +240,9 @@ s32 sub_8065334(SpriteString* string)
     total = (string->scaleX * total) >> 8;
     return total;
 }
+#else
+INCLUDE_ASM("asm/dump/8064f38/8065334.s");
+#endif
 
 void sub_80653B0(SpriteString* string)
 {

@@ -161,7 +161,7 @@ struct SpriteStringActorBlock {
 typedef struct SpriteString SpriteString;
 
 struct SpriteString {
-    struct Actor* volatile actors;
+    struct Actor* actors;
     unk8 count;
     unk8 flags;
     unk16 mode;
