@@ -173,7 +173,11 @@ void sub_80650E0(SpriteString* string, unk32 value)
     string->timer = value;
 }
 
-INCLUDE_ASM("asm/dump/8064f38/80650f8.s");
+void sub_80650F8(SpriteString* string, const u8* text)
+{
+    string->text = text;
+}
+
 INCLUDE_ASM("asm/dump/8064f38/80650fc.s");
 INCLUDE_ASM("asm/dump/8064f38/8065108.s");
 INCLUDE_ASM("asm/dump/8064f38/806513e.s");
