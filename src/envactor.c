@@ -6,8 +6,9 @@
 #include "sprite.h"
 #include "unsorted.h"
 
-extern EnvironmentObject* GetStruct4(unk32);
 extern void sub_8060A94(SpriteEntry*);
+
+#if 0
 extern void ActorSetSpriteOffset(EnvironmentActorSlot*, s16, s16);
 extern void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);
 extern void actor_8057C58(
@@ -23,7 +24,6 @@ extern void convert3DCoordsto2DCoords(void);
 extern unk32* sub_805E514(unk32*, unk32, unk32, unk32, unk32);
 extern void sub_805E50C(unk32*, unk32, unk32, unk32);
 
-#if 0
 void initLevelEnvironmentActors(u16 level)
 {
     GameData* gameData;
@@ -282,11 +282,11 @@ void sub_8054FE0(void)
         actor = actorContainer->slots;
         do {
             object = GetStruct4(actor->objectId);
-            if (actor->unk4.sprite != NULL) {
-                sub_8060A94(actor->unk4.sprite);
+            if (actor->sprite != NULL) {
+                sub_8060A94(actor->sprite);
             }
             zero = 0;
-            actor->unk4.sprite = zero;
+            actor->sprite = zero;
             if (object->sprite != NULL) {
                 sub_8060A94(object->sprite);
             }

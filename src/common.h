@@ -98,99 +98,11 @@ typedef struct UnkActor {
 } UnkActor;
 
 typedef struct SpriteEntry SpriteEntry;
-typedef struct GeometryLine GeometryLine;
 
-typedef struct EnvironmentActorCounters {
-    s32 lineIndex;
-    s32 selectedCount;
-    s32 effectCount;
-} EnvironmentActorCounters;
-
-typedef struct EnvironmentActorConfig {
-    unk8 pad0[4];
-    unk8 unk4;
-    unk8 unk5;
-    unk8 unk6;
-    unk8 unk7;
-    unk32 unk8;
-    unk8 padC[8];
-    unk32 unk14;
-} EnvironmentActorConfig;
-
-typedef struct EnvironmentActorState {
-    void* unk0;
-    void* unk4;
-    unk8 pad8[0x18];
-    void* unk20;
-    unk32 unk24;
-    unk8 pad28[4];
-    unk16 unk2C;
-    unk8 pad2E[6];
-} EnvironmentActorState;
-
-typedef struct EnvironmentActorCallbackData {
-    unk8 data[0x88];
-} EnvironmentActorCallbackData;
-
-typedef struct EnvironmentPointEntry {
-    unk16 line;
-    unk16 pad2;
-    GeometryLine* geometry;
-} EnvironmentPointEntry;
-
-typedef struct EnvironmentActorMetaObject {
-    unk16 size;
-    unk16 type;
-    unk16 id;
-    unk16 unk6;
-    EnvironmentActorConfig* config;
-} EnvironmentActorMetaObject;
-
-typedef struct EnvironmentActorOffsetMeta {
-    unk16 size;
-    unk16 type;
-    unk16 id;
-    unk16 unk6;
-    s16 x;
-    unk16 padA;
-    s16 y;
-} EnvironmentActorOffsetMeta;
-
-typedef struct EnvironmentActorTransformMeta {
-    unk16 size;
-    unk16 type;
-    unk16 id;
-    unk16 unk6;
-    s32 x;
-    s32 y;
-    s32 z;
-} EnvironmentActorTransformMeta;
-
-typedef union EnvironmentActorPosition {
-    SpriteEntry* sprite;
-    s32 x;
-} EnvironmentActorPosition;
-
-/* The position x field and cleanup sprite handle share offset 0x4. */
 typedef struct EnvironmentActorSlot {
     unk32 objectId;
-    EnvironmentActorPosition unk4;
-    s32 y;
-    s32 z;
-    unk8 pad10[0x29];
-    unk8 unk39;
-    unk8 pad3A[2];
-    void* unk3C;
-    s32 unk40;
-    s32 unk44;
-    s32 unk48;
-    s32 unk4C;
-    s32 unk50;
-    s32 unk54;
-    unk8 pad58[0x10];
-    unk32 unk68;
-    unk8 pad6C[0x24];
-    EnvironmentActorState state90;
+    SpriteEntry* sprite;
+    unk8 pad8[0xBC];
 } EnvironmentActorSlot;
 
 typedef struct EnvironmentActorContainer {
@@ -200,48 +112,14 @@ typedef struct EnvironmentActorContainer {
 
 typedef struct EnvironmentNode {
     SpriteEntry* sprite;
-    GeometryLine* geometry;
-    unk32 unk8;
-    unk32 unkC;
-    unk16 unk10;
-    unk16 unk12;
-    const void* unk14;
-    EnvironmentActorSlot* actor;
+    unk8 pad4[0x18];
 } EnvironmentNode;
 
 typedef struct EnvironmentObject {
-    void* unk0;
+    unk8 pad0[4];
     SpriteEntry* sprite;
-    unk32 unk8;
-    unk32 unkC;
-    unk16 unk10;
-    unk16 unk12;
-    s32 unk14;
-    s32 unk18;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
-    s32 unk28;
-    s32 unk2C;
-    s32 unk30;
-    s32 unk34;
-    unk16 unk38;
-    unk16 unk3A;
-    unk16 unk3C;
-    unk16 unk3E;
-    unk8 pad40[0xC];
+    unk8 pad8[0x44];
 } EnvironmentObject;
-
-typedef struct EnvironmentActorAllocation {
-    AllocatedBlock* block;
-    EnvironmentNode* effect;
-    EnvironmentActorContainer* actorContainer;
-    unk32 effectCount;
-    unk32 actorCount;
-    EnvironmentObject* lineObjects;
-    unk32 points;
-    unk32 callbacks;
-} EnvironmentActorAllocation;
 
 typedef struct SpriteTextBlock {
     SpriteEntry* prev;
@@ -264,10 +142,42 @@ typedef struct SpriteTextCleanup {
     const u8* unk24;
     unk8 unk28;
     s8 unk29;
-    unk8 unk2A;
+    s8 unk2A; /* ldsb r0, [r7, r0] at .L8061430 in sub_806123C */
     unk8 unk2B;
     SpriteEntry* ptr2C;
 } SpriteTextCleanup;
+
+struct Actor;
+
+typedef struct SpriteStringActorBlock SpriteStringActorBlock;
+
+struct SpriteStringActorBlock {
+    unk32 offset;
+    unk32 count;
+    struct Actor* actors;
+    SpriteStringActorBlock* previous;
+    SpriteStringActorBlock* next;
+};
+
+typedef struct SpriteString SpriteString;
+
+struct SpriteString {
+    struct Actor* actors;
+    unk8 count;
+    unk8 flags;
+    unk16 mode;
+    unk32 x;
+    unk32 previousX;
+    const u8* text;
+    unk32 y;
+    unk32 unk18;
+    unk8 pad1C[4];
+    unk32 width;
+    s16 scaleX;
+    s16 scaleY;
+    const u8* widthTable;
+    unk32 timer;
+};
 
 typedef struct RiderBase {
     unk8 unk0[0x238];
@@ -326,14 +236,14 @@ typedef struct GeometryPoint {
     unk32 padC;
 } GeometryPoint;
 
-struct GeometryLine {
+typedef struct GeometryLine {
     unk32 point0;
     unk32 point1;
     unk8 unk8;
     unk8 pad9[0xD];
     unk16 type;
     unk8 pad18[8];
-}; /* 0x20; stride proven by line-table indexing */
+} GeometryLine; /* 0x20; stride proven by line-table indexing */
 
 typedef struct GeometrySpline {
     unk32 pointCount;

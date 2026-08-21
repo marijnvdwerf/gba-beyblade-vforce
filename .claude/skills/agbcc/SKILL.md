@@ -16,6 +16,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 
 - Read expression type from loads, shifts, and branches together; one mnemonic proves the operation there, not necessarily the declaration.
 - `asr`, `ldsh`/`ldsb`, and `bge`/`blt`/`bgt`/`ble` → signed; `lsr`, `ldrh`/`ldrb`, and `bhs`/`blo`/`bhi`/`bls` → unsigned.
+- When consumers of one halfword field include both `ldrsh` and `ldrh`, the signed load is positive evidence for a signed declaration even if other contexts zero-extend it; do not decide by majority opcode alone.
 - `lsl #16; asr #16` versus `lsl #16; lsr #16` → signed versus unsigned halfword normalization; `#24` pairs do the same for bytes.
 - Default to `unk8/16/32`; use signed types only on evidence, because one wrong sign produces one wrong branch or shift opcode.
 - Narrow locals insert normalization pairs; wide locals remove them. A plain `int` index often matches where `u8`/`u16` adds masking.
@@ -35,7 +36,8 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Values live across calls prefer callee-saved registers or spills; one extra live value across one call can change the push mask or spill slot.
 - Keep explicit cursor/count/end temporaries when the target keeps distinct values, including separate count and loop-limit copies when the bound occupies a different register; remove them when the target reloads or coalesces instead.
 - A separate successor temporary can keep a moving cursor and freshly loaded pointer in distinct registers: `candidate = cur->next; next = candidate;`.
-- A scalar temporary can force a field load before a later zero initialization; removing it may reorder the first instructions.
+- A scalar temporary can force one field/byte load that is reused by multiple tests, or place that load before a later initialization; removing it may duplicate or reorder instructions.
+- A separate result or magnitude temporary can preserve the original argument for a later sign test while the transformed value occupies the return-value path; an in-place rewrite changes that dataflow.
 - Assignment and initialization order set live-range boundaries and address-materialization order; spell them in target order.
 - In `.greg`, global-allocation priority is roughly `refs / live_length`: more references help, while a longer-lived pseudo gets lower priority; use this to explain saved-register choices.
 - For a pure register-role swap, declaration order, scopes, and equivalent VLA-bound spellings may not change allocator rank; compare `.greg` before churning permutations.
@@ -56,21 +58,22 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Straight-line struct initialization preserves lexical store order; chained assignment stores right-to-left and keeps the value live, while splitting it can reverse stores or add a `mov`.
 - `*out++ = value` can select `stmia`; a separated store and increment selects `str` plus `add`.
 - A target induction initialized to `-stride` may be strength-reduced `array[i - 1]`; try the indexed source before preserving a negative cursor.
-- Constant spelling matters: shifted small constants favor `mov`/`lsl`, while a large literal may use the pool; grouped multiplies may strength-reduce differently.
+- Constant spelling matters: staged forms such as `mask = 1; mask = -mask;` or `scale = 0x80; scale <<= 1;` can force the target `mov`/`neg` or `mov`/`lsl` materialization, while a direct large literal may use the pool; grouped multiplies may strength-reduce differently.
 - If a high-register value is compared with an immediate, Thumb may materialize the constant in a low register for register-to-register `cmp`.
 - agbcc CSEs loads, merges shifts/blocks, and reuses related constants; if the target stays unfolded, block the proof with grouping or distinct locals.
 - Array decay produces an address while `array[0]` produces a scalar load; choose the shape shown by the target.
 
 ## Loops
 
-- `while (n-- != 0)`, decrement-before-test, `do/while`, and top-tested `while` are distinct; a top-tested loop may emit body first with an entry branch, and a separate initial zero-count guard must remain separate when the target has it.
-- Signed and unsigned post-decrement can differ even when both end in `bne`; test both when one form introduces an unwanted `-1` sentinel.
+- `while (n-- != 0)`, decrement-before-test, `do/while`, and top-tested `while` are distinct; a separate entry guard must remain when present and can make a following `do/while` semantically correct while changing prologue allocation.
+- Signed and unsigned post-decrement can differ even when both end in `bne`; test both when one form introduces an unwanted `-1` sentinel, and keep an explicit `previous = n; n--;` when the target compares the old value separately.
 - `u32 n = count; while (n--)` naturally yields a compare-against-`-1` countdown and fits counted list walks; do not hand-write the sentinel unless the diff requires it.
 - Variable-size record walks should advance by the current record's runtime size, e.g. `ptr = (Record *)((unk8 *)ptr + ptr->size)`; array indexing falsely implies a fixed stride and changes liveness.
 - Loop reversal accepts signed `<`/`<=` forms and emits a countdown to zero; unsigned `<` and `!=` generally remain ascending.
 - Do not assume an eligible ascending loop actually reverses; if experiments stay ascending, retain the explicit matching countdown source.
 - A target rotated search CFG may not come from plain `while` or `for (;;)`; spell the entry test and bottom break explicitly when proven.
 - If the target reloads a global loop limit each iteration, keep the global expression in the condition instead of caching a local bound.
+- Open problem: a target may reload a non-volatile struct field every iteration despite no call or aliasing store, while plain C hoists it. `volatile` can reproduce the reload but is not canonical; treat this as unresolved rather than a general typing rule.
 - Moving an increment into or out of a branch changes the CFG even when semantics agree; preserve the lexical placement shown by the target.
 
 ## Switches and branches
@@ -89,6 +92,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Keep `base = global` when the target loads it before clamps/branches or keeps derived addresses live; otherwise test direct global access first.
 - Decisive test: a global pointer's *value* still in a register after a `bl` (no reload) ⇒ the source copied it into a local before the call (the compiler may not keep a global live across calls). A fresh `ldr` of the global after each call ⇒ direct `global->` access.
 - Cache only the expression whose lifetime is proven; mixing a scoped local with direct accesses can preserve both a distinct value and target reloads.
+- If the target reads a scalar field directly before later taking its address, preserve that order; taking the address first can hoist the derived pointer into a loop preheader.
 - If one global aggregate supplies several nested subobject addresses across calls, cache its pointer and any proven subobject pointers; repeated chains alter reloads and saved-register lifetimes.
 - A `strb` through a typed object may force later global-pointer reloads because agbcc treats byte stores as broadly aliasing; do not use `volatile` to fake it.
 - Long-lived global addresses consume callee-saved registers and can push incoming arguments into higher registers; preserve the source access pattern.
@@ -124,7 +128,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - A call result forwarded into an argument register for the next `bl` proves that source dataflow; preserve it rather than substituting `NULL` or a reload.
 - Mixed pointer types in `?:` can warn or lower differently under old agbcc; a `void *` temporary can preserve a common call after an explicit branch.
 - Replacing `void *` with a proven typed pointer can remove casts without changing bytes, but verify pointee width and conversion placement.
-- Keep dead-looking calls, divisions, readbacks, and copies that asm shows; optimizer-visible useless work may have existed in source.
+- Keep dead-looking calls, arithmetic, divisions, readbacks, and copies that asm shows; a dead result may still expose original operation order or constant construction. If agbcc eliminates every natural C spelling, park the function rather than force retention with `volatile`, fake guards, or register hacks.
 
 ## Literals, object layout, and relocation noise
 

@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-08-21, end of session 2 (all agents finished; keepalive stopped).
+Last updated: 2026-08-21, end of session 2 (round 6: six luna agents running; keepalive task blcgq1v47; shared prompt preamble in /tmp/preamble.txt).
 
 ## How to work
 
@@ -50,7 +50,7 @@ Last updated: 2026-08-21, end of session 2 (all agents finished; keepalive stopp
   that folds the top-level `docs/learnings/*.md` into the skill and `git mv`s
   them to `docs/learnings/processed/` (the permission classifier may block
   `git mv` for agents — do the move yourself then). Review its diff.
-- Temp-reduction pass after every merged batch (done: passes 1–4;
+- Temp-reduction pass after every merged batch (done: passes 1–5;
   all notes archived; docs/learnings top level is empty except README).
 - Tool-building agents (`general-purpose`, luna) work on main and don't
   commit; review and commit their files explicitly.
@@ -76,15 +76,16 @@ Last updated: 2026-08-21, end of session 2 (all agents finished; keepalive stopp
 
 ## State
 
-Progress: 9/66 TUs done, 264 C functions, 743 INCLUDE_ASM remaining (26%)
-after the envactor + leaves-round4 + showString merges. Session 2 merged 50
+Progress: 9/66 TUs done, 284 C functions, 723 INCLUDE_ASM remaining (28%)
+after the envactor + leaves-round4 + showString merges. Session 2 merged 69 (round 6: gameinit 4, spritestring 15)
 functions; session 1 merged 8.
 
 ### Agents running at last update
 
 | worktree | scope | status |
 |---|---|---|
-| (none) | all worktrees merged and removed; temp-reduction pass 4 and sol skill pass done | — |
+| envactor-init | envactor.c initLevelEnvironmentActors (656) | running; push mask + slots match, frame +4 (one extra local) |
+| sol learnings pass | round-6 notes → skill, move to processed/ | running (main, uncommitted) |
 
 ### Parked (attempted, not matched)
 
@@ -95,7 +96,11 @@ functions; session 1 merged 8.
 | initRiders (gameinit.c) | 349 | `#if 0` | frame 0x138 vs 0x134 (one extra spilled local); riderIndex r8 vs r9 — processed/initriders.md |
 | initMultiPlayer (multiplayer.c) | 137 | `#if 0` | arg regs r8/r5 + normalization sequence — processed/init-functions.md |
 | LoadSpriteSheet (sprite.c) | 99 | `#if 0` | proven pun at SpriteEntry+0x18 (strh) / +0x19 (ldrb); user approved a documented 2-byte union, which reproduces both in isolation, but the function still diverges on stack-arg scheduling ([sp,#36] must load before [sp,#40]) — u16-byte-narrowing.md; next attempt: union sized exactly 2 bytes + consume 5th param first |
-| sub_80627F0 (sound.c) | 145 | `#if 0` BELOW its INCLUDE_ASM (pre-session raw-decomp draft) | never attempted this session |
+| sub_80627F0 (sound.c) | 145 | `#if 0` | genuinely dead `(var08+1)&-2` retained by target (shared -2 in r5); agbcc DCEs it — sound-2.md |
+| sub_806123C (spritetext.c) | 356 | `#if 0` | push mask/frame/slots match; early register roles + spills differ — spritetext-2.md |
+| resizeSpriteBlock (sprite.c) | 134 | `#if 0` | register allocation of normalized args/list nodes — sprite-resize.md |
+| sub_80655C0, sub_8065508 (spritestring.c) | — | `#if 0` | register/stack shape diverged |
+| sub_8065334 (spritestring.c) | — | `#if 0` | target reloads `string->actors` each iteration with no call/aliasing store; only `volatile` reproduces it (rejected) — spritestring.md |
 | sub_8062C24 (sound.c) | 310 | `#if 0` | envactor-sound agent draft; byte-cursor sequencer — envactor-sound.md |
 | initLevelEnvironmentActors (envactor.c) | 656 | none | unassigned after sub_8054FE0 landed (merged 18a1525) |
 | sub_80510FC (gamestate.c) | 208 | none | final table scan compiles to pointer-increment instead of indexed — processed/gamestate.md |
