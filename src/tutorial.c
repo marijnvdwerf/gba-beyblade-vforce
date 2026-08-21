@@ -21,7 +21,7 @@ INCLUDE_ASM("asm/dump/8040d18/804a378.s");
 extern void* loadLevelGeometry(u16);
 extern void* getLevelMetadata(u16);
 extern void getLevelGeometryAddresses(LevelGeometryAddresses*, void*);
-extern void StoreMetadataAddr(LevelGeometryAddresses*, void*);
+extern void StoreMetadataAddr(LevelGeometryAddresses*, LineMetadata**);
 extern void* GetLineMetaData(LevelGeometryAddresses*, s32);
 extern void sub_8051734(void);
 extern LineMetaObject* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, void*, unk32, unk32);
