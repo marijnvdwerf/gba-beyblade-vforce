@@ -1,7 +1,12 @@
+#include "actor.h"
+
 #include <agb/types.h>
 
 #include "include_asm.h"
+#include "memory.h"
 #include "unsorted.h"
+
+void sub_8060A94(void* spriteEntry);
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8057c58-actor_8057C58.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8057d88-renderActor.s");
@@ -40,7 +45,21 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8058778-renderActor2.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058784.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058794.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058838.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/80588a8.s");
+
+void sub_80588A8(Actor* arg0)
+{
+    if (arg0->unkB8 != NULL) {
+        sub_8060A94(arg0->unkB8);
+        arg0->unkB8 = NULL;
+    }
+    if (arg0->unk7C != NULL) {
+        deallocateBlock(arg0->unk7C);
+    }
+    arg0->unk74 = -1;
+    arg0->unk78 = 0;
+    arg0->unk7C = NULL;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/80588dc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058914-nullsub_49.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058918-nullsub_50.s");
