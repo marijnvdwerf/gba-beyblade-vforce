@@ -7,7 +7,7 @@ extern void sub_8053F0C(unk32);
 extern void nullsub_12(void*);
 extern unk32 getSomeLevelID(void);
 extern unk32 GetLevelDescriptionNo(void);
-extern ActiveLevelDescription* getLevelDescription2(void);
+extern LevelDescription* getLevelDescription2(void);
 extern void emptyBeybladeActorData(void);
 extern void initRiders(void);
 extern void initLevelEnvironmentActors(u16);
@@ -168,7 +168,7 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8053b04-initCollisionData.s");
 
 void sub_8053B94(void)
 {
-    ActiveLevelDescription* levelDescription;
+    LevelDescription* levelDescription;
     LevelState* levelState;
     CurrentGameStateTail* currentGameState;
     GameData* gameData;

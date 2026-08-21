@@ -135,11 +135,13 @@ typedef struct CurrentGameStateTail {
 } CurrentGameStateTail;
 
 typedef struct CurrentGameState {
-    unk8 unk0;
+    s8 unk0;
     unk8 unk1;
     unk8 unk2;
     unk8 unk3;
-    unk8 unk4[0x6A8];
+    LevelState unk4[0x38];
+    unk8 pad544[0x167];
+    unk8 unk6AB;
     unk16 unk6AC;
     unk16 unk6AE;
     AllocatedBlock* unk6B0;
@@ -152,7 +154,8 @@ typedef struct CurrentGameState {
     unk8 unk6C8[0x1C];
     unk16 unk6E4;
     unk16 unk6E6;
-    unk8 unk6E8[2];
+    unk8 unk6E8;
+    unk8 unk6E9;
     unk16 unk6EA;
     CurrentGameStateTail unk6EC;
     unk8 pad6FC[0x568];
