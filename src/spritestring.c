@@ -259,16 +259,16 @@ INCLUDE_ASM("asm/dump/8064f38/80655c0.s");
 void sub_80656B8(SpriteString* string)
 {
     s32 count;
-    register s32 c;
+    s32 character;
     const u8* text;
     Actor* actor;
 
     count = string->count;
     text = string->text;
     actor = string->actors;
-    while (count != 0 && (c = *text++) != 0) {
-        if (c != ' ') {
-            ActorSetFrame(actor, 0, byte_807D980[c]);
+    while (count != 0 && (character = *text++) != 0) {
+        if (character != ' ') {
+            ActorSetFrame(actor, 0, byte_807D980[character]);
             actor->unk70 = -1;
             actor++;
             count--;
