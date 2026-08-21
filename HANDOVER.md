@@ -14,7 +14,9 @@ Last updated: 2026-08-21, end of session 2 (main at 09b7c1c+).
   subagents"). Decomp agents: `subagent_type: decompiler`,
   `isolation: worktree`, one TU (or one small cluster of leaves) per agent.
   Prompts follow `~/.claude/skills/prompting-codex/SKILL.md`.
-- Lifecycle: match → **bulk opus review** (one opus-4.8 reviewer per round
+- NO Anthropic-model subagents (opus/sonnet/fable) until the user says so
+  (standing order from 2026-08-21); use gpt-5.6-luna for reviews.
+- Lifecycle: match → **bulk review** (one reviewer per round — luna for now
   over all current worktrees' C diffs; C only, no asm; shape + field types
   only, no renames; any layout claim is a hypothesis the agent verifies
   against asm) → agent simplifies → **my own read of the diff** → merge →
