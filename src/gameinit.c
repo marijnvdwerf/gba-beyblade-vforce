@@ -440,7 +440,22 @@ void sub_8053F0C(unk32 arg0)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80540c8.s");
+s32 sub_80540C8(s32 arg0, s32 arg1, s32 arg2)
+{
+    s32 result;
+    s32 sign;
+
+    result = arg0;
+    sign = arg0;
+    if (result < 0)
+        result = -result;
+    result >>= 3;
+    if (result > arg2)
+        result = arg2;
+    if (sign < 0)
+        result = -result;
+    return result;
+}
 
 void SetRiderGlobal(unk32 arg0)
 {
