@@ -87,7 +87,7 @@ extern u16 (*_soundMixerPlus)[];
 extern u8 _unk3005E78;
 
 void (*__sub_87577B4)(SoundStructA*, int, int);
-void (*__sub_8757A64)(int, int, int);
+void (*__sound_8757A64)(int, int, int);
 
 extern u32 Unk_8755B90[];
 
@@ -281,68 +281,73 @@ void Sound_80627A8(SoundStructA* arg0, int arg1, int arg2)
     }
 }
 
-INCLUDE_ASM("asm/dump/sound/80627f0.s");
-
 #if 0
 void sub_80627F0(void)
 {
-    u32 varA, varB;
-    int r10, r5;
-    u16 var;
-    int i;
+    u8* audioCursor;
+    s32 channelCount;
+    s32 firstChunkLength;
+    s32 mixLength;
+    s32 wrapDistance;
+    u32 alignedFrameCount;
+    u32 nextTimerPosition;
+    u32 previousTimerPosition;
+    SoundStructA* channel;
+    SoundStructC* state;
+    u32* position;
 
-    SoundStructA* channel = *_unk3005E24;
-    u8 e04 = _unk3005E04;
-
-    if (_soundMixer == NULL) {
-        return;
-    }
-
-    if (_unk3005E40.var04 == 0) {
-        return;
-    }
-
-    sub_8062C24();
-
-    varA = _unk3000D94;
-    varB = (_unk3005E40.var08 + 1) & -2;
-
-    var = (*(vu32 *)REG_TM1CNT + 1) & -2;
-    if (var == 0x10000) {
-        var = _unk3005E18;
-    }
-    _unk3000D94 = var;
-
-    if (_unk3000D94 > varA) {
-        r5 = _unk3000D94 - _unk3000D94;
-        r10 = 0;
-    } else {
-        r5 = 0x10000 - _unk3000D94;
-        r10 = _unk3005E4C + 0xFFFF0000 + _unk3000D94;
-    }
-
-    _unk3005E78 = 0;
-
-    for (i = e04 - 1; i != -1; i--) {
-        sub_80627A8(channel, r5 + r10, _unk3000DA0);
-        channel++;
-    }
-    // loop
-
-    __sub_8757A64((int)*_unk3000D90, r5, 0);
-    _unk3000D90 += r5;
-
-    if (r10 != 0) {
-        _unk3000D90 -= _unk3005E4C;
-        __sub_8757A64((int)*_unk3000D90, r10, r5);
-        _unk3000D90 += r10;
-    }
-
-    if (_unk3000D90 == (u8*)_soundMixer + _unk3005E4C) {
-        _unk3000D90 -= _unk3005E4C;
+    channel = &(*_unk3005E24)[0];
+    channelCount = _unk3005E04;
+    if (_soundMixer != 0) {
+        state = &_unk3005E40;
+        if (state->var04 == 0) {
+            return;
+        }
+        sub_8062C24();
+        position = &_unk3000D94;
+        previousTimerPosition = *position;
+        alignedFrameCount = (state->var08 + 1) & -2;
+        nextTimerPosition = (*(vu16*)REG_TM1CNT + 1) & ~1;
+        if (nextTimerPosition == 0x10000) {
+            nextTimerPosition = _unk3005E18;
+        }
+        *position = nextTimerPosition;
+        if (nextTimerPosition > previousTimerPosition) {
+            firstChunkLength = nextTimerPosition - previousTimerPosition;
+            wrapDistance = 0;
+        } else {
+            firstChunkLength = 0x10000 - previousTimerPosition;
+            wrapDistance = _unk3005E4C + 0xFFFF0000 + nextTimerPosition;
+        }
+        mixLength = firstChunkLength + wrapDistance;
+        _unk3005E78 = 0;
+        channelCount -= 1;
+        if (channelCount != -1) {
+            do {
+                Sound_80627A8(channel, mixLength, _unk3000DA0);
+                channel++;
+                channelCount -= 1;
+            } while (channelCount != -1);
+        }
+        __sound_8757A64((int)_unk3000D90, firstChunkLength, 0);
+        audioCursor = _unk3000D90 + firstChunkLength;
+        _unk3000D90 = audioCursor;
+        if (wrapDistance != 0) {
+            audioCursor -= _unk3005E4C;
+            _unk3000D90 = audioCursor;
+            __sound_8757A64((int)audioCursor, wrapDistance, firstChunkLength);
+            audioCursor += wrapDistance;
+            _unk3000D90 = audioCursor;
+        }
+        if (_unk3000D90 == ((u8*)_soundMixer + _unk3005E4C)) {
+            _unk3000D90 -= _unk3005E4C;
+        }
     }
 }
+
 #endif
+
+INCLUDE_ASM("asm/dump/sound/80627f0.s");
 
 static void Sound_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
 {
@@ -571,7 +576,8 @@ void sub_8062C24(void)
         return;
     }
 
-    while (_unk3005E08 <= 0) {
+    /* The target's entry guard keeps the body out when the adjusted time is positive; zero enters it. */
+    do {
         opcode = (*_unk3005E00)[0];
         _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
 
@@ -687,10 +693,7 @@ void sub_8062C24(void)
             break;
         }
 
-        if (_unk3005E08 > 0) {
-            break;
-        }
-    }
+    } while (_unk3005E08 <= 0);
 }
 
 #endif
