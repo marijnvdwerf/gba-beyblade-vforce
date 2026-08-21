@@ -70,10 +70,10 @@ Active worktrees / agents (id → file → status):
 
 | worktree | file | done (uncommitted, in worktree) | in progress / notes |
 |---|---|---|---|
-| agent-a05734a49c7bdaff9 | sprite.c | freeSpriteVramLocation | sub_8060E8C (regalloc); then LoadSpriteSheet, sub_8060C1C, sub_8060CDC, resizeSpriteBlock, sub_8061078 as callers appear |
+| agent-a05734a49c7bdaff9 | sprite.c | freeSpriteVramLocation | sub_8060E8C parked (regalloc: ptr r5, args r7/r8, frame r6, table result r4 never reproduced); agent restoring INCLUDE_ASM + writing `docs/learnings/sprite-vram.md`; then merge freeSpriteVramLocation. Remaining sprite.c asm: sub_8060E8C, LoadSpriteSheet, sub_8060C1C, sub_8060CDC, resizeSpriteBlock, sub_8061078 |
 | agent-abb23f448b7c48bf5 | memory.c | (merged) | debrief in progress → remove worktree after `docs/learnings/memory-allocator.md` exists |
 | agent-aee513f785706f4b3 | gameinit.c | initGame, initGameLoop | experiment pending: unkC24/unkC26 as `s16` + `\|= 0xFFFF` to avoid `(s16)` casts in music.c; then sub_8053B94, closeGame |
-| agent-a358a3f24f8bdfae8 | keystate.c | — | updateKeyState: pre-loop matches after keeping `void* _unk3005DA8`; loop regalloc still off. Read its asm if stuck |
+| agent-a358a3f24f8bdfae8 | keystate.c | — | updateKeyState: I read the asm — loop bit tests are `> 0` (`ble`), not `!= 0`; hint sent with full shape (u16 i for-loop, plain struct access, literal 1, reload `_unk3000E30[0]` each use) |
 | agent-a7d4f3a332d49ca2f | system.c | — (restored to asm) | sub_8057A7C orphan (no callers) didn't match; writing `docs/learnings/sub_8057A7C.md`; remove worktree after |
 
 Skipped (no C caller): sub_8062EFC (actorheap.c).
