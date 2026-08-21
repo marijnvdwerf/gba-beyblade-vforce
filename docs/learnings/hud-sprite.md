@@ -17,12 +17,14 @@ read.
 
 ## sub_8060CDC
 
-The list unlink/free logic matched using typed `SpriteEntry` fields. The
-remaining allocation-sensitive branch required retaining the address of
-`_unk3005DE4` after the store. A separate pointer local for the storage
-location naturally produces the target sequence `ldr; str; mov`, while the
-common branch keeps the head-pointer local for the final consistency check.
+The final source uses only the natural list locals (`n`, `first`, `last`,
+`prev`, `next`, and `cur`). The initial zero test, counter update, and loop
+counter read the block size directly; assigning `n` immediately before
+`while (n--)` preserves the compiler's countdown shape without a named
+sentinel or separate count. The unlink and free-list operations use the
+actual globals directly, and the compiler forwards the new head in the
+`prev == NULL` branch to produce the target `ldr; str; mov` sequence.
 
-The global counter can remain directly typed (`_spritesFree += size`); a cast
-is not needed to obtain the expected width. The final implementation uses no
-raw offset dereferences.
+The pinned `_spritesFree` global is declared as `u32` in `src/ram3.c` and in
+its extern declaration. The final implementation uses no raw offset
+dereferences or pointer-storage temporaries.

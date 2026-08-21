@@ -172,7 +172,7 @@ void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
         rotation = _rotationScale;
         prev = NULL;
         n = max_sprites - 1;
-        for (; n > 0; n--) {
+        while (n--) {
             sprite->prev = prev;
             sprite->next = sprite + 1;
             sprite->var24 = -1;
@@ -190,7 +190,7 @@ void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
         prev = NULL;
         rotation_address = 0x07000000;
         n = max_rotation_scale - 1;
-        for (; n > 0; n--) {
+        while (n--) {
             rotation->prev = prev;
             rotation->next = rotation + 1;
             rotation->oamAddr = rotation_address;
@@ -215,7 +215,7 @@ void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
         vram_entry->next = NULL;
         next = free_entry;
         n = 30;
-        for (; n > 0; n--) {
+        while (n--) {
             next->next = next + 1;
             next = next->next;
         }
