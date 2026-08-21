@@ -477,7 +477,73 @@ void sub_8060B38(SpriteEntry* spriteEntry)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8060b68-LoadSpriteSheet.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8060c1c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8060cdc.s");
+
+void sub_8060CDC(SpriteEntry* block)
+{
+    u32 size;
+    u32 count;
+    SpriteEntry* first;
+    SpriteEntry* current;
+    SpriteEntry* previous;
+    SpriteEntry* block_next;
+    SpriteEntry* next;
+    SpriteEntry* saved_next;
+    SpriteEntry** head_ptr;
+    SpriteEntry** storage;
+    SpriteEntry** free_list;
+    SpriteEntry* free_value;
+    u32 sentinel;
+
+    size = block->x;
+    if (size == 0) {
+        return;
+    }
+
+    first = block->prev;
+    block_next = block->next;
+    saved_next = block_next;
+    previous = first->prev;
+    next = block_next->next;
+    *(u32*)&_spritesFree += size;
+    current = first;
+    count = size - 1;
+    if (count != (u32)-1) {
+        sentinel = (u32)-1;
+        do {
+            if (current->unk30 != NULL) {
+                sub_8060B38(current->unk30);
+                current->unk30 = NULL;
+            }
+            if (current->var24 >= 0) {
+                freeSpriteVramLocation(current->var24, 1 << (current->var16 - 5));
+            }
+            current->var24 = sentinel;
+            current = current->next;
+            count -= 1;
+        } while (count != sentinel);
+    }
+
+    if (previous != NULL) {
+        previous->next = next;
+        head_ptr = &_unk3005DE4;
+    } else {
+        storage = &_unk3005DE4;
+        *storage = next;
+        head_ptr = storage;
+    }
+    if (next != NULL) {
+        next->prev = previous;
+    }
+    free_list = &_spritesLeft;
+    free_value = *free_list;
+    saved_next->next = free_value;
+    *free_list = first;
+    block->x = 0;
+    block->prev = NULL;
+    block->next = NULL;
+    sub_80604D4(*head_ptr);
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8060d98-resizeSpriteBlock.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8060e8c.s");
 
