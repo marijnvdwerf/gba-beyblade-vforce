@@ -3,7 +3,10 @@
 
 #include "common.h"
 
+s32 getSomeLevelID(void);
+LevelDescription* getLevelDescription(s32);
 LevelDescription* getLevelDescription2(void);
+LevelState* sub_8051734(void);
 unk32 GetLevelDescriptionNo(void);
 void sub_8051640(unk32);
 unk32 sub_8051744(void);

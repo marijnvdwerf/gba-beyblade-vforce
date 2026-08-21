@@ -1,5 +1,6 @@
 #include <agb/types.h>
 
+#include "gamestate.h"
 #include "geometry.h"
 #include "include_asm.h"
 #include "spritetext.h"
@@ -20,7 +21,6 @@ void StoreLevelVar14(unk32 arg0)
 
 INCLUDE_ASM("asm/dump/8040d18/804a364.s");
 INCLUDE_ASM("asm/dump/8040d18/804a378.s");
-extern void sub_8051734(void);
 extern const char Str_87233E8[];
 extern const u8 SpriteSheet_82B05EC[];
 extern const u8 ShadowFontMeta[];

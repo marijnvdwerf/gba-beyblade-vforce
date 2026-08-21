@@ -1,3 +1,5 @@
+#include "gamestate.h"
+
 #include "beyblade.h"
 #include "include_asm.h"
 #include "ram.h"
@@ -13,10 +15,8 @@ extern unk8 _807582c[];
 extern s32 _80788cc[];
 
 void sub_80510FC(void);
-extern s32 getSomeLevelID(void);
 extern Unk80516E0* sub_80516E0(unk32);
 extern LevelState* sub_8051720(s32);
-extern LevelDescription* getLevelDescription(s32);
 
 void InitCurrentGameState(void)
 {

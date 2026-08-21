@@ -1,9 +1,9 @@
+#include "gamestate.h"
 #include "geometry.h"
 #include "include_asm.h"
 #include "ram.h"
 #include "unsorted.h"
 
-extern LevelState* sub_8051734(void);
 extern const char Str_8729804[];
 
 void initCollectables(u16 levelId)

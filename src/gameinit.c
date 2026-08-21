@@ -19,14 +19,11 @@
 
 extern void sub_8053F0C(unk32);
 extern void nullsub_12(void*);
-extern unk32 getSomeLevelID(void);
-extern LevelDescription* getLevelDescription(u16);
 extern LevelDesign LevelDesigns[];
 extern void initRiders(void);
 extern void initKeyRecording(unk32);
 extern void sub_805AAEC(unk32, u16);
 extern void sub_805AB38(void);
-extern LevelState* sub_8051734(void);
 extern const u8 Str_87294CC[];
 extern void sub_80538C0(void);
 extern void sub_804B4A4(void*);
