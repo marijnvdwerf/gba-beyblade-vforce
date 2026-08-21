@@ -5122,6 +5122,7 @@ global LevelDesigns
     .4byte Geometry_E07S08
 
 
+global TutorialPages
 TutorialPages:
     .4byte 3, 3, 3, 3, 3
     .4byte Str_87254B4, Str_8725498, Str_8725474, Str_872544C, Str_8725428

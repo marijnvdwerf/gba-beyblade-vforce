@@ -162,6 +162,10 @@ typedef struct ParticleSystem {
 
 /* Canonical level-geometry handle (0x11C bytes); filled by
  * getLevelGeometryAddresses(LevelGeometryAddresses*, void* geometryData). */
+typedef struct LevelGeometryLine {
+    unk8 unk0[0x20];
+} LevelGeometryLine;
+
 typedef struct LevelGeometryTable {
     unk8 pad0[8];
     s32 unk8;
@@ -171,7 +175,7 @@ typedef struct LevelGeometryAddresses {
     LevelGeometryTable* unk0;
     void* unk4;
     void* unk8;
-    void* unkC;
+    LevelGeometryLine* unkC;
     void* unk10;
     void* unk14[0x40];
     void* unk114;
@@ -188,6 +192,70 @@ typedef struct LevelState {
     unk32 unk10;
     unk32 unk14;
 } LevelState;
+
+typedef struct CollectableEntry {
+    LevelGeometryLine* geometry;
+    unk32 line;
+} CollectableEntry;
+
+typedef struct CollectableData {
+    unk32 count;
+    CollectableEntry entries[0x20];
+    unk32 collectedBits;
+} CollectableData;
+
+typedef struct LineMetaObject {
+    unk8 unk0[8];
+    unk32 unk8;
+} LineMetaObject;
+
+typedef struct TutorialPage {
+    unk8 data[0xB4];
+} TutorialPage;
+
+typedef struct TutorialEntry {
+    unk32 line;
+    TutorialPage* sprite;
+} TutorialEntry;
+
+typedef struct TutorialData {
+    unk32 count;
+    TutorialEntry entries[0x20];
+    unk32 unk104;
+    unk8 fontData[0x30];
+    unk32 unk138;
+    unk32 unk13C;
+} TutorialData;
+
+typedef struct MultiPlayerState {
+    unk8 unk0;
+    unk8 unk1;
+    unk8 unk2;
+    unk8 unk3;
+    unk8 unk4;
+    unk8 unk5;
+    unk8 unk6;
+    unk8 pad7[5];
+    struct AllocatedBlock* unkC;
+    unk32 unk10;
+    unk32 unk14;
+    unk32 unk18;
+    unk32 unk1C;
+    unk32 unk20;
+    void* unk24;
+    void* unk28;
+    void* unk2C;
+    void* unk30;
+    void* unk34;
+    void* unk38;
+    void* unk3C;
+    void* unk40;
+} MultiPlayerState;
+
+typedef struct MultiPlayerAllocation {
+    MultiPlayerState state;
+    unk8 data[1];
+} MultiPlayerAllocation;
 
 typedef struct Unk80516E0 {
     unk8 unk0;

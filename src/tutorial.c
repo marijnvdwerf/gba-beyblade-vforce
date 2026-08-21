@@ -18,7 +18,68 @@ void StoreLevelVar14(unk32 arg0)
 
 INCLUDE_ASM("asm/dump/8040d18/804a364.s");
 INCLUDE_ASM("asm/dump/8040d18/804a378.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804a388-initTutorialManagement.s");
+extern void* loadLevelGeometry(u16);
+extern void* getLevelMetadata(u16);
+extern void getLevelGeometryAddresses(LevelGeometryAddresses*, void*);
+extern void StoreMetadataAddr(LevelGeometryAddresses*, void*);
+extern void* GetLineMetaData(LevelGeometryAddresses*, s32);
+extern void sub_8051734(void);
+extern LineMetaObject* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, void*, unk32, unk32);
+extern void allocFont(void*, const void*, const void*, unk32, unk32, unk32, unk32);
+extern const char Str_87233E8[];
+extern const u8 SpriteSheet_82B05EC[];
+extern const u8 ShadowFontMeta[];
+extern TutorialPage TutorialPages[];
+
+void initTutorialManagement(u16 levelId)
+{
+    LevelGeometryAddresses geometry;
+    GameData* gameData = _gameData;
+    TutorialData* data;
+    TutorialEntry* entry;
+    void* geometryData;
+    void* metadata;
+    void* lineMetadata;
+    LineMetaObject* metaobject;
+    s32 count;
+    s32 line;
+
+    data = &gameData->tutorial;
+    entry = data->entries;
+    geometryData = loadLevelGeometry(levelId);
+    metadata = getLevelMetadata(levelId);
+    sub_8051734();
+    count = 0;
+    __fastMemoryClearARM(0, data, sizeof(TutorialData));
+    if (metadata != 0 && geometryData != NULL) {
+        getLevelGeometryAddresses(&geometry, geometryData);
+        StoreMetadataAddr(&geometry, metadata);
+        line = 0;
+        while (line < geometry.unk0->unk8) {
+            lineMetadata = GetLineMetaData(&geometry, line);
+            if (count > 0x1F) {
+                printf(Str_87233E8);
+                break;
+            }
+            line++;
+            if (lineMetadata != 0) {
+                metaobject = getLineMetaobjectByTypeAndId(&geometry, lineMetadata, 1, 0x8CEC);
+                if (metaobject != NULL) {
+                    entry->line = line;
+                    entry->sprite = &TutorialPages[metaobject->unk8];
+                    count++;
+                    entry++;
+                }
+            }
+        }
+        data->unk104 = 0;
+        data->count = count;
+        allocFont(data->fontData, SpriteSheet_82B05EC, ShadowFontMeta, 0x24, 0x73, 0xBA, 0);
+        data->unk138 = 0;
+        data->unk13C = 0;
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a488-turorial_804A488.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a504.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a51c.s");
@@ -26,7 +87,7 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804a550.s");
 
 void sub_804A72C(void)
 {
-    _gameData->unk13FC = 0;
+    _gameData->tutorial.count = 0;
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a744.s");
