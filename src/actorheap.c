@@ -9,11 +9,11 @@
 typedef struct ActorBlock ActorBlock;
 
 struct ActorBlock {
-    unk32 unk0;
-    s32 unk4;
-    Actor* unk8;
-    ActorBlock* unkC;
-    ActorBlock* unk10;
+    s32 offset;
+    s32 size;
+    Actor* actor;
+    ActorBlock* prev;
+    ActorBlock* next;
 };
 
 extern const char Str_8755E24[];
@@ -28,7 +28,7 @@ extern unk32 _unk3005E64;
 extern Actor* _actorsHeapPtr;
 
 void allocateActorHeaps(void);
-s32 sub_806306C(unk32, ActorBlock*);
+s32 sub_806306C(s32, ActorBlock*);
 void* sub_8062FA8(void);
 Actor* sub_8063190(ActorBlock*, s32);
 
@@ -83,16 +83,16 @@ void* sub_8062EFC(unk32 arg0)
         startIndex = _unk3005E64;
         previous = _unk3005E58;
         if (previous != NULL) {
-            previous->unk10 = block;
-            block->unkC = previous;
+            previous->next = block;
+            block->prev = previous;
         } else {
-            block->unkC = (ActorBlock*)newBlock;
+            block->prev = (ActorBlock*)newBlock;
         }
-        block->unk10 = (ActorBlock*)newBlock;
+        block->next = (ActorBlock*)newBlock;
     }
-    block->unk8 = &_actorsHeapPtr[startIndex];
-    block->unk4 = count;
-    block->unk0 = startIndex;
+    block->actor = &_actorsHeapPtr[startIndex];
+    block->size = count;
+    block->offset = startIndex;
     _unk3005E58 = block;
     if (newBlock == 0) {
         _unk3005E64 += count;
@@ -110,7 +110,7 @@ void* sub_8062FA8(void)
 
     i = 0;
     slot = _actorBlocksHeapPtr;
-    while (slot->unk8 != NULL) {
+    while (slot->actor != NULL) {
         if (i > 0xFF) {
             nullsub_8(Str_8755E8C);
             return NULL;
@@ -128,33 +128,33 @@ void sub_8062FE0(ActorBlock* arg0)
     ActorBlock* prev;
     ActorBlock* next;
 
-    actor = arg0->unk8;
-    count = arg0->unk4;
-    prev = arg0->unkC;
-    next = arg0->unk10;
+    actor = arg0->actor;
+    count = arg0->size;
+    prev = arg0->prev;
+    next = arg0->next;
     while (count-- != 0) {
         sub_80588A8(actor);
         actor++;
     }
     if (_unk3005E58 == arg0) {
-        _unk3005E58 = arg0->unkC;
+        _unk3005E58 = arg0->prev;
     }
     if (prev == NULL) {
         if (next == NULL) {
             allocateActorHeaps();
         } else {
             _unk3005E60 = next;
-            next->unkC = prev;
+            next->prev = prev;
         }
     } else {
-        prev->unk10 = next;
+        prev->next = next;
         if (next != NULL) {
-            next->unkC = prev;
+            next->prev = prev;
         } else {
-            _unk3005E64 -= arg0->unk4;
+            _unk3005E64 -= arg0->size;
         }
     }
-    arg0->unk8 = NULL;
+    arg0->actor = NULL;
 }
 
 ActorBlock* sub_8063058(void)
@@ -163,19 +163,69 @@ ActorBlock* sub_8063058(void)
 
     node = _unk3005E60;
     while (node != NULL) {
-        node = node->unk10;
+        node = node->next;
     }
     return node;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/806306c.s");
+s32 sub_806306C(s32 size, ActorBlock* block)
+{
+    ActorBlock* cur;
+    ActorBlock* next;
+    ActorBlock* candidate;
+    s32 gap;
+    unk32 atHead;
+
+    cur = _unk3005E60;
+    atHead = 0;
+    gap = cur->offset;
+    if (gap >= size) {
+        atHead = 1;
+    } else {
+        next = cur->next;
+        if (next != NULL) {
+            gap = next->offset - (cur->offset + cur->size);
+        }
+        if (next == NULL || gap < size) {
+            while (1) {
+                cur = next;
+                if (cur == NULL || gap >= size) {
+                    break;
+                }
+                candidate = cur->next;
+                next = candidate;
+                if (candidate != NULL) {
+                    gap = candidate->offset - (cur->offset + cur->size);
+                }
+                if (candidate != NULL && gap >= size) {
+                    break;
+                }
+            }
+        }
+    }
+    if (gap >= size && atHead == 0) {
+        block->prev = cur;
+        block->next = cur->next;
+        cur->next->prev = block;
+        cur->next = block;
+        return cur->offset + cur->size;
+    }
+    if (atHead == 1) {
+        cur->prev = block;
+        block->next = cur;
+        block->prev = NULL;
+        _unk3005E60 = block;
+        return 0;
+    }
+    return -1;
+}
 
 void sub_80630F4(ActorBlock* arg0)
 {
     s16 i;
     Actor* actor;
 
-    for (i = 0; i < arg0->unk4; i++) {
+    for (i = 0; i < arg0->size; i++) {
         actor = sub_8063190(arg0, i);
         if (actor != NULL) {
             sub_80584B8(actor);
@@ -188,7 +238,7 @@ void sub_8063128(ActorBlock* arg0)
     s16 i;
     Actor* actor;
 
-    for (i = 0; i < arg0->unk4; i++) {
+    for (i = 0; i < arg0->size; i++) {
         actor = sub_8063190(arg0, i);
         if (actor != NULL) {
             renderActor2(actor);
@@ -201,7 +251,7 @@ void sub_806315C(ActorBlock* arg0)
     s16 i;
     Actor* actor;
 
-    for (i = 0; i < arg0->unk4; i++) {
+    for (i = 0; i < arg0->size; i++) {
         actor = sub_8063190(arg0, i);
         if (actor != NULL) {
             sub_80588A8(actor);
@@ -211,8 +261,8 @@ void sub_806315C(ActorBlock* arg0)
 
 Actor* sub_8063190(ActorBlock* arg0, s32 arg1)
 {
-    if (arg1 >= arg0->unk4) {
+    if (arg1 >= arg0->size) {
         return NULL;
     }
-    return &_actorsHeapPtr[arg0->unk0 + arg1];
+    return &_actorsHeapPtr[arg0->offset + arg1];
 }
