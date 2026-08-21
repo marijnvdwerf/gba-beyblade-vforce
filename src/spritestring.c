@@ -80,7 +80,6 @@ void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthT
     unk8 count, unk32 y, unk32 unk18)
 {
     unk32 mask;
-    unk32 negativeOne;
     unk32 scale;
 
     string->actors = actors;
@@ -97,9 +96,7 @@ void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthT
     mask = -mask;
     string->flags &= mask;
     string->widthTable = widthTable;
-    negativeOne = 1;
-    negativeOne = -negativeOne;
-    string->timer = negativeOne;
+    string->timer = -1;
     string->mode = 0;
     scale = 0x80;
     scale <<= 1;
