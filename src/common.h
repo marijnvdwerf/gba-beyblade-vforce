@@ -146,10 +146,22 @@ typedef struct SpriteTextCleanup {
     SpriteEntry* ptr2C;
 } SpriteTextCleanup;
 
+struct Actor;
+
+typedef struct SpriteStringActorBlock SpriteStringActorBlock;
+
+struct SpriteStringActorBlock {
+    unk32 offset;
+    unk32 count;
+    struct Actor* actors;
+    SpriteStringActorBlock* previous;
+    SpriteStringActorBlock* next;
+};
+
 typedef struct SpriteString SpriteString;
 
 struct SpriteString {
-    SpriteEntry* actors;
+    struct Actor* actors;
     unk8 count;
     unk8 flags;
     unk16 mode;

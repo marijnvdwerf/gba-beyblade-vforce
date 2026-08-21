@@ -1,9 +1,15 @@
+#include "actor.h"
 #include "common.h"
 #include "include_asm.h"
 #include "sprite.h"
 
 extern s32 Div(s32, s32);
 extern void sub_8065088(SpriteString*);
+extern SpriteStringActorBlock* sub_8062EFC(unk32);
+extern void nullsub_8(const char*);
+extern void actor_8057C58(Actor*, unk32, unk32, unk32, unk32, unk32, unk32);
+extern void sub_80585C8(Actor*, unk32);
+extern const u8 Str_8756844[];
 
 s32 sub_8064F38(const u8* str)
 {
@@ -64,20 +70,20 @@ unk32 sub_8064F84(const u8* str)
     return length;
 }
 
-void sub_8064F9C(SpriteString* string, unk32 text, unk32 x, unk32 widthTable, unk32 actors,
-    unk32 count, unk32 y, unk32 field18)
+void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthTable, Actor* actors,
+    unk8 count, unk32 y, unk32 field18)
 {
     unk32 zero;
     unk32 mask;
     unk32 negativeOne;
     unk32 scale;
 
-    string->actors = (SpriteEntry*)actors;
+    string->actors = actors;
     zero = 0;
-    string->count = (unk8)count;
+    string->count = count;
     string->y = y;
     string->field18 = field18;
-    string->text = (const u8*)text;
+    string->text = text;
     string->x = x;
     string->previousX = x - 1;
     mask = 0x10;
@@ -86,7 +92,7 @@ void sub_8064F9C(SpriteString* string, unk32 text, unk32 x, unk32 widthTable, un
     mask = 0x11;
     mask = -mask;
     string->flags &= (unk8)mask;
-    string->widthTable = (const u8*)widthTable;
+    string->widthTable = widthTable;
     negativeOne = 1;
     negativeOne = -negativeOne;
     string->timer = negativeOne;
@@ -99,7 +105,31 @@ void sub_8064F9C(SpriteString* string, unk32 text, unk32 x, unk32 widthTable, un
     sub_8065088(string);
 }
 
-INCLUDE_ASM("asm/dump/8064f38/8064fe8-SpriteString_8064FE8.s");
+void* SpriteString_8064FE8(SpriteString* string, const u8* arg1, unk32 arg2, unk16 count,
+    unk32 argA, const u8* argB, unk32 argC, unk32 argD, unk8 argE)
+{
+    SpriteStringActorBlock* state;
+    unk16 i;
+    Actor* actor;
+
+    state = sub_8062EFC(count);
+    if (state == NULL) {
+        nullsub_8((const char*)Str_8756844);
+    }
+    i = 0;
+    if (i < count) {
+        do {
+            actor = state->actors + i;
+            actor_8057C58(actor, argA, 0, 0, 0, 0, 0);
+            sub_80585C8(actor, 1);
+            i++;
+        } while (i < count);
+    }
+    sub_8064F9C(string, arg1, arg2, argB, state->actors, state->count, argC, argD);
+    string->mode = argE;
+    return state;
+}
+
 INCLUDE_ASM("asm/dump/8064f38/8065088.s");
 INCLUDE_ASM("asm/dump/8064f38/80650e0.s");
 INCLUDE_ASM("asm/dump/8064f38/80650f8.s");
