@@ -291,5 +291,15 @@ void sub_8065760(SpriteString* string, unk32 arg1, unk32 arg2, unk32 arg3, unk32
     }
 }
 
-INCLUDE_ASM("asm/dump/8064f38/80657c4.s");
+void sub_80657C4(SpriteString* string)
+{
+    unk16 i;
+
+    i = 0;
+    while (i < string->count) {
+        sub_80588DC(&string->actors[i]);
+        i++;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8064f38/80657ec.s");
