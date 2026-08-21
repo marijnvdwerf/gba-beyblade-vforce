@@ -62,7 +62,8 @@ Last updated: 2026-08-21 (session 2).
 - `bun run tools/diff/diff.ts <sym>` — instruction diff with C line numbers;
   no match % any more. `.word` rows differing only in symbol display are
   relocation noise.
-- `uv run tools/callgraph.py [root]` — C-only call tree, 🔴 = not in C.
+- `uv run tools/callgraph.py [root]` — C-only call tree (tree-sitter), 🔴 = not in
+  C; `#if 0` drafts count as not decompiled.
 - `uv run tools/asm-annotated.py src/<f>.c <fn> [--all-passes]` — agbcc asm
   + `.lreg`/`.greg` (and `.loop` …) dumps for the current C.
 - `uv run tools/worklist.py` — functions called from C but still asm.
@@ -110,7 +111,7 @@ grep INCLUDE_ASM.
 | temp-reduction-3 | geometry loaders, spritetext, init-functions | MERGED (6 simplified; allocFont takes s16; new src/geometry.h; UnkSpriteText alias gone); worktree removed |
 | showString | showString (spritetext.c, 227) | running |
 | envactor-sound | sub_8054FE0 (envactor.c), sub_8062C24 (sound.c), then initLevelEnvironmentActors | running |
-| callgraph rewrite | asm()/__asm__ not calls; then rewrite callgraph.py (+tu-progress.py scanner) on tree-sitter (uv deps), output byte-identical | running |
+| callgraph rewrite | DONE fceff06: callgraph.py/tu-progress.py on tree-sitter (uv deps tree-sitter 0.26.0, tree-sitter-c 0.24.2), #if 0 skipped, asm() not a call |
 
 Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
 sub_8054FE0), sub_8062C24 (sound), LoadHUD, sub_8060CDC. Red set after the
