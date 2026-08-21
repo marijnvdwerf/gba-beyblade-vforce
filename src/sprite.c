@@ -36,11 +36,14 @@ SpriteEntry* _unk3005DE4;
 
 extern u16 word_807D90C[];
 extern const u8 Str_8755AC8[];
+extern const u8 Str_8755B0C[];
+extern const u8 Str_8755B28[];
 
 void nullsub_8(const char*);
 void freeSpriteVramLocation(s32, s32);
 void sub_8060B38(SpriteEntry*);
 SpriteEntry* sub_8060E8C(SpriteEntry*, u16, u16, u8);
+SpriteEntry* sub_8060C1C(SpriteEntry*, unk16, unk16);
 
 void sub_80604D4(SpriteEntry* current)
 {
@@ -561,6 +564,69 @@ void sub_8060CDC(SpriteEntry* block)
     sub_80604D4(_unk3005DE4);
 }
 
+#if 0
+SpriteEntry* resizeSpriteBlock(SpriteEntry* block, unk16 new_size, unk16 arg2)
+{
+    /* The target narrows extra with lsl/lsr #16 at 0x2C-0x30. */
+    unk16 extra;
+    unk32 sprites_free;
+    SpriteEntry* first;
+    SpriteEntry* last;
+    SpriteEntry* free_head;
+    SpriteEntry* new_first;
+    SpriteEntry* new_last;
+    SpriteEntry* successor;
+    SpriteEntry* previous;
+    unk16 count;
+
+    if (block->x == new_size) {
+        return block->prev;
+    }
+    if (block->x < new_size) {
+        if (block->x != 0) {
+            extra = new_size - block->x;
+            sprites_free = _spritesFree;
+            if (sprites_free < extra) {
+                nullsub_8(Str_8755B0C);
+                return NULL;
+            }
+            free_head = _spritesLeft;
+            new_first = free_head;
+            last = block->next;
+            previous = new_first;
+            first = block->prev;
+            _spritesFree = sprites_free - extra;
+            block->x = block->x + extra;
+            new_first->var22 = first->var22;
+            count = extra - 1;
+            while (count != 0) {
+                free_head = free_head->next;
+                free_head->var22 = first->var22;
+                free_head->prev = previous;
+                previous = free_head;
+                count -= 1;
+            }
+            new_last = free_head;
+            _spritesLeft = new_last->next;
+            successor = last->next;
+            if (successor != NULL) {
+                successor->prev = new_last;
+            }
+            new_last->next = last->next;
+            last->next = new_first;
+            new_first->prev = last;
+            block->next = new_last;
+            sub_80604D4(_unk3005DE4);
+            return block->prev;
+        }
+        sub_8060C1C(block, new_size, arg2);
+        return block->prev;
+    }
+    nullsub_8(Str_8755B28);
+    sub_8060CDC(block);
+    return sub_8060C1C(block, new_size, arg2);
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8060d98-resizeSpriteBlock.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8060e8c.s");
 
