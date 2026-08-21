@@ -75,7 +75,6 @@ Active worktrees / agents (id → file → status):
 | worktree | file | done (uncommitted, in worktree) | in progress / notes |
 |---|---|---|---|
 | agent-abb23f448b7c48bf5 | memory.c | (merged) | debrief in progress → remove worktree after `docs/learnings/memory-allocator.md` exists |
-| agent-aee513f785706f4b3 | gameinit.c | (merged: initGame, initGameLoop, sub_8053B94, closeGame) | debrief pending → remove worktree after `docs/learnings/gameinit.md` exists. 15 INCLUDE_ASM remain in gameinit.c |
 
 Skipped (no C caller): sub_8062EFC (actorheap.c).
 

@@ -48,6 +48,7 @@ Allocation follows live ranges, types, and expression trees — never variable n
 - A "redundant" temp doesn't reserve a register — non-overlapping lifetimes get coalesced; it can instead add an unwanted save and shift every stack offset.
 - One shared `void *prev` reused across two list-building loops keeps a single pseudo (and the same callee-saved reg, e.g. r4) in both; separate typed locals split it and shuffle neighbouring temps. Conversely a "redundant" cursor temp (`next = entry; … next = next->next;`) can be required when the target keeps the initial pointer and the moving cursor in different registers.
 - Long-lived `&global` addresses parked in r9/sl push incoming args out to r7/r8 — if the target's arg registers are high, look for globals whose address is kept live across the function rather than reloaded.
+- A `strb` through a typed object is followed by a reload of any global pointer used afterwards (2.95 treats byte stores as aliasing everything); `str`/`strh` aren't. So the reload pattern tells you which fields are 8-bit. Fix the field width and keep direct `global->field` accesses — no cached pointer, no `volatile`.
 
 Read the prologue first: a wrong push mask means the lifetime set is wrong — fix that before anything downstream.
 
@@ -85,6 +86,8 @@ Both are codegen tools: the same effective address through a struct member vs by
 - Overlay only the fields you need (padding up to the offset); a wrong field type is a wrong access width even at the right offset.
 - Unions for a field read both as word and as pointer.
 - A 4-byte value passed by address can be modeled as `type arr[4]` (decays to a pointer, removes scalar loads).
+- After splitting or nesting a struct inside a fixed-layout placeholder, re-check `sizeof` and every downstream offset: natural alignment padding silently moves later fields and objects (and literal pools) even when the matched function's own instructions are unchanged.
+- A region only ever passed by address is honestly an `unk8 name[N]` array field; a scalar field there adds an unwanted load.
 
 ## Calls & ABI
 
@@ -93,6 +96,8 @@ Both are codegen tools: the same effective address through a struct member vs by
 - A variadic definition emits an argument-save area (`push {r0-r3}`) even with an empty body.
 - Keep dead-looking work the asm shows — discarded division calls, unused readbacks, redundant copies were in the original source; deleting them is a mismatch.
 - Passing a call result directly as an argument vs storing it in a local first can differ by a `mov`.
+- Don't narrow a value at its producer because some consumers take a narrow type; keep it wide and let each call site convert — that preserves both the argument prep and the target's live ranges.
+- A field can be unsigned for its width-driven users while one consumer compares it as a signed sentinel (`ldrsh … cmp #-1`); the honest spelling is the unsigned field plus an explicit `(s16)` cast at that consumer.
 
 ## Volatile
 
