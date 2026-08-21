@@ -95,6 +95,8 @@ grep INCLUDE_ASM.
 | gamestate-cleanup | 10 gamestate.c fns | MERGED 02ed7cf (typed LevelDescription[] 0xD0, LevelState unk4[0x38], s8 unk0, no union); worktree removed |
 | leaves-round3 | 4 leaves (actor/animevent/particle) | 4/4 MERGED; worktree removed |
 | hud-sprite | sub_8060CDC (sprite.c), LoadHUD (hud.c) | 2/2 MERGED (LoadHUD needs a `GameData*` local; sub_8060CDC natural `while (n--)` list unlink); worktree removed |
+| geometry-loaders | StoreMetadataAddr, GetLineMetaData, getLineMetaObjectBytype, getLevelGeometryAddresses (geometry.c); getLevelMetadata, loadLevelGeometry (gameinit.c) | running; should pin LevelGeometryAddresses field types |
+| spritetext | showNumber_2, allocFont, showNumber, LoadSpriteSheet, showString | running |
 
 Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
 sub_8054FE0), sub_8062C24 (sound), LoadHUD, sub_8060CDC. Red set after the
