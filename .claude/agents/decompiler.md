@@ -110,10 +110,10 @@ that has no caller in current C.
   or loop-shape diff is stubborn instead of guessing.
 - `uv run tools/callgraph.py <function>` — C-only call tree; 🔴 leaves are
   not yet in C.
-- `docs/learnings/*.md` — per-function write-ups of what actually moved the
-  diff (e.g. `while (n--)` gives the `n-2 … cmp #-1` loop; loop reversal
-  only fires for signed `<`/`<=`). Read them and `.claude/skills/agbcc/SKILL.md`
-  before starting.
+- Top-level `docs/learnings/*.md` files are unprocessed write-ups of what
+  actually moved a diff. Read that top-level glob and
+  `.claude/skills/agbcc/SKILL.md` before starting; `processed/` is history and
+  is not required reading.
 - The `raw-decomp` worktree (`.claude/worktrees/raw-decomp`, read-only) has
   many more functions in C. Use it for semantics, names and struct layouts,
   but re-verify everything here and follow this repo's style rules — it may

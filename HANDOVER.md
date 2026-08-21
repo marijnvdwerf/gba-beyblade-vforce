@@ -47,8 +47,8 @@ Last updated: 2026-08-21 (session 2).
   Cross-agent findings go in a shared file (`docs/learnings/review-<date>.md`)
   and agents get the path + heading, not pasted text.
 - Skill hygiene: `.claude/skills/agbcc/SKILL.md` takes only generic,
-  repeatable patterns — no function names. Per-function detail lives in
-  `docs/learnings/`.
+  repeatable patterns — no function names. Read only the unprocessed top-level
+  `docs/learnings/*.md`; `processed/` is history and not required reading.
 
 ## Tooling (all on main)
 
