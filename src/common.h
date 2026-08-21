@@ -163,9 +163,31 @@ typedef struct ParticleSystem {
 /* Canonical level-geometry handle (0x11C bytes); filled by
  * getLevelGeometryAddresses(LevelGeometryAddresses*, void* geometryData). */
 typedef struct LevelGeometryTable {
-    unk8 pad0[8];
-    s32 unk8;
+    unk32 pointCount;
+    unk32 splineCount;
+    s32 lineCount;
+    unk32 padC;
+    unk32 pointOffset;
+    unk32 splineOffset;
+    unk32 lineOffset;
+    unk32 pad1C;
 } LevelGeometryTable;
+
+typedef struct LineMetaObject LineMetaObject;
+typedef struct LineMetadata LineMetadata;
+
+struct LineMetaObject {
+    unk16 size;
+    unk16 type;
+    unk16 id;
+    unk8 data[2];
+};
+
+struct LineMetadata {
+    unk16 count;
+    unk16 pad2;
+    LineMetaObject objects[1];
+};
 
 typedef struct LevelGeometryAddresses {
     LevelGeometryTable* unk0;
@@ -174,7 +196,7 @@ typedef struct LevelGeometryAddresses {
     void* unkC;
     void* unk10;
     void* unk14[0x40];
-    void* unk114;
+    LineMetadata** unk114;
     unk16 unk118;
     unk8 pad11A[2];
 } LevelGeometryAddresses;
