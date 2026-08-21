@@ -5,6 +5,7 @@
 #include "memory.h"
 #include "motion.h"
 #include "render.h"
+#include "sprite.h"
 
 typedef struct GeometryAddressTable {
     unk8 pad0[0x10];
@@ -61,8 +62,8 @@ typedef struct GameData {
     unk8 pad8D8[0x44]; /* 0x8D8 */
     unk32 unk91C; /* 0x91C */
     unk8 pad920[0x0C]; /* 0x920 */
-    unk8 unk92C[4]; /* 0x92C */
-    unk8 pad930[0x48]; /* 0x930 */
+    SpriteEntry unk92C; /* 0x92C */
+    unk8 pad960[0x18]; /* 0x960 */
     unk32 unk978; /* 0x978 */
     unk32 unk97C; /* 0x97C */
     unk32 unk980; /* 0x980 */
@@ -129,12 +130,12 @@ typedef struct GameData {
     unk16 unk105A; /* 0x105A */
     unk16 unk105C; /* 0x105C */
     unk16 unk105E; /* 0x105E */
-    void* unk1060; /* 0x1060 */
-    void* unk1064; /* 0x1064 */
+    SpriteEntry* unk1060; /* 0x1060 */
+    SpriteEntry* unk1064; /* 0x1064 */
     void* unk1068; /* 0x1068 */
     unk32 unk106C; /* 0x106C */
     unk32 unk1070; /* 0x1070 */
-    void* unk1074; /* 0x1074 */
+    SpriteEntry* unk1074; /* 0x1074 */
     unk16 unk1078; /* 0x1078 */
     unk16 unk107A; /* 0x107A */
     unk8 unk107C; /* 0x107C */

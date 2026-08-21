@@ -28,7 +28,7 @@ typedef struct Actor {
     unk32 unk78;
     struct AllocatedBlock* unk7C;
     unk8 pad80[0x38];
-    void* unkB8;
+    SpriteEntry* unkB8;
     unk8 padBC[8];
 } Actor;
 

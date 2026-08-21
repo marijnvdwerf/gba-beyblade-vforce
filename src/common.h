@@ -206,7 +206,7 @@ typedef struct PolyTable {
 } PolyTable;
 
 typedef struct Particle {
-    void* sprite;
+    SpriteEntry* sprite;
     unk8 pad4[0x20];
 } Particle;
 

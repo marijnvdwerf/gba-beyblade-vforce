@@ -9,7 +9,6 @@
 extern void sub_8060CDC(void*);
 extern void sub_806123C(SpriteTextCleanup*);
 extern void* resizeSpriteBlock(SpriteTextBlock*, unk16, unk8);
-extern void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);
 extern const u8 Str_8755B58[];
 extern const u8 byte_807D980[];
 

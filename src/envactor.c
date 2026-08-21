@@ -6,8 +6,6 @@
 #include "sprite.h"
 #include "unsorted.h"
 
-extern void sub_8060A94(SpriteEntry*);
-
 #if 0
 extern void ActorSetSpriteOffset(EnvironmentActorSlot*, s16, s16);
 extern void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);

@@ -4,7 +4,6 @@
 #include "sprite.h"
 #include "spritetext.h"
 
-extern void LoadSpriteSheet(void*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);
 extern const u8 SpriteSheet_82B1A84[];
 extern const u8 LargeFontMeta[];
 extern const u8 SpriteSheet_82B05EC[];

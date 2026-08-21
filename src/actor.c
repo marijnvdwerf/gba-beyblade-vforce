@@ -4,9 +4,8 @@
 
 #include "include_asm.h"
 #include "memory.h"
+#include "sprite.h"
 #include "unsorted.h"
-
-void sub_8060A94(void* spriteEntry);
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8057c58-actor_8057C58.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8057d88-renderActor.s");

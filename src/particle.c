@@ -1,8 +1,7 @@
 #include "common.h"
 #include "include_asm.h"
 #include "memory.h"
-
-void sub_8060A94(void* spriteEntry);
+#include "sprite.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e468-allocateParticleSystem.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e530.s");
