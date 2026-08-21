@@ -78,6 +78,11 @@ that has no caller in current C.
 - **Never emit fake symbols** (zero-size markers, `.NON_MATCHING` labels).
   If trailing bytes differ, the legitimate tool is file-scope
   `asm(".align 2, 0\n");` (the original zero-pads where agbcc emits `0xC046`).
+- **No casts on struct-field reads/writes.** `(s8)p->unk0` means `unk0` *is*
+  `s8` — fix the declaration. The same goes for `(T*)p->unkNN` on pointer
+  fields and `*(u8*)&p->unkNN` on halfwords: find the real field shape.
+  Tables walked with `base + i * SIZE` are arrays of a SIZE-byte struct —
+  declare them as such and index.
 - C90: declarations before statements. Run `clang-format -i` on every file
   you touched before committing/reporting (config in `.clang-format`).
 
@@ -105,10 +110,10 @@ that has no caller in current C.
   or loop-shape diff is stubborn instead of guessing.
 - `uv run tools/callgraph.py <function>` — C-only call tree; 🔴 leaves are
   not yet in C.
-- `docs/learnings/*.md` — per-function write-ups of what actually moved the
-  diff (e.g. `while (n--)` gives the `n-2 … cmp #-1` loop; loop reversal
-  only fires for signed `<`/`<=`). Read them and `.claude/skills/agbcc/SKILL.md`
-  before starting.
+- Top-level `docs/learnings/*.md` files are unprocessed write-ups of what
+  actually moved a diff. Read that top-level glob and
+  `.claude/skills/agbcc/SKILL.md` before starting; `processed/` is history and
+  is not required reading.
 - The `raw-decomp` worktree (`.claude/worktrees/raw-decomp`, read-only) has
   many more functions in C. Use it for semantics, names and struct layouts,
   but re-verify everything here and follow this repo's style rules — it may
