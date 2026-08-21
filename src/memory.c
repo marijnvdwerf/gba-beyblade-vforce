@@ -21,7 +21,8 @@ u32 _wramBlocksUsed = 0;
 void* _unk3005C8C = NULL;
 AllocatedBlock (*_exramBlocks)[BLOCK_COUNT] = NULL;
 
-AllocatedBlock* sub_805A53C();
+AllocatedBlock* sub_805A53C(u32 size, u8* base, u32 totalSize, AllocatedBlock* current,
+    AllocatedBlock* block, AllocatedBlock** nextBlock);
 
 void initBlockVariables(void)
 {
@@ -39,7 +40,7 @@ void initBlockVariables(void)
     _exram = (u8(*)[EXRAM_SIZE])(ewram + blockSize + blockSize);
 }
 
-AllocatedBlock* getValidAllocatedBlock(AllocatedBlock (*)[], u32);
+AllocatedBlock* getValidAllocatedBlock(AllocatedBlock (*)[], s32);
 
 AllocatedBlock* fastAllocate(u32 size)
 {
@@ -57,7 +58,7 @@ AllocatedBlock* fastAllocate(u32 size)
         printf("Error in fastAllocate(), unable to allocate %i bytes\n", size);
     }
 
-    block2 = sub_805A53C(size, _wram, sizeof(_wram), &_nextWramBlock[0], block, &_nextWramBlock);
+    block2 = sub_805A53C(size, _wram, sizeof(_wram), _nextWramBlock, block, &_nextWramBlock);
     if (block2 != NULL) {
         _wramBlocksUsed += 1;
     }
@@ -81,7 +82,7 @@ AllocatedBlock* slowAllocate(u32 size)
         printf("Error in slowAllocate(), unable to allocate %i bytes\n", size);
     }
 
-    block2 = sub_805A53C(size, _exram, EXRAM_SIZE, &_nextExramBlock[0], block, &_nextExramBlock);
+    block2 = sub_805A53C(size, (u8*)_exram, EXRAM_SIZE, _nextExramBlock, block, &_nextExramBlock);
     if (block2 != NULL) {
         _exramBlocksUsed += 1;
     }
@@ -136,19 +137,86 @@ void deallocateBlock(AllocatedBlock* block)
     block->previous = NULL;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805a53c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805a5e4-getValidAllocatedBlock.s");
-
-const u8 Str_8755254[]
-    = "Error in getValidAllocatedBlock(), no further AllocatedBlocks available\n";
-
-#ifdef NONMATCHING
-AllocatedBlock* getValidAllocatedBlock(AllocatedBlock (*blockList)[], u32 arg0)
+AllocatedBlock* sub_805A53C(u32 size, u8* base, u32 capacity, AllocatedBlock* current,
+    AllocatedBlock* block, AllocatedBlock** nextBlockPtr)
 {
-    u32 i;
+    u32 firstGap;
+    u32 gap;
+    u32 finalGap;
+    u8* end;
+    u8* last;
+    u32 address;
+    AllocatedBlock* cur;
 
+    address = (u32)current->address;
+    cur = current;
+    firstGap = 0;
+    if (address != 0) {
+        firstGap = (u8*)address - base;
+    }
+
+    if (firstGap >= size) {
+        block->address = base;
+        block->previous = NULL;
+        block->next = current;
+        block->size = size;
+        cur->previous = block;
+        *nextBlockPtr = block;
+        return block;
+    }
+
+    if (cur != NULL) {
+        AllocatedBlock* nextBlock;
+
+        end = base + capacity;
+        do {
+            nextBlock = cur->next;
+            if (nextBlock != NULL) {
+                gap = (u8*)nextBlock->address
+                    - ((u8*)cur->address + cur->size);
+                if (gap >= size) {
+                    block->address = (u8*)cur->address + cur->size;
+                    block->previous = cur;
+                    block->next = cur->next;
+                    block->size = size;
+                    cur->next->previous = block;
+                    cur->next = block;
+                    return block;
+                }
+                cur = nextBlock;
+            } else {
+                if (cur->address != NULL) {
+                    last = (u8*)cur->address + cur->size;
+                    finalGap = end - last;
+                } else {
+                    last = base;
+                    finalGap = capacity;
+                }
+            }
+        } while (nextBlock != NULL);
+    }
+
+    if (finalGap >= size) {
+        block->address = last;
+        block->size = size;
+        block->next = NULL;
+        if (block == cur) {
+            block->previous = NULL;
+        } else {
+            block->previous = cur;
+            cur->next = block;
+        }
+        return block;
+    }
+
+    return NULL;
+}
+
+AllocatedBlock* getValidAllocatedBlock(AllocatedBlock (*blockList)[], s32 count)
+{
     AllocatedBlock* block = &(*blockList)[0];
-    for (i = arg0; i != 0; i--) {
+
+    while (count-- != 0) {
         if (block->size == 0 && block->address == NULL) {
             return block;
         }
@@ -159,7 +227,6 @@ AllocatedBlock* getValidAllocatedBlock(AllocatedBlock (*blockList)[], u32 arg0)
     printf("Error in getValidAllocatedBlock(), no further AllocatedBlocks available\n");
     return NULL;
 }
-#endif
 
 void printTotalWramUsage(void)
 {
