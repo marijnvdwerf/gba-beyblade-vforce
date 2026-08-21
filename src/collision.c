@@ -11,8 +11,8 @@ extern unk32 def_94_8_collision_8055F2C(void*, void*, void*, unk32);
 void sub_8055CB8(void)
 {
     withBoundingAreaCount = 0;
-    sub_805E50C(_unk3000FC0, (void*)def_94_0_8055CFC, (void*)def_94_4_AddWithBoundingAreaMessage,
-        (void*)def_94_8_collision_8055F2C);
+    sub_805E50C(_unk3000FC0, def_94_0_8055CFC, def_94_4_AddWithBoundingAreaMessage,
+        def_94_8_collision_8055F2C);
     sub_805E514(_unk3000FD0, 0, 0, 0, 0);
 }
 

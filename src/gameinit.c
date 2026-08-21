@@ -245,59 +245,47 @@ void sub_8053F0C(unk32 arg0)
 {
     switch (_currentGameState->unk3) {
     case 1: {
-        GameData* gameData;
-
-        gameData = _gameData;
-        gameData->unk7FC = 0x200;
-        gameData->unk7FE = 0x100;
-        gameData->unk800 = 2;
-        gameData->unk802 = 1;
-        gameData->unk804 = 9;
-        gameData->unk806 = 8;
-        gameData->unk808 = 1;
-        gameData->unk80A = 0;
+        _gameData->unk7FC = 0x200;
+        _gameData->unk7FE = 0x100;
+        _gameData->unk800 = 2;
+        _gameData->unk802 = 1;
+        _gameData->unk804 = 9;
+        _gameData->unk806 = 8;
+        _gameData->unk808 = 1;
+        _gameData->unk80A = 0;
         return;
     }
     case 2: {
-        GameData* gameData;
-
-        gameData = _gameData;
-        gameData->unk7FC = 0x100;
-        gameData->unk7FE = 0x200;
-        gameData->unk800 = 2;
-        gameData->unk802 = 1;
-        gameData->unk804 = 8;
-        gameData->unk806 = 9;
-        gameData->unk808 = 1;
-        gameData->unk80A = 0;
+        _gameData->unk7FC = 0x100;
+        _gameData->unk7FE = 0x200;
+        _gameData->unk800 = 2;
+        _gameData->unk802 = 1;
+        _gameData->unk804 = 8;
+        _gameData->unk806 = 9;
+        _gameData->unk808 = 1;
+        _gameData->unk80A = 0;
         return;
     }
     case 3: {
-        GameData* gameData;
-
-        gameData = _gameData;
-        gameData->unk7FC = 0x100;
-        gameData->unk7FE = 2;
-        gameData->unk800 = 1;
-        gameData->unk802 = 0x200;
-        gameData->unk804 = 8;
-        gameData->unk806 = 1;
-        gameData->unk808 = 0;
-        gameData->unk80A = 9;
+        _gameData->unk7FC = 0x100;
+        _gameData->unk7FE = 2;
+        _gameData->unk800 = 1;
+        _gameData->unk802 = 0x200;
+        _gameData->unk804 = 8;
+        _gameData->unk806 = 1;
+        _gameData->unk808 = 0;
+        _gameData->unk80A = 9;
         return;
     }
     default: {
-        GameData* gameData;
-
-        gameData = _gameData;
-        gameData->unk7FC = 0x200;
-        gameData->unk7FE = 0x100;
-        gameData->unk800 = 1;
-        gameData->unk802 = 2;
-        gameData->unk804 = 9;
-        gameData->unk806 = 8;
-        gameData->unk808 = 0;
-        gameData->unk80A = 1;
+        _gameData->unk7FC = 0x200;
+        _gameData->unk7FE = 0x100;
+        _gameData->unk800 = 1;
+        _gameData->unk802 = 2;
+        _gameData->unk804 = 9;
+        _gameData->unk806 = 8;
+        _gameData->unk808 = 0;
+        _gameData->unk80A = 1;
         return;
     }
     }
