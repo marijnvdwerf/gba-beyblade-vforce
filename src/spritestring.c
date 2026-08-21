@@ -154,9 +154,9 @@ void sub_8065088(SpriteString* string)
             actor = &string->actors[i];
             actor->x = x << 8;
             actor->y = string->field18 << 8;
-            actor->unk16 = (unk16)zero;
-            actor->unk12 = (unk16)scale;
-            actor->unk14 = (unk16)scale;
+            actor->unk16 = zero;
+            actor->unk12 = scale;
+            actor->unk14 = scale;
             actor->unk40 = zero;
             actor->unk44 = zero;
             actor->unk48 = zero;
