@@ -1,7 +1,11 @@
 #include <agb/types.h>
 
+#include "bios.h"
+#include "display.h"
 #include "include_asm.h"
 #include "keystate.h"
+#include "levelrow.h"
+#include "menuobject.h"
 #include "motion.h"
 #include "sound.h"
 #include "unsorted.h"
@@ -47,12 +51,6 @@ extern void sub_80493C8(void);
 extern void sub_80490CC(unk32, unk32);
 extern void sub_8049344(unk32);
 extern void sub_804A280(FrontendState*);
-extern void sub_80434EC(FrontendState*);
-extern void sub_804374C(FrontendState*);
-extern void sub_804A110(void);
-extern void sub_8050A50(FrontendState*);
-extern void sub_805041C(UnkMotion*);
-extern void sub_8057930(void);
 extern unk8 _unk3000BFC;
 extern u16 _unk3000BFD;
 extern void (*__oam_8756CC0)(void);

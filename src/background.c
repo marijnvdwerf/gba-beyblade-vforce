@@ -2,23 +2,13 @@
 #include <agb/memory_map.h>
 
 #include "common.h"
+#include "display.h"
 #include "include_asm.h"
+#include "layer.h"
 #include "palette.h"
 #include "sound.h"
 #include "system.h"
 #include "unsorted.h"
-
-typedef struct {
-    u8 var00; // 0x00
-    u8 var01; // 0x01
-    u16 var02; // 0x02
-    u16 var04; // 0x04
-    u16 var06; // 0x06
-    u16 var08; // 0x08
-    u32 var0C; // 0x0C
-    u32 var10; // 0x10
-    u32 var14; // 0x14
-} UnkStruct_sub1;
 
 typedef struct {
     u8 pad00[0x10]; // 0x00
@@ -46,13 +36,6 @@ typedef struct {
 } UnkStruct;
 
 typedef struct {
-    void* var00[30];
-    u16 (*bgPalette)[16][16];
-    u16 (*spritePalette)[16][16];
-    u32 var80;
-} ScreenLayout;
-
-typedef struct {
     u8 pad000[0x584]; // 0x000
     u8 var584; // 0x584
 } UnkStructA;
@@ -61,16 +44,8 @@ extern UnkStruct _3000000;
 
 extern ScreenLayout _806A828[];
 
-extern void sub_80508A4(UnkStruct_sub1*);
 extern void sub_8049344(int);
 extern void sub_804A280(void*);
-extern void sub_8050894(void*);
-
-extern void newLayerManagement(void* arg0, void* arg1, ScreenLayout* arg2, u16 arg3, u8 sp0);
-
-void sub_80508CC(void*, ScreenLayout*, int);
-
-void sub_80596AC(void*, int, int);
 
 void Background_80498D8(void)
 {

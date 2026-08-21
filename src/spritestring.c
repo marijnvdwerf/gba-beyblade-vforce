@@ -1,4 +1,5 @@
 #include "actor.h"
+#include "actorheap.h"
 #include "bios.h"
 #include "common.h"
 #include "include_asm.h"
@@ -6,15 +7,10 @@
 #include "system.h"
 
 extern void sub_8065088(SpriteString*);
-extern SpriteStringActorBlock* sub_8062EFC(unk32);
 extern void actor_8057C58(Actor*, unk32, unk32, unk32, unk32, unk32, unk32);
-extern void sub_80585C8(Actor*, unk32);
 extern const u8 Str_8756844[];
 extern const u8 byte_807D980[];
-extern void ActorSetFrame(Actor*, s32, unk8);
 extern unk32 sub_80655C0(SpriteString*, s32, unk16, unk16, unk8);
-extern void sub_8058794(Actor*, unk32, unk32, unk32, unk32);
-extern void sub_80588DC(Actor*);
 
 s32 sub_8064F38(const u8* str)
 {

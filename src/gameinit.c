@@ -10,7 +10,9 @@
 #include "hud.h"
 #include "include_asm.h"
 #include "levelhud.h"
+#include "multiplayer.h"
 #include "rider.h"
+#include "riderphysics.h"
 #include "tutorial.h"
 #include "unsorted.h"
 
@@ -29,14 +31,6 @@ extern void sub_8060CDC(void*);
 extern void sub_8061204(void*);
 extern void sub_80538C0(void);
 extern void sub_804B4A4(void*);
-extern s32 GetLineIndexOfType(LevelGeometryAddresses*, u16, u16);
-extern unk32 isMultiplayer(void);
-extern unk32 sub_8051820(void);
-extern void initRider(void*, void*, s32, s32, s32, unk32, unk32);
-extern void processRiderMetadata(void*, LevelGeometryAddresses*, s32);
-extern void sub_804E1FC(void*, u8);
-extern void sub_804C888(void*, unk32);
-extern void SetRiderFlag(void*, unk32);
 extern const s16 Unk_874CC3C[];
 extern const u8 Str_8729504[];
 extern const u8 Str_8729564[];

@@ -35,5 +35,9 @@ typedef struct Actor {
 void sub_80584B8(Actor*);
 void renderActor2(Actor*);
 void sub_80588A8(Actor*);
+void sub_80585C8(Actor*, unk32);
+void ActorSetFrame(Actor*, s32, unk8);
+void sub_8058794(Actor*, unk32, unk32, unk32, unk32);
+void sub_80588DC(Actor*);
 
 #endif /* _ACTOR_H */

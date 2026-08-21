@@ -11,6 +11,7 @@ void StoreMetadataAddr(LevelGeometryAddresses*, LineMetadata**);
 LineMetadata* GetLineMetaData(LevelGeometryAddresses*, s32);
 LineMetaObject* getLineMetaObjectBytype(LevelGeometryAddresses*, LineMetadata*, unk32);
 LineMetaObject* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, LineMetadata*, unk32, unk32);
+s32 GetLineIndexOfType(LevelGeometryAddresses*, u16, u16);
 void sub_805BA3C(GeometryAddressTable*);
 void deallocateQuadTree(QuadTree*);
 
