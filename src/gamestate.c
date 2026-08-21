@@ -182,12 +182,10 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80518c8.s");
 
 unk32 sub_80518F0(void)
 {
-    LevelState* state;
     unk32 value;
     unk32 count;
 
-    state = sub_8051734();
-    value = state->unk10;
+    value = sub_8051734()->unk10;
     count = 0;
     if (value != 0) {
         do {
