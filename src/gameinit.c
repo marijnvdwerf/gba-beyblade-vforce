@@ -1,6 +1,7 @@
 #include <agb/types.h>
 
 #include "beyblade.h"
+#include "camera.h"
 #include "collectable.h"
 #include "envactor.h"
 #include "event.h"
@@ -19,7 +20,6 @@
 #include "unsorted.h"
 
 extern void sub_8053F0C(unk32);
-extern void nullsub_12(void*);
 extern LevelDesign LevelDesigns[];
 extern void initRiders(void);
 extern const u8 Str_87294CC[];

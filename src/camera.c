@@ -1,3 +1,5 @@
+#include "camera.h"
+
 #include "include_asm.h"
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805e878.s");
@@ -7,7 +9,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805e8d8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805eadc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805eb00.s");
 
-void nullsub_12(void)
+void nullsub_12(void* arg0)
 {
 }
 
