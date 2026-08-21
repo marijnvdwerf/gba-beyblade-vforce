@@ -20,6 +20,12 @@ description: Session rules for orchestrating decompilation subagents
   happens anyway, recreating the worktree at the same path revives it.
 - Merging: commit in the worktree, `git merge` into main, take the delete
   on dump-file modify/delete conflicts, run `compare`, `tools/update-expected`.
+- When an agent says it is done, spawn an **opus-4.8** reviewer on its
+  worktree's C diff only (`git diff main...<branch> -- src`; it must not read
+  asm) that writes the most natural C for each function to
+  `docs/learnings/review-<scope>.md`; send the decomp agent that path as its
+  new goal and let it try to simplify while keeping the match. Only then
+  review/merge.
 - Review matched code before merging; "matches" is not "done". If the
   natural shape doesn't match, the agent must show what diverged.
 - Read the target asm yourself when an agent stalls — reload patterns,

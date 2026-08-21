@@ -12,7 +12,8 @@ Last updated: 2026-08-21 (session 2).
   Agent tool only, every prompt says "Do not spawn subagents"). Decomp agents
   use `subagent_type: decompiler` with `isolation: worktree`, one source file
   per agent. Prompts follow `~/.claude/skills/prompting-codex/SKILL.md`.
-- Agent lifecycle: match → review → merge → debrief → remove worktree.
+- Agent lifecycle: match → opus natural-C review (C diff only, no asm; agent
+  retries with that as goal) → my review → merge → debrief → remove worktree.
   Ask for `docs/learnings/<function>.md` before removing a worktree —
   worktree-isolated agents cannot write to the main checkout, so have them
   write it inside their worktree and copy it over; an agent
