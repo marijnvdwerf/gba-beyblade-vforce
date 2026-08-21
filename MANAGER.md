@@ -25,7 +25,10 @@ description: Session rules for orchestrating decompilation subagents
   types only, no rename proposals — sub_*/unkNN names stay; it must not read
   asm) that writes the most natural C for each function to
   `docs/learnings/review-<scope>.md`; send the decomp agent that path as its
-  new goal and let it try to simplify while keeping the match. Only then
+  new goal and let it try to simplify while keeping the match. Reviewer
+  output is shape advice only: any layout claim it makes (embedded array vs
+  pointer, field widths) must be checked by the decomp agent against the asm
+  before adopting. Only then
   review/merge.
 - Review matched code before merging; "matches" is not "done". If the
   natural shape doesn't match, the agent must show what diverged.
