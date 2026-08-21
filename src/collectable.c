@@ -1,14 +1,9 @@
+#include "geometry.h"
 #include "include_asm.h"
 #include "ram.h"
 #include "unsorted.h"
 
-extern void* loadLevelGeometry(u16);
-extern void* getLevelMetadata(u16);
-extern void getLevelGeometryAddresses(LevelGeometryAddresses*, void*);
-extern void StoreMetadataAddr(LevelGeometryAddresses*, LineMetadata**);
-extern void* GetLineMetaData(LevelGeometryAddresses*, s32);
 extern LevelState* sub_8051734(void);
-extern void* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, void*, unk32, unk32);
 extern const char Str_8729804[];
 
 void initCollectables(u16 levelId)
