@@ -51,7 +51,6 @@ extern void sub_80490F8(unk32);
 extern void sub_804967C(void);
 extern void sub_80493C8(void);
 extern void sub_80490CC(unk32, unk32);
-extern void sub_804A280(FrontendState*);
 extern unk8 _unk3000BFC;
 extern u16 _unk3000BFD;
 extern void (*__oam_8756CC0)(void);
