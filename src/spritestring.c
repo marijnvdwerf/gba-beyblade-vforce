@@ -178,7 +178,13 @@ void sub_80650F8(SpriteString* string, const u8* text)
     string->text = text;
 }
 
-INCLUDE_ASM("asm/dump/8064f38/80650fc.s");
+void sub_80650FC(SpriteString* string, unk32 x)
+{
+    string->text = NULL;
+    string->previousX = string->x;
+    string->x = x;
+}
+
 INCLUDE_ASM("asm/dump/8064f38/8065108.s");
 INCLUDE_ASM("asm/dump/8064f38/806513e.s");
 INCLUDE_ASM("asm/dump/8064f38/806530c.s");
