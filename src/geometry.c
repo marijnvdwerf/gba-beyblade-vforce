@@ -78,7 +78,34 @@ LineMetaObject* getLineMetaObjectBytype(
     return NULL;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805bb5c-getLineMetaobjectByTypeAndId.s");
+LineMetaObject* getLineMetaobjectByTypeAndId(
+    LevelGeometryAddresses* arg0, LineMetadata* metadata, unk32 type, unk32 id)
+{
+    s32 index;
+    s32 count;
+    s32 limit;
+    LineMetaObject* ptr;
+    unk16 key;
+
+    index = 0;
+    ptr = metadata->objects;
+    if (metadata == NULL) {
+        return NULL;
+    }
+    count = metadata->count;
+    if (index < count) {
+        key = (unk16)id;
+        limit = count;
+        for (; index < limit; index++) {
+            if (ptr->type == type && ptr->id == key) {
+                return ptr;
+            }
+            ptr = (LineMetaObject*)((unk8*)ptr + ptr->size);
+        }
+    }
+    return NULL;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805bb9c-initQuadTree.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bbc8-allocQuadTree.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bdbc.s");
