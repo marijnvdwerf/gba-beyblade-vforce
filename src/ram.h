@@ -130,9 +130,10 @@ typedef struct GameData {
     unk8 pad1084[0x8C]; /* 0x1084 */
     BeybladeActorData actorData[0x3C]; /* 0x1110 */
     u16 unk12F0; /* 0x12F0 */
-    unk8 pad12F2[0x10A]; /* 0x12F2 */
-    unk32 unk13FC; /* 0x13FC */
-    unk8 pad1400[0x218]; /* 0x1400 */
+    unk8 pad12F2[2]; /* 0x12F2 */
+    CollectableData collectables; /* 0x12F4 */
+    TutorialData tutorial; /* 0x13FC */
+    unk8 pad153C[0xDC]; /* 0x153C */
     unk8 unk1618; /* 0x1618 */
     unk8 pad1619[2]; /* 0x1619 */
     unk8 unk161B; /* 0x161B */
