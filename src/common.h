@@ -182,7 +182,14 @@ typedef struct GeometrySpline {
     unk32 pointIndices[1];
 } GeometrySpline;
 
-typedef struct LevelGeometryTable {
+typedef struct LevelGeometryTable LevelGeometryTable;
+
+typedef struct LevelDesign {
+    unk8 pad0[0x80];
+    LevelGeometryTable* geometry;
+} LevelDesign;
+
+struct LevelGeometryTable {
     unk32 pointCount;
     unk16 splineCount;
     unk16 pad6;
@@ -192,7 +199,7 @@ typedef struct LevelGeometryTable {
     unk32 splineOffset;
     unk32 lineOffset;
     unk32 pad1C;
-} LevelGeometryTable;
+};
 
 typedef struct LineMetaObject LineMetaObject;
 typedef struct LineMetadata LineMetadata;
