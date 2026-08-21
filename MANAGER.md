@@ -15,7 +15,8 @@ description: Session rules for orchestrating decompilation subagents
 - Agent lifecycle: **match → review → merge → debrief → remove worktree**.
   Always ask for a learnings write-up (`docs/learnings/<function>.md`,
   plus a proposed `.claude/skills/agbcc/SKILL.md` patch) *before* removing
-  a worktree — an agent whose worktree is gone cannot be resumed. If it
+  a worktree. Learnings files are per-function; the skill is not — only
+  fold in repeatable, generic patterns, never function names or one-offs — an agent whose worktree is gone cannot be resumed. If it
   happens anyway, recreating the worktree at the same path revives it.
 - Merging: commit in the worktree, `git merge` into main, take the delete
   on dump-file modify/delete conflicts, run `compare`, `tools/update-expected`.
