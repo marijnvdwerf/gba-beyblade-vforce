@@ -93,10 +93,13 @@ grep INCLUDE_ASM.
 | skill distill (gpt-5.6-sol) | SKILL.md rewritten + committed; now moving processed learnings to docs/learnings/processed/ |
 | review-round3 (opus) | done → docs/learnings/review-round3.md; canonical LevelGeometryAddresses added to common.h (3c82864); follow-ups sent to all agents |
 | gamestate-cleanup | 10 gamestate.c fns | MERGED 02ed7cf (typed LevelDescription[] 0xD0, LevelState unk4[0x38], s8 unk0, no union); worktree removed |
+| leaves-round3 | sub_80588A8 (actor.c), sub_805FA4C + sub_805FA68 (animevent.c), sub_804EBE8 (particle.c) | running |
+| hud-sprite | sub_8060CDC (sprite.c), LoadHUD (hud.c) | running |
 
 Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
-sub_8054FE0), sub_8062C24 (sound), LoadHUD, sub_8060CDC. Red set on
-2026-08-21 after merges: 31 functions / 4,335 lines.
+sub_8054FE0), sub_8062C24 (sound), LoadHUD, sub_8060CDC. Red set after the
+round-2 merges: 22 functions / 4,193 lines (gameLoop 930, envactor 772,
+sub_8062C24 310 are the big unassigned ones).
 
 Skipped (no C caller): sub_8062EFC (actorheap.c).
 
