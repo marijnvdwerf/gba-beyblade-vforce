@@ -14,16 +14,16 @@ struct SpriteEntry {
     s32 unk10; // 0x10
     u16 oam_attr_2; // 0x14
     u16 var16; // 0x16
-    u8 frame_lo; // 0x18
+    u8 frame; // 0x18
     u8 unk19; // 0x19
-    u8 unk1A[2]; // 0x1A
+    u16 unk1A; // 0x1A
     u16 flip_h_v; // 0x1C
     u8 unk1E[2]; // 0x1E
     u16 var20; // 0x20
     u16 var22; // 0x22
     s32 var24; // 0x24
-    u8 unk28[4]; // 0x28
-    SpriteEntry* unk2C; // 0x2C
+    const u8* unk28; // 0x28
+    const u8* unk2C; // 0x2C
     SpriteEntry* unk30; // 0x30
 };
 
@@ -473,7 +473,66 @@ void sub_8060B38(SpriteEntry* spriteEntry)
     }
 }
 
+#if 0
+typedef struct SpriteSheet {
+    unk8 pad0[6];
+    unk8 unk6;
+    s8 unk7;
+    unk8 pad8[4];
+    unk8 unkC;
+    unk8 padD[3];
+    unk32 unk10;
+    unk8 pad14[8];
+    unk32 unk1C;
+} SpriteSheet;
+
+void LoadSpriteSheet(SpriteSheetEntry* dst, SpriteSheet* source, unk32 x, unk32 y, unk32 arg4,
+    s32 arg5, unk32 arg6, unk32 arg7)
+{
+    register unk32 stackArg4;
+    register unk32 stackArg5 asm("r9") = arg5;
+    unk32 value;
+    s8 sourceFlags;
+    unk8 sourceByteC;
+    unk8 normalizedArg4;
+    register unk16 normalizedArg5 asm("r10");
+
+    stackArg5 = arg5;
+    normalizedArg5 = arg7;
+    stackArg4 = arg4;
+    normalizedArg4 = arg6;
+    normalizedArg5 = arg7;
+    sourceFlags = source->unk7;
+    sourceByteC = source->unkC;
+    dst->unk2C = (const u8*)source;
+    dst->flip_h_v = normalizedArg4;
+    dst->x = x;
+    dst->y = y;
+    value = (sourceFlags & 3) << 14;
+    value |= (~sourceByteC & 1) << 13;
+    value |= ((stackArg4 & 3) << 10) | 0x1000;
+    value |= (sourceFlags & 0xC) << 28;
+    value |= (normalizedArg4 & 3) << 28;
+    dst->unk10 = value;
+    value = ((sourceByteC >> 1) & 0xF) << 12;
+    value |= (stackArg5 & 3) << 10;
+    dst->oam_attr_2 = value;
+    value = source->unk1C;
+    if (value == 0) {
+        value = source->unk10;
+    }
+    dst->unk28 = (const u8*)source + value;
+    dst->var16 = source->unk6;
+    dst->frame = normalizedArg5;
+    dst->unk1A = 0xFFFF;
+    dst->flip_h_v = 0;
+    dst->var20 = 0;
+    dst->var24 = -1;
+}
+
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8060b68-LoadSpriteSheet.s");
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8060c1c.s");
 
 void sub_8060CDC(SpriteEntry* block)
@@ -553,7 +612,7 @@ void sub_8060F64(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 arg3)
         }
     }
     if (child != NULL) {
-        if (child->frame_lo != 0) {
+        if (child->frame != 0) {
             if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
                 flags |= 0x200;
             } else {
@@ -575,7 +634,7 @@ void sub_806100C(SpriteEntry* spriteEntry, u16 arg1, u16 arg2)
     SpriteEntry* child = spriteEntry->unk30;
 
     if (child != NULL) {
-        sub_8060F64(spriteEntry, arg1, arg2, child->frame_lo);
+        sub_8060F64(spriteEntry, arg1, arg2, child->frame);
     } else {
         sub_8060F64(spriteEntry, arg1, arg2, 0);
     }
@@ -586,7 +645,7 @@ void sub_8061030(SpriteEntry* spriteEntry, u16 arg1, u16 arg2)
     SpriteEntry* child = spriteEntry->unk30;
 
     if (child != NULL) {
-        sub_8060F64(spriteEntry, child->oam_attr_2 + arg1, child->var16 + arg2, child->frame_lo);
+        sub_8060F64(spriteEntry, child->oam_attr_2 + arg1, child->var16 + arg2, child->frame);
     } else {
         sub_8060F64(spriteEntry, arg1 + 0x100, arg2 + 0x100, 0);
     }
