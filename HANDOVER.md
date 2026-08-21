@@ -62,7 +62,7 @@ Last updated: 2026-08-21 (session 1).
 
 ## State at last update
 
-Main: `9ed9bdc` + later merges; clean; compare passing.
+Main: see `git log`; clean; compare passing. Session 1 ended ~06:45.
 
 Merged this session: SpriteVRamFree (sprite.c, loops as `while (n--)`; sprite worktree closed),
 sub_806306C (actorheap.c, ActorBlock fields named), sub_805A53C +
@@ -70,11 +70,11 @@ getValidAllocatedBlock (memory.c), initGame + initGameLoop + sub_8053B94 +
 closeGame (gameinit.c, with large GameData/CurrentGameState upgrades in ram.h;
 music.c keeps `(s16)` casts on unkC24/unkC26 — s16 field broke initGameLoop).
 
-Active worktrees / agents (id → file → status):
+Active worktrees / agents (id → file → status): none at end of session 1 —
+all merged or parked; only `raw-decomp` remains.
 
 | worktree | file | done (uncommitted, in worktree) | in progress / notes |
 |---|---|---|---|
-| agent-abb23f448b7c48bf5 | memory.c | (merged) | debrief in progress → remove worktree after `docs/learnings/memory-allocator.md` exists |
 
 Skipped (no C caller): sub_8062EFC (actorheap.c).
 
@@ -98,7 +98,8 @@ regenerate with `tools/callgraph.py mainLoop` + `tools/worklist.py`.
 
 ## Session housekeeping
 
-- A persistent 55-minute keepalive Monitor ticks while agents run (keeps the
+- (Session 1's keepalive Monitor was stopped at wind-down.) A persistent
+  55-minute keepalive Monitor ticks while agents run (keeps the
   prompt cache warm). Stop it with TaskStop once all agents are done and the
   session winds down. Each tick: check `git status` on main for stray agent
   edits, update this file if anything changed.
