@@ -161,7 +161,7 @@ struct SpriteStringActorBlock {
 typedef struct SpriteString SpriteString;
 
 struct SpriteString {
-    struct Actor* actors;
+    struct Actor* volatile actors;
     unk8 count;
     unk8 flags;
     unk16 mode;
@@ -172,8 +172,8 @@ struct SpriteString {
     unk32 field18;
     unk8 pad1C[4];
     unk32 width;
-    unk16 scaleX;
-    unk16 scaleY;
+    s16 scaleX;
+    s16 scaleY;
     const u8* widthTable;
     unk32 timer;
 };
