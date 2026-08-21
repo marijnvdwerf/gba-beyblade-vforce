@@ -75,15 +75,16 @@ Last updated: 2026-08-21, end of session 2 (main at 09b7c1c+).
 
 ## State
 
-Progress: 9/66 TUs done, 263 C functions, 744 INCLUDE_ASM remaining (26%)
-after the envactor + leaves-round4 merges. Session 2 merged 49
+Progress: 9/66 TUs done, 264 C functions, 743 INCLUDE_ASM remaining (26%)
+after the envactor + leaves-round4 + showString merges. Session 2 merged 50
 functions; session 1 merged 8.
 
 ### Agents running at last update
 
 | worktree | scope | status |
 |---|---|---|
-| showString | spritetext.c showString (227) | matched (bcdfb08); cleanup requested: no gotos/value-less return, drop stale extern, duplicate if/else branches |
+| temp-reduction-4 | sub_8054FE0, GetSplineAtIndex, getLineMetaobjectByTypeAndId, showString, printf | running (worktree) |
+| sol learnings pass | fold 6 top-level docs/learnings into agbcc skill, move to processed/ | running (main, uncommitted) |
 
 ### Parked (attempted, not matched)
 
@@ -120,6 +121,10 @@ should be gameLoop + the parked list above.
   `GameData.unk42C` is `RiderBase*`.
 - `LevelDescription` is 0xD0 and indexed (`LevelDescriptions[i]`), has
   `LineMetadata** metadata` at 0x2C; ActiveLevelDescription no longer exists.
+- `SpriteEntry` layout lives in src/sprite.h (shared by sprite.c and
+  spritetext.c). showString keeps value-less `return;` for the NULL/empty
+  paths (asm falls through with r0 = tested value) and a duplicated if/else
+  (collapsing diverges).
 - `CurrentGameState`: `s8 unk0`, `LevelState unk4[0x38]`, bytes unk6E8/unk6E9.
 - `GameData` sub-structs: collectables (0x12F4), tutorial, levelHud0–3 +
   motions, PolyTable unkB88, unkCA0/CA4/CA8 event listeners.
