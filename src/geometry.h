@@ -5,7 +5,7 @@
 
 LevelGeometryTable* loadLevelGeometry(u16);
 LineMetadata** getLevelMetadata(u16);
-void getLevelGeometryAddresses(LevelGeometryAddresses*, void*);
+void getLevelGeometryAddresses(LevelGeometryAddresses*, LevelGeometryTable*);
 void StoreMetadataAddr(LevelGeometryAddresses*, LineMetadata**);
 LineMetadata* GetLineMetaData(LevelGeometryAddresses*, s32);
 LineMetaObject* getLineMetaObjectBytype(LevelGeometryAddresses*, LineMetadata*, unk32);

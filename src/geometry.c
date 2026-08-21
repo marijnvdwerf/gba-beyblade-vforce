@@ -5,13 +5,11 @@ extern const u8 Str_87553D0[];
 extern void nullsub_8(const char*);
 extern GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses*, s32);
 
-void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, void* arg1)
+void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable* geometry)
 {
-    LevelGeometryTable* geometry;
     s16 count;
     s16 i;
 
-    geometry = arg1;
     arg0->unk0 = geometry;
     arg0->unk4 = (GeometryPoint*)((unk8*)geometry + geometry->pointOffset);
     arg0->unk8 = (GeometrySpline*)((unk8*)geometry + geometry->splineOffset);
