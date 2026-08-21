@@ -4,7 +4,7 @@ Living document for the next manager session. Rules of engagement are in
 `MANAGER.md`; this file is the *state* — what is running, what landed, what
 is stuck, and what to do next. Update it whenever something changes.
 
-Last updated: 2026-08-21 (session 1).
+Last updated: 2026-08-21 (session 2).
 
 ## How to work
 
@@ -70,11 +70,22 @@ getValidAllocatedBlock (memory.c), initGame + initGameLoop + sub_8053B94 +
 closeGame (gameinit.c, with large GameData/CurrentGameState upgrades in ram.h;
 music.c keeps `(s16)` casts on unkC24/unkC26 — s16 field broke initGameLoop).
 
-Active worktrees / agents (id → file → status): none at end of session 1 —
-all merged or parked; only `raw-decomp` remains.
+Active agents (session 2, all gpt-5.6-luna decompiler, worktree-isolated,
+keepalive Monitor running). Red-function→TU map for the mainLoop graph is in
+the session-2 transcript; regenerate with `tools/callgraph.py mainLoop` +
+grep INCLUDE_ASM.
 
-| worktree | file | done (uncommitted, in worktree) | in progress / notes |
-|---|---|---|---|
+| scope | functions | status |
+|---|---|---|
+| gamestate.c | getLevelDescription(2), sub_8051734/640/720/744, sub_80518F0, getSomeLevelID, GetLevelDescriptionNo, sub_80510FC | running |
+| gameinit.c | sub_80538C0, sub_8053F0C, initRiders | running |
+| frontend.c | sub_8049264, sub_8049458 | running |
+| event.c | deallocEventListeners, initEventListeners | running |
+| small leaves | sub_8061204, sub_805BA3C, deallocateQuadTree, sub_804A72C, emptyBeybladeActorData, deallocBeybladeActorData, sub_8055CB8, sub_804F800, sub_804FEE8 | running |
+
+Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
+sub_8054FE0), initMultiPlayer, sub_8062C24 (sound), LoadHUD, initCollectables,
+initTutorialManagement, newPolyTable, sub_8060CDC.
 
 Skipped (no C caller): sub_8062EFC (actorheap.c).
 
