@@ -76,8 +76,8 @@ Last updated: 2026-08-21, end of session 2 (round 6: six luna agents running; ke
 
 ## State
 
-Progress: 9/66 TUs done, 264 C functions, 743 INCLUDE_ASM remaining (26%)
-after the envactor + leaves-round4 + showString merges. Session 2 merged 50
+Progress: 9/66 TUs done, 268 C functions, 739 INCLUDE_ASM remaining (26%)
+after the envactor + leaves-round4 + showString merges. Session 2 merged 54 (round 6 so far: gameinit 4)
 functions; session 1 merged 8.
 
 ### Agents running at last update
@@ -85,11 +85,9 @@ functions; session 1 merged 8.
 | worktree | scope | status |
 |---|---|---|
 | envactor-init | envactor.c initLevelEnvironmentActors (656) | running (round 6) |
-| spritetext-2 | spritetext.c sub_806123C (356), then sub_80614B0 | running |
-| sprite-resize | sprite.c resizeSpriteBlock (134) | running |
-| gameinit-leaves | gameinit.c GetStruct4 (28) + up to 3 small leaves | running |
-| sound-2 | sound.c sub_80627F0 (145), maybe sub_8062C24 | running |
-| spritestring | spritestring.c sub_8064F38 + small leaves in order | running |
+| sprite-resize | resizeSpriteBlock parked draft; cleaning names/volatile | fixing |
+| sound-2 | sub_80627F0 + sub_8062C24 parked drafts; cleaning names/volatile | fixing |
+| spritestring | sub_8064F38, sub_80657EC, sub_80656B8 matched; applying review fixes (volatile, register, casts) | fixing |
 
 ### Parked (attempted, not matched)
 
@@ -100,7 +98,10 @@ functions; session 1 merged 8.
 | initRiders (gameinit.c) | 349 | `#if 0` | frame 0x138 vs 0x134 (one extra spilled local); riderIndex r8 vs r9 — processed/initriders.md |
 | initMultiPlayer (multiplayer.c) | 137 | `#if 0` | arg regs r8/r5 + normalization sequence — processed/init-functions.md |
 | LoadSpriteSheet (sprite.c) | 99 | `#if 0` | proven pun at SpriteEntry+0x18 (strh) / +0x19 (ldrb); user approved a documented 2-byte union, which reproduces both in isolation, but the function still diverges on stack-arg scheduling ([sp,#36] must load before [sp,#40]) — u16-byte-narrowing.md; next attempt: union sized exactly 2 bytes + consume 5th param first |
-| sub_80627F0 (sound.c) | 145 | `#if 0` BELOW its INCLUDE_ASM (pre-session raw-decomp draft) | never attempted this session |
+| sub_80627F0 (sound.c) | 145 | `#if 0` | genuinely dead `(var08+1)&-2` retained by target (shared -2 in r5); agbcc DCEs it — sound-2.md |
+| sub_806123C (spritetext.c) | 356 | `#if 0` | push mask/frame/slots match; early register roles + spills differ — spritetext-2.md |
+| resizeSpriteBlock (sprite.c) | 134 | `#if 0` | register allocation of normalized args/list nodes — sprite-resize.md |
+| sub_80655C0, sub_8065508 (spritestring.c) | — | `#if 0` | register/stack shape diverged |
 | sub_8062C24 (sound.c) | 310 | `#if 0` | envactor-sound agent draft; byte-cursor sequencer — envactor-sound.md |
 | initLevelEnvironmentActors (envactor.c) | 656 | none | unassigned after sub_8054FE0 landed (merged 18a1525) |
 | sub_80510FC (gamestate.c) | 208 | none | final table scan compiles to pointer-increment instead of indexed — processed/gamestate.md |
