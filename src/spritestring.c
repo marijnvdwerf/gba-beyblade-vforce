@@ -40,7 +40,7 @@ unk32 sub_8064F50(unk32 value)
 {
     unk32 count;
     unk32 group;
-    unk32 temp;
+    unk32 previousGroup;
 
     count = 0;
     group = 3;
@@ -48,9 +48,9 @@ unk32 sub_8064F50(unk32 value)
         return 1;
     }
     do {
-        temp = group;
+        previousGroup = group;
         group--;
-        if (temp == 0) {
+        if (previousGroup == 0) {
             group = 3;
             count++;
         }
