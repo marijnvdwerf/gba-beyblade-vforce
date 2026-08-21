@@ -183,6 +183,22 @@ typedef struct LevelGeometryAddresses {
     unk8 pad11A[2];
 } LevelGeometryAddresses;
 
+typedef struct GeometryPoint {
+    s32 x;
+    s32 y;
+    s32 z;
+    unk32 unkC;
+} GeometryPoint;
+
+typedef struct GeometryLine {
+    unk32 pointIndex;
+    unk8 pad4[4];
+    unk8 unk8;
+    unk8 pad9[0xD];
+    unk16 type;
+    unk8 pad18[8];
+} GeometryLine;
+
 typedef struct LevelState {
     unk16 unk0;
     unk16 unk2;
@@ -279,7 +295,8 @@ typedef struct LevelDescription {
     s32 unk20;
     s32 unk24;
     s32 unk28;
-    unk8 pad2C[0xA4];
+    unk32 unk2C;
+    unk8 pad30[0xA0];
 } LevelDescription;
 
 #define true 1

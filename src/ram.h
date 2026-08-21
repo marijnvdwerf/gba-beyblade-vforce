@@ -25,9 +25,13 @@ typedef struct BeybladeActorData {
 } BeybladeActorData;
 
 typedef struct GameData {
-    unk8 pad0[0x234]; /* 0x000 */
+    unk8 pad0[0x200]; /* 0x000 */
+    void* unk200; /* 0x200 */
+    unk8 pad204[0x30]; /* 0x204 */
     s32 unk234; /* 0x234 */
-    unk8 pad238[0x1F0]; /* 0x238 */
+    unk8 pad238[0x196]; /* 0x238 */
+    unk8 unk3CE; /* 0x3CE */
+    unk8 pad3CF[0x59]; /* 0x3CF */
     AllocatedBlock* unk428; /* 0x428 */
     RiderBase* unk42C; /* 0x42C */
     s32 unk430; /* 0x430 */
