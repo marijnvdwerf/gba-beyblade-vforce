@@ -79,13 +79,11 @@ unk32 sub_8064F84(const u8* str)
 void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthTable, Actor* actors,
     unk8 count, unk32 y, unk32 unk18)
 {
-    unk32 zero;
     unk32 mask;
     unk32 negativeOne;
     unk32 scale;
 
     string->actors = actors;
-    zero = 0;
     string->count = count;
     string->y = y;
     string->unk18 = unk18;
@@ -102,12 +100,12 @@ void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthT
     negativeOne = 1;
     negativeOne = -negativeOne;
     string->timer = negativeOne;
-    string->mode = zero;
+    string->mode = 0;
     scale = 0x80;
     scale <<= 1;
     string->scaleX = scale;
     string->scaleY = scale;
-    string->width = zero;
+    string->width = 0;
     sub_8065088(string);
 }
 
