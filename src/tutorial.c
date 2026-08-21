@@ -29,7 +29,6 @@ extern TutorialPage TutorialPages[];
 void initTutorialManagement(u16 levelId)
 {
     LevelGeometryAddresses geometry;
-    GameData* gameData = _gameData;
     TutorialData* data;
     TutorialEntry* entry;
     LevelGeometryTable* geometryData;
@@ -39,7 +38,7 @@ void initTutorialManagement(u16 levelId)
     s32 count;
     s32 line;
 
-    data = &gameData->tutorial;
+    data = &_gameData->tutorial;
     entry = data->entries;
     geometryData = loadLevelGeometry(levelId);
     metadata = getLevelMetadata(levelId);
