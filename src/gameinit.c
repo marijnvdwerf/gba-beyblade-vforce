@@ -42,7 +42,7 @@ extern void nullsub_4(void);
 extern void sub_804FEE8(void);
 extern void sub_805BA3C(GeometryAddressTable*);
 extern void getLevelGeometryAddresses(LevelGeometryAddresses*, void*);
-extern void StoreMetadataAddr(LevelGeometryAddresses*, unk32);
+extern void StoreMetadataAddr(LevelGeometryAddresses*, LineMetadata**);
 extern s32 GetLineIndexOfType(LevelGeometryAddresses*, u16, u16);
 extern unk32 isMultiplayer(void);
 extern unk32 sub_8051820(void);
