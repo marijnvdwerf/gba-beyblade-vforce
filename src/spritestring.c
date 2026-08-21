@@ -302,4 +302,19 @@ void sub_80657C4(SpriteString* string)
     }
 }
 
-INCLUDE_ASM("asm/dump/8064f38/80657ec.s");
+void sub_80657EC(SpriteString* string, unk8 value)
+{
+    unk32 flags;
+    unk32 mask;
+    unk32 low;
+
+    value = (unk8)value;
+    flags = 0x10;
+    flags |= string->flags;
+    mask = 0xF;
+    low = value & mask;
+    mask -= 0x1F;
+    flags &= mask;
+    flags |= low;
+    string->flags = (unk8)flags;
+}
