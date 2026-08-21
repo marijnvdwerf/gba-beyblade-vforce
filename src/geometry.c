@@ -67,7 +67,7 @@ LineMetaObject* getLineMetaObjectBytype(
     s32 index;
 
     index = 0;
-    ptr = &metadata->objects[0];
+    ptr = metadata->objects;
     if (metadata == NULL) {
         return NULL;
     }
