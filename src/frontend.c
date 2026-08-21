@@ -1,3 +1,5 @@
+#include "frontend.h"
+
 #include <agb/types.h>
 
 #include "bios.h"
@@ -49,7 +51,6 @@ extern void sub_80490F8(unk32);
 extern void sub_804967C(void);
 extern void sub_80493C8(void);
 extern void sub_80490CC(unk32, unk32);
-extern void sub_8049344(unk32);
 extern void sub_804A280(FrontendState*);
 extern unk8 _unk3000BFC;
 extern u16 _unk3000BFD;

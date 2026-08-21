@@ -3,6 +3,7 @@
 
 #include "common.h"
 #include "display.h"
+#include "frontend.h"
 #include "include_asm.h"
 #include "layer.h"
 #include "levelrow.h"
@@ -44,8 +45,6 @@ typedef struct {
 extern UnkStruct _3000000;
 
 extern ScreenLayout _806A828[];
-
-extern void sub_8049344(int);
 
 void Background_80498D8(void)
 {
