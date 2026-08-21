@@ -73,7 +73,6 @@ Active worktrees / agents (id → file → status):
 | agent-abb23f448b7c48bf5 | memory.c | (merged) | debrief in progress → remove worktree after `docs/learnings/memory-allocator.md` exists |
 | agent-aee513f785706f4b3 | gameinit.c | initGame, initGameLoop | experiment pending: unkC24/unkC26 as `s16` + `\|= 0xFFFF` to avoid `(s16)` casts in music.c; then sub_8053B94, closeGame |
 | agent-a358a3f24f8bdfae8 | keystate.c | — | updateKeyState: I read the asm — loop bit tests are `> 0` (`ble`), not `!= 0`; hint sent with full shape (u16 i for-loop, plain struct access, literal 1, reload `_unk3000E30[0]` each use) |
-| agent-a7d4f3a332d49ca2f | system.c | — (restored to asm) | sub_8057A7C orphan (no callers) didn't match; writing `docs/learnings/sub_8057A7C.md`; remove worktree after |
 
 Skipped (no C caller): sub_8062EFC (actorheap.c).
 
