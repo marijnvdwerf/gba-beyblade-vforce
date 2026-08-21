@@ -17,7 +17,6 @@ extern void* resizeSpriteBlock(SpriteTextBlock*, unk16, unk8);
 extern void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);
 extern const u8 Str_8755B58[];
 extern const u8 byte_807D980[];
-extern unk8 showString(SpriteTextCleanup*, const u8*, unk8);
 
 void allocFont(SpriteTextCleanup* arg0, const u8* arg1, const u8* arg2, s16 arg3, s16 arg4,
     unk16 arg5, unk16 arg6)
@@ -101,66 +100,64 @@ unk8 showString(SpriteTextCleanup* arg0, const u8* text, unk8 mode)
     extra = 0;
     load_flags = (arg0->unk8 & 0x180) >> 7;
     if (text == NULL) {
-        goto show_string_end;
+        return;
     }
     if (*text == 0) {
-        goto show_string_end;
+        return;
     }
-    {
-        sprite = arg0->unk14.next;
-        result = resizeSpriteBlock(&arg0->unk14, text_width + count, arg0->unk2B);
-        if (result == NULL) {
-            printf(Str_8755B58, text);
-            return 0;
-        }
-        if (sprite != NULL) {
-            result = sprite->next;
-        }
-        sprite = result;
-        child = arg0->ptr2C;
-        if (child != NULL) {
-            flags = (child->x & 0x3E0) << 20;
-            flags |= 0x100;
-            if ((arg0->unk8 & 8) == 0) {
-                if (child->frame != 0) {
-                    if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
-                        flags |= 0x200;
-                    }
-                } else if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
+    sprite = arg0->unk14.next;
+    result = resizeSpriteBlock(&arg0->unk14, text_width + count, arg0->unk2B);
+    if (result == NULL) {
+        printf(Str_8755B58, text);
+        return 0;
+    }
+    if (sprite != NULL) {
+        result = sprite->next;
+    }
+    sprite = result;
+    child = arg0->ptr2C;
+    if (child != NULL) {
+        flags = (child->x & 0x3E0) << 20;
+        flags |= 0x100;
+        if ((arg0->unk8 & 8) == 0) {
+            /* The duplicate branches are required for the target instruction shape. */
+            if (child->frame != 0) {
+                if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
                     flags |= 0x200;
                 }
+            } else if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
+                flags |= 0x200;
             }
         }
-        while ((ch = *text++) != 0) {
-            advance = char_width;
-            if (ch == ' ') {
-                advance = arg0->unk28;
-                extra = 0x8000;
-            } else {
-                ch = byte_807D980[ch];
-                LoadSpriteSheet(sprite, arg0->unk24, 0, 0, 0, load_flags, 0, ch);
-                sub_8061168(sprite, mode_value);
-                sub_8061130(sprite, arg0->unkE);
-                if (width != NULL) {
-                    advance = (unk16)(advance - width[ch]);
-                }
-                offset = arg0->unk29;
-                advance = (unk16)(advance + offset);
-                sprite->unk1E = x | extra;
-                extra = 0;
-                if (child != NULL) {
-                    sprite->unk10 = (sprite->unk10 & 0xC1FFFCFF) | flags;
-                    sprite->unk30 = child;
-                }
-                sprite = sprite->next;
-            }
-            x = (unk16)(x + advance);
-        }
-        sub_806123C(arg0);
-        arg0->unkA = x;
-        return 1;
     }
-show_string_end:;
+    while ((ch = *text++) != 0) {
+        advance = char_width;
+        if (ch == ' ') {
+            advance = arg0->unk28;
+            extra = 0x8000;
+        } else {
+            ch = byte_807D980[ch];
+            LoadSpriteSheet(sprite, arg0->unk24, 0, 0, 0, load_flags, 0, ch);
+            sub_8061168(sprite, mode_value);
+            sub_8061130(sprite, arg0->unkE);
+            if (width != NULL) {
+                advance = (unk16)(advance - width[ch]);
+            }
+            offset = arg0->unk29;
+            advance = (unk16)(advance + offset);
+            sprite->unk1E = x | extra;
+            extra = 0;
+            if (child != NULL) {
+                sprite->unk10 = (sprite->unk10 & 0xC1FFFCFF) | flags;
+                sprite->unk30 = child;
+            }
+            sprite = sprite->next;
+        }
+        x = (unk16)(x + advance);
+    }
+    sub_806123C(arg0);
+    arg0->unkA = x;
+    return 1;
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8061660.s");
