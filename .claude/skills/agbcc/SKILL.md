@@ -78,6 +78,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 
 - Direct global access can still leave `&global` live in a saved/high register; do not invent a pointer-to-global alias merely to explain reuse.
 - Keep `base = global` when the target loads it before clamps/branches or keeps derived addresses live; otherwise test direct global access first.
+- Decisive test: a global pointer's *value* still in a register after a `bl` (no reload) ⇒ the source copied it into a local before the call (the compiler may not keep a global live across calls). A fresh `ldr` of the global after each call ⇒ direct `global->` access.
 - Cache only the expression whose lifetime is proven; mixing a scoped local with direct accesses can preserve both a distinct value and target reloads.
 - A `strb` through a typed object may force later global-pointer reloads because agbcc treats byte stores as broadly aliasing; do not use `volatile` to fake it.
 - Long-lived global addresses consume callee-saved registers and can push incoming arguments into higher registers; preserve the source access pattern.
