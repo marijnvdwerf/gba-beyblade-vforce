@@ -31,4 +31,4 @@ void sub_804EBE8(ParticleSystem* arg0)
     }
 }
 
-asm(".align 2, 0\n");
+ASM_ZEROPAD
