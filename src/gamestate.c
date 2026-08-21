@@ -164,12 +164,10 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8051798.s");
 unk32 GetLevelDescriptionNo(void)
 {
     LevelDescription* description;
-    LevelDescription* descriptions;
 
     description = getLevelDescription2();
     if (sub_8051780(0x20) != 0) {
-        descriptions = LevelDescriptions;
-        return descriptions[_currentGameState->unk6C4].unk0;
+        return LevelDescriptions[_currentGameState->unk6C4].unk0;
     }
     return description->unk0;
 }
