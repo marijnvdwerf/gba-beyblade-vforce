@@ -271,3 +271,9 @@ names.
 +  place an explicit signed cast at the consumer when the target shows `ldrsh`.
 *** End Patch
 ```
+
+### Case-scoped locals can be required for exact switch codegen
+
+sub_8053F0C matches with a separate GameData *gameData declaration inside each braced switch case, assigned from _gameData at the start of that case. A single GameData *gameData declared and assigned before the switch changes codegen even though the C semantics are identical.
+
+With the hoisted form, agbcc loads _gameData before _currentGameState, keeps the GameData pointer in r4, and shifts the mode dispatch and every case block. The target instead loads _currentGameState first, keeps the mode in r5, loads _gameData only in the selected case, and uses the case-local pointer in r1. The hoisted form also shortened the function and moved the literal pool; it did not match the target instruction layout. Keep the case-scoped declarations because their lifetime and control-flow scope are part of the recovered code-generation shape, not redundant source noise.

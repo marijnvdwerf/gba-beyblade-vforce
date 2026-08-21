@@ -5,13 +5,17 @@
 #include "memory.h"
 #include "render.h"
 
+typedef struct RiderBlock {
+    unk8 data[0x428];
+} RiderBlock;
+
 typedef struct GameData {
     unk8 pad0[0x234]; /* 0x000 */
     s32 unk234; /* 0x234 */
     unk8 pad238[0x1F0]; /* 0x238 */
     AllocatedBlock* unk428; /* 0x428 */
-    void* unk42C; /* 0x42C */
-    unk32 unk430; /* 0x430 */
+    RiderBlock* unk42C; /* 0x42C */
+    s32 unk430; /* 0x430 */
     void* unk434; /* 0x434 */
     unk8 pad438[0x224]; /* 0x438 */
     unk8 unk65C[4]; /* 0x65C */
@@ -21,7 +25,16 @@ typedef struct GameData {
     void* unk778; /* 0x778 */
     unk8 pad77C[0x24]; /* 0x77C */
     unk32 unk7A0; /* 0x7A0 */
-    unk8 unk7A4[0x6C]; /* 0x7A4 */
+    unk8 unk7A4[0x58]; /* 0x7A4 */
+    unk16 unk7FC; /* 0x7FC */
+    unk16 unk7FE; /* 0x7FE */
+    unk16 unk800; /* 0x800 */
+    unk16 unk802; /* 0x802 */
+    unk16 unk804; /* 0x804 */
+    unk16 unk806; /* 0x806 */
+    unk16 unk808; /* 0x808 */
+    unk16 unk80A; /* 0x80A */
+    unk8 pad80C[4]; /* 0x80C */
     unk8 unk810[0x30]; /* 0x810 */
     unk8 unk840[0x68]; /* 0x840 */
     unk8 unk8A8[4]; /* 0x8A8 */
