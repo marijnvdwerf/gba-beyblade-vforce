@@ -255,7 +255,30 @@ INCLUDE_ASM("asm/dump/8064f38/80653d8.s");
 
 INCLUDE_ASM("asm/dump/8064f38/8065508.s");
 INCLUDE_ASM("asm/dump/8064f38/80655c0.s");
-INCLUDE_ASM("asm/dump/8064f38/80656b8.s");
+
+void sub_80656B8(SpriteString* string)
+{
+    s32 count;
+    register s32 c;
+    const u8* text;
+    Actor* actor;
+
+    count = string->count;
+    text = string->text;
+    actor = string->actors;
+    while (count != 0 && (c = *text++) != 0) {
+        if (c != ' ') {
+            ActorSetFrame(actor, 0, byte_807D980[c]);
+            actor->unk70 = -1;
+            actor++;
+            count--;
+        }
+    }
+    while (count-- != 0) {
+        actor->unk70 = 0;
+        actor++;
+    }
+}
 
 void sub_806570C(SpriteString* string, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 step)
 {
