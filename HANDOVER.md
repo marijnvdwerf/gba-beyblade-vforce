@@ -88,7 +88,7 @@ functions; session 1 merged 8.
 
 | worktree | scope | status |
 |---|---|---|
-| header-consolidation | move foreign externs into per-TU headers (tools/lint.py); stage 1 merged (c5146ca, 110→61 findings); stage 2 (asm-defined, consistent sigs) in progress; conflicts deferred | running |
+| header-consolidation | move foreign externs into per-TU headers (tools/lint.py); stages 1+2 merged (c5146ca, b244799; 110→37 findings). Remaining 37 = 26 signature conflicts (agent's list in session log; mostly `void*` externs vs typed definitions, e.g. sub_8060A94, allocFont, showString, sub_805E50C/514, resizeSpriteBlock). Stage 3 = fix each conflict to the definition's signature, then move. Worktree kept for revival | paused |
 
 ### Parked (attempted, not matched)
 
