@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-08-21, end of session 2 (all agents finished; keepalive stopped).
+Last updated: 2026-08-21, end of session 2 (round 6: six luna agents running; keepalive task blcgq1v47; shared prompt preamble in /tmp/preamble.txt).
 
 ## How to work
 
@@ -84,7 +84,12 @@ functions; session 1 merged 8.
 
 | worktree | scope | status |
 |---|---|---|
-| (none) | all worktrees merged and removed; temp-reduction pass 4 and sol skill pass done | — |
+| envactor-init | envactor.c initLevelEnvironmentActors (656) | running (round 6) |
+| spritetext-2 | spritetext.c sub_806123C (356), then sub_80614B0 | running |
+| sprite-resize | sprite.c resizeSpriteBlock (134) | running |
+| gameinit-leaves | gameinit.c GetStruct4 (28) + up to 3 small leaves | running |
+| sound-2 | sound.c sub_80627F0 (145), maybe sub_8062C24 | running |
+| spritestring | spritestring.c sub_8064F38 + small leaves in order | running |
 
 ### Parked (attempted, not matched)
 
