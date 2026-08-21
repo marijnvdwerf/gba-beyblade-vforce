@@ -94,7 +94,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 
 - Struct members and raw byte offsets can produce different address temporaries; if a typed field doesn't match, the field's type/width or the struct nesting is wrong — fix the layout, don't fall back to byte arithmetic.
 - Overlay only proven fields and preserve all padding; a correct offset with the wrong type still gives the wrong access width.
-- Use a union when the same storage is genuinely read as both a word and a pointer or through multiple widths.
+- A field that is both compared/stored as a word and dereferenced is a pointer — type it so; don't invent unions. A field accessed at two widths is usually two adjacent narrower fields (a byte read at +0 of a halfword = `unk8 a; unk8 b;`), not a union.
 - An opaque region only passed by address is naturally `unk8 region[N]`; a scalar member there introduces an unwanted load.
 - Repeated fixed-stride records are naturally an array of structs; this gives honest field widths and pointer/index arithmetic.
 - After splitting or nesting a fixed-layout struct, verify `sizeof` and every later offset; natural tail padding can shift unrelated code and pools.
