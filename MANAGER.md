@@ -31,3 +31,6 @@ description: Session rules for orchestrating decompilation subagents
 - `-g` is in the build (verified byte-neutral); `diff.ts` shows source
   lines and no match %; `.word` rows differing only in symbol display are
   noise — `compare` is the authority.
+- `HANDOVER.md` is the living state file for the next session (active
+  agents, merged work, stuck points, next candidates). Update it on every
+  merge, every agent start/finish, and every change of plan.
