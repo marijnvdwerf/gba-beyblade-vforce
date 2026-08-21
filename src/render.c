@@ -1,8 +1,9 @@
+#include "render.h"
+
 #include <agb/define.h>
 #include <agb/macro.h>
 #include <agb/memory_map.h>
 
-#include "render.h"
 #include "system.h"
 
 extern const char Str_8755644[];

@@ -1,7 +1,8 @@
+#include "sprite.h"
+
 #include "common.h"
 #include "include_asm.h"
 #include "memory.h"
-#include "sprite.h"
 #include "system.h"
 #include "unsorted.h"
 

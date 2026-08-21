@@ -172,8 +172,7 @@ AllocatedBlock* sub_805A53C(u32 size, u8* base, u32 capacity, AllocatedBlock* cu
         do {
             nextBlock = cur->next;
             if (nextBlock != NULL) {
-                gap = (u8*)nextBlock->address
-                    - ((u8*)cur->address + cur->size);
+                gap = (u8*)nextBlock->address - ((u8*)cur->address + cur->size);
                 if (gap >= size) {
                     block->address = (u8*)cur->address + cur->size;
                     block->previous = cur;

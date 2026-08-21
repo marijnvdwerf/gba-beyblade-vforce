@@ -1,6 +1,6 @@
 #include "keystate.h"
-#include "sprite.h"
 #include "ram.h"
+#include "sprite.h"
 
 void* _unk3005DC0 = NULL;
 void* _unk3005DC4 = NULL;

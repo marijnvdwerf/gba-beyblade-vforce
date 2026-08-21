@@ -60,6 +60,7 @@ void initGame(void)
     _gameData->unkB58 = 0;
     sub_8053F0C(1);
 }
+
 void initGameLoop(void)
 {
     unk32 levelId;
@@ -138,6 +139,7 @@ void initGameLoop(void)
         }
     }
 }
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053600-initRiders.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80538c0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053920.s");
@@ -148,6 +150,7 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80539a0-GetStruct4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80539c4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80539e8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053b04-initCollisionData.s");
+
 void sub_8053B94(void)
 {
     ActiveLevelDescription* levelDescription;
@@ -195,6 +198,7 @@ void sub_8053B94(void)
     currentGameState->unk4 = _gameData->unk163C + 1;
     currentGameState->unk8 = sub_80518F0();
 }
+
 void closeGame(void)
 {
     sub_8060CDC(&_gameData->unk92C);
@@ -217,6 +221,7 @@ void closeGame(void)
     deallocateQuadTree(&_gameData->unk7A4);
     sub_8053F0C(1);
 }
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053d58-initGameloop2.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053e18.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053ef8.s");
