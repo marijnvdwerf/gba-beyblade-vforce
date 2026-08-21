@@ -112,9 +112,13 @@ grep INCLUDE_ASM.
 | showString | showString (spritetext.c, 227) | running |
 | envactor-sound | sub_8054FE0 (envactor.c), sub_8062C24 (sound.c), then initLevelEnvironmentActors | running |
 | callgraph rewrite | DONE fceff06: callgraph.py/tu-progress.py on tree-sitter (uv deps tree-sitter 0.26.0, tree-sitter-c 0.24.2), #if 0 skipped, asm() not a call |
+| leaves-round4 | printf (debug.c), GetSplineAtIndex, getLineMetaobjectByTypeAndId (geometry.c) | running |
 
-Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
-sub_8054FE0), sub_8062C24 (sound), LoadHUD, sub_8060CDC. Red set after the
+Remaining red set (main 09b7c1c): 16 fns / 3,609 lines. Parked with #if 0
+drafts: initEventListeners, sub_8049458, initRiders, initMultiPlayer,
+sub_80627F0 (old draft BELOW its INCLUDE_ASM), LoadSpriteSheet. Parked
+notes-only: sub_80510FC, updateKeyState, freeSpriteVramLocation. Unassigned:
+gameLoop (930). Red set after the
 round-2 merges: 22 functions / 4,193 lines (gameLoop 930, envactor 772,
 sub_8062C24 310 are the big unassigned ones).
 
