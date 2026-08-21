@@ -1,6 +1,7 @@
 #include <agb/types.h>
 
 #include "include_asm.h"
+#include "motion.h"
 #include "unsorted.h"
 
 INCLUDE_ASM("asm/dump/8040d18/8048f80.s");
@@ -36,11 +37,116 @@ void sub_804924C(unk32 arg0)
 }
 
 INCLUDE_ASM("asm/dump/8040d18/8049258.s");
-INCLUDE_ASM("asm/dump/8040d18/8049264.s");
+extern void sub_8049018(void);
+extern void sub_8049168(void);
+extern void sub_80490F8(unk32);
+extern void sub_804967C(void);
+extern void sub_80493C8(void);
+extern void sub_80490CC(unk32, unk32);
+extern void sub_8049344(unk32);
+extern void sub_804A280(FrontendState*);
+extern void sub_80434EC(FrontendState*);
+extern void sub_804374C(FrontendState*);
+extern void sub_804A110(void);
+extern void sub_8050A50(FrontendState*);
+extern void sub_805041C(UnkMotion*);
+extern void sub_8057930(void);
+extern void sub_80627F0(void);
+extern void updateKeyState(void);
+extern unk8 _unk3000BFC;
+extern u16 _unk3000BFD;
+extern void (*__oam_8756CC0)(void);
+
+void sub_8049264(void)
+{
+    _gameData->unkC26 = (unk16)-1;
+    _unk3000650.unk4 = 0;
+    _unk3000650.unkC = 0;
+    sub_804924C(7);
+    _unk3000650.unk0 = (unk32)-1;
+    _unk3000650.unk8 = (unk32)-1;
+    _unk3000650.unk7C = 0;
+    sub_8050384(&_unk3000650.motion);
+    _unk3000650.unk424 = 0;
+    _unk3000650.unk470 = 0;
+    _unk3000650.unk474 = 0;
+    _unk3000650.unk481 = 0;
+    _unk3000650.unk578 = _unk3000650.unk57C = _unk3000650.unk580 = 0;
+    _unk3000650.unk80 = 0;
+    _unk3000650.unk7F = 0;
+    _unk3000650.unk584 = 0;
+    _unk3000650.unk585 = 0;
+    _unk3000650.unk586 = 0;
+    _unk3000650.unk588 = 0;
+    _unk3000650.unk58C = 0;
+    _unk3000650.unk81 = 0;
+    _unk3000650.unk5A8 = 0;
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8049320-StoreFunction.s");
 INCLUDE_ASM("asm/dump/8040d18/8049330.s");
 INCLUDE_ASM("asm/dump/8040d18/8049344.s");
 INCLUDE_ASM("asm/dump/8040d18/80493c8.s");
+#if 0
+void sub_8049458(void)
+{
+    unk32 count;
+    FrontendState *state;
+    FrontendObject **object;
+    unk8 value;
+
+    count = 0;
+    sub_8049018();
+    VBlankIntrWait();
+    sub_804A280(&_unk3000650);
+    sub_80627F0();
+    _unk3000BFC = 1;
+    _unk3000BFD = 0;
+    sub_8049168();
+    sub_80490F8(_unk3000650.unkC);
+    while (_unk3000650.unk0 != (unk32)-1 || _unk3000650.unk4 != (unk32)-1) {
+        VBlankIntrWait();
+        updateKeyState();
+        sub_804A280(&_unk3000650);
+        sub_80627F0();
+        sub_80493C8();
+        sub_80490CC(1, _unk3000BFC);
+        __oam_8756CC0();
+        if (_unk3000650.unk0 != _unk3000650.unk4 && _unk3000650.unk584 == _unk3000650.unk586) {
+            count = 0;
+            sub_804967C();
+        }
+        state = &_unk3000650;
+        object = &state->unkB4;
+        if (*object == NULL)
+            break;
+        sub_8050A50(state);
+        if (state->motion.unkC != 0)
+            sub_805041C(&state->motion);
+        if ((*object)->unk4->unk14 != 0)
+            sub_804A110();
+        sub_80434EC(state);
+        sub_8049344(4);
+        state->unk584 += state->unk585;
+        sub_8057930();
+        sub_80490CC(8, count++);
+        if (state->unk585 == 0) {
+            if ((*object)->unk4->unk20 != 0)
+                sub_804374C(state);
+            sub_80490CC(2, 0);
+        }
+        value = state->unk586;
+        if (state->unk584 == value) {
+            state->unk584 = value;
+            sub_8049344(1);
+            _unk3000650.unk585 = 0;
+        }
+    }
+    sub_804A280(&_unk3000650);
+}
+
+#endif
 INCLUDE_ASM("asm/dump/8040d18/8049458.s");
+
 INCLUDE_ASM("asm/dump/8040d18/80495c4.s");
 INCLUDE_ASM("asm/dump/8040d18/804967c.s");

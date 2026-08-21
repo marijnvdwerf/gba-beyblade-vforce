@@ -27,7 +27,7 @@ void closeGame(void);
 void sub_80512AC(void);
 unk32 sub_8051780(unk32);
 
-extern Unk3000650 _unk3000650;
+extern FrontendState _unk3000650;
 extern unk32 _unk3000C10[2];
 extern unk32 _unk3000E30[3];
 extern unk32 _unk3000C00;
