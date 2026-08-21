@@ -12,7 +12,11 @@ void sub_805BA3C(GeometryAddressTable* arg0)
     arg0->block = NULL;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805ba54-StoreMetadataAddr.s");
+void StoreMetadataAddr(LevelGeometryAddresses* arg0, void* value)
+{
+    arg0->unk114 = value;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805ba60-GetLineMetaData.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ba7c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bac0.s");
