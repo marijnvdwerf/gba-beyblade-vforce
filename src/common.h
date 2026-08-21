@@ -44,10 +44,37 @@ typedef struct UnkSpriteText {
 } UnkSpriteText;
 
 typedef struct SpriteTextCleanup {
-    unk8 unk0[0x14];
+    unk8 unk0[0xA];
+    unk16 unkA;
+    unk8 unkC[0x8];
     unk8 unk14[0x18];
     void* ptr2C;
 } SpriteTextCleanup;
+
+typedef struct RiderBase {
+    unk8 unk0[0x238];
+    unk8 unk238[4];
+    unk8 unk23C[0xC0];
+    unk8 unk2FC[4];
+    unk8 unk300[0xC4];
+    unk32 unk3C4;
+    unk8 unk3C8[0x20];
+    unk8 unk3E8;
+    unk8 unk3E9[3];
+    unk8 unk3EC[0x34];
+    struct AllocatedBlock* unk420;
+} RiderBase;
+
+typedef struct PolyTable {
+    unk16 unk0;
+    unk16 unk2;
+    unk16 unk4;
+    unk16 unk6;
+    void* unk8;
+    void* unkC;
+    struct AllocatedBlock* unk10;
+    struct AllocatedBlock* unk14;
+} PolyTable;
 
 typedef struct LevelState {
     unk16 unk0;

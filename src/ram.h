@@ -88,7 +88,7 @@ typedef struct GameData {
     unk8 padB57[1]; /* 0xB57 */
     unk32 unkB58; /* 0xB58 */
     unk8 padB5C[0x2C]; /* 0xB5C */
-    unk8 unkB88[0x18]; /* 0xB88 */
+    PolyTable unkB88; /* 0xB88 */
     RenderCode renderCode; /* 0xBA0 */
     u16 unkC24; /* 0xC24 */
     u16 unkC26; /* 0xC26 */

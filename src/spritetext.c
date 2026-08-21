@@ -31,7 +31,12 @@ void sub_8061204(SpriteTextCleanup* arg0)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8061228.s");
+void sub_8061228(SpriteTextCleanup* arg0)
+{
+    sub_8060CDC(arg0->unk14);
+    arg0->unkA = 0;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/806123c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80614b0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80614bc-showString.s");

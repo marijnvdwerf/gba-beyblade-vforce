@@ -11,7 +11,7 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80522d4.s");
 
 void sub_8052514(void)
 {
-    newPolyTable(_gameData->unkB88, 0xA0, 0x20);
+    newPolyTable(&_gameData->unkB88, 0xA0, 0x20);
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052534.s");
