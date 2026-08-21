@@ -51,7 +51,7 @@ Last updated: 2026-08-21, end of session 2 (all agents finished; keepalive stopp
   them to `docs/learnings/processed/` (the permission classifier may block
   `git mv` for agents — do the move yourself then). Review its diff.
 - Temp-reduction pass after every merged batch (done: passes 1–4;
-  `docs/learnings/temp-reduction-4.md` is still top-level for the next sol batch).
+  all notes archived; docs/learnings top level is empty except README).
 - Tool-building agents (`general-purpose`, luna) work on main and don't
   commit; review and commit their files explicitly.
 
