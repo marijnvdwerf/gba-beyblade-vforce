@@ -88,3 +88,10 @@ regenerate with `tools/callgraph.py mainLoop` + `tools/worklist.py`.
 ## Open questions for the user
 
 - None pending.
+
+## Session housekeeping
+
+- A persistent 55-minute keepalive Monitor ticks while agents run (keeps the
+  prompt cache warm). Stop it with TaskStop once all agents are done and the
+  session winds down. Each tick: check `git status` on main for stray agent
+  edits, update this file if anything changed.
