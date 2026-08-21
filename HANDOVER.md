@@ -83,6 +83,7 @@ grep INCLUDE_ASM.
 | frontend.c | sub_8049264, sub_8049458 | 0/2; review-frontend.md sent (single `offset` local; use FrontendState fields) |
 | event.c | deallocEventListeners, initEventListeners | 1/2; 0x80-byte local aggregate in init; review-event.md sent |
 | small leaves | sub_8061204, sub_805BA3C, deallocateQuadTree, sub_804A72C, emptyBeybladeActorData, deallocBeybladeActorData, sub_8055CB8, sub_804F800, sub_804FEE8 | 9/9 MERGED c1313c1 (QuadTree @0x7A4 = 0x58 bytes; sub_804F800/sub_804FEE8 need a `GameData* base` local — see small-leaves.md); worktree removed |
+| temp-reduction | the 11 merged functions (gameinit, beyblade, collision, geometry, hud, levelhud, spritetext, tutorial) | running: remove optional local aliases while keeping the match → docs/learnings/temp-reduction.md |
 
 Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
 sub_8054FE0), initMultiPlayer, sub_8062C24 (sound), LoadHUD, initCollectables,
