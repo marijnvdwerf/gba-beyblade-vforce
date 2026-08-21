@@ -87,10 +87,11 @@ grep INCLUDE_ASM.
 | frontend.c | sub_8049264, sub_8049458 | 0/2; review-frontend.md sent (single `offset` local; use FrontendState fields) |
 | event.c | deallocEventListeners, initEventListeners | 1/2; 0x80-byte local aggregate in init; review-event.md sent |
 | small leaves | sub_8061204, sub_805BA3C, deallocateQuadTree, sub_804A72C, emptyBeybladeActorData, deallocBeybladeActorData, sub_8055CB8, sub_804F800, sub_804FEE8 | 9/9 MERGED c1313c1 (QuadTree @0x7A4 = 0x58 bytes; sub_804F800/sub_804FEE8 need a `GameData* base` local — see small-leaves.md); worktree removed |
-| temp-reduction | the 11 merged functions + gamestate.c cleanup (typed LevelDescriptions[], LevelState[] in CurrentGameState) (gameinit, beyblade, collision, geometry, hud, levelhud, spritetext, tutorial) | running: remove optional local aliases while keeping the match → docs/learnings/temp-reduction.md |
-| leaves-round2 | sub_805E50C, sub_805E514 (geometry.c), sub_8061228 (spritetext.c), sub_804B4A4 (rider.c), newPolyTable (animevent.c) | running |
+| temp-reduction | the 11 merged functions + gamestate.c cleanup (typed LevelDescriptions[], LevelState[] in CurrentGameState) (gameinit, beyblade, collision, geometry, hud, levelhud, spritetext, tutorial) | DONE in worktree (3 simplified: sub_8053F0C, sub_8055CB8, sub_804FEE8; 8 already minimal); awaiting review-round3 then merge |
+| leaves-round2 | sub_805E50C, sub_805E514 (geometry.c), sub_8061228 (spritetext.c), sub_804B4A4 (rider.c), newPolyTable (animevent.c) | 5/5 match in worktree (uncommitted); RiderBase(0x424) vs RiderBlock(0x428) must be unified; awaiting review-round3 then merge |
 | init-functions | initCollectables, initTutorialManagement, initMultiPlayer | running |
-| skill distill (gpt-5.6-sol) | .claude/skills/agbcc/SKILL.md from all learnings | running; review diff before commit |
+| skill distill (gpt-5.6-sol) | SKILL.md rewritten + committed; now moving processed learnings to docs/learnings/processed/ |
+| review-round3 (opus) | bulk C-only review of leaves-round2 + temp-reduction + all in-progress worktrees → docs/learnings/review-round3.md | running |
 | gamestate-cleanup | the 10 merged gamestate.c functions | running: typed LevelDescriptions[] (unify ActiveLevelDescription), LevelState[] in CurrentGameState, s8 unk0, no field casts → docs/learnings/gamestate-cleanup.md |
 
 Deferred: gameLoop (930 lines), envactor.c (initLevelEnvironmentActors 656 +
