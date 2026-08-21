@@ -226,7 +226,12 @@ u8 _unk3000610[48] = { 0 };
 void* _unk3000640 = NULL;
 void* _unk3000644 = NULL;
 u8 _unk3000648[8] = { 0 };
-Unk3000650 _unk3000650 = { 0 };
+
+typedef struct FrontendStoragePlaceholder {
+    unk8 bytes[0x54];
+} FrontendStoragePlaceholder;
+
+FrontendStoragePlaceholder _unk3000650 = { 0 };
 u8 _unk30006A4[20] = { 0 };
 u8 _unk30006B8[960] = { 0 };
 u8 _unk3000A78[360] = { 0 };
