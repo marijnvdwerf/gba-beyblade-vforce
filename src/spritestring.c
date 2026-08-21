@@ -1,6 +1,25 @@
+#include "common.h"
 #include "include_asm.h"
 
-INCLUDE_ASM("asm/dump/8064f38/8064f38.s");
+s32 sub_8064F38(const u8* str)
+{
+    s32 count;
+    u8 c;
+
+    count = 0;
+    for (;;) {
+        c = *str;
+        if (c == 0) {
+            break;
+        }
+        str++;
+        if (c != ' ') {
+            count++;
+        }
+    }
+    return count;
+}
+
 INCLUDE_ASM("asm/dump/8064f38/8064f50.s");
 INCLUDE_ASM("asm/dump/8064f38/8064f84.s");
 INCLUDE_ASM("asm/dump/8064f38/8064f9c.s");
