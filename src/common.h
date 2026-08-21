@@ -115,7 +115,8 @@ typedef struct Unk80516E0 {
 
 typedef struct LevelDescription {
     unk8 unk0;
-    unk8 pad1[3];
+    unk8 unk1;
+    unk8 pad2[2];
     s32 unk4;
     s32 unk8;
     unk8 padC[5];
