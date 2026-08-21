@@ -340,7 +340,7 @@ typedef struct TutorialData {
     unk32 count;
     TutorialEntry entries[0x20];
     unk32 unk104;
-    unk8 fontData[0x30];
+    SpriteTextCleanup fontData;
     unk32 unk138;
     unk32 unk13C;
 } TutorialData;

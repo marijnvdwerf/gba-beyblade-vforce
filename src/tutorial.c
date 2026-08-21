@@ -2,6 +2,7 @@
 
 #include "geometry.h"
 #include "include_asm.h"
+#include "spritetext.h"
 #include "unsorted.h"
 
 INCLUDE_ASM("asm/dump/8040d18/804a2f0.s");
@@ -20,7 +21,6 @@ void StoreLevelVar14(unk32 arg0)
 INCLUDE_ASM("asm/dump/8040d18/804a364.s");
 INCLUDE_ASM("asm/dump/8040d18/804a378.s");
 extern void sub_8051734(void);
-extern void allocFont(void*, const void*, const void*, s16, s16, unk16, unk16);
 extern const char Str_87233E8[];
 extern const u8 SpriteSheet_82B05EC[];
 extern const u8 ShadowFontMeta[];
@@ -69,7 +69,7 @@ void initTutorialManagement(u16 levelId)
         }
         data->unk104 = 0;
         data->count = count;
-        allocFont(data->fontData, SpriteSheet_82B05EC, ShadowFontMeta, 0x24, 0x73, 0xBA, 0);
+        allocFont(&data->fontData, SpriteSheet_82B05EC, ShadowFontMeta, 0x24, 0x73, 0xBA, 0);
         data->unk138 = 0;
         data->unk13C = 0;
     }

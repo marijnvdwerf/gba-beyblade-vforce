@@ -13,6 +13,7 @@
 #include "multiplayer.h"
 #include "rider.h"
 #include "riderphysics.h"
+#include "spritetext.h"
 #include "tutorial.h"
 #include "unsorted.h"
 
@@ -28,7 +29,6 @@ extern void sub_805AB38(void);
 extern LevelState* sub_8051734(void);
 extern const u8 Str_87294CC[];
 extern void sub_8060CDC(void*);
-extern void sub_8061204(void*);
 extern void sub_80538C0(void);
 extern void sub_804B4A4(void*);
 extern const s16 Unk_874CC3C[];

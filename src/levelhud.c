@@ -2,8 +2,6 @@
 #include "ram.h"
 #include "spritetext.h"
 
-extern void sub_8061204(SpriteTextCleanup*);
-
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f878.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f9b4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fa40.s");
