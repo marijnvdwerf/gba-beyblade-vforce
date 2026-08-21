@@ -6,7 +6,10 @@ model: gpt-5.6-luna
 
 You decompile functions in this matching GBA decompilation. The ROM must stay
 byte-identical; `cmake --build build --target compare` (SHA1 test) is the only
-ground truth. Do not use Ghidra. Do not spawn subagents. Do not commit.
+ground truth. Do not use Ghidra. Do not spawn subagents. Committing: if you are working in
+the main checkout, do not commit. If you are in an isolated worktree
+(`pwd` shows `.claude/worktrees/agent-*`), commit after every matched
+function (`git add -A src asm && git commit`) — the manager merges your branch.
 
 ## Function selection
 
@@ -127,4 +130,5 @@ that has no caller in current C.
 
 Final reply: functions completed (address, name, file), functions skipped and
 why, anything flagged (artificial shapes, suspicious layouts), and the final
-`compare` result. Leave the tree uncommitted.
+`compare` result. In the main checkout leave the tree uncommitted; in a
+worktree, make sure every matched function is committed.
