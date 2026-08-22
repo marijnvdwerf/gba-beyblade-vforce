@@ -23,8 +23,8 @@ updateEnvirenmentActors:
 	cmp	r1, #0
 	beq	.L8054FC4	@cond_branch
 	mov	r2, #0x1
-	NEG	r2, r2
-	ADD r8, r2
+	neg	r2, r2
+	add r8, r2
 .L8054EE2:
 	add	r0, r3, #0
 	add	r0, r0, #0xb4
@@ -135,8 +135,8 @@ updateEnvirenmentActors:
 	add	r3, r3, #0xc4
 	mov	r0, r8
 	mov	r1, #0x1
-	NEG	r1, r1
-	ADD r8, r1
+	neg	r1, r1
+	add r8, r1
 	cmp	r0, #0
 	bne	.L8054EE2	@cond_branch
 .L8054FC4:

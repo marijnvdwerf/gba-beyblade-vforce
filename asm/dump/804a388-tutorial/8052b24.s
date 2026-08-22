@@ -91,7 +91,7 @@ sub_8052B24:
 	ldr	r1, .L8052C20 + 8
 	ldr	r2, .L8052C20 + 12
 	mov	r3, #0xf0
-	NEG	r3, r3
+	neg	r3, r3
 	str	r4, [sp]
 	mov	r0, #0xf0
 	str	r0, [sp, #0x4]
@@ -141,7 +141,7 @@ sub_8052B24:
 	ldr	r1, .L8052C90 + 4
 	ldr	r2, .L8052C90 + 8
 	mov	r3, #0xc8
-	NEG	r3, r3
+	neg	r3, r3
 	mov	r6, #0x0
 	str	r6, [sp]
 	mov	r4, #0xf0
@@ -263,7 +263,7 @@ sub_8052B24:
 	ldr	r0, [r6]
 	ldr	r2, .L8052E14 + 4
 	mov	r8, r2
-	ADD r0, r8
+	add r0, r8
 	ldrb	r0, [r0]
 	cmp	r0, #0
 	bne	.L8052D6A	@cond_branch
@@ -304,7 +304,7 @@ sub_8052B24:
 	cmp	r0, #0
 	beq	.L8052DEE	@cond_branch
 	ldr	r0, [r6]
-	ADD r0, r8
+	add r0, r8
 	strb	r4, [r0]
 	ldr	r0, [r6]
 	ldr	r1, .L8052E14 + 16
@@ -321,7 +321,7 @@ sub_8052B24:
 	ldr	r3, .L8052E14 + 20
 	str	r3, [sp, #0xc0]
 	mov	r0, #0x8
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [sp, #0xc8]
 	bl	sub_804AF5C
 	bl	sub_804AE8C
@@ -359,7 +359,7 @@ sub_8052B24:
 	ldr	r3, .L8052E78
 	str	r3, [sp, #0xc0]
 	mov	r0, #0x8
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [sp, #0xc8]
 	ldrb	r5, [r5, #0xd]
 	lsl	r1, r5, #0x1c
@@ -544,7 +544,7 @@ sub_8052B24:
 .L8052FAE:
 	sub	r1, r1, #0x1
 	add	r0, r4, #0
-	LSL	r0, r1
+	lsl	r0, r1
 	orr	r2, r2, r0
 	cmp	r1, #0
 	bne	.L8052FAE	@cond_branch
@@ -611,9 +611,9 @@ sub_8052B24:
 	beq	.L8053044	@cond_branch
 	add	r0, r5, #0
 	mov	r1, #0x10
-	NEG	r1, r1
+	neg	r1, r1
 	mov	r2, #0x8
-	NEG	r2, r2
+	neg	r2, r2
 	bl	sub_8061880
 .L8053044:
 	add	r5, r5, #0x4c
@@ -629,7 +629,7 @@ sub_8052B24:
 	mov	r8, r0
 	ldr	r1, [sp, #0xbc]
 	lsl	r0, r1, #0x1
-	ADD r0, r8
+	add r0, r8
 	mov	r2, #0x0
 	ldsh	r1, [r0, r2]
 	lsl	r1, r1, #0x1
@@ -729,7 +729,7 @@ sub_8052B24:
 .L805312A:
 	ldr	r3, [sp, #0xbc]
 	lsl	r0, r3, #0x1
-	ADD r0, r8
+	add r0, r8
 	mov	r2, #0x0
 	ldsh	r1, [r0, r2]
 	lsl	r1, r1, #0x1
@@ -855,7 +855,7 @@ sub_8052B24:
 	ldr	r0, .L8053294 + 32
 	str	r0, [sp, #0xc0]
 	mov	r1, #0x8
-	NEG	r1, r1
+	neg	r1, r1
 	str	r1, [sp, #0xc8]
 .L8053232:
 	ldr	r2, [sp, #0xb0]

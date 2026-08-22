@@ -22,7 +22,7 @@ sub_805FAE8:
 	mov	r2, #0x0
 	ldsh	r0, [r1, r2]
 	mov	r2, #0x1
-	NEG	r2, r2
+	neg	r2, r2
 	cmp	r0, r2
 	beq	.L805FB4C	@cond_branch
 	b	.L805FB46
@@ -46,7 +46,7 @@ sub_805FAE8:
 	mov	r1, #0x2
 	ldsh	r0, [r5, r1]
 	mov	r2, #0x1
-	NEG	r2, r2
+	neg	r2, r2
 	cmp	r0, r2
 	beq	.L805FB50	@cond_branch
 .L805FB46:

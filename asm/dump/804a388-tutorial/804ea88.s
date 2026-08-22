@@ -170,8 +170,8 @@ sub_804EA88:
 .L804EBC6:
 	mov	r0, ip
 	mov	r1, #0x1
-	NEG	r1, r1
-	ADD ip, r1
+	neg	r1, r1
+	add ip, r1
 	cmp	r0, #0
 	beq	.L804EBD4	@cond_branch
 	b	.L804EAC4

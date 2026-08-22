@@ -79,7 +79,7 @@ sub_806014C:
 	add	r1, r1, #0x1
 	str	r1, [r2, #0x1c]
 	mov	r4, #0x81
-	NEG	r4, r4
+	neg	r4, r4
 	and	r4, r4, r3
 	str	r4, [r2, #0x14]
 	ldr	r0, [r2, #0x20]
@@ -226,7 +226,7 @@ sub_806014C:
 	ldr	r2, [r0]
 	ldr	r0, [r2, #0x14]
 	mov	r1, #0x21
-	NEG	r1, r1
+	neg	r1, r1
 	and	r0, r0, r1
 	str	r0, [r2, #0x14]
 	b	.L80603CE

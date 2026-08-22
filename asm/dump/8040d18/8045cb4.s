@@ -34,8 +34,8 @@ sub_8045CB4:
 	str	r1, [r0]
 	mov	r0, #0x94
 	lsl	r0, r0, #0x2
-	ADD r0, r9
-	NEG	r4, r1
+	add r0, r9
+	neg	r4, r1
 	add	r1, r4, #0
 	mov	r2, #0x0
 	bl	sub_80596AC
@@ -276,7 +276,7 @@ sub_8045CB4:
 	ldr	r5, [r2]
 	mov	r0, #0xa0
 	lsl	r0, r0, #0x1
-	ADD r0, r9
+	add r0, r9
 	bl	sub_80439A0
 	ldr	r0, .L804600C + 8
 	ldr	r1, [r0]
@@ -306,8 +306,8 @@ sub_8045CB4:
 	asr	r4, r4, #0x2
 	mov	r0, #0x94
 	lsl	r0, r0, #0x2
-	ADD r0, r9
-	NEG	r1, r4
+	add r0, r9
+	neg	r1, r4
 	mov	r2, #0x0
 	bl	sub_80596AC
 	ldr	r0, [r5]

@@ -61,15 +61,15 @@ sub_804A550:
 .L804A5C6:
 	mov	r1, sl
 	lsl	r0, r1, #0x2
-	ADD r0, sl
+	add r0, sl
 	lsl	r6, r0, #0x2
 .L804A5CE:
 	bl	VBlankIntrWait
 	bl	sub_80627F0
 	bl	updateKeyState
 	mov	r2, #0x1
-	NEG	r2, r2
-	ADD r9, r2
+	neg	r2, r2
+	add r9, r2
 	mov	r4, r9
 	cmp	r4, #0
 	bgt	.L804A698	@cond_branch
@@ -102,13 +102,13 @@ sub_804A550:
 	cmp	r0, #0
 	bne	.L804A628	@cond_branch
 	mov	r0, #0xc8
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r9, r0
 	bge	.L804A698	@cond_branch
 .L804A628:
 	add	r6, r6, #0x14
 	mov	r1, #0x1
-	ADD sl, r1
+	add sl, r1
 	mov	r2, #0xf
 	mov	r9, r2
 	ldr	r0, [sp, #0x10]

@@ -60,8 +60,8 @@ sub_804E910:
 	str	r0, [sp, #0x10]
 	mov	r0, ip
 	mov	r1, #0x1
-	NEG	r1, r1
-	ADD ip, r1
+	neg	r1, r1
+	add ip, r1
 	cmp	r0, #0
 	beq	.L804EA6E	@cond_branch
 	ldr	r6, .L804EA80 + 4
@@ -175,8 +175,8 @@ sub_804E910:
 	add	r7, r7, #0x24
 	mov	r0, ip
 	mov	r1, #0x1
-	NEG	r1, r1
-	ADD ip, r1
+	neg	r1, r1
+	add ip, r1
 	cmp	r0, #0
 	bne	.L804E9A8	@cond_branch
 .L804EA6E:

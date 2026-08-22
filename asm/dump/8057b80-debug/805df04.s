@@ -74,7 +74,7 @@ sub_805DF04:
 	asr	r0, r1, #0x10
 	cmp	r0, #0
 	bge	.L805DF8C	@cond_branch
-	NEG	r0, r0
+	neg	r0, r0
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
 	b	.L805DF8E
@@ -100,7 +100,7 @@ sub_805DF04:
 	cmp	r0, #0
 	bge	.L805DFB6	@cond_branch
 	lsl	r0, r1, #0x10
-	NEG	r0, r0
+	neg	r0, r0
 	lsr	r1, r0, #0x10
 .L805DFB6:
 	asr	r0, r7, #0x10

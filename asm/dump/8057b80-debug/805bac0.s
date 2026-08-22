@@ -10,7 +10,7 @@ sub_805BAC0:
 	cmp	r1, r0
 	bcc	.L805BAD4	@cond_branch
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	b	.L805BAD6
 .L805BAD4:
 	add	r0, r1, #0

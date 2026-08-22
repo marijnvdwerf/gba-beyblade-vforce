@@ -74,7 +74,7 @@ sub_8060E8C:
 	mul	r0, r0, r2
 	asr	r0, r0, #0x8
 	strh	r0, [r5, #0xe]
-	NEG	r1, r1
+	neg	r1, r1
 	mov	r7, r8
 	lsl	r0, r7, #0x1
 	add	r0, r0, r3

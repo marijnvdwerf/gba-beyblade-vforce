@@ -52,11 +52,11 @@ sub_804B754:
 	cmp	r0, #0
 	beq	.L804B7F2	@cond_branch
 	ldr	r0, [r5]
-	ADD r0, r8
+	add r0, r8
 	mov	r1, #0x0
 	strb	r1, [r0]
 	ldr	r0, [r5]
-	ADD r0, r8
+	add r0, r8
 	ldrb	r0, [r0]
 	bl	sub_804F800
 	bl	sub_805568C

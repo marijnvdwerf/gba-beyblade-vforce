@@ -11,7 +11,7 @@ sub_80495C4:
 	ldr	r2, [r0, #0x4]
 	ldr	r1, [r1, #0x4]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	beq	.L80495F4	@cond_branch
 	lsl	r0, r1, #0x1

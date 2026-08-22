@@ -62,9 +62,9 @@ sub_805FD80:
 	and	r0, r0, r1
 	asr	r0, r0, #0x10
 	mov	r1, #0x1
-	LSL	r1, r0
+	lsl	r1, r0
 	ldr	r0, [r2]
-	BIC	r0, r1
+	bic	r0, r1
 	str	r0, [r2]
 .L805FDF8:
 	ldrh	r0, [r5]

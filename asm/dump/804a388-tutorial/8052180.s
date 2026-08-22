@@ -16,7 +16,7 @@ sub_8052180:
 	add	r0, r0, #0x40
 	mov	r5, #0xff
 	add	r2, r5, #0
-	BIC	r2, r0
+	bic	r2, r0
 	ldr	r4, .L80522CC + 4
 	mov	r1, #0xb6
 	lsl	r1, r1, #0x1
@@ -59,7 +59,7 @@ sub_8052180:
 	ldr	r1, [r6, #0x6c]
 	asr	r1, r1, #0x4
 	add	r0, r5, #0
-	BIC	r0, r1
+	bic	r0, r1
 	lsr	r0, r0, #0x1
 	lsl	r1, r0, #0x1
 	add	r1, r1, r4
@@ -85,7 +85,7 @@ sub_8052180:
 	mov	r6, #0x0
 	ldsh	r5, [r3, r6]
 	mov	r9, r5
-	MVN	r2, r2
+	mvn	r2, r2
 	lsl	r2, r2, #0x18
 	lsr	r2, r2, #0x18
 	add	r0, r2, #0
@@ -122,7 +122,7 @@ sub_8052180:
 	str	r3, [sp, #0x40]
 	str	r3, [r0, #0x4]
 	ldr	r7, [sp, #0x80]
-	NEG	r6, r7
+	neg	r6, r7
 	str	r6, [r0, #0x8]
 	mov	r2, r8
 	str	r2, [r0, #0xc]

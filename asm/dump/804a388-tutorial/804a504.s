@@ -8,7 +8,7 @@ sub_804A504:
 	lsl	r1, r1, #0x5
 	add	r0, r0, r1
 	ldr	r1, [r0]
-	NEG	r0, r1
+	neg	r0, r1
 	orr	r0, r0, r1
 	lsr	r0, r0, #0x1f
 	bx	lr

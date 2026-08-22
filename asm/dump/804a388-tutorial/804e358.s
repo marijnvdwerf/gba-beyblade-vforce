@@ -14,7 +14,7 @@ sub_804E358:
 	asr	r0, r2, #0x10
 	cmp	r0, #0
 	bge	.L804E378	@cond_branch
-	NEG	r0, r0
+	neg	r0, r0
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	b	.L804E37A
@@ -44,7 +44,7 @@ sub_804E358:
 	ble	.L804E3A6	@cond_branch
 .L804E3A0:
 	lsl	r0, r2, #0x10
-	NEG	r0, r0
+	neg	r0, r0
 	lsr	r2, r0, #0x10
 .L804E3A6:
 	lsl	r0, r2, #0x10

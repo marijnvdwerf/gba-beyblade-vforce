@@ -8,7 +8,7 @@ initLevelEnvironmentActors:
 	mov	r5, r8
 	push	{r5, r6, r7}
 	ldr	r4, .L8054A4C
-	ADD sp, r4
+	add sp, r4
 	add	r4, r0, #0
 	lsl	r4, r4, #0x10
 	lsr	r4, r4, #0x10
@@ -124,7 +124,7 @@ initLevelEnvironmentActors:
 	mov	r9, r3
 	mov	r2, #0x88
 	lsl	r2, r2, #0x1
-	ADD r2, sp
+	add r2, sp
 	str	r2, [sp, #0x258]
 	ldr	r2, [r2]
 	ldr	r1, [r2, #0x8]
@@ -140,7 +140,7 @@ initLevelEnvironmentActors:
 	lsl	r0, r0, #0x3
 	mov	sl, r0
 	mov	r0, r9
-	ADD r0, r8
+	add r0, r8
 	add	r0, r0, r5
 	mov	r2, sl
 	add	r6, r0, r2
@@ -163,7 +163,7 @@ initLevelEnvironmentActors:
 	mov	r2, r9
 	add	r2, r7, r2
 	str	r2, [sp, #0x248]
-	ADD r2, r8
+	add r2, r8
 	str	r2, [sp, #0x24c]
 	add	r2, r2, r5
 	mov	r9, r2
@@ -177,7 +177,7 @@ initLevelEnvironmentActors:
 	ldr	r0, .L8054A4C + 36
 	mov	r3, r8
 	add	r2, r3, r5
-	ADD r2, sl
+	add r2, sl
 	ldr	r3, [r0]
 	mov	r0, #0x0
 	ldr	r1, [sp, #0x248]
@@ -212,7 +212,7 @@ initLevelEnvironmentActors:
 	beq	.L8054924	@cond_branch
 	ldr	r0, [r5, #0x8]
 	lsl	r0, r0, #0x3
-	ADD r0, r9
+	add r0, r9
 	str	r4, [r0, #0x4]
 	add	r1, sp, #0x23c
 	ldrh	r1, [r1]
@@ -235,7 +235,7 @@ initLevelEnvironmentActors:
 .L805493E:
 	mov	r1, #0x88
 	lsl	r1, r1, #0x1
-	ADD r1, sp
+	add r1, sp
 	str	r1, [sp, #0x25c]
 	mov	r2, #0x0
 	str	r2, [sp, #0x260]
@@ -288,7 +288,7 @@ initLevelEnvironmentActors:
 	asr	r0, r0, #0x3
 	str	r0, [sp, #0x4]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [sp, #0x8]
 	add	r0, r7, #0
 	add	r2, r4, #0
@@ -394,7 +394,7 @@ initLevelEnvironmentActors:
 .L8054A96:
 	mov	r1, sl
 	lsl	r0, r1, #0x4
-	ADD r0, sl
+	add r0, sl
 	lsl	r0, r0, #0x3
 	ldr	r2, .L8054AB8 + 4
 	add	r0, r0, r2
@@ -423,7 +423,7 @@ initLevelEnvironmentActors:
 	str	r4, [r7, #0x3c]
 	mov	r1, #0x88
 	lsl	r1, r1, #0x1
-	ADD r1, sp
+	add r1, sp
 	mov	sl, r1
 	mov	r0, sl
 	mov	r1, r8
@@ -639,7 +639,7 @@ initLevelEnvironmentActors:
 .L8054C84:
 	mov	r3, #0x9a
 	lsl	r3, r3, #0x2
-	ADD sp, r3
+	add sp, r3
 	pop	{r3, r4, r5}
 	mov	r8, r3
 	mov	r9, r4

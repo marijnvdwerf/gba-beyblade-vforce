@@ -55,11 +55,11 @@ sub_8055D64:
 	asr	r0, r0, #0x10
 	cmp	r0, #0
 	bge	.L8055DE4	@cond_branch
-	NEG	r0, r0
+	neg	r0, r0
 	lsl	r0, r0, #0x10
 	lsr	r6, r0, #0x10
 	ldr	r3, [sp, #0x8]
-	NEG	r0, r3
+	neg	r0, r3
 	lsl	r0, r0, #0x10
 	lsr	r0, r0, #0x10
 	str	r0, [sp, #0x8]
@@ -77,7 +77,7 @@ sub_8055D64:
 	cmp	r0, #0
 	bne	.L8055E04	@cond_branch
 	ldr	r0, [r4, #0x40]
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r4, #0x40]
 	b	.L8055E3A
 .L8055E04:
@@ -109,7 +109,7 @@ sub_8055D64:
 	ldr	r0, [r4, #0x44]
 	add	r0, r0, r1
 .L8055E36:
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r4, #0x44]
 .L8055E3A:
 	ldr	r1, .L8055E58

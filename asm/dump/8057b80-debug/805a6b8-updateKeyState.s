@@ -44,7 +44,7 @@ updateKeyState:
 	beq	.L805A73C	@cond_branch
 	ldr	r0, .L805A7A0 + 8
 	ldrh	r0, [r0]
-	MVN	r0, r0
+	mvn	r0, r0
 	lsl	r0, r0, #0x10
 	lsr	r5, r0, #0x10
 	ldr	r0, .L805A7A0 + 12
@@ -76,7 +76,7 @@ updateKeyState:
 	ldr	r1, .L805A7A0 + 28
 	ldrh	r2, [r1]
 	add	r0, r5, #0
-	BIC	r0, r2
+	bic	r0, r2
 	strh	r0, [r4]
 	ldr	r3, .L805A7A0 + 32
 	mov	r0, #0x0
@@ -97,7 +97,7 @@ updateKeyState:
 	mov	ip, r0
 .L805A76A:
 	mov	r0, r9
-	LSL	r0, r5
+	lsl	r0, r5
 	ldr	r1, .L805A7A0 + 24
 	ldrh	r1, [r1]
 	and	r0, r0, r1
@@ -155,7 +155,7 @@ updateKeyState:
 .L805A7E8:
 	mov	r4, #0x1
 	add	r3, r4, #0
-	LSL	r3, r5
+	lsl	r3, r5
 	add	r0, r3, #0
 	ldr	r2, .L805A864
 	ldrh	r2, [r2]
@@ -175,7 +175,7 @@ updateKeyState:
 .L805A80E:
 	ldr	r2, .L805A864
 	ldrh	r0, [r2]
-	ASR	r0, r5
+	asr	r0, r5
 	and	r0, r0, r4
 	cmp	r0, #0
 	bne	.L805A84A	@cond_branch

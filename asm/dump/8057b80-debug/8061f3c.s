@@ -178,7 +178,7 @@ sub_8061F3C:
 	mov	r1, #0x2d
 	bl	sub_8061E94
 	add	r5, r0, #0
-	NEG	r4, r4
+	neg	r4, r4
 	b	.L806214A
 .L806213A:
 	ldr	r0, [sp, #0x1c]
@@ -342,7 +342,7 @@ sub_8061F3C:
 .L806228A:
 	mov	r1, r8
 	lsl	r0, r1, #0x2
-	ADD r0, r8
+	add r0, r8
 	lsl	r0, r0, #0x1
 	mov	r8, r0
 	sub	r0, r0, #0x30

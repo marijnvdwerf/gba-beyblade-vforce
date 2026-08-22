@@ -26,7 +26,7 @@ sub_805D610:
 	add	r1, r4, #0
 	add	r1, r1, #0x84
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r1]
 	add	r0, r4, #0
 	add	r0, r0, #0x88

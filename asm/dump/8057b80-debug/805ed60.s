@@ -45,7 +45,7 @@ sub_805ED60:
 	add	r2, r3, r2
 	cmp	r2, #0
 	bge	.L805EDBE	@cond_branch
-	NEG	r0, r3
+	neg	r0, r3
 	str	r0, [r5, #0x14]
 .L805EDBE:
 	ldr	r3, [r5, #0x44]
@@ -54,7 +54,7 @@ sub_805ED60:
 	add	r1, r3, #0
 	cmp	r0, #0
 	bge	.L805EDCE	@cond_branch
-	NEG	r0, r1
+	neg	r0, r1
 	str	r0, [r5, #0x18]
 .L805EDCE:
 	ldr	r4, [r5, #0x40]

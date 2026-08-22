@@ -114,8 +114,8 @@ RiderAI_804C8F0:
 	lsl	r0, r0, #0x18
 	cmp	r0, #0
 	beq	.L804C9D2	@cond_branch
-	NEG	r4, r4
-	NEG	r5, r5
+	neg	r4, r4
+	neg	r5, r5
 .L804C9D2:
 	cmp	r4, #0
 	ble	.L804C9DA	@cond_branch
@@ -258,13 +258,13 @@ RiderAI_804C8F0:
 	add	r0, r7, r1
 	strh	r6, [r0]
 	mov	r2, r8
-	BIC	r6, r2
+	bic	r6, r2
 	mov	r3, #0xe4
 	lsl	r3, r3, #0x1
 	add	r1, r7, r3
 	strh	r6, [r1]
 	ldrh	r0, [r0]
-	BIC	r2, r0
+	bic	r2, r0
 	mov	r1, #0xe3
 	lsl	r1, r1, #0x1
 	add	r0, r7, r1

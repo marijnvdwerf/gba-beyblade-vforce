@@ -13,8 +13,8 @@ sub_804A908:
 	ldrh	r1, [r7, #0x4]
 	mov	r8, r1
 	mov	r2, #0x1
-	NEG	r2, r2
-	ADD r9, r2
+	neg	r2, r2
+	add r9, r2
 	cmp	r0, #0
 	beq	.L804AA00	@cond_branch
 	mov	r3, #0x80
@@ -118,8 +118,8 @@ sub_804A908:
 	strh	r0, [r7, #0x2]
 .L804A9E2:
 	mov	r1, #0x1
-	NEG	r1, r1
-	ADD r8, r1
+	neg	r1, r1
+	add r8, r1
 	mov	r2, r8
 	cmp	r2, #0
 	bge	.L804A9F4	@cond_branch
@@ -129,8 +129,8 @@ sub_804A908:
 .L804A9F4:
 	mov	r0, r9
 	mov	r1, #0x1
-	NEG	r1, r1
-	ADD r9, r1
+	neg	r1, r1
+	add r9, r1
 	cmp	r0, #0
 	bne	.L804A92C	@cond_branch
 .L804AA00:
@@ -288,7 +288,7 @@ sub_804A908:
 	mov	r2, #0x1
 	bl	sub_804AB64
 	ldr	r0, [r7, #0x18]
-	ADD r0, r8
+	add r0, r8
 	str	r0, [r7, #0x18]
 	ldr	r0, [r7, #0x1c]
 	add	r0, r0, r5

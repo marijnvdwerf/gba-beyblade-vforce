@@ -18,7 +18,7 @@ initMultiPlayer:
 	lsl	r0, r0, #0x1
 	lsl	r1, r1, #0x1
 	mov	r9, r1
-	ADD r0, r9
+	add r0, r9
 	str	r0, [sp]
 	add	r4, r0, #0
 	add	r4, r4, #0x44

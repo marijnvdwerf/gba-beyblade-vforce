@@ -222,7 +222,7 @@ initQuadTreeNode:
 	mov	r2, sl
 	sub	r0, r1, r2
 	asr	r0, r0, #0x1
-	ADD r0, sl
+	add r0, sl
 	str	r0, [sp, #0x2c]
 	ldr	r1, [sp, #0x54]
 	mov	r2, r9

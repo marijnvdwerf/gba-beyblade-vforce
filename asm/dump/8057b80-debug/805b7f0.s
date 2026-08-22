@@ -5,7 +5,7 @@ sub_805B7F0:
 	add	r2, r0, #0
 	add	r0, r1, #0
 	ldrb	r3, [r2, #0x6]
-	LSL	r0, r3
+	lsl	r0, r3
 	add	r0, r2, r0
 	ldr	r1, [r2, #0x10]
 	add	r0, r0, r1

@@ -64,13 +64,13 @@ sub_8059188:
 	add	r1, r1, #0x5f
 	add	r0, r3, #0
 	ldrb	r1, [r1]
-	LSL	r0, r1
+	lsl	r0, r1
 	str	r0, [sp, #0x4]
 	add	r1, r5, #0
 	add	r1, r1, #0x60
 	add	r0, r3, #0
 	ldrb	r1, [r1]
-	LSL	r0, r1
+	lsl	r0, r1
 	str	r0, [sp, #0x8]
 	ldr	r4, [r2]
 	add	r0, r5, #0
@@ -92,13 +92,13 @@ sub_8059188:
 	add	r1, r1, #0x5f
 	add	r0, r3, #0
 	ldrb	r1, [r1]
-	LSL	r0, r1
+	lsl	r0, r1
 	str	r0, [sp, #0x4]
 	add	r1, r5, #0
 	add	r1, r1, #0x60
 	add	r0, r3, #0
 	ldrb	r1, [r1]
-	LSL	r0, r1
+	lsl	r0, r1
 	str	r0, [sp, #0x8]
 	add	r0, r5, #0
 	mov	r1, #0x0

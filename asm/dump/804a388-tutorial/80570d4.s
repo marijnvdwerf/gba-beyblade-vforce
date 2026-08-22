@@ -12,7 +12,7 @@ sub_80570D4:
 	mov	r1, #0x1f
 	and	r1, r1, r0
 	mov	r2, #0x1
-	LSL	r2, r1
+	lsl	r2, r1
 	ldr	r0, [r3]
 	and	r0, r0, r2
 	cmp	r0, #0

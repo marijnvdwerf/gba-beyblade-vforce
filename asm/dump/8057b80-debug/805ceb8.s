@@ -656,13 +656,13 @@ sub_805CEB8:
 	add	r1, r0, #0
 	cmp	r0, #0
 	bge	.L805D386	@cond_branch
-	NEG	r1, r0
+	neg	r1, r0
 .L805D386:
 	cmp	r1, #0xff
 	bgt	.L805D38C	@cond_branch
 	mov	r0, #0x0
 .L805D38C:
-	NEG	r0, r0
+	neg	r0, r0
 	mov	r2, r8
 	str	r0, [r2, #0x44]
 .L805D392:
@@ -680,13 +680,13 @@ sub_805CEB8:
 	add	r1, r0, #0
 	cmp	r0, #0
 	bge	.L805D3B0	@cond_branch
-	NEG	r1, r0
+	neg	r1, r0
 .L805D3B0:
 	cmp	r1, #0xff
 	bgt	.L805D3B6	@cond_branch
 	mov	r0, #0x0
 .L805D3B6:
-	NEG	r0, r0
+	neg	r0, r0
 	mov	r2, r8
 	str	r0, [r2, #0x40]
 .L805D3BC:

@@ -21,7 +21,7 @@ sub_80655C0:
 	mov	r8, r0
 	cmp	r1, #0
 	bge	.L80655E8	@cond_branch
-	NEG	r1, r1
+	neg	r1, r1
 .L80655E8:
 	add	r6, r1, #0
 	lsl	r0, r2, #0x10
@@ -74,7 +74,7 @@ sub_80655C0:
 	cmp	r2, #0
 	beq	.L80656A0	@cond_branch
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r4, #0x70]
 	add	r0, r4, #0
 	mov	r1, #0x0
@@ -85,7 +85,7 @@ sub_80655C0:
 	b	.L806567A
 .L806565C:
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r4, #0x70]
 	add	r2, r2, #0x34
 	lsl	r2, r2, #0x10

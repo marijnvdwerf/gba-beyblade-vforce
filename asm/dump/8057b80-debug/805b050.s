@@ -20,7 +20,7 @@ sub_805B050:
 	cmp	r3, #0
 	bne	.L805B076	@cond_branch
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	b	.L805B0B6
 .L805B076:
 	ldr	r4, [r2, #0x34]

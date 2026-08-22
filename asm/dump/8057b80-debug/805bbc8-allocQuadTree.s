@@ -91,7 +91,7 @@ allocQuadTree:
 	mov	r2, r9
 	str	r2, [r6, #0xc]
 	ldr	r4, [sp, #0x18]
-	ADD r4, ip
+	add r4, ip
 	add	r0, r4, #0
 	bl	slowAllocate
 	add	r2, r0, #0
@@ -161,7 +161,7 @@ allocQuadTree:
 	mov	r3, r8
 	sub	r4, r2, r3
 	asr	r4, r4, #0x1
-	ADD r4, r8
+	add r4, r8
 	str	r5, [sp]
 	str	r4, [sp, #0x4]
 	ldr	r0, [sp, #0x44]

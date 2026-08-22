@@ -21,17 +21,17 @@ sub_804A110:
 	ldr	r7, [r0, #0x14]
 	sub	r7, r7, #0x1
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r7, r0
 	beq	.L804A1D6	@cond_branch
 	mov	sl, r1
 	mov	r0, #0x80
-	ADD r0, sl
+	add r0, sl
 	mov	r9, r0
 .L804A144:
 	mov	r2, r8
 	ldr	r0, .L804A194 + 4
-	ADD r0, sl
+	add r0, sl
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x18
 	asr	r0, r0, #0x18
@@ -99,10 +99,10 @@ sub_804A110:
 .L804A1C6:
 	add	r6, r6, #0x30
 	mov	r2, #0x2c
-	ADD r8, r2
+	add r8, r2
 	sub	r7, r7, #0x1
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r7, r0
 	bne	.L804A144	@cond_branch
 .L804A1D6:

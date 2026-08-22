@@ -19,7 +19,7 @@ sub_8063830:
 	b	.L8063A40
 .L806384E:
 	ldr	r4, [sp, #0x34]
-	ADD r4, sl
+	add r4, sl
 	ldr	r1, [sp, #0x38]
 	add	r4, r4, r1
 	mov	r0, #0x80
@@ -57,8 +57,8 @@ sub_8063830:
 	.4byte	__fastMemoryClearARM
 .L8063898:
 	mov	r2, #0x1
-	NEG	r2, r2
-	ADD ip, r2
+	neg	r2, r2
+	add ip, r2
 	add	r0, r2, #0
 	cmp	ip, r0
 	bne	.L80638A6	@cond_branch
@@ -127,15 +127,15 @@ sub_8063830:
 	stmia	r7!, {r3}
 	str	r7, [sp, #0x4]
 	mov	r0, #0x1
-	NEG	r0, r0
-	ADD ip, r0
+	neg	r0, r0
+	add ip, r0
 	cmp	ip, r0
 	bne	.L80638AA	@cond_branch
 	b	.L8063A40
 .L806392C:
 	mov	r1, #0x1
-	NEG	r1, r1
-	ADD ip, r1
+	neg	r1, r1
+	add ip, r1
 	add	r0, r1, #0
 	cmp	ip, r0
 	bne	.L806393A	@cond_branch
@@ -277,10 +277,10 @@ sub_8063830:
 	stmia	r2!, {r3}
 	str	r2, [sp, #0x4]
 	mov	r5, #0x4
-	ADD r9, r5
+	add r9, r5
 	mov	r6, #0x1
-	NEG	r6, r6
-	ADD ip, r6
+	neg	r6, r6
+	add ip, r6
 	add	r0, r6, #0
 	cmp	ip, r0
 	beq	.L8063A40	@cond_branch

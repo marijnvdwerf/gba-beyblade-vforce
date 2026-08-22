@@ -19,7 +19,7 @@ sub_80653D8:
 	ldr	r0, [r1, #0x8]
 	cmp	r0, #0
 	bge	.L80653FC	@cond_branch
-	NEG	r0, r0
+	neg	r0, r0
 .L80653FC:
 	add	r7, r0, #0
 	ldr	r2, [sp]
@@ -57,7 +57,7 @@ sub_80653D8:
 	lsr	r0, r0, #0x10
 	str	r0, [sp, #0x4]
 	mov	r2, #0x1
-	NEG	r2, r2
+	neg	r2, r2
 	str	r2, [r4, #0x70]
 	ldr	r0, .L8065460
 	ldrb	r2, [r0]
@@ -94,7 +94,7 @@ sub_80653D8:
 	cmp	r2, #0
 	bne	.L80654A8	@cond_branch
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r4, #0x70]
 	ldr	r1, .L80654A4
 	ldrb	r2, [r1]
@@ -118,7 +118,7 @@ sub_80653D8:
 	b	.L80654D4
 .L80654AE:
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r4, #0x70]
 	add	r2, r2, #0x34
 	lsl	r2, r2, #0x10
@@ -132,7 +132,7 @@ sub_80653D8:
 	lsr	r0, r0, #0x10
 	mov	sl, r0
 	add	r0, r1, #0
-	ADD r0, r8
+	add r0, r8
 	lsr	r0, r0, #0x10
 	str	r0, [sp, #0x4]
 .L80654D4:

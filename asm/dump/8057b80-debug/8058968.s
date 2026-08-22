@@ -46,7 +46,7 @@ sub_8058968:
 	mov	r1, #0x1
 	add	r0, r1, #0
 	ldrb	r2, [r3]
-	LSL	r0, r2
+	lsl	r0, r2
 	add	r5, r5, r0
 	sub	r5, r5, #0x1
 	str	r5, [r4, #0x8]
@@ -55,7 +55,7 @@ sub_8058968:
 	add	r2, r2, #0x60
 	add	r0, r1, #0
 	ldrb	r5, [r2]
-	LSL	r0, r5
+	lsl	r0, r5
 	add	r6, r6, r0
 	sub	r6, r6, #0x1
 	str	r6, [r4, #0xc]
@@ -69,10 +69,10 @@ sub_8058968:
 	str	r6, [r7, #0x44]
 	add	r6, r1, #0
 	ldrb	r3, [r3]
-	LSL	r6, r3
+	lsl	r6, r3
 	add	r5, r1, #0
 	ldrb	r2, [r2]
-	LSL	r5, r2
+	lsl	r5, r2
 	mov	r0, #0x2
 	mov	r1, r8
 	and	r0, r0, r1

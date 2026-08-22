@@ -102,61 +102,61 @@ off_8000134:
                 MRS     R0, SPSR
                 STMFD   SP!, {R0}
                 MRS     R0, CPSR
-                BIC     R1, R0, #0x1F
+                bic     R1, R0, #0x1F
                 ORR     R1, R0, #0x1F
                 MSR     CPSR_cf, R1
                 STMFD   SP!, {R0,LR}
                 MOV     R3, #0x4000000
-                ADD     R3, R3, #0x200
+                add     R3, R3, #0x200
                 LDR     R2, [R3]
                 AND     R1, R2, R2,LSR#16
                 MOV     R2, #0
                 ANDS    R0, R1, #1
                 BNE     loc_800023C
-                ADD     R2, R2, #4
+                add     R2, R2, #4
                 ANDS    R0, R1, #2
                 BNE     loc_800023C
-                ADD     R2, R2, #4
+                add     R2, R2, #4
                 ANDS    R0, R1, #4
                 BNE     loc_800023C
-                ADD     R2, R2, #4
+                add     R2, R2, #4
                 ANDS    R0, R1, #8
                 BNE     loc_800023C
-                ADD     R2, R2, #4
+                add     R2, R2, #4
                 ANDS    R0, R1, #0x10
                 BNE     loc_800023C
-                ADD     R2, R2, #4
+                add     R2, R2, #4
                 ANDS    R0, R1, #0x20
                 BNE     loc_800023C
-                ADD     R2, R2, #4
+                add     R2, R2, #4
                 ANDS    R0, R1, #0x40
                 BNE     loc_800023C
-                ADD     R2, R2, #4
+                add     R2, R2, #4
                 ANDS    R0, R1, #0x80
                 BNE     loc_800023C
-                ADD     R2, R2, #4
+                add     R2, R2, #4
                 ANDS    R0, R1, #0x100
                 BNE     loc_800023C
-                ADD     R2, R2, #4
+                add     R2, R2, #4
                 ANDS    R0, R1, #0x200
                 BNE     loc_800023C
-                ADD     R2, R2, #4
+                add     R2, R2, #4
                 ANDS    R0, R1, #0x400
                 BNE     loc_800023C
-                ADD     R2, R2, #4
+                add     R2, R2, #4
                 ANDS    R0, R1, #0x800
                 BNE     loc_800023C
-                ADD     R2, R2, #4
+                add     R2, R2, #4
                 ANDS    R0, R1, #0x1000
                 BNE     loc_800023C
-                ADD     R2, R2, #4
+                add     R2, R2, #4
                 ANDS    R0, R1, #0x2000
 
 loc_800023C:
 
                 STRH    R0, [R3,#2]
                 LDR     R1, off_8000280
-                ADD     R1, R1, R2
+                add     R1, R1, R2
                 LDR     R0, [R1]
                 MOV     LR, PC
                 BX      R0

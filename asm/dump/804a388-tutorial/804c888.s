@@ -20,7 +20,7 @@ sub_804C888:
 .L804C8AA:
 	ldr	r0, [r4]
 	mov	r1, #0x1a
-	NEG	r1, r1
+	neg	r1, r1
 	str	r1, [r0, #0x54]
 	ldr	r0, [r4, #0x4]
 	mov	r1, #0x0

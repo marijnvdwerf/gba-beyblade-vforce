@@ -49,7 +49,7 @@ sub_805EF18:
 	mov	r3, sl
 	bl	_call_via_r4
 	mov	r1, #0x1
-	ADD r8, r1
+	add r8, r1
 	mov	r2, sl
 	lsl	r0, r2, #0x5
 	add	r6, r6, r0

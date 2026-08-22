@@ -36,7 +36,7 @@ sub_805DBF0:
 	mov	sl, r5
 	add	r6, r2, #0
 	mov	r1, #0x10
-	NEG	r1, r1
+	neg	r1, r1
 	add	r1, r1, r6
 	mov	ip, r1
 	add	r7, r0, #0
@@ -49,7 +49,7 @@ sub_805DBF0:
 	lsl	r1, r0, #0x2
 	add	r0, r1, r0
 	lsl	r0, r0, #0x2
-	ADD r0, r9
+	add r0, r9
 	str	r3, [r0]
 	str	r5, [r0, #0x4]
 	ldr	r2, [sp, #0xc]
@@ -71,14 +71,14 @@ sub_805DBF0:
 	mov	r1, r8
 	add	r0, r2, r1
 	lsl	r0, r0, #0x2
-	ADD r0, r9
+	add r0, r9
 	str	r6, [r0, #0x10]
 	b	.L805DC84
 .L805DC78:
 	mov	r1, r8
 	add	r0, r2, r1
 	lsl	r0, r0, #0x2
-	ADD r0, r9
+	add r0, r9
 	mov	r2, sl
 	str	r2, [r0, #0x10]
 .L805DC84:
@@ -93,7 +93,7 @@ sub_805DBF0:
 .L805DC94:
 	add	r6, r6, #0x10
 	mov	r1, #0x10
-	ADD ip, r1
+	add ip, r1
 	add	r7, r7, #0x4
 	add	r5, r5, #0x1
 	cmp	r5, r4

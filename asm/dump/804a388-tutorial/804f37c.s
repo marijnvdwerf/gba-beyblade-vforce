@@ -36,7 +36,7 @@ sub_804F37C:
 .L804F3BC:
 	mov	r7, #0x80
 	lsl	r7, r7, #0x1
-	ADD r7, r8
+	add r7, r8
 	ldr	r0, [r7]
 	cmp	r0, #0
 	bne	.L804F3D0	@cond_branch
@@ -106,7 +106,7 @@ sub_804F37C:
 .L804F448:
 	mov	r1, #0x87
 	lsl	r1, r1, #0x1
-	ADD r1, r8
+	add r1, r8
 	mov	r0, #0x8
 	ldrh	r2, [r1]
 	orr	r0, r0, r2

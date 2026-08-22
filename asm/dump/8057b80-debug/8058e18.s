@@ -33,13 +33,13 @@ sub_8058E18:
 	str	r1, [r6, #0x14]
 	str	r1, [r6]
 	mov	r0, #0x5f
-	ADD r0, ip
+	add r0, ip
 	mov	r8, r0
 	mov	r3, #0x1
 	add	r0, r3, #0
 	mov	r2, r8
 	ldrb	r2, [r2]
-	LSL	r0, r2
+	lsl	r0, r2
 	sub	r0, r0, #0x1
 	str	r0, [r6, #0x8]
 	str	r1, [r6, #0x4]
@@ -47,7 +47,7 @@ sub_8058E18:
 	add	r5, r5, #0x60
 	add	r0, r3, #0
 	ldrb	r1, [r5]
-	LSL	r0, r1
+	lsl	r0, r1
 	sub	r0, r0, #0x1
 	str	r0, [r6, #0xc]
 	ldr	r2, .L8058EEC + 4
@@ -71,10 +71,10 @@ sub_8058E18:
 	add	r7, r3, #0
 	mov	r2, r8
 	ldrb	r2, [r2]
-	LSL	r7, r2
+	lsl	r7, r2
 	add	r4, r3, #0
 	ldrb	r5, [r5]
-	LSL	r4, r5
+	lsl	r4, r5
 	mov	r5, ip
 	ldr	r0, [r5]
 	cmp	r0, r7

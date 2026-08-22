@@ -69,7 +69,7 @@ processMetadata_4:
 	mov	r0, #0xe
 	bl	sub_804ABFC
 	lsl	r2, r5, #0x2
-	NEG	r3, r6
+	neg	r3, r6
 	lsl	r3, r3, #0x2
 	mov	r0, #0x0
 	str	r0, [sp]

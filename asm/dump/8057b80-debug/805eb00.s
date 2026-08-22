@@ -46,7 +46,7 @@ sub_805EB00:
 	b	.L805EB5E
 .L805EB56:
 	mov	r0, #0x2
-	NEG	r0, r0
+	neg	r0, r0
 	and	r0, r0, r1
 	strb	r0, [r2]
 .L805EB5E:

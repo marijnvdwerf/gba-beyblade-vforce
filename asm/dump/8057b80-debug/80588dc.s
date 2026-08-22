@@ -6,7 +6,7 @@ sub_80588DC:
 	add	r3, r0, #0
 	ldr	r2, [r3, #0x74]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r2, r0
 	beq	.L805890E	@cond_branch
 	mov	r0, #0x0

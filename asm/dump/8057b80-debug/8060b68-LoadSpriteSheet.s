@@ -32,7 +32,7 @@ LoadSpriteSheet:
 	mov	r3, #0x3
 	and	r1, r1, r3
 	lsl	r1, r1, #0xe
-	MVN	r0, r5
+	mvn	r0, r5
 	mov	r2, #0x1
 	and	r0, r0, r2
 	lsl	r0, r0, #0xd
@@ -68,7 +68,7 @@ LoadSpriteSheet:
 	mov	r2, ip
 	ldr	r0, [r2, #0x10]
 .L8060BEA:
-	ADD r0, ip
+	add r0, ip
 	str	r0, [r7, #0x28]
 	mov	r1, ip
 	ldrb	r0, [r1, #0x6]
@@ -81,7 +81,7 @@ LoadSpriteSheet:
 	strh	r1, [r7, #0x1c]
 	strh	r1, [r7, #0x20]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r7, #0x24]
 	pop	{r3, r4, r5}
 	mov	r8, r3

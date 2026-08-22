@@ -16,7 +16,7 @@ sub_804DDF8:
 	lsl	r2, r2, #0x1
 	add	r0, r7, r2
 	ldr	r3, [r0]
-	NEG	r0, r3
+	neg	r0, r3
 	and	r0, r0, r1
 	lsr	r0, r0, #0x1
 	lsl	r1, r0, #0x1
@@ -112,7 +112,7 @@ sub_804DDF8:
 	ldr	r0, [r2, #0x40]
 	str	r0, [r7, #0x40]
 	ldr	r0, [r2, #0x44]
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r7, #0x44]
 .L804DEE8:
 	add	r0, r7, #0
@@ -139,7 +139,7 @@ sub_804DDF8:
 	ldr	r1, [sp, #0x20]
 	mul	r1, r1, r3
 	add	r0, r0, r1
-	NEG	r0, r0
+	neg	r0, r0
 	asr	r0, r0, #0x10
 	str	r0, [r4]
 	ldr	r0, [sp, #0xc]
@@ -147,7 +147,7 @@ sub_804DDF8:
 	ldr	r1, [sp, #0x24]
 	mul	r1, r1, r3
 	add	r0, r0, r1
-	NEG	r0, r0
+	neg	r0, r0
 	asr	r0, r0, #0x10
 	str	r0, [r7, #0x7c]
 .L804DF30:

@@ -11,7 +11,7 @@ sub_8050050:
 	mov	r1, #0x0
 	ldsh	r0, [r3, r1]
 	lsl	r0, r0, #0x1
-	ADD r0, ip
+	add r0, ip
 	ldrh	r1, [r0]
 	ldr	r2, .L80500A0 + 8
 	ldrh	r4, [r2]
@@ -40,7 +40,7 @@ sub_8050050:
 	mov	r1, #0x0
 	ldsh	r0, [r3, r1]
 	lsl	r0, r0, #0x1
-	ADD r0, ip
+	add r0, ip
 	ldrh	r1, [r0]
 	b	.L80500AE
 .L80500A0:

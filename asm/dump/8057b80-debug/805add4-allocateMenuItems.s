@@ -121,7 +121,7 @@ allocateMenuItems:
 	cmp	r0, #0
 	bne	.L805AEA2	@cond_branch
 .L805AEB2:
-	ADD r9, ip
+	add r9, ip
 	add	r3, r7, r3
 	lsl	r3, r3, #0x10
 	asr	r3, r3, #0x10
@@ -169,7 +169,7 @@ allocateMenuItems:
 	beq	.L805AF72	@cond_branch
 	mov	r1, #0xa
 	ldsh	r0, [r4, r1]
-	ADD r9, r0
+	add r9, r0
 	ldr	r1, [r4]
 	ldr	r2, [r4, #0x4]
 	ldr	r3, [r4, #0x1c]
@@ -211,7 +211,7 @@ allocateMenuItems:
 	mov	r1, r8
 	bl	sub_805AC80
 	mov	r0, #0x4c
-	ADD r8, r0
+	add r8, r0
 .L805AF72:
 	ldr	r0, [sp, #0x10]
 	ldr	r1, [sp, #0x24]
@@ -232,7 +232,7 @@ allocateMenuItems:
 	ldr	r5, [sp, #0x20]
 	mov	r1, #0xa
 	ldsh	r0, [r4, r1]
-	ADD r9, r0
+	add r9, r0
 	ldr	r6, [sp, #0x2c]
 	ldrb	r3, [r4, #0x8]
 	lsl	r0, r3, #0x2

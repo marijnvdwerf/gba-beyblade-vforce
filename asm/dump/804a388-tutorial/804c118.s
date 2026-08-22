@@ -8,7 +8,7 @@ sub_804C118:
 	mov	r0, #0x0
 	ldsh	r1, [r4, r0]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	beq	.L804C148	@cond_branch
 	add	r0, r1, #0

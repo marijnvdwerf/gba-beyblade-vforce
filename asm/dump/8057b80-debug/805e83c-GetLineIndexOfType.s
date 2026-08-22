@@ -30,7 +30,7 @@ GetLineIndexOfType:
 	blt	.L805E856	@cond_branch
 .L805E86C:
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 .L805E870:
 	pop	{r4}
 	pop	{r1}

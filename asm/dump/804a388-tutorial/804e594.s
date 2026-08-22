@@ -64,9 +64,9 @@ sub_804E594:
 	asr	r2, r2, #0xd
 	mov	r8, r2
 	mov	r3, #0x20
-	ADD r8, r3
+	add r8, r3
 	ldr	r6, [r7]
-	ADD r6, r8
+	add r6, r8
 	mov	r0, #0x0
 	mov	r8, r0
 	mov	r2, sp
@@ -87,7 +87,7 @@ sub_804E594:
 	add	r0, r2, #0
 	mul	r0, r0, r1
 	asr	r0, r0, #0x8
-	ADD r9, r0
+	add r9, r0
 	mov	r3, r9
 	strh	r3, [r5, #0x10]
 	ldr	r0, [r7, #0x14]
@@ -95,7 +95,7 @@ sub_804E594:
 	sub	r0, r0, r2
 	mul	r0, r0, r1
 	asr	r0, r0, #0x8
-	ADD sl, r0
+	add sl, r0
 	mov	r0, sl
 	strh	r0, [r5, #0x12]
 	ldr	r0, [r7, #0x18]

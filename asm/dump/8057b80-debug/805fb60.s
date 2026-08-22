@@ -22,7 +22,7 @@ sub_805FB60:
 	mov	r7, #0x0
 	ldsh	r0, [r5, r7]
 	mov	r2, #0x1
-	NEG	r2, r2
+	neg	r2, r2
 	cmp	r0, r2
 	beq	.L805FB98	@cond_branch
 	lsl	r0, r0, #0x2

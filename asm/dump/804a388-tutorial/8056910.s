@@ -119,7 +119,7 @@ sub_8056910:
 	ldr	r0, [sp, #0x4]
 	cmp	r0, #0
 	bge	.L80569F8	@cond_branch
-	NEG	r5, r5
+	neg	r5, r5
 .L80569F8:
 	ldr	r1, [sp]
 	mov	r0, #0x18
@@ -137,7 +137,7 @@ sub_8056910:
 	cmp	r4, #0
 	bge	.L8056A1C	@cond_branch
 	lsl	r0, r1, #0x10
-	NEG	r0, r0
+	neg	r0, r0
 	lsr	r1, r0, #0x10
 .L8056A1C:
 	mov	r0, #0x2
@@ -151,7 +151,7 @@ sub_8056910:
 	strb	r0, [r7, #0xd]
 	strb	r1, [r7, #0xe]
 	mov	r0, #0x2
-	NEG	r0, r0
+	neg	r0, r0
 	ldrb	r4, [r7, #0xc]
 	and	r0, r0, r4
 	b	.L8056A46
@@ -171,7 +171,7 @@ sub_8056910:
 	lsl	r0, r0, #0x5
 	str	r0, [r7, #0x8]
 	mov	r0, #0x3
-	NEG	r0, r0
+	neg	r0, r0
 	ldrb	r1, [r7, #0xc]
 	and	r0, r0, r1
 	b	.L8056ACA
@@ -184,7 +184,7 @@ sub_8056910:
 	lsl	r0, r0, #0x5
 	str	r0, [r7, #0x8]
 	mov	r0, #0x3
-	NEG	r0, r0
+	neg	r0, r0
 	ldrb	r5, [r7, #0xc]
 	and	r0, r0, r5
 	b	.L8056ACA
@@ -203,12 +203,12 @@ sub_8056910:
 	add	r1, r0, #0
 	mul	r1, r1, r5
 	asr	r1, r1, #0xa
-	ADD r1, sl
+	add r1, sl
 	sub	r0, r4, r2
 	mul	r0, r0, r5
 	asr	r0, r0, #0xa
 	add	r2, r2, r0
-	NEG	r3, r3
+	neg	r3, r3
 	add	r0, r3, #0
 	mul	r0, r0, r5
 	asr	r0, r0, #0xa

@@ -35,11 +35,11 @@ sub_8063220:
 	ldr	r7, [sp, #0x4]
 	add	r0, r6, r7
 	ldr	r1, [sp, #0x8]
-	CMN	r0, r1
+	cmn	r0, r1
 	bne	.L8063324	@cond_branch
 	sub	r5, r5, #0x2
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	lsl	r2, r2, #0x2
 	str	r2, [sp, #0x20]
 	cmp	r5, r0
@@ -52,7 +52,7 @@ sub_8063220:
 	sub	r5, r5, #0x1
 	str	r5, [sp, #0x1c]
 	ldr	r5, [sp, #0xc]
-	ADD r5, ip
+	add r5, ip
 	str	r5, [sp, #0x18]
 	cmp	r9, sl
 	bcs	.L8063302	@cond_branch
@@ -113,7 +113,7 @@ sub_8063220:
 	stmia	r0!, {r4}
 	str	r0, [sp, #0x14]
 	mov	r1, #0x1
-	ADD r9, r1
+	add r9, r1
 	cmp	r9, sl
 	bcc	.L806328E	@cond_branch
 .L8063302:
@@ -121,7 +121,7 @@ sub_8063220:
 	mov	ip, r2
 	ldr	r5, [sp, #0x1c]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r5, r0
 	bne	.L8063276	@cond_branch
 .L8063310:
@@ -147,7 +147,7 @@ sub_8063220:
 	sub	r5, r5, #0x1
 	str	r5, [sp, #0x1c]
 	ldr	r0, [sp, #0xc]
-	ADD r0, ip
+	add r0, ip
 	str	r0, [sp, #0x18]
 	cmp	r9, sl
 	bcs	.L8063432	@cond_branch
@@ -281,9 +281,9 @@ sub_8063220:
 	stmia	r0!, {r4}
 	str	r0, [sp, #0x14]
 	mov	r1, #0x4
-	ADD r8, r1
+	add r8, r1
 	mov	r2, #0x1
-	ADD r9, r2
+	add r9, r2
 	cmp	r9, sl
 	bcc	.L806333E	@cond_branch
 .L8063432:
@@ -292,7 +292,7 @@ sub_8063220:
 	ldr	r5, [sp, #0x1c]
 .L8063438:
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r5, r0
 	beq	.L8063442	@cond_branch
 	b	.L8063328

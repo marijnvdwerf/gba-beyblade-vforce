@@ -65,7 +65,7 @@ sub_80513AC:
 	mov	r1, #0xa7
 	lsl	r1, r1, #0x1
 	mov	r2, #0x1
-	NEG	r2, r2
+	neg	r2, r2
 .L8051430:
 	mov	r3, r9
 	add	r3, r3, #0x4
@@ -73,7 +73,7 @@ sub_80513AC:
 	sub	r3, r3, #0x4
 	ldmia	r3!, {r0}
 	mov	r3, r8
-	EOR	r3, r0
+	eor	r3, r0
 	mov	r8, r3
 	sub	r1, r1, #0x1
 	cmp	r1, r2

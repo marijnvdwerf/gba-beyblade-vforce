@@ -52,13 +52,13 @@ sub_80508CC:
 	mov	r1, #0x1
 	ldrb	r0, [r0, #0x18]
 	and	r1, r1, r0
-	NEG	r0, r1
+	neg	r0, r1
 	orr	r0, r0, r1
 	asr	r2, r0, #0x1f
 	mov	r0, #0x2
 	and	r2, r2, r0
 	add	r0, r6, #0
-	ASR	r0, r2
+	asr	r0, r2
 	mov	r4, #0x1
 	b	.L8050948
 .L805093E:
@@ -66,7 +66,7 @@ sub_80508CC:
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
 	add	r0, r6, #0
-	ASR	r0, r2
+	asr	r0, r2
 .L8050948:
 	and	r0, r0, r4
 	cmp	r0, #0
@@ -82,7 +82,7 @@ sub_80508CC:
 	.4byte	Str_872934C
 .L8050960:
 	mov	r0, #0x1
-	LSL	r0, r2
+	lsl	r0, r2
 	orr	r6, r6, r0
 	lsl	r0, r6, #0x10
 	lsr	r6, r0, #0x10
@@ -102,11 +102,11 @@ sub_80508CC:
 	lsr	r0, r0, #0x10
 	str	r0, [sp]
 	ldr	r0, [r3, #0x4]
-	NEG	r0, r0
+	neg	r0, r0
 	asr	r0, r0, #0x8
 	str	r0, [sp, #0x4]
 	ldr	r0, [r3, #0x8]
-	NEG	r0, r0
+	neg	r0, r0
 	asr	r0, r0, #0x8
 	str	r0, [sp, #0x8]
 	mov	r0, ip
@@ -161,7 +161,7 @@ sub_80508CC:
 	mov	r2, r8
 	and	r2, r2, r1
 	mov	r3, #0x4
-	NEG	r3, r3
+	neg	r3, r3
 	add	r1, r3, #0
 	ldrb	r4, [r0]
 	and	r1, r1, r4

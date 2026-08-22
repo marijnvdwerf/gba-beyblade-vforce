@@ -33,7 +33,7 @@ gameLoop:
 	strh	r2, [r0]
 	mov	r0, #0x8e
 	lsl	r0, r0, #0x2
-	ADD r0, r8
+	add r0, r8
 	bl	sub_80539E8
 	ldr	r0, [r4]
 	add	r0, r0, r5
@@ -644,7 +644,7 @@ gameLoop:
 	ldr	r0, .L8051F10
 	ldrh	r1, [r0]
 	mov	r0, #0x9
-	BIC	r0, r1
+	bic	r0, r1
 	cmp	r0, #0
 	beq	.L8051EB4	@cond_branch
 .L8051EAE:
@@ -663,7 +663,7 @@ gameLoop:
 	bne	.L8051EE2	@cond_branch
 	ldr	r0, .L8051F10
 	ldrh	r0, [r0]
-	MVN	r0, r0
+	mvn	r0, r0
 	mov	r2, #0x80
 	lsl	r2, r2, #0x1
 	add	r1, r2, #0
@@ -684,13 +684,13 @@ gameLoop:
 	bne	.L8051F58	@cond_branch
 	ldr	r2, .L8051F10
 	ldrh	r0, [r2]
-	MVN	r0, r0
+	mvn	r0, r0
 	mov	r1, #0x2
 	and	r0, r0, r1
 	cmp	r0, #0
 	beq	.L8051F58	@cond_branch
 	ldrh	r0, [r2]
-	MVN	r0, r0
+	mvn	r0, r0
 	b	.L8051F32
 .L8051F0E:
 	.align	2, 0
@@ -707,7 +707,7 @@ gameLoop:
 	bl	_call_via_r0
 	ldr	r0, .L8051F4C + 4
 	ldrh	r0, [r0]
-	MVN	r0, r0
+	mvn	r0, r0
 	mov	r1, #0x2
 .L8051F32:
 	and	r0, r0, r1
@@ -761,7 +761,7 @@ gameLoop:
 	mov	r3, #0x0
 	ldsh	r1, [r0, r3]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bne	.L8051FA6	@cond_branch
 	mov	r0, #0x0
@@ -786,7 +786,7 @@ gameLoop:
 	mov	r2, #0x0
 	ldsh	r1, [r0, r2]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bne	.L8051FE4	@cond_branch
 	mov	r0, r8

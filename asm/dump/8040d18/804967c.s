@@ -10,7 +10,7 @@ sub_804967C:
 	ldr	r1, .L8049730
 	ldr	r0, [r1]
 	mov	r2, #0x1
-	NEG	r2, r2
+	neg	r2, r2
 	cmp	r0, r2
 	beq	.L804970E	@cond_branch
 	ldr	r3, .L8049730 + 4
@@ -77,7 +77,7 @@ sub_804967C:
 	ldr	r1, .L8049730
 	ldr	r2, [r1, #0x4]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	add	r5, r1, #0
 	cmp	r2, r0
 	beq	.L8049740	@cond_branch
@@ -106,7 +106,7 @@ sub_804967C:
 	ldr	r1, [r5, #0x4]
 	str	r1, [r5]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bne	.L8049756	@cond_branch
 	b	.L80498C8
@@ -210,7 +210,7 @@ sub_804967C:
 .L8049820:
 	sub	r5, r5, #0x1
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r5, r0
 	bne	.L80497E0	@cond_branch
 .L804982A:

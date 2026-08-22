@@ -64,7 +64,7 @@ renderEnvironmentActors:
 	bl	sub_8055288
 	str	r0, [sp, #0x18]
 	ldrh	r0, [r6]
-	ADD r0, sl
+	add r0, sl
 	strh	r0, [r6]
 	ldrh	r1, [r6, #0x2]
 	ldr	r2, [sp, #0x18]
@@ -82,7 +82,7 @@ renderEnvironmentActors:
 	bne	.L8054D58	@cond_branch
 	add	r6, r6, #0xc4
 	mov	r3, #0xc4
-	ADD r9, r3
+	add r9, r3
 	b	.L8054DB6
 .L8054D46:
 	.align	2, 0
@@ -97,7 +97,7 @@ renderEnvironmentActors:
 	bne	.L8054D66	@cond_branch
 	add	r6, r6, #0xc4
 	mov	r0, #0xc4
-	ADD r9, r0
+	add r9, r0
 	b	.L8054DB6
 .L8054D66:
 	ldr	r0, [r6, #0x18]
@@ -142,7 +142,7 @@ renderEnvironmentActors:
 	str	r7, [r0, #0xc]
 	add	r6, r6, #0xc4
 	mov	r1, #0xc4
-	ADD r9, r1
+	add r9, r1
 .L8054DB6:
 	ldr	r0, [sp, #0x10]
 	add	r2, r0, #0
@@ -197,7 +197,7 @@ renderEnvironmentActors:
 	mov	r2, r8
 	str	r0, [r2]
 	mov	r3, #0x1c
-	ADD r8, r3
+	add r8, r3
 	b	.L8054E96
 .L8054E20:
 	.align	2, 0
@@ -219,7 +219,7 @@ renderEnvironmentActors:
 	bl	sub_8060A94
 	str	r4, [r6]
 	mov	r0, #0x1c
-	ADD r8, r0
+	add r8, r0
 	b	.L8054E96
 .L8054E4E:
 	mov	r1, r8
@@ -258,7 +258,7 @@ renderEnvironmentActors:
 	str	r7, [r4, #0xc]
 .L8054E92:
 	mov	r1, #0x1c
-	ADD r8, r1
+	add r8, r1
 .L8054E96:
 	ldr	r0, [sp, #0x14]
 	add	r2, r0, #0

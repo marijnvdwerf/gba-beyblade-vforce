@@ -26,7 +26,7 @@ sub_805B1E0:
 	b	.L805B20E
 .L805B20A:
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 .L805B20E:
 	bx	lr
 	thumb_func_end sub_805B1E0

@@ -34,7 +34,7 @@ sub_805FCEC:
 	bge	.L805FD4A	@cond_branch
 	strh	r5, [r1]
 	strh	r5, [r1, #0x2]
-	MVN	r0, r4
+	mvn	r0, r4
 	strh	r0, [r6, #0x4]
 	mov	r0, r9
 	asr	r2, r0, #0x15
@@ -44,7 +44,7 @@ sub_805FCEC:
 	mov	r0, #0x1f
 	and	r0, r0, r4
 	mov	r1, #0x1
-	LSL	r1, r0
+	lsl	r1, r0
 	ldr	r0, [r2]
 	orr	r0, r0, r1
 	str	r0, [r2]
@@ -62,7 +62,7 @@ sub_805FCEC:
 	mov	r7, ip
 	lsl	r0, r7, #0x10
 	asr	r0, r0, #0x10
-	MVN	r0, r0
+	mvn	r0, r0
 	strh	r0, [r6, #0x2]
 	mov	r0, r8
 	strh	r0, [r6]

@@ -6,7 +6,7 @@ sub_80501F8:
 	mov	ip, r1
 	mov	r2, #0x8e
 	lsl	r2, r2, #0x2
-	ADD r2, ip
+	add r2, ip
 	mov	r1, #0x0
 	ldsh	r5, [r0, r1]
 	lsl	r5, r5, #0x8
@@ -39,7 +39,7 @@ sub_80501F8:
 	lsr	r1, r1, #0x18
 	mov	r0, #0xf3
 	lsl	r0, r0, #0x2
-	ADD r0, ip
+	add r0, ip
 	strh	r1, [r0]
 	pop	{r4, r5}
 	pop	{r0}

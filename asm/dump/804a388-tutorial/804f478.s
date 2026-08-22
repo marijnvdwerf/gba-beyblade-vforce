@@ -131,7 +131,7 @@ sub_804F478:
 	ble	.L804F578	@cond_branch
 	strh	r1, [r6]
 	ldrh	r3, [r4]
-	NEG	r0, r3
+	neg	r0, r3
 	strh	r0, [r4]
 	mov	r0, #0xb
 	bl	sub_804ABFC
@@ -142,7 +142,7 @@ sub_804F478:
 	bge	.L804F58E	@cond_branch
 	strh	r7, [r6]
 	ldrh	r2, [r4]
-	NEG	r0, r2
+	neg	r0, r2
 	strh	r0, [r4]
 	mov	r0, #0xb
 	bl	sub_804ABFC

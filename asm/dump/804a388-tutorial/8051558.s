@@ -12,10 +12,10 @@ sub_8051558:
 	mov	r2, #0xa7
 	lsl	r2, r2, #0x1
 	mov	r5, #0x1
-	NEG	r5, r5
+	neg	r5, r5
 .L805156E:
 	ldmia	r4!, {r0}
-	EOR	r3, r0
+	eor	r3, r0
 	sub	r2, r2, #0x1
 	cmp	r2, r5
 	bne	.L805156E	@cond_branch

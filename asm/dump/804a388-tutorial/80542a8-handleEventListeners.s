@@ -24,8 +24,8 @@ handleEventListeners:
 	cmp	r0, #0
 	beq	.L8054372	@cond_branch
 	mov	r2, #0x1
-	NEG	r2, r2
-	ADD r8, r2
+	neg	r2, r2
+	add r8, r2
 .L80542D8:
 	ldr	r0, [r4]
 	mov	sl, r0

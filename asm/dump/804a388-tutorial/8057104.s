@@ -16,7 +16,7 @@ sub_8057104:
 	mov	r0, #0x1f
 	and	r0, r0, r3
 	mov	r1, #0x1
-	LSL	r1, r0
+	lsl	r1, r0
 	ldr	r0, [r2]
 	orr	r0, r0, r1
 	b	.L805714A
@@ -36,9 +36,9 @@ sub_8057104:
 	mov	r0, #0x1f
 	and	r0, r0, r3
 	mov	r1, #0x1
-	LSL	r1, r0
+	lsl	r1, r0
 	ldr	r0, [r2]
-	BIC	r0, r1
+	bic	r0, r1
 .L805714A:
 	str	r0, [r2]
 	bx	lr

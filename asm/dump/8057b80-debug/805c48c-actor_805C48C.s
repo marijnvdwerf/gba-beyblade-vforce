@@ -107,7 +107,7 @@ actor_805C48C:
 	add	r5, r3, r5
 	str	r5, [sp, #0x24]
 	add	r0, r5, #0
-	ADD r0, r8
+	add r0, r8
 	add	r0, r0, r4
 	str	r0, [sp, #0x28]
 	add	r6, r3, r6
@@ -117,7 +117,7 @@ actor_805C48C:
 	add	r6, r3, r6
 	str	r6, [sp, #0x28]
 	add	r0, r6, #0
-	ADD r0, r8
+	add r0, r8
 	add	r6, r0, r4
 	str	r6, [sp, #0x24]
 	add	r3, r3, r5
@@ -633,13 +633,13 @@ actor_805C48C:
 	add	r1, r0, #0
 	cmp	r0, #0
 	bge	.L805C92C	@cond_branch
-	NEG	r1, r0
+	neg	r1, r0
 .L805C92C:
 	cmp	r1, #0xff
 	bgt	.L805C932	@cond_branch
 	mov	r0, #0x0
 .L805C932:
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r7, #0x44]
 .L805C936:
 	mov	r0, #0x2
@@ -655,13 +655,13 @@ actor_805C48C:
 	add	r1, r0, #0
 	cmp	r0, #0
 	bge	.L805C952	@cond_branch
-	NEG	r1, r0
+	neg	r1, r0
 .L805C952:
 	cmp	r1, #0xff
 	bgt	.L805C958	@cond_branch
 	mov	r0, #0x0
 .L805C958:
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r7, #0x40]
 .L805C95C:
 	ldr	r0, [sp, #0x38]

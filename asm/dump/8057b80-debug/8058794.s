@@ -12,7 +12,7 @@ sub_8058794:
 	add	r7, r3, #0
 	ldr	r1, [r4, #0x74]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bne	.L80587CE	@cond_branch
 	mov	r0, #0x0
@@ -37,7 +37,7 @@ sub_8058794:
 	cmp	r1, #0x3
 	ble	.L8058812	@cond_branch
 	mov	r5, #0x1
-	NEG	r5, r5
+	neg	r5, r5
 	mov	r6, #0x0
 	mov	r2, #0x0
 	ldr	r3, [r4, #0x78]
@@ -57,7 +57,7 @@ sub_8058794:
 	cmp	r2, #0x3
 	ble	.L80587E0	@cond_branch
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r5, r0
 	bne	.L8058802	@cond_branch
 	add	r1, r3, #0

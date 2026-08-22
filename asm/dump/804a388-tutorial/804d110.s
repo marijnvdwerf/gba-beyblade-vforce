@@ -682,7 +682,7 @@ sub_804D110:
 	mov	r4, sl
 	ldr	r2, [r4]
 	add	r0, r1, #0
-	EOR	r0, r2
+	eor	r0, r2
 	orr	r1, r1, r2
 	and	r0, r0, r1
 	str	r0, [r3]
@@ -695,7 +695,7 @@ sub_804D110:
 	ldr	r1, [r6]
 	ldr	r2, [r0]
 	add	r0, r1, #0
-	EOR	r0, r2
+	eor	r0, r2
 	orr	r1, r1, r2
 	and	r0, r0, r1
 	str	r0, [r3]
@@ -711,7 +711,7 @@ sub_804D110:
 	ldr	r1, [r3]
 	ldr	r2, [r4]
 	add	r0, r1, #0
-	EOR	r0, r2
+	eor	r0, r2
 	orr	r1, r1, r2
 	and	r0, r0, r1
 	str	r0, [r5]

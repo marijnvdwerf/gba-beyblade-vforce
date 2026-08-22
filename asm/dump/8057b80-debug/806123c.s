@@ -65,7 +65,7 @@ sub_806123C:
 	b	.L80612C0
 .L80612B0:
 	mov	r0, #0x2
-	NEG	r0, r0
+	neg	r0, r0
 	ldr	r2, [sp, #0xc]
 	and	r0, r0, r2
 	lsl	r0, r0, #0x7
@@ -110,7 +110,7 @@ sub_806123C:
 	sub	r2, r2, r3
 	mov	r8, r2
 	ldr	r0, [sp, #0x24]
-	ADD r0, r8
+	add r0, r8
 	add	r0, r1, r0
 	ldr	r7, [sp, #0xc]
 	cmp	r0, r7
@@ -122,7 +122,7 @@ sub_806123C:
 	.4byte	0x7fff
 .L8061318:
 	ldr	r0, [sp, #0x24]
-	ADD r0, sl
+	add r0, sl
 	add	r0, r1, r0
 	ldr	r1, [sp, #0xc]
 	cmp	r0, r1
@@ -180,7 +180,7 @@ sub_806123C:
 	sub	r7, r7, r0
 	mov	r8, r7
 	ldr	r0, [sp, #0x28]
-	ADD r0, r8
+	add r0, r8
 	b	.L8061390
 .L8061386:
 	.align	2, 0
@@ -188,7 +188,7 @@ sub_806123C:
 	.4byte	0x7fff
 .L806138C:
 	ldr	r0, [sp, #0x28]
-	ADD r0, sl
+	add r0, sl
 .L8061390:
 	add	r1, r1, r0
 	lsl	r0, r1, #0x8
@@ -214,7 +214,7 @@ sub_806123C:
 	sub	r7, r7, r0
 	mov	r8, r7
 	ldr	r0, [sp, #0x28]
-	ADD r0, r8
+	add r0, r8
 	b	.L80613CC
 .L80613C2:
 	.align	2, 0
@@ -222,15 +222,15 @@ sub_806123C:
 	.4byte	0x7fff
 .L80613C8:
 	ldr	r0, [sp, #0x28]
-	ADD r0, sl
+	add r0, sl
 .L80613CC:
 	add	r1, r1, r0
 	mov	r0, #0x2
-	NEG	r0, r0
+	neg	r0, r0
 	and	r1, r1, r0
 	lsl	r0, r1, #0x7
 .L80613D6:
-	NEG	r1, r0
+	neg	r1, r0
 .L80613D8:
 	mov	r2, r9
 	lsl	r0, r2, #0x8

@@ -30,7 +30,7 @@ sub_8059C18:
 	mov	r1, sl
 	and	r4, r4, r1
 	mov	r5, #0x4
-	NEG	r5, r5
+	neg	r5, r5
 	add	r1, r5, #0
 	ldrb	r2, [r0]
 	and	r1, r1, r2

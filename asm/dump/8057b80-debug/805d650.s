@@ -25,7 +25,7 @@ sub_805D650:
 	add	r3, r3, #0x4
 	str	r3, [r7, #0x34]
 	mov	r0, #0x2
-	NEG	r0, r0
+	neg	r0, r0
 	and	r6, r6, r0
 	sub	r0, r0, #0x1
 	and	r6, r6, r0
@@ -47,7 +47,7 @@ sub_805D650:
 	ldr	r0, [r1]
 	lsl	r0, r0, #0x2
 	add	r0, r0, #0x20
-	ADD r0, sl
+	add r0, sl
 	str	r0, [r7, #0x38]
 	ldr	r2, [r7, #0x18]
 	lsl	r0, r2, #0x4
@@ -70,7 +70,7 @@ sub_805D650:
 	b	.L805D6D8
 .L805D6D4:
 	ldr	r0, [r5, #0x40]
-	NEG	r0, r0
+	neg	r0, r0
 .L805D6D8:
 	str	r0, [r7, #0x2c]
 	ldr	r2, [r7, #0x18]
@@ -293,7 +293,7 @@ sub_805D650:
 	cmp	r3, #0
 	bge	.L805D87A	@cond_branch
 .L805D878:
-	NEG	r2, r2
+	neg	r2, r2
 .L805D87A:
 	mov	r1, #0x8
 	add	r0, r6, #0
@@ -357,7 +357,7 @@ sub_805D650:
 	mov	r1, r9
 	ldr	r0, [r1]
 	ldr	r2, .L805D8F4
-	BIC	r2, r0
+	bic	r2, r0
 	str	r2, [r7, #0x44]
 	b	.L805D904
 .L805D8F2:
@@ -369,7 +369,7 @@ sub_805D650:
 	ldr	r0, [r3]
 	ldr	r1, .L805D90C
 	and	r0, r0, r1
-	NEG	r0, r0
+	neg	r0, r0
 .L805D902:
 	str	r0, [r7, #0x44]
 .L805D904:
@@ -402,7 +402,7 @@ sub_805D650:
 	ldr	r0, [r0]
 	mov	r8, r0
 	ldr	r0, [r7, #0x44]
-	ADD r0, r8
+	add r0, r8
 	mov	r1, r9
 	str	r0, [r1]
 	mov	r1, #0x7
@@ -466,7 +466,7 @@ sub_805D650:
 	mov	r4, #0x0
 .L805D9B0:
 	ldr	r0, [r5, #0x40]
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r5, #0x40]
 	add	r0, r5, #0
 	add	r0, r0, #0x90

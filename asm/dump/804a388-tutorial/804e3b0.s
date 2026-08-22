@@ -7,7 +7,7 @@ sub_804E3B0:
 	add	r5, r3, #0
 	cmp	r3, #0
 	bge	.L804E3BC	@cond_branch
-	NEG	r3, r3
+	neg	r3, r3
 .L804E3BC:
 	add	r0, r2, #1
 	lsr	r1, r0, #0x1
@@ -26,7 +26,7 @@ sub_804E3B0:
 	cmp	r3, r0
 	bls	.L804E3DA	@cond_branch
 .L804E3D8:
-	NEG	r2, r2
+	neg	r2, r2
 .L804E3DA:
 	add	r0, r2, #0
 	pop	{r4, r5}

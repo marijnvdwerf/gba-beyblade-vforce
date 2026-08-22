@@ -152,7 +152,7 @@ renderActor:
 	str	r1, [r0, #0x30]
 	ldr	r1, [r6]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r1, #0x24]
 .L8057EAA:
 	ldrb	r0, [r5, #0x16]
@@ -195,7 +195,7 @@ renderActor:
 	add	r7, r5, #0
 	add	r7, r7, #0x3a
 	ldrb	r1, [r7]
-	MVN	r0, r1
+	mvn	r0, r1
 	mov	r1, #0x1
 	and	r0, r0, r1
 	lsl	r0, r0, #0xd

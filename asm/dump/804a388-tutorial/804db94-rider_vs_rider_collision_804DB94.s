@@ -99,7 +99,7 @@ rider_vs_rider_collision_804DB94:
 	beq	.L804DC8E	@cond_branch
 	mov	r2, #0x8a
 	lsl	r2, r2, #0x2
-	ADD r2, sl
+	add r2, sl
 	ldrh	r4, [r2]
 	add	r1, r4, #0
 	mul	r1, r1, r7
@@ -125,7 +125,7 @@ rider_vs_rider_collision_804DB94:
 .L804DC8E:
 	mov	r2, #0x8a
 	lsl	r2, r2, #0x2
-	ADD r2, sl
+	add r2, sl
 	ldrh	r3, [r2]
 	add	r1, r3, #0
 	mul	r1, r1, r7
@@ -236,7 +236,7 @@ rider_vs_rider_collision_804DB94:
 	ble	.L804DD82	@cond_branch
 	mov	r1, #0x82
 	lsl	r1, r1, #0x2
-	ADD r1, sl
+	add r1, sl
 	ldr	r0, [r1]
 	ldr	r2, .L804DDF0 + 4
 	add	r0, r0, r2
@@ -244,7 +244,7 @@ rider_vs_rider_collision_804DB94:
 .L804DD82:
 	mov	r1, #0x88
 	lsl	r1, r1, #0x2
-	ADD r1, sl
+	add r1, sl
 	ldrh	r0, [r1]
 	add	r0, r0, #0xf0
 	strh	r0, [r1]

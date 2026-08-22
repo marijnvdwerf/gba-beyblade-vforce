@@ -68,7 +68,7 @@ ActorSetFrame:
 	add	r0, r0, #0x24
 	strb	r2, [r0]
 	mov	r0, ip
-	ADD r0, r8
+	add r0, r8
 	strh	r0, [r4, #0x22]
 	mov	r0, #0xc
 	and	r1, r1, r0

@@ -93,7 +93,7 @@ actor_8057C58:
 	strb	r0, [r1]
 	str	r4, [r7, #0x6c]
 	mov	r1, #0x1
-	NEG	r1, r1
+	neg	r1, r1
 	str	r1, [r7, #0x74]
 	str	r4, [r7, #0x78]
 	str	r4, [r7, #0x7c]

@@ -14,7 +14,7 @@ allocateActorMotionModifiers:
 	add	r2, r2, #0x80
 	ldr	r1, [r2]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bne	.L8059098	@cond_branch
 	mov	r0, #0x0
@@ -43,7 +43,7 @@ allocateActorMotionModifiers:
 	cmp	r1, #0
 	ble	.L80590E4	@cond_branch
 	mov	r1, #0x1
-	NEG	r1, r1
+	neg	r1, r1
 	mov	r5, #0x0
 	mov	r3, #0x0
 	add	r4, r4, #0x84
@@ -63,7 +63,7 @@ allocateActorMotionModifiers:
 	cmp	r3, #0
 	ble	.L80590B0	@cond_branch
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bne	.L80590D2	@cond_branch
 	ldr	r1, [r4]

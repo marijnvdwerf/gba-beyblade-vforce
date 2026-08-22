@@ -65,8 +65,8 @@ sub_8045160:
 	str	r6, [r0]
 	mov	r0, #0x94
 	lsl	r0, r0, #0x2
-	ADD r0, r8
-	NEG	r1, r6
+	add r0, r8
+	neg	r1, r6
 	mov	r2, #0x0
 	bl	sub_80596AC
 	ldr	r0, [r4]
@@ -123,7 +123,7 @@ sub_8045160:
 	bl	allocFont
 	bl	getLanguage
 	lsl	r0, r0, #0x2
-	ADD r0, r8
+	add r0, r8
 	ldr	r1, [r0]
 	add	r0, r4, #0
 	mov	r2, #0xf
@@ -218,8 +218,8 @@ sub_8045160:
 	asr	r4, r4, #0x2
 	mov	r0, #0x94
 	lsl	r0, r0, #0x2
-	ADD r0, r8
-	NEG	r1, r4
+	add r0, r8
+	neg	r1, r4
 	mov	r2, #0x0
 	bl	sub_80596AC
 	ldr	r0, [r5]

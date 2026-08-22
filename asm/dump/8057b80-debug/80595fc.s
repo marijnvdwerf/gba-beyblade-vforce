@@ -23,7 +23,7 @@ sub_80595FC:
 	add	r0, r0, #0x5f
 	ldrb	r2, [r0]
 	add	r0, r6, #0
-	LSL	r0, r2
+	lsl	r0, r2
 	lsl	r0, r0, #0x1
 	mov	r4, #0xc0
 	lsl	r4, r4, #0x13
@@ -31,7 +31,7 @@ sub_80595FC:
 	add	r4, r1, r0
 	mov	r1, #0x1
 	add	r0, r1, #0
-	LSL	r0, r2
+	lsl	r0, r2
 	lsl	r0, r0, #0x10
 	lsr	r2, r0, #0x10
 	add	r0, r5, #0
@@ -76,7 +76,7 @@ sub_80595FC:
 	cmp	r2, r5
 	bcc	.L8059672	@cond_branch
 .L805968A:
-	ADD r4, r9
+	add r4, r9
 	ldr	r1, [sp]
 	lsl	r0, r1, #0x10
 	lsr	r1, r0, #0x10

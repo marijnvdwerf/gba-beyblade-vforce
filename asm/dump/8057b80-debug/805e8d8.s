@@ -30,7 +30,7 @@ sub_805E8D8:
 	lsl	r7, r7, #0x2
 	add	r1, r5, r7
 	mov	r0, #0x2
-	NEG	r0, r0
+	neg	r0, r0
 	ldrb	r2, [r1]
 	and	r0, r0, r2
 	strb	r0, [r1]
@@ -110,7 +110,7 @@ sub_805E8D8:
 	cmp	r0, #0
 	beq	.L805EA68	@cond_branch
 	mov	r0, #0x1
-	LSL	r0, r3
+	lsl	r0, r3
 	ldr	r1, [sp, #0x14]
 	orr	r0, r0, r1
 	lsl	r0, r0, #0x18

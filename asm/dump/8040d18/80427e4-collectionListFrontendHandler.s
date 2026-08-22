@@ -34,7 +34,7 @@ collectionListFrontendHandler:
 	str	r5, [r0]
 	mov	r0, #0x94
 	lsl	r0, r0, #0x2
-	ADD r0, r8
+	add r0, r8
 	mov	r2, #0x0
 	bl	sub_80596AC
 	add	r0, r4, #0
@@ -325,7 +325,7 @@ collectionListFrontendHandler:
 	.4byte	_unk3000140
 .L8042AB4:
 	ldr	r0, .L8042B18
-	ADD r0, r8
+	add r0, r8
 	ldrh	r0, [r0]
 	cmp	r0, #0
 	beq	.L8042AC0	@cond_branch
@@ -530,7 +530,7 @@ collectionListFrontendHandler:
 .L8042C6C:
 	mov	r0, #0xa0
 	lsl	r0, r0, #0x1
-	ADD r0, r8
+	add r0, r8
 	bl	sub_80439A0
 	ldr	r0, .L8042DAC + 16
 	ldr	r5, .L8042DAC + 20
@@ -542,7 +542,7 @@ collectionListFrontendHandler:
 	asr	r4, r4, #0x2
 	mov	r0, #0x94
 	lsl	r0, r0, #0x2
-	ADD r0, r8
+	add r0, r8
 	add	r1, r4, #0
 	mov	r2, #0x0
 	bl	sub_80596AC
@@ -953,7 +953,7 @@ collectionListFrontendHandler:
 	mov	r8, r1
 	ldr	r1, [r1]
 	asr	r1, r1, #0x8
-	NEG	r1, r1
+	neg	r1, r1
 	add	r1, r1, #0x42
 	lsl	r1, r1, #0x10
 	asr	r1, r1, #0x10
@@ -975,7 +975,7 @@ collectionListFrontendHandler:
 	beq	.L8043024	@cond_branch
 	mov	r2, r8
 	ldr	r0, [r2]
-	NEG	r0, r0
+	neg	r0, r0
 	mov	r2, #0xd8
 	lsl	r2, r2, #0x6
 	add	r0, r0, r2
@@ -996,7 +996,7 @@ collectionListFrontendHandler:
 	mov	r5, r8
 	ldr	r1, [r5]
 	asr	r1, r1, #0x8
-	NEG	r1, r1
+	neg	r1, r1
 	add	r1, r1, #0x70
 	lsl	r1, r1, #0x10
 	asr	r1, r1, #0x10

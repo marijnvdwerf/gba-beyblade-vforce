@@ -12,7 +12,7 @@ sub_8059DB8:
 	add	r5, r5, r4
 	add	r0, r0, #0x5f
 	ldrb	r0, [r0]
-	LSL	r2, r0
+	lsl	r2, r0
 	add	r2, r2, r1
 	lsl	r2, r2, #0x1
 	add	r5, r5, r2

@@ -12,7 +12,7 @@ sub_8061E58:
 	ldr	r4, [r7, #0x1c]
 	sub	r4, r4, #0x1
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r4, r0
 	beq	.L8061E84	@cond_branch
 	mov	r8, r0

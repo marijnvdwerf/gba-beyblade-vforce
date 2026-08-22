@@ -24,13 +24,13 @@ sub_8059DDC:
 	add	r0, r0, #0x5f
 	ldrb	r1, [r0]
 	mov	r0, #0x1
-	LSL	r0, r1
+	lsl	r0, r1
 	sub	r0, r0, r6
 	lsl	r0, r0, #0x10
 	lsr	r5, r0, #0x10
 	add	r0, r2, #0
-	LSL	r0, r1
-	ADD r0, sl
+	lsl	r0, r1
+	add r0, sl
 	lsl	r0, r0, #0x1
 	add	r3, r3, r0
 	add	r1, r2, r4
@@ -57,7 +57,7 @@ sub_8059DDC:
 	cmp	r1, r0
 	bcc	.L8059E3A	@cond_branch
 .L8059E44:
-	ADD r3, ip
+	add r3, ip
 	cmp	r2, r5
 	bcc	.L8059E2A	@cond_branch
 .L8059E4A:

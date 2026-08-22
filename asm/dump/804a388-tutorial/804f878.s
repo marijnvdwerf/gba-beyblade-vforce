@@ -93,9 +93,9 @@ sub_804F878:
 	add	r0, r4, #0
 	bl	sub_8050578
 	mov	r2, #0x34
-	NEG	r2, r2
+	neg	r2, r2
 	mov	r0, #0xa
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [sp]
 	add	r0, r4, #0
 	mov	r1, #0x0

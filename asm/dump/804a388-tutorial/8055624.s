@@ -16,7 +16,7 @@ sub_8055624:
 	add	r2, r2, r0
 	ldr	r0, [r2]
 	mov	r1, #0x2
-	NEG	r1, r1
+	neg	r1, r1
 	and	r0, r0, r1
 	str	r0, [r2]
 	bx	lr

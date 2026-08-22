@@ -8,7 +8,7 @@ sub_80439F4:
 	add	r0, r4, #0
 	bl	sub_80502A4
 	ldr	r0, [r4, #0xc]
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r5, #0x18]
 	pop	{r4, r5}
 	pop	{r0}

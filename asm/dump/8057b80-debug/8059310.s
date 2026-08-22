@@ -72,7 +72,7 @@ sub_8059310:
 	add	r4, r4, r1
 	str	r4, [sp, #0x14]
 	mov	r4, #0x0
-	ADD r3, r8
+	add r3, r8
 .L8059390:
 	cmp	r2, #0
 	ble	.L80593A8	@cond_branch

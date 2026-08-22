@@ -75,7 +75,7 @@ sub_804444C:
 	mov	r3, #0x94
 	lsl	r3, r3, #0x2
 	add	r0, r2, r3
-	NEG	r1, r1
+	neg	r1, r1
 	mov	r2, #0x0
 	bl	sub_80596AC
 	ldr	r1, [sp]
@@ -122,7 +122,7 @@ sub_804444C:
 	bl	RiderHasFlag
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	NEG	r0, r0
+	neg	r0, r0
 	lsr	r0, r0, #0x1f
 	strb	r0, [r5, #0xb]
 	add	r0, r5, #0
@@ -358,7 +358,7 @@ sub_804444C:
 	mov	r2, #0x94
 	lsl	r2, r2, #0x2
 	add	r0, r1, r2
-	NEG	r1, r4
+	neg	r1, r4
 	mov	r2, #0x0
 	bl	sub_80596AC
 	ldr	r0, [r5]
@@ -530,7 +530,7 @@ sub_804444C:
 	ldr	r0, [r2]
 	mov	r3, sl
 	add	r1, r0, r3
-	ADD r0, r9
+	add r0, r9
 	ldrb	r1, [r1]
 	ldrb	r0, [r0]
 	cmp	r1, r0

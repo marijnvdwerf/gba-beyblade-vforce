@@ -157,7 +157,7 @@ newIconMenu:
 	add	r2, r2, r0
 	str	r2, [sp, #0x1c]
 	mov	r3, #0x1
-	ADD sl, r3
+	add sl, r3
 	mov	r5, r9
 	ldr	r0, [r5, #0x4]
 	cmp	sl, r0

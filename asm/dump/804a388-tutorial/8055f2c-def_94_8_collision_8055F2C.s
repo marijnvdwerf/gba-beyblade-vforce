@@ -149,7 +149,7 @@ def_94_8_collision_8055F2C:
 	bl	sub_805BAC0
 	add	r6, r0, #0
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r6, r0
 	beq	.L8056140	@cond_branch
 	mov	r0, r8

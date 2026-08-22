@@ -45,7 +45,7 @@ sub_805F400:
 	add	r0, r0, #0x4c
 	mov	r1, #0x1
 	ldrb	r2, [r0]
-	EOR	r1, r2
+	eor	r1, r2
 	strb	r1, [r0]
 	add	r1, r4, #0
 	add	r1, r1, #0x4e
@@ -62,7 +62,7 @@ sub_805F400:
 	add	r1, r1, #0x4d
 	mov	r0, #0x1
 	ldrb	r2, [r1]
-	EOR	r0, r2
+	eor	r0, r2
 	strb	r0, [r1]
 .L805F476:
 	pop	{r4, r5, r6}

@@ -43,7 +43,7 @@ sub_8059EBC:
 	add	r0, r7, r1
 	ldrb	r1, [r0]
 	mov	r0, #0x1
-	ADD r8, r0
+	add r8, r0
 	cmp	r1, #0
 	bne	.L8059EDA	@cond_branch
 .L8059F0E:

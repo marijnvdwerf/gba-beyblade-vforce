@@ -27,7 +27,7 @@ sub_8065508:
 .L8065532:
 	cmp	r7, #0
 	bge	.L8065538	@cond_branch
-	NEG	r7, r7
+	neg	r7, r7
 .L8065538:
 	add	r0, r7, #0
 	mov	r1, #0x3c
@@ -64,7 +64,7 @@ sub_8065508:
 	add	r0, r0, r1
 	add	r0, r0, r5
 	mov	r1, #0x1
-	NEG	r1, r1
+	neg	r1, r1
 	str	r1, [r0, #0x70]
 	cmp	r7, #0
 	beq	.L80655A4	@cond_branch

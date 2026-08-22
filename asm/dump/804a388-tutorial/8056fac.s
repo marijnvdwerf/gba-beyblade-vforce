@@ -30,7 +30,7 @@ sub_8056FAC:
 	mov	r0, #0x1f
 	and	r0, r0, r5
 	mov	r1, #0x1
-	LSL	r1, r0
+	lsl	r1, r0
 	ldr	r0, [r2]
 	and	r0, r0, r1
 	cmp	r0, #0

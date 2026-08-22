@@ -120,7 +120,7 @@ sub_8048AE8:
 	mov	r2, #0x94
 	lsl	r2, r2, #0x2
 	add	r0, r7, r2
-	NEG	r1, r1
+	neg	r1, r1
 	mov	r2, #0x0
 	bl	sub_80596AC
 	b	.L8048D5E
@@ -177,7 +177,7 @@ sub_8048AE8:
 	mov	r2, #0x94
 	lsl	r2, r2, #0x2
 	add	r0, r7, r2
-	NEG	r1, r4
+	neg	r1, r4
 	mov	r2, #0x0
 	bl	sub_80596AC
 	ldr	r0, [r5]

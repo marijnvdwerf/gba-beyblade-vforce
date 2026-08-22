@@ -12,7 +12,7 @@ sub_8050184:
 	mov	r1, #0xf
 	and	r2, r2, r1
 	mov	r1, #0x10
-	NEG	r1, r1
+	neg	r1, r1
 	and	r1, r1, r3
 	orr	r1, r1, r2
 	strb	r1, [r0, #0xd]

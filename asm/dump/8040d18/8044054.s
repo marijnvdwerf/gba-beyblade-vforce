@@ -65,7 +65,7 @@ sub_8044054:
 	mov	r2, #0x94
 	lsl	r2, r2, #0x2
 	add	r0, r6, r2
-	NEG	r1, r1
+	neg	r1, r1
 	mov	r2, #0x0
 	bl	sub_80596AC
 	add	r1, r6, #0
@@ -99,7 +99,7 @@ sub_8044054:
 	mov	r2, #0x94
 	lsl	r2, r2, #0x2
 	add	r0, r6, r2
-	NEG	r1, r4
+	neg	r1, r4
 	mov	r2, #0x0
 	bl	sub_80596AC
 	ldr	r2, [r5]

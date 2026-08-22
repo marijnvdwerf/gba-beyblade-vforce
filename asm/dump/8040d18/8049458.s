@@ -20,7 +20,7 @@ sub_8049458:
 	bl	sub_80490F8
 	ldr	r1, [r4]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bne	.L8049496	@cond_branch
 	ldr	r0, [r4, #0x4]
@@ -137,7 +137,7 @@ sub_8049458:
 .L8049584:
 	ldr	r1, [r5]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bne	.L8049496	@cond_branch
 	ldr	r0, [r5, #0x4]

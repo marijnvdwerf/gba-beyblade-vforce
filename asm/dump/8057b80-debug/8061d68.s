@@ -78,7 +78,7 @@ sub_8061D68:
 	ldr	r1, [r0, #0x8]
 	sub	r2, r2, r1
 	mov	r0, #0x2
-	NEG	r0, r0
+	neg	r0, r0
 	ldrh	r3, [r3, #0xc]
 	and	r0, r0, r3
 	lsl	r0, r0, #0x7

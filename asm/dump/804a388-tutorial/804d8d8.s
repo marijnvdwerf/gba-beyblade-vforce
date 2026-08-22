@@ -63,7 +63,7 @@ sub_804D8D8:
 	add	r0, r5, #0
 	cmp	r5, #0
 	bge	.L804D952	@cond_branch
-	NEG	r0, r5
+	neg	r0, r5
 .L804D952:
 	cmp	r4, r0
 	ble	.L804D964	@cond_branch
@@ -82,7 +82,7 @@ sub_804D8D8:
 	add	r0, r6, #0
 	cmp	r6, #0
 	bge	.L804D976	@cond_branch
-	NEG	r0, r6
+	neg	r0, r6
 .L804D976:
 	cmp	sl, r0
 	ble	.L804D988	@cond_branch
@@ -108,7 +108,7 @@ sub_804D8D8:
 	cmp	r5, #0
 	bge	.L804D9AA	@cond_branch
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	mov	r9, r0
 .L804D9AA:
 	mov	r1, r8
@@ -121,7 +121,7 @@ sub_804D8D8:
 	cmp	r6, #0
 	bge	.L804D9C2	@cond_branch
 	mov	r3, #0x1
-	NEG	r3, r3
+	neg	r3, r3
 	mov	r8, r3
 .L804D9C2:
 	mov	r0, r9

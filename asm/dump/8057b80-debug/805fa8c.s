@@ -24,7 +24,7 @@ sub_805FA8C:
 	mov	r0, #0x0
 	ldsh	r1, [r4, r0]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bne	.L805FAC8	@cond_branch
 	ldrh	r0, [r3, #0x4]

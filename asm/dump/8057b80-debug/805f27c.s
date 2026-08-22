@@ -52,7 +52,7 @@ sub_805F27C:
 	b	.L805F2DE
 .L805F2D6:
 	mov	r0, #0x4
-	NEG	r0, r0
+	neg	r0, r0
 	and	r1, r1, r0
 	lsl	r0, r1, #0x10
 .L805F2DE:

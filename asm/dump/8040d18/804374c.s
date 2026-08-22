@@ -58,7 +58,7 @@ sub_804374C:
 	add	r0, r5, #0
 	bl	sub_805B210
 	mov	r1, #0x1
-	NEG	r1, r1
+	neg	r1, r1
 	cmp	r0, r1
 	beq	.L80437CE	@cond_branch
 	add	r0, r4, #0
@@ -86,7 +86,7 @@ sub_804374C:
 	add	r0, r5, #0
 	bl	sub_805B210
 	mov	r1, #0x1
-	NEG	r1, r1
+	neg	r1, r1
 	cmp	r0, r1
 	beq	.L804380A	@cond_branch
 	add	r0, r4, #0

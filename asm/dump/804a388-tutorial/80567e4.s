@@ -54,7 +54,7 @@ sub_80567E4:
 	sub	r0, r6, r2
 	str	r0, [r5, #0x4]
 	mov	r0, #0x2
-	NEG	r0, r0
+	neg	r0, r0
 	ldrb	r1, [r5, #0xc]
 	and	r0, r0, r1
 	strb	r0, [r5, #0xc]
@@ -146,7 +146,7 @@ sub_80567E4:
 	b	.L80568FE
 .L80568F6:
 	mov	r0, #0x3
-	NEG	r0, r0
+	neg	r0, r0
 	ldrb	r2, [r5, #0xc]
 	and	r0, r0, r2
 .L80568FE:

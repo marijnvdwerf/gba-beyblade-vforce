@@ -45,12 +45,12 @@ sub_80577D8:
 	add	r3, r0, #0
 	cmp	r3, #0
 	bge	.L8057836	@cond_branch
-	NEG	r3, r3
+	neg	r3, r3
 .L8057836:
 	cmp	r3, #0x80
 	bgt	.L8057842	@cond_branch
 	asr	r0, r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	add	r4, r7, #0
 	b	.L8057846
 .L8057842:

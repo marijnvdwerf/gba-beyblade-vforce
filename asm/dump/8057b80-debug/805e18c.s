@@ -211,7 +211,7 @@ sub_805E18C:
 	add	r7, r6, #0
 	add	r5, r4, #0
 	mov	r1, #0x1
-	ADD r8, r1
+	add r8, r1
 	mov	r2, r9
 	ldr	r0, [r2]
 	cmp	r8, r0

@@ -53,7 +53,7 @@ sub_8046A0C:
 	ldr	r1, .L8046B28
 	ldr	r1, [r1]
 	asr	r1, r1, #0x8
-	NEG	r1, r1
+	neg	r1, r1
 	add	r1, r1, #0x10
 	lsl	r1, r1, #0x10
 	asr	r1, r1, #0x10

@@ -29,12 +29,12 @@ sub_8059404:
 	mov	r0, #0x1
 	add	r1, r0, #0
 	ldrb	r2, [r2]
-	LSL	r1, r2
+	lsl	r1, r2
 	sub	r4, r1, #1
 	mov	r2, ip
 	add	r2, r2, #0x60
 	ldrb	r2, [r2]
-	LSL	r0, r2
+	lsl	r0, r2
 	sub	r0, r0, #0x1
 	str	r0, [sp, #0x8]
 	str	r1, [sp, #0xc]
@@ -76,9 +76,9 @@ sub_8059404:
 	mov	r0, ip
 	add	r0, r0, #0x5f
 	ldrb	r0, [r0]
-	LSL	r1, r0
+	lsl	r1, r0
 	ldr	r0, [sp, #0x38]
-	ADD r0, sl
+	add r0, sl
 	ldr	r7, [sp, #0xc]
 	cmp	r0, r7
 	bls	.L80594C8	@cond_branch
@@ -107,7 +107,7 @@ sub_8059404:
 	lsl	r0, r1, #0x1
 	ldr	r1, [sp]
 	add	r0, r1, r0
-	ADD r0, r8
+	add r0, r8
 	str	r0, [r2, #0x4]
 	str	r4, [r2, #0x8]
 .L80594D6:

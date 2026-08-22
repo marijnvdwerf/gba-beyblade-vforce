@@ -19,7 +19,7 @@ sub_804D754:
 	mov	r8, r2
 	mov	r2, #0x0
 	mov	r7, #0x1
-	NEG	r7, r7
+	neg	r7, r7
 	ldr	r1, [r5, #0x48]
 	cmp	r1, #0xc
 	ble	.L804D782	@cond_branch
@@ -27,7 +27,7 @@ sub_804D754:
 	b	.L804D78C
 .L804D782:
 	mov	r0, #0xc
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bge	.L804D78C	@cond_branch
 	mov	r2, #0x2
@@ -39,7 +39,7 @@ sub_804D754:
 	b	.L804D7A0
 .L804D796:
 	mov	r0, #0xc
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bge	.L804D7A2	@cond_branch
 	mov	r0, #0x8
@@ -132,7 +132,7 @@ sub_804D754:
 	bne	.L804D844	@cond_branch
 .L804D840:
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 .L804D844:
 	add	r1, r6, #0
 	add	r1, r1, #0x31

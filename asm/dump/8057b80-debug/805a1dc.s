@@ -65,7 +65,7 @@ sub_805A1DC:
 	str	r0, [r1, #0x8]
 	add	r5, r5, r3
 	str	r5, [r1, #0xc]
-	ADD r2, ip
+	add r2, ip
 	sub	r2, r4, r2
 	str	r2, [r1, #0x10]
 	mov	r2, r8
@@ -75,11 +75,11 @@ sub_805A1DC:
 	add	r5, r7, #0
 	sub	r5, r5, r6
 	str	r5, [r1, #0x18]
-	ADD r8, sl
+	add r8, sl
 	mov	r7, r8
 	str	r7, [r1, #0x1c]
 	ldr	r0, [sp]
-	ADD ip, r0
+	add ip, r0
 	mov	r2, ip
 	sub	r4, r4, r2
 	str	r4, [r1, #0x20]

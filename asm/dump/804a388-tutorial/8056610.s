@@ -138,13 +138,13 @@ sub_8056610:
 	add	r1, r4, r2
 	mov	r0, #0xd
 	ldsb	r0, [r5, r0]
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r1]
 	mov	r0, #0xba
 	lsl	r0, r0, #0x1
 	add	r1, r4, r0
 	ldr	r0, [r4, #0x28]
-	NEG	r0, r0
+	neg	r0, r0
 	asr	r0, r0, #0x8
 	str	r0, [r1]
 	sub	r2, r2, #0x4
@@ -154,7 +154,7 @@ sub_8056610:
 .L8056726:
 	mov	r2, #0xe
 	ldsb	r2, [r5, r2]
-	NEG	r1, r2
+	neg	r1, r2
 	cmp	r1, #0
 	blt	.L805674E	@cond_branch
 	mov	r2, #0xb8
@@ -165,7 +165,7 @@ sub_8056610:
 	lsl	r0, r0, #0x1
 	add	r1, r4, r0
 	ldr	r0, [r4, #0x34]
-	NEG	r0, r0
+	neg	r0, r0
 	asr	r0, r0, #0x8
 	str	r0, [r1]
 	sub	r2, r2, #0x4
@@ -211,7 +211,7 @@ sub_8056610:
 	mov	r0, #0x56
 	mul	r0, r0, r1
 	asr	r0, r0, #0x8
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r6, #0x48]
 	mov	r0, #0x3
 	bl	sub_804ABFC

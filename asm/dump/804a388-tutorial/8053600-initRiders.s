@@ -40,7 +40,7 @@ initRiders:
 	bl	GetLineIndexOfType
 	mov	sl, r0
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	sl, r0
 	bne	.L8053678	@cond_branch
 	ldr	r0, .L8053668
@@ -146,7 +146,7 @@ initRiders:
 	mov	r2, #0x0
 	ldsh	r0, [r1, r2]
 	lsl	r0, r0, #0x5
-	NEG	r0, r0
+	neg	r0, r0
 	asr	r0, r0, #0x8
 	add	r6, r6, r0
 	ldr	r3, .L8053770 + 4
@@ -223,9 +223,9 @@ initRiders:
 	add	r0, r2, r3
 	mov	r3, r9
 	lsl	r1, r3, #0x5
-	ADD r1, r9
+	add r1, r9
 	lsl	r1, r1, #0x2
-	ADD r1, r9
+	add r1, r9
 	lsl	r1, r1, #0x3
 	ldr	r0, [r0]
 	add	r5, r0, r1
@@ -253,7 +253,7 @@ initRiders:
 	lsl	r1, r1, #0x13
 	bl	SetRiderFlag
 	mov	r3, #0x1
-	ADD r9, r3
+	add r9, r3
 	b	.L8053878
 .L8053808:
 	.align	2, 0
@@ -275,9 +275,9 @@ initRiders:
 	add	r0, r2, r3
 	mov	r3, r9
 	lsl	r1, r3, #0x5
-	ADD r1, r9
+	add r1, r9
 	lsl	r1, r1, #0x2
-	ADD r1, r9
+	add r1, r9
 	lsl	r1, r1, #0x3
 	ldr	r0, [r0]
 	add	r5, r0, r1

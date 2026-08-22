@@ -27,7 +27,7 @@ sub_8061684:
 	ldr	r5, [r6, #0x14]
 	sub	r4, r1, #1
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r4, r0
 	bne	.L80616BC	@cond_branch
 	b	.L806180E
@@ -62,7 +62,7 @@ sub_8061684:
 	ldr	r2, [r6, #0x1c]
 	sub	r2, r2, #0x1
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r2, r0
 	bne	.L8061702	@cond_branch
 	b	.L806180E
@@ -124,7 +124,7 @@ sub_8061684:
 .L8061764:
 	sub	r2, r2, #0x1
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r2, r0
 	beq	.L8061784	@cond_branch
 	ldr	r7, .L806178C
@@ -196,7 +196,7 @@ sub_8061684:
 .L80617E8:
 	sub	r2, r2, #0x1
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r2, r0
 	beq	.L8061808	@cond_branch
 	ldr	r7, .L8061820

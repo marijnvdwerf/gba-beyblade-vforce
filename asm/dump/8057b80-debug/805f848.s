@@ -8,7 +8,7 @@ sub_805F848:
 	ldr	r2, [r0, #0x24]
 	add	r2, r2, r1
 	mov	r1, #0x9
-	NEG	r1, r1
+	neg	r1, r1
 	ldrh	r3, [r0, #0x32]
 	and	r1, r1, r3
 	strh	r1, [r0, #0x32]

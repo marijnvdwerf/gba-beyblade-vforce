@@ -57,7 +57,7 @@ sub_80502A4:
 	beq	.L8050310	@cond_branch
 	ldr	r0, [r2, #0x1c]
 	mul	r0, r0, r3
-	NEG	r0, r0
+	neg	r0, r0
 	asr	r3, r0, #0x8
 	b	.L8050312
 .L8050310:

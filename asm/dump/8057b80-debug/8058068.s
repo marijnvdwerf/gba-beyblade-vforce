@@ -27,7 +27,7 @@ sub_8058068:
 	ldrh	r1, [r4, #0x8]
 	add	r0, r7, #0
 	bl	sub_8057FDC
-	ADD r8, r0
+	add r8, r0
 	add	r4, r4, #0x2
 	add	r6, r6, #0x1
 	ldrh	r0, [r5, #0x4]

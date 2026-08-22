@@ -33,7 +33,7 @@ sub_8056EC0:
 	mov	r0, #0x1f
 	and	r0, r0, r4
 	mov	r2, #0x1
-	LSL	r2, r0
+	lsl	r2, r0
 	ldr	r0, [r1]
 	and	r0, r0, r2
 	cmp	r0, #0

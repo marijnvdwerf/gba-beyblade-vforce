@@ -28,7 +28,7 @@ sub_8060790:
 	ldr	r0, .L80607C4 + 4
 	bl	printf
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	b	.L80607FE
 .L80607C4:
 	.align	2, 0

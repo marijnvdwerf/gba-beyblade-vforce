@@ -4,7 +4,7 @@
 sub_8048F80:
 	add	r1, r0, #0
 	mov	r2, #0x1
-	NEG	r2, r2
+	neg	r2, r2
 	ldrb	r0, [r1]
 	sub	r0, r0, #0x30
 	lsl	r0, r0, #0x18

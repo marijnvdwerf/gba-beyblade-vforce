@@ -35,7 +35,7 @@ sub_8056ADC:
 	mul	r1, r1, r5
 	asr	r1, r1, #0xa
 	add	r3, r3, r1
-	NEG	r4, r4
+	neg	r4, r4
 	add	r1, r4, #0
 	mul	r1, r1, r5
 	asr	r1, r1, #0xa

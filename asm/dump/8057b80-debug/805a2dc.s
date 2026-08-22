@@ -30,7 +30,7 @@ sub_805A2DC:
 .L805A30C:
 	lsl	r2, r4, #0x2
 	add	r3, r2, r6
-	ADD r2, r9
+	add r2, r9
 	ldr	r0, [r2]
 	mov	r1, ip
 	mul	r1, r1, r0

@@ -35,7 +35,7 @@ sub_8057FDC:
 	cmp	r3, #0
 	beq	.L8058030	@cond_branch
 	lsl	r0, r4, #0x1
-	ADD r0, ip
+	add r0, ip
 	add	r1, r3, #0
 .L8058024:
 	ldrh	r3, [r0]

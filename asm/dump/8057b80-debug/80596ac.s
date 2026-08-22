@@ -28,7 +28,7 @@ sub_80596AC:
 	str	r4, [sp, #0x34]
 	mov	r0, sl
 	ldrb	r3, [r4]
-	LSL	r0, r3
+	lsl	r0, r3
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	mov	r8, r0
@@ -36,7 +36,7 @@ sub_80596AC:
 	add	r3, r3, #0x60
 	mov	r0, sl
 	ldrb	r3, [r3]
-	LSL	r0, r3
+	lsl	r0, r3
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
 	str	r0, [sp, #0x38]
@@ -68,7 +68,7 @@ sub_80596AC:
 	ble	.L805973A	@cond_branch
 	sub	r7, r0, r1
 	ldr	r0, [r2, #0x10]
-	ADD r0, r8
+	add r0, r8
 	str	r0, [sp, #0x1c]
 	add	r1, r1, #0x1
 	str	r1, [sp, #0x24]
@@ -83,7 +83,7 @@ sub_80596AC:
 	str	r0, [sp, #0x1c]
 	add	r1, r1, r7
 	str	r1, [sp, #0x24]
-	NEG	r4, r7
+	neg	r4, r7
 	mov	ip, r4
 .L8059750:
 	ldr	r1, [r2, #0xc]
@@ -106,13 +106,13 @@ sub_80596AC:
 	sub	r6, r6, r4
 	mov	r9, r6
 	ldr	r0, [r2, #0x14]
-	ADD r0, r9
+	add r0, r9
 	str	r0, [sp, #0x20]
 	mov	r0, r9
 	add	r0, r4, r0
 	str	r0, [sp, #0x28]
 	mov	r1, r9
-	NEG	r1, r1
+	neg	r1, r1
 	str	r1, [sp, #0x2c]
 .L8059786:
 	cmp	r7, #0
@@ -165,7 +165,7 @@ sub_80596AC:
 	mov	r0, sl
 	ldr	r2, [sp, #0x34]
 	ldrb	r2, [r2]
-	LSL	r0, r2
+	lsl	r0, r2
 	sub	r0, r0, #0x1
 	and	r6, r6, r0
 	str	r6, [r1, #0x10]
@@ -191,7 +191,7 @@ sub_80596AC:
 	add	r0, r0, #0x5f
 	mov	r1, #0x1
 	ldrb	r0, [r0]
-	LSL	r1, r0
+	lsl	r1, r0
 	sub	r1, r1, #0x1
 	ldr	r0, [r3, #0x10]
 	and	r0, r0, r1
@@ -227,7 +227,7 @@ sub_80596AC:
 	bl	sub_8059310
 	ldr	r1, [r5, #0x8]
 	ldr	r0, [r1, #0x14]
-	ADD r0, r9
+	add r0, r9
 	str	r0, [r1, #0x14]
 	ldr	r0, [r1, #0x4]
 	mov	r2, r9

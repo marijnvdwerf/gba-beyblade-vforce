@@ -112,7 +112,7 @@ sub_8043370:
 	mov	r0, #0x1
 	and	r0, r0, r7
 	mov	r5, #0x1
-	NEG	r5, r5
+	neg	r5, r5
 	cmp	r0, #0
 	beq	.L8043458	@cond_branch
 	mov	r5, #0x1
@@ -121,7 +121,7 @@ sub_8043370:
 	cmp	r5, #0
 	ble	.L8043462	@cond_branch
 	mov	r2, #0x10
-	NEG	r2, r2
+	neg	r2, r2
 .L8043462:
 	add	r0, r6, #0
 	mov	r1, #0x0
@@ -165,7 +165,7 @@ sub_8043370:
 	mov	r5, r9
 	mov	r1, #0xa
 	ldsh	r0, [r5, r1]
-	ADD sl, r0
+	add sl, r0
 	add	r4, r4, #0x18
 	add	r6, r6, #0x4c
 	add	r7, r7, #0x1

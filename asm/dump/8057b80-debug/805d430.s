@@ -9,7 +9,7 @@ sub_805D430:
 	add	r0, r0, #0x84
 	ldr	r1, [r0]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bne	.L805D47E	@cond_branch
 	mov	r0, ip

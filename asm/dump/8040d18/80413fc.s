@@ -119,11 +119,11 @@ sub_80413FC:
 	mov	r0, #0x0
 	ldsb	r0, [r2, r0]
 	mov	r3, #0x1
-	NEG	r3, r3
+	neg	r3, r3
 	add	r2, r2, #0x1
 	add	r4, r1, #0
 	mov	r1, #0x80
-	ADD r1, sl
+	add r1, sl
 	mov	r9, r1
 	cmp	r0, r3
 	beq	.L8041506	@cond_branch
@@ -253,8 +253,8 @@ sub_80413FC:
 	str	r5, [r7]
 	mov	r0, #0x94
 	lsl	r0, r0, #0x2
-	ADD r0, sl
-	NEG	r1, r1
+	add r0, sl
+	neg	r1, r1
 	mov	r2, #0x90
 	lsl	r2, r2, #0x6
 	bl	sub_80596AC
@@ -319,7 +319,7 @@ sub_80413FC:
 	cmp	r0, #0
 	beq	.L80416C6	@cond_branch
 	mov	r0, #0x10
-	NEG	r0, r0
+	neg	r0, r0
 	mov	r4, r8
 	ldrb	r4, [r4, #0x2]
 	and	r0, r0, r4
@@ -387,7 +387,7 @@ sub_80413FC:
 	.4byte	_3000038
 .L8041734:
 	ldr	r0, .L80419A4
-	ADD r0, sl
+	add r0, sl
 	ldrh	r0, [r0]
 	cmp	r0, #0
 	beq	.L8041740	@cond_branch
@@ -590,7 +590,7 @@ sub_80413FC:
 .L80418DE:
 	mov	r0, #0xa0
 	lsl	r0, r0, #0x1
-	ADD r0, sl
+	add r0, sl
 	bl	sub_80439A0
 	bl	sub_805FFE4
 	lsl	r0, r0, #0x18
@@ -673,8 +673,8 @@ sub_80413FC:
 	asr	r4, r4, #0x2
 	mov	r0, #0x94
 	lsl	r0, r0, #0x2
-	ADD r0, sl
-	NEG	r1, r4
+	add r0, sl
+	neg	r1, r4
 	mov	r2, #0x0
 	bl	sub_80596AC
 	ldr	r0, [r5]

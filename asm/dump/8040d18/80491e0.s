@@ -8,7 +8,7 @@ sub_80491E0:
 	beq	.L804920A	@cond_branch
 	cmp	r3, #0
 	beq	.L80491F2	@cond_branch
-	NEG	r2, r2
+	neg	r2, r2
 	b	.L80491F2
 .L80491F0:
 	asr	r1, r1, #0x1
@@ -26,7 +26,7 @@ sub_80491E0:
 .L8049204:
 	cmp	r3, #0
 	beq	.L804920A	@cond_branch
-	NEG	r2, r2
+	neg	r2, r2
 .L804920A:
 	add	r0, r2, #0
 	bx	lr

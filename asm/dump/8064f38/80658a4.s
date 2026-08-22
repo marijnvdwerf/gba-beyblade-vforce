@@ -23,12 +23,12 @@ sub_80658A4:
 	ldrb	r1, [r4]
 	mov	r2, #0x8
 	add	r7, r2, #0
-	LSL	r7, r1
+	lsl	r7, r1
 	add	r1, r7, #0
 	strh	r1, [r3]
 	sub	r3, r3, #0x2
 	ldrb	r1, [r4]
-	LSL	r2, r1
+	lsl	r2, r1
 	ldrh	r1, [r3]
 	orr	r1, r1, r2
 	strh	r1, [r3]

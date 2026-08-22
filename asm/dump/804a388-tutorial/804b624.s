@@ -95,7 +95,7 @@ sub_804B624:
 	bge	.L804B73C	@cond_branch
 .L804B6D2:
 	lsl	r0, r2, #0x2
-	ADD r0, sl
+	add r0, sl
 	ldr	r6, [r0]
 	add	r2, r2, #0x1
 	mov	r9, r2

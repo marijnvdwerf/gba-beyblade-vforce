@@ -55,8 +55,8 @@ sub_805B668:
 	strb	r0, [r4]
 	mov	r0, r8
 	mov	r1, #0x1
-	NEG	r1, r1
-	ADD r8, r1
+	neg	r1, r1
+	add r8, r1
 	cmp	r0, #0
 	beq	.L805B6DC	@cond_branch
 	cmp	r5, #0

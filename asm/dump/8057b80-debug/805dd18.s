@@ -162,7 +162,7 @@ sub_805DD18:
 	add	r2, r2, r1
 	ldr	r3, [r5, #0x4]
 	mov	r9, r3
-	ADD r0, r9
+	add r0, r9
 	add	r2, r7, r2
 	asr	r7, r2, #0x1
 	add	r0, r6, r0

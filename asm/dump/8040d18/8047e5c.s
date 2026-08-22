@@ -107,7 +107,7 @@ sub_8047E5C:
 	mov	r3, #0x94
 	lsl	r3, r3, #0x2
 	add	r0, r7, r3
-	NEG	r5, r5
+	neg	r5, r5
 	add	r1, r5, #0
 	mov	r2, #0x0
 	bl	sub_80596AC
@@ -210,7 +210,7 @@ sub_8047E5C:
 	mov	r1, #0x94
 	lsl	r1, r1, #0x2
 	add	r0, r7, r1
-	NEG	r1, r4
+	neg	r1, r4
 	mov	r2, #0x0
 	bl	sub_80596AC
 	ldr	r0, [r5]

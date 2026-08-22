@@ -43,8 +43,8 @@ sub_804E2A4:
 .L804E2F0:
 	cmp	r1, #0
 	bge	.L804E2FC	@cond_branch
-	NEG	r2, r1
-	NEG	r0, r3
+	neg	r2, r1
+	neg	r0, r3
 	lsr	r0, r0, #0x10
 	b	.L804E300
 .L804E2FC:
@@ -68,7 +68,7 @@ sub_804E2A4:
 .L804E31A:
 	cmp	r1, #0
 	bge	.L804E320	@cond_branch
-	NEG	r0, r0
+	neg	r0, r0
 .L804E320:
 	add	sp, sp, #0x8
 	pop	{r4, r5, r6, r7}

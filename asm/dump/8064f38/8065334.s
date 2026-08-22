@@ -25,7 +25,7 @@ sub_8065334:
 	cmp	r6, #0
 	beq	.L8065370	@cond_branch
 	add	r0, r5, r7
-	ADD r0, r8
+	add r0, r8
 	ldrb	r0, [r0]
 	cmp	r0, #0x20
 	bne	.L8065370	@cond_branch

@@ -14,7 +14,7 @@ teletypeDefaultUserCodeHandler:
 	ldr	r5, [r0]
 	cmp	r1, #0
 	bge	.L8041EBA	@cond_branch
-	NEG	r6, r6
+	neg	r6, r6
 .L8041EBA:
 	add	r0, r2, #0
 	sub	r0, r0, #0x41

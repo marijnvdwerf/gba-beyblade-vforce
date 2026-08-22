@@ -6,7 +6,7 @@ sub_8058784:
 	lsr	r1, r1, #0x18
 	add	r0, r0, #0x31
 	ldrb	r2, [r0]
-	EOR	r1, r2
+	eor	r1, r2
 	strb	r1, [r0]
 	bx	lr
 	thumb_func_end sub_8058784

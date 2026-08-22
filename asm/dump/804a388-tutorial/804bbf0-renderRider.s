@@ -126,7 +126,7 @@ renderRider:
 	lsl	r5, r0, #0x4
 	cmp	r5, #0
 	ble	.L804BCE8	@cond_branch
-	NEG	r5, r5
+	neg	r5, r5
 .L804BCE8:
 	mov	r2, #0xf1
 	lsl	r2, r2, #0x2
@@ -174,7 +174,7 @@ renderRider:
 	cmp	r1, r0
 	bhi	.L804BD4E	@cond_branch
 	mov	r0, #0x40
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r7, r0
 	blt	.L804BD4E	@cond_branch
 	mov	r0, #0x8c

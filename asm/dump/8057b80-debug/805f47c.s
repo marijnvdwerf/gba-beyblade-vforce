@@ -64,7 +64,7 @@ sub_805F47C:
 	cmp	r0, #0
 	beq	.L805F550	@cond_branch
 	mov	r0, #0x21
-	NEG	r0, r0
+	neg	r0, r0
 	and	r0, r0, r1
 	strh	r0, [r4, #0x32]
 	ldrh	r1, [r4, #0x38]
@@ -72,7 +72,7 @@ sub_805F47C:
 	ldsh	r0, [r4, r3]
 	cmp	r0, #0
 	bge	.L805F510	@cond_branch
-	NEG	r0, r1
+	neg	r0, r1
 	ldr	r3, .L805F50C
 	add	r1, r3, #0
 	b	.L805F512
@@ -200,7 +200,7 @@ sub_805F47C:
 	cmp	r0, #0
 	beq	.L805F5F4	@cond_branch
 	mov	r0, #0x2
-	EOR	r0, r2
+	eor	r0, r2
 	strh	r0, [r4, #0x32]
 	ldrh	r1, [r4, #0x2a]
 	ldrh	r2, [r6, #0x2]
@@ -308,7 +308,7 @@ sub_805F47C:
 	cmp	r0, #0
 	beq	.L805F6BA	@cond_branch
 	mov	r0, #0x2
-	EOR	r0, r1
+	eor	r0, r1
 	strh	r0, [r4, #0x32]
 	add	r0, r2, #1
 	b	.L805F6C0

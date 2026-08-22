@@ -33,7 +33,7 @@ sub_8050C18:
 	lsl	r1, r1, #0x18
 	lsr	r1, r1, #0x18
 	lsl	r0, r1, #0x1
-	ADD r0, r9
+	add r0, r9
 	mov	r2, #0x0
 	ldsh	r0, [r0, r2]
 	ldr	r3, [sp, #0x4]
@@ -41,7 +41,7 @@ sub_8050C18:
 	asr	r2, r0, #0x8
 	add	r1, r1, #0x40
 	lsl	r1, r1, #0x1
-	ADD r1, r9
+	add r1, r9
 	mov	r7, #0x0
 	ldsh	r0, [r1, r7]
 	mul	r0, r0, r3
@@ -150,13 +150,13 @@ sub_8050C18:
 	add	r0, r1, #0
 	add	r0, r0, #0x40
 	lsl	r0, r0, #0x1
-	ADD r0, r9
+	add r0, r9
 	ldrh	r0, [r0]
 	lsl	r0, r0, #0x10
 	asr	r0, r0, #0x14
 	add	r6, r6, r0
 	lsl	r1, r1, #0x1
-	ADD r1, r9
+	add r1, r9
 	ldrh	r1, [r1]
 	lsl	r0, r1, #0x10
 	asr	r0, r0, #0x16
@@ -189,7 +189,7 @@ sub_8050C18:
 	bl	sub_8060F64
 .L8050D76:
 	ldr	r1, [sp]
-	ADD sl, r1
+	add sl, r1
 	ldr	r0, [r5, #0x14]
 	ldr	r1, [r5, #0x10]
 	sub	r0, r0, r1
@@ -198,7 +198,7 @@ sub_8050C18:
 	str	r1, [r5, #0x10]
 	add	r5, r5, #0x1c
 	mov	r2, #0x1
-	ADD r8, r2
+	add r8, r2
 	ldr	r0, [r4]
 	cmp	r8, r0
 	bge	.L8050D94	@cond_branch
@@ -216,7 +216,7 @@ sub_8050C18:
 	add	r1, r2, #0
 	cmp	r2, #0
 	bge	.L8050DAE	@cond_branch
-	NEG	r1, r2
+	neg	r1, r2
 .L8050DAE:
 	mov	r0, #0x80
 	lsl	r0, r0, #0x8
@@ -228,7 +228,7 @@ sub_8050C18:
 	asr	r0, r1, #0x3
 	cmp	r2, #0
 	bge	.L8050DC2	@cond_branch
-	NEG	r0, r0
+	neg	r0, r0
 .L8050DC2:
 	str	r0, [r4, #0x10]
 .L8050DC4:

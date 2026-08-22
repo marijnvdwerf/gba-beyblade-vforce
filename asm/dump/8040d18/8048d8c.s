@@ -66,7 +66,7 @@ sub_8048D8C:
 	mov	r1, #0x94
 	lsl	r1, r1, #0x2
 	add	r0, r7, r1
-	NEG	r1, r6
+	neg	r1, r6
 	mov	r2, #0x0
 	bl	sub_80596AC
 	ldr	r4, [r4]
@@ -183,7 +183,7 @@ sub_8048D8C:
 	mov	r1, #0x94
 	lsl	r1, r1, #0x2
 	add	r0, r7, r1
-	NEG	r1, r4
+	neg	r1, r4
 	mov	r2, #0x0
 	bl	sub_80596AC
 	ldr	r0, [r5]

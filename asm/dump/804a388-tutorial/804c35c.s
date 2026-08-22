@@ -19,7 +19,7 @@ sub_804C35C:
 	mov	r2, #0x0
 	mov	sl, r2
 	mov	r0, r9
-	ADD r0, r8
+	add r0, r8
 	asr	r0, r0, #0x1
 	lsl	r1, r5, #0xb
 	sub	r0, r0, r3

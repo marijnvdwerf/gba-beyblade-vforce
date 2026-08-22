@@ -310,7 +310,7 @@ sub_804CB08:
 	ldr	r3, [sp, #0x8]
 	lsl	r2, r3, #0x2
 	ldr	r6, [sp, #0xc]
-	NEG	r3, r6
+	neg	r3, r6
 	lsl	r3, r3, #0x2
 	mov	r0, #0x0
 	str	r0, [sp]

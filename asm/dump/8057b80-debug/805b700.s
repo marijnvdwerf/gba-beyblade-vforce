@@ -49,7 +49,7 @@ sub_805B700:
 	add	r4, r4, #0x30
 	strb	r4, [r6]
 	mov	r0, #0x1
-	ADD r8, r0
+	add r8, r0
 	sub	r7, r7, #0x1
 	cmp	r7, #0
 	beq	.L805B78C	@cond_branch

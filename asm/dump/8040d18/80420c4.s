@@ -288,12 +288,12 @@ sub_80420C4:
 	strh	r0, [r2]
 	mov	r0, #0x80
 	lsl	r0, r0, #0x1
-	LSL	r0, r1
+	lsl	r0, r1
 	ldrh	r1, [r2]
 	orr	r0, r0, r1
 	strh	r0, [r2]
 	mov	r0, #0x2
-	NEG	r0, r0
+	neg	r0, r0
 	and	r4, r4, r0
 	str	r4, [r7]
 .L8042358:
@@ -326,7 +326,7 @@ sub_80420C4:
 	bne	.L8042398	@cond_branch
 .L8042390:
 	mov	r0, #0x3
-	NEG	r0, r0
+	neg	r0, r0
 	and	r4, r4, r0
 	str	r4, [r7]
 .L8042398:

@@ -70,7 +70,7 @@ ActorSetFrameSequence:
 	beq	.L80582B4	@cond_branch
 	ldr	r1, .L80582AC + 4
 	add	r0, r7, r1
-	ADD r0, ip
+	add r0, ip
 	strh	r0, [r3, #0x22]
 	b	.L80582B8
 .L80582AA:
@@ -88,7 +88,7 @@ ActorSetFrameSequence:
 	and	r4, r4, r0
 	lsr	r0, r4, #0x2
 	ldrb	r4, [r1]
-	EOR	r0, r4
+	eor	r0, r4
 	strb	r0, [r1]
 	pop	{r4, r5, r6, r7}
 	pop	{r0}

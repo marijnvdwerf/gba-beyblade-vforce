@@ -81,7 +81,7 @@ sub_8046CC4:
 	bl	sub_8051618
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	NEG	r2, r0
+	neg	r2, r0
 	orr	r2, r2, r0
 	asr	r2, r2, #0x1f
 	mov	r0, #0x2
@@ -107,7 +107,7 @@ sub_8046CC4:
 	bl	sub_8051618
 	lsl	r0, r0, #0x18
 	lsr	r0, r0, #0x18
-	NEG	r2, r0
+	neg	r2, r0
 	orr	r2, r2, r0
 	lsr	r2, r2, #0x1f
 	mov	r4, #0x96

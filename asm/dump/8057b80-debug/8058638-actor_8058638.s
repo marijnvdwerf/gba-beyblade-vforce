@@ -98,7 +98,7 @@ actor_8058638:
 	cmp	r0, #0
 	beq	.L80586F8	@cond_branch
 	mov	r0, #0x2
-	EOR	r0, r1
+	eor	r0, r1
 	strb	r0, [r4]
 	ldr	r1, .L80586F4
 	add	r0, r5, r1
@@ -128,7 +128,7 @@ actor_8058638:
 	cmp	r0, #0
 	beq	.L8058720	@cond_branch
 	mov	r0, #0x2
-	EOR	r0, r1
+	eor	r0, r1
 	strb	r0, [r4]
 	add	r0, r3, #1
 	b	.L8058726

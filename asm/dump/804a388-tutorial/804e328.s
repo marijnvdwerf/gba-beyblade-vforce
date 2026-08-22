@@ -15,7 +15,7 @@ sub_804E328:
 	add	r0, r1, #0
 	sub	r0, r0, #0x40
 	lsl	r0, r0, #0x11
-	NEG	r0, r0
+	neg	r0, r0
 	b	.L804E34E
 .L804E348:
 	mov	r0, #0x40

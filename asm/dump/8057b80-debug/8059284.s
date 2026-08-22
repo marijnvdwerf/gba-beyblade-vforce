@@ -16,7 +16,7 @@ sub_8059284:
 	lsl	r0, r1, #0x1
 	add	r0, r0, #0x8
 	add	r4, r5, #0
-	LSL	r4, r0
+	lsl	r4, r0
 	add	r1, r1, #0x4
 	add	r0, r3, #0
 	add	r0, r0, #0x5f

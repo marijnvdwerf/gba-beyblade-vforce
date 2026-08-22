@@ -118,7 +118,7 @@ sub_80448F4:
 	b	.L8044C3A
 .L80449DE:
 	mov	r0, #0x10
-	NEG	r0, r0
+	neg	r0, r0
 	ldrb	r1, [r6, #0x2]
 	and	r0, r0, r1
 	mov	r1, #0x8

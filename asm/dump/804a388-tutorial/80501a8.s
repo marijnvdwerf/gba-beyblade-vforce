@@ -8,9 +8,9 @@ sub_80501A8:
 	ldrb	r3, [r0, #0xd]
 	lsl	r2, r3, #0x1c
 	lsr	r2, r2, #0x1c
-	BIC	r2, r1
+	bic	r2, r1
 	mov	r1, #0x10
-	NEG	r1, r1
+	neg	r1, r1
 	and	r1, r1, r3
 	orr	r1, r1, r2
 	strb	r1, [r0, #0xd]

@@ -11,7 +11,7 @@ sub_804E258:
 	add	r1, r2, #0
 	cmp	r2, #0
 	bge	.L804E26C	@cond_branch
-	NEG	r1, r2
+	neg	r1, r2
 .L804E26C:
 	asr	r0, r4, #0x1
 	cmp	r1, r0
@@ -24,7 +24,7 @@ sub_804E258:
 	add	r3, r0, #0
 	cmp	r0, #0
 	bge	.L804E282	@cond_branch
-	NEG	r0, r0
+	neg	r0, r0
 .L804E282:
 	cmp	r3, #0
 	bne	.L804E28C	@cond_branch
@@ -38,11 +38,11 @@ sub_804E258:
 .L804E292:
 	cmp	r3, #0
 	bge	.L804E298	@cond_branch
-	NEG	r0, r0
+	neg	r0, r0
 .L804E298:
 	cmp	r2, #0
 	bge	.L804E29E	@cond_branch
-	NEG	r0, r0
+	neg	r0, r0
 .L804E29E:
 	pop	{r4, r5}
 	pop	{r1}

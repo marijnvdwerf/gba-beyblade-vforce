@@ -88,7 +88,7 @@ sub_804E6A4:
 	add	r0, r2, #0
 	mul	r0, r0, r1
 	asr	r0, r0, #0x8
-	ADD r8, r0
+	add r8, r0
 	mov	r6, r8
 	strh	r6, [r7, #0x10]
 	ldr	r0, [r3, #0x14]
@@ -96,7 +96,7 @@ sub_804E6A4:
 	sub	r0, r0, r2
 	mul	r0, r0, r1
 	asr	r0, r0, #0x8
-	ADD r9, r0
+	add r9, r0
 	mov	r0, r9
 	strh	r0, [r7, #0x12]
 	ldr	r0, [r3, #0x18]

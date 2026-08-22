@@ -41,7 +41,7 @@ newCollisionDataRam:
 	and	r0, r0, r6
 	cmp	r0, #0
 	beq	.L805B986	@cond_branch
-	ADD r7, r9
+	add r7, r9
 .L805B986:
 	cmp	r7, #0
 	beq	.L805B994	@cond_branch
@@ -76,7 +76,7 @@ newCollisionDataRam:
 	mov	r2, r8
 	bl	_call_via_r3
 	str	r4, [r5, #0x4]
-	ADD r4, r8
+	add r4, r8
 .L805B9C8:
 	mov	r0, #0x2
 	and	r0, r0, r6

@@ -43,7 +43,7 @@ turorial_804A488:
 	mov	r0, #0x1f
 	and	r3, r3, r0
 	mov	r6, #0x1
-	LSL	r6, r3
+	lsl	r6, r3
 	ldr	r0, [r5]
 	and	r0, r0, r6
 	cmp	r0, #0

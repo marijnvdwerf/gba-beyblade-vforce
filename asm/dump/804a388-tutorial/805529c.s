@@ -26,7 +26,7 @@ sub_805529C:
 	lsl	r0, r0, #0x10
 	asr	r6, r0, #0x17
 	str	r6, [r7, #0x2c]
-	NEG	r0, r6
+	neg	r0, r6
 	str	r0, [r7, #0x30]
 	mov	sl, r4
 	ldr	r0, .L8055318 + 16
@@ -36,7 +36,7 @@ sub_805529C:
 .L80552DA:
 	mov	r0, sl
 	ldr	r4, [r0]
-	ADD r4, r9
+	add r4, r9
 	add	r5, r4, #0
 	add	r5, r5, #0x5e
 	ldrb	r0, [r5]
@@ -52,10 +52,10 @@ sub_805529C:
 	sub	r1, r1, r6
 	strh	r1, [r0]
 	mov	r1, #0x88
-	ADD r9, r1
+	add r9, r1
 	mov	r0, #0x1
-	NEG	r0, r0
-	ADD r8, r0
+	neg	r0, r0
+	add r8, r0
 	mov	r1, r8
 	cmp	r1, #0
 	bge	.L80552DA	@cond_branch

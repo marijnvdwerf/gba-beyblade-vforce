@@ -15,7 +15,7 @@ sub_80434EC:
 	ldr	r5, [r0]
 	sub	r4, r4, #0x1
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r4, r0
 	beq	.L804351C	@cond_branch
 	add	r7, r0, #0

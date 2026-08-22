@@ -50,7 +50,7 @@ initRider:
 	ldr	r1, [sp, #0x38]
 	str	r1, [sp, #0x4]
 	mov	r2, #0x1
-	NEG	r2, r2
+	neg	r2, r2
 	mov	r8, r2
 	str	r2, [sp, #0x8]
 	add	r0, r7, #0

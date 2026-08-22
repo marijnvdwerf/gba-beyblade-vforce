@@ -16,7 +16,7 @@ sub_804E090:
 	add	r1, r5, #0
 	add	r1, r1, #0xbc
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r1]
 	mov	r1, #0xb8
 	lsl	r1, r1, #0x1

@@ -171,7 +171,7 @@ processRiderMetadata:
 	beq	.L804B422	@cond_branch
 	ldr	r1, [r1, #0x8]
 	ldr	r0, .L804B464 + 52
-	ADD r0, r8
+	add r0, r8
 	strh	r1, [r0]
 .L804B422:
 	ldr	r3, .L804B464 + 56
@@ -185,7 +185,7 @@ processRiderMetadata:
 	ldr	r1, [r1, #0x8]
 	mov	r0, #0xf4
 	lsl	r0, r0, #0x2
-	ADD r0, r8
+	add r0, r8
 	strb	r1, [r0]
 .L804B43E:
 	ldr	r3, .L804B464 + 60

@@ -26,7 +26,7 @@ sub_8059E5C:
 	add	r2, r2, r1
 	add	r0, r0, #0x5f
 	ldrb	r1, [r0]
-	LSL	r4, r1
+	lsl	r4, r1
 	add	r4, r4, r3
 	lsl	r4, r4, #0x1
 	add	r2, r2, r4
@@ -41,7 +41,7 @@ sub_8059E5C:
 	add	r5, r5, r1
 	add	r0, r4, #0
 	ldrb	r7, [r3]
-	LSL	r0, r7
+	lsl	r0, r7
 	add	r2, r2, r0
 	sub	r0, r6, #1
 	lsl	r0, r0, #0x18

@@ -33,7 +33,7 @@ sub_805BDBC:
 	str	r0, [r7, #0x14]
 	strh	r0, [r7, #0x2a]
 	mov	r0, #0x2c
-	ADD r8, r0
+	add r8, r0
 	add	r1, r1, #0x1
 	str	r1, [sp, #0x2c]
 	b	.L805BEFC

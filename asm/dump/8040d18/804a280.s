@@ -34,7 +34,7 @@ sub_804A280:
 	mov	r1, #0x0
 	ldsh	r0, [r4, r1]
 	mov	r4, #0x1
-	NEG	r4, r4
+	neg	r4, r4
 	cmp	r0, r4
 	beq	.L804A2CA	@cond_branch
 	bl	sub_804AF5C

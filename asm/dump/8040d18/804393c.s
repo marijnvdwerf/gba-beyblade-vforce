@@ -14,7 +14,7 @@ sub_804393C:
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x18
 	asr	r0, r0, #0x18
-	EOR	r2, r0
+	eor	r2, r0
 	add	r1, r1, #0x1
 	cmp	r1, #0xb
 	ble	.L804394A	@cond_branch

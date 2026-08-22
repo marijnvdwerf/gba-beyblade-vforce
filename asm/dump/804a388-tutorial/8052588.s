@@ -13,7 +13,7 @@ sub_8052588:
 	ldr	r4, [r1, #0x8]
 	ldr	r5, [r2, #0xc]
 	mov	r8, r5
-	ADD r4, r8
+	add r4, r8
 	asr	r4, r4, #0xb
 	mov	sl, r4
 	ldr	r4, [r1, #0xc]
@@ -51,7 +51,7 @@ sub_8052588:
 	sub	r4, r4, r2
 	asr	r4, r4, #0x8
 	add	r4, r4, #0x8
-	ADD r4, r9
+	add r4, r9
 	asr	r4, r4, #0x3
 	mov	r9, r4
 	mov	r1, r8
@@ -112,7 +112,7 @@ sub_8052588:
 	sub	r1, r4, r2
 	ldr	r5, .L805268C
 	add	r0, r3, r5
-	ADD r2, ip
+	add r2, ip
 	str	r1, [sp]
 	ldr	r1, [sp, #0xc]
 	sub	r1, r1, #0x1

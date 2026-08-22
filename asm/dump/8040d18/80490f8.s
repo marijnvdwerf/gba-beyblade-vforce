@@ -12,7 +12,7 @@ sub_80490F8:
 	cmp	r0, r5
 	beq	.L804914C	@cond_branch
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	beq	.L8049126	@cond_branch
 	mov	r0, #0x3

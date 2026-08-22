@@ -74,7 +74,7 @@ getBeyBladeActorDataForIndex:
 .L80572EA:
 	add	r2, r2, #0x1
 	add	r0, r1, #0
-	ASR	r0, r2
+	asr	r0, r2
 	and	r0, r0, r3
 	cmp	r0, #0
 	beq	.L80572FA	@cond_branch
@@ -86,9 +86,9 @@ getBeyBladeActorDataForIndex:
 	strb	r2, [r6, #0x4]
 	mov	r1, #0xf0
 	lsl	r1, r1, #0x1
-	ADD r1, r8
+	add r1, r8
 	mov	r0, #0x1
-	LSL	r0, r2
+	lsl	r0, r2
 	ldrh	r2, [r1]
 	orr	r0, r0, r2
 	strh	r0, [r1]

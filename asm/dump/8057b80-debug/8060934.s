@@ -22,12 +22,12 @@ sub_8060934:
 	ldrh	r0, [r4, #0x16]
 	sub	r0, r0, #0x5
 	add	r1, r5, #0
-	LSL	r1, r0
+	lsl	r1, r0
 	add	r0, r2, #0
 	bl	freeSpriteVramLocation
 .L8060962:
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r4, #0x24]
 .L8060968:
 	ldr	r4, [r4, #0x4]

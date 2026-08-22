@@ -21,7 +21,7 @@ sub_8057164:
 	mov	r6, #0x0
 	ldsh	r3, [r2, r6]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	ldrh	r5, [r2]
 	cmp	r3, r0
 	beq	.L80571CA	@cond_branch

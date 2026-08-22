@@ -57,7 +57,7 @@ sub_805FBE0:
 	lsl	r0, r0, #0x2
 	mov	r8, r0
 	mov	r1, sl
-	ADD r1, r8
+	add r1, r8
 	lsl	r0, r5, #0x1
 	add	r5, r1, r0
 	add	r0, r5, #0
@@ -96,9 +96,9 @@ sub_805FBE0:
 	ldr	r2, [sp]
 	add	r1, r1, r2
 	str	r1, [r4, #0x34]
-	ADD r0, sl
+	add r0, sl
 	str	r0, [r4, #0x10]
-	ADD r0, r8
+	add r0, r8
 	str	r0, [r4, #0x14]
 	add	sp, sp, #0x4
 	pop	{r3, r4, r5}

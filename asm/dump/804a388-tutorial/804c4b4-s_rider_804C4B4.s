@@ -17,7 +17,7 @@ s_rider_804C4B4:
 	add	r1, r7, #0
 	bl	_call_via_r3
 	mov	r0, #0x1a
-	NEG	r0, r0
+	neg	r0, r0
 	mov	sl, r0
 	str	r0, [r4, #0x54]
 	mov	r6, #0x0
@@ -70,7 +70,7 @@ s_rider_804C4B4:
 	add	r1, r7, #0
 	add	r1, r1, #0xbc
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r1]
 	add	r0, r7, #0
 	add	r0, r0, #0xd8

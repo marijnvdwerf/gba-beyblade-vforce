@@ -165,7 +165,7 @@ sub_80561EC:
 .L805633E:
 	mov	r1, #0xe0
 	lsl	r1, r1, #0x1
-	ADD r1, sl
+	add r1, sl
 	ldrb	r0, [r5, #0xd]
 	ldrb	r2, [r1]
 	cmp	r0, r2
@@ -246,7 +246,7 @@ sub_80561EC:
 	add	r1, r1, r2
 	mov	r2, #0xe0
 	lsl	r2, r2, #0x1
-	ADD r2, sl
+	add r2, sl
 	ldrb	r0, [r5, #0xd]
 	ldrb	r5, [r2]
 	cmp	r0, r5
@@ -327,7 +327,7 @@ sub_80561EC:
 	mov	r2, #0x0
 	ldsh	r1, [r0, r2]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bne	.L805647A	@cond_branch
 	mov	r1, #0x80
@@ -410,7 +410,7 @@ sub_80561EC:
 	bl	sub_805BAC0
 	add	r1, r0, #0
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	beq	.L8056528	@cond_branch
 	add	r0, r6, #0
@@ -504,7 +504,7 @@ sub_80561EC:
 	bl	SetRiderFlag
 	ldrh	r0, [r5, #0x8]
 	ldr	r3, .L80565C8
-	ADD r3, sl
+	add r3, sl
 	strb	r0, [r3]
 	b	.L80565FE
 .L80565C8:

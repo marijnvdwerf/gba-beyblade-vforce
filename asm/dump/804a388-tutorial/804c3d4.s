@@ -18,13 +18,13 @@ sub_804C3D4:
 	b	.L804C44C
 .L804C3F0:
 	ldr	r4, [r7]
-	ADD r4, sl
+	add r4, sl
 	str	r4, [r6]
 	ldr	r1, [r7, #0x4]
-	ADD r1, r9
+	add r1, r9
 	str	r1, [r6, #0x4]
 	ldr	r2, [r7, #0x8]
-	ADD r2, r8
+	add r2, r8
 	str	r2, [r6, #0x8]
 	ldr	r0, [r7, #0xc]
 	str	r0, [r6, #0xc]

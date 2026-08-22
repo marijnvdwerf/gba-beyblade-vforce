@@ -17,12 +17,12 @@ sub_8060A94:
 	bne	.L8060ABA	@cond_branch
 	ldrh	r0, [r4, #0x16]
 	sub	r0, r0, #0x5
-	LSL	r1, r0
+	lsl	r1, r0
 	add	r0, r2, #0
 	bl	freeSpriteVramLocation
 .L8060ABA:
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r4, #0x24]
 	cmp	r6, #0
 	beq	.L8060AC8	@cond_branch

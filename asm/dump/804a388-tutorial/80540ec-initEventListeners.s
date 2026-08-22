@@ -68,7 +68,7 @@ initEventListeners:
 	beq	.L8054188	@cond_branch
 	stmia	r5!, {r4}
 	mov	r2, #0x1
-	ADD sl, r2
+	add sl, r2
 	cmp	sl, r6
 	ble	.L8054188	@cond_branch
 	ldr	r0, .L80541F4 + 12

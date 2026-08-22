@@ -16,7 +16,7 @@ sub_805D548:
 	add	r0, r0, #0x84
 	ldr	r1, [r0]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bne	.L805D600	@cond_branch
 	mov	r0, #0x0
@@ -77,7 +77,7 @@ sub_805D548:
 	ldsh	r3, [r6, r0]
 	ldr	r0, [sp, #0x20]
 	lsl	r0, r0, #0x4
-	ADD r0, r8
+	add r0, r8
 	str	r0, [sp]
 	add	r1, sp, #0x10
 	str	r1, [sp, #0x4]
@@ -89,7 +89,7 @@ sub_805D548:
 .L805D5F2:
 	add	r6, r6, #0x8
 	mov	r3, #0x1
-	ADD r9, r3
+	add r9, r3
 	ldr	r4, [sp, #0x28]
 	ldrh	r4, [r4, #0x2a]
 	cmp	r9, r4

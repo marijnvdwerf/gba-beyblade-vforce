@@ -15,7 +15,7 @@ sub_805D488:
 	add	r0, r0, #0x84
 	ldr	r1, [r0]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bne	.L805D538	@cond_branch
 	mov	r6, #0x0
@@ -73,7 +73,7 @@ sub_805D488:
 	beq	.L805D538	@cond_branch
 	ldr	r0, [sp, #0x1c]
 	lsl	r0, r0, #0x4
-	ADD r0, r9
+	add r0, r9
 	str	r0, [sp]
 	add	r0, sp, #0xc
 	str	r0, [sp, #0x4]

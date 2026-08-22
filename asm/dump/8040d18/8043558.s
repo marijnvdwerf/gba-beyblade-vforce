@@ -10,17 +10,17 @@ sub_8043558:
 	mov	r9, r0
 	mov	r0, #0x92
 	lsl	r0, r0, #0x3
-	ADD r0, r9
+	add r0, r9
 	ldr	r1, [r0]
 	cmp	r1, #0
 	beq	.L80435EC	@cond_branch
 	ldr	r5, .L80435FC
 	mov	r0, #0xa4
 	lsl	r0, r0, #0x3
-	ADD r0, r9
+	add r0, r9
 	ldr	r4, [r0]
 	ldr	r0, .L80435FC + 4
-	ADD r0, r9
+	add r0, r9
 	ldr	r0, [r0]
 	mov	r8, r0
 	mov	r7, #0x0
@@ -30,7 +30,7 @@ sub_8043558:
 	mov	r0, #0x1
 	and	r0, r0, r7
 	mov	r6, #0x1
-	NEG	r6, r6
+	neg	r6, r6
 	cmp	r0, #0
 	beq	.L8043596	@cond_branch
 	mov	r6, #0x1
@@ -64,12 +64,12 @@ sub_8043558:
 	mov	r1, #0x0
 	bl	sub_8050574
 	mov	r0, #0x4c
-	ADD r8, r0
+	add r8, r0
 	add	r4, r4, #0x18
 	add	r7, r7, #0x1
 	mov	r0, #0x92
 	lsl	r0, r0, #0x3
-	ADD r0, r9
+	add r0, r9
 	ldr	r0, [r0]
 	cmp	r7, r0
 	blt	.L8043588	@cond_branch

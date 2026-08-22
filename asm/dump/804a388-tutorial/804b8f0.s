@@ -98,7 +98,7 @@ sub_804B8F0:
 	add	r0, r6, r1
 	ldr	r1, [r0]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	mov	r2, r8
 	add	r2, r2, #0x84
 	str	r2, [r7, #0x10]
@@ -229,15 +229,15 @@ sub_804B8F0:
 	ldr	r3, [r0, #0xc]
 	mov	r0, #0xd4
 	lsl	r0, r0, #0x1
-	ADD r0, sl
+	add r0, sl
 	str	r1, [r0]
 	mov	r0, #0xd6
 	lsl	r0, r0, #0x1
-	ADD r0, sl
+	add r0, sl
 	str	r2, [r0]
 	mov	r0, #0xd8
 	lsl	r0, r0, #0x1
-	ADD r0, sl
+	add r0, sl
 	str	r3, [r0]
 	mov	r0, r8
 	bl	sub_80584B8
@@ -259,7 +259,7 @@ sub_804B8F0:
 	ldr	r3, [r7, #0x10]
 	ldr	r1, [r3]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	bne	.L804BB20	@cond_branch
 	mov	r1, #0xc2
@@ -267,7 +267,7 @@ sub_804B8F0:
 	add	r0, r6, r1
 	mov	r1, #0xda
 	lsl	r1, r1, #0x1
-	ADD r1, sl
+	add r1, sl
 	ldr	r1, [r1]
 	str	r1, [r0]
 	b	.L804BB2A
@@ -330,7 +330,7 @@ sub_804B8F0:
 	add	r3, r3, #0x4
 	add	r0, r6, r3
 	mov	r1, #0x40
-	NEG	r1, r1
+	neg	r1, r1
 	mov	r2, #0x96
 	lsl	r2, r2, #0x1
 	mov	r3, #0x78
@@ -342,7 +342,7 @@ sub_804B8F0:
 .L804BBA2:
 	mov	r0, #0xce
 	lsl	r0, r0, #0x1
-	ADD r0, sl
+	add r0, sl
 	ldr	r0, [r0]
 	cmp	r0, #0x3
 	bgt	.L804BBD2	@cond_branch

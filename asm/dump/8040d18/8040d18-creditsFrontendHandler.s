@@ -23,7 +23,7 @@ creditsFrontendHandler:
 	str	r4, [r0]
 	mov	r0, #0x94
 	lsl	r0, r0, #0x2
-	ADD r0, sl
+	add r0, sl
 	mov	r2, #0x0
 	bl	sub_80596AC
 	ldr	r0, .L8040D74 + 12
@@ -67,7 +67,7 @@ creditsFrontendHandler:
 	.4byte	_fontPtr
 .L8040DAC:
 	ldr	r0, .L8040DE4
-	ADD r0, sl
+	add r0, sl
 	ldrh	r0, [r0]
 	ldr	r3, .L8040DE4 + 4
 	cmp	r0, #0
@@ -146,7 +146,7 @@ creditsFrontendHandler:
 	cmp	r0, #0
 	beq	.L8040E5A	@cond_branch
 	ldr	r0, .L8040E7C + 20
-	ADD r0, sl
+	add r0, sl
 	ldrb	r0, [r0]
 	lsl	r0, r0, #0x18
 	asr	r0, r0, #0x18
@@ -369,7 +369,7 @@ creditsFrontendHandler:
 .L8041002:
 	mov	r0, #0xa0
 	lsl	r0, r0, #0x1
-	ADD r0, sl
+	add r0, sl
 	bl	sub_80439A0
 	ldr	r0, .L8041040
 	ldr	r5, .L8041040 + 52
@@ -381,7 +381,7 @@ creditsFrontendHandler:
 	asr	r4, r4, #0x2
 	mov	r0, #0x94
 	lsl	r0, r0, #0x2
-	ADD r0, sl
+	add r0, sl
 	add	r1, r4, #0
 	mov	r2, #0x0
 	bl	sub_80596AC

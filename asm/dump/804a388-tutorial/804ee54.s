@@ -59,7 +59,7 @@ sub_804EE54:
 	add	r4, r5, #0
 	add	r4, r4, #0xc0
 	mov	r1, #0x80
-	NEG	r1, r1
+	neg	r1, r1
 	mov	r0, #0x0
 	str	r0, [sp]
 	add	r0, r4, #0
@@ -82,7 +82,7 @@ sub_804EE54:
 .L804EEF4:
 	add	r4, r4, #0x18
 	mov	r3, #0x18
-	NEG	r3, r3
+	neg	r3, r3
 	str	r0, [sp]
 	add	r0, r4, #0
 	mov	r1, #0x80
@@ -117,7 +117,7 @@ sub_804EE54:
 	add	r4, r5, #0
 	add	r4, r4, #0xc0
 	mov	r1, #0x80
-	NEG	r1, r1
+	neg	r1, r1
 	mov	r0, #0x0
 	str	r0, [sp]
 	add	r0, r4, #0

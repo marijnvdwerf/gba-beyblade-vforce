@@ -42,7 +42,7 @@ sub_8059B00:
 	mov	r9, r3
 	ldrh	r2, [r4, #0x2]
 	lsl	r1, r2, #0x1
-	ADD r1, r9
+	add r1, r9
 	mov	r3, #0x0
 	ldsh	r1, [r1, r3]
 	bl	sub_8059FA0
@@ -61,14 +61,14 @@ sub_8059B00:
 	ldsh	r0, [r0, r3]
 	ldrh	r2, [r4, #0x2]
 	lsl	r1, r2, #0x1
-	ADD r1, r9
+	add r1, r9
 	mov	r3, #0x0
 	ldsh	r1, [r1, r3]
 	bl	sub_8059FA0
 	mov	r1, #0xc
 	add	r1, r1, r7
 	mov	r8, r1
-	ADD r8, r5
+	add r8, r5
 	lsl	r0, r0, #0x10
 	asr	r0, r0, #0x10
 	mov	r2, r8
@@ -78,12 +78,12 @@ sub_8059B00:
 	ldr	r1, .L8059C0C + 4
 	add	r0, r0, r1
 	ldrh	r0, [r0]
-	NEG	r0, r0
+	neg	r0, r0
 	lsl	r0, r0, #0x10
 	asr	r0, r0, #0x10
 	ldrh	r2, [r4, #0x4]
 	lsl	r1, r2, #0x1
-	ADD r1, r9
+	add r1, r9
 	mov	r3, #0x0
 	ldsh	r1, [r1, r3]
 	bl	sub_8059FA0
@@ -102,7 +102,7 @@ sub_8059B00:
 	ldsh	r0, [r0, r2]
 	ldrh	r4, [r4, #0x4]
 	lsl	r1, r4, #0x1
-	ADD r1, r9
+	add r1, r9
 	mov	r3, #0x0
 	ldsh	r1, [r1, r3]
 	bl	sub_8059FA0

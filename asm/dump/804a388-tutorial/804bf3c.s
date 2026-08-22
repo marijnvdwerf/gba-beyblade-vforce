@@ -10,19 +10,19 @@ sub_804BF3C:
 	mov	ip, r0
 	mov	r0, #0xf0
 	lsl	r0, r0, #0x2
-	ADD r0, ip
+	add r0, ip
 	ldr	r7, [r0]
 	mov	r0, #0xbc
 	lsl	r0, r0, #0x2
-	ADD r0, ip
+	add r0, ip
 	ldr	r1, [r0]
 	mov	r0, #0x9d
 	lsl	r0, r0, #0x2
-	ADD r0, ip
+	add r0, ip
 	ldr	r2, [r0]
 	mov	r6, #0xf6
 	lsl	r6, r6, #0x2
-	ADD r6, ip
+	add r6, ip
 	cmp	r1, #0
 	bne	.L804BF6C	@cond_branch
 	b	.L804C084
@@ -52,7 +52,7 @@ sub_804BF3C:
 	and	r3, r3, r5
 	sub	r2, r2, r3
 	ldr	r0, .L804C008
-	ADD r0, ip
+	add r0, ip
 	sub	r1, r1, r2
 	asr	r1, r1, #0x8
 	add	r1, r1, #0x8
@@ -81,13 +81,13 @@ sub_804BF3C:
 	str	r5, [sp]
 	mov	r1, #0xe0
 	lsl	r1, r1, #0x1
-	ADD r1, ip
+	add r1, ip
 	ldrb	r1, [r1]
 	sub	r1, r1, #0x1
 	str	r1, [sp, #0x4]
 	mov	r4, #0xf5
 	lsl	r4, r4, #0x2
-	ADD r4, ip
+	add r4, ip
 	ldr	r1, [r4]
 	str	r1, [sp, #0x8]
 	mov	r1, r9
@@ -126,13 +126,13 @@ sub_804BF3C:
 	str	r1, [sp]
 	mov	r1, #0xe0
 	lsl	r1, r1, #0x1
-	ADD r1, ip
+	add r1, ip
 	ldrb	r1, [r1]
 	sub	r1, r1, #0x1
 	str	r1, [sp, #0x4]
 	mov	r1, #0xf5
 	lsl	r1, r1, #0x2
-	ADD r1, ip
+	add r1, ip
 	lsl	r3, r4, #0x7
 	ldr	r1, [r1]
 	add	r1, r1, r3
@@ -152,7 +152,7 @@ sub_804BF3C:
 	ldr	r3, .L804C094
 	mov	r0, #0xf5
 	lsl	r0, r0, #0x2
-	ADD r0, ip
+	add r0, ip
 	lsl	r2, r5, #0x7
 	ldr	r1, [r0]
 	add	r1, r1, r2

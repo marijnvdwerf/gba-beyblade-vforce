@@ -107,7 +107,7 @@ sub_805C9A4:
 	add	r5, r3, r5
 	str	r5, [sp, #0x24]
 	add	r0, r5, #0
-	ADD r0, r8
+	add r0, r8
 	add	r0, r0, r4
 	str	r0, [sp, #0x28]
 	add	r6, r3, r6
@@ -117,7 +117,7 @@ sub_805C9A4:
 	add	r6, r3, r6
 	str	r6, [sp, #0x28]
 	add	r0, r6, #0
-	ADD r0, r8
+	add r0, r8
 	add	r6, r0, r4
 	str	r6, [sp, #0x24]
 	add	r3, r3, r5
@@ -633,13 +633,13 @@ sub_805C9A4:
 	add	r1, r0, #0
 	cmp	r0, #0
 	bge	.L805CE44	@cond_branch
-	NEG	r1, r0
+	neg	r1, r0
 .L805CE44:
 	cmp	r1, #0xff
 	bgt	.L805CE4A	@cond_branch
 	mov	r0, #0x0
 .L805CE4A:
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r7, #0x44]
 .L805CE4E:
 	mov	r0, #0x2
@@ -655,13 +655,13 @@ sub_805C9A4:
 	add	r1, r0, #0
 	cmp	r0, #0
 	bge	.L805CE6A	@cond_branch
-	NEG	r1, r0
+	neg	r1, r0
 .L805CE6A:
 	cmp	r1, #0xff
 	bgt	.L805CE70	@cond_branch
 	mov	r0, #0x0
 .L805CE70:
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r7, #0x40]
 .L805CE74:
 	ldr	r0, [sp, #0x38]

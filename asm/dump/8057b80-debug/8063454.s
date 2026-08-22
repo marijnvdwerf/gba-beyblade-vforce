@@ -34,7 +34,7 @@ sub_8063454:
 	mov	r0, #0x0
 	mov	r8, r0
 	ldr	r2, [sp, #0x4]
-	ADD r2, r9
+	add r2, r9
 	str	r2, [sp, #0x10]
 	add	r1, r1, #0x1
 	str	r1, [sp, #0xc]
@@ -101,12 +101,12 @@ sub_8063454:
 	mov	r4, ip
 	strh	r0, [r4]
 	mov	r7, #0x2
-	ADD ip, r7
+	add ip, r7
 	ldr	r0, [sp, #0x14]
 	add	r0, r0, #0x2
 	str	r0, [sp, #0x14]
 	mov	r1, #0x1
-	ADD r8, r1
+	add r8, r1
 	ldrh	r2, [r6, #0x6]
 	cmp	r8, r2
 	blt	.L80634A8	@cond_branch

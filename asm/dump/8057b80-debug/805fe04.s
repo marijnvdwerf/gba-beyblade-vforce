@@ -12,7 +12,7 @@ sub_805FE04:
 	strh	r3, [r0, #0x30]
 	strh	r3, [r0, #0x2e]
 	mov	r1, #0x1
-	NEG	r1, r1
+	neg	r1, r1
 	str	r1, [sp]
 	ldr	r5, .L805FE64
 	mov	r1, sp

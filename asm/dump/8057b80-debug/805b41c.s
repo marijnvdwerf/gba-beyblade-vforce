@@ -88,7 +88,7 @@ sub_805B41C:
 	str	r1, [sp, #0x8]
 .L805B4C0:
 	mov	r0, #0x8
-	NEG	r0, r0
+	neg	r0, r0
 	ldr	r3, [sp, #0xc]
 	and	r0, r0, r3
 	lsl	r0, r0, #0x2
@@ -96,7 +96,7 @@ sub_805B41C:
 	asr	r1, r7, #0x3
 	add	r0, r0, r1
 	lsl	r0, r0, #0x1
-	ADD sl, r0
+	add sl, r0
 	ldr	r3, [sp, #0x1c]
 	mov	r1, #0x7
 	ldr	r0, [sp, #0xc]
@@ -156,14 +156,14 @@ sub_805B41C:
 	mov	r1, sl
 	strh	r0, [r1]
 	mov	r6, #0x2
-	ADD sl, r6
+	add sl, r6
 	add	r0, r2, #0
 	sub	r2, r2, #0x1
 	cmp	r0, #0
 	bne	.L805B518	@cond_branch
 .L805B54C:
 	ldr	r7, [sp, #0x34]
-	ADD sl, r7
+	add sl, r7
 	add	r0, r3, #0
 	add	r3, r4, #0
 	cmp	r0, #0
@@ -234,8 +234,8 @@ sub_805B41C:
 	str	r2, [sp, #0x24]
 .L805B5D6:
 	mov	r3, #0x1
-	NEG	r3, r3
-	ADD r8, r3
+	neg	r3, r3
+	add r8, r3
 	ldr	r0, [sp, #0x1c]
 	cmp	r0, #0
 	beq	.L805B630	@cond_branch
@@ -253,15 +253,15 @@ sub_805B41C:
 	cmp	r3, #0
 	beq	.L805B624	@cond_branch
 	mov	r0, #0x8
-	NEG	r0, r0
+	neg	r0, r0
 	and	r0, r0, r7
 	lsl	r0, r0, #0x3
-	ADD r0, sl
+	add r0, sl
 	mov	r9, r0
 .L805B606:
 	asr	r0, r4, #0x3
 	lsl	r0, r0, #0x1
-	ADD r0, r9
+	add r0, r9
 	str	r7, [sp]
 	ldr	r1, [sp, #0x14]
 	add	r2, r6, #0

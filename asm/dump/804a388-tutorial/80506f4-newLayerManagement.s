@@ -47,13 +47,13 @@ newLayerManagement:
 	mov	r2, #0x1
 	ldrb	r0, [r0, #0x18]
 	and	r2, r2, r0
-	NEG	r0, r2
+	neg	r0, r2
 	orr	r0, r0, r2
 	asr	r1, r0, #0x1f
 	mov	r0, #0x2
 	and	r1, r1, r0
 	mov	r0, sl
-	ASR	r0, r1
+	asr	r0, r1
 	mov	r5, #0x1
 	b	.L805076A
 .L8050760:
@@ -61,7 +61,7 @@ newLayerManagement:
 	lsl	r0, r0, #0x10
 	lsr	r1, r0, #0x10
 	mov	r0, sl
-	ASR	r0, r1
+	asr	r0, r1
 .L805076A:
 	and	r0, r0, r5
 	cmp	r0, #0
@@ -77,7 +77,7 @@ newLayerManagement:
 	.4byte	Str_872934C
 .L8050780:
 	mov	r0, #0x1
-	LSL	r0, r1
+	lsl	r0, r1
 	mov	r5, sl
 	orr	r5, r5, r0
 	lsl	r0, r5, #0x10
@@ -99,11 +99,11 @@ newLayerManagement:
 	lsr	r0, r0, #0x10
 	str	r0, [sp]
 	ldr	r0, [r3, #0x4]
-	NEG	r0, r0
+	neg	r0, r0
 	asr	r0, r0, #0x8
 	str	r0, [sp, #0x4]
 	ldr	r0, [r3, #0x8]
-	NEG	r0, r0
+	neg	r0, r0
 	asr	r0, r0, #0x8
 	str	r0, [sp, #0x8]
 	mov	r0, ip
@@ -157,7 +157,7 @@ newLayerManagement:
 	add	r2, r7, #0
 	and	r2, r2, r1
 	mov	r5, #0x4
-	NEG	r5, r5
+	neg	r5, r5
 	add	r1, r5, #0
 	ldrb	r3, [r0]
 	and	r1, r1, r3

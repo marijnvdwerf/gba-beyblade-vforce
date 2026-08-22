@@ -61,11 +61,11 @@ sub_805B280:
 	sub	r1, r0, r1
 	mov	ip, r1
 	mov	r0, sl
-	MVN	r3, r0
+	mvn	r3, r0
 	mov	r6, sl
 	add	r3, r3, #0x8
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r3, r0
 	beq	.L805B340	@cond_branch
 	mov	sl, r0
@@ -75,9 +75,9 @@ sub_805B280:
 	str	r1, [sp]
 	add	r1, r2, #0
 	mov	r0, r9
-	LSL	r1, r0
+	lsl	r1, r0
 	mov	r0, ip
-	LSR	r2, r0
+	lsr	r2, r0
 	ldr	r0, [sp, #0x4]
 	cmp	r0, #0
 	blt	.L805B32A	@cond_branch
@@ -100,7 +100,7 @@ sub_805B280:
 .L805B340:
 	sub	r6, r6, #0x1
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r6, r0
 	beq	.L805B382	@cond_branch
 	add	r3, r0, #0
@@ -110,9 +110,9 @@ sub_805B280:
 	str	r4, [sp]
 	add	r1, r2, #0
 	mov	r0, r9
-	LSL	r1, r0
+	lsl	r1, r0
 	mov	r4, ip
-	LSR	r2, r4
+	lsr	r2, r4
 	ldr	r0, [sp, #0x4]
 	cmp	r0, #0
 	blt	.L805B36A	@cond_branch
@@ -129,7 +129,7 @@ sub_805B280:
 	str	r0, [r7]
 .L805B376:
 	mov	r1, #0x4
-	ADD r8, r1
+	add r8, r1
 	add	r7, r7, #0x4
 	sub	r6, r6, #0x1
 	cmp	r6, r3

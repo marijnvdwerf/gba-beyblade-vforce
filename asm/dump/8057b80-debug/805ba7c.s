@@ -7,7 +7,7 @@ sub_805BA7C:
 	ldr	r3, [r0, #0xc]
 	mov	r0, #0x8a
 	lsl	r0, r0, #0x1
-	ADD r0, ip
+	add r0, ip
 	ldr	r0, [r0]
 	cmp	r0, #0
 	bne	.L805BAA0	@cond_branch
@@ -15,7 +15,7 @@ sub_805BA7C:
 .L805BA90:
 	mov	r0, #0x8a
 	lsl	r0, r0, #0x1
-	ADD r0, ip
+	add r0, ip
 	ldr	r1, [r0]
 	lsl	r0, r2, #0x2
 	add	r0, r0, r1

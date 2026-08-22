@@ -6,7 +6,7 @@ render_00:
     SUB	R3, R3, R2
     MOV	R3, R3,LSL#8
     MOV	R2, R2,LSL#8
-    ADD	R2, R2, R4,LSL#4
+    add	R2, R2, R4,LSL#4
     AND	R1, R1, #0xFF
     MOV	R4, R2,LSR#12
     CMP	R1, #2
@@ -17,11 +17,11 @@ render_00:
     ADDGT	R4, R4, #0x55
     MUL	R3, R4, R3
     MOV	R3, R3,ASR#16
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R4, R2,LSR#12
     STRB	R4, [R0],#1
     BEQ	locret_80641EC
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R4, R2,LSR#12
     STRB	R4, [R0],#1
 locret_80641EC:
@@ -41,7 +41,7 @@ render_01:
     SUB	R3, R3, R2
     MOV	R3, R3,LSL#8
     MOV	R2, R2,LSL#8
-    ADD	R2, R2, R4,LSL#4
+    add	R2, R2, R4,LSL#4
     MOV	R4, R1,LSL#4
     MOVS	R5, R4
     RSBLT	R3, R3, #0
@@ -53,13 +53,13 @@ render_01:
     MOVLT	R3, R3,ASR#12
     MOVGE	R3, R3,ASR#16
     MOV	R4, R2,LSR#12
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R6, R2,LSR#12
     ORR	R4, R4, R6,LSL#8
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R6, R2,LSR#12
     ORR	R4, R4, R6,LSL#16
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R6, R2,LSR#12
     ORR	R4, R4, R6,LSL#24
     ANDS	R5, R0, #3
@@ -73,26 +73,26 @@ render_01:
     MOVNE	R4, R4,LSR#16
     BHI	loc_80642A4
     BNE	loc_80642CC
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R6, R2,LSR#12
     ORR	R4, R4, R6,LSL#24
     B	loc_80642E4
 loc_80642A4:
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R6, R2,LSR#12
     ORR	R4, R4, R6,LSL#8
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R6, R2,LSR#12
     ORR	R4, R4, R6,LSL#16
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R6, R2,LSR#12
     ORR	R4, R4, R6,LSL#24
     B	loc_80642E4
 loc_80642CC:
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R6, R2,LSR#12
     ORR	R4, R4, R6,LSL#16
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R6, R2,LSR#12
     ORR	R4, R4, R6,LSL#24
 loc_80642E4:
@@ -101,15 +101,15 @@ loc_80642E4:
     BEQ	loc_8064328
 loc_80642F0:
     STR	R4, [R0],#4
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R4, R2,LSR#12
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R6, R2,LSR#12
     ORR	R4, R4, R6,LSL#8
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R6, R2,LSR#12
     ORR	R4, R4, R6,LSL#16
-    ADD	R2, R2, R3
+    add	R2, R2, R3
     MOV	R6, R2,LSR#12
     ORR	R4, R4, R6,LSL#24
     SUBS	R1, R1, #1
@@ -131,12 +131,12 @@ render_02:
     LDRH	R4, [R2,#2]
     LDRH	R5, [R2,#4]
     CMP	R4, R5
-    ADD	R3, R1, R3,LSL#4
-    ADD	R4, R1, R4,LSL#4
+    add	R3, R1, R3,LSL#4
+    add	R4, R1, R4,LSL#4
     LDR	R6, [R3,#4]
     LDR	R7, [R4,#4]
     BEQ	loc_8064700
-    ADD	R5, R1, R5,LSL#4
+    add	R5, R1, R5,LSL#4
     LDR	R8, [R5,#4]
     CMP	R6, R7
     BLE	loc_8064390
@@ -203,7 +203,7 @@ loc_80643D0:
     SUB	R10, R10, R9
     SUB	R11, R1, R9
     LDRH	R1, [R2,#6]
-    BIC	R1, R1, #1
+    bic	R1, R1, #1
     MOV	R1, R1,LSL#1
     MUL	R2, R10, R6
     MUL	R12, R11, R7
@@ -313,7 +313,7 @@ loc_80645C8:
     MOVLE	R1, #1
     MOVGT	R1, #0
     LDRH	R11, [R2,#6]
-    BIC	R11, R11, #1
+    bic	R11, R11, #1
     MOV	R11, R11,LSL#1
     ORR	R11, R11, R1
     STRH	R11, [R0,#0x1E]
@@ -407,7 +407,7 @@ loc_8064720:
     MOVLT	R10, R10,ASR#12
     MOVGE	R10, R10,ASR#16
     MOVS	R10, R10
-    ADD	R1, R9, R10
+    add	R1, R9, R10
     STRH	R10, [R0,#6]
     MOVGE	R5, R10
     RSBLT	R5, R10, #0
@@ -458,12 +458,12 @@ render_03:
     STMFD	SP!, {R5-R12,LR}
     LDRB	R12, [R0,#0x17]
     MOV	R4, R12
-    ADD	R12, R1, R12,LSL#6
+    add	R12, R1, R12,LSL#6
     LDRH	R11, [R0,#0x1E]
     LDRH	R10, [R0,#0x14]
     AND	R9, R10, #0xFF
     MOV	R10, R10,LSR#8
-    ADD	R4, R4, R9
+    add	R4, R4, R9
     SUBS	R4, R4, #0x1F
     SUBGE	R9, R9, R4
     SUBGE	R10, R10, R4
@@ -486,7 +486,7 @@ loc_8064880:
     SUBS	R1, R1, R4,ASR#6
     BLE	loc_80648C0
     CMP	R1, #4
-    BIC	R2, R11, #3
+    bic	R2, R11, #3
     ORR	R1, R1, R2,LSL#6
     MOV	R2, R6,ASR#7
     MOV	R3, R7,ASR#7
@@ -514,18 +514,18 @@ loc_80648C0:
     BEQ	loc_8064920
 loc_8064908:
     LDRSH	R3, [R0,#6]
-    ADD	R4, R4, R3
+    add	R4, R4, R3
     LDRSH	R3, [R0,#2]
-    ADD	R6, R6, R3
+    add	R6, R6, R3
     MOVS	R1, R1
     BNE	loc_8064930
 loc_8064920:
     LDRSH	R3, [R0,#0xE]
-    ADD	R5, R5, R3
+    add	R5, R5, R3
     LDRSH	R3, [R0,#0xA]
-    ADD	R7, R7, R3
+    add	R7, R7, R3
 loc_8064930:
-    ADD	R12, R12, #0x40
+    add	R12, R12, #0x40
     B	loc_8064880
 loc_8064938:
     LDMFD	SP!, {R5-R12,LR}
@@ -549,7 +549,7 @@ loc_8064958:
     MOVS	R1, R1
     BLE	loc_80649A0
     CMP	R1, #4
-    BIC	R2, R11, #3
+    bic	R2, R11, #3
     ORR	R1, R1, R2,LSL#6
     MOV	R2, #0
     MOV	R3, #0
@@ -573,7 +573,7 @@ loc_80649A0:
     MOVS	R7, R7
     SUBGE	R6, R5, R1
     ADDLT	R6, R5, R1
-    ADD	R12, R12, #0x40
+    add	R12, R12, #0x40
     B	loc_8064958
 loc_80649E8:
     LDMFD	SP!, {R5-R12,LR}
@@ -594,7 +594,7 @@ render_04:
     MOV	R4, R4,LSL#1
     ADR	R7, off_8064AD4
     LDR	R7, [R7]
-    ADD	R7, R7, R4
+    add	R7, R7, R4
     LDRSH	R6, [R7],#0x80
     LDRSH	R7, [R7]
     LDRSB	R0, [R12,#0x24]
@@ -605,7 +605,7 @@ render_04:
     SUB	R9, R8, R9
     MUL	R8, R5, R7
     MUL	R7, R0, R6
-    ADD	R8, R8, R7
+    add	R8, R8, R7
     MOV	R0, R9,ASR#8
     MOV	R5, R8,ASR#8
     MOV	R1, R5
@@ -613,7 +613,7 @@ render_04:
     LDRSH	R10, [R12,#0x2C]
     LDRSH	R11, [R12,#0x2E]
     MOV	R6, LR
-    MVN	LR, #0xFF00
+    mvn	LR, #0xFF00
 loc_8064A6C:
     LDMIA	R2, {R8,R9}
     SUB	R8, R8, R10
@@ -621,7 +621,7 @@ loc_8064A6C:
     CMP	R9, LR
     MOVGT	LR, R9
     STMIA	R2, {R8,R9}
-    ADD	R2, R2, #0xC
+    add	R2, R2, #0xC
     LDRSB	R4, [R2]
     LDRSB	R5, [R2,#1]
     MUL	R4, R0, R4
@@ -629,9 +629,9 @@ loc_8064A6C:
     LDRSB	R5, [R2,#2]
     MLA	R4, R1, R5, R4
     MOV	R4, R4,ASR#7
-    ADD	R4, R4, #0x80
+    add	R4, R4, #0x80
     AND	R5, R6, #7
-    ADD	R4, R4, R6,LSR#3
+    add	R4, R4, R6,LSR#3
     MOV	R4, R4,LSR R5
     CMP	R4, #0xFF
     MOVGT	R4, #0xFF
@@ -653,7 +653,7 @@ render_05:
     LDR	R12, [R0]
     LDR	R0, [R0,#4]
     LDRSH	R12, [R12,#4]
-    ADD	R10, R3, #4
+    add	R10, R3, #4
     MOV	LR, #0xFF0000
     MOV	R11, #0xFF0000
 loc_8064AF8:
@@ -676,9 +676,9 @@ loc_8064AF8:
     MUL	R6, R9, R6
     MUL	R7, R9, R7
     MUL	R8, R9, R8
-    ADD	R3, R3, R6,ASR#10
-    ADD	R4, R4, R7,ASR#10
-    ADD	R5, R5, R8,ASR#10
+    add	R3, R3, R6,ASR#10
+    add	R4, R4, R7,ASR#10
+    add	R5, R5, R8,ASR#10
 loc_8064B50:
     LDR	R9, [R2,#0x58]
     MUL	R6, R3, R9
@@ -713,8 +713,8 @@ loc_8064B50:
     BNE	loc_8064BE0
     SUB	R6, R3, R5
     MOV	R6, R6,ASR#1
-    ADD	R6, R6, R4
-    ADD	R3, R3, R5
+    add	R6, R6, R4
+    add	R3, R3, R5
     MOV	R4, R6
 loc_8064BE0:
     CMP	R4, LR
@@ -722,7 +722,7 @@ loc_8064BE0:
     CMP	R3, R11
     MOVLT	R11, R3
     STMIA	R1!, {R3-R5}
-    ADD	R1, R1, #4
+    add	R1, R1, #4
     SUBS	R12, R12, #1
     BNE	loc_8064AF8
     SUB	R11, R11, #0x40
@@ -737,12 +737,12 @@ loc_8064BE0:
 render_06:
     STMFD	SP!, {R0-R6}
     LDR	R3, [R0,#8]
-    ADD	R3, R3, R1,LSL#2
+    add	R3, R3, R1,LSL#2
     LDRSH	R4, [R0,#4]
     LDR	R6, [R0,#0xC]
-    ADD	R5, R6, R4,LSL#2
+    add	R5, R6, R4,LSL#2
     STRH	R2, [R5]
-    MVN	R1, #0
+    mvn	R1, #0
     STRH	R1, [R5,#2]
     LDRSH	R1, [R3]
     MOVS	R1, R1
@@ -752,7 +752,7 @@ render_06:
     ADDGE	R5, R6, R1,LSL#2
     STRGEH	R4, [R5,#2]
     STRGEH	R4, [R3,#2]
-    ADD	R4, R4, #1
+    add	R4, R4, #1
     STRH	R4, [R0,#4]
     LDMFD	SP!, {R0-R6}
     BX	LR
@@ -778,22 +778,22 @@ loc_8064C98:
     MOVS	R2, R2
     LDMLTFD	SP!, {R4-R11,LR}
     BXLT	LR
-    ADD	R2, R4, R2,LSL#2
+    add	R2, R4, R2,LSL#2
     LDRSH	R12, [R2,#2]
     LDRSH	R2, [R2]
 loc_8064CB4:
     STMFD	SP!, {R3-R5}
-    ADD	R3, R3, R2,LSL#3
+    add	R3, R3, R2,LSL#3
 loc_8064CBC:
     LDMIA	R3!, {R4,R5}
     MOV	R6, R4,LSL#16
     MOV	R6, R6,LSR#16
-    ADD	R6, R11, R6,LSL#4
+    add	R6, R11, R6,LSL#4
     MOV	R7, R4,LSR#16
-    ADD	R7, R11, R7,LSL#4
+    add	R7, R11, R7,LSL#4
     MOV	R8, R5,LSL#16
     MOV	R8, R8,LSR#16
-    ADD	R8, R11, R8,LSL#4
+    add	R8, R11, R8,LSL#4
     CMP	R7, R8
     BEQ	loc_8064D70
     MOV	R4, R5,LSR#16
@@ -814,16 +814,16 @@ loc_8064CBC:
     LDR	R4, [R6,#8]
     LDR	R5, [R7,#8]
     LDR	R9, [R8,#8]
-    ADD	R4, R4, R5
+    add	R4, R4, R5
     MOV	R4, R4,ASR#1
-    ADD	R4, R4, R9
+    add	R4, R4, R9
     MOV	R4, R4,ASR#8
-    ADD	R4, R4, #0x10
+    add	R4, R4, #0x10
     AND	R4, R4, #0x1F
     RSB	R1, R4, #0x1F
     BL	render_06
 loc_8064D50:
-    ADD	R2, R2, #1
+    add	R2, R2, #1
     SUBS	R12, R12, #1
     BNE	loc_8064CBC
     LDMFD	SP!, {R3-R5}
@@ -835,15 +835,15 @@ loc_8064D70:
     LDR	R4, [R6,#8]
     LDR	R5, [R7,#8]
     LDR	R9, [R8,#8]
-    ADD	R4, R4, R5
+    add	R4, R4, R5
     MOV	R4, R4,ASR#1
-    ADD	R4, R4, R9
+    add	R4, R4, R9
     MOV	R4, R4,ASR#8
-    ADD	R4, R4, #0x11
+    add	R4, R4, #0x11
     AND	R4, R4, #0x1F
     RSB	R1, R4, #0x1F
     BL	render_06
-    ADD	R2, R2, #1
+    add	R2, R2, #1
     SUBS	R12, R12, #1
     BNE	loc_8064CBC
     LDMFD	SP!, {R3-R5}
@@ -869,9 +869,9 @@ loc_8064DDC:
     MOVS	R5, R5
     BLT	loc_8064E1C
 loc_8064DE8:
-    ADD	R5, R10, R5,LSL#2
+    add	R5, R10, R5,LSL#2
     LDRH	R4, [R5]
-    ADD	R2, R9, R4,LSL#3
+    add	R2, R9, R4,LSL#3
     MOV	R0, R6
     MOV	R1, R8
     BL	render_02
@@ -896,28 +896,28 @@ render_09:
     STMFD	SP!, {R4,R5}
 loc_8064E34:
     LDMIA	R2, {R4,R5}
-    ADD	R2, R2, R1
+    add	R2, R2, R1
     STMIA	R3!, {R4,R5}
     LDMIA	R2, {R4,R5}
-    ADD	R2, R2, R1
+    add	R2, R2, R1
     STMIA	R3!, {R4,R5}
     LDMIA	R2, {R4,R5}
-    ADD	R2, R2, R1
+    add	R2, R2, R1
     STMIA	R3!, {R4,R5}
     LDMIA	R2, {R4,R5}
-    ADD	R2, R2, R1
+    add	R2, R2, R1
     STMIA	R3!, {R4,R5}
     LDMIA	R2, {R4,R5}
-    ADD	R2, R2, R1
+    add	R2, R2, R1
     STMIA	R3!, {R4,R5}
     LDMIA	R2, {R4,R5}
-    ADD	R2, R2, R1
+    add	R2, R2, R1
     STMIA	R3!, {R4,R5}
     LDMIA	R2, {R4,R5}
-    ADD	R2, R2, R1
+    add	R2, R2, R1
     STMIA	R3!, {R4,R5}
     LDMIA	R2!, {R4,R5}
-    ADD	R2, R2, R1
+    add	R2, R2, R1
     STMIA	R3!, {R4,R5}
     SUB	R2, R2, R1,LSL#3
     SUB	R0, R0, #1

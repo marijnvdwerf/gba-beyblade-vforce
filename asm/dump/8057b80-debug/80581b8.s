@@ -18,7 +18,7 @@ sub_80581B8:
 	mov	r0, #0x2e
 	ldsh	r1, [r4, r0]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	cmp	r1, r0
 	beq	.L805820A	@cond_branch
 	mov	r1, #0x1a

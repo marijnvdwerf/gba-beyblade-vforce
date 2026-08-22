@@ -29,7 +29,7 @@ sub_80584B8:
 	add	r0, r0, #0x84
 	ldr	r1, [r0]
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 	ldr	r2, [r4, #0x40]
 	ldr	r3, [r4, #0x44]
 	ldr	r7, [r4, #0x48]

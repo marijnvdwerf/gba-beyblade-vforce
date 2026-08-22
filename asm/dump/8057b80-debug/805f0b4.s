@@ -79,7 +79,7 @@ sub_805F0B4:
 	add	r0, r0, r1
 	str	r0, [r4, #0x4]
 	mov	r1, #0x1
-	NEG	r1, r1
+	neg	r1, r1
 	add	r0, r4, #0
 	bl	sub_805F3A8
 	b	.L805F16A

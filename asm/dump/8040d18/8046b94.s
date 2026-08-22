@@ -75,7 +75,7 @@ sub_8046B94:
 	ldr	r5, .L8046C64 + 8
 	ldr	r1, [r5]
 	asr	r1, r1, #0x8
-	NEG	r1, r1
+	neg	r1, r1
 	add	r1, r1, #0x10
 	lsl	r1, r1, #0x10
 	asr	r1, r1, #0x10

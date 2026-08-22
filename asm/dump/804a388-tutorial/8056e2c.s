@@ -59,7 +59,7 @@ sub_8056E2C:
 	mov	r0, #0x1f
 	and	r5, r5, r0
 	mov	r1, #0x1
-	LSL	r1, r5
+	lsl	r1, r5
 	ldr	r0, [r2]
 	orr	r0, r0, r1
 	str	r0, [r2]

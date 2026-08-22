@@ -73,9 +73,9 @@ sub_804E7D4:
 	asr	r0, r0, #0xd
 	mov	r9, r0
 	mov	r4, #0x20
-	ADD r9, r4
+	add r9, r4
 	ldr	r5, [r7]
-	ADD r5, r9
+	add r5, r9
 	str	r5, [sp, #0xc]
 	mov	r0, #0x0
 	mov	r9, r0
@@ -108,8 +108,8 @@ sub_804E7D4:
 	sub	r0, r0, r1
 	mul	r0, r0, r5
 	asr	r0, r0, #0x8
-	ADD sl, r0
-	ADD sl, r2
+	add sl, r0
+	add sl, r2
 	mov	r2, sl
 	ldr	r1, [sp, #0x4]
 	strh	r2, [r1, #0x12]
@@ -118,8 +118,8 @@ sub_804E7D4:
 	sub	r0, r0, r1
 	mul	r0, r0, r5
 	asr	r0, r0, #0x8
-	ADD r8, r0
-	ADD r8, r3
+	add r8, r0
+	add r8, r3
 	mov	r5, r8
 	ldr	r4, [sp, #0x4]
 	strh	r5, [r4, #0x14]

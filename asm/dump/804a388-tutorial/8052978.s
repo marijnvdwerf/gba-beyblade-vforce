@@ -105,7 +105,7 @@ sub_8052978:
 .L8052A4C:
 	ldr	r1, .L8052A5C
 	mov	r0, #0x2
-	NEG	r0, r0
+	neg	r0, r0
 	str	r0, [r1]
 	bl	sub_805565C
 	b	.L8052A6A

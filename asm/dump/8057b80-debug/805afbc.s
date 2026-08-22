@@ -11,7 +11,7 @@ sub_805AFBC:
 	ldr	r4, [r6, #0x24]
 	ldr	r2, [r6, #0x14]
 	mov	r5, #0x1
-	NEG	r5, r5
+	neg	r5, r5
 	cmp	r1, #0
 	beq	.L805B038	@cond_branch
 	mov	r5, #0x1

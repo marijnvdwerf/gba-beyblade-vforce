@@ -30,7 +30,7 @@ sub_805EEA4:
 	blt	.L805EEB6	@cond_branch
 .L805EED4:
 	mov	r0, #0x1
-	NEG	r0, r0
+	neg	r0, r0
 .L805EED8:
 	pop	{r4}
 	pop	{r1}

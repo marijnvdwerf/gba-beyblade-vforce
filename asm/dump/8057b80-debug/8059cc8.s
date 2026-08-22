@@ -12,7 +12,7 @@ sub_8059CC8:
 	mov	r1, #0x3
 	and	r4, r4, r1
 	mov	r1, #0x4
-	NEG	r1, r1
+	neg	r1, r1
 	ldrb	r2, [r0]
 	and	r1, r1, r2
 	orr	r1, r1, r4
