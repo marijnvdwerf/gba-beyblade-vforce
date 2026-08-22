@@ -4,20 +4,6 @@
 
 extern const u8 SpriteSheet_86FBC4C[];
 
-/* Layout/type assumptions of this draft that main's headers do not yet have:
- * GameData begins with an embedded `RiderBase base` (RiderBase: `Actor* unk0`,
- * `void* unkB8`, `unk16 unk3C8`); `Actor.unkC` is s32; `GameData.unk658` is a
- * pointer, `unk15C4[0x10]`, `unk15D4[0x44]`, bytes `unk1619`/`unk161A`;
- * `timers` is a 4-byte union of s16/u16 views over unkC6C/unkC6E;
- * `SpriteEntry.unk18` is a 4-byte union (`b.frame/b.unk19/b.unk1A` vs
- * `h.hword/h.unk1A`); `LevelDescription.unkBC` is u8; `isMultiplayer` returns
- * u16 and sub_805AB58/RiderHasFlag/sub_804E440/sub_806014C/sub_806008C/
- * sub_8060040/sub_8050114/sub_80501C8 return u8. agbcc pads unions to 32 bits.
- */
-/* gameLoop: structurally complete draft (see docs/learnings/red7-gameloop3.md).
- * Everything up to 0x58a matches; the remaining 52 diff rows are the two
- * REG_KEYINPUT mask tests (0x100 built then copied, mask 2 kept live into the
- * key-wait loop) and the reload scratch-register cascade after them. */
 #if 0
 void gameLoop(void)
 {
