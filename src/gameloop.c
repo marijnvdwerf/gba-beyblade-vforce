@@ -93,11 +93,6 @@ void gameLoop(void)
                 current = &_gameData->base;
             }
             renderRider(current);
-            /* The target keeps a dead `ldrh`/`and` of `unk3C8 & 2` here with no
-             * consumer: the body must be a statement pair that only cancels in
-             * combine (after the last dead-code sweep), so the branch is dropped
-             * as jump-to-next in the final jump pass but the test survives. An
-             * empty body, `continue`, or a dead assignment is removed earlier. */
             if (current->unk3C8 & 2) {
                 current++;
                 current--;
