@@ -33,6 +33,9 @@ void sub_8049018(void)
 INCLUDE_ASM("asm/dump/8040d18/804903c.s");
 INCLUDE_ASM("asm/dump/8040d18/8049074.s");
 
+extern unk8 _unk3000BFC;
+extern void sub_80495C4(void);
+
 void sub_80490CC(unk32 arg0, unk32 arg1)
 {
     FrontendState* state;
@@ -45,8 +48,12 @@ void sub_80490CC(unk32 arg0, unk32 arg1)
 }
 
 INCLUDE_ASM("asm/dump/8040d18/80490f8.s");
+
 INCLUDE_ASM("asm/dump/8040d18/804915c.s");
-INCLUDE_ASM("asm/dump/8040d18/8049168.s");
+void sub_8049168(void)
+{
+    _unk3000650.unk7C = 0;
+}
 INCLUDE_ASM("asm/dump/8040d18/8049178.s");
 INCLUDE_ASM("asm/dump/8040d18/80491c4.s");
 INCLUDE_ASM("asm/dump/8040d18/80491e0.s");

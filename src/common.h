@@ -51,7 +51,7 @@ struct FrontendState {
     unk32 unk8;
     unk32 unkC;
     unk32 unk10;
-    unk8 unk14[0x68];
+    unk32 unk14[0x1A];
     unk8 unk7C;
     unk8 unk7D;
     unk8 unk7E;
