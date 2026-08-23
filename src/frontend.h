@@ -15,7 +15,13 @@ extern const FrontendMenuData _80693DC[];
 extern const FrontendMenuData _8069108[];
 extern const FrontendMenuData _8069428[];
 extern const FrontendMenuData _8069514[];
-extern const unk32 _806E0DC[];
+
+typedef struct FrontendLanguageTable {
+    unk8 pad0[0x3C];
+    const u8* strings[5]; /* 0x3C; one pointer per language */
+} FrontendLanguageTable;
+
+extern const FrontendLanguageTable _806E0DC;
 extern const FrontendMenuData _806980C[];
 extern const FrontendMenuData _8069830[];
 extern const u8 SpriteSheet_82B05EC[];
