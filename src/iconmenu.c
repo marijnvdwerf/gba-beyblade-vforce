@@ -5,11 +5,9 @@
 #include "language.h"
 #include "memory.h"
 #include "music.h"
+#include "packet.h"
 #include "sprite.h"
 #include "spritetext.h"
-
-extern const u8 Str_8729398[];
-extern const s16 Unk_874CC3C[];
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050a7c-newIconMenu.s");
 
@@ -18,6 +16,7 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8050df8.s");
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050e80.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050f0c.s");
+
 void sub_8050F98(FrontendMenu* menu)
 {
     menu->flags |= 3;
@@ -60,5 +59,3 @@ void sub_8051028(FrontendMenu* menu)
     }
     sub_8061204(&menu->text);
 }
-
-asm(".align 2, 0\n");

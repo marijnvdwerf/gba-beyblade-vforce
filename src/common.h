@@ -78,80 +78,28 @@ struct UnkMenuItem {
 };
 
 typedef struct FrontendMenuData FrontendMenuData;
-typedef struct FrontendMenuSourceItem FrontendMenuSourceItem;
 typedef struct FrontendMenuItem FrontendMenuItem;
 
-typedef struct FrontendMenuFontData {
-    const u8* sheet;
-    const u8* metadata;
-    unk16 tileCount;
-    unk8 charWidth;
-    unk8 padB;
-} FrontendMenuFontData;
-
-typedef struct FrontendMenuTextTable {
-    unk32 unk0;
-    const unk32* text[4];
-} FrontendMenuTextTable;
-
-struct FrontendMenuSourceItem {
-    const u8* sheet;
-    const u8* text[4];
-    unk32 unk14;
-    unk32 x;
-    unk32 y;
-    unk32 selectedX;
-    unk32 selectedY;
-    unk16 width;
-    unk8 pad2A[2];
-    unk16 unk2C;
-    unk8 pad2E[2];
-};
-
-struct FrontendMenuData {
-    const FrontendMenuFontData* font;
-    s32 itemCount;
-    s32 scale;
-    unk32 x;
-    unk32 y;
-    unk32 fontX;
-    unk32 fontY;
-    const FrontendMenuSourceItem* items;
-    unk32 unk20;
-};
-
 struct FrontendMenuItem {
-    const FrontendMenuSourceItem* source;
+    unk8 pad0[4];
     SpriteEntry* sprite;
-    s32 x;
-    s32 y;
-    s32 velocity;
-    s32 target;
-    unk16 tile;
-    unk8 pad1A[2];
+    unk8 pad8[0x14];
 };
 
 typedef struct FrontendMenu {
     s32 itemCount;
     unk32 selection;
-    unk32 x;
-    unk32 itemSpacing;
+    unk8 pad8[8];
     unk32 velocity;
-
-    union {
-        unk32 value;
-        unk16 half;
-    } position;
-
+    unk8 pad14[4];
     unk32 textPosition;
     unk32 targetPosition;
     unk32 timer;
     unk32 timerTarget;
     FrontendMenuItem* items;
-    const FrontendMenuData* data;
+    unk8 pad2C[4];
     AllocatedBlock* block;
-    unk32 fontX;
-    unk32 fontY;
+    unk8 pad34[8];
     unk16 flags;
     unk8 pad3E[2];
     SpriteTextCleanup text;
