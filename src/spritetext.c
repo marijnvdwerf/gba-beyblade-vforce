@@ -251,7 +251,6 @@ unk8 showString(SpriteTextCleanup* arg0, const u8* text, unk8 mode)
         flags = (child->x & 0x3E0) << 20;
         flags |= 0x100;
         if ((arg0->unk8 & 8) == 0) {
-            /* The duplicate branches are required for the target instruction shape. */
             if (child->frame != 0) {
                 if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
                     flags |= 0x200;

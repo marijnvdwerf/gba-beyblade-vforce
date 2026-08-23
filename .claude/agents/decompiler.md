@@ -88,6 +88,11 @@ that has no caller in current C.
   (e.g. `strh` at +N in one function, `ldrb` at +N+1 in another — agbcc never
   narrows loads, so the original source punned it). Add a one-line comment
   citing both instructions. Never use a union to paper over an unknown layout.
+- **No match-justification comments.** Never write comments like "agbcc
+  requires this shape", "duplicate branches needed for the match", "keep
+  shifts: masks load literals". The code is the code; explain *what* the
+  game does if anything, never why the compiler wanted it. Put compiler
+  observations in docs/learnings instead.
 - C90: declarations before statements. Run `clang-format -i` on every file
   you touched before committing/reporting (config in `.clang-format`).
 

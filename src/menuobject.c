@@ -18,7 +18,6 @@ void sub_80434EC(MenuObject* object)
     if (count != 0) {
         item = object->items;
         count--;
-        /* agbcc requires the decremented count for this loop shape. */
         while (count != (unk32)-1) {
             sub_805041C(item);
             item++;

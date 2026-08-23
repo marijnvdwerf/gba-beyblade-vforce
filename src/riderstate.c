@@ -34,7 +34,6 @@ s32 sub_8050114(RiderState* arg0)
 
     checksum = (s16)(arg0->prefix.words.unk2 ^ arg0->prefix.words.unk4);
     flagsWord = arg0->prefix.words.unk6;
-    /* Keep shifts: agbcc emits the target lsl/lsr sequence; masks load literals. */
     checksum ^= (unk32)(flagsWord << 22) >> 22;
     checksum ^= (unk32)(arg0->unkD << 28) >> 28;
     checksum ^= arg0->unk8;
