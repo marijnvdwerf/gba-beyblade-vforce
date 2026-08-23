@@ -1,11 +1,22 @@
 #include "effects.h"
 
 #include "include_asm.h"
+#include "ram.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805529c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055340.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80555f4.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055624.s");
+
+void sub_8055624(void)
+{
+    GameData* base;
+
+    base = _gameData;
+    base->unk1102 = 0;
+    base->unk10FC = 0xFFFF;
+    base->unk1104 &= ~1;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/805565c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055674.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805568c.s");

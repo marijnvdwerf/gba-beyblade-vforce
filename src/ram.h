@@ -160,7 +160,12 @@ typedef struct GameData {
     unk8 unk107D; /* 0x107D */
     unk8 pad107E[2]; /* 0x107E */
     unk32 unk1080; /* 0x1080 */
-    unk8 pad1084[0x8C]; /* 0x1084 */
+    unk8 pad1084[0x78]; /* 0x1084 */
+    unk16 unk10FC; /* 0x10FC */
+    unk8 pad10FE[4]; /* 0x10FE */
+    unk16 unk1102; /* 0x1102 */
+    unk32 unk1104; /* 0x1104 */
+    unk8 pad1108[8]; /* 0x1108 */
     BeybladeActorData actorData[0x3C]; /* 0x1110 */
     u16 unk12F0; /* 0x12F0 */
     unk8 pad12F2[2]; /* 0x12F2 */
