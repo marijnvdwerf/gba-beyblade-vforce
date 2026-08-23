@@ -1,3 +1,5 @@
+#include <agb/memory_map.h>
+
 #include "animevent.h"
 #include "bios.h"
 #include "include_asm.h"
@@ -287,7 +289,49 @@ void sub_805295C(void)
     } while (temp != 0);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8052978.s");
+void sub_8052978(unk32 arg0, unk32 arg1)
+{
+    switch (arg0) {
+    case 0:
+        _unk3000C0C = 0;
+        _unk3000C04 = 0x40;
+        _unk3000C08 = 0;
+        *(vu16*)REG_BLDCNT = 0xFF;
+        *(vu16*)(REG_BLDCNT + 4) = 0x10;
+        break;
+    case 5:
+        _unk3000C0C = (void (*)(void))arg1;
+        break;
+    case 6:
+        break;
+    case 2:
+        *(vu16*)REG_BLDY = 0;
+        _unk3000C04 += _unk3000C08;
+        *(vu16*)REG_BLDCNT = 0xE41;
+        *(vu16*)(REG_BLDCNT + 2) = 0xE08;
+        if (_unk3000C04 < 0) {
+            _unk3000C04 = 0;
+            _unk3000C08 = 0;
+        }
+        if (_unk3000C04 > 0x40) {
+            _unk3000C04 = 0x40;
+            _unk3000C08 = 0;
+            if (_unk3000C0C != NULL)
+                _unk3000C0C();
+            _unk3000C0C = NULL;
+        }
+        break;
+    case 3:
+        _unk3000C08 = (unk32)-2;
+        sub_805565C();
+        break;
+    case 4:
+        _unk3000C08 = 2;
+        sub_8055674();
+        break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052a74.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052ab8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052afc-nullsub_43.s");
