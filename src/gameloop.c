@@ -15,14 +15,14 @@ void gameLoop(void)
     SpriteEntry* sprite = NULL;
     unk8* item = NULL;
     unk8* cleanup;
-    s8 fadeStep;
-    s8 fadeDir;
-    s8 vblankPending;
+    unk8 fadeStep;
+    unk8 fadeDir;
+    unk8 vblankPending;
     Actor* object;
     void* target;
     RiderBase* rider;
     void (*transition)(unk32, unk32) = sub_8052978;
-    s32 i;
+    unk32 i;
 
     cleanup = _gameData->unk15C4;
     fadeStep = 0xF;

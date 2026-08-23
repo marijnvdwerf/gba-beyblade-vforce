@@ -145,9 +145,9 @@ void sub_8049344(u32 arg0)
         callback(base, arg0);
 }
 
-s32 sub_80493C8(void)
+unk32 sub_80493C8(void)
 {
-    s32 result;
+    unk32 result;
     FrontendState* state;
     GameData* data;
 

@@ -48,7 +48,7 @@ typedef struct SoundStructC {
 } SoundStructC;
 
 typedef struct {
-    /*0x00*/ s16 var00;
+    /*0x00*/ unk16 var00;
 } SoundStructB;
 
 typedef struct {
@@ -67,9 +67,9 @@ extern u16 _unk3000DA2;
 
 extern u8 (*_unk3005E00)[];
 extern u8 _unk3005E04;
-extern s32 _unk3005E08;
+extern unk32 _unk3005E08;
 extern u32 _unk3005E0C;
-extern s32 _unk3005E10;
+extern unk32 _unk3005E10;
 extern SfxTable* _unk3005E14;
 extern u16 _unk3005E18;
 extern u8 (*_soundMixer)[];
@@ -266,7 +266,7 @@ static void Sound_806234C(void)
 
 static void Sound_80623A8(u32 mixerOutputRate)
 {
-    s32 i;
+    unk32 i;
 
     u32* table = *_soundTables;
     const u32* frequencyCursor = MidiNoteFrequencies;
@@ -419,10 +419,10 @@ void Sound_80627A8(SoundStructA* arg0, int arg1, int arg2)
 void sub_80627F0(void)
 {
     u8* audioCursor;
-    s32 channelCount;
-    s32 firstChunkLength;
-    s32 mixLength;
-    s32 wrapDistance;
+    unk32 channelCount;
+    unk32 firstChunkLength;
+    unk32 mixLength;
+    unk32 wrapDistance;
     u32 alignedFrameCount;
     u32 nextTimerPosition;
     u32 previousTimerPosition;
@@ -518,7 +518,7 @@ static void Sound_8062950(SoundStructA* arg0, SoundStructE* (*segments)[], s16 (
     arg0->var24 = 1;
 }
 
-s32 Sound_8062990(SoundStructE* (*segments)[], s16 (*order)[])
+unk32 Sound_8062990(SoundStructE* (*segments)[], s16 (*order)[])
 {
     int i;
 
@@ -538,7 +538,7 @@ s32 Sound_8062990(SoundStructE* (*segments)[], s16 (*order)[])
     return -1;
 }
 
-s32 Sound_80629F0(SoundStructE* arg0, int arg1)
+unk32 Sound_80629F0(SoundStructE* arg0, int arg1)
 {
     int i;
 
@@ -683,7 +683,7 @@ void Sound_8062BA8(int arg0)
     _unk3005E0C = 1;
 }
 
-s32 Sound_8062BFC(int arg0, int arg1)
+unk32 Sound_8062BFC(int arg0, int arg1)
 {
     if (arg0 >= _unk3005E14->count) {
         return;
@@ -698,8 +698,8 @@ void sub_8062C24(void)
     u8 opcode;
     SoundStructF* event;
     SoundStructG* channel;
-    s32 i;
-    s32 found;
+    unk32 i;
+    unk32 found;
 
     if (_unk3005E0C != 1) {
         return;

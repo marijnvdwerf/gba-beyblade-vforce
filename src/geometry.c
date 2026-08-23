@@ -43,7 +43,7 @@ void StoreMetadataAddr(LevelGeometryAddresses* arg0, LineMetadata** value)
     arg0->unk114 = value;
 }
 
-LineMetadata* GetLineMetaData(LevelGeometryAddresses* arg0, s32 index)
+LineMetadata* GetLineMetaData(LevelGeometryAddresses* arg0, unk32 index)
 {
     LineMetadata** metadata;
 

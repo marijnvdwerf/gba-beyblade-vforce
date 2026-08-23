@@ -41,7 +41,7 @@ void sub_8060F64(SpriteEntry*, u16, u16, u8);
 s32 sub_80570C0(s16);
 void sub_8060CDC(SpriteTextBlock*);
 SpriteEntry* resizeSpriteBlock(SpriteTextBlock*, unk16, unk16);
-void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32, s32, unk32, unk32);
+void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);
 void sub_8060B38(SpriteEntry*);
 void sub_8061130(SpriteEntry*, u8);
 void sub_8061160(SpriteEntry*);

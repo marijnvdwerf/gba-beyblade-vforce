@@ -24,7 +24,7 @@ typedef struct Palette {
 
 void sub_80631B0(Palette*, unk8*, unk32, unk32, unk32);
 void sub_80631EC(Palette*, unk8*, s32);
-void sub_8063220(Palette*, s32, s32, s32);
+void sub_8063220(Palette*, unk32, unk32, unk32);
 void sub_8063544(Palette*, s32, s32, s32, s32, s32, s32, s32, s32);
 void sub_8063640(Palette*, s32);
 void sub_8063704(Palette*, s32);

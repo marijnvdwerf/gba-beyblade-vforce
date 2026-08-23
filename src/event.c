@@ -16,11 +16,11 @@ void initEventListeners(unk32 levelId)
     LevelGeometryAddresses geometry;
     void* geometryData = loadLevelGeometry(levelId);
     void* metadata = getLevelMetadata(levelId);
-    s32 listenerCount = 0;
-    s32 maxListeners = 0x20;
-    s32 listenerIds[maxListeners];
-    s32* listenerPtr;
-    s32 i;
+    unk32 listenerCount = 0;
+    unk32 maxListeners = 0x20;
+    unk32 listenerIds[maxListeners];
+    unk32* listenerPtr;
+    unk32 i;
     void* lineMetadata;
     AllocatedBlock* block;
     u32 bytes;
@@ -47,7 +47,7 @@ void initEventListeners(unk32 levelId)
             }
         }
         if (listenerCount != 0) {
-            bytes = listenerCount * sizeof(s32);
+            bytes = listenerCount * sizeof(unk32);
             block = slowAllocate(bytes);
             if (block == NULL) {
                 printf((const char*)Str_87296A4, bytes);

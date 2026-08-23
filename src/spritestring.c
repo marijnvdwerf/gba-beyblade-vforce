@@ -11,9 +11,9 @@
 extern const u8 Str_8756844[];
 extern const u8 byte_807D980[];
 
-s32 sub_8064F38(const u8* str)
+unk32 sub_8064F38(const u8* str)
 {
-    s32 count;
+    unk32 count;
     u8 c;
 
     count = 0;
@@ -195,10 +195,10 @@ void sub_806530C(SpriteString* string)
 }
 
 #if 0
-s32 sub_8065334(SpriteString* string)
+unk32 sub_8065334(SpriteString* string)
 {
     unk16 textOffset;
-    s32 total;
+    unk32 total;
     unk16 index;
     unk8 count;
     const u8* text;

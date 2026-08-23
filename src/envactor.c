@@ -13,7 +13,7 @@
 extern const u8 SpriteSheet_86FBF94[];
 
 #if 0
-extern void ActorSetSpriteOffset(EnvironmentActorSlot*, s16, s16);
+extern void ActorSetSpriteOffset(EnvironmentActorSlot*, unk16, unk16);
 extern void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);
 extern void actor_80585F8(EnvironmentActorSlot*, unk16, unk16, unk16, unk16);
 extern void actor_805C48C(EnvironmentActorSlot*, LevelGeometryAddresses*, unk32, unk32);
@@ -34,9 +34,9 @@ void initLevelEnvironmentActors(u16 level)
     unk32 selectedLines[0x20];
     LevelGeometryAddresses geometry;
     unk32 callbackData[3];
-    s32 lineIndex;
-    s32 selectedCount;
-    s32 effectCount;
+    unk32 lineIndex;
+    unk32 selectedCount;
+    unk32 effectCount;
     unk32 lineSize;
     unk32 effectSizeBytes;
     unk32 pointSize;
@@ -59,11 +59,11 @@ void initLevelEnvironmentActors(u16 level)
     unk32 metadataData;
     unk32 allocationSize;
     unk32 actorType;
-    s32 xDelta;
-    s32 yDelta;
-    s32 x;
-    s32 y;
-    s32 z;
+    unk32 xDelta;
+    unk32 yDelta;
+    unk32 x;
+    unk32 y;
+    unk32 z;
 
     gameData = _gameData;
     allocationField = (EnvironmentActorAllocation*)&gameData->unkC74;

@@ -15,7 +15,7 @@ struct SpriteStruct2 {
     SpriteStruct2* next;
 };
 
-extern const s16 Unk_872CC3C[];
+extern const unk16 Unk_872CC3C[];
 
 extern SpriteStruct2* _unk3005DC8;
 extern SpriteStruct2* _unk3005DD8;
@@ -39,7 +39,7 @@ extern const u8 Str_8755AC8[];
 extern const u8 Str_8755B0C[];
 extern const u8 Str_8755B28[];
 
-void freeSpriteVramLocation(s32, s32);
+void freeSpriteVramLocation(unk32, unk32);
 void sub_8060B38(SpriteEntry*);
 SpriteEntry* sub_8060E8C(SpriteEntry*, u16, u16, u8);
 SpriteEntry* sub_8060C1C(SpriteEntry*, unk16, unk16);
@@ -458,7 +458,7 @@ void sub_8060B38(SpriteEntry* spriteEntry)
 typedef struct SpriteSheet {
     unk8 pad0[6];
     unk8 unk6;
-    s8 unk7;
+    unk8 unk7;
     unk8 pad8[4];
     unk8 unkC;
     unk8 padD[3];
@@ -468,12 +468,12 @@ typedef struct SpriteSheet {
 } SpriteSheet;
 
 void LoadSpriteSheet(SpriteSheetEntry* dst, SpriteSheet* source, unk32 x, unk32 y, unk32 arg4,
-    s32 arg5, unk32 arg6, unk32 arg7)
+    unk32 arg5, unk32 arg6, unk32 arg7)
 {
     register unk32 stackArg4;
     register unk32 stackArg5 asm("r9") = arg5;
     unk32 value;
-    s8 sourceFlags;
+    unk8 sourceFlags;
     unk8 sourceByteC;
     unk8 normalizedArg4;
     register unk16 normalizedArg5 asm("r10");

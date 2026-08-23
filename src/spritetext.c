@@ -81,10 +81,10 @@ void sub_806123C(SpriteTextCleanup* text)
     SpriteEntry* child;
     unk32 line_shift;
     SpriteEntry* next_line;
-    s32 delta;
-    s32 advance;
-    s32 position;
-    s32 adjustment;
+    unk32 delta;
+    unk32 advance;
+    unk32 position;
+    unk32 adjustment;
     SpriteEntry* saved_first;
 
     widths = text->unk20;

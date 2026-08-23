@@ -88,10 +88,10 @@ typedef struct ProjectileSystem {
     unk32 unk1C;
     unk32 unk20;
     unk32 unk24;
-    s16 unk28;
+    unk16 unk28;
     unk8 pad2A[2];
-    s32 unk2C;
-    s32 unk30;
+    unk32 unk2C;
+    unk32 unk30;
     Palette palette34;
     Palette palette48;
     Palette palette5C;
@@ -100,7 +100,7 @@ typedef struct ProjectileSystem {
     u16 unk74;
     u16 unk76;
     u16 unk78;
-    s16 unk7A;
+    unk16 unk7A;
     u16 unk7C;
     u16 unk7E;
     unk32 unk80;
@@ -109,8 +109,8 @@ typedef struct ProjectileSystem {
 } ProjectileSystem;
 
 typedef struct LevelHudText {
-    s32 x; /* 0x00 */
-    s32 y; /* 0x04 */
+    unk32 x; /* 0x00 */
+    unk32 y; /* 0x04 */
     unk8 pad8[0x28]; /* 0x08 */
 } LevelHudText;
 
@@ -334,7 +334,7 @@ extern s32 _unk3000608;
 extern s32 _unk300060C;
 extern SpriteTextCleanup _unk3000610;
 extern s32 _unk3000640;
-extern s32 _unk3000644;
+extern unk32 _unk3000644;
 
 extern SpriteEntry* _unk3000158;
 extern SpriteEntry* _unk300015C;
@@ -385,9 +385,9 @@ extern SpriteEntry* _unk30004A4;
 extern SpriteEntry* _unk30004A8;
 extern s32 _unk30004AC;
 extern s32 _unk30004B0;
-extern s32 _unk30004B4;
-extern s32 _unk30004B8;
-extern s32 _unk30004BC;
+extern unk32 _unk30004B4;
+extern unk32 _unk30004B8;
+extern unk32 _unk30004BC;
 extern s32 _unk30004C4;
 extern s32 _unk30004C8;
 extern s32 _unk30004CC;

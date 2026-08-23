@@ -137,13 +137,13 @@ void initRiders(void)
     LevelGeometryAddresses geometry;
     void* geometryData;
     GeometryLine* multiplayerLine;
-    s32 initialized;
+    unk32 initialized;
     unk32 lineType;
-    s32 lineIndex;
-    s32 x;
-    s32 y;
-    s32 z;
-    s32 riderIndex;
+    unk32 lineIndex;
+    unk32 x;
+    unk32 y;
+    unk32 z;
+    unk32 riderIndex;
     void* rider;
 
     GetLevelDescriptionNo();
@@ -192,7 +192,7 @@ void initRiders(void)
             multiplayerLine = NULL;
             if ((initialized & 1) == 0) {
                 if (_gameData->unk1618 != 0 && isMultiplayer() != 0) {
-                    s32 multiplayerLineIndex;
+                    unk32 multiplayerLineIndex;
 
                     multiplayerLineIndex = GetLineIndexOfType(&geometry, 0x99, 0);
                     if (multiplayerLineIndex >= 0) {

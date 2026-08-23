@@ -37,7 +37,7 @@ struct SpriteTextCleanup {
     const u8* unk24;
     unk8 unk28;
     s8 unk29;
-    s8 unk2A; /* ldsb r0, [r7, r0] at .L8061430 in sub_806123C */
+    unk8 unk2A; /* ldsb r0, [r7, r0] at .L8061430 in sub_806123C */
     unk8 unk2B;
     SpriteEntry* ptr2C;
 };
@@ -92,8 +92,8 @@ struct UnkMenuItem {
     SpriteTextCleanup text;
 
     const u8* unk30;
-    s32 value;
-    s32 count;
+    unk32 value;
+    unk32 count;
     unk32 flags;
     const MenuOptionSet* options;
     unk8 pad44[4];
@@ -142,7 +142,7 @@ typedef struct MenuState {
     s32 itemCount; /* 0x14 */
     unk32 objectCount; /* 0x18 */
     unk8 pad1C[8];
-    s32 unk24; /* 0x24 */
+    unk32 unk24; /* 0x24 */
     unk8 pad28[6];
     unk8 unk2E;
     unk8 unk2F;
@@ -262,7 +262,7 @@ typedef struct Actor {
     unk16 unk14;
     unk16 unk16;
     unk8 pad18[0xA];
-    s16 unk22;
+    unk16 unk22;
     unk8 pad24[0x1C];
     unk32 unk40;
     unk32 unk44;
@@ -276,7 +276,7 @@ typedef struct Actor {
     unk32 unk78;
     struct AllocatedBlock* unk7C;
     unk8 pad80[0x22];
-    s16 unkA2;
+    unk16 unkA2;
     unk8 padA4[0x14];
     SpriteEntry* unkB8;
     unk8 padBC[8];
@@ -338,8 +338,8 @@ struct SpriteString {
     unk32 unk18;
     unk8 pad1C[4];
     unk32 width;
-    s16 scaleX;
-    s16 scaleY;
+    unk16 scaleX;
+    unk16 scaleY;
     const u8* widthTable;
     unk32 timer;
 };
@@ -406,7 +406,7 @@ typedef struct RiderBase {
     unk8 padA8[0x10];
     SpriteEntry* unkB8;
     unk8 padBC[0x178];
-    s32 unk234;
+    unk32 unk234;
     Actor unk238;
     Actor unk2FC;
     unk8 pad3C0[4];
@@ -433,9 +433,9 @@ typedef struct PolyTable {
 /* Canonical level-geometry handle (0x11C bytes); filled by
  * getLevelGeometryAddresses(LevelGeometryAddresses*, void* geometryData). */
 typedef struct GeometryPoint {
-    s32 x;
-    s32 y;
-    s32 z;
+    unk32 x;
+    unk32 y;
+    unk32 z;
     unk32 padC;
 } GeometryPoint;
 
@@ -513,7 +513,7 @@ typedef struct LevelState {
     unk16 unk0;
     unk16 unk2;
     s32 unk4;
-    s32 unk8;
+    unk32 unk8;
     struct LevelDescription* unkC;
     unk32 unk10;
     unk32 unk14;
@@ -589,7 +589,7 @@ typedef struct LevelDescription {
     unk8 unk0;
     unk8 unk1;
     unk8 pad2[2];
-    s32 unk4;
+    unk32 unk4;
     s32 unk8;
     unk8 padC[5];
     unk8 unk11;
@@ -598,7 +598,7 @@ typedef struct LevelDescription {
     unk8 unk1C;
     unk8 unk1D[3];
     s32 unk20;
-    s32 unk24;
+    unk32 unk24;
     s32 unk28;
     LineMetadata** metadata;
     unk32 unk30;

@@ -8,15 +8,15 @@
 extern const char Str_8755834[];
 extern const char Str_8755884[];
 extern const char Str_87558B4[];
-extern s32 __divsi3(s32, s32);
+extern unk32 __divsi3(unk32, unk32);
 
 #if 0
-void initMultiPlayer(unk32 arg0, s32 arg1, u16 arg2)
+void initMultiPlayer(unk32 arg0, unk32 arg1, u16 arg2)
 {
-    s32 temp_r0;
-    s32 temp_r0_2;
-    s32 temp_r1;
-    s32 temp_r4;
+    unk32 temp_r0;
+    unk32 temp_r0_2;
+    unk32 temp_r1;
+    unk32 temp_r4;
     AllocatedBlock* temp_r0_3;
     unk8* temp_r1_2;
     unk8* temp_r6;
