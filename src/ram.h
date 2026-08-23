@@ -349,8 +349,8 @@ typedef struct FrontendCoordinateTarget {
 
 typedef struct FrontendSelectionObject {
     SpriteEntry* sprite;
-    unk32 unk4;
-    unk32 unk8;
+    SpriteTextCleanup* unk4;
+    SpriteTextCleanup* unk8;
     s16 frame;
     unk8 padE[2];
 } FrontendSelectionObject;

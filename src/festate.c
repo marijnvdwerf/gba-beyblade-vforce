@@ -835,14 +835,11 @@ INCLUDE_ASM("asm/dump/8040d18/8046a0c.s");
 
 void sub_8046B94(FrontendState* state, unk32 arg1)
 {
-    SpriteTextCleanup* font;
-    unk32 value;
-    const FrontendLanguageTable* languageTable;
     s32 scrollDelta;
 
     switch (arg1) {
     case 0:
-        _unk30004C8 = 0xFFFF0000;
+        _unk30004C8 = -0x10000;
         _unk30004C4 = 0;
         sub_80596AC(&state->unk250, _unk30004C8, 0);
         _unk30004CC = 0;
@@ -854,13 +851,10 @@ void sub_8046B94(FrontendState* state, unk32 arg1)
         break;
     case 1:
         if (_unk30004CC == 1) {
-            font = (SpriteTextCleanup*)sub_804A0E0(0);
-            languageTable = &_806E0DC;
-            value = getLanguage() << 2;
-            sub_8061660(font, languageTable->strings[value >> 2], 0xF);
+            sub_8061660(sub_804A0E0(0), _806E0DC[3][getLanguage()], 0xF);
         }
         sub_80439A0(&state->unk140);
-        sub_8061844((SpriteTextCleanup*)sub_804A0E0(0), (s16)(-(_unk30004C8 >> 8) + 0x10), 0x4A);
+        sub_8061844(sub_804A0E0(0), -(_unk30004C8 >> 8) + 0x10, 0x4A);
         scrollDelta = (_unk30004C4 - _unk30004C8) >> 2;
         sub_80596AC(&state->unk250, scrollDelta, 0);
         _unk30004C8 += scrollDelta;
@@ -869,11 +863,11 @@ void sub_8046B94(FrontendState* state, unk32 arg1)
     case 2:
         if ((_unk3005DA0 & 1) != 0 || _unk30004CC > 0x258) {
             sub_80490F8(0x17);
-            _unk30004C4 = 0xFFFF0000;
+            _unk30004C4 = -0x10000;
         }
         if ((_unk3005DA0 & 2) != 0) {
             sub_8049178();
-            _unk30004C4 = 0xFFFF0000;
+            _unk30004C4 = -0x10000;
         }
         break;
     }

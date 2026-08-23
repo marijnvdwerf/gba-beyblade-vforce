@@ -16,12 +16,7 @@ extern const FrontendMenuData _8069108[];
 extern const FrontendMenuData _8069428[];
 extern const FrontendMenuData _8069514[];
 
-typedef struct FrontendLanguageTable {
-    unk8 pad0[0x3C];
-    const u8* strings[5]; /* 0x3C; one pointer per language */
-} FrontendLanguageTable;
-
-extern const FrontendLanguageTable _806E0DC;
+extern const u8* const _806E0DC[][5];
 extern const FrontendMenuData _806980C[];
 extern const FrontendMenuData _8069830[];
 extern const u8 SpriteSheet_82B05EC[];
@@ -36,7 +31,7 @@ unk32 sub_804915C(void);
 void sub_8049178(void);
 void sub_8046468(void*, unk32, unk32);
 void sub_80464C0(void*, s32);
-unk32 sub_804A0E0(unk32);
+SpriteTextCleanup* sub_804A0E0(unk32);
 void sub_8048FE4(void);
 s16 sub_80491E0(s32, s32);
 void sub_8049234(unk32);
