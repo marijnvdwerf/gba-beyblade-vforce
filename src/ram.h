@@ -68,6 +68,7 @@ typedef struct ProjectileSystem {
     unk32 unk84;
     unk32 unk88;
 } ProjectileSystem;
+
 typedef struct LevelHudText {
     s32 x; /* 0x00 */
     s32 y; /* 0x04 */
