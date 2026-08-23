@@ -35,7 +35,7 @@ void sub_8043A0C(FrontendState* state, unk32 arg1, unk32 arg2)
         sub_8049168();
         break;
     case 8:
-        value = state->unk584;
+        value = state->transition.value;
         if (value == 0 && (((_unk3005DA0 & 9) != 0 && arg2 > 0x7C) || arg2 == 0xF0)) {
             sub_80490F8(state->unk0 + 1);
         }
@@ -52,7 +52,7 @@ void sub_8043A58(FrontendState* state, unk32 arg1, unk32 arg2)
         sub_8049168();
         break;
     case 8:
-        value = state->unk584;
+        value = state->transition.value;
         if (value == 0 && (((_unk3005DA0 & 9) != 0 && arg2 > 0x7C) || arg2 == 0xF0)) {
             sub_80490F8(7);
         }
