@@ -21,7 +21,33 @@ void sub_8057158(FrontendResource* arg0, const unk32* arg1)
     arg0->timer = 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8057164.s");
+void sub_8057164(FrontendResource* arg0)
+{
+    unk32* data;
+    unk16* values;
+
+    data = (unk32*)arg0->data;
+    values = (unk16*)(data + 1);
+    if (arg0->state == *data) {
+        arg0->state = -1;
+    } else if (arg0->state != -1) {
+        if (arg0->timer == 0) {
+            if (arg0->state != 0) {
+                return;
+            }
+        } else {
+            arg0->timer--;
+        }
+        if (_unk3005DA0 == values[arg0->state]) {
+            arg0->timer = 0x3C;
+            arg0->state++;
+        } else if (_unk3005DA0 != 0) {
+            arg0->timer = 0;
+            arg0->state = 0;
+        }
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80571d0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80571e4-GetTalkingHead.s");
 
