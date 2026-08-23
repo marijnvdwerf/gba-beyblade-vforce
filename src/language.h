@@ -11,6 +11,6 @@ void sub_8063A68(unk32, unk32);
 void sub_8063A7C(unk32);
 unk32 sub_8063A88(void);
 unk8 sub_8063A94(unk32);
-unk8 getLanguage(void);
+unk32 getLanguage(void);
 
 #endif /* _LANGUAGE_H */

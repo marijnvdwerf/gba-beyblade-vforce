@@ -31,7 +31,7 @@ unk8 sub_8063A94(unk32 arg0)
     return _unk3005E80[arg0];
 }
 
-unk8 getLanguage(void)
+unk32 getLanguage(void)
 {
     return _unk3005E80[_unk3005E98];
 }

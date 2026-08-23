@@ -14,6 +14,7 @@ typedef struct MotionGroup {
     unk32 unk14; /* 0x14 */
 } MotionGroup;
 
+void newMotionGroup(void*, void*, unk32);
 void sub_8050384(UnkMotion*);
 void sub_805041C(UnkMotion*);
 void sub_80504E4(MotionGroup*, s32, s32, s32, s32);
