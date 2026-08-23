@@ -45,6 +45,12 @@ typedef struct FrontendMenu {
     unk32 selection;
 } FrontendMenu;
 
+typedef struct FrontendMenuState {
+    unk8 pad0[9];
+    unk8 unk9;
+    unk8 padA[0xE];
+} FrontendMenuState;
+
 typedef struct FrontendObject {
     unk32 unk0;
     FrontendSubobject* unk4;
@@ -74,7 +80,7 @@ struct FrontendState {
     unk32 unk90;
     unk8 pad94[0x20];
     FrontendObject* unkB4;
-    unk8 padB8[0x88]; /* 0xB8 */
+    unk8 unkB8[0x88]; /* 0xB8 */
     unk8 unk140[0x110]; /* 0x140 */
     unk8 pad250[0x1D4]; /* 0x250 */
     unk32 unk424;
@@ -82,9 +88,9 @@ struct FrontendState {
     UnkMotion motion;
     SpriteTextCleanup* unk470;
     unk16 unk474;
-    unk8 pad476[0xB];
-    unk8 unk481;
-    unk8 pad482[0x2E]; /* 0x482 */
+    unk8 pad476[2];
+    FrontendMenuState menuState; /* 0x478 */
+    unk8 pad490[0x20]; /* 0x490 */
     FrontendMenu menu; /* 0x4B0 */
     unk8 pad4B8[0xC0]; /* 0x4B8 */
     unk32 unk578;

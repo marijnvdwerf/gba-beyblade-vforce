@@ -1,11 +1,14 @@
 #include "common.h"
 #include "debug.h"
 #include "frontend.h"
+#include "gamestate.h"
 #include "iconmenu.h"
 #include "include_asm.h"
 #include "language.h"
+#include "menuobject.h"
 #include "packet.h"
 #include "ram.h"
+#include "unsorted.h"
 
 extern const u8 SpriteSheet_823BF04[];
 extern const unk32 _80689A4[];
@@ -135,7 +138,36 @@ void sub_8043AA0(FrontendState* state, unk32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8043cf8.s");
+void sub_8043CF8(FrontendState* state, unk32 arg1)
+{
+    switch (arg1) {
+    case 0:
+        sub_8049168();
+        break;
+    case 1:
+        sub_80439A0(state->unkB8);
+        break;
+    case 2:
+        if (_unk3005DA0 == 2) {
+            sub_80490F8(10);
+        }
+        break;
+    case 5:
+        sub_805B210(&state->menuState);
+        sub_8051688();
+        sub_8049234(8);
+        if (sub_8051780(1) != 0) {
+            sub_804924C(0x12);
+        } else if (sub_8051780(0x100) != 0) {
+            sub_804924C(0x11);
+        } else if (sub_8051780(4) != 0) {
+            sub_804924C(0x13);
+        }
+        sub_80490F8(9);
+        break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8043d84.s");
 INCLUDE_ASM("asm/dump/8040d18/8043db8.s");
 INCLUDE_ASM("asm/dump/8040d18/8043f40.s");
