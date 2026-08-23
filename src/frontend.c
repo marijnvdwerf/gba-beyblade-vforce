@@ -110,7 +110,40 @@ void sub_8049264(void)
 
 INCLUDE_ASM("asm/dump/8040d18/8049320-StoreFunction.s");
 INCLUDE_ASM("asm/dump/8040d18/8049330.s");
-INCLUDE_ASM("asm/dump/8040d18/8049344.s");
+void sub_8049344(u32 arg0)
+{
+    FrontendState* base0;
+    FrontendState* base;
+    void (*callback)(FrontendState*, unk32);
+    void (*stored)(FrontendState*, unk32);
+
+    callback = NULL;
+    base0 = &_unk3000650;
+    stored = base0->unk588;
+    base = base0;
+    if (stored != NULL)
+        callback = stored;
+    else if (arg0 <= 4) {
+        switch (arg0) {
+        case 0:
+        case 2:
+            callback = base->unkB4->unk10;
+            break;
+        case 3:
+            callback = base->unkB4->unk14;
+            break;
+        case 1:
+        case 4:
+            if (base->unk585 > 0)
+                callback = base->unkB4->unk14;
+            else if (base->unk585 < 0)
+                callback = base->unkB4->unk10;
+            break;
+        }
+    }
+    if (callback != NULL)
+        callback(base, arg0);
+}
 INCLUDE_ASM("asm/dump/8040d18/80493c8.s");
 #if 0
 void sub_8049458(void)
