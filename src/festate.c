@@ -837,8 +837,8 @@ void sub_8046B94(FrontendState* state, unk32 arg1)
 {
     SpriteTextCleanup* font;
     unk32 value;
-    const u8* table;
-    s32 delta;
+    const u8* languageTable;
+    s32 scrollDelta;
 
     switch (arg1) {
     case 0:
@@ -855,16 +855,16 @@ void sub_8046B94(FrontendState* state, unk32 arg1)
     case 1:
         if (_unk30004CC == 1) {
             font = (SpriteTextCleanup*)sub_804A0E0(0);
-            table = (const u8*)_806E0DC;
+            languageTable = (const u8*)_806E0DC;
             value = getLanguage() << 2;
-            table += 0x3C;
-            sub_8061660(font, *(const u8**)(table + value), 0xF);
+            languageTable += 0x3C;
+            sub_8061660(font, *(const u8**)(languageTable + value), 0xF);
         }
         sub_80439A0(&state->unk140);
         sub_8061844((SpriteTextCleanup*)sub_804A0E0(0), (s16)(-(_unk30004C8 >> 8) + 0x10), 0x4A);
-        delta = (_unk30004C4 - _unk30004C8) >> 2;
-        sub_80596AC(&state->unk250, delta, 0);
-        _unk30004C8 += delta;
+        scrollDelta = (_unk30004C4 - _unk30004C8) >> 2;
+        sub_80596AC(&state->unk250, scrollDelta, 0);
+        _unk30004C8 += scrollDelta;
         _unk30004CC++;
         break;
     case 2:
