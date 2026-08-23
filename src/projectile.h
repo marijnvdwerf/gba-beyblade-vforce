@@ -4,7 +4,7 @@
 #include "common.h"
 #include "ram.h"
 
-void newProjectileSystem(void*, unk32, const u8*, unk32, void*);
+void newProjectileSystem(ProjectileSystem*, s32, const u8*, unk32, void*);
 void sub_804C484(void*);
 void sub_804C208(ProjectileSystem*);
 
