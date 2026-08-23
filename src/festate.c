@@ -1,4 +1,8 @@
+#include "common.h"
+#include "frontend.h"
 #include "include_asm.h"
+#include "packet.h"
+#include "ram.h"
 
 INCLUDE_ASM("asm/dump/8040d18/8043a0c.s");
 INCLUDE_ASM("asm/dump/8040d18/8043a58.s");
@@ -24,7 +28,27 @@ INCLUDE_ASM("asm/dump/8040d18/8045848.s");
 INCLUDE_ASM("asm/dump/8040d18/8045a7c.s");
 INCLUDE_ASM("asm/dump/8040d18/8045cb4.s");
 INCLUDE_ASM("asm/dump/8040d18/80461d8.s");
-INCLUDE_ASM("asm/dump/8040d18/8046424.s");
+
+void sub_8046424(FrontendState* arg0, unk32 arg1)
+{
+    switch (arg1) {
+    case 0:
+        sub_8049168();
+        break;
+    case 1:
+        sub_80439A0(&arg0->unkB8);
+        break;
+    case 2:
+        if (_unk3005DA0 == 2) {
+            sub_80490F8(0xA);
+        }
+        break;
+    case 5:
+        sub_80490F8(0xF);
+        break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8046468.s");
 INCLUDE_ASM("asm/dump/8040d18/80464c0.s");
 INCLUDE_ASM("asm/dump/8040d18/8046500.s");

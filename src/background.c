@@ -37,11 +37,6 @@ typedef struct {
 
 } UnkStruct;
 
-typedef struct {
-    u8 pad000[0x584]; // 0x000
-    u8 var584; // 0x584
-} UnkStructA;
-
 extern UnkStruct _3000000;
 
 extern ScreenLayout _806A828[];
@@ -216,12 +211,42 @@ void Background_8049C70(void)
 
 INCLUDE_ASM("asm/dump/8040d18/8049ce8.s");
 INCLUDE_ASM("asm/dump/8040d18/8049de0.s");
-INCLUDE_ASM("asm/dump/8040d18/8049f58.s");
-INCLUDE_ASM("asm/dump/8040d18/8049f9c.s");
+
+void sub_8049F58(FrontendState* arg0, unk32 arg1)
+{
+    if (arg1 != 3) {
+        if (arg1 <= 3) {
+            if (arg1 == 2) {
+                arg0->unk585 = 0xFC;
+                arg0->unk586 = 0;
+            }
+        }
+    } else {
+        arg0->unk585 = 4;
+        arg0->unk586 = 0x40;
+    }
+}
+
+void sub_8049F9C(FrontendState* arg0, unk32 arg1)
+{
+    switch (arg1) {
+    case 2:
+        arg0->unk584 = 0x40;
+        arg0->unk585 = 0xFC;
+        arg0->unk586 = 0;
+        break;
+    case 3:
+        arg0->unk584 = 0;
+        arg0->unk585 = 2;
+        arg0->unk586 = 0x40;
+        break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8049ff8.s");
 
 #if 0
-void sub_8049CE8(UnkStructA* arg0, int arg1) {
+void sub_8049CE8(FrontendState* arg0, int arg1) {
     switch (arg1) {
     case 2:
         break;
@@ -232,8 +257,8 @@ void sub_8049CE8(UnkStructA* arg0, int arg1) {
         break;
 
     case 4:
-        sub_8063830(&_3000000.var6A4, (u16*)0x5000000, arg0->var584 /2, 0x1F, 0x1F, 0x1F);
-        sub_8063830(&_3000000.var6B8, (u16*)0x5000200, arg0->var584 /2, 0x1F, 0x1F, 0x1F);
+        sub_8063830(&_3000000.var6A4, (u16*)0x5000000, arg0->unk584 /2, 0x1F, 0x1F, 0x1F);
+        sub_8063830(&_3000000.var6B8, (u16*)0x5000200, arg0->unk584 /2, 0x1F, 0x1F, 0x1F);
         break;
     }
 }
