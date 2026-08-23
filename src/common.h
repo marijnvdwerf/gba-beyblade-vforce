@@ -105,7 +105,7 @@ typedef struct Actor {
     unk32 y;
     unk8 padC[4];
     unk8 unk10;
-    unk8 pad11;
+    unk8 unk11;
     unk16 unk12;
     unk16 unk14;
     unk16 unk16;
@@ -123,7 +123,9 @@ typedef struct Actor {
     unk32 unk74;
     unk32 unk78;
     struct AllocatedBlock* unk7C;
-    unk8 pad80[0x38];
+    unk8 pad80[0x22];
+    s16 unkA2;
+    unk8 padA4[0x14];
     SpriteEntry* unkB8;
     unk8 padBC[8];
 } Actor;
@@ -275,12 +277,15 @@ typedef struct RiderBase {
     unk32 flags;
     unk32 unkA0;
     unk32 unkA4;
-    unk8 padA8[0x190];
+    unk8 padA8[0x10];
+    SpriteEntry* unkB8;
+    unk8 padBC[0x178];
+    s32 unk234;
     Actor unk238;
     Actor unk2FC;
     unk8 pad3C0[4];
     SpriteEntry* unk3C4;
-    unk8 unk3C8[0x20];
+    unk8 pad3C8[0x20];
     unk8 unk3E8;
     unk8 unk3E9[3];
     ParticleSystem unk3EC;
@@ -470,7 +475,9 @@ typedef struct LevelDescription {
     s32 unk24;
     s32 unk28;
     LineMetadata** metadata;
-    unk8 pad30[0x60];
+    unk32 unk30;
+    unk32 unk34;
+    unk8 pad38[0x58];
     unk32 unk90;
     unk8 pad94[0x3C];
 } LevelDescription;

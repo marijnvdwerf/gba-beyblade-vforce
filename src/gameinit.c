@@ -1,5 +1,7 @@
+#include <agb/memory_map.h>
 #include <agb/types.h>
 
+#include "actor.h"
 #include "beyblade.h"
 #include "camera.h"
 #include "collectable.h"
@@ -285,6 +287,7 @@ EnvironmentObject* GetStruct4(unk32 arg0)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80539c4.s");
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80539e8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053b04-initCollisionData.s");
 
@@ -310,7 +313,7 @@ void sub_8053B94(void)
     } else if (sub_8051780(4) == 0) {
         currentGameState->unkC = 1;
         if (_gameData->unk1641 == 0) {
-            value = gameData->unk234 << 4;
+            value = gameData->base.unk234 << 4;
         } else {
             value = 0x3E8;
         }
@@ -360,7 +363,36 @@ void closeGame(void)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053d58-initGameloop2.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8053e18.s");
+
+void sub_8053E18(u8 arg0)
+{
+    if (_gameData->base.unkB8 == 0)
+        SetRiderFlag(&_gameData->base, 0x400);
+    if (arg0 != 0) {
+        _gameData->unkC6C = 0x20;
+        _gameData->unk161B = 1;
+    } else {
+        _gameData->unkC6C = 0x118;
+        if (_gameData->unk1618 != 0) {
+            if (_currentGameState->unk6A4 == 2) {
+                if (RiderHasFlag(&_gameData->base, 0x08000000) == 0)
+                    sub_804FA40();
+            } else if (RiderHasFlag(&_gameData->base, 0x800) == 0) {
+                sub_804FAD4();
+            } else {
+                sub_804FA40();
+            }
+        } else {
+            sub_804FA40();
+        }
+    }
+    if (sub_8051780(1) != 0) {
+        _currentGameState->unk6C4 = _currentGameState->unk0;
+        _currentGameState->unk6C0 = 0;
+        sub_805AAB4();
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053ef8.s");
 
 void sub_8053F0C(unk32 arg0)
