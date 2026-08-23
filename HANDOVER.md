@@ -85,8 +85,8 @@ Last updated: 2026-08-23, session 3 (raw-decomp migration rounds; batch 9 + call
 
 ## State
 
-Progress: 9/66 TUs done, 349 C functions, 658 INCLUDE_ASM remaining (35%).
-Session 3 merged 65 functions (batches 1–11, all migrated from the
+Progress: 9/66 TUs done, 355 C functions, 652 INCLUDE_ASM remaining (35%).
+Session 3 merged 71 functions (batches 1–12, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
 
@@ -125,10 +125,7 @@ sub_804A280 needs an ldrsh from it and is parked because of that).
 
 | worktree | scope | status |
 |---|---|---|
-| agent-a3be0bf370a2d1d5a | batch 12: festate sub_80461D8/8046500/8046814/8046A0C/8046CC4/8048D8C/8046B94/8045A7C/selectBladeFrontendHandler, background sub_8049CE8/DE0/FF8, transition sub_804257C, gameloop sub_8052978 — with explicit mandate to TYPE the layouts | running |
-| agent-af7d2cb0dd9c9f2d2 | batch 10 leftover: sub_8044054 (festate) — worktree was force-removed by me and recreated | running |
-| agent-a1ceaa8eff5618fa5 | rename Unk_8755B90 → MidiNoteFrequencies, FIXED_16_16 macro initializers, naturalize Sound_80623A8 | running |
-| (main, /tmp) | menustate-layout.html: per-word table of MenuState/FrontendState/MenuObject claims + accesses, for the user to judge | running |
+| agent-a8a8f43fcc83d24b9 | batch 13: festate sub_80461D8/8046500/8046814/8046A0C/8046CC4/8048D8C/8046B94/8045A7C/selectBladeFrontendHandler (3rd attempt; batch 12 agent refused them) | running |
 
 ### Next steps (user direction, 2026-08-23)
 
@@ -158,6 +155,14 @@ sub_804A280 needs an ldrsh from it and is parked because of that).
 - Switch lowering lesson: agbcc emits the compare-tree (cmp/beq, cmp/bhi,
   cmp/bne) for `switch` only with enough cases — an empty `case 4: break;`
   + `default` made sub_8049F58 match (c958651).
+- Merged+pruned: `MenuObject` is gone, one `FrontendState` (3edd000); fields exist
+  only when committed C accesses them (rule now in decompiler.md).
+  `FrontendTransition` at +0x584; `MidiNoteFrequencies` with FIXED_16_16(hz)
+  (ae355b7); `_LevelRowMusicTable` has `.size` (43 records).
+- sub_8052978 matched: `_unk3000C0C` is a `void(*)(void)` callback set via
+  case 5 — next table/setter to trace.
+- Parked today (natural C diverges on regalloc): sub_8044054, sub_804257C,
+  sub_8049FF8, sub_805AFBC, sub_8063220, sub_80491E0.
 - NEVER `git worktree remove -f -f` a locked worktree: the lock means the
   agent is alive; I did it once and lost its uncommitted work.
 - Preamble lesson: "layout incomplete" was being used as a skip reason;
