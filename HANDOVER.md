@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-08-21, end of session 2 (round 6: six luna agents running; keepalive task blcgq1v47; shared prompt preamble in /tmp/preamble.txt).
+Last updated: 2026-08-23, session 3 (raw-decomp migration rounds; batch 9 + callback-origin scout running; keepalive monitor bn4u8q59w; shared prompt preamble in /tmp/migrate-preamble.txt).
 
 ## How to work
 
@@ -85,15 +85,76 @@ Last updated: 2026-08-21, end of session 2 (round 6: six luna agents running; ke
 
 ## State
 
-Progress: 9/66 TUs done, 284 C functions, 723 INCLUDE_ASM remaining (28%)
-after the envactor + leaves-round4 + showString merges. Session 2 merged 69 (round 6: gameinit 4, spritestring 15)
-functions; session 1 merged 8.
+Progress: 9/66 TUs done, 329 C functions, 678 INCLUDE_ASM remaining (33%).
+Session 3 merged 45 functions (batches 1–8, all migrated from the
+`raw-decomp` worktree — only functions WITH a raw-decomp body are worth
+trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
+
+### Session 3 workflow (worked well)
+
+1. Scout agent (luna, read-only): `uv run tools/callgraph.py mainLoop` →
+   red list → `uvx mapfile_parser sym_info build/rom.map <sym>` for the
+   owning TU → `rg` raw-decomp for a C body → batches of ~8 by TU.
+2. 7 decompiler agents (luna, worktree each) migrate; rules in
+   /tmp/migrate-preamble.txt (recreate from this list if /tmp is gone):
+   copy raw body, adapt to our headers, diff.ts to zero, compare, delete
+   dump, commit per function, ≤30 min per function then leave INCLUDE_ASM,
+   no `#if 0` parking.
+3. Re-run the scout after merges: newly decompiled callers expose new reds
+   (78 → 58 → 56 functional reds; 9 new per round so far).
+4. Temp-reduction pass over the whole batch (running: pass 7).
+
+Merge-review lessons (all happened today): agents will ship `register`
+locals, empty `asm volatile` barriers, `(Type*)arg0` casts on a wrongly
+typed parameter, parallel "View" structs overlaying GameData, `.equ` raw
+ROM addresses, `(x << 24) != 0` for u8, externs in .c files, and m2c
+`var_r6` names. Grep does not catch all of it — READ EVERY FUNCTION IN
+FULL before merging. sub_804374C/sub_80434EC (menuobject.c) slipped
+through; fixed by temp-reduction-7 (merged 1fa3191; `MenuObject`/`MenuState` typed in menuobject.h).
+
+Layout decisions this session: `GameData` now begins with an embedded
+`RiderBase base` (0x428); `RiderBase` has typed fields through 0xB8 +
+unk234; `RiderState` unified (checksum prefix union at 0, unk54);
+`EnvironmentActorSlot` stride 0xC4 proven; `ProjectileSystem` at
+GameData+0x1084 (0x8C); `MotionGroup`/`UnkMotion` unified; `MusicTrack`
+table `_807561C`; `_LevelRowMusicTable` label exposed in asm/data12.s;
+`GameData.unkC26` stays u16 (s16 shrinks initGameLoop by 12 bytes —
+sub_804A280 needs an ldrsh from it and is parked because of that).
 
 ### Agents running at last update
 
 | worktree | scope | status |
 |---|---|---|
-| (none) | header pass + temp-reduction-6 merged; all learnings archived | — |
+| agent-a97adbc3b91b12c85 | batch 9: menu.c ×3, menuobject sub_8043720, frontend sub_80491E0, spritetext sub_8061824, projectile ×2, palette sub_8063220 | running |
+| (no worktree) | scout: where do FrontendState/gameloop callbacks get set (tables/setters) → new reachable functions | running |
+
+### Next steps (user direction, 2026-08-23)
+
+- **asmlift**: `git stash list` has `asmlift` (decomp.yaml + docs/asmlift.md;
+  docs hardcode /Users/marijn/Projects/asmlift — make that an env var before
+  committing). `bunx @asmlift/cli asm/dump/8040d18/8040d18-creditsFrontendHandler.s`
+  produces C from a dump; some functions throw. Next decomp step: measure the
+  success rate over asm/dump and use it as the draft source for reds WITHOUT
+  a raw-decomp body.
+- **Callbacks**: find where `FrontendState.unkB4->unk8/C/10/14`,
+  `FrontendState.unk588`, gameloop `transition` etc. are populated (ROM
+  handler tables / setters) — every resolved table is a new batch of
+  reachable functions. Scout is running.
+- Other stashes: `globals` (tools/globals.py survey: 59 of 2878 globals
+  have conflicting declarations, 40 are `void*` def vs typed extern —
+  promotion pass offered, not approved) and `ram comments` (per-global
+  referencing-TU comments in ram.c/ram2.c).
+
+### Not matched this session (raw-decomp body exists; natural C diverges)
+
+sub_804ABFC (music), sub_805000C/sub_8050050/sub_8050184 (riderstate),
+sub_805529C/sub_8055340 (effects), updateEnvirenmentActors/
+renderEnvironmentActors (envactor), sub_8056FAC (collectable),
+sub_804B4FC/sub_804B5C0/renderRider (rider), sub_8060C1C (sprite),
+sub_80539E8 (gameinit), sub_80490F8 (frontend), sub_8050A50 (display),
+sub_804A550 (tutorial), sub_804A280 (levelrow, unkC26 signedness),
+sub_804F878/sub_804EE54 (levelhud/hud), sub_8052B24 (results, 272 lines,
+never attempted). All still INCLUDE_ASM, no drafts parked.
 
 ### Parked (attempted, not matched)
 

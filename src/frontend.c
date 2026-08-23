@@ -1,4 +1,3 @@
-#define FRONTEND_IMPLEMENTATION
 #include "frontend.h"
 
 #include <agb/types.h>
@@ -26,11 +25,8 @@ INCLUDE_ASM("asm/dump/8040d18/8048ffc.s");
 
 void sub_8049018(void)
 {
-    FrontendState* state;
-
-    state = &_unk3000650;
-    state->unk84 = state->unk88 = (unk32)-65536;
-    state->unk8C = state->unk90 = (unk32)-65536;
+    _unk3000650.unk84 = _unk3000650.unk88 = (unk32)-65536;
+    _unk3000650.unk8C = _unk3000650.unk90 = (unk32)-65536;
 }
 
 INCLUDE_ASM("asm/dump/8040d18/804903c.s");
@@ -40,13 +36,8 @@ extern unk8 _unk3000BFC;
 
 void sub_80490CC(unk32 arg0, unk32 arg1)
 {
-    FrontendState* state;
-    FrontendObject* object;
-
-    state = &_unk3000650;
-    object = state->unkB4;
-    if (object != NULL && object->unk8 != NULL)
-        object->unk8(state, arg0, arg1);
+    if (_unk3000650.unkB4 != NULL && _unk3000650.unkB4->unk8 != NULL)
+        _unk3000650.unkB4->unk8(&_unk3000650, arg0, arg1);
 }
 
 INCLUDE_ASM("asm/dump/8040d18/80490f8.s");
@@ -61,34 +52,7 @@ void sub_8049168(void)
 INCLUDE_ASM("asm/dump/8040d18/8049178.s");
 INCLUDE_ASM("asm/dump/8040d18/80491c4.s");
 
-s32 sub_80491E0(s32 arg0, s32 arg1)
-{
-    u32 value;
-    u32 negative;
-    s32 input;
-
-    value = arg0;
-    input = arg1;
-    negative = value >> 31;
-    if (value != 0) {
-        if (negative)
-            value = 0 - value;
-        while (1) {
-            if (input == 0)
-                break;
-            if ((s32)value > (input << 8)) {
-                value = input;
-                break;
-            }
-            input >>= 1;
-        }
-        if (input == 0)
-            value = 1;
-        if (negative)
-            value = 0 - value;
-    }
-    return value;
-}
+INCLUDE_ASM("asm/dump/8040d18/80491e0.s");
 
 INCLUDE_ASM("asm/dump/8040d18/8049210.s");
 

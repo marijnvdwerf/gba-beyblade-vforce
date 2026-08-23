@@ -293,10 +293,10 @@ unk8 showString(SpriteTextCleanup* arg0, const u8* text, unk8 mode)
 INCLUDE_ASM("asm/dump/8057b80-debug/8061660.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061684.s");
 
-void sub_8061824(SpriteTextCleanup* arg0, s32 arg1, s32 arg2)
+void sub_8061824(SpriteTextCleanup* arg0, s16 arg1, s16 arg2)
 {
-    arg0->x += (arg1 << 16) >> 8;
-    arg0->y += (arg2 << 16) >> 8;
+    arg0->x += arg1 << 8;
+    arg0->y += arg2 << 8;
     sub_806123C(arg0);
 }
 

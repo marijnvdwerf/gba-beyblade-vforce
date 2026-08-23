@@ -212,8 +212,8 @@ typedef struct GameData {
     SpriteTextCleanup levelHud1; /* 0xF80 */
     SpriteTextCleanup levelHud2; /* 0xFB0 */
     SpriteTextCleanup levelHud3; /* 0xFE0 */
-    UnkMotion levelHudMotion0; /* 0x1010 */
-    UnkMotion levelHudMotion1; /* 0x1028 */
+    MotionGroup levelHudMotion0; /* 0x1010 */
+    MotionGroup levelHudMotion1; /* 0x1028 */
     unk32 levelHudStatus; /* 0x1040 */
     LevelHudObject* unk1044; /* 0x1044 */
     LevelHudObject* unk1048; /* 0x1048 */

@@ -1,7 +1,10 @@
+#include "beyblade.h"
+
+#include <agb/memory_map.h>
+
 #include "include_asm.h"
 #include "ram.h"
-
-void allocateBeyBladeActorPalette(unk32, unk32);
+#include "unsorted.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805703c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057048.s");
@@ -47,7 +50,21 @@ void deallocBeybladeActorData(void)
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057258-getBeyBladeActorDataForIndex.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057338-getBeybladeData0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057348-getBeybladeActorData.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8057360-allocateBeyBladeActorPalette.s");
+
+void allocateBeyBladeActorPalette(unk32 arg0, unk32 arg1)
+{
+    CopyFn** copy;
+    void* destination;
+    void* source;
+
+    getBeybladeData0(arg0);
+    source = RiderPalettes[arg0];
+    copy = &__fastMemoryCopyARM;
+    arg1 <<= 5;
+    destination = (void*)OBJ_PLTT;
+    destination += arg1;
+    (*copy)(source, destination, 0x20);
+}
 
 void allocateBeybladeObjectPalettes(void)
 {

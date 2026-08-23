@@ -1,3 +1,5 @@
+#include "rider.h"
+
 #include "actor.h"
 #include "include_asm.h"
 #include "memory.h"
@@ -39,7 +41,19 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804bedc-allocFXSprite.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804bf3c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c098.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c0c0.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c0ec.s");
+
+void sub_804C0EC(unk32 arg0, u8 arg1)
+{
+    RiderTemp* rider;
+
+    rider = (RiderTemp*)arg0;
+    if (arg1 != 0) {
+        rider->unk3CC |= 8;
+    } else {
+        rider->unk3CC &= 0xFFF7;
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c118.s");
 
 void nullsub_2(void)

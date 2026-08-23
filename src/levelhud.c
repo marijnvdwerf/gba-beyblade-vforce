@@ -1,4 +1,8 @@
+#include "levelhud.h"
+
 #include "include_asm.h"
+#include "language.h"
+#include "motion.h"
 #include "ram.h"
 #include "spritetext.h"
 
@@ -24,8 +28,53 @@ void sub_804F9B4(void)
     state->unk1050->unk18 = 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804fa40.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804fad4.s");
+void sub_804FA40(void)
+{
+    GameData* state;
+    const unk32* table;
+    SpriteTextCleanup* hud;
+    unk32 language;
+    MotionGroup* motion;
+
+    state = _gameData;
+    hud = &state->levelHud0;
+    sub_804FD64();
+    state->unk105E |= 2;
+    table = _806E6FC;
+    language = getLanguage();
+    sub_8061660(hud, table[language], 0xD);
+    motion = &state->levelHudMotion0;
+    newMotionGroup(motion, &state->levelHud0.unk14, 2);
+    sub_8050578(motion, 0x4800, 0x100);
+    sub_80504E4(motion, 0, 0x34, 0, 0x14);
+    state->levelHudStatus = 0x80;
+    state->unk105A = 2;
+}
+
+void sub_804FAD4(void)
+{
+    GameData* state;
+    const unk32* table;
+    SpriteTextCleanup* hud;
+    unk32 language;
+    MotionGroup* motion;
+
+    state = _gameData;
+    hud = &state->levelHud0;
+    sub_804F84C(0);
+    sub_804FD64();
+    state->unk105E |= 2;
+    table = _806E710;
+    language = getLanguage();
+    sub_8061660(hud, table[language], 0xB);
+    motion = &state->levelHudMotion0;
+    newMotionGroup(motion, &state->levelHud0.unk14, 2);
+    sub_8050578(motion, 0x4800, 0x100);
+    sub_80504E4(motion, 0, 0x34, 0, 0x14);
+    state->levelHudStatus = 0x5A;
+    state->unk105A = 3;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fb6c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fc00.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fcac-getItem.s");

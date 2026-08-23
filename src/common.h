@@ -23,10 +23,10 @@ struct AllocatedBlock {
 
 typedef struct UnkMotion {
     AllocatedBlock* block;
-    unk32 unk4;
-    unk32 unk8;
-    unk16 unkC;
-    unk16 unkE;
+    unk32* sourceBlock;
+    unk32* motions;
+    s16 count;
+    unk16 mode;
     unk32 unk10;
     unk32 unk14;
 } UnkMotion;
@@ -90,39 +90,6 @@ struct FrontendState {
     unk8 unk590[0x18];
     unk32 unk5A8;
 };
-
-typedef struct UnkMenuItem UnkMenuItem;
-
-typedef void (*UnkMenuCallback)(UnkMenuItem*, s32, UnkMenuItem*, s32);
-
-struct UnkMenuItem {
-    unk8 pad0[0x30];
-    const u8* text;
-    s32 value;
-    s32 count;
-    unk32 flags;
-    const u8* options;
-    unk8 disabled;
-    unk8 pad45[3];
-    UnkMenuItem* next;
-};
-
-typedef struct UnkMenu {
-    unk8 pad0[0xC];
-    UnkMenuItem* items;
-    unk8 pad10[4];
-    s32 itemCount;
-    unk8 pad18[0xC];
-    s32 unk24;
-    unk8 pad28[4];
-    unk8 normalColor;
-    unk8 disabledColor;
-    unk8 selectedColor;
-    unk8 pad2F;
-    UnkMenuCallback callback;
-    void (*valueCallback)(UnkMenuItem*, s32);
-    unk8 pad38[0x10];
-} UnkMenu;
 
 typedef struct UnkTrail {
     unk8 unk0[0x10];

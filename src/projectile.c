@@ -21,7 +21,7 @@ void newProjectileSystem(ProjectileSystem* arg0, s32 arg1, const u8* arg2, unk32
         return;
     }
     entry = block->address;
-    trail = (UnkTrail*)((u8*)entry + 0x34 * arg1);
+    trail = (UnkTrail*)(entry + arg1);
     arg0->block = block;
     initialZero = 0;
     arg0->count = arg1;
@@ -65,21 +65,19 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804c35c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c3d4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c464.s");
 
-void sub_804C484(void* arg0)
+void sub_804C484(ProjectileSystem* system)
 {
-    s32 var_r4;
-    ProjectileEntry* var_r5;
-    ProjectileSystem* var_r6;
+    s32 count;
+    ProjectileEntry* entry;
 
-    var_r6 = arg0;
-    var_r4 = var_r6->count;
-    var_r5 = var_r6->entries;
-    while (var_r4-- != 0) {
-        sub_804ABE4(var_r5->trail);
-        var_r5++;
+    count = system->count;
+    entry = system->entries;
+    while (count-- != 0) {
+        sub_804ABE4(entry->trail);
+        entry++;
     }
-    if (var_r6->block != NULL) {
-        deallocateBlock(var_r6->block);
-        var_r6->block = NULL;
+    if (system->block != NULL) {
+        deallocateBlock(system->block);
+        system->block = NULL;
     }
 }

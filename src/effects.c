@@ -7,12 +7,23 @@
 INCLUDE_ASM("asm/dump/804a388-tutorial/805529c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055340.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80555f4.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055624.s");
+
+void sub_8055624(void)
+{
+    _gameData->projectileSystem.unk7E = 0;
+    _gameData->projectileSystem.unk78 = 0xFFFF;
+    _gameData->projectileSystem.unk80 &= ~1;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/805565c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055674.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805568c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80556c4.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80556dc.s");
+
+unk32 sub_80556DC(unk32 arg0)
+{
+    return _gameData->projectileSystem.unk80 & arg0;
+}
 
 void sub_80556F4(void)
 {

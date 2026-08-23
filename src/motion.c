@@ -70,10 +70,10 @@ void sub_8050364(unk32* arg0, unk32* arg1)
 
 void sub_8050384(UnkMotion* arg0)
 {
-    arg0->unk4 = 0;
-    arg0->unkE = 0;
-    arg0->unk8 = 0;
-    arg0->unkC = 0;
+    arg0->sourceBlock = 0;
+    arg0->mode = 0;
+    arg0->motions = 0;
+    arg0->count = 0;
     arg0->unk14 = 0;
     arg0->unk10 = 0;
 }
@@ -127,13 +127,13 @@ void sub_805052C(MotionGroup* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 
 void sub_8050574(UnkMotion* arg0, unk16 arg1)
 {
-    arg0->unkE = arg1;
+    arg0->mode = arg1;
 }
 
-void sub_8050578(unk32* arg0, unk32 arg1, s16 arg2)
+void sub_8050578(MotionGroup* arg0, unk32 arg1, s16 arg2)
 {
-    arg0[4] = arg1;
-    arg0[5] = arg2;
+    arg0->unk10 = arg1;
+    arg0->unk14 = arg2;
 }
 
 void sub_8050584(UnkMotion* arg0)

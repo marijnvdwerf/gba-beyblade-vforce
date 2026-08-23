@@ -71,7 +71,30 @@ void initMultiPlayer(unk32 arg0, s32 arg1, u16 arg2)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805fed0-initMultiPlayer.s");
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805ffe4.s");
+u8 sub_805FFE4(void)
+{
+    MultiPlayerState* state;
+    unk32 flags;
+    unk32 newFlags;
+
+    state = _unk3005DC4;
+    flags = state->unk14;
+    if ((flags & 1) == 0) {
+        if ((*(vu16*)REG_SIOCNT & 8) == 0 || (*(vu16*)REG_SIOCNT & 0x80) != 0) {
+            return 0;
+        }
+        newFlags = flags | 1;
+        state->unk14 = newFlags;
+        if ((*(vu16*)REG_SIOCNT & 4) == 0) {
+            newFlags |= 8;
+        } else {
+            newFlags |= 0x10;
+        }
+        state->unk14 = newFlags;
+    }
+    return 1;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/806003c-nullsub_47.s");
 
 unk32 sub_8060040(void)

@@ -350,7 +350,6 @@ void initProjectileSystem(void)
     *(vu16*)(REG_WINOUT) = 0xFFFF;
     *(vu16*)REG_WIN0H = 0xF0;
     *(vu16*)(REG_WIN1H) = 0xF0;
-    /* Keep the widened shift form; agbcc matches the target only with it. */
     *(vu16*)REG_WIN0V = ((system->unk7C << 16) >> 20);
     *(vu16*)(REG_WIN1V) = (0xA0 - (((system->unk7C << 16) >> 20))) << 8 | 0xA0;
     *(vu16*)REG_DISPCNT |= 0x6000;
