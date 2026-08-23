@@ -40,6 +40,8 @@ typedef struct {
 typedef struct {
     u8 pad000[0x584]; // 0x000
     u8 var584; // 0x584
+    u8 var585; // 0x585
+    u8 var586; // 0x586
 } UnkStructA;
 
 extern UnkStruct _3000000;
@@ -216,7 +218,22 @@ void Background_8049C70(void)
 
 INCLUDE_ASM("asm/dump/8040d18/8049ce8.s");
 INCLUDE_ASM("asm/dump/8040d18/8049de0.s");
-INCLUDE_ASM("asm/dump/8040d18/8049f58.s");
+
+void sub_8049F58(UnkStructA* arg0, unk32 arg1)
+{
+    if (arg1 != 3) {
+        if (arg1 <= 3) {
+            if (arg1 == 2) {
+                arg0->var585 = 0xFC;
+                arg0->var586 = 0;
+            }
+        }
+    } else {
+        arg0->var585 = 4;
+        arg0->var586 = 0x40;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8049f9c.s");
 INCLUDE_ASM("asm/dump/8040d18/8049ff8.s");
 
