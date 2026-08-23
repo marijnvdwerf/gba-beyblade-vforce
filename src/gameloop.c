@@ -3,6 +3,8 @@
 #include "ram.h"
 
 extern const u8 SpriteSheet_86FBC4C[];
+extern void VBlankIntrWait(void);
+extern void sub_80627F0(void);
 
 #if 0
 void gameLoop(void)
@@ -252,7 +254,21 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8052534.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805253c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052588.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80526c8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/805295c.s");
+
+void sub_805295C(void)
+{
+    unk32 counter;
+    unk32 temp;
+
+    counter = 1;
+    do {
+        VBlankIntrWait();
+        sub_80627F0();
+        temp = counter;
+        counter -= 1;
+    } while (temp != 0);
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052978.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052a74.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052ab8.s");
