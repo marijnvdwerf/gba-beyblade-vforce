@@ -47,13 +47,7 @@ typedef struct BeybladeActorData {
 } BeybladeActorData;
 
 typedef struct GameData {
-    unk8 pad0[0x200]; /* 0x000 */
-    void* unk200; /* 0x200 */
-    unk8 pad204[0x30]; /* 0x204 */
-    s32 unk234; /* 0x234 */
-    unk8 pad238[0x196]; /* 0x238 */
-    unk8 unk3CE; /* 0x3CE */
-    unk8 pad3CF[0x59]; /* 0x3CF */
+    RiderBase base; /* 0x000 */
     AllocatedBlock* unk428; /* 0x428 */
     RiderBase* unk42C; /* 0x42C */
     s32 unk430; /* 0x430 */
@@ -225,6 +219,9 @@ typedef struct CurrentGameState {
     unk32 unkC68;
 } CurrentGameState;
 
+extern s16 _unk3000F14;
+extern s16 _unk3000F18;
+extern s16 _unk3000F1C;
 extern void* _levelDataBlockPtr;
 extern GameData* _gameData;
 extern EnvironmentObject* GetStruct4(unk32);

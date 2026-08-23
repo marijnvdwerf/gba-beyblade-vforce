@@ -97,6 +97,11 @@ typedef struct UnkActor {
     unk8 unk8D;
 } UnkActor;
 
+typedef struct RiderState {
+    unk8 pad0[0x54];
+    unk32 unk54;
+} RiderState;
+
 typedef struct SpriteEntry SpriteEntry;
 
 typedef struct Actor {
@@ -133,7 +138,15 @@ typedef struct Actor {
 typedef struct EnvironmentActorSlot {
     unk32 objectId;
     SpriteEntry* sprite;
-    unk8 pad8[0xBC];
+    unk8 pad8[0x98];
+    unk16 unkA0;
+    unk16 unkA2;
+    unk8 padA4[4];
+    unk16 unkA8;
+    unk16 unkAA;
+    unk16 unkAC;
+    unk16 unkAE;
+    unk8 padB0[0x14];
 } EnvironmentActorSlot;
 
 typedef struct EnvironmentActorContainer {
@@ -233,14 +246,26 @@ typedef struct ParticleSystem {
 } ParticleSystem;
 
 typedef struct RiderBase {
-    unk8 pad0[0xB8];
+    RiderState* unk0;
+    unk32 unk4;
+    unk8 pad8[8];
+    unk32 unk10;
+    unk32 unk14;
+    unk8 pad18[4];
+    unk32 unk1C;
+    unk8 pad20[0x7C];
+    unk32 flags;
+    unk32 unkA0;
+    unk32 unkA4;
+    unk8 padA8[0x10];
     SpriteEntry* unkB8;
-    unk8 padBC[0x17C];
+    unk8 padBC[0x178];
+    s32 unk234;
     Actor unk238;
     Actor unk2FC;
     unk8 pad3C0[4];
     SpriteEntry* unk3C4;
-    unk8 unk3C8[0x20];
+    unk8 pad3C8[0x20];
     unk8 unk3E8;
     unk8 unk3E9[3];
     ParticleSystem unk3EC;

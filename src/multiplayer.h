@@ -3,6 +3,6 @@
 
 #include "common.h"
 
-unk32 isMultiplayer(void);
+unk8 isMultiplayer(void);
 
 #endif /* _MULTIPLAYER_H */

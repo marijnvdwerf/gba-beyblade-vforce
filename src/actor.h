@@ -11,5 +11,6 @@ void sub_80585C8(Actor*, unk32);
 void ActorSetFrame(Actor*, s32, unk8);
 void sub_8058794(Actor*, unk32, unk32, unk32, unk32);
 void sub_80588DC(Actor*);
+void sub_8058754(Actor*, s32*);
 
 #endif /* _ACTOR_H */

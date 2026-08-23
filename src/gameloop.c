@@ -1,10 +1,11 @@
 #include "animevent.h"
+#include "bios.h"
 #include "include_asm.h"
+#include "music.h"
 #include "ram.h"
+#include "sound.h"
 
 extern const u8 SpriteSheet_86FBC4C[];
-extern void VBlankIntrWait(void);
-extern void sub_80627F0(void);
 
 #if 0
 void gameLoop(void)

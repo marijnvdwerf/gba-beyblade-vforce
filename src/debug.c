@@ -15,7 +15,7 @@ int printf(const char* format, ...)
 {
 }
 
-unk32 sub_8057C40(void)
+s32 sub_8057C40(void)
 {
     return _unk3000E30[0];
 }

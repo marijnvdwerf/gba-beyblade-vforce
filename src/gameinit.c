@@ -1,6 +1,7 @@
 #include <agb/memory_map.h>
 #include <agb/types.h>
 
+#include "actor.h"
 #include "beyblade.h"
 #include "camera.h"
 #include "collectable.h"
@@ -31,15 +32,6 @@ extern const u8 Str_8729564[];
 extern const u8 Str_8729598[];
 extern const u8 Str_87295D0[];
 extern const u8 Str_8729610[];
-extern void sub_8058754(void*, s32*);
-extern void sub_805E8A0(void*, void*, unk32);
-extern void sub_805EEFC(void*, unk32, unk32);
-extern void initCollisionData(void);
-extern void sub_80522D4(void);
-extern unk32 RiderHasFlag(void*, unk32);
-extern void sub_804FA40(void);
-extern void sub_804FAD4(void);
-extern void sub_805AAB4(void);
 
 void initGame(void)
 {
@@ -321,7 +313,7 @@ void sub_8053B94(void)
     } else if (sub_8051780(4) == 0) {
         currentGameState->unkC = 1;
         if (_gameData->unk1641 == 0) {
-            value = gameData->unk234 << 4;
+            value = gameData->base.unk234 << 4;
         } else {
             value = 0x3E8;
         }
@@ -374,8 +366,8 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8053d58-initGameloop2.s");
 
 void sub_8053E18(u8 arg0)
 {
-    if (((RiderBase*)_gameData)->unkB8 == 0)
-        SetRiderFlag(_gameData, 0x400);
+    if (_gameData->base.unkB8 == 0)
+        SetRiderFlag(&_gameData->base, 0x400);
     if (arg0 != 0) {
         _gameData->unkC6C = 0x20;
         _gameData->unk161B = 1;
@@ -383,9 +375,9 @@ void sub_8053E18(u8 arg0)
         _gameData->unkC6C = 0x118;
         if (_gameData->unk1618 != 0) {
             if (_currentGameState->unk6A4 == 2) {
-                if ((RiderHasFlag(_gameData, 0x08000000) << 24) == 0)
+                if (RiderHasFlag(&_gameData->base, 0x08000000) == 0)
                     sub_804FA40();
-            } else if ((RiderHasFlag(_gameData, 0x800) << 24) == 0) {
+            } else if (RiderHasFlag(&_gameData->base, 0x800) == 0) {
                 sub_804FAD4();
             } else {
                 sub_804FA40();
