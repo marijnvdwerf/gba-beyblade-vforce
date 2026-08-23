@@ -38,4 +38,25 @@ void sub_8050FEC(FrontendMenu* menu, unk32 value)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050ff0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805100c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8051028.s");
+
+void sub_8051028(FrontendMenu* menu)
+{
+    FrontendMenuItem* item;
+    s32 i;
+
+    item = menu->items;
+    i = 0;
+    while (i < menu->itemCount) {
+        if (item->sprite != NULL) {
+            sub_8060A94(item->sprite);
+            item->sprite = NULL;
+        }
+        item++;
+        i++;
+    }
+    if (menu->block != NULL) {
+        deallocateBlock(menu->block);
+        menu->block = NULL;
+    }
+    sub_8061204(&menu->text);
+}
