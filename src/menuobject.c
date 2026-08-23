@@ -55,7 +55,18 @@ void sub_80434EC(FrontendState* arg0)
 INCLUDE_ASM("asm/dump/8040d18/8043558.s");
 INCLUDE_ASM("asm/dump/8040d18/8043604.s");
 INCLUDE_ASM("asm/dump/8040d18/80436b0.s");
-INCLUDE_ASM("asm/dump/8040d18/8043720.s");
+
+unk32 sub_8043720(FrontendState* arg0)
+{
+    UnkMenu* state;
+    unk32 high;
+    unk32 low;
+
+    state = (UnkMenu*)((MenuObject*)arg0)->state;
+    high = sub_805B240(state);
+    low = sub_805B210(state);
+    return (high << 16) | (low & 0xFFFF);
+}
 
 void sub_804374C(FrontendState* arg0)
 {
