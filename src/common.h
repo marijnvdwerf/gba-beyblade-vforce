@@ -97,11 +97,6 @@ typedef struct UnkActor {
     unk8 unk8D;
 } UnkActor;
 
-typedef struct RiderState {
-    unk8 pad0[0x54];
-    unk32 unk54;
-} RiderState;
-
 typedef struct SpriteEntry SpriteEntry;
 
 typedef struct Actor {
@@ -243,6 +238,7 @@ typedef struct ParticleSystem {
     struct AllocatedBlock* unk30;
 } ParticleSystem;
 
+/* Proven width pun: ldrh at rider-state +6 and ldrb at +7 overlap. */
 typedef union RiderStatePrefix {
     struct {
         unk16 unk0;
@@ -263,6 +259,8 @@ typedef struct RiderState {
     unk16 unkA;
     unk8 unkC;
     unk8 unkD;
+    unk8 padE[0x46];
+    unk32 unk54;
 } RiderState;
 
 typedef struct RiderBase {
