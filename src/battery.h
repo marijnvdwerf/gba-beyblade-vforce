@@ -8,7 +8,7 @@ typedef struct BackupBlock {
 } BackupBlock;
 
 void initBattery(void);
-unk32 sub_80574D0(BackupBlock*, unk32, s32);
-unk32 sub_8057568(unk16, BackupBlock*, s32);
+u32 sub_80574D0(BackupBlock*, u32, s32);
+u32 sub_8057568(u16, BackupBlock*, s32);
 
 #endif /* _BATTERY_H */

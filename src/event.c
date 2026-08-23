@@ -8,8 +8,8 @@
 #include "ram.h"
 #include "unsorted.h"
 
-extern const u8 Str_8729658[];
-extern const u8 Str_87296A4[];
+extern const unk8 Str_8729658[];
+extern const unk8 Str_87296A4[];
 #if 0
 void initEventListeners(unk32 levelId)
 {
@@ -23,7 +23,7 @@ void initEventListeners(unk32 levelId)
     unk32 i;
     void* lineMetadata;
     AllocatedBlock* block;
-    u32 bytes;
+    unk32 bytes;
 
     _gameData->unkCA4 = NULL;
     _gameData->unkCA0 = NULL;

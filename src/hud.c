@@ -4,14 +4,14 @@
 #include "sprite.h"
 #include "spritetext.h"
 
-extern const u8 SpriteSheet_82B1A84[];
-extern const u8 LargeFontMeta[];
-extern const u8 SpriteSheet_82B05EC[];
-extern const u8 ShadowFontMeta[];
-extern const u8 SpriteSheet_821CF10[];
-extern const u8 SpriteSheet_821DB5C[];
-extern const u8 SpriteSheet_821DEA8[];
-extern const u8 Str_8727048[];
+extern const unk8 SpriteSheet_82B1A84[];
+extern const unk8 LargeFontMeta[];
+extern const unk8 SpriteSheet_82B05EC[];
+extern const unk8 ShadowFontMeta[];
+extern const unk8 SpriteSheet_821CF10[];
+extern const unk8 SpriteSheet_821DB5C[];
+extern const unk8 SpriteSheet_821DEA8[];
+extern const unk8 Str_8727048[];
 
 void LoadHUD(void)
 {
@@ -88,7 +88,7 @@ void sub_804F800(s32 arg0)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f824.s");
 
-void sub_804F84C(unk8 arg0)
+void sub_804F84C(u8 arg0)
 {
     GameData* base;
 

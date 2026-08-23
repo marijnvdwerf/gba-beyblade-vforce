@@ -10,7 +10,7 @@ extern const u8 Str_8726F84[];
 extern const u8 Str_8726FB4[];
 
 void newSpriteTrail(
-    UnkTrail* arg0, const u8* arg1, void* arg2, s32 arg3, unk32 arg4, unk8 arg5, unk32 arg6)
+    UnkTrail* arg0, const u8* arg1, void* arg2, s32 arg3, unk32 arg4, u8 arg5, unk32 arg6)
 {
     AllocatedBlock* allocated;
     SpriteTrailEntry* sprites;
@@ -68,7 +68,7 @@ void newSpriteTrail(
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a908.s");
 
-void sub_804AB50(UnkTrail* arg0, unk8 arg1)
+void sub_804AB50(UnkTrail* arg0, u8 arg1)
 {
     arg0->unk2C = arg1 & 0xF;
 }

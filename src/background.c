@@ -15,24 +15,24 @@
 typedef struct {
     Palette paletteA; // 0x00
     Palette paletteB; // 0x14
-    u8 pad28[0x38]; // 0x28
-    u32* var60; // 0x60
+    unk8 pad28[0x38]; // 0x28
+    unk32* var60; // 0x60
 } BackgroundPaletteState;
 
 typedef struct {
-    u8 pad000[0x650]; // 0x000
-    u32 var650; // 0x650
-    u8 pad654[0x50]; // 0x654
+    unk8 pad000[0x650]; // 0x000
+    unk32 var650; // 0x650
+    unk8 pad654[0x50]; // 0x654
     BackgroundPaletteState palettes; // 0x6A4
-    u32 var708; // 0x708
-    u8 pad70C[0x100]; // 0x70C
-    u8 var80C; // 0x80C
-    u8 var810[11]; // 0x810
-    u32 var818; // 0x810
-    u8 pad80D[964]; // 0x80D
+    unk32 var708; // 0x708
+    unk8 pad70C[0x100]; // 0x70C
+    unk8 var80C; // 0x80C
+    unk8 var810[11]; // 0x810
+    unk32 var818; // 0x810
+    unk8 pad80D[964]; // 0x80D
     UnkStruct_sub1 varBE0; // 0xBE0
-    u8 pad[30064]; // 0xBF8
-    u32* varC94; // 0xC94
+    unk8 pad[30064]; // 0xBF8
+    unk32* varC94; // 0xC94
 
 } UnkStruct;
 
@@ -64,7 +64,7 @@ void Background_8049950(void)
 {
     UnkStruct_sub1* arg0;
     void* pInt;
-    u32* arg1;
+    unk32* arg1;
 
     sub_8049344(0);
     *(vu16*)REG_BLDY = 0;
@@ -84,7 +84,7 @@ void Background_80499BC(void)
 {
     UnkStruct_sub1* arg0;
     void* pInt;
-    u32* arg1;
+    unk32* arg1;
 
     sub_8049344(0);
     *(vu16*)REG_BLDY = 0;
@@ -118,7 +118,7 @@ void Background_8049A84(void)
 {
     UnkStruct_sub1* arg0;
     void* pInt;
-    u32* arg1;
+    unk32* arg1;
 
     arg0 = &_3000000.varBE0;
     arg1 = &(_3000000.var708);
@@ -136,7 +136,7 @@ void Background_8049AF8(void)
 {
     UnkStruct_sub1* arg0;
     void* pInt;
-    u32* arg1;
+    unk32* arg1;
 
     arg0 = &_3000000.varBE0;
     arg1 = &(_3000000.var708);
@@ -154,7 +154,7 @@ void Background_8049B68(void)
 {
     UnkStruct_sub1* arg0;
     void* pInt;
-    u32* arg1;
+    unk32* arg1;
 
     *(vu16*)REG_BLDY = 0;
 
@@ -208,7 +208,7 @@ void Background_8049C70(void)
     sub_80627F0();
 }
 
-void sub_8049CE8(FrontendState* arg0, unk32 arg1)
+void sub_8049CE8(FrontendState* arg0, u32 arg1)
 {
     switch (arg1) {
     case 2:
@@ -233,7 +233,7 @@ void sub_8049CE8(FrontendState* arg0, unk32 arg1)
     }
 }
 
-void sub_8049DE0(FrontendState* arg0, unk32 arg1)
+void sub_8049DE0(FrontendState* arg0, u32 arg1)
 {
     switch (arg1) {
     case 2:
@@ -266,7 +266,7 @@ void sub_8049DE0(FrontendState* arg0, unk32 arg1)
     }
 }
 
-void sub_8049F58(FrontendState* arg0, unk32 arg1)
+void sub_8049F58(FrontendState* arg0, u32 arg1)
 {
     switch (arg1) {
     case 2:

@@ -3,13 +3,13 @@
 
 #include <agb/types.h>
 
-typedef u8 bool8;
-typedef u16 bool16;
-typedef u32 bool32;
-
 typedef u8 unk8;
 typedef u16 unk16;
 typedef u32 unk32;
+
+typedef unk8 bool8;
+typedef unk16 bool16;
+typedef unk32 bool32;
 
 typedef struct AllocatedBlock AllocatedBlock;
 typedef struct SpriteEntry SpriteEntry;
@@ -26,19 +26,19 @@ struct SpriteTextCleanup {
     unk32 x;
     unk32 y;
     unk16 unk8;
-    unk16 unkA;
+    u16 unkA;
     unk16 unkC;
     unk8 unkE;
     unk8 unkF;
     unk16 unk10;
     unk16 unk12;
     SpriteTextBlock unk14;
-    const u8* unk20;
+    const unk8* unk20;
     const u8* unk24;
-    unk8 unk28;
+    u8 unk28;
     s8 unk29;
     unk8 unk2A; /* ldsb r0, [r7, r0] at .L8061430 in sub_806123C */
-    unk8 unk2B;
+    u8 unk2B;
     SpriteEntry* ptr2C;
 };
 
@@ -134,8 +134,8 @@ typedef struct FrontendMenu {
 
 typedef struct MenuState {
     unk8 pad0[8];
-    unk8 unk8;
-    unk8 unk9;
+    u8 unk8;
+    u8 unk9;
     unk8 padA[2];
     UnkMenuItem* items; /* 0xC */
     unk8 pad10[4];
@@ -144,8 +144,8 @@ typedef struct MenuState {
     unk8 pad1C[8];
     unk32 unk24; /* 0x24 */
     unk8 pad28[6];
-    unk8 unk2E;
-    unk8 unk2F;
+    u8 unk2E;
+    u8 unk2F;
     unk8 pad30[8];
     FrontendMenu menu; /* 0x38 */
     UnkMotion* objectItems; /* 0xA8 */
@@ -191,7 +191,7 @@ struct FrontendState {
     unk8 pad14[0x68];
     unk8 unk7C;
     unk8 pad7D[2];
-    unk8 unk7F;
+    u8 unk7F;
     unk8 unk80;
     unk8 unk81;
     unk8 pad82[2];
@@ -239,7 +239,7 @@ typedef struct UnkTrail {
     unk32 unk14;
     unk32 unk18;
     unk32 unk1C;
-    const u8* spriteSheet;
+    const unk8* spriteSheet;
     unk16 unk24;
     unk16 unk26;
     void* unk28;
@@ -256,7 +256,7 @@ typedef struct Actor {
     unk32 x;
     unk32 y;
     unk8 padC[4];
-    unk8 unk10;
+    u8 unk10;
     unk8 unk11;
     unk16 unk12;
     unk16 unk14;
@@ -328,8 +328,8 @@ typedef struct SpriteString SpriteString;
 
 struct SpriteString {
     struct Actor* actors;
-    unk8 count;
-    unk8 flags;
+    u8 count;
+    u8 flags;
     unk16 mode;
     unk32 x;
     unk32 previousX;
@@ -377,15 +377,15 @@ typedef union RiderStatePrefix {
 
     struct {
         unk8 pad0[7];
-        unk8 unk7;
+        u8 unk7;
     } bytes;
 } RiderStatePrefix;
 
 typedef struct RiderState {
     RiderStatePrefix prefix;
-    unk16 unk8;
-    unk16 unkA;
-    unk8 unkC;
+    u16 unk8;
+    u16 unkA;
+    u8 unkC;
     unk8 unkD;
     unk8 padE[0x46];
     unk32 unk54;
@@ -412,7 +412,7 @@ typedef struct RiderBase {
     unk8 pad3C0[4];
     SpriteEntry* unk3C4;
     unk8 pad3C8[0x20];
-    unk8 unk3E8;
+    u8 unk3E8;
     unk8 unk3E9[3];
     ParticleSystem unk3EC;
     struct AllocatedBlock* unk420;
@@ -484,15 +484,15 @@ typedef struct LineMetaObject LineMetaObject;
 typedef struct LineMetadata LineMetadata;
 
 struct LineMetaObject {
-    unk16 size; /* byte size of this record */
-    unk16 type;
-    unk16 id;
-    unk16 unk6;
+    u16 size; /* byte size of this record */
+    u16 type;
+    u16 id;
+    u16 unk6;
     unk32 unk8;
 };
 
 struct LineMetadata {
-    unk16 count;
+    u16 count;
     unk16 pad2;
     LineMetaObject objects[1];
 };
@@ -586,16 +586,16 @@ typedef struct Unk80516E0 {
 } Unk80516E0;
 
 typedef struct LevelDescription {
-    unk8 unk0;
-    unk8 unk1;
+    u8 unk0;
+    u8 unk1;
     unk8 pad2[2];
     unk32 unk4;
     s32 unk8;
     unk8 padC[5];
-    unk8 unk11;
+    u8 unk11;
     unk8 pad12[6];
     unk32 unk18;
-    unk8 unk1C;
+    u8 unk1C;
     unk8 unk1D[3];
     s32 unk20;
     unk32 unk24;
@@ -604,11 +604,11 @@ typedef struct LevelDescription {
     unk32 unk30;
     unk32 unk34;
     unk8 pad38[0x30];
-    const u8* unk68[6];
+    const unk8* unk68[6];
     unk8 pad80[0x10];
     unk32 unk90;
     unk8 pad94[0x2C];
-    const u8* unkC0;
+    const unk8* unkC0;
     void* unkC4;
     unk8 padC8[8];
 } LevelDescription;

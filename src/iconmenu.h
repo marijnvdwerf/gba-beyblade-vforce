@@ -3,7 +3,7 @@
 
 #include "common.h"
 
-extern const u8 Str_8729398[];
+extern const unk8 Str_8729398[];
 
 void newIconMenu(FrontendMenu*, const FrontendMenuData*, unk32);
 void sub_8050C18(FrontendMenu*);

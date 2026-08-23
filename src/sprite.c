@@ -29,15 +29,15 @@ extern SpriteRotationScaleEntry* _rotationScale;
 extern void* _unk3005DF8;
 extern SpriteRotationScaleEntry* _rotationScale_end;
 extern SpriteEntry* _spritesLeft;
-extern u32 _spritesFree;
+extern unk32 _spritesFree;
 extern SpriteEntry* _sprites;
 
 SpriteEntry* _unk3005DE4;
 
 extern u16 word_807D90C[];
-extern const u8 Str_8755AC8[];
-extern const u8 Str_8755B0C[];
-extern const u8 Str_8755B28[];
+extern const unk8 Str_8755AC8[];
+extern const unk8 Str_8755B0C[];
+extern const unk8 Str_8755B28[];
 
 void freeSpriteVramLocation(unk32, unk32);
 void sub_8060B38(SpriteEntry*);
@@ -84,7 +84,7 @@ void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
     SpriteStruct2* vram_entry;
     SpriteStruct2* next;
     unk32 rotation_address;
-    unk32 n;
+    u32 n;
 
     _unk3005E74 = 0x800;
     _unk3005E6C = 0;
@@ -248,7 +248,7 @@ s32 sub_8060790(s32 arg0)
 INCLUDE_ASM("asm/dump/8057b80-debug/8060808-freeSpriteVramLocation.s");
 
 // 8755A08
-const u8 Str_8755A08[]
+const unk8 Str_8755A08[]
     = "There are no free SpriteVramFree entries remaining on a call to freeSpriteVramLocation()\n";
 
 void sub_80608CC(void)
@@ -485,7 +485,7 @@ void LoadSpriteSheet(SpriteSheetEntry* dst, SpriteSheet* source, unk32 x, unk32 
     normalizedArg5 = arg7;
     sourceFlags = source->unk7;
     sourceByteC = source->unkC;
-    dst->unk2C = (const u8*)source;
+    dst->unk2C = (const unk8*)source;
     dst->flip_h_v = normalizedArg4;
     dst->x = x;
     dst->y = y;
@@ -502,7 +502,7 @@ void LoadSpriteSheet(SpriteSheetEntry* dst, SpriteSheet* source, unk32 x, unk32 
     if (value == 0) {
         value = source->unk10;
     }
-    dst->unk28 = (const u8*)source + value;
+    dst->unk28 = (const unk8*)source + value;
     dst->var16 = source->unk6;
     dst->frame = normalizedArg5;
     dst->unk1A = 0xFFFF;
@@ -523,7 +523,7 @@ void sub_8060CDC(SpriteTextBlock* block)
     SpriteEntry* prev;
     SpriteEntry* next;
     SpriteEntry* cur;
-    unk32 n;
+    u32 n;
 
     if (block->count == 0) {
         return;
@@ -564,7 +564,7 @@ void sub_8060CDC(SpriteTextBlock* block)
 }
 
 #if 0
-SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, unk16 new_size, unk16 arg2)
+SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 new_size, u16 arg2)
 {
     /* The target narrows extra with lsl/lsr #16 at 0x2C-0x30. */
     unk16 extra;
@@ -700,7 +700,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8061078.s");
 unk32 sub_80610EC(SpriteEntry* spriteEntry)
 {
     u16* table = word_807D90C;
-    unk32 index = ((spriteEntry->unk10 & 0xC000) >> 12) | ((unk32)spriteEntry->unk10 >> 30);
+    unk32 index = ((spriteEntry->unk10 & 0xC000) >> 12) | ((u32)spriteEntry->unk10 >> 30);
 
     return (table[index] & 0xFF00) >> 7;
 }
@@ -708,7 +708,7 @@ unk32 sub_80610EC(SpriteEntry* spriteEntry)
 unk32 sub_8061110(SpriteEntry* spriteEntry)
 {
     u16* table = word_807D90C;
-    unk32 index = ((spriteEntry->unk10 & 0xC000) >> 12) | ((unk32)spriteEntry->unk10 >> 30);
+    unk32 index = ((spriteEntry->unk10 & 0xC000) >> 12) | ((u32)spriteEntry->unk10 >> 30);
 
     return (table[index] & 0xFF) * 2;
 }

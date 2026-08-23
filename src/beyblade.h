@@ -9,7 +9,7 @@ void sub_8057104(unk32, unk32);
 
 struct InputSequence {
     unk32 count;
-    unk16 keys[1];
+    u16 keys[1];
 };
 
 void sub_8057158(FrontendResource*, const InputSequence*);

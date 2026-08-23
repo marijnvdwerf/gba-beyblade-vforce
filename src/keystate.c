@@ -14,19 +14,19 @@ typedef struct UnkKeyInput {
     unk16 unkA; /* 0x0A */
 } UnkKeyInput;
 
-u16 _keyInput = 0;
-u8 _pad2[2] = { 0 };
-u16 _isKeyRecording = 0;
-u8 _pad_isKeyRecording[10] = { 0 };
+unk16 _keyInput = 0;
+unk8 _pad2[2] = { 0 };
+unk16 _isKeyRecording = 0;
+unk8 _pad_isKeyRecording[10] = { 0 };
 KeyState _unk3005CB0[10] = { 0 };
 u16 _unk3005DA0 = 0;
-u8 _pad3[2] = { 0 };
-u16 _unk3005DA4 = 0;
+unk8 _pad3[2] = { 0 };
+unk16 _unk3005DA4 = 0;
 void* _unk3005DA8 = NULL;
-u16 _unk3005DAC = 0;
-u16* _keyRecordingData = NULL;
-u16 _unk3005DB4 = 0;
-u8 _pad4[2] = { 0 };
+unk16 _unk3005DAC = 0;
+unk16* _keyRecordingData = NULL;
+unk16 _unk3005DB4 = 0;
+unk8 _pad4[2] = { 0 };
 u16 _unk3005DB8 = 0;
 AllocatedBlock* _keyRecordingBlock = 0;
 
@@ -72,7 +72,7 @@ KeyState* sub_805A914(u8 arg0)
     return &_unk3005CB0[arg0];
 }
 
-void sub_805A930(UnkKeyInput* arg0, u16* arg1)
+void sub_805A930(UnkKeyInput* arg0, unk16* arg1)
 {
     arg0->unk8 = *arg1;
     arg0->unkA = 0;

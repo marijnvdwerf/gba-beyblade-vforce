@@ -17,13 +17,13 @@ void initBattery(void)
     sub_806586C(2, &_unk3000DF0[5]);
 }
 
-unk32 sub_80574D0(BackupBlock* data, unk32 index, s32 size)
+u32 sub_80574D0(BackupBlock* data, u32 index, s32 size)
 {
-    unk32 result;
+    u32 result;
     u16 retry;
-    unk16 batteryIndex;
+    u16 batteryIndex;
     s32 blockCount;
-    unk16 writeResult;
+    u16 writeResult;
 
     batteryIndex = index;
     result = 1;
@@ -48,12 +48,12 @@ unk32 sub_80574D0(BackupBlock* data, unk32 index, s32 size)
     return result;
 }
 
-unk32 sub_8057568(unk16 index, BackupBlock* data, s32 size)
+u32 sub_8057568(u16 index, BackupBlock* data, s32 size)
 {
-    unk32 result;
+    u32 result;
     s32 blockCount;
     u16 retry;
-    unk16 readResult;
+    u16 readResult;
 
     result = 1;
     blockCount = (size + 7) >> 3;

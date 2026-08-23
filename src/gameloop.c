@@ -7,7 +7,7 @@
 #include "ram.h"
 #include "sound.h"
 
-extern const u8 SpriteSheet_86FBC4C[];
+extern const unk8 SpriteSheet_86FBC4C[];
 
 #if 0
 void gameLoop(void)
@@ -143,7 +143,7 @@ void gameLoop(void)
             sub_804EE54();
             sub_804A51C();
         }
-        if ((u16)(_gameData->timers.s.unkC6C - 1) <= 0x1E && fadeDir == 0) {
+        if ((unk16)(_gameData->timers.s.unkC6C - 1) <= 0x1E && fadeDir == 0) {
             transition(4, 0);
             fadeDir = 1;
         }

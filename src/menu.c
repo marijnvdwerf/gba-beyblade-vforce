@@ -14,7 +14,7 @@ void sub_805AC80(MenuState* arg0, UnkMenuItem* arg1)
 {
     unk8* destination;
     const u8* source;
-    unk8 state;
+    u8 state;
 
     state = arg0->unk2F;
     if (arg1->options != NULL) {
@@ -54,7 +54,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805add4-allocateMenuItems.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805afb8-nullsub_48.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805afbc.s");
 
-s32 sub_805B050(MenuState* arg0, u8 arg1)
+s32 sub_805B050(MenuState* arg0, unk8 arg1)
 {
     UnkMenuItem* item;
     s32 count;

@@ -7,27 +7,27 @@
 #include "unsorted.h"
 
 typedef struct {
-    u8 filler00[4]; // 0x00
+    unk8 filler00[4]; // 0x00
     u32 tileOffset; // 0x04
     u32 tileBytes; // 0x08
     u32 mapOffset; // 0x0C
     u32 mapBytes; // 0x10
     u8 var14; // 0x14
-    u8 filler15[3]; // 0x15
+    unk8 filler15[3]; // 0x15
     u8 var18; // 0x18
     u8 colorMode; // 0x19
-    u8 filler1A[2]; // 0x1A
+    unk8 filler1A[2]; // 0x1A
     u16 columnCount; // 0x1C
     u16 rowCount; // 0x1E
 } TileMapHeader;
 
 typedef struct {
-    u32 var00;
-    u32 var04;
-    u32 var08;
-    u32 var0C;
-    u32 var10;
-    u32 var14;
+    unk32 var00;
+    unk32 var04;
+    unk32 var08;
+    unk32 var0C;
+    unk32 var10;
+    unk32 var14;
 } Struct3000CA0;
 
 typedef struct {
@@ -209,7 +209,7 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
 void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriority)
 {
     u32 var0;
-    //    u8 colorMode;
+    //    unk8 colorMode;
     int tileBlocks;
     vu16* layerCnt;
     void* dest;

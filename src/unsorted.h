@@ -30,6 +30,6 @@ unk32 sub_8051780(unk32);
 
 extern FrontendState _unk3000650;
 
-void sub_805AC28(int, int, int, u16);
+void sub_805AC28(int, int, int, unk16);
 
 #endif // _UNSORTED_H

@@ -23,7 +23,7 @@ void sub_8057158(FrontendResource* arg0, const InputSequence* arg1)
 
 void sub_8057164(FrontendResource* arg0)
 {
-    const unk16* values;
+    const u16* values;
 
     values = arg0->data->keys;
     if (arg0->state == arg0->data->count) {

@@ -6,7 +6,7 @@
 #include "system.h"
 #include "unsorted.h"
 
-extern u8 const Str_872CB2C[];
+extern unk8 const Str_872CB2C[];
 
 extern const void* const Unk_872CAF4[];
 
@@ -19,7 +19,7 @@ void sub_8057984(void)
     }
 }
 
-void InitStuff_SetDispStat(u16 dispstat)
+void InitStuff_SetDispStat(unk16 dispstat)
 {
     s32 i;
 

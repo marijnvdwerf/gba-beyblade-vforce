@@ -6,7 +6,7 @@
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c4b4-s_rider_804C4B4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c870.s");
 
-void sub_804C888(RiderBase* rider, u8 arg1)
+void sub_804C888(RiderBase* rider, unk8 arg1)
 {
     if (arg1 != 0) {
         SetRiderFlag(rider, 0x102);
@@ -67,7 +67,7 @@ void SetRiderFlag(RiderBase* rider, unk32 flags)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e40c-UnsetRiderFlag.s");
 
-u8 RiderHasFlag(RiderBase* rider, unk32 flags)
+unk8 RiderHasFlag(RiderBase* rider, unk32 flags)
 {
     if ((rider->flags & flags) == flags)
         return 1;

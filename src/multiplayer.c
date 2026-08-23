@@ -11,7 +11,7 @@ extern const char Str_87558B4[];
 extern unk32 __divsi3(unk32, unk32);
 
 #if 0
-void initMultiPlayer(unk32 arg0, unk32 arg1, u16 arg2)
+void initMultiPlayer(unk32 arg0, unk32 arg1, unk16 arg2)
 {
     unk32 temp_r0;
     unk32 temp_r0_2;
@@ -69,7 +69,7 @@ void initMultiPlayer(unk32 arg0, unk32 arg1, u16 arg2)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805fed0-initMultiPlayer.s");
 
-u8 sub_805FFE4(void)
+unk8 sub_805FFE4(void)
 {
     MultiPlayerState* state;
     unk32 flags;
@@ -111,7 +111,7 @@ unk32 sub_8060040(void)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8060070.s");
 
-u8 sub_806008C(void)
+unk8 sub_806008C(void)
 {
     if ((_unk3005DC4->unk14 & 0x100) != 0) {
         return 1;
@@ -119,7 +119,7 @@ u8 sub_806008C(void)
     return 0;
 }
 
-unk8 isMultiplayer(void)
+u8 isMultiplayer(void)
 {
     return _unk3005DC4->unk2;
 }

@@ -71,7 +71,7 @@ unk32 sub_8064F84(const u8* str)
 }
 
 void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthTable, Actor* actors,
-    unk8 count, unk32 y, unk32 unk18)
+    u8 count, unk32 y, unk32 unk18)
 {
     unk32 mask;
     unk32 scale;
@@ -101,10 +101,10 @@ void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthT
 }
 
 SpriteStringActorBlock* SpriteString_8064FE8(SpriteString* string, const u8* arg1, unk32 arg2,
-    unk16 count, void* argA, const u8* argB, unk32 argC, unk32 argD, unk8 argE)
+    u16 count, void* argA, const u8* argB, unk32 argC, unk32 argD, u8 argE)
 {
     SpriteStringActorBlock* state;
-    unk16 i;
+    u16 i;
     Actor* actor;
 
     state = sub_8062EFC(count);
@@ -128,7 +128,7 @@ SpriteStringActorBlock* SpriteString_8064FE8(SpriteString* string, const u8* arg
 void sub_8065088(SpriteString* string)
 {
     unk32 x;
-    unk16 i;
+    u16 i;
     Actor* actor;
     unk32 zero;
     unk32 scale;
@@ -185,7 +185,7 @@ INCLUDE_ASM("asm/dump/8064f38/806513e.s");
 
 void sub_806530C(SpriteString* string)
 {
-    unk16 i;
+    u16 i;
 
     i = 0;
     while (i < string->count) {
@@ -201,7 +201,7 @@ unk32 sub_8065334(SpriteString* string)
     unk32 total;
     unk16 index;
     unk8 count;
-    const u8* text;
+    const unk8* text;
     Actor* actor;
 
     textOffset = 0;
@@ -235,7 +235,7 @@ INCLUDE_ASM("asm/dump/8064f38/8065334.s");
 
 void sub_80653B0(SpriteString* string)
 {
-    unk16 i;
+    u16 i;
 
     i = 0;
     while (i < string->count) {
@@ -275,7 +275,7 @@ void sub_80656B8(SpriteString* string)
 
 void sub_806570C(SpriteString* string, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 step)
 {
-    unk16 i;
+    u16 i;
     unk32 offset;
 
     offset = 0;
@@ -290,11 +290,11 @@ void sub_806570C(SpriteString* string, unk32 arg1, unk32 arg2, unk32 arg3, unk32
 void sub_8065760(SpriteString* string, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 step,
     unk32 maxCount)
 {
-    unk16 i;
-    unk16 count;
+    u16 i;
+    u16 count;
     unk32 offset;
 
-    count = (unk16)maxCount;
+    count = (u16)maxCount;
     offset = 0;
     if (count > string->count) {
         count = string->count;
@@ -309,7 +309,7 @@ void sub_8065760(SpriteString* string, unk32 arg1, unk32 arg2, unk32 arg3, unk32
 
 void sub_80657C4(SpriteString* string)
 {
-    unk16 i;
+    u16 i;
 
     i = 0;
     while (i < string->count) {
@@ -318,13 +318,13 @@ void sub_80657C4(SpriteString* string)
     }
 }
 
-void sub_80657EC(SpriteString* string, unk8 value)
+void sub_80657EC(SpriteString* string, u8 value)
 {
     unk32 flags;
     unk32 mask;
     unk32 low;
 
-    value = (unk8)value;
+    value = (u8)value;
     flags = 0x10;
     flags |= string->flags;
     mask = 0xF;
@@ -332,5 +332,5 @@ void sub_80657EC(SpriteString* string, unk8 value)
     mask -= 0x1F;
     flags &= mask;
     flags |= low;
-    string->flags = (unk8)flags;
+    string->flags = (u8)flags;
 }

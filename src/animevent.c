@@ -7,10 +7,10 @@
 
 void sub_805FA4C(PolyTable* arg0);
 void sub_805FA68(PolyTable* arg0);
-extern const u8 Str_87556B0[];
-extern const u8 Str_87556F4[];
+extern const unk8 Str_87556B0[];
+extern const unk8 Str_87556F4[];
 
-void newPolyTable(PolyTable* arg0, unk16 arg1, unk16 arg2)
+void newPolyTable(PolyTable* arg0, u16 arg1, u16 arg2)
 {
     if (arg0->unk10 != NULL) {
         sub_805FA4C(arg0);
