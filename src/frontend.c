@@ -51,7 +51,9 @@ void sub_8049168(void)
 
 INCLUDE_ASM("asm/dump/8040d18/8049178.s");
 INCLUDE_ASM("asm/dump/8040d18/80491c4.s");
+
 INCLUDE_ASM("asm/dump/8040d18/80491e0.s");
+
 INCLUDE_ASM("asm/dump/8040d18/8049210.s");
 
 void sub_8049234(unk32 arg0)

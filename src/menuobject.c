@@ -14,9 +14,9 @@ void sub_80434EC(MenuObject* object)
     unk32 count;
     UnkMotion* item;
 
-    count = object->count;
+    count = object->state.layout.object.objectCount;
     if (count != 0) {
-        item = object->items;
+        item = object->state.layout.object.objectItems;
         count--;
         while (count != (unk32)-1) {
             sub_805041C(item);
@@ -24,13 +24,13 @@ void sub_80434EC(MenuObject* object)
             count--;
         }
     }
-    if (object->timer != 0) {
-        item = &object->motion;
+    if (object->state.layout.object.timer != 0) {
+        item = &object->state.layout.object.motion;
         sub_805041C(item);
-        object->timer = object->timer - 1;
-        if (object->timer == 0) {
+        object->state.layout.object.timer = object->state.layout.object.timer - 1;
+        if (object->state.layout.object.timer == 0) {
             sub_8050584(item);
-            sub_8061204(&object->cleanup);
+            sub_8061204(&object->state.layout.object.cleanup);
         }
     }
 }
@@ -38,14 +38,23 @@ void sub_80434EC(MenuObject* object)
 INCLUDE_ASM("asm/dump/8040d18/8043558.s");
 INCLUDE_ASM("asm/dump/8040d18/8043604.s");
 INCLUDE_ASM("asm/dump/8040d18/80436b0.s");
-INCLUDE_ASM("asm/dump/8040d18/8043720.s");
+
+unk32 sub_8043720(MenuObject* object)
+{
+    unk32 high;
+    unk32 low;
+
+    high = sub_805B240(&object->state);
+    low = sub_805B210(&object->state);
+    return (high << 16) | (low & 0xFFFF);
+}
 
 void sub_804374C(MenuObject* object)
 {
     unk32 current;
     unk32 next;
 
-    if (object->count != 0) {
+    if (object->state.layout.object.objectCount != 0) {
         current = sub_8043720(object);
         if ((_unk3005DA0 & 0xF0) != 0) {
             if ((_unk3005DA0 & 0x40) != 0) {

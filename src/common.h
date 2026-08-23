@@ -91,11 +91,6 @@ struct FrontendState {
     unk32 unk5A8;
 };
 
-typedef struct UnkMenu {
-    unk8 unk0[0x24];
-    unk32 unk24;
-} UnkMenu;
-
 typedef struct UnkTrail {
     unk8 unk0[0x10];
     unk32 unk10;

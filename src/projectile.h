@@ -4,8 +4,10 @@
 #include "common.h"
 #include "ram.h"
 
-void newProjectileSystem(void*, unk32, const u8*, unk32, void*);
-void sub_804C484(void*);
+void newSpriteTrail(UnkTrail*, const u8*, void*, s32, unk32, unk8, unk32);
+void sub_804ABE4(UnkTrail*);
+void newProjectileSystem(ProjectileSystem*, s32, const u8*, unk32, void*);
+void sub_804C484(ProjectileSystem*);
 void sub_804C208(ProjectileSystem*);
 
 #endif /* _PROJECTILE_H */
