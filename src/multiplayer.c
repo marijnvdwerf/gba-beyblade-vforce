@@ -105,7 +105,14 @@ unk8 isMultiplayer(void)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/80600b4.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/806014c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/80603e8.s");
+
+void sub_80603E8(void)
+{
+    if (_unk3005DC4->unk1C == 0) {
+        _unk3005DC4->unk14 |= 0x400;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8060404.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8060434.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8060454-onSerialCommunication.s");
