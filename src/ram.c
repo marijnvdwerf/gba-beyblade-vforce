@@ -158,10 +158,10 @@ SpriteEntry* _unk3000494 = NULL;
 SpriteEntry* _unk3000498 = NULL;
 s32 _unk300049C = 0;
 s32 _unk30004A0 = 0;
-void* _unk30004A4 = NULL;
-void* _unk30004A8 = NULL;
-void* _unk30004AC = NULL;
-void* _unk30004B0 = NULL;
+SpriteEntry* _unk30004A4 = NULL;
+SpriteEntry* _unk30004A8 = NULL;
+s32 _unk30004AC = 0;
+s32 _unk30004B0 = 0;
 void* _unk30004B4 = NULL;
 void* _unk30004B8 = NULL;
 void* _unk30004BC = NULL;
@@ -225,7 +225,8 @@ void* _unk300060C = NULL;
 u8 _unk3000610[48] = { 0 };
 void* _unk3000640 = NULL;
 void* _unk3000644 = NULL;
-u8 _unk3000648[8] = { 0 };
+unk32 _unk3000648 = 0;
+unk8 _unk300064C[4] = { 0 };
 
 typedef struct FrontendStoragePlaceholder {
     unk8 bytes[0x54];
