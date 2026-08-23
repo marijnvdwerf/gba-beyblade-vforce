@@ -976,8 +976,8 @@ void sub_8048D8C(FrontendState* state, unk32 arg1)
     case 0: {
         LevelDescription* description;
         SpriteEntry* sprite;
-        s32* current;
-        s32 value;
+        s32* scrollPosition;
+        s32 initialScroll;
 
         _unk3000644 = _currentGameState->unk6EA;
         description = getLevelDescription(_unk3000644);
@@ -989,12 +989,12 @@ void sub_8048D8C(FrontendState* state, unk32 arg1)
         _unk3000604 = 0x5800;
         _unk3000640 = 0x1000;
         _unk3000608 = 0;
-        current = &_unk300060C;
-        value = 0x10000;
-        *current = value;
-        sub_80596AC(&state->unk250, -value, 0);
+        scrollPosition = &_unk300060C;
+        initialScroll = 0x10000;
+        *scrollPosition = initialScroll;
+        sub_80596AC(&state->unk250, -initialScroll, 0);
         if (_unk3000600 != NULL) {
-            LoadSpriteSheet(_unk3000600, description->unkC0, value, 0x2300, 0, 0, 0, 0);
+            LoadSpriteSheet(_unk3000600, description->unkC0, initialScroll, 0x2300, 0, 0, 0, 0);
         }
         allocFont(&_unk3000610, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xD0, 2);
         sub_8061660(&_unk3000610, _806E650[getLanguage()], 0xF);
@@ -1008,19 +1008,17 @@ void sub_8048D8C(FrontendState* state, unk32 arg1)
         }
         break;
     case 1: {
-        SpriteTextCleanup* text;
         s32 textX;
-        s32 delta;
+        s32 scrollDelta;
 
-        text = &_unk3000610;
-        textX = text->x;
+        textX = _unk3000610.x;
         sub_80439A0(&state->unk140);
         _unk3000600->x += (_unk3000604 - _unk3000600->x) >> 2;
         textX += (_unk3000640 - textX) >> 2;
-        sub_8061844(text, textX >> 8, 0x6E);
-        delta = (_unk3000608 - _unk300060C) >> 2;
-        sub_80596AC(&state->unk250, -delta, 0);
-        _unk300060C += delta;
+        sub_8061844(&_unk3000610, textX >> 8, 0x6E);
+        scrollDelta = (_unk3000608 - _unk300060C) >> 2;
+        sub_80596AC(&state->unk250, -scrollDelta, 0);
+        _unk300060C += scrollDelta;
         break;
     }
     case 2:
