@@ -177,7 +177,9 @@ typedef struct CurrentGameState {
     unk8 unk2;
     unk8 unk3;
     LevelState unk4[0x38];
-    unk8 pad544[0x167];
+    unk8 pad544[0x160];
+    unk8 unk6A4;
+    unk8 pad6A5[6];
     unk8 unk6AB;
     unk16 unk6AC;
     unk16 unk6AE;
@@ -211,6 +213,7 @@ extern u8 _unk3000FE0[304];
 extern u32 _unk3001110[16];
 
 extern void* _unk3000DF0[14];
+extern unk8 _unk3000F20[32];
 extern unk16 _unk3000F40;
 extern unk16 _unk3000F42;
 extern unk16 _unk3000F44;

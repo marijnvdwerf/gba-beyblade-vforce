@@ -230,6 +230,28 @@ typedef struct ParticleSystem {
     struct AllocatedBlock* unk30;
 } ParticleSystem;
 
+typedef union RiderStatePrefix {
+    struct {
+        unk16 unk0;
+        unk16 unk2;
+        unk16 unk4;
+        unk16 unk6;
+    } words;
+
+    struct {
+        unk8 pad0[7];
+        unk8 unk7;
+    } bytes;
+} RiderStatePrefix;
+
+typedef struct RiderState {
+    RiderStatePrefix prefix;
+    unk16 unk8;
+    unk16 unkA;
+    unk8 unkC;
+    unk8 unkD;
+} RiderState;
+
 typedef struct RiderBase {
     unk8 unk0[0x238];
     Actor unk238;
@@ -426,7 +448,9 @@ typedef struct LevelDescription {
     s32 unk24;
     s32 unk28;
     LineMetadata** metadata;
-    unk8 pad30[0xA0];
+    unk8 pad30[0x60];
+    unk32 unk90;
+    unk8 pad94[0x9C];
 } LevelDescription;
 
 #define true 1
