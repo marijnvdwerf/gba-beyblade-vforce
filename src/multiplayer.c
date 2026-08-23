@@ -74,7 +74,14 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805ffe4.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/806003c-nullsub_47.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8060040.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8060070.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/806008c.s");
+
+unk32 sub_806008C(void)
+{
+    if ((_unk3005DC4->unk14 & 0x100) != 0) {
+        return 1;
+    }
+    return 0;
+}
 
 unk8 isMultiplayer(void)
 {
