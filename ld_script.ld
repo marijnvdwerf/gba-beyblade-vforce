@@ -245,7 +245,6 @@ SECTIONS {
 		src/strings4.c.o(.rodata);
 		src/sprite.c.o(.rodata);
 		src/strings7.c.o(.rodata);
-		asm/data4.s.o(.rodata);
 		src/sound.c.o(.rodata);
 		src/strings5.c.o(.rodata);
 		asm/data5.s.o(.rodata);
