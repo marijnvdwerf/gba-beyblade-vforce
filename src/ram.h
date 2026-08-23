@@ -308,5 +308,10 @@ extern SpriteEntry* _unk300036C;
 extern SpriteEntry* _unk3000370;
 extern s32 _unk3000374;
 extern FrontendCoordinateTarget _unk3000378;
+extern FrontendResource _unk3000380;
+extern FrontendResource _unk3000388;
+extern FrontendResource _unk3000390;
+extern FrontendResource _unk3000398;
+extern FrontendResource _unk30003A0;
 
 #endif // _RAM_H

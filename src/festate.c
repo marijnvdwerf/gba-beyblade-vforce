@@ -1,3 +1,6 @@
+#include <agb/memory_map.h>
+
+#include "beyblade.h"
 #include "common.h"
 #include "debug.h"
 #include "frontend.h"
@@ -6,6 +9,7 @@
 #include "include_asm.h"
 #include "language.h"
 #include "menuobject.h"
+#include "music.h"
 #include "packet.h"
 #include "ram.h"
 #include "unsorted.h"
@@ -13,6 +17,11 @@
 extern const u8 SpriteSheet_823BF04[];
 extern const unk32 _80689A4[];
 extern const unk32 _80692A4[];
+extern const unk32 _80693A0[];
+extern const unk32 _8069378[];
+extern const unk32 _806938C[];
+extern const unk32 _80693B4[];
+extern const unk32 _80693C8[];
 extern const s16 Unk_874CC3C[];
 
 void sub_8043A0C(FrontendState* state, unk32 arg1, unk32 arg2)
@@ -331,7 +340,75 @@ void sub_804566C(FrontendState* state, unk32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/804568c.s");
+void sub_804568C(FrontendState* state, unk32 arg1)
+{
+    FrontendResource* resource;
+    LevelState* levelState;
+    s32 i;
+
+    switch (arg1) {
+    case 0:
+        sub_8049168();
+        sub_8057158(&_unk3000380, _80693A0);
+        sub_8057158(&_unk3000388, _8069378);
+        sub_8057158(&_unk3000390, _806938C);
+        sub_8057158(&_unk3000398, _80693B4);
+        sub_8057158(&_unk30003A0, _80693C8);
+        break;
+    case 1:
+        resource = &_unk3000380;
+        sub_8057164(resource);
+        if (sub_80571D0(resource) != 0) {
+            for (i = 0; i <= 0x37; i++) {
+                levelState = sub_8051720(i);
+                levelState->unk0 |= 2;
+            }
+            sub_804ABFC(8);
+        }
+        resource = &_unk3000388;
+        sub_8057164(resource);
+        if (sub_80571D0(resource) != 0) {
+            _currentGameState->unkC64 |= 1;
+            sub_804ABFC(8);
+        }
+        resource = &_unk3000390;
+        sub_8057164(resource);
+        if (sub_80571D0(resource) != 0) {
+            for (i = 0; i <= 0x6C; i++) {
+                sub_8057104(i, 1);
+            }
+            sub_804ABFC(8);
+        }
+        resource = &_unk3000398;
+        sub_8057164(resource);
+        if (sub_80571D0(resource) != 0) {
+            _currentGameState->unkC64 |= 2;
+            sub_804ABFC(8);
+        }
+        resource = &_unk30003A0;
+        sub_8057164(resource);
+        if (sub_80571D0(resource) != 0) {
+            _currentGameState->unkC64 |= 4;
+            sub_804ABFC(8);
+        }
+        if (((sub_8057C40() >> 8) & 1) != 0) {
+            *(vu16*)REG_DISPCNT |= 0x1000;
+        } else {
+            *(vu16*)REG_DISPCNT &= 0xEFFF;
+        }
+        break;
+    case 2:
+        if ((_unk3005DA0 & 9) != 0) {
+            sub_804924C(0xA);
+            sub_80490F8(8);
+        }
+        break;
+    case 7:
+        *(vu16*)REG_DISPCNT |= 0x1000;
+        break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8045848.s");
 INCLUDE_ASM("asm/dump/8040d18/8045a7c.s");
 INCLUDE_ASM("asm/dump/8040d18/8045cb4.s");

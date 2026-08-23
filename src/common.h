@@ -45,6 +45,12 @@ typedef struct UnkMenu {
     unk32 unk24;
 } UnkMenu;
 
+typedef struct FrontendResource {
+    s16 state;
+    s16 timer;
+    const unk32* data;
+} FrontendResource;
+
 typedef struct FrontendMenu {
     unk8 pad0[4];
     unk32 selection;
