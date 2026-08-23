@@ -2303,6 +2303,7 @@ _8069FA0:
 
 global _8069FC8
 .global _LevelRowMusicTable
+.type _LevelRowMusicTable, %object
 _LevelRowMusicTable:
     .byte 0, 0, 0, 0
     .4byte _8069FA0
@@ -2605,7 +2606,8 @@ _LevelRowMusicTable:
     .4byte sub_8049F9C + 1
     .4byte sub_8049F9C + 1
 
-
+    .size _LevelRowMusicTable, 43*0x18
+_806A3D0:
     .byte 0x84, 0xD8, 0x6F, 0x08, 0x00, 0x00, 0x00, 0x00
     .byte 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
     .byte 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
