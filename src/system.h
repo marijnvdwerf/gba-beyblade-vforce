@@ -8,7 +8,7 @@ void InitStuff_SetDispStat(unk16);
 void EnableInterrupt(unk16);
 void DisableInterrupt(unk16);
 void sub_805791C(void);
-void nullsub_8(const char*);
+void nullsub_8(const unk8*);
 void sub_8057A1C(unk32);
 void loadPalette(void*);
 void loadPalette2(void*);

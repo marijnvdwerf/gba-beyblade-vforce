@@ -41,7 +41,7 @@ void initEventListeners(unk32 levelId)
                     *listenerPtr++ = i;
                     listenerCount = listenerCount + 1;
                     if (listenerCount > maxListeners) {
-                        printf((const char*)Str_8729658, maxListeners);
+                        printf((const unk8*)Str_8729658, maxListeners);
                     }
                 }
             }
@@ -50,7 +50,7 @@ void initEventListeners(unk32 levelId)
             bytes = listenerCount * sizeof(unk32);
             block = slowAllocate(bytes);
             if (block == NULL) {
-                printf((const char*)Str_87296A4, bytes);
+                printf((const unk8*)Str_87296A4, bytes);
             }
             __fastMemoryCopyARM(listenerIds, block->address, bytes);
             _gameData->unkCA0 = block;

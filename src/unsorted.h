@@ -6,12 +6,12 @@
 #include "language.h"
 #include "ram.h"
 
-typedef void CopyFn(void*, void*, int);
-typedef void ClearFn(int, void*, int);
+typedef void CopyFn(void*, void*, unk32);
+typedef void ClearFn(unk32, void*, unk32);
 extern CopyFn* __fastMemoryCopyARM;
 extern ClearFn* __fastMemoryClearARM;
 
-void initMultiPlayer(int, int, int);
+void initMultiPlayer(unk32, unk32, unk32);
 void initGame(void);
 void InitCurrentGameState(void);
 void sub_8055CB8(void);
@@ -30,6 +30,6 @@ unk32 sub_8051780(unk32);
 
 extern FrontendState _unk3000650;
 
-void sub_805AC28(int, int, int, unk16);
+void sub_805AC28(unk32, unk32, unk32, unk16);
 
 #endif // _UNSORTED_H

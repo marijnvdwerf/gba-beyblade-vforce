@@ -26,7 +26,7 @@ AllocatedBlock* sub_805A53C(u32 size, unk8* base, unk32 capacity, AllocatedBlock
 
 void initBlockVariables(void)
 {
-    int blockSize = sizeof(AllocatedBlock) * BLOCK_COUNT;
+    unk32 blockSize = sizeof(AllocatedBlock) * BLOCK_COUNT;
 
     _wramBlocksUsed = 0;
     _exramBlocksUsed = 0;

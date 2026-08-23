@@ -5,9 +5,9 @@
 #include "memory.h"
 #include "ram.h"
 
-extern const char Str_8755834[];
-extern const char Str_8755884[];
-extern const char Str_87558B4[];
+extern const unk8 Str_8755834[];
+extern const unk8 Str_8755884[];
+extern const unk8 Str_87558B4[];
 extern unk32 __divsi3(unk32, unk32);
 
 #if 0

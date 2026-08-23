@@ -109,7 +109,7 @@ SpriteStringActorBlock* SpriteString_8064FE8(SpriteString* string, const u8* arg
 
     state = sub_8062EFC(count);
     if (state == NULL) {
-        nullsub_8((const char*)Str_8756844);
+        nullsub_8((const unk8*)Str_8756844);
     }
     i = 0;
     if (i < count) {

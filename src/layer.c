@@ -31,65 +31,65 @@ typedef struct {
 } Struct3000CA0;
 
 typedef struct {
-    int columnCount; // 0x00
-    int rowCount; // 0x04
+    s32 columnCount; // 0x00
+    s32 rowCount; // 0x04
     Struct3000CA0* var8;
-    int field_C;
+    unk32 field_C;
     u32 field_10;
     u32 field_14;
-    int field_18;
-    int field_1C;
-    int field_20;
-    int field_24;
-    int field_28;
-    int field_2C;
-    int field_30;
-    int field_34;
-    int field_38;
-    int field_3C;
-    int field_40;
-    int field_44;
+    unk32 field_18;
+    unk32 field_1C;
+    unk32 field_20;
+    unk32 field_24;
+    unk32 field_28;
+    unk32 field_2C;
+    unk32 field_30;
+    unk32 field_34;
+    unk32 field_38;
+    unk32 field_3C;
+    unk32 field_40;
+    unk32 field_44;
     u16 field_48;
     u16 field_4A;
-    int field_4C;
-    int field_50;
-    int field_54;
-    int field_58;
+    unk32 field_4C;
+    unk32 field_50;
+    unk32 field_54;
+    unk32 field_58;
     u8 screenBaseBlock; // 0x5C
-    char characterBaseBlock; // 0x5D
-    char layerIndex; // 0x5E
-    char field_5F;
-    char field_60;
-    char field_61;
-    char field_62[2];
+    u8 characterBaseBlock; // 0x5D
+    unk8 layerIndex; // 0x5E
+    u8 field_5F;
+    u8 field_60;
+    unk8 field_61;
+    unk8 field_62[2];
     u16 var64;
     TileMapHeader* var68;
     void* tileAddr; // 0x6C
     void* mapAddr; // 0x70
     u32 tileBytes; // 0x74
-    int mapBytes; // 0x78
-    char field_7C;
-    int field_80;
-    int field_84;
+    unk32 mapBytes; // 0x78
+    unk8 field_7C;
+    unk32 field_80;
+    unk32 field_84;
 } BGLayer;
 
 extern Struct3000CA0 _unk3000CA0[10];
 extern u8 _unk3000DE0;
 extern u8 _unk3000E3C;
 
-int sub_8059284(BGLayer* r0, u16 r1, u16 r2);
+unk32 sub_8059284(BGLayer* r0, u16 r1, u16 r2);
 vu16* GetBGLayerHOffsetPtr(u8 layer);
 vu16* GetBGLayerVOffsetPtr(u8 layer);
 
 void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgPriority, u16 sp0);
 
-void sub_8059310(BGLayer* r0, int r1, int r2, int r3, int sp0, int sp4, int sp8);
+void sub_8059310(BGLayer* r0, unk32 r1, unk32 r2, unk32 r3, unk32 sp0, unk32 sp4, unk32 sp8);
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8058968.s");
 
 void sub_8058A28(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgPriority, u16 sp0)
 {
-    int a, b;
+    s32 a, b;
 
     sub_8058AA8(bgLayer, layerIndex, header, bgPriority, sp0);
 
@@ -118,7 +118,7 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
 {
     u32 var0;
     u8 colorMode;
-    int tileBlocks;
+    unk32 tileBlocks;
     vu16* layerCnt;
 
     bgLayer->var68 = header;
@@ -210,7 +210,7 @@ void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriorit
 {
     u32 var0;
     //    unk8 colorMode;
-    int tileBlocks;
+    unk32 tileBlocks;
     vu16* layerCnt;
     void* dest;
 

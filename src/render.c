@@ -6,7 +6,7 @@
 
 #include "system.h"
 
-extern const char Str_8755644[];
+extern const unk8 Str_8755644[];
 
 extern unk8 render_00[];
 extern unk8 _renderFunctionsEnd[];

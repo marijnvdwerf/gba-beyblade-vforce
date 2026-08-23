@@ -16,9 +16,9 @@ struct ActorBlock {
     ActorBlock* next;
 };
 
-extern const char Str_8755E24[];
-extern const char Str_8755E54[];
-extern const char Str_8755E8C[];
+extern const unk8 Str_8755E24[];
+extern const unk8 Str_8755E54[];
+extern const unk8 Str_8755E8C[];
 
 extern ActorBlock* _actorBlocksHeapPtr;
 extern ActorBlock* _unk3005E58;

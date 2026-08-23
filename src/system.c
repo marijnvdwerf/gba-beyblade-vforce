@@ -51,7 +51,7 @@ void nullsub_31(void)
 {
 }
 
-void nullsub_8(const char* arg0)
+void nullsub_8(const unk8* arg0)
 {
 }
 

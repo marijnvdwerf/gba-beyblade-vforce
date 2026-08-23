@@ -303,7 +303,7 @@ void sub_8049F9C(FrontendState* arg0, unk32 arg1)
 INCLUDE_ASM("asm/dump/8040d18/8049ff8.s");
 
 #if 0
-void sub_8049CE8(FrontendState* arg0, int arg1) {
+void sub_8049CE8(FrontendState* arg0, unk32 arg1) {
     switch (arg1) {
     case 2:
         break;

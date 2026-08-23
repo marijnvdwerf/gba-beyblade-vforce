@@ -5,9 +5,9 @@
 #include "debug.h"
 #include "ram.h"
 
-extern const char Str_872C8E4[];
-extern const char Str_872C928[];
-extern const char Str_872C960[];
+extern const unk8 Str_872C8E4[];
+extern const unk8 Str_872C928[];
+extern const unk8 Str_872C960[];
 
 void initBattery(void)
 {

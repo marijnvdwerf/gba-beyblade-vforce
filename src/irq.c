@@ -12,7 +12,7 @@ extern const void* const Unk_872CAF4[];
 
 void sub_8057984(void)
 {
-    int i;
+    s32 i;
     for (i = 0; i < 14; i++) {
         // printf("irq %i:\t%i\n", i, _unk3001110[i]);
         printf(Str_872CB2C, i, _unk3001110[i]);

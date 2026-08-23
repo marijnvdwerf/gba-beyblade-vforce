@@ -34,7 +34,7 @@ typedef struct {
     /*0x14*/ unk16 var14;
     /*0x16*/ u8 var16;
     /*0x17*/ unk8 var17;
-    /*0x18*/ int var18;
+    /*0x18*/ unk32 var18;
     /*0x1C*/ void* var1C;
     /*0x20*/ void* var20;
     /*0x24*/ unk16 var24;
@@ -86,8 +86,8 @@ extern unk16 (*_soundMixerPlus)[];
 // Actor?
 extern unk8 _unk3005E78;
 
-void (*__sub_87577B4)(SoundStructA*, int, int);
-void (*__sound_8757A64)(int, int, int);
+void (*__sub_87577B4)(SoundStructA*, unk32, unk32);
+void (*__sound_8757A64)(unk32, unk32, unk32);
 
 // 16.16 Hz frequencies for MIDI notes 0 through 127.
 #define FIXED_16_16(hz) ((unk32)((hz) * 65536.0))
@@ -390,7 +390,7 @@ void Sound_onTimer1Overflow(void)
     *(vu32*)REG_DMA1CNT = DMA_ENABLE | DMA_TIMMING_SOUND | DMA_32BIT_BUS | DMA_CONTINUOUS_ON;
 }
 
-void Sound_80627A8(SoundStructA* arg0, int arg1, int arg2)
+void Sound_80627A8(SoundStructA* arg0, unk32 arg1, unk32 arg2)
 {
     uintptr_t start, end, current;
 
@@ -463,13 +463,13 @@ void sub_80627F0(void)
                 channelCount -= 1;
             } while (channelCount != -1);
         }
-        __sound_8757A64((int)_unk3000D90, firstChunkLength, 0);
+        __sound_8757A64((unk32)_unk3000D90, firstChunkLength, 0);
         audioCursor = _unk3000D90 + firstChunkLength;
         _unk3000D90 = audioCursor;
         if (wrapDistance != 0) {
             audioCursor -= _unk3005E4C;
             _unk3000D90 = audioCursor;
-            __sound_8757A64((int)audioCursor, wrapDistance, firstChunkLength);
+            __sound_8757A64((unk32)audioCursor, wrapDistance, firstChunkLength);
             audioCursor += wrapDistance;
             _unk3000D90 = audioCursor;
         }
@@ -520,7 +520,7 @@ static void Sound_8062950(SoundStructA* arg0, SoundStructE* (*segments)[], s16 (
 
 unk32 Sound_8062990(SoundStructE* (*segments)[], s16 (*order)[])
 {
-    int i;
+    unk32 i;
 
     SoundStructA* var1 = &(*_unk3005E24)[0];
     for (i = _unk3005E04 - 1; i != -1; i--) {
@@ -538,9 +538,9 @@ unk32 Sound_8062990(SoundStructE* (*segments)[], s16 (*order)[])
     return -1;
 }
 
-unk32 Sound_80629F0(SoundStructE* arg0, int arg1)
+unk32 Sound_80629F0(SoundStructE* arg0, unk32 arg1)
 {
-    int i;
+    unk32 i;
 
     SoundStructA* var1 = &(*_unk3005E24)[0];
     for (i = _unk3005E04 - 1; i != -1; i--) {
@@ -558,9 +558,9 @@ unk32 Sound_80629F0(SoundStructE* arg0, int arg1)
     return -1;
 }
 
-static SoundStructA* Sound_8062A50(int arg0)
+static SoundStructA* Sound_8062A50(unk32 arg0)
 {
-    int i;
+    unk32 i;
 
     SoundStructA* var1 = &(*_unk3005E24)[0];
     for (i = _unk3005E04 - 1; i != -1; i--) {
@@ -574,7 +574,7 @@ static SoundStructA* Sound_8062A50(int arg0)
     return NULL;
 }
 
-void Sound_8062A90(int arg0)
+void Sound_8062A90(unk32 arg0)
 {
     SoundStructA* var;
 
@@ -584,7 +584,7 @@ void Sound_8062A90(int arg0)
     }
 }
 
-void Sound_8062AA4(int arg0)
+void Sound_8062AA4(unk32 arg0)
 {
     SoundStructA* var;
 
@@ -594,7 +594,7 @@ void Sound_8062AA4(int arg0)
     }
 }
 
-void Sound_8062AB8(int arg0)
+void Sound_8062AB8(unk32 arg0)
 {
     SoundStructA* var;
 
@@ -606,7 +606,7 @@ void Sound_8062AB8(int arg0)
 
 ASM_ZEROPAD
 
-void Sound_8062AD4(int arg0, u32 arg1)
+void Sound_8062AD4(unk32 arg0, u32 arg1)
 {
     SoundStructA* var;
 
@@ -621,7 +621,7 @@ void Sound_8062AD4(int arg0, u32 arg1)
 
 ASM_ZEROPAD
 
-void Sound_8062AF4(int arg0, u32 arg1)
+void Sound_8062AF4(unk32 arg0, u32 arg1)
 {
     SoundStructA* var;
 
@@ -667,7 +667,7 @@ void Sound_8062B90()
     }
 }
 
-void Sound_8062BA8(int arg0)
+void Sound_8062BA8(unk32 arg0)
 {
     if (arg0 >= _unk3005E14->var00) {
         return;
@@ -683,7 +683,7 @@ void Sound_8062BA8(int arg0)
     _unk3005E0C = 1;
 }
 
-unk32 Sound_8062BFC(int arg0, int arg1)
+unk32 Sound_8062BFC(unk32 arg0, unk32 arg1)
 {
     if (arg0 >= _unk3005E14->count) {
         return;
@@ -898,7 +898,7 @@ void sub_8062C24(void) {
 
 }*/
 
-int Sound_8062E54(int arg0)
+unk32 Sound_8062E54(unk32 arg0)
 {
     SoundStructA* var1 = Sound_8062A50(arg0);
 
