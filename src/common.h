@@ -60,30 +60,20 @@ typedef struct UnkMotion {
 } UnkMotion;
 
 typedef struct FrontendSubobject {
-    unk8 pad0[0x14];
-    unk32 unk14;
-    unk32 unk18;
-    unk8 pad1C[8];
-    unk32 unk24;
-    unk8 pad28[0x54];
-    unk8 unk7C;
+    unk8 pad0[0x80];
 } FrontendSubobject;
 
 typedef struct FrontendState FrontendState;
 
 typedef struct UnkMenuItem UnkMenuItem;
 
-typedef void (*UnkMenuCallback)(UnkMenuItem*, s32, UnkMenuItem*, s32);
-
 struct UnkMenuItem {
-    unk8 pad0[0x30];
-    const u8* text;
+    unk8 pad0[0x34];
     s32 value;
     s32 count;
     unk32 flags;
     const u8* options;
-    unk8 disabled;
-    unk8 pad45[3];
+    unk8 pad44[4];
     UnkMenuItem* next;
 };
 
@@ -93,24 +83,20 @@ typedef struct FrontendMenu {
 } FrontendMenu;
 
 typedef struct MenuState {
-    unk8 pad0[0xC];
+    unk8 pad0[9];
+    unk8 unk9;
+    unk8 padA[2];
     UnkMenuItem* items; /* 0xC */
     unk8 pad10[4];
     s32 itemCount; /* 0x14 */
     unk32 objectCount; /* 0x18 */
     unk8 pad1C[8];
     s32 unk24; /* 0x24 */
-    unk8 pad28[4];
-    unk8 normalColor; /* 0x2C */
-    unk8 disabledColor; /* 0x2D */
-    unk8 selectedColor; /* 0x2E */
-    unk8 pad2F;
-    UnkMenuCallback callback; /* 0x30 */
-    void (*valueCallback)(UnkMenuItem*, s32); /* 0x34 */
-    FrontendMenu menu; /* 0x4B0 */
+    unk8 pad28[0x10];
+    FrontendMenu menu; /* 0x38 */
     unk8 pad40[0x68];
     UnkMotion* objectItems; /* 0xA8 */
-    unk32 allocation; /* 0xAC */
+    unk8 padAC[4];
     unk32 timer; /* 0xB0 */
     SpriteTextCleanup cleanup; /* 0xB4 */
     UnkMotion motion; /* 0xE4 */
@@ -124,7 +110,7 @@ typedef struct FrontendResource {
 } FrontendResource;
 
 typedef struct FrontendObject {
-    unk32 unk0;
+    unk8 pad0[4];
     FrontendSubobject* unk4;
     void (*unk8)(FrontendState*, unk32, unk32);
     void (*unkC)(FrontendState*, unk32);
@@ -138,10 +124,9 @@ struct FrontendState {
     unk32 unk8;
     unk32 unkC;
     unk32 unk10;
-    unk32 unk14[0x1A];
+    unk8 pad14[0x68];
     unk8 unk7C;
-    unk8 unk7D;
-    unk8 unk7E;
+    unk8 pad7D[2];
     unk8 unk7F;
     unk8 unk80;
     unk8 unk81;
@@ -174,7 +159,7 @@ struct FrontendState {
     unk8 pad587[1];
     void (*unk588)(FrontendState*, unk32);
     unk32 unk58C;
-    unk8 unk590[0x18];
+    unk8 pad590[0x18];
     unk32 unk5A8;
 };
 
@@ -341,7 +326,7 @@ typedef struct RiderBase {
     unk32 unk1C;
     unk8 pad20[0x7C];
     unk32 flags;
-    unk32 unkA0;
+    unk8 padA0[4];
     unk32 unkA4;
     unk8 padA8[0x10];
     SpriteEntry* unkB8;
