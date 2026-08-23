@@ -85,8 +85,8 @@ Last updated: 2026-08-23, session 3 (raw-decomp migration rounds; batch 9 + call
 
 ## State
 
-Progress: 9/66 TUs done, 352 C functions, 655 INCLUDE_ASM remaining (35%).
-Session 3 merged 68 functions (batches 1–12, all migrated from the
+Progress: 9/66 TUs done, 374 C functions, 633 INCLUDE_ASM remaining (37%).
+Session 3 merged 90 functions (batches 1–17 minus 13, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
 
@@ -125,7 +125,8 @@ sub_804A280 needs an ldrsh from it and is parked because of that).
 
 | worktree | scope | status |
 |---|---|---|
-| agent-a8a8f43fcc83d24b9 | batch 13: festate sub_80461D8/8046500/8046814/8046A0C/8046CC4/8048D8C/8046B94/8045A7C/selectBladeFrontendHandler (3rd attempt; batch 12 agent refused them) | running |
+| agent-a8a8f43fcc83d24b9 | batch 13: festate — 5 matched, sub_8046A0C parked, doing sub_8046CC4/sub_8048D8C/selectBladeFrontendHandler | running |
+| agent-a085228097a2c299d | temp-reduction-8 over 1fa3191..HEAD + header dedupe (duplicate externs e.g. _unk3000E30 in 3 headers) | running |
 
 ### Next steps (user direction, 2026-08-23)
 
@@ -162,7 +163,14 @@ sub_804A280 needs an ldrsh from it and is parked because of that).
 - sub_8052978 matched: `_unk3000C0C` is a `void(*)(void)` callback set via
   case 5 — next table/setter to trace.
 - Parked today (natural C diverges on regalloc): sub_8044054, sub_804257C,
-  sub_8049FF8, sub_805AFBC, sub_8063220, sub_80491E0.
+  sub_8049FF8, sub_805AFBC, sub_8063220, sub_80491E0, sub_8057104,
+  sub_8046A0C, creditsFrontendHandler, collectionListFrontendHandler,
+  newIconMenu, sub_8050C18, sub_8050E80, sub_8050F0C.
+- Scout rescan at a19ffa3: 98 unique reds, 65 raw-backed, 33 without raw body
+  (skip by policy), 27 parked. After this round ~40 raw-backed remain parked.
+- Agents: stopping mid-list is normal — compare every completion against the
+  assigned list and revive until exhausted. Agents must never SendMessage.
+- ASM_ZEROPAD is the fix for a TU whose .text tail pads 00 00 vs nop (iconmenu).
 - NEVER `git worktree remove -f -f` a locked worktree: the lock means the
   agent is alive; I did it once and lost its uncommitted work.
 - Preamble lesson: "layout incomplete" was being used as a skip reason;
