@@ -49,10 +49,19 @@ struct AllocatedBlock {
     AllocatedBlock* next;
 };
 
+typedef struct MotionEntry {
+    unk32 x;
+    unk32 y;
+    unk32 unk8;
+    unk32 unkC;
+    unk32 unk10;
+    unk32 unk14;
+} MotionEntry;
+
 typedef struct UnkMotion {
     AllocatedBlock* block;
-    unk32* sourceBlock;
-    unk32* motions;
+    SpriteTextBlock* sourceBlock;
+    MotionEntry* motions;
     s16 count;
     unk16 mode;
     unk32 unk10;

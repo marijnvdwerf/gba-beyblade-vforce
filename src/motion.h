@@ -4,9 +4,12 @@
 #include "common.h"
 #include "memory.h"
 
+extern const u8 Str_8727080[];
+extern const u8 Str_87270B8[];
+
 typedef UnkMotion MotionGroup;
 
-void newMotionGroup(void*, void*, unk32);
+void newMotionGroup(MotionGroup*, SpriteTextBlock*, unk16);
 void sub_8050384(UnkMotion*);
 void sub_805041C(UnkMotion*);
 void sub_80504E4(MotionGroup*, s32, s32, s32, s32);
