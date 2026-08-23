@@ -25,6 +25,39 @@ typedef struct BeybladeActorData {
     unk8 pad5[3];
 } BeybladeActorData;
 
+typedef struct LevelHudText {
+    s32 x; /* 0x00 */
+    s32 y; /* 0x04 */
+    unk8 pad8[0x28]; /* 0x08 */
+} LevelHudText;
+
+typedef struct LevelHudData {
+    SpriteTextCleanup text0; /* 0x00 */
+    LevelHudText text1; /* 0x30 */
+    unk8 pad60[0x60]; /* 0x60 */
+    UnkMotion motion0; /* 0xC0 */
+    UnkMotion motion1; /* 0xD8 */
+    unk32 status; /* 0xF0 */
+    unk8 padF4[0x16]; /* 0xF4 */
+    unk16 state; /* 0x10A */
+    unk16 pad10C; /* 0x10C */
+    unk16 flags; /* 0x10E */
+} LevelHudData;
+
+typedef struct HudGameDataView {
+    unk8 pad0[0xF50];
+    SpriteTextCleanup text0;
+    LevelHudText text1;
+    unk8 pad60[0x60];
+    UnkMotion motion0;
+    UnkMotion motion1;
+    unk32 status;
+    unk8 padF4[0x16];
+    unk16 state;
+    unk16 pad10C;
+    unk16 flags;
+} HudGameDataView;
+
 typedef struct GameData {
     unk8 pad0[0x200]; /* 0x000 */
     void* unk200; /* 0x200 */
@@ -175,7 +208,9 @@ typedef struct CurrentGameState {
     unk8 unk2;
     unk8 unk3;
     LevelState unk4[0x38];
-    unk8 pad544[0x167];
+    unk8 pad544[0x160];
+    unk8 unk6A4;
+    unk8 pad6A5[6];
     unk8 unk6AB;
     unk16 unk6AC;
     unk16 unk6AE;

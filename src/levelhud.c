@@ -3,7 +3,50 @@
 #include "spritetext.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f878.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804f9b4.s");
+
+typedef struct LevelHudObject {
+    unk8 pad0[8];
+    unk32 unk8;
+    unk32 unkC;
+    unk8 pad10[8];
+    unk16 unk18;
+} LevelHudObject;
+
+typedef struct LevelHudSetupState {
+    unk8 pad0[0x1040];
+    unk32 unk1040;
+    LevelHudObject* unk1044;
+    LevelHudObject* unk1048;
+    unk8 pad104C[4];
+    LevelHudObject* unk1050;
+    unk16 unk1054;
+    unk16 unk1056;
+    unk16 unk1058;
+    unk16 unk105A;
+    unk16 unk105C;
+    unk16 unk105E;
+} LevelHudSetupState;
+
+void sub_804F9B4(void)
+{
+    LevelHudSetupState* state;
+
+    state = (LevelHudSetupState*)_gameData;
+    state->unk1054 = 0x190;
+    state->unk105C = 1;
+    state->unk1056 = 0;
+    state->unk1058 = 0;
+    state->unk1044->unk8 = 0x4A00;
+    state->unk1048->unk8 = 0x8A00;
+    state->unk1050->unk8 = 0x4200;
+    state->unk1044->unkC = -0x2000;
+    state->unk1048->unkC = -0x2000;
+    state->unk1050->unkC = -0x2000;
+    state->unk1044->unk18 = 0;
+    state->unk1048->unk18 = 0;
+    state->unk1050->unk18 = 0;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fa40.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fad4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fb6c.s");
