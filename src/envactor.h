@@ -4,6 +4,7 @@
 #include "common.h"
 
 void initLevelEnvironmentActors(u16);
+void initProjectileSystem(void);
 void sub_8054FE0(void);
 
 #endif /* _ENVACTOR_H */

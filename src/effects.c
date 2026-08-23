@@ -3,7 +3,6 @@
 #include "ram.h"
 
 extern void sub_804C484(void* arg0);
-extern void deallocate_80637CC(void* arg0);
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805529c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055340.s");
@@ -20,10 +19,10 @@ void sub_80556F4(void)
     GameData* gameData;
 
     gameData = _gameData;
-    sub_804C484(gameData->pad1084);
-    deallocate_80637CC(gameData->pad1084 + 0x34);
-    deallocate_80637CC(gameData->pad1084 + 0x48);
-    deallocate_80637CC(gameData->pad1084 + 0x5C);
+    sub_804C484(&gameData->projectileSystem);
+    deallocate_80637CC(&gameData->projectileSystem.palette34);
+    deallocate_80637CC(&gameData->projectileSystem.palette48);
+    deallocate_80637CC(&gameData->projectileSystem.palette5C);
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055734.s");
