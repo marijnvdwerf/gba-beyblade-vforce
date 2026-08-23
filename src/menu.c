@@ -18,7 +18,7 @@ void sub_805AC80(MenuState* arg0, UnkMenuItem* arg1)
 
     state = arg0->unk2F;
     if (arg1->options != NULL) {
-        source = (unk8*)arg1->unk30;
+        source = arg1->unk30;
         destination = _unk3000D30;
         if (source != NULL) {
             while (*source != 0) {
@@ -35,7 +35,7 @@ void sub_805AC80(MenuState* arg0, UnkMenuItem* arg1)
             *destination = 0x20;
             destination++;
         }
-        source = (unk8*)arg1->options[arg1->value].values[arg0->unk8];
+        source = arg1->options[arg1->value].values[arg0->unk8];
         while (*source != 0) {
             *destination = *source;
             source++;
