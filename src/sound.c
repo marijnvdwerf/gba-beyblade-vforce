@@ -89,7 +89,8 @@ extern u8 _unk3005E78;
 void (*__sub_87577B4)(SoundStructA*, int, int);
 void (*__sound_8757A64)(int, int, int);
 
-const u32 Unk_8755B90[128] = {
+// 16.16 Hz frequencies for MIDI notes 0 through 127.
+const u32 MidiNoteFrequencies[128] = {
     0x00082D01,
     0x0008A976,
     0x00092D51,
@@ -263,7 +264,7 @@ static void Sound_80623A8(u32 arg0)
     s32 i;
 
     u32* table = *_soundTables;
-    const u32* val = &Unk_8755B90[0];
+    const u32* val = &MidiNoteFrequencies[0];
     for (i = 127; i != -1; i--) {
         s64 longVal = *(val++) * (u64)11025;
 
