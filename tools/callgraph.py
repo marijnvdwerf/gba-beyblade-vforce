@@ -450,12 +450,7 @@ def render(functions: Functions, root: str) -> str:
     active: set[str] = set()
 
     def walk(
-        name: str,
-        prefix: str,
-        is_last: bool,
-        depth: int,
-        is_root: bool,
-        expand: bool = True,
+        name: str, prefix: str, is_last: bool, depth: int, is_root: bool
     ) -> None:
         function = functions.get(name)
         if function is None:
@@ -471,7 +466,7 @@ def render(functions: Functions, root: str) -> str:
         branch = "" if is_root else ("└─ " if is_last else "├─ ")
         location = f" [{function.file}]" if function.file else ""
         lines.append(f"{prefix}{branch}{function.marker} {name}{location}{suffix}")
-        if suffix or not expand:
+        if suffix:
             return
 
         expanded.add(name)
@@ -485,7 +480,6 @@ def render(functions: Functions, root: str) -> str:
                 index == len(children) - 1,
                 depth + 1,
                 False,
-                expand=not function.synthetic,
             )
         active.remove(name)
 
