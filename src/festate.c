@@ -18,11 +18,11 @@
 extern const u8 SpriteSheet_823BF04[];
 extern const unk32 _80689A4[];
 extern const unk32 _80692A4[];
-extern const unk32 _80693A0[];
-extern const unk32 _8069378[];
-extern const unk32 _806938C[];
-extern const unk32 _80693B4[];
-extern const unk32 _80693C8[];
+extern const InputSequence _80693A0[];
+extern const InputSequence _8069378[];
+extern const InputSequence _806938C[];
+extern const InputSequence _80693B4[];
+extern const InputSequence _80693C8[];
 extern const unk32 _80693DC[];
 extern const s16 Unk_874CC3C[];
 

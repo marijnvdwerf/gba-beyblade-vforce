@@ -14,7 +14,7 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80570c0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80570d4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057104.s");
 
-void sub_8057158(FrontendResource* arg0, const unk32* arg1)
+void sub_8057158(FrontendResource* arg0, const InputSequence* arg1)
 {
     arg0->state = 0;
     arg0->data = arg1;
@@ -23,12 +23,12 @@ void sub_8057158(FrontendResource* arg0, const unk32* arg1)
 
 void sub_8057164(FrontendResource* arg0)
 {
-    unk32* data;
-    unk16* values;
+    const InputSequence* data;
+    const unk16* values;
 
-    data = (unk32*)arg0->data;
-    values = (unk16*)(data + 1);
-    if (arg0->state == *data) {
+    data = arg0->data;
+    values = data->keys;
+    if (arg0->state == arg0->data->count) {
         arg0->state = -1;
     } else if (arg0->state != -1) {
         if (arg0->timer == 0) {
@@ -53,7 +53,7 @@ unk8 sub_80571D0(FrontendResource* arg0)
     unk8 result;
 
     result = 0;
-    if (arg0->state == arg0->data[0]) {
+    if (arg0->state == arg0->data->count) {
         result = 1;
     }
     return result;
@@ -92,9 +92,9 @@ void deallocBeybladeActorData(void)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057258-getBeyBladeActorDataForIndex.s");
 
-unk32 getBeybladeData0(unk32 arg0)
+const BeybladeData* getBeybladeData0(unk32 arg0)
 {
-    return (unk32)_807ac28 + arg0 * 0x34;
+    return &_807ac28[arg0];
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057348-getBeybladeActorData.s");
