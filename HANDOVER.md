@@ -85,8 +85,8 @@ Last updated: 2026-08-23, session 3 (raw-decomp migration rounds; batch 9 + call
 
 ## State
 
-Progress: 9/66 TUs done, 329 C functions, 678 INCLUDE_ASM remaining (33%).
-Session 3 merged 45 functions (batches 1–8, all migrated from the
+Progress: 9/66 TUs done, 349 C functions, 658 INCLUDE_ASM remaining (35%).
+Session 3 merged 65 functions (batches 1–11, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
 
@@ -125,8 +125,8 @@ sub_804A280 needs an ldrsh from it and is parked because of that).
 
 | worktree | scope | status |
 |---|---|---|
-| agent-a97adbc3b91b12c85 | batch 9: menu.c ×3, menuobject sub_8043720, frontend sub_80491E0, spritetext sub_8061824, projectile ×2, palette sub_8063220 | running |
-| (no worktree) | scout: where do FrontendState/gameloop callbacks get set (tables/setters) → new reachable functions | running |
+| agent-a3be0bf370a2d1d5a | batch 12: festate sub_80461D8/8046500/8046814/8046A0C/8046CC4/8048D8C/8046B94/8045A7C/selectBladeFrontendHandler, background sub_8049CE8/DE0/FF8, transition sub_804257C, gameloop sub_8052978 — with explicit mandate to TYPE the layouts | running |
+| agent-ab1084b78395c95e6 | flatten the 3-way `MenuState` overlay union (common.h) into one struct; report whether MenuObject+FrontendState should be one struct | running |
 
 ### Next steps (user direction, 2026-08-23)
 
@@ -136,10 +136,22 @@ sub_804A280 needs an ldrsh from it and is parked because of that).
   produces C from a dump; some functions throw. Next decomp step: measure the
   success rate over asm/dump and use it as the draft source for reds WITHOUT
   a raw-decomp body.
-- **Callbacks**: find where `FrontendState.unkB4->unk8/C/10/14`,
-  `FrontendState.unk588`, gameloop `transition` etc. are populated (ROM
-  handler tables / setters) — every resolved table is a new batch of
-  reachable functions. Scout is running.
+- **Callbacks — RESOLVED**: `_LevelRowMusicTable` (asm/data12.s, MISNAMED — it's
+  the 43×0x18 frontend-screen table; +8/+C/+10/+14 = FrontendObject
+  unk8/unkC/unk10/unk14) feeds ~40 handlers; `FrontendState.unkB4` is set by
+  `sub_804967C`, `unk588` by `StoreFunction` (proven target sub_8049DE0);
+  gameloop `transition` == sub_8052978 (which stores another callback in
+  `_unk3000C0C`, unresolved). `tools/callgraph.py` now follows the table
+  from build/rom.elf (`HANDLER_TABLES`, one line per table; 🧭 nodes) — true
+  reachable red count is ~106. Unresolved: other `unk588` writers,
+  `_unk3000C0C`, RenderCode consumers, the exact `unkC` call site.
+- **Open design question**: `FrontendState` (common.h) and `MenuObject`
+  (menuobject.h) both describe `_unk3000650`; `MenuState` at 0x478 was
+  unified into one type but is currently a 3-way overlay union (being
+  flattened). Probably they should be ONE struct — decide after the report.
+- Preamble lesson: "layout incomplete" was being used as a skip reason;
+  typing the layout from the asm IS the job (preamble updated; batch 10 did
+  11/12 with that mindset, batch 11 did 3/17 without it).
 - Other stashes: `globals` (tools/globals.py survey: 59 of 2878 globals
   have conflicting declarations, 40 are `void*` def vs typed extern —
   promotion pass offered, not approved) and `ram comments` (per-global
