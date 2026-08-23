@@ -234,7 +234,22 @@ void sub_8049F58(UnkStructA* arg0, unk32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8049f9c.s");
+void sub_8049F9C(UnkStructA* arg0, unk32 arg1)
+{
+    switch (arg1) {
+    case 2:
+        arg0->var584 = 0x40;
+        arg0->var585 = 0xFC;
+        arg0->var586 = 0;
+        break;
+    case 3:
+        arg0->var584 = 0;
+        arg0->var585 = 2;
+        arg0->var586 = 0x40;
+        break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8049ff8.s");
 
 #if 0
