@@ -1,9 +1,8 @@
 #include "common.h"
 #include "frontend.h"
 #include "include_asm.h"
+#include "packet.h"
 #include "ram.h"
-
-extern void sub_80439A0(void*);
 
 INCLUDE_ASM("asm/dump/8040d18/8043a0c.s");
 INCLUDE_ASM("asm/dump/8040d18/8043a58.s");
@@ -37,7 +36,7 @@ void sub_8046424(FrontendState* arg0, unk32 arg1)
         sub_8049168();
         break;
     case 1:
-        sub_80439A0(arg0->unkB8);
+        sub_80439A0(&arg0->unkB8);
         break;
     case 2:
         if (_unk3005DA0 == 2) {
