@@ -43,6 +43,22 @@ typedef struct FrontendSubobject {
 
 typedef struct FrontendState FrontendState;
 
+typedef struct UnkMenu {
+    unk8 unk0[0x24];
+    unk32 unk24;
+} UnkMenu;
+
+typedef struct FrontendResource {
+    s16 state;
+    s16 timer;
+    const unk32* data;
+} FrontendResource;
+
+typedef struct FrontendMenu {
+    unk8 pad0[4];
+    unk32 selection;
+} FrontendMenu;
+
 typedef struct FrontendObject {
     unk32 unk0;
     FrontendSubobject* unk4;
@@ -81,9 +97,11 @@ struct FrontendState {
     UnkMotion motion;
     SpriteTextCleanup* unk470;
     unk16 unk474;
-    unk8 pad476[0xB];
-    unk8 unk481;
-    unk8 pad482[0xF6];
+    unk8 pad476[2];
+    UnkMenu menuState; /* 0x478 */
+    unk8 pad4A0[0x10]; /* 0x4A0 */
+    FrontendMenu menu; /* 0x4B0 */
+    unk8 pad4B8[0xC0]; /* 0x4B8 */
     unk32 unk578;
     unk32 unk57C;
     unk32 unk580;

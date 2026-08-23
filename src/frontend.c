@@ -86,7 +86,7 @@ void sub_8049264(void)
     _unk3000650.unk424 = 0;
     _unk3000650.unk470 = 0;
     _unk3000650.unk474 = 0;
-    _unk3000650.unk481 = 0;
+    _unk3000650.menuState.unk0[9] = 0;
     _unk3000650.unk578 = _unk3000650.unk57C = _unk3000650.unk580 = 0;
     _unk3000650.unk80 = 0;
     _unk3000650.unk7F = 0;

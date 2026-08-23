@@ -6,8 +6,8 @@
 struct SpriteEntry {
     SpriteEntry* prev;
     SpriteEntry* next;
-    unk32 x;
-    unk32 y;
+    s32 x;
+    s32 y;
     s32 unk10;
     unk16 oam_attr_2;
     unk16 var16;

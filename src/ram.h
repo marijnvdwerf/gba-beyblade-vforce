@@ -320,4 +320,29 @@ extern unk16 _unk3000F42;
 extern unk16 _unk3000F44;
 extern unk16 _unk3000F46;
 
+extern SpriteEntry* _unk3000158;
+extern SpriteEntry* _unk300015C;
+extern s32 _unk3000160;
+extern s32 _unk3000164;
+extern unk32 _unk3000168;
+
+typedef struct FrontendCoordinateTarget {
+    s32 value;
+    unk8 pad4[4];
+} FrontendCoordinateTarget;
+
+extern SpriteEntry* _unk300036C;
+extern SpriteEntry* _unk3000370;
+extern s32 _unk3000374;
+extern FrontendCoordinateTarget _unk3000378;
+extern FrontendResource _unk3000380;
+extern FrontendResource _unk3000388;
+extern FrontendResource _unk3000390;
+extern FrontendResource _unk3000398;
+extern FrontendResource _unk30003A0;
+extern SpriteEntry* _unk30003A8;
+extern SpriteEntry* _unk30003AC;
+extern s32 _unk30003B0;
+extern s32 _unk30003B4;
+
 #endif // _RAM_H

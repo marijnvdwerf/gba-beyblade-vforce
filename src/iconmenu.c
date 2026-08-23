@@ -1,3 +1,5 @@
+#include "iconmenu.h"
+
 #include "include_asm.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050a7c-newIconMenu.s");
