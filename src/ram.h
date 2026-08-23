@@ -333,6 +333,14 @@ typedef struct FrontendCoordinateTarget {
     unk8 pad4[4];
 } FrontendCoordinateTarget;
 
+typedef struct FrontendSelectionObject {
+    SpriteEntry* sprite;
+    unk32 unk4;
+    unk32 unk8;
+    s16 frame;
+    unk8 padE[2];
+} FrontendSelectionObject;
+
 extern SpriteEntry* _unk300036C;
 extern SpriteEntry* _unk3000370;
 extern s32 _unk3000374;
@@ -350,6 +358,15 @@ extern SpriteEntry* _unk30003B8;
 extern SpriteEntry* _unk30003BC;
 extern s32 _unk30003C0;
 extern s32 _unk30003C4;
+extern s32 _unk3000474;
+extern FrontendCoordinateTarget _unk3000478;
+extern FrontendSelectionObject _unk3000480;
+extern u8 _unk3000490;
+extern u8 _unk3000491;
+extern SpriteEntry* _unk3000494;
+extern SpriteEntry* _unk3000498;
+extern s32 _unk300049C;
+extern s32 _unk30004A0;
 extern SpriteEntry* _unk3000464;
 extern SpriteEntry* _unk3000468;
 extern s32 _unk300046C;

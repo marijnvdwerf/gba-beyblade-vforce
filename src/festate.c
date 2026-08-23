@@ -8,6 +8,7 @@
 #include "iconmenu.h"
 #include "include_asm.h"
 #include "language.h"
+#include "layer.h"
 #include "menu.h"
 #include "menuobject.h"
 #include "music.h"
@@ -700,7 +701,110 @@ void sub_8046424(FrontendState* arg0, unk32 arg1)
 
 INCLUDE_ASM("asm/dump/8040d18/8046468.s");
 INCLUDE_ASM("asm/dump/8040d18/80464c0.s");
-INCLUDE_ASM("asm/dump/8040d18/8046500.s");
+
+void sub_8046500(FrontendState* state, unk32 arg1, unk32 arg2)
+{
+    SpriteEntry* sprite1;
+    SpriteEntry* sprite2;
+    SpriteEntry** spriteRef;
+    s32 delta;
+
+    switch (arg1) {
+    case 0:
+        sprite1 = allocSprite(0);
+        _unk3000494 = sprite1;
+        if (sprite1 != NULL) {
+            LoadSpriteSheet(sprite1, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+        }
+        sprite2 = allocSprite(0);
+        _unk3000498 = sprite2;
+        if (sprite2 != NULL) {
+            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+        }
+        _unk300049C = 0x800;
+        _unk30004A0 = 0xD800;
+        _unk3000478.value = 0x10000;
+        _unk3000474 = 0;
+        sub_80596AC(&state->unk250, -_unk3000478.value, 0x2400);
+        _unk3000480.frame = 0;
+        _unk3000480.unk4 = sub_804A0E0(0);
+        _unk3000480.unk8 = sub_804A0E0(1);
+        _unk3000491 = 0;
+        _unk3000490 = 1;
+        state->unk80 |= 0x30;
+        break;
+    case 7:
+        if (_unk3000494 != NULL) {
+            sub_8060A94(_unk3000494);
+        }
+        if (_unk3000498 != NULL) {
+            sub_8060A94(_unk3000498);
+        }
+        if (_unk3000480.sprite != NULL) {
+            sub_8060A94(_unk3000480.sprite);
+        }
+        break;
+    case 8:
+        if (arg2 == 1) {
+            _unk3000491 = arg2;
+            _unk3000480.sprite = allocSprite(0);
+            sub_8046468(&_unk3000480, sub_80570C0(_unk3000480.frame), 1);
+        }
+        break;
+    case 1:
+        sub_80439A0(&state->unk140);
+        spriteRef = &_unk3000494;
+        if (*spriteRef != NULL) {
+            (*spriteRef)->x += ((_unk300049C - (*spriteRef)->x) >> 3)
+                + Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1] - _unk3000474;
+        }
+        spriteRef = &_unk3000498;
+        if (*spriteRef != NULL) {
+            (*spriteRef)->x += ((_unk30004A0 - (*spriteRef)->x) >> 3)
+                - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1] + _unk3000474;
+        }
+        if (_unk3000491 != 0 && (_unk3000478.value >> 8) > 0xFE && _unk3000474 == 0x10000) {
+            sub_8046468(&_unk3000480, sub_80570C0(_unk3000480.frame), 1);
+            _unk3000474 = 0;
+        }
+        delta = (_unk3000474 - _unk3000478.value) >> 2;
+        sub_80596AC(&state->unk250, -delta, 0);
+        _unk3000478.value += delta;
+        sub_80464C0(&_unk3000480, _unk3000478.value);
+        break;
+    case 2:
+        if ((_unk3005DA0 & 3) != 0) {
+            _unk300049C = 0xFFFF0000;
+            _unk30004A0 = 0x1E000;
+            _unk3000474 = 0x10000;
+            _unk3000491 = 0;
+            sub_8049178();
+        }
+        if ((_unk3005DA0 & 0x30) != 0) {
+            if ((_unk3005DA0 & 0x20) != 0) {
+                if (_unk3000480.frame > 0) {
+                    _unk3000480.frame--;
+                } else {
+                    _unk3000480.frame = 0x6C;
+                }
+            } else {
+                if (_unk3000480.frame < 0x6C) {
+                    _unk3000480.frame++;
+                } else {
+                    _unk3000480.frame = 0;
+                }
+            }
+            _unk3000474 = 0x10000;
+        }
+        break;
+    case 3:
+    case 4:
+    case 5:
+    case 6:
+        break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8046814.s");
 INCLUDE_ASM("asm/dump/8040d18/8046a0c.s");
 INCLUDE_ASM("asm/dump/8040d18/8046b94.s");

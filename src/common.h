@@ -151,7 +151,8 @@ struct FrontendState {
     FrontendSubobject unkB8;
     unk8 pad138[8];
     FrontendSubobject unk140;
-    unk8 pad1C0[0x264];
+    unk8 pad1C0[0x90];
+    unk8 unk250[0x1D4];
     unk32 unk424;
     unk8 pad428[0x30];
     UnkMotion motion;

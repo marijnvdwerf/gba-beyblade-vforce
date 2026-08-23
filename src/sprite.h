@@ -36,6 +36,7 @@ struct SpriteRotationScaleEntry {
 void SpriteVRamFree(u32, u32);
 void* allocSprite(u16);
 void sub_8060A94(SpriteEntry*);
+s32 sub_80570C0(s16);
 void sub_8060CDC(SpriteTextBlock*);
 SpriteEntry* resizeSpriteBlock(SpriteTextBlock*, unk16, unk16);
 void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32, s32, unk32, unk32);
