@@ -5,6 +5,6 @@
 
 void LoadHUD(void);
 void sub_804F800(s32);
-void sub_804F84C(unk32);
+void sub_804F84C(unk8);
 
 #endif /* _HUD_H */

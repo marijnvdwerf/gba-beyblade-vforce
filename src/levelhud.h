@@ -11,6 +11,6 @@ void sub_804FC00(void);
 extern const u8* _806E6FC[];
 extern const u8* _806E710[];
 void sub_804FD64(void);
-void sub_804F84C(unk32);
+void sub_804F84C(unk8);
 
 #endif /* _LEVELHUD_H */

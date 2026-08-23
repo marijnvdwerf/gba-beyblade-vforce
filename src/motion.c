@@ -78,9 +78,47 @@ void sub_8050384(UnkMotion* arg0)
     arg0->unk10 = 0;
 }
 
-// TODO: split?
+void newMotionGroup(MotionGroup* arg0, SpriteTextBlock* arg1, unk16 arg2)
+{
+    unk32 size;
+    AllocatedBlock* block;
+    MotionEntry* target;
+    SpriteEntry* source;
+    s32 i;
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050394-newMotionGroup.s");
+    size = arg1->count * sizeof(MotionEntry);
+    if (size == 0) {
+        printf(Str_8727080);
+        return;
+    }
+    block = slowAllocate(size);
+    arg0->block = block;
+    if (block == NULL) {
+        printf(Str_87270B8, size, arg1->count);
+        return;
+    }
+    target = block->address;
+    arg0->motions = target;
+    arg0->count = arg1->count;
+    arg0->sourceBlock = arg1;
+    arg0->unk10 = 0;
+    arg0->unk14 = 0x80;
+    arg0->mode = arg2;
+    source = arg1->prev;
+    i = 0;
+    while (i < arg0->count) {
+        target->unkC = 0;
+        target->unk8 = 0;
+        target->unk14 = 0;
+        target->unk10 = 0;
+        target->x = source->x;
+        target->y = source->y;
+        source = source->next;
+        target++;
+        i++;
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/805041c.s");
 
 void sub_80504E4(MotionGroup* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)

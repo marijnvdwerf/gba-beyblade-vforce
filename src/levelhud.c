@@ -78,7 +78,36 @@ void sub_804FAD4(void)
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fb6c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fc00.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fcac-getItem.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804fd64.s");
+
+void sub_804FD64(void)
+{
+    GameData* base;
+    SpriteTextCleanup* hud;
+    unk16* flags;
+
+    base = _gameData;
+    hud = &base->levelHud0;
+    flags = &base->unk105E;
+    if ((*flags & 2) != 0) {
+        sub_8061228(hud);
+        sub_8050584(&base->levelHudMotion0);
+        *flags &= 0xFFFD;
+    }
+    if ((*flags & 4) != 0) {
+        sub_8061228(&base->levelHud1);
+        sub_8050584(&base->levelHudMotion1);
+        *flags &= 0xFFFB;
+    }
+    if ((*flags & 0x10) != 0) {
+        sub_8061228(hud);
+        *flags &= 0xFFEF;
+    }
+    if ((*flags & 0x20) != 0) {
+        sub_8061228(&base->levelHud1);
+        *flags &= 0xFFDF;
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fe14.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fe30.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fe50.s");
