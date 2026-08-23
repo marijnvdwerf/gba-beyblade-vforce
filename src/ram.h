@@ -313,5 +313,9 @@ extern FrontendResource _unk3000388;
 extern FrontendResource _unk3000390;
 extern FrontendResource _unk3000398;
 extern FrontendResource _unk30003A0;
+extern SpriteEntry* _unk30003A8;
+extern SpriteEntry* _unk30003AC;
+extern s32 _unk30003B0;
+extern s32 _unk30003B4;
 
 #endif // _RAM_H
