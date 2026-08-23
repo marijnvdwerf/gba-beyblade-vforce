@@ -10,7 +10,14 @@ void sub_804FF5C(s32 arg0)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ff88.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ffd4.s");
+
+void sub_804FFD4(void)
+{
+    __fastMemoryClearARM(0, _gameData->unk15D4, 0x40);
+    _unk3000F44 = 0;
+    _unk3000F40 = 0;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/805000c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050050.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050114.s");

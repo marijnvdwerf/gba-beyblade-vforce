@@ -147,7 +147,9 @@ typedef struct GameData {
     unk8 pad12F2[2]; /* 0x12F2 */
     CollectableData collectables; /* 0x12F4 */
     TutorialData tutorial; /* 0x13FC */
-    unk8 pad153C[0xDC]; /* 0x153C */
+    unk8 pad153C[0x98]; /* 0x153C */
+    unk8 unk15D4[0x40]; /* 0x15D4 */
+    unk8 pad1614[4]; /* 0x1614 */
     unk8 unk1618; /* 0x1618 */
     unk8 pad1619[2]; /* 0x1619 */
     unk8 unk161B; /* 0x161B */
