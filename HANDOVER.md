@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-08-23 19:40, session 3 (batch 13 festate still running; temp-reduction-8 merged; keepalive monitor bn4u8q59w; shared prompt preamble in /tmp/migrate-preamble.txt).
+Last updated: 2026-08-23 ~21:00, end of session 3 (all agents done, no worktrees, monitor stopped).
 
 ## How to work
 
@@ -85,8 +85,8 @@ Last updated: 2026-08-23 19:40, session 3 (batch 13 festate still running; temp-
 
 ## State
 
-Progress: 9/66 TUs done, 374 C functions, 633 INCLUDE_ASM remaining (37%).
-Session 3 merged 90 functions (batches 1–17 minus 13, all migrated from the
+Progress: 9/66 TUs done, 381 C functions, 626 INCLUDE_ASM remaining (38%).
+Session 3 merged 97 functions (batches 1–17, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
 
@@ -125,9 +125,17 @@ sub_804A280 needs an ldrsh from it and is parked because of that).
 
 | worktree | scope | status |
 |---|---|---|
-| agent-a8a8f43fcc83d24b9 | batch 13: festate — 5 matched, sub_8046A0C parked, doing sub_8046CC4/sub_8048D8C/selectBladeFrontendHandler | running |
+| (none) | temp-reduction-7/8/9 + skill pass (f6db672) merged; all learnings processed | — |
 
 ### Next steps (user direction, 2026-08-23)
+
+- Scout at a19ffa3 found 98 unique reds reachable from mainLoop: after this
+  session ~27 raw-backed remain but are all PARKED (see list below), 33 have
+  no raw body. So the raw-decomp copy-over well is dry; next sources of drafts
+  are asmlift (below) and writing C from asm (batch 10/13 agents did that fine
+  for festate handlers when told typing is part of the job).
+- `selectBladeFrontendHandler` (no raw body) was started and dropped — first
+  candidate for an asmlift/from-asm attempt.
 
 - **asmlift**: `git stash list` has `asmlift` (decomp.yaml + docs/asmlift.md;
   docs hardcode /Users/marijn/Projects/asmlift — make that an env var before
