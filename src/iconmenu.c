@@ -59,3 +59,5 @@ void sub_8051028(FrontendMenu* menu)
     }
     sub_8061204(&menu->text);
 }
+
+ASM_ZEROPAD

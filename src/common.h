@@ -80,6 +80,10 @@ struct UnkMenuItem {
 typedef struct FrontendMenuData FrontendMenuData;
 typedef struct FrontendMenuItem FrontendMenuItem;
 
+struct FrontendMenuData {
+    unk8 pad0[0x24];
+};
+
 struct FrontendMenuItem {
     unk8 pad0[4];
     SpriteEntry* sprite;
