@@ -12,5 +12,6 @@ unk8 sub_80571D0(FrontendResource*);
 void allocateBeyBladeActorPalette(unk32, unk32);
 unk32 getBeybladeData0(unk32);
 extern void* RiderPalettes[];
+extern const unk8 _807ac28[];
 
 #endif /* _BEYBLADE_H */

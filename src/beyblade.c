@@ -13,7 +13,14 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8057094.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80570c0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80570d4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057104.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8057158.s");
+
+void sub_8057158(FrontendResource* arg0, const unk32* arg1)
+{
+    arg0->state = 0;
+    arg0->data = arg1;
+    arg0->timer = 0;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057164.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80571d0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80571e4-GetTalkingHead.s");
@@ -48,7 +55,12 @@ void deallocBeybladeActorData(void)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057258-getBeyBladeActorDataForIndex.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8057338-getBeybladeData0.s");
+
+unk32 getBeybladeData0(unk32 arg0)
+{
+    return (unk32)_807ac28 + arg0 * 0x34;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057348-getBeybladeActorData.s");
 
 void allocateBeyBladeActorPalette(unk32 arg0, unk32 arg1)
