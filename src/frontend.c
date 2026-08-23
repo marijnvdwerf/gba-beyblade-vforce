@@ -1,3 +1,4 @@
+#define FRONTEND_IMPLEMENTATION
 #include "frontend.h"
 
 #include <agb/types.h>
@@ -59,7 +60,36 @@ void sub_8049168(void)
 
 INCLUDE_ASM("asm/dump/8040d18/8049178.s");
 INCLUDE_ASM("asm/dump/8040d18/80491c4.s");
-INCLUDE_ASM("asm/dump/8040d18/80491e0.s");
+
+s32 sub_80491E0(s32 arg0, s32 arg1)
+{
+    u32 value;
+    u32 negative;
+    s32 input;
+
+    value = arg0;
+    input = arg1;
+    negative = value >> 31;
+    if (value != 0) {
+        if (negative)
+            value = 0 - value;
+        while (1) {
+            if (input == 0)
+                break;
+            if ((s32)value > (input << 8)) {
+                value = input;
+                break;
+            }
+            input >>= 1;
+        }
+        if (input == 0)
+            value = 1;
+        if (negative)
+            value = 0 - value;
+    }
+    return value;
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8049210.s");
 
 void sub_8049234(unk32 arg0)
