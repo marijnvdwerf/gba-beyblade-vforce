@@ -350,5 +350,9 @@ extern SpriteEntry* _unk30003B8;
 extern SpriteEntry* _unk30003BC;
 extern s32 _unk30003C0;
 extern s32 _unk30003C4;
+extern SpriteEntry* _unk3000464;
+extern SpriteEntry* _unk3000468;
+extern s32 _unk300046C;
+extern s32 _unk3000470;
 
 #endif // _RAM_H
