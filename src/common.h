@@ -118,6 +118,17 @@ typedef struct FrontendObject {
     void (*unk14)(FrontendState*, unk32);
 } FrontendObject;
 
+typedef struct FrontendTransition {
+    s8 value;
+    s8 unk585;
+    unk8 unk586;
+    unk8 pad587[1];
+    void (*unk588)(FrontendState*, unk32);
+    unk32 unk58C;
+    unk8 pad590[0x18];
+    unk32 unk5A8;
+} FrontendTransition;
+
 struct FrontendState {
     unk32 unk0;
     unk32 unk4;
@@ -153,14 +164,7 @@ struct FrontendState {
     unk32 unk578;
     unk32 unk57C;
     unk32 unk580;
-    unk8 unk584;
-    s8 unk585;
-    unk8 unk586;
-    unk8 pad587[1];
-    void (*unk588)(FrontendState*, unk32);
-    unk32 unk58C;
-    unk8 pad590[0x18];
-    unk32 unk5A8;
+    FrontendTransition transition;
 };
 
 typedef struct UnkTrail {

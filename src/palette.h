@@ -4,6 +4,9 @@
 #include "common.h"
 #include "memory.h"
 
+#define BG_PLTT_PTR ((u16*)BG_PLTT)
+#define OBJ_PLTT_PTR ((u16*)OBJ_PLTT)
+
 typedef struct Palette {
     unk8* source; /* 0x00 */
     unk16 unk4; /* 0x04 */
@@ -21,7 +24,7 @@ void sub_8063544(Palette*, s32, s32, s32, s32, s32, s32, s32, s32);
 void sub_8063640(Palette*, s32);
 void sub_8063704(Palette*, s32);
 void deallocate_80637CC(Palette*);
-void sub_80637E4(Palette*, unk8*, unk32, unk32, unk32);
-void sub_8063830(Palette*, unk8*, s32, s32, s32, s32);
+void sub_80637E4(Palette*, u16*, unk32, unk32, unk32);
+void sub_8063830(Palette*, u16*, s32, s32, s32, s32);
 
 #endif /* _PALETTE_H */
