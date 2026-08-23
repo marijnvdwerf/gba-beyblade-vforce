@@ -12,7 +12,35 @@ typedef u16 unk16;
 typedef u32 unk32;
 
 typedef struct AllocatedBlock AllocatedBlock;
+typedef struct SpriteEntry SpriteEntry;
+typedef struct SpriteTextBlock SpriteTextBlock;
 typedef struct SpriteTextCleanup SpriteTextCleanup;
+
+struct SpriteTextBlock {
+    SpriteEntry* prev;
+    SpriteEntry* next;
+    unk32 count;
+};
+
+struct SpriteTextCleanup {
+    unk32 x;
+    unk32 y;
+    unk16 unk8;
+    unk16 unkA;
+    unk16 unkC;
+    unk8 unkE;
+    unk8 unkF;
+    unk16 unk10;
+    unk16 unk12;
+    SpriteTextBlock unk14;
+    const u8* unk20;
+    const u8* unk24;
+    unk8 unk28;
+    s8 unk29;
+    s8 unk2A; /* ldsb r0, [r7, r0] at .L8061430 in sub_806123C */
+    unk8 unk2B;
+    SpriteEntry* ptr2C;
+};
 
 struct AllocatedBlock {
     void* address;
@@ -43,21 +71,70 @@ typedef struct FrontendSubobject {
 
 typedef struct FrontendState FrontendState;
 
-typedef struct UnkMenu {
-    unk8 unk0[0x24];
-    unk32 unk24;
-} UnkMenu;
+typedef struct UnkMenuItem UnkMenuItem;
+
+typedef void (*UnkMenuCallback)(UnkMenuItem*, s32, UnkMenuItem*, s32);
+
+struct UnkMenuItem {
+    unk8 pad0[0x30];
+    const u8* text;
+    s32 value;
+    s32 count;
+    unk32 flags;
+    const u8* options;
+    unk8 disabled;
+    unk8 pad45[3];
+    UnkMenuItem* next;
+};
+
+typedef struct FrontendMenu {
+    unk8 pad0[4];
+    unk32 selection;
+} FrontendMenu;
+
+typedef struct MenuState {
+    union {
+        struct {
+            unk8 pad0[0xC];
+            UnkMenuItem* items;
+            unk8 pad10[4];
+            s32 itemCount;
+            unk8 pad18[0xC];
+            s32 unk24;
+            unk8 pad28[4];
+            unk8 normalColor;
+            unk8 disabledColor;
+            unk8 selectedColor;
+            unk8 pad2F;
+            UnkMenuCallback callback;
+            void (*valueCallback)(UnkMenuItem*, s32);
+            unk8 pad38[0x10];
+        } menu;
+
+        struct {
+            unk8 objectPad0[0x18];
+            unk32 objectCount;
+            unk8 objectPad1C[0x8C];
+            UnkMotion* objectItems;
+            unk32 allocation;
+            unk32 timer;
+            SpriteTextCleanup cleanup;
+            UnkMotion motion;
+        } object;
+
+        struct {
+            unk8 pad478[0x38];
+            FrontendMenu menu; /* 0x4B0 */
+            unk8 pad4B8[0xC0]; /* 0x4B8 */
+        } frontend;
+    } layout;
+} MenuState;
 
 typedef struct FrontendResource {
     s16 state;
     s16 timer;
     const unk32* data;
 } FrontendResource;
-
-typedef struct FrontendMenu {
-    unk8 pad0[4];
-    unk32 selection;
-} FrontendMenu;
 
 typedef struct FrontendObject {
     unk32 unk0;
@@ -98,10 +175,9 @@ struct FrontendState {
     SpriteTextCleanup* unk470;
     unk16 unk474;
     unk8 pad476[2];
-    UnkMenu menuState; /* 0x478 */
-    unk8 pad4A0[0x10]; /* 0x4A0 */
-    FrontendMenu menu; /* 0x4B0 */
-    unk8 pad4B8[0xC0]; /* 0x4B8 */
+
+    MenuState menuState; /* 0x478 */
+
     unk32 unk578;
     unk32 unk57C;
     unk32 unk580;
@@ -127,8 +203,6 @@ typedef struct UnkActor {
     unk8 unk0[0x8D];
     unk8 unk8D;
 } UnkActor;
-
-typedef struct SpriteEntry SpriteEntry;
 
 typedef struct Actor {
     unk8 pad0[4];
@@ -190,32 +264,6 @@ typedef struct EnvironmentObject {
     SpriteEntry* sprite;
     unk8 pad8[0x44];
 } EnvironmentObject;
-
-typedef struct SpriteTextBlock {
-    SpriteEntry* prev;
-    SpriteEntry* next;
-    unk32 count;
-} SpriteTextBlock;
-
-struct SpriteTextCleanup {
-    unk32 x;
-    unk32 y;
-    unk16 unk8;
-    unk16 unkA;
-    unk16 unkC;
-    unk8 unkE;
-    unk8 unkF;
-    unk16 unk10;
-    unk16 unk12;
-    SpriteTextBlock unk14;
-    const u8* unk20;
-    const u8* unk24;
-    unk8 unk28;
-    s8 unk29;
-    s8 unk2A; /* ldsb r0, [r7, r0] at .L8061430 in sub_806123C */
-    unk8 unk2B;
-    SpriteEntry* ptr2C;
-};
 
 struct Actor;
 
