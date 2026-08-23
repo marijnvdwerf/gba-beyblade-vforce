@@ -96,7 +96,7 @@ typedef struct FrontendMenuTextTable {
 
 struct FrontendMenuSourceItem {
     const u8* sheet;
-    const unk32* text[4];
+    const u8* text[4];
     unk32 unk14;
     unk32 x;
     unk32 y;

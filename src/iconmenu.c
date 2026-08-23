@@ -15,8 +15,68 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8050a7c-newIconMenu.s");
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050c18.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050df8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050e80.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050f0c.s");
+
+void sub_8050E80(FrontendMenu* menu)
+{
+    FrontendMenuItem* current;
+    FrontendMenuItem* next;
+    s32 index;
+    s32 nextIndex;
+
+    index = menu->selection;
+    current = menu->items + index;
+    nextIndex = index + 1;
+    if ((menu->flags & 1) == 0) {
+        sub_804ABFC(7);
+        if (nextIndex >= menu->itemCount) {
+            nextIndex = 0;
+        }
+        next = menu->items + nextIndex;
+        if (next->sprite != NULL) {
+            sub_8061078(next->sprite, 1);
+        }
+        if (current->sprite != NULL) {
+            sub_8061078(current->sprite, 2);
+        }
+        current->target = current->source->selectedX;
+        next->target = next->source->selectedY;
+        menu->position.value = 0xFFFF - nextIndex * menu->itemSpacing;
+        menu->selection = nextIndex;
+        sub_8061660(
+            &menu->text, (unk32)next->source->text[getLanguage()], menu->data->font->charWidth);
+    }
+}
+
+void sub_8050F0C(FrontendMenu* menu)
+{
+    FrontendMenuItem* current;
+    FrontendMenuItem* previous;
+    s32 index;
+    s32 previousIndex;
+
+    index = menu->selection;
+    current = menu->items + index;
+    previousIndex = index - 1;
+    if ((menu->flags & 1) == 0) {
+        sub_804ABFC(7);
+        if (previousIndex < 0) {
+            previousIndex = menu->itemCount - 1;
+        }
+        previous = menu->items + previousIndex;
+        if (previous->sprite != NULL) {
+            sub_8061078(previous->sprite, 1);
+        }
+        if (current->sprite != NULL) {
+            sub_8061078(current->sprite, 2);
+        }
+        current->target = current->source->selectedX;
+        previous->target = previous->source->selectedY;
+        menu->position.value = 0xFFFF - previousIndex * menu->itemSpacing;
+        menu->selection = previousIndex;
+        sub_8061660(
+            &menu->text, (unk32)previous->source->text[getLanguage()], menu->data->font->charWidth);
+    }
+}
 
 void sub_8050F98(FrontendMenu* menu)
 {

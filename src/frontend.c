@@ -10,6 +10,7 @@
 #include "menuobject.h"
 #include "motion.h"
 #include "multiplayer.h"
+#include "music.h"
 #include "ram.h"
 #include "sound.h"
 #include "unsorted.h"
@@ -20,7 +21,14 @@ INCLUDE_ASM("asm/dump/8040d18/8048fc4-nullsub_38.s");
 INCLUDE_ASM("asm/dump/8040d18/8048fc8-nullsub_33.s");
 INCLUDE_ASM("asm/dump/8040d18/8048fcc.s");
 INCLUDE_ASM("asm/dump/8040d18/8048fd4.s");
-INCLUDE_ASM("asm/dump/8040d18/8048fe4.s");
+
+void sub_8048FE4(void)
+{
+    sub_804AF5C();
+    sub_804AE8C();
+    sub_80490F8(-1);
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8048ffc.s");
 
 void sub_8049018(void)
