@@ -93,6 +93,7 @@ void sub_804A51C(void)
         sub_8055624();
     }
 }
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a550.s");
 
 void sub_804A72C(void)

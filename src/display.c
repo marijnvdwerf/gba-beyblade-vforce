@@ -1,4 +1,5 @@
 #include "display.h"
+
 #include "include_asm.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80506f4-newLayerManagement.s");
@@ -24,4 +25,5 @@ void sub_8050A50(DisplayData* arg0)
         } while (count != 0);
     }
 }
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050a78-nullsub_41.s");
