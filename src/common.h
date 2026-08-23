@@ -55,7 +55,12 @@ typedef struct FrontendState {
     unk8 unk7F;
     unk8 unk80;
     unk8 unk81;
-    unk8 pad82[0x32];
+    unk8 pad82[2];
+    unk32 unk84;
+    unk32 unk88;
+    unk32 unk8C;
+    unk32 unk90;
+    unk8 pad94[0x20];
     FrontendObject* unkB4;
     unk8 padB8[0x36C];
     unk32 unk424;

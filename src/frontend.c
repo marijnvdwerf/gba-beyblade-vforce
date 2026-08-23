@@ -20,7 +20,16 @@ INCLUDE_ASM("asm/dump/8040d18/8048fcc.s");
 INCLUDE_ASM("asm/dump/8040d18/8048fd4.s");
 INCLUDE_ASM("asm/dump/8040d18/8048fe4.s");
 INCLUDE_ASM("asm/dump/8040d18/8048ffc.s");
-INCLUDE_ASM("asm/dump/8040d18/8049018.s");
+
+void sub_8049018(void)
+{
+    FrontendState* state;
+
+    state = &_unk3000650;
+    state->unk84 = state->unk88 = (unk32)-65536;
+    state->unk8C = state->unk90 = (unk32)-65536;
+}
+
 INCLUDE_ASM("asm/dump/8040d18/804903c.s");
 INCLUDE_ASM("asm/dump/8040d18/8049074.s");
 INCLUDE_ASM("asm/dump/8040d18/80490cc.s");
