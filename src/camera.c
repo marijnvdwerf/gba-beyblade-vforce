@@ -47,6 +47,14 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805ebcc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ed60.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ee78.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805eea4.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805eee0.s");
+
+void* sub_805EEE0(CameraState* arg0)
+{
+    if (arg0->unk220[0x20] == 0) {
+        return 0;
+    }
+    return &arg0->unk228;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805eefc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ef18.s");
