@@ -77,9 +77,76 @@ struct UnkMenuItem {
     UnkMenuItem* next;
 };
 
+typedef struct FrontendMenuData FrontendMenuData;
+typedef struct FrontendMenuSourceItem FrontendMenuSourceItem;
+typedef struct FrontendMenuItem FrontendMenuItem;
+
+typedef struct FrontendMenuFontData {
+    const u8* sheet;
+    const u8* metadata;
+    unk16 tileCount;
+    unk8 charWidth;
+    unk8 padB;
+} FrontendMenuFontData;
+
+typedef struct FrontendMenuTextTable {
+    unk32 unk0;
+    const unk32* text[4];
+} FrontendMenuTextTable;
+
+struct FrontendMenuSourceItem {
+    const u8* sheet;
+    const unk32* text[4];
+    unk32 unk14;
+    unk32 x;
+    unk32 y;
+    unk32 selectedX;
+    unk32 selectedY;
+    unk16 width;
+    unk8 pad2A[6];
+};
+
+struct FrontendMenuData {
+    const FrontendMenuFontData* font;
+    s32 itemCount;
+    s32 scale;
+    unk32 x;
+    unk32 y;
+    unk32 fontX;
+    unk32 fontY;
+    const FrontendMenuSourceItem* items;
+};
+
+struct FrontendMenuItem {
+    const FrontendMenuSourceItem* source;
+    SpriteEntry* sprite;
+    unk32 x;
+    unk32 y;
+    unk32 velocity;
+    unk32 target;
+    unk16 tile;
+    unk8 pad1A[2];
+};
+
 typedef struct FrontendMenu {
-    unk8 pad0[4];
+    s32 itemCount;
     unk32 selection;
+    unk32 x;
+    unk32 itemSpacing;
+    unk32 velocity;
+    unk32 position;
+    unk32 textPosition;
+    unk32 targetPosition;
+    unk32 timer;
+    unk32 timerTarget;
+    FrontendMenuItem* items;
+    const FrontendMenuData* data;
+    AllocatedBlock* block;
+    unk32 fontX;
+    unk32 fontY;
+    unk16 flags;
+    unk8 pad3E[2];
+    SpriteTextCleanup text;
 } FrontendMenu;
 
 typedef struct MenuState {
@@ -94,7 +161,6 @@ typedef struct MenuState {
     s32 unk24; /* 0x24 */
     unk8 pad28[0x10];
     FrontendMenu menu; /* 0x38 */
-    unk8 pad40[0x68];
     UnkMotion* objectItems; /* 0xA8 */
     unk8 padAC[4];
     unk32 timer; /* 0xB0 */
