@@ -40,8 +40,6 @@ void sub_8049018(void)
 INCLUDE_ASM("asm/dump/8040d18/804903c.s");
 INCLUDE_ASM("asm/dump/8040d18/8049074.s");
 
-extern unk8 _unk3000BFC;
-
 void sub_80490CC(unk32 arg0, unk32 arg1)
 {
     if (_unk3000650.unkB4 != NULL && _unk3000650.unkB4->unk8 != NULL)
@@ -81,8 +79,6 @@ unk32 sub_8049258(void)
     return _unk3000650.unk10;
 }
 
-extern unk8 _unk3000BFC;
-extern u16 _unk3000BFD;
 extern void (*__oam_8756CC0)(void);
 
 void sub_8049264(void)

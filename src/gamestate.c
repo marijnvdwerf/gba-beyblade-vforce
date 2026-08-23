@@ -15,8 +15,6 @@ extern unk8 _807582c[];
 extern s32 _80788cc[];
 
 void sub_80510FC(void);
-extern Unk80516E0* sub_80516E0(unk32);
-extern LevelState* sub_8051720(s32);
 
 void InitCurrentGameState(void)
 {

@@ -1,6 +1,7 @@
 #include "packet.h"
 
 #include "include_asm.h"
+#include "ram.h"
 
 INCLUDE_ASM("asm/dump/8040d18/804393c.s");
 INCLUDE_ASM("asm/dump/8040d18/8043960.s");

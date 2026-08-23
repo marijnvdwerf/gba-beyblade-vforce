@@ -1,3 +1,5 @@
+#include "spritestring.h"
+
 #include "actor.h"
 #include "actorheap.h"
 #include "bios.h"
@@ -6,10 +8,8 @@
 #include "sprite.h"
 #include "system.h"
 
-extern void sub_8065088(SpriteString*);
 extern const u8 Str_8756844[];
 extern const u8 byte_807D980[];
-extern unk32 sub_80655C0(SpriteString*, s32, unk16, unk16, unk8);
 
 s32 sub_8064F38(const u8* str)
 {

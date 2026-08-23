@@ -5,7 +5,6 @@
 #include "system.h"
 
 extern const u8 Str_87553D0[];
-extern GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses*, s32);
 
 void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable* geometry)
 {
