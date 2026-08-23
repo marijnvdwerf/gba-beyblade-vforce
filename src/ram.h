@@ -7,6 +7,27 @@
 #include "render.h"
 #include "sprite.h"
 
+typedef struct Sub8052140Data {
+    unk32 unk0;
+    unk32 unk4;
+    unk32 unk8;
+    unk8 padC[2];
+    unk16 unkE;
+    unk8 pad10[4];
+    unk16 unk14;
+    unk16 unk16;
+    unk16 unk18;
+    unk16 unk1A;
+    unk8 pad1C[8];
+    unk8 unk24;
+    unk8 unk25;
+    unk8 unk26;
+    unk8 pad27[0xB];
+    unk16 unk32;
+    unk8 pad34[0x24];
+    unk32 unk58;
+} Sub8052140Data;
+
 typedef struct GeometryAddressTable {
     unk8 pad0[0x10];
     AllocatedBlock* block;
@@ -26,13 +47,7 @@ typedef struct BeybladeActorData {
 } BeybladeActorData;
 
 typedef struct GameData {
-    unk8 pad0[0x200]; /* 0x000 */
-    void* unk200; /* 0x200 */
-    unk8 pad204[0x30]; /* 0x204 */
-    s32 unk234; /* 0x234 */
-    unk8 pad238[0x196]; /* 0x238 */
-    unk8 unk3CE; /* 0x3CE */
-    unk8 pad3CF[0x59]; /* 0x3CF */
+    RiderBase base; /* 0x000 */
     AllocatedBlock* unk428; /* 0x428 */
     RiderBase* unk42C; /* 0x42C */
     s32 unk430; /* 0x430 */
@@ -83,9 +98,13 @@ typedef struct GameData {
     u16 unkB2A; /* 0xB2A */
     unk8 padB2C[8]; /* 0xB2C */
     unk32 unkB34; /* 0xB34 */
-    unk8 padB38[0x1B]; /* 0xB38 */
+    unk8 padB38[0x18]; /* 0xB38 */
+    unk8 unkB50; /* 0xB50 */
+    unk8 unkB51; /* 0xB51 */
+    unk8 unkB52; /* 0xB52 */
     unk8 unkB53; /* 0xB53 */
-    unk8 padB54[2]; /* 0xB54 */
+    unk8 unkB54; /* 0xB54 */
+    unk8 unkB55; /* 0xB55 */
     unk8 unkB56; /* 0xB56 */
     unk8 padB57[1]; /* 0xB57 */
     unk32 unkB58; /* 0xB58 */

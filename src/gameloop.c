@@ -1,7 +1,9 @@
 #include "animevent.h"
+#include "bios.h"
 #include "include_asm.h"
 #include "music.h"
 #include "ram.h"
+#include "sound.h"
 
 extern const u8 SpriteSheet_86FBC4C[];
 
@@ -240,7 +242,24 @@ void gameLoop(void)
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051918-gameLoop.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80520f4.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8052140.s");
+
+void sub_8052140(Sub8052140Data* arg0, unk32 arg1)
+{
+    arg0->unk0 = 0xA00;
+    arg0->unk4 = 0x800;
+    arg0->unk8 = 0;
+    arg0->unk14 = 6;
+    arg0->unk16 = 6;
+    arg0->unk18 = 6;
+    arg0->unkE = 0;
+    arg0->unk1A = 0;
+    arg0->unk24 = 0x81;
+    arg0->unk25 = 0;
+    arg0->unk26 = 0;
+    arg0->unk32 = 0;
+    arg0->unk58 = arg1;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052180.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80522d4.s");
 
@@ -253,7 +272,21 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8052534.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805253c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052588.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80526c8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/805295c.s");
+
+void sub_805295C(void)
+{
+    unk32 counter;
+    unk32 temp;
+
+    counter = 1;
+    do {
+        VBlankIntrWait();
+        sub_80627F0();
+        temp = counter;
+        counter -= 1;
+    } while (temp != 0);
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052978.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052a74.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052ab8.s");
