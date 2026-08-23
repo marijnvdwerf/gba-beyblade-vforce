@@ -289,7 +289,7 @@ void sub_805295C(void)
     } while (temp != 0);
 }
 
-void sub_8052978(unk32 arg0, unk32 arg1)
+void sub_8052978(unk32 arg0, void (*arg1)(void))
 {
     switch (arg0) {
     case 0:
@@ -300,7 +300,7 @@ void sub_8052978(unk32 arg0, unk32 arg1)
         *(vu16*)(REG_BLDCNT + 4) = 0x10;
         break;
     case 5:
-        _unk3000C0C = (void (*)(void))arg1;
+        _unk3000C0C = arg1;
         break;
     case 6:
         break;

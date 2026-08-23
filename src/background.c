@@ -23,10 +23,7 @@ typedef struct {
     u8 pad000[0x650]; // 0x000
     u32 var650; // 0x650
     u8 pad654[0x50]; // 0x654
-    Palette var6A4; // 0x6A4
-    Palette var6B8; // 0x6B8
-    u8 pad6CC[0x38]; // 0x6CC
-    u32* var704; // 0x704
+    BackgroundPaletteState palettes; // 0x6A4
     u32 var708; // 0x708
     u8 pad70C[0x100]; // 0x70C
     u8 var80C; // 0x80C
@@ -54,12 +51,12 @@ void Background_80498F8(void)
 {
     sub_80508A4(&_3000000.varBE0);
 
-    if (_806A828[_3000000.var704[0]].bgPalette != NULL) {
-        loadPalette(_806A828[_3000000.var704[0]].bgPalette);
+    if (_806A828[_3000000.palettes.var60[0]].bgPalette != NULL) {
+        loadPalette(_806A828[_3000000.palettes.var60[0]].bgPalette);
     }
 
-    if (_806A828[_3000000.var704[0]].spritePalette != NULL) {
-        loadPalette2(_806A828[_3000000.var704[0]].spritePalette);
+    if (_806A828[_3000000.palettes.var60[0]].spritePalette != NULL) {
+        loadPalette2(_806A828[_3000000.palettes.var60[0]].spritePalette);
     }
 }
 
@@ -76,7 +73,7 @@ void Background_8049950(void)
     arg1 = &(_3000000.var708);
     pInt = &_3000000.var650;
 
-    newLayerManagement(arg0, arg1, &_806A828[_3000000.var704[0]], 4160, 1);
+    newLayerManagement(arg0, arg1, &_806A828[_3000000.palettes.var60[0]], 4160, 1);
     sub_8050894(arg0);
     VBlankIntrWait();
     sub_804A280(pInt);
@@ -97,7 +94,7 @@ void Background_80499BC(void)
     arg1 = &(_3000000.var708);
     pInt = &_3000000.var650;
 
-    newLayerManagement(arg0, arg1, &_806A828[_3000000.var704[0]], 4160, 1);
+    newLayerManagement(arg0, arg1, &_806A828[_3000000.palettes.var60[0]], 4160, 1);
     VBlankIntrWait();
     sub_804A280(pInt);
     sub_80627F0();
@@ -110,10 +107,10 @@ void Background_8049A24(void)
 
     sub_80508A4(&_3000000.varBE0);
 
-    sub_80508CC(&_3000000.varBE0, &_806A828[_3000000.var704[0]], 0);
+    sub_80508CC(&_3000000.varBE0, &_806A828[_3000000.palettes.var60[0]], 0);
 
-    if (_806A828[_3000000.var704[0]].spritePalette != NULL) {
-        loadPalette2(_806A828[_3000000.var704[0]].spritePalette);
+    if (_806A828[_3000000.palettes.var60[0]].spritePalette != NULL) {
+        loadPalette2(_806A828[_3000000.palettes.var60[0]].spritePalette);
     }
 }
 
@@ -127,7 +124,7 @@ void Background_8049A84(void)
     arg1 = &(_3000000.var708);
     pInt = &_3000000.var650;
 
-    newLayerManagement(arg0, arg1, &_806A828[_3000000.var704[0]], 4160, 0);
+    newLayerManagement(arg0, arg1, &_806A828[_3000000.palettes.var60[0]], 4160, 0);
     sub_8050894(arg0);
     __fastMemoryClearARM(0x7FFF7FFF, (void*)0x5000000, 0x400);
     VBlankIntrWait();
@@ -145,7 +142,7 @@ void Background_8049AF8(void)
     arg1 = &(_3000000.var708);
     pInt = &_3000000.var650;
 
-    newLayerManagement(arg0, arg1, &_806A828[_3000000.var704[0]], 4160, 0);
+    newLayerManagement(arg0, arg1, &_806A828[_3000000.palettes.var60[0]], 4160, 0);
     sub_8050894(arg0);
     __fastMemoryClearARM(0, (void*)0x5000000, 0x400);
     VBlankIntrWait();
@@ -165,7 +162,7 @@ void Background_8049B68(void)
     arg1 = &(_3000000.var708);
     pInt = &_3000000.var650;
 
-    newLayerManagement(arg0, arg1, &_806A828[_3000000.var704[0]], 4160, 0);
+    newLayerManagement(arg0, arg1, &_806A828[_3000000.palettes.var60[0]], 4160, 0);
     sub_8050894(arg0);
     _3000000.var80C |= 3;
     __fastMemoryClearARM(0, (void*)0x5000000, 0x400);
@@ -185,7 +182,7 @@ void Background_8049BF8(void)
 
     pInt = &_3000000.var650;
 
-    sub_80508CC(&_3000000.varBE0, &_806A828[_3000000.var704[0]], 1);
+    sub_80508CC(&_3000000.varBE0, &_806A828[_3000000.palettes.var60[0]], 1);
     sub_80596AC(&_3000000.var818, 0x800, 0x6000);
     Background_80498D8();
     VBlankIntrWait();
@@ -203,7 +200,7 @@ void Background_8049C70(void)
 
     pInt = &_3000000.var650;
 
-    sub_80508CC(&_3000000.varBE0, &_806A828[_3000000.var704[0]], 1);
+    sub_80508CC(&_3000000.varBE0, &_806A828[_3000000.palettes.var60[0]], 1);
     sub_80596AC(&_3000000.var818, -0x10000, 0);
     Background_80498D8();
     VBlankIntrWait();
@@ -217,31 +214,30 @@ void sub_8049CE8(FrontendState* arg0, unk32 arg1)
     case 2: {
         BackgroundPaletteState* palettes;
 
-        palettes = (BackgroundPaletteState*)&_3000000.var6A4;
+        palettes = &_3000000.palettes;
+        sub_80637E4(&palettes->paletteA, _806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
         sub_80637E4(
-            &palettes->paletteA, (unk8*)_806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
-        sub_80637E4(
-            &palettes->paletteB, (unk8*)_806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
+            &palettes->paletteB, _806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
         arg0->transition.value = 0x3E;
         arg0->transition.unk585 = 0xFE;
         arg0->transition.unk586 = 0;
         break;
     }
     case 1:
-        deallocate_80637CC(&_3000000.var6B8);
-        deallocate_80637CC(&_3000000.var6A4);
+        deallocate_80637CC(&_3000000.palettes.paletteB);
+        deallocate_80637CC(&_3000000.palettes.paletteA);
         break;
     case 4: {
         Palette* palette;
-        unk8* dest;
+        u16* dest;
         s8 fade;
 
-        palette = &_3000000.var6A4;
-        dest = (unk8*)PLTT;
+        palette = &_3000000.palettes.paletteA;
+        dest = BG_PLTT_PTR;
         fade = arg0->transition.value;
         sub_8063830(palette, dest, fade >> 1, 0x1F, 0x1F, 0x1F);
         fade = arg0->transition.value;
-        sub_8063830(palette + 1, (unk8*)(PLTT + 0x200), fade >> 1, 0x1F, 0x1F, 0x1F);
+        sub_8063830(&_3000000.palettes.paletteB, OBJ_PLTT_PTR, fade >> 1, 0x1F, 0x1F, 0x1F);
         break;
     }
     }
@@ -253,11 +249,10 @@ void sub_8049DE0(FrontendState* arg0, unk32 arg1)
     case 2: {
         BackgroundPaletteState* palettes;
 
-        palettes = (BackgroundPaletteState*)&_3000000.var6A4;
+        palettes = &_3000000.palettes;
+        sub_80637E4(&palettes->paletteA, _806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
         sub_80637E4(
-            &palettes->paletteA, (unk8*)_806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
-        sub_80637E4(
-            &palettes->paletteB, (unk8*)_806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
+            &palettes->paletteB, _806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
         arg0->transition.value = 0x3E;
         arg0->transition.unk585 = 0xFE;
         arg0->transition.unk586 = 0;
@@ -266,31 +261,30 @@ void sub_8049DE0(FrontendState* arg0, unk32 arg1)
     case 3: {
         BackgroundPaletteState* palettes;
 
-        palettes = (BackgroundPaletteState*)&_3000000.var6A4;
+        palettes = &_3000000.palettes;
+        sub_80637E4(&palettes->paletteA, _806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
         sub_80637E4(
-            &palettes->paletteA, (unk8*)_806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
-        sub_80637E4(
-            &palettes->paletteB, (unk8*)_806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
+            &palettes->paletteB, _806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
         arg0->transition.value = 0;
         arg0->transition.unk585 = 2;
         arg0->transition.unk586 = 0x40;
         break;
     }
     case 1:
-        deallocate_80637CC(&_3000000.var6B8);
-        deallocate_80637CC(&_3000000.var6A4);
+        deallocate_80637CC(&_3000000.palettes.paletteB);
+        deallocate_80637CC(&_3000000.palettes.paletteA);
         break;
     case 4: {
         Palette* palette;
-        unk8* dest;
+        u16* dest;
         s8 fade;
 
-        palette = &_3000000.var6A4;
-        dest = (unk8*)PLTT;
+        palette = &_3000000.palettes.paletteA;
+        dest = BG_PLTT_PTR;
         fade = arg0->transition.value;
         sub_8063830(palette, dest, fade >> 1, 0, 0, 0);
         fade = arg0->transition.value;
-        sub_8063830(palette + 1, (unk8*)(PLTT + 0x200), fade >> 1, 0, 0, 0);
+        sub_8063830(&_3000000.palettes.paletteB, OBJ_PLTT_PTR, fade >> 1, 0, 0, 0);
         break;
     }
     }
@@ -336,13 +330,15 @@ void sub_8049CE8(FrontendState* arg0, int arg1) {
         break;
 
     case 1:
-        deallocate_80637CC(&_3000000.var6B8);
-        deallocate_80637CC(&_3000000.var6A4);
+        deallocate_80637CC(&_3000000.palettes.paletteB);
+        deallocate_80637CC(&_3000000.palettes.paletteA);
         break;
 
     case 4:
-        sub_8063830(&_3000000.var6A4, (u16*)0x5000000, arg0->transition.value /2, 0x1F, 0x1F, 0x1F);
-        sub_8063830(&_3000000.var6B8, (u16*)0x5000200, arg0->transition.value /2, 0x1F, 0x1F, 0x1F);
+        sub_8063830(
+            &_3000000.palettes.paletteA, BG_PLTT_PTR, arg0->transition.value / 2, 0x1F, 0x1F, 0x1F);
+        sub_8063830(
+            &_3000000.palettes.paletteB, OBJ_PLTT_PTR, arg0->transition.value / 2, 0x1F, 0x1F, 0x1F);
         break;
     }
 }

@@ -18,8 +18,8 @@ typedef struct UnkStruct_sub1 {
 
 typedef struct ScreenLayout {
     void* var00[30];
-    u16 (*bgPalette)[16][16];
-    u16 (*spritePalette)[16][16];
+    u16* bgPalette;
+    u16* spritePalette;
     u32 var80;
 } ScreenLayout;
 

@@ -59,7 +59,7 @@ typedef struct FrontendTransition {
     unk8 pad587[1];
     void (*unk588)(FrontendState*, unk32);
     unk32 unk58C;
-    unk8 unk590[0x18];
+    unk8 pad590[0x18];
     unk32 unk5A8;
 } FrontendTransition;
 
