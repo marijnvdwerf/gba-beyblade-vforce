@@ -261,17 +261,19 @@ static void Sound_806234C(void)
     _soundMixerPlus = NULL;
 }
 
-static void Sound_80623A8(u32 arg0)
+#define SAMPLE_RATE 11025
+#define MIDDLE_C_HZ 261
+
+static void Sound_80623A8(u32 mixerOutputRate)
 {
     s32 i;
 
     u32* table = *_soundTables;
-    const u32* val = &MidiNoteFrequencies[0];
+    const u32* frequencyCursor = MidiNoteFrequencies;
     for (i = 127; i != -1; i--) {
-        s64 longVal = *(val++) * (u64)11025;
+        s64 scaledFrequency = *(frequencyCursor++) * (u64)SAMPLE_RATE;
 
-        table[0] = ((longVal << 12) / 261) / arg0;
-        table++;
+        *table++ = ((scaledFrequency << 12) / MIDDLE_C_HZ) / mixerOutputRate;
     }
 
     _unk3000D90 = (u8*)_soundMixer;
