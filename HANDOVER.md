@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-08-23, session 3 (raw-decomp migration rounds; batch 9 + callback-origin scout running; keepalive monitor bn4u8q59w; shared prompt preamble in /tmp/migrate-preamble.txt).
+Last updated: 2026-08-23 19:40, session 3 (batch 13 festate still running; temp-reduction-8 merged; keepalive monitor bn4u8q59w; shared prompt preamble in /tmp/migrate-preamble.txt).
 
 ## How to work
 
@@ -126,7 +126,6 @@ sub_804A280 needs an ldrsh from it and is parked because of that).
 | worktree | scope | status |
 |---|---|---|
 | agent-a8a8f43fcc83d24b9 | batch 13: festate — 5 matched, sub_8046A0C parked, doing sub_8046CC4/sub_8048D8C/selectBladeFrontendHandler | running |
-| agent-a085228097a2c299d | temp-reduction-8 over 1fa3191..HEAD + header dedupe (duplicate externs e.g. _unk3000E30 in 3 headers) | running |
 
 ### Next steps (user direction, 2026-08-23)
 
@@ -170,6 +169,11 @@ sub_804A280 needs an ldrsh from it and is parked because of that).
   (skip by policy), 27 parked. After this round ~40 raw-backed remain parked.
 - Agents: stopping mid-list is normal — compare every completion against the
   assigned list and revive until exhausted. Agents must never SendMessage.
+- temp-reduction-8 merged (5fc4268): RAM decls centralised in ram.h. Open:
+  `_unk3000650` is defined in ram.c as a size-pinning placeholder type while
+  consumers use `FrontendState` — make the definition `FrontendState` (sizeof
+  is known); `sub_8061824`'s header decl is incompatible with its caller shape
+  (see spritetext.c local prototype of sub_806123C).
 - ASM_ZEROPAD is the fix for a TU whose .text tail pads 00 00 vs nop (iconmenu).
 - NEVER `git worktree remove -f -f` a locked worktree: the lock means the
   agent is alive; I did it once and lost its uncommitted work.
