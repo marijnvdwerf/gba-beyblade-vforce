@@ -299,4 +299,14 @@ extern s32 _unk3000160;
 extern s32 _unk3000164;
 extern unk32 _unk3000168;
 
+typedef struct FrontendCoordinateTarget {
+    s32 value;
+    unk8 pad4[4];
+} FrontendCoordinateTarget;
+
+extern SpriteEntry* _unk300036C;
+extern SpriteEntry* _unk3000370;
+extern s32 _unk3000374;
+extern FrontendCoordinateTarget _unk3000378;
+
 #endif // _RAM_H
