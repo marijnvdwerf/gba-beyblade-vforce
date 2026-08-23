@@ -4,6 +4,7 @@
 # dependencies = [
 #   "tree-sitter==0.26.0",
 #   "tree-sitter-c==0.24.2",
+#   "pyelftools==0.32",
 # ]
 # ///
 """Print a source-oriented call graph for the GBA decompilation."""
@@ -18,6 +19,7 @@ from dataclasses import dataclass, field
 from pathlib import Path
 from typing import Iterable, Iterator
 
+from elftools.elf.elffile import ELFFile
 import tree_sitter_c
 from tree_sitter import Language, Parser
 
@@ -265,71 +267,98 @@ def index_c_sources(functions: Functions) -> None:
                 )
 
 
-ASM_LABEL_RE = re.compile(r"^([A-Za-z_]\w*):\s*$")
-ASM_DIRECTIVE_RE = re.compile(r"^\s*\.(byte|4byte)\s+(.+?)\s*$")
-ASM_SYMBOL_RE = re.compile(r"^([A-Za-z_]\w*)\s*(?:\+\s*1)?$")
+ELF_PATH = ROOT / "build" / "rom.elf"
 
 
-def parse_asm_table(table: dict) -> dict[str, list[str]]:
+def read_elf_bytes(stream, segments, address: int, size: int) -> bytes:
+    for segment in segments:
+        segment_start = segment["p_vaddr"]
+        segment_end = segment_start + segment["p_filesz"]
+        if segment_start <= address and address + size <= segment_end:
+            stream.seek(segment["p_offset"] + address - segment_start)
+            return stream.read(size)
+    raise SystemExit(
+        f"cannot read handler table bytes at 0x{address:08x} from {ELF_PATH}"
+    )
+
+
+def parse_elf_table(table: dict, stream, elf) -> dict[str, list[str]]:
+    symtab = elf.get_section_by_name(".symtab")
+    if symtab is None:
+        raise SystemExit(f"{ELF_PATH} has no .symtab; rebuild the ELF with symbols")
+    symbols = [
+        symbol
+        for symbol in symtab.iter_symbols()
+        if symbol["st_shndx"] != "SHN_UNDEF"
+    ]
     label = table["label"]
+    table_symbol = next((symbol for symbol in symbols if symbol.name == label), None)
+    if table_symbol is None:
+        raise SystemExit(f"handler table symbol {label!r} was not found in {ELF_PATH}")
+    address = table_symbol["st_value"] & ~1
     stride = table["stride"]
-    slots = table["slots"]
-    for path in sorted((ROOT / "asm").glob("data*.s")):
-        lines = path.read_text(encoding="utf-8", errors="replace").splitlines()
-        for index, line in enumerate(lines):
-            match = ASM_LABEL_RE.match(line)
-            if match is None or match.group(1) != label:
-                continue
-            offset = 0
-            entries: dict[int, str] = {}
-            for following in lines[index + 1 :]:
-                if ASM_LABEL_RE.match(following):
-                    break
-                directive = ASM_DIRECTIVE_RE.match(following)
-                if directive is None:
-                    continue
-                kind, values = directive.groups()
-                width = 1 if kind == "byte" else 4
-                for value in (part.strip() for part in values.split(",")):
-                    if width == 4:
-                        symbol = ASM_SYMBOL_RE.match(value)
-                        if symbol is not None:
-                            entries[offset] = symbol.group(1)
-                    offset += width
-            targets = {slot_name: [] for slot_name in slots.values()}
-            record = 0
-            while record * stride + max(slots, default=0) < offset:
-                base = record * stride
-                values = [entries.get(base + slot_offset) for slot_offset in slots]
-                if any(value is None for value in values):
-                    break
-                for slot_offset, slot_name in slots.items():
-                    target = entries[base + slot_offset]
-                    if target not in targets[slot_name]:
-                        targets[slot_name].append(target)
-                record += 1
-            return targets
-    return {slot_name: [] for slot_name in slots.values()}
+    size = table_symbol["st_size"]
+    if size:
+        record_count = size // stride
+    else:
+        next_addresses = [
+            symbol["st_value"] & ~1
+            for symbol in symbols
+            if (symbol["st_value"] & ~1) > address
+        ]
+        if not next_addresses:
+            raise SystemExit(
+                f"could not determine the end of handler table {label!r} in {ELF_PATH}"
+            )
+        record_count = (min(next_addresses) - address) // stride
+    if record_count <= 0:
+        raise SystemExit(f"handler table {label!r} has no records in {ELF_PATH}")
+
+    function_symbols: dict[int, str] = {}
+    for symbol in symbols:
+        if symbol["st_info"]["type"] != "STT_FUNC":
+            continue
+        function_symbols.setdefault(symbol["st_value"] & ~1, symbol.name)
+    segments = [
+        segment for segment in elf.iter_segments() if segment["p_type"] == "PT_LOAD"
+    ]
+    targets = {slot_name: [] for slot_name in table["slots"].values()}
+    for record in range(record_count):
+        base = address + record * stride
+        for slot_offset, slot_name in table["slots"].items():
+            raw = read_elf_bytes(stream, segments, base + slot_offset, 4)
+            pointer = int.from_bytes(raw, byteorder="little") & ~1
+            target = function_symbols.get(pointer)
+            if target is not None and target not in targets[slot_name]:
+                targets[slot_name].append(target)
+    return targets
 
 
 def build_handler_tables() -> tuple[dict[str, list[str]], dict[str, list[str]]]:
+    if not ELF_PATH.is_file():
+        raise SystemExit(
+            f"{ELF_PATH} is missing; build the project first "
+            "(for example, cmake --build build)"
+        )
     nodes: dict[str, list[str]] = {}
     slots_by_name: dict[str, list[str]] = {}
-    for table in HANDLER_TABLES:
-        targets = parse_asm_table(table)
-        for slot_name, functions in targets.items():
-            node = f"{table['label']}[{slot_name}]"
-            nodes[node] = functions
-            slots_by_name.setdefault(slot_name, []).append(node)
-        for alias, source_slots in INDIRECT_SLOT_ALIASES.items():
-            functions: list[str] = []
-            for source_slot in source_slots:
-                for target in targets.get(source_slot, ()):
-                    if target not in functions:
-                        functions.append(target)
-            node = f"{table['label']}[{alias}]"
-            nodes[node] = functions
-            slots_by_name.setdefault(alias, []).append(node)
+    with ELF_PATH.open("rb") as stream:
+        elf = ELFFile(stream)
+        for table in HANDLER_TABLES:
+            targets = parse_elf_table(table, stream, elf)
+            for slot_name, functions in targets.items():
+                node = f"{table['label']}[{slot_name}]"
+                nodes[node] = functions
+                slots_by_name.setdefault(slot_name, []).append(node)
+            for alias, source_slots in INDIRECT_SLOT_ALIASES.items():
+                functions: list[str] = []
+                for source_slot in source_slots:
+                    for target in targets.get(source_slot, ()):
+                        if target not in functions:
+                            functions.append(target)
+                node = f"{table['label']}[{alias}]"
+                nodes[node] = functions
+                slots_by_name.setdefault(alias, []).append(node)
     return nodes, slots_by_name
 
 
