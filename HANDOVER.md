@@ -85,8 +85,8 @@ Last updated: 2026-08-23, session 3 (raw-decomp migration rounds; batch 9 + call
 
 ## State
 
-Progress: 9/66 TUs done, 355 C functions, 652 INCLUDE_ASM remaining (35%).
-Session 3 merged 71 functions (batches 1–12, all migrated from the
+Progress: 9/66 TUs done, 352 C functions, 655 INCLUDE_ASM remaining (35%).
+Session 3 merged 68 functions (batches 1–12, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
 
