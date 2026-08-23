@@ -3,6 +3,25 @@
 
 #include "common.h"
 
+extern const u8 SpriteSheet_823BF04[];
+extern const FrontendMenuData _80689A4[];
+extern const FrontendMenuData _80692A4[];
+extern const InputSequence _80693A0[];
+extern const InputSequence _8069378[];
+extern const InputSequence _806938C[];
+extern const InputSequence _80693B4[];
+extern const InputSequence _80693C8[];
+extern const FrontendMenuData _80693DC[];
+extern const FrontendMenuData _8069108[];
+extern const FrontendMenuData _8069428[];
+extern const FrontendMenuData _8069514[];
+extern const unk32 _806E0DC[];
+extern const FrontendMenuData _806980C[];
+extern const FrontendMenuData _8069830[];
+extern const u8 SpriteSheet_82B05EC[];
+extern const u8 ShadowFontMeta[];
+extern const u8* _806E650[];
+
 void sub_8049018(void);
 void sub_80490CC(unk32, unk32);
 void sub_80490F8(unk32);

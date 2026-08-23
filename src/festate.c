@@ -13,29 +13,10 @@
 #include "menuobject.h"
 #include "music.h"
 #include "packet.h"
+#include "palette.h"
 #include "ram.h"
 #include "spritetext.h"
 #include "unsorted.h"
-
-extern const u8 SpriteSheet_823BF04[];
-extern const FrontendMenuData _80689A4[];
-extern const FrontendMenuData _80692A4[];
-extern const InputSequence _80693A0[];
-extern const InputSequence _8069378[];
-extern const InputSequence _806938C[];
-extern const InputSequence _80693B4[];
-extern const InputSequence _80693C8[];
-extern const FrontendMenuData _80693DC[];
-extern const unk32 _8069108[];
-extern const unk32 _8069428[];
-extern const unk32 _8069514[];
-extern const unk32 _806E0DC[];
-extern const unk32 _806980C[];
-extern const unk32 _8069830[];
-extern const s16 Unk_874CC3C[];
-extern const u8 SpriteSheet_82B05EC[];
-extern const u8 ShadowFontMeta[];
-extern const u8* _806E650[];
 
 void sub_8043A0C(FrontendState* state, unk32 arg1, unk32 arg2)
 {
@@ -505,7 +486,7 @@ void sub_8045A7C(FrontendState* state, unk32 arg1)
     case 0: {
         SpriteEntry* sprite1;
         SpriteEntry* sprite2;
-        unk8* menu;
+        FrontendMenu* menu;
 
         sprite1 = allocSprite(0);
         _unk30003B8 = sprite1;
@@ -519,7 +500,7 @@ void sub_8045A7C(FrontendState* state, unk32 arg1)
         }
         _unk30003C0 = 0x800;
         _unk30003C4 = 0xD800;
-        menu = (unk8*)&state->menuState.menu;
+        menu = &state->menuState.menu;
         newIconMenu(menu, _8069428, 0);
         sub_8050FEC(menu, 0x9600);
         break;
@@ -534,7 +515,7 @@ void sub_8045A7C(FrontendState* state, unk32 arg1)
         }
         break;
     case 1: {
-        unk8* menu;
+        FrontendMenu* menu;
 
         if (_unk30003B8 != NULL) {
             _unk30003B8->x += ((_unk30003C0 - _unk30003B8->x) >> 3)
@@ -545,7 +526,7 @@ void sub_8045A7C(FrontendState* state, unk32 arg1)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->unk140);
-        menu = (unk8*)&state->menuState.menu;
+        menu = &state->menuState.menu;
         sub_8050C18(menu);
         if ((_unk3005DA0 & 0x30) != 0) {
             if ((_unk3005DA0 & 0x20) != 0) {
@@ -596,7 +577,7 @@ INCLUDE_ASM("asm/dump/8040d18/8045cb4.s");
 void sub_80461D8(FrontendState* state, unk32 arg1)
 {
     FrontendMenu* menu;
-    const unk32* iconMenu;
+    const FrontendMenuData* iconMenu;
     SpriteEntry* sprite1;
     SpriteEntry* sprite2;
     s32 value;
@@ -1034,7 +1015,7 @@ void sub_8048D8C(FrontendState* state, unk32 arg1)
         _unk3000644 = _currentGameState->unk6EA;
         description = getLevelDescription(_unk3000644);
         if (description->unkC4 != NULL) {
-            __fastMemoryCopyARM(description->unkC4, (void*)0x05000200, 0x20);
+            __fastMemoryCopyARM(description->unkC4, OBJ_PLTT_PTR, 0x20);
         }
         sprite = allocSprite(0);
         _unk3000600 = sprite;
