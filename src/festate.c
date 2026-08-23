@@ -486,8 +486,6 @@ void sub_8045A7C(FrontendState* state, unk32 arg1)
     case 0: {
         SpriteEntry* sprite1;
         SpriteEntry* sprite2;
-        FrontendMenu* menu;
-
         sprite1 = allocSprite(0);
         _unk30003B8 = sprite1;
         if (sprite1 != NULL) {
@@ -500,9 +498,8 @@ void sub_8045A7C(FrontendState* state, unk32 arg1)
         }
         _unk30003C0 = 0x800;
         _unk30003C4 = 0xD800;
-        menu = &state->menuState.menu;
-        newIconMenu(menu, _8069428, 0);
-        sub_8050FEC(menu, 0x9600);
+        newIconMenu(&state->menuState.menu, _8069428, 0);
+        sub_8050FEC(&state->menuState.menu, 0x9600);
         break;
     }
     case 7:
@@ -538,17 +535,15 @@ void sub_8045A7C(FrontendState* state, unk32 arg1)
         break;
     }
     case 2: {
-        u16* input;
         s32 selection;
 
-        input = &_unk3005DA0;
-        if ((*input & arg1) != 0) {
+        if ((_unk3005DA0 & arg1) != 0) {
             _unk30003C0 = 0xFFFF0000;
             _unk30003C4 = 0x1E000;
             sub_8050FC8(&state->menuState.menu);
             sub_80490F8(0xA);
         }
-        if ((*input & 1) != 0) {
+        if ((_unk3005DA0 & 1) != 0) {
             _unk30003C0 = 0xFFFF0000;
             _unk30003C4 = 0x1E000;
             sub_8050F98(&state->menuState.menu);
