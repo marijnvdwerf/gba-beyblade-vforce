@@ -1,3 +1,5 @@
+#include "music.h"
+
 #include "include_asm.h"
 #include "ram.h"
 #include "sound.h"
@@ -10,7 +12,6 @@ extern const unk32 _807561C[];
 
 void sub_804AE8C(void);
 void sub_804AFD4(u16);
-void sub_804AF5C(void);
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804abfc.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804acf0.s");

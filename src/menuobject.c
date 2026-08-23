@@ -1,6 +1,10 @@
+#include "menuobject.h"
+
+#include "frontend.h"
 #include "include_asm.h"
 #include "keystate.h"
 #include "motion.h"
+#include "ram.h"
 #include "spritetext.h"
 
 INCLUDE_ASM("asm/dump/8040d18/8043370.s");
@@ -11,25 +15,18 @@ typedef struct MenuObject {
     unk8 pad490[0x0];
     unk32 count;
     unk8 pad494[0x8C];
-    unk8* items;
+    UnkMotion* items;
     unk32 allocation;
     unk32 timer;
     SpriteTextCleanup cleanup;
     UnkMotion motion;
 } MenuObject;
 
-extern u16 _unk3005DA0;
-extern unk32 sub_8043720(FrontendState*);
-extern void sub_80490CC(unk32, unk32);
-extern void sub_805AFBC(void*, unk32);
-extern unk32 sub_805B210(void*);
-extern void sub_805B050(void*, unk32);
-
 void sub_80434EC(FrontendState* arg0)
 {
     MenuObject* base;
     unk32 count;
-    unk8* item;
+    UnkMotion* item;
     unk32* timer;
 
     base = (MenuObject*)arg0;
@@ -38,18 +35,18 @@ void sub_80434EC(FrontendState* arg0)
         item = base->items;
         count--;
         while (count != (unk32)-1) {
-            sub_805041C((UnkMotion*)item);
-            item += 0x18;
+            sub_805041C(item);
+            item++;
             count--;
         }
     }
     timer = &base->timer;
     if (*timer != 0) {
-        item = (unk8*)&base->motion;
-        sub_805041C((UnkMotion*)item);
+        item = &base->motion;
+        sub_805041C(item);
         *timer = *timer - 1;
         if (*timer == 0) {
-            sub_8050584((UnkMotion*)item);
+            sub_8050584(item);
             sub_8061204(&base->cleanup);
         }
     }

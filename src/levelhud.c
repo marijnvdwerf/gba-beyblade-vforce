@@ -4,34 +4,11 @@
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f878.s");
 
-typedef struct LevelHudObject {
-    unk8 pad0[8];
-    unk32 unk8;
-    unk32 unkC;
-    unk8 pad10[8];
-    unk16 unk18;
-} LevelHudObject;
-
-typedef struct LevelHudSetupState {
-    unk8 pad0[0x1040];
-    unk32 unk1040;
-    LevelHudObject* unk1044;
-    LevelHudObject* unk1048;
-    unk8 pad104C[4];
-    LevelHudObject* unk1050;
-    unk16 unk1054;
-    unk16 unk1056;
-    unk16 unk1058;
-    unk16 unk105A;
-    unk16 unk105C;
-    unk16 unk105E;
-} LevelHudSetupState;
-
 void sub_804F9B4(void)
 {
-    LevelHudSetupState* state;
+    GameData* state;
 
-    state = (LevelHudSetupState*)_gameData;
+    state = _gameData;
     state->unk1054 = 0x190;
     state->unk105C = 1;
     state->unk1056 = 0;
