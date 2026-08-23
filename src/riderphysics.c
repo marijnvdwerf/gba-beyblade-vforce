@@ -1,22 +1,21 @@
-#include "common.h"
-#include "include_asm.h"
+#include "riderphysics.h"
 
-void SetRiderFlag(RiderPhysics*, unk32);
-void sub_804C0EC(unk32, unk32);
+#include "include_asm.h"
+#include "rider.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c4b4-s_rider_804C4B4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c870.s");
 
-void sub_804C888(RiderPhysics* rider, unk32 arg1)
+void sub_804C888(RiderBase* rider, u8 arg1)
 {
-    if ((arg1 << 24) != 0) {
+    if (arg1 != 0) {
         SetRiderFlag(rider, 0x102);
-        rider->state->unk54 = 0;
-        sub_804C0EC(rider->object, 1);
+        rider->unk0->unk54 = 0;
+        sub_804C0EC(rider->unk4, 1);
         return;
     }
-    rider->state->unk54 = -0x1A;
-    sub_804C0EC(rider->object, 0);
+    rider->unk0->unk54 = -0x1A;
+    sub_804C0EC(rider->unk4, 0);
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c8c0.s");
@@ -45,11 +44,11 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804e124.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e154.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e1dc.s");
 
-void sub_804E1FC(RiderPhysics* rider, unk32 arg1)
+void sub_804E1FC(RiderBase* rider, u8 arg1)
 {
     unk32 value;
 
-    value = (arg1 << 24) >> 20;
+    value = arg1 << 4;
     rider->unk10 = value;
     rider->unk1C = value;
     rider->unk14 = 0;
@@ -64,14 +63,14 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804e358.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e3b0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e3e4-convert3DCoordsto2DCoords.s");
 
-void SetRiderFlag(RiderPhysics* rider, unk32 flags)
+void SetRiderFlag(RiderBase* rider, unk32 flags)
 {
     rider->flags |= flags;
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e40c-UnsetRiderFlag.s");
 
-unk32 RiderHasFlag(RiderPhysics* rider, unk32 flags)
+unk32 RiderHasFlag(RiderBase* rider, unk32 flags)
 {
     if ((rider->flags & flags) == flags)
         return 1;
@@ -80,7 +79,7 @@ unk32 RiderHasFlag(RiderPhysics* rider, unk32 flags)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e42c-RiderHasSomeFlags.s");
 
-unk32 sub_804E440(RiderPhysics* rider, unk32 flags)
+unk32 sub_804E440(RiderBase* rider, unk32 flags)
 {
     if ((rider->unkA4 & flags) != 0)
         return 1;

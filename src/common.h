@@ -102,20 +102,6 @@ typedef struct RiderState {
     unk32 unk54;
 } RiderState;
 
-typedef struct RiderPhysics {
-    RiderState* state;
-    unk32 object;
-    unk8 pad8[8];
-    unk32 unk10;
-    unk32 unk14;
-    unk8 pad18[4];
-    unk32 unk1C;
-    unk8 pad20[0x7C];
-    unk32 flags;
-    unk32 unkA0;
-    unk32 unkA4;
-} RiderPhysics;
-
 typedef struct SpriteEntry SpriteEntry;
 
 typedef struct Actor {
@@ -258,7 +244,18 @@ typedef struct ParticleSystem {
 } ParticleSystem;
 
 typedef struct RiderBase {
-    unk8 unk0[0x238];
+    RiderState* unk0;
+    unk32 unk4;
+    unk8 pad8[8];
+    unk32 unk10;
+    unk32 unk14;
+    unk8 pad18[4];
+    unk32 unk1C;
+    unk8 pad20[0x7C];
+    unk32 flags;
+    unk32 unkA0;
+    unk32 unkA4;
+    unk8 padA8[0x190];
     Actor unk238;
     Actor unk2FC;
     unk8 pad3C0[4];
