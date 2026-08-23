@@ -3,8 +3,8 @@
 #include "ram.h"
 #include "sound.h"
 
-extern unk16 _unk3000F14;
-extern unk16 _unk3000F18;
+extern s16 _unk3000F14;
+extern s16 _unk3000F18;
 extern s16 _unk3000F1C;
 
 extern const unk32 _807561C[];
@@ -48,7 +48,45 @@ unk32 sub_804AD60(void)
     return _unk3000F1C != 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ad74.s");
+void sub_804AD74(void)
+{
+    s32 upper;
+    s32 lower;
+    s16 value;
+
+    upper = _currentGameState->unk6E4 + _unk3000F1C;
+    lower = _currentGameState->unk6E6 + _unk3000F1C;
+    value = _unk3000F1C;
+    if (value < 0) {
+        if (upper < 0) {
+            upper = 0;
+        }
+        if (lower < 0) {
+            lower = 0;
+        }
+        if (_currentGameState->unk6E6 != 0) {
+            sub_804AFD4((u16)lower);
+        }
+        if (upper == 0 && lower == 0) {
+            _unk3000F1C = (s16)lower;
+        }
+    }
+    value = _unk3000F1C;
+    if (value > 0) {
+        if (upper > _unk3000F18) {
+            upper = _unk3000F18;
+        }
+        if (lower > _unk3000F14) {
+            lower = _unk3000F14;
+        }
+        if (_currentGameState->unk6E6 < _unk3000F14) {
+            sub_804AFD4((u16)lower);
+        }
+        if (upper == _unk3000F18 && lower == _unk3000F14) {
+            _unk3000F1C = 0;
+        }
+    }
+}
 
 void nullsub_40(void)
 {
