@@ -165,8 +165,7 @@ void sub_8043CF8(FrontendState* state, unk32 arg1)
         }
         break;
     case 5:
-        sub_805B210(&state->menuState);
-        sub_8051688();
+        sub_8051688(sub_805B210(&state->menuState));
         sub_8049234(8);
         if (sub_8051780(1) != 0) {
             sub_804924C(0x12);

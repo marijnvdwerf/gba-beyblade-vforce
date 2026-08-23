@@ -111,7 +111,11 @@ s32 getSomeLevelID(void)
     return _currentGameState->unk0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8051688.s");
+void sub_8051688(unk32 value)
+{
+    _currentGameState->unk0 = value;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051694.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80516b0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80516c0.s");

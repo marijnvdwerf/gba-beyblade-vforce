@@ -10,7 +10,7 @@ LevelState* sub_8051734(void);
 LevelState* sub_8051720(s32);
 unk32 GetLevelDescriptionNo(void);
 void sub_8051640(unk32);
-void sub_8051688(void);
+void sub_8051688(unk32);
 void sub_8051798(unk32);
 unk8 sub_805162C(void);
 unk32 sub_8051744(void);
