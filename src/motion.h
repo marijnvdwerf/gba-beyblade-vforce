@@ -4,8 +4,8 @@
 #include "common.h"
 #include "memory.h"
 
-extern const u8 Str_8727080[];
-extern const u8 Str_87270B8[];
+extern const char Str_8727080[];
+extern const char Str_87270B8[];
 
 typedef UnkMotion MotionGroup;
 

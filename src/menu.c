@@ -13,7 +13,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805ac68.s");
 void sub_805AC80(MenuState* arg0, UnkMenuItem* arg1)
 {
     unk8* destination;
-    unk8* source;
+    const u8* source;
     unk8 state;
 
     state = arg0->unk2F;
@@ -42,9 +42,9 @@ void sub_805AC80(MenuState* arg0, UnkMenuItem* arg1)
             destination++;
         }
         *destination = 0;
-        sub_8061660(arg1, (unk32)_unk3000D30, state);
+        sub_8061660(&arg1->text, _unk3000D30, state);
     } else if (arg1->unk30 != NULL) {
-        sub_8061660(arg1, (unk32)arg1->unk30, state);
+        sub_8061660(&arg1->text, arg1->unk30, state);
     }
 }
 

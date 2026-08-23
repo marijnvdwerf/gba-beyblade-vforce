@@ -88,7 +88,8 @@ typedef struct MenuOptionSet {
 } MenuOptionSet;
 
 struct UnkMenuItem {
-    unk8 pad0[0x30];
+    SpriteTextCleanup text;
+
     const u8* unk30;
     s32 value;
     s32 count;

@@ -88,16 +88,16 @@ void newMotionGroup(MotionGroup* arg0, SpriteTextBlock* arg1, unk16 arg2)
 
     size = arg1->count * sizeof(MotionEntry);
     if (size == 0) {
-        printf((const char*)Str_8727080);
+        printf(Str_8727080);
         return;
     }
     block = slowAllocate(size);
     arg0->block = block;
     if (block == NULL) {
-        printf((const char*)Str_87270B8, size, arg1->count);
+        printf(Str_87270B8, size, arg1->count);
         return;
     }
-    target = (MotionEntry*)block->address;
+    target = block->address;
     arg0->motions = target;
     arg0->count = arg1->count;
     arg0->sourceBlock = arg1;
