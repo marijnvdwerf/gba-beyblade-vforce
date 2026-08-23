@@ -18,11 +18,11 @@
 extern const u8 SpriteSheet_823BF04[];
 extern const unk32 _80689A4[];
 extern const unk32 _80692A4[];
-extern const unk32 _80693A0[];
-extern const unk32 _8069378[];
-extern const unk32 _806938C[];
-extern const unk32 _80693B4[];
-extern const unk32 _80693C8[];
+extern const InputSequence _80693A0[];
+extern const InputSequence _8069378[];
+extern const InputSequence _806938C[];
+extern const InputSequence _80693B4[];
+extern const InputSequence _80693C8[];
 extern const unk32 _80693DC[];
 extern const s16 Unk_874CC3C[];
 
@@ -165,8 +165,7 @@ void sub_8043CF8(FrontendState* state, unk32 arg1)
         }
         break;
     case 5:
-        sub_805B210(&state->menuState);
-        sub_8051688();
+        sub_8051688(sub_805B210(&state->menuState));
         sub_8049234(8);
         if (sub_8051780(1) != 0) {
             sub_804924C(0x12);

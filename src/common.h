@@ -80,6 +80,7 @@ typedef struct FrontendSubobject {
 } FrontendSubobject;
 
 typedef struct FrontendState FrontendState;
+typedef struct InputSequence InputSequence;
 
 typedef struct UnkMenuItem UnkMenuItem;
 
@@ -132,7 +133,7 @@ typedef struct MenuState {
 typedef struct FrontendResource {
     s16 state;
     s16 timer;
-    const unk32* data;
+    const InputSequence* data;
 } FrontendResource;
 
 typedef struct FrontendObject {

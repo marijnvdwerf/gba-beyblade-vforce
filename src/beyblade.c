@@ -13,9 +13,52 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8057094.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80570c0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80570d4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057104.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8057158.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8057164.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80571d0.s");
+
+void sub_8057158(FrontendResource* arg0, const InputSequence* arg1)
+{
+    arg0->state = 0;
+    arg0->data = arg1;
+    arg0->timer = 0;
+}
+
+void sub_8057164(FrontendResource* arg0)
+{
+    const InputSequence* data;
+    const unk16* values;
+
+    data = arg0->data;
+    values = data->keys;
+    if (arg0->state == arg0->data->count) {
+        arg0->state = -1;
+    } else if (arg0->state != -1) {
+        if (arg0->timer == 0) {
+            if (arg0->state != 0) {
+                return;
+            }
+        } else {
+            arg0->timer--;
+        }
+        if (_unk3005DA0 == values[arg0->state]) {
+            arg0->timer = 0x3C;
+            arg0->state++;
+        } else if (_unk3005DA0 != 0) {
+            arg0->timer = 0;
+            arg0->state = 0;
+        }
+    }
+}
+
+unk8 sub_80571D0(FrontendResource* arg0)
+{
+    unk8 result;
+
+    result = 0;
+    if (arg0->state == arg0->data->count) {
+        result = 1;
+    }
+    return result;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80571e4-GetTalkingHead.s");
 
 void emptyBeybladeActorData(void)
@@ -48,7 +91,12 @@ void deallocBeybladeActorData(void)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057258-getBeyBladeActorDataForIndex.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8057338-getBeybladeData0.s");
+
+const BeybladeData* getBeybladeData0(unk32 arg0)
+{
+    return &_807ac28[arg0];
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057348-getBeybladeActorData.s");
 
 void allocateBeyBladeActorPalette(unk32 arg0, unk32 arg1)

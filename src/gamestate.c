@@ -92,7 +92,11 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8051558.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80515a4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80515e0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051618.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/805162c.s");
+
+unk8 sub_805162C(void)
+{
+    return _currentGameState->unk6AB;
+}
 
 void sub_8051640(unk32 value)
 {
@@ -107,7 +111,11 @@ s32 getSomeLevelID(void)
     return _currentGameState->unk0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8051688.s");
+void sub_8051688(unk32 value)
+{
+    _currentGameState->unk0 = value;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051694.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80516b0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80516c0.s");
@@ -159,7 +167,10 @@ unk32 sub_8051780(unk32 arg0)
     return _currentGameState->unk6B4 & arg0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8051798.s");
+void sub_8051798(unk32 value)
+{
+    _currentGameState->unk6B4 = value;
+}
 
 unk32 GetLevelDescriptionNo(void)
 {
