@@ -87,4 +87,14 @@ void sub_804F800(s32 arg0)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f824.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804f84c.s");
+
+void sub_804F84C(unk8 arg0)
+{
+    GameData* base;
+
+    base = _gameData;
+    if (arg0 != 0)
+        base->unk1080 = 0x280;
+    else
+        base->unk1080 = -0x3000;
+}
