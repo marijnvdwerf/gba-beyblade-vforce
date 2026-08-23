@@ -76,7 +76,23 @@ void initTutorialManagement(u16 levelId)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a488-turorial_804A488.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a504.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804a51c.s");
+extern unk32 sub_80556DC(unk32);
+extern void sub_804A550(unk8*);
+extern void sub_8055624(void);
+
+void sub_804A51C(void)
+{
+    GameData* data;
+    unk32* slot;
+
+    data = _gameData;
+    slot = &data->tutorial.unk104;
+    if (*slot != 0 && sub_80556DC(1) != 0) {
+        sub_804A550((unk8*)*slot);
+        *slot = 0;
+        sub_8055624();
+    }
+}
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a550.s");
 
 void sub_804A72C(void)
