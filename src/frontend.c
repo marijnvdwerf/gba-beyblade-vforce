@@ -32,7 +32,18 @@ void sub_8049018(void)
 
 INCLUDE_ASM("asm/dump/8040d18/804903c.s");
 INCLUDE_ASM("asm/dump/8040d18/8049074.s");
-INCLUDE_ASM("asm/dump/8040d18/80490cc.s");
+
+void sub_80490CC(unk32 arg0, unk32 arg1)
+{
+    FrontendState* state;
+    FrontendObject* object;
+
+    state = &_unk3000650;
+    object = state->unkB4;
+    if (object != NULL && object->unk8 != NULL)
+        object->unk8(state, arg0, arg1);
+}
+
 INCLUDE_ASM("asm/dump/8040d18/80490f8.s");
 INCLUDE_ASM("asm/dump/8040d18/804915c.s");
 INCLUDE_ASM("asm/dump/8040d18/8049168.s");

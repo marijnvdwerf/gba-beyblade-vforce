@@ -37,12 +37,15 @@ typedef struct FrontendSubobject {
     unk32 unk20;
 } FrontendSubobject;
 
+typedef struct FrontendState FrontendState;
+
 typedef struct FrontendObject {
-    unk8 pad0[4];
+    unk32 unk0;
     FrontendSubobject* unk4;
+    void (*unk8)(FrontendState*, unk32, unk32);
 } FrontendObject;
 
-typedef struct FrontendState {
+struct FrontendState {
     unk32 unk0;
     unk32 unk4;
     unk32 unk8;
@@ -82,7 +85,7 @@ typedef struct FrontendState {
     unk32 unk58C;
     unk8 unk590[0x18];
     unk32 unk5A8;
-} FrontendState;
+};
 
 typedef struct UnkMenu {
     unk8 unk0[0x24];
