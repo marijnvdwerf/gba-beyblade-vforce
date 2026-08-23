@@ -214,16 +214,19 @@ INCLUDE_ASM("asm/dump/8040d18/8049de0.s");
 
 void sub_8049F58(FrontendState* arg0, unk32 arg1)
 {
-    if (arg1 != 3) {
-        if (arg1 <= 3) {
-            if (arg1 == 2) {
-                arg0->unk585 = 0xFC;
-                arg0->unk586 = 0;
-            }
-        }
-    } else {
+    switch (arg1) {
+    case 2:
+        arg0->unk585 = 0xFC;
+        arg0->unk586 = 0;
+        break;
+    case 3:
         arg0->unk585 = 4;
         arg0->unk586 = 0x40;
+        break;
+    case 4:
+        break;
+    default:
+        break;
     }
 }
 

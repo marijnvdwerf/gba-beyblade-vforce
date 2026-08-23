@@ -93,41 +93,28 @@ typedef struct FrontendMenu {
 } FrontendMenu;
 
 typedef struct MenuState {
-    union {
-        struct {
-            unk8 pad0[0xC];
-            UnkMenuItem* items;
-            unk8 pad10[4];
-            s32 itemCount;
-            unk8 pad18[0xC];
-            s32 unk24;
-            unk8 pad28[4];
-            unk8 normalColor;
-            unk8 disabledColor;
-            unk8 selectedColor;
-            unk8 pad2F;
-            UnkMenuCallback callback;
-            void (*valueCallback)(UnkMenuItem*, s32);
-            unk8 pad38[0x10];
-        } menu;
-
-        struct {
-            unk8 objectPad0[0x18];
-            unk32 objectCount;
-            unk8 objectPad1C[0x8C];
-            UnkMotion* objectItems;
-            unk32 allocation;
-            unk32 timer;
-            SpriteTextCleanup cleanup;
-            UnkMotion motion;
-        } object;
-
-        struct {
-            unk8 pad478[0x38];
-            FrontendMenu menu; /* 0x4B0 */
-            unk8 pad4B8[0xC0]; /* 0x4B8 */
-        } frontend;
-    } layout;
+    unk8 pad0[0xC];
+    UnkMenuItem* items; /* 0xC */
+    unk8 pad10[4];
+    s32 itemCount; /* 0x14 */
+    unk32 objectCount; /* 0x18 */
+    unk8 pad1C[8];
+    s32 unk24; /* 0x24 */
+    unk8 pad28[4];
+    unk8 normalColor; /* 0x2C */
+    unk8 disabledColor; /* 0x2D */
+    unk8 selectedColor; /* 0x2E */
+    unk8 pad2F;
+    UnkMenuCallback callback; /* 0x30 */
+    void (*valueCallback)(UnkMenuItem*, s32); /* 0x34 */
+    FrontendMenu menu; /* 0x4B0 */
+    unk8 pad40[0x68];
+    UnkMotion* objectItems; /* 0xA8 */
+    unk32 allocation; /* 0xAC */
+    unk32 timer; /* 0xB0 */
+    SpriteTextCleanup cleanup; /* 0xB4 */
+    UnkMotion motion; /* 0xE4 */
+    unk8 padFC[4];
 } MenuState;
 
 typedef struct FrontendResource {

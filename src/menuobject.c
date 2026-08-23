@@ -14,9 +14,9 @@ void sub_80434EC(MenuObject* object)
     unk32 count;
     UnkMotion* item;
 
-    count = object->state.layout.object.objectCount;
+    count = object->state.objectCount;
     if (count != 0) {
-        item = object->state.layout.object.objectItems;
+        item = object->state.objectItems;
         count--;
         while (count != (unk32)-1) {
             sub_805041C(item);
@@ -24,13 +24,13 @@ void sub_80434EC(MenuObject* object)
             count--;
         }
     }
-    if (object->state.layout.object.timer != 0) {
-        item = &object->state.layout.object.motion;
+    if (object->state.timer != 0) {
+        item = &object->state.motion;
         sub_805041C(item);
-        object->state.layout.object.timer = object->state.layout.object.timer - 1;
-        if (object->state.layout.object.timer == 0) {
+        object->state.timer = object->state.timer - 1;
+        if (object->state.timer == 0) {
             sub_8050584(item);
-            sub_8061204(&object->state.layout.object.cleanup);
+            sub_8061204(&object->state.cleanup);
         }
     }
 }
@@ -54,7 +54,7 @@ void sub_804374C(MenuObject* object)
     unk32 current;
     unk32 next;
 
-    if (object->state.layout.object.objectCount != 0) {
+    if (object->state.objectCount != 0) {
         current = sub_8043720(object);
         if ((_unk3005DA0 & 0xF0) != 0) {
             if ((_unk3005DA0 & 0x40) != 0) {
