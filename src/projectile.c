@@ -4,9 +4,7 @@
 #include "include_asm.h"
 #include "memory.h"
 
-extern void newSpriteTrail(UnkTrail*, const u8*, void*, s32, unk32, unk8, unk32);
 extern const u8 Str_8726FE4[];
-extern void sub_804ABE4(UnkTrail*);
 
 void newProjectileSystem(ProjectileSystem* arg0, s32 arg1, const u8* arg2, unk32 arg3, void* arg4)
 {
