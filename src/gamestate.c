@@ -163,7 +163,10 @@ unk32 sub_8051780(unk32 arg0)
     return _currentGameState->unk6B4 & arg0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8051798.s");
+void sub_8051798(unk32 value)
+{
+    _currentGameState->unk6B4 = value;
+}
 
 unk32 GetLevelDescriptionNo(void)
 {
