@@ -4,7 +4,9 @@
 #include "common.h"
 #include "spritetext.h"
 
-typedef FrontendMenuState MenuState;
+typedef struct MenuState {
+    unk8 pad0[0x18];
+} MenuState;
 
 typedef struct MenuObject {
     unk8 pad0[0x478];
@@ -22,7 +24,8 @@ void sub_80434EC(MenuObject*);
 void sub_804374C(MenuObject*);
 unk32 sub_8043720(MenuObject*);
 void sub_805AFBC(MenuState*, unk32);
-unk32 sub_805B210(MenuState*);
+unk32 sub_805B210(void*);
+unk32 sub_805B240(UnkMenu*);
 void sub_805B050(MenuState*, unk32);
 
 #endif /* _MENUOBJECT_H */

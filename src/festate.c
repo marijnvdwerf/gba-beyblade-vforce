@@ -195,7 +195,32 @@ INCLUDE_ASM("asm/dump/8040d18/80448f4.s");
 INCLUDE_ASM("asm/dump/8040d18/8044c48.s");
 INCLUDE_ASM("asm/dump/8040d18/8044ed4.s");
 INCLUDE_ASM("asm/dump/8040d18/8045160.s");
-INCLUDE_ASM("asm/dump/8040d18/80453d8.s");
+
+void sub_80453D8(FrontendState* state, unk32 arg1)
+{
+    unk32 result;
+
+    switch (arg1) {
+    case 0:
+        sub_8049168();
+        break;
+    case 1:
+        sub_80439A0(state->unkB8);
+        break;
+    case 5:
+        result = sub_805B240(&state->menuState);
+        switch (result) {
+        case 0:
+            sub_80490F8(0x16);
+            return;
+        case 1:
+            sub_80490F8(0xA);
+            return;
+        }
+        break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/804541c.s");
 INCLUDE_ASM("asm/dump/8040d18/8045638.s");
 INCLUDE_ASM("asm/dump/8040d18/804566c.s");
