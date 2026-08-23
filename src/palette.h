@@ -7,13 +7,18 @@
 #define BG_PLTT_PTR ((u16*)BG_PLTT)
 #define OBJ_PLTT_PTR ((u16*)OBJ_PLTT)
 
+typedef union PaletteBuffer {
+    unk16* half;
+    unk32* word;
+} PaletteBuffer;
+
 typedef struct Palette {
     unk8* source; /* 0x00 */
     unk16 unk4; /* 0x04 */
     unk16 unk6; /* 0x06 */
     s16 unk8; /* 0x08 */
     unk8 unkA[2]; /* 0x0A */
-    unk16* unkC; /* 0x0C */
+    PaletteBuffer unkC; /* 0x0C; strh/ldr access the pointed-to palette at different widths */
     AllocatedBlock* block; /* 0x10 */
 } Palette;
 
