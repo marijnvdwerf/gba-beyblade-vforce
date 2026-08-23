@@ -92,7 +92,11 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8051558.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80515a4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80515e0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051618.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/805162c.s");
+
+unk8 sub_805162C(void)
+{
+    return _currentGameState->unk6AB;
+}
 
 void sub_8051640(unk32 value)
 {
