@@ -899,10 +899,8 @@ void sub_8046CC4(FrontendState* state, unk32 arg1)
             newIconMenu(&state->menuState.menu, _806980C, value);
         } else {
             unk32 result;
-            FrontendMenu* menu;
             result = sub_8051618() != 0;
-            menu = &state->menuState.menu;
-            newIconMenu(menu, _8069830, result);
+            newIconMenu(&state->menuState.menu, _8069830, result);
         }
         sub_8050FEC(&state->menuState.menu, 0x9600);
         break;
