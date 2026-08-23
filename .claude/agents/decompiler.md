@@ -88,6 +88,11 @@ that has no caller in current C.
   (e.g. `strh` at +N in one function, `ldrb` at +N+1 in another — agbcc never
   narrows loads, so the original source punned it). Add a one-line comment
   citing both instructions. Never use a union to paper over an unknown layout.
+- **Fields exist only when accessed.** Add a struct field only when the
+  function you are matching reads or writes it. Never copy a draft's or
+  raw-decomp's speculative layout into a header; untouched bytes are
+  `unk8 padXX[N]`. A field that ends up unused because the function didn't
+  match goes back to padding before you commit.
 - **No match-justification comments.** Never write comments like "agbcc
   requires this shape", "duplicate branches needed for the match", "keep
   shifts: masks load literals". The code is the code; explain *what* the
