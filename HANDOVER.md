@@ -126,7 +126,9 @@ sub_804A280 needs an ldrsh from it and is parked because of that).
 | worktree | scope | status |
 |---|---|---|
 | agent-a3be0bf370a2d1d5a | batch 12: festate sub_80461D8/8046500/8046814/8046A0C/8046CC4/8048D8C/8046B94/8045A7C/selectBladeFrontendHandler, background sub_8049CE8/DE0/FF8, transition sub_804257C, gameloop sub_8052978 — with explicit mandate to TYPE the layouts | running |
-| agent-ab1084b78395c95e6 | flatten the 3-way `MenuState` overlay union (common.h) into one struct; report whether MenuObject+FrontendState should be one struct | running |
+| agent-af7d2cb0dd9c9f2d2 | batch 10 leftover: sub_8044054 (festate) — worktree was force-removed by me and recreated | running |
+| agent-a1ceaa8eff5618fa5 | rename Unk_8755B90 → MidiNoteFrequencies, FIXED_16_16 macro initializers, naturalize Sound_80623A8 | running |
+| (main, /tmp) | menustate-layout.html: per-word table of MenuState/FrontendState/MenuObject claims + accesses, for the user to judge | running |
 
 ### Next steps (user direction, 2026-08-23)
 
@@ -147,8 +149,17 @@ sub_804A280 needs an ldrsh from it and is parked because of that).
   `_unk3000C0C`, RenderCode consumers, the exact `unkC` call site.
 - **Open design question**: `FrontendState` (common.h) and `MenuObject`
   (menuobject.h) both describe `_unk3000650`; `MenuState` at 0x478 was
-  unified into one type but is currently a 3-way overlay union (being
-  flattened). Probably they should be ONE struct — decide after the report.
+  unified and flattened (70a5dde); asm proves itemCount +0x14 and objectCount
+  +0x18 are distinct. MenuObject and FrontendState are the same object — user
+  doubts MenuState is really one struct; layout table in /tmp/menustate-layout.html.
+- `Unk_8755B90` = MIDI note frequency table, 16.16 Hz (entry 69 = 440.0);
+  migrated to src/sound.c (1d67430). `Sound_80623A8` builds per-note
+  resampling steps (`hz*11025<<12/261/rate`).
+- Switch lowering lesson: agbcc emits the compare-tree (cmp/beq, cmp/bhi,
+  cmp/bne) for `switch` only with enough cases — an empty `case 4: break;`
+  + `default` made sub_8049F58 match (c958651).
+- NEVER `git worktree remove -f -f` a locked worktree: the lock means the
+  agent is alive; I did it once and lost its uncommitted work.
 - Preamble lesson: "layout incomplete" was being used as a skip reason;
   typing the layout from the asm IS the job (preamble updated; batch 10 did
   11/12 with that mindset, batch 11 did 3/17 without it).
