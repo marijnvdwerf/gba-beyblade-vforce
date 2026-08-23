@@ -2,6 +2,7 @@
 #define _DISPLAY_H
 
 #include "common.h"
+#include "layer.h"
 
 typedef struct UnkStruct_sub1 {
     u8 var00;
@@ -32,7 +33,7 @@ typedef struct DisplayData {
     unk16 unk2;
     unk16 unk4;
     unk32 pad8;
-    unk32 ptrC;
+    DisplayRecord* ptrC;
 } DisplayData;
 
 void sub_8050A50(DisplayData*);

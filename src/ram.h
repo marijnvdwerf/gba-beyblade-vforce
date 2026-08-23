@@ -147,9 +147,9 @@ typedef struct GameData {
     unk8 pad12F2[2]; /* 0x12F2 */
     CollectableData collectables; /* 0x12F4 */
     TutorialData tutorial; /* 0x13FC */
-    unk8 pad153C[0x88]; /* 0x153C */
-    unk8 unk15C4[0x10]; /* 0x15C4 */
-    unk8 unk15D4[0x44]; /* 0x15D4 */
+    unk8 pad153C[0x98]; /* 0x153C */
+    unk8 unk15D4[0x40]; /* 0x15D4 */
+    unk8 pad1614[4]; /* 0x1614 */
     unk8 unk1618; /* 0x1618 */
     unk8 unk1619; /* 0x1619 */
     unk8 pad161A[1]; /* 0x161A */
@@ -178,7 +178,9 @@ typedef struct CurrentGameState {
     unk8 unk2;
     unk8 unk3;
     LevelState unk4[0x38];
-    unk8 pad544[0x167];
+    unk8 pad544[0x160];
+    unk8 unk6A4;
+    unk8 pad6A5[6];
     unk8 unk6AB;
     unk16 unk6AC;
     unk16 unk6AE;
@@ -201,6 +203,9 @@ typedef struct CurrentGameState {
     unk32 unkC68;
 } CurrentGameState;
 
+extern s16 _unk3000F14;
+extern s16 _unk3000F18;
+extern s16 _unk3000F1C;
 extern void* _levelDataBlockPtr;
 extern GameData* _gameData;
 extern EnvironmentObject* GetStruct4(unk32);
@@ -212,5 +217,10 @@ extern u8 _unk3000FE0[304];
 extern u32 _unk3001110[16];
 
 extern void* _unk3000DF0[14];
+extern unk8 _unk3000F20[32];
+extern unk16 _unk3000F40;
+extern unk16 _unk3000F42;
+extern unk16 _unk3000F44;
+extern unk16 _unk3000F46;
 
 #endif // _RAM_H

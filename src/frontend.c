@@ -9,6 +9,7 @@
 #include "levelrow.h"
 #include "menuobject.h"
 #include "motion.h"
+#include "multiplayer.h"
 #include "ram.h"
 #include "sound.h"
 #include "unsorted.h"
@@ -35,10 +36,6 @@ INCLUDE_ASM("asm/dump/8040d18/804903c.s");
 INCLUDE_ASM("asm/dump/8040d18/8049074.s");
 
 extern unk8 _unk3000BFC;
-extern unk32 sub_805FFE4(void);
-extern unk32 sub_806014C(const unk8*, const unk8*, unk32);
-extern unk32 sub_806008C(void);
-extern void sub_80495C4(void);
 
 void sub_80490CC(unk32 arg0, unk32 arg1)
 {
@@ -51,33 +48,7 @@ void sub_80490CC(unk32 arg0, unk32 arg1)
         object->unk8(state, arg0, arg1);
 }
 
-void sub_80490F8(unk32 arg0)
-{
-    FrontendState* state;
-    unk8* countPtr;
-    unk8 index;
-    unk8 count;
-
-    state = &_unk3000650;
-    if (state->unk0 != arg0 && state->unk4 != arg0) {
-        if (state->unk0 != (unk32)-1) {
-            sub_8049344(3);
-            sub_80490CC(3, 1);
-            _unk3000BFC = 1;
-        }
-        countPtr = &state->unk7C;
-        index = count = *countPtr;
-        asm volatile("" : "+r"(index));
-        if (index <= 0xE) {
-            count++;
-            *countPtr = count;
-            state->unk14[index] = state->unk4;
-            state->unk8 = state->unk0;
-        }
-        state->unk4 = arg0;
-        sub_80495C4();
-    }
-}
+INCLUDE_ASM("asm/dump/8040d18/80490f8.s");
 
 INCLUDE_ASM("asm/dump/8040d18/804915c.s");
 
@@ -104,12 +75,6 @@ void sub_804924C(unk32 arg0)
 }
 
 INCLUDE_ASM("asm/dump/8040d18/8049258.s");
-extern void sub_8049018(void);
-extern void sub_8049168(void);
-extern void sub_80490F8(unk32);
-extern void sub_804967C(void);
-extern s32 sub_80493C8(void);
-extern void sub_80490CC(unk32, unk32);
 extern unk8 _unk3000BFC;
 extern u16 _unk3000BFD;
 extern void (*__oam_8756CC0)(void);
@@ -186,11 +151,10 @@ s32 sub_80493C8(void)
 
     result = 0;
     state = &_unk3000650;
-    if (state->unk7F != 0 && (sub_805FFE4() << 24) != 0 && state->unk584 != 0x40) {
+    if (state->unk7F != 0 && sub_805FFE4() != 0 && state->unk584 != 0x40) {
         data = _gameData;
         if (data->unk1619 != 1) {
-            if ((sub_806014C(data->unk15D4, data->unk15C4, 1) << 24) == 0
-                && (sub_806008C() << 24) != 0) {
+            if (sub_806014C(data->unk15D4, data->unk15D4 - 0x10, 1) == 0 && sub_806008C() != 0) {
                 _gameData->unk1618 = 0;
                 _gameData->unk1619 = 1;
                 state->unk7F = 0;

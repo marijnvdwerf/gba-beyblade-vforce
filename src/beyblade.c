@@ -1,6 +1,8 @@
 #include "include_asm.h"
 #include "ram.h"
 
+void allocateBeyBladeActorPalette(unk32, unk32);
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/805703c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057048.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057068.s");
@@ -46,7 +48,23 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8057258-getBeyBladeActorDataForIndex.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057338-getBeybladeData0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057348-getBeybladeActorData.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057360-allocateBeyBladeActorPalette.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8057398-allocateBeybladeObjectPalettes.s");
+
+void allocateBeybladeObjectPalettes(void)
+{
+    BeybladeActorData* records;
+    s32 index;
+
+    records = _gameData->actorData;
+    index = 0;
+    do {
+        if (records->block != NULL) {
+            allocateBeyBladeActorPalette(index, records->unk4);
+        }
+        records++;
+        index++;
+    } while (index <= 0x3B);
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80573c8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80573dc.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80573fc.s");

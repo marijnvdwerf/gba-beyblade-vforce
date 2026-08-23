@@ -16,13 +16,13 @@ typedef struct {
     /*0x04*/ SoundStructG var04[4];
 } SoundStructF;
 
-typedef struct {
+struct SoundStructE {
     /*0x00*/ u8 pad00[4];
     /*0x04*/ u32 var04;
     /*0x08*/ u32 var08;
     /*0x0C*/ u8 pad0C[4];
     /*0x10*/ u8 data[0];
-} SoundStructE;
+};
 
 typedef struct {
     /*0x00*/ SoundStructE* var00;

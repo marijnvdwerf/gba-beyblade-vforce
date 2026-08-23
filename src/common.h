@@ -142,7 +142,15 @@ typedef struct Actor {
 typedef struct EnvironmentActorSlot {
     unk32 objectId;
     SpriteEntry* sprite;
-    unk8 pad8[0xBC];
+    unk8 pad8[0x98];
+    unk16 unkA0;
+    unk16 unkA2;
+    unk8 padA4[4];
+    unk16 unkA8;
+    unk16 unkAA;
+    unk16 unkAC;
+    unk16 unkAE;
+    unk8 padB0[0x14];
 } EnvironmentActorSlot;
 
 typedef struct EnvironmentActorContainer {
@@ -241,8 +249,44 @@ typedef struct ParticleSystem {
     struct AllocatedBlock* unk30;
 } ParticleSystem;
 
+/* Proven width pun: ldrh at rider-state +6 and ldrb at +7 overlap. */
+typedef union RiderStatePrefix {
+    struct {
+        unk16 unk0;
+        unk16 unk2;
+        unk16 unk4;
+        unk16 unk6;
+    } words;
+
+    struct {
+        unk8 pad0[7];
+        unk8 unk7;
+    } bytes;
+} RiderStatePrefix;
+
+typedef struct RiderState {
+    RiderStatePrefix prefix;
+    unk16 unk8;
+    unk16 unkA;
+    unk8 unkC;
+    unk8 unkD;
+    unk8 padE[0x46];
+    unk32 unk54;
+} RiderState;
+
 typedef struct RiderBase {
-    unk8 unk0[0x238];
+    RiderState* unk0;
+    unk32 unk4;
+    unk8 pad8[8];
+    unk32 unk10;
+    unk32 unk14;
+    unk8 pad18[4];
+    unk32 unk1C;
+    unk8 pad20[0x7C];
+    unk32 flags;
+    unk32 unkA0;
+    unk32 unkA4;
+    unk8 padA8[0x190];
     Actor unk238;
     Actor unk2FC;
     unk8 pad3C0[4];
@@ -378,7 +422,7 @@ typedef struct TutorialEntry {
 typedef struct TutorialData {
     unk32 count;
     TutorialEntry entries[0x20];
-    unk32 unk104;
+    unk8* unk104;
     SpriteTextCleanup fontData;
     unk32 unk138;
     unk32 unk13C;
@@ -437,7 +481,9 @@ typedef struct LevelDescription {
     s32 unk24;
     s32 unk28;
     LineMetadata** metadata;
-    unk8 pad30[0xA0];
+    unk8 pad30[0x60];
+    unk32 unk90;
+    unk8 pad94[0x3C];
 } LevelDescription;
 
 #define true 1

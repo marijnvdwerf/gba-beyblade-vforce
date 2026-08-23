@@ -7,6 +7,7 @@
 extern MultiPlayerState* _unk3005DC4;
 extern const char Str_8755834[];
 extern const char Str_8755884[];
+extern const char Str_87558B4[];
 extern s32 __divsi3(s32, s32);
 typedef void ClearFn(int, void*, int);
 extern ClearFn* __fastMemoryClearARM;
@@ -72,13 +73,46 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805fed0-initMultiPlayer.s");
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805ffe4.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/806003c-nullsub_47.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8060040.s");
+
+unk32 sub_8060040(void)
+{
+    unk32 flags;
+
+    flags = _unk3005DC4->unk14;
+    if (flags & 8) {
+        return 1;
+    }
+    if ((flags & 0x10) == 0) {
+        printf(Str_87558B4);
+    }
+    return 0;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8060070.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/806008c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/80600a8-isMultiplayer.s");
+
+u8 sub_806008C(void)
+{
+    if ((_unk3005DC4->unk14 & 0x100) != 0) {
+        return 1;
+    }
+    return 0;
+}
+
+unk8 isMultiplayer(void)
+{
+    return _unk3005DC4->unk2;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/80600b4.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/806014c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/80603e8.s");
+
+void sub_80603E8(void)
+{
+    if (_unk3005DC4->unk1C == 0) {
+        _unk3005DC4->unk14 |= 0x400;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8060404.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8060434.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8060454-onSerialCommunication.s");
