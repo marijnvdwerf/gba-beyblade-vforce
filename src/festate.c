@@ -667,22 +667,21 @@ INCLUDE_ASM("asm/dump/8040d18/80464c0.s");
 
 void sub_8046500(FrontendState* state, unk32 arg1, unk32 arg2)
 {
-    SpriteEntry* sprite1;
-    SpriteEntry* sprite2;
-    SpriteEntry** spriteRef;
-    s32 delta;
+    SpriteEntry* leftSprite;
+    SpriteEntry* rightSprite;
+    s32 scrollDelta;
 
     switch (arg1) {
     case 0:
-        sprite1 = allocSprite(0);
-        _unk3000494 = sprite1;
-        if (sprite1 != NULL) {
-            LoadSpriteSheet(sprite1, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+        leftSprite = allocSprite(0);
+        _unk3000494 = leftSprite;
+        if (leftSprite != NULL) {
+            LoadSpriteSheet(leftSprite, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
-        sprite2 = allocSprite(0);
-        _unk3000498 = sprite2;
-        if (sprite2 != NULL) {
-            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+        rightSprite = allocSprite(0);
+        _unk3000498 = rightSprite;
+        if (rightSprite != NULL) {
+            LoadSpriteSheet(rightSprite, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk300049C = 0x800;
         _unk30004A0 = 0xD800;
@@ -716,23 +715,21 @@ void sub_8046500(FrontendState* state, unk32 arg1, unk32 arg2)
         break;
     case 1:
         sub_80439A0(&state->unk140);
-        spriteRef = &_unk3000494;
-        if (*spriteRef != NULL) {
-            (*spriteRef)->x += ((_unk300049C - (*spriteRef)->x) >> 3)
+        if (_unk3000494 != NULL) {
+            _unk3000494->x += ((_unk300049C - _unk3000494->x) >> 3)
                 + Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1] - _unk3000474;
         }
-        spriteRef = &_unk3000498;
-        if (*spriteRef != NULL) {
-            (*spriteRef)->x += ((_unk30004A0 - (*spriteRef)->x) >> 3)
+        if (_unk3000498 != NULL) {
+            _unk3000498->x += ((_unk30004A0 - _unk3000498->x) >> 3)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1] + _unk3000474;
         }
         if (_unk3000491 != 0 && (_unk3000478.value >> 8) > 0xFE && _unk3000474 == 0x10000) {
             sub_8046468(&_unk3000480, sub_80570C0(_unk3000480.frame), 1);
             _unk3000474 = 0;
         }
-        delta = (_unk3000474 - _unk3000478.value) >> 2;
-        sub_80596AC(&state->unk250, -delta, 0);
-        _unk3000478.value += delta;
+        scrollDelta = (_unk3000474 - _unk3000478.value) >> 2;
+        sub_80596AC(&state->unk250, -scrollDelta, 0);
+        _unk3000478.value += scrollDelta;
         sub_80464C0(&_unk3000480, _unk3000478.value);
         break;
     case 2:
