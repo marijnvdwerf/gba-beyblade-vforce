@@ -193,5 +193,15 @@ void deallocate_80637CC(Palette* arg0)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/80637e4.s");
+void sub_80637E4(Palette* arg0, u16* arg1, unk32 arg2, unk32 arg3, unk32 arg4)
+{
+    arg0->unk4 = arg2 & 0xFFFE;
+    arg0->unk6 = (arg3 + 1) & 0xFFFE;
+    arg0->source = (unk8*)arg1;
+    arg0->unk8 = arg4;
+    arg0->block = slowAllocate(arg0->unk6 * 2);
+    arg0->unkC = arg0->block->address;
+    __fastMemoryCopyARM(arg1 + arg0->unk4, arg0->unkC, arg0->unk6 * 2);
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8063830.s");
