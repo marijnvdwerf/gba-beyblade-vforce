@@ -24,6 +24,7 @@ extern const unk32 _806938C[];
 extern const unk32 _80693B4[];
 extern const unk32 _80693C8[];
 extern const unk32 _80693DC[];
+extern const unk32 _8069428[];
 extern const s16 Unk_874CC3C[];
 
 void sub_8043A0C(FrontendState* state, unk32 arg1, unk32 arg2)
@@ -497,7 +498,98 @@ void sub_8045848(FrontendState* state, unk32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8045a7c.s");
+void sub_8045A7C(FrontendState* state, unk32 arg1)
+{
+    switch (arg1) {
+    case 0: {
+        SpriteEntry* sprite1;
+        SpriteEntry* sprite2;
+        unk8* menu;
+
+        sprite1 = allocSprite(0);
+        _unk30003B8 = sprite1;
+        if (sprite1 != NULL) {
+            LoadSpriteSheet(sprite1, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+        }
+        sprite2 = allocSprite(0);
+        _unk30003BC = sprite2;
+        if (sprite2 != NULL) {
+            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+        }
+        _unk30003C0 = 0x800;
+        _unk30003C4 = 0xD800;
+        menu = (unk8*)&state->menuState.menu;
+        newIconMenu(menu, _8069428, 0);
+        sub_8050FEC(menu, 0x9600);
+        break;
+    }
+    case 7:
+        sub_8051028(&state->menuState.menu);
+        if (_unk30003B8 != NULL) {
+            sub_8060A94(_unk30003B8);
+        }
+        if (_unk30003BC != NULL) {
+            sub_8060A94(_unk30003BC);
+        }
+        break;
+    case 1: {
+        unk8* menu;
+
+        if (_unk30003B8 != NULL) {
+            _unk30003B8->x += ((_unk30003C0 - _unk30003B8->x) >> 3)
+                + Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
+        }
+        if (_unk30003BC != NULL) {
+            _unk30003BC->x += ((_unk30003C4 - _unk30003BC->x) >> 3)
+                - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
+        }
+        sub_80439A0(&state->unk140);
+        menu = (unk8*)&state->menuState.menu;
+        sub_8050C18(menu);
+        if ((_unk3005DA0 & 0x30) != 0) {
+            if ((_unk3005DA0 & 0x20) != 0) {
+                sub_8050F0C(menu);
+            } else {
+                sub_8050E80(menu);
+            }
+        }
+        break;
+    }
+    case 2: {
+        u16* input;
+        s32 selection;
+
+        input = &_unk3005DA0;
+        if ((*input & arg1) != 0) {
+            _unk30003C0 = 0xFFFF0000;
+            _unk30003C4 = 0x1E000;
+            sub_8050FC8(&state->menuState.menu);
+            sub_80490F8(0xA);
+        }
+        if ((*input & 1) != 0) {
+            _unk30003C0 = 0xFFFF0000;
+            _unk30003C4 = 0x1E000;
+            sub_8050F98(&state->menuState.menu);
+            selection = state->menuState.menu.selection;
+            switch (selection) {
+            case 0:
+                sub_80490F8(0xD);
+                break;
+            case 1:
+                sub_80490F8(0x29);
+                break;
+            case 2:
+                sub_80490F8(0x1A);
+                break;
+            case 3:
+                sub_80490F8(0xE);
+                break;
+            }
+        }
+    } break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8045cb4.s");
 INCLUDE_ASM("asm/dump/8040d18/80461d8.s");
 
