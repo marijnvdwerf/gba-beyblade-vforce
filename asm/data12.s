@@ -2290,6 +2290,8 @@ _8069FA0:
     .4byte _8068944
 
 global _8069FC8
+.global _LevelRowMusicTable
+_LevelRowMusicTable:
     .byte 0, 0, 0, 0
     .4byte _8069FA0
     .4byte sub_8043A0C + 1

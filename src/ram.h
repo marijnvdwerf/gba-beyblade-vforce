@@ -68,6 +68,32 @@ typedef struct ProjectileSystem {
     unk32 unk84;
     unk32 unk88;
 } ProjectileSystem;
+typedef struct LevelHudText {
+    s32 x; /* 0x00 */
+    s32 y; /* 0x04 */
+    unk8 pad8[0x28]; /* 0x08 */
+} LevelHudText;
+
+typedef struct LevelHudData {
+    SpriteTextCleanup text0; /* 0x00 */
+    LevelHudText text1; /* 0x30 */
+    unk8 pad60[0x60]; /* 0x60 */
+    UnkMotion motion0; /* 0xC0 */
+    UnkMotion motion1; /* 0xD8 */
+    unk32 status; /* 0xF0 */
+    unk8 padF4[0x16]; /* 0xF4 */
+    unk16 state; /* 0x10A */
+    unk16 pad10C; /* 0x10C */
+    unk16 flags; /* 0x10E */
+} LevelHudData;
+
+typedef struct LevelHudObject {
+    unk8 pad0[8];
+    unk32 unk8;
+    unk32 unkC;
+    unk8 pad10[8];
+    unk16 unk18;
+} LevelHudObject;
 
 typedef struct GameData {
     RiderBase base; /* 0x000 */
@@ -161,10 +187,10 @@ typedef struct GameData {
     UnkMotion levelHudMotion0; /* 0x1010 */
     UnkMotion levelHudMotion1; /* 0x1028 */
     unk32 levelHudStatus; /* 0x1040 */
-    unk32 unk1044; /* 0x1044 */
-    unk32 unk1048; /* 0x1048 */
+    LevelHudObject* unk1044; /* 0x1044 */
+    LevelHudObject* unk1048; /* 0x1048 */
     unk32 unk104C; /* 0x104C */
-    unk32 unk1050; /* 0x1050 */
+    LevelHudObject* unk1050; /* 0x1050 */
     unk16 unk1054; /* 0x1054 */
     unk16 unk1056; /* 0x1056 */
     unk16 unk1058; /* 0x1058 */
@@ -248,6 +274,7 @@ typedef struct CurrentGameState {
 extern s16 _unk3000F14;
 extern s16 _unk3000F18;
 extern s16 _unk3000F1C;
+extern u16 _unk3005DA0;
 extern void* _levelDataBlockPtr;
 extern GameData* _gameData;
 extern EnvironmentObject* GetStruct4(unk32);

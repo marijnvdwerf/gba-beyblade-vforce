@@ -12,6 +12,7 @@ typedef u16 unk16;
 typedef u32 unk32;
 
 typedef struct AllocatedBlock AllocatedBlock;
+typedef struct SpriteTextCleanup SpriteTextCleanup;
 
 struct AllocatedBlock {
     void* address;
@@ -72,7 +73,7 @@ struct FrontendState {
     unk32 unk424;
     unk8 pad428[0x30];
     UnkMotion motion;
-    unk32 unk470;
+    SpriteTextCleanup* unk470;
     unk16 unk474;
     unk8 pad476[0xB];
     unk8 unk481;
@@ -177,7 +178,7 @@ typedef struct SpriteTextBlock {
     unk32 count;
 } SpriteTextBlock;
 
-typedef struct SpriteTextCleanup {
+struct SpriteTextCleanup {
     unk32 x;
     unk32 y;
     unk16 unk8;
@@ -195,7 +196,7 @@ typedef struct SpriteTextCleanup {
     s8 unk2A; /* ldsb r0, [r7, r0] at .L8061430 in sub_806123C */
     unk8 unk2B;
     SpriteEntry* ptr2C;
-} SpriteTextCleanup;
+};
 
 struct Actor;
 

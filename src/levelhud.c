@@ -3,7 +3,27 @@
 #include "spritetext.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f878.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804f9b4.s");
+
+void sub_804F9B4(void)
+{
+    GameData* state;
+
+    state = _gameData;
+    state->unk1054 = 0x190;
+    state->unk105C = 1;
+    state->unk1056 = 0;
+    state->unk1058 = 0;
+    state->unk1044->unk8 = 0x4A00;
+    state->unk1048->unk8 = 0x8A00;
+    state->unk1050->unk8 = 0x4200;
+    state->unk1044->unkC = -0x2000;
+    state->unk1048->unkC = -0x2000;
+    state->unk1050->unkC = -0x2000;
+    state->unk1044->unk18 = 0;
+    state->unk1048->unk18 = 0;
+    state->unk1050->unk18 = 0;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fa40.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fad4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fb6c.s");
