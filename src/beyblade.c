@@ -48,7 +48,17 @@ void sub_8057164(FrontendResource* arg0)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80571d0.s");
+unk8 sub_80571D0(FrontendResource* arg0)
+{
+    unk8 result;
+
+    result = 0;
+    if (arg0->state == arg0->data[0]) {
+        result = 1;
+    }
+    return result;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80571e4-GetTalkingHead.s");
 
 void emptyBeybladeActorData(void)
