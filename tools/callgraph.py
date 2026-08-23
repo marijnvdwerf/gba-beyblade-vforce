@@ -48,17 +48,25 @@ CONTROL_WORDS = {
     "__volatile__",
 }
 
+FUNCTION_KINDS = (
+    ("unknown", 0, "🔴"),
+    ("provisional", 1, "🟡"),
+    ("c", 2, "🟢"),
+)
+FUNCTION_PRIORITY = {kind: priority for kind, priority, _ in FUNCTION_KINDS}
+FUNCTION_MARKERS = {kind: marker for kind, _, marker in FUNCTION_KINDS}
+
 
 @dataclass
 class Function:
     name: str
     file: str
-    kind: str  # "c" or "unknown"
+    kind: str  # "c", "provisional", or "unknown"
     calls: list[str] = field(default_factory=list)
 
     @property
     def marker(self) -> str:
-        return "🟢" if self.kind == "c" else "🔴"
+        return FUNCTION_MARKERS[self.kind]
 
 
 # Keep insertion order stable while indexing C definitions.
@@ -84,40 +92,58 @@ def same_node(left, right) -> bool:
     return right is not None and left.start_byte == right.start_byte and left.end_byte == right.end_byte
 
 
-def iter_active_preprocessor_branch(node, source: bytes) -> Iterator:
+def iter_active_branch_children(
+    node, source: bytes, invert_literal_zero: bool
+) -> Iterator:
+    condition = node.child_by_field_name("condition")
+    alternative = node.child_by_field_name("alternative")
+    for child in node.named_children:
+        if same_node(child, condition) or same_node(child, alternative):
+            continue
+        yield from iter_active_nodes(child, source, invert_literal_zero)
+
+
+def iter_active_preprocessor_branch(
+    node, source: bytes, invert_literal_zero: bool
+) -> Iterator:
     """Yield nodes from the selected branch of a definitely-false #if 0."""
     if node.type == "preproc_else":
         for child in node.named_children:
-            yield from iter_active_nodes(child, source)
+            yield from iter_active_nodes(child, source, invert_literal_zero)
         return
     if node.type == "preproc_elif":
         condition = node.child_by_field_name("condition")
-        alternative = node.child_by_field_name("alternative")
         if is_literal_zero(source, condition):
+            alternative = node.child_by_field_name("alternative")
             if alternative is not None:
-                yield from iter_active_preprocessor_branch(alternative, source)
+                yield from iter_active_preprocessor_branch(
+                    alternative, source, invert_literal_zero
+                )
             return
         # The first non-zero/unknown elif is the conservatively active branch.
-        for child in node.named_children:
-            if same_node(child, condition) or same_node(child, alternative):
-                continue
-            yield from iter_active_nodes(child, source)
+        yield from iter_active_branch_children(node, source, invert_literal_zero)
         return
-    yield from iter_active_nodes(node, source)
+    yield from iter_active_nodes(node, source, invert_literal_zero)
 
 
-def iter_active_nodes(node, source: bytes) -> Iterator:
-    """Walk syntax nodes, omitting the definitely-disabled side of #if 0."""
+def iter_active_nodes(node, source: bytes, invert_literal_zero: bool) -> Iterator:
+    """Walk syntax nodes, optionally inverting literal #if 0 branches."""
     if node.type == "preproc_if":
         condition = node.child_by_field_name("condition")
         alternative = node.child_by_field_name("alternative")
         if is_literal_zero(source, condition):
-            if alternative is not None:
-                yield from iter_active_preprocessor_branch(alternative, source)
+            if invert_literal_zero:
+                yield from iter_active_branch_children(
+                    node, source, invert_literal_zero
+                )
+            elif alternative is not None:
+                yield from iter_active_preprocessor_branch(
+                    alternative, source, invert_literal_zero
+                )
             return
     yield node
     for child in node.named_children:
-        yield from iter_active_nodes(child, source)
+        yield from iter_active_nodes(child, source, invert_literal_zero)
 
 
 def function_name(node, source: bytes) -> str | None:
@@ -138,9 +164,11 @@ def function_name(node, source: bytes) -> str | None:
     return None
 
 
-def extract_c_calls(body, source: bytes, macros: set[str]) -> list[str]:
+def extract_c_calls(
+    body, source: bytes, macros: set[str], invert_literal_zero: bool
+) -> list[str]:
     calls: list[tuple[int, str]] = []
-    for node in iter_active_nodes(body, source):
+    for node in iter_active_nodes(body, source, invert_literal_zero):
         if node.type != "call_expression":
             continue
         function = node.child_by_field_name("function")
@@ -155,7 +183,7 @@ def extract_c_calls(body, source: bytes, macros: set[str]) -> list[str]:
 
 def add_function(functions: Functions, function: Function) -> None:
     existing = functions.get(function.name)
-    if existing is None or (existing.kind != "c" and function.kind == "c"):
+    if existing is None or FUNCTION_PRIORITY[function.kind] > FUNCTION_PRIORITY[existing.kind]:
         functions[function.name] = function
 
 
@@ -174,22 +202,28 @@ def index_c_sources(functions: Functions) -> None:
     for path in sorted(SRC_DIR.rglob("*.c")):
         source = path.read_bytes()
         tree = parser.parse(source)
-        for node in iter_active_nodes(tree.root_node, source):
-            if node.type != "function_definition":
-                continue
-            name = function_name(node.child_by_field_name("declarator"), source)
-            if name is None:
-                continue
-            body = node.child_by_field_name("body")
-            add_function(
-                functions,
-                Function(
-                    name=name,
-                    file=relpath(path),
-                    kind="c",
-                    calls=extract_c_calls(body, source, macros) if body is not None else [],
-                ),
-            )
+        for invert_literal_zero in (False, True):
+            kind = "provisional" if invert_literal_zero else "c"
+            for node in iter_active_nodes(tree.root_node, source, invert_literal_zero):
+                if node.type != "function_definition":
+                    continue
+                name = function_name(node.child_by_field_name("declarator"), source)
+                if name is None:
+                    continue
+                body = node.child_by_field_name("body")
+                add_function(
+                    functions,
+                    Function(
+                        name=name,
+                        file=relpath(path),
+                        kind=kind,
+                        calls=(
+                            extract_c_calls(body, source, macros, invert_literal_zero)
+                            if body is not None
+                            else []
+                        ),
+                    ),
+                )
 
 
 def make_unknown(functions: Functions, name: str) -> None:
