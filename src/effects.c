@@ -10,12 +10,9 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80555f4.s");
 
 void sub_8055624(void)
 {
-    GameData* base;
-
-    base = _gameData;
-    base->projectileSystem.unk7E = 0;
-    base->projectileSystem.unk78 = 0xFFFF;
-    base->projectileSystem.unk80 &= ~1;
+    _gameData->projectileSystem.unk7E = 0;
+    _gameData->projectileSystem.unk78 = 0xFFFF;
+    _gameData->projectileSystem.unk80 &= ~1;
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805565c.s");
