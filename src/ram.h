@@ -9,6 +9,7 @@
 #include "sprite.h"
 
 extern s32 _unk3000C04;
+extern u8 _unk3000D30[80];
 extern s32 _unk3000C08;
 extern void (*_unk3000C0C)(void);
 void sub_805565C(void);

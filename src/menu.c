@@ -3,12 +3,51 @@
 #include <agb/types.h>
 
 #include "include_asm.h"
+#include "spritetext.h"
 #include "unsorted.h"
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805ac28.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ac5c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ac68.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805ac80.s");
+
+void sub_805AC80(MenuState* arg0, UnkMenuItem* arg1)
+{
+    unk8* destination;
+    unk8* source;
+    unk8 state;
+
+    state = arg0->unk2F;
+    if (arg1->options != NULL) {
+        source = (unk8*)arg1->unk30;
+        destination = _unk3000D30;
+        if (source != NULL) {
+            while (*source != 0) {
+                *destination = *source;
+                source++;
+                destination++;
+            }
+        }
+        if ((arg1->flags & 5) == 0) {
+            if (arg0->items + arg0->unk24 == arg1)
+                state = arg0->unk2E;
+            *destination = 0x3A;
+            destination++;
+            *destination = 0x20;
+            destination++;
+        }
+        source = (unk8*)arg1->options[arg1->value].values[arg0->unk8];
+        while (*source != 0) {
+            *destination = *source;
+            source++;
+            destination++;
+        }
+        *destination = 0;
+        sub_8061660(arg1, (unk32)_unk3000D30, state);
+    } else if (arg1->unk30 != NULL) {
+        sub_8061660(arg1, (unk32)arg1->unk30, state);
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805ad24.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ad9c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805add4-allocateMenuItems.s");
