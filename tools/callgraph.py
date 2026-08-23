@@ -1,12 +1,12 @@
-#!/usr/bin/env -S uv run --script
-# /// script
-# requires-python = ">=3.10"
-# dependencies = [
-#   "tree-sitter==0.26.0",
-#   "tree-sitter-c==0.24.2",
-#   "pyelftools==0.32",
-# ]
-# ///
+#!/ usr / bin / env - S uv run -- script
+#/// script
+#requires - python = ">=3.10"
+#dependencies = [
+#"tree-sitter==0.26.0",
+#"tree-sitter-c==0.24.2",
+#"pyelftools==0.32",
+#]
+#///
 """Print a source-oriented call graph for the GBA decompilation."""
 
 from __future__ import annotations
@@ -27,12 +27,12 @@ ROOT = Path(__file__).resolve().parents[1]
 SRC_DIR = ROOT / "src"
 C_LANGUAGE = Language(tree_sitter_c.language())
 
-# A safety valve for malformed or unexpectedly recursive input.  Repetition is
-# normally collapsed before this is reached, so ordinary trees do not truncate.
+#A safety valve for malformed or unexpectedly recursive input.Repetition is
+#normally collapsed before this is reached, so ordinary trees do not truncate.
 MAX_RENDER_DEPTH = 64
 
-# ROM tables whose entries are function pointers.  Add another table by giving
-# its assembly label, record stride, and the function-pointer slot offsets.
+#ROM tables whose entries are function pointers.Add another table by giving
+#its assembly label, record stride, and the function - pointer slot offsets.
 HANDLER_TABLES = [
     {
         "label": "_LevelRowMusicTable",
@@ -41,15 +41,15 @@ HANDLER_TABLES = [
     },
 ]
 
-# A local may receive pointers from more than one table slot.  These overrides
-# also document the few cases where the C name is not the slot name itself.
+#A local may receive pointers from more than one table slot.These overrides
+#also document the few cases where the C name is not the slot name itself.
 INDIRECT_SITES = {
     ("sub_8049344", "stored"): ("unk588",),
     ("sub_8049344", "callback"): ("unk10", "unk14", "unk588"),
 }
 INDIRECT_LOCAL_NAMES = {"callback", "stored", "transition"}
-# ``unk588`` stores a callback selected from the same two frontend-handler
-# columns; it is an alias rather than a physical field in the row record.
+# ``unk588`` stores a callback selected from the same two frontend - handler
+#columns; it is an alias rather than a physical field in the row record.
 INDIRECT_SLOT_ALIASES = {"unk588": ("unk10", "unk14")}
 
 CONTROL_WORDS = {
@@ -93,13 +93,12 @@ class Function:
     def marker(self) -> str:
         return "🧭" if self.synthetic else FUNCTION_MARKERS[self.kind]
 
-
-# Keep insertion order stable while indexing C definitions.
+#Keep insertion order stable while indexing C definitions.
 Functions = OrderedDict[str, Function]
 
 
 def relpath(path: Path) -> str:
-    try:
+try:
         return str(path.relative_to(ROOT))
     except ValueError:
         return str(path)
@@ -127,7 +126,6 @@ def iter_active_branch_children(
             continue
         yield from iter_active_nodes(child, source, invert_literal_zero)
 
-
 def iter_active_preprocessor_branch(
     node, source: bytes, invert_literal_zero: bool
 ) -> Iterator:
@@ -145,22 +143,19 @@ def iter_active_preprocessor_branch(
                     alternative, source, invert_literal_zero
                 )
             return
-        # The first non-zero/unknown elif is the conservatively active branch.
+#The first non - zero / unknown elif is the conservatively active branch.
         yield from iter_active_branch_children(node, source, invert_literal_zero)
         return
     yield from iter_active_nodes(node, source, invert_literal_zero)
 
-
-def iter_active_nodes(node, source: bytes, invert_literal_zero: bool) -> Iterator:
-    """Walk syntax nodes, optionally inverting literal #if 0 branches."""
-    if node.type == "preproc_if":
-        condition = node.child_by_field_name("condition")
-        alternative = node.child_by_field_name("alternative")
-        if is_literal_zero(source, condition):
-            if invert_literal_zero:
-                yield from iter_active_branch_children(
-                    node, source, invert_literal_zero
-                )
+def iter_active_nodes(node, source : bytes, invert_literal_zero : bool) -> Iterator
+    : ""
+      "Walk syntax nodes, optionally inverting literal #if 0 branches."
+      "" if node.type
+    == "preproc_if" : condition = node.child_by_field_name("condition") alternative
+    = node.child_by_field_name("alternative") if is_literal_zero (source, condition)
+    : if invert_literal_zero : yield from
+                               iter_active_branch_children(node, source, invert_literal_zero)
             elif alternative is not None:
                 yield from iter_active_preprocessor_branch(
                     alternative, source, invert_literal_zero
@@ -169,7 +164,6 @@ def iter_active_nodes(node, source: bytes, invert_literal_zero: bool) -> Iterato
     yield node
     for child in node.named_children:
         yield from iter_active_nodes(child, source, invert_literal_zero)
-
 
 def function_name(node, source: bytes) -> str | None:
     """Find the identifier at the end of a possibly wrapped declarator."""
@@ -400,7 +394,7 @@ def make_unknown(functions: Functions, name: str) -> None:
 def resolve_name(functions: Functions, name: str) -> str:
     if name in functions:
         return name
-    # Prefer an unambiguous case-insensitive match for C declarations.
+#Prefer an unambiguous case -insensitive match for C declarations.
     matches = [candidate for candidate in functions if candidate.lower() == name.lower()]
     if len(matches) == 1:
         return matches[0]
@@ -432,15 +426,15 @@ def resolve_root(functions: Functions, requested: str) -> str:
     matches = [name for name in functions if name.lower() == requested.lower()]
     if len(matches) == 1:
         return matches[0]
-    # Permit the conventional trailing () used when copying a symbol from a
-    # debugger or decompiler listing.
+#Permit the conventional trailing() used when copying a symbol from a
+#debugger or decompiler listing.
     stripped = requested.removesuffix("()")
     if stripped in functions:
         return stripped
     if len(matches) > 1:
         raise SystemExit(f"ambiguous root symbol {requested!r}: {', '.join(matches)}")
-    # A non-C/library/unresolved root is still useful as a red leaf.  Only C
-    # definitions are indexed, so there is no body to expand in that case.
+#A non - C / library / unresolved root is still useful as a red leaf.Only C
+#definitions are indexed, so there is no body to expand in that case.
     return stripped
 
 
@@ -450,12 +444,7 @@ def render(functions: Functions, root: str) -> str:
     active: set[str] = set()
 
     def walk(
-        name: str,
-        prefix: str,
-        is_last: bool,
-        depth: int,
-        is_root: bool,
-        expand: bool = True,
+        name: str, prefix: str, is_last: bool, depth: int, is_root: bool
     ) -> None:
         function = functions.get(name)
         if function is None:
@@ -471,7 +460,7 @@ def render(functions: Functions, root: str) -> str:
         branch = "" if is_root else ("└─ " if is_last else "├─ ")
         location = f" [{function.file}]" if function.file else ""
         lines.append(f"{prefix}{branch}{function.marker} {name}{location}{suffix}")
-        if suffix or not expand:
+        if suffix:
             return
 
         expanded.add(name)
@@ -485,7 +474,6 @@ def render(functions: Functions, root: str) -> str:
                 index == len(children) - 1,
                 depth + 1,
                 False,
-                expand=not function.synthetic,
             )
         active.remove(name)
 
@@ -505,10 +493,9 @@ def main(argv: Iterable[str] | None = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
     functions = build_index()
     root = resolve_root(functions, args.root)
-    try:
-        print(render(functions, root))
-    except BrokenPipeError:
-        # Be friendly to ordinary Unix pipelines such as `| head`.
+try
+    : print(render(functions, root)) except BrokenPipeError:
+#Be friendly to ordinary Unix pipelines such as `| head`.
         return 0
     return 0
 

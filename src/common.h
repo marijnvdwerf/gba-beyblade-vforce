@@ -168,11 +168,28 @@ struct FrontendState {
     FrontendTransition transition;
 };
 
+typedef struct SpriteTrailEntry {
+    unk8 pad0[0xC];
+    unk16 unkC;
+    unk8 padE[0xA];
+    SpriteEntry* sprite;
+} SpriteTrailEntry;
+
 typedef struct UnkTrail {
-    unk8 unk0[0x10];
+    unk16 unk0;
+    unk16 unk2;
+    unk16 unk4;
+    unk16 unk6;
+    SpriteTrailEntry* sprites;
+    AllocatedBlock* block;
     unk32 unk10;
     unk32 unk14;
-    unk8 unk18[0x14];
+    unk32 unk18;
+    unk32 unk1C;
+    const u8* spriteSheet;
+    unk16 unk24;
+    unk16 unk26;
+    void* unk28;
     unk16 unk2C;
 } UnkTrail;
 
