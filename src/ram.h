@@ -293,4 +293,10 @@ extern unk16 _unk3000F42;
 extern unk16 _unk3000F44;
 extern unk16 _unk3000F46;
 
+extern SpriteEntry* _unk3000158;
+extern SpriteEntry* _unk300015C;
+extern s32 _unk3000160;
+extern s32 _unk3000164;
+extern unk32 _unk3000168;
+
 #endif // _RAM_H

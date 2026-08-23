@@ -40,6 +40,11 @@ typedef struct FrontendSubobject {
 
 typedef struct FrontendState FrontendState;
 
+typedef struct FrontendMenu {
+    unk8 pad0[4];
+    unk32 selection;
+} FrontendMenu;
+
 typedef struct FrontendObject {
     unk32 unk0;
     FrontendSubobject* unk4;
@@ -69,7 +74,9 @@ struct FrontendState {
     unk32 unk90;
     unk8 pad94[0x20];
     FrontendObject* unkB4;
-    unk8 padB8[0x36C];
+    unk8 padB8[0x88]; /* 0xB8 */
+    unk8 unk140[0x110]; /* 0x140 */
+    unk8 pad250[0x1D4]; /* 0x250 */
     unk32 unk424;
     unk8 pad428[0x30];
     UnkMotion motion;
@@ -77,7 +84,9 @@ struct FrontendState {
     unk16 unk474;
     unk8 pad476[0xB];
     unk8 unk481;
-    unk8 pad482[0xF6];
+    unk8 pad482[0x2E]; /* 0x482 */
+    FrontendMenu menu; /* 0x4B0 */
+    unk8 pad4B8[0xC0]; /* 0x4B8 */
     unk32 unk578;
     unk32 unk57C;
     unk32 unk580;
