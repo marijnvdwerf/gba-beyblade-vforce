@@ -247,7 +247,54 @@ void sub_8049CE8(FrontendState* arg0, unk32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8049de0.s");
+void sub_8049DE0(FrontendState* arg0, unk32 arg1)
+{
+    switch (arg1) {
+    case 2: {
+        BackgroundPaletteState* palettes;
+
+        palettes = (BackgroundPaletteState*)&_3000000.var6A4;
+        sub_80637E4(
+            &palettes->paletteA, (unk8*)_806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
+        sub_80637E4(
+            &palettes->paletteB, (unk8*)_806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
+        arg0->unk584 = 0x3E;
+        arg0->unk585 = 0xFE;
+        arg0->unk586 = 0;
+        break;
+    }
+    case 3: {
+        BackgroundPaletteState* palettes;
+
+        palettes = (BackgroundPaletteState*)&_3000000.var6A4;
+        sub_80637E4(
+            &palettes->paletteA, (unk8*)_806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
+        sub_80637E4(
+            &palettes->paletteB, (unk8*)_806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
+        arg0->unk584 = 0;
+        arg0->unk585 = 2;
+        arg0->unk586 = 0x40;
+        break;
+    }
+    case 1:
+        deallocate_80637CC(&_3000000.var6B8);
+        deallocate_80637CC(&_3000000.var6A4);
+        break;
+    case 4: {
+        Palette* palette;
+        unk8* dest;
+        s8 fade;
+
+        palette = &_3000000.var6A4;
+        dest = (unk8*)PLTT;
+        fade = arg0->unk584;
+        sub_8063830(palette, dest, fade >> 1, 0, 0, 0);
+        fade = arg0->unk584;
+        sub_8063830(palette + 1, (unk8*)(PLTT + 0x200), fade >> 1, 0, 0, 0);
+        break;
+    }
+    }
+}
 
 void sub_8049F58(FrontendState* arg0, unk32 arg1)
 {
