@@ -4,12 +4,12 @@
 #include "geometry.h"
 #include "include_asm.h"
 #include "memory.h"
+#include "palette.h"
+#include "projectile.h"
 #include "ram.h"
 #include "sprite.h"
 #include "unsorted.h"
 
-extern void newProjectileSystem(void*, unk32, void*, unk32, void*);
-extern void sub_8063220(void*, unk32, unk32, unk32);
 extern const u8 SpriteSheet_86FBF94[];
 
 #if 0
@@ -322,15 +322,15 @@ void initProjectileSystem(void)
 
     gameData = _gameData;
     system = &gameData->projectileSystem;
-    newProjectileSystem(system, 3, (void*)SpriteSheet_86FBF94, 6, &gameData->unk434);
+    newProjectileSystem(system, 3, SpriteSheet_86FBF94, 6, &gameData->unk434);
     palette1 = &system->palette34;
-    sub_80631B0(palette1, (void*)0x05000000, 0, 0x180, 8);
+    sub_80631B0(palette1, (void*)PLTT, 0, 0x180, 8);
     sub_8063640(palette1, 0x100);
     palette2 = &system->palette48;
-    sub_80631B0(palette2, (void*)0x05000000, 0, 0x30, 8);
+    sub_80631B0(palette2, (void*)PLTT, 0, 0x30, 8);
     sub_8063220(palette2, 0x1F, 8, 8);
     palette3 = &system->palette5C;
-    sub_80631B0(palette3, (void*)0x05000000, 0, 0x100, 8);
+    sub_80631B0(palette3, (void*)PLTT, 0, 0x100, 8);
     sub_8063544(palette3, 0xC0, 0xE, 0, 0, 10, 10, 10, 0x1F);
     system->unk70 = 0;
     system->unk72 = 0;
@@ -346,12 +346,13 @@ void initProjectileSystem(void)
     system->unk80 = 0;
     system->unk84 = 0;
     system->unk88 = 0;
-    *(vu16*)REG_WIN0 = 0;
-    *(vu16*)(REG_WIN0 + 2) = 0xFFFF;
+    *(vu16*)REG_WININ = 0;
+    *(vu16*)(REG_WINOUT) = 0xFFFF;
     *(vu16*)REG_WIN0H = 0xF0;
-    *(vu16*)(REG_WIN0H + 2) = 0xF0;
-    *(vu16*)REG_WIN0V = (system->unk7C << 16) >> 20;
-    *(vu16*)(REG_WIN0V + 2) = (0xA0 - ((system->unk7C << 16) >> 20)) << 8 | 0xA0;
+    *(vu16*)(REG_WIN1H) = 0xF0;
+    /* Keep the widened shift form; agbcc matches the target only with it. */
+    *(vu16*)REG_WIN0V = ((system->unk7C << 16) >> 20);
+    *(vu16*)(REG_WIN1V) = (0xA0 - (((system->unk7C << 16) >> 20))) << 8 | 0xA0;
     *(vu16*)REG_DISPCNT |= 0x6000;
 }
 

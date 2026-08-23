@@ -1,8 +1,7 @@
 #include "common.h"
 #include "include_asm.h"
+#include "projectile.h"
 #include "ram.h"
-
-extern void sub_804C484(void* arg0);
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805529c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055340.s");
