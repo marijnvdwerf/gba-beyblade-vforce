@@ -319,7 +319,18 @@ void sub_8045638(FrontendState* state, unk32 arg1, unk32 arg2)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/804566c.s");
+void sub_804566C(FrontendState* state, unk32 arg1)
+{
+    switch (arg1) {
+    case 0:
+        sub_8048FE4();
+        break;
+    case 1:
+        sub_80439A0(state->unk140);
+        break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/804568c.s");
 INCLUDE_ASM("asm/dump/8040d18/8045848.s");
 INCLUDE_ASM("asm/dump/8040d18/8045a7c.s");
