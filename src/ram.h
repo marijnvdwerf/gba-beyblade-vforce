@@ -380,6 +380,11 @@ extern s32 _unk30004CC;
 extern u8 _unk30004C0;
 extern u8 _unk30004C1;
 extern unk32 _unk3000648;
+extern SpriteEntry* _unk30004D0;
+extern SpriteEntry* _unk30004D4;
+extern s32 _unk30004D8;
+extern s32 _unk30004DC;
+extern u8 _unk30004E0;
 
 extern SpriteEntry* _unk3000464;
 extern SpriteEntry* _unk3000468;

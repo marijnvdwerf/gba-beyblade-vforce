@@ -30,6 +30,8 @@ extern const unk32 _80693DC[];
 extern const unk32 _8069428[];
 extern const unk32 _8069514[];
 extern const unk32 _806E0DC[];
+extern const unk32 _806980C[];
+extern const unk32 _8069830[];
 extern const s16 Unk_874CC3C[];
 
 void sub_8043A0C(FrontendState* state, unk32 arg1, unk32 arg2)
@@ -72,6 +74,7 @@ void sub_8043AA0(FrontendState* state, unk32 arg1)
     SpriteEntry* sprite1;
     SpriteEntry* sprite2;
     s32 value;
+
     switch (arg1) {
     case 0:
         sprite1 = allocSprite(0);
@@ -814,7 +817,6 @@ void sub_8046814(FrontendState* state, unk32 arg1)
     SpriteEntry* sprite1;
     SpriteEntry* sprite2;
     s32 value;
-
     switch (arg1) {
     case 0:
         sprite1 = allocSprite(0);
@@ -928,7 +930,91 @@ void sub_8046B94(FrontendState* state, unk32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8046cc4.s");
+void sub_8046CC4(FrontendState* state, unk32 arg1)
+{
+    unk32 value;
+
+    switch (arg1) {
+    case 0: {
+        SpriteEntry* sprite1;
+        SpriteEntry* sprite2;
+        sprite1 = allocSprite(0);
+        _unk30004D0 = sprite1;
+        if (sprite1 != NULL) {
+            LoadSpriteSheet(sprite1, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+        }
+        sprite2 = allocSprite(0);
+        _unk30004D4 = sprite2;
+        if (sprite2 != NULL) {
+            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+        }
+        _unk30004D8 = 0x800;
+        _unk30004DC = 0xD800;
+        _unk30004E0 = sub_80515E0();
+        if (_unk30004E0 != 0 && sub_8051558() != 0) {
+            value = sub_8051618() != 0 ? 2 : 0;
+            newIconMenu(&state->menuState.menu, _806980C, value);
+        } else {
+            unk32 result;
+            FrontendMenu* menu;
+            result = sub_8051618() != 0;
+            menu = &state->menuState.menu;
+            newIconMenu(menu, _8069830, result);
+        }
+        sub_8050FEC(&state->menuState.menu, 0x9600);
+        break;
+    }
+    case 7:
+        sub_8051028(&state->menuState.menu);
+        if (_unk30004D0 != NULL) {
+            sub_8060A94(_unk30004D0);
+        }
+        if (_unk30004D4 != NULL) {
+            sub_8060A94(_unk30004D4);
+        }
+        break;
+    case 1: {
+        if (_unk30004D0 != NULL) {
+            _unk30004D0->x += ((_unk30004D8 - _unk30004D0->x) >> 3)
+                + Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
+        }
+        if (_unk30004D4 != NULL) {
+            _unk30004D4->x += ((_unk30004DC - _unk30004D4->x) >> 3)
+                - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
+        }
+        sub_80439A0(&state->unk140);
+        sub_8050C18(&state->menuState.menu);
+        break;
+    }
+    case 2:
+        if ((_unk3005DA0 & 0x20) != 0) {
+            sub_8050F0C(&state->menuState.menu);
+        }
+        if ((_unk3005DA0 & 0x10) != 0) {
+            sub_8050E80(&state->menuState.menu);
+        }
+        if ((_unk3005DA0 & arg1) != 0) {
+            sub_8050FC8(&state->menuState.menu);
+            sub_8049178();
+        }
+        if ((_unk3005DA0 & 1) != 0) {
+            sub_8050F98(&state->menuState.menu);
+            if (state->menuState.menu.selection == 2) {
+                sub_8051488();
+            }
+            if (state->menuState.menu.selection == 1) {
+                sub_80510FC();
+            }
+            if ((_currentGameState->unkC64 & 4) != 0) {
+                sub_80490F8(0xF);
+            } else {
+                sub_80490F8(0x1B);
+            }
+        }
+        break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8046f2c-initBBCollectionSprite.s");
 INCLUDE_ASM("asm/dump/8040d18/804703c.s");
 INCLUDE_ASM("asm/dump/8040d18/8047080.s");
