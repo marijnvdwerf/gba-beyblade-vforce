@@ -550,9 +550,14 @@ typedef struct LevelDescription {
     LineMetadata** metadata;
     unk32 unk30;
     unk32 unk34;
-    unk8 pad38[0x58];
+    unk8 pad38[0x30];
+    const u8* unk68[6];
+    unk8 pad80[0x10];
     unk32 unk90;
-    unk8 pad94[0x3C];
+    unk8 pad94[0x2C];
+    const u8* unkC0;
+    void* unkC4;
+    unk8 padC8[8];
 } LevelDescription;
 
 #define true 1

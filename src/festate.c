@@ -33,6 +33,9 @@ extern const unk32 _806E0DC[];
 extern const unk32 _806980C[];
 extern const unk32 _8069830[];
 extern const s16 Unk_874CC3C[];
+extern const u8 SpriteSheet_82B05EC[];
+extern const u8 ShadowFontMeta[];
+extern const u8* _806E650[];
 
 void sub_8043A0C(FrontendState* state, unk32 arg1, unk32 arg2)
 {
@@ -1028,4 +1031,67 @@ INCLUDE_ASM("asm/dump/8040d18/8048310.s");
 INCLUDE_ASM("asm/dump/8040d18/804868c.s");
 INCLUDE_ASM("asm/dump/8040d18/8048a74.s");
 INCLUDE_ASM("asm/dump/8040d18/8048ae8.s");
-INCLUDE_ASM("asm/dump/8040d18/8048d8c.s");
+
+void sub_8048D8C(FrontendState* state, unk32 arg1)
+{
+    switch (arg1) {
+    case 0: {
+        LevelDescription* description;
+        SpriteEntry* sprite;
+        s32* current;
+        s32 value;
+
+        _unk3000644 = _currentGameState->unk6EA;
+        description = getLevelDescription(_unk3000644);
+        if (description->unkC4 != NULL) {
+            __fastMemoryCopyARM(description->unkC4, (void*)0x05000200, 0x20);
+        }
+        sprite = allocSprite(0);
+        _unk3000600 = sprite;
+        _unk3000604 = 0x5800;
+        _unk3000640 = 0x1000;
+        _unk3000608 = 0;
+        current = &_unk300060C;
+        value = 0x10000;
+        *current = value;
+        sub_80596AC(&state->unk250, -value, 0);
+        if (_unk3000600 != NULL) {
+            LoadSpriteSheet(_unk3000600, description->unkC0, value, 0x2300, 0, 0, 0, 0);
+        }
+        allocFont(&_unk3000610, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xD0, 2);
+        sub_8061660(&_unk3000610, _806E650[getLanguage()], 0xF);
+        showString(&_unk3000610, description->unk68[getLanguage()], 0xF);
+        break;
+    }
+    case 7:
+        sub_8061204(&_unk3000610);
+        if (_unk3000600 != NULL) {
+            sub_8060A94(_unk3000600);
+        }
+        break;
+    case 1: {
+        SpriteTextCleanup* text;
+        s32 textX;
+        s32 delta;
+
+        text = &_unk3000610;
+        textX = text->x;
+        sub_80439A0(&state->unk140);
+        _unk3000600->x += (_unk3000604 - _unk3000600->x) >> 2;
+        textX += (_unk3000640 - textX) >> 2;
+        sub_8061844(text, textX >> 8, 0x6E);
+        delta = (_unk3000608 - _unk300060C) >> 2;
+        sub_80596AC(&state->unk250, -delta, 0);
+        _unk300060C += delta;
+        break;
+    }
+    case 2:
+        if ((_unk3005DA0 & 1) != 0) {
+            _unk3000604 = 0x10000;
+            _unk3000640 = 0x10000;
+            _unk3000608 = 0x10000;
+            sub_80490F8(0x15);
+        }
+        break;
+    }
+}

@@ -294,7 +294,7 @@ typedef struct CurrentGameState {
     unk16 unk6E6;
     unk8 unk6E8;
     unk8 unk6E9;
-    unk16 unk6EA;
+    s16 unk6EA;
     CurrentGameStateTail unk6EC;
     unk8 pad6FC[0x568];
     unk32 unkC64;
@@ -321,6 +321,14 @@ extern unk16 _unk3000F40;
 extern unk16 _unk3000F42;
 extern unk16 _unk3000F44;
 extern unk16 _unk3000F46;
+
+extern SpriteEntry* _unk3000600;
+extern s32 _unk3000604;
+extern s32 _unk3000608;
+extern s32 _unk300060C;
+extern SpriteTextCleanup _unk3000610;
+extern s32 _unk3000640;
+extern s32 _unk3000644;
 
 extern SpriteEntry* _unk3000158;
 extern SpriteEntry* _unk300015C;
