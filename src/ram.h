@@ -58,6 +58,11 @@ typedef struct HudGameDataView {
     unk16 flags;
 } HudGameDataView;
 
+typedef struct GameDataSignedMusicView {
+    unk8 pad0[0xC26];
+    s16 unkC26;
+} GameDataSignedMusicView;
+
 typedef struct GameData {
     unk8 pad0[0x200]; /* 0x000 */
     void* unk200; /* 0x200 */
@@ -126,7 +131,7 @@ typedef struct GameData {
     PolyTable unkB88; /* 0xB88 */
     RenderCode renderCode; /* 0xBA0 */
     u16 unkC24; /* 0xC24 */
-    s16 unkC26; /* 0xC26 */
+    u16 unkC26; /* 0xC26 */
     unk32 unkC28; /* 0xC28 */
     unk32 unkC2C; /* 0xC2C */
     unk8 padC30[0x3C]; /* 0xC30 */

@@ -97,6 +97,7 @@ void sub_804A280(FrontendState* arg0)
     LevelRowMusicEntry* entry;
     unk32* ptr;
     unk32 value;
+    GameDataSignedMusicView* musicView;
     s16* musicIndex;
     unk8* flags;
 
@@ -106,7 +107,8 @@ void sub_804A280(FrontendState* arg0)
     if (current != index) {
         entry = &_LevelRowMusicTable[index];
         ptr = entry->unk4;
-        musicIndex = &_gameData->unkC26;
+        musicView = (GameDataSignedMusicView*)_gameData;
+        musicIndex = &musicView->unkC26;
         if (*ptr != *musicIndex) {
             flags = &base->unk586;
             if (flags[0] == flags[-2]) {
