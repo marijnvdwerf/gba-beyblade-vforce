@@ -222,9 +222,9 @@ void sub_8049CE8(FrontendState* arg0, unk32 arg1)
             &palettes->paletteA, (unk8*)_806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
         sub_80637E4(
             &palettes->paletteB, (unk8*)_806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
-        arg0->unk584 = 0x3E;
-        arg0->unk585 = 0xFE;
-        arg0->unk586 = 0;
+        arg0->transition.value = 0x3E;
+        arg0->transition.unk585 = 0xFE;
+        arg0->transition.unk586 = 0;
         break;
     }
     case 1:
@@ -238,9 +238,9 @@ void sub_8049CE8(FrontendState* arg0, unk32 arg1)
 
         palette = &_3000000.var6A4;
         dest = (unk8*)PLTT;
-        fade = arg0->unk584;
+        fade = arg0->transition.value;
         sub_8063830(palette, dest, fade >> 1, 0x1F, 0x1F, 0x1F);
-        fade = arg0->unk584;
+        fade = arg0->transition.value;
         sub_8063830(palette + 1, (unk8*)(PLTT + 0x200), fade >> 1, 0x1F, 0x1F, 0x1F);
         break;
     }
@@ -258,9 +258,9 @@ void sub_8049DE0(FrontendState* arg0, unk32 arg1)
             &palettes->paletteA, (unk8*)_806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
         sub_80637E4(
             &palettes->paletteB, (unk8*)_806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
-        arg0->unk584 = 0x3E;
-        arg0->unk585 = 0xFE;
-        arg0->unk586 = 0;
+        arg0->transition.value = 0x3E;
+        arg0->transition.unk585 = 0xFE;
+        arg0->transition.unk586 = 0;
         break;
     }
     case 3: {
@@ -271,9 +271,9 @@ void sub_8049DE0(FrontendState* arg0, unk32 arg1)
             &palettes->paletteA, (unk8*)_806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
         sub_80637E4(
             &palettes->paletteB, (unk8*)_806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
-        arg0->unk584 = 0;
-        arg0->unk585 = 2;
-        arg0->unk586 = 0x40;
+        arg0->transition.value = 0;
+        arg0->transition.unk585 = 2;
+        arg0->transition.unk586 = 0x40;
         break;
     }
     case 1:
@@ -287,9 +287,9 @@ void sub_8049DE0(FrontendState* arg0, unk32 arg1)
 
         palette = &_3000000.var6A4;
         dest = (unk8*)PLTT;
-        fade = arg0->unk584;
+        fade = arg0->transition.value;
         sub_8063830(palette, dest, fade >> 1, 0, 0, 0);
-        fade = arg0->unk584;
+        fade = arg0->transition.value;
         sub_8063830(palette + 1, (unk8*)(PLTT + 0x200), fade >> 1, 0, 0, 0);
         break;
     }
@@ -301,13 +301,13 @@ void sub_8049F58(FrontendState* arg0, unk32 arg1)
     if (arg1 != 3) {
         if (arg1 <= 3) {
             if (arg1 == 2) {
-                arg0->unk585 = 0xFC;
-                arg0->unk586 = 0;
+                arg0->transition.unk585 = 0xFC;
+                arg0->transition.unk586 = 0;
             }
         }
     } else {
-        arg0->unk585 = 4;
-        arg0->unk586 = 0x40;
+        arg0->transition.unk585 = 4;
+        arg0->transition.unk586 = 0x40;
     }
 }
 
@@ -315,14 +315,14 @@ void sub_8049F9C(FrontendState* arg0, unk32 arg1)
 {
     switch (arg1) {
     case 2:
-        arg0->unk584 = 0x40;
-        arg0->unk585 = 0xFC;
-        arg0->unk586 = 0;
+        arg0->transition.value = 0x40;
+        arg0->transition.unk585 = 0xFC;
+        arg0->transition.unk586 = 0;
         break;
     case 3:
-        arg0->unk584 = 0;
-        arg0->unk585 = 2;
-        arg0->unk586 = 0x40;
+        arg0->transition.value = 0;
+        arg0->transition.unk585 = 2;
+        arg0->transition.unk586 = 0x40;
         break;
     }
 }
@@ -341,8 +341,8 @@ void sub_8049CE8(FrontendState* arg0, int arg1) {
         break;
 
     case 4:
-        sub_8063830(&_3000000.var6A4, (u16*)0x5000000, arg0->unk584 /2, 0x1F, 0x1F, 0x1F);
-        sub_8063830(&_3000000.var6B8, (u16*)0x5000200, arg0->unk584 /2, 0x1F, 0x1F, 0x1F);
+        sub_8063830(&_3000000.var6A4, (u16*)0x5000000, arg0->transition.value /2, 0x1F, 0x1F, 0x1F);
+        sub_8063830(&_3000000.var6B8, (u16*)0x5000200, arg0->transition.value /2, 0x1F, 0x1F, 0x1F);
         break;
     }
 }

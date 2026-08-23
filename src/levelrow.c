@@ -33,7 +33,7 @@ void sub_804A110(void)
         frontendFlags = &frontend->unk80;
         do {
             row = rows;
-            if (frontend->unk585 <= 0) {
+            if (frontend->transition.unk585 <= 0) {
                 row += 2;
             }
             deltaXFixed = (row[0] << 8) - sprite->x;
