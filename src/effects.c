@@ -1,4 +1,9 @@
+#include "common.h"
 #include "include_asm.h"
+#include "ram.h"
+
+extern void sub_804C484(void* arg0);
+extern void deallocate_80637CC(void* arg0);
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805529c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055340.s");
@@ -9,7 +14,18 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8055674.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805568c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80556c4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80556dc.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80556f4.s");
+
+void sub_80556F4(void)
+{
+    GameData* gameData;
+
+    gameData = _gameData;
+    sub_804C484(gameData->pad1084);
+    deallocate_80637CC(gameData->pad1084 + 0x34);
+    deallocate_80637CC(gameData->pad1084 + 0x48);
+    deallocate_80637CC(gameData->pad1084 + 0x5C);
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055734.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805582c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805589c.s");
