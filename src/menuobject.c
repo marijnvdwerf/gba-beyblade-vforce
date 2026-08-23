@@ -9,14 +9,14 @@
 
 INCLUDE_ASM("asm/dump/8040d18/8043370.s");
 
-void sub_80434EC(MenuObject* object)
+void sub_80434EC(FrontendState* object)
 {
     unk32 count;
     UnkMotion* item;
 
-    count = object->state.objectCount;
+    count = object->menuState.objectCount;
     if (count != 0) {
-        item = object->state.objectItems;
+        item = object->menuState.objectItems;
         count--;
         while (count != (unk32)-1) {
             sub_805041C(item);
@@ -24,13 +24,13 @@ void sub_80434EC(MenuObject* object)
             count--;
         }
     }
-    if (object->state.timer != 0) {
-        item = &object->state.motion;
+    if (object->menuState.timer != 0) {
+        item = &object->menuState.motion;
         sub_805041C(item);
-        object->state.timer = object->state.timer - 1;
-        if (object->state.timer == 0) {
+        object->menuState.timer = object->menuState.timer - 1;
+        if (object->menuState.timer == 0) {
             sub_8050584(item);
-            sub_8061204(&object->state.cleanup);
+            sub_8061204(&object->menuState.cleanup);
         }
     }
 }
@@ -39,40 +39,40 @@ INCLUDE_ASM("asm/dump/8040d18/8043558.s");
 INCLUDE_ASM("asm/dump/8040d18/8043604.s");
 INCLUDE_ASM("asm/dump/8040d18/80436b0.s");
 
-unk32 sub_8043720(MenuObject* object)
+unk32 sub_8043720(FrontendState* object)
 {
     unk32 high;
     unk32 low;
 
-    high = sub_805B240(&object->state);
-    low = sub_805B210(&object->state);
+    high = sub_805B240(&object->menuState);
+    low = sub_805B210(&object->menuState);
     return (high << 16) | (low & 0xFFFF);
 }
 
-void sub_804374C(MenuObject* object)
+void sub_804374C(FrontendState* object)
 {
     unk32 current;
     unk32 next;
 
-    if (object->state.objectCount != 0) {
+    if (object->menuState.objectCount != 0) {
         current = sub_8043720(object);
         if ((_unk3005DA0 & 0xF0) != 0) {
             if ((_unk3005DA0 & 0x40) != 0) {
-                sub_805AFBC(&object->state, 0);
+                sub_805AFBC(&object->menuState, 0);
             } else if ((_unk3005DA0 & 0x80) != 0) {
-                sub_805AFBC(&object->state, 1);
+                sub_805AFBC(&object->menuState, 1);
             }
             if ((_unk3005DA0 & 0x20) != 0) {
-                if (sub_805B210(&object->state) != (unk32)-1) {
+                if (sub_805B210(&object->menuState) != (unk32)-1) {
                     sub_80490CC(9, sub_8043720(object));
                 }
-                sub_805B050(&object->state, 0);
+                sub_805B050(&object->menuState, 0);
             } else if ((_unk3005DA0 & 0x10) != 0) {
-                if (sub_805B210(&object->state) != (unk32)-1) {
+                if (sub_805B210(&object->menuState) != (unk32)-1) {
                     next = sub_8043720(object) | 0x80000000;
                     sub_80490CC(9, next);
                 }
-                sub_805B050(&object->state, 1);
+                sub_805B050(&object->menuState, 1);
             }
             next = sub_8043720(object);
             if (current != next) {

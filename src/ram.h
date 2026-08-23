@@ -175,13 +175,9 @@ typedef struct GameData {
     u16 unkB2A; /* 0xB2A */
     unk8 padB2C[8]; /* 0xB2C */
     unk32 unkB34; /* 0xB34 */
-    unk8 padB38[0x18]; /* 0xB38 */
-    unk8 unkB50; /* 0xB50 */
-    unk8 unkB51; /* 0xB51 */
-    unk8 unkB52; /* 0xB52 */
+    unk8 padB38[0x1B]; /* 0xB38 */
     unk8 unkB53; /* 0xB53 */
-    unk8 unkB54; /* 0xB54 */
-    unk8 unkB55; /* 0xB55 */
+    unk8 padB54[2]; /* 0xB54 */
     unk8 unkB56; /* 0xB56 */
     unk8 padB57[1]; /* 0xB57 */
     unk32 unkB58; /* 0xB58 */
