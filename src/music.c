@@ -2,8 +2,8 @@
 #include "ram.h"
 #include "sound.h"
 
-extern unk32 _unk3000F14;
-extern unk32 _unk3000F18;
+extern unk16 _unk3000F14;
+extern unk16 _unk3000F18;
 extern s16 _unk3000F1C;
 
 extern const unk32 _807561C[];
@@ -13,7 +13,13 @@ void sub_804AFD4(u16);
 void sub_804AF5C(void);
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804abfc.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804acf0.s");
+
+void sub_804ACF0(void)
+{
+    _unk3000F18 = _currentGameState->unk6E4;
+    _unk3000F14 = _currentGameState->unk6E6;
+    _unk3000F1C = 0;
+}
 
 void sub_804AD28(void)
 {
