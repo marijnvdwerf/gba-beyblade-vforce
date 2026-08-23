@@ -21,7 +21,12 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/805565c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055674.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805568c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80556c4.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80556dc.s");
+
+unk32 sub_80556DC(unk32 arg0)
+{
+    return _gameData->unk1104 & arg0;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80556f4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055734.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805582c.s");
