@@ -89,39 +89,4 @@ INCLUDE_ASM("asm/dump/8040d18/804a1e4.s");
 INCLUDE_ASM("asm/dump/8040d18/804a234.s");
 INCLUDE_ASM("asm/dump/8040d18/804a26c.s");
 
-void sub_804A280(FrontendState* arg0)
-{
-    FrontendState* base;
-    unk32 current;
-    unk32 index;
-    LevelRowMusicEntry* entry;
-    unk32* ptr;
-    unk32 value;
-    GameDataSignedMusicView* musicView;
-    s16* musicIndex;
-    unk8* flags;
-
-    base = arg0;
-    current = base->unk0;
-    index = base->unk4;
-    if (current != index) {
-        entry = &_LevelRowMusicTable[index];
-        ptr = entry->unk4;
-        musicView = (GameDataSignedMusicView*)_gameData;
-        musicIndex = &musicView->unkC26;
-        if (*ptr != *musicIndex) {
-            flags = &base->unk586;
-            if (flags[0] == flags[-2]) {
-                if (*musicIndex != -1) {
-                    sub_804AF5C();
-                }
-                if (index != (unk32)-1) {
-                    value = *entry->unk4;
-                    if (value != (unk32)-1) {
-                        sub_804AF04(value);
-                    }
-                }
-            }
-        }
-    }
-}
+INCLUDE_ASM("asm/dump/8040d18/804a280.s");

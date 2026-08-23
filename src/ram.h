@@ -58,11 +58,6 @@ typedef struct HudGameDataView {
     unk16 flags;
 } HudGameDataView;
 
-typedef struct GameDataSignedMusicView {
-    unk8 pad0[0xC26];
-    s16 unkC26;
-} GameDataSignedMusicView;
-
 typedef struct GameData {
     unk8 pad0[0x200]; /* 0x000 */
     void* unk200; /* 0x200 */
