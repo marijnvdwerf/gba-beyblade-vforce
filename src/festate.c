@@ -16,14 +16,14 @@
 #include "unsorted.h"
 
 extern const u8 SpriteSheet_823BF04[];
-extern const unk32 _80689A4[];
-extern const unk32 _80692A4[];
+extern const FrontendMenuData _80689A4[];
+extern const FrontendMenuData _80692A4[];
 extern const InputSequence _80693A0[];
 extern const InputSequence _8069378[];
 extern const InputSequence _806938C[];
 extern const InputSequence _80693B4[];
 extern const InputSequence _80693C8[];
-extern const unk32 _80693DC[];
+extern const FrontendMenuData _80693DC[];
 extern const s16 Unk_874CC3C[];
 
 void sub_8043A0C(FrontendState* state, unk32 arg1, unk32 arg2)

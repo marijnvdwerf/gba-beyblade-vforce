@@ -100,9 +100,36 @@ struct UnkMenuItem {
     UnkMenuItem* next;
 };
 
-typedef struct FrontendMenu {
+typedef struct FrontendMenuData FrontendMenuData;
+typedef struct FrontendMenuItem FrontendMenuItem;
+
+struct FrontendMenuData {
+    unk8 pad0[0x24];
+};
+
+struct FrontendMenuItem {
     unk8 pad0[4];
+    SpriteEntry* sprite;
+    unk8 pad8[0x14];
+};
+
+typedef struct FrontendMenu {
+    s32 itemCount;
     unk32 selection;
+    unk8 pad8[8];
+    unk32 velocity;
+    unk8 pad14[4];
+    unk32 textPosition;
+    unk32 targetPosition;
+    unk32 timer;
+    unk32 timerTarget;
+    FrontendMenuItem* items;
+    unk8 pad2C[4];
+    AllocatedBlock* block;
+    unk8 pad34[8];
+    unk16 flags;
+    unk8 pad3E[2];
+    SpriteTextCleanup text;
 } FrontendMenu;
 
 typedef struct MenuState {
@@ -121,7 +148,6 @@ typedef struct MenuState {
     unk8 unk2F;
     unk8 pad30[8];
     FrontendMenu menu; /* 0x38 */
-    unk8 pad40[0x68];
     UnkMotion* objectItems; /* 0xA8 */
     unk8 padAC[4];
     unk32 timer; /* 0xB0 */
