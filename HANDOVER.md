@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-08-23, session 3 (raw-decomp migration rounds; batch 9 + temp-reduction-7 + callback-origin scout running; shared prompt preamble in /tmp/migrate-preamble.txt).
+Last updated: 2026-08-23, session 3 (raw-decomp migration rounds; batch 9 + callback-origin scout running; keepalive monitor bn4u8q59w; shared prompt preamble in /tmp/migrate-preamble.txt).
 
 ## How to work
 
@@ -110,7 +110,7 @@ typed parameter, parallel "View" structs overlaying GameData, `.equ` raw
 ROM addresses, `(x << 24) != 0` for u8, externs in .c files, and m2c
 `var_r6` names. Grep does not catch all of it — READ EVERY FUNCTION IN
 FULL before merging. sub_804374C/sub_80434EC (menuobject.c) slipped
-through and are being fixed in temp-reduction-7.
+through; fixed by temp-reduction-7 (merged 1fa3191; `MenuObject`/`MenuState` typed in menuobject.h).
 
 Layout decisions this session: `GameData` now begins with an embedded
 `RiderBase base` (0x428); `RiderBase` has typed fields through 0xB8 +
@@ -126,7 +126,6 @@ sub_804A280 needs an ldrsh from it and is parked because of that).
 | worktree | scope | status |
 |---|---|---|
 | agent-a97adbc3b91b12c85 | batch 9: menu.c ×3, menuobject sub_8043720, frontend sub_80491E0, spritetext sub_8061824, projectile ×2, palette sub_8063220 | running |
-| agent-a06378300395530b9 | temp-reduction-7 over 829af5f..ca90aaa, priority: fix sub_804374C/sub_80434EC | running |
 | (no worktree) | scout: where do FrontendState/gameloop callbacks get set (tables/setters) → new reachable functions | running |
 
 ### Next steps (user direction, 2026-08-23)
