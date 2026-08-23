@@ -1,10 +1,16 @@
+#include <agb/memory_map.h>
+
 #include "debug.h"
 #include "geometry.h"
 #include "include_asm.h"
 #include "memory.h"
+#include "palette.h"
+#include "projectile.h"
 #include "ram.h"
 #include "sprite.h"
 #include "unsorted.h"
+
+extern const u8 SpriteSheet_86FBF94[];
 
 #if 0
 extern void ActorSetSpriteOffset(EnvironmentActorSlot*, s16, s16);
@@ -305,6 +311,50 @@ void sub_8054FE0(void)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80550b8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80550f4-initProjectileSystem.s");
+
+void initProjectileSystem(void)
+{
+    GameData* gameData;
+    ProjectileSystem* system;
+    Palette* palette1;
+    Palette* palette2;
+    Palette* palette3;
+
+    gameData = _gameData;
+    system = &gameData->projectileSystem;
+    newProjectileSystem(system, 3, SpriteSheet_86FBF94, 6, &gameData->unk434);
+    palette1 = &system->palette34;
+    sub_80631B0(palette1, (void*)PLTT, 0, 0x180, 8);
+    sub_8063640(palette1, 0x100);
+    palette2 = &system->palette48;
+    sub_80631B0(palette2, (void*)PLTT, 0, 0x30, 8);
+    sub_8063220(palette2, 0x1F, 8, 8);
+    palette3 = &system->palette5C;
+    sub_80631B0(palette3, (void*)PLTT, 0, 0x100, 8);
+    sub_8063544(palette3, 0xC0, 0xE, 0, 0, 10, 10, 10, 0x1F);
+    system->unk70 = 0;
+    system->unk72 = 0;
+    system->unk74 = 0;
+    system->unk7A = 0;
+    system->unk76 = 0;
+    system->unk78 = 0;
+    system->unk28 = 0;
+    system->unk2C = 0;
+    system->unk30 = 0;
+    system->unk7C = 0x560;
+    system->unk7E = 0x560;
+    system->unk80 = 0;
+    system->unk84 = 0;
+    system->unk88 = 0;
+    *(vu16*)REG_WININ = 0;
+    *(vu16*)(REG_WINOUT) = 0xFFFF;
+    *(vu16*)REG_WIN0H = 0xF0;
+    *(vu16*)(REG_WIN1H) = 0xF0;
+    /* Keep the widened shift form; agbcc matches the target only with it. */
+    *(vu16*)REG_WIN0V = ((system->unk7C << 16) >> 20);
+    *(vu16*)(REG_WIN1V) = (0xA0 - (((system->unk7C << 16) >> 20))) << 8 | 0xA0;
+    *(vu16*)REG_DISPCNT |= 0x6000;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055274.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055288.s");

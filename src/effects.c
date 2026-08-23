@@ -1,6 +1,8 @@
 #include "effects.h"
 
 #include "include_asm.h"
+#include "projectile.h"
+#include "ram.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805529c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055340.s");
@@ -11,7 +13,18 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8055674.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805568c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80556c4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80556dc.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80556f4.s");
+
+void sub_80556F4(void)
+{
+    GameData* gameData;
+
+    gameData = _gameData;
+    sub_804C484(&gameData->projectileSystem);
+    deallocate_80637CC(&gameData->projectileSystem.palette34);
+    deallocate_80637CC(&gameData->projectileSystem.palette48);
+    deallocate_80637CC(&gameData->projectileSystem.palette5C);
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055734.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805582c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805589c.s");

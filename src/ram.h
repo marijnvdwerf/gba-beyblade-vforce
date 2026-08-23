@@ -4,6 +4,7 @@
 #include "common.h"
 #include "memory.h"
 #include "motion.h"
+#include "palette.h"
 #include "render.h"
 #include "sprite.h"
 
@@ -45,6 +46,28 @@ typedef struct BeybladeActorData {
     unk8 unk4;
     unk8 pad5[3];
 } BeybladeActorData;
+
+typedef struct ProjectileSystem {
+    unk8 pad0[0x28];
+    s16 unk28;
+    unk8 pad2A[2];
+    s32 unk2C;
+    s32 unk30;
+    Palette palette34;
+    Palette palette48;
+    Palette palette5C;
+    u16 unk70;
+    u16 unk72;
+    u16 unk74;
+    u16 unk76;
+    u16 unk78;
+    s16 unk7A;
+    u16 unk7C;
+    u16 unk7E;
+    unk32 unk80;
+    unk32 unk84;
+    unk32 unk88;
+} ProjectileSystem;
 
 typedef struct GameData {
     RiderBase base; /* 0x000 */
@@ -160,7 +183,7 @@ typedef struct GameData {
     unk8 unk107D; /* 0x107D */
     unk8 pad107E[2]; /* 0x107E */
     unk32 unk1080; /* 0x1080 */
-    unk8 pad1084[0x8C]; /* 0x1084 */
+    ProjectileSystem projectileSystem; /* 0x1084 */
     BeybladeActorData actorData[0x3C]; /* 0x1110 */
     u16 unk12F0; /* 0x12F0 */
     unk8 pad12F2[2]; /* 0x12F2 */
