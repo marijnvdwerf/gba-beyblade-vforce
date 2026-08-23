@@ -34,9 +34,22 @@ void actor_80585F0(UnkActor* arg0, unk8 arg1)
     arg0->unk8D = arg1;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/80585f8-actor_80585F8.s");
+void actor_80585F8(EnvironmentActorSlot* actor, unk16 arg1, unk16 arg2, unk16 arg3, unk16 arg4)
+{
+    actor->unkA8 = arg1;
+    actor->unkAA = arg2;
+    actor->unkAC = arg3;
+    actor->unkAE = arg4;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8058614-rider_8058614.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8058624-ActorSetSpriteOffset.s");
+
+void ActorSetSpriteOffset(EnvironmentActorSlot* actor, unk16 arg1, unk16 arg2)
+{
+    actor->unkA0 = arg1;
+    actor->unkA2 = arg2;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8058630.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058638-actor_8058638.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058754.s");

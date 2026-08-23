@@ -150,7 +150,15 @@ typedef struct Actor {
 typedef struct EnvironmentActorSlot {
     unk32 objectId;
     SpriteEntry* sprite;
-    unk8 pad8[0xBC];
+    unk8 pad8[0x98];
+    unk16 unkA0;
+    unk16 unkA2;
+    unk8 padA4[4];
+    unk16 unkA8;
+    unk16 unkAA;
+    unk16 unkAC;
+    unk16 unkAE;
+    unk8 padB0[0x14];
 } EnvironmentActorSlot;
 
 typedef struct EnvironmentActorContainer {
