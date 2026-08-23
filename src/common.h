@@ -450,7 +450,7 @@ typedef struct LevelDescription {
     LineMetadata** metadata;
     unk8 pad30[0x60];
     unk32 unk90;
-    unk8 pad94[0x9C];
+    unk8 pad94[0x3C];
 } LevelDescription;
 
 #define true 1

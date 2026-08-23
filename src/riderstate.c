@@ -24,50 +24,7 @@ void sub_804FFD4(void)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805000c.s");
 
-void sub_8050050(RiderState* arg0, RiderState* arg1)
-{
-    s16 index;
-    s16 count;
-    unk16 value;
-    unk8* gameData;
-    unk8* collision;
-    unk16* queue;
-
-    queue = (unk16*)_unk3000F20;
-    index = _unk3000F44;
-    value = queue[index];
-    count = _unk3000F40;
-    if (count != 0) {
-        if (value == arg1->unkA) {
-            count--;
-            _unk3000F40 = count;
-            if (count == 0) {
-                value = 0;
-            } else {
-                index = _unk3000F44 + 1;
-                _unk3000F44 = index;
-                if (index > 0xF) {
-                    index = 0;
-                    _unk3000F44 = index;
-                }
-                value = queue[index];
-            }
-        }
-    }
-    arg0->unk8 = value;
-    if (arg1->unk8 != arg0->unkA && arg1->unk8 != 0) {
-        gameData = (unk8*)_gameData;
-        if ((*(unk16*)(gameData + 0x161C) & 1) == 0) {
-            collision = (unk8*)_currentGameState;
-            if (collision[0x6A4] == 2) {
-                SetRiderGlobal(0);
-                handleEventListeners((unk32)(gameData + 0x65C), arg1->unk8);
-            }
-        }
-    }
-    arg0->unkA = arg1->unk8;
-    sub_805024C((unk8*)arg0);
-}
+INCLUDE_ASM("asm/dump/804a388-tutorial/8050050.s");
 
 s32 sub_8050114(RiderState* arg0)
 {
@@ -82,7 +39,9 @@ s32 sub_8050114(RiderState* arg0)
     temp_r3 = arg0->unkC;
     value ^= temp_r3;
     value ^= arg0->unkA;
-    if ((arg0->prefix.bytes.unk7 >> 2) == (value & 0x3F)) {
+    value &= 0x3F;
+    temp_r3 = arg0->prefix.bytes.unk7 >> 2;
+    if (temp_r3 == value) {
         _gameData->unk161C &= 0xFFFE;
         return 1;
     }
