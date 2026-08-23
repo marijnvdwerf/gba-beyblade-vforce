@@ -28,15 +28,13 @@ extern const s16 Unk_874CC3C[];
 
 void sub_8043A0C(FrontendState* state, unk32 arg1, unk32 arg2)
 {
-    s8 value;
-
     switch (arg1) {
     case 0:
         sub_8049168();
         break;
     case 8:
-        value = state->transition.value;
-        if (value == 0 && (((_unk3005DA0 & 9) != 0 && arg2 > 0x7C) || arg2 == 0xF0)) {
+        if (state->transition.value == 0
+            && (((_unk3005DA0 & 9) != 0 && arg2 > 0x7C) || arg2 == 0xF0)) {
             sub_80490F8(state->unk0 + 1);
         }
         break;
@@ -45,15 +43,13 @@ void sub_8043A0C(FrontendState* state, unk32 arg1, unk32 arg2)
 
 void sub_8043A58(FrontendState* state, unk32 arg1, unk32 arg2)
 {
-    s8 value;
-
     switch (arg1) {
     case 0:
         sub_8049168();
         break;
     case 8:
-        value = state->transition.value;
-        if (value == 0 && (((_unk3005DA0 & 9) != 0 && arg2 > 0x7C) || arg2 == 0xF0)) {
+        if (state->transition.value == 0
+            && (((_unk3005DA0 & 9) != 0 && arg2 > 0x7C) || arg2 == 0xF0)) {
             sub_80490F8(7);
         }
         break;
@@ -209,8 +205,6 @@ INCLUDE_ASM("asm/dump/8040d18/8045160.s");
 
 void sub_80453D8(FrontendState* state, unk32 arg1)
 {
-    unk32 result;
-
     switch (arg1) {
     case 0:
         sub_8049168();
@@ -219,8 +213,7 @@ void sub_80453D8(FrontendState* state, unk32 arg1)
         sub_80439A0(&state->unkB8);
         break;
     case 5:
-        result = sub_805B240(&state->menuState);
-        switch (result) {
+        switch (sub_805B240(&state->menuState)) {
         case 0:
             sub_80490F8(0x16);
             return;
@@ -344,7 +337,6 @@ void sub_804566C(FrontendState* state, unk32 arg1)
 void sub_804568C(FrontendState* state, unk32 arg1)
 {
     FrontendResource* resource;
-    LevelState* levelState;
     s32 i;
 
     switch (arg1) {
@@ -361,8 +353,7 @@ void sub_804568C(FrontendState* state, unk32 arg1)
         sub_8057164(resource);
         if (sub_80571D0(resource) != 0) {
             for (i = 0; i <= 0x37; i++) {
-                levelState = sub_8051720(i);
-                levelState->unk0 |= 2;
+                sub_8051720(i)->unk0 |= 2;
             }
             sub_804ABFC(8);
         }
