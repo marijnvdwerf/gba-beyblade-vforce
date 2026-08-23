@@ -767,27 +767,24 @@ void sub_8046500(FrontendState* state, unk32 arg1, unk32 arg2)
 
 void sub_8046814(FrontendState* state, unk32 arg1)
 {
-    FrontendMenu* menu;
-    SpriteEntry* sprite1;
-    SpriteEntry* sprite2;
-    s32 value;
+    SpriteEntry* leftSprite;
+    SpriteEntry* rightSprite;
     switch (arg1) {
     case 0:
-        sprite1 = allocSprite(0);
-        _unk30004A4 = sprite1;
-        if (sprite1 != NULL) {
-            LoadSpriteSheet(sprite1, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+        leftSprite = allocSprite(0);
+        _unk30004A4 = leftSprite;
+        if (leftSprite != NULL) {
+            LoadSpriteSheet(leftSprite, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
-        sprite2 = allocSprite(0);
-        _unk30004A8 = sprite2;
-        if (sprite2 != NULL) {
-            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+        rightSprite = allocSprite(0);
+        _unk30004A8 = rightSprite;
+        if (rightSprite != NULL) {
+            LoadSpriteSheet(rightSprite, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk30004AC = 0x800;
         _unk30004B0 = 0xD800;
-        menu = &state->menuState.menu;
-        newIconMenu(menu, _8069108, 0);
-        sub_8050FEC(menu, 0x9600);
+        newIconMenu(&state->menuState.menu, _8069108, 0);
+        sub_8050FEC(&state->menuState.menu, 0x9600);
         sub_8049168();
         break;
     case 7:
@@ -823,8 +820,7 @@ void sub_8046814(FrontendState* state, unk32 arg1)
             sub_80490F8(_unk3000648);
         }
         if ((_unk3005DA0 & 1) != 0) {
-            value = state->menuState.menu.selection;
-            if (value != 0) {
+            if (state->menuState.menu.selection != 0) {
                 sub_80490F8(_unk3000648);
             } else {
                 sub_80490F8(0x18);
