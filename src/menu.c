@@ -23,7 +23,7 @@ s32 sub_805B050(MenuState* arg0, u8 arg1)
     s32 original;
     unk32 flags;
 
-    item = arg0->layout.menu.items + arg0->layout.menu.unk24;
+    item = arg0->items + arg0->unk24;
     if (item->next != NULL)
         item = item->next;
     count = item->count;
@@ -63,9 +63,9 @@ s32 sub_805B210(MenuState* arg0)
     s32 index;
     UnkMenuItem* item;
 
-    index = arg0->layout.menu.unk24;
-    item = arg0->layout.menu.items + index;
-    if (index < 0 || index >= arg0->layout.menu.itemCount)
+    index = arg0->unk24;
+    item = arg0->items + index;
+    if (index < 0 || index >= arg0->itemCount)
         return -1;
     if (item->next != NULL)
         item = item->next;
@@ -76,5 +76,5 @@ s32 sub_805B210(MenuState* arg0)
 
 unk32 sub_805B240(MenuState* arg0)
 {
-    return arg0->layout.menu.unk24;
+    return arg0->unk24;
 }
