@@ -97,6 +97,25 @@ typedef struct UnkActor {
     unk8 unk8D;
 } UnkActor;
 
+typedef struct RiderState {
+    unk8 pad0[0x54];
+    unk32 unk54;
+} RiderState;
+
+typedef struct RiderPhysics {
+    RiderState* state;
+    unk32 object;
+    unk8 pad8[8];
+    unk32 unk10;
+    unk32 unk14;
+    unk8 pad18[4];
+    unk32 unk1C;
+    unk8 pad20[0x7C];
+    unk32 flags;
+    unk32 unkA0;
+    unk32 unkA4;
+} RiderPhysics;
+
 typedef struct SpriteEntry SpriteEntry;
 
 typedef struct Actor {
