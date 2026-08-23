@@ -300,7 +300,7 @@ typedef struct CurrentGameState {
     unk16 unk6E6;
     unk8 unk6E8;
     unk8 unk6E9;
-    unk16 unk6EA;
+    s16 unk6EA;
     CurrentGameStateTail unk6EC;
     unk8 pad6FC[0x568];
     unk32 unkC64;
@@ -328,6 +328,14 @@ extern unk16 _unk3000F42;
 extern unk16 _unk3000F44;
 extern unk16 _unk3000F46;
 
+extern SpriteEntry* _unk3000600;
+extern s32 _unk3000604;
+extern s32 _unk3000608;
+extern s32 _unk300060C;
+extern SpriteTextCleanup _unk3000610;
+extern s32 _unk3000640;
+extern s32 _unk3000644;
+
 extern SpriteEntry* _unk3000158;
 extern SpriteEntry* _unk300015C;
 extern s32 _unk3000160;
@@ -338,6 +346,14 @@ typedef struct FrontendCoordinateTarget {
     s32 value;
     unk8 pad4[4];
 } FrontendCoordinateTarget;
+
+typedef struct FrontendSelectionObject {
+    SpriteEntry* sprite;
+    unk32 unk4;
+    unk32 unk8;
+    s16 frame;
+    unk8 padE[2];
+} FrontendSelectionObject;
 
 extern SpriteEntry* _unk300036C;
 extern SpriteEntry* _unk3000370;
@@ -352,5 +368,41 @@ extern SpriteEntry* _unk30003A8;
 extern SpriteEntry* _unk30003AC;
 extern s32 _unk30003B0;
 extern s32 _unk30003B4;
+extern SpriteEntry* _unk30003B8;
+extern SpriteEntry* _unk30003BC;
+extern s32 _unk30003C0;
+extern s32 _unk30003C4;
+extern s32 _unk3000474;
+extern FrontendCoordinateTarget _unk3000478;
+extern FrontendSelectionObject _unk3000480;
+extern u8 _unk3000490;
+extern u8 _unk3000491;
+extern SpriteEntry* _unk3000494;
+extern SpriteEntry* _unk3000498;
+extern s32 _unk300049C;
+extern s32 _unk30004A0;
+extern SpriteEntry* _unk30004A4;
+extern SpriteEntry* _unk30004A8;
+extern s32 _unk30004AC;
+extern s32 _unk30004B0;
+extern s32 _unk30004B4;
+extern s32 _unk30004B8;
+extern s32 _unk30004BC;
+extern s32 _unk30004C4;
+extern s32 _unk30004C8;
+extern s32 _unk30004CC;
+extern u8 _unk30004C0;
+extern u8 _unk30004C1;
+extern unk32 _unk3000648;
+extern SpriteEntry* _unk30004D0;
+extern SpriteEntry* _unk30004D4;
+extern s32 _unk30004D8;
+extern s32 _unk30004DC;
+extern u8 _unk30004E0;
+
+extern SpriteEntry* _unk3000464;
+extern SpriteEntry* _unk3000468;
+extern s32 _unk300046C;
+extern s32 _unk3000470;
 
 #endif // _RAM_H

@@ -12,5 +12,6 @@ void sub_8050F0C(FrontendMenu*);
 void sub_8050F98(FrontendMenu*);
 void sub_8050FEC(FrontendMenu*, unk32);
 void sub_8051028(FrontendMenu*);
+void sub_8050FC8(FrontendMenu*);
 
 #endif /* _ICONMENU_H */

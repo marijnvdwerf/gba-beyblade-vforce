@@ -4,6 +4,7 @@
 #include "common.h"
 
 unk8 sub_8061660(SpriteTextCleanup*, const u8*, unk8);
+void sub_8061844(SpriteTextCleanup*, s16, s16);
 void allocFont(SpriteTextCleanup*, const u8*, const u8*, s16, s16, unk16, unk16);
 void sub_80611EC(SpriteTextCleanup*, unk8);
 void sub_80611FC(SpriteTextCleanup*, unk8);

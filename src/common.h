@@ -204,7 +204,8 @@ struct FrontendState {
     FrontendSubobject unkB8;
     unk8 pad138[8];
     FrontendSubobject unk140;
-    unk8 pad1C0[0x264];
+    unk8 pad1C0[0x90];
+    unk8 unk250[0x1D4];
     unk32 unk424;
     unk8 pad428[0x30];
     UnkMotion motion;
@@ -602,9 +603,14 @@ typedef struct LevelDescription {
     LineMetadata** metadata;
     unk32 unk30;
     unk32 unk34;
-    unk8 pad38[0x58];
+    unk8 pad38[0x30];
+    const u8* unk68[6];
+    unk8 pad80[0x10];
     unk32 unk90;
-    unk8 pad94[0x3C];
+    unk8 pad94[0x2C];
+    const u8* unkC0;
+    void* unkC4;
+    unk8 padC8[8];
 } LevelDescription;
 
 #define true 1
