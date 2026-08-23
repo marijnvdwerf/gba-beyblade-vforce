@@ -23,11 +23,9 @@ void sub_8057158(FrontendResource* arg0, const InputSequence* arg1)
 
 void sub_8057164(FrontendResource* arg0)
 {
-    const InputSequence* data;
     const unk16* values;
 
-    data = arg0->data;
-    values = data->keys;
+    values = arg0->data->keys;
     if (arg0->state == arg0->data->count) {
         arg0->state = -1;
     } else if (arg0->state != -1) {
@@ -50,13 +48,7 @@ void sub_8057164(FrontendResource* arg0)
 
 unk8 sub_80571D0(FrontendResource* arg0)
 {
-    unk8 result;
-
-    result = 0;
-    if (arg0->state == arg0->data->count) {
-        result = 1;
-    }
-    return result;
+    return arg0->state == arg0->data->count;
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80571e4-GetTalkingHead.s");

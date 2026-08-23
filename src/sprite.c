@@ -3,6 +3,7 @@
 #include "common.h"
 #include "include_asm.h"
 #include "memory.h"
+#include "packet.h"
 #include "system.h"
 #include "unsorted.h"
 
@@ -14,7 +15,6 @@ struct SpriteStruct2 {
     SpriteStruct2* next;
 };
 
-extern const s16 Unk_874CC3C[];
 extern const s16 Unk_872CC3C[];
 
 extern SpriteStruct2* _unk3005DC8;

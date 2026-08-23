@@ -29,9 +29,6 @@ void sub_80512AC(void);
 unk32 sub_8051780(unk32);
 
 extern FrontendState _unk3000650;
-extern unk32 _unk3000C10[2];
-extern unk32 _unk3000E30[3];
-extern unk32 _unk3000C00;
 
 void sub_805AC28(int, int, int, u16);
 

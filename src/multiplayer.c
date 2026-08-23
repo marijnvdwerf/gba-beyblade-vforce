@@ -3,14 +3,12 @@
 #include "debug.h"
 #include "include_asm.h"
 #include "memory.h"
+#include "ram.h"
 
-extern MultiPlayerState* _unk3005DC4;
 extern const char Str_8755834[];
 extern const char Str_8755884[];
 extern const char Str_87558B4[];
 extern s32 __divsi3(s32, s32);
-typedef void ClearFn(int, void*, int);
-extern ClearFn* __fastMemoryClearARM;
 
 #if 0
 void initMultiPlayer(unk32 arg0, s32 arg1, u16 arg2)

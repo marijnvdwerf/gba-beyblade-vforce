@@ -211,82 +211,58 @@ void Background_8049C70(void)
 void sub_8049CE8(FrontendState* arg0, unk32 arg1)
 {
     switch (arg1) {
-    case 2: {
-        BackgroundPaletteState* palettes;
-
-        palettes = &_3000000.palettes;
-        sub_80637E4(&palettes->paletteA, _806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
-        sub_80637E4(
-            &palettes->paletteB, _806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
+    case 2:
+        sub_80637E4(&_3000000.palettes.paletteA, _806A828[_3000000.palettes.var60[0]].bgPalette, 0,
+            0x100, 0x10);
+        sub_80637E4(&_3000000.palettes.paletteB, _806A828[_3000000.palettes.var60[0]].spritePalette,
+            0, 0x100, 0x10);
         arg0->transition.value = 0x3E;
         arg0->transition.unk585 = 0xFE;
         arg0->transition.unk586 = 0;
         break;
-    }
     case 1:
         deallocate_80637CC(&_3000000.palettes.paletteB);
         deallocate_80637CC(&_3000000.palettes.paletteA);
         break;
-    case 4: {
-        Palette* palette;
-        u16* dest;
-        s8 fade;
-
-        palette = &_3000000.palettes.paletteA;
-        dest = BG_PLTT_PTR;
-        fade = arg0->transition.value;
-        sub_8063830(palette, dest, fade >> 1, 0x1F, 0x1F, 0x1F);
-        fade = arg0->transition.value;
-        sub_8063830(&_3000000.palettes.paletteB, OBJ_PLTT_PTR, fade >> 1, 0x1F, 0x1F, 0x1F);
+    case 4:
+        sub_8063830(&_3000000.palettes.paletteA, BG_PLTT_PTR, arg0->transition.value >> 1, 0x1F,
+            0x1F, 0x1F);
+        sub_8063830(&_3000000.palettes.paletteB, OBJ_PLTT_PTR, arg0->transition.value >> 1, 0x1F,
+            0x1F, 0x1F);
         break;
-    }
     }
 }
 
 void sub_8049DE0(FrontendState* arg0, unk32 arg1)
 {
     switch (arg1) {
-    case 2: {
-        BackgroundPaletteState* palettes;
-
-        palettes = &_3000000.palettes;
-        sub_80637E4(&palettes->paletteA, _806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
-        sub_80637E4(
-            &palettes->paletteB, _806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
+    case 2:
+        sub_80637E4(&_3000000.palettes.paletteA, _806A828[_3000000.palettes.var60[0]].bgPalette, 0,
+            0x100, 0x10);
+        sub_80637E4(&_3000000.palettes.paletteB, _806A828[_3000000.palettes.var60[0]].spritePalette,
+            0, 0x100, 0x10);
         arg0->transition.value = 0x3E;
         arg0->transition.unk585 = 0xFE;
         arg0->transition.unk586 = 0;
         break;
-    }
-    case 3: {
-        BackgroundPaletteState* palettes;
-
-        palettes = &_3000000.palettes;
-        sub_80637E4(&palettes->paletteA, _806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
-        sub_80637E4(
-            &palettes->paletteB, _806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
+    case 3:
+        sub_80637E4(&_3000000.palettes.paletteA, _806A828[_3000000.palettes.var60[0]].bgPalette, 0,
+            0x100, 0x10);
+        sub_80637E4(&_3000000.palettes.paletteB, _806A828[_3000000.palettes.var60[0]].spritePalette,
+            0, 0x100, 0x10);
         arg0->transition.value = 0;
         arg0->transition.unk585 = 2;
         arg0->transition.unk586 = 0x40;
         break;
-    }
     case 1:
         deallocate_80637CC(&_3000000.palettes.paletteB);
         deallocate_80637CC(&_3000000.palettes.paletteA);
         break;
-    case 4: {
-        Palette* palette;
-        u16* dest;
-        s8 fade;
-
-        palette = &_3000000.palettes.paletteA;
-        dest = BG_PLTT_PTR;
-        fade = arg0->transition.value;
-        sub_8063830(palette, dest, fade >> 1, 0, 0, 0);
-        fade = arg0->transition.value;
-        sub_8063830(&_3000000.palettes.paletteB, OBJ_PLTT_PTR, fade >> 1, 0, 0, 0);
+    case 4:
+        sub_8063830(&_3000000.palettes.paletteA, BG_PLTT_PTR, arg0->transition.value >> 1, 0, 0, 0);
+        sub_8063830(
+            &_3000000.palettes.paletteB, OBJ_PLTT_PTR, arg0->transition.value >> 1, 0, 0, 0);
         break;
-    }
     }
 }
 

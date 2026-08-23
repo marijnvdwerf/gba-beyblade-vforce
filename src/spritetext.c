@@ -1,3 +1,4 @@
+
 #include <agb/types.h>
 
 #include "bios.h"

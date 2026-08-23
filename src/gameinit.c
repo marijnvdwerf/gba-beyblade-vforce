@@ -1,3 +1,5 @@
+#include "gameinit.h"
+
 #include <agb/memory_map.h>
 #include <agb/types.h>
 
@@ -21,12 +23,8 @@
 #include "tutorial.h"
 #include "unsorted.h"
 
-extern void sub_8053F0C(unk32);
 extern LevelDesign LevelDesigns[];
-extern void initRiders(void);
 extern const u8 Str_87294CC[];
-extern void sub_80538C0(void);
-extern const s16 Unk_874CC3C[];
 extern const u8 Str_8729504[];
 extern const u8 Str_8729564[];
 extern const u8 Str_8729598[];

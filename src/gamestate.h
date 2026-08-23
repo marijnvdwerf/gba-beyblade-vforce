@@ -7,6 +7,7 @@ s32 getSomeLevelID(void);
 LevelDescription* getLevelDescription(s32);
 LevelDescription* getLevelDescription2(void);
 LevelState* sub_8051734(void);
+Unk80516E0* sub_80516E0(unk32);
 LevelState* sub_8051720(s32);
 unk32 GetLevelDescriptionNo(void);
 void sub_8051640(unk32);
