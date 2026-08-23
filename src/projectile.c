@@ -1,3 +1,5 @@
+#include "projectile.h"
+
 #include "include_asm.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c160-newProjectileSystem.s");

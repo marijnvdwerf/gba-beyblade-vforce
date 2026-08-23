@@ -28,5 +28,6 @@ void sub_804AFD4(u16);
 void sub_804B00C(u16);
 void sub_804B044(void);
 void sub_804B060(void);
+void sub_804ABFC(unk32);
 
 #endif /* _MUSIC_H */

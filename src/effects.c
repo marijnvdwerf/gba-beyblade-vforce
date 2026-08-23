@@ -1,6 +1,7 @@
 #include "effects.h"
 
 #include "include_asm.h"
+#include "projectile.h"
 #include "ram.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805529c.s");
@@ -12,9 +13,9 @@ void sub_8055624(void)
     GameData* base;
 
     base = _gameData;
-    base->unk1102 = 0;
-    base->unk10FC = 0xFFFF;
-    base->unk1104 &= ~1;
+    base->projectileSystem.unk7E = 0;
+    base->projectileSystem.unk78 = 0xFFFF;
+    base->projectileSystem.unk80 &= ~1;
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805565c.s");
@@ -24,10 +25,20 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80556c4.s");
 
 unk32 sub_80556DC(unk32 arg0)
 {
-    return _gameData->unk1104 & arg0;
+    return _gameData->projectileSystem.unk80 & arg0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80556f4.s");
+void sub_80556F4(void)
+{
+    GameData* gameData;
+
+    gameData = _gameData;
+    sub_804C484(&gameData->projectileSystem);
+    deallocate_80637CC(&gameData->projectileSystem.palette34);
+    deallocate_80637CC(&gameData->projectileSystem.palette48);
+    deallocate_80637CC(&gameData->projectileSystem.palette5C);
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055734.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805582c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805589c.s");

@@ -55,8 +55,17 @@ void LoadHUD(void)
     gameData->unk105E = 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ee2c.s");
+void sub_804EE2C(void)
+{
+    GameData* base;
+
+    base = _gameData;
+    sub_8061228(&base->levelHud0);
+    sub_8061228(&base->levelHud1);
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ee54.s");
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f05c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f2a0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f37c.s");

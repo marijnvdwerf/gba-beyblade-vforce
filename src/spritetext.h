@@ -12,5 +12,6 @@ unk8 showString(SpriteTextCleanup*, const u8*, unk8);
 unk8 showNumber(SpriteTextCleanup*, s32, unk8);
 unk8 showNumber_2(SpriteTextCleanup*, unk32, unk8);
 void sub_8061228(SpriteTextCleanup*);
+void sub_8061824(SpriteTextCleanup*, s32, s32);
 
 #endif /* _SPRITETEXT_H */
