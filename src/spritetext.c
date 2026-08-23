@@ -290,7 +290,12 @@ unk8 showString(SpriteTextCleanup* arg0, const u8* text, unk8 mode)
     return 1;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8061660.s");
+unk8 sub_8061660(SpriteTextCleanup* arg0, const u8* arg1, unk8 arg2)
+{
+    sub_8061228(arg0);
+    return showString(arg0, arg1, arg2);
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8061684.s");
 
 void sub_8061824(SpriteTextCleanup* arg0, s16 arg1, s16 arg2)
