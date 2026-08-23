@@ -1,6 +1,6 @@
 ---
 name: decompiler
-description: Decompiles a batch of functions for the Beyblade V-Force matching decomp. Invoke with a list of functions from worklist.md's next-up pool.
+description: Decompiles a batch of reachable functions for the Beyblade V-Force matching decomp. Invoke with a list selected from the mainLoop callgraph.
 model: gpt-5.6-luna
 ---
 
@@ -13,11 +13,13 @@ function (`git add -A src asm && git commit`) — the manager merges your branch
 
 ## Function selection
 
-Only work on functions that are **called from existing C code** — the C call
-site is what pins the argument/return types. The work pool comes from
-`uv run tools/worklist.py` (ast-grep-based: lists functions called from C but
-not defined in C, with their INCLUDE_ASM locations). Never start a function
-that has no caller in current C.
+Only work on functions reachable in `uv run tools/callgraph.py mainLoop`.
+This callgraph is the authority: functions reached through ROM handler tables
+are reachable too, and appear beneath 🧭 table nodes even without a direct C
+call site. Read every real C call site when one exists; for table callbacks,
+derive the signature from the table and dispatcher usage. `uv run
+tools/worklist.py` is a secondary, incomplete pool of direct C-call candidates,
+not the reachability boundary.
 
 ## Per-function loop — strictly one function at a time, never batch
 
@@ -123,8 +125,9 @@ that has no caller in current C.
   register-allocation dumps (pseudo → hard reg, spills) for your CURRENT C.
   `--all-passes` adds `.loop`, `.cse`, `.combine`, … Use it when a regalloc
   or loop-shape diff is stubborn instead of guessing.
-- `uv run tools/callgraph.py <function>` — C-only call tree; 🔴 leaves are
-  not yet in C.
+- `uv run tools/callgraph.py <function>` — authoritative reachable call tree;
+  🔴 leaves are not yet in C, and 🧭 nodes are ROM handler tables whose callback
+  edges count as reachable.
 - Top-level `docs/learnings/*.md` files are unprocessed write-ups of what
   actually moved a diff. Read that top-level glob and
   `.claude/skills/agbcc/SKILL.md` before starting; `processed/` is history and

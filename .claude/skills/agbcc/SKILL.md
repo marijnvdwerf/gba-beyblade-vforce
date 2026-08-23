@@ -23,11 +23,11 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - A dedicated `unk16` conversion temporary can preserve zero-extension and keep a narrowed compare value separate from its wide source; a wider temporary may coalesce them and change saved-register allocation.
 - Cast placement is conversion placement: keep a producer wide and cast or assign narrow only where the target performs the conversion.
 - Staging a narrow field in a signed `s32` temporary can keep arithmetic wide and delay normalization until the result is narrowed; using the field directly may reorder the add or conversion.
-- Entry normalization proves narrowing at entry, not a narrow formal parameter; try a wide ABI parameter assigned or cast to a narrow local.
+- Entry normalization proves narrowing at entry, not a narrow formal parameter; try a wide ABI parameter assigned or cast to a narrow local. Conversely, a genuinely narrow formal tested for truth can emit the low-byte shift/test at entry without explicit source shifts.
 - Promotion chooses shifts: an unsigned intermediate yields `lsr`, while a signed intermediate yields `asr`, even with identical stored width.
 - Lvalue type selects `ldr`/`str`, `ldrh`/`strh`, or byte access; trust the opcode over the field's apparent semantics.
 - A cast on a field read (`(s8)p->f`, `ldsb`) is the field's real type: fix the declaration, don't keep the cast. Only a field proven unsigned by other users may keep a `(s16)` cast at a sentinel (`== -1`) consumer.
-- A return type changes caller normalization and can also reshape the callee's value flow and epilogue.
+- A return prototype drives caller normalization, while the definition's declared return type also shapes the callee. In particular, an `s16` declaration can add sign-normalization inside the callee even when the target callee returns without it; diagnose caller and callee diffs separately rather than assuming one declaration explains both.
 - Pointer→integer conversion and an integer identity cast can create different RTL despite both being 32-bit; preserve the proven global type.
 
 ## Locals and register pressure
@@ -37,6 +37,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Keep explicit cursor/count/end temporaries when the target keeps distinct values, including separate count and loop-limit copies when the bound occupies a different register; remove them when the target reloads or coalesces instead.
 - A separate successor temporary can keep a moving cursor and freshly loaded pointer in distinct registers: `candidate = cur->next; next = candidate;`.
 - A scalar temporary can force one field/byte load that is reused by multiple tests, or place that load before a later initialization; removing it may duplicate or reorder instructions.
+- Open problem: reading a byte field once into a temporary can produce one signed load and reuse, while rereading the field can produce an unsigned load plus later normalization; if natural lifetime variants do not match, do not turn this observation into a field-typing rule.
 - A separate result or magnitude temporary can preserve the original argument for a later sign test while the transformed value occupies the return-value path; an in-place rewrite changes that dataflow.
 - Assignment and initialization order set live-range boundaries and address-materialization order; spell them in target order.
 - In `.greg`, global-allocation priority is roughly `refs / live_length`: more references help, while a longer-lived pseudo gets lower priority; use this to explain saved-register choices.
@@ -70,20 +71,21 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - `u32 n = count; while (n--)` naturally yields a compare-against-`-1` countdown and fits counted list walks; do not hand-write the sentinel unless the diff requires it.
 - Variable-size record walks should advance by the current record's runtime size, e.g. `ptr = (Record *)((unk8 *)ptr + ptr->size)`; array indexing falsely implies a fixed stride and changes liveness.
 - Loop reversal accepts signed `<`/`<=` forms and emits a countdown to zero; unsigned `<` and `!=` generally remain ascending.
-- Do not assume an eligible ascending loop actually reverses; if experiments stay ascending, retain the explicit matching countdown source.
+- Do not assume an eligible ascending loop actually reverses; if experiments stay ascending, retain the explicit matching countdown source. Likewise, keep a proven descending index with a forward-moving cursor when indexed or ascending rewrites produce a different loop.
 - A target rotated search CFG may not come from plain `while` or `for (;;)`; spell the entry test and bottom break explicitly when proven.
 - If the target reloads a global loop limit each iteration, keep the global expression in the condition instead of caching a local bound.
 - Open problem: a target may reload a non-volatile struct field every iteration despite no call or aliasing store, while plain C hoists it. `volatile` can reproduce the reload but is not canonical; treat this as unresolved rather than a general typing rule.
-- Moving an increment into or out of a branch changes the CFG even when semantics agree; preserve the lexical placement shown by the target.
+- Moving an increment or decrement into or out of a branch changes the CFG even when semantics agree. In particular, keep a countdown update after an early-return arm inside the branch that continues the loop rather than hoisting it before the branch.
 
 ## Switches and branches
 
 - Condition spelling picks branch polarity and fall-through: early return, nested `if`, and result-variable forms are not interchangeable.
 - In old GCC, a value-less `return;` in a non-void function can reproduce fall-through to the epilogue with `r0` still holding the just-tested value; use it only when that undefined return path is proven by the target.
 - Preserve redundant-looking compares when present; identical function size alone does not validate branch targets.
-- Switch case order controls block and jump-table layout; empty cases can preserve a table while sparse cases may become compares.
+- Switch case order and case count control lowering and block layout. Sparse switches may become compare trees; an otherwise empty `case N: break;` plus `default` can cross the threshold that produces the target `cmp`/`beq`, range-check, and `cmp`/`bne` tree.
 - Identical case bodies may merge; an unsigned normalized dispatch expression can sometimes restore the expected table form.
 - If each switch arm loads a global only after dispatch, use case-local aliases or direct global access; a shared pre-switch alias changes dispatch liveness and load order.
+- Register-only divergences repeated across several cases usually point to lifetime or ordering: a temporary is scoped per case instead of hoisted (or vice versa), or two independent statements are lexically swapped.
 - A search whose success/return block is hoisted above the loop usually comes from a plain top-tested `for` with an early `return` inside (and any `NULL` guard as an early return before it); try that before a `found` flag + `break`, and never a nested `if (i < n) do { } while`.
 
 ## Pointers, globals, and aliasing
@@ -109,7 +111,8 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Struct members and raw byte offsets can produce different address temporaries; if a typed field doesn't match, the field's type/width or the struct nesting is wrong — fix the layout, don't fall back to byte arithmetic.
 - Overlay only proven fields and preserve all padding; a correct offset with the wrong type still gives the wrong access width.
 - A field that is both compared/stored as a word and dereferenced is a pointer — type it so.
-- Later shifts, masks, or division do not narrow a field's memory access. If assembly proves the same storage is intentionally accessed at incompatible widths (`strh`/`ldrb`, `ldr`/`ldrsh`), model a documented whole/parts union; this proven width pun is the only sanctioned union use. Otherwise, prefer adjacent narrower fields.
+- Later shifts, masks, or division do not narrow a field's memory access. If assembly proves the same scalar storage is intentionally accessed at incompatible widths (`strh`/`ldrb`, `ldr`/`ldrsh`), model a documented whole/parts union. If one stored pointer is dereferenced at multiple proven pointee widths, use a named union of typed pointer variants. These proven width puns are the only sanctioned union uses; otherwise, prefer adjacent narrower fields.
+- One shared field type may be unable to reproduce both a signed-load reader and an unsigned bitwise read-modify-write user. Per-use casts do not change the lvalue load selected for the already-matched user; preserve the established shared type and park the incompatible function rather than breaking a match.
 - An embedded header whose address is passed to list helpers must be an embedded struct field, not a pointer; the pointer spelling changes layout and cleanup codegen.
 - An opaque region only passed by address is naturally `unk8 region[N]`; a scalar member there introduces an unwanted load.
 - Allocation/resource handles with repeatedly accessed address, size, or owner slots should be typed structs; returning or passing the usable address often means accessing the first pointer member.
@@ -135,8 +138,10 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Pool reach and placement follow preceding code size and block layout; never chase pool offsets before fixing the first code difference.
 - Inline strings can be emitted in a function's trailing literal pool; use inline literals when address order supports that shape.
 - `.word` number-versus-symbol differences can be relocation-display noise; compare resolved bytes and use the full-ROM SHA1 as authority.
+- agbcc safely folds floating constants in file-scope initializers: a fixed-point macro such as `(u32)((x) * 65536.0)` can reproduce exact 16.16 table bytes without precomputing integer literals.
+- Give hand-written assembly data tables `.size sym, . - sym`; this leaves bytes unchanged while exposing the table extent to ELF-aware tools.
 - Replace an assembly inclusion in its original source position; moving a C definition within the translation unit shifts everything after it.
-- Mid-TU alignment directives may be no-ops because functions are already aligned; EOF zero-fill can still differ from assembler NOP padding.
+- Mid-TU alignment directives may be no-ops because functions are already aligned. When a translation unit's ROM tail is `00 00` but the assembler emits Thumb NOP padding (`C0 46`), place `ASM_ZEROPAD` at EOF.
 
 ## Zeroing and volatile
 
