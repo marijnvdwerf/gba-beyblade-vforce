@@ -1,5 +1,8 @@
+#include "tutorial.h"
+
 #include <agb/types.h>
 
+#include "effects.h"
 #include "gamestate.h"
 #include "geometry.h"
 #include "include_asm.h"
@@ -76,7 +79,21 @@ void initTutorialManagement(u16 levelId)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a488-turorial_804A488.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a504.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804a51c.s");
+
+void sub_804A51C(void)
+{
+    GameData* data;
+    unk8** slot;
+
+    data = _gameData;
+    slot = &data->tutorial.unk104;
+    if (*slot != NULL && sub_80556DC(1) != 0) {
+        sub_804A550(*slot);
+        *slot = NULL;
+        sub_8055624();
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a550.s");
 
 void sub_804A72C(void)

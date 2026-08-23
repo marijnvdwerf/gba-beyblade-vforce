@@ -9,6 +9,8 @@
 #include "levelrow.h"
 #include "menuobject.h"
 #include "motion.h"
+#include "multiplayer.h"
+#include "ram.h"
 #include "sound.h"
 #include "unsorted.h"
 
@@ -20,13 +22,41 @@ INCLUDE_ASM("asm/dump/8040d18/8048fcc.s");
 INCLUDE_ASM("asm/dump/8040d18/8048fd4.s");
 INCLUDE_ASM("asm/dump/8040d18/8048fe4.s");
 INCLUDE_ASM("asm/dump/8040d18/8048ffc.s");
-INCLUDE_ASM("asm/dump/8040d18/8049018.s");
+
+void sub_8049018(void)
+{
+    FrontendState* state;
+
+    state = &_unk3000650;
+    state->unk84 = state->unk88 = (unk32)-65536;
+    state->unk8C = state->unk90 = (unk32)-65536;
+}
+
 INCLUDE_ASM("asm/dump/8040d18/804903c.s");
 INCLUDE_ASM("asm/dump/8040d18/8049074.s");
-INCLUDE_ASM("asm/dump/8040d18/80490cc.s");
+
+extern unk8 _unk3000BFC;
+
+void sub_80490CC(unk32 arg0, unk32 arg1)
+{
+    FrontendState* state;
+    FrontendObject* object;
+
+    state = &_unk3000650;
+    object = state->unkB4;
+    if (object != NULL && object->unk8 != NULL)
+        object->unk8(state, arg0, arg1);
+}
+
 INCLUDE_ASM("asm/dump/8040d18/80490f8.s");
+
 INCLUDE_ASM("asm/dump/8040d18/804915c.s");
-INCLUDE_ASM("asm/dump/8040d18/8049168.s");
+
+void sub_8049168(void)
+{
+    _unk3000650.unk7C = 0;
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8049178.s");
 INCLUDE_ASM("asm/dump/8040d18/80491c4.s");
 INCLUDE_ASM("asm/dump/8040d18/80491e0.s");
@@ -45,12 +75,6 @@ void sub_804924C(unk32 arg0)
 }
 
 INCLUDE_ASM("asm/dump/8040d18/8049258.s");
-extern void sub_8049018(void);
-extern void sub_8049168(void);
-extern void sub_80490F8(unk32);
-extern void sub_804967C(void);
-extern void sub_80493C8(void);
-extern void sub_80490CC(unk32, unk32);
 extern unk8 _unk3000BFC;
 extern u16 _unk3000BFD;
 extern void (*__oam_8756CC0)(void);
@@ -83,8 +107,65 @@ void sub_8049264(void)
 
 INCLUDE_ASM("asm/dump/8040d18/8049320-StoreFunction.s");
 INCLUDE_ASM("asm/dump/8040d18/8049330.s");
-INCLUDE_ASM("asm/dump/8040d18/8049344.s");
-INCLUDE_ASM("asm/dump/8040d18/80493c8.s");
+
+void sub_8049344(u32 arg0)
+{
+    FrontendState* base0;
+    FrontendState* base;
+    void (*callback)(FrontendState*, unk32);
+    void (*stored)(FrontendState*, unk32);
+
+    callback = NULL;
+    base0 = &_unk3000650;
+    stored = base0->unk588;
+    base = base0;
+    if (stored != NULL)
+        callback = stored;
+    else if (arg0 <= 4) {
+        switch (arg0) {
+        case 0:
+        case 2:
+            callback = base->unkB4->unk10;
+            break;
+        case 3:
+            callback = base->unkB4->unk14;
+            break;
+        case 1:
+        case 4:
+            if (base->unk585 > 0)
+                callback = base->unkB4->unk14;
+            else if (base->unk585 < 0)
+                callback = base->unkB4->unk10;
+            break;
+        }
+    }
+    if (callback != NULL)
+        callback(base, arg0);
+}
+
+s32 sub_80493C8(void)
+{
+    s32 result;
+    FrontendState* state;
+    GameData* data;
+
+    result = 0;
+    state = &_unk3000650;
+    if (state->unk7F != 0 && sub_805FFE4() != 0 && state->unk584 != 0x40) {
+        data = _gameData;
+        if (data->unk1619 != 1) {
+            if (sub_806014C(data->unk15D4, data->unk15D4 - 0x10, 1) == 0 && sub_806008C() != 0) {
+                _gameData->unk1618 = 0;
+                _gameData->unk1619 = 1;
+                state->unk7F = 0;
+                sub_80490F8(0x1D);
+            } else {
+                result = 1;
+            }
+        }
+    }
+    return result;
+}
 #if 0
 void sub_8049458(void)
 {

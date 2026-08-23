@@ -2,6 +2,7 @@
 #define _DISPLAY_H
 
 #include "common.h"
+#include "layer.h"
 
 typedef struct UnkStruct_sub1 {
     u8 var00;
@@ -26,6 +27,15 @@ void sub_80508A4(UnkStruct_sub1*);
 void sub_8050894(void*);
 void sub_80508CC(void*, ScreenLayout*, int);
 void newLayerManagement(void*, void*, ScreenLayout*, u16, u8);
-void sub_8050A50(FrontendState*);
+
+typedef struct DisplayData {
+    unk8 pad0[2];
+    unk16 unk2;
+    unk16 unk4;
+    unk32 pad8;
+    DisplayRecord* ptrC;
+} DisplayData;
+
+void sub_8050A50(DisplayData*);
 
 #endif /* _DISPLAY_H */

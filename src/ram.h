@@ -170,7 +170,8 @@ typedef struct GameData {
     unk8 unk15D4[0x40]; /* 0x15D4 */
     unk8 pad1614[4]; /* 0x1614 */
     unk8 unk1618; /* 0x1618 */
-    unk8 pad1619[2]; /* 0x1619 */
+    unk8 unk1619; /* 0x1619 */
+    unk8 pad161A[1]; /* 0x161A */
     unk8 unk161B; /* 0x161B */
     u16 unk161C; /* 0x161C */
     unk8 pad161E[2]; /* 0x161E */

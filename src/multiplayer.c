@@ -90,7 +90,7 @@ unk32 sub_8060040(void)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8060070.s");
 
-unk32 sub_806008C(void)
+u8 sub_806008C(void)
 {
     if ((_unk3005DC4->unk14 & 0x100) != 0) {
         return 1;

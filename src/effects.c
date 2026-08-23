@@ -1,3 +1,5 @@
+#include "effects.h"
+
 #include "include_asm.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805529c.s");

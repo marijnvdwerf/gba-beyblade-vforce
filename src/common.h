@@ -37,25 +37,36 @@ typedef struct FrontendSubobject {
     unk32 unk20;
 } FrontendSubobject;
 
+typedef struct FrontendState FrontendState;
+
 typedef struct FrontendObject {
-    unk8 pad0[4];
+    unk32 unk0;
     FrontendSubobject* unk4;
+    void (*unk8)(FrontendState*, unk32, unk32);
+    void (*unkC)(FrontendState*, unk32);
+    void (*unk10)(FrontendState*, unk32);
+    void (*unk14)(FrontendState*, unk32);
 } FrontendObject;
 
-typedef struct FrontendState {
+struct FrontendState {
     unk32 unk0;
     unk32 unk4;
     unk32 unk8;
     unk32 unkC;
     unk32 unk10;
-    unk8 unk14[0x68];
+    unk32 unk14[0x1A];
     unk8 unk7C;
     unk8 unk7D;
     unk8 unk7E;
     unk8 unk7F;
     unk8 unk80;
     unk8 unk81;
-    unk8 pad82[0x32];
+    unk8 pad82[2];
+    unk32 unk84;
+    unk32 unk88;
+    unk32 unk8C;
+    unk32 unk90;
+    unk8 pad94[0x20];
     FrontendObject* unkB4;
     unk8 padB8[0x36C];
     unk32 unk424;
@@ -73,11 +84,11 @@ typedef struct FrontendState {
     s8 unk585;
     unk8 unk586;
     unk8 pad587[1];
-    unk32 unk588;
+    void (*unk588)(FrontendState*, unk32);
     unk32 unk58C;
     unk8 unk590[0x18];
     unk32 unk5A8;
-} FrontendState;
+};
 
 typedef struct UnkMenu {
     unk8 unk0[0x24];
@@ -416,7 +427,7 @@ typedef struct TutorialEntry {
 typedef struct TutorialData {
     unk32 count;
     TutorialEntry entries[0x20];
-    unk32 unk104;
+    unk8* unk104;
     SpriteTextCleanup fontData;
     unk32 unk138;
     unk32 unk13C;
