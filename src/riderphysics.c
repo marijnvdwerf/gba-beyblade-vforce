@@ -46,11 +46,8 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804e1dc.s");
 
 void sub_804E1FC(RiderBase* rider, u8 arg1)
 {
-    unk32 value;
-
-    value = arg1 << 4;
-    rider->unk10 = value;
-    rider->unk1C = value;
+    rider->unk10 = arg1 << 4;
+    rider->unk1C = arg1 << 4;
     rider->unk14 = 0;
 }
 
