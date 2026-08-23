@@ -174,7 +174,15 @@ unk32 GetLevelDescriptionNo(void)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80517e8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051804.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8051820.s");
+
+unk32 sub_8051820(void)
+{
+    if (sub_8051780(4) != 0 || (_currentGameState->unkC64 & 4) != 0) {
+        return _currentGameState->unk2;
+    }
+    return getLevelDescription2()->unk90;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/805185c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051868.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805187c.s");

@@ -3,6 +3,8 @@
 
 #include "common.h"
 
+typedef struct SoundStructE SoundStructE;
+
 typedef struct SfxTable {
     u32 var00;
     u32 count;
@@ -12,6 +14,7 @@ typedef struct SfxTable {
 
 void sub_80627F0(void);
 void Sound_8062B20(SfxTable* table);
+s32 Sound_8062990(SoundStructE* (*)[], s16 (*)[]);
 void allocateSoundTables(u32, u32);
 void Sound_onTimer1Overflow(void);
 void Sound_8062A90(int);

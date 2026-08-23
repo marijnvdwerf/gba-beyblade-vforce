@@ -1,5 +1,6 @@
 #include "animevent.h"
 #include "include_asm.h"
+#include "music.h"
 #include "ram.h"
 
 extern const u8 SpriteSheet_86FBC4C[];
