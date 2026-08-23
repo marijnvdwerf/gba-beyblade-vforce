@@ -7,6 +7,27 @@
 #include "render.h"
 #include "sprite.h"
 
+typedef struct Sub8052140Data {
+    unk32 unk0;
+    unk32 unk4;
+    unk32 unk8;
+    unk8 padC[2];
+    unk16 unkE;
+    unk8 pad10[4];
+    unk16 unk14;
+    unk16 unk16;
+    unk16 unk18;
+    unk16 unk1A;
+    unk8 pad1C[8];
+    unk8 unk24;
+    unk8 unk25;
+    unk8 unk26;
+    unk8 pad27[0xB];
+    unk16 unk32;
+    unk8 pad34[0x24];
+    unk32 unk58;
+} Sub8052140Data;
+
 typedef struct GeometryAddressTable {
     unk8 pad0[0x10];
     AllocatedBlock* block;
