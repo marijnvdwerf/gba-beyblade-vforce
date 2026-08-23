@@ -42,7 +42,7 @@ void sub_804FA40(void)
     state->unk105E |= 2;
     table = _806E6FC;
     language = getLanguage();
-    sub_8061660(hud, table[language], 0xD);
+    sub_8061660((unk32)hud, table[language], 0xD);
     motion = &state->levelHudMotion0;
     newMotionGroup(motion, &state->levelHud0.unk14, 2);
     sub_8050578(motion, 0x4800, 0x100);
@@ -66,7 +66,7 @@ void sub_804FAD4(void)
     state->unk105E |= 2;
     table = _806E710;
     language = getLanguage();
-    sub_8061660(hud, table[language], 0xB);
+    sub_8061660((unk32)hud, table[language], 0xB);
     motion = &state->levelHudMotion0;
     newMotionGroup(motion, &state->levelHud0.unk14, 2);
     sub_8050578(motion, 0x4800, 0x100);

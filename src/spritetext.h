@@ -3,7 +3,8 @@
 
 #include "common.h"
 
-void sub_8061660(void*, unk32, unk32);
+void sub_8061660(unk32, unk32, unk32);
+void sub_8061844(unk32, unk32, unk32);
 void allocFont(SpriteTextCleanup*, const u8*, const u8*, s16, s16, unk16, unk16);
 void sub_80611EC(SpriteTextCleanup*, unk8);
 void sub_80611FC(SpriteTextCleanup*, unk8);

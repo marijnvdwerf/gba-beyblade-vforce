@@ -14,6 +14,7 @@
 #include "music.h"
 #include "packet.h"
 #include "ram.h"
+#include "spritetext.h"
 #include "unsorted.h"
 
 extern const u8 SpriteSheet_823BF04[];
@@ -28,6 +29,7 @@ extern const unk32 _80693C8[];
 extern const unk32 _80693DC[];
 extern const unk32 _8069428[];
 extern const unk32 _8069514[];
+extern const unk32 _806E0DC[];
 extern const s16 Unk_874CC3C[];
 
 void sub_8043A0C(FrontendState* state, unk32 arg1, unk32 arg2)
@@ -877,8 +879,114 @@ void sub_8046814(FrontendState* state, unk32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8046a0c.s");
-INCLUDE_ASM("asm/dump/8040d18/8046b94.s");
+void sub_8046A0C(unk8* state, unk32 arg1)
+{
+    unk32 font1;
+    unk32 font;
+    unk32 value;
+    unk32 offset;
+    s32 delta;
+    s16 pos;
+
+    switch (arg1) {
+    case 0:
+        sub_8049168();
+        _unk30004B8 = 0xFFFF0000;
+        _unk30004B4 = 0;
+        sub_80596AC(state + 0x250, _unk30004B8, 0);
+        _unk30004C0 = 0;
+        _unk30004C1 = 0;
+        _unk30004BC = 0;
+        break;
+    case 1: {
+        u8 result;
+        sub_80439A0((FrontendSubobject*)(state + 0x140));
+        font1 = sub_804A0E0(0);
+        pos = (s16)(-(_unk30004B8 >> 8) + 0x10);
+        sub_8061844(font1, pos, 0x4A);
+        if (_unk30004C0 != 0 && _unk30004C1 == 0) {
+            result = sub_80515A4();
+            if (result != 0) {
+                sub_8051640(1);
+            }
+            _unk30004C1 = arg1;
+        }
+        font = sub_804A0E0(0);
+        value = getLanguage() << 2;
+        offset = value + 0x28;
+        if (result != 0) {
+            offset -= 0x14;
+        }
+        sub_8061660(font, *(const unk32*)((const unk8*)_806E0DC + offset), 0xF);
+        delta = (_unk30004B4 - _unk30004B8) >> 2;
+        sub_80596AC(state + 0x250, delta, 0);
+        _unk30004B8 += delta;
+        if (delta == 0 && _unk30004C1 == 0) {
+            font = sub_804A0E0(0);
+            value = getLanguage() << 2;
+            sub_8061660(font, *(const unk32*)((const unk8*)_806E0DC + value), 0xF);
+            _unk30004C1 = 1;
+        }
+        (_unk30004BC)++;
+        break;
+    }
+    case 2:
+        if (_unk30004C0 != 0
+            && ((_unk3005DA0 & 1) != 0 ? _unk30004BC > 0x78 : _unk30004BC > 0x258)) {
+            sub_80490F8(_unk3000648);
+            _unk30004B4 = 0xFFFF0000;
+        }
+        break;
+    }
+}
+
+void sub_8046B94(FrontendState* state, unk32 arg1)
+{
+    unk32 font;
+    unk32 value;
+    unk32 table;
+    s32 delta;
+
+    switch (arg1) {
+    case 0:
+        _unk30004C8 = 0xFFFF0000;
+        _unk30004C4 = 0;
+        sub_80596AC(&state->unk250, _unk30004C8, 0);
+        _unk30004CC = 0;
+        if (sub_804915C() == 0xC) {
+            _unk3000648 = 0xC;
+        } else {
+            _unk3000648 = 0x15;
+        }
+        break;
+    case 1:
+        if (_unk30004CC == 1) {
+            font = sub_804A0E0(0);
+            table = (unk32)_806E0DC;
+            value = getLanguage() << 2;
+            table += 0x3C;
+            sub_8061660(font, *(const unk32*)(table + value), 0xF);
+        }
+        sub_80439A0(&state->unk140);
+        sub_8061844(sub_804A0E0(0), (s16)(-(_unk30004C8 >> 8) + 0x10), 0x4A);
+        delta = (_unk30004C4 - _unk30004C8) >> 2;
+        sub_80596AC(&state->unk250, delta, 0);
+        _unk30004C8 += delta;
+        _unk30004CC++;
+        break;
+    case 2:
+        if ((_unk3005DA0 & 1) != 0 || _unk30004CC > 0x258) {
+            sub_80490F8(0x17);
+            _unk30004C4 = 0xFFFF0000;
+        }
+        if ((_unk3005DA0 & 2) != 0) {
+            sub_8049178();
+            _unk30004C4 = 0xFFFF0000;
+        }
+        break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8046cc4.s");
 INCLUDE_ASM("asm/dump/8040d18/8046f2c-initBBCollectionSprite.s");
 INCLUDE_ASM("asm/dump/8040d18/804703c.s");

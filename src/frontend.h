@@ -7,6 +7,7 @@ void sub_8049018(void);
 void sub_80490CC(unk32, unk32);
 void sub_80490F8(unk32);
 void sub_8049168(void);
+unk32 sub_804915C(void);
 void sub_8049178(void);
 void sub_8046468(void*, unk32, unk32);
 void sub_80464C0(void*, s32);
