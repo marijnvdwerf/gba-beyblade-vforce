@@ -87,11 +87,8 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804abd8.s");
 
 void sub_804ABE4(UnkTrail* arg0)
 {
-    AllocatedBlock* block;
-
-    block = arg0->block;
-    if (block != NULL) {
-        deallocateBlock(block);
+    if (arg0->block != NULL) {
+        deallocateBlock(arg0->block);
     }
     arg0->block = NULL;
 }
