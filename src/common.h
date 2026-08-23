@@ -69,7 +69,7 @@ struct FrontendState {
     unk32 unk90;
     unk8 pad94[0x20];
     FrontendObject* unkB4;
-    unk8 padB8[0x36C];
+    unk8 unkB8[0x36C];
     unk32 unk424;
     unk8 pad428[0x30];
     UnkMotion motion;
