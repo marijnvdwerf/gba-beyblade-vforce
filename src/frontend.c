@@ -68,7 +68,11 @@ void sub_804924C(unk32 arg0)
     _unk3000650.unk10 = arg0;
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8049258.s");
+unk32 sub_8049258(void)
+{
+    return _unk3000650.unk10;
+}
+
 extern unk8 _unk3000BFC;
 extern u16 _unk3000BFD;
 extern void (*__oam_8756CC0)(void);
