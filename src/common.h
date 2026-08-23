@@ -103,7 +103,9 @@ struct FrontendMenuSourceItem {
     unk32 selectedX;
     unk32 selectedY;
     unk16 width;
-    unk8 pad2A[6];
+    unk8 pad2A[2];
+    unk16 unk2C;
+    unk8 pad2E[2];
 };
 
 struct FrontendMenuData {
@@ -115,15 +117,16 @@ struct FrontendMenuData {
     unk32 fontX;
     unk32 fontY;
     const FrontendMenuSourceItem* items;
+    unk32 unk20;
 };
 
 struct FrontendMenuItem {
     const FrontendMenuSourceItem* source;
     SpriteEntry* sprite;
-    unk32 x;
-    unk32 y;
-    unk32 velocity;
-    unk32 target;
+    s32 x;
+    s32 y;
+    s32 velocity;
+    s32 target;
     unk16 tile;
     unk8 pad1A[2];
 };
@@ -134,7 +137,12 @@ typedef struct FrontendMenu {
     unk32 x;
     unk32 itemSpacing;
     unk32 velocity;
-    unk32 position;
+
+    union {
+        unk32 value;
+        unk16 half;
+    } position;
+
     unk32 textPosition;
     unk32 targetPosition;
     unk32 timer;
