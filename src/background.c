@@ -13,16 +13,18 @@
 #include "unsorted.h"
 
 typedef struct {
-    u8 pad00[0x10]; // 0x00
-    AllocatedBlock* var10; // 0x10
-} UnkStruct_sub2;
+    Palette paletteA; // 0x00
+    Palette paletteB; // 0x14
+    u8 pad28[0x38]; // 0x28
+    u32* var60; // 0x60
+} BackgroundPaletteState;
 
 typedef struct {
     u8 pad000[0x650]; // 0x000
     u32 var650; // 0x650
     u8 pad654[0x50]; // 0x654
-    UnkStruct_sub2 var6A4; // 0x6A4
-    UnkStruct_sub2 var6B8; // 0x6B8
+    Palette var6A4; // 0x6A4
+    Palette var6B8; // 0x6B8
     u8 pad6CC[0x38]; // 0x6CC
     u32* var704; // 0x704
     u32 var708; // 0x708
@@ -209,7 +211,42 @@ void Background_8049C70(void)
     sub_80627F0();
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8049ce8.s");
+void sub_8049CE8(FrontendState* arg0, unk32 arg1)
+{
+    switch (arg1) {
+    case 2: {
+        BackgroundPaletteState* palettes;
+
+        palettes = (BackgroundPaletteState*)&_3000000.var6A4;
+        sub_80637E4(
+            &palettes->paletteA, (unk8*)_806A828[palettes->var60[0]].bgPalette, 0, 0x100, 0x10);
+        sub_80637E4(
+            &palettes->paletteB, (unk8*)_806A828[palettes->var60[0]].spritePalette, 0, 0x100, 0x10);
+        arg0->unk584 = 0x3E;
+        arg0->unk585 = 0xFE;
+        arg0->unk586 = 0;
+        break;
+    }
+    case 1:
+        deallocate_80637CC(&_3000000.var6B8);
+        deallocate_80637CC(&_3000000.var6A4);
+        break;
+    case 4: {
+        Palette* palette;
+        unk8* dest;
+        s8 fade;
+
+        palette = &_3000000.var6A4;
+        dest = (unk8*)PLTT;
+        fade = arg0->unk584;
+        sub_8063830(palette, dest, fade >> 1, 0x1F, 0x1F, 0x1F);
+        fade = arg0->unk584;
+        sub_8063830(palette + 1, (unk8*)(PLTT + 0x200), fade >> 1, 0x1F, 0x1F, 0x1F);
+        break;
+    }
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8049de0.s");
 
 void sub_8049F58(FrontendState* arg0, unk32 arg1)
