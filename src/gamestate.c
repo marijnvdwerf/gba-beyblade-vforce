@@ -5,7 +5,7 @@
 #include "ram.h"
 #include "unsorted.h"
 
-extern const u8 Str_87293C0[];
+extern const unk8 Str_87293C0[];
 extern LevelDescription LevelDescriptions[];
 extern unk8 _807572c[];
 extern unk8 _807576c[];
@@ -91,7 +91,7 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80515a4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80515e0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051618.s");
 
-unk8 sub_805162C(void)
+u8 sub_805162C(void)
 {
     return _currentGameState->unk6AB;
 }
@@ -155,7 +155,7 @@ unk32 sub_8051744(void)
     return 1;
 }
 
-unk8 sub_805176C(void)
+u8 sub_805176C(void)
 {
     return _currentGameState->unk6E8;
 }
@@ -199,7 +199,7 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80518c8.s");
 
 unk32 sub_80518F0(void)
 {
-    unk32 value;
+    u32 value;
     unk32 count;
 
     value = sub_8051734()->unk10;

@@ -41,15 +41,15 @@ void sub_8063544(
     s32 green;
     s32 blue;
     s32 average;
-    unk16 color;
-    unk16* source;
+    u16 color;
+    u16* source;
     unk16* destination;
 
     step = (arg1 << 0xA >> 8) / arg0->unk8;
     row = 0;
     destination = arg0->unkC.half;
     for (intensity = 0; intensity < arg0->unk8; intensity++) {
-        source = (unk16*)arg0->source + arg0->unk4;
+        source = (u16*)arg0->source + arg0->unk4;
         for (col = 0; col < arg0->unk6; col++) {
             color = *source;
             red = color & 0x1F;
@@ -96,8 +96,8 @@ void sub_8063640(Palette* arg0, s32 arg1)
     s32 red;
     s32 green;
     s32 blue;
-    unk16 color;
-    unk16* source;
+    u16 color;
+    u16* source;
     unk16* destination;
 
     numerator = arg1 << 0xA >> 8;
@@ -108,7 +108,7 @@ void sub_8063640(Palette* arg0, s32 arg1)
     row = 0;
     if (row < height) {
         do {
-            source = (unk16*)arg0->source + arg0->unk4;
+            source = (u16*)arg0->source + arg0->unk4;
             col = 0;
             if (col < arg0->unk6) {
                 do {
@@ -141,8 +141,8 @@ void sub_8063704(Palette* arg0, s32 arg1)
     s32 red;
     s32 green;
     s32 blue;
-    unk16 color;
-    unk16* source;
+    u16 color;
+    u16* source;
     unk16* destination;
     s32 intensity;
 
@@ -154,7 +154,7 @@ void sub_8063704(Palette* arg0, s32 arg1)
     destination = arg0->unkC.half;
     if (intensity < height) {
         do {
-            source = (unk16*)arg0->source + arg0->unk4;
+            source = (u16*)arg0->source + arg0->unk4;
             col = 0;
             if (col < arg0->unk6) {
                 do {
@@ -194,7 +194,7 @@ void deallocate_80637CC(Palette* arg0)
     }
 }
 
-void sub_80637E4(Palette* arg0, u16* arg1, unk32 arg2, unk32 arg3, unk32 arg4)
+void sub_80637E4(Palette* arg0, u16* arg1, u32 arg2, u32 arg3, u32 arg4)
 {
     arg0->unk4 = arg2 & 0xFFFE;
     arg0->unk6 = (arg3 + 1) & 0xFFFE;
@@ -205,7 +205,7 @@ void sub_80637E4(Palette* arg0, u16* arg1, unk32 arg2, unk32 arg3, unk32 arg4)
     __fastMemoryCopyARM(arg1 + arg0->unk4, arg0->unkC.half, arg0->unk6 * 2);
 }
 
-void sub_8063830(Palette* arg0, u16* arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
+void sub_8063830(Palette* arg0, unk16* arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5)
 {
     s16 height;
     PaletteBuffer source;
@@ -219,7 +219,7 @@ void sub_8063830(Palette* arg0, u16* arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg
     s32 red2;
     s32 green2;
     s32 blue2;
-    unk32 color;
+    u32 color;
     s32 mask;
     s32 targetSum;
 

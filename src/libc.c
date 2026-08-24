@@ -12,11 +12,11 @@
 
 void* memcpy(void* dst0, const void* src0, size_t len0)
 {
-    char* dst = dst0;
-    const char* src = src0;
+    unk8* dst = dst0;
+    const unk8* src = src0;
     long* aligned_dst;
     const long* aligned_src;
-    unsigned int len = len0;
+    u32 len = len0;
 
     // If the size is small, or either src or dst is unaligned,
     // then go to the byte copy loop. This should be rare.
@@ -39,8 +39,8 @@ void* memcpy(void* dst0, const void* src0, size_t len0)
             len -= 4;
         }
 
-        dst = (char*)aligned_dst;
-        src = (char*)aligned_src;
+        dst = (unk8*)aligned_dst;
+        src = (unk8*)aligned_src;
     }
 
     // Pick up any remaining bytes with a byte copier.
@@ -50,13 +50,13 @@ void* memcpy(void* dst0, const void* src0, size_t len0)
     return dst0;
 }
 
-void* memset(void* m, int c, size_t n)
+void* memset(void* m, s32 c, size_t n)
 {
-    char* s = (char*)m;
-    int count, i;
+    unk8* s = (unk8*)m;
+    unk32 count, i;
     unsigned long buffer;
     unsigned long* aligned_addr;
-    unsigned char* unaligned_addr;
+    unk8* unaligned_addr;
 
     // If the size is small or m is unaligned,
     // then go to the byte copy loop. This should be rare.
@@ -88,12 +88,12 @@ void* memset(void* m, int c, size_t n)
             n -= LBLOCKSIZE;
         }
 
-        s = (char*)aligned_addr;
+        s = (unk8*)aligned_addr;
     }
 
     // Pick up the remainder with a bytewise loop.
     while (n--)
-        *s++ = (char)c;
+        *s++ = (unk8)c;
 
     return m;
 }

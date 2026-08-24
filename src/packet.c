@@ -9,7 +9,7 @@ INCLUDE_ASM("asm/dump/8040d18/8043970.s");
 
 void sub_80439A0(FrontendSubobject* arg0)
 {
-    unk8 index;
+    u8 index;
     const s16* table;
 
     arg0->unk24 = 0;

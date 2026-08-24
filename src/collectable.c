@@ -4,7 +4,7 @@
 #include "ram.h"
 #include "unsorted.h"
 
-extern const char Str_8729804[];
+extern const unk8 Str_8729804[];
 
 void initCollectables(u16 levelId)
 {

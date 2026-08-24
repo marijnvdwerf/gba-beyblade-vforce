@@ -3,7 +3,7 @@
 
 #include "common.h"
 
-extern const u8 SpriteSheet_823BF04[];
+extern const unk8 SpriteSheet_823BF04[];
 extern const FrontendMenuData _80689A4[];
 extern const FrontendMenuData _80692A4[];
 extern const InputSequence _80693A0[];
@@ -16,12 +16,12 @@ extern const FrontendMenuData _8069108[];
 extern const FrontendMenuData _8069428[];
 extern const FrontendMenuData _8069514[];
 
-extern const u8* const _806E0DC[][5];
+extern const unk8* const _806E0DC[][5];
 extern const FrontendMenuData _806980C[];
 extern const FrontendMenuData _8069830[];
-extern const u8 SpriteSheet_82B05EC[];
-extern const u8 ShadowFontMeta[];
-extern const u8* _806E650[];
+extern const unk8 SpriteSheet_82B05EC[];
+extern const unk8 ShadowFontMeta[];
+extern const unk8* _806E650[];
 
 void sub_8049018(void);
 void sub_80490CC(unk32, unk32);
@@ -30,7 +30,7 @@ void sub_8049168(void);
 unk32 sub_804915C(void);
 void sub_8049178(void);
 void sub_8046468(void*, unk32, unk32);
-void sub_80464C0(void*, s32);
+void sub_80464C0(void*, unk32);
 SpriteTextCleanup* sub_804A0E0(unk32);
 void sub_8048FE4(void);
 s16 sub_80491E0(s32, s32);
@@ -38,7 +38,7 @@ void sub_8049234(unk32);
 void sub_804924C(unk32);
 unk32 sub_8049258(void);
 void sub_8049344(u32);
-s32 sub_80493C8(void);
+unk32 sub_80493C8(void);
 void sub_80495C4(void);
 void sub_804967C(void);
 

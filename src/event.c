@@ -8,22 +8,22 @@
 #include "ram.h"
 #include "unsorted.h"
 
-extern const u8 Str_8729658[];
-extern const u8 Str_87296A4[];
+extern const unk8 Str_8729658[];
+extern const unk8 Str_87296A4[];
 #if 0
 void initEventListeners(unk32 levelId)
 {
     LevelGeometryAddresses geometry;
     void* geometryData = loadLevelGeometry(levelId);
     void* metadata = getLevelMetadata(levelId);
-    s32 listenerCount = 0;
-    s32 maxListeners = 0x20;
-    s32 listenerIds[maxListeners];
-    s32* listenerPtr;
-    s32 i;
+    unk32 listenerCount = 0;
+    unk32 maxListeners = 0x20;
+    unk32 listenerIds[maxListeners];
+    unk32* listenerPtr;
+    unk32 i;
     void* lineMetadata;
     AllocatedBlock* block;
-    u32 bytes;
+    unk32 bytes;
 
     _gameData->unkCA4 = NULL;
     _gameData->unkCA0 = NULL;
@@ -41,16 +41,16 @@ void initEventListeners(unk32 levelId)
                     *listenerPtr++ = i;
                     listenerCount = listenerCount + 1;
                     if (listenerCount > maxListeners) {
-                        printf((const char*)Str_8729658, maxListeners);
+                        printf((const unk8*)Str_8729658, maxListeners);
                     }
                 }
             }
         }
         if (listenerCount != 0) {
-            bytes = listenerCount * sizeof(s32);
+            bytes = listenerCount * sizeof(unk32);
             block = slowAllocate(bytes);
             if (block == NULL) {
-                printf((const char*)Str_87296A4, bytes);
+                printf((const unk8*)Str_87296A4, bytes);
             }
             __fastMemoryCopyARM(listenerIds, block->address, bytes);
             _gameData->unkCA0 = block;

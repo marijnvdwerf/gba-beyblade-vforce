@@ -16,9 +16,9 @@ struct ActorBlock {
     ActorBlock* next;
 };
 
-extern const char Str_8755E24[];
-extern const char Str_8755E54[];
-extern const char Str_8755E8C[];
+extern const unk8 Str_8755E24[];
+extern const unk8 Str_8755E54[];
+extern const unk8 Str_8755E8C[];
 
 extern ActorBlock* _actorBlocksHeapPtr;
 extern ActorBlock* _unk3005E58;
@@ -59,7 +59,7 @@ void* sub_8062EFC(unk32 arg0)
 {
     unk32 newBlock;
     unk32 count;
-    s32 startIndex;
+    unk32 startIndex;
     ActorBlock* previous;
     ActorBlock* block;
 
@@ -69,14 +69,14 @@ void* sub_8062EFC(unk32 arg0)
         _unk3005E64 = 0;
         _unk3005E5C = 0;
     }
-    if ((s32)_unk3005E5C > 0xFF) {
+    if ((unk32)_unk3005E5C > 0xFF) {
         return NULL;
     }
     block = (ActorBlock*)sub_8062FA8();
-    if ((s32)(_unk3005E64 + count) > 0x100) {
+    if ((unk32)(_unk3005E64 + count) > 0x100) {
         newBlock = 1;
         startIndex = sub_806306C(count, block);
-        if ((s32)startIndex < 0) {
+        if ((unk32)startIndex < 0) {
             return NULL;
         }
     } else {

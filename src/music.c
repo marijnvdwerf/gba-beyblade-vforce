@@ -52,7 +52,7 @@ void sub_804AD74(void)
             lower = 0;
         }
         if (_currentGameState->unk6E6 != 0) {
-            sub_804AFD4((u16)lower);
+            sub_804AFD4((unk16)lower);
         }
         if (upper == 0 && lower == 0) {
             _unk3000F1C = (s16)lower;
@@ -67,7 +67,7 @@ void sub_804AD74(void)
             lower = _unk3000F14;
         }
         if (_currentGameState->unk6E6 < _unk3000F14) {
-            sub_804AFD4((u16)lower);
+            sub_804AFD4((unk16)lower);
         }
         if (upper == _unk3000F18 && lower == _unk3000F14) {
             _unk3000F1C = 0;

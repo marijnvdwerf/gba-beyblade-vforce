@@ -4,12 +4,12 @@
 #include "common.h"
 
 typedef struct KeyState {
-    u32 var00;
-    u32 var04;
-    u32 var08;
-    u32 var0C;
-    u16 var10;
-    u32 var14;
+    unk32 var00;
+    unk32 var04;
+    unk32 var08;
+    unk32 var0C;
+    unk16 var10;
+    unk32 var14;
 } KeyState;
 
 void initKeyState(void);

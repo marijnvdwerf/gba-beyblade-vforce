@@ -8,72 +8,72 @@
 
 typedef struct {
     u8 var00;
-    u32 var04;
+    unk32 var04;
 } SoundStructG;
 
 typedef struct {
-    /*0x00*/ u32 var00;
+    /*0x00*/ unk32 var00;
     /*0x04*/ SoundStructG var04[4];
 } SoundStructF;
 
 struct SoundStructE {
-    /*0x00*/ u8 pad00[4];
-    /*0x04*/ u32 var04;
-    /*0x08*/ u32 var08;
-    /*0x0C*/ u8 pad0C[4];
-    /*0x10*/ u8 data[0];
+    /*0x00*/ unk8 pad00[4];
+    /*0x04*/ unk32 var04;
+    /*0x08*/ unk32 var08;
+    /*0x0C*/ unk8 pad0C[4];
+    /*0x10*/ unk8 data[0];
 };
 
 typedef struct {
     /*0x00*/ SoundStructE* var00;
-    /*0x04*/ u8 (*var04)[];
+    /*0x04*/ unk8 (*var04)[];
     /*0x10*/ void* var08;
-    /*0x0C*/ u32 var0C;
-    /*0x10*/ u16 var10;
-    /*0x12*/ u8 pad12[2];
-    /*0x14*/ u16 var14;
+    /*0x0C*/ unk32 var0C;
+    /*0x10*/ unk16 var10;
+    /*0x12*/ unk8 pad12[2];
+    /*0x14*/ unk16 var14;
     /*0x16*/ u8 var16;
-    /*0x17*/ u8 var17;
-    /*0x18*/ int var18;
+    /*0x17*/ unk8 var17;
+    /*0x18*/ unk32 var18;
     /*0x1C*/ void* var1C;
     /*0x20*/ void* var20;
-    /*0x24*/ u16 var24;
-    /*0x26*/ u8 pad26[2];
+    /*0x24*/ unk16 var24;
+    /*0x26*/ unk8 pad26[2];
 } SoundStructA;
 
 typedef struct SoundStructC {
     u32 var00;
-    u32 var04;
-    u32 var08;
+    unk32 var04;
+    unk32 var08;
 } SoundStructC;
 
 typedef struct {
-    /*0x00*/ s16 var00;
+    /*0x00*/ unk16 var00;
 } SoundStructB;
 
 typedef struct {
-    /*0x00*/ u8 var00;
+    /*0x00*/ unk8 var00;
 } SoundStructD;
 
 // Rounds an integer up to the given power of 2. y must be a power of 2.
 #define ceil2(x, y) (((x) + (y) - 1) & (~((y) - 1)))
 
-extern u8* _unk3000D90;
-extern u32 _unk3000D94;
-extern u32 (*_soundTables)[];
-extern u32 _unk3000D9C;
+extern unk8* _unk3000D90;
+extern unk32 _unk3000D94;
+extern unk32 (*_soundTables)[];
+extern unk32 _unk3000D9C;
 extern u16 _unk3000DA0;
 extern u16 _unk3000DA2;
 
-extern u8 (*_unk3005E00)[];
+extern unk8 (*_unk3005E00)[];
 extern u8 _unk3005E04;
-extern s32 _unk3005E08;
-extern u32 _unk3005E0C;
-extern s32 _unk3005E10;
+extern unk32 _unk3005E08;
+extern unk32 _unk3005E0C;
+extern unk32 _unk3005E10;
 extern SfxTable* _unk3005E14;
 extern u16 _unk3005E18;
-extern u8 (*_soundMixer)[];
-extern u32 _unk3005E20;
+extern unk8 (*_soundMixer)[];
+extern unk32 _unk3005E20;
 extern SoundStructA (*_unk3005E24)[2];
 extern SoundStructF (*_unk3005E28)[16];
 extern AllocatedBlock* _soundMixerBlock;
@@ -81,16 +81,16 @@ extern AllocatedBlock* _soundTableBlock;
 // ???
 extern SoundStructC _unk3005E40;
 extern u16 _unk3005E4C;
-extern u16 (*_soundMixerPlus)[];
+extern unk16 (*_soundMixerPlus)[];
 
 // Actor?
-extern u8 _unk3005E78;
+extern unk8 _unk3005E78;
 
-void (*__sub_87577B4)(SoundStructA*, int, int);
-void (*__sound_8757A64)(int, int, int);
+void (*__sub_87577B4)(SoundStructA*, unk32, unk32);
+void (*__sound_8757A64)(unk32, unk32, unk32);
 
 // 16.16 Hz frequencies for MIDI notes 0 through 127.
-#define FIXED_16_16(hz) ((u32)((hz) * 65536.0))
+#define FIXED_16_16(hz) ((unk32)((hz) * 65536.0))
 
 const u32 MidiNoteFrequencies[128] = {
     FIXED_16_16(8.1758), // MIDI note 0: 8.1758 Hz
@@ -266,9 +266,9 @@ static void Sound_806234C(void)
 
 static void Sound_80623A8(u32 mixerOutputRate)
 {
-    s32 i;
+    unk32 i;
 
-    u32* table = *_soundTables;
+    unk32* table = *_soundTables;
     const u32* frequencyCursor = MidiNoteFrequencies;
     for (i = 127; i != -1; i--) {
         s64 scaledFrequency = *(frequencyCursor++) * (u64)SAMPLE_RATE;
@@ -276,7 +276,7 @@ static void Sound_80623A8(u32 mixerOutputRate)
         *table++ = ((scaledFrequency << 12) / MIDDLE_C_HZ) / mixerOutputRate;
     }
 
-    _unk3000D90 = (u8*)_soundMixer;
+    _unk3000D90 = (unk8*)_soundMixer;
     _unk3000D94 = 0x10000 - _unk3005E4C;
     _unk3000DA2 = -1;
     _unk3000DA0 = 256;
@@ -377,7 +377,7 @@ void Sound_80626E0(void)
     *(vu32*)REG_TM1CNT = (0xC4 << 16) | (_unk3005E18 - 2);
     *(vu32*)REG_TM0CNT = (0x80 << 16) | (0x10000 - (16780000 / _unk3005E40.var00));
 
-    _unk3000D90 = (u8*)_soundMixer;
+    _unk3000D90 = (unk8*)_soundMixer;
     _unk3000D94 = 0x10000 - _unk3005E4C;
 }
 
@@ -390,7 +390,7 @@ void Sound_onTimer1Overflow(void)
     *(vu32*)REG_DMA1CNT = DMA_ENABLE | DMA_TIMMING_SOUND | DMA_32BIT_BUS | DMA_CONTINUOUS_ON;
 }
 
-void Sound_80627A8(SoundStructA* arg0, int arg1, int arg2)
+void Sound_80627A8(SoundStructA* arg0, unk32 arg1, unk32 arg2)
 {
     uintptr_t start, end, current;
 
@@ -409,7 +409,7 @@ void Sound_80627A8(SoundStructA* arg0, int arg1, int arg2)
     }
 
     if (arg0->var00->var08 != 0) {
-        arg0->var04 = (u8(*)[])(start + (current - end) % (end - start));
+        arg0->var04 = (unk8(*)[])(start + (current - end) % (end - start));
     } else {
         arg0->var16 = 0;
     }
@@ -418,17 +418,17 @@ void Sound_80627A8(SoundStructA* arg0, int arg1, int arg2)
 #if 0
 void sub_80627F0(void)
 {
-    u8* audioCursor;
-    s32 channelCount;
-    s32 firstChunkLength;
-    s32 mixLength;
-    s32 wrapDistance;
-    u32 alignedFrameCount;
-    u32 nextTimerPosition;
-    u32 previousTimerPosition;
+    unk8* audioCursor;
+    unk32 channelCount;
+    unk32 firstChunkLength;
+    unk32 mixLength;
+    unk32 wrapDistance;
+    unk32 alignedFrameCount;
+    unk32 nextTimerPosition;
+    unk32 previousTimerPosition;
     SoundStructA* channel;
     SoundStructC* state;
-    u32* position;
+    unk32* position;
 
     channel = &(*_unk3005E24)[0];
     channelCount = _unk3005E04;
@@ -463,17 +463,17 @@ void sub_80627F0(void)
                 channelCount -= 1;
             } while (channelCount != -1);
         }
-        __sound_8757A64((int)_unk3000D90, firstChunkLength, 0);
+        __sound_8757A64((unk32)_unk3000D90, firstChunkLength, 0);
         audioCursor = _unk3000D90 + firstChunkLength;
         _unk3000D90 = audioCursor;
         if (wrapDistance != 0) {
             audioCursor -= _unk3005E4C;
             _unk3000D90 = audioCursor;
-            __sound_8757A64((int)audioCursor, wrapDistance, firstChunkLength);
+            __sound_8757A64((unk32)audioCursor, wrapDistance, firstChunkLength);
             audioCursor += wrapDistance;
             _unk3000D90 = audioCursor;
         }
-        if (_unk3000D90 == ((u8*)_soundMixer + _unk3005E4C)) {
+        if (_unk3000D90 == ((unk8*)_soundMixer + _unk3005E4C)) {
             _unk3000D90 -= _unk3005E4C;
         }
     }
@@ -518,9 +518,9 @@ static void Sound_8062950(SoundStructA* arg0, SoundStructE* (*segments)[], s16 (
     arg0->var24 = 1;
 }
 
-s32 Sound_8062990(SoundStructE* (*segments)[], s16 (*order)[])
+unk32 Sound_8062990(SoundStructE* (*segments)[], s16 (*order)[])
 {
-    int i;
+    unk32 i;
 
     SoundStructA* var1 = &(*_unk3005E24)[0];
     for (i = _unk3005E04 - 1; i != -1; i--) {
@@ -538,14 +538,14 @@ s32 Sound_8062990(SoundStructE* (*segments)[], s16 (*order)[])
     return -1;
 }
 
-s32 Sound_80629F0(SoundStructE* arg0, int arg1)
+unk32 Sound_80629F0(SoundStructE* arg0, unk32 arg1)
 {
-    int i;
+    unk32 i;
 
     SoundStructA* var1 = &(*_unk3005E24)[0];
     for (i = _unk3005E04 - 1; i != -1; i--) {
         if (var1->var16 == 0) {
-            Sound_8062910(var1, arg0, (u32)arg1);
+            Sound_8062910(var1, arg0, (unk32)arg1);
             var1->var18 = _unk3000D9C++;
 
             return var1->var18;
@@ -558,9 +558,9 @@ s32 Sound_80629F0(SoundStructE* arg0, int arg1)
     return -1;
 }
 
-static SoundStructA* Sound_8062A50(int arg0)
+static SoundStructA* Sound_8062A50(unk32 arg0)
 {
-    int i;
+    unk32 i;
 
     SoundStructA* var1 = &(*_unk3005E24)[0];
     for (i = _unk3005E04 - 1; i != -1; i--) {
@@ -574,7 +574,7 @@ static SoundStructA* Sound_8062A50(int arg0)
     return NULL;
 }
 
-void Sound_8062A90(int arg0)
+void Sound_8062A90(unk32 arg0)
 {
     SoundStructA* var;
 
@@ -584,7 +584,7 @@ void Sound_8062A90(int arg0)
     }
 }
 
-void Sound_8062AA4(int arg0)
+void Sound_8062AA4(unk32 arg0)
 {
     SoundStructA* var;
 
@@ -594,7 +594,7 @@ void Sound_8062AA4(int arg0)
     }
 }
 
-void Sound_8062AB8(int arg0)
+void Sound_8062AB8(unk32 arg0)
 {
     SoundStructA* var;
 
@@ -606,7 +606,7 @@ void Sound_8062AB8(int arg0)
 
 ASM_ZEROPAD
 
-void Sound_8062AD4(int arg0, u32 arg1)
+void Sound_8062AD4(unk32 arg0, u32 arg1)
 {
     SoundStructA* var;
 
@@ -621,7 +621,7 @@ void Sound_8062AD4(int arg0, u32 arg1)
 
 ASM_ZEROPAD
 
-void Sound_8062AF4(int arg0, u32 arg1)
+void Sound_8062AF4(unk32 arg0, u32 arg1)
 {
     SoundStructA* var;
 
@@ -667,7 +667,7 @@ void Sound_8062B90()
     }
 }
 
-void Sound_8062BA8(int arg0)
+void Sound_8062BA8(unk32 arg0)
 {
     if (arg0 >= _unk3005E14->var00) {
         return;
@@ -675,15 +675,15 @@ void Sound_8062BA8(int arg0)
 
     Sound_8062B2C();
 
-    _unk3005E00 = (u8(*)[])(*_unk3005E14->var08)[arg0][0];
-    _unk3005E20 = (u32)(*_unk3005E14->var08)[arg0][1];
+    _unk3005E00 = (unk8(*)[])(*_unk3005E14->var08)[arg0][0];
+    _unk3005E20 = (unk32)(*_unk3005E14->var08)[arg0][1];
 
     _unk3005E08 = 0;
     _unk3005E10 = 0;
     _unk3005E0C = 1;
 }
 
-s32 Sound_8062BFC(int arg0, int arg1)
+unk32 Sound_8062BFC(unk32 arg0, unk32 arg1)
 {
     if (arg0 >= _unk3005E14->count) {
         return;
@@ -695,11 +695,11 @@ s32 Sound_8062BFC(int arg0, int arg1)
 #if 0
 void sub_8062C24(void)
 {
-    u8 opcode;
+    unk8 opcode;
     SoundStructF* event;
     SoundStructG* channel;
-    s32 i;
-    s32 found;
+    unk32 i;
+    unk32 found;
 
     if (_unk3005E0C != 1) {
         return;
@@ -713,23 +713,23 @@ void sub_8062C24(void)
     /* The target's entry guard keeps the body out when the adjusted time is positive; zero enters it. */
     do {
         opcode = (*_unk3005E00)[0];
-        _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+        _unk3005E00 = (unk8(*)[])((unk8*)_unk3005E00 + 1);
 
         if ((opcode & 0x80) == 0) {
-            u8 value;
+            unk8 value;
 
             value = (*_unk3005E00)[0];
-            _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+            _unk3005E00 = (unk8(*)[])((unk8*)_unk3005E00 + 1);
             _unk3005E08 += (opcode << 8 | value) << 16;
             continue;
         }
 
         switch (opcode >> 4) {
         case 8: {
-            u8 value8;
+            unk8 value8;
 
             value8 = (*_unk3005E00)[0];
-            _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 2);
+            _unk3005E00 = (unk8(*)[])((unk8*)_unk3005E00 + 2);
             event = &(*_unk3005E28)[opcode & 0xF];
             channel = &event->var04[0];
             i = 4;
@@ -744,13 +744,13 @@ void sub_8062C24(void)
             break;
         }
         case 9: {
-            u8 value9;
-            u8 value2;
+            unk8 value9;
+            unk8 value2;
 
             value9 = (*_unk3005E00)[0];
-            _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+            _unk3005E00 = (unk8(*)[])((unk8*)_unk3005E00 + 1);
             value2 = (*_unk3005E00)[1];
-            _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+            _unk3005E00 = (unk8(*)[])((unk8*)_unk3005E00 + 1);
             event = &(*_unk3005E28)[opcode & 0xF];
             if (event->var00 == 0) {
                 break;
@@ -793,20 +793,20 @@ void sub_8062C24(void)
         case 0xB:
             switch (opcode & 0xF) {
             case 0:
-                _unk3005E00 = (u8(*)[])_unk3005E20;
+                _unk3005E00 = (unk8(*)[])_unk3005E20;
                 break;
             case 1:
-                _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+                _unk3005E00 = (unk8(*)[])((unk8*)_unk3005E00 + 1);
                 break;
             case 2:
                 _unk3005E10 = (*_unk3005E00)[0] << 24;
-                _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+                _unk3005E00 = (unk8(*)[])((unk8*)_unk3005E00 + 1);
                 _unk3005E10 |= (*_unk3005E00)[0] << 16;
-                _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+                _unk3005E00 = (unk8(*)[])((unk8*)_unk3005E00 + 1);
                 _unk3005E10 |= (*_unk3005E00)[0] << 8;
-                _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+                _unk3005E00 = (unk8(*)[])((unk8*)_unk3005E00 + 1);
                 _unk3005E10 |= (*_unk3005E00)[0];
-                _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+                _unk3005E00 = (unk8(*)[])((unk8*)_unk3005E00 + 1);
                 break;
             case 3:
                 printf(Str_8755E14);
@@ -814,16 +814,16 @@ void sub_8062C24(void)
             }
             break;
         case 0xC: {
-            u8 value;
+            unk8 value;
 
             value = (*_unk3005E00)[0];
-            _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+            _unk3005E00 = (unk8(*)[])((unk8*)_unk3005E00 + 1);
             event = &(*_unk3005E28)[opcode & 0xF];
             event->var00 = (SoundStructE*)(*_unk3005E14->var08)[value][0];
             break;
         }
         case 0xD:
-            _unk3005E00 = (u8(*)[])((u8*)_unk3005E00 + 1);
+            _unk3005E00 = (unk8(*)[])((unk8*)_unk3005E00 + 1);
             break;
         }
 
@@ -843,7 +843,7 @@ void sub_8062C24(void) {
     _unk3005E08 -= _unk3005E10;
 
     while (_unk3005E08 < 0) {
-        u8 byte = (*_unk3005E00++)[0];
+        unk8 byte = (*_unk3005E00++)[0];
 
         if (!(byte & 0x80)) {
             _unk3005E08 += (byte << 8 | (*_unk3005E00++)[0]) << 16;
@@ -853,7 +853,7 @@ void sub_8062C24(void) {
         switch (byte >> 4) {
         case 8: {
             int i;
-            u8 byte2 = (*_unk3005E00++)[0];
+            unk8 byte2 = (*_unk3005E00++)[0];
             _unk3005E00++;
 
             for (i = 4; i != 0; i--) {
@@ -864,10 +864,10 @@ void sub_8062C24(void) {
             break;
         case 9:
         {
-            u8 byte1 = (*_unk3005E00++)[0];
-            u8 byte2 = (*_unk3005E00++)[0];
+            unk8 byte1 = (*_unk3005E00++)[0];
+            unk8 byte2 = (*_unk3005E00++)[0];
 
-            u8 index = byte&0xF;
+            unk8 index = byte&0xF;
 
             if(*_unk3005E28[index][0] == 0) {
                 break;
@@ -877,7 +877,7 @@ void sub_8062C24(void) {
         case 11:
             switch (byte & 0xF) {
             case 0:
-                _unk3005E00 = (u8[]) _unk3005E20;
+                _unk3005E00 = (unk8[]) _unk3005E20;
                 break;
             case 1:
                 _unk3005E00++;
@@ -898,7 +898,7 @@ void sub_8062C24(void) {
 
 }*/
 
-int Sound_8062E54(int arg0)
+unk32 Sound_8062E54(unk32 arg0)
 {
     SoundStructA* var1 = Sound_8062A50(arg0);
 

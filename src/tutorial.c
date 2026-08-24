@@ -24,9 +24,9 @@ void StoreLevelVar14(unk32 arg0)
 
 INCLUDE_ASM("asm/dump/8040d18/804a364.s");
 INCLUDE_ASM("asm/dump/8040d18/804a378.s");
-extern const char Str_87233E8[];
-extern const u8 SpriteSheet_82B05EC[];
-extern const u8 ShadowFontMeta[];
+extern const unk8 Str_87233E8[];
+extern const unk8 SpriteSheet_82B05EC[];
+extern const unk8 ShadowFontMeta[];
 extern TutorialPage TutorialPages[];
 
 void initTutorialManagement(u16 levelId)

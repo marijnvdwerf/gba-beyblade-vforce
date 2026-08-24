@@ -6,20 +6,20 @@
 #include "system.h"
 #include "unsorted.h"
 
-extern u8 const Str_872CB2C[];
+extern unk8 const Str_872CB2C[];
 
 extern const void* const Unk_872CAF4[];
 
 void sub_8057984(void)
 {
-    int i;
+    s32 i;
     for (i = 0; i < 14; i++) {
         // printf("irq %i:\t%i\n", i, _unk3001110[i]);
         printf(Str_872CB2C, i, _unk3001110[i]);
     }
 }
 
-void InitStuff_SetDispStat(u16 dispstat)
+void InitStuff_SetDispStat(unk16 dispstat)
 {
     s32 i;
 

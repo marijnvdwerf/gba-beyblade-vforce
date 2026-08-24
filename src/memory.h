@@ -5,9 +5,9 @@
 
 void initBlockVariables(void);
 
-AllocatedBlock* fastAllocate(u32 size);
+AllocatedBlock* fastAllocate(unk32 size);
 
-AllocatedBlock* slowAllocate(u32 size);
+AllocatedBlock* slowAllocate(unk32 size);
 
 void deallocateBlock(AllocatedBlock* block);
 

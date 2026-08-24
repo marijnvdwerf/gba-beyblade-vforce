@@ -8,25 +8,25 @@
 #define EXRAM_SIZE 0x3FC00
 #define WRAM_SIZE 19232
 
-#define ewram ((u8*)0x2000000)
+#define ewram ((unk8*)0x2000000)
 
 AllocatedBlock* _nextExramBlock = NULL;
-u8 (*_exram)[EXRAM_SIZE] = NULL;
+unk8 (*_exram)[EXRAM_SIZE] = NULL;
 void* _unk3001158 = NULL;
-u32 _exramBlocksUsed = 0;
-u8 _wram[WRAM_SIZE] = { 0 };
+unk32 _exramBlocksUsed = 0;
+unk8 _wram[WRAM_SIZE] = { 0 };
 AllocatedBlock (*_wramBlocks)[BLOCK_COUNT] = NULL;
 AllocatedBlock* _nextWramBlock = NULL;
-u32 _wramBlocksUsed = 0;
+unk32 _wramBlocksUsed = 0;
 void* _unk3005C8C = NULL;
 AllocatedBlock (*_exramBlocks)[BLOCK_COUNT] = NULL;
 
-AllocatedBlock* sub_805A53C(u32 size, u8* base, u32 capacity, AllocatedBlock* current,
+AllocatedBlock* sub_805A53C(u32 size, unk8* base, unk32 capacity, AllocatedBlock* current,
     AllocatedBlock* block, AllocatedBlock** nextBlockPtr);
 
 void initBlockVariables(void)
 {
-    int blockSize = sizeof(AllocatedBlock) * BLOCK_COUNT;
+    unk32 blockSize = sizeof(AllocatedBlock) * BLOCK_COUNT;
 
     _wramBlocksUsed = 0;
     _exramBlocksUsed = 0;
@@ -37,12 +37,12 @@ void initBlockVariables(void)
 
     _wramBlocks = (AllocatedBlock(*)[BLOCK_COUNT])ewram;
     _exramBlocks = (AllocatedBlock(*)[BLOCK_COUNT])(ewram + blockSize);
-    _exram = (u8(*)[EXRAM_SIZE])(ewram + blockSize + blockSize);
+    _exram = (unk8(*)[EXRAM_SIZE])(ewram + blockSize + blockSize);
 }
 
 AllocatedBlock* getValidAllocatedBlock(AllocatedBlock (*)[], s32);
 
-AllocatedBlock* fastAllocate(u32 size)
+AllocatedBlock* fastAllocate(unk32 size)
 {
     AllocatedBlock* block;
     AllocatedBlock* block2;
@@ -66,7 +66,7 @@ AllocatedBlock* fastAllocate(u32 size)
     return block2;
 }
 
-AllocatedBlock* slowAllocate(u32 size)
+AllocatedBlock* slowAllocate(unk32 size)
 {
     AllocatedBlock* block;
     AllocatedBlock* block2;
@@ -82,7 +82,7 @@ AllocatedBlock* slowAllocate(u32 size)
         printf("Error in slowAllocate(), unable to allocate %i bytes\n", size);
     }
 
-    block2 = sub_805A53C(size, (u8*)_exram, EXRAM_SIZE, _nextExramBlock, block, &_nextExramBlock);
+    block2 = sub_805A53C(size, (unk8*)_exram, EXRAM_SIZE, _nextExramBlock, block, &_nextExramBlock);
     if (block2 != NULL) {
         _exramBlocksUsed += 1;
     }
@@ -137,22 +137,22 @@ void deallocateBlock(AllocatedBlock* block)
     block->previous = NULL;
 }
 
-AllocatedBlock* sub_805A53C(u32 size, u8* base, u32 capacity, AllocatedBlock* current,
+AllocatedBlock* sub_805A53C(u32 size, unk8* base, unk32 capacity, AllocatedBlock* current,
     AllocatedBlock* block, AllocatedBlock** nextBlockPtr)
 {
     u32 firstGap;
     u32 gap;
     u32 finalGap;
-    u8* end;
-    u8* last;
-    u32 address;
+    unk8* end;
+    unk8* last;
+    unk32 address;
     AllocatedBlock* cur;
 
-    address = (u32)current->address;
+    address = (unk32)current->address;
     cur = current;
     firstGap = 0;
     if (address != 0) {
-        firstGap = (u8*)address - base;
+        firstGap = (unk8*)address - base;
     }
 
     if (firstGap >= size) {
@@ -172,9 +172,9 @@ AllocatedBlock* sub_805A53C(u32 size, u8* base, u32 capacity, AllocatedBlock* cu
         do {
             nextBlock = cur->next;
             if (nextBlock != NULL) {
-                gap = (u8*)nextBlock->address - ((u8*)cur->address + cur->size);
+                gap = (unk8*)nextBlock->address - ((unk8*)cur->address + cur->size);
                 if (gap >= size) {
-                    block->address = (u8*)cur->address + cur->size;
+                    block->address = (unk8*)cur->address + cur->size;
                     block->previous = cur;
                     block->next = cur->next;
                     block->size = size;
@@ -185,7 +185,7 @@ AllocatedBlock* sub_805A53C(u32 size, u8* base, u32 capacity, AllocatedBlock* cu
                 cur = nextBlock;
             } else {
                 if (cur->address != NULL) {
-                    last = (u8*)cur->address + cur->size;
+                    last = (unk8*)cur->address + cur->size;
                     finalGap = end - last;
                 } else {
                     last = base;

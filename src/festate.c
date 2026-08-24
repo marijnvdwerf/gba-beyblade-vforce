@@ -18,7 +18,7 @@
 #include "spritetext.h"
 #include "unsorted.h"
 
-void sub_8043A0C(FrontendState* state, unk32 arg1, unk32 arg2)
+void sub_8043A0C(FrontendState* state, u32 arg1, u32 arg2)
 {
     switch (arg1) {
     case 0:
@@ -33,7 +33,7 @@ void sub_8043A0C(FrontendState* state, unk32 arg1, unk32 arg2)
     }
 }
 
-void sub_8043A58(FrontendState* state, unk32 arg1, unk32 arg2)
+void sub_8043A58(FrontendState* state, u32 arg1, u32 arg2)
 {
     switch (arg1) {
     case 0:
@@ -48,7 +48,7 @@ void sub_8043A58(FrontendState* state, unk32 arg1, unk32 arg2)
     }
 }
 
-void sub_8043AA0(FrontendState* state, unk32 arg1)
+void sub_8043AA0(FrontendState* state, u32 arg1)
 {
     FrontendMenu* menu;
     SpriteEntry* sprite1;
@@ -139,7 +139,7 @@ void sub_8043AA0(FrontendState* state, unk32 arg1)
     }
 }
 
-void sub_8043CF8(FrontendState* state, unk32 arg1)
+void sub_8043CF8(FrontendState* state, u32 arg1)
 {
     switch (arg1) {
     case 0:
@@ -168,7 +168,7 @@ void sub_8043CF8(FrontendState* state, unk32 arg1)
     }
 }
 
-void sub_8043D84(FrontendState* state, unk32 arg1)
+void sub_8043D84(FrontendState* state, u32 arg1)
 {
     switch (arg1) {
     case 0:
@@ -196,7 +196,7 @@ INCLUDE_ASM("asm/dump/8040d18/8044c48.s");
 INCLUDE_ASM("asm/dump/8040d18/8044ed4.s");
 INCLUDE_ASM("asm/dump/8040d18/8045160.s");
 
-void sub_80453D8(FrontendState* state, unk32 arg1)
+void sub_80453D8(FrontendState* state, u32 arg1)
 {
     switch (arg1) {
     case 0:
@@ -218,7 +218,7 @@ void sub_80453D8(FrontendState* state, unk32 arg1)
     }
 }
 
-void sub_804541C(FrontendState* state, unk32 arg1)
+void sub_804541C(FrontendState* state, u32 arg1)
 {
     FrontendMenu* menu;
     SpriteEntry* sprite1;
@@ -298,7 +298,7 @@ void sub_804541C(FrontendState* state, unk32 arg1)
     }
 }
 
-void sub_8045638(FrontendState* state, unk32 arg1, unk32 arg2)
+void sub_8045638(FrontendState* state, u32 arg1, u32 arg2)
 {
     switch (arg1) {
     case 0:
@@ -327,7 +327,7 @@ void sub_804566C(FrontendState* state, unk32 arg1)
     }
 }
 
-void sub_804568C(FrontendState* state, unk32 arg1)
+void sub_804568C(FrontendState* state, u32 arg1)
 {
     FrontendResource* resource;
     s32 i;
@@ -394,7 +394,7 @@ void sub_804568C(FrontendState* state, unk32 arg1)
     }
 }
 
-void sub_8045848(FrontendState* state, unk32 arg1)
+void sub_8045848(FrontendState* state, u32 arg1)
 {
     FrontendMenu* menu;
     SpriteEntry* sprite1;
@@ -480,7 +480,7 @@ void sub_8045848(FrontendState* state, unk32 arg1)
     }
 }
 
-void sub_8045A7C(FrontendState* state, unk32 arg1)
+void sub_8045A7C(FrontendState* state, u32 arg1)
 {
     switch (arg1) {
     case 0: {
@@ -569,7 +569,7 @@ void sub_8045A7C(FrontendState* state, unk32 arg1)
 
 INCLUDE_ASM("asm/dump/8040d18/8045cb4.s");
 
-void sub_80461D8(FrontendState* state, unk32 arg1)
+void sub_80461D8(FrontendState* state, u32 arg1)
 {
     SpriteEntry* sprite1;
     SpriteEntry* sprite2;
@@ -642,7 +642,7 @@ void sub_80461D8(FrontendState* state, unk32 arg1)
     }
 }
 
-void sub_8046424(FrontendState* arg0, unk32 arg1)
+void sub_8046424(FrontendState* arg0, u32 arg1)
 {
     switch (arg1) {
     case 0:
@@ -665,7 +665,7 @@ void sub_8046424(FrontendState* arg0, unk32 arg1)
 INCLUDE_ASM("asm/dump/8040d18/8046468.s");
 INCLUDE_ASM("asm/dump/8040d18/80464c0.s");
 
-void sub_8046500(FrontendState* state, unk32 arg1, unk32 arg2)
+void sub_8046500(FrontendState* state, u32 arg1, u32 arg2)
 {
     SpriteEntry* leftSprite;
     SpriteEntry* rightSprite;
@@ -765,7 +765,7 @@ void sub_8046500(FrontendState* state, unk32 arg1, unk32 arg2)
     }
 }
 
-void sub_8046814(FrontendState* state, unk32 arg1)
+void sub_8046814(FrontendState* state, u32 arg1)
 {
     SpriteEntry* leftSprite;
     SpriteEntry* rightSprite;
@@ -833,7 +833,7 @@ void sub_8046814(FrontendState* state, unk32 arg1)
 
 INCLUDE_ASM("asm/dump/8040d18/8046a0c.s");
 
-void sub_8046B94(FrontendState* state, unk32 arg1)
+void sub_8046B94(FrontendState* state, u32 arg1)
 {
     s32 scrollDelta;
 
@@ -873,7 +873,7 @@ void sub_8046B94(FrontendState* state, unk32 arg1)
     }
 }
 
-void sub_8046CC4(FrontendState* state, unk32 arg1)
+void sub_8046CC4(FrontendState* state, u32 arg1)
 {
     unk32 value;
 
@@ -970,7 +970,7 @@ INCLUDE_ASM("asm/dump/8040d18/804868c.s");
 INCLUDE_ASM("asm/dump/8040d18/8048a74.s");
 INCLUDE_ASM("asm/dump/8040d18/8048ae8.s");
 
-void sub_8048D8C(FrontendState* state, unk32 arg1)
+void sub_8048D8C(FrontendState* state, u32 arg1)
 {
     switch (arg1) {
     case 0: {

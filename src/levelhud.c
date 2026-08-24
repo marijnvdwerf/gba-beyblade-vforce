@@ -31,7 +31,7 @@ void sub_804F9B4(void)
 void sub_804FA40(void)
 {
     GameData* state;
-    const u8* const* table;
+    const unk8* const* table;
     SpriteTextCleanup* hud;
     unk32 language;
     MotionGroup* motion;
@@ -54,7 +54,7 @@ void sub_804FA40(void)
 void sub_804FAD4(void)
 {
     GameData* state;
-    const u8* const* table;
+    const unk8* const* table;
     SpriteTextCleanup* hud;
     unk32 language;
     MotionGroup* motion;
@@ -83,7 +83,7 @@ void sub_804FD64(void)
 {
     GameData* base;
     SpriteTextCleanup* hud;
-    unk16* flags;
+    u16* flags;
 
     base = _gameData;
     hud = &base->levelHud0;

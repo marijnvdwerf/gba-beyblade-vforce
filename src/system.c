@@ -13,12 +13,12 @@ typedef struct Unk3000EE0 {
 
 extern Unk3000EE0 _unk3000EE0;
 
-void EnableInterrupt(u16 value)
+void EnableInterrupt(unk16 value)
 {
     *(vu16*)REG_IE |= value;
 }
 
-void DisableInterrupt(u16 value)
+void DisableInterrupt(unk16 value)
 {
     *(vu16*)REG_IE &= ~value;
 }
@@ -51,7 +51,7 @@ void nullsub_31(void)
 {
 }
 
-void nullsub_8(const char* arg0)
+void nullsub_8(const unk8* arg0)
 {
 }
 

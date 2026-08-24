@@ -4,7 +4,7 @@
 #include "ram.h"
 #include "system.h"
 
-extern const u8 Str_87553D0[];
+extern const unk8 Str_87553D0[];
 
 void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable* geometry)
 {
@@ -43,7 +43,7 @@ void StoreMetadataAddr(LevelGeometryAddresses* arg0, LineMetadata** value)
     arg0->unk114 = value;
 }
 
-LineMetadata* GetLineMetaData(LevelGeometryAddresses* arg0, s32 index)
+LineMetadata* GetLineMetaData(LevelGeometryAddresses* arg0, unk32 index)
 {
     LineMetadata** metadata;
 
@@ -86,7 +86,7 @@ LineMetaObject* getLineMetaobjectByTypeAndId(
     s32 count;
     s32 limit;
     LineMetaObject* ptr;
-    unk16 key;
+    u16 key;
 
     index = 0;
     ptr = metadata->objects;
@@ -95,7 +95,7 @@ LineMetaObject* getLineMetaobjectByTypeAndId(
     }
     count = metadata->count;
     if (index < count) {
-        key = (unk16)id;
+        key = (u16)id;
         limit = count;
         for (; index < limit; index++) {
             if (ptr->type == type && ptr->id == key) {

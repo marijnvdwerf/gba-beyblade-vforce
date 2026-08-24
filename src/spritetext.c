@@ -8,10 +8,10 @@
 #include "unsorted.h"
 
 extern void sub_806123C(SpriteTextCleanup*);
-extern const u8 Str_8755B58[];
+extern const unk8 Str_8755B58[];
 extern const u8 byte_807D980[];
 
-void allocFont(SpriteTextCleanup* arg0, const u8* arg1, const u8* arg2, s16 arg3, s16 arg4,
+void allocFont(SpriteTextCleanup* arg0, const unk8* arg1, const unk8* arg2, s16 arg3, s16 arg4,
     unk16 arg5, unk16 arg6)
 {
     arg0->x = arg3 << 8;
@@ -66,7 +66,7 @@ void sub_8061228(SpriteTextCleanup* arg0)
 #if 0
 void sub_806123C(SpriteTextCleanup* text)
 {
-    const u8* widths;
+    const unk8* widths;
     unk8 char_width;
     unk32 x;
     unk32 y;
@@ -81,10 +81,10 @@ void sub_806123C(SpriteTextCleanup* text)
     SpriteEntry* child;
     unk32 line_shift;
     SpriteEntry* next_line;
-    s32 delta;
-    s32 advance;
-    s32 position;
-    s32 adjustment;
+    unk32 delta;
+    unk32 advance;
+    unk32 position;
+    unk32 adjustment;
     SpriteEntry* saved_first;
 
     widths = text->unk20;
@@ -207,22 +207,22 @@ void sub_806123C(SpriteTextCleanup* text)
 INCLUDE_ASM("asm/dump/8057b80-debug/806123c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80614b0.s");
 
-unk8 showString(SpriteTextCleanup* arg0, const u8* text, unk8 mode)
+u8 showString(SpriteTextCleanup* arg0, const u8* text, u8 mode)
 {
     SpriteEntry* sprite;
     SpriteEntry* child;
     SpriteEntry* result;
-    unk32 char_width;
+    u32 char_width;
     const u8* width;
-    unk32 x;
-    unk32 extra;
-    unk32 flags;
-    unk32 load_flags;
-    unk32 text_width;
-    unk32 count;
-    unk32 advance;
+    u32 x;
+    u32 extra;
+    u32 flags;
+    u32 load_flags;
+    u32 text_width;
+    u32 count;
+    u32 advance;
     s32 offset;
-    unk8 ch;
+    u8 ch;
 
     text_width = sub_8064F38(text);
     char_width = arg0->unk24[4];
@@ -272,10 +272,10 @@ unk8 showString(SpriteTextCleanup* arg0, const u8* text, unk8 mode)
             sub_8061168(sprite, mode);
             sub_8061130(sprite, arg0->unkE);
             if (width != NULL) {
-                advance = (unk16)(advance - width[ch]);
+                advance = (u16)(advance - width[ch]);
             }
             offset = arg0->unk29;
-            advance = (unk16)(advance + offset);
+            advance = (u16)(advance + offset);
             sprite->unk1E = x | extra;
             extra = 0;
             if (child != NULL) {
@@ -284,14 +284,14 @@ unk8 showString(SpriteTextCleanup* arg0, const u8* text, unk8 mode)
             }
             sprite = sprite->next;
         }
-        x = (unk16)(x + advance);
+        x = (u16)(x + advance);
     }
     sub_806123C(arg0);
     arg0->unkA = x;
     return 1;
 }
 
-unk8 sub_8061660(SpriteTextCleanup* arg0, const u8* arg1, unk8 arg2)
+u8 sub_8061660(SpriteTextCleanup* arg0, const u8* arg1, u8 arg2)
 {
     sub_8061228(arg0);
     return showString(arg0, arg1, arg2);
@@ -310,13 +310,13 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8061844.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/806185c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061880.s");
 
-unk8 showNumber(SpriteTextCleanup* arg0, s32 arg1, unk8 arg2)
+u8 showNumber(SpriteTextCleanup* arg0, s32 arg1, u8 arg2)
 {
-    unk8 negative;
-    unk8 group;
-    unk8 digits;
-    unk8 buffer[16];
-    unk8* ptr;
+    u8 negative;
+    u8 group;
+    u8 digits;
+    u8 buffer[16];
+    u8* ptr;
     s32 digit;
 
     negative = 0;
@@ -359,7 +359,7 @@ unk8 showNumber(SpriteTextCleanup* arg0, s32 arg1, unk8 arg2)
     return showString(arg0, ptr, arg2);
 }
 
-unk8 showNumber_2(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
+u8 showNumber_2(SpriteTextCleanup* arg0, unk32 arg1, u8 arg2)
 {
     sub_8061228(arg0);
     return showNumber(arg0, arg1, arg2);

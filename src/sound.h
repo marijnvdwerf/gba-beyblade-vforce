@@ -8,20 +8,20 @@ typedef struct SoundStructE SoundStructE;
 typedef struct SfxTable {
     u32 var00;
     u32 count;
-    s8* (*var08)[][2];
-    s8* (*data)[];
+    unk8* (*var08)[][2];
+    unk8* (*data)[];
 } SfxTable;
 
 void sub_80627F0(void);
 void Sound_8062B20(SfxTable* table);
-s32 Sound_8062990(SoundStructE* (*)[], s16 (*)[]);
+unk32 Sound_8062990(SoundStructE* (*)[], s16 (*)[]);
 void allocateSoundTables(u32, u32);
 void Sound_onTimer1Overflow(void);
-void Sound_8062A90(int);
-void Sound_8062AA4(int);
-void Sound_8062AB8(int);
-void Sound_8062AD4(int, u32);
-void Sound_8062AF4(int, u32);
-s32 Sound_8062BFC(int, int);
+void Sound_8062A90(unk32);
+void Sound_8062AA4(unk32);
+void Sound_8062AB8(unk32);
+void Sound_8062AD4(unk32, u32);
+void Sound_8062AF4(unk32, u32);
+unk32 Sound_8062BFC(unk32, unk32);
 
 #endif // _SOUND_H

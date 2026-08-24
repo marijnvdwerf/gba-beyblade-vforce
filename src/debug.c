@@ -11,7 +11,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8057c28-nullsub_19.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8057c2c-nullsub_20.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8057c30-printf_2.s");
 
-int printf(const char* format, ...)
+unk32 printf(const unk8* format, ...)
 {
 }
 

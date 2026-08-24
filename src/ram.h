@@ -9,12 +9,12 @@
 #include "sprite.h"
 
 extern MultiPlayerState* _unk3005DC4;
-extern u8 _unk3000BFC;
-extern u16 _unk3000BFD;
+extern unk8 _unk3000BFC;
+extern unk16 _unk3000BFD;
 extern unk32 _unk3000C00;
 extern unk32 _unk3000C10[2];
 extern s32 _unk3000C04;
-extern u8 _unk3000D30[80];
+extern unk8 _unk3000D30[80];
 extern s32 _unk3000C08;
 extern void (*_unk3000C0C)(void);
 void sub_805565C(void);
@@ -55,7 +55,7 @@ typedef struct QuadTree {
 
 typedef struct BeybladeActorData {
     AllocatedBlock* block;
-    unk8 unk4;
+    u8 unk4;
     unk8 pad5[3];
 } BeybladeActorData;
 
@@ -70,9 +70,9 @@ typedef struct ProjectileEntry {
     unk32 accelerationY;
     unk32 accelerationZ;
     unk32 duration;
-    u16 flags;
+    unk16 flags;
     s16 trailDelay;
-    u16 unk2C;
+    unk16 unk2C;
     UnkTrail* trail;
 } ProjectileEntry;
 
@@ -88,29 +88,29 @@ typedef struct ProjectileSystem {
     unk32 unk1C;
     unk32 unk20;
     unk32 unk24;
-    s16 unk28;
+    unk16 unk28;
     unk8 pad2A[2];
-    s32 unk2C;
-    s32 unk30;
+    unk32 unk2C;
+    unk32 unk30;
     Palette palette34;
     Palette palette48;
     Palette palette5C;
-    u16 unk70;
-    u16 unk72;
-    u16 unk74;
-    u16 unk76;
-    u16 unk78;
-    s16 unk7A;
-    u16 unk7C;
-    u16 unk7E;
+    unk16 unk70;
+    unk16 unk72;
+    unk16 unk74;
+    unk16 unk76;
+    unk16 unk78;
+    unk16 unk7A;
+    unk16 unk7C;
+    unk16 unk7E;
     unk32 unk80;
     unk32 unk84;
     unk32 unk88;
 } ProjectileSystem;
 
 typedef struct LevelHudText {
-    s32 x; /* 0x00 */
-    s32 y; /* 0x04 */
+    unk32 x; /* 0x00 */
+    unk32 y; /* 0x04 */
     unk8 pad8[0x28]; /* 0x08 */
 } LevelHudText;
 
@@ -242,30 +242,30 @@ typedef struct GameData {
     unk16 unk1078; /* 0x1078 */
     unk16 unk107A; /* 0x107A */
     unk8 unk107C; /* 0x107C */
-    unk8 unk107D; /* 0x107D */
+    u8 unk107D; /* 0x107D */
     unk8 pad107E[2]; /* 0x107E */
     unk32 unk1080; /* 0x1080 */
     ProjectileSystem projectileSystem; /* 0x1084 */
     BeybladeActorData actorData[0x3C]; /* 0x1110 */
-    u16 unk12F0; /* 0x12F0 */
+    unk16 unk12F0; /* 0x12F0 */
     unk8 pad12F2[2]; /* 0x12F2 */
     CollectableData collectables; /* 0x12F4 */
     TutorialData tutorial; /* 0x13FC */
     unk8 pad153C[0x98]; /* 0x153C */
     unk8 unk15D4[0x40]; /* 0x15D4 */
     unk8 pad1614[4]; /* 0x1614 */
-    unk8 unk1618; /* 0x1618 */
+    u8 unk1618; /* 0x1618 */
     unk8 unk1619; /* 0x1619 */
     unk8 pad161A[1]; /* 0x161A */
-    unk8 unk161B; /* 0x161B */
+    u8 unk161B; /* 0x161B */
     u16 unk161C; /* 0x161C */
     unk8 pad161E[2]; /* 0x161E */
     unk8 unk1620[0x18]; /* 0x1620 */
-    unk8 unk1638; /* 0x1638 */
+    u8 unk1638; /* 0x1638 */
     unk8 pad1639[3]; /* 0x1639 */
     unk32 unk163C; /* 0x163C */
     unk8 unk1640; /* 0x1640 */
-    unk8 unk1641; /* 0x1641 */
+    u8 unk1641; /* 0x1641 */
     unk8 pad1642[2]; /* 0x1642 */
 } GameData;
 
@@ -279,26 +279,26 @@ typedef struct CurrentGameStateTail {
 typedef struct CurrentGameState {
     s8 unk0;
     unk8 unk1;
-    unk8 unk2;
-    unk8 unk3;
+    u8 unk2;
+    u8 unk3;
     LevelState unk4[0x38];
     unk8 pad544[0x160];
     unk8 unk6A4;
     unk8 pad6A5[6];
-    unk8 unk6AB;
+    u8 unk6AB;
     unk16 unk6AC;
     unk16 unk6AE;
     AllocatedBlock* unk6B0;
     unk32 unk6B4;
     unk8 unk6B8[4];
     void* unk6BC;
-    unk32 unk6C0;
-    unk16 unk6C4;
+    u32 unk6C0;
+    u16 unk6C4;
     unk16 unk6C6;
     unk8 unk6C8[0x1C];
-    unk16 unk6E4;
-    unk16 unk6E6;
-    unk8 unk6E8;
+    u16 unk6E4;
+    u16 unk6E6;
+    u8 unk6E8;
     unk8 unk6E9;
     s16 unk6EA;
     CurrentGameStateTail unk6EC;
@@ -318,8 +318,8 @@ extern u32 _unk3000E30[3];
 extern CurrentGameState* _currentGameState;
 extern void* _unk3000FC0[4];
 extern unk32 _unk3000FD0[4];
-extern u8 _unk3000FE0[304];
-extern u32 _unk3001110[16];
+extern unk8 _unk3000FE0[304];
+extern unk32 _unk3001110[16];
 
 extern void* _unk3000DF0[14];
 extern unk8 _unk3000F20[32];
@@ -334,7 +334,7 @@ extern s32 _unk3000608;
 extern s32 _unk300060C;
 extern SpriteTextCleanup _unk3000610;
 extern s32 _unk3000640;
-extern s32 _unk3000644;
+extern unk32 _unk3000644;
 
 extern SpriteEntry* _unk3000158;
 extern SpriteEntry* _unk300015C;
@@ -375,7 +375,7 @@ extern s32 _unk30003C4;
 extern s32 _unk3000474;
 extern FrontendCoordinateTarget _unk3000478;
 extern FrontendSelectionObject _unk3000480;
-extern u8 _unk3000490;
+extern unk8 _unk3000490;
 extern u8 _unk3000491;
 extern SpriteEntry* _unk3000494;
 extern SpriteEntry* _unk3000498;
@@ -385,20 +385,20 @@ extern SpriteEntry* _unk30004A4;
 extern SpriteEntry* _unk30004A8;
 extern s32 _unk30004AC;
 extern s32 _unk30004B0;
-extern s32 _unk30004B4;
-extern s32 _unk30004B8;
-extern s32 _unk30004BC;
+extern unk32 _unk30004B4;
+extern unk32 _unk30004B8;
+extern unk32 _unk30004BC;
 extern s32 _unk30004C4;
 extern s32 _unk30004C8;
 extern s32 _unk30004CC;
-extern u8 _unk30004C0;
-extern u8 _unk30004C1;
+extern unk8 _unk30004C0;
+extern unk8 _unk30004C1;
 extern unk32 _unk3000648;
 extern SpriteEntry* _unk30004D0;
 extern SpriteEntry* _unk30004D4;
 extern s32 _unk30004D8;
 extern s32 _unk30004DC;
-extern u8 _unk30004E0;
+extern unk8 _unk30004E0;
 
 extern SpriteEntry* _unk3000464;
 extern SpriteEntry* _unk3000468;

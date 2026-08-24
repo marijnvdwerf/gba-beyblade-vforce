@@ -5,7 +5,7 @@
 
 #include "include_asm.h"
 
-unk16 initBatteryBackup(unk16 arg0)
+unk16 initBatteryBackup(u16 arg0)
 {
     unk32 result;
 
@@ -34,7 +34,7 @@ void onTimer2Overflow(void)
     }
 }
 
-unk32 sub_806586C(unk8 timerIndex, void** isrOut)
+unk32 sub_806586C(u8 timerIndex, void** isrOut)
 {
     if (timerIndex > 3) {
         return 1;
@@ -68,10 +68,10 @@ INCLUDE_ASM("asm/dump/8064f38/8065970-DMA3Copy.s");
 INCLUDE_ASM("asm/dump/8064f38/80659f0.s");
 INCLUDE_ASM("asm/dump/8064f38/8065aa0.s");
 
-unk32 writeToBatteryBackup(unk16 sector, unk16* data)
+unk32 writeToBatteryBackup(u16 sector, unk16* data)
 {
     unk16 buffer[4];
-    unk8 i;
+    u8 i;
     unk16* bufferPtr;
     unk32 result;
 
@@ -97,10 +97,10 @@ unk32 writeToBatteryBackup(unk16 sector, unk16* data)
     return result;
 }
 
-unk16 sub_8065BD4(unk16 sector, unk32 data)
+u16 sub_8065BD4(u16 sector, u32 data)
 {
-    unk16 result;
-    unk8 retries;
+    u16 result;
+    u8 retries;
 
     retries = 0;
     while (retries <= 2) {

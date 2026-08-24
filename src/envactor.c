@@ -10,18 +10,18 @@
 #include "sprite.h"
 #include "unsorted.h"
 
-extern const u8 SpriteSheet_86FBF94[];
+extern const unk8 SpriteSheet_86FBF94[];
 
 #if 0
-extern void ActorSetSpriteOffset(EnvironmentActorSlot*, s16, s16);
+extern void ActorSetSpriteOffset(EnvironmentActorSlot*, unk16, unk16);
 extern void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);
 extern void actor_80585F8(EnvironmentActorSlot*, unk16, unk16, unk16, unk16);
 extern void actor_805C48C(EnvironmentActorSlot*, LevelGeometryAddresses*, unk32, unk32);
 extern void sub_8056B54(void);
 extern void _return_false(void);
 extern void sub_80550B8(void);
-extern const u8 SpriteSheet_86FAEAC[];
-extern const u8 Str_8729738[];
+extern const unk8 SpriteSheet_86FAEAC[];
+extern const unk8 Str_8729738[];
 extern void convert3DCoordsto2DCoords(void);
 
 void initLevelEnvironmentActors(u16 level)
@@ -34,9 +34,9 @@ void initLevelEnvironmentActors(u16 level)
     unk32 selectedLines[0x20];
     LevelGeometryAddresses geometry;
     unk32 callbackData[3];
-    s32 lineIndex;
-    s32 selectedCount;
-    s32 effectCount;
+    unk32 lineIndex;
+    unk32 selectedCount;
+    unk32 effectCount;
     unk32 lineSize;
     unk32 effectSizeBytes;
     unk32 pointSize;
@@ -59,11 +59,11 @@ void initLevelEnvironmentActors(u16 level)
     unk32 metadataData;
     unk32 allocationSize;
     unk32 actorType;
-    s32 xDelta;
-    s32 yDelta;
-    s32 x;
-    s32 y;
-    s32 z;
+    unk32 xDelta;
+    unk32 yDelta;
+    unk32 x;
+    unk32 y;
+    unk32 z;
 
     gameData = _gameData;
     allocationField = (EnvironmentActorAllocation*)&gameData->unkC74;
@@ -203,7 +203,7 @@ void initLevelEnvironmentActors(u16 level)
                 metaobject = getLineMetaobjectByTypeAndId(
                     &geometry, metadata, 2, 0xFB93);
                 if (metaobject != NULL) {
-                    sprite = allocSprite((u16)(spriteId + 0x200));
+                    sprite = allocSprite((unk16)(spriteId + 0x200));
                     LoadSpriteSheet(sprite, (const void*)metaobject->unk8, 0, 0, 0, actorType, 0, 0);
                     lineObject->sprite = sprite;
                     lineObject->unk8 = 0;

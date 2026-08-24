@@ -4,16 +4,16 @@
 #include "common.h"
 #include "memory.h"
 
-typedef s8* (*RenderShortSpanFn)(void*, u8, s32, s32);
-typedef u16* (*RenderSpanFillFn)(s32, u8, s32, s32);
-typedef s32 (*RenderTriSetupFn)(void*, s32, void*);
-typedef void (*RenderTriDrawFn)(void*, s32);
-typedef void (*RenderPostProcessFn)(void*, void*, u32);
-typedef void (*RenderVertexTransformFn)(void*, void*, s32);
-typedef void (*RenderBucketInsertFn)(void*, s32, s16);
-typedef void (*RenderFaceCullFn)(void*, void*, s32);
+typedef unk8* (*RenderShortSpanFn)(void*, unk8, unk32, unk32);
+typedef unk16* (*RenderSpanFillFn)(unk32, unk8, unk32, unk32);
+typedef unk32 (*RenderTriSetupFn)(void*, unk32, void*);
+typedef void (*RenderTriDrawFn)(void*, unk32);
+typedef void (*RenderPostProcessFn)(void*, void*, unk32);
+typedef void (*RenderVertexTransformFn)(void*, void*, unk32);
+typedef void (*RenderBucketInsertFn)(void*, unk32, unk16);
+typedef void (*RenderFaceCullFn)(void*, void*, unk32);
 typedef void* (*RenderFaceDrawFn)(void*, void*, void*, void*);
-typedef void (*RenderStridedCopyFn)(s32, s32, void*, void*);
+typedef void (*RenderStridedCopyFn)(unk32, unk32, void*, void*);
 
 typedef struct RenderCode {
     AllocatedBlock* block; /* 0x00 */

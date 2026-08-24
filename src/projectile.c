@@ -4,9 +4,9 @@
 #include "include_asm.h"
 #include "memory.h"
 
-extern const u8 Str_8726FE4[];
+extern const unk8 Str_8726FE4[];
 
-void newProjectileSystem(ProjectileSystem* arg0, s32 arg1, const u8* arg2, unk32 arg3, void* arg4)
+void newProjectileSystem(ProjectileSystem* arg0, s32 arg1, const unk8* arg2, unk32 arg3, void* arg4)
 {
     AllocatedBlock* block;
     ProjectileEntry* entry;

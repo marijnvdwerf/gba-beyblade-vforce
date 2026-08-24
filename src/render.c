@@ -6,10 +6,10 @@
 
 #include "system.h"
 
-extern const char Str_8755644[];
+extern const unk8 Str_8755644[];
 
-extern u8 render_00[];
-extern u8 _renderFunctionsEnd[];
+extern unk8 render_00[];
+extern unk8 _renderFunctionsEnd[];
 extern unk32 _renderFunctionOffsets[];
 
 enum RenderFunctionIndex {

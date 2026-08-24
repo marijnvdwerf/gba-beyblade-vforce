@@ -14,8 +14,8 @@
 extern SfxTable dword_8040CC4;
 
 typedef struct UnkStruct3005e40 {
-    u8 pad[8];
-    u32 tm1cntL;
+    unk8 pad[8];
+    unk32 tm1cntL;
 } UnkStruct3005e40;
 
 extern UnkStruct3005e40 _unk3005E40;
@@ -74,7 +74,7 @@ void onVBlank()
 {
     _unk3005E40.tm1cntL = *(vu16*)REG_TM1CNT_L;
 
-    ((u16*)INTR_CHECK_BUF)[0] = 1;
+    ((unk16*)INTR_CHECK_BUF)[0] = 1;
 }
 
 void nullsub_37()

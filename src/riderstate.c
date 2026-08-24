@@ -29,13 +29,13 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8050050.s");
 s32 sub_8050114(RiderState* arg0)
 {
     unk32 checksum;
-    unk16 flagsWord;
-    unk16 flagBits;
+    u32 flagsWord;
+    u32 flagBits;
 
     checksum = (s16)(arg0->prefix.words.unk2 ^ arg0->prefix.words.unk4);
     flagsWord = arg0->prefix.words.unk6;
-    checksum ^= (unk32)(flagsWord << 22) >> 22;
-    checksum ^= (unk32)(arg0->unkD << 28) >> 28;
+    checksum ^= (u32)(flagsWord << 22) >> 22;
+    checksum ^= (u32)(arg0->unkD << 28) >> 28;
     checksum ^= arg0->unk8;
     flagBits = arg0->unkC;
     checksum ^= flagBits;
@@ -53,12 +53,12 @@ s32 sub_8050114(RiderState* arg0)
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050184.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80501a8.s");
 
-unk8 sub_80501C8(RiderState* arg0, unk8 arg1)
+u8 sub_80501C8(RiderState* arg0, u8 arg1)
 {
     if ((_gameData->unk161C & 1) != 0) {
         return 0;
     }
-    return (unk8)(((unk32)(arg0->unkD << 28) >> 28) & arg1);
+    return (u8)(((u32)(arg0->unkD << 28) >> 28) & arg1);
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80501f8.s");
