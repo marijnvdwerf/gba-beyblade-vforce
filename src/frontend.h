@@ -30,7 +30,7 @@ void sub_8049168(void);
 unk32 sub_804915C(void);
 void sub_8049178(void);
 void sub_8046468(void*, const void*, unk32);
-void sub_80464C0(void*, unk32);
+void sub_80464C0(FrontendSelectionObject*, s32);
 SpriteTextCleanup* sub_804A0E0(s32);
 void sub_8048FE4(void);
 s16 sub_80491E0(s32, s32);

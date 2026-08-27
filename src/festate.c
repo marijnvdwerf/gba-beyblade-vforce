@@ -663,7 +663,13 @@ void sub_8046424(FrontendState* arg0, u32 arg1)
 }
 
 INCLUDE_ASM("asm/dump/8040d18/8046468.s");
-INCLUDE_ASM("asm/dump/8040d18/80464c0.s");
+
+void sub_80464C0(FrontendSelectionObject* arg0, s32 value)
+{
+    arg0->sprite->x = value + (0x80 << 6);
+    sub_8061844(arg0->unk4, (value >> 8) + 0x54, arg0->unk4->y >> 8);
+    sub_8061844(arg0->unk8, (value >> 8) + 0x70, arg0->unk8->y >> 8);
+}
 
 void sub_8046500(FrontendState* state, u32 arg1, u32 arg2)
 {

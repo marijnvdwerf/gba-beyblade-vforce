@@ -15,6 +15,7 @@ typedef struct AllocatedBlock AllocatedBlock;
 typedef struct SpriteEntry SpriteEntry;
 typedef struct SpriteTextBlock SpriteTextBlock;
 typedef struct SpriteTextCleanup SpriteTextCleanup;
+typedef struct FrontendSelectionObject FrontendSelectionObject;
 
 struct SpriteTextBlock {
     SpriteEntry* prev;
