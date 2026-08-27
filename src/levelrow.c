@@ -7,7 +7,16 @@
 #include "spritetext.h"
 #include "unsorted.h"
 
-INCLUDE_ASM("asm/dump/8040d18/804a0e0.s");
+SpriteTextCleanup* sub_804A0E0(s32 index)
+{
+    SpriteTextCleanup* result;
+
+    result = NULL;
+    if (index <= _unk3000650.unkB4->unk4->unk14 && _unk3000650.unkB4->unk4->unk14 != 0) {
+        result = _unk3000650.unk470 + index;
+    }
+    return result;
+}
 
 void sub_804A110(void)
 {

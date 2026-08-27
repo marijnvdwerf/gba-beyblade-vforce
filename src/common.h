@@ -70,7 +70,7 @@ typedef struct UnkMotion {
 
 typedef struct FrontendSubobject {
     unk8 pad0[0x14];
-    unk32 unk14;
+    s32 unk14;
     unk32 unk18;
     unk8 pad1C[8];
     unk32 unk24;
