@@ -206,3 +206,14 @@ layout.
 - A field's access width must be recovered before matching control flow: a
   32-bit `ldr` and a `0x2C`/`0x30` stride establish layout facts that cannot be
   repaired by changing loop syntax later.
+- For a jump-table switch, agbcc sorts the jump-table entries by selector value,
+  but emits the case bodies in source order. Reordering the cases therefore
+  changed the body layout and the addresses stored in the otherwise sorted
+  table; the resulting jump-table and block-layout differences failed the
+  instruction and ROM comparisons. The target's body order must dictate the
+  source case order.
+- Equivalent bit tests do not necessarily lower alike: `(x >> 4) & 1`
+  emitted an arithmetic shift followed by an `and` with one, while
+  `(x & 0x10) != 0` emitted a direct mask and a different control-flow shape.
+  The latter changed instruction offsets and failed comparison, so semantic
+  equivalence is not sufficient for agbcc matching.
