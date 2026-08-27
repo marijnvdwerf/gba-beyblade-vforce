@@ -46,7 +46,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Nested scopes shorten lifetimes, but a switch-arm-local pointer also defers its global load until that arm; hoisting it changes dispatch allocation.
 - Reuse one compatible local across similar loops when the target preserves one pseudo/register history; separate locals may reshuffle both loops.
 - Conversely, keep initial-pointer and mutable-cursor locals separate when the target keeps both roles live in different registers.
-- A redundant-looking temporary can add the exact pseudo pressure needed, or an unwanted save; judge it by the prologue and first divergence.
+- A redundant-looking temporary — including a local alias of a global pointer or a separate `size`/count local — can add the exact pseudo pressure needed, or an unwanted save; keep it only when the target proves the distinct lifetime, and judge it by the prologue and first divergence.
 - Alias removals interact: one failed simplification may match after another alias is removed, so probe combinations while checking the first divergence.
 - Early `result = 0` or a real 0/1 flag can reproduce early return-register setup and later separate tests; do not fold proven source state away.
 
@@ -67,6 +67,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - agbcc CSEs loads, merges shifts/blocks, and reuses related constants; if the target stays unfolded, block the proof with grouping or distinct locals.
 - Array decay produces an address while `array[0]` produces a scalar load; choose the shape shown by the target.
 - Let typed indexing expose cancellation between an explicit element-size division and the compiler's implicit scale; manually replacing it with shifts and masks can prevent simplification and add instructions.
+- Bit extraction and mask tests are not interchangeable: `(x >> 4) & 1` preserves a shift-plus-`and` shape (with `asr`/`lsr` selected by type), while `(x & 0x10) != 0` favors a direct mask/test and can change the CFG.
 
 ## Loops
 
@@ -84,10 +85,10 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 
 ## Switches and branches
 
-- Condition spelling picks branch polarity and fall-through: early return, nested `if`, and result-variable forms are not interchangeable.
+- Condition spelling picks branch polarity, fall-through, and tail merging: early return, nested `if`, an equivalent combined Boolean, and result-variable forms are not interchangeable. When the target has a branch ladder feeding one shared body, preserve that nesting and shared-body placement.
 - In old GCC, a value-less `return;` in a non-void function can reproduce fall-through to the epilogue with `r0` still holding the just-tested value; use it only when that undefined return path is proven by the target.
 - Preserve redundant-looking compares when present; identical function size alone does not validate branch targets.
-- Switch case count controls lowering and block layout; source order does not override agbcc's numeric case sorting. Sparse switches may become compare trees, and an otherwise empty high case plus `default` can cross a threshold where agbcc pivots on a middle value and uses an unsigned range branch for lower cases.
+- Switch case count controls lowering and block layout. For a jump-table switch, agbcc sorts table entries by selector value but emits case bodies in source order, so order the source cases to match the target's body layout. Sparse switches may become compare trees, and an otherwise empty high case plus `default` can cross a threshold where agbcc pivots on a middle value and uses an unsigned range branch for lower cases.
 - Identical case bodies may merge; an unsigned normalized dispatch expression can sometimes restore the expected table form. Conversely, repeating an identical tail call in each arm can let agbcc tail-merge it naturally, avoiding a source `goto`.
 - If each switch arm loads a global only after dispatch, use case-local aliases or direct global access; a shared pre-switch alias changes dispatch liveness and load order.
 - Register-only divergences repeated across several cases usually point to lifetime or ordering: a temporary is scoped per case instead of hoisted (or vice versa), or two independent statements are lexically swapped.
@@ -163,7 +164,9 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 ## Matching process
 
 - Start with dump, hosting translation unit, declarations, and every caller; use mechanical decompilation only as a semantic draft.
+- For a signedness sweep, establish an all-unsigned (width-only `unk*`) baseline, then re-sign one field, local, or parameter at a time only where `asr`, `ldrsh`/`ldrsb`, or a signed branch supplies evidence; compare the complete function after each change because signedness can also reshape allocation.
 - Change one source-shape variable at a time and inspect the prologue plus first divergent instruction before interpreting later noise.
 - Prefer correcting types, casts, scopes, and expression shape over compiler-flag workarounds: a pass toggle that fixes one register allocation often changes another loop or load. Use flags diagnostically unless the original build settings justify them.
 - Verify every instruction and branch target, then run the full-ROM SHA1 compare; a local function match is insufficient when layout changed.
 - Treat raw-decomp and reviewer claims about types, layout, or "natural" source as hypotheses; verify them against assembly, controlled experiments, and ROM bytes.
+- If natural C is semantically and structurally correct but a stable residual is only register allocation after justified type, lifetime, and ordering experiments, preserve the assembly rather than add volatile qualifiers, artificial temporaries, or forced control flow.
