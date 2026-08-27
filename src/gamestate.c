@@ -89,7 +89,26 @@ void sub_80512AC(void)
 INCLUDE_ASM("asm/dump/804a388-tutorial/805137c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80513ac.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051488.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8051558.s");
+
+unk8 sub_8051558(void)
+{
+    unk32* data;
+    unk32 xorSum;
+    unk32* ptr;
+    unk32 i;
+
+    data = (unk32*)_currentGameState->unk6FC;
+    xorSum = 0;
+    ptr = data;
+    i = 334;
+    do {
+        xorSum ^= *ptr++;
+        i--;
+    } while (i != -1);
+
+    return xorSum == data[344] && data[0] == 0xDEAD;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80515a4.s");
 
 unk8 sub_80515E0(void)
