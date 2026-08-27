@@ -93,7 +93,6 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80513ac.s");
 void sub_8051488(void)
 {
     CurrentGameSave* save;
-    CurrentGameState* state;
 
     save = &_currentGameState->unk6FC;
     if (sub_8051558() == 0) {
@@ -103,11 +102,10 @@ void sub_8051488(void)
         _currentGameState->unk1 = save->unk5;
         _currentGameState->unk2 = save->unk6;
         _currentGameState->unk3 = save->unk7;
-        state = _currentGameState;
-        state->unk6E4 = save->unk558;
-        state->unk6E6 = save->unk55A;
-        state->unkC68 = save->unk55C;
-        sub_804AFD4(state->unk6E6);
+        _currentGameState->unk6E4 = save->unk558;
+        _currentGameState->unk6E6 = save->unk55A;
+        _currentGameState->unkC68 = save->unk55C;
+        sub_804AFD4(_currentGameState->unk6E6);
         sub_804B00C(_currentGameState->unk6E4);
         __fastMemoryCopyARM(save->levelStates, &_currentGameState->unk4, 0xA8 << 3);
         __fastMemoryCopyARM(save->unk548, _currentGameState->unk594, 0x10);
