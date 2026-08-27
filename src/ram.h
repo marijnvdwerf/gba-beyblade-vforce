@@ -2,6 +2,7 @@
 #define _RAM_H
 
 #include "common.h"
+#include "credits.h"
 #include "memory.h"
 #include "motion.h"
 #include "palette.h"
@@ -9,6 +10,18 @@
 #include "sprite.h"
 
 extern MultiPlayerState* _unk3005DC4;
+extern s32 _3000000;
+extern s32 _3000004;
+extern s32 _3000008;
+extern s32 _300000C;
+extern s32 _3000010;
+extern s32 _3000014;
+extern unk8 _3000020;
+extern unk8 _3000021;
+extern AllocatedBlock* _3000024;
+extern CreditsEntry* _currentCreditsPtr;
+extern CreditsEntry* _creditsPtr;
+extern SpriteTextCleanup* _fontPtr;
 extern unk8 _unk3000BFC;
 extern unk16 _unk3000BFD;
 extern unk32 _unk3000C00;

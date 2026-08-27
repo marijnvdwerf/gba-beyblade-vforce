@@ -4,18 +4,6 @@
 #include "common.h"
 #include "layer.h"
 
-typedef struct UnkStruct_sub1 {
-    unk8 var00;
-    unk8 var01;
-    unk16 var02;
-    unk16 var04;
-    unk16 var06;
-    unk16 var08;
-    unk32 var0C;
-    unk32 var10;
-    unk32 var14;
-} UnkStruct_sub1;
-
 typedef struct ScreenLayout {
     void* var00[30];
     unk16* bgPalette;

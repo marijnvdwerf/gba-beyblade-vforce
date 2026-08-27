@@ -16,6 +16,33 @@ typedef struct SpriteEntry SpriteEntry;
 typedef struct SpriteTextBlock SpriteTextBlock;
 typedef struct SpriteTextCleanup SpriteTextCleanup;
 
+typedef union PaletteBuffer {
+    unk16* half;
+    unk32* word;
+} PaletteBuffer;
+
+typedef struct Palette {
+    unk8* source; /* 0x00 */
+    u16 unk4; /* 0x04 */
+    u16 unk6; /* 0x06 */
+    s16 unk8; /* 0x08 */
+    unk8 unkA[2]; /* 0x0A */
+    PaletteBuffer unkC; /* 0x0C; strh/ldr access the pointed-to palette at different widths */
+    AllocatedBlock* block; /* 0x10 */
+} Palette;
+
+typedef struct UnkStruct_sub1 {
+    unk8 var00;
+    unk8 var01;
+    unk16 var02;
+    unk16 var04;
+    unk16 var06;
+    unk16 var08;
+    unk32 var0C;
+    unk32 var10;
+    unk32 var14;
+} UnkStruct_sub1;
+
 struct SpriteTextBlock {
     SpriteEntry* prev;
     SpriteEntry* next;
@@ -69,7 +96,8 @@ typedef struct UnkMotion {
 } UnkMotion;
 
 typedef struct FrontendSubobject {
-    unk8 pad0[0x14];
+    unk32 unk0;
+    unk8 pad4[0x10];
     unk32 unk14;
     unk32 unk18;
     unk8 pad1C[8];
@@ -163,7 +191,7 @@ typedef struct FrontendResource {
 } FrontendResource;
 
 typedef struct FrontendObject {
-    unk8 pad0[4];
+    unk32 unk0;
     FrontendSubobject* unk4;
     void (*unk8)(FrontendState*, unk32, unk32);
     void (*unkC)(FrontendState*, unk32);
@@ -178,8 +206,8 @@ typedef struct FrontendTransition {
     unk8 pad587[1];
     void (*unk588)(FrontendState*, unk32);
     unk32 unk58C;
-    unk8 pad590[0x18];
-    unk32 unk5A8;
+    UnkStruct_sub1 unk590; /* 0x590 */
+    unk32 unk5A8; /* 0x5A8 */
 } FrontendTransition;
 
 struct FrontendState {
@@ -189,7 +217,8 @@ struct FrontendState {
     unk32 unkC;
     unk32 unk10;
     unk32 history[16]; /* 0x14 */
-    unk8 pad54[0x28];
+    Palette paletteA; /* 0x54 */
+    Palette paletteB; /* 0x68 */
     unk8 unk7C;
     unk8 pad7D[2];
     u8 unk7F;
@@ -205,7 +234,9 @@ struct FrontendState {
     FrontendSubobject unkB8;
     unk8 pad138[8];
     FrontendSubobject unk140;
-    unk8 pad1C0[0x90];
+    unk8 pad1C0[8];
+    unk32 unk1C8; /* 0x1C8 */
+    unk8 pad1CC[0x84];
     unk8 unk250[0x1D4];
     unk32 unk424;
     unk8 pad428[0x30];
