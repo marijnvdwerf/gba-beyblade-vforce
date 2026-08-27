@@ -3,11 +3,13 @@
 #include "battery.h"
 #include "beyblade.h"
 #include "include_asm.h"
+#include "music.h"
 #include "ram.h"
 #include "sound.h"
 #include "unsorted.h"
 
 extern const unk8 Str_87293C0[];
+extern const unk8 Str_87293F0[];
 extern LevelDescription LevelDescriptions[];
 extern unk8 _807572c[];
 extern unk8 _807576c[];
@@ -88,7 +90,31 @@ void sub_80512AC(void)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805137c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80513ac.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8051488.s");
+
+void sub_8051488(void)
+{
+    CurrentGameSave* save;
+    CurrentGameState* state;
+
+    save = &_currentGameState->unk6FC;
+    if (sub_8051558() == 0) {
+        printf(Str_87293F0);
+    } else {
+        _currentGameState->unk0 = save->unk4;
+        _currentGameState->unk1 = save->unk5;
+        _currentGameState->unk2 = save->unk6;
+        _currentGameState->unk3 = save->unk7;
+        state = _currentGameState;
+        state->unk6E4 = save->unk558;
+        state->unk6E6 = save->unk55A;
+        state->unkC68 = save->unk55C;
+        sub_804AFD4(state->unk6E6);
+        sub_804B00C(_currentGameState->unk6E4);
+        __fastMemoryCopyARM(save->pad8, &_currentGameState->unk4, 0xA8 << 3);
+        __fastMemoryCopyARM(save->unk548, _currentGameState->unk594, 0x10);
+        sub_8051640(1);
+    }
+}
 
 unk8 sub_8051558(void)
 {
@@ -97,7 +123,7 @@ unk8 sub_8051558(void)
     unk32* ptr;
     unk32 i;
 
-    data = (unk32*)_currentGameState->unk6FC;
+    data = (unk32*)&_currentGameState->unk6FC;
     xorSum = 0;
     ptr = data;
     i = 334;
@@ -117,7 +143,7 @@ unk8 sub_80515E0(void)
     s32 size;
     unk8 result;
 
-    data = _currentGameState->unk6FC;
+    data = (BackupBlock*)&_currentGameState->unk6FC;
     size = 0x564;
     Sound_8062694();
     result = sub_8057568(0, data, size);

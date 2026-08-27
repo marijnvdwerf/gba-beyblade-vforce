@@ -277,13 +277,29 @@ typedef struct CurrentGameStateTail {
     unk16 unkC;
 } CurrentGameStateTail;
 
+typedef struct CurrentGameSave {
+    unk8 pad0[4];
+    u8 unk4;
+    u8 unk5;
+    u8 unk6;
+    u8 unk7;
+    unk8 pad8[0x540];
+    unk8 unk548[0x10];
+    u16 unk558;
+    u16 unk55A;
+    u32 unk55C;
+    unk8 pad560[8];
+} CurrentGameSave;
+
 typedef struct CurrentGameState {
     s8 unk0;
     unk8 unk1;
     u8 unk2;
     u8 unk3;
     LevelState unk4[0x38];
-    unk8 pad544[0x160];
+    unk8 pad544[0x50];
+    unk8 unk594[0x10];
+    unk8 pad5A4[0x100];
     unk8 unk6A4;
     unk8 pad6A5[6];
     u8 unk6AB;
@@ -303,7 +319,7 @@ typedef struct CurrentGameState {
     unk8 unk6E9;
     s16 unk6EA;
     CurrentGameStateTail unk6EC;
-    BackupBlock unk6FC[0x568 / sizeof(BackupBlock)];
+    CurrentGameSave unk6FC;
     unk32 unkC64;
     unk32 unkC68;
 } CurrentGameState;
