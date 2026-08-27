@@ -110,7 +110,7 @@ void sub_8051488(void)
         state->unkC68 = save->unk55C;
         sub_804AFD4(state->unk6E6);
         sub_804B00C(_currentGameState->unk6E4);
-        __fastMemoryCopyARM(save->pad8, &_currentGameState->unk4, 0xA8 << 3);
+        __fastMemoryCopyARM(save->levelStates, &_currentGameState->unk4, 0xA8 << 3);
         __fastMemoryCopyARM(save->unk548, _currentGameState->unk594, 0x10);
         sub_8051640(1);
     }
@@ -118,21 +118,21 @@ void sub_8051488(void)
 
 unk8 sub_8051558(void)
 {
-    unk32* data;
+    CurrentGameSave* save;
     unk32 xorSum;
     unk32* ptr;
     unk32 i;
 
-    data = (unk32*)&_currentGameState->unk6FC;
+    save = &_currentGameState->unk6FC;
     xorSum = 0;
-    ptr = data;
+    ptr = &save->magic;
     i = 334;
     do {
         xorSum ^= *ptr++;
         i--;
     } while (i != -1);
 
-    return xorSum == data[344] && data[0] == 0xDEAD;
+    return xorSum == save->checksum && save->magic == 0xDEAD;
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80515a4.s");
