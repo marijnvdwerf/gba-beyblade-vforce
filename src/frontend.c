@@ -104,7 +104,7 @@ void sub_8049264(void)
     _unk3000650.transition.unk588 = 0;
     _unk3000650.transition.unk58C = 0;
     _unk3000650.unk81 = 0;
-    _unk3000650.transition.data.legacy.unk5A8 = 0;
+    _unk3000650.transition.unk5A8 = 0;
 }
 
 INCLUDE_ASM("asm/dump/8040d18/8049320-StoreFunction.s");

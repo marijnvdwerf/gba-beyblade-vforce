@@ -23,7 +23,7 @@ void Background_80498D8(void)
 
 void Background_80498F8(void)
 {
-    sub_80508A4(&_unk3000650.transition.data.unk590);
+    sub_80508A4(&_unk3000650.transition.unk590);
 
     if (_806A828[_unk3000650.unkB4->unk0].bgPalette != NULL) {
         loadPalette(_806A828[_unk3000650.unkB4->unk0].bgPalette);
@@ -43,7 +43,7 @@ void Background_8049950(void)
     sub_8049344(0);
     *(vu16*)REG_BLDY = 0;
 
-    arg0 = &_unk3000650.transition.data.unk590;
+    arg0 = &_unk3000650.transition.unk590;
     arg1 = &(_unk3000650.unkB8.unk0);
     pInt = &_unk3000650.unk0;
 
@@ -64,7 +64,7 @@ void Background_80499BC(void)
     *(vu16*)REG_BLDY = 0;
     *(vu16*)REG_DISPCNT = 0;
 
-    arg0 = &_unk3000650.transition.data.unk590;
+    arg0 = &_unk3000650.transition.unk590;
     arg1 = &(_unk3000650.unkB8.unk0);
     pInt = &_unk3000650.unk0;
 
@@ -79,9 +79,9 @@ void Background_8049A24(void)
     sub_8049344(0);
     *(vu16*)REG_BLDY = 0;
 
-    sub_80508A4(&_unk3000650.transition.data.unk590);
+    sub_80508A4(&_unk3000650.transition.unk590);
 
-    sub_80508CC(&_unk3000650.transition.data.unk590, &_806A828[_unk3000650.unkB4->unk0], 0);
+    sub_80508CC(&_unk3000650.transition.unk590, &_806A828[_unk3000650.unkB4->unk0], 0);
 
     if (_806A828[_unk3000650.unkB4->unk0].spritePalette != NULL) {
         loadPalette2(_806A828[_unk3000650.unkB4->unk0].spritePalette);
@@ -94,7 +94,7 @@ void Background_8049A84(void)
     void* pInt;
     unk32* arg1;
 
-    arg0 = &_unk3000650.transition.data.unk590;
+    arg0 = &_unk3000650.transition.unk590;
     arg1 = &(_unk3000650.unkB8.unk0);
     pInt = &_unk3000650.unk0;
 
@@ -112,7 +112,7 @@ void Background_8049AF8(void)
     void* pInt;
     unk32* arg1;
 
-    arg0 = &_unk3000650.transition.data.unk590;
+    arg0 = &_unk3000650.transition.unk590;
     arg1 = &(_unk3000650.unkB8.unk0);
     pInt = &_unk3000650.unk0;
 
@@ -132,7 +132,7 @@ void Background_8049B68(void)
 
     *(vu16*)REG_BLDY = 0;
 
-    arg0 = &_unk3000650.transition.data.unk590;
+    arg0 = &_unk3000650.transition.unk590;
     arg1 = &(_unk3000650.unkB8.unk0);
     pInt = &_unk3000650.unk0;
 
@@ -152,11 +152,11 @@ void Background_8049BF8(void)
 
     sub_8049344(0);
     *(vu16*)REG_BLDY = 0;
-    sub_80508A4(&_unk3000650.transition.data.unk590);
+    sub_80508A4(&_unk3000650.transition.unk590);
 
     pInt = &_unk3000650.unk0;
 
-    sub_80508CC(&_unk3000650.transition.data.unk590, &_806A828[_unk3000650.unkB4->unk0], 1);
+    sub_80508CC(&_unk3000650.transition.unk590, &_806A828[_unk3000650.unkB4->unk0], 1);
     sub_80596AC(&_unk3000650.unk1C8, 0x800, 0x6000);
     Background_80498D8();
     VBlankIntrWait();
@@ -170,11 +170,11 @@ void Background_8049C70(void)
 
     sub_8049344(0);
     *(vu16*)REG_BLDY = 0;
-    sub_80508A4(&_unk3000650.transition.data.unk590);
+    sub_80508A4(&_unk3000650.transition.unk590);
 
     pInt = &_unk3000650.unk0;
 
-    sub_80508CC(&_unk3000650.transition.data.unk590, &_806A828[_unk3000650.unkB4->unk0], 1);
+    sub_80508CC(&_unk3000650.transition.unk590, &_806A828[_unk3000650.unkB4->unk0], 1);
     sub_80596AC(&_unk3000650.unk1C8, -0x10000, 0);
     Background_80498D8();
     VBlankIntrWait();

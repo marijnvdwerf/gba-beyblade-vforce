@@ -199,16 +199,6 @@ typedef struct FrontendObject {
     void (*unk14)(FrontendState*, unk32);
 } FrontendObject;
 
-typedef struct FrontendTransitionLegacy {
-    unk8 pad590[0x18];
-    unk32 unk5A8;
-} FrontendTransitionLegacy;
-
-typedef union FrontendTransitionData {
-    UnkStruct_sub1 unk590;
-    FrontendTransitionLegacy legacy;
-} FrontendTransitionData;
-
 typedef struct FrontendTransition {
     s8 value;
     s8 unk585;
@@ -216,8 +206,8 @@ typedef struct FrontendTransition {
     unk8 pad587[1];
     void (*unk588)(FrontendState*, unk32);
     unk32 unk58C;
-    /* The background record and transition word share this storage. */
-    FrontendTransitionData data;
+    UnkStruct_sub1 unk590; /* 0x590 */
+    unk32 unk5A8; /* 0x5A8 */
 } FrontendTransition;
 
 struct FrontendState {
