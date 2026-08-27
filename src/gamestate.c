@@ -15,6 +15,7 @@ extern unk8 _807582c[];
 extern s32 _80788cc[];
 
 void sub_80510FC(void);
+unk32 sub_805137C(void);
 
 void InitCurrentGameState(void)
 {
@@ -89,7 +90,14 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8051488.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051558.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80515a4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80515e0.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8051618.s");
+
+u8 sub_8051618(void)
+{
+    if (sub_805137C() == 0) {
+        return 1;
+    }
+    return 0;
+}
 
 u8 sub_805162C(void)
 {
