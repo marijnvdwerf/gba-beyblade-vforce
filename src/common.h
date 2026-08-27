@@ -27,7 +27,7 @@ typedef struct Palette {
     u16 unk6; /* 0x06 */
     s16 unk8; /* 0x08 */
     unk8 unkA[2]; /* 0x0A */
-    PaletteBuffer unkC; /* 0x0C */
+    PaletteBuffer unkC; /* 0x0C; strh/ldr access the pointed-to palette at different widths */
     AllocatedBlock* block; /* 0x10 */
 } Palette;
 
