@@ -9,8 +9,6 @@
 #include "sprite.h"
 #include "spritetext.h"
 
-void sub_8050FE8(FrontendMenu*, unk32);
-
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050a7c-newIconMenu.s");
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050c18.s");
