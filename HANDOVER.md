@@ -35,6 +35,30 @@ Last updated: 2026-08-27, session 4 in progress (3 decomp agents running, monito
   sub_804A0E0, sub_80515E0, sub_80464C0, sub_8051558, sub_8051488,
   sub_806014C*); C credits/levelselect (sub_8061844, creditsFrontendHandler,
   sub_80413FC + levelselect TU split). * = no draft, from asm.
+- Wave 1 results: A merged (cfbd885: sub_804915C, nullsub_33, sub_8049178,
+  sub_80490F8, sub_804ABFC; music.c is DONE; `FrontendState.history[16]` at
+  0x14, index unk7C ≤ 14). C merged (eb265f6: creditsFrontendHandler,
+  sub_8061844; credits.c DONE; background.c IWRAM overlay `UnkStruct _3000000`
+  REMOVED — it was FrontendState at `_unk3000650`: `Palette paletteA/B` at
+  0x54/0x68, unk1C8, `FrontendTransition.unk590` (UnkStruct_sub1) + unk5A8;
+  `_unk3000BE0[28]` == FrontendState bytes 0x590..0x5AC; `Palette`/
+  `PaletteBuffer`/`UnkStruct_sub1` now live in common.h; credits RAM globals
+  typed in ram.c/ram.h; `_3000021` is unk8 at an odd address). B pending.
+  Newly parked: sub_805041C (motion, near-match: reset-store register seq +
+  2-byte delta; draft in migrate-frontend-music.md), sub_804967C (frontend,
+  extra high-reg saves), sub_806014C (multiplayer, reload only reproduces
+  with volatile → forbidden), sub_80413FC (levelselect, still ~6 insns short
+  after a signedness sweep; step table in migrate-credits-levelselect.md).
+- Label survey 0x3000000–0x3000650 (overlay agent): everything referenced
+  except `_unk30000DD`, `_unk30004C2`, `_unk300064C`, `_unk30006A4`,
+  `_unk30006B8`, `_unk3000C1C`.
+- Lessons: agbcc emits jump-table case BODIES in source order (table sorted,
+  blocks not) → asm block order dictates source case order; `(x>>4)&1` and
+  `(x&0x10)!=0` lower differently. Reviewer "fixes" of game bugs (null deref
+  after debug printf) are rejected — we match bytes. volatile/register/asm
+  are NOT levers (now in decompiler.md, 410fb3b). Pre-existing volatile on
+  main to clean up: src/sprite.c:417-424 (`SpriteEntry* volatile*` — lever),
+  src/system.c:10-11 (struct fields — check if hardware); backup.c is legit.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
@@ -121,7 +145,7 @@ Last updated: 2026-08-27, session 4 in progress (3 decomp agents running, monito
 
 ## State
 
-Progress: 9/66 TUs done, 381 C functions, 626 INCLUDE_ASM remaining (38%).
+Progress: 11/66 TUs done, 388 C functions, 619 INCLUDE_ASM remaining (39%) — B pending.
 Session 3 merged 97 functions (batches 1–17, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
