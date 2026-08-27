@@ -21,12 +21,13 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Default to `unk8/16/32`; use signed types only on evidence, because one wrong sign produces one wrong branch or shift opcode.
 - Narrow locals insert normalization pairs; wide locals remove them. A plain `int` index often matches where `u8`/`u16` adds masking.
 - A dedicated `unk16` conversion temporary can preserve zero-extension and keep a narrowed compare value separate from its wide source; a wider temporary may coalesce them and change saved-register allocation.
-- Cast placement is conversion placement: keep a producer wide and cast or assign narrow only where the target performs the conversion.
+- Cast placement is conversion placement: keep a producer wide and cast or assign narrow only where the target performs the conversion. A narrowing cast in a comparison adds normalization before `cmp`; if the target has only arithmetic plus `cmp`, keep the count/index wide there.
 - Staging a narrow field in a signed `s32` temporary can keep arithmetic wide and delay normalization until the result is narrowed; using the field directly may reorder the add or conversion.
 - Entry normalization proves narrowing at entry, not a narrow formal parameter; try a wide ABI parameter assigned or cast to a narrow local. Conversely, a genuinely narrow formal tested for truth can emit the low-byte shift/test at entry without explicit source shifts.
 - Promotion chooses shifts: an unsigned intermediate yields `lsr`, while a signed intermediate yields `asr`, even with identical stored width.
 - Lvalue type selects `ldr`/`str`, `ldrh`/`strh`, or byte access; trust the opcode over the field's apparent semantics.
 - A cast on a field read (`(s8)p->f`, `ldsb`) is the field's real type: fix the declaration, don't keep the cast. Only a field proven unsigned by other users may keep a `(s16)` cast at a sentinel (`== -1`) consumer.
+- agbcc can emit `ldrsb`: a signed `*ptr++` directly in a loop condition or call argument may select `mov #0; ldrsb`, while staging the read and increment separately can select `ldrb` plus sign-extension shifts. Preserve the dereference context instead of assuming signed-byte loads always lower one way.
 - A return prototype drives caller normalization, while the definition's declared return type also shapes the callee. In particular, an `s16` declaration can add sign-normalization inside the callee even when the target callee returns without it; diagnose caller and callee diffs separately rather than assuming one declaration explains both.
 - Pointer→integer conversion and an integer identity cast can create different RTL despite both being 32-bit; preserve the proven global type.
 
@@ -56,6 +57,8 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Runtime offset tables into packed or variable-size blobs legitimately use `(unk8 *)base + offset`; do not force them into fixed-stride arrays.
 - Commutative operand order is visible in load and `add` order; write the target's expression-tree order.
 - `field += 1`, compute-then-assign, and read-modify-write through an explicit accumulator are distinct source shapes.
+- Precomputing one branch's value, conditionally overwriting it, then storing once produces a different CFG and store shape from an `if/else` with a store in each arm.
+- A pre-decrement embedded in an array subscript can reuse the wide subtraction result for both the field store and index, forcing byte normalization before scaling; a separate decrement followed by a byte reload may collapse to a simple scaled index.
 - Straight-line struct initialization preserves lexical store order; chained assignment stores right-to-left and keeps the value live, while splitting it can reverse stores or add a `mov`.
 - `*out++ = value` can select `stmia`; a separated store and increment selects `str` plus `add`.
 - A target induction initialized to `-stride` may be strength-reduced `array[i - 1]`; try the indexed source before preserving a negative cursor.
@@ -63,6 +66,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - If a high-register value is compared with an immediate, Thumb may materialize the constant in a low register for register-to-register `cmp`.
 - agbcc CSEs loads, merges shifts/blocks, and reuses related constants; if the target stays unfolded, block the proof with grouping or distinct locals.
 - Array decay produces an address while `array[0]` produces a scalar load; choose the shape shown by the target.
+- Let typed indexing expose cancellation between an explicit element-size division and the compiler's implicit scale; manually replacing it with shifts and masks can prevent simplification and add instructions.
 
 ## Loops
 
@@ -74,6 +78,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Do not assume an eligible ascending loop actually reverses; if experiments stay ascending, retain the explicit matching countdown source. Likewise, keep a proven descending index with a forward-moving cursor when indexed or ascending rewrites produce a different loop.
 - A target rotated search CFG may not come from plain `while` or `for (;;)`; spell the entry test and bottom break explicitly when proven.
 - If the target reloads a global loop limit each iteration, keep the global expression in the condition instead of caching a local bound.
+- When a fixed small sequence appears as individual calls or stores, write it unrolled; a source loop can introduce induction registers or `stmia`/`ldmia` combining that the target lacks.
 - Open problem: a target may reload a non-volatile struct field every iteration despite no call or aliasing store, while plain C hoists it. `volatile` can reproduce the reload but is not canonical; treat this as unresolved rather than a general typing rule.
 - Moving an increment or decrement into or out of a branch changes the CFG even when semantics agree. In particular, keep a countdown update after an early-return arm inside the branch that continues the loop rather than hoisting it before the branch.
 
@@ -82,8 +87,8 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Condition spelling picks branch polarity and fall-through: early return, nested `if`, and result-variable forms are not interchangeable.
 - In old GCC, a value-less `return;` in a non-void function can reproduce fall-through to the epilogue with `r0` still holding the just-tested value; use it only when that undefined return path is proven by the target.
 - Preserve redundant-looking compares when present; identical function size alone does not validate branch targets.
-- Switch case order and case count control lowering and block layout. Sparse switches may become compare trees; an otherwise empty `case N: break;` plus `default` can cross the threshold that produces the target `cmp`/`beq`, range-check, and `cmp`/`bne` tree.
-- Identical case bodies may merge; an unsigned normalized dispatch expression can sometimes restore the expected table form.
+- Switch case count controls lowering and block layout; source order does not override agbcc's numeric case sorting. Sparse switches may become compare trees, and an otherwise empty high case plus `default` can cross a threshold where agbcc pivots on a middle value and uses an unsigned range branch for lower cases.
+- Identical case bodies may merge; an unsigned normalized dispatch expression can sometimes restore the expected table form. Conversely, repeating an identical tail call in each arm can let agbcc tail-merge it naturally, avoiding a source `goto`.
 - If each switch arm loads a global only after dispatch, use case-local aliases or direct global access; a shared pre-switch alias changes dispatch liveness and load order.
 - Register-only divergences repeated across several cases usually point to lifetime or ordering: a temporary is scoped per case instead of hoisted (or vice versa), or two independent statements are lexically swapped.
 - A search whose success/return block is hoisted above the loop usually comes from a plain top-tested `for` with an early `return` inside (and any `NULL` guard as an early return before it); try that before a `found` flag + `break`, and never a nested `if (i < n) do { } while`.
@@ -91,6 +96,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 ## Pointers, globals, and aliasing
 
 - Direct global access can still leave `&global` live in a saved/high register; do not invent a pointer-to-global alias merely to explain reuse.
+- A proven struct-pointer type can change alias analysis enough to reload a global's address where `void *` caches it across calls or loops; preserve the strongest justified pointee type before adding lifetime tricks.
 - Keep `base = global` when the target loads it before clamps/branches or keeps derived addresses live; otherwise test direct global access first.
 - Decisive test: a global pointer's *value* still in a register after a `bl` (no reload) ⇒ the source copied it into a local before the call (the compiler may not keep a global live across calls). A fresh `ldr` of the global after each call ⇒ direct `global->` access.
 - Cache only the expression whose lifetime is proven; mixing a scoped local with direct accesses can preserve both a distinct value and target reloads.
@@ -110,8 +116,10 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 
 - Struct members and raw byte offsets can produce different address temporaries; if a typed field doesn't match, the field's type/width or the struct nesting is wrong — fix the layout, don't fall back to byte arithmetic.
 - Overlay only proven fields and preserve all padding; a correct offset with the wrong type still gives the wrong access width.
+- Declaration width also imposes alignment: a halfword or word global cannot model storage proven at an odd byte address without shifting later fixed-layout symbols. Use byte storage for byte-addressed globals at odd offsets, even if some consumers combine bytes.
 - A field that is both compared/stored as a word and dereferenced is a pointer — type it so.
 - Later shifts, masks, or division do not narrow a field's memory access. If assembly proves the same scalar storage is intentionally accessed at incompatible widths (`strh`/`ldrb`, `ldr`/`ldrsh`), model a documented whole/parts union. If one stored pointer is dereferenced at multiple proven pointee widths, use a named union of typed pointer variants. These proven width puns are the only sanctioned union uses; otherwise, prefer adjacent narrower fields.
+- A proven halfword read spanning adjacent byte fields may require a documented pointer cast when introducing a named union would disturb the fixed layout; C90 offers no anonymous union as a zero-friction overlay.
 - One shared field type may be unable to reproduce both a signed-load reader and an unsigned bitwise read-modify-write user. Per-use casts do not change the lvalue load selected for the already-matched user; preserve the established shared type and park the incompatible function rather than breaking a match.
 - An embedded header whose address is passed to list helpers must be an embedded struct field, not a pointer; the pointer spelling changes layout and cleanup codegen.
 - An opaque region only passed by address is naturally `unk8 region[N]`; a scalar member there introduces an unwanted load.
@@ -127,8 +135,9 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Calls without a prototype use default promotions; arguments after r0–r3 go on the stack, so wrong arity changes the frame.
 - Direct calls emit `bl`; function-pointer lvalues emit a load plus `_call_via_rN`; match the indirection level.
 - Pass direct function names before adding explicit Thumb-bit arithmetic; relocation handling may already encode the callable address.
-- Passing a call result directly versus storing it in a local can differ by a `mov` and by how long the value remains live.
+- Passing a call result directly versus storing it in a local can differ by a `mov` and by how long the value remains live. In particular, `tmp = call(); global = tmp;` can materialize `&global` after the call, while `global = call();` may preload the address into a callee-saved register.
 - A call result forwarded into an argument register for the next `bl` proves that source dataflow; preserve it rather than substituting `NULL` or a reload.
+- An argument identical to a value just produced or stored may be reused directly from its current argument register; preserve the exact value flow instead of independently rematerializing the argument.
 - Mixed pointer types in `?:` can warn or lower differently under old agbcc; a `void *` temporary can preserve a common call after an explicit branch.
 - Replacing `void *` with a proven typed pointer can remove casts without changing bytes, but verify pointee width and conversion placement.
 - Keep dead-looking calls, arithmetic, divisions, readbacks, and copies that asm shows; a dead result may still expose original operation order or constant construction. If agbcc eliminates every natural C spelling, park the function rather than force retention with `volatile`, fake guards, or register hacks.
@@ -155,5 +164,6 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 
 - Start with dump, hosting translation unit, declarations, and every caller; use mechanical decompilation only as a semantic draft.
 - Change one source-shape variable at a time and inspect the prologue plus first divergent instruction before interpreting later noise.
+- Prefer correcting types, casts, scopes, and expression shape over compiler-flag workarounds: a pass toggle that fixes one register allocation often changes another loop or load. Use flags diagnostically unless the original build settings justify them.
 - Verify every instruction and branch target, then run the full-ROM SHA1 compare; a local function match is insufficient when layout changed.
 - Treat raw-decomp and reviewer claims about types, layout, or "natural" source as hypotheses; verify them against assembly, controlled experiments, and ROM bytes.
