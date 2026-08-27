@@ -88,10 +88,29 @@ class Function:
     calls: list[str] = field(default_factory=list)
     indirect_names: set[str] = field(default_factory=set)
     synthetic: bool = False
+    special_kind: str = ""  # "runtime" or "data"
+    data_targets: tuple[str, ...] = ()
 
     @property
     def marker(self) -> str:
-        return "🧭" if self.synthetic else FUNCTION_MARKERS[self.kind]
+        if self.synthetic:
+            return "🧭"
+        if self.special_kind == "runtime":
+            return "⚙"
+        if self.special_kind == "data":
+            return "📦"
+        return FUNCTION_MARKERS[self.kind]
+
+    @property
+    def display_name(self) -> str:
+        if self.special_kind == "runtime":
+            return f"runtime {self.name}"
+        if self.special_kind == "data":
+            if self.data_targets:
+                targets = ", ".join(self.data_targets)
+                return f"data pointer {self.name} → {targets}"
+            return f"data pointer {self.name}"
+        return self.name
 
 
 # Keep insertion order stable while indexing C definitions.
@@ -268,6 +287,179 @@ def index_c_sources(functions: Functions) -> None:
 
 
 ELF_PATH = ROOT / "build" / "rom.elf"
+MAP_PATH = ROOT / "build" / "rom.map"
+
+# These are compiler-provided entry points rather than game functions.  The
+# map-file based discovery below covers the rest of libgcc, while this list
+# keeps the classification useful when a map omits an archive member.
+KNOWN_RUNTIME_SYMBOLS = {
+    "__adddf3",
+    "__addsf3",
+    "__div0",
+    "__divdi3",
+    "__divsi3",
+    "__eqdf2",
+    "__eqsf2",
+    "__extendsfdf2",
+    "__fixdfsi",
+    "__fixsfsi",
+    "__fixunsdfsi",
+    "__fixunssfsi",
+    "__floatsidf",
+    "__floatsisf",
+    "__floatunsidf",
+    "__floatunsisf",
+    "__gedf2",
+    "__gesf2",
+    "__gtdf2",
+    "__gtsf2",
+    "__ledf2",
+    "__lesf2",
+    "__ltdf2",
+    "__ltsf2",
+    "__muldi3",
+    "__muldf3",
+    "__mulsf3",
+    "__nedf2",
+    "__nesf2",
+    "__subdf3",
+    "__subsf3",
+    "__truncdfsf2",
+    "__udivdi3",
+    "__udivmoddi4",
+    "__udivsi3",
+    "__umoddi3",
+    "__umodsi3",
+}
+
+
+@dataclass(frozen=True)
+class ElfSymbol:
+    name: str
+    address: int
+    size: int
+    section: str | None
+    symbol_type: str
+
+
+@dataclass
+class BinarySymbols:
+    by_name: dict[str, ElfSymbol]
+    functions_by_address: dict[int, str]
+    runtime_names: set[str]
+    data_targets: dict[str, tuple[str, ...]]
+
+
+_BINARY_SYMBOLS: BinarySymbols | None = None
+
+
+def libgcc_symbol_names() -> set[str]:
+    names = set(KNOWN_RUNTIME_SYMBOLS)
+    if not MAP_PATH.is_file():
+        return names
+
+    section_re = re.compile(r"^\s+\*?\.([A-Za-z0-9_]+)\s+0x[0-9A-Fa-f]+")
+    symbol_re = re.compile(r"^\s+0x[0-9A-Fa-f]+\s+(\S+)")
+    in_libgcc = False
+    for line in MAP_PATH.read_text(encoding="utf-8", errors="replace").splitlines():
+        section_match = section_re.match(line)
+        if section_match:
+            in_libgcc = "libgcc.a(" in line
+            continue
+        if in_libgcc:
+            symbol_match = symbol_re.match(line)
+            if symbol_match:
+                names.add(symbol_match.group(1))
+    return names
+
+
+def load_binary_symbols() -> BinarySymbols | None:
+    global _BINARY_SYMBOLS
+    if _BINARY_SYMBOLS is not None:
+        return _BINARY_SYMBOLS
+    if not ELF_PATH.is_file():
+        return None
+
+    by_name: dict[str, ElfSymbol] = {}
+    section_symbols: dict[str, list[ElfSymbol]] = {}
+    with ELF_PATH.open("rb") as stream:
+        elf = ELFFile(stream)
+        symtab = elf.get_section_by_name(".symtab")
+        if symtab is None:
+            return None
+        for symbol in symtab.iter_symbols():
+            if symbol["st_shndx"] == "SHN_UNDEF":
+                continue
+            section = None
+            if isinstance(symbol["st_shndx"], int):
+                section = elf.get_section(symbol["st_shndx"]).name
+            info = ElfSymbol(
+                name=symbol.name,
+                address=symbol["st_value"] & ~1,
+                size=symbol["st_size"],
+                section=section,
+                symbol_type=symbol["st_info"]["type"],
+            )
+            if info.name:
+                by_name.setdefault(info.name, info)
+                if info.section is not None:
+                    section_symbols.setdefault(info.section, []).append(info)
+
+        function_candidates: dict[int, list[str]] = {}
+        for info in by_name.values():
+            if info.symbol_type == "STT_FUNC":
+                function_candidates.setdefault(info.address, []).append(info.name)
+        functions_by_address = {
+            address: min(
+                names,
+                key=lambda name: (
+                    name.startswith("$"),
+                    ".NON_MATCHING" in name,
+                    name,
+                ),
+            )
+            for address, names in function_candidates.items()
+        }
+
+        segments = [
+            segment for segment in elf.iter_segments() if segment["p_type"] == "PT_LOAD"
+        ]
+        data_targets: dict[str, tuple[str, ...]] = {}
+        for section, symbols in section_symbols.items():
+            section_info = elf.get_section_by_name(section)
+            if section_info is None or section_info["sh_flags"] & 0x4:
+                continue
+            ordered = sorted(
+                {info.address: info for info in symbols}.values(),
+                key=lambda info: info.address,
+            )
+            for index, info in enumerate(ordered):
+                size = info.size
+                if not size and index + 1 < len(ordered):
+                    size = ordered[index + 1].address - info.address
+                size = min(size or 4, 64)
+                size -= size % 4
+                targets: list[str] = []
+                for offset in range(0, size, 4):
+                    try:
+                        raw = read_elf_bytes(stream, segments, info.address + offset, 4)
+                    except SystemExit:
+                        break
+                    pointer = int.from_bytes(raw, byteorder="little") & ~1
+                    target = functions_by_address.get(pointer)
+                    if target is not None and target not in targets:
+                        targets.append(target)
+                for alias in symbols:
+                    if alias.address == info.address:
+                        data_targets[alias.name] = tuple(targets)
+
+    _BINARY_SYMBOLS = BinarySymbols(
+        by_name=by_name,
+        functions_by_address=functions_by_address,
+        runtime_names=libgcc_symbol_names(),
+        data_targets=data_targets,
+    )
+    return _BINARY_SYMBOLS
 
 
 def read_elf_bytes(stream, segments, address: int, size: int) -> bytes:
@@ -392,9 +584,36 @@ def resolve_indirect_calls(functions: Functions) -> None:
         function.calls = resolved
 
 
+def classify_symbol(name: str) -> tuple[str, tuple[str, ...]]:
+    binary_symbols = load_binary_symbols()
+    if binary_symbols is None:
+        return "", ()
+    if name in binary_symbols.runtime_names:
+        return "runtime", ()
+    symbol = binary_symbols.by_name.get(name)
+    if symbol is None or symbol.section is None:
+        return "", ()
+    # A symbol in any non-code section is a data object, including linker
+    # labels with STT_NOTYPE.  Keep this broad because the callgraph also sees
+    # function-pointer objects declared as externs in C.
+    if not symbol.section.startswith(".text") and symbol.section not in {
+        ".iwram",
+        ".iwram_code",
+    }:
+        return "data", binary_symbols.data_targets.get(name, ())
+    return "", ()
+
+
 def make_unknown(functions: Functions, name: str) -> None:
     if name and name not in functions:
-        functions[name] = Function(name=name, file="", kind="unknown")
+        special_kind, data_targets = classify_symbol(name)
+        functions[name] = Function(
+            name=name,
+            file="",
+            kind="unknown",
+            special_kind=special_kind,
+            data_targets=data_targets,
+        )
 
 
 def resolve_name(functions: Functions, name: str) -> str:
@@ -454,7 +673,14 @@ def render(functions: Functions, root: str) -> str:
     ) -> None:
         function = functions.get(name)
         if function is None:
-            function = Function(name=name, file="", kind="unknown")
+            special_kind, data_targets = classify_symbol(name)
+            function = Function(
+                name=name,
+                file="",
+                kind="unknown",
+                special_kind=special_kind,
+                data_targets=data_targets,
+            )
         suffix = ""
         if depth >= MAX_RENDER_DEPTH:
             suffix = " … (depth limit)"
@@ -465,7 +691,9 @@ def render(functions: Functions, root: str) -> str:
 
         branch = "" if is_root else ("└─ " if is_last else "├─ ")
         location = f" [{function.file}]" if function.file else ""
-        lines.append(f"{prefix}{branch}{function.marker} {name}{location}{suffix}")
+        lines.append(
+            f"{prefix}{branch}{function.marker} {function.display_name}{location}{suffix}"
+        )
         if suffix:
             return
 
