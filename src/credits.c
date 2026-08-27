@@ -23,7 +23,6 @@ void creditsFrontendHandler(FrontendState* state, unk32 arg1)
     s32 totalWidth;
     s32 x;
     s32 i;
-    s32 delta;
 
     switch (arg1) {
     case 0:
@@ -123,6 +122,8 @@ void creditsFrontendHandler(FrontendState* state, unk32 arg1)
         }
         sub_80439A0(&state->unk140);
         if (_3000000 != _3000004) {
+            s32 delta;
+
             delta = (_3000000 - _3000004) >> 2;
             sub_80596AC(&state->unk250, delta, 0);
             _3000004 += delta;
