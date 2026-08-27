@@ -19,7 +19,6 @@ extern unk8 _807582c[];
 extern s32 _80788cc[];
 
 void sub_80510FC(void);
-unk32 sub_805137C(void);
 
 void InitCurrentGameState(void)
 {
