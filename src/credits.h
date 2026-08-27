@@ -11,4 +11,6 @@ typedef struct CreditsEntry {
     unk8 pad9[3];
 } CreditsEntry;
 
+void creditsFrontendHandler(FrontendState*, unk32);
+
 #endif /* _CREDITS_H */
