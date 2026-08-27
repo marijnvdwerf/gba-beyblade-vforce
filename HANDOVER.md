@@ -5,7 +5,43 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-08-23 ~21:00, end of session 3 (all agents done, no worktrees, monitor stopped).
+Last updated: 2026-08-27, session 4 in progress (3 decomp agents running, monitor on).
+
+## Session 4 (2026-08-27)
+
+- Since session 3 the user merged a type-signedness audit (u32/s32 → unk32,
+  then re-signed on evidence) and `fix callgraph` (43c426b); callgraph now
+  follows callbacks/handler tables → more reds. It also reports 4-byte
+  `.rodata` function-pointer symbols (`__fastMemoryClearARM`, `__oam_8756CC0`,
+  `__sound_8757A64`, `__sub_87577B4`) and libgcc `__divsi3` as red
+  "functions" — not decomp targets; tool bug to fix.
+- Branch `raw-decomp-2` (28 commits off 43c426b; worktree at
+  `.claude/worktrees/raw-decomp-2`, ROM matches there) is an Opus agent's
+  port of ~19 functions with sloppy integration (13 lint findings: externs in
+  .c files; a `#if 0` NONMATCHING sub_80413FC in a new src/levelselect.c).
+  Decision: NOT merged — it is a second READ-ONLY draft source ("raw2")
+  next to `raw-decomp`; fresh agents redo the functions properly off main.
+  Its learnings were folded into the skill and moved to processed/ (4215978).
+- Scout report: /tmp/scout-2026-08-27.md — 82 reds, 16 raw2-backed
+  (15 matched there), 35 raw1-backed, 31 no draft, 35 parked. Raw2 overrides
+  parking for creditsFrontendHandler, sub_804ABFC, sub_80490F8.
+- Preamble v2 at /tmp/migrate-preamble.txt: raw2 as primary source with
+  "redo integration properly", lint must exit 0 before commit, TYPE FROM THE
+  CALL SITE section (scout gives caller → implied signature per function),
+  persistence nudge.
+- Wave 1 (running, all raw2-backed): A frontend/music/motion (sub_804915C,
+  nullsub_33, sub_8049178, sub_80490F8, sub_804ABFC, sub_804967C*,
+  sub_805041C*); B gamestate leaves (sub_8051618, sub_80570C0, sub_8050FC8,
+  sub_804A0E0, sub_80515E0, sub_80464C0, sub_8051558, sub_8051488,
+  sub_806014C*); C credits/levelselect (sub_8061844, creditsFrontendHandler,
+  sub_80413FC + levelselect TU split). * = no draft, from asm.
+- Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
+  (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
+  sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
+  selectBladeFrontendHandler, sub_8046468[raw1], sub_804444C, sub_8047E5C,
+  sub_80480EC, sub_8048AE8, sub_8048310, sub_804868C, sub_80448F4,
+  sub_8044C48, sub_8044ED4, sub_8045160); sub_80420C4 (dialogue), initRider,
+  processRiderMetadata; gameLoop separately.
 
 ## How to work
 
