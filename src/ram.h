@@ -360,13 +360,14 @@ typedef struct FrontendCoordinateTarget {
     unk8 pad4[4];
 } FrontendCoordinateTarget;
 
-typedef struct FrontendSelectionObject {
+struct FrontendSelectionObject {
     SpriteEntry* sprite;
     SpriteTextCleanup* unk4;
     SpriteTextCleanup* unk8;
     s16 frame;
-    unk8 padE[2];
-} FrontendSelectionObject;
+    unk8 unkE;
+    unk8 padF;
+};
 
 extern SpriteEntry* _unk300036C;
 extern SpriteEntry* _unk3000370;

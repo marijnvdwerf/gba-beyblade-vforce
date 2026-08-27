@@ -662,7 +662,25 @@ void sub_8046424(FrontendState* arg0, u32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8046468.s");
+void sub_8046468(FrontendSelectionObject* arg0, const void* arg1, unk32 arg2)
+{
+    Palette palette;
+    unk8 mode;
+
+    mode = (unk8)arg2;
+    getLanguage();
+    if ((arg0->unkE & 1) != 0) {
+        sub_8060A60(arg0->sprite);
+    }
+    arg0->unkE |= 1;
+    if (mode != 0) {
+        arg0->unkE |= 2;
+    } else {
+        sub_8063830(&palette, (unk16*)0x05000200, 0, 0x10, 0x10, 0x10);
+        deallocate_80637CC(&palette);
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/80464c0.s");
 
 void sub_8046500(FrontendState* state, u32 arg1, u32 arg2)
