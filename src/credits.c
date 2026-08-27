@@ -20,6 +20,11 @@ extern const unk8 Str_86FCED8[];
 
 void creditsFrontendHandler(FrontendState* state, unk32 arg1)
 {
+    s32 totalWidth;
+    s32 x;
+    s32 i;
+    s32 delta;
+
     switch (arg1) {
     case 0:
         _3000004 = -0x10000;
@@ -84,10 +89,6 @@ void creditsFrontendHandler(FrontendState* state, unk32 arg1)
             _3000020 = 0;
         }
         if (_3000020 != 0) {
-            s32 totalWidth;
-            s32 x;
-            s32 i;
-
             while (_3000008-- != 0) {
                 sub_8061204(_fontPtr);
                 _fontPtr++;
@@ -122,7 +123,6 @@ void creditsFrontendHandler(FrontendState* state, unk32 arg1)
         }
         sub_80439A0(&state->unk140);
         if (_3000000 != _3000004) {
-            s32 delta;
             delta = (_3000000 - _3000004) >> 2;
             sub_80596AC(&state->unk250, delta, 0);
             _3000004 += delta;
