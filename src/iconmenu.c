@@ -9,6 +9,8 @@
 #include "sprite.h"
 #include "spritetext.h"
 
+void sub_8050FE8(FrontendMenu*, unk32);
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050a7c-newIconMenu.s");
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050c18.s");
@@ -27,7 +29,13 @@ void sub_8050F98(FrontendMenu* menu)
     sub_8061228(&menu->text);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050fc8.s");
+void sub_8050FC8(FrontendMenu* menu)
+{
+    sub_8050FE8(menu, 0x11800);
+    sub_804ABFC(9);
+    sub_8061228(&menu->text);
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050fe8.s");
 
 void sub_8050FEC(FrontendMenu* menu, unk32 value)
