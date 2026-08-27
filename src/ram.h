@@ -1,6 +1,7 @@
 #ifndef _RAM_H
 #define _RAM_H
 
+#include "battery.h"
 #include "common.h"
 #include "memory.h"
 #include "motion.h"
@@ -302,7 +303,7 @@ typedef struct CurrentGameState {
     unk8 unk6E9;
     s16 unk6EA;
     CurrentGameStateTail unk6EC;
-    unk8 pad6FC[0x568];
+    BackupBlock unk6FC[0x568 / sizeof(BackupBlock)];
     unk32 unkC64;
     unk32 unkC68;
 } CurrentGameState;

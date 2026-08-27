@@ -1,8 +1,10 @@
 #include "gamestate.h"
 
+#include "battery.h"
 #include "beyblade.h"
 #include "include_asm.h"
 #include "ram.h"
+#include "sound.h"
 #include "unsorted.h"
 
 extern const unk8 Str_87293C0[];
@@ -89,7 +91,20 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80513ac.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051488.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051558.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80515a4.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80515e0.s");
+
+unk8 sub_80515E0(void)
+{
+    BackupBlock* data;
+    s32 size;
+    unk8 result;
+
+    data = _currentGameState->unk6FC;
+    size = 0x564;
+    Sound_8062694();
+    result = sub_8057568(0, data, size);
+    Sound_80626E0();
+    return result;
+}
 
 u8 sub_8051618(void)
 {
