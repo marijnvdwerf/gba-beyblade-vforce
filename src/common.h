@@ -188,7 +188,8 @@ struct FrontendState {
     unk32 unk8;
     unk32 unkC;
     unk32 unk10;
-    unk32 history[0x1A]; /* 0x14 */
+    unk32 history[16]; /* 0x14 */
+    unk8 pad54[0x28];
     unk8 unk7C;
     unk8 pad7D[2];
     u8 unk7F;
