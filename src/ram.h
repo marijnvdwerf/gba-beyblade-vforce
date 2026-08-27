@@ -10,9 +10,7 @@
 #include "sprite.h"
 
 extern MultiPlayerState* _unk3005DC4;
-#ifndef BACKGROUND_RAM_OVERLAY
 extern s32 _3000000;
-#endif
 extern s32 _3000004;
 extern s32 _3000008;
 extern s32 _300000C;
