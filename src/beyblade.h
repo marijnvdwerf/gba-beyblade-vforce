@@ -7,6 +7,13 @@ void emptyBeybladeActorData(void);
 void deallocBeybladeActorData(void);
 void sub_8057104(unk32, unk32);
 
+typedef struct ItemDescriptionEntry {
+    unk8 data[24];
+} ItemDescriptionEntry;
+
+extern const ItemDescriptionEntry ItemDescription[];
+const void* sub_80570C0(unk32);
+
 struct InputSequence {
     unk32 count;
     u16 keys[1];

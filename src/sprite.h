@@ -38,7 +38,6 @@ void* allocSprite(u16);
 void sub_8060A94(SpriteEntry*);
 void sub_8061078(SpriteEntry*, unk32);
 void sub_8060F64(SpriteEntry*, u16, u16, u8);
-s32 sub_80570C0(s16);
 void sub_8060CDC(SpriteTextBlock*);
 SpriteEntry* resizeSpriteBlock(SpriteTextBlock*, u16, u16);
 void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);
