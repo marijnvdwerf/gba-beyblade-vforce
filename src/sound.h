@@ -13,6 +13,8 @@ typedef struct SfxTable {
 } SfxTable;
 
 void sub_80627F0(void);
+void Sound_8062694(void);
+void Sound_80626E0(void);
 void Sound_8062B20(SfxTable* table);
 unk32 Sound_8062990(SoundStructE* (*)[], s16 (*)[]);
 void allocateSoundTables(u32, u32);

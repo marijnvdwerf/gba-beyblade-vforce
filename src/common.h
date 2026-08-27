@@ -15,6 +15,7 @@ typedef struct AllocatedBlock AllocatedBlock;
 typedef struct SpriteEntry SpriteEntry;
 typedef struct SpriteTextBlock SpriteTextBlock;
 typedef struct SpriteTextCleanup SpriteTextCleanup;
+typedef struct FrontendSelectionObject FrontendSelectionObject;
 
 typedef union PaletteBuffer {
     unk16* half;
@@ -98,7 +99,7 @@ typedef struct UnkMotion {
 typedef struct FrontendSubobject {
     unk32 unk0;
     unk8 pad4[0x10];
-    unk32 unk14;
+    s32 unk14;
     unk32 unk18;
     unk8 pad1C[8];
     unk32 unk24;

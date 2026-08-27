@@ -10,7 +10,12 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/805703c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057048.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057068.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057094.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80570c0.s");
+
+const ItemDescriptionEntry* sub_80570C0(unk32 index)
+{
+    return &ItemDescription[index];
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80570d4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057104.s");
 
