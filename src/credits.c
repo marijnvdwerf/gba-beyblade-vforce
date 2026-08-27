@@ -1,3 +1,5 @@
+#include "credits.h"
+
 #include <agb/memory_map.h>
 
 #include "debug.h"
@@ -10,41 +12,19 @@
 #include "spritetext.h"
 #include "system.h"
 
-typedef struct CreditsEntry {
-    const unk8* text;
-    unk16 unk4;
-    unk16 width;
-    unk8 color;
-    unk8 pad9[3];
-} CreditsEntry;
-
 extern CreditsEntry Credits[];
-
-extern s32 _3000000;
-extern s32 _3000004;
-extern s32 _3000008;
-extern s32 _300000C;
-extern s32 _3000010;
-extern s32 _3000014;
-extern unk8 _3000020;
-extern AllocatedBlock* _3000024;
-extern CreditsEntry* _currentCreditsPtr;
-extern CreditsEntry* _creditsPtr;
-extern SpriteTextCleanup* _fontPtr;
 
 extern const unk8 SpriteSheet_82B05EC[];
 extern const unk8 ShadowFontMeta[];
 extern const unk8 Str_86FCED8[];
 
-extern unk8 _3000021;
-
 void creditsFrontendHandler(FrontendState* state, unk32 arg1)
 {
     switch (arg1) {
     case 0:
-        _3000004 = (s32)0xFFFF0000;
+        _3000004 = -0x10000;
         _3000000 = 0;
-        sub_80596AC(&state->unk250, (s32)0xFFFF0000, 0);
+        sub_80596AC(&state->unk250, -0x10000, 0);
         _3000008 = 0;
         _3000020 = 0;
         _3000021 = 0;
@@ -57,6 +37,7 @@ void creditsFrontendHandler(FrontendState* state, unk32 arg1)
         _fontPtr = NULL;
         break;
     case 1:
+        /* ldrh 0x584: value and unk585 are tested as one halfword. */
         if (*(unk16*)&state->transition == 0) {
             *(vu16*)REG_BLDCNT = 0xF40;
             *(vu16*)REG_BLDALPHA = _300000C | ((0x10 - _300000C) << 8);
@@ -90,7 +71,7 @@ void creditsFrontendHandler(FrontendState* state, unk32 arg1)
             } else {
                 sub_8049178();
             }
-            _3000000 = (s32)0xFFFF0000;
+            _3000000 = -0x10000;
             while (_3000008-- != 0) {
                 sub_8061204(_fontPtr);
                 _fontPtr++;

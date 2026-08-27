@@ -2,18 +2,18 @@
 
 #include "keystate.h"
 
-void* _3000000 = NULL;
-void* _3000004 = NULL;
-void* _3000008 = NULL;
-void* _300000C = NULL;
-void* _3000010 = NULL;
-void* _3000014 = NULL;
-void* _currentCreditsPtr = NULL;
-void* _creditsPtr = NULL;
+s32 _3000000 = 0;
+s32 _3000004 = 0;
+s32 _3000008 = 0;
+s32 _300000C = 0;
+s32 _3000010 = 0;
+s32 _3000014 = 0;
+CreditsEntry* _currentCreditsPtr = NULL;
+CreditsEntry* _creditsPtr = NULL;
 unk8 _3000020 = 0;
 unk8 _3000021 = 0;
-void* _3000024 = NULL;
-void* _fontPtr = NULL;
+AllocatedBlock* _3000024 = NULL;
+SpriteTextCleanup* _fontPtr = NULL;
 void* _300002C = NULL;
 unk8 _3000030[8] = { 0 };
 unk8 _3000038[32] = { 0 };

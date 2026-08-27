@@ -1,6 +1,8 @@
 #include <agb/define.h>
 #include <agb/memory_map.h>
 
+#define BACKGROUND_RAM_OVERLAY
+
 #include "common.h"
 #include "display.h"
 #include "frontend.h"
