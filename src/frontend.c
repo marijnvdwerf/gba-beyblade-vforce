@@ -18,7 +18,13 @@
 INCLUDE_ASM("asm/dump/8040d18/8048f80.s");
 INCLUDE_ASM("asm/dump/8040d18/8048fb4.s");
 INCLUDE_ASM("asm/dump/8040d18/8048fc4-nullsub_38.s");
-INCLUDE_ASM("asm/dump/8040d18/8048fc8-nullsub_33.s");
+
+void nullsub_33(FrontendState* state, unk32 arg1)
+{
+    (void)state;
+    (void)arg1;
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8048fcc.s");
 INCLUDE_ASM("asm/dump/8040d18/8048fd4.s");
 
@@ -46,16 +52,45 @@ void sub_80490CC(unk32 arg0, unk32 arg1)
         _unk3000650.unkB4->unk8(&_unk3000650, arg0, arg1);
 }
 
-INCLUDE_ASM("asm/dump/8040d18/80490f8.s");
+void sub_80490F8(unk32 arg0)
+{
+    if (_unk3000650.unk0 != arg0 && _unk3000650.unk4 != arg0) {
+        if (_unk3000650.unk0 != (unk32)-1) {
+            sub_8049344(3);
+            sub_80490CC(3, 1);
+            _unk3000BFC = 1;
+        }
+        if (_unk3000650.unk7C <= 14) {
+            _unk3000650.history[_unk3000650.unk7C++] = _unk3000650.unk4;
+            _unk3000650.unk8 = _unk3000650.unk0;
+        }
+        _unk3000650.unk4 = arg0;
+        sub_80495C4();
+    }
+}
 
-INCLUDE_ASM("asm/dump/8040d18/804915c.s");
+unk32 sub_804915C(void)
+{
+    return _unk3000650.unk8;
+}
 
 void sub_8049168(void)
 {
     _unk3000650.unk7C = 0;
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8049178.s");
+void sub_8049178(void)
+{
+    if (_unk3000650.unk7C != 0) {
+        sub_8049344(3);
+        sub_80490CC(3, 1);
+        _unk3000BFC = 1;
+        _unk3000650.unk4 = _unk3000650.history[--_unk3000650.unk7C];
+        _unk3000650.unk8 = _unk3000650.unk0;
+    }
+    sub_80495C4();
+}
+
 INCLUDE_ASM("asm/dump/8040d18/80491c4.s");
 
 INCLUDE_ASM("asm/dump/8040d18/80491e0.s");

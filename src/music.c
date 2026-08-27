@@ -5,7 +5,74 @@
 #include "ram.h"
 #include "sound.h"
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804abfc.s");
+void sub_804ABFC(unk32 arg0)
+{
+    switch (arg0) {
+    case 2:
+        sub_804AE34(7, 60);
+        break;
+    case 11:
+        sub_804AE34(3, 60);
+        break;
+    case 3:
+        sub_804AE34(6, 60);
+        break;
+    case 0:
+        sub_804AE34(6, 60);
+        break;
+    case 1:
+        if ((sub_8057C40() >> 4) & 1) {
+            sub_804AE34(8, 60);
+        } else {
+            sub_804AE34(9, 60);
+        }
+        break;
+    case 4:
+        sub_804AE34(4, 60);
+        break;
+    case 9:
+        sub_804AE34(1, 60);
+        break;
+    case 5:
+        sub_804AE34(5, 60);
+        break;
+    case 7:
+        sub_804AE34(2, 60);
+        break;
+    case 8:
+        sub_804AE34(0, 60);
+        break;
+    case 10:
+        sub_804AF04(6);
+        break;
+    case 12:
+        sub_804AE34(10, 60);
+        sub_804AD44();
+        break;
+    case 13:
+        sub_804AE34(11, 60);
+        break;
+    case 14:
+        sub_804AE34(12, 60);
+        break;
+    case 15:
+        sub_804AE34(13, 60);
+        sub_804AD50();
+        break;
+    case 17:
+        sub_804AE34(15, 60);
+        break;
+    case 19:
+        sub_804AE34(14, 60);
+        break;
+    case 16:
+        sub_804AE34(16, 64);
+        break;
+    case 20:
+        sub_804AE34(12, 50);
+        break;
+    }
+}
 
 void sub_804ACF0(void)
 {
