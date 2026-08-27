@@ -11,7 +11,7 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8057048.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057068.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057094.s");
 
-const void* sub_80570C0(unk32 index)
+const ItemDescriptionEntry* sub_80570C0(unk32 index)
 {
     return &ItemDescription[index];
 }

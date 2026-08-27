@@ -12,7 +12,7 @@ typedef struct ItemDescriptionEntry {
 } ItemDescriptionEntry;
 
 extern const ItemDescriptionEntry ItemDescription[];
-const void* sub_80570C0(unk32);
+const ItemDescriptionEntry* sub_80570C0(unk32);
 
 struct InputSequence {
     unk32 count;
