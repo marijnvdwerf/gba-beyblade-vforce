@@ -111,6 +111,11 @@ not the reachability boundary.
   `u8` — fix the type, don't transcribe the shifts.
 - Named temporaries steer register allocation when instructions are right but
   registers differ. Introduce them one at a time.
+- `volatile` is NOT a matching lever: never on locals, parameters, struct
+  fields or pointee types. Its only sanctioned use is hardware registers
+  (`*(vu16 *)REG_*`). If a reload/ordering only reproduces with `volatile`,
+  the source shape is wrong or the function gets parked — no exceptions.
+  Same for `register`, `asm` barriers and compiler-flag tweaks.
 - Sign-extension (`ldsb/ldsh/asr`) proves signed; `ldrb/ldrh` suggests
   unsigned or unk.
 - An empty function body isn't always enough for a nullsub — check the bytes
