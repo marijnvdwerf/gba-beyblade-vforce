@@ -21,8 +21,6 @@ INCLUDE_ASM("asm/dump/8040d18/8048fc4-nullsub_38.s");
 
 void nullsub_33(FrontendState* state, unk32 arg1)
 {
-    (void)state;
-    (void)arg1;
 }
 
 INCLUDE_ASM("asm/dump/8040d18/8048fcc.s");
