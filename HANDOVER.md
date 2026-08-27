@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-08-27, session 4 in progress (3 decomp agents running, monitor on).
+Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/actor agents; temp-reduction + sol skill pass + callgraph tool fix running; monitor on).
 
 ## Session 4 (2026-08-27)
 
@@ -43,7 +43,13 @@ Last updated: 2026-08-27, session 4 in progress (3 decomp agents running, monito
   0x54/0x68, unk1C8, `FrontendTransition.unk590` (UnkStruct_sub1) + unk5A8;
   `_unk3000BE0[28]` == FrontendState bytes 0x590..0x5AC; `Palette`/
   `PaletteBuffer`/`UnkStruct_sub1` now live in common.h; credits RAM globals
-  typed in ram.c/ram.h; `_3000021` is unk8 at an odd address). B pending.
+  typed in ram.c/ram.h; `_3000021` is unk8 at an odd address). B merged (4acb9c3:
+  sub_8051618, sub_80570C0, sub_8050FC8, sub_804A0E0, sub_80515E0, sub_80464C0,
+  sub_8051558, sub_8051488; `CurrentGameSave` typed at CurrentGameState+0x6FC:
+  magic 0xDEAD, LevelState levelStates[0x38], checksum +0x560; FrontendSubobject
+  unk0 + s32 unk14 (bgt); `ItemDescriptionEntry` 24-byte stride). Open: sub_80515E0
+  casts `&unk6FC` to `BackupBlock*` because sub_8057568 walks 8-byte blocks —
+  block-array API vs typed payload, needs a user ruling.
   Newly parked: sub_805041C (motion, near-match: reset-store register seq +
   2-byte delta; draft in migrate-frontend-music.md), sub_804967C (frontend,
   extra high-reg saves), sub_806014C (multiplayer, reload only reproduces
@@ -145,7 +151,7 @@ Last updated: 2026-08-27, session 4 in progress (3 decomp agents running, monito
 
 ## State
 
-Progress: 11/66 TUs done, 388 C functions, 619 INCLUDE_ASM remaining (39%) — B pending.
+Progress: 11/66 TUs done, 396 C functions, 611 INCLUDE_ASM remaining (39%).
 Session 3 merged 97 functions (batches 1–17, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
