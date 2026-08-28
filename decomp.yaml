@@ -1,5 +1,22 @@
+name: Beyblade V-Force
 platform: gba
+build_system: cmake
 
+versions:
+  - name: us
+    fullname: US
+    sha1: null
+    paths:
+      target: build/rom.gba
+      build_dir: build
+      map: build/rom.map
+      compiled_target: build/rom.gba
+      elf: build/rom.elf
+      expected_dir: expected
+      asm: asm/dump
+
+# coddog reads the standard project/version paths above. asmlift uses the
+# project-local compiler command and ELF sidecar below.
 tools:
   asmlift:
     target: agbcc
