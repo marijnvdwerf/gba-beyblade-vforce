@@ -19,11 +19,11 @@ void initEventListeners(unk32 levelId)
     LevelGeometryAddresses geometry;
     void* geometryData = loadLevelGeometry(levelId);
     void* metadata = getLevelMetadata(levelId);
-    unk32 listenerCount = 0;
-    unk32 maxListeners = 0x20;
+    s32 listenerCount = 0;
+    s32 maxListeners = 0x20;
     unk32 listenerIds[maxListeners];
     unk32* listenerPtr;
-    unk32 i;
+    s32 i;
     void* lineMetadata;
     AllocatedBlock* block;
     unk32 bytes;
@@ -37,7 +37,7 @@ void initEventListeners(unk32 levelId)
         i = 0;
         if (listenerCount < geometry.unk0->lineCount) {
             listenerPtr = listenerIds;
-            for (; i < geometry.unk0->lineCount; i++) {
+            do {
                 lineMetadata = GetLineMetaData(&geometry, i);
                 if (lineMetadata != NULL
                     && getLineMetaObjectBytype(&geometry, lineMetadata, 7) != NULL) {
@@ -47,7 +47,8 @@ void initEventListeners(unk32 levelId)
                         printf((const unk8*)Str_8729658, maxListeners);
                     }
                 }
-            }
+                i++;
+            } while (i < geometry.unk0->lineCount);
         }
         if (listenerCount != 0) {
             bytes = listenerCount * sizeof(unk32);
@@ -64,7 +65,6 @@ void initEventListeners(unk32 levelId)
     }
 }
 #endif
-
 INCLUDE_ASM("asm/dump/804a388-tutorial/80540ec-initEventListeners.s");
 
 void deallocEventListeners(void)

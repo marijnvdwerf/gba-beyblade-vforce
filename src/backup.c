@@ -128,6 +128,60 @@ unk32 sub_80659F0(u16 sector, void* buffer)
 #else
 INCLUDE_ASM("asm/dump/8064f38/80659f0.s");
 #endif
+#if 0
+unk16 sub_8065AA0(u16 sector, unk16* data)
+{
+    unk16 buffer[0x52];
+    unk16 value;
+    unk16* bufferPtr;
+    u8 j;
+    u8 i;
+
+    if (sector >= _unk_3005E9C->unk4) {
+        return 0x80FF;
+    }
+    {
+        const BatteryBackupConfig* config;
+
+        config = (const BatteryBackupConfig*)_unk_3005E9C;
+        bufferPtr = buffer + config->unk8 + 0x42;
+    }
+    *bufferPtr = 0;
+    bufferPtr--;
+    for (i = 0; i <= 3; i++) {
+        value = *data;
+        data++;
+        for (j = 0; j <= 0xF; j++) {
+            *bufferPtr = value;
+            bufferPtr--;
+            value >>= 1;
+        }
+    }
+    i = 0;
+    while (i < _unk_3005E9C->unk8) {
+        *bufferPtr = sector;
+        bufferPtr--;
+        sector >>= 1;
+        i++;
+    }
+    *bufferPtr = 0;
+    bufferPtr--;
+    *bufferPtr = 1;
+    DMA3Copy((unk32)buffer, 0x0D000000, _unk_3005E9C->unk8 + 0x43);
+    sub_80658A4(&Unk_8756894);
+    sector = 0;
+    while ((*(vu16*)0x0D000000 & 1) == 0) {
+        if (_unk_3000DAC != 0) {
+            if ((*(vu16*)0x0D000000 & 1) == 0) {
+                sector = 0xC001;
+            }
+            break;
+        }
+    }
+    sub_806592C();
+    return sector;
+}
+#endif
 INCLUDE_ASM("asm/dump/8064f38/8065aa0.s");
 
 unk32 writeToBatteryBackup(u16 sector, unk16* data)
