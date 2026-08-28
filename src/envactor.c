@@ -262,6 +262,72 @@ void initLevelEnvironmentActors(u16 level)
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054768-initLevelEnvironmentActors.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054c9c-renderEnvironmentActors.s");
+#if 0
+extern void sub_8054278(void*, unk16);
+extern void sub_80584B8(Actor*);
+
+void updateEnvirenmentActors(void)
+{
+    unk32 count;
+    unk8* actor;
+    unk8* metaBase;
+    unk8* record;
+    unk8* meta;
+    unk8* struct4;
+    unk8* p1;
+    unk8* p2;
+    unk32 index;
+    unk32 remaining;
+    s32 oldX;
+    s32 oldY;
+    s32 oldZ;
+
+    count = _gameData->unkC84;
+    record = (unk8*)_gameData->unkC7C;
+    metaBase = (unk8*)_gameData + 0x65C;
+    actor = record;
+    remaining = count;
+    if (remaining == 0)
+        return;
+    count--;
+    do {
+            index = *(unk32*)(actor + 0xB4);
+        struct4 = (unk8*)GetStruct4(index);
+        meta = *(unk8**)(metaBase + 0xC) + (index << 5);
+        if (struct4 != NULL && (*(unk16*)(struct4 + 0x10) & 1) != 0) {
+            p1 = *(unk8**)(metaBase + 4) + *(unk32*)(meta + 0) * 0x10;
+            p2 = *(unk8**)(metaBase + 4) + *(unk32*)(meta + 4) * 0x10;
+            *(unk32*)(p1 + 0) = (*(s32*)(actor + 4) >> 5) + *(s32*)(struct4 + 0x14);
+            *(unk32*)(p1 + 4) = (*(s32*)(actor + 8) >> 5) + *(s32*)(struct4 + 0x18);
+            *(unk32*)(p1 + 8) = (*(s32*)(actor + 0xC) >> 5) + *(s32*)(struct4 + 0x1C);
+            *(unk32*)(p2 + 0) = (*(s32*)(actor + 4) >> 5) + *(s32*)(struct4 + 0x20);
+            *(unk32*)(p2 + 4) = (*(s32*)(actor + 8) >> 5) + *(s32*)(struct4 + 0x24);
+            *(unk32*)(p2 + 8) = (*(s32*)(actor + 0xC) >> 5) + *(s32*)(struct4 + 0x28);
+        }
+        if (*(s16*)(struct4 + 0x38) != 0) {
+            *(unk16*)(struct4 + 0x38) -= 1;
+            if (*(s16*)(struct4 + 0x38) == 0) {
+                *(unk32*)(actor + 0x40) = *(unk32*)(struct4 + 0x2C);
+                *(unk32*)(actor + 0x44) = *(unk32*)(struct4 + 0x30);
+                *(unk32*)(actor + 0x48) = *(unk32*)(struct4 + 0x34);
+            }
+        }
+        if (*(s16*)(struct4 + 0x3C) != 0) {
+            *(unk16*)(struct4 + 0x3C) -= 1;
+            if (*(s16*)(struct4 + 0x3C) == 0)
+                sub_8054278(metaBase, *(unk16*)(struct4 + 0x3E));
+        }
+        oldX = *(s32*)(actor + 4);
+        oldY = *(s32*)(actor + 8);
+        oldZ = *(s32*)(actor + 0xC);
+        sub_80584B8((Actor*)actor);
+        *(unk32*)(struct4 + 0x40) = *(s32*)(actor + 4) - oldX;
+        *(unk32*)(struct4 + 0x44) = *(s32*)(actor + 8) - oldY;
+        *(unk32*)(struct4 + 0x48) = *(s32*)(actor + 0xC) - oldZ;
+        actor += 0xC4;
+    } while (count-- != 0);
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054eb4-updateEnvirenmentActors.s");
 
 void sub_8054FE0(void)

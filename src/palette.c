@@ -28,12 +28,119 @@ void sub_80631EC(Palette* arg0, unk8* arg1, s32 arg2)
 }
 
 #if 0
-void sub_8063220(Palette* palette, unk32 red, unk32 green, unk32 blue)
+void sub_8063220(Palette* palette, s32 red, s32 green, s32 blue)
 {
-    (void)palette;
-    (void)red;
-    (void)green;
-    (void)blue;
+    s32 redTarget;
+    s32 greenTarget;
+    s32 blueTarget;
+    s32 step;
+    s32 intensity;
+    s32 width;
+    s16 height;
+    s32 col;
+    unk32 color;
+    s32 redValue;
+    s32 greenValue;
+    s32 blueValue;
+    s32 red2;
+    s32 green2;
+    s32 blue2;
+    s32 delta;
+    s32 output;
+    unk32* source;
+    unk32* destination;
+    unk32* source4;
+
+    redTarget = red;
+    greenTarget = green;
+    blueTarget = blue;
+    height = palette->unk8;
+    step = 0x400 / height;
+    intensity = 0;
+    width = palette->unk6 >> 1;
+    source = (unk32*)((unk16*)palette->source + palette->unk4);
+    destination = palette->unkC.word;
+    if (redTarget + greenTarget + blueTarget == 0) {
+        height -= 2;
+        if (height != -1) {
+            do {
+                source4 = source;
+                col = 0;
+                height--;
+                if (width > 0) {
+                    do {
+                        color = *source4++;
+                        redValue = color & 0x1F;
+                        greenValue = (color >> 5) & 0x1F;
+                        blueValue = (color >> 0xA) & 0x1F;
+                        red2 = (color >> 0x10) & 0x1F;
+                        green2 = (color >> 0x15) & 0x1F;
+                        blue2 = (color >> 0x1A) & 0x1F;
+                        redValue -= (intensity * redValue) >> 0xA;
+                        greenValue -= (intensity * greenValue) >> 0xA;
+                        blueValue -= (intensity * blueValue) >> 0xA;
+                        red2 -= (intensity * red2) >> 0xA;
+                        green2 -= (intensity * green2) >> 0xA;
+                        blue2 -= (intensity * blue2) >> 0xA;
+                        output = redValue | (greenValue << 5) | (blueValue << 0xA) |
+                                 (red2 << 0x10) | (green2 << 0x15) | (blue2 << 0x1A);
+                        *destination++ = output;
+                        col++;
+                    } while (col < width);
+                }
+                intensity += step;
+            } while (height != -1);
+        }
+        __fastMemoryClearARM(0, destination, width * 4);
+        return;
+    }
+    height--;
+    while (height != -1) {
+        source4 = source;
+        col = 0;
+        height--;
+        step = step + intensity;
+        if (width > 0) {
+            do {
+                color = *source4;
+                redValue = color & 0x1F;
+                greenValue = (color >> 5) & 0x1F;
+                blueValue = (color >> 0xA) & 0x1F;
+                red2 = (color >> 0x10) & 0x1F;
+                green2 = (color >> 0x15) & 0x1F;
+                blue2 = (color >> 0x1A) & 0x1F;
+                delta = redTarget - redValue;
+                redValue = redValue + ((intensity * delta) >> 0xA);
+                delta = greenTarget - greenValue;
+                greenValue = greenValue + ((intensity * delta) >> 0xA);
+                delta = blueTarget - blueValue;
+                blueValue = blueValue + ((intensity * delta) >> 0xA);
+                delta = redTarget - red2;
+                red2 = red2 + ((intensity * delta) >> 0xA);
+                delta = greenTarget - green2;
+                green2 = green2 + ((intensity * delta) >> 0xA);
+                delta = blueTarget - blue2;
+                blue2 = blue2 + ((intensity * delta) >> 0xA);
+                if (redValue > 0x1F) redValue = 0x1F;
+                if (greenValue > 0x1F) greenValue = 0x1F;
+                if (blueValue > 0x1F) blueValue = 0x1F;
+                if (red2 > 0x1F) red2 = 0x1F;
+                if (green2 > 0x1F) green2 = 0x1F;
+                if (blue2 > 0x1F) blue2 = 0x1F;
+                if (redValue < 0) redValue = 0;
+                if (greenValue < 0) greenValue = 0;
+                if (blueValue < 0) blueValue = 0;
+                if (red2 < 0) red2 = 0;
+                if (green2 < 0) green2 = 0;
+                if (blue2 < 0) blue2 = 0;
+                *destination++ = redValue | (greenValue << 5) | (blueValue << 0xA) |
+                                 (red2 << 0x10) | (green2 << 0x15) | (blue2 << 0x1A);
+                source4++;
+                col++;
+            } while (col < width);
+        }
+        intensity += step;
+    }
 }
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8063220.s");
