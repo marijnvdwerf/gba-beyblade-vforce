@@ -4,6 +4,9 @@
 #include "common.h"
 
 extern const unk8 SpriteSheet_823BF04[];
+extern const unk8 SpriteSheet_8243874[];
+extern const unk8* _806DB8C[];
+extern const unk8 Str_86FD470[];
 extern const FrontendMenuData _80689A4[];
 extern const FrontendMenuData _80692A4[];
 extern const InputSequence _80693A0[];

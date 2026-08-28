@@ -194,7 +194,78 @@ INCLUDE_ASM("asm/dump/8040d18/804444c.s");
 INCLUDE_ASM("asm/dump/8040d18/80448f4.s");
 INCLUDE_ASM("asm/dump/8040d18/8044c48.s");
 INCLUDE_ASM("asm/dump/8040d18/8044ed4.s");
-INCLUDE_ASM("asm/dump/8040d18/8045160.s");
+
+void sub_8045160(FrontendState* state, unk32 arg1, unk32 arg2)
+{
+    unk8 value;
+    GameData* data;
+    const unk8** strings;
+    s32 initialScroll;
+    s32 scrollDelta;
+
+    switch (arg1) {
+    case 0:
+        value = _currentGameState->unk6A7;
+        state->unk7F = 0;
+        data = _gameData;
+        data->unk1618 = 0;
+        data->unk1619 = 0;
+        data->unk161A = 0;
+        sub_80600B4();
+        _unk30002F4 = allocSprite(0);
+        _unk30002F8 = 0x5800;
+        _unk3000368 = 0;
+        _unk30002FC = 0;
+        initialScroll = 0x10000;
+        _unk3000300.value = initialScroll;
+        sub_80596AC(&state->unk250, -initialScroll, 0);
+        if (_unk30002F4 != NULL) {
+            LoadSpriteSheet(_unk30002F4, SpriteSheet_8243874, initialScroll, 0x2300, 0, 0, 0, 0);
+        }
+        allocFont(&_unk3000308, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xF0, 2);
+        strings = _806DB8C;
+        sub_8061660(&_unk3000308, strings[15 + getLanguage()], 0xF);
+        allocFont(&_unk3000338, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x78, 0xF0, 2);
+        sub_8061660(&_unk3000338, _806DB8C[getLanguage()], 0xF);
+        showNumber(&_unk3000338, value, 0xF);
+        showString(&_unk3000338, Str_86FD470, 0xF);
+        showNumber(&_unk3000338, value, 0xF);
+        break;
+    case 7:
+        sub_8061204(&_unk3000338);
+        sub_8061204(&_unk3000308);
+        if (_unk30002F4 != NULL) {
+            sub_8060A94(_unk30002F4);
+        }
+        break;
+    case 1:
+        _unk30002F4->y += (_unk30002F8 - _unk30002F4->y) >> 2;
+        sub_8061844(
+            &_unk3000308, (_unk3000308.x + ((_unk3000368 - _unk3000308.x) >> 2)) >> 8, 0x6E);
+        sub_8061844(
+            &_unk3000338, (_unk3000338.x + ((_unk3000368 - _unk3000338.x) >> 2)) >> 8, 0x78);
+        scrollDelta = (_unk30002FC - _unk3000300.value) >> 2;
+        sub_80596AC(&state->unk250, -scrollDelta, 0);
+        _unk3000300.value += scrollDelta;
+        if (((sub_8057C40() >> 4) & 3) == 0) {
+            _unk30002F4->frame.word++;
+            if (_unk30002F4->frame.word > 3) {
+                _unk30002F4->frame.word = 0;
+            }
+        }
+        break;
+    case 2:
+        if ((_unk3005DA0 & 1) != 0) {
+            _unk30002F8 = 0x10000;
+            _unk3000368 = 0x10000;
+            _unk30002FC = 0x10000;
+            sub_80490F8(0xA);
+        }
+        break;
+    default:
+        break;
+    }
+}
 
 void sub_80453D8(FrontendState* state, u32 arg1)
 {
@@ -680,7 +751,6 @@ void sub_8046468(FrontendSelectionObject* arg0, const ItemDescriptionEntry* arg1
         deallocate_80637CC(&palette);
     }
 }
-
 
 void sub_80464C0(FrontendSelectionObject* arg0, s32 value)
 {
