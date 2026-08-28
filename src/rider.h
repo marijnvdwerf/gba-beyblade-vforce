@@ -6,7 +6,7 @@
 void nullsub_2(void);
 void nullsub_4(void);
 void initRider(void*, void*, unk32, unk32, unk32, unk32, unk32);
-void processRiderMetadata(void*, LevelGeometryAddresses*, unk32);
+void processRiderMetadata(RiderBase*, LevelGeometryAddresses*, unk32);
 void sub_804B4A4(RiderBase*);
 
 typedef struct RiderTemp {

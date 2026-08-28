@@ -143,8 +143,8 @@ void initLevelEnvironmentActors(u16 level)
                     metaobject = getLineMetaobjectByTypeAndId(
                         &geometry, metadata, 1, 0xAF90);
                     if (metaobject != NULL) {
-                        points[metaobject->unk8].geometry = geometryLine;
-                        points[metaobject->unk8].line = (unk16)lineIndex;
+                        points[metaobject->unk8.word].geometry = geometryLine;
+                        points[metaobject->unk8.word].line = (unk16)lineIndex;
                     }
                 }
                 lineIndex++;
@@ -190,7 +190,7 @@ void initLevelEnvironmentActors(u16 level)
                     &geometry, metadata, 1, 0xF70C);
                 actorType = 0;
                 if (metaobject != NULL) {
-                    actorType = metaobject->unk8;
+                    actorType = metaobject->unk8.word;
                 }
                 if (actorType == 1) {
                     actorType = 2;
@@ -204,7 +204,7 @@ void initLevelEnvironmentActors(u16 level)
                     &geometry, metadata, 2, 0xFB93);
                 if (metaobject != NULL) {
                     sprite = allocSprite((unk16)(spriteId + 0x200));
-                    LoadSpriteSheet(sprite, (const void*)metaobject->unk8, 0, 0, 0, actorType, 0, 0);
+                    LoadSpriteSheet(sprite, (const void*)metaobject->unk8.word, 0, 0, 0, actorType, 0, 0);
                     lineObject->sprite = sprite;
                     lineObject->unk8 = 0;
                     lineObject->unkC = 0;
@@ -231,7 +231,7 @@ void initLevelEnvironmentActors(u16 level)
                 metaobject = getLineMetaobjectByTypeAndId(
                     &geometry, metadata, 1, 0xBF84);
                 if (metaobject != NULL) {
-                    lineObject->unk3A = (unk16)metaobject->unk8;
+                    lineObject->unk3A = (unk16)metaobject->unk8.word;
                 } else {
                     lineObject->unk3A = 0;
                 }

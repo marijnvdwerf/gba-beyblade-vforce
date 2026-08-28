@@ -63,7 +63,7 @@ void initTutorialManagement(u16 levelId)
                 metaobject = getLineMetaobjectByTypeAndId(&geometry, lineMetadata, 1, 0x8CEC);
                 if (metaobject != NULL) {
                     entry->line = line;
-                    entry->sprite = &TutorialPages[metaobject->unk8];
+                    entry->sprite = &TutorialPages[metaobject->unk8.word];
                     count++;
                     entry++;
                 }
