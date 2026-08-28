@@ -102,7 +102,18 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8058390.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80583dc-ActorSetFrame.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058478.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80584b8.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/80585c8.s");
+
+void sub_80585C8(Actor* actor, unk32 arg1)
+{
+    unk8 value;
+
+    value = arg1;
+    if (value != actor->unk98) {
+        actor->unk58 = _unk3000E30[0];
+    }
+    actor->unk98 = value;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/80585e8.s");
 
 void actor_80585F0(UnkActor* arg0, unk8 arg1)

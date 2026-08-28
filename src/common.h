@@ -362,12 +362,15 @@ typedef struct Actor {
     unk32 unk4C;
     unk32 unk50;
     unk32 unk54;
-    unk8 pad58[0x18];
+    unk32 unk58;
+    unk8 pad5C[0x14];
     unk32 unk70;
     unk32 unk74;
     unk32 unk78;
     struct AllocatedBlock* unk7C;
-    unk8 pad80[0x1A];
+    unk8 pad80[0x18];
+    unk8 unk98;
+    unk8 pad99[1];
     unk16 unk9A;
     unk16 unk9C;
     unk16 unk9E;
