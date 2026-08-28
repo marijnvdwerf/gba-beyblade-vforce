@@ -9,7 +9,7 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 
 ## Session 4 (2026-08-27)
 
-### Session 4 wrap-up (2026-08-28, in progress — P2b + skill fold pending)
+### Session 4 wrap-up (2026-08-28; P2b pending)
 
 State: main green; 456 C / 551 asm / 45%; callgraph (restored 2423af7 tool
 + callbacks + IRQ table) shows 54 🟡, 46 🔴 (10 render_* ARM + 4 arm2.s ARM
@@ -29,6 +29,12 @@ Yield data: leaves ≤130 insns ≈ 80% match; 130–300 ≈ 10–15%; the misse
 almost all prologue/lifetime shape (frame size, which value is spilled,
 callee-saved retention), not semantics — sub_8043370 even matches exactly in
 raw-pointer form.
+
+FIRST THING NEXT SESSION (user): a sol agent folds all top-level
+docs/learnings/*.md into .claude/skills/agbcc/SKILL.md and archives them to
+processed/ (rules only: signed-division idiom, ptr[i+k] displacement fold,
+packed union measurement, record aliases, prologue/lifetime near-miss
+signatures).
 
 Open for next session: (1) whether to run the 200–260 band (six functions
 with known C callers: sub_804A550, sub_804EE54, allocQuadTree, sub_8050C18,
