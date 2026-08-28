@@ -137,24 +137,44 @@ struct FrontendMenuData {
     unk8 pad0[0x24];
 };
 
-struct FrontendMenuItem {
+typedef struct FrontendMenuItemData {
     unk8 pad0[4];
+    const u8* labels[4];
+    unk8 pad14[0xC];
+    unk32 nextPosition;
+    unk32 previousPosition;
+} FrontendMenuItemData;
+
+typedef struct FrontendMenuBlockData {
+    unk8 pad0[0xA];
+    unk8 unkA;
+} FrontendMenuBlockData;
+
+typedef struct FrontendMenuConfig {
+    FrontendMenuBlockData* address;
+} FrontendMenuConfig;
+
+struct FrontendMenuItem {
+    FrontendMenuItemData* data;
     SpriteEntry* sprite;
-    unk8 pad8[0x14];
+    unk8 pad8[0xC];
+    unk32 position;
+    unk8 pad18[4];
 };
 
 typedef struct FrontendMenu {
     s32 itemCount;
     unk32 selection;
-    unk8 pad8[8];
+    unk8 pad8[4];
+    unk32 step;
     unk32 velocity;
-    unk8 pad14[4];
+    unk32 position;
     unk32 textPosition;
     unk32 targetPosition;
     unk32 timer;
     unk32 timerTarget;
     FrontendMenuItem* items;
-    unk8 pad2C[4];
+    FrontendMenuConfig* config;
     AllocatedBlock* block;
     unk8 pad34[8];
     unk16 flags;
