@@ -327,6 +327,9 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   mask, packed 2-byte union, #if 0 callees in callgraph, per-consumer cast
   view); 18 learnings files archived to processed/. Top level now: README,
   humanize-2026-08-28.md (advice), leaves-b.md (fresh).
+- Frontend alias retry (sub_8049458, sub_804967C): 0/2 — the sub-object
+  alias did not remove their register-allocation residuals; refreshed
+  drafts merged (823273b). Running: leaf C (6), leaf D (3).
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
