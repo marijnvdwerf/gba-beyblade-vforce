@@ -273,7 +273,47 @@ void sub_8049F9C(FrontendState* arg0, unk32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8049ff8.s");
+void sub_8049FF8(FrontendState* state, unk32 command)
+{
+    s32 blend = 6;
+    s32 result;
+    s32 value;
+    s32 high;
+    s8* valuePtr;
+    vu16* output;
+    switch (command) {
+    case 2:
+        state->transition.value = 0x40;
+        state->transition.unk585 = -2;
+        state->transition.unk586 = 0;
+        break;
+    case 3:
+        state->transition.value = 0;
+        state->transition.unk585 = 2;
+        state->transition.unk586 = 0x40;
+        *(vu16*)REG_BLDCNT = 0xF42;
+        *(vu16*)REG_BLDALPHA = 0x1000;
+        *(vu16*)REG_DISPCNT |= 0x200;
+        break;
+    case 4:
+        valuePtr = &state->transition.value;
+        value = *valuePtr;
+        result = value;
+        result *= blend;
+        blend = result >> 6;
+        high = 16 - (value >> 4);
+        output = (vu16*)REG_BLDALPHA;
+        blend |= high << 8;
+        *output = blend;
+        break;
+    case 1:
+        if (state->transition.value == 0)
+            *(vu16*)REG_DISPCNT &= 0xFDFF;
+        if ((unk8)state->transition.value == 0x40)
+            Background_80498D8();
+        break;
+    }
+}
 
 #if 0
 void sub_8049CE8(FrontendState* arg0, unk32 arg1) {
