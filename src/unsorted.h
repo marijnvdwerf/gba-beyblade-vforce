@@ -26,6 +26,7 @@ void gameLoop(void);
 void sub_8053B94(void);
 void closeGame(void);
 void sub_80512AC(void);
+void sub_80600B4(void);
 unk32 sub_8051780(unk32);
 
 extern FrontendState _unk3000650;

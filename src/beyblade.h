@@ -7,9 +7,9 @@ void emptyBeybladeActorData(void);
 void deallocBeybladeActorData(void);
 void sub_8057104(unk32, unk32);
 
-typedef struct ItemDescriptionEntry {
+struct ItemDescriptionEntry {
     unk8 data[24];
-} ItemDescriptionEntry;
+};
 
 extern const ItemDescriptionEntry ItemDescription[];
 const ItemDescriptionEntry* sub_80570C0(unk32);
