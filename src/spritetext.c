@@ -312,7 +312,19 @@ void sub_8061844(SpriteTextCleanup* arg0, s16 arg1, s16 arg2)
     sub_806123C(arg0);
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/806185c.s");
+void sub_806185C(SpriteTextCleanup* cleanup, unk8 mode)
+{
+    SpriteEntry* sprite;
+    s32 count;
+
+    sprite = cleanup->unk14.prev;
+    count = cleanup->unk14.count;
+    while (count-- != 0) {
+        sub_8061168(sprite, mode);
+        sprite = sprite->next;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8061880.s");
 
 u8 showNumber(SpriteTextCleanup* arg0, s32 arg1, u8 arg2)
