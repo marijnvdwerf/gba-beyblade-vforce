@@ -237,6 +237,62 @@ void nullsub_1(void)
 {
 }
 
+#if 0
+void sub_804B624(void)
+{
+    s32 i;
+    s32 j;
+    s32 k;
+
+    i = 1;
+    {
+        RiderBase* riders[_gameData->unk430 + 1];
+        RiderBase* rider;
+        RiderBase* other;
+        RiderBase* value;
+        RiderBase** riderList;
+        RiderBase** otherList;
+
+        j = 0;
+        if (j < _gameData->unk430 + 1) {
+            riderList = riders;
+            do {
+                if (j != 0)
+                    rider = &_gameData->unk42C[j - 1];
+                else
+                    rider = &_gameData->base;
+                value = 0;
+                if ((rider->unk3CC & 4) == 0)
+                    value = rider;
+                *riderList = value;
+                riderList++;
+                j++;
+            } while (j < _gameData->unk430 + 1);
+        }
+        j = 0;
+        while (j < _gameData->unk430) {
+            rider = riders[j];
+            j++;
+            if (rider != NULL) {
+                k = i;
+                if (k < _gameData->unk430 + 1) {
+                    otherList = &riders[k];
+                    do {
+                        other = *otherList;
+                        if (other != NULL) {
+                            rider_vs_rider_collision_804DB94(rider, other);
+                            sub_804DAA0(rider, other);
+                        }
+                        otherList++;
+                        k++;
+                    } while (k < _gameData->unk430 + 1);
+                }
+                i++;
+            }
+        }
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b624.s");
 #if 0
 void sub_804B754(void)
