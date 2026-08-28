@@ -177,6 +177,19 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   (needs s16 unkC26 vs initGameLoop's u16 — real conflict). Layouts kept:
   Actor s32 x/y/z, EnvironmentObject.actor, RiderTemp, EnvironmentLine,
   GeometryAddressTable.unkC, CollectableData s32 count + collectedBits[1].
+- Frontend round-1 MERGED: sub_8050FE8, sub_80491E0 (callers keep `(s16)`
+  casts — open: try an s16 return type), sub_8050E80, sub_8050F0C,
+  sub_80495C4, sub_8049FF8 matched; sub_8050A50 PARKED by the manager (the
+  matching form is a raw 0x88 offset walk; typed `&ptrC[i]` + countdown is
+  two swapped init instructions away); sub_805041C parked. Engine-1 and
+  engine-2 testers merged: 0 matches, drafts + step tables only
+  (humanize-test-engine.md / -sprite.md). Post-merge build break: two
+  agents typed ROM table `_8069FC8` twice (FrontendSelectionRecord vs
+  LevelRowMusicEntry) — unified on FrontendSelectionRecord with
+  FrontendSelectionData.unk0 (the music index word). Lesson: ALWAYS re-run
+  compare after the last merge of a batch BEFORE update-expected — I ran
+  update-expected on a broken build once (harmless only because ninja had
+  not regenerated the failing objects).
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
@@ -263,7 +276,7 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 
 ## State
 
-Progress: 11/66 TUs done, 405 C functions, 602 INCLUDE_ASM remaining (40%).
+Progress: 12/66 TUs done, 411 C functions, 596 INCLUDE_ASM remaining (41%).
 Session 3 merged 97 functions (batches 1–17, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
