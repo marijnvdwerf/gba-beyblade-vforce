@@ -28,3 +28,7 @@ Removing the value-pointer and output-pointer aliases initially moved the `REG_B
 ## sub_8050A50
 
 `DisplayRecord` is a fixed 0x88-byte record, and `DisplayData.ptrC` is typed as `DisplayRecord*`. Both a typed cursor and an indexed countdown loop were tested. The typed cursor changed the first divergence to the prologue because the compiler no longer kept the display base live across the call. The indexed countdown loop matched the body and differed first at the two initialization instructions: target `mov r5, #0` then `mov r4, r0`, candidate `mov r4, r0` then `mov r5, #0`. The existing exact form therefore remains pending a natural source shape that satisfies both the array rule and byte matching.
+
+## sub_8050A50 (display.c) — parked by the manager
+
+The byte-matching form walks `display->ptrC` with a raw `(unk8*)ptrC + offset`, `offset += 0x88` (cast-and-offset, forbidden). Typed forms tried: `&display->ptrC[i]` with a separate countdown `remaining` (only the two init instructions swap: target `mov r5,#0` before `mov r4,r0`), and the loaded sum used directly as the countdown (same). Residual: order of the strength-reduced offset init vs the countdown init.
