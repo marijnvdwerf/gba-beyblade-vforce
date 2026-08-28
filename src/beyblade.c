@@ -17,6 +17,25 @@ const ItemDescriptionEntry* sub_80570C0(unk32 index)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80570d4.s");
+
+#if 0
+void sub_8057104(s32 arg0, unk32 arg1)
+{
+    unk32* data;
+    unk32 value;
+
+    if ((arg1 << 24) != 0) {
+        data = &_currentGameState->unk594[0];
+        data = (unk32*)((unk8*)data + ((arg0 >> 5) << 2));
+        value = *data | (1 << (arg0 & 0x1F));
+    } else {
+        data = &_currentGameState->unk594[0];
+        data = (unk32*)((unk8*)data + ((arg0 >> 5) << 2));
+        value = *data & ~(1 << (arg0 & 0x1F));
+    }
+    *data = value;
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057104.s");
 
 void sub_8057158(FrontendResource* arg0, const InputSequence* arg1)

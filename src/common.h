@@ -287,9 +287,9 @@ typedef struct UnkActor {
 
 typedef struct Actor {
     unk8 pad0[4];
-    unk32 x;
-    unk32 y;
-    unk8 padC[4];
+    s32 x;
+    s32 y;
+    s32 z;
     u8 unk10;
     unk8 unk11;
     unk16 unk12;
@@ -341,7 +341,7 @@ typedef struct EnvironmentNode {
 } EnvironmentNode;
 
 typedef struct EnvironmentObject {
-    unk8 pad0[4];
+    Actor* actor;
     SpriteEntry* sprite;
     unk8 pad8[0x44];
 } EnvironmentObject;
@@ -424,9 +424,16 @@ typedef struct RiderState {
     unk32 unk54;
 } RiderState;
 
+typedef struct RiderTemp {
+    unk8 pad0[0x3CC];
+    unk16 unk3CC;
+    unk8 pad3CE[0x56];
+    unk16 unk424;
+} RiderTemp;
+
 typedef struct RiderBase {
-    RiderState* unk0;
-    unk32 unk4;
+    Actor* unk0;
+    RiderTemp* unk4;
     unk8 pad8[8];
     unk32 unk10;
     unk32 unk14;
@@ -496,6 +503,12 @@ typedef struct GeometryLine {
     unk16 type;
     unk8 pad18[8];
 } GeometryLine; /* 0x20 */
+
+typedef struct EnvironmentLine {
+    unk8 pad0[0x10];
+    unk8 unk10;
+    unk8 pad11[0xF];
+} EnvironmentLine; /* 0x20 */
 
 typedef struct GeometrySpline {
     unk32 pointCount;
@@ -579,9 +592,9 @@ typedef struct CollectableEntry {
 } CollectableEntry;
 
 typedef struct CollectableData {
-    unk32 count;
+    s32 count;
     CollectableEntry entries[0x20];
-    unk32 collectedBits;
+    unk32 collectedBits[1];
 } CollectableData;
 
 typedef struct TutorialPage {

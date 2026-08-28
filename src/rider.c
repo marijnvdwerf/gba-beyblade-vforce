@@ -126,11 +126,8 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804bf3c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c098.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c0c0.s");
 
-void sub_804C0EC(unk32 arg0, unk8 arg1)
+void sub_804C0EC(RiderTemp* rider, unk8 arg1)
 {
-    RiderTemp* rider;
-
-    rider = (RiderTemp*)arg0;
     if (arg1 != 0) {
         rider->unk3CC |= 8;
     } else {

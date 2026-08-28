@@ -87,7 +87,25 @@ void sub_80512AC(void)
     } while (index <= 0x37);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/805137c.s");
+unk32 sub_805137C(void)
+{
+    s32 index;
+    unk32 result;
+    LevelState* state;
+
+    result = 0;
+    index = 0;
+    do {
+        state = sub_8051720(index);
+        getLevelDescription(index);
+        if ((state->unk0 & 2) != 0) {
+            result = index;
+        }
+        index++;
+    } while (index <= 0x37);
+    return result;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80513ac.s");
 
 void sub_8051488(void)
