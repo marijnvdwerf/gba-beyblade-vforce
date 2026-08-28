@@ -95,7 +95,7 @@ typedef struct UnkMotion {
     s16 count;
     unk16 mode;
     unk32 unk10;
-    unk32 unk14;
+    s32 unk14;
 } UnkMotion;
 
 typedef struct FrontendSubobjectData {
