@@ -35,7 +35,39 @@ void sub_80434EC(FrontendState* object)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8043558.s");
+extern const unk32 _8068868[];
+
+void sub_8043558(FrontendState* object)
+{
+    s32 i;
+    unk32 odd;
+    unk32 direction;
+    const unk32* table;
+    UnkMotion* motion;
+    UnkMenuItem* item;
+
+    if (object->menuState.objectCount != 0) {
+        table = _8068868;
+        motion = object->menuState.objectItems;
+        item = object->menuState.items;
+        i = 0;
+        while (i < (s32)object->menuState.objectCount) {
+            odd = i & 1;
+            direction = (unk32)-1;
+            if (odd != 0)
+                direction = 1;
+            sub_8050584(motion);
+            newMotionGroup(motion, &item->text.unk14, 0);
+            sub_80504E4(motion, table[0] * direction, table[1], table[2], table[3]);
+            sub_805052C(motion, table[4] * direction, table[5], table[6], table[7]);
+            sub_8050574(motion, 0);
+            item++;
+            motion++;
+            i++;
+        }
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8043604.s");
 
 void sub_80436B0(FrontendState* object)
