@@ -3,13 +3,21 @@
 
 #include "common.h"
 
+typedef union LayerTransformValue {
+    unk32 word;
+    s16 half;
+} LayerTransformValue;
+
 typedef struct LayerTransformRecord {
-    unk32 unk0;
-    unk32 unk4;
-    unk32 unk8;
-    unk32 unkC;
-    unk32 unk10;
-    unk32 unk14;
+    unk8 unk0;
+    unk8 pad1;
+    unk16 unk2;
+    unk16 unk4;
+    unk8 pad6[2];
+    LayerTransformValue unk8;
+    LayerTransformValue unkC;
+    LayerTransformValue unk10;
+    LayerTransformValue unk14;
 } LayerTransformRecord;
 
 typedef struct DisplayRecord {

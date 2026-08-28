@@ -1,3 +1,5 @@
+#include "math.h"
+
 #include "include_asm.h"
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8059fa0.s");
