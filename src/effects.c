@@ -8,39 +8,35 @@
 void sub_805529C(void)
 {
     s32 angle;
-    unk32 i;
-    unk32 offset;
-    unk8* layer;
-    GameData* gameData;
+    s32 i;
     ProjectileSystem* effect;
+    EffectLayer* layer;
 
-    gameData = _gameData;
-    effect = &gameData->projectileSystem;
+    effect = &_gameData->projectileSystem;
     if (effect->unk28 != 0) {
         angle = _unk3000E30[0] >> 4;
         angle = (angle << 29) >> 23;
-        angle = *(const unk16*)((const unk8*)Unk_874CC3C + angle);
+        angle = Unk_874CC3C[angle];
         angle = (angle << 16) >> 23;
-        effect->unk2C = angle;
-        effect->unk30 = -angle;
-        offset = 0x434;
+        _gameData->projectileSystem.unk2C = angle;
+        _gameData->projectileSystem.unk30 = -angle;
+        layer = _gameData->unk434;
         i = 2;
         do {
-            layer = (unk8*)gameData + offset;
-            *GetBGLayerHOffsetPtr(layer[0x5E]) = (*(s32*)(layer + 0x40) >> 8) + angle;
-            *GetBGLayerVOffsetPtr(layer[0x5E]) = (*(s32*)(layer + 0x44) >> 8) - angle;
-            offset += 0x88;
+            *GetBGLayerHOffsetPtr(layer->layerIndex) = (layer->x >> 8) + angle;
+            *GetBGLayerVOffsetPtr(layer->layerIndex) = (layer->y >> 8) - angle;
+            layer++;
             i--;
         } while (i >= 0);
-        effect->unk28--;
+        _gameData->projectileSystem.unk28--;
     } else {
-        effect->unk2C = 0;
-        effect->unk30 = 0;
+        _gameData->projectileSystem.unk2C = 0;
+        _gameData->projectileSystem.unk30 = 0;
     }
 }
-#else
-INCLUDE_ASM("asm/dump/804a388-tutorial/805529c.s");
 #endif
+INCLUDE_ASM("asm/dump/804a388-tutorial/805529c.s");
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055340.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80555f4.s");
 
