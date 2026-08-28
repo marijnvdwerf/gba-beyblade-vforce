@@ -158,7 +158,11 @@ void sub_804FE14(void)
     _gameData->unk105E |= 1;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804fe30.s");
+void sub_804FE30(void)
+{
+    _gameData->unk105E &= 0xFFFE;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fe50.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fe9c.s");
 
