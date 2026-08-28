@@ -55,7 +55,6 @@ typedef struct {
     /*0x00*/ unk8 var00;
 } SoundStructD;
 
-// Rounds an integer up to the given power of 2. y must be a power of 2.
 #define ceil2(x, y) (((x) + (y) - 1) & (~((y) - 1)))
 
 extern unk8* _unk3000D90;
@@ -78,22 +77,19 @@ extern SoundStructA (*_unk3005E24)[2];
 extern SoundStructF (*_unk3005E28)[16];
 extern AllocatedBlock* _soundMixerBlock;
 extern AllocatedBlock* _soundTableBlock;
-// ???
 extern SoundStructC _unk3005E40;
 extern u16 _unk3005E4C;
 extern unk16 (*_soundMixerPlus)[];
 
-// Actor?
 extern unk8 _unk3005E78;
 
 void (*__sub_87577B4)(SoundStructA*, unk32, unk32);
 void (*__sound_8757A64)(unk32, unk32, unk32);
 
-// 16.16 Hz frequencies for MIDI notes 0 through 127.
 #define FIXED_16_16(hz) ((unk32)((hz) * 65536.0))
 
 const u32 MidiNoteFrequencies[128] = {
-    FIXED_16_16(8.1758), // MIDI note 0: 8.1758 Hz
+    FIXED_16_16(8.1758),
     FIXED_16_16(8.66196),
     FIXED_16_16(9.17702),
     FIXED_16_16(9.72272),
@@ -153,7 +149,7 @@ const u32 MidiNoteFrequencies[128] = {
     FIXED_16_16(220),
     FIXED_16_16(233.08188),
     FIXED_16_16(246.9416504),
-    FIXED_16_16(261.625565), // MIDI note 60: 261.625565 Hz
+    FIXED_16_16(261.625565),
     FIXED_16_16(277.18262),
     FIXED_16_16(293.6647644043),
     FIXED_16_16(311.126984),
@@ -162,7 +158,7 @@ const u32 MidiNoteFrequencies[128] = {
     FIXED_16_16(369.99442),
     FIXED_16_16(391.9954224),
     FIXED_16_16(415.3047),
-    FIXED_16_16(440), // MIDI note 69: 440 Hz
+    FIXED_16_16(440),
     FIXED_16_16(466.16376),
     FIXED_16_16(493.883301),
     FIXED_16_16(523.25113),
@@ -220,7 +216,7 @@ const u32 MidiNoteFrequencies[128] = {
     FIXED_16_16(10548.08182),
     FIXED_16_16(11175.30341),
     FIXED_16_16(11839.82152),
-    FIXED_16_16(12543.853943), // MIDI note 127: 12543.853943 Hz
+    FIXED_16_16(12543.853943),
 };
 
 void sub_8062C24(void);
@@ -478,9 +474,7 @@ void sub_80627F0(void)
         }
     }
 }
-
 #endif
-
 INCLUDE_ASM("asm/dump/sound/80627f0.s");
 
 static void Sound_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
@@ -710,7 +704,6 @@ void sub_8062C24(void)
         return;
     }
 
-    /* The target's entry guard keeps the body out when the adjusted time is positive; zero enters it. */
     do {
         opcode = (*_unk3005E00)[0];
         _unk3005E00 = (unk8(*)[])((unk8*)_unk3005E00 + 1);
@@ -829,74 +822,8 @@ void sub_8062C24(void)
 
     } while (_unk3005E08 <= 0);
 }
-
 #endif
-
 INCLUDE_ASM("asm/dump/sound/8062c24.s");
-
-/*
-void sub_8062C24(void) {
-    if (_unk3005E0C != 1) {
-        return;
-    }
-
-    _unk3005E08 -= _unk3005E10;
-
-    while (_unk3005E08 < 0) {
-        unk8 byte = (*_unk3005E00++)[0];
-
-        if (!(byte & 0x80)) {
-            _unk3005E08 += (byte << 8 | (*_unk3005E00++)[0]) << 16;
-
-            continue;
-        }
-        switch (byte >> 4) {
-        case 8: {
-            int i;
-            unk8 byte2 = (*_unk3005E00++)[0];
-            _unk3005E00++;
-
-            for (i = 4; i != 0; i--) {
-
-            }
-        }
-
-            break;
-        case 9:
-        {
-            unk8 byte1 = (*_unk3005E00++)[0];
-            unk8 byte2 = (*_unk3005E00++)[0];
-
-            unk8 index = byte&0xF;
-
-            if(*_unk3005E28[index][0] == 0) {
-                break;
-            }
-        }
-            break;
-        case 11:
-            switch (byte & 0xF) {
-            case 0:
-                _unk3005E00 = (unk8[]) _unk3005E20;
-                break;
-            case 1:
-                _unk3005E00++;
-                break;
-            case 2:
-                break;
-            case 3:
-                printf("End track here\n");
-                break;
-            }
-            break;
-        case 12:
-        case 13:
-            _unk3005E00++;
-            break;
-        }
-    }
-
-}*/
 
 unk32 Sound_8062E54(unk32 arg0)
 {

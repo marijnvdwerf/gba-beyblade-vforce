@@ -43,7 +43,7 @@ extern const unk8 Str_8755A08[];
 void freeSpriteVramLocation(s32, s32);
 void sub_8060B38(SpriteEntry*);
 SpriteEntry* sub_8060E8C(SpriteEntry*, u16, u16, u8);
-SpriteEntry* sub_8060C1C(SpriteEntry*, unk16, unk16);
+SpriteEntry* sub_8060C1C(SpriteTextBlock*, unk16, unk16);
 
 void sub_80604D4(SpriteEntry* current)
 {
@@ -246,8 +246,7 @@ s32 sub_8060790(s32 arg0)
     return start;
 }
 
-#if 0 /* NONMATCHING: first diff is mov r7,r9 versus mov r7,r8 at 0x2; draft is 0x10 bytes shorter \
-       */
+#if 0
 void freeSpriteVramLocation(s32 start, s32 size)
 {
     SpriteStruct2* current;
@@ -314,7 +313,6 @@ void freeSpriteVramLocation(s32 start, s32 size)
 INCLUDE_ASM("asm/dump/8057b80-debug/8060808-freeSpriteVramLocation.s");
 #endif
 
-// 8755A08
 const unk8 Str_8755A08[]
     = "There are no free SpriteVramFree entries remaining on a call to freeSpriteVramLocation()\n";
 
@@ -534,17 +532,19 @@ typedef struct SpriteSheet {
     unk32 unk1C;
 } SpriteSheet;
 
-void LoadSpriteSheet(SpriteSheetEntry* dst, SpriteSheet* source, unk32 x, unk32 y, unk32 arg4,
+void LoadSpriteSheet(SpriteEntry* dst, const void* sourceArg, unk32 x, unk32 y, unk32 arg4,
     unk32 arg5, unk32 arg6, unk32 arg7)
 {
-    register unk32 stackArg4;
-    register unk32 stackArg5 asm("r9") = arg5;
+    SpriteSheet* source;
+    unk32 stackArg4;
+    unk32 stackArg5 = arg5;
     unk32 value;
     unk8 sourceFlags;
     unk8 sourceByteC;
     unk8 normalizedArg4;
-    register unk16 normalizedArg5 asm("r10");
+    unk16 normalizedArg5;
 
+    source = (SpriteSheet*)sourceArg;
     stackArg5 = arg5;
     normalizedArg5 = arg7;
     stackArg4 = arg4;
@@ -577,15 +577,12 @@ void LoadSpriteSheet(SpriteSheetEntry* dst, SpriteSheet* source, unk32 x, unk32 
     dst->var20 = 0;
     dst->var24 = -1;
 }
-
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8060b68-LoadSpriteSheet.s");
 
-#if 0 /* NONMATCHING: first diff is the list-relink branch at 0x5E; draft has the same semantic    \
-         control flow but different register allocation */
+#if 0
 SpriteEntry* sub_8060C1C(SpriteTextBlock* block, u16 size, u16 var22)
 {
-    unk32 spritesFree;
     SpriteEntry* first;
     SpriteEntry* last;
     SpriteEntry* previous;
@@ -593,12 +590,11 @@ SpriteEntry* sub_8060C1C(SpriteTextBlock* block, u16 size, u16 var22)
     SpriteEntry* next;
     u16 count;
 
-    spritesFree = _spritesFree;
-    if (spritesFree < size) {
+    if (_spritesFree < size) {
         printf(Str_8755AC8, size);
         return NULL;
     }
-    _spritesFree = spritesFree - size;
+    _spritesFree -= size;
     first = _spritesLeft;
     previous = first;
     insertion = sub_80609C4(_unk3005DE4, var22);
@@ -690,44 +686,40 @@ void sub_8060CDC(SpriteTextBlock* block)
 #if 0
 SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 new_size, u16 arg2)
 {
-    /* The target narrows extra with lsl/lsr #16 at 0x2C-0x30. */
     unk16 extra;
-    unk32 sprites_free;
+    unk32* freePtr;
     SpriteEntry* first;
     SpriteEntry* last;
     SpriteEntry* free_head;
-    SpriteEntry* new_first;
     SpriteEntry* new_last;
-    SpriteEntry* successor;
     SpriteEntry* previous;
-    unk16 count;
+    SpriteEntry* successor;
 
+    freePtr = &_spritesFree;
     if (block->count == new_size) {
         return block->prev;
     }
     if (block->count < new_size) {
         if (block->count != 0) {
             extra = new_size - block->count;
-            sprites_free = _spritesFree;
-            if (sprites_free < extra) {
+            if (*freePtr < extra) {
                 nullsub_8(Str_8755B0C);
                 return NULL;
             }
             free_head = _spritesLeft;
-            new_first = free_head;
-            last = block->next;
-            previous = new_first;
             first = block->prev;
-            _spritesFree = sprites_free - extra;
-            block->count = block->count + extra;
-            new_first->var22 = first->var22;
-            count = extra - 1;
-            while (count != 0) {
+            last = block->next;
+            *freePtr -= extra;
+            block->count += extra;
+            free_head->var22 = first->var22;
+            previous = free_head;
+            extra--;
+            while (extra != 0) {
                 free_head = free_head->next;
                 free_head->var22 = first->var22;
                 free_head->prev = previous;
                 previous = free_head;
-                count -= 1;
+                extra--;
             }
             new_last = free_head;
             _spritesLeft = new_last->next;
@@ -736,8 +728,8 @@ SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 new_size, u16 arg2)
                 successor->prev = new_last;
             }
             new_last->next = last->next;
-            last->next = new_first;
-            new_first->prev = last;
+            last->next = first;
+            first->prev = last;
             block->next = new_last;
             sub_80604D4(_unk3005DE4);
             return block->prev;
@@ -751,6 +743,7 @@ SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 new_size, u16 arg2)
 }
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8060d98-resizeSpriteBlock.s");
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8060e8c.s");
 
 void sub_8060F64(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 arg3)
