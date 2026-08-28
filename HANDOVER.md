@@ -403,6 +403,14 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   in docs/learnings/leaves-n4.md; headers untouched). Follow-up: the backup.c
   draft uses a raw `*(vu16*)0x0D000000` — replace with the memory_map name
   when the function is retried.
+- Leaf Q dispatched: actor_80580C0 (40, actor.c; caller sub_80581B8 typed).
+  It is the LAST red under 200 insns without a draft; all other reds are
+  parked (sub_8046A0C, sub_8044054, wave-P trio) or ≥200. Unattempted 200+
+  reds all have a known C caller or table (callgraph parent), e.g.
+  sub_804A550←sub_80556DC, sub_804EE54←ActorSetFrameSequence,
+  allocQuadTree←initQuadTree, sub_8050C18/sub_80413FC←sub_80439A0,
+  sub_805E8D8←sub_805E8A0, sub_80522D4←CameraState.callback,
+  s_rider_804C4B4/actor_805C48C←actor_80585F8, sub_805D650←nullsub_33.
 - Wave P: P1 = LoadSpriteSheet (sprite.c) running; P2 (festate trio) died
   of context overflow ("Prompt is too long") mid sub_8045160 at a 65/264-row
   near miss (one moved `ldr r4,[pc]` ≈ +0x54 shifts the literal pool); WIP
