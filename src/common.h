@@ -529,11 +529,12 @@ typedef struct RiderBase {
     unk32 unk234;
     Actor unk238;
     Actor unk2FC;
-    unk8 pad3C0[4];
+    SpriteEntry* unk3C0;
     SpriteEntry* unk3C4;
     unk8 pad3C8[8];
     unk8 unk3D0; /* 0x3D0 */
-    unk8 pad3D1[0x17];
+    unk8 pad3D1[0x13];
+    unk32 unk3E4;
     u8 unk3E8;
     unk8 unk3E9[3];
     ParticleSystem unk3EC;

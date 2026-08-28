@@ -244,7 +244,16 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804b8f0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804bbf0-renderRider.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804bedc-allocFXSprite.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804bf3c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c098.s");
+
+void sub_804C098(RiderBase* rider)
+{
+    if (rider->unk3C0 != NULL) {
+        sub_8060A94(rider->unk3C0);
+        rider->unk3C0 = NULL;
+    }
+    rider->unk3E4 = 0;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c0c0.s");
 
 void sub_804C0EC(RiderTemp* rider, unk8 arg1)
