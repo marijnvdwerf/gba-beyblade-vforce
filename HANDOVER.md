@@ -73,6 +73,14 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   from-asm batches (festate-B / geometry redo paused). asmlift stash applied
   to main as untracked decomp.yaml + docs/asmlift.md; measurement agent
   writes /tmp/asmlift-report.md and /tmp/asmlift-out/*.c.
+  RESULT: 5/24 produced (updateKeyState, sub_805041C, GetLineIndexOfType,
+  processRiderMetadata, sub_805EB00); 19 threw. Failure clusters: 9× callers
+  of >4-arg functions ("outgoing stack-argument area not implemented",
+  e.g. allocFont), 7× address-taken stack locals / frame arithmetic, 1×
+  jump table (selectBladeFrontendHandler), 1× irreducible loop, 1× add
+  rN,sp,#imm capture. → asmlift feature work (stack args first) would unlock
+  ~half the no-draft reds. decomp.yaml + docs/asmlift.md committed with
+  ASMLIFT_DIR. Drafts kept in /tmp/asmlift-out (copy to docs/ if wanted).
   Newly parked: sub_805041C (motion, near-match: reset-store register seq +
   2-byte delta; draft in migrate-frontend-music.md), sub_804967C (frontend,
   extra high-reg saves), sub_806014C (multiplayer, reload only reproduces
