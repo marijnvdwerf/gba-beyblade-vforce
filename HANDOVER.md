@@ -253,6 +253,13 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   sub_8058EF4, handleEventListeners, …) — real undecompiled functions,
   dispatched as two leaf batches (≤100 insns). Tool note: callgraph should
   probably not follow calls inside `#if 0`.
+- Round-2b retired after 0/10 (drafts merged for sub_80539E8,
+  updateEnvirenmentActors, newIconMenu, sub_8063220; round2b.md). Still
+  unattempted medium reds: sub_804A550 202, sub_804257C 209, sub_804EE54 215,
+  renderEnvironmentActors 241, sub_806014C 276, sub_8055340 288, plus the
+  never-assigned 140–450 band and the >450 giants (see the classified list
+  in the session log). Round-2 yield on 100–300-insn functions: 2/24.
+  Leaf batches A (12) and B (13) running.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
