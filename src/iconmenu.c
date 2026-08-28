@@ -23,17 +23,20 @@ void sub_8050E80(FrontendMenu* menu)
     s32 nextIndex;
 
     index = menu->selection;
-    current = menu->items + index;
+    current = &menu->items[index];
     nextIndex = index + 1;
     if ((menu->flags & 1) == 0) {
         sub_804ABFC(7);
-        if (nextIndex >= menu->itemCount)
+        if (nextIndex >= menu->itemCount) {
             nextIndex = 0;
-        next = menu->items + nextIndex;
-        if (next->sprite != NULL)
+        }
+        next = &menu->items[nextIndex];
+        if (next->sprite != NULL) {
             sub_8061078(next->sprite, 1);
-        if (current->sprite != NULL)
+        }
+        if (current->sprite != NULL) {
             sub_8061078(current->sprite, 2);
+        }
         current->position = current->data->nextPosition;
         nextData = next->data;
         next->position = nextData->previousPosition;
@@ -52,17 +55,20 @@ void sub_8050F0C(FrontendMenu* menu)
     s32 previousIndex;
 
     index = menu->selection;
-    current = menu->items + index;
+    current = &menu->items[index];
     previousIndex = index - 1;
     if ((menu->flags & 1) == 0) {
         sub_804ABFC(7);
-        if (previousIndex < 0)
+        if (previousIndex < 0) {
             previousIndex = menu->itemCount - 1;
-        previous = menu->items + previousIndex;
-        if (previous->sprite != NULL)
+        }
+        previous = &menu->items[previousIndex];
+        if (previous->sprite != NULL) {
             sub_8061078(previous->sprite, 1);
-        if (current->sprite != NULL)
+        }
+        if (current->sprite != NULL) {
             sub_8061078(current->sprite, 2);
+        }
         current->position = current->data->nextPosition;
         previousData = previous->data;
         previous->position = previousData->previousPosition;
