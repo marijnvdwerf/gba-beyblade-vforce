@@ -391,7 +391,15 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   parked — first divergence `add r4, r3, r0` vs r5 (sequence pointer
   regalloc); agent's draft used cast-and-offset + a packed union + draft-only
   header fields, cleaned up and merged (parked draft + learnings only).
-- Running: leaf L
+- Leaf L merged (parked drafts only): sub_8043370 — raw-pointer form matched
+  EXACTLY, typed form diverges at regalloc/literal emission even with the
+  direct-member-expression retry (docs/learnings/sub_8043370.md); sub_805EBCC
+  parked (packed-table scale addressing). Headers untouched.
+- Leaf M: sub_80581B8 matched; sent back to drop field-read casts (in flight).
+- Callgraph extension (sol) in flight: skip #if 0, model runtime callback
+  fields (Actor.unkB0/unkC0, ActorTimerEntry.unk8, CameraState.callback,
+  menu callback, frontend unkB4->unk8, _unk3000C0C, render.h fn tables).
+- Was running: leaf L
   (menuobject.c sub_8043370 176, camera.c sub_805EBCC 199).
 - Running: leaf I (actor.c: sub_8058838 53, actor_8058638 137) and leaf J
   (riderphysics.c sub_804DAA0 109, rider.c sub_804B7FC 112). Leaf H (layer.c
