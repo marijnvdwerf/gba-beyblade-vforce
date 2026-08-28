@@ -11,6 +11,7 @@ void StoreMetadataAddr(LevelGeometryAddresses*, LineMetadata**);
 void newCollisionDataRam(LevelGeometryAddresses*, LevelGeometryTable*, unk16);
 void initQuadTree(QuadTree*, LevelGeometryAddresses*, unk16, unk16, unk16, unk16);
 LineMetadata* GetLineMetaData(LevelGeometryAddresses*, unk32);
+LineMetaObject* getLineMetaAtIndex(LevelGeometryAddresses*, LineMetadata*, s32);
 LineMetaObject* getLineMetaObjectBytype(LevelGeometryAddresses*, LineMetadata*, unk32);
 LineMetaObject* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, LineMetadata*, unk32, unk32);
 unk32 GetLineIndexOfType(LevelGeometryAddresses*, unk16, unk16);

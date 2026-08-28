@@ -56,7 +56,32 @@ LineMetadata* GetLineMetaData(LevelGeometryAddresses* arg0, unk32 index)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805ba7c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bac0.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805bad8-getLineMetaAtIndex.s");
+
+LineMetaObject* getLineMetaAtIndex(LevelGeometryAddresses* arg0, LineMetadata* metadata, s32 index)
+{
+    LineMetaObject* object;
+    s32 count;
+    s32 i;
+
+    i = 0;
+    object = metadata->objects;
+    if (metadata == NULL) {
+        return NULL;
+    }
+    count = metadata->count;
+    if (index >= count) {
+        return NULL;
+    }
+    if (i < index) {
+        i = index;
+        do {
+            object = (LineMetaObject*)((unk8*)object + object->size);
+            i--;
+        } while (i != 0);
+    }
+    return object;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805bafc.s");
 
 LineMetaObject* getLineMetaObjectBytype(
