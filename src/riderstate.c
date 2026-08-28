@@ -22,7 +22,26 @@ void sub_804FFD4(void)
     _unk3000F40 = 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/805000c.s");
+void sub_805000C(RiderState* arg0, RiderBase* arg1)
+{
+    unk16 value;
+    unk32 current;
+    unk32 old;
+    const unk32 mask = 0x3FF;
+    const unk32 clear_mask = 0xFFFFFC00;
+
+    arg0->prefix.words.unk0 = arg1->unk0->x >> 8;
+    arg0->prefix.words.unk2 = arg1->unk0->y >> 8;
+    arg0->prefix.words.unk4 = arg1->unk0->z >> 8;
+    value = arg1->unk0->unk22;
+    current = value & mask;
+    old = arg0->prefix.words.unk6;
+    old &= clear_mask;
+    old |= current;
+    arg0->prefix.words.unk6 = old;
+    arg0->unkC = arg1->unk4->unk3CC;
+    sub_805024C(arg0);
+}
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050050.s");
 

@@ -287,9 +287,9 @@ typedef struct UnkActor {
 
 typedef struct Actor {
     unk8 pad0[4];
-    unk32 x;
-    unk32 y;
-    unk8 padC[4];
+    s32 x;
+    s32 y;
+    s32 z;
     u8 unk10;
     unk8 unk11;
     unk16 unk12;
@@ -425,9 +425,16 @@ typedef struct RiderState {
     unk32 unk54;
 } RiderState;
 
+typedef struct RiderTemp {
+    unk8 pad0[0x3CC];
+    unk16 unk3CC;
+    unk8 pad3CE[0x56];
+    unk16 unk424;
+} RiderTemp;
+
 typedef struct RiderBase {
-    RiderState* unk0;
-    unk32 unk4;
+    Actor* unk0;
+    RiderTemp* unk4;
     unk8 pad8[8];
     unk32 unk10;
     unk32 unk14;
