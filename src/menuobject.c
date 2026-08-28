@@ -3,10 +3,61 @@
 #include "frontend.h"
 #include "include_asm.h"
 #include "keystate.h"
+#include "language.h"
 #include "motion.h"
 #include "ram.h"
 #include "spritetext.h"
 
+#if 0
+void sub_8043370(FrontendState* object)
+{
+    FrontendMenuObjectData* data;
+    MenuState* state;
+    UnkMotion* items;
+    UnkMenuItem* motion;
+    const FrontendMotionData* table;
+    unk32 language;
+    s32 offset;
+    s32 i;
+    s32 sign;
+    s32 direction;
+
+    data = object->unkB4->unk4->unk20;
+    table = &_8068840;
+    if (data != NULL) {
+        state = &object->menuState;
+        language = getLanguage();
+        sub_805AD24(state, data->unk8[0], data->unk8[1], data->unk0, data->unk2, data->unk10,
+            data->unk12, data->unk14, data->unk15, data->unk16, data->unk17, sub_8043604, 0,
+            language);
+        allocateMenuItems(state, data->unkC, 0);
+        object->unk7E = 0;
+        object->unk7D = 0;
+        if (object->menuState.objectCount == 0)
+            return;
+        object->menuState.block = slowAllocate(object->menuState.objectCount * 0x18);
+        object->menuState.objectItems = object->menuState.block->address;
+        items = object->menuState.objectItems;
+        motion = object->menuState.items;
+        object->menuState.timer = 0;
+        offset = (0xA0 - object->menuState.unk9) / 2 + data->unk6;
+        i = 0;
+        while (i < object->menuState.objectCount) {
+            sign = ((i & 1) != 0) ? 1 : -1;
+            direction = (sign > 0) ? -0x10 : 0xF0;
+            sub_8061844(&motion->text, 0, direction);
+            newMotionGroup(items, &motion->text.unk14, 6);
+            sub_80504E4(items, table->unk0, table->unk4 * sign, table->unk8, table->unkC);
+            sub_805052C(items, table->unk10, table->unk14 * sign, table->unk18, table->unk1C);
+            sub_8050578(items, offset << 8, table->unk26);
+            offset += object->menuState.unkA;
+            items++;
+            motion++;
+            i++;
+        }
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/8040d18/8043370.s");
 
 void sub_80434EC(FrontendState* object)
