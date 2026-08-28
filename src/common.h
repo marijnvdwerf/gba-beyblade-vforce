@@ -160,7 +160,8 @@ typedef struct FrontendSelectionPalette {
 } FrontendSelectionPalette;
 
 typedef struct FrontendSelectionData {
-    unk8 pad0[0x24];
+    unk32 unk0;
+    unk8 pad4[0x20];
     FrontendSelectionPalette* palette;
 } FrontendSelectionData;
 

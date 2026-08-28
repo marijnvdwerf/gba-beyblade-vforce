@@ -13,14 +13,6 @@ typedef struct LevelRows {
 
 typedef SpriteTextCleanup LevelRowSprite;
 
-typedef struct LevelRowMusicEntry {
-    unk32 unk0;
-    const unk32* unk4;
-    unk8 pad8[0x10];
-} LevelRowMusicEntry;
-
-extern const LevelRowMusicEntry _8069FC8[];
-
 void sub_804A110(void);
 void sub_804A280(FrontendState*);
 

@@ -78,18 +78,18 @@ void sub_804A280(FrontendState* arg0)
 {
     unk32 current;
     unk32 index;
-    const LevelRowMusicEntry* entry;
+    const FrontendSelectionRecord* entry;
 
     current = arg0->unk0;
     index = arg0->unk4;
     if (current != index) {
         entry = &_8069FC8[index];
-        if (*entry->unk4 != _gameData->unkC26 && arg0->transition.unk586 == arg0->transition.value) {
+        if (entry->data->unk0 != _gameData->unkC26 && arg0->transition.unk586 == arg0->transition.value) {
             if (_gameData->unkC26 != -1) {
                 sub_804AF5C();
             }
-            if (index != -1 && *entry->unk4 != -1) {
-                sub_804AF04(*entry->unk4);
+            if (index != -1 && entry->data->unk0 != -1) {
+                sub_804AF04(entry->data->unk0);
             }
         }
     }
