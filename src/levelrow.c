@@ -73,4 +73,27 @@ INCLUDE_ASM("asm/dump/8040d18/804a1e4.s");
 INCLUDE_ASM("asm/dump/8040d18/804a234.s");
 INCLUDE_ASM("asm/dump/8040d18/804a26c.s");
 
-INCLUDE_ASM("asm/dump/8040d18/804a280.s");
+void sub_804A280(FrontendState* arg0)
+{
+    unk32 current;
+    unk32 index;
+    const LevelRowMusicEntry* entry;
+    const unk32* ptr;
+    const s16* musicIndex;
+
+    current = arg0->unk0;
+    index = arg0->unk4;
+    if (current != index) {
+        entry = &_8069FC8[index];
+        ptr = entry->unk4;
+        musicIndex = &_gameData->unkC26;
+        if (*ptr != *musicIndex && arg0->transition.unk586 == (&arg0->transition.unk586)[-2]) {
+            if (*musicIndex != -1) {
+                sub_804AF5C();
+            }
+            if (index != -1 && *entry->unk4 != -1) {
+                sub_804AF04(*entry->unk4);
+            }
+        }
+    }
+}

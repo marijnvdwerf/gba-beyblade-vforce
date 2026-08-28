@@ -17,7 +17,24 @@ const ItemDescriptionEntry* sub_80570C0(unk32 index)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80570d4.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8057104.s");
+
+void sub_8057104(s32 arg0, unk32 arg1)
+{
+    unk32* data;
+    unk32 value;
+    CurrentGameState* gameState;
+
+    if ((arg1 << 24) != 0) {
+        gameState = _currentGameState;
+        data = gameState->unk594 + (arg0 >> 5);
+        value = *data | (1 << (arg0 & 0x1F));
+    } else {
+        gameState = _currentGameState;
+        data = gameState->unk594 + (arg0 >> 5);
+        value = *data & ~(1 << (arg0 & 0x1F));
+    }
+    *data = value;
+}
 
 void sub_8057158(FrontendResource* arg0, const InputSequence* arg1)
 {
