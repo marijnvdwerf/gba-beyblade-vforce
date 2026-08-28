@@ -403,6 +403,10 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   in docs/learnings/leaves-n4.md; headers untouched). Follow-up: the backup.c
   draft uses a raw `*(vu16*)0x0D000000` — replace with the memory_map name
   when the function is retried.
+- Callgraph IRQ merged (d1f746a): Unk_872CAF4 handler table + _unk3000DF0
+  slot 5/6/7 CALLBACKS; docs/interrupts.md written. 🟡 54 unchanged, 🔴 46
+  (+4 arm2.s ARM ISRs; onSerialCommunication now C). Cosmetic: the generic
+  unk588 slot alias also renders a bogus `🧭 Unk_872CAF4[unk588]` node.
 - FOLLOW-UP (frontend callbacks): frontend.c:394–396 calls
   `transition.unk588` and `unkB4->unkC` through `((void (*)(void))…)()` casts
   while sub_8049344 calls unk588 as `(FrontendState*, unk32)` — one of the
