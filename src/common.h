@@ -433,24 +433,42 @@ typedef struct RiderBase {
     unk32 unk14;
     unk8 pad18[4];
     unk32 unk1C;
-    unk8 pad20[0x7C];
+    unk8 pad20[0x30];
+    unk16 unk50; /* 0x50 */
+    unk16 unk52; /* 0x52 */
+    unk8 pad54[0x48];
     unk32 flags;
     unk8 padA0[4];
     unk32 unkA4;
     unk8 padA8[0x10];
     SpriteEntry* unkB8;
-    unk8 padBC[0x178];
+    unk8 padBC[0x154];
+    unk32 unk210; /* 0x210 */
+    unk8 pad214[4];
+    unk16 unk218; /* 0x218 */
+    unk16 unk21A; /* 0x21A */
+    unk16 unk21C; /* 0x21C */
+    unk8 pad21E[4];
+    unk16 unk222; /* 0x222 */
+    unk8 pad224[4];
+    unk16 unk228; /* 0x228 */
+    unk16 unk22A; /* 0x22A */
+    unk16 unk22C; /* 0x22C */
+    unk8 pad22E[6];
     unk32 unk234;
     Actor unk238;
     Actor unk2FC;
     unk8 pad3C0[4];
     SpriteEntry* unk3C4;
-    unk8 pad3C8[0x20];
+    unk8 pad3C8[8];
+    unk8 unk3D0; /* 0x3D0 */
+    unk8 pad3D1[0x17];
     u8 unk3E8;
     unk8 unk3E9[3];
     ParticleSystem unk3EC;
     struct AllocatedBlock* unk420;
-    unk8 pad424[4];
+    unk16 unk424; /* 0x424 */
+    unk8 pad426[2];
 } RiderBase; /* 0x428; GameData begins with this layout */
 
 typedef struct PolyTable {
@@ -485,7 +503,9 @@ typedef struct GeometryLine {
 typedef struct GeometrySpline {
     unk32 pointCount;
     unk32 size;
-    unk8 pad8[0x18];
+    unk8 pad8[4];
+    unk16 unkC; /* 0x0C */
+    unk8 padE[0x12];
     unk32 pointIndices[1];
 } GeometrySpline;
 
@@ -503,7 +523,7 @@ struct LevelGeometryTable {
      * ldrsh/ldrh [r1,#4]; GetSplineAtIndex reads it with ldr [r0,#4]. */
     union {
         s16 splineCount;
-        unk32 splineCountWord;
+        s32 splineCountWord;
     } count;
 
     s32 lineCount;
@@ -517,12 +537,18 @@ struct LevelGeometryTable {
 typedef struct LineMetaObject LineMetaObject;
 typedef struct LineMetadata LineMetadata;
 
+/* Width pun proven by ldr at processRiderMetadata +0x2E and ldrh at +0xDA. */
+typedef union LineMetaObjectValue {
+    unk32 word;
+    unk16 half;
+} LineMetaObjectValue;
+
 struct LineMetaObject {
     u16 size; /* byte size of this record */
     u16 type;
     u16 id;
     u16 unk6;
-    unk32 unk8;
+    LineMetaObjectValue unk8;
 };
 
 struct LineMetadata {
