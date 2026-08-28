@@ -300,6 +300,11 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   pending) is in its finish+review round: DMA3Copy REG_DMA3CNT_H, `+0xFFFF`
   → `-1`, Actor sizeof check (0xC4), draft house-style, prototypes to
   headers. Frontend alias-retry agent running on sub_804967C/sub_8049458.
+- Red count on main after leaf A + sub_8048FFC: 50 unique (42 once leaf B
+  merges). Leaf C dispatched: sub_805E8A0, sub_805EEFC (camera),
+  sub_8054278, sub_805AD9C (menu), initCollisionData, sub_8059310 (layer).
+  Held for after leaf B merges (its TUs): sub_8058754, sub_80584B8 (actor.c),
+  sub_804B624 (rider.c). Never-assigned large reds unchanged (11, ≥329).
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
