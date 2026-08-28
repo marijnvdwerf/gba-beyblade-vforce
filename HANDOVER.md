@@ -190,6 +190,18 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   compare after the last merge of a batch BEFORE update-expected — I ran
   update-expected on a broken build once (harmless only because ninja had
   not regenerated the failing objects).
+- Round 2 dispatched (3 luna agents, fresh-start prompts, all current rules):
+  festate (sub_8046A0C, sub_8044054, sub_8045160, sub_8044C48, sub_8044ED4,
+  sub_8048AE8, sub_8047E5C); mixed (sub_804F878 levelhud, sub_80510FC
+  gamestate, updateKeyState, newIconMenu, sub_804A550 tutorial, sub_804257C
+  transition, sub_804EE54 hud, sub_8063220 palette); rider/actor (sub_804B5C0,
+  sub_804B4FC, initRider, actor_8057C58, sub_804967C frontend, sub_80596AC
+  layer, sub_80526C8 gameloop). Held (gameplay tester owns the TUs):
+  sub_80539E8 gameinit, updateEnvirenmentActors/renderEnvironmentActors
+  envactor, sub_806014C multiplayer, sub_8055340 effects. Remaining big
+  ones after that: sub_8048310, sub_804868C, sub_80420C4, sub_804444C,
+  sub_8045CB4, actor_805C48C, sub_8052B24, selectBladeFrontendHandler,
+  collectionListFrontendHandler, sub_80413FC, renderRider.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
