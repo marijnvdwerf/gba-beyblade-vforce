@@ -397,6 +397,10 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   parked (packed-table scale addressing). Headers untouched.
 - Leaf M merged: sub_80581B8 (frame table = unk16 array cursor in the config
   blob, see docs/learnings/leaves-m.md; Actor.unkC0 is a new callback field).
+- Leaf N2 merged: sub_8043604 matched (MenuStateCallback typedef,
+  frontend motion records _8068840/_8068868/_8068890 declared in frontend.h);
+  sub_805AD24 (14-arg MenuState ctor) parked — stack-arg load/lifetime shape;
+  layout evidence in docs/learnings/leaves-n2.md.
 - Leaf N1 merged: sub_805565C, sub_8055674, convert3DCoordsto2DCoords
   (Actor*, unk32*), sub_8052B08. Actor.unkB0 retyped to that signature and
   sub_8058754 now passes `output` (byte-identical).
