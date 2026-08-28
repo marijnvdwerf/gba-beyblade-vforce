@@ -191,7 +191,18 @@ void ActorSetSpriteOffset(EnvironmentActorSlot* actor, unk16 arg1, unk16 arg2)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8058630.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058638-actor_8058638.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8058754.s");
+
+void sub_8058754(Actor* actor, unk32* output)
+{
+    if (actor->unkB0 != NULL) {
+        actor->unkB0(actor);
+    } else {
+        output[0] = actor->x;
+        output[1] = actor->y;
+        output[2] = actor->z;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8058778-renderActor2.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058784.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058794.s");

@@ -423,7 +423,9 @@ typedef struct Actor {
     unk8 padA0[4];
     unk8 unkA4;
     unk8 unkA5;
-    unk8 padA6[0x12];
+    unk8 padA6[0xA];
+    void (*unkB0)(struct Actor*);
+    unk32 unkB4;
     SpriteEntry* unkB8;
     unk8 padBC[8];
 } Actor;
