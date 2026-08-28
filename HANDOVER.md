@@ -136,6 +136,17 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   initEventListeners, sub_805529C, initRiders, initLevelEnvironmentActors).
   Waiting on the frontend round-1 agent before testing §4 sub_8049CE8,
   §6 sub_805041C, §7 sub_804967C, §15 sub_8049458 (same TUs).
+- Rule (user, 2026-08-28): NO COMMENTS in src/ except struct-field offset
+  markers `/* 0x1C8 */` (decompiler.md d3c1975). Union/pun citations and
+  `NONMATCHING` markers are gone: parked drafts are bare `#if 0`, all
+  justification/first-divergence text lives in docs/learnings. A luna agent
+  is sweeping existing comments out of src/ into
+  docs/learnings/removed-comments-2026-08-28.md (worktree; merge after).
+  Also running: ASM_ZEROPAD consistency agent (rule goes to
+  docs/asm-zeropad.md, not a source comment); residual-analysis agent
+  (docs/learnings/residual-analysis-2026-08-28.md — what construct do the
+  near-misses share?). User: style guide is advice only; iteration must be
+  luna, never Opus in a loop; the compiler is NOT in doubt (402 matches).
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
