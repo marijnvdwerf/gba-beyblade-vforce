@@ -15,7 +15,7 @@ struct SpriteStruct2 {
     SpriteStruct2* next;
 };
 
-extern const unk16 Unk_872CC3C[];
+extern s16 Unk_872CC3C[];
 
 extern SpriteStruct2* _unk3005DC8;
 extern SpriteStruct2* _unk3005DD8;
@@ -557,13 +557,13 @@ void LoadSpriteSheet(SpriteEntry* dst, const void* sourceArg, unk32 x, unk32 y, 
     dst->unk2C = (const unk8*)source;
     dst->flip_h_v = normalizedArg4;
     dst->x = x;
-    dst->y = y;
+    dst->y.word = y;
     value = (sourceFlags & 3) << 14;
     value |= (~sourceByteC & 1) << 13;
     value |= ((stackArg4 & 3) << 10) | 0x1000;
     value |= (sourceFlags & 0xC) << 28;
     value |= (normalizedArg4 & 3) << 28;
-    dst->unk10 = value;
+    dst->unk10.word = value;
     value = ((sourceByteC >> 1) & 0xF) << 12;
     value |= (stackArg5 & 3) << 10;
     dst->oam_attr_2 = value;
@@ -712,16 +712,17 @@ SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 new_size, u16 arg2)
                 return NULL;
             }
             free_head = _spritesLeft;
-            first = block->prev;
+            new_first = free_head;
             last = block->next;
+            first = block->prev;
             *freePtr -= extra;
             block->count += extra;
-            free_head->var22 = first->var22;
+            free_head->var22 = var22;
             previous = free_head;
             extra--;
             while (extra != 0) {
                 free_head = free_head->next;
-                free_head->var22 = first->var22;
+                free_head->var22 = var22;
                 free_head->prev = previous;
                 previous = free_head;
                 extra--;
@@ -733,8 +734,71 @@ SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 new_size, u16 arg2)
                 successor->prev = new_last;
             }
             new_last->next = last->next;
-            last->next = first;
-            first->prev = last;
+            last->next = new_first;
+            new_first->prev = last;
+            block->next = new_last;
+            sub_80604D4(_unk3005DE4);
+            return block->prev;
+        }
+        sub_8060C1C(block, new_size, arg2);
+        return block->prev;
+    }
+    nullsub_8(Str_8755B28);
+    sub_8060CDC(block);
+    return sub_8060C1C(block, new_size, arg2);
+}
+#endif
+#if 0
+SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 new_size, u16 arg2)
+{
+    unk16 extra;
+    unk32 sprites_free;
+    SpriteEntry* first;
+    SpriteEntry* last;
+    SpriteEntry* free_head;
+    SpriteEntry* new_first;
+    SpriteEntry* new_last;
+    SpriteEntry* previous;
+    SpriteEntry* successor;
+    unk16 var22;
+
+    if (block->count == new_size) {
+        return block->prev;
+    }
+    if (block->count < new_size) {
+        if (block->count != 0) {
+            extra = new_size - block->count;
+            sprites_free = _spritesFree;
+            if (sprites_free < extra) {
+                nullsub_8(Str_8755B0C);
+                return NULL;
+            }
+            free_head = _spritesLeft;
+            new_first = free_head;
+            last = block->next;
+            first = block->prev;
+            var22 = first->var22;
+            _spritesFree = sprites_free - extra;
+            block->count += extra;
+            free_head->var22 = var22;
+            previous = free_head;
+            extra--;
+            while (extra != 0) {
+                free_head = free_head->next;
+                free_head->var22 = var22;
+                free_head->prev = previous;
+                previous = free_head;
+                extra--;
+            }
+            new_last = free_head;
+            _spritesLeft = new_last->next;
+            successor = last->next;
+            if (successor != NULL) {
+                successor->prev = new_last;
+            }
+            new_last->next = successor;
+            last->next = new_first;
+            new_first->prev = last;
             block->next = new_last;
             sub_80604D4(_unk3005DE4);
             return block->prev;
@@ -749,12 +813,71 @@ SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 new_size, u16 arg2)
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8060d98-resizeSpriteBlock.s");
 
+#if 0
+SpriteEntry* sub_8060E8C(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 frame)
+{
+    unk32 special;
+    s16* sin_table;
+    s16* cos_table;
+    s16 sin_frame;
+    s16 cos_arg1;
+    s16 sin_arg1;
+    s16 cos_arg2;
+    unk32 frame_offset;
+    unk32 scale_x = arg1;
+
+    special = 0;
+    if (frame == 0 && scale_x == 0x100 && arg2 == scale_x) {
+        special = 1;
+    }
+    if (sprite != NULL) {
+        if (sprite->unk19 != 0) {
+            return sprite;
+        }
+        if (special != 0) {
+            sub_8060B38(sprite);
+            return NULL;
+        }
+    } else {
+        if (special != 0) {
+            return NULL;
+        }
+        sprite = sub_8060B0C();
+        if (sprite == NULL) {
+            return NULL;
+        }
+    }
+    sprite->oam_attr_2 = scale_x;
+    sprite->var16 = arg2;
+    sprite->frame = frame;
+    if (frame != 0) {
+        sin_table = Unk_874CC3C;
+        frame_offset = frame + 0x40;
+        sin_frame = sin_table[frame_offset];
+        cos_table = Unk_872CC3C;
+        cos_arg1 = cos_table[scale_x];
+        sprite->y.halves.first = (sin_frame * cos_arg1) >> 8;
+        sin_arg1 = sin_table[frame];
+        sprite->y.halves.second = (sin_arg1 * cos_arg1) >> 8;
+        cos_arg2 = cos_table[arg2];
+        sprite->unk10.halves.first = (-sin_arg1 * cos_arg2) >> 8;
+        sprite->unk10.halves.second = (sin_frame * cos_arg2) >> 8;
+    } else {
+        cos_table = Unk_872CC3C;
+        sprite->y.halves.first = cos_table[scale_x];
+        sprite->y.halves.second = 0;
+        sprite->unk10.halves.first = 0;
+        sprite->unk10.halves.second = cos_table[arg2];
+    }
+    return sprite;
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8060e8c.s");
 
 void sub_8060F64(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 arg3)
 {
     SpriteEntry* child = sprite->unk30;
-    u32 flags = sprite->unk10;
+    u32 flags = sprite->unk10.word;
     u32 child_flags;
     u32 size_mask;
 
@@ -792,7 +915,7 @@ void sub_8060F64(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 arg3)
             }
         }
     }
-    sprite->unk10 = flags;
+    sprite->unk10.word = flags;
 }
 
 void sub_806100C(SpriteEntry* spriteEntry, u16 arg1, u16 arg2)
@@ -853,7 +976,7 @@ void sub_8061078(SpriteEntry* sprite, unk16 frame)
 unk32 sub_80610EC(SpriteEntry* spriteEntry)
 {
     u16* table = word_807D90C;
-    unk32 index = ((spriteEntry->unk10 & 0xC000) >> 12) | ((u32)spriteEntry->unk10 >> 30);
+    unk32 index = ((spriteEntry->unk10.word & 0xC000) >> 12) | ((u32)spriteEntry->unk10.word >> 30);
 
     return (table[index] & 0xFF00) >> 7;
 }
@@ -861,19 +984,19 @@ unk32 sub_80610EC(SpriteEntry* spriteEntry)
 unk32 sub_8061110(SpriteEntry* spriteEntry)
 {
     u16* table = word_807D90C;
-    unk32 index = ((spriteEntry->unk10 & 0xC000) >> 12) | ((u32)spriteEntry->unk10 >> 30);
+    unk32 index = ((spriteEntry->unk10.word & 0xC000) >> 12) | ((u32)spriteEntry->unk10.word >> 30);
 
     return (table[index] & 0xFF) * 2;
 }
 
 void sub_8061130(SpriteEntry* spriteEntry, u8 arg1)
 {
-    spriteEntry->unk10 = (spriteEntry->unk10 & 0xFFFFF3FF) | ((arg1 & 3) << 10);
+    spriteEntry->unk10.word = (spriteEntry->unk10.word & 0xFFFFF3FF) | ((arg1 & 3) << 10);
 }
 
 unk32 sub_806114C(SpriteEntry* spriteEntry)
 {
-    return (spriteEntry->unk10 >> 10) & 3;
+    return (spriteEntry->unk10.word >> 10) & 3;
 }
 
 void sub_8061158(SpriteEntry* spriteEntry)
