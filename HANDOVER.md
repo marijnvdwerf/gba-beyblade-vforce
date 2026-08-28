@@ -397,6 +397,15 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   parked (packed-table scale addressing). Headers untouched.
 - Leaf M merged: sub_80581B8 (frame table = unk16 array cursor in the config
   blob, see docs/learnings/leaves-m.md; Actor.unkC0 is a new callback field).
+- Leaf N4 merged (parked drafts only, 63d8e6c): sub_8065AA0, initMultiPlayer,
+  sub_80539E8, initEventListeners — all regalloc/saved-register-role near
+  misses (details + proven Actor 0xA2 / GameData 0x778, 0xB50–0xB55 layouts
+  in docs/learnings/leaves-n4.md; headers untouched). Follow-up: the backup.c
+  draft uses a raw `*(vu16*)0x0D000000` — replace with the memory_map name
+  when the function is retried.
+- WAVE N RESULT: 5/13 matched (all four N1 tiny ones + sub_8043604), 8
+  parked. The fresh pool is now EMPTY: every remaining red is parked with a
+  draft, ARM (render_*), or ≥200 insns. Next step needs the user's rulings.
 - Leaf N3 merged (parked drafts only, a557b31 + fixup): sub_8059284,
   sub_8060E8C, resizeSpriteBlock all regalloc/lifetime near-misses;
   resizeSpriteBlock needs a cached `&_spritesFree` pointer in a callee-saved
