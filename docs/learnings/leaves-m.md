@@ -36,3 +36,7 @@ The surviving cursor expression is the only tested natural form that preserves
 the target's address-materialization order. The final table access is
 `frameTable->unk8[nextFrame]`; its zero-length trailing array models the
 variable-size record without changing the fixed prefix layout.
+
+## Manager follow-up
+
+The frame table is a plain `unk16` array inside the config blob (`[2]` = count, `[4 + i]` = sequence ids). A struct with `unk16 unk4[1]` / `unk16 unk8[1]` cannot reproduce the target: agbcc scales `(i + 2) * 2` before adding the base for an array member, but folds the constant into the load displacement (`ldrh [r0, #8]`) for `ptr[i + 4]` on a pointer variable. Matched form: `unk16* frameTable = (unk16*)((unk8*)config + config->unk18 + actor->unk1C); frameTable[nextFrame + 4]`.

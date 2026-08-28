@@ -105,7 +105,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805816c.s");
 void sub_80581B8(Actor* actor)
 {
     ActorConfig* config;
-    ActorFrameTable* frameTable;
+    unk16* frameTable;
     unk16 nextFrame;
     s32 currentFrame;
     s32 frameCount;
@@ -113,9 +113,9 @@ void sub_80581B8(Actor* actor)
     void (*callback)(Actor*, s32);
 
     config = actor->unk0;
-    frameTable = (ActorFrameTable*)((unk8*)config + config->unk18 + actor->unk1C);
+    frameTable = (unk16*)((unk8*)config + config->unk18 + actor->unk1C);
     currentFrame = actor->unk1E;
-    frameCount = frameTable->unk4 - 1;
+    frameCount = frameTable[2] - 1;
     if (currentFrame >= frameCount) {
         nextFrame = 0;
         if (actor->unk2E != -1) {
@@ -131,7 +131,7 @@ void sub_80581B8(Actor* actor)
         nextFrame = actor->unk1E + 1;
     }
     actor->unk1E = nextFrame;
-    ActorSetFrameSequence(actor, ((unk16*)frameTable)[nextFrame + 4]);
+    ActorSetFrameSequence(actor, frameTable[nextFrame + 4]);
 }
 
 void ActorSetFrameSequence(Actor* actor, unk32 sequence)

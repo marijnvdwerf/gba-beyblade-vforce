@@ -367,13 +367,6 @@ typedef struct ActorFrameSequence {
     unk8 unk7;
 } ActorFrameSequence;
 
-typedef struct ActorFrameTable {
-    unk8 pad0[4];
-    unk16 unk4; /* 0x4 */
-    unk8 pad6[2];
-    unk16 unk8[0]; /* 0x8 */
-} ActorFrameTable;
-
 struct ActorConfig {
     unk32 unk0;
     unk8 pad4[3];
