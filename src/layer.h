@@ -45,5 +45,7 @@ void sub_8058EF4(DisplayRecord*);
 void sub_8058F60(DisplayRecord*);
 void sub_80596AC(void*, unk32, unk32);
 vu16* GetBGLayerCntPtr(u8 layer);
+void SetBGOffset(u8 layer, s32 x, s32 y);
+void sub_8059B00(u8, u8, u16, u16);
 
 #endif

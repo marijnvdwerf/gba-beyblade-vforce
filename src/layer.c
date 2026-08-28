@@ -80,12 +80,10 @@ extern u8 _unk3000E3C;
 unk32 sub_8059284(BGLayer* r0, u16 r1, u16 r2);
 vu16* GetBGLayerHOffsetPtr(u8 layer);
 vu16* GetBGLayerVOffsetPtr(u8 layer);
-void SetBGOffset(u8 layer, s32 x, s32 y);
 
 void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgPriority, u16 sp0);
 
 void sub_8059310(BGLayer* r0, s32 r1, s32 r2, s32 r3, s32 sp0, s32 sp4, s32 sp8);
-void sub_8059B00(u8, u8, u16, u16);
 
 typedef void (*LayerCopyFunc)(BGLayer*, unk32, unk32, unk32, unk32, unk32, unk32);
 typedef void (*LayerClearFunc)(BGLayer*, unk32, unk32, unk32, unk32);
@@ -347,19 +345,17 @@ void sub_8058F60(DisplayRecord* layer)
     s32 b;
     s32 c;
     s32 factor;
-    u8* layerIndex;
 
-    layerIndex = &layer->unk5E;
-    index = (u8)(*layerIndex - 2);
+    index = layer->unk5E - 2;
     layer->unk28 += layer->unk2C;
     if (layer->unk28 < 0) {
         layer->unk28 += 0x10000;
     }
     layer->unk30 += layer->unk38;
     layer->unk34 += layer->unk3C;
-    sub_8059B00(*layerIndex, (layer->unk28 >> 8) & 0xFF, (layer->unk30 << 8) >> 16,
+    sub_8059B00(layer->unk5E, (layer->unk28 >> 8) & 0xFF, (layer->unk30 << 8) >> 16,
         (layer->unk34 << 8) >> 16);
-    SetBGOffset(*layerIndex,
+    SetBGOffset(layer->unk5E,
         layer->unk4C
             - (_unk3000D00[index].unk8 * layer->unk48 - _unk3000D00[index].unk10 * layer->unk4A),
         layer->unk50
