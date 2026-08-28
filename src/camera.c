@@ -2,7 +2,6 @@
 
 #include <agb/memory_map.h>
 
-#include "actor.h"
 #include "common.h"
 #include "include_asm.h"
 #include "layer.h"
@@ -58,9 +57,8 @@ void sub_805EB00(CameraState* camera)
     }
 }
 
-void* nullsub_12(void* arg0)
+void nullsub_12(void* arg0)
 {
-    return arg0;
 }
 
 #if 0

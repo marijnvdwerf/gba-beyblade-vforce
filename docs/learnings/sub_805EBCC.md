@@ -17,3 +17,5 @@ Near-miss experiments:
 | Reassociated upper-bound assignments | Changed constant folding to a different literal-pool sequence and was discarded. |
 
 The remaining scale-address shape appears to originate from pointer arithmetic over the packed table rather than a normal typed field access. Replacing it with raw offset dereferences or a duplicate view struct would violate the source constraints, so the draft is parked rather than shipped as active C.
+
+The temporary header fields used by the draft were reverted. The proving instructions remain the `ldsh` at actor offset 0xA2 for signedness, signed `ble` upper-bound branches for the display dimensions, and the `ldrh` plus explicit sign extension for the packed table scale.

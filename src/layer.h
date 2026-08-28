@@ -21,9 +21,7 @@ typedef struct LayerTransformRecord {
 } LayerTransformRecord;
 
 typedef struct DisplayRecord {
-    s32 unk0;
-    s32 unk4;
-    unk8 pad8[0xC];
+    unk8 pad0[0x14];
     s32 unk14;
     s32 unk18;
     s32 unk1C;
@@ -35,8 +33,7 @@ typedef struct DisplayRecord {
     s32 unk34;
     s32 unk38;
     s32 unk3C;
-    s32 unk40;
-    s32 unk44;
+    unk8 pad40[8];
     s16 unk48;
     s16 unk4A;
     s32 unk4C;

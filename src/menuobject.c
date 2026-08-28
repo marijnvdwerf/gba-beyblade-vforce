@@ -9,65 +9,50 @@
 #include "spritetext.h"
 
 #if 0
-void sub_8043370(u8* arg0)
+void sub_8043370(FrontendState* object)
 {
-    u8* state;
-    u8* items;
-    u8* motion;
-    u8* data;
-    const unk32* table;
+    FrontendMenuObjectData* data;
+    MenuState* state;
+    UnkMotion* items;
+    UnkMenuItem* motion;
+    const FrontendMotionData* table;
     unk32 language;
-    s32 difference;
-    s32 signbit;
-    s32 i;
     s32 offset;
+    s32 i;
     s32 sign;
     s32 direction;
 
-    data = *(u8**)(*(u8**)(*(u8**)(arg0 + 0xB4) + 4) + 0x20);
-    table = (const unk32*)0x8068840;
+    data = object->unkB4->unk4->unk20;
+    table = &_8068840;
     if (data != NULL) {
-        state = arg0 + 0x478;
+        state = &object->menuState;
         language = getLanguage();
-        sub_805AD24(state,
-            *(unk32*)(*(u8**)(data + 8) + 0),
-            *(unk32*)(*(u8**)(data + 8) + 4),
-            *(s16*)data,
-            *(s16*)(data + 2),
-            *(unk16*)(data + 0x10),
-            *(unk16*)(data + 0x12),
-            *(unk8*)(data + 0x14),
-            *(unk8*)(data + 0x15),
-            *(unk8*)(data + 0x16),
-            *(unk8*)(data + 0x17),
-            (unk32)sub_8043604 + 1,
-            0,
-            (unk8)language);
-        allocateMenuItems(state, *(unk32*)(data + 0xC), 0);
-        arg0[0x7E] = 0;
-        arg0[0x7D] = 0;
-        if (*(unk32*)(arg0 + 0x490) == 0)
+        sub_805AD24(state, data->unk8[0], data->unk8[1], data->unk0, data->unk2, data->unk10,
+            data->unk12, data->unk14, data->unk15, data->unk16, data->unk17, sub_8043604, 0,
+            language);
+        allocateMenuItems(state, data->unkC, 0);
+        object->unk7E = 0;
+        object->unk7D = 0;
+        if (object->menuState.objectCount == 0)
             return;
-        *(void**)(arg0 + 0x524) = slowAllocate(*(unk32*)(state + 0x18) * 0x18);
-        *(u8**)(arg0 + 0x520) = *(u8**)*(void**)(arg0 + 0x524);
-        items = *(u8**)(arg0 + 0x520);
-        motion = *(u8**)(state + 0xC);
-        *(unk32*)(arg0 + 0x528) = 0;
-        difference = 0xA0 - *(unk8*)(state + 9);
-        signbit = (unk32)difference >> 31;
-        offset = ((difference + signbit) >> 1) + *(s16*)(data + 6);
+        object->menuState.block = slowAllocate(object->menuState.objectCount * 0x18);
+        object->menuState.objectItems = object->menuState.block->address;
+        items = object->menuState.objectItems;
+        motion = object->menuState.items;
+        object->menuState.timer = 0;
+        offset = (0xA0 - object->menuState.unk9) / 2 + data->unk6;
         i = 0;
-        while (i < *(s32*)(state + 0x18)) {
+        while (i < object->menuState.objectCount) {
             sign = ((i & 1) != 0) ? 1 : -1;
             direction = (sign > 0) ? -0x10 : 0xF0;
-            sub_8061844(motion, 0, direction);
-            newMotionGroup(items, motion + 0x14, 6);
-            sub_80504E4(items, table[0], table[1] * sign, table[2], table[3]);
-            sub_805052C(items, table[4], table[5] * sign, table[6], table[7]);
-            sub_8050578(items, offset << 8, *(s16*)((u8*)table + 0x26));
-            offset += *(s16*)(state + 0xA);
-            items += 0x18;
-            motion += 0x4C;
+            sub_8061844(&motion->text, 0, direction);
+            newMotionGroup(items, &motion->text.unk14, 6);
+            sub_80504E4(items, table->unk0, table->unk4 * sign, table->unk8, table->unkC);
+            sub_805052C(items, table->unk10, table->unk14 * sign, table->unk18, table->unk1C);
+            sub_8050578(items, offset << 8, table->unk26);
+            offset += object->menuState.unkA;
+            items++;
+            motion++;
             i++;
         }
     }
