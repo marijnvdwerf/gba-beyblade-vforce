@@ -33,147 +33,33 @@ MAX_RENDER_DEPTH = 64
 
 # ROM tables whose entries are function pointers.  Add another table by giving
 # its assembly label, record stride, and the function-pointer slot offsets.
-# Relative tables use ``relative_to`` as the base for each stored code offset.
 HANDLER_TABLES = [
     {
         "label": "_LevelRowMusicTable",
         "stride": 0x18,
         "slots": {0x8: "unk8", 0xC: "unkC", 0x10: "unk10", 0x14: "unk14"},
     },
-    {
-        "label": "_renderFunctionOffsets",
-        "stride": 0x80,
-        "record_count": 1,
-        "relative_to": "render_00",
-        "slots": {
-            0x00: "triangleSetup",
-            0x04: "spanFill",
-            0x08: "shortSpan",
-            0x0C: "bucketInsert",
-            0x10: "faceCull",
-            0x14: "stridedCopyAlt",
-            0x18: "triangleSetup2",
-            0x1C: "triangleDraw",
-            0x20: "stridedCopy",
-            0x24: "postProcess",
-            0x28: "faceDraw",
-            0x2C: "stridedCopy2",
-            0x30: "vertexTransform",
-            0x34: "faceDraw2",
-            0x38: "shortSpan2",
-            0x40: "faceDraw3",
-            0x44: "stridedCopyAlt2",
-            0x48: "stridedCopyAlt3",
-            0x54: "stridedCopyAlt4",
-            0x58: "stridedCopyAlt5",
-            0x5C: "stridedCopyAlt6",
-            0x60: "stridedCopyAlt7",
-            0x64: "faceDraw4",
-            0x68: "shortSpan3",
-            0x70: "shortSpan4",
-            0x74: "postProcess2",
-            0x78: "postProcess3",
-            0x7C: "postProcess4",
-        },
-    },
 ]
 
-# Function-pointer fields and globals whose values are installed at runtime.
-# ``call_sites`` identifies the indirect expression in a C/asm caller;
-# ``writer_functions`` keeps the assignment edge visible even when no call is
-# present in live C.  Literal targets are annotated with their provenance;
-# table-backed targets are read from the linked ELF above.
-CALLBACK_FIELDS = [
-    {
-        "name": "Actor.unkB0",
-        "call_sites": (("sub_8058754", "unkB0"),),
-        "writer_functions": (
-            "actor_8057C58",
-            "initRider",
-            "processMetadata_2",
-            "initLevelEnvironmentActors",
-        ),
-        "targets": (
-            {
-                "name": "convert3DCoordsto2DCoords",
-                "origin": "assembly literal",
-                "providers": (
-                    "initRider",
-                    "processMetadata_2",
-                    "initLevelEnvironmentActors",
-                ),
-            },
-        ),
-    },
-    {
-        "name": "ActorTimerEntry.unk8",
-        "call_sites": (("sub_8058838", "unk8"),),
-        "writer_functions": ("sub_8058794",),
-        "targets": (),
-    },
-    {
-        "name": "CameraState.callback",
-        "call_sites": (("sub_805EB00", "callback"),),
-        "writer_functions": ("sub_80539E8",),
-        "targets": (
-            {
-                "name": "sub_80522D4",
-                "origin": "assembly literal",
-                "providers": ("sub_80539E8",),
-            },
-        ),
-    },
-    {
-        "name": "MenuState.callback",
-        "call_sites": (("sub_805AFBC", "callback"),),
-        "writer_functions": ("sub_805AD24",),
-        "targets": (
-            {
-                "name": "sub_8043604",
-                "origin": "assembly literal",
-                "providers": ("sub_8043370",),
-            },
-            {
-                "name": "sub_8052B08",
-                "origin": "assembly literal",
-                "providers": ("sub_8052B24",),
-            },
-        ),
-    },
-    {
-        "name": "FrontendObject.unk8",
-        "call_sites": (("sub_80490CC", "unk8"),),
-        "writer_functions": (),
-        "handler_slot": ("_LevelRowMusicTable", "unk8"),
-        "handler_origin": "assembly literal",
-        "targets": (),
-    },
-    {
-        "name": "_unk3000C0C",
-        "call_sites": (("sub_8052978", "_unk3000C0C"),),
-        "writer_functions": ("sub_8052978",),
-        "targets": (),
-    },
+CALLBACKS = [
+    ("Actor.unkB0", ["convert3DCoordsto2DCoords"]),
+    ("CameraState.callback", ["sub_80522D4"]),
+    ("MenuState.callback", ["sub_8043604", "sub_8052B08"]),
+    ("_renderFunctionOffsets", [
+        "render_00",
+        "render_01",
+        "render_02",
+        "render_03",
+        "render_04",
+        "render_05",
+        "render_06",
+        "render_07",
+        "render_08",
+        "render_09",
+    ]),
 ]
-
-for _render_field in HANDLER_TABLES[1]["slots"].values():
-    CALLBACK_FIELDS.append(
-        {
-            "name": f"RenderCode.{_render_field}",
-            "call_sites": (),
-            "writer_functions": ("allocateRenderCode",),
-            "handler_slot": ("_renderFunctionOffsets", _render_field),
-            "handler_origin": "C writer",
-            "targets": (),
-        }
-    )
-
-# Register-indirect assembly calls whose value flow is clear at the call site.
-# Generic _call_via_rN thunks are otherwise ignored rather than shown as bogus
-# direct callees.
-ASM_INDIRECT_CALLS = {
-    "gameLoop": ("sub_8052978",),
-}
+CALLBACK_NAMES = {callback[0] for callback in CALLBACKS}
+CALLBACK_NODE_NAMES = [callback[0] for callback in CALLBACKS]
 
 # A local may receive pointers from more than one table slot.  These overrides
 # also document the few cases where the C name is not the slot name itself.
@@ -185,6 +71,11 @@ INDIRECT_LOCAL_NAMES = {"callback", "stored", "transition"}
 # ``unk588`` stores a callback selected from the same two frontend-handler
 # columns; it is an alias rather than a physical field in the row record.
 INDIRECT_SLOT_ALIASES = {"unk588": ("unk10", "unk14")}
+INDIRECT_FIELD_NAMES = {
+    slot_name
+    for table in HANDLER_TABLES
+    for slot_name in table["slots"].values()
+} | set(INDIRECT_SLOT_ALIASES)
 
 CONTROL_WORDS = {
     "if",
@@ -207,7 +98,8 @@ CONTROL_WORDS = {
 
 FUNCTION_KINDS = (
     ("unknown", 0, "🔴"),
-    ("c", 1, "🟢"),
+    ("provisional", 1, "🟡"),
+    ("c", 2, "🟢"),
 )
 FUNCTION_PRIORITY = {kind: priority for kind, priority, _ in FUNCTION_KINDS}
 FUNCTION_MARKERS = {kind: marker for kind, _, marker in FUNCTION_KINDS}
@@ -217,7 +109,7 @@ FUNCTION_MARKERS = {kind: marker for kind, _, marker in FUNCTION_KINDS}
 class Function:
     name: str
     file: str
-    kind: str  # "c" or "unknown"
+    kind: str  # "c", "provisional", or "unknown"
     calls: list[str] = field(default_factory=list)
     indirect_names: set[str] = field(default_factory=set)
     synthetic: bool = False
@@ -269,46 +161,58 @@ def same_node(left, right) -> bool:
     return right is not None and left.start_byte == right.start_byte and left.end_byte == right.end_byte
 
 
-def iter_active_branch_children(node, source: bytes) -> Iterator:
+def iter_active_branch_children(
+    node, source: bytes, invert_literal_zero: bool
+) -> Iterator:
     condition = node.child_by_field_name("condition")
     alternative = node.child_by_field_name("alternative")
     for child in node.named_children:
         if same_node(child, condition) or same_node(child, alternative):
             continue
-        yield from iter_active_nodes(child, source)
+        yield from iter_active_nodes(child, source, invert_literal_zero)
 
 
-def iter_active_preprocessor_branch(node, source: bytes) -> Iterator:
-    """Yield the live alternative of a definitely-false literal #if 0."""
+def iter_active_preprocessor_branch(
+    node, source: bytes, invert_literal_zero: bool
+) -> Iterator:
+    """Yield nodes from the selected branch of a definitely-false #if 0."""
     if node.type == "preproc_else":
         for child in node.named_children:
-            yield from iter_active_nodes(child, source)
+            yield from iter_active_nodes(child, source, invert_literal_zero)
         return
     if node.type == "preproc_elif":
         condition = node.child_by_field_name("condition")
         if is_literal_zero(source, condition):
             alternative = node.child_by_field_name("alternative")
             if alternative is not None:
-                yield from iter_active_preprocessor_branch(alternative, source)
+                yield from iter_active_preprocessor_branch(
+                    alternative, source, invert_literal_zero
+                )
             return
-        # The first non-zero/unknown elif is conservatively the live branch.
-        yield from iter_active_branch_children(node, source)
+        # The first non-zero/unknown elif is the conservatively active branch.
+        yield from iter_active_branch_children(node, source, invert_literal_zero)
         return
-    yield from iter_active_nodes(node, source)
+    yield from iter_active_nodes(node, source, invert_literal_zero)
 
 
-def iter_active_nodes(node, source: bytes) -> Iterator:
-    """Walk syntax nodes while completely excluding literal #if 0 drafts."""
+def iter_active_nodes(node, source: bytes, invert_literal_zero: bool) -> Iterator:
+    """Walk syntax nodes, optionally inverting literal #if 0 branches."""
     if node.type == "preproc_if":
         condition = node.child_by_field_name("condition")
         alternative = node.child_by_field_name("alternative")
         if is_literal_zero(source, condition):
-            if alternative is not None:
-                yield from iter_active_preprocessor_branch(alternative, source)
+            if invert_literal_zero:
+                yield from iter_active_branch_children(
+                    node, source, invert_literal_zero
+                )
+            elif alternative is not None:
+                yield from iter_active_preprocessor_branch(
+                    alternative, source, invert_literal_zero
+                )
             return
     yield node
     for child in node.named_children:
-        yield from iter_active_nodes(child, source)
+        yield from iter_active_nodes(child, source, invert_literal_zero)
 
 
 def function_name(node, source: bytes) -> str | None:
@@ -330,25 +234,15 @@ def function_name(node, source: bytes) -> str | None:
 
 
 def call_target_name(function, source: bytes) -> str | None:
-    """Return only a statically named function call target."""
-    if function is not None and function.type == "identifier":
-        return node_text(source, function)
-    return None
-
-
-def indirect_field_name(function, source: bytes) -> str | None:
-    """Find a field invoked through ``expr->field`` or ``(*expr->field)``."""
     if function is None:
         return None
+    if function.type == "identifier":
+        return node_text(source, function)
     if function.type == "field_expression":
         field = function.child_by_field_name("field")
         if field is not None and field.type == "field_identifier":
-            return node_text(source, field)
-        return None
-    if function.type in {"parenthesized_expression", "pointer_expression"}:
-        for child in function.named_children:
-            name = indirect_field_name(child, source)
-            if name is not None:
+            name = node_text(source, field)
+            if name in INDIRECT_FIELD_NAMES:
                 return name
     return None
 
@@ -356,25 +250,26 @@ def indirect_field_name(function, source: bytes) -> str | None:
 def function_pointer_names(body, source: bytes) -> set[str]:
     if body is None:
         return set()
-    return set(re.findall(r"\(\s*\*\s*([A-Za-z_]\w*)\s*\)", node_text(source, body)))
+    text = node_text(source, body)
+    names = set(re.findall(r"\(\s*\*\s*([A-Za-z_]\w*)\s*\)", text))
+    # Typedef function pointers in the drafts are declared as e.g.
+    # ``LayerCopyFunc copy;`` and ``EventMetadataHandler handler;``.
+    names.update(re.findall(r"\b[A-Za-z_]\w*(?:Func|Handler)\s+([A-Za-z_]\w*)\s*;", text))
+    return names
 
 
-def extract_c_calls(body, source: bytes, macros: set[str]) -> tuple[list[str], set[str]]:
+def extract_c_calls(
+    body, source: bytes, macros: set[str], invert_literal_zero: bool
+) -> list[str]:
     calls: list[tuple[int, str]] = []
-    indirect_names = function_pointer_names(body, source)
-    for node in iter_active_nodes(body, source):
+    for node in iter_active_nodes(body, source, invert_literal_zero):
         if node.type != "call_expression":
             continue
-        function = node.child_by_field_name("function")
-        name = call_target_name(function, source)
-        if name is None:
-            name = indirect_field_name(function, source)
-            if name is not None:
-                indirect_names.add(name)
+        name = call_target_name(node.child_by_field_name("function"), source)
         if name is None or name in CONTROL_WORDS or name in macros:
             continue
         calls.append((node.start_byte, name))
-    return [name for _, name in sorted(calls)], indirect_names
+    return [name for _, name in sorted(calls)]
 
 
 def add_function(functions: Functions, function: Function) -> None:
@@ -392,42 +287,35 @@ def macro_names() -> set[str]:
     return macros
 
 
-def index_c_sources(functions: Functions) -> set[Path]:
+def index_c_sources(functions: Functions) -> None:
     macros = macro_names()
     parser = Parser(C_LANGUAGE)
-    asm_paths: set[Path] = set()
     for path in sorted(SRC_DIR.rglob("*.c")):
         source = path.read_bytes()
         tree = parser.parse(source)
-        active_nodes = list(iter_active_nodes(tree.root_node, source))
-        for node in active_nodes:
-            if node.type == "call_expression":
-                target = call_target_name(node.child_by_field_name("function"), source)
-                if target == "INCLUDE_ASM":
-                    match = re.search(r'"([^"]+\.s)"', node_text(source, node))
-                    if match is not None:
-                        asm_paths.add(ROOT / match.group(1))
-            if node.type != "function_definition":
-                continue
-            name = function_name(node.child_by_field_name("declarator"), source)
-            if name is None:
-                continue
-            body = node.child_by_field_name("body")
-            if body is None:
-                calls, indirect_names = [], set()
-            else:
-                calls, indirect_names = extract_c_calls(body, source, macros)
-            add_function(
-                functions,
-                Function(
-                    name=name,
-                    file=relpath(path),
-                    kind="c",
-                    calls=calls,
-                    indirect_names=indirect_names,
-                ),
-            )
-    return asm_paths
+        for invert_literal_zero in (False, True):
+            kind = "provisional" if invert_literal_zero else "c"
+            for node in iter_active_nodes(tree.root_node, source, invert_literal_zero):
+                if node.type != "function_definition":
+                    continue
+                name = function_name(node.child_by_field_name("declarator"), source)
+                if name is None:
+                    continue
+                body = node.child_by_field_name("body")
+                add_function(
+                    functions,
+                    Function(
+                        name=name,
+                        file=relpath(path),
+                        kind=kind,
+                        calls=(
+                            extract_c_calls(body, source, macros, invert_literal_zero)
+                            if body is not None
+                            else []
+                        ),
+                        indirect_names=function_pointer_names(body, source),
+                    ),
+                )
 
 
 ELF_PATH = ROOT / "build" / "rom.elf"
@@ -606,52 +494,6 @@ def load_binary_symbols() -> BinarySymbols | None:
     return _BINARY_SYMBOLS
 
 
-def index_assembly_sources(functions: Functions, paths: set[Path]) -> None:
-    """Index direct calls in assembly selected by live INCLUDE_ASM branches."""
-    binary_symbols = load_binary_symbols()
-    if binary_symbols is None:
-        return
-    function_names = {
-        name
-        for name, symbol in binary_symbols.by_name.items()
-        if symbol.symbol_type == "STT_FUNC"
-    }
-    label_re = re.compile(r"(?m)^([A-Za-z_]\w*):")
-    call_re = re.compile(r"(?m)^\s*(?:bl|blx|b)\s+([A-Za-z_]\w*)")
-    for path in sorted(paths):
-        if not path.is_file():
-            raise SystemExit(f"live INCLUDE_ASM source {path} does not exist")
-        text = path.read_text(encoding="utf-8", errors="replace")
-        labels = [
-            match
-            for match in label_re.finditer(text)
-            if match.group(1) in function_names
-        ]
-        for index, match in enumerate(labels):
-            name = match.group(1)
-            end = labels[index + 1].start() if index + 1 < len(labels) else len(text)
-            body = text[match.end() : end]
-            deep_calls = []
-            for call_match in call_re.finditer(body):
-                target = call_match.group(1)
-                if target.startswith("_call_via_") or re.fullmatch(r"r\d+", target):
-                    continue
-                if target not in deep_calls:
-                    deep_calls.append(target)
-            for target in ASM_INDIRECT_CALLS.get(name, ()):
-                if target not in deep_calls:
-                    deep_calls.append(target)
-            add_function(
-                functions,
-                Function(
-                    name=name,
-                    file=relpath(path),
-                    kind="unknown",
-                    calls=deep_calls,
-                ),
-            )
-
-
 def read_elf_bytes(stream, segments, address: int, size: int) -> bytes:
     for segment in segments:
         segment_start = segment["p_vaddr"]
@@ -680,9 +522,7 @@ def parse_elf_table(table: dict, stream, elf) -> dict[str, list[str]]:
     address = table_symbol["st_value"] & ~1
     stride = table["stride"]
     size = table_symbol["st_size"]
-    if "record_count" in table:
-        record_count = table["record_count"]
-    elif size:
+    if size:
         record_count = size // stride
     else:
         next_addresses = [
@@ -703,33 +543,6 @@ def parse_elf_table(table: dict, stream, elf) -> dict[str, list[str]]:
         if symbol["st_info"]["type"] != "STT_FUNC":
             continue
         function_symbols.setdefault(symbol["st_value"] & ~1, symbol.name)
-    function_addresses = sorted(function_symbols)
-
-    relative_base = 0
-    relative_to = table.get("relative_to")
-    if relative_to is not None:
-        base_symbol = next(
-            (symbol for symbol in symbols if symbol.name == relative_to), None
-        )
-        if base_symbol is None:
-            raise SystemExit(
-                f"relative base symbol {relative_to!r} was not found in {ELF_PATH}"
-            )
-        relative_base = base_symbol["st_value"] & ~1
-
-    def resolve_table_target(pointer: int) -> str | None:
-        target = function_symbols.get(pointer)
-        if target is not None or relative_to is None:
-            return target
-        # Some render-table entries are alternate entry points a few bytes
-        # inside a named routine.  Attribute them to the enclosing symbol.
-        previous = None
-        for function_address in function_addresses:
-            if function_address > pointer:
-                break
-            previous = function_address
-        return function_symbols.get(previous) if previous is not None else None
-
     segments = [
         segment for segment in elf.iter_segments() if segment["p_type"] == "PT_LOAD"
     ]
@@ -738,19 +551,14 @@ def parse_elf_table(table: dict, stream, elf) -> dict[str, list[str]]:
         base = address + record * stride
         for slot_offset, slot_name in table["slots"].items():
             raw = read_elf_bytes(stream, segments, base + slot_offset, 4)
-            stored_value = int.from_bytes(raw, byteorder="little")
-            pointer = (relative_base + stored_value) & ~1
-            target = resolve_table_target(pointer)
+            pointer = int.from_bytes(raw, byteorder="little") & ~1
+            target = function_symbols.get(pointer)
             if target is not None and target not in targets[slot_name]:
                 targets[slot_name].append(target)
     return targets
 
 
-def build_handler_tables() -> tuple[
-    dict[str, list[str]],
-    dict[str, list[str]],
-    dict[tuple[str, str], list[str]],
-]:
+def build_handler_tables() -> tuple[dict[str, list[str]], dict[str, list[str]]]:
     if not ELF_PATH.is_file():
         raise SystemExit(
             f"{ELF_PATH} is missing; build the project first "
@@ -758,87 +566,46 @@ def build_handler_tables() -> tuple[
         )
     nodes: dict[str, list[str]] = {}
     slots_by_name: dict[str, list[str]] = {}
-    targets_by_slot: dict[tuple[str, str], list[str]] = {}
     with ELF_PATH.open("rb") as stream:
         elf = ELFFile(stream)
         for table in HANDLER_TABLES:
             targets = parse_elf_table(table, stream, elf)
-            for slot_name, children in targets.items():
+            for slot_name, functions in targets.items():
                 node = f"{table['label']}[{slot_name}]"
-                nodes[node] = children
+                nodes[node] = functions
                 slots_by_name.setdefault(slot_name, []).append(node)
-                targets_by_slot[(table["label"], slot_name)] = children
             for alias, source_slots in INDIRECT_SLOT_ALIASES.items():
-                if not any(source_slot in targets for source_slot in source_slots):
-                    continue
-                children = []
+                functions: list[str] = []
                 for source_slot in source_slots:
                     for target in targets.get(source_slot, ()):
-                        if target not in children:
-                            children.append(target)
+                        if target not in functions:
+                            functions.append(target)
                 node = f"{table['label']}[{alias}]"
-                nodes[node] = children
+                nodes[node] = functions
                 slots_by_name.setdefault(alias, []).append(node)
-    return nodes, slots_by_name, targets_by_slot
+    return nodes, slots_by_name
 
 
 def resolve_indirect_calls(functions: Functions) -> None:
-    nodes, slots_by_name, targets_by_slot = build_handler_tables()
+    nodes, slots_by_name = build_handler_tables()
     for node, children in nodes.items():
         functions[node] = Function(
             name=node, file="", kind="unknown", calls=children, synthetic=True
         )
-
-    callback_sites: dict[tuple[str, str], str] = {}
-    callback_owners: dict[str, list[str]] = {}
-    for callback in CALLBACK_FIELDS:
-        node = callback["name"]
-        targets = callback["targets"]
-        children = [target["name"] for target in targets]
-        handler_slot = callback.get("handler_slot")
-        if handler_slot is not None:
-            children.extend(targets_by_slot.get(handler_slot, ()))
-        children = list(dict.fromkeys(children))
-        functions[node] = Function(
-            name=node, file="", kind="unknown", calls=children, synthetic=True
-        )
-        for site in callback["call_sites"]:
-            callback_sites[site] = node
-            callback_owners.setdefault(site[0], []).append(node)
-        for writer in callback["writer_functions"]:
-            callback_owners.setdefault(writer, []).append(node)
-        for target in targets:
-            for provider in target.get("providers", ()):
-                callback_owners.setdefault(provider, []).append(node)
-
-    # Assembly call sites and writers have no parsed body.  Give them the same
-    # explicit callback edge as their C equivalents; if they later become C,
-    # add_function's priority rules preserve the real body and this edge is
-    # appended below.
-    for owner, callback_nodes in callback_owners.items():
-        if owner not in functions:
-            functions[owner] = Function(name=owner, file="", kind="unknown")
-        for node in callback_nodes:
-            if node not in functions[owner].calls:
-                functions[owner].calls.append(node)
-
     for function in list(functions.values()):
         if function.synthetic:
             continue
         resolved: list[str] = []
         for target in function.calls:
-            callback_node = callback_sites.get((function.name, target))
             slot_names = INDIRECT_SITES.get((function.name, target))
-            if callback_node is not None:
-                replacements = [callback_node]
-            elif slot_names is not None:
+            if slot_names is None and target in slots_by_name:
+                slot_names = (target,)
+            if slot_names is not None:
                 replacements = [
                     node
                     for slot_name in slot_names
                     for node in slots_by_name.get(slot_name, ())
                 ]
-            elif target in slots_by_name:
-                replacements = slots_by_name[target]
             elif target in function.indirect_names or target in INDIRECT_LOCAL_NAMES:
                 replacements = []
             else:
@@ -847,6 +614,17 @@ def resolve_indirect_calls(functions: Functions) -> None:
                 if replacement not in resolved:
                     resolved.append(replacement)
         function.calls = resolved
+
+
+def add_callbacks(functions: Functions) -> None:
+    for name, targets in CALLBACKS:
+        functions[name] = Function(
+            name=name,
+            file="",
+            kind="unknown",
+            calls=list(targets),
+            synthetic=True,
+        )
 
 
 def classify_symbol(name: str) -> tuple[str, tuple[str, ...]]:
@@ -904,9 +682,9 @@ def resolve_all_edges(functions: Functions) -> None:
 
 def build_index() -> Functions:
     functions: Functions = OrderedDict()
-    asm_paths = index_c_sources(functions)
-    index_assembly_sources(functions, asm_paths)
+    index_c_sources(functions)
     resolve_indirect_calls(functions)
+    add_callbacks(functions)
     resolve_all_edges(functions)
     return functions
 
@@ -929,17 +707,10 @@ def resolve_root(functions: Functions, requested: str) -> str:
     return stripped
 
 
-def render(functions: Functions, root: str, deep: bool = False) -> str:
+def render(functions: Functions, root: str) -> str:
     lines: list[str] = []
     expanded: set[str] = set()
     active: set[str] = set()
-
-    def is_assembly(function: Function) -> bool:
-        return (
-            function.kind == "unknown"
-            and not function.synthetic
-            and not function.special_kind
-        )
 
     def walk(
         name: str,
@@ -947,7 +718,7 @@ def render(functions: Functions, root: str, deep: bool = False) -> str:
         is_last: bool,
         depth: int,
         is_root: bool,
-        parent: Function | None,
+        expand_children: bool = True,
     ) -> None:
         function = functions.get(name)
         if function is None:
@@ -959,44 +730,28 @@ def render(functions: Functions, root: str, deep: bool = False) -> str:
                 special_kind=special_kind,
                 data_targets=data_targets,
             )
-        # Callback writers/providers remain conversion boundaries even when an
-        # assembly caller is the route by which the traversal reaches them.
-        owns_callback = any(
-            child in functions and functions[child].synthetic
-            for child in function.calls
-        )
-        passthrough = (
-            not deep
-            and parent is not None
-            and is_assembly(parent)
-            and is_assembly(function)
-            and not owns_callback
-        )
         suffix = ""
         if depth >= MAX_RENDER_DEPTH:
             suffix = " … (depth limit)"
         elif name in active:
             suffix = " (cycle)"
-        elif name in expanded and (function.kind == "c" or function.calls):
+        elif name in expanded and function.kind == "c":
             suffix = " (see above)"
 
         branch = "" if is_root else ("└─ " if is_last else "├─ ")
-        marker = "⚫" if passthrough else function.marker
-        location = " [asm]" if passthrough else (
-            f" [{function.file}]" if function.file else ""
-        )
-        decoration = " …" if passthrough and not suffix else ""
+        location = f" [{function.file}]" if function.file else ""
         lines.append(
-            f"{prefix}{branch}{marker} {function.display_name}"
-            f"{location}{decoration}{suffix}"
+            f"{prefix}{branch}{function.marker} {function.display_name}{location}{suffix}"
         )
-        if suffix:
+        if suffix or not expand_children:
             return
 
         expanded.add(name)
         active.add(name)
         child_prefix = prefix if is_root else prefix + ("   " if is_last else "│  ")
         children = function.calls
+        if is_root and name not in CALLBACK_NAMES:
+            children = children + CALLBACK_NODE_NAMES
         for index, child in enumerate(children):
             walk(
                 child,
@@ -1004,22 +759,17 @@ def render(functions: Functions, root: str, deep: bool = False) -> str:
                 index == len(children) - 1,
                 depth + 1,
                 False,
-                function,
+                name not in CALLBACK_NAMES,
             )
         active.remove(name)
 
-    walk(root, "", True, 0, True, None)
+    walk(root, "", True, 0, True)
     return "\n".join(lines)
 
 
 def parse_args(argv: Iterable[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Print the GBA C-source call graph rooted at a function."
-    )
-    parser.add_argument(
-        "--deep",
-        action="store_true",
-        help="show every INCLUDE_ASM function as a red node",
     )
     parser.add_argument("root", nargs="?", default="main", help="root symbol (default: main)")
     return parser.parse_args(list(argv))
@@ -1030,7 +780,7 @@ def main(argv: Iterable[str] | None = None) -> int:
     functions = build_index()
     root = resolve_root(functions, args.root)
     try:
-        print(render(functions, root, deep=args.deep))
+        print(render(functions, root))
     except BrokenPipeError:
         # Be friendly to ordinary Unix pipelines such as `| head`.
         return 0
