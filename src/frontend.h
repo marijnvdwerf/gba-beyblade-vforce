@@ -34,7 +34,7 @@ void sub_8046468(FrontendSelectionObject*, const ItemDescriptionEntry*, unk32);
 void sub_80464C0(FrontendSelectionObject*, s32);
 SpriteTextCleanup* sub_804A0E0(s32);
 void sub_8048FE4(void);
-s16 sub_80491E0(s32, s32);
+s32 sub_80491E0(unk32, s32);
 void sub_8049234(unk32);
 void sub_804924C(unk32);
 unk32 sub_8049258(void);

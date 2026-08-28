@@ -51,12 +51,12 @@ void sub_804A110(void)
             deltaYFixed &= 0xFFFFFF00;
             if (deltaXFixed != 0 || deltaYFixed != 0) {
                 if ((*frontendFlags & 0x20) == 0) {
-                    deltaX = (s32)sub_80491E0(deltaXFixed, 0x10);
+                    deltaX = (s16)sub_80491E0(deltaXFixed, 0x10);
                 } else {
                     deltaX = 0;
                 }
                 if ((*frontendFlags & 0x10) == 0) {
-                    deltaY = (s32)sub_80491E0(deltaYFixed, 0x10);
+                    deltaY = (s16)sub_80491E0(deltaYFixed, 0x10);
                 } else {
                     deltaY = 0;
                 }
