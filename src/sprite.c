@@ -250,16 +250,17 @@ s32 sub_8060790(s32 arg0)
 void freeSpriteVramLocation(s32 start, s32 size)
 {
     SpriteStruct2* current;
+    SpriteStruct2* head;
     SpriteStruct2* previous;
-    SpriteStruct2* freeEntry;
     SpriteStruct2** list;
     SpriteStruct2** freeList;
     SpriteStruct2* next;
     s32 end;
 
-    list = &_unk3005DC8;
     freeList = &_unk3005DD8;
-    current = *list;
+    list = &_unk3005DC8;
+    head = *list;
+    current = head;
     previous = NULL;
     end = start + size;
     while (current != NULL) {
@@ -276,6 +277,8 @@ void freeSpriteVramLocation(s32 start, s32 size)
             if (*freeList == NULL) {
                 printf(Str_8755A08);
             } else {
+                SpriteStruct2* freeEntry;
+
                 freeEntry = *freeList;
                 *freeList = freeEntry->next;
                 if (previous != NULL) {
@@ -309,9 +312,8 @@ void freeSpriteVramLocation(s32 start, s32 size)
         }
     }
 }
-#else
-INCLUDE_ASM("asm/dump/8057b80-debug/8060808-freeSpriteVramLocation.s");
 #endif
+INCLUDE_ASM("asm/dump/8057b80-debug/8060808-freeSpriteVramLocation.s");
 
 const unk8 Str_8755A08[]
     = "There are no free SpriteVramFree entries remaining on a call to freeSpriteVramLocation()\n";
@@ -537,7 +539,7 @@ void LoadSpriteSheet(SpriteEntry* dst, const void* sourceArg, unk32 x, unk32 y, 
 {
     SpriteSheet* source;
     unk32 stackArg4;
-    unk32 stackArg5 = arg5;
+    unk32 stackArg5;
     unk32 value;
     unk8 sourceFlags;
     unk8 sourceByteC;
@@ -545,9 +547,9 @@ void LoadSpriteSheet(SpriteEntry* dst, const void* sourceArg, unk32 x, unk32 y, 
     unk16 normalizedArg5;
 
     source = (SpriteSheet*)sourceArg;
+    stackArg4 = arg4;
     stackArg5 = arg5;
     normalizedArg5 = arg7;
-    stackArg4 = arg4;
     normalizedArg4 = arg6;
     normalizedArg5 = arg7;
     sourceFlags = source->unk7;
@@ -583,6 +585,8 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8060b68-LoadSpriteSheet.s");
 #if 0
 SpriteEntry* sub_8060C1C(SpriteTextBlock* block, u16 size, u16 var22)
 {
+    unk32* free_ptr;
+    unk32 sprites_free;
     SpriteEntry* first;
     SpriteEntry* last;
     SpriteEntry* previous;
@@ -590,11 +594,13 @@ SpriteEntry* sub_8060C1C(SpriteTextBlock* block, u16 size, u16 var22)
     SpriteEntry* next;
     u16 count;
 
-    if (_spritesFree < size) {
+    free_ptr = &_spritesFree;
+    sprites_free = *free_ptr;
+    if (sprites_free < size) {
         printf(Str_8755AC8, size);
         return NULL;
     }
-    _spritesFree -= size;
+    *free_ptr = sprites_free - size;
     first = _spritesLeft;
     previous = first;
     insertion = sub_80609C4(_unk3005DE4, var22);
@@ -632,9 +638,8 @@ SpriteEntry* sub_8060C1C(SpriteTextBlock* block, u16 size, u16 var22)
     sub_80604D4(_unk3005DE4);
     return first;
 }
-#else
-INCLUDE_ASM("asm/dump/8057b80-debug/8060c1c.s");
 #endif
+INCLUDE_ASM("asm/dump/8057b80-debug/8060c1c.s");
 
 void sub_8060CDC(SpriteTextBlock* block)
 {

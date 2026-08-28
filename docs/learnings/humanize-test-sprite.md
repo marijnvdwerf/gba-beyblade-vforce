@@ -8,6 +8,18 @@ The humanized linked-list rewrite first diverged at `0x2`: the target moves `r10
 
 The humanized allocation and relinking rewrite first diverged at `0x10`: the target keeps the `_spritesFree` address in `r2` and the loaded count in `r1`, while the draft uses different registers. A direct global access was tested after the original cached-count form and did not improve the allocation. The draft was left parked and the assembly include restored. The forward declaration was corrected to `SpriteTextBlock *` to match the established function signature. No header changes.
 
+Controlled follow-up experiments (2026-08-28):
+
+| Change | First divergence / result |
+| --- | --- |
+| Reordered `first` and `previous` declarations | No allocation change; first divergence remained `0x10`. |
+| Cached `_spritesFree` through `free_ptr` and `sprites_free` | Target global roles were still not reproduced; first divergence remained `0x10`. |
+| Kept a stable `first` and separate moving `last` cursor | Changed normalized-size allocation to `r6` and introduced extra loop arithmetic; worse than the moving-cursor form. |
+| Restored moving `first` cursor and retained cached free-count locals | Returned normalized size to `r5`; global roles and list roles still diverged at `0x10` and `0x32`. |
+| Moved free-count declarations before pointer locals | No code-generation improvement. |
+
+The best source draft remains parked above the assembly include. The target roles requested for this pass (`r8=block`, `r5=size`, `r7=var22`, `r6=first`, `r4=tail`, `r2=insertion`) were not achieved by these source-shape changes.
+
 ## resizeSpriteBlock
 
 The humanized resize rewrite first diverged at `0x2`: the target's saved-register and argument setup differs from the draft. A cached pointer to `_spritesFree` was tested but did not resolve the allocation register setup. The draft was left parked and the assembly include restored. No header changes.
