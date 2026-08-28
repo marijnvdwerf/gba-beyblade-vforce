@@ -364,6 +364,8 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   from draft text) — ignore.
 - Leaf F MERGED: getLineMetaAtIndex, sub_8058F60 (DisplayRecord 0x28–0x50
   typed; `_unk3000D00` = LayerTransformRecord[2]).
+- Reds on main: 39. Leaf H dispatched: sub_8059B00 (layer.c, 129). Held
+  for after leaf D: sub_804B7FC (rider.c, 110). Running: D, G, H.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
