@@ -390,7 +390,7 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 - Leaf I: sub_8058838 merged (7aa4e68; 448 C / 559 asm). actor_8058638
   parked — first divergence `add r4, r3, r0` vs r5 (sequence pointer
   regalloc); agent's draft used cast-and-offset + a packed union + draft-only
-  header fields, sent back for house-style cleanup (learnings only).
+  header fields, cleaned up and merged (parked draft + learnings only).
 - Running: leaf L
   (menuobject.c sub_8043370 176, camera.c sub_805EBCC 199).
 - Running: leaf I (actor.c: sub_8058838 53, actor_8058638 137) and leaf J
