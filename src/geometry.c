@@ -199,4 +199,31 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805e648.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e77c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e7c0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e804.s");
+#if 0 /* NONMATCHING: first diff is the index/pointer register roles at 0x0A; draft has identical  \
+         size */
+unk32 GetLineIndexOfType(LevelGeometryAddresses* addresses, unk16 type, unk16 index)
+{
+    unk32 count;
+    unk32 current;
+    GeometryLine* line;
+
+    type = (unk8)type;
+    index = (unk16)index;
+    line = addresses->unkC + index;
+    count = addresses->unk0->lineCount;
+    if (index >= count) {
+        return -1;
+    }
+    current = count;
+    while (index < current) {
+        if (*((unk8*)line + 0xF) == type) {
+            return index;
+        }
+        line++;
+        index++;
+    }
+    return -1;
+}
+#else
 INCLUDE_ASM("asm/dump/8057b80-debug/805e83c-GetLineIndexOfType.s");
+#endif

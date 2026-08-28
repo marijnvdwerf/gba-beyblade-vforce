@@ -38,8 +38,9 @@ extern u16 word_807D90C[];
 extern const unk8 Str_8755AC8[];
 extern const unk8 Str_8755B0C[];
 extern const unk8 Str_8755B28[];
+extern const unk8 Str_8755A08[];
 
-void freeSpriteVramLocation(unk32, unk32);
+void freeSpriteVramLocation(s32, s32);
 void sub_8060B38(SpriteEntry*);
 SpriteEntry* sub_8060E8C(SpriteEntry*, u16, u16, u8);
 SpriteEntry* sub_8060C1C(SpriteEntry*, unk16, unk16);
@@ -245,7 +246,73 @@ s32 sub_8060790(s32 arg0)
     return start;
 }
 
+#if 0 /* NONMATCHING: first diff is mov r7,r9 versus mov r7,r8 at 0x2; draft is 0x10 bytes shorter \
+       */
+void freeSpriteVramLocation(s32 start, s32 size)
+{
+    SpriteStruct2* current;
+    SpriteStruct2* previous;
+    SpriteStruct2* freeEntry;
+    SpriteStruct2** list;
+    SpriteStruct2** freeList;
+    SpriteStruct2* next;
+    s32 end;
+
+    list = &_unk3005DC8;
+    freeList = &_unk3005DD8;
+    current = *list;
+    previous = NULL;
+    end = start + size;
+    while (current != NULL) {
+        if (end == current->var00) {
+            current->var00 -= size;
+            current->var02 += size;
+            break;
+        }
+        if (start == current->var00 + current->var02) {
+            current->var02 += size;
+            break;
+        }
+        if (current->var00 > start) {
+            if (*freeList == NULL) {
+                printf(Str_8755A08);
+            } else {
+                freeEntry = *freeList;
+                *freeList = freeEntry->next;
+                if (previous != NULL) {
+                    previous->next = freeEntry;
+                } else {
+                    *list = freeEntry;
+                }
+                freeEntry->next = current;
+                freeEntry->var00 = start;
+                freeEntry->var02 = size;
+            }
+            break;
+        }
+        previous = current;
+        current = current->next;
+    }
+
+    previous = *list;
+    current = previous->next;
+    while (current != NULL) {
+        if (current->var00 == previous->var00 + previous->var02) {
+            next = current->next;
+            previous->var02 += current->var02;
+            previous->next = next;
+            current->next = *freeList;
+            *freeList = current;
+            current = next;
+        } else {
+            previous = current;
+            current = current->next;
+        }
+    }
+}
+#else
 INCLUDE_ASM("asm/dump/8057b80-debug/8060808-freeSpriteVramLocation.s");
+#endif
 
 // 8755A08
 const unk8 Str_8755A08[]
@@ -514,7 +581,64 @@ void LoadSpriteSheet(SpriteSheetEntry* dst, SpriteSheet* source, unk32 x, unk32 
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8060b68-LoadSpriteSheet.s");
 
+#if 0 /* NONMATCHING: first diff is the list-relink branch at 0x5E; draft has the same semantic    \
+         control flow but different register allocation */
+SpriteEntry* sub_8060C1C(SpriteTextBlock* block, u16 size, u16 var22)
+{
+    unk32 spritesFree;
+    SpriteEntry* first;
+    SpriteEntry* last;
+    SpriteEntry* previous;
+    SpriteEntry* insertion;
+    SpriteEntry* next;
+    u16 count;
+
+    spritesFree = _spritesFree;
+    if (spritesFree < size) {
+        printf(Str_8755AC8, size);
+        return NULL;
+    }
+    _spritesFree = spritesFree - size;
+    first = _spritesLeft;
+    previous = first;
+    insertion = sub_80609C4(_unk3005DE4, var22);
+    block->count = size;
+    block->prev = first;
+    first->var22 = var22;
+    count = size - 1;
+    while (count != 0) {
+        first = first->next;
+        first->var22 = var22;
+        first->prev = previous;
+        previous = first;
+        count--;
+    }
+    last = first;
+    block->next = last;
+    _spritesLeft = last->next;
+    if (insertion == NULL) {
+        next = _unk3005DE4;
+        if (next != NULL) {
+            next->prev = last;
+        }
+        last->next = next;
+        first->prev = insertion;
+        _unk3005DE4 = first;
+    } else {
+        next = insertion->next;
+        if (next != NULL) {
+            next->prev = last;
+        }
+        last->next = next;
+        first->prev = insertion;
+        insertion->next = first;
+    }
+    sub_80604D4(_unk3005DE4);
+    return first;
+}
+#else
 INCLUDE_ASM("asm/dump/8057b80-debug/8060c1c.s");
+#endif
 
 void sub_8060CDC(SpriteTextBlock* block)
 {

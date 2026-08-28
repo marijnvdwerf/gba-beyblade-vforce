@@ -65,7 +65,47 @@ void sub_806592C(void)
 
 INCLUDE_ASM("asm/dump/8064f38/8065970-DMA3Copy.s");
 
+#if 0 /* NONMATCHING: first diff is the prologue; natural draft retains one extra callee-saved     \
+         register */
+unk32 sub_80659F0(u16 sector, void* buffer)
+{
+    unk16* temp;
+    unk16* tempPtr;
+    unk32 i;
+    unk32 value;
+    BatteryBackupConfig* config;
+
+    config = _unk3005E9C;
+    if (sector >= config->unk4) {
+        return 0x80FF;
+    }
+    temp = (unk16*)buffer;
+    tempPtr = temp + config->unk8 + 2;
+    i = 0;
+    while (i < config->unk8) {
+        *tempPtr = sector;
+        tempPtr--;
+        sector >>= 1;
+        i++;
+    }
+    *tempPtr = 1;
+    tempPtr--;
+    *tempPtr = 1;
+    DMA3Copy(buffer, (void*)0x0D000000, config->unk8 + 3);
+    DMA3Copy((void*)0x0D000000, buffer, 0x44);
+    for (i = 0; i < 0x40; i++) {
+        ((unk16*)buffer)[i] = ((unk16*)buffer)[i];
+    }
+    value = 0;
+    for (i = 0; i < 4; i++) {
+        value |= (((unk16*)buffer)[i + 4] & 1) << i;
+    }
+    ((unk16*)buffer)[0] = value;
+    return 0;
+}
+#else
 INCLUDE_ASM("asm/dump/8064f38/80659f0.s");
+#endif
 INCLUDE_ASM("asm/dump/8064f38/8065aa0.s");
 
 unk32 writeToBatteryBackup(u16 sector, unk16* data)

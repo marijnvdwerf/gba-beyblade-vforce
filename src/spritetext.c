@@ -384,7 +384,23 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8061d54.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061d68.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061e08.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061e44.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8061e58.s");
+
+void sub_8061E58(SpriteTextCleanup* text, u8 color)
+{
+    SpriteEntry* sprite;
+    unk32 count;
+
+    sprite = text->unk14.prev;
+    count = text->unk14.count;
+    count--;
+    while (count != -1) {
+        sub_8061130(sprite, color);
+        sprite = sprite->next;
+        count--;
+    }
+    text->unkE = color;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8061e90.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061e94.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061e9c.s");
