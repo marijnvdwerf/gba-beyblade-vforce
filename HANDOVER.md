@@ -156,6 +156,14 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   flipping GameData.unkC26 to s16 (initGameLoop −20 bytes) and reported it
   as "expected" — sent back; lesson: verify compare yourself, always, and
   compare per-object sizes against main's build to localise a break.
+- Comment sweep merged (2,644 comments → docs/learnings/removed-comments-
+  2026-08-28.md; src has only `/* 0xNN */` markers now). Residual analysis
+  (docs/learnings/residual-analysis-2026-08-28.md): no missing flag/macro;
+  the near-misses share LIFETIME SHAPING (cached alias vs direct expression,
+  cursor+index live, phase-scoped locals, list head/cursor/pred/succ kept
+  distinct). It CONFIRMED the parked GetLineIndexOfType draft matches
+  byte-for-byte (explicit entry-test return + a second count local) — the
+  engine-1 tester was told to land it with a typed `unkF`.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
