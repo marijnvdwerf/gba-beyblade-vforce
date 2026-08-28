@@ -199,9 +199,11 @@ void sub_8045160(FrontendState* state, unk32 arg1, unk32 arg2)
 {
     unk8 value;
     GameData* data;
-    const unk8** strings;
+    SpriteEntry* sprite;
     s32 initialScroll;
     s32 scrollDelta;
+    s32 textAValue;
+    s32 textBValue;
 
     switch (arg1) {
     case 0:
@@ -212,21 +214,21 @@ void sub_8045160(FrontendState* state, unk32 arg1, unk32 arg2)
         data->unk1619 = 0;
         data->unk161A = 0;
         sub_80600B4();
-        _unk30002F4 = allocSprite(0);
+        sprite = allocSprite(0);
+        _unk30002F4 = sprite;
         _unk30002F8 = 0x5800;
         _unk3000368 = 0;
         _unk30002FC = 0;
+        _unk3000300.value = 0x10000;
         initialScroll = 0x10000;
-        _unk3000300.value = initialScroll;
         sub_80596AC(&state->unk250, -initialScroll, 0);
         if (_unk30002F4 != NULL) {
             LoadSpriteSheet(_unk30002F4, SpriteSheet_8243874, initialScroll, 0x2300, 0, 0, 0, 0);
         }
         allocFont(&_unk3000308, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xF0, 2);
-        strings = _806DB8C;
-        sub_8061660(&_unk3000308, strings[15 + getLanguage()], 0xF);
+        sub_8061660(&_unk3000308, _806DB8C[3][getLanguage()], 0xF);
         allocFont(&_unk3000338, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x78, 0xF0, 2);
-        sub_8061660(&_unk3000338, _806DB8C[getLanguage()], 0xF);
+        sub_8061660(&_unk3000338, _806DB8C[0][getLanguage()], 0xF);
         showNumber(&_unk3000338, value, 0xF);
         showString(&_unk3000338, Str_86FD470, 0xF);
         showNumber(&_unk3000338, value, 0xF);
@@ -239,11 +241,13 @@ void sub_8045160(FrontendState* state, unk32 arg1, unk32 arg2)
         }
         break;
     case 1:
-        _unk30002F4->y += (_unk30002F8 - _unk30002F4->y) >> 2;
-        sub_8061844(
-            &_unk3000308, (_unk3000308.x + ((_unk3000368 - _unk3000308.x) >> 2)) >> 8, 0x6E);
-        sub_8061844(
-            &_unk3000338, (_unk3000338.x + ((_unk3000368 - _unk3000338.x) >> 2)) >> 8, 0x78);
+        textAValue = _unk3000308.x;
+        textBValue = _unk3000338.x;
+        _unk30002F4->x += (_unk30002F8 - _unk30002F4->x) >> 2;
+        textAValue += (_unk3000368 - textAValue) >> 2;
+        textBValue += (_unk3000368 - textBValue) >> 2;
+        sub_8061844(&_unk3000308, textAValue >> 8, 0x6E);
+        sub_8061844(&_unk3000338, textBValue >> 8, 0x78);
         scrollDelta = (_unk30002FC - _unk3000300.value) >> 2;
         sub_80596AC(&state->unk250, -scrollDelta, 0);
         _unk3000300.value += scrollDelta;
