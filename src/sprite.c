@@ -817,7 +817,7 @@ void sub_8061030(SpriteEntry* spriteEntry, u16 arg1, u16 arg2)
     }
 }
 
-void sub_8061078(SpriteEntry* sprite, unk32 frame)
+void sub_8061078(SpriteEntry* sprite, unk16 frame)
 {
     u16 value;
     SpriteEntry* previous;
