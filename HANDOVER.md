@@ -121,6 +121,21 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   matched code, probable per-author TU grouping) and
   docs/learnings/humanize-2026-08-28.md (human rewrites for every `#if 0`
   draft and recorded near-miss) — agents then TEST those rewrites.
+- Round-1 sprite/geometry agent merged (ffab08a: sub_8061E58, sub_80600B4;
+  parked with `#if 0` drafts + step tables: GetLineIndexOfType, sub_80659F0,
+  sub_8060C1C, sub_805529C, freeSpriteVramLocation). Frontend + gamestate
+  round-1 agents still running.
+- Opus humanizer DONE (67a04c2): docs/style.md (11 sections; authors A=
+  frontend/menu/credits, B=engine/sprite/sound/memory, C=gameplay/rider/env;
+  'never ternary for clamps', counting-up while, printf-then-continue…) and
+  docs/learnings/humanize-2026-08-28.md (21 rewrites). Three luna testers
+  running: engine-1 (sub_8062EFC, sub_8065334, sub_80655C0, sub_8065508,
+  GetLineIndexOfType, sub_80659F0), engine-2 (sub_80627F0,
+  freeSpriteVramLocation, sub_8060C1C, resizeSpriteBlock, LoadSpriteSheet,
+  sub_806123C, sub_8062C24), gameplay (sub_806014C, initMultiPlayer,
+  initEventListeners, sub_805529C, initRiders, initLevelEnvironmentActors).
+  Waiting on the frontend round-1 agent before testing §4 sub_8049CE8,
+  §6 sub_805041C, §7 sub_804967C, §15 sub_8049458 (same TUs).
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
@@ -207,7 +222,7 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 
 ## State
 
-Progress: 11/66 TUs done, 400 C functions, 607 INCLUDE_ASM remaining (40%).
+Progress: 11/66 TUs done, 402 C functions, 605 INCLUDE_ASM remaining (40%).
 Session 3 merged 97 functions (batches 1–17, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
