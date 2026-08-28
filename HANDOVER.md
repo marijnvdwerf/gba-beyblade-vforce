@@ -9,11 +9,21 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 
 ## Session 4 (2026-08-27)
 
-### Session 4 wrap-up (2026-08-28; P2b pending)
+### Session 4 wrap-up (2026-08-28, final)
 
-State: main green; 456 C / 551 asm / 45%; callgraph (restored 2423af7 tool
-+ callbacks + IRQ table) shows 54 🟡, 46 🔴 (10 render_* ARM + 4 arm2.s ARM
-ISRs are not compiler targets → 32 real reds, all ≥143 insns or parked).
+State: main green; 458 C / 549 asm / 45%; callgraph (restored 2423af7 tool
++ callbacks + IRQ table) shows 44 🔴 (10 render_* ARM + 4 arm2.s ARM ISRs
+are not compiler targets → 30 real reds, all ≥143 insns or parked). No
+agents running, no worktrees, monitor stopped.
+
+P2b (last agent): sub_8045160 and sub_8047E5C MATCHED using the packed
+SpriteEntry frame union — the union is now live in src/sprite.h (the one
+allowed `__attribute__((packed))`), byte users rewritten to frame.b[0]/b[1];
+ram.c/ram.h frontend globals 0x2F4–0x368 and 0x568–0x580 typed. sub_8045CB4
+parked: two load-order differences after sub_8057C40 calls
+(docs/learnings/sub_8045CB4.md). Cosmetic follow-up: `FrontendScalarWithPad
+_unk3000300` (s32 + 4 pad) is a wrapper struct standing in for an 8-byte
+slot — replace with plain globals if the linker script allows.
 
 Decisions this session (user): raw2/raw-decomp are draft sources only; fresh
 starts from asm, smallest first; volatile/register/asm/flags never levers;
