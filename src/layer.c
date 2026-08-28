@@ -112,8 +112,6 @@ void sub_8058A28(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
     }
 }
 
-ASM_ZEROPAD
-
 void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgPriority, u16 sp0)
 {
     u32 var0;

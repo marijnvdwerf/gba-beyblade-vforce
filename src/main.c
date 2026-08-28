@@ -81,14 +81,10 @@ void nullsub_37()
 {
 }
 
-ASM_ZEROPAD
-
 void onTimer1Overflow()
 {
     Sound_onTimer1Overflow();
 }
-
-ASM_ZEROPAD
 
 void sub_80506C0()
 {
