@@ -5,7 +5,7 @@ build_system: cmake
 versions:
   - name: us
     fullname: US
-    sha1: null
+    sha1: cd527c8c24e20e33913fc45199e64b3e6138a6e5
     paths:
       target: build/rom.gba
       build_dir: build
