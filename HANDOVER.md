@@ -209,6 +209,13 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   EnvironmentActors 0x26C vs 0x268, initEventListeners count/max swap,
   sub_806014C reload). gameinit/envactor/multiplayer/effects/event TUs are
   free again for the held round-2 reds.
+- Round-2 mixed agent retired (0/8; real drafts kept for sub_80510FC,
+  updateKeyState, sub_804F878; empty stubs deleted). Its untouched five
+  (newIconMenu, sub_804A550, sub_804257C, sub_804EE54, sub_8063220) plus the
+  previously held reds (sub_80539E8, updateEnvirenmentActors,
+  renderEnvironmentActors, sub_806014C, sub_8055340) re-dispatched to a fresh
+  agent. Pattern to watch: an agent that parks with an EMPTY body did not
+  attempt the function — check draft sizes before merging.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
