@@ -171,6 +171,12 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   collectedBits[], MenuState.unk2E/2F must stay u8. Engine-2 tester 0/7 on
   first pass (one shape each, ~20 min) — revived with the residual-analysis
   register-role maps and the `union { u16 word; u8 b[2]; }` experiment.
+- Gamestate round-1 MERGED after review round 2: sub_805137C, sub_805000C,
+  sub_8056FAC (cast-free collectedBits[] indexing); parked with bare `#if 0`
+  drafts: sub_8050050, sub_8050184, sub_8057104, sub_805AFBC, sub_804A280
+  (needs s16 unkC26 vs initGameLoop's u16 — real conflict). Layouts kept:
+  Actor s32 x/y/z, EnvironmentObject.actor, RiderTemp, EnvironmentLine,
+  GeometryAddressTable.unkC, CollectableData s32 count + collectedBits[1].
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
@@ -257,7 +263,7 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 
 ## State
 
-Progress: 11/66 TUs done, 402 C functions, 605 INCLUDE_ASM remaining (40%).
+Progress: 11/66 TUs done, 405 C functions, 602 INCLUDE_ASM remaining (40%).
 Session 3 merged 97 functions (batches 1–17, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
