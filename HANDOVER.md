@@ -202,6 +202,13 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   ones after that: sub_8048310, sub_804868C, sub_80420C4, sub_804444C,
   sub_8045CB4, actor_805C48C, sub_8052B24, selectBladeFrontendHandler,
   collectionListFrontendHandler, sub_80413FC, renderRider.
+- Humanized-rewrite testing is DONE: engine-1 0/6, engine-2 0/7, gameplay
+  0/6 (all merged as parked drafts + step tables in humanize-test-*.md).
+  Net: the Opus style rewrites matched nothing; the 6 gameplay inits keep
+  their frame/register residuals (initRiders 0x138 vs 0x134, initLevel-
+  EnvironmentActors 0x26C vs 0x268, initEventListeners count/max swap,
+  sub_806014C reload). gameinit/envactor/multiplayer/effects/event TUs are
+  free again for the held round-2 reds.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
