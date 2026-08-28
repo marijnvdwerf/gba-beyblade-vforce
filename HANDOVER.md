@@ -284,6 +284,15 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   the same addresses) — that also lands sub_8048FFC.
   Rejected-by-bytes in review: `& 0x3FF` for `(u32)(x<<22)>>22` (literal
   pool), `& 0xF` for `(x<<28)>>28` — the shift dance IS the source here.
+- RETRACTED the `_unk3000BE0`-split finding: agbcc folds `&global.member`
+  into ONE literal (`_unk3000650+0x590`) but compiles a member LOAD at a
+  large offset as base + second literal. sub_8048FFC MATCHED (4a6b541) with
+  the sub-object alias `transition = &_unk3000650.transition.unk590;` —
+  the same idiom background.c's matched functions use. FrontendState through
+  0x5AC stands; no split. Rule recorded in
+  docs/learnings/agbcc-global-address-folding.md (fold into the skill next
+  sol pass). Retry hint for parked frontend drafts that load `_unk3000A78`
+  etc. directly (sub_804967C): write `T* x = &_unk3000650.<sub>;` first.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
