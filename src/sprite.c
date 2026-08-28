@@ -537,42 +537,31 @@ typedef struct SpriteSheet {
 void LoadSpriteSheet(SpriteEntry* dst, const void* sourceArg, unk32 x, unk32 y, unk32 arg4,
     unk32 arg5, unk32 arg6, unk32 arg7)
 {
-    SpriteSheet* source;
-    unk32 stackArg4;
-    unk32 stackArg5;
-    unk32 value;
-    unk8 sourceFlags;
+    unk16 normalizedArg5 = arg7;
+    unk8 normalizedArg4 = arg6;
+    s8 sourceFlags;
     unk8 sourceByteC;
-    unk8 normalizedArg4;
-    unk16 normalizedArg5;
+    unk32 value;
 
-    source = (SpriteSheet*)sourceArg;
-    stackArg4 = arg4;
-    stackArg5 = arg5;
-    normalizedArg5 = arg7;
-    normalizedArg4 = arg6;
-    normalizedArg5 = arg7;
-    sourceFlags = source->unk7;
-    sourceByteC = source->unkC;
-    dst->unk2C = (const unk8*)source;
+    sourceFlags = ((SpriteSheet*)sourceArg)->unk7;
+    sourceByteC = ((SpriteSheet*)sourceArg)->unkC;
+    dst->unk2C = (const unk8*)sourceArg;
     dst->flip_h_v = normalizedArg4;
     dst->x = x;
     dst->y = y;
-    value = (sourceFlags & 3) << 14;
-    value |= (~sourceByteC & 1) << 13;
-    value |= ((stackArg4 & 3) << 10) | 0x1000;
-    value |= (sourceFlags & 0xC) << 28;
-    value |= (normalizedArg4 & 3) << 28;
-    dst->unk10 = value;
-    value = ((sourceByteC >> 1) & 0xF) << 12;
-    value |= (stackArg5 & 3) << 10;
-    dst->oam_attr_2 = value;
-    value = source->unk1C;
+    dst->unk10 = (sourceFlags & 3) << 14;
+    dst->unk10 |= (~sourceByteC & 1) << 13;
+    dst->unk10 |= ((arg4 & 3) << 10) | 0x1000;
+    dst->unk10 |= (sourceFlags & 0xC) << 28;
+    dst->unk10 |= (normalizedArg4 & 3) << 28;
+    dst->oam_attr_2 = ((sourceByteC >> 1) & 0xF) << 12;
+    dst->oam_attr_2 |= (arg5 & 3) << 10;
+    value = ((SpriteSheet*)sourceArg)->unk1C;
     if (value == 0) {
-        value = source->unk10;
+        value = ((SpriteSheet*)sourceArg)->unk10;
     }
-    dst->unk28 = (const unk8*)source + value;
-    dst->var16 = source->unk6;
+    dst->unk28 = (const unk8*)sourceArg + value;
+    dst->var16 = ((SpriteSheet*)sourceArg)->unk6;
     dst->frame = normalizedArg5;
     dst->unk1A = 0xFFFF;
     dst->flip_h_v = 0;
