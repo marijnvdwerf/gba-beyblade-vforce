@@ -247,14 +247,13 @@ unk32 sub_80493C8(void)
     }
     return result;
 }
+
 #if 0
 void sub_8049458(void)
 {
     unk32 count;
-    FrontendState *state;
-    FrontendObject **object;
-    unk8 value;
-
+    FrontendState* state;
+    FrontendObject** object;
     count = 0;
     sub_8049018();
     VBlankIntrWait();
@@ -272,7 +271,8 @@ void sub_8049458(void)
         sub_80493C8();
         sub_80490CC(1, _unk3000BFC);
         __oam_8756CC0();
-        if (_unk3000650.unk0 != _unk3000650.unk4 && _unk3000650.transition.value == _unk3000650.transition.unk586) {
+        if (_unk3000650.unk0 != _unk3000650.unk4
+            && (unk8)_unk3000650.transition.value == _unk3000650.transition.unk586) {
             count = 0;
             sub_804967C();
         }
@@ -280,8 +280,8 @@ void sub_8049458(void)
         object = &state->unkB4;
         if (*object == NULL)
             break;
-        sub_8050A50(state);
-        if (state->motion.unkC != 0)
+        sub_8050A50((DisplayData*)&state->transition.unk590);
+        if (state->motion.count != 0)
             sub_805041C(&state->motion);
         if ((*object)->unk4->unk14 != 0)
             sub_804A110();
@@ -295,9 +295,8 @@ void sub_8049458(void)
                 sub_804374C(state);
             sub_80490CC(2, 0);
         }
-        value = state->transition.unk586;
-        if (state->transition.value == value) {
-            state->transition.value = value;
+        if ((unk8)_unk3000650.transition.value == _unk3000650.transition.unk586) {
+            _unk3000650.transition.value = _unk3000650.transition.unk586;
             sub_8049344(1);
             _unk3000650.transition.unk585 = 0;
         }
@@ -363,47 +362,50 @@ void sub_804967C(void)
             _unk3000650.unk424 = NULL;
         }
         sub_80436B0(&_unk3000650);
-        if (_unk3000650.motion.count != 0) {
-            sub_8050584(&_unk3000650.motion);
-            sub_8061204(&_unk3000650.unk428);
+        {
+            s16 zero;
+
+            zero = 0;
+            if ((&_unk3000650.motion.count)[zero] != 0) {
+                sub_8050584(&_unk3000650.motion);
+                sub_8061204(&_unk3000650.unk428);
+            }
         }
     }
     {
-        FrontendState* state;
-        FrontendSubobject967C* object;
+        FrontendSubobject* object;
         FrontendSubobjectData* cursor;
         FrontendMotionData* motionData;
         SpriteTextCleanup* destination;
         s32 index;
 
-        state = &_unk3000650;
-        if (state->unk4 != (unk32)-1)
-            state->unkB4 = (FrontendObject*)&_8069FC8[state->unk4];
+        if (_unk3000650.unk4 != (unk32)-1)
+            _unk3000650.unkB4 = (FrontendObject*)&_8069FC8[_unk3000650.unk4];
         else
-            state->unkB4 = NULL;
-        state->unk0 = state->unk4;
-        if (state->unk4 == (unk32)-1)
+            _unk3000650.unkB4 = NULL;
+        _unk3000650.unk0 = _unk3000650.unk4;
+        if (_unk3000650.unk4 == (unk32)-1)
             return;
-        object = (FrontendSubobject967C*)state->unkB4->unk4;
-        state->unk80 &= 0xF3;
+        object = _unk3000650.unkB4->unk4;
+        _unk3000650.unk80 &= 0xF3;
         StoreFunction(0);
         _unk3000BFD = 0;
-        if (state->transition.unk588 != NULL)
-            ((void (*)(void))state->transition.unk588)();
-        else if (state->unkB4->unkC != NULL)
-            ((void (*)(void))state->unkB4->unkC)();
+        if (_unk3000650.transition.unk588 != NULL)
+            ((void (*)(void))_unk3000650.transition.unk588)();
+        else if (_unk3000650.unkB4->unkC != NULL)
+            ((void (*)(void))_unk3000650.unkB4->unkC)();
         sub_8049330(0);
         sub_8049344(2);
         if (object->unk14 * 0x30 != 0) {
-            state->unk424 = slowAllocate(object->unk14 * 0x30);
-            if (state->unk424 != NULL) {
-                destination = state->unk424->address;
-                state->unk470 = destination;
-                cursor = object->unk18;
+            _unk3000650.unk424 = slowAllocate(object->unk14 * 0x30);
+            if (_unk3000650.unk424 != NULL) {
+                destination = _unk3000650.unk424->address;
+                _unk3000650.unk470 = destination;
+                cursor = object->unk18.data;
                 index = object->unk14;
                 do {
                     allocFont(destination, cursor->font->spriteSheet, cursor->font->fontMeta, cursor->x,
-                        cursor->y, cursor->tileCount, cursor->font->glyphWidth);
+                        cursor->y, cursor->tileCount, cursor->font->unkA);
                     sub_8061660(destination, cursor->languageStrings[getLanguage()], cursor->font->unkA);
                     cursor++;
                     destination++;
@@ -413,9 +415,9 @@ void sub_804967C(void)
         }
         cursor = object->unk10;
         if (cursor != NULL) {
-            motionData = cursor->unk24;
+            motionData = cursor->motionData;
             allocFont(&_unk3000A78.cleanup, cursor->font->spriteSheet, cursor->font->fontMeta,
-                cursor->x, cursor->y, cursor->tileCount, cursor->font->glyphWidth);
+                cursor->x, cursor->y, cursor->tileCount, cursor->font->unkA);
             sub_8061660(&_unk3000A78.cleanup, cursor->languageStrings[getLanguage()], cursor->font->unkA);
             if (motionData != NULL) {
                 newMotionGroup(&_unk3000A78.motion, &_unk3000A78.cleanup.unk14, motionData->unk26);
@@ -426,7 +428,7 @@ void sub_804967C(void)
                 sub_8050578(&_unk3000A78.motion, motionData->unk20, motionData->unk26);
             }
         }
-        sub_8043370(state);
+        sub_8043370(&_unk3000650);
         sub_80490CC(0, 0);
     }
 }
