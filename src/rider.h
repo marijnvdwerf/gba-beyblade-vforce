@@ -8,6 +8,7 @@ void nullsub_4(void);
 void initRider(void*, void*, unk32, unk32, unk32, unk32, unk32);
 void processRiderMetadata(RiderBase*, LevelGeometryAddresses*, unk32);
 void sub_804B4A4(RiderBase*);
+void sub_804C098(RiderBase*);
 
 void sub_804C0EC(RiderTemp*, unk8);
 

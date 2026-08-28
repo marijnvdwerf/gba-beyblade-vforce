@@ -315,4 +315,98 @@ void sub_80495C4(void)
     }
 }
 
+#if 0
+void sub_804967C(void)
+{
+    sub_80490CC(7, 0);
+    if (_unk3000650.unk0 != (unk32)-1) {
+        if (_unk3000650.unk424 != NULL) {
+            if (_unk3000650.unk470 != NULL) {
+                SpriteTextCleanup* cleanup;
+                s32 count;
+
+                cleanup = _unk3000650.unk470;
+                count = _unk3000650.unkB4->unk4->unk14 - 1;
+                if (count != -1) {
+                    do {
+                        sub_8061204(cleanup);
+                        cleanup++;
+                        count--;
+                    } while (count != -1);
+                }
+                _unk3000650.unk470 = NULL;
+            }
+            deallocateBlock(_unk3000650.unk424);
+            _unk3000650.unk424 = NULL;
+        }
+        sub_80436B0(&_unk3000650);
+        if (_unk3000650.motion.count != 0) {
+            sub_8050584(&_unk3000650.motion);
+            sub_8061204(&_unk3000650.unk428);
+        }
+    }
+    {
+        FrontendState* state;
+        FrontendSubobject967C* object;
+        FrontendSubobjectData* cursor;
+        FrontendMotionData* motionData;
+        SpriteTextCleanup* destination;
+        s32 index;
+
+        state = &_unk3000650;
+        if (state->unk4 != (unk32)-1)
+            state->unkB4 = (FrontendObject*)&_8069FC8[state->unk4];
+        else
+            state->unkB4 = NULL;
+        state->unk0 = state->unk4;
+        if (state->unk4 == (unk32)-1)
+            return;
+        object = (FrontendSubobject967C*)state->unkB4->unk4;
+        state->unk80 &= 0xF3;
+        StoreFunction(0);
+        _unk3000BFD = 0;
+        if (state->transition.unk588 != NULL)
+            ((void (*)(void))state->transition.unk588)();
+        else if (state->unkB4->unkC != NULL)
+            ((void (*)(void))state->unkB4->unkC)();
+        sub_8049330(0);
+        sub_8049344(2);
+        if (object->unk14 * 0x30 != 0) {
+            state->unk424 = slowAllocate(object->unk14 * 0x30);
+            if (state->unk424 != NULL) {
+                destination = state->unk424->address;
+                state->unk470 = destination;
+                cursor = object->unk18;
+                index = object->unk14;
+                do {
+                    allocFont(destination, cursor->font->spriteSheet, cursor->font->fontMeta, cursor->x,
+                        cursor->y, cursor->tileCount, cursor->font->glyphWidth);
+                    sub_8061660(destination, cursor->languageStrings[getLanguage()], cursor->font->unkA);
+                    cursor++;
+                    destination++;
+                    index--;
+                } while (index != 0);
+            }
+        }
+        cursor = object->unk10;
+        if (cursor != NULL) {
+            motionData = cursor->unk24;
+            allocFont(&_unk3000A78.cleanup, cursor->font->spriteSheet, cursor->font->fontMeta,
+                cursor->x, cursor->y, cursor->tileCount, cursor->font->glyphWidth);
+            sub_8061660(&_unk3000A78.cleanup, cursor->languageStrings[getLanguage()], cursor->font->unkA);
+            if (motionData != NULL) {
+                newMotionGroup(&_unk3000A78.motion, &_unk3000A78.cleanup.unk14, motionData->unk26);
+                sub_80504E4(&_unk3000A78.motion, motionData->unk0, motionData->unk4,
+                    motionData->unk8, motionData->unkC);
+                sub_805052C(&_unk3000A78.motion, motionData->unk10, motionData->unk14,
+                    motionData->unk18, motionData->unk1C);
+                sub_8050578(&_unk3000A78.motion, motionData->unk20, motionData->unk26);
+            }
+        }
+        sub_8043370(state);
+        sub_80490CC(0, 0);
+    }
+}
+#endif
+
 INCLUDE_ASM("asm/dump/8040d18/804967c.s");
