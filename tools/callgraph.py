@@ -39,9 +39,24 @@ HANDLER_TABLES = [
         "stride": 0x18,
         "slots": {0x8: "unk8", 0xC: "unkC", 0x10: "unk10", 0x14: "unk14"},
     },
+    {
+        "label": "Unk_872CAF4",
+        "stride": 4,
+        "slots": {0: "unk0"},
+    },
 ]
 
 CALLBACKS = [
+    ("Unk_872CAF4[unk0]", [
+        "onVBlank",
+        "nullsub_37",
+        "nullsub_31",
+        "onTimer1Overflow",
+        "Sound_onTimer1Overflow",
+    ]),
+    ("_unk3000DF0[5]", ["onTimer2Overflow"]),
+    ("_unk3000DF0[6]", ["sub_8757D24", "sub_8757CD0", "sub_8757E4C"]),
+    ("_unk3000DF0[7]", ["onSerialCommunication", "sub_8757FCC"]),
     ("Actor.unkB0", ["convert3DCoordsto2DCoords"]),
     ("CameraState.callback", ["sub_80522D4"]),
     ("MenuState.callback", ["sub_8043604", "sub_8052B08"]),
