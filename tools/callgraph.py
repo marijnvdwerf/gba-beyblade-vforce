@@ -219,6 +219,7 @@ class Function:
     file: str
     kind: str  # "c" or "unknown"
     calls: list[str] = field(default_factory=list)
+    deep_calls: list[str] = field(default_factory=list)
     indirect_names: set[str] = field(default_factory=set)
     synthetic: bool = False
     special_kind: str = ""  # "runtime" or "data"
@@ -606,8 +607,10 @@ def load_binary_symbols() -> BinarySymbols | None:
     return _BINARY_SYMBOLS
 
 
-def index_assembly_sources(functions: Functions, paths: set[Path]) -> None:
-    """Index direct calls in assembly selected by live INCLUDE_ASM branches."""
+def index_assembly_sources(
+    functions: Functions, paths: set[Path], deep: bool
+) -> None:
+    """Index live INCLUDE_ASM functions, following their calls only in deep mode."""
     binary_symbols = load_binary_symbols()
     if binary_symbols is None:
         return
@@ -631,23 +634,24 @@ def index_assembly_sources(functions: Functions, paths: set[Path]) -> None:
             name = match.group(1)
             end = labels[index + 1].start() if index + 1 < len(labels) else len(text)
             body = text[match.end() : end]
-            calls = []
+            deep_calls = []
             for call_match in call_re.finditer(body):
                 target = call_match.group(1)
                 if target.startswith("_call_via_") or re.fullmatch(r"r\d+", target):
                     continue
-                if target not in calls:
-                    calls.append(target)
+                if target not in deep_calls:
+                    deep_calls.append(target)
             for target in ASM_INDIRECT_CALLS.get(name, ()):
-                if target not in calls:
-                    calls.append(target)
+                if target not in deep_calls:
+                    deep_calls.append(target)
             add_function(
                 functions,
                 Function(
                     name=name,
                     file=relpath(path),
                     kind="unknown",
-                    calls=calls,
+                    calls=list(deep_calls) if deep else [],
+                    deep_calls=deep_calls,
                 ),
             )
 
@@ -793,7 +797,8 @@ def resolve_indirect_calls(functions: Functions) -> None:
     callback_owners: dict[str, list[str]] = {}
     for callback in CALLBACK_FIELDS:
         node = callback["name"]
-        children = [target["name"] for target in callback["targets"]]
+        targets = callback["targets"]
+        children = [target["name"] for target in targets]
         handler_slot = callback.get("handler_slot")
         if handler_slot is not None:
             children.extend(targets_by_slot.get(handler_slot, ()))
@@ -806,6 +811,9 @@ def resolve_indirect_calls(functions: Functions) -> None:
             callback_owners.setdefault(site[0], []).append(node)
         for writer in callback["writer_functions"]:
             callback_owners.setdefault(writer, []).append(node)
+        for target in targets:
+            for provider in target.get("providers", ()):
+                callback_owners.setdefault(provider, []).append(node)
 
     # Assembly call sites and writers have no parsed body.  Give them the same
     # explicit callback edge as their C equivalents; if they later become C,
@@ -898,12 +906,42 @@ def resolve_all_edges(functions: Functions) -> None:
         function.calls = resolved
 
 
-def build_index() -> Functions:
+def attach_boundary_callbacks(functions: Functions) -> None:
+    """Expose callbacks below asm boundaries without showing the asm closure."""
+    synthetic = {name for name, function in functions.items() if function.synthetic}
+    for function in list(functions.values()):
+        if not function.file.startswith("asm/"):
+            continue
+        callbacks: list[str] = []
+        visited: set[str] = set()
+        pending = list(reversed(function.deep_calls))
+        while pending:
+            name = resolve_name(functions, pending.pop())
+            if name in visited:
+                continue
+            visited.add(name)
+            target = functions.get(name)
+            if target is None:
+                continue
+            if name in synthetic and name not in callbacks:
+                callbacks.append(name)
+            outgoing = target.calls
+            if target.file.startswith("asm/"):
+                outgoing = list(dict.fromkeys(target.deep_calls + target.calls))
+            pending.extend(reversed(outgoing))
+        for callback in callbacks:
+            if callback not in function.calls:
+                function.calls.append(callback)
+
+
+def build_index(deep: bool = False) -> Functions:
     functions: Functions = OrderedDict()
     asm_paths = index_c_sources(functions)
-    index_assembly_sources(functions, asm_paths)
+    index_assembly_sources(functions, asm_paths, deep)
     resolve_indirect_calls(functions)
     resolve_all_edges(functions)
+    if not deep:
+        attach_boundary_callbacks(functions)
     return functions
 
 
@@ -981,13 +1019,18 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
     parser = argparse.ArgumentParser(
         description="Print the GBA C-source call graph rooted at a function."
     )
+    parser.add_argument(
+        "--deep",
+        action="store_true",
+        help="follow calls between INCLUDE_ASM functions",
+    )
     parser.add_argument("root", nargs="?", default="main", help="root symbol (default: main)")
     return parser.parse_args(list(argv))
 
 
 def main(argv: Iterable[str] | None = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
-    functions = build_index()
+    functions = build_index(deep=args.deep)
     root = resolve_root(functions, args.root)
     try:
         print(render(functions, root))
