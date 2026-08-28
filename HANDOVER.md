@@ -403,6 +403,16 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   in docs/learnings/leaves-n4.md; headers untouched). Follow-up: the backup.c
   draft uses a raw `*(vu16*)0x0D000000` — replace with the memory_map name
   when the function is retried.
+- Callgraph restored (b02c5d5 merged): 2423af7 two-pass tool + `->field()`
+  calls ignored + typedef'd local fn-pointers (`LayerCopyFunc copy`,
+  `EventMetadataHandler handler`) recognised + hard-coded CALLBACKS list
+  (Actor.unkB0, CameraState.callback, MenuState.callback,
+  _renderFunctionOffsets) as 🧭 nodes. 🟡 set identical to before (54 names);
+  43 unique 🔴 (= old − {copy, handler, unkB0} + sub_80522D4 + render_00–09).
+- ARM experiment (branch agent-a75e0df4a671e56ee, experiments/arm/): agbcc_arm
+  exists (GNU C 2.9-arm-000512 arm-elf) but render_06 is hand-written ARM
+  (saves r0–r3, predicated execution, `pop; bx lr`) — render_* are not
+  compiler output. Branch kept unmerged pending user's choice.
 - CALLGRAPH REVERT (user): the agent rewrites (fdff37d/556bb10/6b6e7f8 —
   asm traversal, ⚫ nodes, --deep, #if 0 skipping) lost the 🟡 draft marker
   and the second (draft) pass. Manager's mistake (briefed "skip #if 0",
