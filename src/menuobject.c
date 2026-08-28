@@ -79,11 +79,9 @@ void sub_80436B0(FrontendState* object)
     count = object->menuState.objectCount;
     if (count == 0)
         return;
-    count--;
-    while (count != (unk32)-1) {
+    while (count-- != 0) {
         sub_8050584(item);
         item++;
-        count--;
     }
     if (object->menuState.timer != 0) {
         sub_8050584(&object->menuState.motion);
