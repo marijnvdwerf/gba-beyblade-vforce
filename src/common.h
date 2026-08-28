@@ -234,7 +234,7 @@ typedef struct MenuState {
     u8 unk9;
     unk8 padA[2];
     UnkMenuItem* items; /* 0xC */
-    AllocatedBlock* menuBlock; /* 0x10 */
+    unk8 pad10[4]; /* 0x10 */
     s32 itemCount; /* 0x14 */
     s32 objectCount; /* 0x18 */
     unk8 pad1C[8];
@@ -567,16 +567,11 @@ typedef struct GeometryLine {
     unk32 point0;
     unk32 point1;
     unk8 unk8;
-    unk8 pad9[0xD];
-    unk16 unk10;
-    unk8 pad18[8];
-} GeometryLine; /* 0x20 */
-
-typedef struct EnvironmentLine {
-    unk8 pad0[0x10];
+    unk8 pad9[7];
     unk8 unk10;
-    unk8 pad11[0xF];
-} EnvironmentLine; /* 0x20 */
+    unk8 unk11;
+    unk8 pad12[0xE];
+} GeometryLine; /* 0x20 */
 
 typedef struct GeometrySpline {
     unk32 pointCount;

@@ -6,8 +6,6 @@
 #include "include_asm.h"
 #include "layer.h"
 
-void sub_805E8D8(CameraState*, unk32*, unk16, unk32*);
-
 INCLUDE_ASM("asm/dump/8057b80-debug/805e878.s");
 
 void sub_805E8A0(CameraState* camera, unk32* arg1, unk16 arg2, unk32* arg3)

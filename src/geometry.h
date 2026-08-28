@@ -7,14 +7,14 @@
 LevelGeometryTable* loadLevelGeometry(u16);
 LineMetadata** getLevelMetadata(u16);
 void getLevelGeometryAddresses(LevelGeometryAddresses*, LevelGeometryTable*);
-void StoreMetadataAddr(void*, LineMetadata**);
-void newCollisionDataRam(void*, LevelGeometryTable*, unk16);
-void initQuadTree(QuadTree*, void*, unk16, unk16, unk16, unk16);
+void StoreMetadataAddr(LevelGeometryAddresses*, LineMetadata**);
+void newCollisionDataRam(LevelGeometryAddresses*, LevelGeometryTable*, unk16);
+void initQuadTree(QuadTree*, LevelGeometryAddresses*, unk16, unk16, unk16, unk16);
 LineMetadata* GetLineMetaData(LevelGeometryAddresses*, unk32);
 LineMetaObject* getLineMetaObjectBytype(LevelGeometryAddresses*, LineMetadata*, unk32);
 LineMetaObject* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, LineMetadata*, unk32, unk32);
 unk32 GetLineIndexOfType(LevelGeometryAddresses*, unk16, unk16);
-void sub_805BA3C(GeometryAddressTable*);
+void sub_805BA3C(LevelGeometryAddresses*);
 void deallocateQuadTree(QuadTree*);
 void sub_805E50C(void**, void*, void*, void*);
 unk32* sub_805E514(unk32*, unk32, unk32, unk32, unk32);

@@ -4,7 +4,7 @@
 
 Status: parked; semantic draft retained above the assembly include.
 
-The function walks `MenuState.items` as an array of 0x4C-byte `UnkMenuItem` records, calls `sub_8061204` on each record's leading `SpriteTextCleanup`, frees the menu allocation at offset 0x10, clears offsets 0x14 and 0x18, and clears byte 0x09. The `MenuState.menuBlock` field at offset 0x10 was added because the assembly loads and frees that field.
+The function walks `MenuState.items` as an array of 0x4C-byte `UnkMenuItem` records, calls `sub_8061204` on each record's leading `SpriteTextCleanup`, frees the menu allocation at offset 0x10, clears offsets 0x14 and 0x18, and clears byte 0x09. The field at offset 0x10 remains padding in the canonical `MenuState` layout because the draft is parked and does not determine compiled structure definitions.
 
 | Change | Result |
 | --- | --- |

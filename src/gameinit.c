@@ -344,15 +344,16 @@ void initCollisionData(void)
     LevelGeometryTable* geometry;
     LineMetadata** metadata;
     LevelDescription* description;
-    GeometryAddressTable* collision;
+    LevelGeometryAddresses* collision;
 
     levelNo = (unk16)GetLevelDescriptionNo();
     metadata = getLevelMetadata((unk16)getSomeLevelID());
     description = getLevelDescription2();
     geometry = LevelDesigns[levelNo].geometry;
     collision = &_gameData->unk65C;
-    if (geometry != NULL)
+    if (geometry != NULL) {
         newCollisionDataRam(collision, geometry, 3);
+    }
     StoreMetadataAddr(&_gameData->unk65C, metadata);
     initQuadTree(&_gameData->unk7A4, collision, description->unkC, 0x400, 0x80, 0x20);
 }

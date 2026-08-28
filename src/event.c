@@ -1,3 +1,5 @@
+#include "event.h"
+
 #include <agb/types.h>
 
 #include "debug.h"
@@ -6,6 +8,7 @@
 #include "include_asm.h"
 #include "memory.h"
 #include "ram.h"
+#include "riderstate.h"
 #include "unsorted.h"
 
 extern const unk8 Str_8729658[];
@@ -76,10 +79,7 @@ void deallocEventListeners(void)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054248-processMetadata_6.s");
 
-void sub_804FF88(unk16);
-void handleEventListeners(void*, unk16);
-
-void sub_8054278(void* arg0, unk16 arg1)
+void sub_8054278(LevelGeometryAddresses* arg0, unk16 arg1)
 {
     handleEventListeners(arg0, arg1);
     if (_gameData->unk1618 != 0)

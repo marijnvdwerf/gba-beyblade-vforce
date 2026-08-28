@@ -30,7 +30,7 @@ void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable*
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805b938-newCollisionDataRam.s");
 
-void sub_805BA3C(GeometryAddressTable* arg0)
+void sub_805BA3C(LevelGeometryAddresses* arg0)
 {
     if (arg0->block != NULL) {
         deallocateBlock(arg0->block);
@@ -38,11 +38,8 @@ void sub_805BA3C(GeometryAddressTable* arg0)
     arg0->block = NULL;
 }
 
-void StoreMetadataAddr(void* arg0, LineMetadata** value)
+void StoreMetadataAddr(LevelGeometryAddresses* geometry, LineMetadata** value)
 {
-    LevelGeometryAddresses* geometry;
-
-    geometry = arg0;
     geometry->unk114 = value;
 }
 
