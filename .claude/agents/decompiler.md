@@ -118,6 +118,20 @@ not the reachability boundary.
   Same for `register`, `asm` barriers and compiler-flag tweaks.
 - Sign-extension (`ldsb/ldsh/asr`) proves signed; `ldrb/ldrh` suggests
   unsigned or unk.
+- Near-miss checklist — run it BEFORE parking anything, one change per
+  build, keep only what shrinks the diff, and record a step table (change →
+  first divergent instruction / size delta) plus the final draft in your
+  learnings file. "Register allocation differed" alone is not a valid note.
+  1. Temp reduction: remove each temporary/alias one at a time; also try
+     adding one named temporary per reused expression.
+  2. Ternaries: `x = c ? a : b` vs if/else with a store per arm vs
+     precompute-then-conditional-overwrite.
+  3. Signedness sweep: all-unsigned `unk*` baseline, re-sign one declaration
+     at a time on asr/ldrsh/ldsb/signed-branch evidence.
+  4. Loop shape: for/while/do-while + explicit entry test, increment order,
+     parameter-as-index vs a local, cached bound vs expression in the test.
+  5. Statement order: the target's store/load order; swap independent stmts.
+  6. Declaration scope: block vs function scope; an alias scoped to one call.
 - An empty function body isn't always enough for a nullsub — check the bytes
   after the function (alignment/padding is part of the target).
 - A diff with no differing instructions can still change ROM bytes (padding/literal
