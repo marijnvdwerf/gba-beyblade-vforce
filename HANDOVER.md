@@ -348,6 +348,13 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 - Leaf F dispatched: getLineMetaAtIndex (geometry.c), sub_8058F60
   (layer.c). Running: leaf D (rider.c last function + review), leaf E
   (riderstate/effects/collision leaves), leaf F, coddog evaluation.
+- coddog (github.com/ethteck/coddog, Rust) works on this project: GBA/Thumb
+  supported, reads build/rom.elf + asm/dump via decomp.yaml (now has the
+  standard `versions[].paths` block + ROM sha1). Upstream bug: `Platform::
+  from_name` lacks "gba" → stock `match`/`cluster` panic; docs/coddog.md has
+  the 4-line local patch (worth an upstream PR). Use: `coddog match <fn>`
+  to find decompiled functions similar to a parked one (demo: ~60% matches
+  for sub_805041C), `cluster` for duplicates among the asm dumps.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
