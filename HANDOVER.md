@@ -403,6 +403,9 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   in docs/learnings/leaves-n4.md; headers untouched). Follow-up: the backup.c
   draft uses a raw `*(vu16*)0x0D000000` — replace with the memory_map name
   when the function is retried.
+- Leaf R merged: onSerialCommunication (serial ISR) matched; IRQ vector
+  table now `void (*_unk3000DF0[14])(void)`; the only interrupt-only code
+  left in asm is the four arm2.s ARM routines.
 - INTERRUPTS (sonnet research, 2026-08-28): crt0 installs intr_main at
   0x03007FFC; intr_main scans IE&IF bits 0–13 and BLX's `_unk3000DF0[bit]`
   (14-slot IWRAM table seeded by DmaCopy from ROM `Unk_872CAF4` in
