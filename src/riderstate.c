@@ -135,4 +135,20 @@ u8 sub_80501C8(RiderState* arg0, u8 arg1)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80501f8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/805024c.s");
+
+void sub_805024C(RiderState* arg0)
+{
+    unk32 checksum;
+    unk32 flags;
+
+    checksum = (s16)(arg0->prefix.words.unk2 ^ arg0->prefix.words.unk4);
+    checksum ^= (u32)(arg0->prefix.words.unk6 << 22) >> 22;
+    checksum ^= (u32)(arg0->unkD << 28) >> 28;
+    checksum ^= arg0->unk8;
+    checksum ^= arg0->unkC;
+    checksum ^= arg0->unkA;
+    checksum &= 0x3F;
+    checksum <<= 2;
+    flags = arg0->prefix.bytes.unk7 & 3;
+    arg0->prefix.bytes.unk7 = flags | checksum;
+}
