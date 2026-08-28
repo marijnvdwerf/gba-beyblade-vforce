@@ -113,7 +113,13 @@ const BeybladeData* getBeybladeData0(unk32 arg0)
     return &_807ac28[arg0];
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8057348-getBeybladeActorData.s");
+BeybladeActorData* getBeybladeActorData(unk32 arg0)
+{
+    BeybladeActorData* data;
+
+    data = _gameData->actorData;
+    return &data[arg0];
+}
 
 void allocateBeyBladeActorPalette(unk32 arg0, unk32 arg1)
 {

@@ -95,14 +95,72 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8058110.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058144.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805816c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80581b8.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8058220-ActorSetFrameSequence.s");
+
+void ActorSetFrameSequence(Actor* actor, unk32 sequence)
+{
+    ActorConfig* config;
+    ActorFrameSequence* sequenceData;
+    ActorFrame* frame;
+    unk32 value;
+    unk8 configFlags;
+    unk8 flags;
+    unk16 frameOffset;
+    unk32 frameCount;
+    unk32 endFrame;
+
+    sequenceData = &actor->unk0->sequences[sequence];
+    config = actor->unk0;
+    value = config->unk0 << 1;
+    if ((value & 2) != 0) {
+        value += 2;
+    }
+    configFlags = config->unk7;
+    if ((configFlags & 0x10) != 0) {
+        frame = (ActorFrame*)((unk8*)&config->sequences[config->unk8] + value);
+        if (frame != NULL) {
+            frame += sequence;
+            actor->unkA4 = frame->unk0;
+            actor->unkA5 = frame->unk1;
+        }
+    }
+    frameOffset = sequenceData->unk0;
+    frameCount = sequenceData->unk2;
+    flags = sequenceData->unk7;
+    actor->unk32 = sequenceData->unk6;
+    actor->unk33 = flags;
+    actor->unk34 = sequenceData->unk4;
+    actor->unk36 = 0;
+    actor->unk58 = _unk3000E30[0];
+    actor->unk26 = frameCount;
+    actor->unk20 = sequence;
+    actor->unk24 = 0;
+    if ((flags & 2) != 0) {
+        endFrame = frameCount + 0xFFFF;
+        actor->unk22 = endFrame + frameOffset;
+    } else {
+        actor->unk22 = frameOffset;
+    }
+    actor->unk31 ^= (flags & 0xC) >> 2;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/80582d0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805832c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058390.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80583dc-ActorSetFrame.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058478.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80584b8.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/80585c8.s");
+
+void sub_80585C8(Actor* actor, unk32 arg1)
+{
+    unk8 value;
+
+    value = arg1;
+    if (value != actor->unk98) {
+        actor->unk58 = _unk3000E30[0];
+    }
+    actor->unk98 = value;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/80585e8.s");
 
 void actor_80585F0(UnkActor* arg0, unk8 arg1)
@@ -118,7 +176,12 @@ void actor_80585F8(EnvironmentActorSlot* actor, unk16 arg1, unk16 arg2, unk16 ar
     actor->unkAE = arg4;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8058614-rider_8058614.s");
+void rider_8058614(Actor* actor, unk16 arg1, unk16 arg2, unk16 arg3)
+{
+    actor->unk9A = arg1;
+    actor->unk9C = arg2;
+    actor->unk9E = arg3;
+}
 
 void ActorSetSpriteOffset(EnvironmentActorSlot* actor, unk16 arg1, unk16 arg2)
 {

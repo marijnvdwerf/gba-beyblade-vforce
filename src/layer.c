@@ -303,7 +303,33 @@ void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriorit
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8058e18.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8058ef4.s");
+void sub_8058EF4(DisplayRecord* arg0)
+{
+    s32 xDelta;
+    s32 yDelta;
+
+    arg0->unk14 += arg0->unk1C;
+    arg0->unk18 += arg0->unk20;
+    arg0->unk54 = arg0->unk14;
+    arg0->unk58 = arg0->unk18;
+    sub_80596AC(arg0, arg0->unk14, arg0->unk18);
+    if ((arg0->unk64 & 1) != 0) {
+        sub_8058F60(arg0);
+    }
+    if (arg0->unk24 != 0) {
+        xDelta = arg0->unk14 * arg0->unk24 >> 8;
+        yDelta = arg0->unk18 * arg0->unk24 >> 8;
+        arg0->unk14 -= xDelta;
+        arg0->unk18 -= yDelta;
+        if (xDelta == 0 && arg0->unk14 != 0) {
+            arg0->unk14 = 0;
+        }
+        if (yDelta == 0 && arg0->unk18 != 0) {
+            arg0->unk18 = 0;
+        }
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8058f60.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059058-allocateActorMotionModifiers.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059110.s");

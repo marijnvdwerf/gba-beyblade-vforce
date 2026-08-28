@@ -2,9 +2,11 @@
 #define _BEYBLADE_H
 
 #include "common.h"
+#include "ram.h"
 
 void emptyBeybladeActorData(void);
 void deallocBeybladeActorData(void);
+BeybladeActorData* getBeybladeActorData(unk32);
 void sub_8057104(s32, unk32);
 
 struct ItemDescriptionEntry {

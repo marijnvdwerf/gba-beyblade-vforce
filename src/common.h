@@ -12,6 +12,7 @@ typedef unk16 bool16;
 typedef unk32 bool32;
 
 typedef struct AllocatedBlock AllocatedBlock;
+typedef struct ActorConfig ActorConfig;
 typedef struct SpriteEntry SpriteEntry;
 typedef struct SpriteTextBlock SpriteTextBlock;
 typedef struct SpriteTextCleanup SpriteTextCleanup;
@@ -351,8 +352,31 @@ typedef struct UnkActor {
     unk8 unk8D;
 } UnkActor;
 
+typedef struct ActorFrame {
+    unk8 unk0;
+    unk8 unk1;
+    unk8 pad2[0xE];
+} ActorFrame;
+
+typedef struct ActorFrameSequence {
+    unk16 unk0;
+    unk16 unk2;
+    unk16 unk4;
+    unk8 unk6;
+    unk8 unk7;
+} ActorFrameSequence;
+
+struct ActorConfig {
+    unk32 unk0;
+    unk8 pad4[3];
+    unk8 unk7;
+    unk32 unk8;
+    unk8 padC[0x14];
+    ActorFrameSequence sequences[1];
+};
+
 typedef struct Actor {
-    unk8 pad0[4];
+    ActorConfig* unk0;
     s32 x;
     s32 y;
     s32 z;
@@ -361,23 +385,45 @@ typedef struct Actor {
     unk16 unk12;
     unk16 unk14;
     unk16 unk16;
-    unk8 pad18[0xA];
+    unk8 pad18[2];
+    unk16 unk1A;
+    unk16 unk1C;
+    unk16 unk1E;
+    unk16 unk20;
     unk16 unk22;
-    unk8 pad24[0x1C];
+    unk8 unk24;
+    unk8 unk25;
+    unk16 unk26;
+    unk8 pad28[8];
+    unk8 unk30;
+    unk8 unk31;
+    unk8 unk32;
+    unk8 unk33;
+    unk16 unk34;
+    unk16 unk36;
+    unk8 pad38[6];
     unk32 unk40;
     unk32 unk44;
     unk32 unk48;
     unk32 unk4C;
     unk32 unk50;
     unk32 unk54;
-    unk8 pad58[0x18];
+    unk32 unk58;
+    unk8 pad5C[0x14];
     unk32 unk70;
     unk32 unk74;
     unk32 unk78;
     struct AllocatedBlock* unk7C;
-    unk8 pad80[0x22];
-    unk16 unkA2;
-    unk8 padA4[0x14];
+    unk8 pad80[0x18];
+    unk8 unk98;
+    unk8 pad99[1];
+    unk16 unk9A;
+    unk16 unk9C;
+    unk16 unk9E;
+    unk8 padA0[4];
+    unk8 unkA4;
+    unk8 unkA5;
+    unk8 padA6[0x12];
     SpriteEntry* unkB8;
     unk8 padBC[8];
 } Actor;
@@ -530,13 +576,14 @@ typedef struct RiderBase {
     unk32 unk234;
     Actor unk238;
     Actor unk2FC;
-    unk8 pad3C0[4];
+    SpriteEntry* unk3C0;
     SpriteEntry* unk3C4;
     unk8 pad3C8[4];
     unk16 unk3CC;
     unk8 pad3CE[2];
     unk8 unk3D0; /* 0x3D0 */
-    unk8 pad3D1[0x17];
+    unk8 pad3D1[0x13];
+    unk32 unk3E4;
     u8 unk3E8;
     unk8 unk3E9[3];
     ParticleSystem unk3EC;

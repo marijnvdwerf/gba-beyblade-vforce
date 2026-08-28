@@ -63,6 +63,29 @@ void sub_806592C(void)
     *(vu16*)REG_IME = _unk_3000DB4;
 }
 
+#if 0
+void DMA3Copy(unk32 src, unk32 dst, unk16 count)
+{
+    unk16 ime;
+    unk16 waitcnt;
+    const BatteryBackupConfig* config;
+    count = count;
+    ime = *(vu16*)REG_IME;
+    *(vu16*)REG_IME = 0;
+    waitcnt = *(vu16*)REG_WAITCNT & 0xF8FF;
+    config = _unk_3005E9C;
+    waitcnt = config->unk6 | waitcnt;
+    *(vu16*)REG_WAITCNT = waitcnt;
+    *(vu32*)REG_DMA3SAD = src;
+    *(vu32*)REG_DMA3DAD = dst;
+    *(vu32*)REG_DMA3CNT = count | 0x80000000;
+    if ((*(vu16*)REG_DMA3CNT_H & 0x8000) != 0) {
+        do {
+        } while ((*(vu16*)REG_DMA3CNT_H & 0x8000) != 0);
+    }
+    *(vu16*)REG_IME = ime;
+}
+#endif
 INCLUDE_ASM("asm/dump/8064f38/8065970-DMA3Copy.s");
 
 #if 0
@@ -72,7 +95,7 @@ unk32 sub_80659F0(u16 sector, void* buffer)
     unk16* tempPtr;
     unk32 i;
     unk32 value;
-    BatteryBackupConfig* config;
+    const BatteryBackupConfig* config;
 
     config = _unk3005E9C;
     if (sector >= config->unk4) {
