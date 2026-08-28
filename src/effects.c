@@ -3,6 +3,7 @@
 #include "include_asm.h"
 #include "projectile.h"
 #include "ram.h"
+#include "rider.h"
 
 #if 0
 void sub_805529C(void)
@@ -49,7 +50,6 @@ void sub_8055624(void)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805565c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055674.s");
-unk32 sub_804B7FC(GameData*);
 
 void sub_805568C(void)
 {
