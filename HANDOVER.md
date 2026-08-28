@@ -372,7 +372,11 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   local — try `s16 count`.
 - Leaf D merged (sub_8058754, sub_80584B8; sub_804B624 parked with draft in
   rider.c): 12/66 TUs, 446 C, 561 asm, 44%.
-- Reds on main: 37 (excluding the bogus copy/handler symbols). Small pool
+- Running: leaf I (actor.c: sub_8058838 53, actor_8058638 137) and leaf J
+  (riderphysics.c sub_804DAA0 109, rider.c sub_804B7FC 112). Leaf H (layer.c
+  sub_8059B00) still running. Remaining reds <=200 after those: sub_8046A0C
+  (parked), sub_8043370 176, sub_8044054 (parked), sub_805EBCC 199.
+- Reds on main: 40 after leaf D exposed actor.c callees (excluding the bogus copy/handler symbols). Small pool
   exhausted until leaf D (rider.c) and leaf H (layer.c) merge; then
   sub_804B7FC (110). Everything else ≥143 insns or parked with a draft.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
