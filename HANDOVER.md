@@ -345,6 +345,9 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   sub_805AD9C, sub_8059310. getLineMetaAtIndex + sub_8058F60 now free.
   Merge note: event.c conflict = leaf B's parked handleEventListeners draft
   vs leaf C's matched sub_8054278 — kept both.
+- Leaf F dispatched: getLineMetaAtIndex (geometry.c), sub_8058F60
+  (layer.c). Running: leaf D (rider.c last function + review), leaf E
+  (riderstate/effects/collision leaves), leaf F, coddog evaluation.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
