@@ -200,10 +200,10 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805e77c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e7c0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e804.s");
 #if 0
-unk32 GetLineIndexOfType(LevelGeometryAddresses* addresses, unk16 type, unk16 index)
+unk32 GetLineIndexOfType(LevelGeometryAddresses* addresses, unk8 type, unk16 index)
 {
-    unk32 count;
-    unk32 current;
+    s32 count;
+    s32 current;
     GeometryLine* line;
 
     type = (unk8)type;
@@ -215,7 +215,7 @@ unk32 GetLineIndexOfType(LevelGeometryAddresses* addresses, unk16 type, unk16 in
     }
     current = count;
     while (index < current) {
-        if (*((unk8*)line + 0xF) == type) {
+        if (line->unkF == type) {
             return index;
         }
         line++;

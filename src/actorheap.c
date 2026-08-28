@@ -55,28 +55,29 @@ void allocateActorHeaps(void)
 }
 
 #if 0
-void* sub_8062EFC(unk32 arg0)
+void* sub_8062EFC(s32 arg0)
 {
-    unk32 newBlock;
-    unk32 count;
-    unk32 startIndex;
-    ActorBlock* previous;
     ActorBlock* block;
+    ActorBlock* previous;
+    ActorBlock* newBlock;
+    s32 count;
+    s32 startIndex;
 
-    newBlock = (count = arg0, 0);
+    count = arg0;
+    newBlock = NULL;
     if (_unk3005E60 == NULL) {
         _unk3005E60 = _actorBlocksHeapPtr;
         _unk3005E64 = 0;
         _unk3005E5C = 0;
     }
-    if ((unk32)_unk3005E5C > 0xFF) {
+    if (_unk3005E5C > 0xFF) {
         return NULL;
     }
-    block = (ActorBlock*)sub_8062FA8();
-    if ((unk32)(_unk3005E64 + count) > 0x100) {
-        newBlock = 1;
+    block = sub_8062FA8();
+    if (_unk3005E64 + count > 0x100) {
+        newBlock = (ActorBlock*)1;
         startIndex = sub_806306C(count, block);
-        if ((unk32)startIndex < 0) {
+        if (startIndex < 0) {
             return NULL;
         }
     } else {
