@@ -164,6 +164,13 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   distinct). It CONFIRMED the parked GetLineIndexOfType draft matches
   byte-for-byte (explicit entry-test return + a second count local) — the
   engine-1 tester was told to land it with a typed `unkF`.
+- Gamestate round-1 worktree after repair: compare green, sizes equal main;
+  in second review — sub_804A280 must be PARKED (it read u16 unkC26 through an
+  `const s16*` and used `(&transition.unk586)[-2]`; the s16/u16 conflict is
+  real: initGameLoop needs u16), sub_8056FAC has cast-and-offset into
+  collectedBits[], MenuState.unk2E/2F must stay u8. Engine-2 tester 0/7 on
+  first pass (one shape each, ~20 min) — revived with the residual-analysis
+  register-role maps and the `union { u16 word; u8 b[2]; }` experiment.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
