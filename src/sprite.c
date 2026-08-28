@@ -534,7 +534,7 @@ typedef struct SpriteSheet {
     unk32 unk1C;
 } SpriteSheet;
 
-void LoadSpriteSheet(SpriteEntry* dst, const void* sourceArg, unk32 x, unk32 y, unk32 arg4,
+void LoadSpriteSheet(SpriteEntry* dst, const SpriteSheet* source, unk32 x, unk32 y, unk32 arg4,
     unk32 arg5, unk32 arg6, unk32 arg7)
 {
     unk16 normalizedArg5 = arg7;
@@ -543,9 +543,9 @@ void LoadSpriteSheet(SpriteEntry* dst, const void* sourceArg, unk32 x, unk32 y, 
     unk8 sourceByteC;
     unk32 value;
 
-    sourceFlags = ((SpriteSheet*)sourceArg)->unk7;
-    sourceByteC = ((SpriteSheet*)sourceArg)->unkC;
-    dst->unk2C = (const unk8*)sourceArg;
+    sourceFlags = source->unk7;
+    sourceByteC = source->unkC;
+    dst->unk2C = (const unk8*)source;
     dst->flip_h_v = normalizedArg4;
     dst->x = x;
     dst->y = y;
@@ -556,12 +556,12 @@ void LoadSpriteSheet(SpriteEntry* dst, const void* sourceArg, unk32 x, unk32 y, 
     dst->unk10 |= (normalizedArg4 & 3) << 28;
     dst->oam_attr_2 = ((sourceByteC >> 1) & 0xF) << 12;
     dst->oam_attr_2 |= (arg5 & 3) << 10;
-    value = ((SpriteSheet*)sourceArg)->unk1C;
+    value = source->unk1C;
     if (value == 0) {
-        value = ((SpriteSheet*)sourceArg)->unk10;
+        value = source->unk10;
     }
-    dst->unk28 = (const unk8*)sourceArg + value;
-    dst->var16 = ((SpriteSheet*)sourceArg)->unk6;
+    dst->unk28 = (const unk8*)source + value;
+    dst->var16 = source->unk6;
     dst->frame = normalizedArg5;
     dst->unk1A = 0xFFFF;
     dst->flip_h_v = 0;

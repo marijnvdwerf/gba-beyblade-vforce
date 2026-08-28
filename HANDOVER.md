@@ -403,6 +403,10 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   in docs/learnings/leaves-n4.md; headers untouched). Follow-up: the backup.c
   draft uses a raw `*(vu16*)0x0D000000` — replace with the memory_map name
   when the function is retried.
+- P1 merged (parked draft only, 6607ab1): LoadSpriteSheet 8 bytes short —
+  target keeps stack args 4–5 in callee-saved regs (r8–r10 push), draft
+  reloads them; packed union reverted (no consumer matched yet). Draft's
+  `(SpriteSheet*)sourceArg` casts replaced by a typed parameter on main.
 - Leaf Q dispatched: actor_80580C0 (40, actor.c; caller sub_80581B8 typed).
   It is the LAST red under 200 insns without a draft; all other reds are
   parked (sub_8046A0C, sub_8044054, wave-P trio) or ≥200. Unattempted 200+
