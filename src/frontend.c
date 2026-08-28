@@ -46,7 +46,14 @@ void sub_8049018(void)
     _unk3000650.unk8C = _unk3000650.unk90 = (unk32)-65536;
 }
 
-INCLUDE_ASM("asm/dump/8040d18/804903c.s");
+void sub_804903C(FrontendSubobject* object, unk32 arg1, unk32 arg2)
+{
+    _unk3000650.unk8C = arg1 << 8;
+    _unk3000650.unk90 = arg2 << 8;
+    _unk3000650.unk84 = object->unk48 << 8;
+    _unk3000650.unk88 = object->unk4A << 8;
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8049074.s");
 
 void sub_80490CC(unk32 arg0, unk32 arg1)

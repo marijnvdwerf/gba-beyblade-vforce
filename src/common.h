@@ -122,7 +122,10 @@ typedef struct FrontendSubobject {
     unk32 unk18;
     unk8 pad1C[8];
     unk32 unk24;
-    unk8 pad28[0x54];
+    unk8 pad28[0x20];
+    s16 unk48;
+    s16 unk4A;
+    unk8 pad4C[0x30];
     unk8 unk7C;
     unk8 pad7D[3];
 } FrontendSubobject;
