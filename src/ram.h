@@ -350,7 +350,7 @@ extern unk32 _unk3000FD0[4];
 extern unk8 _unk3000FE0[304];
 extern unk32 _unk3001110[16];
 
-extern void* _unk3000DF0[14];
+extern void (*_unk3000DF0[14])(void);
 extern unk16 _unk3000F20[16];
 extern s16 _unk3000F40;
 extern unk16 _unk3000F42;
