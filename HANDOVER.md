@@ -397,7 +397,14 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   parked (packed-table scale addressing). Headers untouched.
 - Leaf M merged: sub_80581B8 (frame table = unk16 array cursor in the config
   blob, see docs/learnings/leaves-m.md; Actor.unkC0 is a new callback field).
-- Callgraph extension (sol) in flight: skip #if 0, model runtime callback
+- Callgraph extension merged (0a98888): #if 0 skipped, `->field()` indirect,
+  CALLBACK_FIELDS (Actor.unkB0→convert3DCoordsto2DCoords, CameraState.callback
+  →sub_80522D4, MenuState.callback→sub_8043604/sub_8052B08),
+  _renderFunctionOffsets table (render_00–09 in asm/arm1.s). It also follows
+  asm→asm calls, so 🔴 now = full reachable closure (280 unique); follow-up
+  in flight to make the boundary view the default and put the closure behind
+  `--deep`.
+- Callgraph extension (sol) original brief: skip #if 0, model runtime callback
   fields (Actor.unkB0/unkC0, ActorTimerEntry.unk8, CameraState.callback,
   menu callback, frontend unkB4->unk8, _unk3000C0C, render.h fn tables).
 - Was running: leaf L
