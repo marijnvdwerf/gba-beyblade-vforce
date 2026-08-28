@@ -97,7 +97,37 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8057fdc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058038.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058068.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80580b4-GetSpriteSheetStructA.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/80580c0-actor_80580C0.s");
+
+void actor_80580C0(Actor* actor, unk16 sequence, unk16 callbackSequence)
+{
+    ActorConfig* config;
+    ActorSequenceEntry* entry;
+    unk32 index;
+    unk16 offset;
+    unk16 size;
+
+    offset = 0;
+    config = actor->unk0;
+    entry = (ActorSequenceEntry*)((unk8*)config + config->unk18);
+    index = 0;
+    if (index < actor->unk28) {
+        do {
+            if (entry->unk0 == sequence) {
+                actor->unk1C = offset;
+                actor->unk1E = 0;
+                actor->unk1A = sequence;
+                actor->unk2E = callbackSequence;
+                ActorSetFrameSequence(actor, entry->sequence);
+                return;
+            }
+            size = entry->size;
+            entry = (ActorSequenceEntry*)((unk8*)entry + size);
+            offset += size;
+            index++;
+        } while (index < actor->unk28);
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8058110.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058144.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805816c.s");
