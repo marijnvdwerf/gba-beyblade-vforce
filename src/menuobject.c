@@ -6,6 +6,7 @@
 #include "language.h"
 #include "motion.h"
 #include "ram.h"
+#include "sprite.h"
 #include "spritetext.h"
 
 #if 0
@@ -86,8 +87,6 @@ void sub_80434EC(FrontendState* object)
     }
 }
 
-extern const s32 _8068868[];
-
 void sub_8043558(FrontendState* object)
 {
     s32 i;
@@ -120,7 +119,33 @@ void sub_8043558(FrontendState* object)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8043604.s");
+void sub_8043604(UnkMenuItem* oldItem, s32 old, UnkMenuItem* item, s32 current)
+{
+    FrontendState* state;
+    const FrontendMotionData* table;
+    unk32* timer;
+    SpriteTextCleanup* cleanup;
+    UnkMotion* motion;
+    s32 value;
+
+    table = &_8068890;
+    state = sub_8048FCC();
+    timer = &state->menuState.timer;
+    cleanup = &state->menuState.cleanup;
+    motion = &state->menuState.motion;
+    if (*timer != 0) {
+        sub_8061204(cleanup);
+        sub_8050584(motion);
+    }
+    sub_80622E8(item, cleanup);
+    value = item->text.unk14.prev->y;
+    sub_8061844(cleanup, 0, (value << 8) >> 16);
+    sub_8061660(cleanup, item->unk30, 0xF);
+    newMotionGroup(motion, &cleanup->unk14, 0);
+    sub_80504E4(motion, table->unk0, table->unk4, table->unk8, table->unkC);
+    sub_805052C(motion, table->unk10, table->unk14, table->unk18, table->unk1C);
+    *timer = 0x10;
+}
 
 void sub_80436B0(FrontendState* object)
 {

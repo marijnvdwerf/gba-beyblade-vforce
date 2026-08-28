@@ -230,6 +230,9 @@ typedef struct FrontendMenu {
     SpriteTextCleanup text;
 } FrontendMenu;
 
+typedef void (*MenuStateCallback)(UnkMenuItem*, s32, UnkMenuItem*, s32);
+typedef void (*MenuStateValueCallback)(UnkMenuItem*, s32);
+
 typedef struct MenuState {
     unk8 pad0[8];
     u8 unk8;
@@ -244,7 +247,8 @@ typedef struct MenuState {
     unk8 pad28[6];
     u8 unk2E;
     u8 unk2F;
-    unk8 pad30[8];
+    MenuStateCallback callback; /* 0x30 */
+    unk8 pad34[4];
     FrontendMenu menu; /* 0x38 */
     UnkMotion* objectItems; /* 0xA8 */
     AllocatedBlock* block; /* 0xAC */
