@@ -322,6 +322,11 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   handleEventListeners, DMA3Copy; layouts in leaves-b.md. Running: frontend
   alias retry, leaf C, leaf D (sub_8058754, sub_80584B8, sub_804B624), sol
   skill pass over this session's learnings.
+- Sol skill pass done (d16ca9a): 7 proven patterns folded (address-of
+  folding, caller-decided parameter width, +0xFFFF vs -1, shift-pair vs
+  mask, packed 2-byte union, #if 0 callees in callgraph, per-consumer cast
+  view); 18 learnings files archived to processed/. Top level now: README,
+  humanize-2026-08-28.md (advice), leaves-b.md (fresh).
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
