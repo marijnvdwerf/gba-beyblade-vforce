@@ -27,16 +27,14 @@ void sub_805000C(RiderState* arg0, RiderBase* arg1)
     unk16 value;
     unk32 current;
     unk32 old;
-    const unk32 mask = 0x3FF;
-    const unk32 clear_mask = 0xFFFFFC00;
 
     arg0->prefix.words.unk0 = arg1->unk0->x >> 8;
     arg0->prefix.words.unk2 = arg1->unk0->y >> 8;
     arg0->prefix.words.unk4 = arg1->unk0->z >> 8;
     value = arg1->unk0->unk22;
-    current = value & mask;
+    current = value & 0x3FF;
     old = arg0->prefix.words.unk6;
-    old &= clear_mask;
+    old &= 0xFFFFFC00;
     old |= current;
     arg0->prefix.words.unk6 = old;
     arg0->unkC = arg1->unk4->unk3CC;
@@ -109,18 +107,18 @@ s32 sub_8050114(RiderState* arg0)
 #if 0
 void sub_8050184(RiderState* arg0, u8 arg1)
 {
-    unk8 temp_r3;
-    s32 temp_r1 = 0x10;
-    unk32 temp_r2;
+    unk8 flags;
+    s32 preserved;
+    unk32 selected;
 
-    temp_r3 = arg0->unkD;
-    temp_r2 = ((unk32)(temp_r3 << 28) >> 28) | arg1;
-    temp_r2 &= 0xF;
-    temp_r1 = 0x10;
-    temp_r1 = 0 - temp_r1;
-    temp_r1 &= temp_r3;
-    temp_r1 |= temp_r2;
-    arg0->unkD = (unk8)temp_r1;
+    flags = arg0->unkD;
+    selected = (flags << 28 >> 28) | arg1;
+    selected &= 0xF;
+    preserved = 0x10;
+    preserved = 0 - preserved;
+    preserved &= flags;
+    preserved |= selected;
+    arg0->unkD = preserved;
     sub_805024C(arg0);
 }
 #endif

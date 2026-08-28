@@ -87,3 +87,13 @@ accesses were in parked functions:
 
 The parked drafts remain above their `INCLUDE_ASM` lines and document these
 layouts locally without changing matched translation units.
+
+## `sub_804A280`
+
+The former exact C implementation is parked again because `_gameData->unkC26`
+has conflicting signedness requirements across reachable functions. The target
+load in `sub_804A280` is sign-sensitive and wants an `s16` view, while
+`initGameLoop` is byte-identical only when the shared `GameData.unkC26` field is
+`u16`. A signed pointer pun in the parked draft was removed; the field remains
+`u16` in the shared layout, and the function stays on assembly until a layout
+that preserves both matches is available.

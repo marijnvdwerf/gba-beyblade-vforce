@@ -64,11 +64,6 @@ void sub_8056FAC(void)
     EnvironmentLine* line;
     EnvironmentObject* object;
     s32 value;
-    s32 offset;
-    unk32 mask;
-    unk32* wordBase;
-    unk32* word;
-
     gameData = _gameData;
     records = &gameData->collectables;
     entry = records->entries;
@@ -77,22 +72,14 @@ void sub_8056FAC(void)
     if (index < records->count) {
         value = index;
         do {
-            offset = index >> 5;
-            offset <<= 2;
-            wordBase = records->collectedBits;
-            word = (unk32*)((unk8*)wordBase + offset);
-            mask = 1 << (index & 0x1F);
-            if ((*word & mask) == 0 && sub_8051780(4) == 0) {
-                entry++;
-                index++;
-                continue;
+            if (records->collectedBits[index >> 5] & (1 << (index & 0x1F)) || sub_8051780(4) != 0) {
+                line = &geometry->unkC[entry->line];
+                object = GetStruct4(entry->line);
+                if (object->actor != NULL) {
+                    object->actor->unk70 = value;
+                }
+                line->unk10 = value;
             }
-            line = &geometry->unkC[entry->line];
-            object = GetStruct4(entry->line);
-            if (object->actor != NULL) {
-                object->actor->unk70 = value;
-            }
-            line->unk10 = value;
             entry++;
             index++;
         } while (index < records->count);

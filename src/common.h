@@ -174,8 +174,8 @@ typedef struct MenuState {
     unk8 pad1C[8];
     unk32 unk24; /* 0x24 */
     unk8 pad28[6];
-    unk8 unk2E;
-    unk8 unk2F;
+    u8 unk2E;
+    u8 unk2F;
     unk8 pad30[8];
     FrontendMenu menu; /* 0x38 */
     UnkMotion* objectItems; /* 0xA8 */
