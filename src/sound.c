@@ -604,8 +604,6 @@ void Sound_8062AB8(unk32 arg0)
     }
 }
 
-ASM_ZEROPAD
-
 void Sound_8062AD4(unk32 arg0, u32 arg1)
 {
     SoundStructA* var;
@@ -618,8 +616,6 @@ void Sound_8062AD4(unk32 arg0, u32 arg1)
         var->var10 = arg1;
     }
 }
-
-ASM_ZEROPAD
 
 void Sound_8062AF4(unk32 arg0, u32 arg1)
 {
