@@ -377,7 +377,12 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   matches — same lever class as the accepted sub_8048FFC precedent; step
   table + LayerTransformValue word/half pun proof in docs/learnings/leaves-h.md.
   Merged under that precedent; revert if the user rules otherwise.
-- Running: leaf K (math.c sub_8059FA0 14, exposed by leaf H) and leaf L
+- Leaf K: sub_8059FA0 (14 insns, `a*b/256` as s16) PARKED — every natural
+  form coalesces the `mov r1, r0` copy; step table in
+  docs/learnings/leaves-k.md. Manager note: a `grep "tests passed"` gate
+  matched "0% tests passed" once and let a red merge through (reset
+  immediately); gates must use `grep -q "^100% tests passed"`.
+- Running: leaf L
   (menuobject.c sub_8043370 176, camera.c sub_805EBCC 199).
 - Running: leaf I (actor.c: sub_8058838 53, actor_8058638 137) and leaf J
   (riderphysics.c sub_804DAA0 109, rider.c sub_804B7FC 112). Leaf H (layer.c
