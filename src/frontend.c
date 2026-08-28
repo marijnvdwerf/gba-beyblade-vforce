@@ -291,17 +291,15 @@ void sub_80495C4(void)
     const FrontendSelectionRecord* record;
     FrontendSubobject* state;
     FrontendMotionData* data;
+    FrontendState* base;
 
-    {
-        FrontendState* base;
-
-        base = &_unk3000650;
-        state = base->unkB4->unk4;
-        if (base->unk4 != (unk32)-1) {
-            record = _8069FC8 + base->unk4;
-            selected = record->data;
-        } else
-            selected = NULL;
+    base = &_unk3000650;
+    state = base->unkB4->unk4;
+    if (base->unk4 != (unk32)-1) {
+        record = &_8069FC8[base->unk4];
+        selected = record->data;
+    } else {
+        selected = NULL;
     }
     if (_unk3000650.motion.count != 0) {
         data = state->unk10->unk28;
@@ -312,8 +310,9 @@ void sub_80495C4(void)
         }
     }
     sub_8043558(&_unk3000650);
-    if (selected != NULL && selected->palette != NULL && sub_8048FFC() != 0)
+    if (selected != NULL && selected->palette != NULL && sub_8048FFC() != 0) {
         sub_804903C(&_unk3000650.unk140, selected->palette->unk0, selected->palette->unk4);
+    }
 }
 
 INCLUDE_ASM("asm/dump/8040d18/804967c.s");
