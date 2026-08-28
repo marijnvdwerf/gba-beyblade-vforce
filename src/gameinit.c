@@ -288,8 +288,8 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80539c4.s");
 void sub_80539E8(Actor* actor)
 {
     s32 values[11];
-    s32 y;
     s32 x;
+    s32 y;
     s16 levelNo;
     unk16 levelId;
     LevelDescription* levelDescription;
