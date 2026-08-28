@@ -397,7 +397,18 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   parked (packed-table scale addressing). Headers untouched.
 - Leaf M merged: sub_80581B8 (frame table = unk16 array cursor in the config
   blob, see docs/learnings/leaves-m.md; Actor.unkC0 is a new callback field).
-- Callgraph extension merged (0a98888): #if 0 skipped, `->field()` indirect,
+- Callgraph FIXED and merged (6b6e7f8): default = boundary view (asm
+  traversed, but 🔴 only where asm is entered from C or a table; asm-only
+  callees shown ⚫ pass-through), `--deep` = full closure (280). Default:
+  75 unique reds. New wave N dispatched on the fresh small ones: N1
+  effects/riderphysics/gameloop (sub_805565C 7, sub_8055674 8,
+  convert3DCoordsto2DCoords 13, sub_8052B08 13); N2 menu/menuobject
+  (sub_805AD24 59, sub_8043604 70); N3 layer/sprite (sub_8059284 69,
+  sub_8060E8C 100, resizeSpriteBlock 105); N4 backup/multiplayer/gameinit/
+  event (sub_8065AA0 93, initMultiPlayer 118, sub_80539E8 119,
+  initEventListeners 120). render_00–09 are ARM code in asm/arm1.s — not
+  agbcc Thumb, skip until ruled on.
+- Callgraph extension first merge (0a98888): #if 0 skipped, `->field()` indirect,
   CALLBACK_FIELDS (Actor.unkB0→convert3DCoordsto2DCoords, CameraState.callback
   →sub_80522D4, MenuState.callback→sub_8043604/sub_8052B08),
   _renderFunctionOffsets table (render_00–09 in asm/arm1.s). It also follows
