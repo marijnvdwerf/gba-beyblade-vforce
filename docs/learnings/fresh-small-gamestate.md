@@ -72,3 +72,18 @@ use an explicit source control
         - line record is `0x20` bytes because the target uses `index
     << 5`;
 treating it as a larger speculative record forces an incorrect multiply.
+
+## Parked-only layout rollback
+
+The following layout hypotheses were removed from headers because their only
+accesses were in parked functions:
+
+- The signed view of `MenuState.unk24`, plus `MenuState.unk2C` and
+  `MenuState.callback`.
+- `UnkMenuItem.unk44`.
+- `CurrentGameState.unk594[4]`; it is restored to `unk8 unk594[0x10]`.
+- The typed view of `_unk3000F20[16]` and signed views of `_unk3000F40` and
+  `_unk3000F44`; the globals retain their original declarations.
+
+The parked drafts remain above their `INCLUDE_ASM` lines and document these
+layouts locally without changing matched translation units.

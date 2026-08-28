@@ -5,6 +5,6 @@
 
 void initEventListeners(unk32);
 void deallocEventListeners(void);
-void handleEventListeners(void*, unk16);
+void handleEventListeners(unk32, unk16);
 
 #endif /* _EVENT_H */

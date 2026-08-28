@@ -126,8 +126,7 @@ struct UnkMenuItem {
     unk32 count;
     unk32 flags;
     const MenuOptionSet* options;
-    unk8 unk44;
-    unk8 pad45[3];
+    unk8 pad44[4];
     UnkMenuItem* next;
 };
 
@@ -173,14 +172,11 @@ typedef struct MenuState {
     s32 itemCount; /* 0x14 */
     unk32 objectCount; /* 0x18 */
     unk8 pad1C[8];
-    s32 unk24; /* 0x24 */
-    unk8 pad28[4];
-    unk8 unk2C;
-    unk8 pad2D[1];
-    u8 unk2E;
-    u8 unk2F;
-    void (*callback)(UnkMenuItem*, unk32, UnkMenuItem*, unk32); /* 0x30 */
-    unk8 pad34[4];
+    unk32 unk24; /* 0x24 */
+    unk8 pad28[6];
+    unk8 unk2E;
+    unk8 unk2F;
+    unk8 pad30[8];
     FrontendMenu menu; /* 0x38 */
     UnkMotion* objectItems; /* 0xA8 */
     unk8 padAC[4];
