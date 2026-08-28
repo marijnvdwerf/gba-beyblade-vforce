@@ -7,5 +7,6 @@
 void sub_80434EC(FrontendState*);
 void sub_804374C(FrontendState*);
 unk32 sub_8043720(FrontendState*);
+void sub_8043558(FrontendState*);
 
 #endif

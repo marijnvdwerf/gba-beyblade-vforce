@@ -4,6 +4,7 @@
 
 #include "include_asm.h"
 #include "memory.h"
+#include "sprite.h"
 #include "unsorted.h"
 
 void sub_8050284(unk32* arg0, unk32 arg1, unk32 arg2, unk16 arg3)
@@ -119,6 +120,67 @@ void newMotionGroup(MotionGroup* arg0, SpriteTextBlock* arg1, unk16 arg2)
     }
 }
 
+#if 0
+void sub_805041C(UnkMotion* group)
+{
+    MotionEntry* motion;
+    SpriteEntry* sprite;
+    unk16 mode;
+    s32 i;
+    unk32 mode3;
+    unk32 axisFlag;
+    unk32 reflect;
+    s32 horizontal;
+    s32 vertical;
+    s32 boundary;
+    s32 delta;
+
+    motion = group->motions;
+    sprite = group->sourceBlock->prev;
+    mode = group->mode;
+    i = 0;
+    if (i < group->count) {
+        mode3 = mode & 3;
+        axisFlag = mode & 1;
+        reflect = mode & 4;
+        do {
+            motion->x += motion->unk8;
+            motion->y += motion->unkC;
+            motion->unk8 += motion->unk10;
+            motion->unkC += motion->unk14;
+            sprite->x = motion->x;
+            sprite->y = motion->y;
+            if (mode3 != 0) {
+                if (axisFlag != 0) {
+                    horizontal = motion->x;
+                    vertical = motion->unk8;
+                } else {
+                    horizontal = motion->y;
+                    vertical = motion->unkC;
+                }
+                boundary = horizontal - group->unk10;
+                delta = horizontal + vertical - group->unk10;
+                if ((boundary <= 0 || delta < 0) && (boundary >= 0 || delta > 0)) {
+                    if (reflect != 0)
+                        vertical = -(group->unk14 * vertical) >> 8;
+                    else
+                        vertical = 0;
+                    if (axisFlag != 0) {
+                        motion->x = group->unk10;
+                        motion->unk8 = vertical;
+                    } else {
+                        motion->y = group->unk10;
+                        motion->unkC = vertical;
+                    }
+                }
+            }
+            sprite = sprite->next;
+            motion++;
+            i++;
+        } while (i < group->count);
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/805041c.s");
 
 void sub_80504E4(MotionGroup* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)

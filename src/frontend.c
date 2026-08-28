@@ -91,7 +91,30 @@ void sub_8049178(void)
 
 INCLUDE_ASM("asm/dump/8040d18/80491c4.s");
 
-INCLUDE_ASM("asm/dump/8040d18/80491e0.s");
+s32 sub_80491E0(unk32 arg0, s32 arg1)
+{
+    s32 value;
+    unk32 negative;
+
+    value = arg0;
+    negative = (unk32)value >> 31;
+    if (value != 0) {
+        if (negative != 0)
+            value = 0 - value;
+        while (arg1 != 0) {
+            if (value > (arg1 << 8)) {
+                value = arg1;
+                break;
+            }
+            arg1 >>= 1;
+        }
+        if (arg1 == 0)
+            value = 1;
+        if (negative != 0)
+            value = 0 - value;
+    }
+    return value;
+}
 
 INCLUDE_ASM("asm/dump/8040d18/8049210.s");
 
@@ -262,5 +285,34 @@ void sub_8049458(void)
 #endif
 INCLUDE_ASM("asm/dump/8040d18/8049458.s");
 
-INCLUDE_ASM("asm/dump/8040d18/80495c4.s");
+void sub_80495C4(void)
+{
+    FrontendSelectionData* selected;
+    const FrontendSelectionRecord* record;
+    FrontendSubobject* state;
+    FrontendMotionData* data;
+    FrontendState* base;
+
+    base = &_unk3000650;
+    state = base->unkB4->unk4;
+    if (base->unk4 != (unk32)-1) {
+        record = &_8069FC8[base->unk4];
+        selected = record->data;
+    } else {
+        selected = NULL;
+    }
+    if (_unk3000650.motion.count != 0) {
+        data = state->unk10->unk28;
+        if (data != NULL) {
+            sub_80504E4(&_unk3000650.motion, data->unk0, data->unk4, data->unk8, data->unkC);
+            sub_805052C(&_unk3000650.motion, data->unk10, data->unk14, data->unk18, data->unk1C);
+            sub_8050578(&_unk3000650.motion, data->unk20, data->unk26);
+        }
+    }
+    sub_8043558(&_unk3000650);
+    if (selected != NULL && selected->palette != NULL && sub_8048FFC() != 0) {
+        sub_804903C(&_unk3000650.unk140, selected->palette->unk0, selected->palette->unk4);
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/804967c.s");

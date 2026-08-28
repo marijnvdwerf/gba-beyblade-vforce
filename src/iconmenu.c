@@ -14,8 +14,69 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8050a7c-newIconMenu.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050c18.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050df8.s");
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050e80.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050f0c.s");
+void sub_8050E80(FrontendMenu* menu)
+{
+    FrontendMenuItem* current;
+    FrontendMenuItem* next;
+    FrontendMenuItemData* nextData;
+    s32 index;
+    s32 nextIndex;
+
+    index = menu->selection;
+    current = &menu->items[index];
+    nextIndex = index + 1;
+    if ((menu->flags & 1) == 0) {
+        sub_804ABFC(7);
+        if (nextIndex >= menu->itemCount) {
+            nextIndex = 0;
+        }
+        next = &menu->items[nextIndex];
+        if (next->sprite != NULL) {
+            sub_8061078(next->sprite, 1);
+        }
+        if (current->sprite != NULL) {
+            sub_8061078(current->sprite, 2);
+        }
+        current->position = current->data->nextPosition;
+        nextData = next->data;
+        next->position = nextData->previousPosition;
+        menu->position = 0xFFFF - nextIndex * menu->step;
+        menu->selection = nextIndex;
+        sub_8061660(&menu->text, nextData->labels[getLanguage()], menu->config->address->unkA);
+    }
+}
+
+void sub_8050F0C(FrontendMenu* menu)
+{
+    FrontendMenuItem* current;
+    FrontendMenuItem* previous;
+    FrontendMenuItemData* previousData;
+    s32 index;
+    s32 previousIndex;
+
+    index = menu->selection;
+    current = &menu->items[index];
+    previousIndex = index - 1;
+    if ((menu->flags & 1) == 0) {
+        sub_804ABFC(7);
+        if (previousIndex < 0) {
+            previousIndex = menu->itemCount - 1;
+        }
+        previous = &menu->items[previousIndex];
+        if (previous->sprite != NULL) {
+            sub_8061078(previous->sprite, 1);
+        }
+        if (current->sprite != NULL) {
+            sub_8061078(current->sprite, 2);
+        }
+        current->position = current->data->nextPosition;
+        previousData = previous->data;
+        previous->position = previousData->previousPosition;
+        menu->position = 0xFFFF - previousIndex * menu->step;
+        menu->selection = previousIndex;
+        sub_8061660(&menu->text, previousData->labels[getLanguage()], menu->config->address->unkA);
+    }
+}
 
 void sub_8050F98(FrontendMenu* menu)
 {
@@ -34,7 +95,10 @@ void sub_8050FC8(FrontendMenu* menu)
     sub_8061228(&menu->text);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050fe8.s");
+void sub_8050FE8(FrontendMenu* menu, unk32 value)
+{
+    menu->targetPosition = value;
+}
 
 void sub_8050FEC(FrontendMenu* menu, unk32 value)
 {

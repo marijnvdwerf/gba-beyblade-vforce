@@ -17,6 +17,7 @@ typedef struct SpriteTextBlock SpriteTextBlock;
 typedef struct SpriteTextCleanup SpriteTextCleanup;
 typedef struct FrontendSelectionObject FrontendSelectionObject;
 typedef struct ItemDescriptionEntry ItemDescriptionEntry;
+typedef struct FrontendMotionData FrontendMotionData;
 
 typedef union PaletteBuffer {
     unk16* half;
@@ -94,12 +95,18 @@ typedef struct UnkMotion {
     s16 count;
     unk16 mode;
     unk32 unk10;
-    unk32 unk14;
+    s32 unk14;
 } UnkMotion;
+
+typedef struct FrontendSubobjectData {
+    unk8 pad0[0x28];
+    FrontendMotionData* unk28;
+} FrontendSubobjectData;
 
 typedef struct FrontendSubobject {
     unk32 unk0;
-    unk8 pad4[0x10];
+    unk8 pad4[0xC];
+    FrontendSubobjectData* unk10;
     s32 unk14;
     unk32 unk18;
     unk8 pad1C[8];
@@ -133,28 +140,78 @@ struct UnkMenuItem {
 typedef struct FrontendMenuData FrontendMenuData;
 typedef struct FrontendMenuItem FrontendMenuItem;
 
+struct FrontendMotionData {
+    unk32 unk0;
+    unk32 unk4;
+    unk32 unk8;
+    unk32 unkC;
+    unk32 unk10;
+    unk32 unk14;
+    unk32 unk18;
+    unk32 unk1C;
+    unk32 unk20;
+    unk8 pad24[2];
+    s16 unk26;
+};
+
+typedef struct FrontendSelectionPalette {
+    unk32 unk0;
+    unk32 unk4;
+} FrontendSelectionPalette;
+
+typedef struct FrontendSelectionData {
+    unk8 pad0[0x24];
+    FrontendSelectionPalette* palette;
+} FrontendSelectionData;
+
+typedef struct FrontendSelectionRecord {
+    unk8 pad0[4];
+    FrontendSelectionData* data;
+    unk8 pad8[0x10];
+} FrontendSelectionRecord;
+
 struct FrontendMenuData {
     unk8 pad0[0x24];
 };
 
-struct FrontendMenuItem {
+typedef struct FrontendMenuItemData {
     unk8 pad0[4];
+    const u8* labels[4];
+    unk8 pad14[0xC];
+    unk32 nextPosition;
+    unk32 previousPosition;
+} FrontendMenuItemData;
+
+typedef struct FrontendMenuBlockData {
+    unk8 pad0[0xA];
+    unk8 unkA;
+} FrontendMenuBlockData;
+
+typedef struct FrontendMenuConfig {
+    FrontendMenuBlockData* address;
+} FrontendMenuConfig;
+
+struct FrontendMenuItem {
+    FrontendMenuItemData* data;
     SpriteEntry* sprite;
-    unk8 pad8[0x14];
+    unk8 pad8[0xC];
+    unk32 position;
+    unk8 pad18[4];
 };
 
 typedef struct FrontendMenu {
     s32 itemCount;
     unk32 selection;
-    unk8 pad8[8];
+    unk8 pad8[4];
+    unk32 step;
     unk32 velocity;
-    unk8 pad14[4];
+    unk32 position;
     unk32 textPosition;
     unk32 targetPosition;
     unk32 timer;
     unk32 timerTarget;
     FrontendMenuItem* items;
-    unk8 pad2C[4];
+    FrontendMenuConfig* config;
     AllocatedBlock* block;
     unk8 pad34[8];
     unk16 flags;
