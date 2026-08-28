@@ -4,6 +4,7 @@
 #include <agb/memory_map.h>
 
 #include "include_asm.h"
+#include "math.h"
 #include "unsorted.h"
 
 typedef struct {
@@ -76,6 +77,8 @@ typedef struct {
 extern Struct3000CA0 _unk3000CA0[10];
 extern u8 _unk3000DE0;
 extern u8 _unk3000E3C;
+extern s16 Unk_874CC3C[];
+extern s16 Unk_872CC3C[];
 
 unk32 sub_8059284(BGLayer* r0, u16 r1, u16 r2);
 vu16* GetBGLayerHOffsetPtr(u8 layer);
@@ -357,9 +360,11 @@ void sub_8058F60(DisplayRecord* layer)
         (layer->unk34 << 8) >> 16);
     SetBGOffset(layer->unk5E,
         layer->unk4C
-            - (_unk3000D00[index].unk8 * layer->unk48 - _unk3000D00[index].unk10 * layer->unk4A),
+            - (_unk3000D00[index].unk8.word * layer->unk48
+                - _unk3000D00[index].unk10.word * layer->unk4A),
         layer->unk50
-            + (_unk3000D00[index].unkC * layer->unk48 - _unk3000D00[index].unk14 * layer->unk4A));
+            + (_unk3000D00[index].unkC.word * layer->unk48
+                - _unk3000D00[index].unk14.word * layer->unk4A));
     factor = layer->unk24;
     if (factor != 0) {
         a = (layer->unk2C * factor) >> 8;
@@ -648,7 +653,7 @@ void SetBGOffset(u8 layer, s32 x, s32 y)
     }
 }
 
-void SetLayerTransform(u8 layer, u16 dx, u16 dmx, u16 dy, u16 dmy)
+void SetLayerTransform(u8 layer, s16 dx, s16 dmx, s16 dy, s16 dmy)
 {
 
     switch (layer) {
@@ -667,7 +672,40 @@ void SetLayerTransform(u8 layer, u16 dx, u16 dmx, u16 dy, u16 dmy)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8059b00.s");
+void sub_8059B00(u8 layer, u8 angle, u16 xAngle, u16 yAngle)
+{
+    u8 index;
+    LayerTransformRecord* transform;
+    LayerTransformRecord* base;
+    LayerTransformValue* matrixB;
+    LayerTransformValue* matrixA;
+    LayerTransformValue* matrixC;
+    s16 matrixD;
+    u8 check;
+
+    check = layer - 2;
+    if (check <= 2) {
+        base = _unk3000D00;
+        index = check;
+        transform = &base[index];
+        transform->unk2 = xAngle;
+        transform->unk4 = yAngle;
+        transform->unk0 = angle;
+        _unk3000D00[index].unk8.word
+            = sub_8059FA0(Unk_874CC3C[transform->unk0 + 0x40], Unk_872CC3C[transform->unk2]);
+        matrixA = &_unk3000D00[index].unk8;
+        _unk3000D00[index].unkC.word
+            = sub_8059FA0(Unk_874CC3C[transform->unk0], Unk_872CC3C[transform->unk2]);
+        matrixB = &_unk3000D00[index].unkC;
+        _unk3000D00[index].unk10.word
+            = sub_8059FA0(-Unk_874CC3C[transform->unk0], Unk_872CC3C[transform->unk4]);
+        matrixC = &_unk3000D00[index].unk10;
+        matrixD = sub_8059FA0(Unk_874CC3C[transform->unk0 + 0x40], Unk_872CC3C[transform->unk4]);
+        _unk3000D00[index].unk14.word = matrixD;
+        SetLayerTransform(layer, matrixA->half, matrixB->half, matrixC->half, matrixD);
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8059c18.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059cb4.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059cc8.s");
