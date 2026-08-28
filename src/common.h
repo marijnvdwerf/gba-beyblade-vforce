@@ -13,6 +13,7 @@ typedef unk32 bool32;
 
 typedef struct AllocatedBlock AllocatedBlock;
 typedef struct ActorConfig ActorConfig;
+typedef struct ActorTimerEntry ActorTimerEntry;
 typedef struct SpriteEntry SpriteEntry;
 typedef struct SpriteTextBlock SpriteTextBlock;
 typedef struct SpriteTextCleanup SpriteTextCleanup;
@@ -413,8 +414,8 @@ typedef struct Actor {
     s32 unk68;
     s32 unk6C;
     s32 unk70;
-    unk32 unk74;
-    unk32 unk78;
+    s32 unk74;
+    ActorTimerEntry* unk78;
     struct AllocatedBlock* unk7C;
     void* unk80;
     s32 unk84;
@@ -433,6 +434,13 @@ typedef struct Actor {
     SpriteEntry* unkB8;
     unk8 padBC[8];
 } Actor;
+
+struct ActorTimerEntry {
+    s32 unk0;
+    s32 unk4;
+    void (*unk8)(void*, void*);
+    unk32 unkC;
+};
 
 typedef struct EnvironmentActorSlot {
     unk32 objectId;

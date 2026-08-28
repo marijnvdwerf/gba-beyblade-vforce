@@ -8,7 +8,7 @@
 #include "sprite.h"
 #include "unsorted.h"
 
-void sub_8058838(void);
+void sub_8058838(Actor*);
 void actor_8058638(Actor*);
 
 #if 0
@@ -165,7 +165,7 @@ void sub_80584B8(Actor* actor)
     s32 adjusted;
     s32 timer;
 
-    sub_8058838();
+    sub_8058838(actor);
     if (actor->unk80 != NULL) {
         if (actor->unk84 >= 0) {
             sub_805D650(actor);
@@ -285,7 +285,43 @@ void sub_8058754(Actor* actor, unk32* output)
 INCLUDE_ASM("asm/dump/8057b80-debug/8058778-renderActor2.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058784.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058794.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8058838.s");
+
+void sub_8058838(Actor* actor)
+{
+    ActorTimerEntry* entry;
+    s32 index;
+    s32 count;
+    unk32 delta;
+
+    count = actor->unk74;
+    if (count != -1) {
+        index = 0;
+        while (index < count) {
+            entry = &actor->unk78[index];
+            if (entry->unk8 != NULL) {
+                if (entry->unk0 == 0) {
+                    index++;
+                    continue;
+                }
+                if (entry->unk4 <= 0) {
+                    entry->unk8(actor, entry);
+                }
+            }
+            if (entry->unk0 > 0) {
+                delta = _unk3000E30[0] - _unk3000E30[1];
+                if (entry->unk4 > 0) {
+                    entry->unk4 -= delta;
+                } else {
+                    entry->unk0 -= delta;
+                }
+                if (entry->unk0 < 0) {
+                    entry->unk0 = 0;
+                }
+            }
+            index++;
+        }
+    }
+}
 
 void sub_80588A8(Actor* arg0)
 {
