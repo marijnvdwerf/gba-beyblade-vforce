@@ -19,6 +19,7 @@ extern const FrontendMenuData _8069514[];
 extern const unk8* const _806E0DC[][5];
 extern const FrontendMenuData _806980C[];
 extern const FrontendMenuData _8069830[];
+extern const FrontendMenuData _8069D04[];
 extern const unk8 SpriteSheet_82B05EC[];
 extern const unk8 ShadowFontMeta[];
 extern const unk8* _806E650[];

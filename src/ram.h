@@ -269,7 +269,7 @@ typedef struct GameData {
     unk8 pad1614[4]; /* 0x1614 */
     u8 unk1618; /* 0x1618 */
     unk8 unk1619; /* 0x1619 */
-    unk8 pad161A[1]; /* 0x161A */
+    unk8 unk161A; /* 0x161A */
     u8 unk161B; /* 0x161B */
     u16 unk161C; /* 0x161C */
     unk8 pad161E[2]; /* 0x161E */
@@ -354,6 +354,10 @@ extern SpriteEntry* _unk300015C;
 extern s32 _unk3000160;
 extern s32 _unk3000164;
 extern unk32 _unk3000168;
+extern SpriteEntry* _unk30005B0;
+extern SpriteEntry* _unk30005B4;
+extern s32 _unk30005B8;
+extern s32 _unk30005BC;
 
 typedef struct FrontendCoordinateTarget {
     s32 value;

@@ -982,7 +982,87 @@ INCLUDE_ASM("asm/dump/8040d18/804712c.s");
 INCLUDE_ASM("asm/dump/8040d18/8047494.s");
 INCLUDE_ASM("asm/dump/8040d18/80475e0-selectBladeFrontendHandler.s");
 INCLUDE_ASM("asm/dump/8040d18/8047e5c.s");
-INCLUDE_ASM("asm/dump/8040d18/80480ec.s");
+
+void sub_80480EC(FrontendState* state, unk32 arg1)
+{
+    FrontendMenu* menu;
+    SpriteEntry* sprite1;
+    SpriteEntry* sprite2;
+
+    switch (arg1) {
+    case 0:
+        sprite1 = allocSprite(0);
+        _unk30005B0 = sprite1;
+        if (sprite1 != NULL) {
+            LoadSpriteSheet(sprite1, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+        }
+        sprite2 = allocSprite(0);
+        _unk30005B4 = sprite2;
+        if (sprite2 != NULL) {
+            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+        }
+        _unk30005B8 = 0x800;
+        _unk30005BC = 0xD800;
+        menu = &state->menuState.menu;
+        newIconMenu(menu, _8069D04, 0);
+        sub_8050FEC(menu, 0x9600);
+        sub_8049168();
+        break;
+    case 7:
+        sub_8051028(&state->menuState.menu);
+        if (_unk30005B0 != NULL) {
+            sub_8060A94(_unk30005B0);
+        }
+        if (_unk30005B4 != NULL) {
+            sub_8060A94(_unk30005B4);
+        }
+        break;
+    case 1:
+        if (_unk30005B0 != NULL) {
+            _unk30005B0->x += ((_unk30005B8 - _unk30005B0->x) >> 3)
+                + Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
+        }
+        if (_unk30005B4 != NULL) {
+            _unk30005B4->x += ((_unk30005BC - _unk30005B4->x) >> 3)
+                - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
+        }
+        sub_80439A0(&state->unk140);
+        menu = &state->menuState.menu;
+        sub_8050C18(menu);
+        if ((_unk3005DA0 & 0x30) != 0) {
+            if ((_unk3005DA0 & 0x20) != 0) {
+                sub_8050F0C(menu);
+            } else {
+                sub_8050E80(menu);
+            }
+        }
+        break;
+    case 2:
+        if ((_unk3005DA0 & 1) != 0) {
+            _unk30005B8 = 0xFFFF0000;
+            _unk30005BC = 0x1E000;
+            sub_8050F98(&state->menuState.menu);
+            switch (state->menuState.menu.selection) {
+            case 0:
+                sub_80490F8(0x1F);
+                break;
+            case 1: {
+                GameData* gameData;
+
+                gameData = _gameData;
+                gameData->unk1618 = 0;
+                gameData->unk1619 = 0;
+                gameData->unk161A = 0;
+                sub_80600B4();
+                sub_80490F8(0xA);
+                break;
+            }
+            }
+        }
+        break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8048310.s");
 INCLUDE_ASM("asm/dump/8040d18/804868c.s");
 INCLUDE_ASM("asm/dump/8040d18/8048a74.s");
