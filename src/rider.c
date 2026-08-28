@@ -330,6 +330,54 @@ void sub_804B754(void)
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b754.s");
+
+#if 0
+RiderBase* sub_804B7FC(RiderBase* arg0)
+{
+    s32 x;
+    s32 y;
+    s32 z;
+    s32 distance;
+    s32 bestDistance;
+    s32 dx;
+    s32 dy;
+    s32 dz;
+    s32 i;
+    RiderBase* candidate;
+    RiderBase* best;
+    Actor* coord;
+
+    best = 0;
+    bestDistance = 0x07FFFFFF;
+    coord = arg0->unk0;
+    x = coord->x >> 8;
+    y = coord->y >> 8;
+    z = coord->z >> 8;
+    i = 0;
+    if (i < _gameData->unk430 + 1) {
+        do {
+            if (i != 0)
+                candidate = &_gameData->unk42C[i - 1];
+            else
+                candidate = &_gameData->base;
+            if (candidate != arg0 && (candidate->unk3CC & 0xC) == 0
+                && (RiderHasFlag(candidate, 2) << 24) == 0) {
+                coord = candidate->unk0;
+                dx = (coord->x >> 8) - x;
+                dy = (coord->y >> 8) - y;
+                dz = (coord->z >> 8) - z;
+                distance = dx * dx + dy * dy + dz * dz;
+                if (distance < bestDistance) {
+                    bestDistance = distance;
+                    best = candidate;
+                }
+            }
+            i++;
+        } while (i < _gameData->unk430 + 1);
+    }
+    return best;
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b7fc.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b8f0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804bbf0-renderRider.s");
