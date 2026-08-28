@@ -397,6 +397,13 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   parked (packed-table scale addressing). Headers untouched.
 - Leaf M merged: sub_80581B8 (frame table = unk16 array cursor in the config
   blob, see docs/learnings/leaves-m.md; Actor.unkC0 is a new callback field).
+- Leaf N3 merged (parked drafts only, a557b31 + fixup): sub_8059284,
+  sub_8060E8C, resizeSpriteBlock all regalloc/lifetime near-misses;
+  resizeSpriteBlock needs a cached `&_spritesFree` pointer in a callee-saved
+  reg (alias lever — same class as the open sub_8059B00 ruling). Agent's
+  SpriteEntry y/unk10 word/half union was dropped; the merge briefly broke
+  the build (live `.word` accesses) — fixed on main. Manager lesson: verify
+  compare in the WORKTREE with an explicit cd, never trust cwd.
 - Leaf N2 merged: sub_8043604 matched (MenuStateCallback typedef,
   frontend motion records _8068840/_8068868/_8068890 declared in frontend.h);
   sub_805AD24 (14-arg MenuState ctor) parked — stack-arg load/lifetime shape;

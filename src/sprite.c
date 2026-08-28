@@ -557,13 +557,13 @@ void LoadSpriteSheet(SpriteEntry* dst, const void* sourceArg, unk32 x, unk32 y, 
     dst->unk2C = (const unk8*)source;
     dst->flip_h_v = normalizedArg4;
     dst->x = x;
-    dst->y.word = y;
+    dst->y = y;
     value = (sourceFlags & 3) << 14;
     value |= (~sourceByteC & 1) << 13;
     value |= ((stackArg4 & 3) << 10) | 0x1000;
     value |= (sourceFlags & 0xC) << 28;
     value |= (normalizedArg4 & 3) << 28;
-    dst->unk10.word = value;
+    dst->unk10 = value;
     value = ((sourceByteC >> 1) & 0xF) << 12;
     value |= (stackArg5 & 3) << 10;
     dst->oam_attr_2 = value;
@@ -877,7 +877,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8060e8c.s");
 void sub_8060F64(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 arg3)
 {
     SpriteEntry* child = sprite->unk30;
-    u32 flags = sprite->unk10.word;
+    u32 flags = sprite->unk10;
     u32 child_flags;
     u32 size_mask;
 
@@ -915,7 +915,7 @@ void sub_8060F64(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 arg3)
             }
         }
     }
-    sprite->unk10.word = flags;
+    sprite->unk10 = flags;
 }
 
 void sub_806100C(SpriteEntry* spriteEntry, u16 arg1, u16 arg2)
@@ -976,7 +976,7 @@ void sub_8061078(SpriteEntry* sprite, unk16 frame)
 unk32 sub_80610EC(SpriteEntry* spriteEntry)
 {
     u16* table = word_807D90C;
-    unk32 index = ((spriteEntry->unk10.word & 0xC000) >> 12) | ((u32)spriteEntry->unk10.word >> 30);
+    unk32 index = ((spriteEntry->unk10 & 0xC000) >> 12) | ((u32)spriteEntry->unk10 >> 30);
 
     return (table[index] & 0xFF00) >> 7;
 }
@@ -984,19 +984,19 @@ unk32 sub_80610EC(SpriteEntry* spriteEntry)
 unk32 sub_8061110(SpriteEntry* spriteEntry)
 {
     u16* table = word_807D90C;
-    unk32 index = ((spriteEntry->unk10.word & 0xC000) >> 12) | ((u32)spriteEntry->unk10.word >> 30);
+    unk32 index = ((spriteEntry->unk10 & 0xC000) >> 12) | ((u32)spriteEntry->unk10 >> 30);
 
     return (table[index] & 0xFF) * 2;
 }
 
 void sub_8061130(SpriteEntry* spriteEntry, u8 arg1)
 {
-    spriteEntry->unk10.word = (spriteEntry->unk10.word & 0xFFFFF3FF) | ((arg1 & 3) << 10);
+    spriteEntry->unk10 = (spriteEntry->unk10 & 0xFFFFF3FF) | ((arg1 & 3) << 10);
 }
 
 unk32 sub_806114C(SpriteEntry* spriteEntry)
 {
-    return (spriteEntry->unk10.word >> 10) & 3;
+    return (spriteEntry->unk10 >> 10) & 3;
 }
 
 void sub_8061158(SpriteEntry* spriteEntry)
