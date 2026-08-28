@@ -474,9 +474,9 @@ typedef struct ParticleSystem {
 
 typedef union RiderStatePrefix {
     struct {
-        unk16 unk0;
-        unk16 unk2;
-        unk16 unk4;
+        s16 unk0;
+        s16 unk2;
+        s16 unk4;
         unk16 unk6;
     } words;
 
@@ -538,7 +538,9 @@ typedef struct RiderBase {
     Actor unk2FC;
     unk8 pad3C0[4];
     SpriteEntry* unk3C4;
-    unk8 pad3C8[8];
+    unk8 pad3C8[4];
+    unk16 unk3CC;
+    unk8 pad3CE[2];
     unk8 unk3D0; /* 0x3D0 */
     unk8 pad3D1[0x17];
     u8 unk3E8;
