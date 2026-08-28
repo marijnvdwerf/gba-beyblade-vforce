@@ -300,6 +300,14 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   pending) is in its finish+review round: DMA3Copy REG_DMA3CNT_H, `+0xFFFF`
   → `-1`, Actor sizeof check (0xC4), draft house-style, prototypes to
   headers. Frontend alias-retry agent running on sub_804967C/sub_8049458.
+- Leaf C: 4 matched (sub_805E8A0, sub_805EEFC, sub_8054278,
+  initCollisionData), sub_805AD9C + sub_8059310 parked; in review:
+  `GeometryAddressTable` (ram.h) is a View clone of `LevelGeometryAddresses`
+  (unkC line ptr, block at +0x10) — the agent widened StoreMetadataAddr/
+  newCollisionDataRam/initQuadTree to `void*` to bridge them. Fix in
+  flight: GameData.unk65C becomes LevelGeometryAddresses, clone deleted;
+  open question: GeometryLine+0x10 is stored as a BYTE by matched
+  sub_8056FAC but declared `unk16 type` — a pun or a wrong width.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
