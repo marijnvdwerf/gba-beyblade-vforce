@@ -81,6 +81,19 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   rN,sp,#imm capture. → asmlift feature work (stack args first) would unlock
   ~half the no-draft reds. decomp.yaml + docs/asmlift.md committed with
   ASMLIFT_DIR. Drafts kept in /tmp/asmlift-out (copy to docs/ if wanted).
+- User direction 2026-08-28 (later): FRESH START on the 65 reds, smallest
+  first, prompts mention NO draft sources and NO prior parking — agents read
+  the asm and the caller. Size-sorted red list: /tmp/reds.txt + the command
+  in this session (instruction counts from asm/dump: 1 red ≤10, 6 ≤30, 24
+  ≤100, 21 in 100–300, 13 ≥300; sub_80413FC is 1072). Round 1 running: 3
+  agents × ~8 reds ≤100 insns (frontend cluster: sub_8050FE8, sub_8050A50,
+  sub_80491E0, sub_8050E80, sub_8050F0C, sub_80495C4, sub_8049FF8,
+  sub_805041C; gamestate cluster: sub_8050184, sub_805137C, sub_805000C,
+  sub_8057104, sub_804A280, sub_8056FAC, sub_805AFBC, sub_8050050; sprite/
+  geometry: sub_8061E58, GetLineIndexOfType, sub_80600B4, sub_805529C,
+  sub_8060C1C, sub_80659F0, freeSpriteVramLocation). Held back: rider.c/
+  camera.c reds (sub_804B5C0, sub_804B4FC — an asmlift-draft agent owns
+  processRiderMetadata + sub_805EB00 right now). Round 2 = the 100–300 band.
   Newly parked: sub_805041C (motion, near-match: reset-store register seq +
   2-byte delta; draft in migrate-frontend-music.md), sub_804967C (frontend,
   extra high-reg saves), sub_806014C (multiplayer, reload only reproduces
