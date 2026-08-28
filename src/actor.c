@@ -2,10 +2,14 @@
 
 #include <agb/types.h>
 
+#include "geometry.h"
 #include "include_asm.h"
 #include "memory.h"
 #include "sprite.h"
 #include "unsorted.h"
+
+void sub_8058838(void);
+void actor_8058638(Actor*);
 
 #if 0
 void actor_8057C58(
@@ -148,7 +152,82 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805832c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058390.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80583dc-ActorSetFrame.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058478.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/80584b8.s");
+
+void sub_80584B8(Actor* actor)
+{
+    s32 xVelocity;
+    s32 yVelocity;
+    s32 zVelocity;
+    s32 damping;
+    s32 scaledX;
+    s32 scaledY;
+    s32 scaledZ;
+    s32 adjusted;
+    s32 timer;
+
+    sub_8058838();
+    if (actor->unk80 != NULL) {
+        if (actor->unk84 >= 0) {
+            sub_805D650(actor);
+        }
+    }
+    if (actor->unk80 == NULL && actor->unk84 == -1) {
+        actor->x += actor->unk40;
+        actor->y += actor->unk44;
+        actor->z += actor->unk48;
+    }
+    xVelocity = actor->unk40 + actor->unk4C;
+    actor->unk40 = xVelocity;
+    yVelocity = actor->unk44 + actor->unk50;
+    actor->unk44 = yVelocity;
+    zVelocity = actor->unk48 + actor->unk54;
+    actor->unk48 = zVelocity;
+    damping = actor->unk68;
+    if (damping != 0) {
+        scaledX = xVelocity * damping >> 8;
+        scaledY = yVelocity * damping >> 8;
+        scaledZ = zVelocity * damping >> 8;
+        actor->unk40 = xVelocity - scaledX;
+        actor->unk44 = yVelocity - scaledY;
+        actor->unk48 = zVelocity - scaledZ;
+        if (scaledX == 0 && actor->unk40 != 0) {
+            if (actor->unk40 > 0) {
+                actor->unk40--;
+            } else {
+                actor->unk40++;
+            }
+        }
+        if (scaledY == 0) {
+            if (actor->unk44 != 0) {
+                if (actor->unk44 > 0) {
+                    actor->unk44--;
+                } else {
+                    actor->unk44++;
+                }
+            }
+        }
+        if (scaledZ == 0) {
+            if (actor->unk48 != 0) {
+                if (actor->unk48 > 0) {
+                    actor->unk48--;
+                } else {
+                    actor->unk48++;
+                }
+            }
+        }
+    }
+    timer = actor->unk70;
+    if (timer > 0) {
+        adjusted = timer - (_unk3000E30[0] - _unk3000E30[1]);
+        actor->unk70 = adjusted;
+        if (adjusted < 0) {
+            actor->unk70 = 0;
+        }
+    }
+    if (actor->unk6C == 0 && (actor->unk98 & 1) == 0) {
+        actor_8058638(actor);
+    }
+}
 
 void sub_80585C8(Actor* actor, unk32 arg1)
 {
@@ -191,7 +270,18 @@ void ActorSetSpriteOffset(EnvironmentActorSlot* actor, unk16 arg1, unk16 arg2)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8058630.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058638-actor_8058638.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8058754.s");
+
+void sub_8058754(Actor* actor, unk32* output)
+{
+    if (actor->unkB0 != NULL) {
+        actor->unkB0(actor);
+    } else {
+        output[0] = actor->x;
+        output[1] = actor->y;
+        output[2] = actor->z;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8058778-renderActor2.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058784.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058794.s");

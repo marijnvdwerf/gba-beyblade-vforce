@@ -22,5 +22,6 @@ void sub_805E50C(void**, void*, void*, void*);
 unk32* sub_805E514(unk32*, unk32, unk32, unk32, unk32);
 GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses*, s32);
 void actor_805C48C(EnvironmentActorSlot*, LevelGeometryAddresses*, unk32, unk32);
+void sub_805D650(Actor*);
 
 #endif
