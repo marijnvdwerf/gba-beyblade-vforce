@@ -114,6 +114,13 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   are NOT levers (now in decompiler.md, 410fb3b). Pre-existing volatile on
   main to clean up: src/sprite.c:417-424 (`SpriteEntry* volatile*` — lever),
   src/system.c:10-11 (struct fields — check if hardware); backup.c is legit.
+- Policy (user, 2026-08-28): NEVER discard near-miss work — parked functions
+  keep their best draft as `#if 0 /* NONMATCHING: … */` above the INCLUDE_ASM
+  (decompiler.md 199d91b; near-miss checklist 7826b10). Opus agent (ban
+  lifted for this task by the user) is writing docs/style.md (team style from
+  matched code, probable per-author TU grouping) and
+  docs/learnings/humanize-2026-08-28.md (human rewrites for every `#if 0`
+  draft and recorded near-miss) — agents then TEST those rewrites.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
