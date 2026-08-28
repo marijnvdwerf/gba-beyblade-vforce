@@ -76,6 +76,69 @@ void deallocEventListeners(void)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054248-processMetadata_6.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054278.s");
+#if 0
+typedef void (*EventMetadataHandler)(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*);
+
+extern EventMetadataHandler _8078990[];
+
+void handleEventListeners(unk32 geometry, unk16 eventId)
+{
+    unk32* lineIndexPtr;
+    LineMetadata* metadata;
+    LineMetaObject* object;
+    LineMetaObject* event;
+    GeometryLine* line;
+    unk32 lineIndex;
+    unk32 objectIndex;
+    unk32 objectCount;
+    unk32 oldObjectCount;
+    unk32 remainingLines;
+    unk32* nextLinePtr;
+    EventMetadataHandler handler;
+
+    lineIndexPtr = (unk32*)_gameData->unkCA4;
+    remainingLines = _gameData->unkCA8;
+    if (remainingLines != 0) {
+        remainingLines--;
+        do {
+            lineIndex = *lineIndexPtr;
+            metadata = GetLineMetaData((LevelGeometryAddresses*)geometry, lineIndex);
+            if (metadata != NULL) {
+                object = getLineMetaobjectByTypeAndId(
+                    (LevelGeometryAddresses*)geometry, metadata, 7, eventId);
+                if (object != NULL) {
+                    line = ((LevelGeometryAddresses*)geometry)->unkC + lineIndex;
+                    objectIndex = *(s16*)((unk8*)object + 8);
+                    objectCount = *(s16*)((unk8*)object + 0xA);
+                    event = getLineMetaAtIndex(
+                        (LevelGeometryAddresses*)geometry, metadata, objectIndex);
+                    if (event != NULL) {
+                        objectCount--;
+                        nextLinePtr = lineIndexPtr + 1;
+                        oldObjectCount = objectCount;
+                        objectCount--;
+                        if (oldObjectCount != 0) {
+                            do {
+                                handler = _8078990[event->type];
+                                handler((LevelGeometryAddresses*)geometry, line, lineIndex, metadata);
+                                event = (LineMetaObject*)((unk8*)event + event->size);
+                            } while (objectCount-- != 0);
+                        }
+                        lineIndexPtr = nextLinePtr;
+                    } else {
+                        lineIndexPtr++;
+                    }
+                } else {
+                    lineIndexPtr++;
+                }
+            } else {
+                lineIndexPtr++;
+            }
+            remainingLines--;
+        } while (remainingLines != 0);
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/80542a8-handleEventListeners.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054388-processMetadata_default.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80543a4-nullsub_42.s");
