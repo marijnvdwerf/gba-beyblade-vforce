@@ -358,6 +358,10 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 - Leaf E MERGED: sub_804FE14, sub_804FE30 (levelhud), sub_805568C
   (effects); sub_804DA48 parked (riderphysics.c; target saves r4–r7, draft
   r4–r6 — one more live value). Running: leaf D, leaf F.
+- Reds on main: 40. Leaf G dispatched: initQuadTree, sub_804FF88,
+  newCollisionDataRam. Held for after leaf D merges: sub_804B7FC (rider.c,
+  110). Callgraph now also lists bogus `copy`/`handler` symbols (parsed
+  from draft text) — ignore.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
