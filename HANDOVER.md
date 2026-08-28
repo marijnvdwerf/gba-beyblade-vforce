@@ -317,6 +317,11 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   `unk32 frame` + `u16 value` only because its header said unk32).
   Process lesson: gate `tools/update-expected` on a 100% compare — I ran it
   twice on non-green trees this session.
+- Leaf B parking commit redone correctly and merged (2f9f5b0): bare
+  `#if 0` drafts for getBeyBladeActorDataForIndex, allocateParticleSystem,
+  handleEventListeners, DMA3Copy; layouts in leaves-b.md. Running: frontend
+  alias retry, leaf C, leaf D (sub_8058754, sub_80584B8, sub_804B624), sol
+  skill pass over this session's learnings.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
