@@ -262,6 +262,7 @@ void initLevelEnvironmentActors(u16 level)
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054768-initLevelEnvironmentActors.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054c9c-renderEnvironmentActors.s");
+
 #if 0
 extern void sub_8054278(void*, unk16);
 extern void sub_80584B8(Actor*);

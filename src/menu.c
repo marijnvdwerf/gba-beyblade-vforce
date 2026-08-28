@@ -49,6 +49,28 @@ void sub_805AC80(MenuState* arg0, UnkMenuItem* arg1)
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805ad24.s");
+
+#if 0
+void sub_805AD9C(MenuState* state)
+{
+    s32 count;
+    UnkMenuItem* item;
+
+    item = state->items;
+    count = state->objectCount;
+    do {
+        sub_8061204(&item->text);
+        item++;
+    } while (count-- != 0);
+    if (state->menuBlock != NULL) {
+        deallocateBlock(state->menuBlock);
+        state->menuBlock = NULL;
+    }
+    state->itemCount = 0;
+    state->objectCount = 0;
+    state->unk9 = 0;
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/805ad9c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805add4-allocateMenuItems.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805afb8-nullsub_48.s");

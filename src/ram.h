@@ -1,6 +1,8 @@
 #ifndef _RAM_H
 #define _RAM_H
 
+#include <stddef.h>
+
 #include "battery.h"
 #include "common.h"
 #include "credits.h"
@@ -54,12 +56,6 @@ typedef struct Sub8052140Data {
     unk8 pad34[0x24];
     unk32 unk58;
 } Sub8052140Data;
-
-typedef struct GeometryAddressTable {
-    unk8 pad0[0xC];
-    EnvironmentLine* unkC;
-    AllocatedBlock* block;
-} GeometryAddressTable;
 
 typedef struct QuadTree {
     unk8 pad0[0x24];
@@ -157,12 +153,8 @@ typedef struct GameData {
     s32 unk430; /* 0x430 */
     void* unk434; /* 0x434 */
     unk8 pad438[0x224]; /* 0x438 */
-    GeometryAddressTable unk65C; /* 0x65C */
-    unk8 pad670[0x4C]; /* 0x670 */
-    unk32 unk6BC; /* 0x6BC */
-    unk8 pad6C0[0xB8]; /* 0x6C0 */
-    void* unk778; /* 0x778 */
-    unk8 pad77C[0x24]; /* 0x77C */
+    LevelGeometryAddresses unk65C; /* 0x65C */
+    unk8 pad778[0x28]; /* 0x778 */
     unk32 unk7A0; /* 0x7A0 */
     QuadTree unk7A4; /* 0x7A4 */
     unk16 unk7FC; /* 0x7FC */
@@ -283,6 +275,10 @@ typedef struct GameData {
     u8 unk1641; /* 0x1641 */
     unk8 pad1642[2]; /* 0x1642 */
 } GameData;
+
+typedef char LevelGeometryAddressesSizeCheck[(sizeof(LevelGeometryAddresses) == 0x11C) ? 1 : -1];
+typedef char GameDataGeometryOffsetCheck[(offsetof(GameData, unk65C) == 0x65C) ? 1 : -1];
+typedef char GameDataQuadTreeOffsetCheck[(offsetof(GameData, unk7A4) == 0x7A4) ? 1 : -1];
 
 typedef struct CurrentGameStateTail {
     unk32 unk0;

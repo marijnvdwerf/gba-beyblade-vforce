@@ -5,6 +5,6 @@
 
 void initEventListeners(unk32);
 void deallocEventListeners(void);
-void handleEventListeners(unk32, unk16);
+void handleEventListeners(LevelGeometryAddresses*, unk16);
 
 #endif

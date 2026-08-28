@@ -60,8 +60,8 @@ void sub_8056FAC(void)
     GameData* gameData;
     CollectableData* records;
     CollectableEntry* entry;
-    GeometryAddressTable* geometry;
-    EnvironmentLine* line;
+    LevelGeometryAddresses* geometry;
+    GeometryLine* line;
     EnvironmentObject* object;
     s32 value;
     gameData = _gameData;

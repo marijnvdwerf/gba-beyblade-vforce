@@ -24,13 +24,13 @@ void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable*
         arg0->unk14[i] = GetSplineAtIndex(arg0, i);
     }
     arg0->unk114 = NULL;
-    arg0->unk10 = NULL;
+    arg0->block = NULL;
     arg0->unk118 = 0;
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805b938-newCollisionDataRam.s");
 
-void sub_805BA3C(GeometryAddressTable* arg0)
+void sub_805BA3C(LevelGeometryAddresses* arg0)
 {
     if (arg0->block != NULL) {
         deallocateBlock(arg0->block);
@@ -38,9 +38,9 @@ void sub_805BA3C(GeometryAddressTable* arg0)
     arg0->block = NULL;
 }
 
-void StoreMetadataAddr(LevelGeometryAddresses* arg0, LineMetadata** value)
+void StoreMetadataAddr(LevelGeometryAddresses* geometry, LineMetadata** value)
 {
-    arg0->unk114 = value;
+    geometry->unk114 = value;
 }
 
 LineMetadata* GetLineMetaData(LevelGeometryAddresses* arg0, unk32 index)

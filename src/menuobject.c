@@ -142,4 +142,5 @@ void sub_804374C(FrontendState* object)
 }
 
 INCLUDE_ASM("asm/dump/8040d18/804385c.s");
+
 INCLUDE_ASM("asm/dump/8040d18/80438cc.s");

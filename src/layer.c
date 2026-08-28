@@ -83,7 +83,14 @@ vu16* GetBGLayerVOffsetPtr(u8 layer);
 
 void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgPriority, u16 sp0);
 
-void sub_8059310(BGLayer* r0, unk32 r1, unk32 r2, unk32 r3, unk32 sp0, unk32 sp4, unk32 sp8);
+void sub_8059310(BGLayer* r0, s32 r1, s32 r2, s32 r3, s32 sp0, s32 sp4, s32 sp8);
+
+typedef void (*LayerCopyFunc)(BGLayer*, unk32, unk32, unk32, unk32, unk32, unk32);
+typedef void (*LayerClearFunc)(BGLayer*, unk32, unk32, unk32, unk32);
+
+extern void (*__sub_8756FC0)(BGLayer*, unk32, unk32, unk32, unk32, unk32, unk32);
+extern void (*__sub_8757380)(BGLayer*, unk32, unk32, unk32, unk32);
+void sub_80594FC(BGLayer*, unk32, unk32, unk32, unk32, unk32, unk32);
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8058968.s");
 
@@ -336,7 +343,66 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8059110.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059184-nullsub_24.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059188.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059284.s");
+#if 0
+void sub_8059310(BGLayer* layer, s32 x, s32 y, s32 srcX, s32 srcY, s32 width, s32 height)
+{
+    LayerCopyFunc copy;
+    s32 endX;
+    s32 widthValue;
+    s32 remainder;
+    s32 sourceX;
+    s32 adjustedSrcX;
+    unk32 wrappedX;
+    s32 stackY;
+    s32 stackHeight;
+    s32 stackSrcY;
+
+    stackY = y;
+    stackHeight = height;
+    stackSrcY = srcY;
+    widthValue = width;
+    remainder = 0;
+    sourceX = srcX;
+    if ((layer->var64 & 1) != 0) {
+        copy = sub_80594FC;
+    } else {
+        copy = __sub_8756FC0;
+    }
+    adjustedSrcX = sourceX;
+    endX = x + widthValue;
+    if (endX > layer->columnCount) {
+        widthValue = 0;
+        if (x < layer->columnCount) {
+            widthValue = layer->columnCount - x;
+        }
+        remainder = width - widthValue;
+        wrappedX = x + widthValue - layer->columnCount;
+        adjustedSrcX += widthValue;
+    }
+    if (x < 0) {
+        widthValue = endX;
+        if (widthValue < 0) {
+            widthValue = 0;
+        }
+        remainder = width - widthValue;
+        wrappedX = x + layer->columnCount;
+        x = 0;
+        sourceX += remainder;
+    }
+    if (widthValue > 0) {
+        copy(layer, x, stackY, sourceX, stackSrcY, widthValue, stackHeight);
+    }
+    if (remainder > 0) {
+        if ((layer->field_7C & 8) != 0) {
+            copy(layer, wrappedX, stackY, adjustedSrcX, stackSrcY, remainder, stackHeight);
+        } else {
+            (*__sub_8757380)(layer, adjustedSrcX, stackSrcY, remainder, stackHeight);
+        }
+    }
+}
+#else
 INCLUDE_ASM("asm/dump/8057b80-debug/8059310.s");
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8059404.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80594fc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80595fc.s");

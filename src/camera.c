@@ -7,7 +7,12 @@
 #include "layer.h"
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805e878.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805e8a0.s");
+
+void sub_805E8A0(CameraState* camera, unk32* arg1, unk16 arg2, unk32* arg3)
+{
+    sub_805E8D8(camera, arg1, arg2, arg3);
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805e8b0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e8d8.s");
 
@@ -69,5 +74,10 @@ unk32* sub_805EEE0(CameraState* arg0)
     return &arg0->unk228;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805eefc.s");
+void sub_805EEFC(CameraState* camera, unk32 arg1, unk32 arg2)
+{
+    camera->unk364 = arg1;
+    camera->unk368 = arg2;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805ef18.s");

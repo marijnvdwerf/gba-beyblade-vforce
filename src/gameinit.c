@@ -337,7 +337,26 @@ void sub_80539E8(Actor* actor)
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/80539e8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8053b04-initCollisionData.s");
+
+void initCollisionData(void)
+{
+    s16 levelNo;
+    LevelGeometryTable* geometry;
+    LineMetadata** metadata;
+    LevelDescription* description;
+    LevelGeometryAddresses* collision;
+
+    levelNo = (unk16)GetLevelDescriptionNo();
+    metadata = getLevelMetadata((unk16)getSomeLevelID());
+    description = getLevelDescription2();
+    geometry = LevelDesigns[levelNo].geometry;
+    collision = &_gameData->unk65C;
+    if (geometry != NULL) {
+        newCollisionDataRam(collision, geometry, 3);
+    }
+    StoreMetadataAddr(&_gameData->unk65C, metadata);
+    initQuadTree(&_gameData->unk7A4, collision, description->unkC, 0x400, 0x80, 0x20);
+}
 
 void sub_8053B94(void)
 {
