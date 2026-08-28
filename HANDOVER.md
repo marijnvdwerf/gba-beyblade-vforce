@@ -68,7 +68,11 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   Remaining from that batch, untouched: sub_805EB00, actor_8057C58,
   sub_80596AC[raw1], sub_80526C8, actor_805C48C.
   From-asm yield this wave: 2/12 (festate-A 2/6, geometry 0/6).
-  Festate-B batch queued after the union agent merges (same TU).
+  Union agent (sprite frame pun) produced nothing — see LoadSpriteSheet row.
+  User decision 2026-08-28: measure asmlift as a draft source BEFORE any more
+  from-asm batches (festate-B / geometry redo paused). asmlift stash applied
+  to main as untracked decomp.yaml + docs/asmlift.md; measurement agent
+  writes /tmp/asmlift-report.md and /tmp/asmlift-out/*.c.
   Newly parked: sub_805041C (motion, near-match: reset-store register seq +
   2-byte delta; draft in migrate-frontend-music.md), sub_804967C (frontend,
   extra high-reg saves), sub_806014C (multiplayer, reload only reproduces
@@ -297,7 +301,7 @@ never attempted). All still INCLUDE_ASM, no drafts parked.
 | sub_8049458 (frontend.c) | 166 | `#if 0` | only the final `unk584 == unk586` block's temps permute; odd early `mov r4,#0` across a call — processed/frontend.md |
 | initRiders (gameinit.c) | 349 | `#if 0` | frame 0x138 vs 0x134 (one extra spilled local); riderIndex r8 vs r9 — processed/initriders.md |
 | initMultiPlayer (multiplayer.c) | 137 | `#if 0` | arg regs r8/r5 + normalization sequence — processed/init-functions.md |
-| LoadSpriteSheet (sprite.c) | 99 | `#if 0` | proven pun at SpriteEntry+0x18 (strh) / +0x19 (ldrb); user approved a documented 2-byte union, which reproduces both in isolation, but the function still diverges on stack-arg scheduling ([sp,#36] must load before [sp,#40]) — u16-byte-narrowing.md; next attempt: union sized exactly 2 bytes + consume 5th param first |
+| LoadSpriteSheet (sprite.c) | 99 | `#if 0` | proven pun at SpriteEntry+0x18 (strh) / +0x19 (ldrb); user approved a documented 2-byte union — BUT (2026-08-28, union agent) under old_agbcc `union { u16 word; struct { u8 frame; u8 unk19; } b; }` occupies 4 bytes inside SpriteEntry and shifts var24/unk28/unk30, breaking every sprite.c/spritetext.c match; packing pragmas ignored, attributes forbidden. Untried: `union { u16 word; u8 b[2]; }`. Same pun blocks sub_8047E5C and sub_8045CB4 (festate) — u16-byte-narrowing.md |
 | sub_80627F0 (sound.c) | 145 | `#if 0` | genuinely dead `(var08+1)&-2` retained by target (shared -2 in r5); agbcc DCEs it — sound-2.md |
 | sub_806123C (spritetext.c) | 356 | `#if 0` | push mask/frame/slots match; early register roles + spills differ — spritetext-2.md |
 | resizeSpriteBlock (sprite.c) | 134 | `#if 0` | register allocation of normalized args/list nodes — sprite-resize.md |
