@@ -275,12 +275,12 @@ void sub_8049F9C(FrontendState* arg0, unk32 arg1)
 
 void sub_8049FF8(FrontendState* state, unk32 command)
 {
-    s32 blend = 6;
+    s32 blend;
     s32 result;
     s32 value;
     s32 high;
-    s8* valuePtr;
-    vu16* output;
+
+    blend = 6;
     switch (command) {
     case 2:
         state->transition.value = 0x40;
@@ -296,21 +296,20 @@ void sub_8049FF8(FrontendState* state, unk32 command)
         *(vu16*)REG_DISPCNT |= 0x200;
         break;
     case 4:
-        valuePtr = &state->transition.value;
-        value = *valuePtr;
+        value = state->transition.value;
         result = value;
         result *= blend;
         blend = result >> 6;
         high = 16 - (value >> 4);
-        output = (vu16*)REG_BLDALPHA;
-        blend |= high << 8;
-        *output = blend;
+        *(vu16*)REG_BLDALPHA = blend | (high << 8);
         break;
     case 1:
-        if (state->transition.value == 0)
+        if (state->transition.value == 0) {
             *(vu16*)REG_DISPCNT &= 0xFDFF;
-        if ((unk8)state->transition.value == 0x40)
+        }
+        if ((unk8)state->transition.value == 0x40) {
             Background_80498D8();
+        }
         break;
     }
 }

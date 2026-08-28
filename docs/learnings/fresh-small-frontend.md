@@ -18,3 +18,13 @@ First divergence in the closest draft is at the final axis-selection sequence af
 | 6. Declaration scope | Cached `mode3`, `axisFlag`, and `reflect` for the loop; kept `horizontal`, `vertical`, `boundary`, and `delta` as function locals. Tried a late axis temporary and removed it when agbcc coalesced it without improving the output. | The cached mode flags reproduce the target saved-register allocation. The remaining axis-register movement was not recovered without an artificial temporary or an unnatural source rewrite. |
 
 The best draft was retained directly above the `INCLUDE_ASM` line inside a bare `#if 0` block, as required for a parked function.
+
+## sub_8049FF8
+
+The transition field at `FrontendTransition.value` is a proven width pun. The case-4 blend calculation reads it with `ldrsb` at target address offset `0x96`, while case 1 reads the same storage with `ldrb` at target address offset `0xD0`. The signed field declaration is retained; the unsigned case-1 access remains an explicit cast at that consumer.
+
+Removing the value-pointer and output-pointer aliases initially moved the `REG_BLDALPHA` address load after the bitwise combination. Combining the expression directly in the register assignment, `*(vu16*)REG_BLDALPHA = blend | (high << 8);`, restored the target address-load order and matched all instructions.
+
+## sub_8050A50
+
+`DisplayRecord` is a fixed 0x88-byte record, and `DisplayData.ptrC` is typed as `DisplayRecord*`. Both a typed cursor and an indexed countdown loop were tested. The typed cursor changed the first divergence to the prologue because the compiler no longer kept the display base live across the call. The indexed countdown loop matched the body and differed first at the two initialization instructions: target `mov r5, #0` then `mov r4, r0`, candidate `mov r4, r0` then `mov r5, #0`. The existing exact form therefore remains pending a natural source shape that satisfies both the array rule and byte matching.
