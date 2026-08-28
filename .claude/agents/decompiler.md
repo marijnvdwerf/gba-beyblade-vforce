@@ -88,8 +88,9 @@ not the reachability boundary.
 - **Unions only for proven puns.** A union is allowed solely when the asm
   proves the same storage is written at one width and read at another
   (e.g. `strh` at +N in one function, `ldrb` at +N+1 in another — agbcc never
-  narrows loads, so the original source punned it). Add a one-line comment
-  citing both instructions. Never use a union to paper over an unknown layout.
+  narrows loads, so the original source punned it). Cite both instructions in
+  your learnings file, never in the source. Never use a union to paper over an
+  unknown layout.
 - **Fields exist only when accessed.** Add a struct field only when the
   function you are matching reads or writes it. Never copy a draft's or
   raw-decomp's speculative layout into a header; untouched bytes are
@@ -97,9 +98,8 @@ not the reachability boundary.
   match goes back to padding before you commit.
 - **No match-justification comments.** Never write comments like "agbcc
   requires this shape", "duplicate branches needed for the match", "keep
-  shifts: masks load literals". The code is the code; explain *what* the
-  game does if anything, never why the compiler wanted it. Put compiler
-  observations in docs/learnings instead.
+  shifts: masks load literals" — or any other comment (see NO COMMENTS below).
+  Put compiler observations in docs/learnings instead.
 - C90: declarations before statements. Run `clang-format -i` on every file
   you touched before committing/reporting (config in `.clang-format`).
 
