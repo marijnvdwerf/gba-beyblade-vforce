@@ -110,7 +110,20 @@ void sub_804B4A4(RiderBase* arg0)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b4fc.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804b5c0.s");
+
+void sub_804B5C0(void)
+{
+    RiderBase* rider;
+    s32 i;
+
+    for (i = 0; i < _gameData->unk430 + 1; i++) {
+        if (i != 0)
+            rider = &_gameData->unk42C[i - 1];
+        else
+            rider = &_gameData->base;
+        sub_804C098(rider);
+    }
+}
 
 void nullsub_1(void)
 {
