@@ -403,6 +403,11 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   in docs/learnings/leaves-n4.md; headers untouched). Follow-up: the backup.c
   draft uses a raw `*(vu16*)0x0D000000` — replace with the memory_map name
   when the function is retried.
+- RULING (user, 2026-08-28): sub_8059B00's record aliases into
+  `_unk3000D00[index]` are accepted ("looks pretty sane") — pointer-to-RECORD
+  aliases are source; pointer-to-SCALAR-global aliases stay banned
+  (decompiler.md updated). resizeSpriteBlock's draft wants `&_spritesFree`
+  (scalar) — still parked unless ruled otherwise.
 - WAVE N RESULT: 5/13 matched (all four N1 tiny ones + sub_8043604), 8
   parked. The fresh pool is now EMPTY: every remaining red is parked with a
   draft, ARM (render_*), or ≥200 insns. Next step needs the user's rulings.

@@ -110,12 +110,14 @@ not the reachability boundary.
 - A `lsl #24 … lsr #24` dance usually means an argument or field is really
   `u8` — fix the type, don't transcribe the shifts.
 - Named temporaries steer register allocation when instructions are right but
-  registers differ. Introduce them one at a time. But a pointer-to-global
-  alias (`T* p = &_global; *p = v;`), a block wrapped in extra braces just to
-  scope such an alias, or a second struct type describing an existing layout
-  ("View" structs like `FrontendSpriteEntry` over `SpriteEntry`, then
-  casting between them) are levers, not source — they are rejected at
-  merge even when they match.
+  registers differ. Introduce them one at a time. A pointer to a RECORD is
+  fine and often the real source shape: `T* rec = &_table[i];`,
+  `Sub* s = &_big.sub;` (user-accepted precedent: sub_8059B00, sub_8048FFC).
+  But a pointer alias to a SCALAR global (`u32* p = &_counter; *p = v;`), a
+  block wrapped in extra braces just to scope an alias, or a second struct
+  type describing an existing layout ("View" structs like
+  `FrontendSpriteEntry` over `SpriteEntry`, then casting between them) are
+  levers, not source — they are rejected at merge even when they match.
 - `volatile` is NOT a matching lever: never on locals, parameters, struct
   fields or pointee types. Its only sanctioned use is hardware registers
   (`*(vu16 *)REG_*`). If a reload/ordering only reproduces with `volatile`,
