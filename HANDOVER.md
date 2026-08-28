@@ -305,6 +305,18 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   sub_8054278, sub_805AD9C (menu), initCollisionData, sub_8059310 (layer).
   Held for after leaf B merges (its TUs): sub_8058754, sub_80584B8 (actor.c),
   sub_804B624 (rider.c). Never-assigned large reds unchanged (11, ≥329).
+- Leaf B: 8 matched MERGED (51fec5c + fix): sub_804E584,
+  getBeybladeActorData, rider_8058614, sub_80585C8, sub_804C098,
+  sub_804E530, sub_8058EF4, ActorSetFrameSequence. Its 9th commit (parking +
+  header layouts for parked drafts) broke the ROM and was NOT merged; the
+  agent also wrote drafts into the MAIN checkout (removed; diff in
+  /tmp/stray-leafB-main-edits.diff) and is redoing the parking commit.
+  Merge lesson: sub_8061078's parameter is unk16 — the CALLER (sub_804E530)
+  narrows before the call, so a prototype width is decided by matched
+  callers as much as by the definition (leaf A had matched the callee with
+  `unk32 frame` + `u16 value` only because its header said unk32).
+  Process lesson: gate `tools/update-expected` on a 100% compare — I ran it
+  twice on non-green trees this session.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
@@ -391,7 +403,7 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 
 ## State
 
-Progress: 12/66 TUs done, 423 C functions, 584 INCLUDE_ASM remaining (42%).
+Progress: 12/66 TUs done, 432 C functions, 575 INCLUDE_ASM remaining (43%).
 Session 3 merged 97 functions (batches 1–17, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
