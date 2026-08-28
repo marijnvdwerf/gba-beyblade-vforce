@@ -8,6 +8,7 @@
 #include "sprite.h"
 #include "unsorted.h"
 
+void sub_80581B8(Actor*);
 void sub_8058838(Actor*);
 void actor_8058638(Actor*);
 
@@ -109,7 +110,7 @@ void ActorSetFrameSequence(Actor* actor, unk32 sequence)
     unk8 configFlags;
     unk8 flags;
     unk16 frameOffset;
-    unk32 frameCount;
+    unk16 frameCount;
     unk32 endFrame;
 
     sequenceData = &actor->unk0->sequences[sequence];
@@ -269,6 +270,71 @@ void ActorSetSpriteOffset(EnvironmentActorSlot* actor, unk16 arg1, unk16 arg2)
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8058630.s");
+
+#if 0
+void actor_8058638(Actor* actor)
+{
+    ActorFrameSequence* sequence;
+    unk16 frameCount;
+    unk16* frames;
+    unk16 frameOffset;
+    ActorConfig* config;
+    unk32 baseValue;
+    unk32 frameValue;
+    unk16 effectiveFrameValue;
+
+    config = actor->unk0;
+    sequence = &config->sequences[actor->unk20];
+    if ((actor->unk98 & 4) != 0) {
+        frames = NULL;
+    } else {
+        frames = config->frameValues + config->unk8;
+        if (frames == config->frameValuesEnd) {
+            frames = NULL;
+        }
+    }
+    baseValue = actor->unk34 + actor->unk36;
+    frameValue = (frames != NULL ? baseValue + frames[actor->unk22] : baseValue) << 16;
+    effectiveFrameValue = frameValue >> 16;
+    if (effectiveFrameValue < _unk3000E30[2]) {
+        effectiveFrameValue = _unk3000E30[2];
+    }
+    if (_unk3000E30[0] - actor->unk58 < effectiveFrameValue) {
+        return;
+    }
+    actor->unk58 += effectiveFrameValue;
+    frameOffset = sequence->unk0;
+    frameCount = sequence->unk2;
+    actor->unk60 = actor->unk22;
+    if ((actor->unk33 & 2) != 0) {
+        actor->unk22--;
+    } else {
+        actor->unk22++;
+    }
+    if (actor->unk22 > frameOffset + (frameCount - 1)) {
+        if ((sequence->flag & 1) != 0) {
+            sequence->flag ^= 2;
+            actor->unk22 = frameOffset + (frameCount - 2);
+        } else {
+            actor->unk22 = frameOffset;
+        }
+        actor->unk24++;
+    }
+    if (actor->unk22 < frameOffset) {
+        if ((sequence->flag & 1) != 0) {
+            sequence->flag ^= 2;
+            actor->unk22 = frameOffset + 1;
+        } else {
+            actor->unk22 = frameOffset + (frameCount - 1);
+        }
+        actor->unk24++;
+    }
+    if (actor->unk32 != 0 && actor->unk24 >= actor->unk32) {
+        sub_80581B8(actor);
+    }
+}
+
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8058638-actor_8058638.s");
 
 void sub_8058754(Actor* actor, unk32* output)
