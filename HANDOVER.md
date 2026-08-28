@@ -382,6 +382,11 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   docs/learnings/leaves-k.md. Manager note: a `grep "tests passed"` gate
   matched "0% tests passed" once and let a red merge through (reset
   immediately); gates must use `grep -q "^100% tests passed"`.
+- Leaf J merged (parked drafts only): sub_804DAA0, sub_804B7FC both diverge
+  at the prologue (frame size / which value is spilled); proven RiderBase
+  layout (unk20C RiderBase*, unk210 s32, unk21E/unk220 s16) recorded in
+  docs/learnings/leaves-j.md, NOT in headers. Agent violated no-SendMessage
+  and first shipped cast-and-offset drafts + header fields; fixed on resend.
 - Running: leaf L
   (menuobject.c sub_8043370 176, camera.c sub_805EBCC 199).
 - Running: leaf I (actor.c: sub_8058838 53, actor_8058638 137) and leaf J
