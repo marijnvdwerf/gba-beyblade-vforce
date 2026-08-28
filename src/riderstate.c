@@ -6,6 +6,8 @@
 #include "ram.h"
 #include "unsorted.h"
 
+extern const unk8 Str_872704C[];
+
 void sub_804FF5C(void* arg0)
 {
     __fastMemoryClearARM(0, arg0, 0x10);
@@ -13,7 +15,21 @@ void sub_804FF5C(void* arg0)
     _unk3000F40 = 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ff88.s");
+void sub_804FF88(unk16 arg0)
+{
+    s32 index;
+
+    if (_unk3000F40 > 0xF) {
+        printf(Str_872704C);
+    }
+    index = _unk3000F44;
+    index += _unk3000F40;
+    if (index > 0xF) {
+        index -= 0x10;
+    }
+    _unk3000F20[index] = arg0;
+    _unk3000F40++;
+}
 
 void sub_804FFD4(void)
 {

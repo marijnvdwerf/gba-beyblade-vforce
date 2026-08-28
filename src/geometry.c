@@ -1,10 +1,13 @@
 #include "geometry.h"
 
+#include "debug.h"
 #include "include_asm.h"
 #include "ram.h"
 #include "system.h"
+#include "unsorted.h"
 
 extern const unk8 Str_87553D0[];
+extern const unk8 Str_875540C[];
 
 void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable* geometry)
 {
@@ -28,7 +31,62 @@ void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable*
     arg0->unk118 = 0;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805b938-newCollisionDataRam.s");
+void newCollisionDataRam(
+    LevelGeometryAddresses* addresses, LevelGeometryTable* geometry, unk16 flags)
+{
+    unk32 pointBytes;
+    unk32 lineBytes;
+    unk32 bytes;
+    unk16 normalizedFlags;
+    unk16 count;
+    s16 i;
+    unk8* cursor;
+
+    normalizedFlags = flags;
+    pointBytes = geometry->pointCount << 4;
+    lineBytes = geometry->lineCount << 5;
+    bytes = 0;
+    cursor = NULL;
+    addresses->unk0 = geometry;
+    addresses->unk4 = (GeometryPoint*)((unk8*)geometry + geometry->pointOffset);
+    addresses->unk8 = (GeometrySpline*)((unk8*)geometry + geometry->splineOffset);
+    addresses->unkC = (GeometryLine*)((unk8*)geometry + geometry->lineOffset);
+    addresses->unk118 = normalizedFlags;
+    if ((normalizedFlags & 1) != 0) {
+        bytes = pointBytes;
+    }
+    if ((normalizedFlags & 2) != 0) {
+        bytes += lineBytes;
+    }
+    if (bytes != 0) {
+        addresses->block = slowAllocate(bytes);
+    } else {
+        addresses->block = NULL;
+    }
+    if (addresses->block == NULL) {
+        printf(Str_875540C, bytes);
+    } else {
+        cursor = addresses->block->address;
+        if ((normalizedFlags & 1) != 0) {
+            __fastMemoryCopyARM(addresses->unk4, cursor, pointBytes);
+            addresses->unk4 = (GeometryPoint*)cursor;
+            cursor += pointBytes;
+        }
+        if ((normalizedFlags & 2) != 0) {
+            __fastMemoryCopyARM(addresses->unkC, cursor, lineBytes);
+            addresses->unkC = (GeometryLine*)cursor;
+        }
+    }
+    count = addresses->unk0->count.splineCount;
+    if (addresses->unk0->count.splineCount > 0x40) {
+        count = 0x40;
+        nullsub_8(Str_87553D0);
+    }
+    for (i = 0; i < (s16)count; i++) {
+        addresses->unk14[i] = GetSplineAtIndex(addresses, i);
+    }
+    addresses->unk114 = NULL;
+}
 
 void sub_805BA3C(LevelGeometryAddresses* arg0)
 {
@@ -132,7 +190,12 @@ LineMetaObject* getLineMetaobjectByTypeAndId(
     return NULL;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805bb9c-initQuadTree.s");
+void initQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 arg2, unk16 arg3,
+    unk16 arg4, unk16 arg5)
+{
+    allocQuadTree(quadTree, geometry, arg2, arg3, arg4, arg5, 0);
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805bbc8-allocQuadTree.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bdbc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bf18.s");
