@@ -370,6 +370,8 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   `_unk3000F20` = unk16[16], `_unk3000F40/F44` s16 (now with a matched
   user). Temp-reduction note: newCollisionDataRam has `(s16)count` on a
   local — try `s16 count`.
+- Leaf D merged (sub_8058754, sub_80584B8; sub_804B624 parked with draft in
+  rider.c): 12/66 TUs, 446 C, 561 asm, 44%.
 - Reds on main: 37 (excluding the bogus copy/handler symbols). Small pool
   exhausted until leaf D (rider.c) and leaf H (layer.c) merge; then
   sub_804B7FC (110). Everything else ≥143 insns or parked with a draft.
