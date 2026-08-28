@@ -4,7 +4,6 @@
 #include "common.h"
 #include "menu.h"
 
-FrontendState* sub_8048FCC(void);
 void sub_805AD9C(MenuState*);
 void sub_8043604(UnkMenuItem*, s32, UnkMenuItem*, s32);
 void sub_80434EC(FrontendState*);

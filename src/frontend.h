@@ -24,7 +24,11 @@ extern const FrontendSelectionRecord _8069FC8[];
 extern const unk8 SpriteSheet_82B05EC[];
 extern const unk8 ShadowFontMeta[];
 extern const unk8* _806E650[];
+extern const FrontendMotionData _8068840;
+extern const s32 _8068868[];
+extern const FrontendMotionData _8068890;
 
+FrontendState* sub_8048FCC(void);
 void sub_8049018(void);
 void sub_80490CC(unk32, unk32);
 void sub_80490F8(unk32);

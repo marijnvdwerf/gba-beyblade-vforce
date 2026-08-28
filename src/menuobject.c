@@ -87,8 +87,6 @@ void sub_80434EC(FrontendState* object)
     }
 }
 
-extern const s32 _8068868[];
-
 void sub_8043558(FrontendState* object)
 {
     s32 i;
@@ -120,9 +118,6 @@ void sub_8043558(FrontendState* object)
         }
     }
 }
-
-extern const FrontendMotionData _8068890;
-extern void sub_80622E8(UnkMenuItem*, SpriteTextCleanup*);
 
 void sub_8043604(UnkMenuItem* oldItem, s32 old, UnkMenuItem* item, s32 current)
 {
