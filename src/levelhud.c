@@ -1,11 +1,56 @@
 #include "levelhud.h"
 
+#include "gamestate.h"
 #include "include_asm.h"
 #include "language.h"
 #include "motion.h"
 #include "ram.h"
 #include "spritetext.h"
+#include "unsorted.h"
 
+#if 0
+void sub_804F878(void)
+{
+    GameData* state;
+    SpriteTextCleanup* hud;
+    LevelDescription* description;
+    const unk8* const* table;
+    MotionGroup* motion;
+    unk32 language;
+
+    state = _gameData;
+    hud = &state->levelHud0;
+    description = getLevelDescription2();
+    sub_804FD64();
+    state->unk105E |= 2;
+    if (sub_8051780(4) != 0) {
+        if (_currentGameState->unk6A4 == 2) {
+            table = description->unk94;
+        } else {
+            table = description->unkA8;
+        }
+        language = getLanguage();
+        sub_8061660(hud, table[language], 0xD);
+    } else {
+        language = getLanguage();
+        sub_8061660(hud, description->unk68[language], 0xD);
+        hud = &state->levelHud1;
+        language = getLanguage();
+        sub_8061660(hud, description->unk68[5 + language], 0xD);
+        motion = &state->levelHudMotion1;
+        newMotionGroup(motion, &state->levelHud1.unk14, 2);
+        sub_8050578(motion, 0x5800, 0x100);
+        sub_80504E4(motion, 0, -0x34, 0, -10);
+        state->unk105E |= 4;
+    }
+    motion = &state->levelHudMotion0;
+    newMotionGroup(motion, &state->levelHud0.unk14, 2);
+    sub_8050578(motion, 0x4800, 0x100);
+    sub_80504E4(motion, 0, 0x34, 0, 0x14);
+    state->levelHudStatus = 0x80;
+    state->unk105A = 1;
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f878.s");
 
 void sub_804F9B4(void)

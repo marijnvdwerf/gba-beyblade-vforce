@@ -42,6 +42,94 @@ void InitCurrentGameState(void)
     sub_80510FC();
 }
 
+#if 0
+void sub_80510FC(void)
+{
+    CurrentGameState* state;
+    LevelState* levelState;
+    Unk80516E0* entry;
+    s32 index;
+    s32 offset;
+    unk32 found;
+    s32 value;
+    unk32 j;
+
+    {
+        unk32 zero;
+
+        state = _currentGameState;
+        zero = 0;
+        state->unk0 = zero;
+        state->unk6E8.half = zero;
+        state->unk6AB = 1;
+        state->unk6BC = 0;
+        state->unk6EA = 0xFFFF;
+    }
+    index = 0;
+    do {
+        levelState = sub_8051720(index);
+        levelState->unkC = &LevelDescriptions[index];
+        levelState->unk4 = levelState->unkC->unk4;
+        levelState->unk8 = levelState->unkC->unk8;
+        if (index <= 0) {
+            levelState->unk0 = 6;
+        } else {
+            levelState->unk0 = 4;
+        }
+        __fastMemoryClearARM(0, &levelState->unk10, 4);
+        __fastMemoryClearARM(0, &levelState->unk14, 4);
+        index++;
+    } while (index <= 0x37);
+
+    index = 0;
+    offset = 0;
+    do {
+        entry = sub_80516E0(index);
+        entry->unk4 = &_807582c[offset];
+        entry->unk0 = 0;
+        entry->unk2 = 0;
+        offset += 0x50;
+        index++;
+    } while (index <= 9);
+
+    __fastMemoryCopyARM(_807572c, _currentGameState->unk5A4, 0x40);
+    __fastMemoryCopyARM(_807576c, _currentGameState->unk5E4, 0x40);
+    __fastMemoryCopyARM(_80757ac, _currentGameState->unk624, 0x40);
+    __fastMemoryCopyARM(_80757ec, _currentGameState->unk664, 0x40);
+    {
+        unk32 zero;
+
+        state = _currentGameState;
+        zero = 0;
+        state->unk6A9 = zero;
+        state->unk6A8 = zero;
+        state->unk6A7 = zero;
+        state->unk6A6 = zero;
+        state->unk6A5 = zero;
+        state->unk6A4 = zero;
+    }
+
+    index = 0;
+    do {
+        j = 0;
+        found = 0;
+        value = _80788cc[j];
+        while (value >= 0 && value != index) {
+            j++;
+            value = _80788cc[j];
+        }
+        if (value < 0 || value == index) {
+            found = 1;
+        }
+        if (index < 0) {
+            found = 1;
+        }
+        sub_8057104(index, found);
+        index++;
+    } while (index <= 0x6C);
+    _gameData->unk1638 = 0;
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/80510fc.s");
 
 void sub_80512AC(void)
@@ -240,7 +328,7 @@ unk32 sub_8051744(void)
 
 u8 sub_805176C(void)
 {
-    return _currentGameState->unk6E8;
+    return _currentGameState->unk6E8.byte;
 }
 
 unk32 sub_8051780(unk32 arg0)
