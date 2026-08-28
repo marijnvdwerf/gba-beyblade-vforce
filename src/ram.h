@@ -312,7 +312,7 @@ typedef struct CurrentGameState {
     u8 unk2;
     u8 unk3;
     LevelState unk4[0x38];
-    Unk80516E0 unk544[10];
+    LevelSlot unk544[10];
     unk8 unk594[0x10];
     unk8 pad5A4[0x100];
     unk8 unk6A4;
@@ -348,7 +348,7 @@ extern GameData* _gameData;
 extern EnvironmentObject* GetStruct4(unk32);
 extern u32 _unk3000E30[3];
 extern CurrentGameState* _currentGameState;
-extern Unk3000BE0 _unk3000BE0;
+extern unk8 _unk3000BE0[28];
 extern void* _unk3000FC0[4];
 extern unk32 _unk3000FD0[4];
 extern unk8 _unk3000FE0[304];

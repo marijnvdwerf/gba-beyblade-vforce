@@ -54,8 +54,9 @@ void sub_8043558(FrontendState* object)
         while (i < object->menuState.objectCount) {
             odd = i & 1;
             direction = -1;
-            if (odd != 0)
+            if (odd != 0) {
                 direction = 1;
+            }
             sub_8050584(motion);
             newMotionGroup(motion, &item->text.unk14, 0);
             sub_80504E4(motion, table[0] * direction, table[1], table[2], table[3]);
@@ -77,8 +78,9 @@ void sub_80436B0(FrontendState* object)
 
     item = object->menuState.objectItems;
     count = object->menuState.objectCount;
-    if (count == 0)
+    if (count == 0) {
         return;
+    }
     while (count-- != 0) {
         sub_8050584(item);
         item++;

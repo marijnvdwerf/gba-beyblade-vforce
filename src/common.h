@@ -713,12 +713,12 @@ typedef struct MultiPlayerAllocation {
     unk8 data[1];
 } MultiPlayerAllocation;
 
-typedef struct Unk80516E0 {
+typedef struct LevelSlot {
     unk8 unk0;
     unk8 pad1;
     unk16 unk2;
     void* unk4;
-} Unk80516E0;
+} LevelSlot;
 
 typedef struct LevelDescription {
     u8 unk0;

@@ -47,7 +47,7 @@ void sub_80510FC(void)
 {
     CurrentGameState* state;
     LevelState* levelState;
-    Unk80516E0* entry;
+    LevelSlot* entry;
     s32 index;
     s32 offset;
     unk32 found;
@@ -290,7 +290,7 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/80516b0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80516c0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80516d4.s");
 
-Unk80516E0* sub_80516E0(unk32 index)
+LevelSlot* sub_80516E0(unk32 index)
 {
     return &_currentGameState->unk544[index];
 }
