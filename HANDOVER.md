@@ -372,6 +372,11 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   local — try `s16 count`.
 - Leaf D merged (sub_8058754, sub_80584B8; sub_804B624 parked with draft in
   rider.c): 12/66 TUs, 446 C, 561 asm, 44%.
+- Leaf H merged: sub_8059B00 (layer.c). FLAG for user: only the form with
+  sub-object aliases into _unk3000D00[index] (matrixA/B/C, base/transform)
+  matches — same lever class as the accepted sub_8048FFC precedent; step
+  table + LayerTransformValue word/half pun proof in docs/learnings/leaves-h.md.
+  Merged under that precedent; revert if the user rules otherwise.
 - Running: leaf I (actor.c: sub_8058838 53, actor_8058638 137) and leaf J
   (riderphysics.c sub_804DAA0 109, rider.c sub_804B7FC 112). Leaf H (layer.c
   sub_8059B00) still running. Remaining reds <=200 after those: sub_8046A0C
