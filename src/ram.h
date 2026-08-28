@@ -389,6 +389,13 @@ extern SpriteEntry* _unk30005B0;
 extern SpriteEntry* _unk30005B4;
 extern s32 _unk30005B8;
 extern s32 _unk30005BC;
+extern SpriteEntry* _unk3000568;
+extern SpriteEntry* _unk300056C;
+extern SpriteEntry* _unk3000570;
+extern s32 _unk3000574;
+extern s32 _unk3000578;
+extern s32 _unk300057C;
+extern SpriteTextCleanup _unk3000580;
 
 typedef struct FrontendCoordinateTarget {
     s32 value;

@@ -5,7 +5,10 @@
 
 extern const unk8 SpriteSheet_823BF04[];
 extern const unk8 SpriteSheet_8243874[];
+extern const unk8 SpriteSheet_8251F40[];
+extern const unk8 SpriteSheet_8252994[];
 extern const unk8* _806DB8C[][5];
+extern const unk8* _806E3B0[][5];
 extern const unk8 Str_86FD470[];
 extern const FrontendMenuData _80689A4[];
 extern const FrontendMenuData _80692A4[];

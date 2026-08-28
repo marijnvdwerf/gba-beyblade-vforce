@@ -1061,7 +1061,85 @@ INCLUDE_ASM("asm/dump/8040d18/80470c8.s");
 INCLUDE_ASM("asm/dump/8040d18/804712c.s");
 INCLUDE_ASM("asm/dump/8040d18/8047494.s");
 INCLUDE_ASM("asm/dump/8040d18/80475e0-selectBladeFrontendHandler.s");
-INCLUDE_ASM("asm/dump/8040d18/8047e5c.s");
+
+void sub_8047E5C(FrontendState* state, unk32 arg1)
+{
+    SpriteEntry* sprite1;
+    SpriteEntry* sprite2;
+    SpriteEntry* sprite3;
+    s32 initialScroll;
+    s32 fontX;
+    s32 scrollDelta;
+    GameData* gameData;
+
+    switch (arg1) {
+    case 0:
+        sub_8049168();
+        state->unk7F = 0;
+        gameData = _gameData;
+        gameData->unk1618 = 0;
+        gameData->unk1619 = 0;
+        gameData->unk161A = 0;
+        sub_80600B4();
+        sprite1 = allocSprite(0);
+        _unk3000568 = sprite1;
+        sprite2 = allocSprite(0);
+        _unk300056C = sprite2;
+        sprite3 = allocSprite(0);
+        _unk3000570 = sprite3;
+        _unk3000574 = (0xA0 << 5);
+        LoadSpriteSheet(_unk3000568, SpriteSheet_8251F40, 0x10000, 0x3600, 0, 0, 0, 0);
+        LoadSpriteSheet(_unk300056C, SpriteSheet_8251F40, 0x18000, 0x3600, 0, 0, 0, 0);
+        LoadSpriteSheet(_unk3000570, SpriteSheet_8252994, 0x14000, 0x4000, 0, 0, 0, 0);
+        _unk3000570->frame.word = 8;
+        _unk3000578 = 0;
+        initialScroll = 0x10000;
+        _unk300057C = initialScroll;
+        sub_80596AC(&state->unk250, -initialScroll, 0);
+        allocFont(&_unk3000580, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x69, 0xC8, 2);
+        sub_8061660(&_unk3000580, _806E3B0[0][getLanguage()], 0xF);
+        break;
+    case 1:
+        fontX = _unk3000580.x;
+        sub_80439A0(&state->unk140);
+        fontX += (_unk3000574 - fontX) >> 2;
+        sub_8061844(&_unk3000580, fontX >> 8, 0x69);
+        _unk3000568->x += (_unk3000574 - _unk3000568->x + (0x80 << 3)) >> 2;
+        _unk300056C->x += (_unk3000574 - _unk300056C->x + (0x84 << 8)) >> 2;
+        _unk3000570->x += (_unk3000574 - _unk3000570->x + (0x88 << 7)) >> 2;
+        scrollDelta = (_unk3000578 - _unk300057C) >> 2;
+        sub_80596AC(&state->unk250, -scrollDelta, 0);
+        _unk300057C += scrollDelta;
+        if (((sub_8057C40() >> 4) & 0xF) == 0) {
+            _unk3000570->frame.word++;
+            if (_unk3000570->frame.word > 0xA) {
+                _unk3000570->frame.word = 8;
+            }
+        }
+        break;
+    case 7:
+        if (_unk3000568 != NULL) {
+            sub_8060A94(_unk3000568);
+        }
+        if (_unk300056C != NULL) {
+            sub_8060A94(_unk300056C);
+        }
+        if (_unk3000570 != NULL) {
+            sub_8060A94(_unk3000570);
+        }
+        sub_8061204(&_unk3000580);
+        break;
+    case 2:
+        if (_unk3005DA0 == 1) {
+            _unk3000574 = 0x10000;
+            _unk3000578 = 0x10000;
+            sub_80490F8(0xA);
+        }
+        break;
+    default:
+        break;
+    }
+}
 
 void sub_80480EC(FrontendState* state, unk32 arg1)
 {
