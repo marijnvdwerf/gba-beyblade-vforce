@@ -6,7 +6,9 @@
 
 typedef struct CameraDisplayEntry {
     struct DisplayRecord* display;
-    unk8 pad4[0x14];
+    unk8 pad4[0x10];
+    unk16 unk14;
+    unk8 pad16[2];
 } CameraDisplayEntry;
 
 typedef struct CameraSubState {
@@ -30,12 +32,16 @@ typedef struct CameraState {
     unk8 unk356;
     unk8 pad357;
     unk16 unk358;
-    unk8 pad35A[0xA];
+    unk8 pad35A[2];
+    unk16 unk35C;
+    unk8 pad35E[2];
+    unk16 unk360;
+    unk8 pad362[2];
     unk32 unk364;
     unk32 unk368;
 } CameraState;
 
-void nullsub_12(void*);
+void* nullsub_12(void*);
 void sub_805EADC(CameraState*);
 void sub_805EB00(CameraState*);
 void sub_805EBCC(CameraState*);
