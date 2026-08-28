@@ -362,9 +362,8 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   newCollisionDataRam. Held for after leaf D merges: sub_804B7FC (rider.c,
   110). Callgraph now also lists bogus `copy`/`handler` symbols (parsed
   from draft text) — ignore.
-- Leaf F: 2/2 matched (getLineMetaAtIndex, sub_8058F60; DisplayRecord
-  0x28–0x50 typed, `_unk3000D00` = LayerTransformRecord[2]); in review
-  (field-pointer alias + cast in sub_8058F60, prototypes to layer.h).
+- Leaf F MERGED: getLineMetaAtIndex, sub_8058F60 (DisplayRecord 0x28–0x50
+  typed; `_unk3000D00` = LayerTransformRecord[2]).
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
@@ -451,7 +450,7 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 
 ## State
 
-Progress: 12/66 TUs done, 439 C functions, 568 INCLUDE_ASM remaining (44%).
+Progress: 12/66 TUs done, 441 C functions, 566 INCLUDE_ASM remaining (44%).
 Session 3 merged 97 functions (batches 1–17, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
