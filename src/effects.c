@@ -4,7 +4,43 @@
 #include "projectile.h"
 #include "ram.h"
 
+#if 0 /* NONMATCHING: prologue differs at 0x0; draft is 0x32 bytes shorter */
+void sub_805529C(void)
+{
+    s32 angle;
+    unk32 i;
+    unk32 offset;
+    unk8* layer;
+    GameData* gameData;
+    ProjectileSystem* effect;
+
+    gameData = _gameData;
+    effect = &gameData->projectileSystem;
+    if (effect->unk28 != 0) {
+        angle = _unk3000E30[0] >> 4;
+        angle = (angle << 29) >> 23;
+        angle = *(const unk16*)((const unk8*)Unk_874CC3C + angle);
+        angle = (angle << 16) >> 23;
+        effect->unk2C = angle;
+        effect->unk30 = -angle;
+        offset = 0x434;
+        i = 2;
+        do {
+            layer = (unk8*)gameData + offset;
+            *GetBGLayerHOffsetPtr(layer[0x5E]) = (*(s32*)(layer + 0x40) >> 8) + angle;
+            *GetBGLayerVOffsetPtr(layer[0x5E]) = (*(s32*)(layer + 0x44) >> 8) - angle;
+            offset += 0x88;
+            i--;
+        } while (i >= 0);
+        effect->unk28--;
+    } else {
+        effect->unk2C = 0;
+        effect->unk30 = 0;
+    }
+}
+#else
 INCLUDE_ASM("asm/dump/804a388-tutorial/805529c.s");
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055340.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80555f4.s");
 
