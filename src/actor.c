@@ -373,7 +373,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8058638-actor_8058638.s");
 void sub_8058754(Actor* actor, unk32* output)
 {
     if (actor->unkB0 != NULL) {
-        actor->unkB0(actor);
+        actor->unkB0(actor, output);
     } else {
         output[0] = actor->x;
         output[1] = actor->y;
