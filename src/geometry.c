@@ -107,7 +107,12 @@ LineMetaObject* getLineMetaobjectByTypeAndId(
     return NULL;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805bb9c-initQuadTree.s");
+void initQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 arg2, unk16 arg3,
+    unk16 arg4, unk16 arg5)
+{
+    allocQuadTree(quadTree, geometry, arg2, arg3, arg4, arg5, 0);
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805bbc8-allocQuadTree.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bdbc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bf18.s");
