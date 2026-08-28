@@ -39,12 +39,6 @@ typedef struct UnkFrontendTarget {
     unk16 unkEC;
 } UnkFrontendTarget;
 
-typedef struct Unk3000BE0 {
-    unk8 pad0[0xC];
-    UnkFrontendTarget* varC;
-    unk8 pad10[12];
-} Unk3000BE0;
-
 typedef struct UnkStruct_sub1 {
     unk8 var00;
     unk8 var01;
@@ -242,7 +236,7 @@ typedef struct MenuState {
     UnkMenuItem* items; /* 0xC */
     unk8 pad10[4];
     s32 itemCount; /* 0x14 */
-    unk32 objectCount; /* 0x18 */
+    s32 objectCount; /* 0x18 */
     unk8 pad1C[8];
     unk32 unk24; /* 0x24 */
     unk8 pad28[6];

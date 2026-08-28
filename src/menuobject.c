@@ -35,14 +35,14 @@ void sub_80434EC(FrontendState* object)
     }
 }
 
-extern const unk32 _8068868[];
+extern const s32 _8068868[];
 
 void sub_8043558(FrontendState* object)
 {
     s32 i;
     unk32 odd;
-    unk32 direction;
-    const unk32* table;
+    s32 direction;
+    const s32* table;
     UnkMotion* motion;
     UnkMenuItem* item;
 
@@ -51,9 +51,9 @@ void sub_8043558(FrontendState* object)
         motion = object->menuState.objectItems;
         item = object->menuState.items;
         i = 0;
-        while (i < (s32)object->menuState.objectCount) {
+        while (i < object->menuState.objectCount) {
             odd = i & 1;
-            direction = (unk32)-1;
+            direction = -1;
             if (odd != 0)
                 direction = 1;
             sub_8050584(motion);
