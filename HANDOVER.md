@@ -232,6 +232,18 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   functions, add headers for parked drafts, excuse a red compare; every
   revival needs the same three corrections, so they are now all in
   decompiler.md.
+- SpriteEntry+0x18 pun, decisive finding: `union __attribute__((packed))
+  { u16 word; u8 b[2]; } frame` is byte-neutral for all matched sprite code;
+  the same union WITHOUT `packed` changes 28 bytes near 0x806069C; a
+  nested-struct union is 4 bytes. So the pun is expressible only with the
+  GCC attribute. USER RULING NEEDED: allow `__attribute__((packed))` on that
+  one union when a consumer matches (sub_8045160 matched with an equivalent
+  View clone, i.e. it WOULD match), or keep the four consumers parked.
+  Reverted to `u8 frame; u8 unk19;` for now (worktree commit c6eaa19).
+  Festate round 2: sub_8046A0C parked by the manager (cast-and-offset into
+  _806E0DC; the indexed forms diverge at the table access), sub_8045160
+  parked (View clone + aliases), 5 drafted; agent doing the RAM-typing
+  rollback for parked-only globals before merge.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
