@@ -403,6 +403,12 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   in docs/learnings/leaves-n4.md; headers untouched). Follow-up: the backup.c
   draft uses a raw `*(vu16*)0x0D000000` — replace with the memory_map name
   when the function is retried.
+- RULING (user): `__attribute__((packed))` allowed ONCE, on the SpriteEntry
+  +0x18 `union { u16 word; u8 b[2]; } frame`. Re-measured on current main
+  (all uses rewritten to frame.b[0]/b[1]): unpacked union → 30 ROM bytes
+  differ (sprite.c .text 27, spritetext.c 3); packed → byte-identical. So
+  the attribute is still required with today's layouts. Union goes in only
+  with the first matched consumer (wave P: festate trio + LoadSpriteSheet).
 - Callgraph restored (b02c5d5 merged): 2423af7 two-pass tool + `->field()`
   calls ignored + typedef'd local fn-pointers (`LayerCopyFunc copy`,
   `EventMetadataHandler handler`) recognised + hard-coded CALLBACKS list
