@@ -61,8 +61,13 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   same pun as LoadSpriteSheet → dedicated union agent running), sub_804444C
   (prologue/global lifetime), selectBladeFrontendHandler (not attempted).
   `ItemDescriptionEntry` is now `struct` + forward typedef in common.h (C90:
-  no duplicate typedefs). Geometry/actor/camera agent still running (0/6 at
-  first stop; revived with a from-asm draft for GetLineIndexOfType).
+  no duplicate typedefs). Geometry/actor/camera agent retired after two runs with 0/6 and no
+  learnings (three functions never attempted). Manager's own attempt at
+  GetLineIndexOfType is a one-register near-match —
+  docs/learnings/getlineindexoftype-nearmatch.md has the draft + residual.
+  Remaining from that batch, untouched: sub_805EB00, actor_8057C58,
+  sub_80596AC[raw1], sub_80526C8, actor_805C48C.
+  From-asm yield this wave: 2/12 (festate-A 2/6, geometry 0/6).
   Festate-B batch queued after the union agent merges (same TU).
   Newly parked: sub_805041C (motion, near-match: reset-store register seq +
   2-byte delta; draft in migrate-frontend-music.md), sub_804967C (frontend,
