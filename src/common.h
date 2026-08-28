@@ -60,8 +60,8 @@ struct SpriteTextBlock {
 };
 
 struct SpriteTextCleanup {
-    unk32 x;
-    unk32 y;
+    s32 x;
+    s32 y;
     unk16 unk8;
     u16 unkA;
     unk16 unkC;

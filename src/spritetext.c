@@ -124,7 +124,7 @@ void sub_806123C(SpriteTextCleanup* text)
         advance = (current->unk1E & 0x7FFF) - offset;
         delta = text->unk29;
         if (widths != NULL) {
-            advance += delta + char_width - widths[current->frame];
+            advance += delta + char_width - widths[current->frame.b[0]];
             if (advance <= font_width && count > 1) {
                 current = current->next;
                 count--;
@@ -150,7 +150,7 @@ void sub_806123C(SpriteTextCleanup* text)
             position = (next_line->unk1E & 0x7FFF) - offset;
             delta = text->unk29;
             if (widths != NULL) {
-                position += delta + char_width - widths[next_line->frame];
+                position += delta + char_width - widths[next_line->frame.b[0]];
             } else {
                 position += delta + char_width;
             }
@@ -160,7 +160,7 @@ void sub_806123C(SpriteTextCleanup* text)
             position = (next_line->unk1E & 0x7FFF) - offset;
             delta = text->unk29;
             if (widths != NULL) {
-                position += delta + char_width - widths[next_line->frame];
+                position += delta + char_width - widths[next_line->frame.b[0]];
             } else {
                 position += delta + char_width;
             }
@@ -251,7 +251,7 @@ u8 showString(SpriteTextCleanup* arg0, const u8* text, u8 mode)
         flags = (child->x & 0x3E0) << 20;
         flags |= 0x100;
         if ((arg0->unk8 & 8) == 0) {
-            if (child->frame != 0) {
+            if (child->frame.b[0] != 0) {
                 if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
                     flags |= 0x200;
                 }

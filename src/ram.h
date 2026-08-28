@@ -312,7 +312,9 @@ typedef struct CurrentGameState {
     unk8 unk594[0x10];
     unk8 pad5A4[0x100];
     unk8 unk6A4;
-    unk8 pad6A5[6];
+    unk8 pad6A5[2];
+    unk8 unk6A7;
+    unk8 pad6A8[3];
     u8 unk6AB;
     unk16 unk6AC;
     unk16 unk6AE;
@@ -365,6 +367,19 @@ extern SpriteTextCleanup _unk3000610;
 extern s32 _unk3000640;
 extern unk32 _unk3000644;
 
+typedef struct FrontendScalarWithPad {
+    s32 value;
+    unk8 pad4[4];
+} FrontendScalarWithPad;
+
+extern SpriteEntry* _unk30002F4;
+extern s32 _unk30002F8;
+extern s32 _unk30002FC;
+extern FrontendScalarWithPad _unk3000300;
+extern SpriteTextCleanup _unk3000308;
+extern SpriteTextCleanup _unk3000338;
+extern s32 _unk3000368;
+
 extern SpriteEntry* _unk3000158;
 extern SpriteEntry* _unk300015C;
 extern s32 _unk3000160;
@@ -374,6 +389,13 @@ extern SpriteEntry* _unk30005B0;
 extern SpriteEntry* _unk30005B4;
 extern s32 _unk30005B8;
 extern s32 _unk30005BC;
+extern SpriteEntry* _unk3000568;
+extern SpriteEntry* _unk300056C;
+extern SpriteEntry* _unk3000570;
+extern s32 _unk3000574;
+extern s32 _unk3000578;
+extern s32 _unk300057C;
+extern SpriteTextCleanup _unk3000580;
 
 typedef struct FrontendCoordinateTarget {
     s32 value;

@@ -505,7 +505,7 @@ void sub_8060B38(SpriteEntry* spriteEntry)
     SpriteEntry* prev;
     SpriteEntry* next;
 
-    if (spriteEntry->unk19 == 0) {
+    if (spriteEntry->frame.b[1] == 0) {
         prev = spriteEntry->prev;
         next = spriteEntry->next;
         if (prev != NULL) {
@@ -562,7 +562,7 @@ void LoadSpriteSheet(SpriteEntry* dst, const SpriteSheet* source, unk32 x, unk32
     }
     dst->unk28 = (const unk8*)source + value;
     dst->var16 = source->unk6;
-    dst->frame = normalizedArg5;
+    dst->frame.b[0] = normalizedArg5;
     dst->unk1A = 0xFFFF;
     dst->flip_h_v = 0;
     dst->var20 = 0;
@@ -820,7 +820,7 @@ SpriteEntry* sub_8060E8C(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 frame)
         special = 1;
     }
     if (sprite != NULL) {
-        if (sprite->unk19 != 0) {
+        if (sprite->frame.b[1] != 0) {
             return sprite;
         }
         if (special != 0) {
@@ -838,7 +838,7 @@ SpriteEntry* sub_8060E8C(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 frame)
     }
     sprite->oam_attr_2 = scale_x;
     sprite->var16 = arg2;
-    sprite->frame = frame;
+    sprite->frame.b[0] = frame;
     if (frame != 0) {
         sin_table = Unk_874CC3C;
         frame_offset = frame + 0x40;
@@ -890,7 +890,7 @@ void sub_8060F64(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 arg3)
         }
     }
     if (child != NULL) {
-        if (child->frame != 0) {
+        if (child->frame.b[0] != 0) {
             if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
                 flags |= 0x200;
             } else {
@@ -912,7 +912,7 @@ void sub_806100C(SpriteEntry* spriteEntry, u16 arg1, u16 arg2)
     SpriteEntry* child = spriteEntry->unk30;
 
     if (child != NULL) {
-        sub_8060F64(spriteEntry, arg1, arg2, child->frame);
+        sub_8060F64(spriteEntry, arg1, arg2, child->frame.b[0]);
     } else {
         sub_8060F64(spriteEntry, arg1, arg2, 0);
     }
@@ -923,7 +923,7 @@ void sub_8061030(SpriteEntry* spriteEntry, u16 arg1, u16 arg2)
     SpriteEntry* child = spriteEntry->unk30;
 
     if (child != NULL) {
-        sub_8060F64(spriteEntry, child->oam_attr_2 + arg1, child->var16 + arg2, child->frame);
+        sub_8060F64(spriteEntry, child->oam_attr_2 + arg1, child->var16 + arg2, child->frame.b[0]);
     } else {
         sub_8060F64(spriteEntry, arg1 + 0x100, arg2 + 0x100, 0);
     }
@@ -990,12 +990,12 @@ unk32 sub_806114C(SpriteEntry* spriteEntry)
 
 void sub_8061158(SpriteEntry* spriteEntry)
 {
-    spriteEntry->unk19 = 1;
+    spriteEntry->frame.b[1] = 1;
 }
 
 void sub_8061160(SpriteEntry* spriteEntry)
 {
-    spriteEntry->unk19 = 0;
+    spriteEntry->frame.b[1] = 0;
 }
 
 void sub_8061168(SpriteEntry* spriteEntry, u8 arg1)
