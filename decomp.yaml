@@ -1,0 +1,29 @@
+platform: gba
+
+tools:
+  asmlift:
+    target: agbcc
+    # asmlift reads .symtab names and DWARF declarations/signatures from this unstripped ELF.
+    # Keep this relative to decomp.yaml so the CLI resolves it from the project root.
+    elf: build/rom.elf
+    compiler: >-
+      ASMLIFT_DIR="${ASMLIFT_DIR:-/Users/marijn/Projects/asmlift}";
+      AGBCC_ROOT="${AGBCC:-$HOME/agbcc/tools/agbcc}";
+      tools/agbcc
+      --cpp=cc
+      --iconv=iconv
+      --cc1="$AGBCC_ROOT/bin/old_agbcc"
+      --as=arm-none-eabi-as
+      --as-include=.
+      -Ilib/agb/include
+      -I"$AGBCC_ROOT/include"
+      -mthumb-interwork
+      -Wimplicit
+      -Wparentheses
+      -Wunused
+      -Werror
+      -O2
+      -fhex-asm
+      -g
+      -o {{outputPath}}
+      -c {{inputPath}}
