@@ -54,11 +54,16 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   sub_8051488, block-scoped `delta` in credits; all other temps proven needed);
   sol skill fold (1d7c9a6; switch-body-order line corrected); callgraph tool
   fix committed (2423af7: 📦 data pointer / ⚙ runtime nodes, 126→102 reds).
-- Wave 2 running: festate-A (sub_8046468 ✓, sub_80480EC ✓ committed;
-  sub_8047E5C in progress with a SpriteEntry frame union that needs asm proof;
-  sub_804444C/sub_8045CB4/selectBladeFrontendHandler pending); geometry/actor/
-  camera batch (GetLineIndexOfType, sub_805EB00, actor_8057C58, sub_80596AC,
-  sub_80526C8, actor_805C48C). Festate-B batch queued after festate-A merges.
+- Wave 2: festate-A merged (41a2156: sub_8046468 [FrontendSelectionObject*,
+  const ItemDescriptionEntry*; OBJ_PLTT], sub_80480EC; `_unk30005B0/B4`
+  SpriteEntry*, `_unk30005B8/BC` s32; FrontendSelectionObject.unkE). Parked:
+  sub_8047E5C, sub_8045CB4 (both need the u16 view of SpriteEntry+0x18 —
+  same pun as LoadSpriteSheet → dedicated union agent running), sub_804444C
+  (prologue/global lifetime), selectBladeFrontendHandler (not attempted).
+  `ItemDescriptionEntry` is now `struct` + forward typedef in common.h (C90:
+  no duplicate typedefs). Geometry/actor/camera agent still running (0/6 at
+  first stop; revived with a from-asm draft for GetLineIndexOfType).
+  Festate-B batch queued after the union agent merges (same TU).
   Newly parked: sub_805041C (motion, near-match: reset-store register seq +
   2-byte delta; draft in migrate-frontend-music.md), sub_804967C (frontend,
   extra high-reg saves), sub_806014C (multiplayer, reload only reproduces
@@ -160,7 +165,7 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 
 ## State
 
-Progress: 11/66 TUs done, 396 C functions, 611 INCLUDE_ASM remaining (39%).
+Progress: 11/66 TUs done, 398 C functions, 609 INCLUDE_ASM remaining (40%).
 Session 3 merged 97 functions (batches 1–17, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
