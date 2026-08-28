@@ -34,7 +34,7 @@ void onTimer2Overflow(void)
     }
 }
 
-unk32 sub_806586C(u8 timerIndex, void** isrOut)
+unk32 sub_806586C(u8 timerIndex, void (**isrOut)(void))
 {
     if (timerIndex > 3) {
         return 1;

@@ -10,6 +10,7 @@
 extern const unk8 Str_8755834[];
 extern const unk8 Str_8755884[];
 extern const unk8 Str_87558B4[];
+extern void (*__sub_8757FCC)(void);
 extern unk32 __divsi3(unk32, unk32);
 
 #if 0
@@ -303,4 +304,29 @@ void sub_8060404(void)
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8060434.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8060454-onSerialCommunication.s");
+
+void onSerialCommunication(void)
+{
+    MultiPlayerState* state;
+    unk16 matchCount;
+
+    matchCount = 0;
+    if (*(vu16*)REG_SIOMULTI0 == 0xDEAF) {
+        matchCount = 1;
+    }
+    if (*(vu16*)REG_SIOMULTI1 == 0xDEAF) {
+        matchCount++;
+    }
+    if (*(vu16*)REG_SIOMULTI2 == 0xDEAF) {
+        matchCount++;
+    }
+    if (*(vu16*)REG_SIOMULTI3 == 0xDEAF) {
+        matchCount++;
+    }
+    state = _unk3005DC4;
+    if (matchCount >= state->unk4) {
+        _unk3000DF0[7] = __sub_8757FCC;
+        *(vu16*)REG_SIODATA8 = *state->unk3C;
+        sub_8060404();
+    }
+}
