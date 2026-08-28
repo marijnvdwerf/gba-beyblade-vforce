@@ -389,7 +389,48 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8059058-allocateActorMotionModifiers.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059110.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059184-nullsub_24.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059188.s");
+#if 0
+unk32 sub_8059284(BGLayer* bgLayer, u16 bgPriority, u16 flags)
+{
+    BGLayer* layerReg = bgLayer;
+    s32 mode;
+    unk32 size;
+
+    mode = bgPriority >> 14;
+    size = mode;
+    if ((flags & 1) != 0) {
+        size = 1 << (mode * 2 + 8);
+        layerReg->field_5F = mode + 4;
+        layerReg->field_60 = mode + 4;
+        return size;
+    }
+    switch (mode) {
+    case 0:
+        size = 0x800;
+        layerReg->field_5F = 5;
+        layerReg->field_60 = 5;
+        break;
+    case 1:
+        size = 0x1000;
+        layerReg->field_5F = 6;
+        layerReg->field_60 = 5;
+        break;
+    case 2:
+        size = 0x1000;
+        layerReg->field_5F = 5;
+        layerReg->field_60 = 6;
+        break;
+    case 3:
+        size = 0x2000;
+        layerReg->field_5F = 6;
+        layerReg->field_60 = 6;
+        break;
+    }
+    return size;
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8059284.s");
+
 #if 0
 void sub_8059310(BGLayer* layer, s32 x, s32 y, s32 srcX, s32 srcY, s32 width, s32 height)
 {
