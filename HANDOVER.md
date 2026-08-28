@@ -216,6 +216,10 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   renderEnvironmentActors, sub_806014C, sub_8055340) re-dispatched to a fresh
   agent. Pattern to watch: an agent that parks with an EMPTY body did not
   attempt the function — check draft sizes before merging.
+- Round-2b agent retired after burning its context on the 16k-line
+  removed-comments inventory (0 work); inventory moved to processed/,
+  decompiler.md now forbids reading processed/; fresh round-2b agent running
+  on the same ten functions.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,

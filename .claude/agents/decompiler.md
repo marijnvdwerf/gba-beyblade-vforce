@@ -129,6 +129,9 @@ not the reachability boundary.
   first divergence, the step table and any unproven layout the draft
   assumes in your learnings file. Fields the draft needs stay in headers
   only if they are asm-proven.
+- Never read docs/learnings/processed/ (archive; some files are thousands of
+  lines and will exhaust your context). Read only learnings files that name a
+  function on your list (`rg -l <name> docs/learnings/*.md`).
 - Read docs/learnings/residual-analysis-2026-08-28.md before any near-miss
   work (its GetLineIndexOfType "confirmed match" is retracted — everything in
   it is hypothesis). Its thesis: the common cause is LIFETIME SHAPING — direct member/global
