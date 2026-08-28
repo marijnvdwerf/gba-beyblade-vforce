@@ -260,6 +260,14 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   never-assigned 140–450 band and the >450 giants (see the classified list
   in the session log). Round-2 yield on 100–300-insn functions: 2/24.
   Leaf batches A (12) and B (13) running.
+- Leaf batches (5–98 insns) are the productive band: 16 matches committed
+  within the first hour (A: sub_8049330, StoreFunction, sub_80516E0,
+  sub_8048FFC, sub_806185C, sub_8060404, sub_804903C, sub_80501F8,
+  sub_80436B0, sub_8061078; B: sub_804E584, getBeybladeActorData,
+  rider_8058614, sub_80585C8, sub_804C098, sub_804E530, sub_8058EF4).
+  Pre-review: A clean; B's DMA3Copy had `(unk8*)dmaControl + 2` →
+  REG_DMA3CNT_H (sent back). Next leaf pool after these: rerun the
+  callgraph — every merged draft/function exposes more small callees.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
