@@ -403,6 +403,18 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   in docs/learnings/leaves-n4.md; headers untouched). Follow-up: the backup.c
   draft uses a raw `*(vu16*)0x0D000000` — replace with the memory_map name
   when the function is retried.
+- INTERRUPTS (sonnet research, 2026-08-28): crt0 installs intr_main at
+  0x03007FFC; intr_main scans IE&IF bits 0–13 and BLX's `_unk3000DF0[bit]`
+  (14-slot IWRAM table seeded by DmaCopy from ROM `Unk_872CAF4` in
+  InitStuff_SetDispStat). Static: onVBlank, nullsub_37, onTimer1Overflow→
+  Sound_onTimer1Overflow, rest nullsub_31; mainLoop enables IE 0x11.
+  Dynamic: battery sets slot5=onTimer2Overflow (C); multiplayer sub_806014C
+  sets slot7=onSerialCommunication (Thumb asm, 24 insns → leaf R running)
+  and slot6=sub_8757D24 (ARM, arm2.s) which chains to sub_8757CD0 /
+  sub_8757E4C; onSerialCommunication chains to sub_8757FCC (ARM). Only
+  interrupt-only entry points not in C: onSerialCommunication + the four
+  arm2.s ARM routines. Luna agent adding Unk_872CAF4 table + _unk3000DF0
+  slot CALLBACKS to callgraph.py and writing docs/interrupts.md.
 - Leaf Q merged: actor_80580C0 (variable-size ActorSequenceEntry list at
   config+unk18, walked by `entry->size` — legit byte cursor; explains the
   sub_80581B8 cursor `config + unk18 + actor->unk1C`).
