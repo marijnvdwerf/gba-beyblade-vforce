@@ -118,6 +118,12 @@ not the reachability boundary.
   Same for `register`, `asm` barriers and compiler-flag tweaks.
 - Sign-extension (`ldsb/ldsh/asr`) proves signed; `ldrb/ldrh` suggests
   unsigned or unk.
+- NEVER throw away a near-miss. When you park a function, keep the best
+  draft in the source file directly above its `INCLUDE_ASM` line as
+  `#if 0 /* NONMATCHING: <first divergent instruction / size delta> */` …
+  `#endif` (the ROM still builds from the asm), plus the step table in your
+  learnings file. Fields the draft needs stay in the headers only if they
+  are asm-proven; otherwise note them in the draft's comment.
 - Near-miss checklist — run it BEFORE parking anything, one change per
   build, keep only what shrinks the diff, and record a step table (change →
   first divergent instruction / size delta) plus the final draft in your
