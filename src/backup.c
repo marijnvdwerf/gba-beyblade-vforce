@@ -69,8 +69,6 @@ void DMA3Copy(unk32 src, unk32 dst, unk16 count)
     unk16 ime;
     unk16 waitcnt;
     const BatteryBackupConfig* config;
-    unk32* dmaControl;
-    unk8* dmaStatus;
     count = count;
     ime = *(vu16*)REG_IME;
     *(vu16*)REG_IME = 0;
@@ -80,10 +78,8 @@ void DMA3Copy(unk32 src, unk32 dst, unk16 count)
     *(vu16*)REG_WAITCNT = waitcnt;
     *(vu32*)REG_DMA3SAD = src;
     *(vu32*)REG_DMA3DAD = dst;
-    dmaControl = (unk32*)REG_DMA3CNT;
-    *dmaControl = count | 0x80000000;
-    dmaStatus = (unk8*)dmaControl + 2;
-    if ((*(unk16*)dmaStatus & 0x8000) != 0) {
+    *(vu32*)REG_DMA3CNT = count | 0x80000000;
+    if ((*(vu16*)REG_DMA3CNT_H & 0x8000) != 0) {
         do {
         } while ((*(vu16*)REG_DMA3CNT_H & 0x8000) != 0);
     }
