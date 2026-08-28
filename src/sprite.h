@@ -37,7 +37,7 @@ void SpriteVRamFree(u32, u32);
 void* allocSprite(u16);
 void sub_8060A94(SpriteEntry*);
 void sub_8060A60(SpriteEntry*);
-void sub_8061078(SpriteEntry*, unk32);
+void sub_8061078(SpriteEntry*, unk16);
 void sub_8060F64(SpriteEntry*, u16, u16, u8);
 void sub_8060CDC(SpriteTextBlock*);
 SpriteEntry* resizeSpriteBlock(SpriteTextBlock*, u16, u16);

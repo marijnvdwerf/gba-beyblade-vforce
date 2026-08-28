@@ -6,7 +6,24 @@
 #include "sprite.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e468-allocateParticleSystem.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e530.s");
+
+void sub_804E530(ParticleSystem* arg0, unk32 arg1)
+{
+    Particle* particle;
+    s32 count;
+
+    count = arg0->count;
+    particle = arg0->particles;
+    if (count-- != 0) {
+        do {
+            if (particle->sprite != NULL) {
+                sub_8061078(particle->sprite, arg1);
+            }
+            particle++;
+        } while (count-- != 0);
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e560.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e57c.s");
 
