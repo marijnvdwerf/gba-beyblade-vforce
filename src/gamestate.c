@@ -328,7 +328,7 @@ unk32 sub_8051744(void)
 
 u8 sub_805176C(void)
 {
-    return _currentGameState->unk6E8.byte;
+    return _currentGameState->unk6E8;
 }
 
 unk32 sub_8051780(unk32 arg0)

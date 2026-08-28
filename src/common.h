@@ -732,8 +732,7 @@ typedef struct LevelDescription {
     const unk8* unk68[6];
     unk8 pad80[0x10];
     unk32 unk90;
-    const unk8* unk94[5];
-    const unk8* unkA8[6];
+    unk8 pad94[0x2C];
     const unk8* unkC0;
     void* unkC4;
     unk8 padC8[8];

@@ -94,6 +94,12 @@ void sub_804A51C(void)
     }
 }
 
+#if 0
+void sub_804A550(unk8* arg0)
+{
+    (void)arg0;
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a550.s");
 
 void sub_804A72C(void)

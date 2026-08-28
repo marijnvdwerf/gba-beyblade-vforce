@@ -64,6 +64,11 @@ void sub_804EE2C(void)
     sub_8061228(&base->levelHud1);
 }
 
+#if 0
+void sub_804EE54(void)
+{
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ee54.s");
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f05c.s");
