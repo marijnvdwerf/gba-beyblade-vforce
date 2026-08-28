@@ -26,7 +26,7 @@ typedef struct CameraState {
     unk32 unk348;
     unk8 pad34C[8];
     s8 unk354;
-    unk8 unk355;
+    s8 unk355;
     unk8 unk356;
     unk8 pad357;
     unk16 unk358;

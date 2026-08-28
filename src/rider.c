@@ -23,12 +23,14 @@ void processRiderMetadata(RiderBase* rider, LevelGeometryAddresses* geometry, un
     metadata = GetLineMetaData(geometry, lineIndex);
     if (metadata != NULL) {
         metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0xD368);
-        if (metaobject != NULL)
+        if (metaobject != NULL) {
             riderBase->unk228 = metaobject->unk8.word;
+        }
 
         metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x6ACE);
-        if (metaobject != NULL)
+        if (metaobject != NULL) {
             riderBase->unk22A = metaobject->unk8.word;
+        }
 
         metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x5BBE);
         if (metaobject != NULL) {
@@ -38,47 +40,56 @@ void processRiderMetadata(RiderBase* rider, LevelGeometryAddresses* geometry, un
         }
 
         metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x215D);
-        if (metaobject != NULL)
+        if (metaobject != NULL) {
             riderBase->unk210 = metaobject->unk8.word * metaobject->unk8.word;
+        }
 
         metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x3AB4);
-        if (metaobject != NULL)
+        if (metaobject != NULL) {
             riderBase->unk21C = metaobject->unk8.word;
+        }
 
         metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x505B);
-        if (metaobject != NULL)
+        if (metaobject != NULL) {
             riderBase->unk222 = metaobject->unk8.word;
+        }
 
         metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 3, 0x59C3);
         if (metaobject != NULL) {
             metaId = metaobject->unk8.half;
             i = 0;
             while (i < geometry->unk0->count.splineCountWord) {
-                if (geometry->unk14[i]->unkC == metaId)
+                if (geometry->unk14[i]->unkC == metaId) {
                     riderBase->unk218 = i;
+                }
                 i++;
             }
         }
 
         metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0xCF2C);
-        if (metaobject != NULL)
+        if (metaobject != NULL) {
             riderBase->unk21A = metaobject->unk8.word;
+        }
 
         metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0xD271);
-        if (metaobject != NULL)
+        if (metaobject != NULL) {
             SetRiderFlag(riderBase, 8);
+        }
 
         metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x37AE);
-        if (metaobject != NULL)
+        if (metaobject != NULL) {
             rider->unk424 = metaobject->unk8.word;
+        }
 
         metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0xF0F8);
-        if (metaobject != NULL)
+        if (metaobject != NULL) {
             rider->unk3D0 = metaobject->unk8.word;
+        }
 
         metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x5CF);
-        if (metaobject != NULL)
+        if (metaobject != NULL) {
             riderBase->unk22C = metaobject->unk8.word;
+        }
     }
 }
 

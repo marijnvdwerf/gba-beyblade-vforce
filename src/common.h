@@ -537,6 +537,7 @@ struct LevelGeometryTable {
 typedef struct LineMetaObject LineMetaObject;
 typedef struct LineMetadata LineMetadata;
 
+/* Width pun proven by ldr at processRiderMetadata +0x2E and ldrh at +0xDA. */
 typedef union LineMetaObjectValue {
     unk32 word;
     unk16 half;

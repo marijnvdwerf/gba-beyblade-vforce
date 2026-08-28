@@ -20,13 +20,9 @@ void sub_805EADC(CameraState* camera)
 
 void sub_805EB00(CameraState* camera)
 {
-    vu16* bldy;
-    s8 displayControl;
     u8 i;
 
-    bldy = (vu16*)REG_BLDY;
-    displayControl = camera->unk355;
-    *bldy = displayControl;
+    *(vu16*)REG_BLDY = camera->unk355;
     if (camera->unk224 != 0) {
         if ((camera->unk354 & 1) == 0) {
             if (camera->callback == NULL) {
@@ -46,11 +42,11 @@ void sub_805EB00(CameraState* camera)
         i++;
     } while (i <= 3);
     camera->unk355 += camera->unk356;
-    if ((s8)camera->unk355 < 0) {
+    if (camera->unk355 < 0) {
         camera->unk355 = 0;
         camera->unk356 = 0;
     }
-    if ((s8)camera->unk355 > 15) {
+    if (camera->unk355 > 15) {
         camera->unk355 = 15;
         camera->unk356 = 0;
     }
