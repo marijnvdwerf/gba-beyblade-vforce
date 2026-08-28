@@ -219,7 +219,6 @@ class Function:
     file: str
     kind: str  # "c" or "unknown"
     calls: list[str] = field(default_factory=list)
-    deep_calls: list[str] = field(default_factory=list)
     indirect_names: set[str] = field(default_factory=set)
     synthetic: bool = False
     special_kind: str = ""  # "runtime" or "data"
@@ -607,10 +606,8 @@ def load_binary_symbols() -> BinarySymbols | None:
     return _BINARY_SYMBOLS
 
 
-def index_assembly_sources(
-    functions: Functions, paths: set[Path], deep: bool
-) -> None:
-    """Index live INCLUDE_ASM functions, following their calls only in deep mode."""
+def index_assembly_sources(functions: Functions, paths: set[Path]) -> None:
+    """Index direct calls in assembly selected by live INCLUDE_ASM branches."""
     binary_symbols = load_binary_symbols()
     if binary_symbols is None:
         return
@@ -650,8 +647,7 @@ def index_assembly_sources(
                     name=name,
                     file=relpath(path),
                     kind="unknown",
-                    calls=list(deep_calls) if deep else [],
-                    deep_calls=deep_calls,
+                    calls=deep_calls,
                 ),
             )
 
@@ -906,42 +902,12 @@ def resolve_all_edges(functions: Functions) -> None:
         function.calls = resolved
 
 
-def attach_boundary_callbacks(functions: Functions) -> None:
-    """Expose callbacks below asm boundaries without showing the asm closure."""
-    synthetic = {name for name, function in functions.items() if function.synthetic}
-    for function in list(functions.values()):
-        if not function.file.startswith("asm/"):
-            continue
-        callbacks: list[str] = []
-        visited: set[str] = set()
-        pending = list(reversed(function.deep_calls))
-        while pending:
-            name = resolve_name(functions, pending.pop())
-            if name in visited:
-                continue
-            visited.add(name)
-            target = functions.get(name)
-            if target is None:
-                continue
-            if name in synthetic and name not in callbacks:
-                callbacks.append(name)
-            outgoing = target.calls
-            if target.file.startswith("asm/"):
-                outgoing = list(dict.fromkeys(target.deep_calls + target.calls))
-            pending.extend(reversed(outgoing))
-        for callback in callbacks:
-            if callback not in function.calls:
-                function.calls.append(callback)
-
-
-def build_index(deep: bool = False) -> Functions:
+def build_index() -> Functions:
     functions: Functions = OrderedDict()
     asm_paths = index_c_sources(functions)
-    index_assembly_sources(functions, asm_paths, deep)
+    index_assembly_sources(functions, asm_paths)
     resolve_indirect_calls(functions)
     resolve_all_edges(functions)
-    if not deep:
-        attach_boundary_callbacks(functions)
     return functions
 
 
@@ -963,13 +929,25 @@ def resolve_root(functions: Functions, requested: str) -> str:
     return stripped
 
 
-def render(functions: Functions, root: str) -> str:
+def render(functions: Functions, root: str, deep: bool = False) -> str:
     lines: list[str] = []
     expanded: set[str] = set()
     active: set[str] = set()
 
+    def is_assembly(function: Function) -> bool:
+        return (
+            function.kind == "unknown"
+            and not function.synthetic
+            and not function.special_kind
+        )
+
     def walk(
-        name: str, prefix: str, is_last: bool, depth: int, is_root: bool
+        name: str,
+        prefix: str,
+        is_last: bool,
+        depth: int,
+        is_root: bool,
+        parent: Function | None,
     ) -> None:
         function = functions.get(name)
         if function is None:
@@ -981,6 +959,19 @@ def render(functions: Functions, root: str) -> str:
                 special_kind=special_kind,
                 data_targets=data_targets,
             )
+        # Callback writers/providers remain conversion boundaries even when an
+        # assembly caller is the route by which the traversal reaches them.
+        owns_callback = any(
+            child in functions and functions[child].synthetic
+            for child in function.calls
+        )
+        passthrough = (
+            not deep
+            and parent is not None
+            and is_assembly(parent)
+            and is_assembly(function)
+            and not owns_callback
+        )
         suffix = ""
         if depth >= MAX_RENDER_DEPTH:
             suffix = " … (depth limit)"
@@ -990,9 +981,14 @@ def render(functions: Functions, root: str) -> str:
             suffix = " (see above)"
 
         branch = "" if is_root else ("└─ " if is_last else "├─ ")
-        location = f" [{function.file}]" if function.file else ""
+        marker = "⚫" if passthrough else function.marker
+        location = " [asm]" if passthrough else (
+            f" [{function.file}]" if function.file else ""
+        )
+        decoration = " …" if passthrough and not suffix else ""
         lines.append(
-            f"{prefix}{branch}{function.marker} {function.display_name}{location}{suffix}"
+            f"{prefix}{branch}{marker} {function.display_name}"
+            f"{location}{decoration}{suffix}"
         )
         if suffix:
             return
@@ -1008,10 +1004,11 @@ def render(functions: Functions, root: str) -> str:
                 index == len(children) - 1,
                 depth + 1,
                 False,
+                function,
             )
         active.remove(name)
 
-    walk(root, "", True, 0, True)
+    walk(root, "", True, 0, True, None)
     return "\n".join(lines)
 
 
@@ -1022,7 +1019,7 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
     parser.add_argument(
         "--deep",
         action="store_true",
-        help="follow calls between INCLUDE_ASM functions",
+        help="show every INCLUDE_ASM function as a red node",
     )
     parser.add_argument("root", nargs="?", default="main", help="root symbol (default: main)")
     return parser.parse_args(list(argv))
@@ -1030,10 +1027,10 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
 
 def main(argv: Iterable[str] | None = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
-    functions = build_index(deep=args.deep)
+    functions = build_index()
     root = resolve_root(functions, args.root)
     try:
-        print(render(functions, root))
+        print(render(functions, root, deep=args.deep))
     except BrokenPipeError:
         # Be friendly to ordinary Unix pipelines such as `| head`.
         return 0
