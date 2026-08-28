@@ -107,14 +107,18 @@ void sub_80581B8(Actor* actor)
     ActorConfig* config;
     ActorFrameTable* frameTable;
     unk16 nextFrame;
+    s32 currentFrame;
+    s32 frameCount;
     s32 frame;
     void (*callback)(Actor*, s32);
 
     config = actor->unk0;
     frameTable = (ActorFrameTable*)((unk8*)config + config->unk18 + actor->unk1C);
-    if ((s32)actor->unk1E >= (s32)(frameTable->unk4 - 1)) {
+    currentFrame = actor->unk1E;
+    frameCount = frameTable->unk4 - 1;
+    if (currentFrame >= frameCount) {
         nextFrame = 0;
-        if ((s16)actor->unk2E != -1) {
+        if (actor->unk2E != -1) {
             frame = actor->unk1A;
             actor_80580C0(actor, actor->unk2E, 0xFFFF);
             callback = actor->unkC0;

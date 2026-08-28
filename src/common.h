@@ -371,7 +371,7 @@ typedef struct ActorFrameTable {
     unk8 pad0[4];
     unk16 unk4; /* 0x4 */
     unk8 pad6[2];
-    unk16 unk8[1]; /* 0x8 */
+    unk16 unk8[0]; /* 0x8 */
 } ActorFrameTable;
 
 struct ActorConfig {
@@ -405,7 +405,7 @@ typedef struct Actor {
     unk8 unk25;
     unk16 unk26;
     unk8 pad28[6];
-    unk16 unk2E; /* 0x2E */
+    s16 unk2E; /* 0x2E */
     unk8 unk30;
     unk8 unk31;
     unk8 unk32;
