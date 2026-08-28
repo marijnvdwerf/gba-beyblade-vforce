@@ -53,7 +53,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805ad9c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805add4-allocateMenuItems.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805afb8-nullsub_48.s");
 
-#if 0 /* NONMATCHING: first divergence at mov r6,r0 (0x00000008), size exact 0x94 */
+#if 0
 s32 sub_805AFBC(MenuState* state, u8 arg1)
 {
     unk32 step;

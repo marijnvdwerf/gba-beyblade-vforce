@@ -18,7 +18,7 @@ const ItemDescriptionEntry* sub_80570C0(unk32 index)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80570d4.s");
 
-#if 0 /* NONMATCHING: scaled index is emitted after the base add; target size is 0x4C */
+#if 0
 void sub_8057104(s32 arg0, unk32 arg1)
 {
     unk32* data;

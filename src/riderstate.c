@@ -43,7 +43,7 @@ void sub_805000C(RiderState* arg0, RiderBase* arg1)
     sub_805024C(arg0);
 }
 
-#if 0 /* NONMATCHING: register allocation differs at 0x00000002; size 0xB0 */
+#if 0
 void sub_8050050(RiderState* state, RiderState* other)
 {
     unk16 value;
@@ -106,11 +106,11 @@ s32 sub_8050114(RiderState* arg0)
     return 0;
 }
 
-#if 0 /* NONMATCHING: mask folds to sub r1,#31; target uses mov/neg; size 0x24 */
+#if 0
 void sub_8050184(RiderState* arg0, u8 arg1)
 {
     unk8 temp_r3;
-    s32 temp_r1;
+    s32 temp_r1 = 0x10;
     unk32 temp_r2;
 
     temp_r3 = arg0->unkD;
