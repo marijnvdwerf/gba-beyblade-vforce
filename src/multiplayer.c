@@ -4,6 +4,8 @@
 #include "include_asm.h"
 #include "memory.h"
 #include "ram.h"
+#include "system.h"
+#include "unsorted.h"
 
 extern const unk8 Str_8755834[];
 extern const unk8 Str_8755884[];
@@ -124,7 +126,51 @@ u8 isMultiplayer(void)
     return _unk3005DC4->unk2;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/80600b4.s");
+void sub_80600B4(void)
+{
+    unk32 size;
+    unk32 zero;
+
+    {
+        MultiPlayerState* state;
+
+        state = _unk3005DC4;
+        size = state->unk18;
+        size = (size + state->unk4 * size) * 2;
+    }
+    DisableInterrupt(0xC0);
+    {
+        MultiPlayerState* state;
+
+        state = _unk3005DC4;
+        zero = 0;
+        state->unk0 = zero;
+    }
+    _unk3005DC4->unk1 = zero;
+    _unk3005DC4->unk2 = zero;
+    _unk3005DC4->unk3 = zero;
+    _unk3005DC4->unk1C = zero;
+    _unk3005DC4->unk14 = zero;
+    _unk3005DC4->unk5 = zero;
+    __fastMemoryClearARM(0, _unk3005DC4->unk24, size);
+    {
+        MultiPlayerState* state;
+
+        state = _unk3005DC4;
+        state->unk3C = state->unk24;
+        state->unk40 = state->unk28;
+        state->unk34 = state->unk2C;
+        state->unk38 = state->unk30;
+        *(vu16*)REG_SIOCNT = 0x2000;
+        *(vu16*)REG_SIOCNT |= 0x4000 | state->unk6;
+    }
+    *(vu16*)REG_SIODATA8 = 0;
+    *(vu16*)REG_SIOMULTI0 = 0;
+    *(vu16*)REG_SIOMULTI1 = 0;
+    *(vu16*)REG_SIOMULTI2 = 0;
+    *(vu16*)REG_SIOMULTI3 = 0;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/806014c.s");
 
 void sub_80603E8(void)
