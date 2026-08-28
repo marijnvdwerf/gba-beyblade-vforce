@@ -43,4 +43,4 @@ unk32* sub_805EEE0(CameraState*);
 void sub_805E8A0(CameraState*, unk32*, unk16, unk32*);
 void sub_805EEFC(CameraState*, unk32, unk32);
 
-#endif /* _CAMERA_H */
+#endif

@@ -17,4 +17,4 @@ void deallocate_80637CC(Palette*);
 void sub_80637E4(Palette*, u16*, u32, u32, u32);
 void sub_8063830(Palette*, unk16*, s32, s32, s32, s32);
 
-#endif /* _PALETTE_H */
+#endif

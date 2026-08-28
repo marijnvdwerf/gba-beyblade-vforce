@@ -13,4 +13,4 @@ u32 sub_8063A88(void);
 u8 sub_8063A94(u32);
 u32 getLanguage(void);
 
-#endif /* _LANGUAGE_H */
+#endif

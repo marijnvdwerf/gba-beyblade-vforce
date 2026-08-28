@@ -7,18 +7,18 @@
 #include "unsorted.h"
 
 typedef struct {
-    unk8 filler00[4]; // 0x00
-    u32 tileOffset; // 0x04
-    u32 tileBytes; // 0x08
-    u32 mapOffset; // 0x0C
-    u32 mapBytes; // 0x10
-    u8 var14; // 0x14
-    unk8 filler15[3]; // 0x15
-    u8 var18; // 0x18
-    u8 colorMode; // 0x19
-    unk8 filler1A[2]; // 0x1A
-    u16 columnCount; // 0x1C
-    u16 rowCount; // 0x1E
+    unk8 filler00[4];
+    u32 tileOffset;
+    u32 tileBytes;
+    u32 mapOffset;
+    u32 mapBytes;
+    u8 var14;
+    unk8 filler15[3];
+    u8 var18;
+    u8 colorMode;
+    unk8 filler1A[2];
+    u16 columnCount;
+    u16 rowCount;
 } TileMapHeader;
 
 typedef struct {
@@ -31,8 +31,8 @@ typedef struct {
 } Struct3000CA0;
 
 typedef struct {
-    s32 columnCount; // 0x00
-    s32 rowCount; // 0x04
+    s32 columnCount;
+    s32 rowCount;
     Struct3000CA0* var8;
     unk32 field_C;
     u32 field_10;
@@ -55,19 +55,19 @@ typedef struct {
     unk32 field_50;
     unk32 field_54;
     unk32 field_58;
-    u8 screenBaseBlock; // 0x5C
-    u8 characterBaseBlock; // 0x5D
-    unk8 layerIndex; // 0x5E
+    u8 screenBaseBlock;
+    u8 characterBaseBlock;
+    unk8 layerIndex;
     u8 field_5F;
     u8 field_60;
     unk8 field_61;
     unk8 field_62[2];
     u16 var64;
     TileMapHeader* var68;
-    void* tileAddr; // 0x6C
-    void* mapAddr; // 0x70
-    u32 tileBytes; // 0x74
-    unk32 mapBytes; // 0x78
+    void* tileAddr;
+    void* mapAddr;
+    u32 tileBytes;
+    unk32 mapBytes;
     unk8 field_7C;
     unk32 field_80;
     unk32 field_84;
@@ -207,7 +207,7 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
 void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriority)
 {
     u32 var0;
-    //    unk8 colorMode;
+
     unk32 tileBlocks;
     vu16* layerCnt;
     void* dest;

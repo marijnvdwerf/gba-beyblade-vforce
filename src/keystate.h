@@ -21,4 +21,4 @@ void sub_805AB38(void);
 void sub_805AAB4(void);
 unk32 sub_805AB58(void);
 
-#endif /* _KEYSTATE_H */
+#endif

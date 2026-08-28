@@ -26,4 +26,4 @@ void Sound_8062AD4(unk32, u32);
 void Sound_8062AF4(unk32, u32);
 unk32 Sound_8062BFC(unk32, unk32);
 
-#endif // _SOUND_H
+#endif

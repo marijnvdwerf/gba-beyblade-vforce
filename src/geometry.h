@@ -19,4 +19,4 @@ unk32* sub_805E514(unk32*, unk32, unk32, unk32, unk32);
 GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses*, s32);
 void actor_805C48C(EnvironmentActorSlot*, LevelGeometryAddresses*, unk32, unk32);
 
-#endif /* _GEOMETRY_H */
+#endif

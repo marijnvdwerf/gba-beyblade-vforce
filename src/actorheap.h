@@ -6,4 +6,4 @@
 void allocateActorHeaps(void);
 void* sub_8062EFC(unk32);
 
-#endif /* _ACTORHEAP_H */
+#endif

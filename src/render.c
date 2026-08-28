@@ -13,37 +13,37 @@ extern unk8 _renderFunctionsEnd[];
 extern unk32 _renderFunctionOffsets[];
 
 enum RenderFunctionIndex {
-    RENDER_TRIANGLE_SETUP = 0, /* 0x1AC — render_02 */
-    RENDER_SPAN_FILL = 1, /* 0x060 — render_01 */
-    RENDER_SHORT_SPAN = 2, /* 0x000 — render_00 */
-    RENDER_BUCKET_INSERT = 3, /* 0xA80 — render_06 */
-    RENDER_FACE_CULL = 4, /* 0xAD4 — render_07 */
-    RENDER_STRIDED_COPY_ALT = 5, /* 0xC98 — render_09 (via fallthrough) */
-    RENDER_TRIANGLE_SETUP_2 = 6, /* 0x1AC — render_02 */
-    RENDER_TRIANGLE_DRAW = 7, /* 0x698 — render_03 */
-    RENDER_STRIDED_COPY = 8, /* 0xC9C — render_09 */
-    RENDER_POST_PROCESS = 9, /* 0x85C — render_04 */
-    RENDER_FACE_DRAW = 10, /* 0xC28 — render_08 */
-    RENDER_STRIDED_COPY_2 = 11, /* 0xC9C — render_09 */
-    RENDER_VERTEX_TRANSFORM = 12, /* 0x944 — render_05 */
-    RENDER_FACE_DRAW_2 = 13, /* 0xC28 — render_08 */
-    RENDER_SHORT_SPAN_2 = 14, /* 0x000 — render_00 */
-    /* 15: gap (unk40 padding) */
-    RENDER_FACE_DRAW_3 = 16, /* 0xC28 — render_08 */
-    RENDER_STRIDED_COPY_ALT_2 = 17, /* 0xC98 — render_09 (via fallthrough) */
-    RENDER_STRIDED_COPY_ALT_3 = 18, /* 0xC98 — render_09 (via fallthrough) */
-    /* 19-20: gap (unk50 padding) */
-    RENDER_STRIDED_COPY_ALT_4 = 21, /* 0xC98 — render_09 (via fallthrough) */
-    RENDER_STRIDED_COPY_ALT_5 = 22, /* 0xC98 — render_09 (via fallthrough) */
-    RENDER_STRIDED_COPY_ALT_6 = 23, /* 0xC98 — render_09 (via fallthrough) */
-    RENDER_STRIDED_COPY_ALT_7 = 24, /* 0xC98 — render_09 (via fallthrough) */
-    RENDER_FACE_DRAW_4 = 25, /* 0xC28 — render_08 */
-    RENDER_SHORT_SPAN_3 = 26, /* 0x000 — render_00 */
-    RENDER_OFFSETS_PTR = 27, /* 0xD24 — _renderFunctionsEnd (data) */
-    RENDER_SHORT_SPAN_4 = 28, /* 0x000 — render_00 */
-    RENDER_POST_PROCESS_2 = 29, /* 0x85C — render_04 */
-    RENDER_POST_PROCESS_3 = 30, /* 0x85C — render_04 */
-    RENDER_POST_PROCESS_4 = 31 /* 0x85C — render_04 */
+    RENDER_TRIANGLE_SETUP = 0,
+    RENDER_SPAN_FILL = 1,
+    RENDER_SHORT_SPAN = 2,
+    RENDER_BUCKET_INSERT = 3,
+    RENDER_FACE_CULL = 4,
+    RENDER_STRIDED_COPY_ALT = 5,
+    RENDER_TRIANGLE_SETUP_2 = 6,
+    RENDER_TRIANGLE_DRAW = 7,
+    RENDER_STRIDED_COPY = 8,
+    RENDER_POST_PROCESS = 9,
+    RENDER_FACE_DRAW = 10,
+    RENDER_STRIDED_COPY_2 = 11,
+    RENDER_VERTEX_TRANSFORM = 12,
+    RENDER_FACE_DRAW_2 = 13,
+    RENDER_SHORT_SPAN_2 = 14,
+
+    RENDER_FACE_DRAW_3 = 16,
+    RENDER_STRIDED_COPY_ALT_2 = 17,
+    RENDER_STRIDED_COPY_ALT_3 = 18,
+
+    RENDER_STRIDED_COPY_ALT_4 = 21,
+    RENDER_STRIDED_COPY_ALT_5 = 22,
+    RENDER_STRIDED_COPY_ALT_6 = 23,
+    RENDER_STRIDED_COPY_ALT_7 = 24,
+    RENDER_FACE_DRAW_4 = 25,
+    RENDER_SHORT_SPAN_3 = 26,
+    RENDER_OFFSETS_PTR = 27,
+    RENDER_SHORT_SPAN_4 = 28,
+    RENDER_POST_PROCESS_2 = 29,
+    RENDER_POST_PROCESS_3 = 30,
+    RENDER_POST_PROCESS_4 = 31
 };
 
 RenderCode* allocateRenderCode(RenderCode* arg0, AllocatedBlock** arg1)

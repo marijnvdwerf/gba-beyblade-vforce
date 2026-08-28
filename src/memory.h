@@ -11,4 +11,4 @@ AllocatedBlock* slowAllocate(unk32 size);
 
 void deallocateBlock(AllocatedBlock* block);
 
-#endif // _MEMORY_H
+#endif

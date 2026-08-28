@@ -18,4 +18,4 @@ typedef struct RiderTemp {
 
 void sub_804C0EC(unk32, unk8);
 
-#endif /* _RIDER_H */
+#endif

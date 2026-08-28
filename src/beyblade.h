@@ -32,4 +32,4 @@ const BeybladeData* getBeybladeData0(unk32);
 extern void* RiderPalettes[];
 extern const BeybladeData _807ac28[];
 
-#endif /* _BEYBLADE_H */
+#endif

@@ -18,4 +18,4 @@ void sub_8050574(UnkMotion*, unk16);
 void sub_8050578(MotionGroup*, unk32, s16);
 void sub_8050584(UnkMotion*);
 
-#endif /* _MOTION_H */
+#endif

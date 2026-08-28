@@ -13,4 +13,4 @@ typedef struct CreditsEntry {
 
 void creditsFrontendHandler(FrontendState*, unk32);
 
-#endif /* _CREDITS_H */
+#endif

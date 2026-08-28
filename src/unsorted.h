@@ -33,4 +33,4 @@ extern FrontendState _unk3000650;
 
 void sub_805AC28(unk32, unk32, unk32, unk16);
 
-#endif // _UNSORTED_H
+#endif

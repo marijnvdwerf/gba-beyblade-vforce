@@ -41,7 +41,7 @@ void creditsFrontendHandler(FrontendState* state, unk32 arg1)
         _fontPtr = NULL;
         break;
     case 1:
-        /* ldrh 0x584: value and unk585 are tested as one halfword. */
+
         if (*(unk16*)&state->transition == 0) {
             *(vu16*)REG_BLDCNT = 0xF40;
             *(vu16*)REG_BLDALPHA = _300000C | ((0x10 - _300000C) << 8);

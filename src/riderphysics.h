@@ -12,4 +12,4 @@ void convert3DCoordsto2DCoords(void);
 unk8 RiderHasFlag(RiderBase*, unk32);
 unk32 sub_804E440(RiderBase*, unk32);
 
-#endif /* _RIDERPHYSICS_H */
+#endif

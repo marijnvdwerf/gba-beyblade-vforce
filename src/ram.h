@@ -441,4 +441,4 @@ extern SpriteEntry* _unk3000468;
 extern s32 _unk300046C;
 extern s32 _unk3000470;
 
-#endif // _RAM_H
+#endif

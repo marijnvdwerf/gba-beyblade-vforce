@@ -30,4 +30,4 @@ void sub_804B044(void);
 void sub_804B060(void);
 void sub_804ABFC(unk32);
 
-#endif /* _MUSIC_H */
+#endif

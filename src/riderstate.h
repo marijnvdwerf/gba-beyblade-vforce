@@ -5,4 +5,4 @@
 
 void sub_805024C(unk8* arg0);
 
-#endif /* _RIDERSTATE_H */
+#endif
