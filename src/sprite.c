@@ -817,7 +817,38 @@ void sub_8061030(SpriteEntry* spriteEntry, u16 arg1, u16 arg2)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8061078.s");
+void sub_8061078(SpriteEntry* sprite, unk32 frame)
+{
+    u16 value;
+    SpriteEntry* previous;
+
+    value = frame;
+    if (sprite->var22 == value)
+        return;
+    previous = sprite->prev;
+    if (previous != NULL) {
+        previous->next = sprite->next;
+    } else {
+        _unk3005DE4 = sprite->next;
+    }
+    if (sprite->next != NULL)
+        sprite->next->prev = sprite->prev;
+    sprite->var22 = value;
+    previous = sub_80609C4(_unk3005DE4, value);
+    if (previous == NULL) {
+        if (_unk3005DE4 != NULL)
+            _unk3005DE4->prev = sprite;
+        sprite->next = _unk3005DE4;
+        sprite->prev = previous;
+        _unk3005DE4 = sprite;
+    } else {
+        if (previous->next != NULL)
+            previous->next->prev = sprite;
+        sprite->next = previous->next;
+        sprite->prev = previous;
+        previous->next = sprite;
+    }
+}
 
 unk32 sub_80610EC(SpriteEntry* spriteEntry)
 {

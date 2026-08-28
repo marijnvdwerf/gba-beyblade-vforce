@@ -35,9 +35,63 @@ void sub_80434EC(FrontendState* object)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8043558.s");
+extern const s32 _8068868[];
+
+void sub_8043558(FrontendState* object)
+{
+    s32 i;
+    unk32 odd;
+    s32 direction;
+    const s32* table;
+    UnkMotion* motion;
+    UnkMenuItem* item;
+
+    if (object->menuState.objectCount != 0) {
+        table = _8068868;
+        motion = object->menuState.objectItems;
+        item = object->menuState.items;
+        i = 0;
+        while (i < object->menuState.objectCount) {
+            odd = i & 1;
+            direction = -1;
+            if (odd != 0) {
+                direction = 1;
+            }
+            sub_8050584(motion);
+            newMotionGroup(motion, &item->text.unk14, 0);
+            sub_80504E4(motion, table[0] * direction, table[1], table[2], table[3]);
+            sub_805052C(motion, table[4] * direction, table[5], table[6], table[7]);
+            sub_8050574(motion, 0);
+            item++;
+            motion++;
+            i++;
+        }
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8043604.s");
-INCLUDE_ASM("asm/dump/8040d18/80436b0.s");
+
+void sub_80436B0(FrontendState* object)
+{
+    unk32 count;
+    UnkMotion* item;
+
+    item = object->menuState.objectItems;
+    count = object->menuState.objectCount;
+    if (count == 0) {
+        return;
+    }
+    while (count-- != 0) {
+        sub_8050584(item);
+        item++;
+    }
+    if (object->menuState.timer != 0) {
+        sub_8050584(&object->menuState.motion);
+        sub_8061204(&object->menuState.cleanup);
+    }
+    deallocateBlock(object->menuState.block);
+    sub_805AD9C(&object->menuState);
+}
 
 unk32 sub_8043720(FrontendState* object)
 {

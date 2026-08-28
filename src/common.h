@@ -34,6 +34,11 @@ typedef struct Palette {
     AllocatedBlock* block; /* 0x10 */
 } Palette;
 
+typedef struct UnkFrontendTarget {
+    unk8 pad0[0xEC];
+    unk16 unkEC;
+} UnkFrontendTarget;
+
 typedef struct UnkStruct_sub1 {
     unk8 var00;
     unk8 var01;
@@ -41,7 +46,7 @@ typedef struct UnkStruct_sub1 {
     unk16 var04;
     unk16 var06;
     unk16 var08;
-    unk32 var0C;
+    UnkFrontendTarget* var0C;
     unk32 var10;
     unk32 var14;
 } UnkStruct_sub1;
@@ -111,7 +116,10 @@ typedef struct FrontendSubobject {
     unk32 unk18;
     unk8 pad1C[8];
     unk32 unk24;
-    unk8 pad28[0x54];
+    unk8 pad28[0x20];
+    s16 unk48;
+    s16 unk4A;
+    unk8 pad4C[0x30];
     unk8 unk7C;
     unk8 pad7D[3];
 } FrontendSubobject;
@@ -228,7 +236,7 @@ typedef struct MenuState {
     UnkMenuItem* items; /* 0xC */
     unk8 pad10[4];
     s32 itemCount; /* 0x14 */
-    unk32 objectCount; /* 0x18 */
+    s32 objectCount; /* 0x18 */
     unk8 pad1C[8];
     unk32 unk24; /* 0x24 */
     unk8 pad28[6];
@@ -237,7 +245,7 @@ typedef struct MenuState {
     unk8 pad30[8];
     FrontendMenu menu; /* 0x38 */
     UnkMotion* objectItems; /* 0xA8 */
-    unk8 padAC[4];
+    AllocatedBlock* block; /* 0xAC */
     unk32 timer; /* 0xB0 */
     SpriteTextCleanup cleanup; /* 0xB4 */
     UnkMotion motion; /* 0xE4 */
@@ -460,9 +468,9 @@ typedef struct ParticleSystem {
 
 typedef union RiderStatePrefix {
     struct {
-        unk16 unk0;
-        unk16 unk2;
-        unk16 unk4;
+        s16 unk0;
+        s16 unk2;
+        s16 unk4;
         unk16 unk6;
     } words;
 
@@ -524,7 +532,9 @@ typedef struct RiderBase {
     Actor unk2FC;
     unk8 pad3C0[4];
     SpriteEntry* unk3C4;
-    unk8 pad3C8[8];
+    unk8 pad3C8[4];
+    unk16 unk3CC;
+    unk8 pad3CE[2];
     unk8 unk3D0; /* 0x3D0 */
     unk8 pad3D1[0x17];
     u8 unk3E8;
@@ -703,12 +713,12 @@ typedef struct MultiPlayerAllocation {
     unk8 data[1];
 } MultiPlayerAllocation;
 
-typedef struct Unk80516E0 {
+typedef struct LevelSlot {
     unk8 unk0;
     unk8 pad1;
     unk16 unk2;
     void* unk4;
-} Unk80516E0;
+} LevelSlot;
 
 typedef struct LevelDescription {
     u8 unk0;

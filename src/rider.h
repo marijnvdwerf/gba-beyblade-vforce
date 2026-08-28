@@ -10,6 +10,7 @@ void processRiderMetadata(RiderBase*, LevelGeometryAddresses*, unk32);
 void sub_804B4A4(RiderBase*);
 void sub_804C098(RiderBase*);
 
+void sub_80501F8(RiderState*, RiderBase*);
 void sub_804C0EC(RiderTemp*, unk8);
 
 #endif

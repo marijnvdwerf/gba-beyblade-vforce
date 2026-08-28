@@ -134,5 +134,45 @@ u8 sub_80501C8(RiderState* arg0, u8 arg1)
     return (u8)(((u32)(arg0->unkD << 28) >> 28) & arg1);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80501f8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/805024c.s");
+void sub_80501F8(RiderState* state, RiderBase* riders)
+{
+    Actor* actor;
+    unk32 x;
+    unk32 y;
+    unk32 z;
+    unk32 value;
+
+    actor = &riders->unk238;
+    x = state->prefix.words.unk0 << 8;
+    y = state->prefix.words.unk2 << 8;
+    z = state->prefix.words.unk4 << 8;
+    actor->unk40 = x - actor->x;
+    actor->unk44 = y - actor->y;
+    actor->unk48 = z - actor->z;
+    actor->x = x;
+    actor->y = y;
+    actor->z = z;
+    value = state->prefix.words.unk6;
+    value <<= 22;
+    value >>= 22;
+    actor->unk22 = value;
+    value = state->unkC & 8;
+    riders->unk3CC = value;
+}
+
+void sub_805024C(RiderState* arg0)
+{
+    unk32 checksum;
+    unk32 flags;
+
+    checksum = arg0->prefix.words.unk2 ^ arg0->prefix.words.unk4;
+    checksum ^= (u32)(arg0->prefix.words.unk6 << 22) >> 22;
+    checksum ^= (u32)(arg0->unkD << 28) >> 28;
+    checksum ^= arg0->unk8;
+    checksum ^= arg0->unkC;
+    checksum ^= arg0->unkA;
+    checksum &= 0x3F;
+    checksum <<= 2;
+    flags = arg0->prefix.bytes.unk7 & 3;
+    arg0->prefix.bytes.unk7 = flags | checksum;
+}

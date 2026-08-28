@@ -33,7 +33,16 @@ void sub_8048FE4(void)
     sub_80490F8(-1);
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8048ffc.s");
+#if 0
+unk8 sub_8048FFC(void)
+{
+    if ((_unk3000650.transition.unk590.var0C->unkEC & 1) != 0) {
+        return 1;
+    }
+    return 0;
+}
+#endif
+INCLUDE_ASM("asm/dump/803fdb8/8048ffc.s");
 
 void sub_8049018(void)
 {
@@ -41,7 +50,14 @@ void sub_8049018(void)
     _unk3000650.unk8C = _unk3000650.unk90 = (unk32)-65536;
 }
 
-INCLUDE_ASM("asm/dump/8040d18/804903c.s");
+void sub_804903C(FrontendSubobject* object, unk32 arg1, unk32 arg2)
+{
+    _unk3000650.unk8C = arg1 << 8;
+    _unk3000650.unk90 = arg2 << 8;
+    _unk3000650.unk84 = object->unk48 << 8;
+    _unk3000650.unk88 = object->unk4A << 8;
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8049074.s");
 
 void sub_80490CC(unk32 arg0, unk32 arg1)
@@ -163,8 +179,15 @@ void sub_8049264(void)
     _unk3000650.transition.unk5A8 = 0;
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8049320-StoreFunction.s");
-INCLUDE_ASM("asm/dump/8040d18/8049330.s");
+void StoreFunction(void (*function)(FrontendState*, unk32))
+{
+    _unk3000650.transition.unk588 = function;
+}
+
+void sub_8049330(unk32 arg0)
+{
+    _unk3000650.transition.unk58C = arg0;
+}
 
 void sub_8049344(u32 arg0)
 {

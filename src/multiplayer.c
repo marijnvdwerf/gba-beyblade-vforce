@@ -293,6 +293,14 @@ void sub_80603E8(void)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8060404.s");
+void sub_8060404(void)
+{
+    _unk3005DC4->unk2 = (*(vu16*)REG_SIOCNT >> 4) & 3;
+    if (_unk3005DC4->unk2 < _unk3005DC4->unk4) {
+        _unk3005DC4->unk3 = _unk3005DC4->unk4;
+        _unk3005DC4->unk14 |= 2;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8060434.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8060454-onSerialCommunication.s");
