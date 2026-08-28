@@ -118,7 +118,12 @@ void actor_80585F8(EnvironmentActorSlot* actor, unk16 arg1, unk16 arg2, unk16 ar
     actor->unkAE = arg4;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8058614-rider_8058614.s");
+void rider_8058614(Actor* actor, unk16 arg1, unk16 arg2, unk16 arg3)
+{
+    actor->unk9A = arg1;
+    actor->unk9C = arg2;
+    actor->unk9E = arg3;
+}
 
 void ActorSetSpriteOffset(EnvironmentActorSlot* actor, unk16 arg1, unk16 arg2)
 {
