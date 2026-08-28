@@ -26,9 +26,10 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Entry normalization proves narrowing at entry, not a narrow formal parameter; try a wide ABI parameter assigned or cast to a narrow local. Conversely, a genuinely narrow formal tested for truth can emit the low-byte shift/test at entry without explicit source shifts.
 - Promotion chooses shifts: an unsigned intermediate yields `lsr`, while a signed intermediate yields `asr`, even with identical stored width.
 - Lvalue type selects `ldr`/`str`, `ldrh`/`strh`, or byte access; trust the opcode over the field's apparent semantics.
-- A cast on a field read (`(s8)p->f`, `ldsb`) is the field's real type: fix the declaration, don't keep the cast. Only a field proven unsigned by other users may keep a `(s16)` cast at a sentinel (`== -1`) consumer.
+- A cast that changes a field read from zero-extension to sign-extension (or vice versa) proves the view needed by that consumer, not automatically the canonical declaration. Prefer the declaration proven by established users; retain a per-use cast only when a controlled comparison proves the alternate signedness access.
 - agbcc can emit `ldrsb`: a signed `*ptr++` directly in a loop condition or call argument may select `mov #0; ldrsb`, while staging the read and increment separately can select `ldrb` plus sign-extension shifts. Preserve the dereference context instead of assuming signed-byte loads always lower one way.
 - A return prototype drives caller normalization, while the definition's declared return type also shapes the callee. In particular, an `s16` declaration can add sign-normalization inside the callee even when the target callee returns without it; diagnose caller and callee diffs separately rather than assuming one declaration explains both.
+- Decide parameter widths from matched callers as well as the definition. A caller-side `lsl #16; lsr #16` immediately before a call is positive evidence for an `unk16` prototype even when the callee body alone is ambiguous; update the declaration and all callers together.
 - Pointer→integer conversion and an integer identity cast can create different RTL despite both being 32-bit; preserve the proven global type.
 
 ## Locals and register pressure
@@ -63,6 +64,8 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - `*out++ = value` can select `stmia`; a separated store and increment selects `str` plus `add`.
 - A target induction initialized to `-stride` may be strength-reduced `array[i - 1]`; try the indexed source before preserving a negative cursor.
 - Constant spelling matters: staged forms such as `mask = 1; mask = -mask;` or `scale = 0x80; scale <<= 1;` can force the target `mov`/`neg` or `mov`/`lsl` materialization, while a direct large literal may use the pool; grouped multiplies may strength-reduce differently.
+- Preserve add-versus-subtract spelling for constants: `frameCount + 0xFFFF` is not interchangeable with `frameCount - 1`; old agbcc can materialize and combine them differently.
+- Shift-pair truncation is not interchangeable with masking: `(u32)(x << 22) >> 22` can avoid the literal-pool load introduced by `x & 0x3FF`, and `(x << 28) >> 28` can normalize differently from `x & 0xF`. Keep the form proven by the target.
 - If a high-register value is compared with an immediate, Thumb may materialize the constant in a low register for register-to-register `cmp`.
 - agbcc CSEs loads, merges shifts/blocks, and reuses related constants; if the target stays unfolded, block the proof with grouping or distinct locals.
 - Array decay produces an address while `array[0]` produces a scalar load; choose the shape shown by the target.
@@ -106,6 +109,8 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - A `strb` through a typed object may force later global-pointer reloads because agbcc treats byte stores as broadly aliasing; do not use `volatile` to fake it.
 - Long-lived global addresses consume callee-saved registers and can push incoming arguments into higher registers; preserve the source access pattern.
 - Global addresses may be loaded separately or derived from a nearby loaded address with `add`/`sub`; mirror whichever shape the target shows.
+- Taking `&global.member` can fold the symbol plus member offset into one literal-pool relocation. Loading a member at a large offset instead typically materializes the global base and a second offset literal before the load; small encodable offsets hide this distinction.
+- A direct literal for an interior address is therefore not evidence of a separate global. Use a typed subobject alias such as `T *part = &global.member` when the target keeps that interior address live.
 
 ## Stack and frame shape
 
@@ -120,8 +125,9 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Declaration width also imposes alignment: a halfword or word global cannot model storage proven at an odd byte address without shifting later fixed-layout symbols. Use byte storage for byte-addressed globals at odd offsets, even if some consumers combine bytes.
 - A field that is both compared/stored as a word and dereferenced is a pointer — type it so.
 - Later shifts, masks, or division do not narrow a field's memory access. If assembly proves the same scalar storage is intentionally accessed at incompatible widths (`strh`/`ldrb`, `ldr`/`ldrsh`), model a documented whole/parts union. If one stored pointer is dereferenced at multiple proven pointee widths, use a named union of typed pointer variants. These proven width puns are the only sanctioned union uses; otherwise, prefer adjacent narrower fields.
+- Under old agbcc, even a two-byte whole/parts union embedded at an even offset needs `__attribute__((packed))` to remain byte-neutral. An arm containing a nested two-byte struct makes the union four bytes; use a byte-array arm when the proven storage is exactly two bytes, then verify `sizeof` and following offsets.
 - A proven halfword read spanning adjacent byte fields may require a documented pointer cast when introducing a named union would disturb the fixed layout; C90 offers no anonymous union as a zero-friction overlay.
-- One shared field type may be unable to reproduce both a signed-load reader and an unsigned bitwise read-modify-write user. Per-use casts do not change the lvalue load selected for the already-matched user; preserve the established shared type and park the incompatible function rather than breaking a match.
+- One shared declaration may be unable to reproduce both signed and unsigned consumers. Preserve the type proven by established matched users, and keep a per-use cast only when a controlled comparison reproduces the alternate load; otherwise park the incompatible function rather than breaking a match.
 - An embedded header whose address is passed to list helpers must be an embedded struct field, not a pointer; the pointer spelling changes layout and cleanup codegen.
 - An opaque region only passed by address is naturally `unk8 region[N]`; a scalar member there introduces an unwanted load.
 - Allocation/resource handles with repeatedly accessed address, size, or owner slots should be typed structs; returning or passing the usable address often means accessing the first pointer member.
@@ -169,4 +175,5 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Prefer correcting types, casts, scopes, and expression shape over compiler-flag workarounds: a pass toggle that fixes one register allocation often changes another loop or load. Use flags diagnostically unless the original build settings justify them.
 - Verify every instruction and branch target, then run the full-ROM SHA1 compare; a local function match is insufficient when layout changed.
 - Treat raw-decomp and reviewer claims about types, layout, or "natural" source as hypotheses; verify them against assembly, controlled experiments, and ROM bytes.
+- A semantic draft parked under `#if 0` is absent from the object but still visible to source-based callgraph tooling, so its callees can appear reachable. Distinguish compiled reachability from callgraph-parser reachability before selecting work.
 - If natural C is semantically and structurally correct but a stable residual is only register allocation after justified type, lifetime, and ordering experiments, preserve the assembly rather than add volatile qualifiers, artificial temporaries, or forced control flow.
