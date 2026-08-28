@@ -395,7 +395,8 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   EXACTLY, typed form diverges at regalloc/literal emission even with the
   direct-member-expression retry (docs/learnings/sub_8043370.md); sub_805EBCC
   parked (packed-table scale addressing). Headers untouched.
-- Leaf M: sub_80581B8 matched; sent back to drop field-read casts (in flight).
+- Leaf M merged: sub_80581B8 (frame table = unk16 array cursor in the config
+  blob, see docs/learnings/leaves-m.md; Actor.unkC0 is a new callback field).
 - Callgraph extension (sol) in flight: skip #if 0, model runtime callback
   fields (Actor.unkB0/unkC0, ActorTimerEntry.unk8, CameraState.callback,
   menu callback, frontend unkB4->unk8, _unk3000C0C, render.h fn tables).
