@@ -93,7 +93,12 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   geometry: sub_8061E58, GetLineIndexOfType, sub_80600B4, sub_805529C,
   sub_8060C1C, sub_80659F0, freeSpriteVramLocation). Held back: rider.c/
   camera.c reds (sub_804B5C0, sub_804B4FC — an asmlift-draft agent owns
-  processRiderMetadata + sub_805EB00 right now). Round 2 = the 100–300 band.
+  processRiderMetadata + sub_805EB00 — DONE, merged: both matched from asmlift
+  drafts; RiderBase fields 0x50/52/210/218-22C/3D0/424 typed, GeometrySpline
+  unkC, CameraState records/callback/unk354/s8 unk355, `LineMetaObjectValue`
+  union (ldr +0x2E / ldrh +0xDA cited); the `riderBase = rider` alias is
+  REQUIRED (mov r7,r8 vs mov r6,r0)). rider.c/camera.c reds now free for
+  round 2. Round 2 = the 100–300 band.
   Newly parked: sub_805041C (motion, near-match: reset-store register seq +
   2-byte delta; draft in migrate-frontend-music.md), sub_804967C (frontend,
   extra high-reg saves), sub_806014C (multiplayer, reload only reproduces
@@ -195,7 +200,7 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 
 ## State
 
-Progress: 11/66 TUs done, 398 C functions, 609 INCLUDE_ASM remaining (40%).
+Progress: 11/66 TUs done, 400 C functions, 607 INCLUDE_ASM remaining (40%).
 Session 3 merged 97 functions (batches 1–17, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
