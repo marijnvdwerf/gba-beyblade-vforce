@@ -403,6 +403,12 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   in docs/learnings/leaves-n4.md; headers untouched). Follow-up: the backup.c
   draft uses a raw `*(vu16*)0x0D000000` — replace with the memory_map name
   when the function is retried.
+- Wave P: P1 = LoadSpriteSheet (sprite.c) running; P2 (festate trio) died
+  of context overflow ("Prompt is too long") mid sub_8045160 at a 65/264-row
+  near miss (one moved `ldr r4,[pc]` ≈ +0x54 shifts the literal pool); WIP
+  committed as 73d00bb on branch worktree-agent-ac70972334c278ff2 (worktree
+  dir removed, branch kept) and handed to P2b, which merges that branch
+  first. Prompt now tells agents to keep context small.
 - RULING (user): `__attribute__((packed))` allowed ONCE, on the SpriteEntry
   +0x18 `union { u16 word; u8 b[2]; } frame`. Re-measured on current main
   (all uses rewritten to frame.b[0]/b[1]): unpacked union → 30 ROM bytes
