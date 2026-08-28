@@ -165,7 +165,7 @@ void sub_805024C(RiderState* arg0)
     unk32 checksum;
     unk32 flags;
 
-    checksum = (s16)(arg0->prefix.words.unk2 ^ arg0->prefix.words.unk4);
+    checksum = arg0->prefix.words.unk2 ^ arg0->prefix.words.unk4;
     checksum ^= (u32)(arg0->prefix.words.unk6 << 22) >> 22;
     checksum ^= (u32)(arg0->unkD << 28) >> 28;
     checksum ^= arg0->unk8;
