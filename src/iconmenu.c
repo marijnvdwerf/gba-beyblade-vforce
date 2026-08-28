@@ -34,7 +34,10 @@ void sub_8050FC8(FrontendMenu* menu)
     sub_8061228(&menu->text);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050fe8.s");
+void sub_8050FE8(FrontendMenu* menu, unk32 value)
+{
+    menu->targetPosition = value;
+}
 
 void sub_8050FEC(FrontendMenu* menu, unk32 value)
 {
