@@ -10,4 +10,4 @@ void newProjectileSystem(ProjectileSystem*, s32, const unk8*, unk32, void*);
 void sub_804C484(ProjectileSystem*);
 void sub_804C208(ProjectileSystem*);
 
-#endif /* _PROJECTILE_H */
+#endif

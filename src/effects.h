@@ -11,4 +11,4 @@ void sub_80556F4(void);
 void sub_8055734(unk32, unk32*, unk32*);
 void sub_80558D0(void);
 
-#endif /* _EFFECTS_H */
+#endif

@@ -26,4 +26,4 @@ typedef struct DisplayData {
 
 void sub_8050A50(DisplayData*);
 
-#endif /* _DISPLAY_H */
+#endif

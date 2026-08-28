@@ -4,7 +4,7 @@
 #include "projectile.h"
 #include "ram.h"
 
-#if 0 /* NONMATCHING: prologue differs at 0x0; draft is 0x32 bytes shorter */
+#if 0
 void sub_805529C(void)
 {
     s32 angle;

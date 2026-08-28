@@ -11,15 +11,15 @@ typedef struct BatteryBackupConfig {
     unk8 unk9; /* 0x09 */
     unk8 unkA; /* 0x0A */
     unk8 unkB; /* 0x0B */
-} BatteryBackupConfig; /* size: 0x0C */
+} BatteryBackupConfig; /* 0x0C */
 
 extern const BatteryBackupConfig* _unk_3005E9C;
 
-extern u8 _batteryBackupTimer; /* 0x03000DA8 — timer index (0-3) */
-extern u16 _unk_3000DAA; /* 0x03000DAA — countdown ticks */
-extern unk8 _unk_3000DAC; /* 0x03000DAC — completion flag */
-extern volatile unk16* volatile _batteryBackupTimer_REG; /* 0x03000DB0 — &REG_TMxCNT_L */
-extern unk16 _unk_3000DB4; /* 0x03000DB4 — saved IME */
+extern u8 _batteryBackupTimer;
+extern u16 _unk_3000DAA;
+extern unk8 _unk_3000DAC;
+extern volatile unk16* volatile _batteryBackupTimer_REG;
+extern unk16 _unk_3000DB4;
 
 extern const BatteryBackupConfig Unk_875687C;
 extern const BatteryBackupConfig Unk_8756888;
@@ -28,7 +28,7 @@ typedef struct TimerConfig {
     unk16 unk0; /* 0x00 */
     unk16 unk2; /* 0x02 */
     unk16 unk4; /* 0x04 */
-} TimerConfig; /* size: 0x06 */
+} TimerConfig; /* 0x06 */
 
 extern const TimerConfig Unk_8756894;
 
@@ -43,4 +43,4 @@ u16 sub_8065AA0(u16 sector, u32 data);
 unk32 writeToBatteryBackup(u16 sector, unk16* data);
 u16 sub_8065BD4(u16 sector, u32 data);
 
-#endif /* _BACKUP_H */
+#endif

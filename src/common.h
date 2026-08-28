@@ -29,7 +29,7 @@ typedef struct Palette {
     u16 unk6; /* 0x06 */
     s16 unk8; /* 0x08 */
     unk8 unkA[2]; /* 0x0A */
-    PaletteBuffer unkC; /* 0x0C; strh/ldr access the pointed-to palette at different widths */
+    PaletteBuffer unkC; /* 0x0C */
     AllocatedBlock* block; /* 0x10 */
 } Palette;
 
@@ -66,7 +66,7 @@ struct SpriteTextCleanup {
     const u8* unk24;
     u8 unk28;
     s8 unk29;
-    unk8 unk2A; /* ldsb r0, [r7, r0] at .L8061430 in sub_806123C */
+    unk8 unk2A;
     u8 unk2B;
     SpriteEntry* ptr2C;
 };
@@ -400,7 +400,6 @@ typedef struct ParticleSystem {
     struct AllocatedBlock* unk30;
 } ParticleSystem;
 
-/* Proven width pun: ldrh at rider-state +6 and ldrb at +7 overlap. */
 typedef union RiderStatePrefix {
     struct {
         unk16 unk0;
@@ -469,7 +468,7 @@ typedef struct RiderBase {
     struct AllocatedBlock* unk420;
     unk16 unk424; /* 0x424 */
     unk8 pad426[2];
-} RiderBase; /* 0x428; GameData begins with this layout */
+} RiderBase; /* 0x428 */
 
 typedef struct PolyTable {
     unk16 unk0;
@@ -482,8 +481,6 @@ typedef struct PolyTable {
     struct AllocatedBlock* unk14;
 } PolyTable;
 
-/* Canonical level-geometry handle (0x11C bytes); filled by
- * getLevelGeometryAddresses(LevelGeometryAddresses*, void* geometryData). */
 typedef struct GeometryPoint {
     unk32 x;
     unk32 y;
@@ -498,7 +495,7 @@ typedef struct GeometryLine {
     unk8 pad9[0xD];
     unk16 type;
     unk8 pad18[8];
-} GeometryLine; /* 0x20; stride proven by line-table indexing */
+} GeometryLine; /* 0x20 */
 
 typedef struct GeometrySpline {
     unk32 pointCount;
@@ -519,8 +516,6 @@ typedef struct LevelDesign {
 struct LevelGeometryTable {
     unk32 pointCount;
 
-    /* Width pun proven by asm: getLevelGeometryAddresses reads this with
-     * ldrsh/ldrh [r1,#4]; GetSplineAtIndex reads it with ldr [r0,#4]. */
     union {
         s16 splineCount;
         s32 splineCountWord;
@@ -537,14 +532,13 @@ struct LevelGeometryTable {
 typedef struct LineMetaObject LineMetaObject;
 typedef struct LineMetadata LineMetadata;
 
-/* Width pun proven by ldr at processRiderMetadata +0x2E and ldrh at +0xDA. */
 typedef union LineMetaObjectValue {
     unk32 word;
     unk16 half;
 } LineMetaObjectValue;
 
 struct LineMetaObject {
-    u16 size; /* byte size of this record */
+    u16 size;
     u16 type;
     u16 id;
     u16 unk6;
@@ -681,4 +675,4 @@ typedef struct LevelDescription {
 
 #define ASM_ZEROPAD asm(".align 2, 0\n");
 
-#endif // BEY_COMMON
+#endif

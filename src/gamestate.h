@@ -26,4 +26,4 @@ unk32 sub_80518F0(void);
 unk32 sub_8051820(void);
 unk32 sub_8051868(void);
 
-#endif /* _GAMESTATE_H */
+#endif

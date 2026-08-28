@@ -8,4 +8,4 @@ void sub_80434EC(FrontendState*);
 void sub_804374C(FrontendState*);
 unk32 sub_8043720(FrontendState*);
 
-#endif /* _MENUOBJECT_H */
+#endif

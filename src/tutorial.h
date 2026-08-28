@@ -8,4 +8,4 @@ void StoreLevelVar14(unk32);
 void sub_804A550(unk8*);
 void sub_804A72C(void);
 
-#endif /* _TUTORIAL_H */
+#endif

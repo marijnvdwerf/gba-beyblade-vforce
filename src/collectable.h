@@ -6,4 +6,4 @@
 void initCollectables(u16);
 void nullsub_7(void);
 
-#endif /* _COLLECTABLE_H */
+#endif

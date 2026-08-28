@@ -248,7 +248,7 @@ void printTotalExramUsage(void)
     AllocatedBlock* block = _nextExramBlock;
 
     while (block != NULL) {
-        // printf("> %i %i\n");
+
         printf("> %i %i\n", block->size, block->size % 4);
         total += block->size;
         block = block->next;

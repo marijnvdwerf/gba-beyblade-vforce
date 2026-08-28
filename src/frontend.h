@@ -43,4 +43,4 @@ unk32 sub_80493C8(void);
 void sub_80495C4(void);
 void sub_804967C(void);
 
-#endif /* _FRONTEND_H */
+#endif

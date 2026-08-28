@@ -8,4 +8,4 @@ void sub_8053F0C(unk32);
 void initRiders(void);
 void sub_80538C0(void);
 
-#endif /* _GAMEINIT_H */
+#endif

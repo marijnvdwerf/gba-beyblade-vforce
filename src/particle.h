@@ -5,4 +5,4 @@
 
 void sub_804EBE8(ParticleSystem*);
 
-#endif /* _PARTICLE_H */
+#endif

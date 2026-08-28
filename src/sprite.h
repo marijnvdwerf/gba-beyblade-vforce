@@ -47,4 +47,4 @@ void sub_8061130(SpriteEntry*, u8);
 void sub_8061160(SpriteEntry*);
 void sub_8061168(SpriteEntry*, u8);
 
-#endif /* _SPRITE_H */
+#endif

@@ -16,4 +16,4 @@ void sub_8061228(SpriteTextCleanup*);
 void sub_8061824(SpriteTextCleanup*, s32, s32);
 void sub_8061E58(SpriteTextCleanup*, u8);
 
-#endif /* _SPRITETEXT_H */
+#endif

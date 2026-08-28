@@ -8,4 +8,4 @@ unk8 sub_806008C(void);
 unk8 sub_806014C(unk8*, unk8*, unk8);
 u8 isMultiplayer(void);
 
-#endif /* _MULTIPLAYER_H */
+#endif

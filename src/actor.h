@@ -13,4 +13,4 @@ void sub_8058794(Actor*, unk32, unk32, unk32, unk32);
 void sub_80588DC(Actor*);
 void sub_8058754(Actor*, unk32*);
 
-#endif /* _ACTOR_H */
+#endif

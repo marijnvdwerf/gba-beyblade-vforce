@@ -246,8 +246,7 @@ s32 sub_8060790(s32 arg0)
     return start;
 }
 
-#if 0 /* NONMATCHING: first diff is mov r7,r9 versus mov r7,r8 at 0x2; draft is 0x10 bytes shorter \
-       */
+#if 0
 void freeSpriteVramLocation(s32 start, s32 size)
 {
     SpriteStruct2* current;
@@ -314,7 +313,6 @@ void freeSpriteVramLocation(s32 start, s32 size)
 INCLUDE_ASM("asm/dump/8057b80-debug/8060808-freeSpriteVramLocation.s");
 #endif
 
-// 8755A08
 const unk8 Str_8755A08[]
     = "There are no free SpriteVramFree entries remaining on a call to freeSpriteVramLocation()\n";
 
@@ -581,8 +579,7 @@ void LoadSpriteSheet(SpriteSheetEntry* dst, SpriteSheet* source, unk32 x, unk32 
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8060b68-LoadSpriteSheet.s");
 
-#if 0 /* NONMATCHING: first diff is the list-relink branch at 0x5E; draft has the same semantic    \
-         control flow but different register allocation */
+#if 0
 SpriteEntry* sub_8060C1C(SpriteTextBlock* block, u16 size, u16 var22)
 {
     unk32 spritesFree;
@@ -690,7 +687,7 @@ void sub_8060CDC(SpriteTextBlock* block)
 #if 0
 SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 new_size, u16 arg2)
 {
-    /* The target narrows extra with lsl/lsr #16 at 0x2C-0x30. */
+
     unk16 extra;
     unk32 sprites_free;
     SpriteEntry* first;

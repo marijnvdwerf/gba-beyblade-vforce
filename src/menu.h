@@ -9,4 +9,4 @@ s32 sub_805B050(MenuState*, unk8);
 s32 sub_805B210(MenuState*);
 unk32 sub_805B240(MenuState*);
 
-#endif /* _MENU_H */
+#endif

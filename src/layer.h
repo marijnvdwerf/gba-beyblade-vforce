@@ -22,4 +22,4 @@ void sub_8058EF4(DisplayRecord*);
 void sub_80596AC(void*, unk32, unk32);
 vu16* GetBGLayerCntPtr(u8 layer);
 
-#endif /* _LAYER_H */
+#endif

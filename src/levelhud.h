@@ -13,4 +13,4 @@ extern const unk8* _806E710[];
 void sub_804FD64(void);
 void sub_804F84C(u8);
 
-#endif /* _LEVELHUD_H */
+#endif

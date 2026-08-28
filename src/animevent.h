@@ -5,4 +5,4 @@
 
 void newPolyTable(PolyTable*, u16, u16);
 
-#endif /* _ANIMEVENT_H */
+#endif

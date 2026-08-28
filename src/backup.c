@@ -65,8 +65,7 @@ void sub_806592C(void)
 
 INCLUDE_ASM("asm/dump/8064f38/8065970-DMA3Copy.s");
 
-#if 0 /* NONMATCHING: first diff is the prologue; natural draft retains one extra callee-saved     \
-         register */
+#if 0
 unk32 sub_80659F0(u16 sector, void* buffer)
 {
     unk16* temp;

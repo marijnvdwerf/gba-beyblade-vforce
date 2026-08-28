@@ -4,10 +4,8 @@
 
 #define LBLOCKSIZE (sizeof(long))
 
-// Nonzero if (long)X contains a NULL byte.
 #define CONTAINSNULL(X) (((X) - 0x01010101) & ~(X) & 0x80808080)
 
-// Nonzero if X is not aligned on a "long" boundary.
 #define UNALIGNED(X) ((long)X & (LBLOCKSIZE - 1))
 
 void* memcpy(void* dst0, const void* src0, size_t len0)
@@ -18,13 +16,10 @@ void* memcpy(void* dst0, const void* src0, size_t len0)
     const long* aligned_src;
     u32 len = len0;
 
-    // If the size is small, or either src or dst is unaligned,
-    // then go to the byte copy loop. This should be rare.
     if (len >= 16 && !(UNALIGNED(src) | UNALIGNED(dst))) {
         aligned_dst = (long*)dst;
         aligned_src = (long*)src;
 
-        // Copy 4X long words at a time if possible.
         while (len >= 16) {
             *aligned_dst++ = *aligned_src++;
             *aligned_dst++ = *aligned_src++;
@@ -33,7 +28,6 @@ void* memcpy(void* dst0, const void* src0, size_t len0)
             len -= 16;
         }
 
-        // Copy one long word at a time if possible
         while (len >= 4) {
             *aligned_dst++ = *aligned_src++;
             len -= 4;
@@ -43,7 +37,6 @@ void* memcpy(void* dst0, const void* src0, size_t len0)
         src = (unk8*)aligned_src;
     }
 
-    // Pick up any remaining bytes with a byte copier.
     while (len--)
         *dst++ = *src++;
 
@@ -58,14 +51,10 @@ void* memset(void* m, s32 c, size_t n)
     unsigned long* aligned_addr;
     unk8* unaligned_addr;
 
-    // If the size is small or m is unaligned,
-    // then go to the byte copy loop. This should be rare.
     if (n >= LBLOCKSIZE && !UNALIGNED(m)) {
-        // We know that n is large and m is word-aligned.
+
         aligned_addr = (unsigned long*)m;
 
-        // Store C into each char sized location in buffer so that
-        // we can set large blocks quickly.
         c &= 0xFF;
         if (LBLOCKSIZE == 4) {
             buffer = (c << 8) | c;
@@ -91,7 +80,6 @@ void* memset(void* m, s32 c, size_t n)
         s = (unk8*)aligned_addr;
     }
 
-    // Pick up the remainder with a bytewise loop.
     while (n--)
         *s++ = (unk8)c;
 
