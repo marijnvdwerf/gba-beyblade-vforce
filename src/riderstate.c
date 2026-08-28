@@ -50,7 +50,22 @@ s32 sub_8050114(RiderState* arg0)
     return 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050184.s");
+void sub_8050184(RiderState* arg0, u8 arg1)
+{
+    unk8 temp_r3;
+    unk32 temp_r2;
+    unk32 temp_r1;
+
+    temp_r3 = arg0->unkD;
+    temp_r2 = ((unk32)(temp_r3 << 28) >> 28) | arg1;
+    temp_r2 &= 0xF;
+    temp_r1 = (unk32)(-(s32)(unk8)0x10);
+    temp_r1 &= temp_r3;
+    temp_r1 |= temp_r2;
+    arg0->unkD = (unk8)temp_r1;
+    sub_805024C(arg0);
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80501a8.s");
 
 u8 sub_80501C8(RiderState* arg0, u8 arg1)

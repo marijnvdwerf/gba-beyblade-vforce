@@ -3,6 +3,7 @@
 
 #include "common.h"
 
-void sub_805024C(unk8* arg0);
+void sub_805024C(RiderState* arg0);
+void sub_8050184(RiderState* arg0, u8 arg1);
 
 #endif /* _RIDERSTATE_H */
