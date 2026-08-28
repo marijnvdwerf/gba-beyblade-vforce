@@ -6,7 +6,6 @@
 #include "music.h"
 #include "ram.h"
 #include "sound.h"
-
 extern const unk8 SpriteSheet_86FBC4C[];
 
 #if 0
@@ -273,6 +272,128 @@ void sub_8052514(void)
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052534.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805253c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052588.s");
+
+#if 0
+typedef struct Sub80526C8Geometry {
+    unk8 pad0[4];
+    GeometryPoint* points;
+    unk8 pad8[4];
+    GeometryLine* lines;
+} Sub80526C8Geometry;
+
+typedef struct Sub80526C8Actor {
+    unk8 pad0[4];
+    s32 x;
+    s32 y;
+    s32 z;
+    unk8 pad10[0x2C];
+    unk32 unk3C;
+    unk8 pad40[0x74];
+    s32 lineIndex;
+    SpriteEntry* sprite;
+    unk8 padBC[8];
+} Sub80526C8Actor;
+
+void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
+{
+    Sub80526C8Actor* current;
+    GeometryLine* line;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    Sub80526C8Geometry* geometry;
+    EnvironmentObject* object;
+    SpriteEntry* targetSprite;
+    SpriteEntry* lineSprite;
+    Actor* mainActor;
+    unk32 actorCount;
+    unk32 callbackData;
+    unk32 frame;
+    unk32 found;
+    s32 minX;
+    s32 minY;
+    s32 minZ;
+    s32 x;
+    s32 y;
+    s32 otherY;
+
+    frame = sprite->var22;
+    targetSprite = targetActor->unkB8;
+    geometry = (Sub80526C8Geometry*)&gameData->unk65C;
+    mainActor = gameData->base.unk0;
+    actorCount = gameData->unkC84;
+    current = (Sub80526C8Actor*)gameData->unkC7C;
+    callbackData = nullsub_12(&gameData->unk434);
+    if (actorCount == 0) {
+        return;
+    }
+    sprite->oam_attr_2 &= 0xF3FF;
+    targetActor->unk3C = current->unk3C;
+    actorCount--;
+    do {
+        if (current->sprite != NULL) {
+            object = NULL;
+            if (current->lineIndex >= 0) {
+                line = &geometry->lines[current->lineIndex];
+                point0 = &geometry->points[line->point0];
+                point1 = &geometry->points[line->point1];
+                minX = point1->x << 5;
+                if (point0->x < point1->x)
+                    minX = point0->x << 5;
+                minY = point1->y << 5;
+                if (point0->y < point1->y)
+                    minY = point0->y << 5;
+                minZ = point1->z << 5;
+                if (point0->z < point1->z)
+                    minZ = point0->z << 5;
+                object = GetStruct4(current->lineIndex);
+            } else {
+                minX = current->x;
+                minY = current->y;
+                minZ = current->z;
+            }
+            lineSprite = NULL;
+            if (object != NULL)
+                lineSprite = object->sprite;
+            x = current->sprite->x + (sub_80610EC(current->sprite) << 8);
+            y = current->sprite->y + (sub_8061110(current->sprite) << 8);
+            found = 0;
+            if (x >= sprite->x && x < sprite->x + 0x2000 && y >= sprite->y
+                && y < sprite->y + 0x2000)
+                found = 1;
+            if (lineSprite != NULL && found == 0) {
+                x = lineSprite->x + (sub_80610EC(lineSprite) << 8);
+                otherY = lineSprite->y + (sub_8061110(lineSprite) << 8);
+                if (x >= sprite->x && x < sprite->x + 0x2000 && otherY >= sprite->y
+                    && otherY < sprite->y + 0x2000)
+                    found = 1;
+            }
+            if (found != 0) {
+                if (current->unk3C != callbackData) {
+                    sprite->oam_attr_2 &= 0xF3FF;
+                    sprite->oam_attr_2 |= current->sprite->oam_attr_2 & 0x0C00;
+                    targetActor->unk3C = current->unk3C;
+                }
+                if (mainActor->x > minX && mainActor->y <= minY) {
+                    frame -= 3;
+                } else if ((mainActor->z >> 8) + 4 >= (minZ >> 8)) {
+                    frame -= 3;
+                } else {
+                    frame += 3;
+                }
+            }
+        }
+        current++;
+        actorCount--;
+    } while (actorCount != 0);
+    if (sprite->var22 != frame) {
+        sub_8061078(sprite, frame);
+        if (gameData->base.unk3E8 != 0)
+            sub_804E530(&gameData->base.unk3EC, frame + 1);
+    }
+    if (targetSprite != NULL)
+        sub_8061078(targetSprite, frame + 2);
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/80526c8.s");
 
 void sub_805295C(void)
