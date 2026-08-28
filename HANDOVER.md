@@ -9,6 +9,41 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 
 ## Session 4 (2026-08-27)
 
+### Session 4 wrap-up (2026-08-28, in progress — P2b + skill fold pending)
+
+State: main green; 456 C / 551 asm / 45%; callgraph (restored 2423af7 tool
++ callbacks + IRQ table) shows 54 🟡, 46 🔴 (10 render_* ARM + 4 arm2.s ARM
+ISRs are not compiler targets → 32 real reds, all ≥143 insns or parked).
+
+Decisions this session (user): raw2/raw-decomp are draft sources only; fresh
+starts from asm, smallest first; volatile/register/asm/flags never levers;
+never discard near-miss work (bare `#if 0` + step table in learnings); no
+comments in src/ except `/* 0xNN */`; Opus only for advice docs; record
+aliases (`&_table[i]`, `&_big.sub`) are source, scalar-global aliases are
+not; `__attribute__((packed))` allowed once, on the SpriteEntry+0x18 frame
+union (measured: required); render_*/arm2.s are hand-written ARM — leave as
+asm; coddog configured (docs/coddog.md) but yielded no leads beyond the
+sub_8057048 cluster; asmlift not worth it (5/24).
+
+Yield data: leaves ≤130 insns ≈ 80% match; 130–300 ≈ 10–15%; the misses are
+almost all prologue/lifetime shape (frame size, which value is spilled,
+callee-saved retention), not semantics — sub_8043370 even matches exactly in
+raw-pointer form.
+
+Open for next session: (1) whether to run the 200–260 band (six functions
+with known C callers: sub_804A550, sub_804EE54, allocQuadTree, sub_8050C18,
+sub_805E8D8, renderEnvironmentActors); (2) `&_spritesFree` scalar alias for
+resizeSpriteBlock; (3) frontend callback signature conflict (unkC/unk588);
+(4) cosmetic `🧭 Unk_872CAF4[unk588]` node; (5) raw `0x0D000000` in the
+parked sub_8065AA0 draft; (6) the coddog sub_8057048 cluster (7 near-identical
+functions — match one, reuse the shape).
+
+Manager lessons: gate merges with `grep -q "^100% tests passed"`; run every
+worktree command with an explicit `cd` (cwd drifts); check agents' diffs for
+header fields added for parked drafts and for `.word`-style edits to matched
+code; diff the 🟡/🔴 sets whenever the callgraph tool changes; keep agent
+prompts small (P2 died of context overflow).
+
 - Since session 3 the user merged a type-signedness audit (u32/s32 → unk32,
   then re-signed on evidence) and `fix callgraph` (43c426b); callgraph now
   follows callbacks/handler tables → more reds. It also reports 4-byte
