@@ -403,6 +403,11 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   in docs/learnings/leaves-n4.md; headers untouched). Follow-up: the backup.c
   draft uses a raw `*(vu16*)0x0D000000` — replace with the memory_map name
   when the function is retried.
+- CALLGRAPH REVERT (user): the agent rewrites (fdff37d/556bb10/6b6e7f8 —
+  asm traversal, ⚫ nodes, --deep, #if 0 skipping) lost the 🟡 draft marker
+  and the second (draft) pass. Manager's mistake (briefed "skip #if 0",
+  then patched the symptom). Sol agent in flight: restore 2423af7 + minimal
+  `->field()` fix + hard-coded CALLBACKS list rendered as 🧭 nodes.
 - RULING (user, 2026-08-28): sub_8059B00's record aliases into
   `_unk3000D00[index]` are accepted ("looks pretty sane") — pointer-to-RECORD
   aliases are source; pointer-to-SCALAR-global aliases stay banned
