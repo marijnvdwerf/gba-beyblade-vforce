@@ -370,6 +370,9 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   `_unk3000F20` = unk16[16], `_unk3000F40/F44` s16 (now with a matched
   user). Temp-reduction note: newCollisionDataRam has `(s16)count` on a
   local — try `s16 count`.
+- Reds on main: 37 (excluding the bogus copy/handler symbols). Small pool
+  exhausted until leaf D (rider.c) and leaf H (layer.c) merge; then
+  sub_804B7FC (110). Everything else ≥143 insns or parked with a draft.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
