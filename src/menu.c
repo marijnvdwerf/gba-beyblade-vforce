@@ -6,8 +6,6 @@
 #include "spritetext.h"
 #include "unsorted.h"
 
-extern void sub_806185C(void*, unk8);
-
 INCLUDE_ASM("asm/dump/8057b80-debug/805ac28.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ac5c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ac68.s");

@@ -43,6 +43,43 @@ void sub_805000C(RiderState* arg0, RiderBase* arg1)
     sub_805024C(arg0);
 }
 
+#if 0 /* NONMATCHING: register allocation differs at 0x00000002; size 0xB0 */
+void sub_8050050(RiderState* state, RiderState* other)
+{
+    unk16 value;
+    unk16 otherValue;
+    CurrentGameState* currentState;
+
+    value = _unk3000F20[_unk3000F44];
+    if (_unk3000F40 != 0) {
+        otherValue = other->unkA;
+        if (value == otherValue) {
+            _unk3000F40--;
+            if (_unk3000F40 != 0) {
+                _unk3000F44++;
+                if (_unk3000F44 > 0xF)
+                    _unk3000F44 = 0;
+                value = _unk3000F20[_unk3000F44];
+            } else {
+                value = 0;
+            }
+        }
+    }
+    state->unk8 = value;
+    otherValue = other->unk8;
+    if (state->unkA != otherValue && otherValue != 0) {
+        if ((_gameData->unk161C & 1) == 0) {
+            currentState = _currentGameState;
+            if (currentState->unk6A4 == 2) {
+                SetRiderGlobal(0);
+                handleEventListeners(&_gameData->unk65C, otherValue);
+            }
+        }
+    }
+    state->unkA = otherValue;
+    sub_805024C(state);
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050050.s");
 
 s32 sub_8050114(RiderState* arg0)
@@ -69,21 +106,25 @@ s32 sub_8050114(RiderState* arg0)
     return 0;
 }
 
+#if 0 /* NONMATCHING: mask folds to sub r1,#31; target uses mov/neg; size 0x24 */
 void sub_8050184(RiderState* arg0, u8 arg1)
 {
     unk8 temp_r3;
+    s32 temp_r1;
     unk32 temp_r2;
-    unk32 temp_r1;
 
     temp_r3 = arg0->unkD;
     temp_r2 = ((unk32)(temp_r3 << 28) >> 28) | arg1;
     temp_r2 &= 0xF;
-    temp_r1 = (unk32)(-(s32)(unk8)0x10);
+    temp_r1 = 0x10;
+    temp_r1 = 0 - temp_r1;
     temp_r1 &= temp_r3;
     temp_r1 |= temp_r2;
     arg0->unkD = (unk8)temp_r1;
     sub_805024C(arg0);
 }
+#endif
+INCLUDE_ASM("asm/dump/804a388-tutorial/8050184.s");
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80501a8.s");
 
