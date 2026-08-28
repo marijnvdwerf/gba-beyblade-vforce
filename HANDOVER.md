@@ -377,6 +377,8 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   matches — same lever class as the accepted sub_8048FFC precedent; step
   table + LayerTransformValue word/half pun proof in docs/learnings/leaves-h.md.
   Merged under that precedent; revert if the user rules otherwise.
+- Running: leaf K (math.c sub_8059FA0 14, exposed by leaf H) and leaf L
+  (menuobject.c sub_8043370 176, camera.c sub_805EBCC 199).
 - Running: leaf I (actor.c: sub_8058838 53, actor_8058638 137) and leaf J
   (riderphysics.c sub_804DAA0 109, rider.c sub_804B7FC 112). Leaf H (layer.c
   sub_8059B00) still running. Remaining reds <=200 after those: sub_8046A0C
