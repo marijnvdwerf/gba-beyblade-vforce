@@ -268,6 +268,22 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   Pre-review: A clean; B's DMA3Copy had `(unk8*)dmaControl + 2` →
   REG_DMA3CNT_H (sent back). Next leaf pool after these: rerun the
   callgraph — every merged draft/function exposes more small callees.
+- Leaf A MERGED: 11 matched (sub_8049330, StoreFunction, sub_80516E0,
+  sub_806185C, sub_8060404, sub_804903C, sub_805024C, sub_80501F8,
+  sub_80436B0, sub_8061078, sub_8043558); MenuState.objectCount is s32;
+  CurrentGameState.unk544 = LevelSlot[10] (8-byte); RiderStatePrefix.words
+  unk0/2/4 s16; `_8068868` labelled in data12.s. sub_8048FFC PARKED with a
+  DESIGN FINDING: the target loads `_unk3000BE0` with its OWN literal, while
+  `_unk3000650.transition.unk590.var0C` makes agbcc load `_unk3000650` and
+  derive +0x59C → the original source had a separate object at 0x3000BE0.
+  So FrontendState probably ENDS at 0x590 (matches the 0x590 placeholder
+  size) and `FrontendTransition.unk590/unk5A8` + background.c's use of them
+  are the overlay agent's guess. USER RULING NEEDED: split `_unk3000BE0`
+  back out as its own typed object (UnkStruct_sub1 + unk32), retype
+  background.c/frontend.c accordingly (byte-neutral if literals resolve to
+  the same addresses) — that also lands sub_8048FFC.
+  Rejected-by-bytes in review: `& 0x3FF` for `(u32)(x<<22)>>22` (literal
+  pool), `& 0xF` for `(x<<28)>>28` — the shift dance IS the source here.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
@@ -354,7 +370,7 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 
 ## State
 
-Progress: 12/66 TUs done, 412 C functions, 595 INCLUDE_ASM remaining (41%).
+Progress: 12/66 TUs done, 423 C functions, 584 INCLUDE_ASM remaining (42%).
 Session 3 merged 97 functions (batches 1–17, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
