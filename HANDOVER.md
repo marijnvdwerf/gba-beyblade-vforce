@@ -403,6 +403,12 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   in docs/learnings/leaves-n4.md; headers untouched). Follow-up: the backup.c
   draft uses a raw `*(vu16*)0x0D000000` — replace with the memory_map name
   when the function is retried.
+- FOLLOW-UP (frontend callbacks): frontend.c:394–396 calls
+  `transition.unk588` and `unkB4->unkC` through `((void (*)(void))…)()` casts
+  while sub_8049344 calls unk588 as `(FrontendState*, unk32)` — one of the
+  two field types is wrong; resolve from the table entries' asm when next in
+  frontend.c. Phase codes for unk10/unk14: 0 ctor, 2 entered, 3 leaving,
+  4 per-frame transition, 1 landed; unk8 events 0–9 with payload.
 - Leaf R merged: onSerialCommunication (serial ISR) matched; IRQ vector
   table now `void (*_unk3000DF0[14])(void)`; the only interrupt-only code
   left in asm is the four arm2.s ARM routines.
