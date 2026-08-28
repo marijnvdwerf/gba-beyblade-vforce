@@ -24,7 +24,7 @@ void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable*
         arg0->unk14[i] = GetSplineAtIndex(arg0, i);
     }
     arg0->unk114 = NULL;
-    arg0->unk10 = NULL;
+    arg0->block = NULL;
     arg0->unk118 = 0;
 }
 
@@ -38,9 +38,12 @@ void sub_805BA3C(GeometryAddressTable* arg0)
     arg0->block = NULL;
 }
 
-void StoreMetadataAddr(LevelGeometryAddresses* arg0, LineMetadata** value)
+void StoreMetadataAddr(void* arg0, LineMetadata** value)
 {
-    arg0->unk114 = value;
+    LevelGeometryAddresses* geometry;
+
+    geometry = arg0;
+    geometry->unk114 = value;
 }
 
 LineMetadata* GetLineMetaData(LevelGeometryAddresses* arg0, unk32 index)

@@ -34,6 +34,12 @@ extern void (*_unk3000C0C)(void);
 void sub_805565C(void);
 void sub_8055674(void);
 
+typedef struct GeometryAddressTable {
+    unk8 pad0[0xC];
+    EnvironmentLine* unkC;
+    AllocatedBlock* block;
+} GeometryAddressTable;
+
 typedef struct Sub8052140Data {
     unk32 unk0;
     unk32 unk4;
@@ -54,12 +60,6 @@ typedef struct Sub8052140Data {
     unk8 pad34[0x24];
     unk32 unk58;
 } Sub8052140Data;
-
-typedef struct GeometryAddressTable {
-    unk8 pad0[0xC];
-    EnvironmentLine* unkC;
-    AllocatedBlock* block;
-} GeometryAddressTable;
 
 typedef struct QuadTree {
     unk8 pad0[0x24];

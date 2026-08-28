@@ -234,7 +234,7 @@ typedef struct MenuState {
     u8 unk9;
     unk8 padA[2];
     UnkMenuItem* items; /* 0xC */
-    unk8 pad10[4];
+    AllocatedBlock* menuBlock; /* 0x10 */
     s32 itemCount; /* 0x14 */
     s32 objectCount; /* 0x18 */
     unk8 pad1C[8];
@@ -568,7 +568,7 @@ typedef struct GeometryLine {
     unk32 point1;
     unk8 unk8;
     unk8 pad9[0xD];
-    unk16 type;
+    unk16 unk10;
     unk8 pad18[8];
 } GeometryLine; /* 0x20 */
 
@@ -637,7 +637,7 @@ typedef struct LevelGeometryAddresses {
     GeometryPoint* unk4;
     GeometrySpline* unk8;
     GeometryLine* unkC;
-    void* unk10;
+    AllocatedBlock* block; /* 0x10 */
     GeometrySpline* unk14[0x40];
     LineMetadata** unk114;
     unk16 unk118;
@@ -726,7 +726,8 @@ typedef struct LevelDescription {
     unk8 pad2[2];
     unk32 unk4;
     s32 unk8;
-    unk8 padC[5];
+    unk16 unkC;
+    unk8 padE[3];
     u8 unk11;
     unk8 pad12[6];
     unk32 unk18;
