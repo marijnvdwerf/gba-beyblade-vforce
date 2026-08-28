@@ -1,6 +1,7 @@
 #include "ram.h"
 
 #include "keystate.h"
+#include "layer.h"
 
 s32 _3000000 = 0;
 s32 _3000004 = 0;
@@ -249,7 +250,7 @@ unk32 withBoundingAreaCount = 0;
 unk8 _unk3000C1C[4] = { 0 };
 unk8 withBoundingAreas[128] = { 0 };
 unk8 _unk3000CA0[96] = { 0 };
-unk8 _unk3000D00[48] = { 0 };
+LayerTransformRecord _unk3000D00[2] = { 0 };
 unk8 _unk3000D30[80] = { 0 };
 unk8 _unk3000D80[16] = { 0 };
 void* _unk3000D90 = NULL;
