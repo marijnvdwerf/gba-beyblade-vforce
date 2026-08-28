@@ -50,6 +50,15 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   unk0 + s32 unk14 (bgt); `ItemDescriptionEntry` 24-byte stride). Open: sub_80515E0
   casts `&unk6FC` to `BackupBlock*` because sub_8057568 walks 8-byte blocks —
   block-array API vs typed payload, needs a user ruling.
+- Wave-1 close-out: temp-reduction merged (29ef319: dropped `state` alias in
+  sub_8051488, block-scoped `delta` in credits; all other temps proven needed);
+  sol skill fold (1d7c9a6; switch-body-order line corrected); callgraph tool
+  fix committed (2423af7: 📦 data pointer / ⚙ runtime nodes, 126→102 reds).
+- Wave 2 running: festate-A (sub_8046468 ✓, sub_80480EC ✓ committed;
+  sub_8047E5C in progress with a SpriteEntry frame union that needs asm proof;
+  sub_804444C/sub_8045CB4/selectBladeFrontendHandler pending); geometry/actor/
+  camera batch (GetLineIndexOfType, sub_805EB00, actor_8057C58, sub_80596AC,
+  sub_80526C8, actor_805C48C). Festate-B batch queued after festate-A merges.
   Newly parked: sub_805041C (motion, near-match: reset-store register seq +
   2-byte delta; draft in migrate-frontend-music.md), sub_804967C (frontend,
   extra high-reg saves), sub_806014C (multiplayer, reload only reproduces
