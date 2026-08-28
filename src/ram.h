@@ -56,7 +56,8 @@ typedef struct Sub8052140Data {
 } Sub8052140Data;
 
 typedef struct GeometryAddressTable {
-    unk8 pad0[0x10];
+    unk8 pad0[0xC];
+    EnvironmentLine* unkC;
     AllocatedBlock* block;
 } GeometryAddressTable;
 

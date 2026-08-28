@@ -22,15 +22,14 @@ void sub_8057104(s32 arg0, unk32 arg1)
 {
     unk32* data;
     unk32 value;
-    CurrentGameState* gameState;
 
     if ((arg1 << 24) != 0) {
-        gameState = _currentGameState;
-        data = gameState->unk594 + (arg0 >> 5);
+        data = &_currentGameState->unk594[0];
+        data += arg0 >> 5;
         value = *data | (1 << (arg0 & 0x1F));
     } else {
-        gameState = _currentGameState;
-        data = gameState->unk594 + (arg0 >> 5);
+        data = &_currentGameState->unk594[0];
+        data += arg0 >> 5;
         value = *data & ~(1 << (arg0 & 0x1F));
     }
     *data = value;

@@ -341,7 +341,7 @@ typedef struct EnvironmentNode {
 } EnvironmentNode;
 
 typedef struct EnvironmentObject {
-    unk8 pad0[4];
+    Actor* actor;
     SpriteEntry* sprite;
     unk8 pad8[0x44];
 } EnvironmentObject;
@@ -489,6 +489,12 @@ typedef struct GeometryLine {
     unk8 pad18[8];
 } GeometryLine; /* 0x20; stride proven by line-table indexing */
 
+typedef struct EnvironmentLine {
+    unk8 pad0[0x10];
+    unk8 unk10;
+    unk8 pad11[0xF];
+} EnvironmentLine; /* 0x20 */
+
 typedef struct GeometrySpline {
     unk32 pointCount;
     unk32 size;
@@ -566,9 +572,9 @@ typedef struct CollectableEntry {
 } CollectableEntry;
 
 typedef struct CollectableData {
-    unk32 count;
+    s32 count;
     CollectableEntry entries[0x20];
-    unk32 collectedBits;
+    unk32 collectedBits[1];
 } CollectableData;
 
 typedef struct TutorialPage {
