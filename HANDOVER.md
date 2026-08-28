@@ -403,8 +403,6 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   in docs/learnings/leaves-n4.md; headers untouched). Follow-up: the backup.c
   draft uses a raw `*(vu16*)0x0D000000` — replace with the memory_map name
   when the function is retried.
-- RULE (user, 2026-08-28): NO gpt-5.6-sol agents — all agents luna
-  (gpt-5.6-luna). Sol callgraph agent was killed; redispatched on luna.
 - CALLGRAPH REVERT (user): the agent rewrites (fdff37d/556bb10/6b6e7f8 —
   asm traversal, ⚫ nodes, --deep, #if 0 skipping) lost the 🟡 draft marker
   and the second (draft) pass. Manager's mistake (briefed "skip #if 0",
