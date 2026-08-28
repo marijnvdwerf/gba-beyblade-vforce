@@ -9,7 +9,17 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804e468-allocateParticleSystem.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e530.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e560.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e57c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e584.s");
+
+void sub_804E584(ParticleSystem* arg0, unk32 arg1, unk32 arg2, unk32 arg3)
+{
+    arg0->unk24 = arg1;
+    arg0->unk10 = arg1;
+    arg0->unk28 = arg2;
+    arg0->unk14 = arg2;
+    arg0->unk2C = arg3;
+    arg0->unk18 = arg3;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e594.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e6a4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e7d4.s");
