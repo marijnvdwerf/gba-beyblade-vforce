@@ -31,8 +31,8 @@ typedef struct CameraState {
     unk8 pad357;
     unk16 unk358;
     unk8 pad35A[0xA];
-    unk32* unk364;
-    unk32* unk368;
+    unk32 unk364;
+    unk32 unk368;
 } CameraState;
 
 void nullsub_12(void*);

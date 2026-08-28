@@ -76,5 +76,10 @@ unk32* sub_805EEE0(CameraState* arg0)
     return &arg0->unk228;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805eefc.s");
+void sub_805EEFC(CameraState* camera, unk32 arg1, unk32 arg2)
+{
+    camera->unk364 = arg1;
+    camera->unk368 = arg2;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805ef18.s");
