@@ -3,6 +3,7 @@
 #include "include_asm.h"
 #include "projectile.h"
 #include "ram.h"
+#include "rider.h"
 
 #if 0
 void sub_805529C(void)
@@ -49,7 +50,17 @@ void sub_8055624(void)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805565c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055674.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/805568c.s");
+
+void sub_805568C(void)
+{
+    GameData* gameData;
+
+    gameData = _gameData;
+    gameData->projectileSystem.unk84 = 0;
+    gameData->projectileSystem.unk7A = 0xA1;
+    gameData->projectileSystem.unk88 = sub_804B7FC(gameData);
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80556c4.s");
 
 unk32 sub_80556DC(unk32 arg0)

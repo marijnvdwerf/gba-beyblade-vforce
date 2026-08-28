@@ -33,6 +33,33 @@ void nullsub_5(void)
 {
 }
 
+#if 0
+unk8 sub_804DA48(unk8* rider, unk8* otherRider, unk32 radius)
+{
+    Actor* pos0;
+    Actor* pos1;
+    s32 temp_r7;
+    s32 x;
+    s32 y;
+    s32 z;
+    s32 distance;
+    s32 radius_squared;
+
+    temp_r7 = radius;
+    pos0 = *(Actor**)rider;
+    pos1 = *(Actor**)otherRider;
+    if ((RiderHasFlag((RiderBase*)otherRider, 2) << 24) != 0)
+        return 0;
+    x = (pos1->x - pos0->x) >> 8;
+    y = (pos1->y - pos0->y) >> 8;
+    z = (pos1->z - pos0->z) >> 8;
+    distance = x * x + y * y + z * z;
+    radius_squared = temp_r7 * temp_r7;
+    if (distance < radius_squared)
+        return 1;
+    return 0;
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804da48.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804daa0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804db94-rider_vs_rider_collision_804DB94.s");
