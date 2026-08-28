@@ -11,7 +11,7 @@ There is no single missing compiler flag or one magical C idiom. The residuals f
 
 The strongest cross-function finding is **lifetime shaping, not macro expansion**. A function-like macro can explain an occasional duplicate evaluation, but the observed residuals are overwhelmingly explained by whether the source retained a cursor/index, cached a base, scoped a temporary, or used a direct expression. The target is often the result of ordinary 2002 C written with pointer cursors and phase-local variables, not an allocator-directed reconstruction.
 
-A controlled build experiment is decisive: enabling the parked `GetLineIndexOfType` draft in an isolated worktree produced byte-for-byte target instructions. The earlier report that this draft was still a one-register near-match was stale relative to the current tree. The source shape below is therefore a confirmed match, not merely a hypothesis.
+RETRACTED (manager, 2026-08-28): the claim below that enabling the parked `GetLineIndexOfType` draft produced a byte-for-byte match was re-tested in a clean detached worktree with the draft enabled and `line->unkF` typed: the ROM SHA1 does NOT match. Treat GetLineIndexOfType as a near-miss; the shape analysis in this document stands as hypotheses only.
 
 ## Residual matrix
 

@@ -161,9 +161,9 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   (docs/learnings/residual-analysis-2026-08-28.md): no missing flag/macro;
   the near-misses share LIFETIME SHAPING (cached alias vs direct expression,
   cursor+index live, phase-scoped locals, list head/cursor/pred/succ kept
-  distinct). It CONFIRMED the parked GetLineIndexOfType draft matches
-  byte-for-byte (explicit entry-test return + a second count local) — the
-  engine-1 tester was told to land it with a typed `unkF`.
+  distinct). Its claim that the parked GetLineIndexOfType draft matches was
+  FALSE — manager re-test in a clean detached worktree: SHA1 fails. Lesson:
+  an agent's "controlled experiment" is a claim like any other; re-run it.
 - Gamestate round-1 worktree after repair: compare green, sizes equal main;
   in second review — sub_804A280 must be PARKED (it read u16 unkC26 through an
   `const s16*` and used `(&transition.unk586)[-2]`; the s16/u16 conflict is

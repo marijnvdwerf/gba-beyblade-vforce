@@ -130,7 +130,8 @@ not the reachability boundary.
   assumes in your learnings file. Fields the draft needs stay in headers
   only if they are asm-proven.
 - Read docs/learnings/residual-analysis-2026-08-28.md before any near-miss
-  work: the common cause is LIFETIME SHAPING — direct member/global
+  work (its GetLineIndexOfType "confirmed match" is retracted — everything in
+  it is hypothesis). Its thesis: the common cause is LIFETIME SHAPING — direct member/global
   expressions instead of cached aliases, pointer cursor + index both live,
   phase-scoped locals, separate head/cursor/predecessor/successor in list
   code, narrow arguments kept wide until the asm proves the conversion.
