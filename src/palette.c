@@ -27,6 +27,15 @@ void sub_80631EC(Palette* arg0, unk8* arg1, s32 arg2)
     }
 }
 
+#if 0
+void sub_8063220(Palette* palette, unk32 red, unk32 green, unk32 blue)
+{
+    (void)palette;
+    (void)red;
+    (void)green;
+    (void)blue;
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8063220.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8063454.s");
 

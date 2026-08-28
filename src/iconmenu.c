@@ -9,6 +9,14 @@
 #include "sprite.h"
 #include "spritetext.h"
 
+#if 0
+void newIconMenu(FrontendMenu* menu, const FrontendMenuData* data, unk32 count)
+{
+    (void)menu;
+    (void)data;
+    (void)count;
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050a7c-newIconMenu.s");
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050c18.s");
