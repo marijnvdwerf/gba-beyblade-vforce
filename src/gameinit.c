@@ -136,15 +136,16 @@ void initRiders(void)
 {
     LevelGeometryAddresses geometry;
     void* geometryData;
-    GeometryLine* multiplayerLine;
+    void* multiplayerLine;
     unk32 initialized;
     unk32 lineType;
-    unk32 lineIndex;
-    unk32 x;
-    unk32 y;
-    unk32 z;
-    unk32 riderIndex;
+    s32 lineIndex;
+    s32 x;
+    s32 y;
+    s32 z;
+    s32 riderIndex;
     void* rider;
+    GeometryLine* line;
 
     GetLevelDescriptionNo();
     {
@@ -169,13 +170,11 @@ void initRiders(void)
     if (lineIndex < 0)
         return;
     do {
-        lineType = ((GeometryLine*)geometry.unkC)[lineIndex].type;
-        x = ((GeometryPoint*)geometry.unk4)[((GeometryLine*)geometry.unkC)[lineIndex].pointIndex].x
-            >> 3;
-        y = ((GeometryPoint*)geometry.unk4)[((GeometryLine*)geometry.unkC)[lineIndex].pointIndex].y
-            >> 3;
-        z = ((GeometryPoint*)geometry.unk4)[((GeometryLine*)geometry.unkC)[lineIndex].pointIndex].z
-            >> 3;
+        line = &((GeometryLine*)geometry.unkC)[lineIndex];
+        lineType = line->type;
+        x = ((GeometryPoint*)geometry.unk4)[line->point0].x >> 3;
+        y = ((GeometryPoint*)geometry.unk4)[line->point0].y >> 3;
+        z = ((GeometryPoint*)geometry.unk4)[line->point0].z >> 3;
         if (lineType != 0) {
             if (_gameData->unk1618 == 0) {
                 rider = &_gameData->unk42C[riderIndex];
@@ -197,23 +196,23 @@ void initRiders(void)
                     multiplayerLineIndex = GetLineIndexOfType(&geometry, 0x99, 0);
                     if (multiplayerLineIndex >= 0) {
                         multiplayerLine = &((GeometryLine*)geometry.unkC)[multiplayerLineIndex];
-                        x = ((GeometryPoint*)geometry.unk4)[multiplayerLine->point0].x >> 3;
-                        y = ((GeometryPoint*)geometry.unk4)[multiplayerLine->point0].y >> 3;
-                        z = ((GeometryPoint*)geometry.unk4)[multiplayerLine->point0].z >> 3;
+                        x = ((GeometryPoint*)geometry.unk4)[((GeometryLine*)multiplayerLine)->point0].x >> 3;
+                        y = ((GeometryPoint*)geometry.unk4)[((GeometryLine*)multiplayerLine)->point0].y >> 3;
+                        z = ((GeometryPoint*)geometry.unk4)[((GeometryLine*)multiplayerLine)->point0].z >> 3;
                     } else {
                         x += Unk_874CC3C[_gameData->unk1618];
                         y -= (Unk_874CC3C[_gameData->unk1618 + 0x40] << 5) >> 8;
-                        printf(Str_8729598, _gameData->unk3CE);
+                        printf(Str_8729598, _gameData->base.unk3CE);
                     }
                 }
                 rider = _gameData;
                 initRider(rider, &_gameData->unk434, x, y, z + 0x80, lineType, sub_8051820());
                 processRiderMetadata(rider, &geometry, lineIndex);
                 if (multiplayerLine != NULL)
-                    _gameData->unk200 = multiplayerLine;
+                    _gameData->base.unk200 = multiplayerLine;
                 else
-                    _gameData->unk200 = &((GeometryLine*)geometry.unkC)[lineIndex];
-                sub_804E1FC(rider, ((GeometryLine*)geometry.unkC)[lineIndex].unk8);
+                    _gameData->base.unk200 = line;
+                sub_804E1FC(rider, line->unk8);
                 sub_804C888(rider, 1);
                 initialized |= 1;
             } else {
@@ -235,7 +234,6 @@ void initRiders(void)
     } while (lineIndex >= 0);
     _gameData->unk430 = riderIndex;
 }
-
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8053600-initRiders.s");
 
