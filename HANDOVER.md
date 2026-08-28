@@ -337,6 +337,14 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   (config in its worktree + docs/coddog.md if it runs on GBA/Thumb).
   Agent scorecard: leaves ~80% (A 12/12, B 8/13, C 4/6, D 2/3 so far);
   130–300-insn functions ~5% (round 2: 2/24; humanize testers 0/19).
+- Leaf C MERGED: sub_805E8A0, sub_805EEFC, sub_8054278, initCollisionData;
+  GeometryAddressTable + EnvironmentLine clones DELETED, GameData.unk65C is
+  `LevelGeometryAddresses` (0x11C) + pad778[0x28] (unk7A0/unk7A4 kept),
+  GeometryLine +0x10/+0x11 are bytes (strb in sub_8056FAC; no matched
+  halfword reader), typed geometry prototypes restored. Parked:
+  sub_805AD9C, sub_8059310. getLineMetaAtIndex + sub_8058F60 now free.
+  Merge note: event.c conflict = leaf B's parked handleEventListeners draft
+  vs leaf C's matched sub_8054278 — kept both.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
@@ -423,7 +431,7 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 
 ## State
 
-Progress: 12/66 TUs done, 432 C functions, 575 INCLUDE_ASM remaining (43%).
+Progress: 12/66 TUs done, 436 C functions, 571 INCLUDE_ASM remaining (43%).
 Session 3 merged 97 functions (batches 1–17, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
