@@ -75,7 +75,17 @@ void deallocEventListeners(void)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054248-processMetadata_6.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8054278.s");
+
+void sub_804FF88(unk16);
+void handleEventListeners(void*, unk16);
+
+void sub_8054278(void* arg0, unk16 arg1)
+{
+    handleEventListeners(arg0, arg1);
+    if (_gameData->unk1618 != 0)
+        sub_804FF88(arg1);
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80542a8-handleEventListeners.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054388-processMetadata_default.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80543a4-nullsub_42.s");
