@@ -8,7 +8,7 @@ void sub_804C888(RiderBase*, unk8);
 void SetRiderFlag(RiderBase*, unk32);
 void UnsetRiderFlag(RiderBase*, unk32);
 void sub_804CEF4(RiderBase*, unk32);
-void convert3DCoordsto2DCoords(void);
+void convert3DCoordsto2DCoords(Actor*, unk32*);
 unk8 RiderHasFlag(RiderBase*, unk32);
 unk32 sub_804E440(RiderBase*, unk32);
 void sub_804DAA0(RiderBase*, RiderBase*);

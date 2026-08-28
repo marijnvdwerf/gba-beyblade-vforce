@@ -128,7 +128,18 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804e2a4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e328.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e358.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e3b0.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e3e4-convert3DCoordsto2DCoords.s");
+
+void convert3DCoordsto2DCoords(Actor* actor, unk32* output)
+{
+    s32 value1;
+    s32 value2;
+
+    value1 = actor->x;
+    value2 = actor->y;
+    output[0] = value1 - value2;
+    output[1] = (value1 + value2) >> 1;
+    output[1] -= actor->z;
+}
 
 void SetRiderFlag(RiderBase* rider, unk32 flags)
 {
