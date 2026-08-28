@@ -61,6 +61,49 @@ unk8 sub_804DA48(unk8* rider, unk8* otherRider, unk32 radius)
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804da48.s");
+
+#if 0
+void sub_804DAA0(RiderBase* rider0, RiderBase* rider1)
+{
+    unk32 flags = 0x04000000;
+    RiderBase* rider;
+    RiderBase* other;
+    s32 dx;
+    s32 dy;
+    s32 dz;
+    s32 distance;
+    s16 value0;
+    s16 value1;
+
+    rider = rider0;
+    other = rider1;
+    if ((RiderHasFlag(rider, flags) << 24) == 0) {
+        rider = rider1;
+        other = rider0;
+    }
+    if ((RiderHasFlag(rider, flags) << 24) != 0
+        && (RiderHasFlag(other, flags) << 24) == 0
+        && (RiderHasFlag(rider, 1) << 24) == 0
+        && (RiderHasFlag(rider, 0x40) << 24) == 0) {
+        dx = (other->unk0->x - rider->unk0->x) >> 8;
+        dy = (other->unk0->y - rider->unk0->y) >> 8;
+        dz = (other->unk0->z - rider->unk0->z) >> 8;
+        distance = dx * dx + dy * dy + dz * dz;
+        if (distance < rider->unk210) {
+            value0 = rider->unk220;
+            value1 = rider->unk222;
+            if (value0 > value1) {
+                SetRiderFlag(rider, 0x40);
+                rider->unk21E = 0x3C;
+            } else {
+                SetRiderFlag(rider, 1);
+                rider->unk21E = rider->unk21C;
+            }
+            rider->unk20C = other;
+        }
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804daa0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804db94-rider_vs_rider_collision_804DB94.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ddf8.s");
