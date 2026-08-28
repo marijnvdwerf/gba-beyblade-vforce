@@ -93,16 +93,16 @@ INCLUDE_ASM("asm/dump/8040d18/80491c4.s");
 
 s32 sub_80491E0(unk32 arg0, s32 arg1)
 {
-    unk32 value;
+    s32 value;
     unk32 negative;
 
     value = arg0;
-    negative = value >> 31;
+    negative = (unk32)value >> 31;
     if (value != 0) {
         if (negative != 0)
             value = 0 - value;
         while (arg1 != 0) {
-            if ((s32)value > (arg1 << 8)) {
+            if (value > (arg1 << 8)) {
                 value = arg1;
                 break;
             }
