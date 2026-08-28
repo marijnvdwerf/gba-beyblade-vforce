@@ -642,6 +642,184 @@ void sub_8045A7C(FrontendState* state, u32 arg1)
     }
 }
 
+#if 0
+void sub_8045CB4(FrontendState* state, unk32 arg1, unk32 arg2)
+{
+    SpriteEntry* sprite;
+    SpriteEntry* sprite2;
+    SpriteEntry* sprite3;
+    SpriteEntry* sprite4;
+    s32 zero;
+    s32 initialScroll;
+    unk32 frame;
+
+    switch (arg1) {
+    case 0:
+        _unk30003C8 = 0;
+        zero = 0;
+        _unk30003CC = 0x10000;
+        initialScroll = 0x10000;
+        sub_80596AC(&state->unk250, -initialScroll, zero);
+        _unk3000460 = zero;
+        sprite = allocSprite(0);
+        _unk30003D0 = sprite;
+        if (sprite != NULL) {
+            LoadSpriteSheet(
+                sprite, SpriteSheet_823BF04, 0xFFFF0000, 0x3000, zero, zero, zero, zero);
+        }
+        sprite2 = allocSprite(0);
+        _unk30003D4 = sprite2;
+        if (sprite2 != NULL) {
+            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x3000, zero, zero, 1, zero);
+        }
+        sprite3 = allocSprite(0);
+        _unk30003D8 = sprite3;
+        if (sprite3 != NULL) {
+            LoadSpriteSheet(sprite3, SpriteSheet_8247028, 0x18000, 0x2800, zero, zero, zero, zero);
+        }
+        sprite4 = allocSprite(0);
+        _unk30003DC = sprite4;
+        if (_unk30003D8 != NULL) {
+            LoadSpriteSheet(sprite4, SpriteSheet_824B01C, 0x18000, 0x5800, zero, zero, zero, zero);
+        }
+        _unk30003E0 = 0x1900;
+        _unk30003E4 = 0xC700;
+        _unk30003EC = 0x7800;
+        _unk30003F0.value = 0x2900;
+        _unk30003E8 = 0x3000;
+        _unk3000458 = _currentGameState->unk6E4 >> 5;
+        _unk300045C = _currentGameState->unk6E6 >> 5;
+        _unk30003DC->frame.word = _unk300045C;
+        _unk30003D8->frame.word = _currentGameState->unk6E4 >> 5;
+        allocFont(&_unk30003F8, SpriteSheet_82B1A84, LargeFontMeta, 0x100, 0x38, 0xF0, zero);
+        sub_8061660(&_unk30003F8, _806DFD0[0][getLanguage()], 0xE);
+        allocFont(&_unk3000428, SpriteSheet_82B1A84, LargeFontMeta, 0x100, 0x68, 0xF0, zero);
+        sub_8061660(&_unk3000428, _806DFD0[1][getLanguage()], 0xE);
+        break;
+    case 7:
+        if (_unk30003D0 != NULL) {
+            sub_8060A94(_unk30003D0);
+        }
+        if (_unk30003D4 != NULL) {
+            sub_8060A94(_unk30003D4);
+        }
+        if (_unk30003D8 != NULL) {
+            sub_8060A94(_unk30003D8);
+        }
+        if (_unk30003DC != NULL) {
+            sub_8060A94(_unk30003DC);
+        }
+        sub_8061204(&_unk30003F8);
+        sub_8061204(&_unk3000428);
+        break;
+    case 1: {
+        s32 value;
+        s32 value2;
+        s32 scroll;
+        s32 offset;
+
+        value = _unk30003F8.x;
+        value2 = _unk3000428.x;
+        sub_80439A0(&state->unk140);
+        value += (_unk30003F0.value - value) >> 2;
+        value2 += (_unk30003F0.value - value2) >> 2;
+        sub_8061844(&_unk30003F8, value >> 8, 0x38);
+        sub_8061844(&_unk3000428, value2 >> 8, 0x68);
+        scroll = (_unk30003C8 - _unk30003CC) >> 2;
+        sub_80596AC(&state->unk250, -scroll, 0);
+        _unk30003CC += scroll;
+        if (_unk30003D0 != NULL) {
+            offset = ((_unk30003E0 - _unk30003D0->x) >> 3)
+                + Unk_874CC3C[((sub_8057C40() & 0x1FE) >> 1)];
+            offset -= _unk30003C8;
+            _unk30003D0->x += offset;
+            _unk30003D0->y += (_unk30003E8 - _unk30003D0->y) >> 2;
+        }
+        if (_unk30003D4 != NULL) {
+            _unk30003D4->y += (_unk30003E8 - _unk30003D4->y) >> 2;
+            offset = ((_unk30003E4 - _unk30003D4->x) >> 3)
+                - Unk_874CC3C[((sub_8057C40() & 0x1FE) >> 1)];
+            offset += _unk30003C8;
+            _unk30003D4->x += offset;
+        }
+        _unk30003D8->x += (_unk30003EC - _unk30003D8->x) >> 2;
+        _unk30003DC->x += (_unk30003EC - _unk30003DC->x) >> 2;
+        break;
+    }
+    case 2:
+        if (_unk3005DA0 == 2) {
+            _unk30003C8 = 0x10000;
+            _unk30003E0 = 0xFFFF0000;
+            _unk30003E4 = 0x1E000;
+            _unk30003EC = 0x12C00;
+            _unk30003F0.value = 0x11800;
+            sub_804B00C(_unk3000458 << 5);
+            sub_804AFD4(_unk300045C << 5);
+            sub_8049178();
+            sub_804ABFC(9);
+            break;
+        }
+        if (_unk3005DA0 == 1) {
+            _unk30003E0 = 0xFFFF0000;
+            _unk30003E4 = 0x1E000;
+            _unk30003EC = 0x12C00;
+            _unk30003C8 = 0x10000;
+            _unk30003F0.value = 0x11800;
+            sub_80490F8(0xC);
+            sub_804ABFC(8);
+            break;
+        }
+        if ((_unk3005DA0 & 0xC0) != 0) {
+            if (_unk3000460 == 0) {
+                _unk3000460 = 1;
+            } else {
+                _unk3000460 = 0;
+            }
+            _unk30003E8 = _unk3000460 * 0x3000 + 0x3000;
+            break;
+        }
+        if (_unk3005DA0 == 0x20) {
+            if (_unk3000460 == 0) {
+                frame = _unk30003D8->frame.word;
+                if (frame != 0) {
+                    frame--;
+                    _unk30003D8->frame.word = frame;
+                    sub_804B00C(frame << 5);
+                    sub_804A310();
+                }
+            } else {
+                frame = _unk30003DC->frame.word;
+                if (frame != 0) {
+                    frame--;
+                    _unk30003DC->frame.word = frame;
+                    sub_804AFD4(frame << 5);
+                }
+            }
+        } else if (_unk3005DA0 == 0x10) {
+            if (_unk3000460 == 0) {
+                frame = _unk30003D8->frame.word;
+                if (frame <= 9) {
+                    frame++;
+                    _unk30003D8->frame.word = frame;
+                    sub_804B00C(frame << 5);
+                    sub_804A310();
+                }
+            } else {
+                frame = _unk30003DC->frame.word;
+                if (frame <= 9) {
+                    frame++;
+                    _unk30003DC->frame.word = frame;
+                    sub_804AFD4(frame << 5);
+                }
+            }
+        }
+        break;
+    default:
+        break;
+    }
+}
+#endif
+
 INCLUDE_ASM("asm/dump/8040d18/8045cb4.s");
 
 void sub_80461D8(FrontendState* state, u32 arg1)
