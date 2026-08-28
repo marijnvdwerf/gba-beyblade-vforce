@@ -289,7 +289,11 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8051694.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80516b0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80516c0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80516d4.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80516e0.s");
+
+Unk80516E0* sub_80516E0(unk32 index)
+{
+    return &_currentGameState->unk544[index];
+}
 
 LevelDescription* getLevelDescription2(void)
 {

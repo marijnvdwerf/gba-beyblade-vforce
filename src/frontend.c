@@ -163,8 +163,15 @@ void sub_8049264(void)
     _unk3000650.transition.unk5A8 = 0;
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8049320-StoreFunction.s");
-INCLUDE_ASM("asm/dump/8040d18/8049330.s");
+void StoreFunction(void (*function)(FrontendState*, unk32))
+{
+    _unk3000650.transition.unk588 = function;
+}
+
+void sub_8049330(unk32 arg0)
+{
+    _unk3000650.transition.unk58C = arg0;
+}
 
 void sub_8049344(u32 arg0)
 {
