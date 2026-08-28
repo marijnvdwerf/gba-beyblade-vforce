@@ -355,6 +355,9 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   the 4-line local patch (worth an upstream PR). Use: `coddog match <fn>`
   to find decompiled functions similar to a parked one (demo: ~60% matches
   for sub_805041C), `cluster` for duplicates among the asm dumps.
+- Leaf E MERGED: sub_804FE14, sub_804FE30 (levelhud), sub_805568C
+  (effects); sub_804DA48 parked (riderphysics.c; target saves r4–r7, draft
+  r4–r6 — one more live value). Running: leaf D, leaf F.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
@@ -441,7 +444,7 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 
 ## State
 
-Progress: 12/66 TUs done, 436 C functions, 571 INCLUDE_ASM remaining (43%).
+Progress: 12/66 TUs done, 439 C functions, 568 INCLUDE_ASM remaining (44%).
 Session 3 merged 97 functions (batches 1–17, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
