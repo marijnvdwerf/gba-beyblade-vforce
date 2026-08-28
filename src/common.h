@@ -367,12 +367,21 @@ typedef struct ActorFrameSequence {
     unk8 unk7;
 } ActorFrameSequence;
 
+typedef struct ActorFrameTable {
+    unk8 pad0[4];
+    unk16 unk4; /* 0x4 */
+    unk8 pad6[2];
+    unk16 unk8[1]; /* 0x8 */
+} ActorFrameTable;
+
 struct ActorConfig {
     unk32 unk0;
     unk8 pad4[3];
     unk8 unk7;
     unk32 unk8;
-    unk8 padC[0x14];
+    unk8 padC[0xC];
+    unk32 unk18; /* 0x18 */
+    unk8 pad1C[4];
     ActorFrameSequence sequences[1];
 };
 
@@ -387,7 +396,7 @@ typedef struct Actor {
     unk16 unk14;
     unk16 unk16;
     unk8 pad18[2];
-    unk16 unk1A;
+    s16 unk1A; /* 0x1A */
     unk16 unk1C;
     unk16 unk1E;
     unk16 unk20;
@@ -395,7 +404,8 @@ typedef struct Actor {
     unk8 unk24;
     unk8 unk25;
     unk16 unk26;
-    unk8 pad28[8];
+    unk8 pad28[6];
+    unk16 unk2E; /* 0x2E */
     unk8 unk30;
     unk8 unk31;
     unk8 unk32;
@@ -432,7 +442,8 @@ typedef struct Actor {
     void (*unkB0)(struct Actor*);
     unk32 unkB4;
     SpriteEntry* unkB8;
-    unk8 padBC[8];
+    unk8 padBC[4];
+    void (*unkC0)(struct Actor*, s32); /* 0xC0 */
 } Actor;
 
 struct ActorTimerEntry {

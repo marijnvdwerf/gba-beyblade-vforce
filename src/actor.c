@@ -9,6 +9,8 @@
 #include "unsorted.h"
 
 void sub_80581B8(Actor*);
+void actor_80580C0(Actor*, unk16, unk16);
+void ActorSetFrameSequence(Actor*, unk32);
 void sub_8058838(Actor*);
 void actor_8058638(Actor*);
 
@@ -99,7 +101,34 @@ INCLUDE_ASM("asm/dump/8057b80-debug/80580c0-actor_80580C0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058110.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058144.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805816c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/80581b8.s");
+
+void sub_80581B8(Actor* actor)
+{
+    ActorConfig* config;
+    ActorFrameTable* frameTable;
+    unk16 nextFrame;
+    s32 frame;
+    void (*callback)(Actor*, s32);
+
+    config = actor->unk0;
+    frameTable = (ActorFrameTable*)((unk8*)config + config->unk18 + actor->unk1C);
+    if ((s32)actor->unk1E >= (s32)(frameTable->unk4 - 1)) {
+        nextFrame = 0;
+        if ((s16)actor->unk2E != -1) {
+            frame = actor->unk1A;
+            actor_80580C0(actor, actor->unk2E, 0xFFFF);
+            callback = actor->unkC0;
+            if (callback != NULL) {
+                callback(actor, frame);
+            }
+            return;
+        }
+    } else {
+        nextFrame = actor->unk1E + 1;
+    }
+    actor->unk1E = nextFrame;
+    ActorSetFrameSequence(actor, ((unk16*)frameTable)[nextFrame + 4]);
+}
 
 void ActorSetFrameSequence(Actor* actor, unk32 sequence)
 {
