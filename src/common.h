@@ -363,6 +363,13 @@ typedef struct ActorFrame {
     unk8 pad2[0xE];
 } ActorFrame;
 
+typedef struct ActorSequenceEntry {
+    unk16 unk0;
+    unk16 size;
+    unk8 pad4[4];
+    unk16 sequence;
+} ActorSequenceEntry;
+
 typedef struct ActorFrameSequence {
     unk16 unk0;
     unk16 unk2;
@@ -401,7 +408,8 @@ typedef struct Actor {
     unk8 unk24;
     unk8 unk25;
     unk16 unk26;
-    unk8 pad28[6];
+    unk16 unk28;
+    unk8 pad2A[4];
     s16 unk2E; /* 0x2E */
     unk8 unk30;
     unk8 unk31;
