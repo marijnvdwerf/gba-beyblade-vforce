@@ -34,6 +34,17 @@ typedef struct Palette {
     AllocatedBlock* block; /* 0x10 */
 } Palette;
 
+typedef struct UnkFrontendTarget {
+    unk8 pad0[0xEC];
+    unk16 unkEC;
+} UnkFrontendTarget;
+
+typedef struct Unk3000BE0 {
+    unk8 pad0[0xC];
+    UnkFrontendTarget* varC;
+    unk8 pad10[12];
+} Unk3000BE0;
+
 typedef struct UnkStruct_sub1 {
     unk8 var00;
     unk8 var01;
@@ -41,7 +52,7 @@ typedef struct UnkStruct_sub1 {
     unk16 var04;
     unk16 var06;
     unk16 var08;
-    unk32 var0C;
+    UnkFrontendTarget* var0C;
     unk32 var10;
     unk32 var14;
 } UnkStruct_sub1;

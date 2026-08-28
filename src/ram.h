@@ -348,6 +348,7 @@ extern GameData* _gameData;
 extern EnvironmentObject* GetStruct4(unk32);
 extern u32 _unk3000E30[3];
 extern CurrentGameState* _currentGameState;
+extern Unk3000BE0 _unk3000BE0;
 extern void* _unk3000FC0[4];
 extern unk32 _unk3000FD0[4];
 extern unk8 _unk3000FE0[304];

@@ -33,7 +33,12 @@ void sub_8048FE4(void)
     sub_80490F8(-1);
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8048ffc.s");
+unk8 sub_8048FFC(void)
+{
+    if ((_unk3000BE0.varC->unkEC & 1) != 0)
+        return 1;
+    return 0;
+}
 
 void sub_8049018(void)
 {
