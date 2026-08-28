@@ -293,6 +293,13 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   docs/learnings/agbcc-global-address-folding.md (fold into the skill next
   sol pass). Retry hint for parked frontend drafts that load `_unk3000A78`
   etc. directly (sub_804967C): write `T* x = &_unk3000650.<sub>;` first.
+- Leaf B (8 matched, committed: sub_804E584, getBeybladeActorData,
+  rider_8058614, sub_80585C8, sub_804C098, sub_804E530, sub_8058EF4,
+  ActorSetFrameSequence; getBeyBladeActorDataForIndex near-miss on a
+  record/sheet register swap; allocateParticleSystem + handleEventListeners
+  pending) is in its finish+review round: DMA3Copy REG_DMA3CNT_H, `+0xFFFF`
+  → `-1`, Actor sizeof check (0xC4), draft house-style, prototypes to
+  headers. Frontend alias-retry agent running on sub_804967C/sub_8049458.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
