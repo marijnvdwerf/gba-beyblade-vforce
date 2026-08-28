@@ -244,6 +244,15 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   _806E0DC; the indexed forms diverge at the table access), sub_8045160
   parked (View clone + aliases), 5 drafted; agent doing the RAM-typing
   rollback for parked-only globals before merge.
+- Round-2 festate + rider/actor MERGED (1d25bec): sub_804B5C0 matched;
+  festate 0 kept (sub_8046A0C/sub_8045160 parked by the manager for levers);
+  ~12 more parked drafts with step tables (round2-festate.md,
+  round2-rider-actor.md, sub-80596ac.md, sub-80526c8.md). Callgraph now
+  shows 57 reds: the parked `#if 0` drafts are parsed as C, so THEIR callees
+  surface as new reds (~25 small leaves: StoreFunction, DMA3Copy,
+  sub_8058EF4, handleEventListeners, …) — real undecompiled functions,
+  dispatched as two leaf batches (≤100 insns). Tool note: callgraph should
+  probably not follow calls inside `#if 0`.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
@@ -330,7 +339,7 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 
 ## State
 
-Progress: 12/66 TUs done, 411 C functions, 596 INCLUDE_ASM remaining (41%).
+Progress: 12/66 TUs done, 412 C functions, 595 INCLUDE_ASM remaining (41%).
 Session 3 merged 97 functions (batches 1–17, all migrated from the
 `raw-decomp` worktree — only functions WITH a raw-decomp body are worth
 trying; every no-raw attempt so far failed). Session 2 merged 69, session 1 8.
