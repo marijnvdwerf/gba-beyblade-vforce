@@ -330,6 +330,13 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
 - Frontend alias retry (sub_8049458, sub_804967C): 0/2 — the sub-object
   alias did not remove their register-allocation residuals; refreshed
   drafts merged (823273b). Running: leaf C (6), leaf D (3).
+- Reds on main now 44. Leaf E dispatched (sub_804FE14, sub_804FE30,
+  sub_805568C, sub_804DA48); held for after leaf C merges (its TUs):
+  getLineMetaAtIndex (geometry.c, 18), sub_8058F60 (layer.c, 119). A luna
+  agent is evaluating https://github.com/ethteck/coddog for this repo
+  (config in its worktree + docs/coddog.md if it runs on GBA/Thumb).
+  Agent scorecard: leaves ~80% (A 12/12, B 8/13, C 4/6, D 2/3 so far);
+  130–300-insn functions ~5% (round 2: 2/24; humanize testers 0/19).
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
