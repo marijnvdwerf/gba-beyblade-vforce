@@ -1,13 +1,93 @@
 #include "rider.h"
 
+#include <agb/memory_map.h>
+
 #include "actor.h"
+#include "beyblade.h"
 #include "geometry.h"
 #include "include_asm.h"
 #include "memory.h"
 #include "particle.h"
 #include "riderphysics.h"
 #include "sprite.h"
+#include "unsorted.h"
 
+extern const unk8 SpriteSheet_86FAEAC[];
+extern const unk8 SpriteSheet_86FAF34[];
+extern const unk8 SpriteSheet_86FB40C[];
+
+#if 0
+void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 arg5, unk32 arg6)
+{
+    ActorConfig* actorConfig;
+    RiderBase* base;
+    Actor* actor;
+    Actor* actor2;
+    EnvironmentActorSlot* environmentActor;
+    unk32 value;
+    unk16 spriteOffset;
+    unk8 enabled;
+
+    base = rider;
+    actor = &base->unk238;
+    environmentActor = (EnvironmentActorSlot*)actor;
+    getBeybladeData0(arg6);
+    __fastMemoryClearARM(0, actor, sizeof(Actor));
+    __fastMemoryClearARM(0, &environmentActor->unkA8, 8);
+    actorConfig = getBeyBladeActorDataForIndex(arg6);
+    base->unk2FC.unk39 = getBeybladeActorData(arg6)->unk4;
+    actor_8057C58(actor, actorConfig, arg1, arg2, arg3, arg4, -1);
+    ActorSetSpriteOffset((EnvironmentActorSlot*)actor, 0xF, 0x14);
+    rider_8058614(actor, 0, 0, 4);
+    actor_80585F0((UnkActor*)actor, 7);
+    actor_80585F8((EnvironmentActorSlot*)actor, -1, -1, 1, 1);
+    actor->unk90 = (unk32)_unk3000FD0;
+    actor->unk94 = (unk32)_unk3000FC0;
+    actor->unkB0 = (unk32)(convert3DCoordsto2DCoords + 1);
+    actor->unkB4 = (unk32)rider;
+    spriteOffset = 0x10;
+    if (arg5 != 0)
+        spriteOffset = 0x20;
+    actor->unkBC = spriteOffset;
+    s_rider_804C4B4(base, actor);
+    base->unk4 = (RiderTemp*)base;
+    actor2 = &base->unk2FC;
+    actor_8057C58(actor2, (ActorConfig*)SpriteSheet_86FAEAC, arg1, 0xFFFF8300, 0xFFFF8300, 0x7D00, -1);
+    sub_80585C8(actor2, 1);
+    ActorSetSpriteOffset((EnvironmentActorSlot*)actor2, 8, 4);
+    actor2->unk39 = 0;
+    actor2->unkB0 = (unk32)(convert3DCoordsto2DCoords + 1);
+    actor2->unkBC = 0x100;
+    base->unk3D4 = (((arg5 * 0x10) + 0x100) << 5) + 0x06010000;
+    base->unk3C8 = 0;
+    base->unk3CC = 0;
+    base->unk3CA = 0;
+    base->unk3C0 = 0;
+    base->unk3CE = arg5;
+    base->unk3D8 = 0;
+    base->unk3DC = 0;
+    base->unk3E4 = 0;
+    base->unk3E0 = 0;
+    if (arg5 != 0) {
+        value = (unk32)allocSprite(1);
+        base->unk3C4 = (SpriteEntry*)value;
+        if (value != 0)
+            LoadSpriteSheet((SpriteEntry*)value, SpriteSheet_86FAF34, 0, 0, 0, 0, 0, 0);
+    } else {
+        base->unk3C4 = (SpriteEntry*)arg5;
+    }
+    enabled = 0;
+    if (arg5 == 0)
+        enabled = 1;
+    base->unk3E8 = enabled;
+    if (enabled != 0) {
+        allocateParticleSystem(&base->unk3EC, 8, (void*)SpriteSheet_86FB40C, arg1);
+        sub_804E584(&base->unk3EC, arg2, arg3, arg5);
+    }
+    base->unk3D0 = 0;
+    base->unk424 = 0xFFFF;
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b07c-initRider.s");
 
 void processRiderMetadata(RiderBase* rider, LevelGeometryAddresses* geometry, unk32 lineIndex)
@@ -109,6 +189,34 @@ void sub_804B4A4(RiderBase* arg0)
     }
 }
 
+#if 0
+void sub_804B4FC(unk8* target, s32 item)
+{
+    s32 i;
+    unk32 value;
+
+    sub_804B8F0(&_gameData->base, target);
+    *(vu16*)REG_VCOUNT;
+    if (_gameData->unk1618 == 0) {
+        unk32 offset;
+        RiderBase* rider = &_gameData->base;
+
+        i = 0;
+        if (i < _gameData->unk430) {
+            for (offset = 0; i < _gameData->unk430; offset += sizeof(RiderBase), i++) {
+                rider = (RiderBase*)((unk8*)_gameData->unk42C + offset);
+                if ((rider->unk3C8 & 2) != 0 || rider->unk210 != 0 || RiderHasFlag(rider, 2) != 0)
+                    sub_804B8F0(rider, target);
+            }
+        }
+        value = *(vu16*)REG_VCOUNT;
+    } else {
+        value = sub_80501F8(item, _gameData->unk42C);
+    }
+    sub_804B754(value);
+    sub_804B624();
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b4fc.s");
 
 void sub_804B5C0(void)
