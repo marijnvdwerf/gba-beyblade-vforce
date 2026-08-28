@@ -2,10 +2,14 @@
 
 #include <agb/types.h>
 
+#include "geometry.h"
 #include "include_asm.h"
 #include "memory.h"
 #include "sprite.h"
 #include "unsorted.h"
+
+void sub_8058838(void);
+void actor_8058638(Actor*);
 
 #if 0
 void actor_8057C58(
@@ -163,8 +167,9 @@ void sub_80584B8(Actor* actor)
 
     sub_8058838();
     if (actor->unk80 != NULL) {
-        if (actor->unk84 >= 0)
+        if (actor->unk84 >= 0) {
             sub_805D650(actor);
+        }
     }
     if (actor->unk80 == NULL && actor->unk84 == -1) {
         actor->x += actor->unk40;
@@ -186,25 +191,28 @@ void sub_80584B8(Actor* actor)
         actor->unk44 = yVelocity - scaledY;
         actor->unk48 = zVelocity - scaledZ;
         if (scaledX == 0 && actor->unk40 != 0) {
-            if (actor->unk40 > 0)
-                actor->unk40 = actor->unk40 - 1;
-            else
-                actor->unk40 = actor->unk40 + 1;
+            if (actor->unk40 > 0) {
+                actor->unk40--;
+            } else {
+                actor->unk40++;
+            }
         }
         if (scaledY == 0) {
             if (actor->unk44 != 0) {
-                if (actor->unk44 > 0)
-                    actor->unk44 = actor->unk44 - 1;
-                else
-                    actor->unk44 = actor->unk44 + 1;
+                if (actor->unk44 > 0) {
+                    actor->unk44--;
+                } else {
+                    actor->unk44++;
+                }
             }
         }
         if (scaledZ == 0) {
             if (actor->unk48 != 0) {
-                if (actor->unk48 > 0)
-                    actor->unk48 = actor->unk48 - 1;
-                else
-                    actor->unk48 = actor->unk48 + 1;
+                if (actor->unk48 > 0) {
+                    actor->unk48--;
+                } else {
+                    actor->unk48++;
+                }
             }
         }
     }
@@ -212,11 +220,13 @@ void sub_80584B8(Actor* actor)
     if (timer > 0) {
         adjusted = timer - (_unk3000E30[0] - _unk3000E30[1]);
         actor->unk70 = adjusted;
-        if (adjusted < 0)
+        if (adjusted < 0) {
             actor->unk70 = 0;
+        }
     }
-    if (actor->unk6C == 0 && (actor->unk98 & 1) == 0)
+    if (actor->unk6C == 0 && (actor->unk98 & 1) == 0) {
         actor_8058638(actor);
+    }
 }
 
 void sub_80585C8(Actor* actor, unk32 arg1)
