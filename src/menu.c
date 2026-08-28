@@ -6,6 +6,8 @@
 #include "spritetext.h"
 #include "unsorted.h"
 
+extern void sub_806185C(void*, unk8);
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805ac28.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ac5c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ac68.s");
@@ -52,6 +54,52 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805ad24.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ad9c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805add4-allocateMenuItems.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805afb8-nullsub_48.s");
+
+#if 0 /* NONMATCHING: first divergence at mov r6,r0 (0x00000008), size exact 0x94 */
+s32 sub_805AFBC(MenuState* state, u8 arg1)
+{
+    unk32 step;
+    s32 current;
+    s32 count;
+    UnkMenuItem* item;
+
+    current = state->unk24;
+    count = state->itemCount;
+    step = -1;
+    if (arg1 != 0)
+        step = 1;
+    goto condition;
+loop:
+    current += step;
+    if (current < 0)
+        current += state->itemCount;
+    if (current >= state->itemCount)
+        current = 0;
+    item = state->items + current;
+    if (item->unk44 != 0)
+        goto condition;
+    {
+        s32 old;
+        UnkMenuItem* oldItem;
+
+        old = state->unk24;
+        if (old == current)
+            goto end;
+        oldItem = state->items + old;
+        state->unk24 = current;
+        sub_806185C(oldItem, state->unk2C);
+        sub_806185C(item, state->unk2E);
+        if (state->callback != NULL)
+            state->callback(oldItem, old, item, current);
+        goto end;
+    }
+condition:
+    if (count-- != 0)
+        goto loop;
+end:
+    return state->unk24;
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/805afbc.s");
 
 s32 sub_805B050(MenuState* arg0, unk8 arg1)
