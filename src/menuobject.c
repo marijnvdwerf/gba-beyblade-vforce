@@ -37,7 +37,29 @@ void sub_80434EC(FrontendState* object)
 
 INCLUDE_ASM("asm/dump/8040d18/8043558.s");
 INCLUDE_ASM("asm/dump/8040d18/8043604.s");
-INCLUDE_ASM("asm/dump/8040d18/80436b0.s");
+
+void sub_80436B0(FrontendState* object)
+{
+    unk32 count;
+    UnkMotion* item;
+
+    item = object->menuState.objectItems;
+    count = object->menuState.objectCount;
+    if (count == 0)
+        return;
+    count--;
+    while (count != (unk32)-1) {
+        sub_8050584(item);
+        item++;
+        count--;
+    }
+    if (object->menuState.timer != 0) {
+        sub_8050584(&object->menuState.motion);
+        sub_8061204(&object->menuState.cleanup);
+    }
+    deallocateBlock(object->menuState.block);
+    sub_805AD9C(&object->menuState);
+}
 
 unk32 sub_8043720(FrontendState* object)
 {

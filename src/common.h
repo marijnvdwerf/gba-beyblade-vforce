@@ -251,7 +251,7 @@ typedef struct MenuState {
     unk8 pad30[8];
     FrontendMenu menu; /* 0x38 */
     UnkMotion* objectItems; /* 0xA8 */
-    unk8 padAC[4];
+    AllocatedBlock* block; /* 0xAC */
     unk32 timer; /* 0xB0 */
     SpriteTextCleanup cleanup; /* 0xB4 */
     UnkMotion motion; /* 0xE4 */
