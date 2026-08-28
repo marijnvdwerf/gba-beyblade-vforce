@@ -6,6 +6,7 @@
 #include "music.h"
 #include "ram.h"
 #include "sound.h"
+#include "spritetext.h"
 extern const unk8 SpriteSheet_86FBC4C[];
 
 #if 0
@@ -458,4 +459,9 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8052ab8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052afc-nullsub_43.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052b00-nullsub_44.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052b04-nullsub_45.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8052b08.s");
+
+void sub_8052B08(UnkMenuItem* oldItem, unk32 old, UnkMenuItem* item, unk32 current)
+{
+    item->text.unk8 |= 8;
+    sub_8061684(&item->text, 0x140, 0x120);
+}
