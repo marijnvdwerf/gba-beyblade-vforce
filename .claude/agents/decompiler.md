@@ -118,12 +118,17 @@ not the reachability boundary.
   Same for `register`, `asm` barriers and compiler-flag tweaks.
 - Sign-extension (`ldsb/ldsh/asr`) proves signed; `ldrb/ldrh` suggests
   unsigned or unk.
+- NO COMMENTS IN SOURCE. The only comment allowed anywhere in src/ is a
+  struct-field offset marker (`unk32 unk1C8; /* 0x1C8 */`). No prose, no
+  instruction citations, no "NONMATCHING" notes, no hypotheses, no compiler
+  observations — all of that goes in your docs/learnings file, keyed by
+  function and address. Justify unions and width puns there too.
 - NEVER throw away a near-miss. When you park a function, keep the best
-  draft in the source file directly above its `INCLUDE_ASM` line as
-  `#if 0 /* NONMATCHING: <first divergent instruction / size delta> */` …
-  `#endif` (the ROM still builds from the asm), plus the step table in your
-  learnings file. Fields the draft needs stay in the headers only if they
-  are asm-proven; otherwise note them in the draft's comment.
+  draft in the source file directly above its `INCLUDE_ASM` line inside a
+  bare `#if 0` … `#endif` (the ROM still builds from the asm), and put the
+  first divergence, the step table and any unproven layout the draft
+  assumes in your learnings file. Fields the draft needs stay in headers
+  only if they are asm-proven.
 - Near-miss checklist — run it BEFORE parking anything, one change per
   build, keep only what shrinks the diff, and record a step table (change →
   first divergent instruction / size delta) plus the final draft in your
