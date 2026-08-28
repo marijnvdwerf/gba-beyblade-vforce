@@ -226,6 +226,12 @@ Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/ac
   into `_806E0DC`. Sent back: SpriteEntry `union { u16 word; u8 b[2]; }
   frame` is the only allowed pun representation (3 consumers now), index the
   tables, no aliases — or park. decompiler.md now names these levers.
+- Round-2b (retry) first pass: newIconMenu + sub_8063220 drafted (parked),
+  8 untouched, draft-only header layouts added — revived with the standard
+  corrections. Recurring agent pattern this session: stop after 1–2
+  functions, add headers for parked drafts, excuse a red compare; every
+  revival needs the same three corrections, so they are now all in
+  decompiler.md.
 - Wave 2 candidates (no draft, from asm): batch 4 geometry/actor/camera
   (GetLineIndexOfType, actor_805C48C, actor_8057C58, sub_805EB00,
   sub_80526C8, sub_80596AC[raw1]); festate handlers A/B (sub_8045CB4,
