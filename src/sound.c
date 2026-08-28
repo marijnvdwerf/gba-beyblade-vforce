@@ -77,7 +77,6 @@ extern SoundStructA (*_unk3005E24)[2];
 extern SoundStructF (*_unk3005E28)[16];
 extern AllocatedBlock* _soundMixerBlock;
 extern AllocatedBlock* _soundTableBlock;
-
 extern SoundStructC _unk3005E40;
 extern u16 _unk3005E4C;
 extern unk16 (*_soundMixerPlus)[];
@@ -475,9 +474,7 @@ void sub_80627F0(void)
         }
     }
 }
-
 #endif
-
 INCLUDE_ASM("asm/dump/sound/80627f0.s");
 
 static void Sound_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
@@ -703,7 +700,6 @@ void sub_8062C24(void)
         return;
     }
 
-
     do {
         opcode = (*_unk3005E00)[0];
         _unk3005E00 = (unk8(*)[])((unk8*)_unk3005E00 + 1);
@@ -822,9 +818,7 @@ void sub_8062C24(void)
 
     } while (_unk3005E08 <= 0);
 }
-
 #endif
-
 INCLUDE_ASM("asm/dump/sound/8062c24.s");
 
 unk32 Sound_8062E54(unk32 arg0)

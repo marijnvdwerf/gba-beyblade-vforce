@@ -203,7 +203,6 @@ void sub_806123C(SpriteTextCleanup* text)
     }
 }
 #endif
-
 INCLUDE_ASM("asm/dump/8057b80-debug/806123c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80614b0.s");
 
