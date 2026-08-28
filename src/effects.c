@@ -48,7 +48,10 @@ void sub_8055624(void)
     _gameData->projectileSystem.unk80 &= ~1;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/805565c.s");
+void sub_805565C(void)
+{
+    _gameData->projectileSystem.unk7E = 0;
+}
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055674.s");
 
 void sub_805568C(void)
