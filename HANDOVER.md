@@ -5,7 +5,39 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-08-28, session 4 in progress (wave 2: festate-A + geometry/actor agents; temp-reduction + sol skill pass + callgraph tool fix running; monitor on).
+Last updated: 2026-09-03, session 5 (Opus agent worktree kept alive per user; no monitor).
+
+## Session 5 (2026-09-03)
+
+State: main green; 460 C / 547 asm / 46%. Sol skill fold of all session-4
+learnings done (ce85da18). Red map by TU in /tmp/reds-by-tu.md: 30 real
+targets — festate.c 10 (143–791 insns), geometry.c 3, riderphysics.c 2,
+rider.c 2, tutorial.c 2 (incl. sub_804A310, 6 insns — the only free leaf),
+11 singleton TUs at 202–1072. 🔴 in the callgraph means NO draft (🟡 =
+parked draft) — don't re-check `#if 0` by hand.
+
+Opus ban lifted by the user (2026-09-03) for decomp agents. One Opus
+decompiler agent (worktree `.claude/worktrees/agent-aa3bb15346941d4ce`,
+branch `worktree-agent-aa3bb15346941d4ce`, KEEP — user wants it reusable)
+matched initMultiPlayer (parked since N4) and sub_8049458 (parked 3×) in
+one session; both merged. Type fixes that came with it: `_unk3000BFD` is
+unk8 (odd address; unk16 mis-aligned it), FrontendTransition.unk586 s8,
+FrontendState.unk0/unk4 s32 (dropped nine `(unk32)-1` casts),
+FrontendSubobject.unk20, initMultiPlayer prototype now in multiplayer.h.
+Learnings: docs/learnings/opus-2026-09-03.md (fold in the next sol pass).
+
+Lessons: the agent asserted "declaring unk586 s8 would emit ldrsb" and
+"the cast is needed" without measuring — both false; treat every "needed
+cast" claim as untested until the agent shows the compare line for the
+cast-free form. Briefs were too detailed (line numbers, residual history):
+goal + rules pointer + verification only; let the agent dig. Always require
+a learnings file on match too (MANAGER.md), not only on a miss.
+
+Open: (1) next targets for the Opus agent — same-class regalloc-parked
+inits (initEventListeners, sub_80539E8, initRiders) or the 200–260 band;
+(2) `&_spritesFree` scalar-alias ruling (user: keep open); (3) frontend
+unk588/unkC callback signature conflict; (4) raw `0x0D000000` in the parked
+backup.c draft; (5) `out.json` untracked on main (unknown origin).
 
 ## Session 4 (2026-08-27)
 
