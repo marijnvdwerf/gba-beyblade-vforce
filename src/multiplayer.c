@@ -11,7 +11,6 @@ extern const unk8 Str_8755834[];
 extern const unk8 Str_8755884[];
 extern const unk8 Str_87558B4[];
 extern void (*__sub_8757FCC)(void);
-extern unk32 __divsi3(unk32, unk32);
 
 void initMultiPlayer(unk32 numPlayers, s32 packetSize, unk16 serialMode)
 {
@@ -50,17 +49,17 @@ void initMultiPlayer(unk32 numPlayers, s32 packetSize, unk16 serialMode)
     _unk3005DC4->unk5 = 0;
     _unk3005DC4->unk24 = (unk8*)block->address + 0x44;
     bufA = _unk3005DC4->unk24;
-    bufB = bufA + packetSize;
+    bufB = (unk8*)bufA + packetSize;
     _unk3005DC4->unk28 = bufB;
     bufC = (unk8*)block->address + (headerSize + 0x44);
     _unk3005DC4->unk2C = bufC;
-    bufD = bufC + totalPackets;
+    bufD = (unk8*)bufC + totalPackets;
     _unk3005DC4->unk30 = bufD;
-    _unk3005DC4->unk3C = bufA;
+    _unk3005DC4->unk3C = (unk16*)bufA;
     _unk3005DC4->unk40 = bufB;
     _unk3005DC4->unk34 = bufC;
     _unk3005DC4->unk38 = bufD;
-    (*__fastMemoryClearARM)(0, bufA, totalSize);
+    __fastMemoryClearARM(0, bufA, totalSize);
     *(vu16*)REG_RCNT = 0;
     *(vu16*)REG_SIOCNT = 0x2000;
     *(vu16*)REG_SIOCNT |= serialMode | 0x4000;
@@ -323,7 +322,7 @@ void onSerialCommunication(void)
     state = _unk3005DC4;
     if (matchCount >= state->unk4) {
         _unk3000DF0[7] = __sub_8757FCC;
-        *(vu16*)REG_SIODATA8 = *(unk16*)state->unk3C;
+        *(vu16*)REG_SIODATA8 = *state->unk3C;
         sub_8060404();
     }
 }
