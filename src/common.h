@@ -776,7 +776,7 @@ typedef struct MultiPlayerState {
     void* unk30;
     void* unk34;
     void* unk38;
-    unk16* unk3C;
+    void* unk3C;
     void* unk40;
 } MultiPlayerState;
 

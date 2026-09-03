@@ -13,8 +13,7 @@ extern const unk8 Str_87558B4[];
 extern void (*__sub_8757FCC)(void);
 extern unk32 __divsi3(unk32, unk32);
 
-#if 0
-void initMultiPlayer(unk32 numPlayers, unk32 packetSize, unk16 serialMode)
+void initMultiPlayer(unk32 numPlayers, s32 packetSize, unk16 serialMode)
 {
     AllocatedBlock* block;
     unk8* bufA;
@@ -27,8 +26,8 @@ void initMultiPlayer(unk32 numPlayers, unk32 packetSize, unk16 serialMode)
     unk32 allocSize;
 
     totalPackets = packetSize * numPlayers;
+    totalSize = totalPackets * 2 + packetSize * 2;
     headerSize = packetSize * 2;
-    totalSize = totalPackets * 2 + headerSize;
     allocSize = totalSize + 0x44;
     if ((packetSize & 3) != 0) {
         printf(Str_8755834);
@@ -49,11 +48,11 @@ void initMultiPlayer(unk32 numPlayers, unk32 packetSize, unk16 serialMode)
     _unk3005DC4->unk1C = 0;
     _unk3005DC4->unk20 = 0x10;
     _unk3005DC4->unk5 = 0;
-    bufA = (unk8*)block->address + 0x44;
-    _unk3005DC4->unk24 = bufA;
+    _unk3005DC4->unk24 = (unk8*)block->address + 0x44;
+    bufA = _unk3005DC4->unk24;
     bufB = bufA + packetSize;
     _unk3005DC4->unk28 = bufB;
-    bufC = (unk8*)block->address + headerSize + 0x44;
+    bufC = (unk8*)block->address + (headerSize + 0x44);
     _unk3005DC4->unk2C = bufC;
     bufD = bufC + totalPackets;
     _unk3005DC4->unk30 = bufD;
@@ -61,15 +60,13 @@ void initMultiPlayer(unk32 numPlayers, unk32 packetSize, unk16 serialMode)
     _unk3005DC4->unk40 = bufB;
     _unk3005DC4->unk34 = bufC;
     _unk3005DC4->unk38 = bufD;
-    __fastMemoryClearARM(0, bufA, totalSize);
+    (*__fastMemoryClearARM)(0, bufA, totalSize);
     *(vu16*)REG_RCNT = 0;
     *(vu16*)REG_SIOCNT = 0x2000;
-    *(vu16*)REG_SIOCNT = serialMode | 0x4000 | *(vu16*)REG_SIOCNT;
-    _unk3005DC4->unk10 = 0x400 - __divsi3(packetSize >> 1, 0x359E4);
+    *(vu16*)REG_SIOCNT |= serialMode | 0x4000;
+    _unk3005DC4->unk10 = 0x10000 - 0x359E4 / (packetSize >> 1);
     _unk3005DC4->unk14 = 0;
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/805fed0-initMultiPlayer.s");
 
 unk8 sub_805FFE4(void)
 {
@@ -326,7 +323,7 @@ void onSerialCommunication(void)
     state = _unk3005DC4;
     if (matchCount >= state->unk4) {
         _unk3000DF0[7] = __sub_8757FCC;
-        *(vu16*)REG_SIODATA8 = *state->unk3C;
+        *(vu16*)REG_SIODATA8 = *(unk16*)state->unk3C;
         sub_8060404();
     }
 }

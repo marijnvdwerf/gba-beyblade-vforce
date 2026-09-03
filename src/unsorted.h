@@ -11,7 +11,7 @@ typedef void ClearFn(unk32, void*, unk32);
 extern CopyFn* __fastMemoryCopyARM;
 extern ClearFn* __fastMemoryClearARM;
 
-void initMultiPlayer(unk32, unk32, unk32);
+void initMultiPlayer(unk32, s32, unk16);
 void initGame(void);
 void InitCurrentGameState(void);
 void sub_8055CB8(void);
