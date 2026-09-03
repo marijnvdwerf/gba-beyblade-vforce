@@ -34,8 +34,8 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 
 ## Locals and register pressure
 
-- Read the prologue and frame size first: a wrong push mask or one-word-larger frame usually exposes an extra live pseudo or spill, so fix the lifetime set before downstream instructions.
-- Values live across calls prefer callee-saved registers or spills; one extra live value across one call can change the push mask or spill slot.
+- Read the prologue, push mask, frame size, and which value is spilled first. If the draft saves more registers or has a larger frame, suspect an unintended cached alias or extra live pseudo; if the target saves more or has a larger frame, recover the missing long-lived value or explicit stack lifetime before chasing downstream instructions.
+- Values live across calls prefer callee-saved registers or spills; one extra live value across one call can change the push mask or spill slot. A target that retains an incoming or normalized value in a callee-saved register where the draft reloads it points to a missing source local/lifetime, not a semantic mismatch.
 - Keep explicit cursor/count/end temporaries when the target keeps distinct values, including separate count and loop-limit copies when the bound occupies a different register; remove them when the target reloads or coalesces instead.
 - A separate successor temporary can keep a moving cursor and freshly loaded pointer in distinct registers: `candidate = cur->next; next = candidate;`.
 - A scalar temporary can force one field/byte load that is reused by multiple tests, or place that load before a later initialization; removing it may duplicate or reorder instructions.
@@ -43,7 +43,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - A separate result or magnitude temporary can preserve the original argument for a later sign test while the transformed value occupies the return-value path; an in-place rewrite changes that dataflow.
 - Assignment and initialization order set live-range boundaries and address-materialization order; spell them in target order.
 - In `.greg`, global-allocation priority is roughly `refs / live_length`: more references help, while a longer-lived pseudo gets lower priority; use this to explain saved-register choices.
-- For a pure register-role swap, declaration order, scopes, and equivalent VLA-bound spellings may not change allocator rank; compare `.greg` before churning permutations.
+- For a pure register-role swap, declaration order, scopes, signedness sweeps, and equivalent VLA-bound spellings often do not change allocator rank. Compare `.greg`, then vary the creation/use order or the lifetime that crosses a call or branch; if the same swap survives those natural probes, park it rather than churning permutations.
 - Nested scopes shorten lifetimes, but a switch-arm-local pointer also defers its global load until that arm; hoisting it changes dispatch allocation.
 - Reuse one compatible local across similar loops when the target preserves one pseudo/register history; separate locals may reshuffle both loops.
 - Conversely, keep initial-pointer and mutable-cursor locals separate when the target keeps both roles live in different registers.
@@ -65,11 +65,13 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - A target induction initialized to `-stride` may be strength-reduced `array[i - 1]`; try the indexed source before preserving a negative cursor.
 - Constant spelling matters: staged forms such as `mask = 1; mask = -mask;` or `scale = 0x80; scale <<= 1;` can force the target `mov`/`neg` or `mov`/`lsl` materialization, while a direct large literal may use the pool; grouped multiplies may strength-reduce differently.
 - Preserve add-versus-subtract spelling for constants: `frameCount + 0xFFFF` is not interchangeable with `frameCount - 1`; old agbcc can materialize and combine them differently.
+- Signed `a * b / 256` truncates toward zero: agbcc can lower it as `mul`, copy/test the product, add `255` only when negative, then arithmetic-shift by eight. With an `s16` result, the divide and narrowing may combine into `lsl #8; asr #16`; a target copy that natural C coalesces can indicate a second product lifetime, not a different division formula.
 - Shift-pair truncation is not interchangeable with masking: `(u32)(x << 22) >> 22` can avoid the literal-pool load introduced by `x & 0x3FF`, and `(x << 28) >> 28` can normalize differently from `x & 0xF`. Keep the form proven by the target.
 - If a high-register value is compared with an immediate, Thumb may materialize the constant in a low register for register-to-register `cmp`.
 - agbcc CSEs loads, merges shifts/blocks, and reuses related constants; if the target stays unfolded, block the proof with grouping or distinct locals.
 - Array decay produces an address while `array[0]` produces a scalar load; choose the shape shown by the target.
 - Let typed indexing expose cancellation between an explicit element-size division and the compiler's implicit scale; manually replacing it with shifts and masks can prevent simplification and add instructions.
+- `ptr[i + k]` on a pointer variable can scale `i` and fold constant `k` into the load displacement, while indexing an embedded array member may scale the whole `i + k` before adding its base. Use the source shape shown by the target address sequence.
 - Bit extraction and mask tests are not interchangeable: `(x >> 4) & 1` preserves a shift-plus-`and` shape (with `asr`/`lsr` selected by type), while `(x & 0x10) != 0` favors a direct mask/test and can change the CFG.
 
 ## Loops
@@ -110,7 +112,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Long-lived global addresses consume callee-saved registers and can push incoming arguments into higher registers; preserve the source access pattern.
 - Global addresses may be loaded separately or derived from a nearby loaded address with `add`/`sub`; mirror whichever shape the target shows.
 - Taking `&global.member` can fold the symbol plus member offset into one literal-pool relocation. Loading a member at a large offset instead typically materializes the global base and a second offset literal before the load; small encodable offsets hide this distinction.
-- A direct literal for an interior address is therefore not evidence of a separate global. Use a typed subobject alias such as `T *part = &global.member` when the target keeps that interior address live.
+- A direct literal for an interior address is therefore not evidence of a separate global. Typed record/subobject aliases such as `T *record = &table[i]` or `T *part = &aggregate.member` are legitimate source when the target keeps that address live; do not generalize this into a pointer alias to a scalar global merely to force callee-saved retention.
 
 ## Stack and frame shape
 
@@ -125,7 +127,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Declaration width also imposes alignment: a halfword or word global cannot model storage proven at an odd byte address without shifting later fixed-layout symbols. Use byte storage for byte-addressed globals at odd offsets, even if some consumers combine bytes.
 - A field that is both compared/stored as a word and dereferenced is a pointer — type it so.
 - Later shifts, masks, or division do not narrow a field's memory access. If assembly proves the same scalar storage is intentionally accessed at incompatible widths (`strh`/`ldrb`, `ldr`/`ldrsh`), model a documented whole/parts union. If one stored pointer is dereferenced at multiple proven pointee widths, use a named union of typed pointer variants. These proven width puns are the only sanctioned union uses; otherwise, prefer adjacent narrower fields.
-- Under old agbcc, even a two-byte whole/parts union embedded at an even offset needs `__attribute__((packed))` to remain byte-neutral. An arm containing a nested two-byte struct makes the union four bytes; use a byte-array arm when the proven storage is exactly two bytes, then verify `sizeof` and following offsets.
+- Under old agbcc, `union __attribute__((packed)) { u16 word; u8 b[2]; }` is a byte-neutral two-byte whole/parts overlay; the unpacked union is not. A nested two-byte struct arm also makes the union four bytes, so use a byte-array arm for proven two-byte storage and verify `sizeof` plus every following offset.
 - A proven halfword read spanning adjacent byte fields may require a documented pointer cast when introducing a named union would disturb the fixed layout; C90 offers no anonymous union as a zero-friction overlay.
 - One shared declaration may be unable to reproduce both signed and unsigned consumers. Preserve the type proven by established matched users, and keep a per-use cast only when a controlled comparison reproduces the alternate load; otherwise park the incompatible function rather than breaking a match.
 - An embedded header whose address is passed to list helpers must be an embedded struct field, not a pointer; the pointer spelling changes layout and cleanup codegen.
