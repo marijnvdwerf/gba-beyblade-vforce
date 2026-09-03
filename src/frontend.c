@@ -260,7 +260,7 @@ void sub_8049458(void)
     sub_804A280(&_unk3000650);
     sub_80627F0();
     _unk3000BFC = 1;
-    *(unk8*)&_unk3000BFD = 0;
+    _unk3000BFD = 0;
     sub_8049168();
     sub_80490F8(_unk3000650.unkC);
     while (_unk3000650.unk0 != (unk32)-1 || _unk3000650.unk4 != (unk32)-1) {
@@ -290,7 +290,7 @@ void sub_8049458(void)
         state->transition.value += state->transition.unk585;
         sub_8057930();
         sub_80490CC(8, count++);
-        if ((s8)state->transition.unk585 == 0) {
+        if (state->transition.unk585 == 0) {
             if ((*object)->unk4->unk20 != 0)
                 sub_804374C(state);
             sub_80490CC(2, 0);
