@@ -49,11 +49,11 @@ void initMultiPlayer(unk32 numPlayers, s32 packetSize, unk16 serialMode)
     _unk3005DC4->unk5 = 0;
     _unk3005DC4->unk24 = (unk8*)block->address + 0x44;
     bufA = _unk3005DC4->unk24;
-    bufB = (unk8*)bufA + packetSize;
+    bufB = bufA + packetSize;
     _unk3005DC4->unk28 = bufB;
     bufC = (unk8*)block->address + (headerSize + 0x44);
     _unk3005DC4->unk2C = bufC;
-    bufD = (unk8*)bufC + totalPackets;
+    bufD = bufC + totalPackets;
     _unk3005DC4->unk30 = bufD;
     _unk3005DC4->unk3C = (unk16*)bufA;
     _unk3005DC4->unk40 = bufB;

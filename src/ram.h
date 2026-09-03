@@ -26,7 +26,7 @@ extern CreditsEntry* _currentCreditsPtr;
 extern CreditsEntry* _creditsPtr;
 extern SpriteTextCleanup* _fontPtr;
 extern unk8 _unk3000BFC;
-extern unk16 _unk3000BFD;
+extern unk8 _unk3000BFD;
 extern unk32 _unk3000C00;
 extern unk32 _unk3000C10[2];
 extern s32 _unk3000C04;

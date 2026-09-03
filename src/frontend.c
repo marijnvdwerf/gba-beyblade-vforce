@@ -248,19 +248,19 @@ unk32 sub_80493C8(void)
     return result;
 }
 
-#if 0
 void sub_8049458(void)
 {
     unk32 count;
     FrontendState* state;
     FrontendObject** object;
+
     count = 0;
     sub_8049018();
     VBlankIntrWait();
     sub_804A280(&_unk3000650);
     sub_80627F0();
     _unk3000BFC = 1;
-    _unk3000BFD = 0;
+    *(unk8*)&_unk3000BFD = 0;
     sub_8049168();
     sub_80490F8(_unk3000650.unkC);
     while (_unk3000650.unk0 != (unk32)-1 || _unk3000650.unk4 != (unk32)-1) {
@@ -290,12 +290,12 @@ void sub_8049458(void)
         state->transition.value += state->transition.unk585;
         sub_8057930();
         sub_80490CC(8, count++);
-        if (state->transition.unk585 == 0) {
+        if ((s8)state->transition.unk585 == 0) {
             if ((*object)->unk4->unk20 != 0)
                 sub_804374C(state);
             sub_80490CC(2, 0);
         }
-        if ((unk8)_unk3000650.transition.value == _unk3000650.transition.unk586) {
+        if (_unk3000650.transition.value == (s8)_unk3000650.transition.unk586) {
             _unk3000650.transition.value = _unk3000650.transition.unk586;
             sub_8049344(1);
             _unk3000650.transition.unk585 = 0;
@@ -303,9 +303,6 @@ void sub_8049458(void)
     }
     sub_804A280(&_unk3000650);
 }
-
-#endif
-INCLUDE_ASM("asm/dump/8040d18/8049458.s");
 
 void sub_80495C4(void)
 {
