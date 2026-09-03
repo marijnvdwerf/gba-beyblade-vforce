@@ -57,17 +57,14 @@ void sub_805000C(RiderState* arg0, RiderBase* arg1)
     sub_805024C(arg0);
 }
 
-#if 0
 void sub_8050050(RiderState* state, RiderState* other)
 {
-    unk16 value;
-    unk16 otherValue;
     CurrentGameState* currentState;
+    unk16 value;
 
     value = _unk3000F20[_unk3000F44];
     if (_unk3000F40 != 0) {
-        otherValue = other->unkA;
-        if (value == otherValue) {
+        if (value == other->unkA) {
             _unk3000F40--;
             if (_unk3000F40 != 0) {
                 _unk3000F44++;
@@ -78,23 +75,20 @@ void sub_8050050(RiderState* state, RiderState* other)
                 value = 0;
             }
         }
+        state->unk8 = value;
     }
-    state->unk8 = value;
-    otherValue = other->unk8;
-    if (state->unkA != otherValue && otherValue != 0) {
+    if (state->unkA != other->unk8 && other->unk8 != 0) {
         if ((_gameData->unk161C & 1) == 0) {
             currentState = _currentGameState;
             if (currentState->unk6A4 == 2) {
                 SetRiderGlobal(0);
-                handleEventListeners(&_gameData->unk65C, otherValue);
+                handleEventListeners(&_gameData->unk65C, other->unk8);
             }
         }
     }
-    state->unkA = otherValue;
+    state->unkA = other->unk8;
     sub_805024C(state);
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050050.s");
 
 s32 sub_8050114(RiderState* arg0)
 {
