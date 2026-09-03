@@ -16,7 +16,8 @@ rider.c 2, tutorial.c 2 (incl. sub_804A310, 6 insns — the only free leaf),
 11 singleton TUs at 202–1072. 🔴 in the callgraph means NO draft (🟡 =
 parked draft) — don't re-check `#if 0` by hand.
 
-Opus ban lifted by the user (2026-09-03) for decomp agents. One Opus
+Opus ban STILL STANDS (user, 2026-09-03) — it was lifted only for one
+ad-hoc agent this session. That Opus
 decompiler agent (worktree `.claude/worktrees/agent-aa3bb15346941d4ce`,
 branch `worktree-agent-aa3bb15346941d4ce`, KEEP — user wants it reusable)
 matched initMultiPlayer (parked since N4) and sub_8049458 (parked 3×) in
@@ -24,7 +25,13 @@ one session; both merged. Type fixes that came with it: `_unk3000BFD` is
 unk8 (odd address; unk16 mis-aligned it), FrontendTransition.unk586 s8,
 FrontendState.unk0/unk4 s32 (dropped nine `(unk32)-1` casts),
 FrontendSubobject.unk20, initMultiPlayer prototype now in multiplayer.h.
+Then updateKeyState: NOT matched (draft refreshed + merged) — same
+three-register rotation in the loop (base r7→r6, timer ptr ip→r7, index
+r6→r5) as every prior attempt; third independent miss on the same residual.
 Learnings: docs/learnings/opus-2026-09-03.md (fold in the next sol pass).
+Manager's assessment: Opus 2/3 on thrice-parked functions vs luna ~5% on
+that class, but it asserts untested claims ("cast needed", "s8 → ldrsb")
+and drifted toward the scalar-alias lever; user keeps the ban regardless.
 
 Lessons: the agent asserted "declaring unk586 s8 would emit ldrsb" and
 "the cast is needed" without measuring — both false; treat every "needed
