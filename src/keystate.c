@@ -43,19 +43,17 @@ void updateKeyState(void)
 {
     unk16 keyState;
     unk16 i;
-    unk16 mask;
+    s32 mask;
     unk16 count;
     unk32 timer;
-    KeyState* state;
 
     if (_isKeyRecording == 2) {
-        count = _unk3005DB4;
-        if (count != 0) {
+        if ((count = _unk3005DB4) != 0) {
             keyState = *_keyRecordingData;
             _keyRecordingData++;
             _unk3005DB4 = count - 1;
         } else {
-            _isKeyRecording = count;
+            _isKeyRecording = 0;
         }
         _unk3005DA8 = (void*)_unk3000E30[0];
     }
@@ -76,25 +74,24 @@ void updateKeyState(void)
     _keyInput = keyState;
     i = 0;
     do {
-        mask = 1 << i;
-        state = &_unk3005CB0[i];
-        if ((mask & _unk3005DA0) != 0) {
+        if (((1 << i) & _unk3005DA0) > 0) {
             timer = _unk3000E30[0];
-            if (timer > state->var04 + state->var0C) {
-                state->var10 = 1;
+            if (timer > _unk3005CB0[i].var04 + _unk3005CB0[i].var0C) {
+                _unk3005CB0[i].var10 = 1;
             } else {
-                state->var10++;
+                _unk3005CB0[i].var10++;
             }
-            state->var14 = state->var00;
-            state->var00 = timer;
+            _unk3005CB0[i].var14 = _unk3005CB0[i].var00;
+            _unk3005CB0[i].var00 = timer;
         }
-        if ((mask & _keyInput) != 0) {
-            state->var08 = _unk3000E30[0] - state->var00;
+        mask = 1 << i;
+        if ((mask & _keyInput) > 0) {
+            _unk3005CB0[i].var08 = _unk3000E30[0] - _unk3005CB0[i].var00;
         }
-        if (((_keyInput >> i) & 1) == 0 && (mask & _unk3005DA4) != 0) {
+        if (((_keyInput >> i) & 1) == 0 && (mask & _unk3005DA4) > 0) {
             timer = _unk3000E30[0];
-            state->var04 = timer;
-            state->var08 = timer - state->var00;
+            _unk3005CB0[i].var04 = timer;
+            _unk3005CB0[i].var08 = timer - _unk3005CB0[i].var00;
             _unk3005DAC |= mask;
         }
         i++;
