@@ -277,7 +277,7 @@ typedef struct FrontendObject {
 typedef struct FrontendTransition {
     s8 value;
     s8 unk585;
-    unk8 unk586;
+    s8 unk586;
     unk8 pad587[1];
     void (*unk588)(FrontendState*, unk32);
     unk32 unk58C;
@@ -286,8 +286,8 @@ typedef struct FrontendTransition {
 } FrontendTransition;
 
 struct FrontendState {
-    unk32 unk0;
-    unk32 unk4;
+    s32 unk0;
+    s32 unk4;
     unk32 unk8;
     unk32 unkC;
     unk32 unk10;

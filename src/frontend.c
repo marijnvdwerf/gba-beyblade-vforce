@@ -69,7 +69,7 @@ void sub_80490CC(unk32 arg0, unk32 arg1)
 void sub_80490F8(unk32 arg0)
 {
     if (_unk3000650.unk0 != arg0 && _unk3000650.unk4 != arg0) {
-        if (_unk3000650.unk0 != (unk32)-1) {
+        if (_unk3000650.unk0 != -1) {
             sub_8049344(3);
             sub_80490CC(3, 1);
             _unk3000BFC = 1;
@@ -159,8 +159,8 @@ void sub_8049264(void)
     _unk3000650.unk4 = 0;
     _unk3000650.unkC = 0;
     sub_804924C(7);
-    _unk3000650.unk0 = (unk32)-1;
-    _unk3000650.unk8 = (unk32)-1;
+    _unk3000650.unk0 = -1;
+    _unk3000650.unk8 = -1;
     _unk3000650.unk7C = 0;
     sub_8050384(&_unk3000650.motion);
     _unk3000650.unk424 = 0;
@@ -263,7 +263,7 @@ void sub_8049458(void)
     _unk3000BFD = 0;
     sub_8049168();
     sub_80490F8(_unk3000650.unkC);
-    while (_unk3000650.unk0 != (unk32)-1 || _unk3000650.unk4 != (unk32)-1) {
+    while (_unk3000650.unk0 != -1 || _unk3000650.unk4 != -1) {
         VBlankIntrWait();
         updateKeyState();
         sub_804A280(&_unk3000650);
@@ -272,7 +272,7 @@ void sub_8049458(void)
         sub_80490CC(1, _unk3000BFC);
         __oam_8756CC0();
         if (_unk3000650.unk0 != _unk3000650.unk4
-            && (unk8)_unk3000650.transition.value == _unk3000650.transition.unk586) {
+            && _unk3000650.transition.value == _unk3000650.transition.unk586) {
             count = 0;
             sub_804967C();
         }
@@ -295,7 +295,7 @@ void sub_8049458(void)
                 sub_804374C(state);
             sub_80490CC(2, 0);
         }
-        if (_unk3000650.transition.value == (s8)_unk3000650.transition.unk586) {
+        if (_unk3000650.transition.value == _unk3000650.transition.unk586) {
             _unk3000650.transition.value = _unk3000650.transition.unk586;
             sub_8049344(1);
             _unk3000650.transition.unk585 = 0;
@@ -314,7 +314,7 @@ void sub_80495C4(void)
 
     base = &_unk3000650;
     state = base->unkB4->unk4;
-    if (base->unk4 != (unk32)-1) {
+    if (base->unk4 != -1) {
         record = &_8069FC8[base->unk4];
         selected = record->data;
     } else {
@@ -338,7 +338,7 @@ void sub_80495C4(void)
 void sub_804967C(void)
 {
     sub_80490CC(7, 0);
-    if (_unk3000650.unk0 != (unk32)-1) {
+    if (_unk3000650.unk0 != -1) {
         if (_unk3000650.unk424 != NULL) {
             if (_unk3000650.unk470 != NULL) {
                 SpriteTextCleanup* cleanup;
@@ -376,12 +376,12 @@ void sub_804967C(void)
         SpriteTextCleanup* destination;
         s32 index;
 
-        if (_unk3000650.unk4 != (unk32)-1)
+        if (_unk3000650.unk4 != -1)
             _unk3000650.unkB4 = (FrontendObject*)&_8069FC8[_unk3000650.unk4];
         else
             _unk3000650.unkB4 = NULL;
         _unk3000650.unk0 = _unk3000650.unk4;
-        if (_unk3000650.unk4 == (unk32)-1)
+        if (_unk3000650.unk4 == -1)
             return;
         object = _unk3000650.unkB4->unk4;
         _unk3000650.unk80 &= 0xF3;
