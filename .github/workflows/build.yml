@@ -64,18 +64,15 @@ jobs:
       - name: Test matching ROM
         run: ctest --test-dir build --output-on-failure
 
-      - name: Progress report (optional)
-        continue-on-error: true
+      - name: Generate decomp.dev report
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
-          "$HOME/.local/bin/uvx" mapfile_parser objdiff_report -i 1 build/rom.map build/progress.json
+          "$HOME/.local/bin/uv" run tools/gen-report.py build/report.json
 
-      - name: Upload progress report
-        if: ${{ always() && hashFiles('build/progress.json') != '' }}
-        continue-on-error: true
+      - name: Upload decomp.dev report
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: progress-report
-          path: build/progress.json
-          if-no-files-found: ignore
+          name: us_report
+          path: build/report.json
+          if-no-files-found: error
           retention-days: 14

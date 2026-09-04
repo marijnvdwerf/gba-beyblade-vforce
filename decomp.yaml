@@ -15,9 +15,13 @@ versions:
       expected_dir: expected
       asm: asm/dump
 
-# coddog reads the standard project/version paths above. asmlift uses the
-# project-local compiler command and ELF sidecar below.
+# mapfile_parser: unmatched = .NON_MATCHING on the map, not splat asm-path checks.
 tools:
+  mapfile_parser:
+    progress_report:
+      check_asm_paths: False
+      report_data: True
+      path_index: 1
   asmlift:
     target: agbcc
     # asmlift reads .symtab names and DWARF declarations/signatures from this unstripped ELF.

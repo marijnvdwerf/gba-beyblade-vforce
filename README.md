@@ -4,7 +4,7 @@ Matching decompilation of Beyblade V-Force for the Game Boy Advance.
 
 ## Building
 
-Install CMake, Ninja, and the ARM GNU binutils (`uv` is only needed for the optional progress report).
+Install CMake, Ninja, and the ARM GNU binutils (`uv` is only needed for the decomp.dev progress report).
 
 ```sh
 brew install arm-none-eabi-binutils cmake ninja uv          # macOS
@@ -27,7 +27,7 @@ cmake --build build
 ctest --test-dir build
 ```
 
-`cmake --build build --target compare` reruns the ROM SHA1 check. For a progress report, run `uvx mapfile_parser objdiff_report -i 1 build/rom.map build/progress.json`.
+`cmake --build build --target compare` reruns the ROM SHA1 check. For a decomp.dev progress report, run `uv run tools/gen-report.py` after a matching build.
 
 ## Decompiling and diffing
 
