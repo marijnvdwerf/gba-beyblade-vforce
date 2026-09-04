@@ -40,19 +40,10 @@ void sub_804FFD4(void)
 
 void sub_805000C(RiderState* arg0, RiderBase* arg1)
 {
-    unk16 value;
-    unk32 current;
-    unk32 old;
-
     arg0->prefix.words.unk0 = arg1->unk0->x >> 8;
     arg0->prefix.words.unk2 = arg1->unk0->y >> 8;
     arg0->prefix.words.unk4 = arg1->unk0->z >> 8;
-    value = arg1->unk0->unk22;
-    current = value & 0x3FF;
-    old = arg0->prefix.words.unk6;
-    old &= 0xFFFFFC00;
-    old |= current;
-    arg0->prefix.words.unk6 = old;
+    arg0->prefix.bits.unk6 = arg1->unk0->unk22;
     arg0->unkC = arg1->unk4->unk3CC;
     sub_805024C(arg0);
 }
@@ -93,19 +84,17 @@ void sub_8050050(RiderState* state, RiderState* other)
 s32 sub_8050114(RiderState* arg0)
 {
     unk32 checksum;
-    u32 flagsWord;
     u32 flagBits;
 
     checksum = (s16)(arg0->prefix.words.unk2 ^ arg0->prefix.words.unk4);
-    flagsWord = arg0->prefix.words.unk6;
-    checksum ^= (u32)(flagsWord << 22) >> 22;
-    checksum ^= (u32)(arg0->unkD << 28) >> 28;
+    checksum ^= arg0->prefix.bits.unk6;
+    checksum ^= arg0->unkD.bits.unk0;
     checksum ^= arg0->unk8;
     flagBits = arg0->unkC;
     checksum ^= flagBits;
     checksum ^= arg0->unkA;
     checksum &= 0x3F;
-    flagBits = arg0->prefix.bytes.unk7 >> 2;
+    flagBits = arg0->prefix.bytes.unk2;
     if (flagBits == checksum) {
         _gameData->unk161C &= 0xFFFE;
         return 1;
@@ -114,25 +103,15 @@ s32 sub_8050114(RiderState* arg0)
     return 0;
 }
 
-#if 0
 void sub_8050184(RiderState* arg0, u8 arg1)
 {
-    unk8 flags;
-    s32 preserved;
-    unk32 selected;
+    unk32 nibble;
 
-    flags = arg0->unkD;
-    selected = (flags << 28 >> 28) | arg1;
-    selected &= 0xF;
-    preserved = 0x10;
-    preserved = 0 - preserved;
-    preserved &= flags;
-    preserved |= selected;
-    arg0->unkD = preserved;
+    nibble = arg0->unkD.bits.unk0;
+    nibble |= arg1;
+    arg0->unkD.bits.unk0 = nibble;
     sub_805024C(arg0);
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050184.s");
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80501a8.s");
 
@@ -141,7 +120,7 @@ u8 sub_80501C8(RiderState* arg0, u8 arg1)
     if ((_gameData->unk161C & 1) != 0) {
         return 0;
     }
-    return (u8)(((u32)(arg0->unkD << 28) >> 28) & arg1);
+    return arg0->unkD.bits.unk0 & arg1;
 }
 
 void sub_80501F8(RiderState* state, RiderBase* riders)
@@ -162,9 +141,7 @@ void sub_80501F8(RiderState* state, RiderBase* riders)
     actor->x = x;
     actor->y = y;
     actor->z = z;
-    value = state->prefix.words.unk6;
-    value <<= 22;
-    value >>= 22;
+    value = state->prefix.bits.unk6;
     actor->unk22 = value;
     value = state->unkC & 8;
     riders->unk3CC = value;
@@ -173,16 +150,13 @@ void sub_80501F8(RiderState* state, RiderBase* riders)
 void sub_805024C(RiderState* arg0)
 {
     unk32 checksum;
-    unk32 flags;
 
     checksum = arg0->prefix.words.unk2 ^ arg0->prefix.words.unk4;
-    checksum ^= (u32)(arg0->prefix.words.unk6 << 22) >> 22;
-    checksum ^= (u32)(arg0->unkD << 28) >> 28;
+    checksum ^= arg0->prefix.bits.unk6;
+    checksum ^= arg0->unkD.bits.unk0;
     checksum ^= arg0->unk8;
     checksum ^= arg0->unkC;
     checksum ^= arg0->unkA;
     checksum &= 0x3F;
-    checksum <<= 2;
-    flags = arg0->prefix.bytes.unk7 & 3;
-    arg0->prefix.bytes.unk7 = flags | checksum;
+    arg0->prefix.bytes.unk2 = checksum;
 }

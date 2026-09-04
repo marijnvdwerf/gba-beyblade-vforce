@@ -553,16 +553,32 @@ typedef union RiderStatePrefix {
 
     struct {
         unk8 pad0[7];
-        u8 unk7;
+        u8 unk0 : 2;
+        u8 unk2 : 6;
     } bytes;
+
+    struct {
+        s16 unk0;
+        s16 unk2;
+        s16 unk4;
+        u16 unk6 : 10;
+        u16 unk7 : 6;
+    } bits;
 } RiderStatePrefix;
+
+typedef union RiderStateUnkD {
+    struct {
+        u8 unk0 : 4;
+        u8 unk4 : 4;
+    } bits;
+} __attribute__((packed)) RiderStateUnkD;
 
 typedef struct RiderState {
     RiderStatePrefix prefix;
     u16 unk8;
     u16 unkA;
     u8 unkC;
-    unk8 unkD;
+    RiderStateUnkD unkD;
     unk8 padE[0x46];
     unk32 unk54;
 } RiderState;
