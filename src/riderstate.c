@@ -113,7 +113,15 @@ void sub_8050184(RiderState* arg0, u8 arg1)
     sub_805024C(arg0);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80501a8.s");
+void sub_80501A8(RiderState* arg0, u8 arg1)
+{
+    unk32 nibble;
+
+    nibble = arg0->unkD.bits.unk0;
+    nibble &= ~arg1;
+    arg0->unkD.bits.unk0 = nibble;
+    sub_805024C(arg0);
+}
 
 u8 sub_80501C8(RiderState* arg0, u8 arg1)
 {
