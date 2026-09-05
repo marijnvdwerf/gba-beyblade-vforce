@@ -85,6 +85,108 @@ void newIconMenu(FrontendMenu* menu, const FrontendMenuData* data, unk32 count)
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050a7c-newIconMenu.s");
 
+#if 0
+void sub_8050C18(FrontendMenu* menu)
+{
+    s32 scale;
+    FrontendMenuItem* item;
+    SpriteEntry* sprite;
+    s32 angle;
+    s32 step;
+    s32 textPosition;
+    s32 offsetX;
+    s32 offsetY;
+    s32 i;
+    s32 angleIndex;
+    s32 frameOffset;
+    unk16 position;
+    s32 delta;
+    s32 magnitude;
+    FrontendMenu* self;
+    unk32 frameWord;
+
+    self = menu;
+    angle = self->unk8 + 0x80;
+    step = self->step;
+    textPosition = self->textPosition;
+    frameOffset = 0;
+    item = self->items;
+    i = 0;
+    if (i < self->itemCount) {
+        while (1) {
+            angleIndex = (unk8)(angle >> 8);
+            offsetX = (Unk_874CC3C[angleIndex] * textPosition) >> 8;
+            offsetX = (self->config->unk20 * offsetX) >> 8;
+            angleIndex += 0x40;
+            offsetY = (Unk_874CC3C[angleIndex] * textPosition) >> 8;
+            if (item->sprite != NULL) {
+                sprite = item->sprite;
+                scale = item->unk10;
+                if ((self->flags & 1) != 0 && i == self->selection) {
+                    if (scale > (0x80 << 1)) {
+                        sprite->x += ((0xF0 << 7) - sprite->x
+                                      - ((item->x * scale) >> 8))
+                            >> 3;
+                        sprite->y += ((0xA0 << 7) - sprite->y
+                                      - ((item->y * scale) >> 8))
+                            >> 3;
+                    } else {
+                        sprite->x += ((0xF0 << 7) - sprite->x - item->x) >> 3;
+                        sprite->y += ((0xA0 << 7) - sprite->y - item->y) >> 3;
+                    }
+                    if (self->timer - self->timerTarget > 0x10) {
+                        item->position = 4;
+                    }
+                    if ((self->timer & 3) == 0) {
+                        frameWord = item->data->unk2C.word;
+                        if (sprite->frame.word == item->data->unk2C.half) {
+                            sprite->frame.word = item->data->tileCount;
+                        } else {
+                            sprite->frame.word = frameWord;
+                        }
+                    }
+                } else {
+                    frameOffset = 0;
+                    if (i == self->selection) {
+                        angleIndex = (self->timer << 27) >> 24;
+                        scale += (s16)(unk16)Unk_874CC3C[angleIndex + 0x40] >> 4;
+                        frameOffset = (u8)((s16)(unk16)Unk_874CC3C[angleIndex] >> 6);
+                    }
+                    sprite->x = self->unk34 - ((item->x * scale) >> 8) + offsetX;
+                    sprite->y = self->unk38 - ((item->y * scale) >> 8) + offsetY;
+                }
+                sub_8060F64(sprite, (u16)scale, (u16)scale, frameOffset);
+            }
+            angle += step;
+            item->unk10 += (item->position - item->unk10) >> 3;
+            item++;
+            i++;
+            if (i >= self->itemCount) {
+                break;
+            }
+        }
+    }
+    position = self->position;
+    self->position = position;
+    if ((self->flags & 2) == 0) {
+        delta = position - self->unk8;
+        magnitude = delta;
+        if (delta < 0) {
+            magnitude = -delta;
+        }
+        if (magnitude > (0x80 << 8)) {
+            magnitude += 0xFFFF0100;
+        }
+        self->velocity = magnitude >> 3;
+        if (delta < 0) {
+            self->velocity = -self->velocity;
+        }
+    }
+    self->unk8 = (self->unk8 + self->velocity) & 0xFFFF;
+    self->timer++;
+    self->textPosition += (self->targetPosition - self->textPosition) >> 3;
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050c18.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050df8.s");
 
