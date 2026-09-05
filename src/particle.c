@@ -176,6 +176,80 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804e594.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e6a4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e7d4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e910.s");
+
+#if 0
+void sub_804EA88(ParticleSystem* arg0)
+{
+    s32 count;
+    Particle* particle;
+    Actor* aux;
+    s32 systemX;
+    s32 systemY;
+    s32 systemZ;
+    s32 dx;
+    s32 dy;
+    s32 dz;
+    s32 x;
+    s32 y;
+    s32 z;
+    s32 screenX;
+    s32 screenY;
+    unk16 frame;
+
+    count = arg0->count;
+    particle = arg0->particles;
+    aux = arg0->unkC;
+    systemX = arg0->unk10;
+    systemY = arg0->unk14;
+    systemZ = arg0->unk18;
+    dx = arg0->unk24 - systemX;
+    dy = arg0->unk28 - systemY;
+    dz = arg0->unk2C - systemZ;
+    while (count-- != 0) {
+        if (particle->unk1A != 0) {
+            particle->unk4 += dx;
+            particle->unk8 += dy;
+            particle->unkC += dz;
+            if (particle->sprite != NULL) {
+                x = particle->unk4 + systemX;
+                y = particle->unk8 + systemY;
+                z = particle->unkC + systemZ;
+                if (aux != NULL) {
+                    screenX = (x - y) + (particle->unk16 << 8);
+                    screenY = ((x + y) >> 1) - z + (particle->unk18 << 8);
+                } else {
+                    screenX = x + (particle->unk16 << 8);
+                    screenY = y + (particle->unk18 << 8);
+                }
+                if (aux != NULL) {
+                    screenX -= aux->unk40 & 0xFFFFFF00;
+                    screenY -= aux->unk44 & 0xFFFFFF00;
+                }
+                particle->unk1A--;
+                if ((screenX + 0x3FF) <= 0xF7FE && screenY > -0x400 && screenY <= 0xA3FF
+                    && particle->unk1A != 0) {
+                    particle->sprite->x = screenX - 0x400;
+                    particle->sprite->y = screenY - 0x400;
+                } else {
+                    particle->sprite->x = 0xA000;
+                    particle->sprite->y = 0xA000;
+                }
+                frame = particle->unk20;
+                if (frame > 0x10) {
+                    particle->unk20 = frame - 0x10;
+                } else {
+                    particle->unk20 = (frame - 0x10) + particle->unk22;
+                    particle->sprite->frame.word++;
+                    if (particle->sprite->frame.word >= particle->unk1C + particle->unk1E) {
+                        particle->sprite->frame.word = particle->unk1C;
+                    }
+                }
+            }
+        }
+        particle++;
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ea88.s");
 
 void sub_804EBE8(ParticleSystem* arg0)
