@@ -2,13 +2,20 @@
 
 #include <agb/bios.h>
 
+#include "debug.h"
 #include "effects.h"
 #include "include_asm.h"
+#include "keystate.h"
 #include "music.h"
+#include "packet.h"
 #include "rider.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c4b4-s_rider_804C4B4.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c870.s");
+
+void sub_804C870(RiderBase* rider, s32 arg1)
+{
+    rider->unk208 = (arg1 * 0xC0 >> 8) + 0x600;
+}
 
 void sub_804C888(RiderBase* rider, unk8 arg1)
 {
@@ -24,10 +31,318 @@ void sub_804C888(RiderBase* rider, unk8 arg1)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c8c0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c8f0-RiderAI_804C8F0.s");
+
+#if 0
+extern u16 _keyInput;
+
+void RiderAI_804C8F0(RiderBase*);
+void sub_805582C(unk32, unk32, unk32, unk32, unk32);
+void sub_805589C(void);
+unk32 sub_804A504(void);
+
+void sub_804CB08(RiderBase* rider)
+{
+    s32 inputMagnitude;
+    s32 limit;
+    s32 steerX;
+    s32 steerY;
+    s32 moveX;
+    s32 moveY;
+    s32 rotateY;
+    s32 angle;
+    unk16 input;
+    unk16 aiInput;
+    unk16* aiInputPtr;
+    unk16* timer0;
+    unk16* timer1;
+    unk8 moving;
+
+    inputMagnitude = rider->unk22A;
+    limit = 0x100;
+    if (rider->unk208 <= 0x1FF) {
+        limit = rider->unk208 - 0x100;
+        if (limit < 0)
+            limit = 0;
+        if (limit > 0x100)
+            limit = 0x100;
+        inputMagnitude = (inputMagnitude * limit) >> 8;
+    }
+    if (RiderHasFlag(rider, 0x100) != 0 || RiderHasFlag(rider, 0x2000) != 0)
+        return;
+    if (RiderHasFlag(rider, 0x4000000) == 0) {
+        input = _keyInput;
+        aiInputPtr = &_unk3005DA0;
+    } else {
+        RiderAI_804C8F0(rider);
+        input = rider->unk1C4;
+        aiInputPtr = &rider->unk1C8;
+    }
+    aiInput = *aiInputPtr;
+    if (RiderHasFlag(rider, 2) != 0) {
+        if (RiderHasFlag(rider, 0x4000000) == 0) {
+            rider->unk52 = 5;
+            rider->unk50 = 5;
+        }
+        return;
+    }
+    moving = 0;
+    moveX = 0;
+    moveY = 0;
+    steerX = 0;
+    steerY = 0;
+    if ((input & 1) != 0 && rider->unk22E == 0 && rider->unk208 > 0x1FF)
+        moving = 1;
+    if ((aiInput & 0x20) != 0) {
+        if (moving != 0) {
+            steerX -= 0x1CC;
+            moveX = -0x1CC;
+            rider->unk22E = 0x3C;
+        } else {
+            steerX -= inputMagnitude;
+        }
+    }
+    if ((aiInput & 0x10) != 0) {
+        if (moving != 0) {
+            steerX += 0x1CC;
+            moveX = 0x1CC;
+            rider->unk22E = 0x3C;
+        } else {
+            steerX += inputMagnitude;
+        }
+    }
+    if ((aiInput & 0x40) != 0) {
+        if (moving != 0) {
+            steerY += 0x1CC;
+            moveY = 0x1CC;
+            rider->unk22E = 0x3C;
+        } else {
+            steerY += inputMagnitude;
+        }
+    }
+    if ((aiInput & 0x80) != 0) {
+        if (moving != 0) {
+            steerY -= 0x1CC;
+            moveY = -0x1CC;
+            rider->unk22E = 0x3C;
+        } else {
+            steerY -= inputMagnitude;
+        }
+    }
+    if (_currentGameState->unkC68 != 0 && RiderHasFlag(rider, 0x4000000) == 0) {
+        rider->unk40 += (steerX * Unk_874CC3C[0x60] - steerY * Unk_874CC3C[0x20]) >> 8;
+        rider->unk44 += (steerX * Unk_874CC3C[0x20] + steerY * Unk_874CC3C[0x60]) >> 8;
+        rotateY = moveX * Unk_874CC3C[0x20] + moveY * Unk_874CC3C[0x60];
+        moveX = (moveX * Unk_874CC3C[0x60] - moveY * Unk_874CC3C[0x20]) >> 8;
+        moveY = rotateY >> 8;
+    } else {
+        rider->unk40 += steerX;
+        rider->unk44 += steerY;
+    }
+    if (moving != 0 && rider->unk22E != 0) {
+        sub_805582C(0, 0, moveX * 4, -moveY * 4, 0);
+        if ((_currentGameState->unkC64 & 1) == 0)
+            rider->unk208 -= 0xF0;
+        sub_804ABFC(0x13);
+    }
+    if ((aiInput & 2) != 0 && rider->unk230 == 0)
+        rider->unk230 = 0x10;
+    if (((aiInput & 2) != 0 || rider->unk230 != 0) && rider->unk208 > 0x1FF) {
+        SetRiderFlag(rider, 0x80000);
+        if (rider->unk230 != 0)
+            rider->unk230--;
+        rider->unk52 = 0x16;
+        rider->unk50 = 0x16;
+        timer1 = &rider->unk52;
+        timer0 = &rider->unk50;
+    } else {
+        UnsetRiderFlag(rider, 0x80000);
+        rider->unk52 = 5;
+        rider->unk50 = 5;
+        timer1 = &rider->unk52;
+        timer0 = &rider->unk50;
+    }
+    if (sub_804E440(rider, 0x80000) != 0) {
+        if (RiderHasFlag(rider, 0x80000) != 0)
+            sub_8055734(7, 0, 0);
+        else
+            sub_805589C();
+    }
+    if (sub_804A504() != 0) {
+        *timer1 = 0x24;
+        *timer0 = 0x24;
+    }
+    if (rider->unk208 <= 0x8FF) {
+        angle = (rider->unk1FC * ((rider->unk208 >> 2) + 0x154)) >> 8;
+        steerX = (Unk_874CC3C[angle & 0xFF] + 0x1F) >> 6;
+        steerY = (Unk_874CC3C[(angle & 0xFF) + 0x40] + 0x1F) >> 6;
+        rider->unk40 -= (steerX * limit) >> 8;
+        rider->unk44 += (steerY * limit) >> 8;
+    }
+}
+
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804cb08.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804cef4.s");
+
+void sub_804CEF4(RiderBase* rider, unk32 action)
+{
+    s32 random;
+
+    rider->unk21E = 0x3C;
+    SetRiderFlag(rider, 0x40);
+    rider->unk0->unk48 = 0x300;
+    rider->unk0->z += 0x400;
+    SetRiderFlag(rider, 2);
+    if (action <= 4) {
+        switch (action) {
+        case 0:
+            if (RiderHasFlag(rider, 8) == 0)
+                rider->unk208 = 0x208 - 8;
+            else
+                rider->unk208 >>= 1;
+            break;
+        case 1:
+            rider->unk208 += -0x600;
+            if (rider->unk208 <= 0x1FF)
+                rider->unk208 = 0x200;
+            random = sub_8057C40();
+            rider->unk0->unk40 = (((random >> 4) & 0xF) - 8) << 6;
+            random = sub_8057C40();
+            rider->unk0->unk44 = ((((random >> 4) + 0xC8) & 0xF) - 8) << 6;
+            rider->unk0->unk48 = 0x500;
+            rider->unk0->z += 0x400;
+            SetRiderFlag(rider, 2);
+            break;
+        case 2:
+            rider->unk208 += -0x600;
+            if (rider->unk208 <= 0x1FF)
+                rider->unk208 = 0x200;
+            rider->unk21E = 0x258;
+            SetRiderFlag(rider, 0x40);
+            break;
+        case 3:
+            break;
+        case 4:
+            rider->unk208 += -0x600;
+            if (rider->unk208 <= 0x1FF)
+                rider->unk208 = 0x200;
+            rider->unk22C = 0;
+            break;
+        }
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d048.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804d104.s");
+
+void sub_804D104(RiderBase* rider)
+{
+    rider->unk48 = rider->unk40;
+    rider->unk4C = rider->unk44;
+}
+
+#if 0
+void sub_804D110(unk8 *rider, unk8 *other)
+{
+    s32 delta;
+    s32 value;
+    s32 angle;
+    s32 speed;
+    s16 timer;
+    u8 oldDirection;
+    unk8 *state;
+
+    state = *(unk8 **)rider;
+    oldDirection = *(u8 *)(rider + 8);
+    UnsetRiderFlag(rider, 0x1000004);
+    *(unk8 *)(rider + 0x1c0) = 0;
+    delta = *(s32 *)(rider + 0x20) - *(s32 *)(rider + 0x24);
+    *(s32 *)(rider + 0x1c) += delta;
+    *(s32 *)(rider + 0xc) = (*(s32 *)(rider + 0xc) + (delta >> 4)) & 0xff;
+    *(s32 *)(rider + 0x24) = *(s32 *)(rider + 0x20);
+    if (*(s32 *)(other + 0xc) > *(s32 *)(rider + 0x1b8))
+        *(s32 *)(rider + 0x1b8) = *(s32 *)(other + 0xc);
+    *(s32 *)(rider + 0x1c) &= 0xfff;
+    *(s32 *)(rider + 0x74) &= 0xfff;
+    if ((RiderHasFlag(rider, 0x12) << 24) == 0)
+        *(s32 *)(rider + 0x14) = sub_804E258(*(s32 *)(rider + 0x10), *(s32 *)(rider + 0x1c), 0x40, 0xfff, 0x10, 0x50);
+    *(s16 *)(rider + 0x98) = 0;
+    timer = *(s16 *)(rider + 0x22e);
+    if (timer != 0)
+        *(s16 *)(rider + 0x22e) = timer - 1;
+    if ((RiderHasFlag(rider, 0x4000000) << 24) == 0) {
+        value = *(s32 *)(rider + 0x208);
+        if (*(s32 *)((unk8 *)_currentGameState + 0xc64) & 1) {
+            if ((RiderHasFlag(rider, 0x80000) << 24) != 0 &&
+                (RiderHasFlag(rider, 2) << 24) == 0 && value > 0x1ff)
+                value -= 8;
+        } else if ((RiderHasFlag(rider, 0x80000) << 24) != 0 &&
+                   (RiderHasFlag(rider, 2) << 24) == 0 && value > 0x1ff)
+            value -= 1;
+        *(s32 *)(rider + 0x208) = value;
+        if (value <= 0)
+            sub_804C0C0(*(unk32 *)(rider + 4));
+    } else {
+        value = *(s32 *)(rider + 0x208);
+        value += *(s16 *)(rider + 0x22c);
+        if (value < 0)
+            value = 0;
+        if (value > 0x200)
+            value = 0x200;
+        *(s32 *)(rider + 0x208) = value;
+    }
+    if ((RiderHasFlag(rider, 8) << 24) != 0) {
+        SetRiderFlag(*(unk32 *)((unk8 *)_gameData + 0x65c), 0x400);
+        sub_8056EC0();
+        sub_8053E18(0);
+        UnsetRiderFlag(rider, 8);
+    }
+    if ((RiderHasFlag(rider, 0x20) << 24) == 0) {
+        SetRiderFlag(rider, 0x20);
+        sub_804C118(*(unk32 *)(rider + 4));
+        sub_8053920();
+        sub_804C0C0(*(unk32 *)(rider + 4));
+    }
+    if ((RiderHasFlag(rider, 0x400) << 24) != 0 ||
+        (RiderHasFlag(rider, 0x40) << 24) != 0) {
+        *(s16 *)(rider + 0x52) = 0x28;
+        *(s16 *)(rider + 0x50) = 0x28;
+    }
+    if ((RiderHasFlag(rider, 2) << 24) == 0)
+        sub_804D8D8(rider);
+    *(s32 *)(rider + 0x1fc) += 1;
+    if ((RiderHasFlag(rider, 0x400000) << 24) == 0)
+        sub_804D710(rider);
+    if ((RiderHasFlag(rider, 0x2000) << 24) != 0) {
+        timer = *(s16 *)(rider + 0x1b8) - 1;
+        *(s16 *)(rider + 0x1b8) = timer;
+        if (timer == 0)
+            UnsetRiderFlag(rider, 0x2000);
+    }
+    if ((RiderHasFlag(rider, 2) << 24) != 0)
+        *(s32 *)(rider + 0x198) += 1;
+    else
+        *(s32 *)(rider + 0x19c) += 1;
+    if ((RiderHasFlag(rider, 2) << 24) == 0) {
+        if ((sub_804E454(rider, 2) << 24) != 0)
+            sub_804DFF4(rider);
+        *(s32 *)(rider + 0xec) = *(s32 *)(rider + 0xe4);
+        *(unk8 *)(rider + 9) = *(unk8 *)(rider + 8);
+    }
+    if ((RiderHasFlag(rider, 2) << 24) != 0) {
+        if ((sub_804E454(rider, 2) << 24) == 0)
+            sub_804E090(rider);
+    }
+    if ((RiderHasFlag(rider, 4) << 24) != 0 && *(s32 *)(rider + 0xcc) == 0)
+        sub_804E1DC(rider);
+    sub_804DDF8(rider, other);
+    sub_804D754(rider);
+    *(s32 *)(rider + 0x1a0) = *(s32 *)(other + 0x40);
+    *(s32 *)(rider + 0x1a4) = *(s32 *)(other + 0x44);
+    *(s32 *)(rider + 0x9c) = (*(s32 *)(rider + 0x9c) ^ *(s32 *)(rider + 0xa0)) & (*(s32 *)(rider + 0x9c) | *(s32 *)(rider + 0xa0));
+    *(s32 *)(rider + 0xa8) = (*(s32 *)(rider + 0xa8) ^ *(s32 *)(rider + 0xac)) & (*(s32 *)(rider + 0xa8) | *(s32 *)(rider + 0xac));
+    SetRiderFlag(rider, 2);
+    *(s32 *)(rider + 0x88) = 0;
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d110.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d710.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d754.s");
@@ -233,7 +548,10 @@ void SetRiderFlag(RiderBase* rider, unk32 flags)
     rider->flags |= flags;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e40c-UnsetRiderFlag.s");
+void UnsetRiderFlag(RiderBase* rider, unk32 flags)
+{
+    rider->flags &= ~flags;
+}
 
 unk8 RiderHasFlag(RiderBase* rider, unk32 flags)
 {
