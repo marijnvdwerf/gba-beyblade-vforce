@@ -1,0 +1,10 @@
+{
+  "worktree": {
+    "baseRef": "head",
+    "symlinkDirectories": [
+      "expected",
+      "tools/diff/node_modules"
+    ]
+  },
+  "includeCoAuthoredBy": false
+}
