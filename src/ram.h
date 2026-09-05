@@ -57,11 +57,35 @@ typedef struct Sub8052140Data {
     unk32 unk58;
 } Sub8052140Data;
 
+typedef struct QuadTreeNode {
+    unk8 data[0x2C];
+} QuadTreeNode;
+
 typedef struct QuadTree {
-    unk8 pad0[0x24];
+    unk32 unk0;
+    unk32 unk4;
+    unk32 unk8;
+    unk32 unkC;
+    LevelGeometryAddresses* unk10;
+    QuadTreeNode* unk14[4];
     AllocatedBlock* block24;
     AllocatedBlock* block28;
-    unk8 pad2C[0x2C];
+    QuadTreeNode* unk2C;
+    QuadTreeNode* unk30;
+    unk8 pad34[4];
+    unk16 unk38;
+    unk16 unk3A;
+    unk16 unk3C;
+    unk16 unk3E;
+    unk16 unk40;
+    unk16 unk42;
+    unk16 unk44;
+    unk16 unk46;
+    unk16 unk48;
+    unk16 unk4A;
+    unk32* unk4C;
+    unk32 unk50;
+    unk8 pad54[4];
 } QuadTree;
 
 typedef struct BeybladeActorData {

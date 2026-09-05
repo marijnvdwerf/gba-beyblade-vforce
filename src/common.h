@@ -630,8 +630,8 @@ typedef struct PolyTable {
 } PolyTable;
 
 typedef struct GeometryPoint {
-    unk32 x;
-    unk32 y;
+    s32 x;
+    s32 y;
     unk32 z;
     unk32 padC;
 } GeometryPoint;
@@ -657,8 +657,36 @@ typedef struct GeometrySpline {
 
 typedef struct LevelGeometryTable LevelGeometryTable;
 
+typedef struct TileMapHeader {
+    unk8 filler00[4];
+    u32 tileOffset;
+    u32 tileBytes;
+    u32 mapOffset;
+    u32 mapBytes;
+    u8 var14;
+    unk8 filler15[3];
+    u8 var18;
+    u8 colorMode;
+    unk8 filler1A[2];
+    u16 columnCount;
+    u16 rowCount;
+} TileMapHeader;
+
+typedef struct LevelDesignLayer {
+    TileMapHeader* unk0;
+    s32 unk4;
+    s32 unk8;
+    unk32 unkC;
+    unk8 pad10[8];
+} LevelDesignLayer;
+
 typedef struct LevelDesign {
-    unk8 pad0[0x80];
+    unk8 pad0[0x14];
+    LevelDesignLayer layers[4];
+    unk8 unk74;
+    unk8 pad75[3];
+    void* unk78;
+    void* unk7C;
     LevelGeometryTable* geometry;
 } LevelDesign;
 

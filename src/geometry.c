@@ -8,6 +8,11 @@
 
 extern const unk8 Str_87553D0[];
 extern const unk8 Str_875540C[];
+extern const unk8 Str_8755440[];
+extern const unk8 Str_8755474[];
+extern const unk8 Str_87554B4[];
+extern const unk8 Str_87554F0[];
+extern const unk8 Str_87554F4[];
 
 void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable* geometry)
 {
@@ -196,7 +201,102 @@ void initQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 ar
     allocQuadTree(quadTree, geometry, arg2, arg3, arg4, arg5, 0);
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805bbc8-allocQuadTree.s");
+void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 arg2, unk16 arg3,
+    unk16 nodeCount, unk16 arg5, unk32 arg6)
+{
+    AllocatedBlock* block;
+    unk8* nodes;
+    GeometryPoint* point;
+    s32 count;
+    s32 minX;
+    s32 minY;
+    s32 maxX;
+    s32 maxY;
+    s32 centerX;
+    s32 centerY;
+    s32 arg4;
+    s32 entryBytes;
+    s32 allocationSize;
+
+    minX = 0xFF00;
+    minY = 0xFF00;
+    maxX = -0xFF00;
+    maxY = -0xFF00;
+    arg4 = nodeCount * sizeof(QuadTreeNode);
+    entryBytes = arg3 << 2;
+    point = geometry->unk4;
+    quadTree->unk10 = geometry;
+    quadTree->unk3E = nodeCount;
+    quadTree->unk40 = arg3;
+    quadTree->unk50 = 0;
+    quadTree->unk4C = 0;
+    quadTree->unk48 = 0;
+    quadTree->unk4A = 0;
+    quadTree->unk44 = arg5;
+    quadTree->unk46 = 0;
+    count = geometry->unk0->pointCount;
+    if (count > 0) {
+        do {
+            if (point->x < minX)
+                minX = point->x;
+            if (point->y < minY)
+                minY = point->y;
+            if (point->x > maxX)
+                maxX = point->x;
+            if (point->y > maxY)
+                maxY = point->y;
+            point++;
+            count--;
+        } while (count != 0);
+    }
+    quadTree->unk0 = minX;
+    quadTree->unk8 = maxX;
+    quadTree->unk4 = minY;
+    quadTree->unkC = maxY;
+    allocationSize = arg4 + entryBytes;
+    block = slowAllocate(allocationSize);
+    quadTree->block24 = block;
+    if (block == NULL) {
+        printf(Str_8755440, allocationSize);
+    } else {
+        __fastMemoryClearARM(0, block->address, block->size);
+        allocationSize = arg5 << 2;
+        quadTree->block28 = slowAllocate(allocationSize);
+        if (quadTree->block28 == NULL) {
+            printf(Str_8755474, allocationSize);
+        } else {
+            quadTree->unk4C = quadTree->block28->address;
+            nodes = quadTree->block24->address;
+            quadTree->unk2C = (QuadTreeNode*)nodes;
+            quadTree->unk30 = (QuadTreeNode*)&nodes[arg4];
+            quadTree->unk14[0] = (QuadTreeNode*)nodes;
+            quadTree->unk14[1] = quadTree->unk14[0] + 1;
+            quadTree->unk14[2] = quadTree->unk14[1] + 1;
+            quadTree->unk14[3] = quadTree->unk14[2] + 1;
+            quadTree->unk38 = 4;
+            quadTree->unk3A = 0;
+            quadTree->unk3C = arg2;
+            centerX = minX + ((maxX - minX) >> 1);
+            centerY = minY + ((maxY - minY) >> 1);
+            quadTree->unk14[0] = initQuadTreeNode(
+                quadTree, quadTree->unk14[0], minX, minY, centerX, centerY, arg6);
+            quadTree->unk14[1] = initQuadTreeNode(
+                quadTree, quadTree->unk14[1], centerX, minY, maxX, centerY, arg6);
+            quadTree->unk14[2] = initQuadTreeNode(
+                quadTree, quadTree->unk14[2], minX, centerY, centerX, maxY, arg6);
+            quadTree->unk14[3] = initQuadTreeNode(
+                quadTree, quadTree->unk14[3], centerX, centerY, maxX, maxY, arg6);
+            if (quadTree->unk3A >= quadTree->unk40)
+                nullsub_10(Str_87554B4, quadTree->unk40, Str_87554F0, quadTree->unk3A);
+            if (quadTree->unk38 >= quadTree->unk3E)
+                nullsub_9(Str_87554F4, quadTree->unk38);
+            allocateDynamicBoundingAreas(quadTree, geometry);
+            quadTree->unk42 = (quadTree->unk40 - quadTree->unk3A) >> 1;
+            sub_805BDBC(quadTree, geometry);
+        }
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805bdbc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805bf18.s");
 
