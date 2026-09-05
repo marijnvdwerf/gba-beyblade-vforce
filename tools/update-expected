@@ -2,6 +2,11 @@
 # Snapshot the current (matching) build's objects as the objdiff baseline.
 set -e
 cd "$(dirname "$0")/.."
+if [ -L expected ]; then
+    echo "expected/ is a symlink to the main checkout's baseline (agent worktree);"
+    echo "the manager refreshes it after merging. Nothing to do here."
+    exit 0
+fi
 echo "cd527c8c24e20e33913fc45199e64b3e6138a6e5  build/rom.gba" | shasum -c
 rm -rf expected
 mkdir expected
