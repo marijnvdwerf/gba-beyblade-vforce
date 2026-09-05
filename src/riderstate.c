@@ -40,10 +40,10 @@ void sub_804FFD4(void)
 
 void sub_805000C(RiderState* arg0, RiderBase* arg1)
 {
-    arg0->prefix.words.unk0 = arg1->unk0->x >> 8;
-    arg0->prefix.words.unk2 = arg1->unk0->y >> 8;
-    arg0->prefix.words.unk4 = arg1->unk0->z >> 8;
-    arg0->prefix.bits.unk6 = arg1->unk0->unk22;
+    arg0->prefix.unk0 = arg1->unk0->x >> 8;
+    arg0->prefix.unk2 = arg1->unk0->y >> 8;
+    arg0->prefix.unk4 = arg1->unk0->z >> 8;
+    arg0->prefix.unk6_0 = arg1->unk0->unk22;
     arg0->unkC = arg1->unk4->unk3CC;
     sub_805024C(arg0);
 }
@@ -86,15 +86,15 @@ s32 sub_8050114(RiderState* arg0)
     unk32 checksum;
     u32 flagBits;
 
-    checksum = (s16)(arg0->prefix.words.unk2 ^ arg0->prefix.words.unk4);
-    checksum ^= arg0->prefix.bits.unk6;
-    checksum ^= arg0->unkD.bits.unk0;
+    checksum = (s16)(arg0->prefix.unk2 ^ arg0->prefix.unk4);
+    checksum ^= arg0->prefix.unk6_0;
+    checksum ^= arg0->unkD_0;
     checksum ^= arg0->unk8;
     flagBits = arg0->unkC;
     checksum ^= flagBits;
     checksum ^= arg0->unkA;
     checksum &= 0x3F;
-    flagBits = arg0->prefix.bytes.unk2;
+    flagBits = arg0->prefix.unk6_10;
     if (flagBits == checksum) {
         _gameData->unk161C &= 0xFFFE;
         return 1;
@@ -107,9 +107,9 @@ void sub_8050184(RiderState* arg0, u8 arg1)
 {
     unk32 nibble;
 
-    nibble = arg0->unkD.bits.unk0;
+    nibble = arg0->unkD_0;
     nibble |= arg1;
-    arg0->unkD.bits.unk0 = nibble;
+    arg0->unkD_0 = nibble;
     sub_805024C(arg0);
 }
 
@@ -117,9 +117,9 @@ void sub_80501A8(RiderState* arg0, u8 arg1)
 {
     unk32 nibble;
 
-    nibble = arg0->unkD.bits.unk0;
+    nibble = arg0->unkD_0;
     nibble &= ~arg1;
-    arg0->unkD.bits.unk0 = nibble;
+    arg0->unkD_0 = nibble;
     sub_805024C(arg0);
 }
 
@@ -128,7 +128,7 @@ u8 sub_80501C8(RiderState* arg0, u8 arg1)
     if ((_gameData->unk161C & 1) != 0) {
         return 0;
     }
-    return arg0->unkD.bits.unk0 & arg1;
+    return arg0->unkD_0 & arg1;
 }
 
 void sub_80501F8(RiderState* state, RiderBase* riders)
@@ -140,16 +140,16 @@ void sub_80501F8(RiderState* state, RiderBase* riders)
     unk32 value;
 
     actor = &riders->unk238;
-    x = state->prefix.words.unk0 << 8;
-    y = state->prefix.words.unk2 << 8;
-    z = state->prefix.words.unk4 << 8;
+    x = state->prefix.unk0 << 8;
+    y = state->prefix.unk2 << 8;
+    z = state->prefix.unk4 << 8;
     actor->unk40 = x - actor->x;
     actor->unk44 = y - actor->y;
     actor->unk48 = z - actor->z;
     actor->x = x;
     actor->y = y;
     actor->z = z;
-    value = state->prefix.bits.unk6;
+    value = state->prefix.unk6_0;
     actor->unk22 = value;
     value = state->unkC & 8;
     riders->unk3CC = value;
@@ -159,12 +159,12 @@ void sub_805024C(RiderState* arg0)
 {
     unk32 checksum;
 
-    checksum = arg0->prefix.words.unk2 ^ arg0->prefix.words.unk4;
-    checksum ^= arg0->prefix.bits.unk6;
-    checksum ^= arg0->unkD.bits.unk0;
+    checksum = arg0->prefix.unk2 ^ arg0->prefix.unk4;
+    checksum ^= arg0->prefix.unk6_0;
+    checksum ^= arg0->unkD_0;
     checksum ^= arg0->unk8;
     checksum ^= arg0->unkC;
     checksum ^= arg0->unkA;
     checksum &= 0x3F;
-    arg0->prefix.bytes.unk2 = checksum;
+    arg0->prefix.unk6_10 = checksum;
 }

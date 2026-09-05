@@ -45,8 +45,9 @@ not the reachability boundary.
 ## Code style — non-negotiable
 
 - **Write source code, not compiler output.** Prefer `x & 0xF` over
-  transcribed shift/mask choreography. If only an artificial shape matches,
-  flag it in your report instead of silently shipping ugly code.
+  transcribed shift/mask choreography. Shift-pair extraction of a field is a
+  bitfield, not a shift dance. If only an artificial shape matches, flag it in
+  your report instead of silently shipping ugly code.
 - **Types**: `unk8/unk16/unk32` (project header `src/common.h`) are the
   DEFAULT for every parameter, return type, struct field, and local. Write
   `u8/u16/u32/s8/s16/s32` (from `<agb/types.h>`) only when signedness is
@@ -55,6 +56,10 @@ not the reachability boundary.
   Bitwise ops, plain loads/stores, and equality tests prove nothing. Never
   add anything to `lib/agb/` — it mirrors the official SDK and stays
   pristine.
+  Bitfields use the default `unk*` base type unless signedness is proven. Name
+  them `unk<BYTEOFFSET>_<BITOFFSET>` with the byte offset in uppercase hex and
+  the bit offset in decimal, such as `unk6_0`, `unk6_10`, and `unkD_4`. Verify
+  their allocation unit and total struct size against the fixed layout.
 - **Structs — no raw offset arithmetic, ever.** Final code must never contain
   `*(T *)((u8 *)p + 0xNN)`, `*(unk32 *)(x + 0xNN)`, or any cast-and-offset
   dereference. Every access at an offset goes through a typed struct field:

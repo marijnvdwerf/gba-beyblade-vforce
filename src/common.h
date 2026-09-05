@@ -543,42 +543,21 @@ typedef struct ParticleSystem {
     struct AllocatedBlock* unk30;
 } ParticleSystem;
 
-typedef union RiderStatePrefix {
-    struct {
-        s16 unk0;
-        s16 unk2;
-        s16 unk4;
-        unk16 unk6;
-    } words;
-
-    struct {
-        unk8 pad0[7];
-        u8 unk0 : 2;
-        u8 unk2 : 6;
-    } bytes;
-
-    struct {
-        s16 unk0;
-        s16 unk2;
-        s16 unk4;
-        u16 unk6 : 10;
-        u16 unk7 : 6;
-    } bits;
+typedef struct RiderStatePrefix {
+    s16 unk0;
+    s16 unk2;
+    s16 unk4;
+    unk16 unk6_0 : 10;
+    unk16 unk6_10 : 6;
 } RiderStatePrefix;
-
-typedef union RiderStateUnkD {
-    struct {
-        u8 unk0 : 4;
-        u8 unk4 : 4;
-    } bits;
-} __attribute__((packed)) RiderStateUnkD;
 
 typedef struct RiderState {
     RiderStatePrefix prefix;
     u16 unk8;
     u16 unkA;
     u8 unkC;
-    RiderStateUnkD unkD;
+    u8 unkD_0 : 4;
+    u8 unkD_4 : 4;
     unk8 padE[0x46];
     unk32 unk54;
 } RiderState;
