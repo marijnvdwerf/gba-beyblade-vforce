@@ -82,6 +82,15 @@ foldable temps. F done: rider_vs_rider_collision matched, renderRider +
 sub_804B8F0 parked (in review). A round 2: sub_804F2A0 + sub_804F05C matched,
 sub_804F478 in progress. B round 2 (festate 329–463) in progress.
 
+F MERGED: rider_vs_rider_collision_804DB94 matched (RiderHasFlag returns
+unk8 — the `lsl #24` is callee normalization, never source); renderRider +
+sub_804B8F0 parked (sub_804B8F0: target keeps the formal in r6 with a copy
+in sl — alias-of-parameter fingerprint — draft still spills it). A round 2
+MERGED: sub_804F2A0, sub_804F05C, sub_804F478 matched (hud.c helpers take
+LevelHudData*; LevelHudData.unk104 s16; the s16 temporary in sub_804F478 is
+byte-required; 15 temp-fold tests recorded in docs/learnings/hud-2026-09-05.md).
+Agent A: 6/6 this session, retired. Session total 16 matched.
+
 Round 1 (dispatched, luna decompiler agents, worktrees, brief
 /tmp/brief-2026-09-05.md): A tutorial+hud (sub_804A310 6, sub_804A550 202,
 sub_804EE54 215); B festate small (sub_8046A0C 143, sub_8044054 177,
