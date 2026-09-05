@@ -4,7 +4,11 @@
 #include "common.h"
 
 typedef struct BackupBlock {
-    unk8 data[8];
+    unk32 magic;
+    unk8 unk4;
+    unk8 unk5;
+    unk8 unk6;
+    unk8 unk7;
 } BackupBlock;
 
 void initBattery(void);

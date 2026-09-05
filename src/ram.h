@@ -289,11 +289,7 @@ typedef struct CurrentGameStateTail {
 } CurrentGameStateTail;
 
 typedef struct CurrentGameSave {
-    unk32 magic;
-    u8 unk4;
-    u8 unk5;
-    u8 unk6;
-    u8 unk7;
+    BackupBlock block0;
     LevelState levelStates[0x38];
     unk8 unk548[0x10];
     u16 unk558;
