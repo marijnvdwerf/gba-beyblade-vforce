@@ -12,6 +12,8 @@ typedef struct KeyState {
     unk32 var14;
 } KeyState;
 
+extern unk16 _keyInput;
+
 void initKeyState(void);
 void updateKeyState(void);
 KeyState* sub_805A914(u8);
