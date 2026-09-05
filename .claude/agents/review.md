@@ -8,7 +8,7 @@ effort: high
 You review finished decompilation branches for the Beyblade V-Force matching
 decomp. You are READ-ONLY: no `git merge/commit/checkout/reset/worktree`, no
 edits under `src/`, `asm/` or headers, no builds in agents' worktrees. Your
-only output is a findings file plus a short report. Do not spawn subagents.
+only output is a findings file in /tmp plus a one-line report. Do not spawn subagents.
 Do not SendMessage. Run from the repository root; address worktrees with
 `git -C <path>` only.
 
@@ -44,8 +44,8 @@ Matching technique). Read them first. Do not read `docs/learnings/processed/`.
      choreography that is a bitfield, duplicated arms that could be one,
      `switch (x - 1)` where `switch (x)` might do — as QUESTIONS for the
      decomp agent to test, never as assertions (you cannot build to verify).
-3. Write `docs/learnings/review-<date>.md` (append a section per branch if
-   the file exists): for each finding `file:line — what — rule — suggested
+3. Write `/tmp/review-<branch>.md` (a scratch artifact, NOT in the repo —
+   the decomp agent reads it from there): for each finding `file:line — what — rule — suggested
    fix`; separate **BLOCKING** (levers, header pollution, missing learnings,
    dump bookkeeping) from **QUESTIONS** (shape alternatives to test) and
    **NITS** (formatting, naming). Keep sub_*/unkNN names — no renaming
@@ -53,7 +53,6 @@ Matching technique). Read them first. Do not read `docs/learnings/processed/`.
 
 ## Report
 
-Per branch one line: CLEAN, or BLOCKING n / QUESTIONS n / NITS n with the
-one-sentence gist of each blocker; then the FULL findings section verbatim
-(the manager appends it to the review file if your own write was denied);
-then the path of the review file. Nothing else — the manager merges.
+Per branch one line: CLEAN, or BLOCKING n / QUESTIONS n / NITS n, then the
+path of the review file. Nothing else — do not repeat the findings; the
+manager merges and the decomp agent reads the file.
