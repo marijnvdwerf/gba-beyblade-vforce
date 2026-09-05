@@ -2228,7 +2228,32 @@ void sub_804868C(FrontendState* state, unk32 arg1)
 
 #endif
 INCLUDE_ASM("asm/dump/8040d18/804868c.s");
-INCLUDE_ASM("asm/dump/8040d18/8048a74.s");
+
+void sub_8048A74(FrontendSpriteTriple* arg0, s32 arg1)
+{
+    unk16 value;
+
+    if ((arg0->state & 1) != 0) {
+        arg0->sprite2->frame.word = arg0->timer & 3;
+    } else if ((arg0->state & 2) != 0) {
+        value = arg0->timer;
+        if (value <= 3) {
+            arg0->sprite2->frame.word = value + 4;
+        }
+    }
+    if (((sub_8057C40() >> 4) & 0xF) == 0) {
+        arg0->timer++;
+    }
+    if (arg0->sprite0 != NULL) {
+        arg0->sprite0->x = arg1 + (0xC0 << 5);
+    }
+    if (arg0->sprite1 != NULL) {
+        arg0->sprite1->x = arg1 + (0x98 << 8);
+    }
+    if (arg0->sprite2 != NULL) {
+        arg0->sprite2->x = arg1 + (0xB0 << 7);
+    }
+}
 
 void sub_8048AE8(FrontendState* state, unk32 arg1, unk32 arg2)
 {
