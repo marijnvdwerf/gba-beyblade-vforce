@@ -1,8 +1,11 @@
 #include "gamestate.h"
 #include "include_asm.h"
+#include "levelhud.h"
+#include "motion.h"
 #include "ram.h"
 #include "sprite.h"
 #include "spritetext.h"
+#include "unsorted.h"
 
 extern const unk8 SpriteSheet_82B1A84[];
 extern const unk8 LargeFontMeta[];
@@ -12,6 +15,10 @@ extern const unk8 SpriteSheet_821CF10[];
 extern const unk8 SpriteSheet_821DB5C[];
 extern const unk8 SpriteSheet_821DEA8[];
 extern const unk8 Str_8727048[];
+
+void sub_804F478(void*);
+void sub_804F05C(void*);
+void sub_804F2A0(void*);
 
 void LoadHUD(void)
 {
@@ -64,7 +71,91 @@ void sub_804EE2C(void)
     sub_8061228(&base->levelHud1);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ee54.s");
+void sub_804EE54(void)
+{
+    GameData* base;
+    LevelHudData* state;
+    s32 maxY;
+    s32 mode;
+    s32 mode2;
+    SpriteTextCleanup* text1;
+
+    base = _gameData;
+    state = (LevelHudData*)&base->levelHud0;
+    if (state->status != 0 && --state->status != 0) {
+        switch (state->state - 1) {
+        case 0:
+            if (state->status == 0x20) {
+                sub_80504E4(&state->motion0, -0x80, 0, 0x18, 0);
+                sub_805052C(&state->motion0, 0, -0x100, 0, 0x100);
+                if (sub_8051780(4) == 0) {
+                    sub_80504E4(&state->motion1, 0x80, 0, -0x18, 0);
+                    sub_805052C(&state->motion1, 0, 0x100, 0, 0x100);
+                }
+            }
+            break;
+        case 5: {
+            s32 status;
+
+            status = state->status;
+            maxY = 0x7C00;
+            if (status <= 0x1F) {
+                maxY = 0xC800;
+            }
+            text1 = &state->text1;
+            if (status == 0x20) {
+                sub_80504E4(&state->motion0, -0x80, 0, 0x18, 0);
+                sub_805052C(&state->motion0, 0, -0x100, 0, 0x100);
+            }
+            sub_8061844(text1, state->text1.x >> 8, (text1->y + ((maxY - text1->y) >> 3)) >> 8);
+            break;
+        }
+        case 1:
+            mode = (sub_8057C40() >> 4) & 7;
+            if ((mode & 3) == 0) {
+                mode2 = mode >> 2;
+                mode = 0xF;
+                if (mode2 != 0) {
+                    mode = 0xD;
+                }
+                sub_806185C(&state->text0, mode);
+            }
+        case 2:
+        case 3:
+            if (state->status == 0x20) {
+                sub_80504E4(&state->motion0, 0, 0x30, 0, state->status);
+                sub_8050578(&state->motion0, 0, 0x100);
+            }
+            break;
+        case 4:
+            mode = (sub_8057C40() >> 4) & 7;
+            if ((mode & 3) == 0) {
+                mode2 = mode >> 2;
+                mode = 0xF;
+                if (mode2 != 0) {
+                    mode = 0xD;
+                }
+                sub_806185C(&state->text0, mode);
+            }
+            if (state->status == 0x20) {
+                sub_80504E4(&state->motion0, 0, 0x30, 0, state->status);
+                sub_8050578(&state->motion0, 0, 0x100);
+            }
+            break;
+        }
+        if ((state->flags & 2) != 0) {
+            sub_805041C(&state->motion0);
+        }
+        if ((state->flags & 4) != 0) {
+            sub_805041C(&state->motion1);
+        }
+    } else {
+        sub_804FD64();
+    }
+    sub_804F478(&state->text0);
+    sub_804F05C(&state->text0);
+    sub_804F2A0(&state->text0);
+}
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f05c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f2a0.s");

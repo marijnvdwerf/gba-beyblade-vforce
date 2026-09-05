@@ -38,3 +38,21 @@ string lookup. Replacing that with the typed grouped-array index preserved the
 same instruction sequence and removed the raw offset access. The full function
 diff was identical, including literal-pool placement and trailing padding; the
 ROM compare passed.
+
+## sub_804EE54 (0x0804EE54)
+
+Matched with the existing `LevelHudData` layout rooted at `GameData.levelHud0`.
+The combined nonzero/decrement condition reproduces the target's initial status
+branch and keeps the cleanup call on the shared path. The switch body order is
+case 0, case 5, case 1 with fall-through to cases 2 and 3, then case 4.
+
+Case 5 requires a case-local status value, a long-lived `maxY` value, and a
+`SpriteTextCleanup*` pointing at `text1`. Assigning the text pointer before the
+motion calls keeps it live across those calls, producing the target's saved
+`r6`/`r7` allocation and the `[r6, #4]` load. The color selection initializes
+`0xF` and overwrites it with `0xD` when the shifted mode is nonzero; this emits
+the target's `beq` polarity in both color-selection arms.
+
+The final instruction diff matched exactly, including the five-register
+prologue/epilogue, jump table, literal pools, and trailing padding. The full
+ROM compare and source lint passed.
