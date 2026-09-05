@@ -122,6 +122,10 @@ R2-3 MERGED 4/4 (sub_80558B8, sub_80558D0, sub_80558E8, sub_8055734;
 projectile.h owns sub_804C3D4/34C/354 prototypes; eight data9.s resource
 labels made global). Main 491 C / 516 asm / 49%.
 
+R2-8 MERGED 3/3 festate helpers (sub_8048A74, sub_8043F40, sub_8043DB8;
+temps that fold byte-identically are folded — that rule is now enforced at
+review). Main 494 C / 513 asm / 49%. Session total 42 matched.
+
 ROUND 2 (new leaf pool): merging today's work exposed 40 new reds
 (/tmp/reds-new-2026-09-05.md, avg 123 insns, 17 TUs). Dispatched 6 luna
 agents: R2-1 utility (renderActor2, sub_8055274, sub_8055288, sub_8060070,
