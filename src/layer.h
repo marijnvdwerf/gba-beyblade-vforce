@@ -60,7 +60,7 @@ typedef struct BGLayer {
     unk8 field_5F;
     unk8 field_60;
     unk8 field_61;
-    unk8 field_62[2];
+    unk8 pad62[2];
     unk16 var64;
     TileMapHeader* var68;
     void* tileAddr;
@@ -74,6 +74,7 @@ typedef struct BGLayer {
 
 typedef BGLayer DisplayRecord;
 
+extern Struct3000CA0 _unk3000CA0[4];
 extern LayerTransformRecord _unk3000D00[2];
 
 void sub_8058968(DisplayRecord*, u8, TileMapHeader*, unk16, unk16, s32, s32);

@@ -7,9 +7,8 @@
 #include "math.h"
 #include "unsorted.h"
 
-extern Struct3000CA0 _unk3000CA0[10];
 extern u8 _unk3000DE0;
-extern u8 _unk3000E3C;
+extern unk8 _unk3000E3C;
 extern u8 _unk3000E40[];
 extern s16 Unk_874CC3C[];
 extern s16 Unk_872CC3C[];
