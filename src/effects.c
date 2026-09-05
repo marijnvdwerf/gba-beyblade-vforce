@@ -38,6 +38,120 @@ void sub_805529C(void)
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/805529c.s");
 
+#if 0
+void sub_8055340(void)
+{
+    GameData* gameData;
+    ProjectileSystem* effect;
+    unk8 trigger;
+    s32 value;
+    s32 blend;
+
+    gameData = _gameData;
+    effect = &gameData->projectileSystem;
+    sub_804C208(effect);
+    if (effect->unk7A != 0) {
+        trigger = 0;
+        effect->unk7A--;
+        if ((effect->unk7A & 0x1F) == 0) {
+            effect->unk84++;
+            trigger = 1;
+        }
+        if (trigger != 0) {
+            switch (effect->unk84) {
+            case 1:
+                sub_8055734(5, NULL, &effect->unk88->unk238);
+                effect->unk74 = 8;
+                sub_8051868();
+                sub_804FC00();
+                sub_804ABFC(0x14);
+                break;
+            case 2:
+                SetRiderFlag(effect->unk88, 0x2000);
+                sub_8055734(6, &effect->unk88->unk238, NULL);
+                break;
+            case 3: {
+                RiderBase* rider;
+
+                rider = effect->unk88;
+                effect->unk74 = 8;
+                switch (sub_8051868()) {
+                case 0:
+                    sub_804CEF4(rider, 0);
+                    break;
+                case 1:
+                    sub_804CEF4(rider, 2);
+                    break;
+                case 2:
+                    sub_804CEF4(rider, 1);
+                    break;
+                case 3:
+                    sub_804CEF4(rider, 4);
+                    break;
+                }
+                sub_804ABFC(1);
+                break;
+            }
+            case 4:
+                sub_80558D0();
+                break;
+            case 5:
+                UnsetRiderFlag(effect->unk88, 0x2000);
+                break;
+            default:
+                sub_804F84C(1);
+                break;
+            }
+        }
+    }
+    if (((_unk3000E30[0] >> 4) & 3) == 0) {
+        if (effect->unk74 != 0) {
+            Palette* palette;
+
+            palette = &effect->palette34;
+            if ((effect->unk74 & 1) != 0) {
+                value = 0;
+            } else {
+                value = 7;
+            }
+            sub_80631EC(palette, PLTT, value);
+            effect->unk74--;
+        } else if (effect->unk76 != 0) {
+            effect->unk76 += effect->unk78;
+            if (effect->unk76 > 7) {
+                effect->unk76 = 7;
+                effect->unk78 = 0;
+                effect->unk80 |= 1;
+            }
+            sub_80631EC(&effect->palette5C, PLTT, effect->unk76);
+        } else if (effect->unk70 != 0) {
+            effect->unk70--;
+            sub_80631EC(&effect->palette34, PLTT, effect->unk70);
+            effect->unk72 = effect->unk76;
+        } else if (effect->unk72 != 0) {
+            effect->unk72--;
+            sub_80631EC(&effect->palette48, PLTT, effect->unk72);
+        }
+        *(vu16*)0x05000000 = 0;
+    }
+    if (effect->unk7C_4 != 0) {
+        effect->unk7C_4 += (effect->unk7E - effect->unk7C_4) >> 3;
+        *(vu16*)REG_MOSAIC = 0;
+        *(vu16*)(REG_MOSAIC + 2) = 0xFFFF;
+        *(vu16*)REG_WIN0H = 0xF0;
+        *(vu16*)(REG_WIN0H + 2) = 0xF0;
+        blend = effect->unk7C_4;
+        *(vu16*)REG_WIN0V = blend;
+        blend = 0xA0 - (effect->unk7C_4);
+        *(vu16*)(REG_WIN0V + 2) = (blend << 8) | 0xA0;
+        *(vu16*)REG_DISPCNT |= 0x6000;
+        if ((effect->unk7C_4) == 0) {
+            effect->unk7C_4 = 0;
+            *(vu16*)REG_DISPCNT &= 0x9FFF;
+        }
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055340.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80555f4.s");
 
@@ -52,6 +166,7 @@ void sub_805565C(void)
 {
     _gameData->projectileSystem.unk7E = 0;
 }
+
 void sub_8055674(void)
 {
     _gameData->projectileSystem.unk7E = 0x560;

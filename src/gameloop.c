@@ -369,39 +369,19 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/805253c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052588.s");
 
 #if 0
-typedef struct Sub80526C8Geometry {
-    unk8 pad0[4];
-    GeometryPoint* points;
-    unk8 pad8[4];
-    GeometryLine* lines;
-} Sub80526C8Geometry;
-
-typedef struct Sub80526C8Actor {
-    unk8 pad0[4];
-    s32 x;
-    s32 y;
-    s32 z;
-    unk8 pad10[0x2C];
-    unk32 unk3C;
-    unk8 pad40[0x74];
-    s32 lineIndex;
-    SpriteEntry* sprite;
-    unk8 padBC[8];
-} Sub80526C8Actor;
-
 void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
 {
-    Sub80526C8Actor* current;
+    Actor* current;
     GeometryLine* line;
     GeometryPoint* point0;
     GeometryPoint* point1;
-    Sub80526C8Geometry* geometry;
+    LevelGeometryAddresses* geometry;
     EnvironmentObject* object;
     SpriteEntry* targetSprite;
     SpriteEntry* lineSprite;
     Actor* mainActor;
     unk32 actorCount;
-    unk32 callbackData;
+    void* callbackData;
     unk32 frame;
     unk32 found;
     s32 minX;
@@ -413,10 +393,10 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
 
     frame = sprite->var22;
     targetSprite = targetActor->unkB8;
-    geometry = (Sub80526C8Geometry*)&gameData->unk65C;
+    geometry = &gameData->unk65C;
     mainActor = gameData->base.unk0;
     actorCount = gameData->unkC84;
-    current = (Sub80526C8Actor*)gameData->unkC7C;
+    current = gameData->unkC7C;
     callbackData = nullsub_12(&gameData->unk434);
     if (actorCount == 0) {
         return;
@@ -425,12 +405,12 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
     targetActor->unk3C = current->unk3C;
     actorCount--;
     do {
-        if (current->sprite != NULL) {
+        if (current->unkB8 != NULL) {
             object = NULL;
-            if (current->lineIndex >= 0) {
-                line = &geometry->lines[current->lineIndex];
-                point0 = &geometry->points[line->point0];
-                point1 = &geometry->points[line->point1];
+            if (current->unkB4 >= 0) {
+                line = &geometry->unkC[current->unkB4];
+                point0 = &geometry->unk4[line->point0];
+                point1 = &geometry->unk4[line->point1];
                 minX = point1->x << 5;
                 if (point0->x < point1->x)
                     minX = point0->x << 5;
@@ -440,7 +420,7 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
                 minZ = point1->z << 5;
                 if (point0->z < point1->z)
                     minZ = point0->z << 5;
-                object = GetStruct4(current->lineIndex);
+                object = GetStruct4(current->unkB4);
             } else {
                 minX = current->x;
                 minY = current->y;
@@ -449,8 +429,8 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
             lineSprite = NULL;
             if (object != NULL)
                 lineSprite = object->sprite;
-            x = current->sprite->x + (sub_80610EC(current->sprite) << 8);
-            y = current->sprite->y + (sub_8061110(current->sprite) << 8);
+            x = current->unkB8->x + (sub_80610EC(current->unkB8) << 8);
+            y = current->unkB8->y + (sub_8061110(current->unkB8) << 8);
             found = 0;
             if (x >= sprite->x && x < sprite->x + 0x2000 && y >= sprite->y
                 && y < sprite->y + 0x2000)
@@ -465,7 +445,7 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
             if (found != 0) {
                 if (current->unk3C != callbackData) {
                     sprite->oam_attr_2 &= 0xF3FF;
-                    sprite->oam_attr_2 |= current->sprite->oam_attr_2 & 0x0C00;
+                    sprite->oam_attr_2 |= current->unkB8->oam_attr_2 & 0x0C00;
                     targetActor->unk3C = current->unk3C;
                 }
                 if (mainActor->x > minX && mainActor->y <= minY) {
@@ -489,6 +469,7 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
         sub_8061078(targetSprite, frame + 2);
 }
 #endif
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80526c8.s");
 
 void sub_805295C(void)
