@@ -13,6 +13,10 @@ extern const unk8 Str_8755474[];
 extern const unk8 Str_87554B4[];
 extern const unk8 Str_87554F0[];
 extern const unk8 Str_87554F4[];
+extern const unk8 Str_8755530[];
+extern const unk8 Str_875557C[];
+extern const unk8 Str_87555A8[];
+extern const unk8 Str_87555F0[];
 
 void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable* geometry)
 {
@@ -202,7 +206,7 @@ void initQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 ar
 }
 
 void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 arg2, unk16 arg3,
-    unk16 nodeCount, unk16 arg5, unk32 arg6)
+    unk16 nodeCount, unk16 arg5, unk32 (*arg6)(LevelGeometryTable*, GeometryLine*))
 {
     AllocatedBlock* block;
     unk8* nodes;
@@ -268,7 +272,7 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
             quadTree->unk4C = quadTree->block28->address;
             nodes = quadTree->block24->address;
             quadTree->unk2C = (QuadTreeNode*)nodes;
-            quadTree->unk30 = (QuadTreeNode*)&nodes[arg4];
+            quadTree->unk30 = (GeometryLine**)&nodes[arg4];
             quadTree->unk14[0] = (QuadTreeNode*)nodes;
             quadTree->unk14[1] = quadTree->unk14[0] + 1;
             quadTree->unk14[2] = quadTree->unk14[1] + 1;
@@ -297,7 +301,96 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
     }
 }
 
+#if 0
+void sub_805BDBC(QuadTree* quadTree, LevelGeometryAddresses* geometry)
+{
+    QuadTreeNode* node;
+    s32 splineIndex;
+    s32 pointIndex;
+    s32 entryCount;
+    QuadTreeEntry* output;
+    QuadTreeNode* nextNode;
+    s32 nodeIndex;
+    s32 outerIndex;
+    s32 nextSplineIndex;
+    s32 splineCount;
+    unk32* pointIndices;
+    GeometrySpline* spline;
+    GeometryPoint* previous;
+    GeometryPoint* point;
+    s32 minX;
+    s32 minY;
+    s32 maxX;
+    s32 maxY;
+
+    node = quadTree->unk2C;
+    quadTree->unk34 = quadTree->unk30 + quadTree->unk3A;
+    output = (QuadTreeEntry*)quadTree->unk34;
+    outerIndex = 0;
+    if (outerIndex < quadTree->unk38) {
+        do {
+            if (node->unk28 == 0) {
+                node->unk14 = NULL;
+                node->unk2A = 0;
+                node++;
+                nodeIndex = outerIndex + 1;
+            } else {
+                node->unk14 = output;
+                entryCount = 0;
+                splineIndex = 0;
+                splineCount = geometry->unk0->count.splineCountWord;
+                nextNode = node + 1;
+                nodeIndex = outerIndex + 1;
+                if (entryCount < splineCount) {
+                    do {
+                        spline = geometry->unk14[splineIndex];
+                        nextSplineIndex = splineIndex + 1;
+                        previous = geometry->unk4 + spline->pointIndices[0];
+                        pointIndex = 1;
+                        pointIndices = spline->pointIndices + 1;
+                        while (pointIndex < spline->pointCount) {
+                            point = geometry->unk4 + *pointIndices;
+                            if (previous->x < point->x) {
+                                minX = previous->x - 0x10;
+                                maxX = point->x + 0x10;
+                            } else {
+                                minX = point->x - 0x10;
+                                maxX = previous->x + 0x10;
+                            }
+                            if (previous->y < point->y) {
+                                minY = previous->y - 0x10;
+                                maxY = point->y;
+                            } else {
+                                minY = point->y - 0x10;
+                                maxY = previous->y;
+                            }
+                            maxY += 0x10;
+                            if (sub_805BF18(node->unk18, node->unk1C, node->unk20, node->unk24,
+                                    minX, minY, maxX, maxY)
+                                != 0) {
+                                output->spline = spline;
+                                output->pointIndex = pointIndex - 1;
+                                output->splineIndex = splineIndex;
+                                output += 1;
+                                entryCount += 1;
+                            }
+                            previous = point;
+                            pointIndices += 1;
+                            pointIndex += 1;
+                        }
+                        splineIndex = nextSplineIndex;
+                    } while (splineIndex < geometry->unk0->count.splineCountWord);
+                }
+                node->unk2A = entryCount;
+                node = nextNode;
+            }
+            outerIndex = nodeIndex;
+        } while (outerIndex < quadTree->unk38);
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/805bdbc.s");
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805bf18.s");
 
 void deallocateQuadTree(QuadTree* arg0)
@@ -312,7 +405,177 @@ void deallocateQuadTree(QuadTree* arg0)
     arg0->block28 = NULL;
 }
 
+#if 0
+void allocateDynamicBoundingAreas(QuadTree* quadTree, LevelGeometryAddresses* geometry)
+{
+    s32 count;
+    s32 max;
+    s32 remaining;
+    s32 index;
+    GeometryLine* record;
+    unk32* output;
+
+    max = quadTree->unk44;
+    count = 0;
+    remaining = geometry->unk0->lineCount;
+    index = 0;
+    record = geometry->unkC;
+    output = quadTree->unk4C;
+    while (remaining-- != 0) {
+        if ((record->unk11 & 8) != 0) {
+            *output++ = index;
+            count += 1;
+            if (count > max) {
+                printf(Str_8755530, max);
+                break;
+            }
+        }
+        index += 1;
+        record++;
+    }
+    quadTree->unk48 = count;
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/805bfe8-allocateDynamicBoundingAreas.s");
+
+#if 0
+QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX, s32 minY,
+    s32 maxX, s32 maxY, unk32 (*callback)(LevelGeometryTable*, GeometryLine*))
+{
+    LevelGeometryAddresses* geometry;
+    GeometryLine* line;
+    GeometryPoint* points;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    s32 width;
+    s32 height;
+    s32 lineIndex;
+    s32 selectedCount;
+    unk16 dynamicIndex;
+    s32 containedCount;
+    s32 left;
+    s32 right;
+    s32 top;
+    s32 bottom;
+    unk16 flags;
+    unk16 nextNode;
+    s32 i;
+
+    geometry = quadTree->unk10;
+    line = geometry->unkC;
+    points = geometry->unk4;
+    selectedCount = 0;
+    dynamicIndex = quadTree->unk3A;
+    containedCount = 0;
+    node->unk18 = minX;
+    node->unk20 = maxX;
+    node->unk1C = minY;
+    node->unk24 = maxY;
+    width = maxX - minX;
+    height = maxY - minY;
+    lineIndex = 0;
+    if (lineIndex < geometry->unk0->lineCount) {
+        do {
+            point0 = &points[line->point0];
+            point1 = &points[line->point1];
+            flags = 0;
+            if ((line->unk11 & 8) == 0
+                && (callback == NULL || (callback(geometry->unk0, line) << 24) != 0)
+                && line->point0 >= 0 && line->point1 >= 0) {
+                left = point0->x;
+                right = point1->x;
+                if (left > right) {
+                    i = right;
+                    right = left;
+                    left = i;
+                }
+                top = point0->y;
+                bottom = point1->y;
+                if (top > bottom) {
+                    i = bottom;
+                    bottom = top;
+                    top = i;
+                }
+                left -= 0x10;
+                right += 0x10;
+                top -= 0x10;
+                bottom += 0x10;
+                if (left >= minX && left <= maxX) {
+                    flags = 1;
+                }
+                if (right >= minX && right <= maxX) {
+                    flags |= 1;
+                }
+                if (top >= minY && top <= maxY) {
+                    flags |= 2;
+                }
+                if (bottom >= minY && bottom <= maxY) {
+                    flags |= 2;
+                }
+                if (left <= minX && right >= maxX && (flags & 2) != 0) {
+                    flags = 3;
+                }
+                if (top <= minY && bottom >= maxY && (flags & 1) != 0) {
+                    flags = 3;
+                }
+                if (left <= minX && right >= maxX && top <= minY && bottom >= maxY) {
+                    flags = 3;
+                    containedCount += 1;
+                }
+                if (flags == 3) {
+                    if (dynamicIndex < quadTree->unk40) {
+                        quadTree->unk30[dynamicIndex] = line;
+                        dynamicIndex += 1;
+                    } else {
+                        printf(Str_875557C);
+                    }
+                    selectedCount += 1;
+                }
+            }
+            line++;
+            lineIndex += 1;
+        } while (lineIndex < geometry->unk0->lineCount);
+    }
+    if (selectedCount > quadTree->unk3C && containedCount < quadTree->unk3C && width > 0x7F
+        && height > 0x7F) {
+        s32 centerX;
+        s32 centerY;
+
+        centerX = ((maxX - minX) >> 1) + minX;
+        centerY = ((maxY - minY) >> 1) + minY;
+        node->unk10 = NULL;
+        node->unk14 = NULL;
+        node->unk28 = 0;
+        node->unk2A = 0;
+        if (quadTree->unk38 + 4 >= quadTree->unk3E) {
+            printf(Str_87555A8);
+        }
+        nextNode = quadTree->unk38;
+        quadTree->unk14[0] = &quadTree->unk2C[nextNode + 0];
+        quadTree->unk14[1] = &quadTree->unk2C[nextNode + 1];
+        quadTree->unk14[2] = &quadTree->unk2C[nextNode + 2];
+        quadTree->unk38 = nextNode + 4;
+        quadTree->unk14[3] = &quadTree->unk2C[nextNode + 3];
+        node->unk0 = initQuadTreeNode(quadTree, quadTree->unk14[0], minX, minY, centerX, centerY, callback);
+        node->unk4 = initQuadTreeNode(quadTree, quadTree->unk14[1], centerX, minY, maxX, centerY, callback);
+        node->unk8 = initQuadTreeNode(quadTree, quadTree->unk14[2], minX, centerY, centerX, maxY, callback);
+        node->unkC = initQuadTreeNode(quadTree, quadTree->unk14[3], centerX, centerY, maxX, maxY, callback);
+        return node;
+    }
+    node->unk28 = selectedCount;
+    node->unk2A = 0;
+    node->unk14 = NULL;
+    node->unk10 = quadTree->unk30 + quadTree->unk3A;
+    quadTree->unk3A = dynamicIndex;
+    if (selectedCount > 0x20) {
+        printf(Str_87555F0, selectedCount, 0x20);
+    }
+    if (selectedCount != 0) {
+        return node;
+    }
+    return NULL;
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/805c040-initQuadTreeNode.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805c308-GetQuadTreeNodeForPos.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805c3bc.s");
