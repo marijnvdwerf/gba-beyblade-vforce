@@ -20,6 +20,7 @@ extern s32 _80788cc[];
 extern unk32 sub_805749C(unk32);
 
 void sub_80510FC(void);
+void sub_80513AC(void);
 
 void InitCurrentGameState(void)
 {
@@ -239,7 +240,20 @@ unk8 sub_8051558(void)
     return xorSum == save->checksum && save->magic == 0xDEAD;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80515a4.s");
+unk8 sub_80515A4(void)
+{
+    BackupBlock* data;
+    s32 size;
+    unk8 result;
+
+    data = (BackupBlock*)&_currentGameState->unk6FC;
+    size = 0x564;
+    sub_80513AC();
+    Sound_8062694();
+    result = sub_80574D0(data, 0, size);
+    Sound_80626E0();
+    return result;
+}
 
 unk8 sub_80515E0(void)
 {
