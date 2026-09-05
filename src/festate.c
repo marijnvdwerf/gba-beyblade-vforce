@@ -1,3 +1,5 @@
+#include "festate.h"
+
 #include <agb/memory_map.h>
 
 #include "beyblade.h"
@@ -18,10 +20,6 @@
 #include "ram.h"
 #include "spritetext.h"
 #include "unsorted.h"
-
-void sub_8043DB8(SpriteTextCleanup**, LevelState*, CurrentGameStateTail*, unk32);
-void sub_8043F40(SpriteTextCleanup**, CurrentGameStateTail*, s32);
-void sub_8048A74(FrontendSpriteTriple*, s32);
 
 void sub_8043A0C(FrontendState* state, u32 arg1, u32 arg2)
 {
@@ -197,6 +195,7 @@ void sub_8044054(FrontendState* state, unk32 arg1)
 {
     LevelState* levelState;
     s32 delta;
+    unk32 progress;
 
     levelState = sub_8051734();
     switch (arg1) {
@@ -250,7 +249,8 @@ void sub_8044054(FrontendState* state, unk32 arg1)
                 (_unk3000174 << 8) | _unk3000178.value);
             if (_unk3000174 <= 0x3F) {
                 _unk3000178.value++;
-                if (_unk3000178.value > 0x20) {
+                progress = _unk3000178.value;
+                if (progress > 0x20) {
                     _unk3000178.value = 0;
                     _unk3000174 <<= 1;
                     if (_unk3000174 > 0x3F) {
