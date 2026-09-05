@@ -17,7 +17,6 @@ extern unk8 _80757ac[];
 extern unk8 _80757ec[];
 extern unk8 _807582c[];
 extern s32 _80788cc[];
-extern unk32 sub_805749C(unk32);
 
 void sub_80510FC(void);
 void sub_80513AC(void);
@@ -206,10 +205,10 @@ void sub_8051488(void)
     if (sub_8051558() == 0) {
         printf(Str_87293F0);
     } else {
-        _currentGameState->unk0 = save->unk4;
-        _currentGameState->unk1 = save->unk5;
-        _currentGameState->unk2 = save->unk6;
-        _currentGameState->unk3 = save->unk7;
+        _currentGameState->unk0 = save->block0.unk4;
+        _currentGameState->unk1 = save->block0.unk5;
+        _currentGameState->unk2 = save->block0.unk6;
+        _currentGameState->unk3 = save->block0.unk7;
         _currentGameState->unk6E4 = save->unk558;
         _currentGameState->unk6E6 = save->unk55A;
         _currentGameState->unkC68 = save->unk55C;
@@ -230,14 +229,14 @@ unk8 sub_8051558(void)
 
     save = &_currentGameState->unk6FC;
     xorSum = 0;
-    ptr = &save->magic;
+    ptr = &save->block0.magic;
     i = 334;
     do {
         xorSum ^= *ptr++;
         i--;
     } while (i != -1);
 
-    return xorSum == save->checksum && save->magic == 0xDEAD;
+    return xorSum == save->checksum && save->block0.magic == 0xDEAD;
 }
 
 unk8 sub_80515A4(void)
@@ -246,7 +245,7 @@ unk8 sub_80515A4(void)
     s32 size;
     unk8 result;
 
-    data = (BackupBlock*)&_currentGameState->unk6FC;
+    data = &_currentGameState->unk6FC.block0;
     size = 0x564;
     sub_80513AC();
     Sound_8062694();
@@ -261,7 +260,7 @@ unk8 sub_80515E0(void)
     s32 size;
     unk8 result;
 
-    data = (BackupBlock*)&_currentGameState->unk6FC;
+    data = &_currentGameState->unk6FC.block0;
     size = 0x564;
     Sound_8062694();
     result = sub_8057568(0, data, size);

@@ -25,6 +25,7 @@ void sub_8057158(FrontendResource*, const InputSequence*);
 void sub_8057164(FrontendResource*);
 unk8 sub_80571D0(FrontendResource*);
 void allocateBeyBladeActorPalette(unk32, unk32);
+unk8 sub_805749C(unk32);
 
 typedef struct BeybladeData {
     unk8 pad0[0x34];

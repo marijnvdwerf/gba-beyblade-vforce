@@ -128,7 +128,6 @@ void sub_804FB6C(void)
     GameData* state;
     const unk8* const* table;
     SpriteTextCleanup* hud;
-    unk32 language;
     MotionGroup* motion;
 
     state = _gameData;
@@ -136,8 +135,7 @@ void sub_804FB6C(void)
     sub_804FD64();
     state->levelHud.flags |= 2;
     table = _806E8C4;
-    language = getLanguage();
-    sub_8061660(hud, table[language], 0xD);
+    sub_8061660(hud, table[getLanguage()], 0xD);
     motion = &state->levelHud.motion0;
     newMotionGroup(motion, &state->levelHud.text0.unk14, 2);
     sub_8050578(motion, 0x4800, 0x100);
@@ -151,7 +149,6 @@ void sub_804FC00(unk32 arg0)
     GameData* state;
     const unk8* const* table;
     SpriteTextCleanup* hud;
-    unk32 language;
     MotionGroup* motion;
 
     state = _gameData;
@@ -160,8 +157,7 @@ void sub_804FC00(unk32 arg0)
     sub_804FD64();
     state->levelHud.flags |= 2;
     table = _806E724;
-    language = getLanguage();
-    sub_8061660(hud, table[arg0 * 5 + language], 0xD);
+    sub_8061660(hud, table[arg0 * 5 + getLanguage()], 0xD);
     motion = &state->levelHud.motion0;
     newMotionGroup(motion, &state->levelHud.text0.unk14, 2);
     sub_8050578(motion, 0x4800, 0x100);

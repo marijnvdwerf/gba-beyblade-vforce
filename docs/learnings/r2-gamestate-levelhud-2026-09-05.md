@@ -36,3 +36,15 @@ and sets the HUD state to `4`.
 
 All four implementations matched without artificial shift/mask choreography
 or speculative struct fields.
+
+## Review question verdicts
+
+1. `sub_80515A4` data alias: keep; folding it changed the first address materialization and failed the ROM compare.
+2. `sub_80515A4` size local: keep; inlining `0x564` removed the target saved-register lifetime and failed the ROM compare.
+3. `sub_80515A4` result temporary: keep; direct return cannot preserve the battery result across `Sound_80626E0` and failed the ROM compare.
+4. `sub_804FB6C` HUD alias: keep; folding the text address changed address materialization and failed the ROM compare.
+5. `sub_804FB6C` table alias: keep; direct `_806E8C4` indexing changed register allocation and failed the ROM compare.
+6. `sub_804FB6C` language local: fold; `table[getLanguage()]` produced an exact function diff and passed the ROM compare.
+7. `sub_804FC00` HUD alias: keep; folding the text address changed argument and global-address lifetimes and failed the ROM compare.
+8. `sub_804FC00` table alias: keep; direct `_806E724` indexing changed the prologue and register allocation and failed the ROM compare.
+9. `sub_804FC00` language local: fold; `table[arg0 * 5 + getLanguage()]` produced an exact function diff and passed the ROM compare.
