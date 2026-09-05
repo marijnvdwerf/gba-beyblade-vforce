@@ -163,6 +163,13 @@ Round-3 pool (14 new reds, mostly ≤100 insns): sub_804C34C 6, sub_804C354 6
 87 (gamestate), sub_804423C 97 + sub_8044314 123 (festate), sub_804A908 272
 (trail). Prompt archive: /tmp/agent-prompts-2026-09-05.md.
 
+R2-9 MERGED: sub_80561A0, allocFXSprite, GetQuadTreeNodeForPos matched;
+sub_804BF3C parked (in-block scratch structs); QuadTreeNode typed from the
+matched walker; ram.c conflict resolved (withBoundingAreas unk32[32] +
+Struct3000CA0[4]). R2-10 MERGED parked-only (allocateDynamicBoundingAreas,
+sub_805BDBC, initQuadTreeNode; geometry 0/5 — sub_805C9A4 left as asm,
+sub_805CEB8 skipped). ROUND 2 CLOSED: 22 matched of 40 new reds.
+
 ROUND 2 (new leaf pool): merging today's work exposed 40 new reds
 (/tmp/reds-new-2026-09-05.md, avg 123 insns, 17 TUs). Dispatched 6 luna
 agents: R2-1 utility (renderActor2, sub_8055274, sub_8055288, sub_8060070,
