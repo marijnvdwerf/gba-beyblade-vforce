@@ -4,6 +4,7 @@
 #include "common.h"
 
 void sub_804E1FC(RiderBase*, u8);
+void sub_804C870(RiderBase*, s32);
 void sub_804C888(RiderBase*, unk8);
 void SetRiderFlag(RiderBase*, unk32);
 void UnsetRiderFlag(RiderBase*, unk32);

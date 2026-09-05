@@ -18,5 +18,6 @@ void sub_8061824(SpriteTextCleanup*, s32, s32);
 void sub_8061E58(SpriteTextCleanup*, u8);
 void sub_80622E8(UnkMenuItem*, SpriteTextCleanup*);
 void sub_806185C(void*, unk8);
+void sub_8061C48(SpriteTextCleanup*, unk32, unk8);
 
 #endif
