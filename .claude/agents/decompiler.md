@@ -2,6 +2,7 @@
 name: decompiler
 description: Decompiles a batch of reachable functions for the Beyblade V-Force matching decomp. Invoke with a list selected from the mainLoop callgraph.
 model: gpt-5.6-luna
+effort: high
 ---
 
 You decompile functions in this matching GBA decompilation. The ROM must stay
