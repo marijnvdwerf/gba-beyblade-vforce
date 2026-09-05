@@ -41,3 +41,9 @@ Measured source-shape iterations:
 | Typed `(layerBase - (index * -1))->unk0` | Exact instruction match, but rejected as artificial source shaping. |
 
 `sub_805E8D8` is parked with its natural draft and the dump restored. `cmake --build build --target compare` and `uv run tools/lint.py src/*.c` pass with the assembly implementation.
+
+Review follow-up measurements:
+
+- The four `LevelDesign.unk74` shift pairs were tested as four 2-bit fields in a packed `LevelDesignSettings` byte using fields `unk74_0`, `unk74_2`, `unk74_4`, and `unk74_6`. The packed attribute was required because the default old compiler bitfield allocation made the settings type four bytes and changed the `LevelDesign` pointer offsets and ROM. With the packed type, the structure layout and full-ROM comparison were unchanged while the camera assembly implementation remained selected.
+- Compiling the parked camera draft with direct bitfield reads did not preserve the near-match: eliminating the scalar `settings` temporary changed the frame from 40 to 36 bytes and caused register/lifetime differences from the prologue onward. The best natural draft therefore retains the scalar shift extraction, while the bitfield representation is not retained.
+- Replacing `quadTree->unk30 = (QuadTreeNode*)((unk8*)nodes + nodeBytes)` with `&nodes[arg4]` was first tested with `nodes` as `QuadTreeNode*`; that form changed argument register allocation and introduced a second 0x2C-byte stride computation. Keeping `QuadTreeNode` at its proven 0x2C-byte size while modeling the allocated block as an `unk8*` byte array and storing the computed byte count in `arg4` produces the exact target instruction without raw pointer arithmetic.

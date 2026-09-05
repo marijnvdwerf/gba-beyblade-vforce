@@ -657,8 +657,23 @@ typedef struct GeometrySpline {
 
 typedef struct LevelGeometryTable LevelGeometryTable;
 
+typedef struct TileMapHeader {
+    unk8 filler00[4];
+    u32 tileOffset;
+    u32 tileBytes;
+    u32 mapOffset;
+    u32 mapBytes;
+    u8 var14;
+    unk8 filler15[3];
+    u8 var18;
+    u8 colorMode;
+    unk8 filler1A[2];
+    u16 columnCount;
+    u16 rowCount;
+} TileMapHeader;
+
 typedef struct LevelDesignLayer {
-    void* unk0;
+    TileMapHeader* unk0;
     s32 unk4;
     s32 unk8;
     unk32 unkC;
@@ -666,11 +681,7 @@ typedef struct LevelDesignLayer {
 } LevelDesignLayer;
 
 typedef struct LevelDesign {
-    unk32 unk0;
-    unk32 unk4;
-    unk32 unk8;
-    unk32 unkC;
-    unk32 unk10;
+    unk8 pad0[0x14];
     LevelDesignLayer layers[4];
     unk8 unk74;
     unk8 pad75[3];

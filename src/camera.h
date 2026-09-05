@@ -42,7 +42,7 @@ void nullsub_12(void*);
 void sub_805EADC(CameraState*);
 void sub_805EB00(CameraState*);
 void sub_805EBCC(CameraState*);
-unk32* sub_805EEE0(CameraState*);
+LevelGeometryAddresses* sub_805EEE0(CameraState*);
 void sub_805E8D8(CameraState*, LevelDesign*, unk16, s32*);
 void sub_805E8A0(CameraState*, LevelDesign*, unk16, s32*);
 void sub_805EEFC(CameraState*, unk32, unk32);

@@ -14,10 +14,6 @@ extern const unk8 Str_87554B4[];
 extern const unk8 Str_87554F0[];
 extern const unk8 Str_87554F4[];
 
-extern void allocateDynamicBoundingAreas(QuadTree*, LevelGeometryAddresses*);
-extern QuadTreeNode* initQuadTreeNode(QuadTree*, QuadTreeNode*, s32, s32, s32, s32, unk32);
-extern void sub_805BDBC(QuadTree*, LevelGeometryAddresses*);
-
 void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable* geometry)
 {
     s16 count;
@@ -206,10 +202,10 @@ void initQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 ar
 }
 
 void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 arg2, unk16 arg3,
-    unk16 arg4, unk16 arg5, unk32 arg6)
+    unk16 nodeCount, unk16 arg5, unk32 arg6)
 {
     AllocatedBlock* block;
-    QuadTreeNode* nodes;
+    unk8* nodes;
     GeometryPoint* point;
     s32 count;
     s32 minX;
@@ -218,7 +214,7 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
     s32 maxY;
     s32 centerX;
     s32 centerY;
-    s32 nodeBytes;
+    s32 arg4;
     s32 entryBytes;
     s32 allocationSize;
 
@@ -226,11 +222,11 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
     minY = 0xFF00;
     maxX = -0xFF00;
     maxY = -0xFF00;
-    nodeBytes = arg4 * sizeof(QuadTreeNode);
+    arg4 = nodeCount * sizeof(QuadTreeNode);
     entryBytes = arg3 << 2;
     point = geometry->unk4;
     quadTree->unk10 = geometry;
-    quadTree->unk3E = arg4;
+    quadTree->unk3E = nodeCount;
     quadTree->unk40 = arg3;
     quadTree->unk50 = 0;
     quadTree->unk4C = 0;
@@ -257,7 +253,7 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
     quadTree->unk8 = maxX;
     quadTree->unk4 = minY;
     quadTree->unkC = maxY;
-    allocationSize = nodeBytes + entryBytes;
+    allocationSize = arg4 + entryBytes;
     block = slowAllocate(allocationSize);
     quadTree->block24 = block;
     if (block == NULL) {
@@ -271,9 +267,9 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
         } else {
             quadTree->unk4C = quadTree->block28->address;
             nodes = quadTree->block24->address;
-            quadTree->unk2C = nodes;
-            quadTree->unk30 = (QuadTreeNode*)((unk8*)nodes + nodeBytes);
-            quadTree->unk14[0] = nodes;
+            quadTree->unk2C = (QuadTreeNode*)nodes;
+            quadTree->unk30 = (QuadTreeNode*)&nodes[arg4];
+            quadTree->unk14[0] = (QuadTreeNode*)nodes;
             quadTree->unk14[1] = quadTree->unk14[0] + 1;
             quadTree->unk14[2] = quadTree->unk14[1] + 1;
             quadTree->unk14[3] = quadTree->unk14[2] + 1;

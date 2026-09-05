@@ -8,21 +8,6 @@
 #include "unsorted.h"
 
 typedef struct {
-    unk8 filler00[4];
-    u32 tileOffset;
-    u32 tileBytes;
-    u32 mapOffset;
-    u32 mapBytes;
-    u8 var14;
-    unk8 filler15[3];
-    u8 var18;
-    u8 colorMode;
-    unk8 filler1A[2];
-    u16 columnCount;
-    u16 rowCount;
-} TileMapHeader;
-
-typedef struct {
     unk32 var00;
     unk32 var04;
     unk32 var08;

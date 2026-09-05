@@ -22,7 +22,6 @@ void sub_805E8D8(CameraState* camera, LevelDesign* level, unk16 mode, s32* offse
 {
     s8 flags;
     s8 index;
-    CameraState* state;
     LevelDesignLayer* layerOrigin;
     LevelDesignLayer* layerBase;
     unk32 settings;
@@ -43,9 +42,8 @@ void sub_805E8D8(CameraState* camera, LevelDesign* level, unk16 mode, s32* offse
     camera->unk362 = 0xA0;
     camera->unk364 = 0;
     camera->unk368 = 0;
-    *(vu16*)0x04000050 = 0x3FFF;
+    *(vu16*)REG_BLDCNT = 0x3FFF;
     sub_8059934();
-    state = camera;
     layerOrigin = &level->layers[0];
     index = 0;
     layerBase = &level->layers[0];
@@ -70,9 +68,9 @@ void sub_805E8D8(CameraState* camera, LevelDesign* level, unk16 mode, s32* offse
             layer = layerBase + index;
             if (layer->unk0 != NULL) {
                 flags |= 1 << index;
-                if (&camera->records[index] != (DisplayRecord*)state
+                if (index != 0
                     && (level->layers[index].unk4 != 0 || level->layers[index].unk8 != 0)) {
-                    sub_8058968(&camera->records[index], index, (*((layerBase + index))).unk0, 0x40,
+                    sub_8058968(&camera->records[index], index, layerBase[index].unk0, 0x40,
                         level->layers[index].unkC | 1,
                         (layerOrigin->unk4 - level->layers[index].unk4) >> 8,
                         (layerOrigin->unk8 - level->layers[index].unk8) >> 8);
@@ -182,7 +180,7 @@ void sub_805EBCC(CameraState* camera)
     i = 0;
     do {
         if (camera->unk220->layers[i].unk0 != NULL) {
-            scale = camera->unk220->entries[i].unk14;
+            scale = camera->unk220->layers[i].unkC;
             record = &camera->records[i];
             if (record != (DisplayRecord*)state) {
                 record->unk14 = state->records[0].unk14 + ((state->records[0].unk14 * scale) >> 5);
@@ -206,12 +204,12 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805ed60.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ee78.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805eea4.s");
 
-unk32* sub_805EEE0(CameraState* arg0)
+LevelGeometryAddresses* sub_805EEE0(CameraState* arg0)
 {
     if (arg0->unk220->geometry == NULL) {
         return 0;
     }
-    return (unk32*)&arg0->geometry;
+    return &arg0->geometry;
 }
 
 void sub_805EEFC(CameraState* camera, unk32 arg1, unk32 arg2)

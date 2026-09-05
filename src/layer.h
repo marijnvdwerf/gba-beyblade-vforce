@@ -49,7 +49,7 @@ typedef struct DisplayRecord {
 
 extern LayerTransformRecord _unk3000D00[2];
 
-void sub_8058968(DisplayRecord*, u8, void*, unk16, unk16, s32, s32);
+void sub_8058968(DisplayRecord*, u8, TileMapHeader*, unk16, unk16, s32, s32);
 void sub_8058EF4(DisplayRecord*);
 void sub_8059934(void);
 void sub_8058F60(DisplayRecord*);
