@@ -220,6 +220,26 @@ void sub_80558D0(void)
     effect->unk28 = 0x20;
 }
 
+#if 0
+void sub_80558E8(unk32 arg0)
+{
+    GameData* gameData;
+    unk16* field;
+
+    gameData = _gameData;
+    switch (arg0) {
+    case 0:
+        field = &gameData->projectileSystem.unk72;
+        break;
+    case 1:
+        field = &gameData->projectileSystem.unk70;
+        break;
+    default:
+        return;
+    }
+    *field = 8;
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/80558e8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055914.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805599c.s");
