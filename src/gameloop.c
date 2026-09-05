@@ -263,6 +263,100 @@ void sub_8052140(Sub8052140Data* arg0, unk32 arg1)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052180.s");
+
+#if 0
+void sub_80522D4(Actor* actor, CameraState* camera)
+{
+    s32 actorPosition[3];
+    s32 adjustedPosition[3];
+    s32 cameraOffset[3];
+    s32 absX;
+    s32 absY;
+    s32 x;
+    s32 y;
+    s32 signedX;
+    s32 signedY;
+    s32 originSource[3];
+    s32 origin[3];
+    s32* originSourcePtr;
+    s32* originPtr;
+    s16 i;
+    s16 scale;
+    CameraDisplayEntry* entry;
+    DisplayRecord* record;
+    GameData* gameData;
+    CameraState* state;
+
+    state = nullsub_12(camera);
+    gameData = _gameData;
+    originPtr = origin;
+    originSourcePtr = originSource;
+    memset(originSourcePtr, 0, 0xC);
+    originSourcePtr[0] = gameData->base.unk1A0;
+    originSourcePtr[1] = gameData->base.unk1A4;
+    memcpy(originPtr, originSourcePtr, 0xC);
+    sub_8058754(actor, (unk32*)actorPosition);
+    adjustedPosition[0] = originPtr[0] - originPtr[1];
+    adjustedPosition[1] = (originPtr[0] + originPtr[1]) >> 1;
+    cameraOffset[0] = 0x7800 - adjustedPosition[0] * 0x12;
+    cameraOffset[1]
+        = ((actor->unkA2 + 0x50 - (actor->unk11 >> 1)) << 8) - adjustedPosition[1] * 0x12;
+    adjustedPosition[0] = actorPosition[0] - (state->records[0].unk40 + cameraOffset[0]);
+    if (_gameData->unkB53 != 0)
+        y = state->records[0].unk44 + cameraOffset[1] - 0x8000;
+    else
+        y = state->records[0].unk44 + cameraOffset[1];
+    adjustedPosition[1] = actorPosition[1] - y;
+    if (gameData->unkB53 != 0 && adjustedPosition[0] + 0x1FF <= 0x3FE
+        && adjustedPosition[1] <= 0x1FF && adjustedPosition[1] > -0x200) {
+        _gameData->unkB53 = 0;
+        camera->unk224 = NULL;
+    }
+    absX = adjustedPosition[0];
+    if (absX < 0)
+        absX = -absX;
+    absY = adjustedPosition[1];
+    if (absY < 0)
+        absY = -absY;
+    signedX = adjustedPosition[0];
+    x = signedX;
+    if (signedX < 0)
+        signedX = -signedX;
+    signedY = adjustedPosition[1];
+    if (signedY < 0)
+        signedY = -signedY;
+    if (signedX > 0x4800)
+        signedX = 0x4800;
+    if (signedY > 0x4800)
+        signedY = 0x4800;
+    if (x < 0)
+        signedX = -signedX;
+    adjustedPosition[0] = signedX;
+    if (adjustedPosition[1] < 0)
+        signedY = -signedY;
+    adjustedPosition[1] = signedY;
+    if ((_gameData->unkB50 & 1) != 0)
+        state->records[0].unk14 = adjustedPosition[0] * _gameData->unkB51 >> 9;
+    else
+        state->records[0].unk14 = 1 & _gameData->unkB50;
+    if ((_gameData->unkB50 & 2) != 0)
+        state->records[0].unk18 = adjustedPosition[1] * _gameData->unkB52 >> 9;
+    else
+        state->records[0].unk18 = (_gameData->unkB50 & 2) << 24 >> 24;
+    i = 0;
+    do {
+        entry = &camera->unk220->entries[i];
+        record = &camera->records[i];
+        if (entry->display != NULL && (void*)record != (void*)state) {
+            scale = entry->unk14;
+            record->unk14 = state->records[0].unk14 + (state->records[0].unk14 * scale >> 5);
+            record->unk18 = state->records[0].unk18 + (state->records[0].unk18 * scale >> 5);
+        }
+        i++;
+    } while (i <= 3);
+}
+
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/80522d4.s");
 
 void sub_8052514(void)
@@ -275,39 +369,19 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/805253c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052588.s");
 
 #if 0
-typedef struct Sub80526C8Geometry {
-    unk8 pad0[4];
-    GeometryPoint* points;
-    unk8 pad8[4];
-    GeometryLine* lines;
-} Sub80526C8Geometry;
-
-typedef struct Sub80526C8Actor {
-    unk8 pad0[4];
-    s32 x;
-    s32 y;
-    s32 z;
-    unk8 pad10[0x2C];
-    unk32 unk3C;
-    unk8 pad40[0x74];
-    s32 lineIndex;
-    SpriteEntry* sprite;
-    unk8 padBC[8];
-} Sub80526C8Actor;
-
 void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
 {
-    Sub80526C8Actor* current;
+    Actor* current;
     GeometryLine* line;
     GeometryPoint* point0;
     GeometryPoint* point1;
-    Sub80526C8Geometry* geometry;
+    LevelGeometryAddresses* geometry;
     EnvironmentObject* object;
     SpriteEntry* targetSprite;
     SpriteEntry* lineSprite;
     Actor* mainActor;
     unk32 actorCount;
-    unk32 callbackData;
+    void* callbackData;
     unk32 frame;
     unk32 found;
     s32 minX;
@@ -319,10 +393,10 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
 
     frame = sprite->var22;
     targetSprite = targetActor->unkB8;
-    geometry = (Sub80526C8Geometry*)&gameData->unk65C;
+    geometry = &gameData->unk65C;
     mainActor = gameData->base.unk0;
     actorCount = gameData->unkC84;
-    current = (Sub80526C8Actor*)gameData->unkC7C;
+    current = gameData->unkC7C;
     callbackData = nullsub_12(&gameData->unk434);
     if (actorCount == 0) {
         return;
@@ -331,12 +405,12 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
     targetActor->unk3C = current->unk3C;
     actorCount--;
     do {
-        if (current->sprite != NULL) {
+        if (current->unkB8 != NULL) {
             object = NULL;
-            if (current->lineIndex >= 0) {
-                line = &geometry->lines[current->lineIndex];
-                point0 = &geometry->points[line->point0];
-                point1 = &geometry->points[line->point1];
+            if (current->unkB4 >= 0) {
+                line = &geometry->unkC[current->unkB4];
+                point0 = &geometry->unk4[line->point0];
+                point1 = &geometry->unk4[line->point1];
                 minX = point1->x << 5;
                 if (point0->x < point1->x)
                     minX = point0->x << 5;
@@ -346,7 +420,7 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
                 minZ = point1->z << 5;
                 if (point0->z < point1->z)
                     minZ = point0->z << 5;
-                object = GetStruct4(current->lineIndex);
+                object = GetStruct4(current->unkB4);
             } else {
                 minX = current->x;
                 minY = current->y;
@@ -355,8 +429,8 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
             lineSprite = NULL;
             if (object != NULL)
                 lineSprite = object->sprite;
-            x = current->sprite->x + (sub_80610EC(current->sprite) << 8);
-            y = current->sprite->y + (sub_8061110(current->sprite) << 8);
+            x = current->unkB8->x + (sub_80610EC(current->unkB8) << 8);
+            y = current->unkB8->y + (sub_8061110(current->unkB8) << 8);
             found = 0;
             if (x >= sprite->x && x < sprite->x + 0x2000 && y >= sprite->y
                 && y < sprite->y + 0x2000)
@@ -371,7 +445,7 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
             if (found != 0) {
                 if (current->unk3C != callbackData) {
                     sprite->oam_attr_2 &= 0xF3FF;
-                    sprite->oam_attr_2 |= current->sprite->oam_attr_2 & 0x0C00;
+                    sprite->oam_attr_2 |= current->unkB8->oam_attr_2 & 0x0C00;
                     targetActor->unk3C = current->unk3C;
                 }
                 if (mainActor->x > minX && mainActor->y <= minY) {
@@ -395,6 +469,7 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
         sub_8061078(targetSprite, frame + 2);
 }
 #endif
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80526c8.s");
 
 void sub_805295C(void)

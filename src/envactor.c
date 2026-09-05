@@ -261,8 +261,102 @@ void initLevelEnvironmentActors(u16 level)
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054768-initLevelEnvironmentActors.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8054c9c-renderEnvironmentActors.s");
 
+#if 0
+void renderEnvironmentActors(void)
+{
+    unk32 actorCount;
+    unk32 effectCount;
+    Actor* actor;
+    ActorRenderState* actorState;
+    EnvironmentNode* effect;
+    DisplayRecord* camera;
+    s32 x;
+    s32 y;
+    s32 temp;
+    unk32 xDelta;
+    unk32 yDelta;
+    s16 xOffset;
+    s16 yOffset;
+    EnvironmentObject* lineObject;
+    SpriteEntry* lineSprite;
+    SpriteEntry* sprite;
+
+    actorCount = _gameData->unkC84;
+    effectCount = _gameData->unkC80;
+    actor = (Actor*)_gameData->unkC7C;
+    effect = _gameData->unkC78;
+    camera = (DisplayRecord*)nullsub_12(&_gameData->unk434);
+    if (actorCount == 0)
+        return;
+    actorCount--;
+    actorState = &actor->stateA0;
+    do {
+        x = ((actor->x - actor->y) >> 8) - (xOffset = actorState->unk0);
+        y = ((((actor->x + actor->y) >> 1) - actor->z) >> 8) - (yOffset = actorState->unk2);
+        xDelta = sub_8055274();
+        yDelta = sub_8055288();
+        actorState->unk0 += xDelta;
+        actorState->unk2 += yDelta;
+        renderActor2(actor);
+        actorState->unk0 = xOffset;
+        actorState->unk2 = yOffset;
+        lineObject = GetStruct4(actorState->unk14);
+        if (lineObject != NULL) {
+            lineSprite = lineObject->sprite;
+            if (lineSprite != NULL) {
+                sprite = actorState->unk18;
+                if (sprite != NULL)
+                    lineSprite->frame.word = sprite->frame.word;
+                if (actor->unk3C != NULL) {
+                    x -= actor->unk3C->unk40 >> 8;
+                    y -= actor->unk3C->unk44 >> 8;
+                }
+                temp = ((lineObject->y + y) - yDelta) << 8;
+                if ((unk32)(temp + 0x4000) > 0xE000)
+                    temp = 0xA000;
+                lineSprite->x = ((lineObject->x + x) - xDelta) << 8;
+                lineSprite->y = temp;
+            }
+        }
+        actorState = (ActorRenderState*)((unk8*)actorState + 0xC4);
+        actor = (Actor*)((unk8*)actor + 0xC4);
+        actorCount--;
+    } while (actorCount != 0);
+    if (effectCount == 0 || effect == NULL)
+        return;
+    effectCount--;
+    do {
+        y = (((effect->x + effect->y) >> 1) - effect->z) - camera->unk44;
+        x = (effect->x - effect->y - camera->unk40) + 0xFFFFFC00;
+        if (x < -0x2000 || y < -0x2000 || x > 0xEFFF || y > 0x9FFF) {
+            if (effect->sprite != NULL)
+                sub_8060A94(effect->sprite);
+            effect->sprite = NULL;
+        } else if (effect->sprite != NULL) {
+            sprite = effect->sprite;
+            if (effect->actor->unk70 == 0) {
+                sub_8060A94(sprite);
+                effect->sprite = NULL;
+            } else {
+                sprite->x = x;
+                sprite->y = y;
+            }
+        } else if (effect->actor->unk70 != 0) {
+            sprite = allocSprite(0x80);
+            if (sprite != NULL) {
+                LoadSpriteSheet(sprite, effect->spriteSheet, x, y, 3 & effect->unk12, 0, 0,
+                    effect->unk10);
+            }
+            effect->sprite = sprite;
+        }
+        effect++;
+        effectCount--;
+    } while (effectCount != 0);
+}
+
+#endif
+INCLUDE_ASM("asm/dump/804a388-tutorial/8054c9c-renderEnvironmentActors.s");
 #if 0
 extern void sub_8054278(void*, unk16);
 extern void sub_80584B8(Actor*);
@@ -277,7 +371,6 @@ void updateEnvirenmentActors(void)
     unk8* struct4;
     unk8* p1;
     unk8* p2;
-    unk32 index;
     unk32 remaining;
     s32 oldX;
     s32 oldY;
