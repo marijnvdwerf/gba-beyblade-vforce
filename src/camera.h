@@ -5,7 +5,7 @@
 #include "layer.h"
 
 typedef struct CameraDisplayEntry {
-    struct DisplayRecord* display;
+    DisplayRecord* display;
     unk8 pad4[0x14];
 } CameraDisplayEntry;
 
@@ -17,7 +17,7 @@ typedef struct CameraSubState {
 } CameraSubState;
 
 typedef struct CameraState {
-    struct DisplayRecord records[4];
+    DisplayRecord records[4];
     LevelDesign* unk220;
     void* unk224;
     LevelGeometryAddresses geometry;

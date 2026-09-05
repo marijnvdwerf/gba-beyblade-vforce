@@ -7,61 +7,7 @@
 #include "math.h"
 #include "unsorted.h"
 
-typedef struct {
-    unk32 var00;
-    unk32 var04;
-    unk32 var08;
-    unk32 var0C;
-    unk32 var10;
-    unk32 var14;
-} Struct3000CA0;
-
-typedef struct {
-    s32 columnCount;
-    s32 rowCount;
-    Struct3000CA0* var8;
-    unk32 field_C;
-    u32 field_10;
-    u32 field_14;
-    unk32 field_18;
-    unk32 field_1C;
-    unk32 field_20;
-    unk32 field_24;
-    unk32 field_28;
-    unk32 field_2C;
-    unk32 field_30;
-    unk32 field_34;
-    unk32 field_38;
-    unk32 field_3C;
-    unk32 field_40;
-    unk32 field_44;
-    u16 field_48;
-    u16 field_4A;
-    unk32 field_4C;
-    unk32 field_50;
-    unk32 field_54;
-    unk32 field_58;
-    u8 screenBaseBlock;
-    u8 characterBaseBlock;
-    unk8 layerIndex;
-    u8 field_5F;
-    u8 field_60;
-    unk8 field_61;
-    unk8 field_62[2];
-    u16 var64;
-    TileMapHeader* var68;
-    void* tileAddr;
-    void* mapAddr;
-    u32 tileBytes;
-    unk32 mapBytes;
-    unk8 field_7C;
-    unk32 field_80;
-    unk32 field_84;
-} BGLayer;
-
-extern Struct3000CA0 _unk3000CA0[10];
 extern u8 _unk3000DE0;
-extern u8 _unk3000E3C;
 extern s16 Unk_874CC3C[];
 extern s16 Unk_872CC3C[];
 
@@ -80,7 +26,38 @@ extern void (*__sub_8756FC0)(BGLayer*, unk32, unk32, unk32, unk32, unk32, unk32)
 extern void (*__sub_8757380)(BGLayer*, unk32, unk32, unk32, unk32);
 void sub_80594FC(BGLayer*, unk32, unk32, unk32, unk32, unk32, unk32);
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8058968.s");
+void sub_8058968(
+    BGLayer* layer, u8 layerIndex, TileMapHeader* header, u16 bgPriority, u16 flags, s32 x, s32 y)
+{
+    Struct3000CA0* object;
+    u32 width;
+    u32 height;
+    s32 xTile;
+    s32 yTile;
+
+    xTile = x >> 3;
+    yTile = y >> 3;
+    sub_8058AA8(layer, layerIndex, header, bgPriority, flags);
+    *GetBGLayerHOffsetPtr(layerIndex) = x;
+    *GetBGLayerVOffsetPtr(layerIndex) = y;
+    object = layer->var8;
+    object->var10 = xTile;
+    object->var14 = yTile;
+    object->var00 = xTile;
+    object->var08 = object->var00 + (1 << layer->field_5F) - 1;
+    object->var04 = yTile;
+    object->var0C = object->var04 + (1 << layer->field_60) - 1;
+    layer->field_C = x << 8;
+    layer->field_10 = y << 8;
+    layer->field_40 = layer->field_C;
+    layer->field_44 = layer->field_10;
+    width = 1 << layer->field_5F;
+    height = 1 << layer->field_60;
+    if (!(flags & 2)) {
+        sub_8059310(
+            layer, object->var00, object->var04, object->var10, object->var14, width, height);
+    }
+}
 
 void sub_8058A28(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgPriority, u16 sp0)
 {
@@ -304,24 +281,24 @@ void sub_8058EF4(DisplayRecord* arg0)
     s32 xDelta;
     s32 yDelta;
 
-    arg0->unk14 += arg0->unk1C;
-    arg0->unk18 += arg0->unk20;
-    arg0->unk54 = arg0->unk14;
-    arg0->unk58 = arg0->unk18;
-    sub_80596AC(arg0, arg0->unk14, arg0->unk18);
-    if ((arg0->unk64 & 1) != 0) {
+    arg0->field_14 += arg0->field_1C;
+    arg0->field_18 += arg0->field_20;
+    arg0->field_54 = arg0->field_14;
+    arg0->field_58 = arg0->field_18;
+    sub_80596AC(arg0, arg0->field_14, arg0->field_18);
+    if ((arg0->var64 & 1) != 0) {
         sub_8058F60(arg0);
     }
-    if (arg0->unk24 != 0) {
-        xDelta = arg0->unk14 * arg0->unk24 >> 8;
-        yDelta = arg0->unk18 * arg0->unk24 >> 8;
-        arg0->unk14 -= xDelta;
-        arg0->unk18 -= yDelta;
-        if (xDelta == 0 && arg0->unk14 != 0) {
-            arg0->unk14 = 0;
+    if (arg0->field_24 != 0) {
+        xDelta = arg0->field_14 * arg0->field_24 >> 8;
+        yDelta = arg0->field_18 * arg0->field_24 >> 8;
+        arg0->field_14 -= xDelta;
+        arg0->field_18 -= yDelta;
+        if (xDelta == 0 && arg0->field_14 != 0) {
+            arg0->field_14 = 0;
         }
-        if (yDelta == 0 && arg0->unk18 != 0) {
-            arg0->unk18 = 0;
+        if (yDelta == 0 && arg0->field_18 != 0) {
+            arg0->field_18 = 0;
         }
     }
 }
@@ -334,38 +311,38 @@ void sub_8058F60(DisplayRecord* layer)
     s32 c;
     s32 factor;
 
-    index = layer->unk5E - 2;
-    layer->unk28 += layer->unk2C;
-    if (layer->unk28 < 0) {
-        layer->unk28 += 0x10000;
+    index = layer->layerIndex - 2;
+    layer->field_28 += layer->field_2C;
+    if (layer->field_28 < 0) {
+        layer->field_28 += 0x10000;
     }
-    layer->unk30 += layer->unk38;
-    layer->unk34 += layer->unk3C;
-    sub_8059B00(layer->unk5E, (layer->unk28 >> 8) & 0xFF, (layer->unk30 << 8) >> 16,
-        (layer->unk34 << 8) >> 16);
-    SetBGOffset(layer->unk5E,
-        layer->unk4C
-            - (_unk3000D00[index].unk8.word * layer->unk48
-                - _unk3000D00[index].unk10.word * layer->unk4A),
-        layer->unk50
-            + (_unk3000D00[index].unkC.word * layer->unk48
-                - _unk3000D00[index].unk14.word * layer->unk4A));
-    factor = layer->unk24;
+    layer->field_30 += layer->field_38;
+    layer->field_34 += layer->field_3C;
+    sub_8059B00(layer->layerIndex, (layer->field_28 >> 8) & 0xFF, (layer->field_30 << 8) >> 16,
+        (layer->field_34 << 8) >> 16);
+    SetBGOffset(layer->layerIndex,
+        layer->field_4C
+            - (_unk3000D00[index].unk8.word * layer->field_48
+                - _unk3000D00[index].unk10.word * layer->field_4A),
+        layer->field_50
+            + (_unk3000D00[index].unkC.word * layer->field_48
+                - _unk3000D00[index].unk14.word * layer->field_4A));
+    factor = layer->field_24;
     if (factor != 0) {
-        a = (layer->unk2C * factor) >> 8;
-        b = (layer->unk38 * factor) >> 8;
-        c = (layer->unk3C * factor) >> 8;
-        layer->unk2C -= a;
-        layer->unk38 -= b;
-        layer->unk3C -= c;
-        if (a == 0 && layer->unk2C != 0) {
-            layer->unk2C = 0;
+        a = (layer->field_2C * factor) >> 8;
+        b = (layer->field_38 * factor) >> 8;
+        c = (layer->field_3C * factor) >> 8;
+        layer->field_2C -= a;
+        layer->field_38 -= b;
+        layer->field_3C -= c;
+        if (a == 0 && layer->field_2C != 0) {
+            layer->field_2C = 0;
         }
-        if (b == 0 && layer->unk38 != 0) {
-            layer->unk38 = 0;
+        if (b == 0 && layer->field_38 != 0) {
+            layer->field_38 = 0;
         }
-        if (c == 0 && layer->unk3C != 0) {
-            layer->unk3C = 0;
+        if (c == 0 && layer->field_3C != 0) {
+            layer->field_3C = 0;
         }
     }
 }
@@ -607,7 +584,25 @@ void sub_80596AC(void* arg0, unk32 deltaX, unk32 deltaY)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/80596ac.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059904.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8059934.s");
+
+void sub_8059934(void)
+{
+    u8 i;
+    u8 zero;
+
+    _unk3000DE0 = zero = 0;
+    _unk3000E40[0] = zero;
+    _unk3000E3C = 0x20;
+    i = 0;
+    do {
+        *GetBGLayerHOffsetPtr(i) = 0;
+        *GetBGLayerVOffsetPtr(i) = 0;
+        i++;
+    } while (i <= 3);
+    sub_8059B00(2, 0, 0x100, 0x100);
+    sub_8059B00(3, 0, 0x100, 0x100);
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8059994.s");
 
 vu16* GetBGLayerHOffsetPtr(u8 layer)
@@ -732,7 +727,44 @@ void sub_8059B00(u8 layer, u8 angle, u16 xAngle, u16 yAngle)
     }
 }
 
+#if 0
+void sub_8059C18(u8 bg0, u8 bg1, u8 bg2, u8 bg3)
+{
+    u8* ptr0;
+    u8* ptr1;
+    u8* ptr2;
+    u8* ptr3;
+    s32 mask;
+    s32 clear;
+    u8 result;
+
+    ptr0 = (u8*)GetBGLayerCntPtr(0);
+    mask = 3;
+    bg0 &= mask;
+    clear = 4;
+    clear = -clear;
+    result = *ptr0 & clear;
+    result |= bg0;
+    *ptr0 = result;
+    ptr1 = (u8*)GetBGLayerCntPtr(1);
+    bg1 &= mask;
+    result = *ptr1 & clear;
+    result |= bg1;
+    *ptr1 = result;
+    ptr2 = (u8*)GetBGLayerCntPtr(2);
+    bg2 &= mask;
+    result = *ptr2 & clear;
+    result |= bg2;
+    *ptr2 = result;
+    ptr3 = (u8*)GetBGLayerCntPtr(3);
+    bg3 &= mask;
+    result = *ptr3 & clear;
+    result |= bg3;
+    *ptr3 = result;
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8059c18.s");
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8059cb4.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059cc8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059cf0.s");

@@ -3,7 +3,8 @@
 void (*_unk3000DF0[14])(void) = { 0 };
 unk8 _unk3000E04[8] = { 0 };
 u32 _unk3000E30[3] = { 0 };
-void* _unk3000E3C = NULL;
+unk8 _unk3000E3C = 0;
+unk8 _unk3000E3D[3] = { 0 };
 unk8 _unk3000E40[160] = { 0 };
 unk8 _unk3000EE0[8] = { 0 };
 void* _unk3000EE8 = NULL;
