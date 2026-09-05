@@ -91,6 +91,22 @@ LevelHudData*; LevelHudData.unk104 s16; the s16 temporary in sub_804F478 is
 byte-required; 15 temp-fold tests recorded in docs/learnings/hud-2026-09-05.md).
 Agent A: 6/6 this session, retired. Session total 16 matched.
 
+ROUND 2 (new leaf pool): merging today's work exposed 40 new reds
+(/tmp/reds-new-2026-09-05.md, avg 123 insns, 17 TUs). Dispatched 6 luna
+agents: R2-1 utility (renderActor2, sub_8055274, sub_8055288, sub_8060070,
+sub_8061C48); R2-2 riderphysics (UnsetRiderFlag, sub_804D104, sub_804C870,
+sub_804CEF4, sub_804CB08 442, sub_804D110 678); R2-3 effects (sub_80558B8,
+sub_80558D0, sub_80558E8, sub_8055734); R2-4 gamestate+levelhud (sub_8051868,
+sub_80515A4, sub_804FB6C, sub_804FC00); R2-5 hud (sub_804F794, sub_804F37C);
+R2-6 particle+projectile (sub_804E560, sub_804E594, sub_804C208,
+sub_804EA88). QUEUED when slots free (>7 concurrent luna agents → 429s):
+B7 layer (sub_8059934 37, sub_8059C18 73, sub_8058968 91); B8 collision+
+rider (sub_80561A0 33, allocFXSprite 41, GetQuadTreeNodeForPos 89,
+sub_804BF3C 154); B9 geometry (allocateDynamicBoundingAreas 40, sub_805BDBC
+173, initQuadTreeNode 341, sub_805C9A4 644, sub_805CEB8 669); festate trio
+after agent B finishes (sub_8048A74 56, sub_8043F40 122, sub_8043DB8 168).
+Giants (≥440, 8 of them) still unassigned.
+
 Round 1 (dispatched, luna decompiler agents, worktrees, brief
 /tmp/brief-2026-09-05.md): A tutorial+hud (sub_804A310 6, sub_804A550 202,
 sub_804EE54 215); B festate small (sub_8046A0C 143, sub_8044054 177,
