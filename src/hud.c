@@ -21,6 +21,10 @@ extern const unk8 SpriteSheet_821CF10[];
 extern const unk8 SpriteSheet_821DB5C[];
 extern const unk8 SpriteSheet_821DEA8[];
 extern const unk8 SpriteSheet_8224DC4[];
+extern const unk8 SpriteSheet_8225414[];
+extern const unk8 SpriteSheet_82266B4[];
+extern const unk8 SpriteSheet_8227954[];
+extern const unk8 SpriteSheet_8227C24[];
 extern const unk8 SpriteSheet_821DFF0[];
 extern const unk8 SpriteSheet_8224868[];
 extern const unk8 Str_8727048[];
@@ -308,7 +312,34 @@ void sub_804F2A0(LevelHudData* arg0)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804f37c.s");
+void sub_804F37C(LevelHudData* arg0)
+{
+    if (arg0->unkF4 == NULL) {
+        arg0->unkF4 = allocSprite(0);
+    }
+    if (arg0->unkF8 == NULL) {
+        arg0->unkF8 = allocSprite(0);
+    }
+    if (arg0->unkFC == NULL) {
+        arg0->unkFC = allocSprite(0);
+    }
+    if (arg0->unk100 == NULL) {
+        arg0->unk100 = allocSprite(0);
+    }
+    if (arg0->unkF4 != NULL) {
+        LoadSpriteSheet(arg0->unkF4, SpriteSheet_8225414, 0x4A00, -0x2000, 0, 0, 0, 0);
+    }
+    if (arg0->unkF8 != NULL) {
+        LoadSpriteSheet(arg0->unkF8, SpriteSheet_82266B4, 0x8A00, -0x2000, 0, 0, 0, 0);
+    }
+    if (arg0->unkFC != NULL) {
+        LoadSpriteSheet(arg0->unkFC, SpriteSheet_8227954, 0xA00, -0x2000, 0, 0, 0, 0);
+    }
+    if (arg0->unk100 != NULL) {
+        LoadSpriteSheet(arg0->unk100, SpriteSheet_8227C24, 0x4200, -0x2000, 0, 0, 0, 0);
+    }
+    arg0->flags |= 8;
+}
 
 void sub_804F478(LevelHudData* arg0)
 {
@@ -324,10 +355,10 @@ void sub_804F478(LevelHudData* arg0)
             }
             switch (state->unk10C) {
             case 1:
-                state->unkF4->unkC += (0x2C00 - state->unkF4->unkC) >> 3;
-                state->unkF8->unkC += (0x2C00 - state->unkF8->unkC) >> 3;
-                state->unkFC->unkC = state->unkF8->unkC & 0xFFFFFF00;
-                state->unk100->unkC = (state->unkF8->unkC & 0xFFFFFF00) - 0x400;
+                state->unkF4->y += (0x2C00 - state->unkF4->y) >> 3;
+                state->unkF8->y += (0x2C00 - state->unkF8->y) >> 3;
+                state->unkFC->y = state->unkF8->y & 0xFFFFFF00;
+                state->unk100->y = (state->unkF8->y & 0xFFFFFF00) - 0x400;
                 if (state->unk104 <= 0x171) {
                     state->unk10C = 3;
                     sub_804ABFC(0xB);
@@ -348,10 +379,9 @@ void sub_804F478(LevelHudData* arg0)
                     sub_804ABFC(0xB);
                 }
                 mode = state->unk106 >> 7;
-                state->unkF4->unk18 = mode > 8 ? 8 : mode;
-                state->unkF8->unk18 = mode > 8 ? mode - 8 : 0;
-                state->unk100->unk8
-                    = ((state->unkF4->unk8 & 0xFFFFFF00) - 0x800) + (state->unk106 << 4);
+                state->unkF4->frame.word = mode > 8 ? 8 : mode;
+                state->unkF8->frame.word = mode > 8 ? mode - 8 : 0;
+                state->unk100->x = ((state->unkF4->x & 0xFFFFFF00) - 0x800) + (state->unk106 << 4);
                 value = state->unk104;
                 if (value <= 0x3B) {
                     state->unk10C = 2;
@@ -384,11 +414,11 @@ void sub_804F478(LevelHudData* arg0)
 
                 mode4 = state->unk106 >> 7;
                 if ((state->unk104 & 3) <= 1) {
-                    state->unkF4->unk18 = 0;
-                    state->unkF8->unk18 = 0;
+                    state->unkF4->frame.word = 0;
+                    state->unkF8->frame.word = 0;
                 } else {
-                    state->unkF4->unk18 = mode4 > 8 ? 8 : mode4;
-                    state->unkF8->unk18 = mode4 > 8 ? mode4 - 8 : 0;
+                    state->unkF4->frame.word = mode4 > 8 ? 8 : mode4;
+                    state->unkF8->frame.word = mode4 > 8 ? mode4 - 8 : 0;
                 }
                 if (state->unk104 <= 0x3B) {
                     state->unk10C = 2;
@@ -396,11 +426,10 @@ void sub_804F478(LevelHudData* arg0)
                 break;
             }
             case 2:
-                state->unkF4->unk8 += (-0xA000 - state->unkF4->unk8) >> 2;
-                state->unkF8->unk8 = (state->unkF4->unk8 & 0xFFFFFF00) + 0x4000;
-                state->unkFC->unk8 = (state->unkF4->unk8 & 0xFFFFFF00) - 0x4000;
-                state->unk100->unk8
-                    = ((state->unkF4->unk8 & 0xFFFFFF00) - 0x800) + (state->unk106 << 4);
+                state->unkF4->x += (-0xA000 - state->unkF4->x) >> 2;
+                state->unkF8->x = (state->unkF4->x & 0xFFFFFF00) + 0x4000;
+                state->unkFC->x = (state->unkF4->x & 0xFFFFFF00) - 0x4000;
+                state->unk100->x = ((state->unkF4->x & 0xFFFFFF00) - 0x800) + (state->unk106 << 4);
                 break;
             }
             return;
@@ -412,7 +441,26 @@ void sub_804F478(LevelHudData* arg0)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804f794.s");
+void sub_804F794(LevelHudData* arg0)
+{
+    if (arg0->unkF4 != NULL) {
+        sub_8060A94(arg0->unkF4);
+    }
+    if (arg0->unkF8 != NULL) {
+        sub_8060A94(arg0->unkF8);
+    }
+    if (arg0->unkFC != NULL) {
+        sub_8060A94(arg0->unkFC);
+    }
+    if (arg0->unk100 != NULL) {
+        sub_8060A94(arg0->unk100);
+    }
+    arg0->unk100 = NULL;
+    arg0->unkFC = NULL;
+    arg0->unkF8 = NULL;
+    arg0->unkF4 = NULL;
+    arg0->flags &= ~8;
+}
 
 void sub_804F800(s32 arg0)
 {

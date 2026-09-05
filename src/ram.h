@@ -143,14 +143,6 @@ typedef struct ProjectileSystem {
     unk32 unk88;
 } ProjectileSystem;
 
-typedef struct LevelHudObject {
-    unk8 pad0[8];
-    s32 unk8;
-    s32 unkC;
-    unk8 pad10[8];
-    unk16 unk18;
-} LevelHudObject;
-
 struct LevelHudData {
     SpriteTextCleanup text0; /* 0x00 */
     SpriteTextCleanup text1; /* 0x30 */
@@ -159,10 +151,10 @@ struct LevelHudData {
     MotionGroup motion0; /* 0xC0 */
     MotionGroup motion1; /* 0xD8 */
     s32 status; /* 0xF0 */
-    LevelHudObject* unkF4; /* 0xF4 */
-    LevelHudObject* unkF8; /* 0xF8 */
-    LevelHudObject* unkFC; /* 0xFC */
-    LevelHudObject* unk100; /* 0x100 */
+    SpriteEntry* unkF4; /* 0xF4 */
+    SpriteEntry* unkF8; /* 0xF8 */
+    SpriteEntry* unkFC; /* 0xFC */
+    SpriteEntry* unk100; /* 0x100 */
     s16 unk104; /* 0x104 */
     s16 unk106; /* 0x106 */
     unk16 unk108; /* 0x108 */
