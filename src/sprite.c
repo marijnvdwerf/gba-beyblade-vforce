@@ -534,15 +534,17 @@ typedef struct SpriteSheet {
     unk32 unk1C;
 } SpriteSheet;
 
-void LoadSpriteSheet(SpriteEntry* dst, const SpriteSheet* source, unk32 x, unk32 y, unk32 arg4,
-    unk32 arg5, unk32 arg6, unk32 arg7)
+void LoadSpriteSheet(SpriteEntry* dst, const SpriteSheet* source, unk32 x, unk32 y,
+    unk32 arg4, unk32 arg5, unk32 arg6, unk32 arg7)
 {
-    unk16 normalizedArg5 = arg7;
-    unk8 normalizedArg4 = arg6;
+    unk16 normalizedArg5;
+    unk8 normalizedArg4;
     s8 sourceFlags;
     unk8 sourceByteC;
     unk32 value;
 
+    normalizedArg5 = arg7;
+    normalizedArg4 = arg6;
     sourceFlags = source->unk7;
     sourceByteC = source->unkC;
     dst->unk2C = (const unk8*)source;
@@ -562,7 +564,7 @@ void LoadSpriteSheet(SpriteEntry* dst, const SpriteSheet* source, unk32 x, unk32
     }
     dst->unk28 = (const unk8*)source + value;
     dst->var16 = source->unk6;
-    dst->frame.b[0] = normalizedArg5;
+    dst->frame.word = normalizedArg5;
     dst->unk1A = 0xFFFF;
     dst->flip_h_v = 0;
     dst->var20 = 0;
