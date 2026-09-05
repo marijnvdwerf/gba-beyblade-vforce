@@ -11,6 +11,7 @@
 #include "layer.h"
 #include "menu.h"
 #include "menuobject.h"
+#include "multiplayer.h"
 #include "music.h"
 #include "packet.h"
 #include "palette.h"
@@ -20,6 +21,7 @@
 
 void sub_8043DB8(SpriteTextCleanup**, LevelState*, CurrentGameStateTail*, unk32);
 void sub_8043F40(SpriteTextCleanup**, CurrentGameStateTail*, s32);
+void sub_8048A74(FrontendSpriteTriple*, s32);
 
 void sub_8043A0C(FrontendState* state, u32 arg1, u32 arg2)
 {
@@ -1676,7 +1678,104 @@ void sub_80480EC(FrontendState* state, unk32 arg1)
 INCLUDE_ASM("asm/dump/8040d18/8048310.s");
 INCLUDE_ASM("asm/dump/8040d18/804868c.s");
 INCLUDE_ASM("asm/dump/8040d18/8048a74.s");
-INCLUDE_ASM("asm/dump/8040d18/8048ae8.s");
+
+void sub_8048AE8(FrontendState* state, unk32 arg1, unk32 arg2)
+{
+    GameData* data;
+    s32 initialScroll;
+    s32 scrollDelta;
+
+    switch (arg1) {
+    case 0:
+        _unk30005F0.sprite0 = allocSprite(0);
+        _unk30005F0.sprite1 = allocSprite(0);
+        _unk30005F0.sprite2 = allocSprite(0);
+        if (_unk30005F0.sprite0 != NULL) {
+            LoadSpriteSheet(_unk30005F0.sprite0, SpriteSheet_8251F40, 0x10000, 0x4000, 0, 0, 0, 0);
+        }
+        if (_unk30005F0.sprite1 != NULL) {
+            LoadSpriteSheet(_unk30005F0.sprite1, SpriteSheet_8251F40, 0x18000, 0x4000, 0, 0, 0, 0);
+        }
+        if (_unk30005F0.sprite2 != NULL) {
+            LoadSpriteSheet(_unk30005F0.sprite2, SpriteSheet_8252994, 0x14000, 0x4A00, 0, 0, 0, 0);
+        }
+        _unk30005F0.state = 1;
+        _unk30005F0.timer = 0;
+        sub_8049168();
+        _unk30005E2 = 0x40;
+        _unk30005EC = 0;
+        data = _gameData;
+        data->unk1618 = 0;
+        data->unk1619 = 0;
+        data->unk161A = 0;
+        _unk30005E0 = 0;
+        _unk30005E8 = 0x10000;
+        initialScroll = 0x10000;
+        _unk30005E4 = 0;
+        sub_80596AC(&state->unk250, -initialScroll, 0);
+        break;
+    case 7:
+        if (_unk30005F0.sprite0 != NULL) {
+            sub_8060A94(_unk30005F0.sprite0);
+        }
+        if (_unk30005F0.sprite1 != NULL) {
+            sub_8060A94(_unk30005F0.sprite1);
+        }
+        if (_unk30005F0.sprite2 != NULL) {
+            sub_8060A94(_unk30005F0.sprite2);
+        }
+        break;
+    case 1:
+        sub_80439A0(&state->unk140);
+        if (_unk30005E4 != _unk30005E8) {
+            scrollDelta = (_unk30005E4 - _unk30005E8) >> 2;
+            sub_80596AC(&state->unk250, -scrollDelta, 0);
+            _unk30005E8 += scrollDelta;
+        }
+        sub_8048A74(&_unk30005F0, _unk30005E8);
+        break;
+    case 8:
+        if (arg2 == 1) {
+            _unk30005EC = arg2;
+        }
+        break;
+    case 2:
+        state->unk7F = 1;
+        if (_unk3005DA0 == 2) {
+            if (_gameData->unk1618 == 0) {
+                state->unk7F = 0;
+                sub_80600B4();
+                sub_80490F8(0xA);
+                sub_804ABFC(9);
+                _unk30005E4 = 0x10000;
+            }
+        }
+        if (sub_805FFE4() != 0 && sub_8060070() != 0) {
+            _unk30005F0.state = 2;
+            _gameData->unk1618 = 1;
+            _gameData->unk1619 = 0;
+            if (_unk30005E2 == 0x40) {
+                _unk30005F0.timer = 0;
+            }
+            if (--_unk30005E2 == 0) {
+                sub_80490F8(0x20);
+                sub_804ABFC(8);
+                _unk30005E4 = 0x10000;
+            }
+        }
+        _unk30005E0++;
+        if (_unk30005E0 > 0x3E7) {
+            state->unk7F = 0;
+            _gameData->unk1618 = 0;
+            sub_80600B4();
+            sub_80490F8(0x1E);
+            _unk30005E4 = 0x10000;
+        }
+        break;
+    default:
+        break;
+    }
+}
 
 void sub_8048D8C(FrontendState* state, u32 arg1)
 {

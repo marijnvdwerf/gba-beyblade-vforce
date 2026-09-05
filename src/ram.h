@@ -379,6 +379,14 @@ typedef struct FrontendFadeProgress {
     unk8 pad4[4];
 } FrontendFadeProgress;
 
+typedef struct FrontendSpriteTriple {
+    SpriteEntry* sprite0;
+    SpriteEntry* sprite1;
+    SpriteEntry* sprite2;
+    unk16 state;
+    unk16 timer;
+} FrontendSpriteTriple;
+
 extern SpriteEntry* _unk30002F4;
 extern s32 _unk30002F8;
 extern s32 _unk30002FC;
@@ -423,6 +431,12 @@ extern s32 _unk3000574;
 extern s32 _unk3000578;
 extern s32 _unk300057C;
 extern SpriteTextCleanup _unk3000580;
+extern unk16 _unk30005E0;
+extern unk16 _unk30005E2;
+extern s32 _unk30005E4;
+extern s32 _unk30005E8;
+extern unk8 _unk30005EC;
+extern FrontendSpriteTriple _unk30005F0;
 
 typedef struct FrontendCoordinateTarget {
     s32 value;
