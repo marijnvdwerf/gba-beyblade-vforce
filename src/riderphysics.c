@@ -27,7 +27,13 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804c8f0-RiderAI_804C8F0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804cb08.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804cef4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d048.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804d104.s");
+
+void sub_804D104(RiderBase* rider)
+{
+    rider->unk48 = rider->unk40;
+    rider->unk4C = rider->unk44;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d110.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d710.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d754.s");
