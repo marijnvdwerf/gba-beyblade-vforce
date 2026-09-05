@@ -4,7 +4,7 @@
 
 extern s32 withBoundingAreaCount;
 extern unk32 withBoundingAreas[32];
-extern void sub_80561EC(unk32, unk32, unk32);
+void sub_80561EC(unk32, unk32, unk32);
 extern void def_94_0_8055CFC(void*, void*, void*, unk32);
 extern void def_94_4_AddWithBoundingAreaMessage(void*, unk32, void*);
 extern unk32 def_94_8_collision_8055F2C(void*, void*, void*, unk32);

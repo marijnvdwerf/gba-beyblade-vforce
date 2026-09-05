@@ -580,8 +580,7 @@ void allocFXSprite(RiderBase* rider)
     if (existing == NULL) {
         sprite = allocSprite(0xFF);
         if (sprite != NULL) {
-            LoadSpriteSheet(sprite, SpriteSheet_86FBA14, 0, 0, 2, (unk32)existing, (unk32)existing,
-                (unk32)existing);
+            LoadSpriteSheet(sprite, SpriteSheet_86FBA14, 0, 0, 2, 0, 0, 0);
             sprite->var20 |= 1;
             sprite->var24 = (rider->unk3CE << 4) + 0x100;
         }
