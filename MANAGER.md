@@ -16,6 +16,9 @@ description: Session rules for orchestrating decompilation subagents
 - Decompilation is iterative — agents should loop (build → diff → tweak),
   not attempt a single perfect draft.
 - Agent lifecycle: **match → review → merge → debrief → remove worktree**.
+  Review + merge is done by the `review` agent (`.claude/agents/review.md`,
+  luna, main checkout) once a decompiler agent's branch is FINISHED; the
+  manager hands it only finished branches and spot-reads the merged diff.
   Always ask for a learnings write-up (`docs/learnings/<function>.md`,
   plus a proposed `.claude/skills/agbcc/SKILL.md` patch) *before* removing
   a worktree. Learnings files are per-function; the skill is not — only
