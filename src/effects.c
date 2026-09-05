@@ -203,7 +203,15 @@ void sub_80556F4(void)
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055734.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805582c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805589c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80558b8.s");
+
+void sub_80558B8(void)
+{
+    ProjectileSystem* effect;
+
+    effect = &_gameData->projectileSystem;
+    effect->unk28 = 6;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80558d0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80558e8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055914.s");
