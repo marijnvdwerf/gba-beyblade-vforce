@@ -6,6 +6,9 @@
 
 extern const unk8 Str_8726FE4[];
 
+extern void sub_804A908(UnkTrail*);
+extern void sub_804ABD0(UnkTrail*, unk32, unk32);
+
 void newProjectileSystem(ProjectileSystem* arg0, s32 arg1, const unk8* arg2, unk32 arg3, void* arg4)
 {
     AllocatedBlock* block;
@@ -58,7 +61,66 @@ void newProjectileSystem(ProjectileSystem* arg0, s32 arg1, const unk8* arg2, unk
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c208.s");
+void sub_804C208(ProjectileSystem* arg0)
+{
+    ProjectileEntry* entry;
+    s32 count;
+    s32 targetX;
+    s32 targetY;
+    s32 targetZ;
+    s32 x;
+    s32 y;
+
+    count = arg0->count;
+    targetX = arg0->unk10;
+    targetY = arg0->unk14;
+    targetZ = arg0->unk18;
+    entry = arg0->entries;
+    while (count-- != 0) {
+        if (entry->unk2C == 0) {
+            entry->x += entry->velocityX;
+            entry->y += entry->velocityY;
+            entry->z += entry->velocityZ;
+            x = entry->x - entry->y;
+            y = ((entry->x + entry->y) >> 1) - entry->z;
+            if (entry->trailDelay != 0) {
+                entry->trailDelay--;
+                if (entry->trailDelay != 0) {
+                    sub_804ABD0(entry->trail, x, y);
+                }
+            }
+            entry->velocityX += entry->accelerationX;
+            entry->velocityY += entry->accelerationY;
+            entry->velocityZ += entry->accelerationZ;
+            if ((entry->flags & 1) != 0) {
+                entry->accelerationX = ((targetX - entry->x) * entry->duration) >> 12;
+            }
+            if ((entry->flags & 2) != 0) {
+                entry->accelerationY = ((targetY - entry->y) * entry->duration) >> 12;
+            }
+            if ((entry->flags & 4) != 0) {
+                entry->accelerationZ = ((targetZ - entry->z) * entry->duration) >> 12;
+            }
+            if ((entry->flags & 8) != 0) {
+                entry->velocityX = ((targetX - entry->x) * entry->duration) >> 12;
+            }
+            if ((entry->flags & 0x10) != 0) {
+                entry->velocityY = ((targetY - entry->y) * entry->duration) >> 12;
+            }
+            if ((entry->flags & 0x20) != 0) {
+                entry->velocityZ = ((targetZ - entry->z) * entry->duration) >> 12;
+            }
+        } else {
+            entry->unk2C--;
+        }
+        sub_804A908(entry->trail);
+        entry++;
+    }
+    arg0->unk10 += arg0->unk1C;
+    arg0->unk14 += arg0->unk20;
+    arg0->unk18 += arg0->unk24;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c34c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c354.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c35c.s");
