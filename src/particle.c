@@ -90,7 +90,16 @@ void sub_804E530(ParticleSystem* arg0, unk32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e560.s");
+void sub_804E560(ParticleSystem* arg0, unk32 arg1, unk32 arg2, unk32 arg3)
+{
+    arg0->unk24 = arg0->unk10;
+    arg0->unk28 = arg0->unk14;
+    arg0->unk2C = arg0->unk18;
+    arg0->unk10 = arg1;
+    arg0->unk14 = arg2;
+    arg0->unk18 = arg3;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e57c.s");
 
 void sub_804E584(ParticleSystem* arg0, unk32 arg1, unk32 arg2, unk32 arg3)
