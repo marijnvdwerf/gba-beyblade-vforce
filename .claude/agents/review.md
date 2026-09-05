@@ -23,7 +23,7 @@ Matching technique). Read them first. Do not read `docs/learnings/processed/`.
    - **levers**: cast-and-offset, casts on field reads/writes, View/overlay
      struct casts (`(OtherType*)&x->field`), scalar-global alias pointers,
      `volatile`/`register`/`asm`/attributes (the SpriteEntry `frame` union is
-     the single allowed `__attribute__((packed))`), raw ROM/RAM addresses,
+     the single allowed `__attribute__((packed))`), raw ROM/RAM/hardware addresses or `REG_x + N` offsets (use the SDK register name),
      `.word` or asm edits to matched code;
    - **naming/comments**: no m2c names (`var_r6`, `temp_*`), no comments in
      src/ other than `/* 0xNN */` offset markers, `unk<HEX>` fields,
