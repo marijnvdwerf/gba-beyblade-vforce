@@ -145,6 +145,18 @@ typedef struct LevelHudData {
     unk16 state; /* 0x10A */
     unk16 unk10C; /* 0x10C */
     unk16 flags; /* 0x10E */
+    SpriteEntry* unk110; /* 0x110 */
+    SpriteEntry* unk114; /* 0x114 */
+    SpriteEntry* unk118; /* 0x118 */
+    SpriteEntry* unk11C; /* 0x11C */
+    SpriteEntry* unk120; /* 0x120 */
+    SpriteEntry* unk124; /* 0x124 */
+    unk16 unk128; /* 0x128 */
+    unk16 unk12A; /* 0x12A */
+    unk8 unk12C; /* 0x12C */
+    u8 unk12D; /* 0x12D */
+    unk8 pad12E[2]; /* 0x12E */
+    s32 unk130; /* 0x130 */
 } LevelHudData;
 
 typedef struct GameData {
@@ -225,18 +237,6 @@ typedef struct GameData {
     unk32 unkCA8; /* 0xCA8 */
     unk8 padCAC[0x2A4]; /* 0xCAC */
     LevelHudData levelHud; /* 0xF50 */
-    SpriteEntry* unk1060; /* 0x1060 */
-    SpriteEntry* unk1064; /* 0x1064 */
-    void* unk1068; /* 0x1068 */
-    unk32 unk106C; /* 0x106C */
-    unk32 unk1070; /* 0x1070 */
-    SpriteEntry* unk1074; /* 0x1074 */
-    unk16 unk1078; /* 0x1078 */
-    unk16 unk107A; /* 0x107A */
-    unk8 unk107C; /* 0x107C */
-    u8 unk107D; /* 0x107D */
-    unk8 pad107E[2]; /* 0x107E */
-    unk32 unk1080; /* 0x1080 */
     ProjectileSystem projectileSystem; /* 0x1084 */
     BeybladeActorData actorData[0x3C]; /* 0x1110 */
     unk16 unk12F0; /* 0x12F0 */
