@@ -83,6 +83,11 @@ not the reachability boundary.
   `static T* const alias = (T*)&_unkXXXX;` — if a symbol has a known type,
   give the symbol that type at its declaration/definition (upgrading the
   ram*.c placeholder in place, same size and address) and use it directly.
+- **Hardware registers by SDK name** (`<agb/memory_map.h>`): `REG_WIN1H`,
+  `REG_BLDALPHA`, `REG_BLDY`, `PLTT`, … — never `REG_x + N` or a raw address.
+- **Temporaries must earn their place.** Before committing, fold every
+  single-use local / cached alias and rebuild; a temp that folds byte-identically
+  is removed. Only byte-required temps stay (record which, in your learnings).
 - **Never emit fake symbols** (zero-size markers, `.NON_MATCHING` labels).
   If trailing bytes differ, the legitimate tool is file-scope
   `asm(".align 2, 0\n");` (the original zero-pads where agbcc emits `0xC046`).
