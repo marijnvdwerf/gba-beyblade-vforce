@@ -188,8 +188,69 @@ void sub_8043D84(FrontendState* state, u32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8043db8.s");
-INCLUDE_ASM("asm/dump/8040d18/8043f40.s");
+void sub_8043DB8(SpriteTextCleanup** arg0, LevelState* arg1, CurrentGameStateTail* arg2, unk32 arg3)
+{
+    LevelDescription* description;
+    unk32 scale;
+    unk32 mask;
+    u32 language;
+
+    description = getLevelDescription2();
+    scale = arg3 & 0xFF;
+    mask = arg3 >> 8;
+    language = getLanguage();
+    if ((mask & 1) != 0) {
+        sub_8061660(arg0[0], _806E97C[0][language], 0xE);
+        if (arg2->unk0 != 0) {
+            sub_8061C48(arg0[1], (scale * arg2->unk0) >> 5, 0xF);
+        } else {
+            sub_8061660(arg0[1], Str_86FD468, 0xF);
+        }
+    }
+    if ((mask & 2) != 0) {
+        sub_8061660(arg0[2], _806E97C[1][language], 0xE);
+        sub_8061C48(arg0[3], (scale * arg1->unk4) >> 5, 0xF);
+    }
+    if ((mask & 4) != 0) {
+        sub_8061660(arg0[4], _806E97C[2][language], 0xE);
+        showNumber_2(arg0[5], (scale * arg2->unk4) >> 5, 0xF);
+    }
+    if ((mask & 8) != 0) {
+        sub_8061660(arg0[6], _806E97C[3][language], 0xE);
+        showNumber_2(arg0[7], (scale * arg2->unk8) >> 5, 0xF);
+        showString(arg0[7], Str_86FD46C, 0xF);
+        showNumber(arg0[7], description->unk1, 0xF);
+    }
+    if ((mask & 0x10) != 0 && (arg2->unkC & 4) != 0) {
+        sub_8061660(arg0[8], _806E97C[4][language], 0xE);
+    }
+    if ((mask & 0x20) != 0) {
+        if ((arg2->unkC & 1) != 0) {
+            sub_8061660(arg0[9], _806E97C[5][language], 0xE);
+        } else {
+            sub_8061660(arg0[9], _806E97C[6][language], 0xE);
+        }
+    }
+}
+
+void sub_8043F40(SpriteTextCleanup** arg0, CurrentGameStateTail* arg1, s32 arg2)
+{
+    sub_8061844(arg0[0], (arg2 >> 8) + 0x12, arg0[0]->y >> 8);
+    sub_8061844(arg0[1], (arg2 >> 8) + 0x80, arg0[1]->y >> 8);
+    sub_8061844(arg0[2], (arg2 >> 8) + 0x12, arg0[2]->y >> 8);
+    sub_8061844(arg0[3], (arg2 >> 8) + 0x80, arg0[3]->y >> 8);
+    sub_8061844(arg0[4], (arg2 >> 8) + 0x12, arg0[4]->y >> 8);
+    sub_8061844(arg0[5], (arg2 >> 8) + 0x80, arg0[5]->y >> 8);
+    sub_8061844(arg0[6], (arg2 >> 8) + 0x12, arg0[6]->y >> 8);
+    sub_8061844(arg0[7], (arg2 >> 8) + 0x80, arg0[7]->y >> 8);
+    sub_8061844(arg0[8], arg2 >> 8, arg0[8]->y >> 8);
+    sub_8061844(arg0[9], arg2 >> 8, arg0[9]->y >> 8);
+    if ((arg1->unkC & 4) != 0) {
+        sub_806185C(arg0[2], ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xE : 0xF);
+        sub_806185C(arg0[3], ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xD : 0xF);
+    }
+    sub_806185C(arg0[9], (((sub_8057C40() >> 4) & 8) != 0) ? 0xE : 0xF);
+}
 
 void sub_8044054(FrontendState* state, unk32 arg1)
 {
@@ -2228,7 +2289,29 @@ void sub_804868C(FrontendState* state, unk32 arg1)
 
 #endif
 INCLUDE_ASM("asm/dump/8040d18/804868c.s");
-INCLUDE_ASM("asm/dump/8040d18/8048a74.s");
+
+void sub_8048A74(FrontendSpriteTriple* arg0, s32 arg1)
+{
+    if ((arg0->state & 1) != 0) {
+        arg0->sprite2->frame.word = arg0->timer & 3;
+    } else if ((arg0->state & 2) != 0) {
+        if (arg0->timer <= 3) {
+            arg0->sprite2->frame.word = arg0->timer + 4;
+        }
+    }
+    if (((sub_8057C40() >> 4) & 0xF) == 0) {
+        arg0->timer++;
+    }
+    if (arg0->sprite0 != NULL) {
+        arg0->sprite0->x = arg1 + 0x1800;
+    }
+    if (arg0->sprite1 != NULL) {
+        arg0->sprite1->x = arg1 + 0x9800;
+    }
+    if (arg0->sprite2 != NULL) {
+        arg0->sprite2->x = arg1 + 0x5800;
+    }
+}
 
 void sub_8048AE8(FrontendState* state, unk32 arg1, unk32 arg2)
 {
