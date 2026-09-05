@@ -119,19 +119,6 @@ typedef struct ProjectileSystem {
     unk32 unk88;
 } ProjectileSystem;
 
-typedef struct LevelHudData {
-    SpriteTextCleanup text0; /* 0x00 */
-    SpriteTextCleanup text1; /* 0x30 */
-    unk8 pad60[0x60]; /* 0x60 */
-    UnkMotion motion0; /* 0xC0 */
-    UnkMotion motion1; /* 0xD8 */
-    s32 status; /* 0xF0 */
-    unk8 padF4[0x16]; /* 0xF4 */
-    unk16 state; /* 0x10A */
-    unk16 pad10C; /* 0x10C */
-    unk16 flags; /* 0x10E */
-} LevelHudData;
-
 typedef struct LevelHudObject {
     unk8 pad0[8];
     unk32 unk8;
@@ -139,6 +126,26 @@ typedef struct LevelHudObject {
     unk8 pad10[8];
     unk16 unk18;
 } LevelHudObject;
+
+typedef struct LevelHudData {
+    SpriteTextCleanup text0; /* 0x00 */
+    SpriteTextCleanup text1; /* 0x30 */
+    SpriteTextCleanup levelHud2; /* 0x60 */
+    SpriteTextCleanup levelHud3; /* 0x90 */
+    MotionGroup motion0; /* 0xC0 */
+    MotionGroup motion1; /* 0xD8 */
+    s32 status; /* 0xF0 */
+    LevelHudObject* unk1044; /* 0xF4 */
+    LevelHudObject* unk1048; /* 0xF8 */
+    unk32 unk104C; /* 0xFC */
+    LevelHudObject* unk1050; /* 0x100 */
+    unk16 unk1054; /* 0x104 */
+    unk16 unk1056; /* 0x106 */
+    unk16 unk1058; /* 0x108 */
+    unk16 state; /* 0x10A */
+    unk16 unk105C; /* 0x10C */
+    unk16 flags; /* 0x10E */
+} LevelHudData;
 
 typedef struct GameData {
     RiderBase base; /* 0x000 */
@@ -217,23 +224,7 @@ typedef struct GameData {
     void* unkCA4; /* 0xCA4 */
     unk32 unkCA8; /* 0xCA8 */
     unk8 padCAC[0x2A4]; /* 0xCAC */
-    SpriteTextCleanup levelHud0; /* 0xF50 */
-    SpriteTextCleanup levelHud1; /* 0xF80 */
-    SpriteTextCleanup levelHud2; /* 0xFB0 */
-    SpriteTextCleanup levelHud3; /* 0xFE0 */
-    MotionGroup levelHudMotion0; /* 0x1010 */
-    MotionGroup levelHudMotion1; /* 0x1028 */
-    unk32 levelHudStatus; /* 0x1040 */
-    LevelHudObject* unk1044; /* 0x1044 */
-    LevelHudObject* unk1048; /* 0x1048 */
-    unk32 unk104C; /* 0x104C */
-    LevelHudObject* unk1050; /* 0x1050 */
-    unk16 unk1054; /* 0x1054 */
-    unk16 unk1056; /* 0x1056 */
-    unk16 unk1058; /* 0x1058 */
-    unk16 unk105A; /* 0x105A */
-    unk16 unk105C; /* 0x105C */
-    unk16 unk105E; /* 0x105E */
+    LevelHudData levelHud; /* 0xF50 */
     SpriteEntry* unk1060; /* 0x1060 */
     SpriteEntry* unk1064; /* 0x1064 */
     void* unk1068; /* 0x1068 */

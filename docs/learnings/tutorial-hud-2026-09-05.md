@@ -43,8 +43,11 @@ ROM compare passed.
 
 Matched with the existing `LevelHudData` layout rooted at `GameData.levelHud0`.
 The combined nonzero/decrement condition reproduces the target's initial status
-branch and keeps the cleanup call on the shared path. The switch body order is
-case 0, case 5, case 1 with fall-through to cases 2 and 3, then case 4.
+branch and keeps the cleanup call on the shared path. A direct `switch
+(state->state)` with cases 1 through 6 was tested against the prior
+`switch (state->state - 1)` form and produced identical instructions; the direct
+switch is retained. Its body order is case 1, case 6, case 2 with fall-through
+to cases 3 and 4, then case 5.
 
 Case 5 requires a case-local status value, a long-lived `maxY` value, and a
 `SpriteTextCleanup*` pointing at `text1`. Assigning the text pointer before the
@@ -52,6 +55,10 @@ motion calls keeps it live across those calls, producing the target's saved
 `r6`/`r7` allocation and the `[r6, #4]` load. The color selection initializes
 `0xF` and overwrites it with `0xD` when the shifted mode is nonzero; this emits
 the target's `beq` polarity in both color-selection arms.
+
+The HUD data is now one nested `LevelHudData levelHud` member inside
+`GameData`, preserving the original offsets while avoiding a view-struct cast.
+The helper prototypes use `SpriteTextCleanup*` parameters.
 
 The final instruction diff matched exactly, including the five-register
 prologue/epilogue, jump table, literal pools, and trailing padding. The full
