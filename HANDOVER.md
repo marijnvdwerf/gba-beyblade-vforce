@@ -47,6 +47,18 @@ C uses them" rule; `#if 0` drafts naturally excluded) — user undecided;
 unk588/unkC callback signature, raw 0x0D000000 in the backup.c draft,
 `out.json` on main.
 
+Round-1 merges: A MERGED (sub_804A310, sub_804A550, sub_804EE54 — 3/3;
+GameData 0xF50–0x105E is now `LevelHudData levelHud` with struct-relative
+names text0–3/motion0–1/status/state/flags/unkF4…; TutorialPage typed as
+s32 languageCount[5] + 8×5 string ptrs; hoisting the duplicated HUD colour
+block CHANGES bytes — per-case duplication is source). Review agent
+(.claude/agents/review.md, read-only luna reviewer → docs/learnings/
+review-<date>.md; manager merges) validated on A: caught undocumented s32s.
+Luna 429 outages twice this evening; agents resume from transcripts via
+SendMessage. Agents keep deleting/replacing the worktree `expected` symlink
+by hand — keepalive monitor relinks; F wrote into the main checkout once
+(reverted, diff in /tmp/stray-main-edits-*.diff).
+
 Round 1 (dispatched, luna decompiler agents, worktrees, brief
 /tmp/brief-2026-09-05.md): A tutorial+hud (sub_804A310 6, sub_804A550 202,
 sub_804EE54 215); B festate small (sub_8046A0C 143, sub_8044054 177,
