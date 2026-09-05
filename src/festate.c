@@ -18,6 +18,9 @@
 #include "spritetext.h"
 #include "unsorted.h"
 
+void sub_8043DB8(SpriteTextCleanup**, LevelState*, CurrentGameStateTail*, unk32);
+void sub_8043F40(SpriteTextCleanup**, CurrentGameStateTail*, s32);
+
 void sub_8043A0C(FrontendState* state, u32 arg1, u32 arg2)
 {
     switch (arg1) {
@@ -187,7 +190,79 @@ void sub_8043D84(FrontendState* state, u32 arg1)
 
 INCLUDE_ASM("asm/dump/8040d18/8043db8.s");
 INCLUDE_ASM("asm/dump/8040d18/8043f40.s");
-INCLUDE_ASM("asm/dump/8040d18/8044054.s");
+
+void sub_8044054(FrontendState* state, unk32 arg1)
+{
+    LevelState* levelState;
+    s32 delta;
+
+    levelState = sub_8051734();
+    switch (arg1) {
+    case 0:
+        _unk3000174 = 1;
+        _unk3000178.value = 0;
+        _unk30001A8 = 0;
+        _unk3000180[0] = sub_804A0E0(0);
+        _unk3000180[1] = sub_804A0E0(1);
+        _unk3000180[2] = sub_804A0E0(2);
+        _unk3000180[3] = sub_804A0E0(3);
+        _unk3000180[4] = sub_804A0E0(4);
+        _unk3000180[5] = sub_804A0E0(5);
+        _unk3000180[6] = sub_804A0E0(6);
+        _unk3000180[7] = sub_804A0E0(7);
+        _unk3000180[8] = sub_804A0E0(8);
+        _unk3000180[9] = sub_804A0E0(9);
+        _unk3000170 = 0x10000;
+        _unk300016C = 0;
+        sub_80596AC(&state->unk250, -_unk3000170, 0);
+        state->unk80 |= 0x30;
+        sub_8049168();
+        break;
+    case 1:
+        sub_80439A0(&state->unk140);
+        delta = (_unk300016C - _unk3000170) >> 2;
+        sub_80596AC(&state->unk250, -delta, 0);
+        _unk3000170 += delta;
+        sub_8043F40(_unk3000180, &_currentGameState->unk6EC, _unk3000170);
+        break;
+    case 2:
+        if ((_unk3005DA0 & 1) != 0) {
+            if (_unk30001A8 != 0) {
+                sub_804ABFC(8);
+                if (_currentGameState->unk6EA >= 0) {
+                    sub_80490F8(0x26);
+                } else {
+                    sub_80490F8(0x15);
+                }
+                _unk300016C = 0x10000;
+            } else {
+                if (_unk3000174 <= 0x3F) {
+                    _unk3000178.value = 0x20;
+                    _unk3000174 = 0x3F;
+                }
+                sub_804ABFC(8);
+            }
+        }
+        if (_unk30001A8 == 0) {
+            sub_8043DB8(_unk3000180, levelState, &_currentGameState->unk6EC,
+                (_unk3000174 << 8) | _unk3000178.value);
+            if (_unk3000174 <= 0x3F) {
+                _unk3000178.value++;
+                if (_unk3000178.value > 0x20) {
+                    _unk3000178.value = 0;
+                    _unk3000174 <<= 1;
+                    if (_unk3000174 > 0x3F) {
+                        _unk30001A8 = 1;
+                    }
+                }
+            }
+        }
+        break;
+    default:
+        break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/804423c.s");
 INCLUDE_ASM("asm/dump/8040d18/8044314.s");
 INCLUDE_ASM("asm/dump/8040d18/804444c.s");

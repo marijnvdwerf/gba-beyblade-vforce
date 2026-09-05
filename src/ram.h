@@ -372,6 +372,11 @@ typedef struct FrontendScalarWithPad {
     unk8 pad4[4];
 } FrontendScalarWithPad;
 
+typedef struct FrontendFadeProgress {
+    unk32 value;
+    unk8 pad4[4];
+} FrontendFadeProgress;
+
 extern SpriteEntry* _unk30002F4;
 extern s32 _unk30002F8;
 extern s32 _unk30002FC;
@@ -385,6 +390,12 @@ extern SpriteEntry* _unk300015C;
 extern s32 _unk3000160;
 extern s32 _unk3000164;
 extern unk32 _unk3000168;
+extern s32 _unk300016C;
+extern s32 _unk3000170;
+extern unk32 _unk3000174;
+extern FrontendFadeProgress _unk3000178;
+extern SpriteTextCleanup* _unk3000180[10];
+extern unk8 _unk30001A8;
 extern SpriteEntry* _unk30005B0;
 extern SpriteEntry* _unk30005B4;
 extern s32 _unk30005B8;
