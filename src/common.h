@@ -733,8 +733,13 @@ typedef struct CollectableData {
     unk32 collectedBits[1];
 } CollectableData;
 
+typedef struct TutorialStringGroup {
+    const unk8* strings[5];
+} TutorialStringGroup;
+
 typedef struct TutorialPage {
-    unk8 data[0xB4];
+    s32 languageCount[5];
+    TutorialStringGroup languageStrings[8];
 } TutorialPage;
 
 typedef struct TutorialEntry {
@@ -745,10 +750,10 @@ typedef struct TutorialEntry {
 typedef struct TutorialData {
     unk32 count;
     TutorialEntry entries[0x20];
-    unk8* unk104;
+    TutorialEntry* unk104;
     SpriteTextCleanup fontData;
-    unk32 unk138;
-    unk32 unk13C;
+    SpriteEntry* unk138;
+    SpriteEntry* unk13C;
 } TutorialData;
 
 typedef struct MultiPlayerState {
