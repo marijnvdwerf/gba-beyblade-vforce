@@ -113,6 +113,11 @@ constants `(0xC0 << 5)` were transcription — plain literals byte-identical)
 and R2-4 4/4 in review fixes. Session total 38 matched. Manager reads every
 C diff in full before merge, in addition to the reviewer.
 
+R2-4 MERGED 4/4 (sub_8051868, sub_80515A4, sub_804FB6C, sub_804FC00).
+RESOLVED the session-4 open item: CurrentGameSave begins with an embedded
+`BackupBlock block0`; sub_80515A4/sub_80515E0 pass `&unk6FC.block0` (record
+alias, no cast). sub_805749C prototype lives in beyblade.h.
+
 ROUND 2 (new leaf pool): merging today's work exposed 40 new reds
 (/tmp/reds-new-2026-09-05.md, avg 123 insns, 17 TUs). Dispatched 6 luna
 agents: R2-1 utility (renderActor2, sub_8055274, sub_8055288, sub_8060070,
