@@ -107,7 +107,7 @@ unk32 sub_8060040(void)
     return 0;
 }
 
-unk32 sub_8060070(void)
+unk8 sub_8060070(void)
 {
     if ((_unk3005DC4->unk14 & 2) != 0) {
         return 1;
