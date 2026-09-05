@@ -8,6 +8,15 @@ typedef union LayerTransformValue {
     s16 half;
 } LayerTransformValue;
 
+typedef struct Struct3000CA0 {
+    unk32 var00;
+    unk32 var04;
+    unk32 var08;
+    unk32 var0C;
+    unk32 var10;
+    unk32 var14;
+} Struct3000CA0;
+
 typedef struct LayerTransformRecord {
     unk8 unk0;
     unk8 pad1;
@@ -20,32 +29,50 @@ typedef struct LayerTransformRecord {
     LayerTransformValue unk14;
 } LayerTransformRecord;
 
-typedef struct DisplayRecord {
-    unk8 pad0[0x14];
-    s32 unk14;
-    s32 unk18;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
-    s32 unk28;
-    s32 unk2C;
-    s32 unk30;
-    s32 unk34;
-    s32 unk38;
-    s32 unk3C;
-    unk8 pad40[8];
-    s16 unk48;
-    s16 unk4A;
-    s32 unk4C;
-    s32 unk50;
-    unk32 unk54;
-    unk32 unk58;
-    unk8 pad5C[2];
-    unk8 unk5E;
-    unk8 pad5F[5];
-    unk16 unk64;
-    unk8 pad66[0x22];
-} DisplayRecord;
+typedef struct BGLayer {
+    s32 columnCount;
+    s32 rowCount;
+    Struct3000CA0* var8;
+    unk32 field_C;
+    s32 field_10;
+    s32 field_14;
+    s32 field_18;
+    s32 field_1C;
+    s32 field_20;
+    s32 field_24;
+    s32 field_28;
+    s32 field_2C;
+    s32 field_30;
+    s32 field_34;
+    s32 field_38;
+    s32 field_3C;
+    s32 field_40;
+    s32 field_44;
+    s16 field_48;
+    s16 field_4A;
+    s32 field_4C;
+    s32 field_50;
+    unk32 field_54;
+    unk32 field_58;
+    unk8 screenBaseBlock;
+    unk8 characterBaseBlock;
+    unk8 layerIndex;
+    unk8 field_5F;
+    unk8 field_60;
+    unk8 field_61;
+    unk8 field_62[2];
+    unk16 var64;
+    TileMapHeader* var68;
+    void* tileAddr;
+    void* mapAddr;
+    u32 tileBytes;
+    unk32 mapBytes;
+    unk8 field_7C;
+    unk32 field_80;
+    unk32 field_84;
+} BGLayer;
+
+typedef BGLayer DisplayRecord;
 
 extern LayerTransformRecord _unk3000D00[2];
 
