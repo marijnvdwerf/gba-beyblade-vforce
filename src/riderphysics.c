@@ -8,7 +8,11 @@
 #include "rider.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c4b4-s_rider_804C4B4.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c870.s");
+
+void sub_804C870(RiderBase* rider, s32 arg1)
+{
+    rider->unk208 = (arg1 * 0xC0 >> 8) + 0x600;
+}
 
 void sub_804C888(RiderBase* rider, unk8 arg1)
 {

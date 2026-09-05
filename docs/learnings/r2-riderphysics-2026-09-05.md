@@ -11,3 +11,10 @@ Matched in `src/riderphysics.c`. The function copies the two word fields at
 `0x4C`, respectively. Extending the existing `RiderBase` padding with
 `unk32 unk48` and `unk32 unk4C` preserves the fixed layout and emits the target
 five instructions exactly.
+
+## sub_804C870 (0x0804C870)
+
+Matched in `src/riderphysics.c`. The signed `s32` parameter and fixed-point
+formula `rider->unk208 = (arg1 * 0xC0 >> 8) + 0x600` reproduce the target's
+multiply-by-three, shift-by-six, arithmetic shift-by-eight, and `0x600`
+addition. The existing `RiderBase.unk208` signed field is retained.
