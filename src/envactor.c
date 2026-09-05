@@ -523,4 +523,10 @@ unk32 sub_8055274(void)
     return projectileSystem->unk2C;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055288.s");
+unk32 sub_8055288(void)
+{
+    ProjectileSystem* projectileSystem;
+
+    projectileSystem = &_gameData->projectileSystem;
+    return projectileSystem->unk30;
+}
