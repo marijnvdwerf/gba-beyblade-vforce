@@ -137,6 +137,14 @@ registers only (REG_WIN1H, REG_BLDALPHA, REG_BLDY, PLTT — fixed on main
 760642d7); temps that fold byte-identically are removed (decompiler.md
 462b1ddc); attribution trailers off (settings, global + project).
 
+R2-6 MERGED: sub_804E560 + sub_804C208 matched; sub_804E594 (stack-arg
+lifetime) + sub_804EA88 parked; trail.h created; ParticleFrameData typed.
+R2-9 done (sub_80561A0, allocFXSprite, GetQuadTreeNodeForPos matched;
+sub_804BF3C parked) — in review; its `(unk32)nullptr` argument lever was
+caught by the manager read and replaced by plain `0` (byte-identical).
+R2-2 retired (compaction loop); R2-2b cleaning its branch (drafts must be
+house-style with proper types before merge — user ruling).
+
 ROUND 2 (new leaf pool): merging today's work exposed 40 new reds
 (/tmp/reds-new-2026-09-05.md, avg 123 insns, 17 TUs). Dispatched 6 luna
 agents: R2-1 utility (renderActor2, sub_8055274, sub_8055288, sub_8060070,
