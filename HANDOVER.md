@@ -91,6 +91,14 @@ LevelHudData*; LevelHudData.unk104 s16; the s16 temporary in sub_804F478 is
 byte-required; 15 temp-fold tests recorded in docs/learnings/hud-2026-09-05.md).
 Agent A: 6/6 this session, retired. Session total 16 matched.
 
+B round 2 MERGED parked-only (sub_80448F4, sub_8048310, sub_804868C,
+sub_804444C; festate.c + learnings only). Agent B retired (context-bloated,
+compaction-looping after ~490 tool calls); the festate helper trio went to a
+fresh agent R2-8. Lead from sub_804868C: target normalizes isMultiplayer()
+to a HALFWORD — `u8 isMultiplayer(void)` in multiplayer.h may be wrong
+(measure with a full compare, all matched callers). R2-5 hud pair matched
+(sub_804F794, sub_804F37C) — in review.
+
 ROUND 2 (new leaf pool): merging today's work exposed 40 new reds
 (/tmp/reds-new-2026-09-05.md, avg 123 insns, 17 TUs). Dispatched 6 luna
 agents: R2-1 utility (renderActor2, sub_8055274, sub_8055288, sub_8060070,
