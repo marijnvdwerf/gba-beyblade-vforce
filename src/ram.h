@@ -130,20 +130,20 @@ typedef struct LevelHudObject {
 typedef struct LevelHudData {
     SpriteTextCleanup text0; /* 0x00 */
     SpriteTextCleanup text1; /* 0x30 */
-    SpriteTextCleanup levelHud2; /* 0x60 */
-    SpriteTextCleanup levelHud3; /* 0x90 */
+    SpriteTextCleanup text2; /* 0x60 */
+    SpriteTextCleanup text3; /* 0x90 */
     MotionGroup motion0; /* 0xC0 */
     MotionGroup motion1; /* 0xD8 */
     s32 status; /* 0xF0 */
-    LevelHudObject* unk1044; /* 0xF4 */
-    LevelHudObject* unk1048; /* 0xF8 */
-    unk32 unk104C; /* 0xFC */
-    LevelHudObject* unk1050; /* 0x100 */
-    unk16 unk1054; /* 0x104 */
-    unk16 unk1056; /* 0x106 */
-    unk16 unk1058; /* 0x108 */
+    LevelHudObject* unkF4; /* 0xF4 */
+    LevelHudObject* unkF8; /* 0xF8 */
+    unk32 unkFC; /* 0xFC */
+    LevelHudObject* unk100; /* 0x100 */
+    unk16 unk104; /* 0x104 */
+    unk16 unk106; /* 0x106 */
+    unk16 unk108; /* 0x108 */
     unk16 state; /* 0x10A */
-    unk16 unk105C; /* 0x10C */
+    unk16 unk10C; /* 0x10C */
     unk16 flags; /* 0x10E */
 } LevelHudData;
 

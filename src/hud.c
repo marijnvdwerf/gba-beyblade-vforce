@@ -30,16 +30,15 @@ void LoadHUD(void)
     sub_80611FC(&gameData->levelHud.text0, 4);
     sub_80611FC(&gameData->levelHud.text1, 4);
     sub_80611EC(&gameData->levelHud.text1, 0xE);
-    allocFont(
-        &gameData->levelHud.levelHud2, SpriteSheet_82B05EC, ShadowFontMeta, 0, -0x20, 0xEE, 0);
-    gameData->levelHud.unk1044 = 0;
-    gameData->levelHud.unk1048 = 0;
-    gameData->levelHud.unk104C = 0;
-    gameData->levelHud.unk1050 = 0;
-    gameData->levelHud.unk105C = 0;
-    gameData->levelHud.unk1054 = 0;
-    gameData->levelHud.unk1056 = 0;
-    gameData->levelHud.unk1058 = 0;
+    allocFont(&gameData->levelHud.text2, SpriteSheet_82B05EC, ShadowFontMeta, 0, -0x20, 0xEE, 0);
+    gameData->levelHud.unkF4 = 0;
+    gameData->levelHud.unkF8 = 0;
+    gameData->levelHud.unkFC = 0;
+    gameData->levelHud.unk100 = 0;
+    gameData->levelHud.unk10C = 0;
+    gameData->levelHud.unk104 = 0;
+    gameData->levelHud.unk106 = 0;
+    gameData->levelHud.unk108 = 0;
     gameData->levelHud.status = 0;
     gameData->levelHud.state = 0;
     gameData->unk1060 = allocSprite(0);
@@ -50,12 +49,11 @@ void LoadHUD(void)
     LoadSpriteSheet(gameData->unk1060, SpriteSheet_821CF10, 0x200, -0x2000, 0, 0, 0, 0);
     LoadSpriteSheet(gameData->unk1064, SpriteSheet_821DB5C, 0x4200, -0x2000, 0, 0, 0, 0);
     LoadSpriteSheet(gameData->unk1074, SpriteSheet_821DEA8, 0xCE00, -0x2000, 0, 0, 0, 0);
-    allocFont(
-        &gameData->levelHud.levelHud3, SpriteSheet_82B05EC, ShadowFontMeta, 0, -0x20, 0x1C, 2);
+    allocFont(&gameData->levelHud.text3, SpriteSheet_82B05EC, ShadowFontMeta, 0, -0x20, 0x1C, 2);
     gameData->unk107D = sub_80518F0();
-    showNumber_2(&gameData->levelHud.levelHud3, gameData->unk107D, 0xF);
-    showString(&gameData->levelHud.levelHud3, Str_8727048, 0xF);
-    showNumber(&gameData->levelHud.levelHud3, getLevelDescription2()->unk1, 0xF);
+    showNumber_2(&gameData->levelHud.text3, gameData->unk107D, 0xF);
+    showString(&gameData->levelHud.text3, Str_8727048, 0xF);
+    showNumber(&gameData->levelHud.text3, getLevelDescription2()->unk1, 0xF);
     gameData->unk107A = 0;
     gameData->unk1078 = 0;
     gameData->unk1070 = 0;

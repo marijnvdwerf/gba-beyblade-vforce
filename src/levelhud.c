@@ -58,19 +58,19 @@ void sub_804F9B4(void)
     GameData* state;
 
     state = _gameData;
-    state->levelHud.unk1054 = 0x190;
-    state->levelHud.unk105C = 1;
-    state->levelHud.unk1056 = 0;
-    state->levelHud.unk1058 = 0;
-    state->levelHud.unk1044->unk8 = 0x4A00;
-    state->levelHud.unk1048->unk8 = 0x8A00;
-    state->levelHud.unk1050->unk8 = 0x4200;
-    state->levelHud.unk1044->unkC = -0x2000;
-    state->levelHud.unk1048->unkC = -0x2000;
-    state->levelHud.unk1050->unkC = -0x2000;
-    state->levelHud.unk1044->unk18 = 0;
-    state->levelHud.unk1048->unk18 = 0;
-    state->levelHud.unk1050->unk18 = 0;
+    state->levelHud.unk104 = 0x190;
+    state->levelHud.unk10C = 1;
+    state->levelHud.unk106 = 0;
+    state->levelHud.unk108 = 0;
+    state->levelHud.unkF4->unk8 = 0x4A00;
+    state->levelHud.unkF8->unk8 = 0x8A00;
+    state->levelHud.unk100->unk8 = 0x4200;
+    state->levelHud.unkF4->unkC = -0x2000;
+    state->levelHud.unkF8->unkC = -0x2000;
+    state->levelHud.unk100->unkC = -0x2000;
+    state->levelHud.unkF4->unk18 = 0;
+    state->levelHud.unkF8->unk18 = 0;
+    state->levelHud.unk100->unk18 = 0;
 }
 
 void sub_804FA40(void)
@@ -181,6 +181,6 @@ void sub_804FEE8(void)
     }
     sub_8061204(hud);
     sub_8061204(&base->levelHud.text1);
-    sub_8061204(&base->levelHud.levelHud2);
-    sub_8061204(&base->levelHud.levelHud3);
+    sub_8061204(&base->levelHud.text2);
+    sub_8061204(&base->levelHud.text3);
 }
