@@ -106,6 +106,13 @@ sub_8061C48; cached ProjectileSystem* temps proven byte-required). R2-4
 (UnsetRiderFlag, sub_804D104, sub_804C870, sub_804CEF4), on the two big ones.
 All 40 new reds assigned (R2-1..R2-10). Main 481 C / 526 asm / 48%.
 
+R2-5 MERGED 2/2 (sub_804F794, sub_804F37C; LevelHudObject View struct
+DELETED — LevelHudData.unkF4/F8/FC/100 are SpriteEntry*, levelhud.c writes
+x/y/frame.word). R2-3 4/4 (effects), R2-8 3/3 (festate helpers; shift-spelled
+constants `(0xC0 << 5)` were transcription — plain literals byte-identical)
+and R2-4 4/4 in review fixes. Session total 38 matched. Manager reads every
+C diff in full before merge, in addition to the reviewer.
+
 ROUND 2 (new leaf pool): merging today's work exposed 40 new reds
 (/tmp/reds-new-2026-09-05.md, avg 123 insns, 17 TUs). Dispatched 6 luna
 agents: R2-1 utility (renderActor2, sub_8055274, sub_8055288, sub_8060070,
