@@ -267,7 +267,319 @@ void sub_8044054(FrontendState* state, unk32 arg1)
 
 INCLUDE_ASM("asm/dump/8040d18/804423c.s");
 INCLUDE_ASM("asm/dump/8040d18/8044314.s");
+#if 0
+typedef struct FrontendPacketStateDraft {
+    unk8 unk0;
+    unk8 unk1;
+    unk8 unk2;
+    unk8 unk3;
+    s8 unk4;
+    unk8 unk5;
+    unk8 unk6;
+    unk8 unk7;
+    unk8 unk8;
+    s8 unk9;
+    s8 unkA;
+    s8 unkB;
+    unk8 padC[4];
+} FrontendPacketStateDraft;
+
+typedef union CurrentGameStatePacketWordDraft {
+    unk32 value;
+    struct {
+        unk8 pad0[2];
+        s16 value2;
+    } half;
+    struct {
+        unk8 pad0[3];
+        s8 value3;
+    } byte;
+} CurrentGameStatePacketWordDraft;
+
+typedef struct CurrentGameStatePacketDraft {
+    CurrentGameStatePacketWordDraft word;
+    unk32 unk4;
+} CurrentGameStatePacketDraft;
+
+extern s32 _unk30001AC;
+extern s32 _unk30001B0;
+extern s32 _unk30001B4;
+extern s32 _unk30001B8;
+extern s32 _unk30001BC;
+extern unk16 _unk30001C0;
+extern SpriteTextCleanup* _unk30001C8[10];
+void sub_804423C(SpriteTextCleanup**, s32);
+void sub_8044314(SpriteTextCleanup**, FrontendPacketStateDraft*, s32, s32);
+
+void sub_804444C(FrontendState* state, unk32 arg1)
+{
+    CurrentGameState* gameState;
+    CurrentGameStatePacketDraft* packetData;
+    FrontendPacketStateDraft* packetState;
+    FrontendPacketStateDraft* record;
+    GameData* data;
+    unk32 delta;
+    unk32 difference;
+    unk32 halfDifference;
+    unk32 value;
+    unk32 otherValue;
+    unk32 flag;
+    unk32 progress;
+
+    data = _gameData;
+    gameState = _currentGameState;
+    packetData = (CurrentGameStatePacketDraft*)&gameState->unk6EC;
+    record = (FrontendPacketStateDraft*)data->unk15D4 + (1 - isMultiplayer());
+    packetState = (FrontendPacketStateDraft*)data->unk15C4;
+    switch (arg1) {
+    case 1:
+        sub_804423C(_unk30001C8, _unk30001B0);
+        sub_80439A0(&state->unk140);
+        if (_unk30001B8 == 0 && sub_805FFE4() != 0 && sub_8060070() != 0
+            && sub_8043970(record, 7) != 0) {
+            flag = _unk30001B8;
+            _unk30001B8 = 1;
+            if (data->unk161B != 0) {
+                _unk30001BC = flag;
+            } else if (gameState->unk6A4 == 1) {
+                if (RiderHasFlag(data, 0x800) != 0) {
+                    if (record->unkB == 0) {
+                        _unk30001BC = 1;
+                    } else {
+                        _unk30001BC = 0;
+                    }
+                } else {
+                    _unk30001BC = 2;
+                }
+            } else if (RiderHasFlag(data, 0x8000000) == 0 && record->unkB != 0) {
+                _unk30001BC = 1;
+            } else if (RiderHasFlag(data, 0x8000000) != 0 && record->unkB == 0) {
+                _unk30001BC = 2;
+            } else {
+                _unk30001BC = 0;
+            }
+            value = _unk30001BC;
+            if (value == 0) {
+                gameState->unk6A8++;
+            } else if (value == 1) {
+                gameState->unk6A7++;
+            }
+        }
+        delta = (_unk30001AC - _unk30001B0) >> 2;
+        sub_80596AC(&state->unk250, -delta, 0);
+        _unk30001B0 += delta;
+        break;
+    case 2:
+        if (_unk30001B8 != 0) {
+            sub_8044314(_unk30001C8, record, _unk30001B4, _unk30001BC);
+            if (_unk30001C0 != 0) {
+                progress = _unk30001B4 & 0x1F;
+                if (progress == 0x1F) {
+                    _unk30001B4++;
+                } else if (progress == 0) {
+                    _unk30001B4 += 0x1F;
+                } else {
+                    _unk30001B4 |= 0x1F;
+                }
+            } else {
+                _unk30001B4++;
+                if (_unk30001B4 > 0x7E) {
+                    _unk30001C0 = 1;
+                }
+            }
+        }
+        if (sub_805FFE4() == 0 || sub_8060070() == 0) {
+            break;
+        }
+        if (sub_8060040() != 0 && (_unk3005DA0 & 1) != 0) {
+            if (_unk30001C0 != 0) {
+                packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
+                sub_8043960(packetState);
+            } else {
+                packetState->unkA = 1;
+                sub_8043960(packetState);
+                _unk30001C0 = 1;
+            }
+        }
+        if (sub_8043970(record, 7) != 0) {
+            value = gameState->unk6A7;
+            otherValue = gameState->unk6A8;
+            difference = (gameState->unk6A6 - otherValue) - value;
+            halfDifference = ((gameState->unk6A5 - otherValue) >> 1) + 1;
+            if (record->unkA != 0) {
+                _unk30001C0 = 1;
+            }
+            if ((record->unk2 & 0xF0) == 0x10) {
+                packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
+                sub_8043960(packetState);
+                _unk30001AC = 0x10000;
+                if (gameState->unk6A5 == gameState->unk6A4
+                    && value == difference) {
+                    sub_80490F8(0x25);
+                } else if (halfDifference - otherValue <= 0) {
+                    sub_80490F8(0x23);
+                } else if (halfDifference - difference <= 0) {
+                    sub_80490F8(0x24);
+                } else {
+                    sub_80490F8(0x22);
+                }
+                sub_804ABFC(8);
+            }
+        }
+        break;
+    case 0:
+        sub_8049168();
+        gameState->unk6A6++;
+        _unk30001B0 = 0x10000;
+        _unk30001AC = 0;
+        _unk30001B4 = 0;
+        _unk30001BC = 0;
+        _unk30001C0 = 0;
+        sub_80596AC(&state->unk250, -0x10000, 0);
+        state->unk80 |= 0x30;
+        _unk30001B8 = 0;
+        if (sub_805FFE4() != 0 && sub_8060070() != 0) {
+            packetState->unk2 = 7;
+            packetState->unk4 = packetData->unk4;
+            packetState->unk5 = RiderHasFlag(data, 0x8000000);
+            packetState->unk6 = packetData->word.value;
+            packetState->unk7 = packetData->word.value >> 8;
+            packetState->unk8 = packetData->word.half.value2;
+            packetState->unk9 = packetData->word.byte.value3;
+            packetState->unkA = 0;
+            packetState->unkB = RiderHasFlag(data, 0x800) != 0;
+            sub_8043960(packetState);
+        }
+        _unk30001C8[0] = sub_804A0E0(0);
+        _unk30001C8[1] = sub_804A0E0(1);
+        _unk30001C8[2] = sub_804A0E0(2);
+        _unk30001C8[3] = sub_804A0E0(3);
+        _unk30001C8[4] = sub_804A0E0(4);
+        _unk30001C8[5] = sub_804A0E0(5);
+        _unk30001C8[6] = sub_804A0E0(6);
+        _unk30001C8[7] = sub_804A0E0(7);
+        _unk30001C8[8] = sub_804A0E0(8);
+        _unk30001C8[9] = sub_804A0E0(9);
+        break;
+    default:
+        break;
+    }
+}
+
+#endif
 INCLUDE_ASM("asm/dump/8040d18/804444c.s");
+
+#if 0
+void sub_80448F4(FrontendState* state, unk32 arg1)
+{
+    unk32 mask;
+    GameData* data;
+    SpriteEntry* sprite;
+    FrontendPacketState* packetState;
+    FrontendPacketState* record;
+
+    record = &_gameData->unk15D4[1 - isMultiplayer()];
+    packetState = &_gameData->unk15C4;
+    switch (arg1) {
+    case 0:
+        sprite = allocSprite(0);
+        _unk30001F0 = sprite;
+        if (sprite != NULL) {
+            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+        }
+        sprite = allocSprite(0);
+        _unk30001F4 = sprite;
+        if (sprite != NULL) {
+            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+        }
+        _unk30001F8 = 0x800;
+        _unk30001FC = 0xD800;
+        newIconMenu(&state->menuState.menu, _8069108, 0);
+        sub_8050FEC(&state->menuState.menu, 0x9600);
+        _unk3000200 = 0;
+        if (sub_805FFE4() == 0 || sub_8060070() == 0) {
+            break;
+        }
+        mask = 0x10;
+        mask = -mask;
+        packetState->unk2 = ((packetState->unk2 & mask) | 8) & 0xF;
+        sub_8043960(packetState);
+        break;
+    case 7:
+        sub_8051028(&state->menuState.menu);
+        if (_unk30001F0 != NULL) {
+            sub_8060A94(_unk30001F0);
+        }
+        if (_unk30001F4 != NULL) {
+            sub_8060A94(_unk30001F4);
+        }
+        if (_unk3000200 == 0) {
+            break;
+        }
+        state->unk7F = 0;
+        data = _gameData;
+        data->unk1618 = 0;
+        data->unk1619 = 0;
+        data->unk161A = 0;
+        sub_80600B4();
+        break;
+    case 1:
+        if (_unk30001F0 != NULL) {
+            _unk30001F0->x += ((_unk30001F8 - _unk30001F0->x) >> 3)
+                + Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
+        }
+        if (_unk30001F4 != NULL) {
+            _unk30001F4->x += ((_unk30001FC - _unk30001F4->x) >> 3)
+                - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
+        }
+        sub_80439A0(&state->unk140);
+        sub_8050C18(&state->menuState.menu);
+        if (sub_805FFE4() == 0 || sub_8060070() == 0) {
+            break;
+        }
+        if (sub_8060040() != 0) {
+            if ((_unk3005DA0 & 0x20) != 0) {
+                sub_8050F0C(&state->menuState.menu);
+            }
+            if ((_unk3005DA0 & 0x10) != 0) {
+                sub_8050E80(&state->menuState.menu);
+            }
+            packetState->unk4 = state->menuState.menu.selection;
+            sub_8043960(packetState);
+            break;
+        }
+        if (sub_8043970(record, 8) != 0) {
+            if (record->unk4 != state->menuState.menu.selection) {
+                sub_8050DF8(&state->menuState.menu);
+            }
+        }
+        break;
+    case 2:
+        if (sub_805FFE4() == 0 || sub_8060070() == 0) {
+            break;
+        }
+        if (sub_8060040() != 0 && (_unk3005DA0 & 1) != 0) {
+            packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
+            sub_8043960(packetState);
+        }
+        if (sub_8043970(record, 8) != 0 && (record->unk2 & 0xF0) == 0x10) {
+            packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
+            sub_8043960(packetState);
+            _unk30001F8 = 0xFFFF0000;
+            _unk30001FC = 0x1E000;
+            sub_8050F98(&state->menuState.menu);
+            if (state->menuState.menu.selection != 0) {
+                _unk3000200 = 1;
+                sub_80490F8(0xA);
+                break;
+            }
+            sub_80490F8(0x1B);
+        }
+        break;
+    }
+}
+
+#endif
 INCLUDE_ASM("asm/dump/8040d18/80448f4.s");
 
 void sub_8044C48(FrontendState* state, unk32 arg1)
@@ -1675,7 +1987,246 @@ void sub_80480EC(FrontendState* state, unk32 arg1)
     }
 }
 
+#if 0
+void sub_8048310(FrontendState* state, unk32 arg1)
+{
+    CurrentGameState* currentGameState;
+    SpriteEntry* sprite;
+    FrontendPacketState* packetState;
+    FrontendPacketState* record;
+
+    record = &_gameData->unk15D4[1 - isMultiplayer()];
+    packetState = &_gameData->unk15C4;
+    switch (arg1) {
+    case 0:
+        sprite = allocSprite(0);
+        _unk30005C0 = sprite;
+        if (sprite != NULL) {
+            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+        }
+        sprite = allocSprite(0);
+        _unk30005C4 = sprite;
+        if (sprite != NULL) {
+            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+        }
+        _unk30005C8 = 0x800;
+        _unk30005CC = 0xD800;
+        newIconMenu(&state->menuState.menu, _8069D50, 0);
+        sub_8050FEC(&state->menuState.menu, 0x9600);
+        sub_8049168();
+        if (sub_805FFE4() == 0 || sub_8060070() == 0) {
+            return;
+        }
+        packetState->unk2 = 5;
+        break;
+    case 7:
+        sub_8051028(&state->menuState.menu);
+        if (_unk30005C0 != NULL) {
+            sub_8060A94(_unk30005C0);
+        }
+        if (_unk30005C4 == NULL) {
+            return;
+        }
+        sub_8060A94(_unk30005C4);
+        return;
+    case 1:
+        if (_unk30005C0 != NULL) {
+            _unk30005C0->x += ((_unk30005C8 - _unk30005C0->x) >> 3)
+                + Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
+        }
+        if (_unk30005C4 != NULL) {
+            _unk30005C4->x += ((_unk30005CC - _unk30005C4->x) >> 3)
+                - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
+        }
+        sub_80439A0(&state->unk140);
+        sub_8050C18(&state->menuState.menu);
+        if (sub_805FFE4() != 0 && sub_8060070() != 0 && sub_8060040() != 0
+            && (_unk3005DA0 & 0x30) != 0) {
+            if ((_unk3005DA0 & 0x20) != 0) {
+                sub_8050F0C(&state->menuState.menu);
+            } else {
+                sub_8050E80(&state->menuState.menu);
+            }
+        }
+        if (sub_805FFE4() == 0 || sub_8060070() == 0) {
+            return;
+        }
+        if (sub_8060040() != 0) {
+            packetState->unk4 = state->menuState.menu.selection;
+        }
+        break;
+    case 2:
+        if (sub_805FFE4() == 0 || sub_8060070() == 0) {
+            if (_unk3005DA0 == 1) {
+                sub_80490F8(0x21);
+            }
+            return;
+        }
+        if (sub_8060040() != 0 && (_unk3005DA0 & 1) != 0) {
+            packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
+        }
+        if (sub_8043970(record, 5) == 0) {
+            return;
+        }
+        if (sub_8060040() == 0
+            && record->unk4 != state->menuState.menu.selection) {
+            sub_8050DF8(&state->menuState.menu);
+        }
+        if ((record->unk2 & 0xF0) == 0x10) {
+            packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
+            currentGameState = _currentGameState;
+            if (state->menuState.menu.selection == 0) {
+                currentGameState->unk6A4 = 1;
+                currentGameState->unk6A9 = state->menuState.menu.selection;
+            } else {
+                currentGameState->unk6A4 = 2;
+                currentGameState->unk6A9 = 6;
+            }
+            currentGameState->unk6A6 = 0;
+            currentGameState->unk6A7 = 0;
+            currentGameState->unk6A8 = 0;
+            _unk30005C8 = 0xFFFF0000;
+            _unk30005CC = 0x1E000;
+            sub_8050F98(&state->menuState.menu);
+            sub_80490F8(0x21);
+        }
+        break;
+    default:
+        return;
+    }
+    sub_8043960(packetState);
+}
+
+#endif
 INCLUDE_ASM("asm/dump/8040d18/8048310.s");
+
+#if 0
+void sub_804868C(FrontendState* state, unk32 arg1)
+{
+    FrontendMenu* menu;
+    FrontendPacketState* packetState;
+    FrontendPacketState* record;
+
+    record = (FrontendPacketState*)_gameData->unk15D4 + (1 - isMultiplayer());
+    packetState = (FrontendPacketState*)_gameData->unk15C4;
+    switch (arg1) {
+    case 0:
+        _unk30005D0 = allocSprite(0);
+        if (_unk30005D0 != NULL) {
+            LoadSpriteSheet(_unk30005D0, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+        }
+        _unk30005D4 = allocSprite(0);
+        if (_unk30005D4 != NULL) {
+            LoadSpriteSheet(_unk30005D4, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+        }
+        _unk30005D8 = 0x800;
+        _unk30005DC = 0xD800;
+        menu = &state->menuState.menu;
+        newIconMenu(menu, _8069D9C, 0);
+        sub_8050FEC(menu, 0x9600);
+        sub_8049168();
+        if (sub_805FFE4() == 0 || sub_8060070() == 0) {
+            return;
+        }
+        packetState->unk2 = 6;
+        break;
+    case 7:
+        sub_8051028(&state->menuState.menu);
+        if (_unk30005D0 != NULL) {
+            sub_8060A94(_unk30005D0);
+        }
+        if (_unk30005D4 == NULL) {
+            return;
+        }
+        sub_8060A94(_unk30005D4);
+        return;
+    case 1:
+        if (_unk30005D0 != NULL) {
+            _unk30005D0->x += ((_unk30005D8 - _unk30005D0->x) >> 3)
+                + Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
+        }
+        if (_unk30005D4 != NULL) {
+            _unk30005D4->x += ((_unk30005DC - _unk30005D4->x) >> 3)
+                - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
+        }
+        sub_80439A0(&state->unk140);
+        menu = &state->menuState.menu;
+        sub_8050C18(menu);
+        if (sub_805FFE4() != 0 && sub_8060070() != 0 && sub_8060040() != 0
+            && (_unk3005DA0 & 0x30) != 0) {
+            if ((_unk3005DA0 & 0x20) != 0) {
+                sub_8050F0C(menu);
+            } else {
+                sub_8050E80(menu);
+            }
+        }
+        if (sub_805FFE4() == 0 || sub_8060070() == 0) {
+            return;
+        }
+        if (sub_8060040() != 0) {
+            packetState->unk4 = menu->selection;
+        }
+        break;
+    case 2:
+        if (sub_805FFE4() == 0 || sub_8060070() == 0) {
+            if (_unk3005DA0 == 1) {
+                sub_80490F8(0x1B);
+            }
+            return;
+        }
+        if (sub_8060040() != 0) {
+            if ((_unk3005DA0 & 1) != 0) {
+                packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
+            }
+            if ((_unk3005DA0 & 2) != 0) {
+                packetState->unk2 = (packetState->unk2 & 0xF) | 0x20;
+            }
+        }
+        if (sub_8043970(record, 6) == 0) {
+            return;
+        }
+        if (sub_8060040() == 0 && record->unk4 != state->menuState.menu.selection) {
+            sub_8050DF8(&state->menuState.menu);
+        }
+        if ((record->unk2 & 0xF0) == 0x10) {
+            packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
+            switch (state->menuState.menu.selection) {
+            case 0:
+                _currentGameState->unk6A5 = 1;
+                break;
+            case 1:
+                _currentGameState->unk6A5 = 3;
+                break;
+            case 2:
+                _currentGameState->unk6A5 = 5;
+                break;
+            case 3:
+                _currentGameState->unk6A5 = 7;
+                break;
+            case 4:
+                _currentGameState->unk6A5 = 9;
+                break;
+            }
+            _unk30005D8 = 0xFFFF0000;
+            _unk30005DC = 0x1E000;
+            sub_8050F98(&state->menuState.menu);
+            sub_80490F8(0x1B);
+        }
+        if ((record->unk2 & 0xF0) == 0x20) {
+            packetState->unk2 = (packetState->unk2 & 0xF) | 0x20;
+            _unk30005D8 = 0xFFFF0000;
+            _unk30005DC = 0x1E000;
+            sub_8050FC8(&state->menuState.menu);
+            sub_80490F8(0x20);
+        }
+        break;
+    default:
+        return;
+    }
+    sub_8043960(packetState);
+}
+
+#endif
 INCLUDE_ASM("asm/dump/8040d18/804868c.s");
 INCLUDE_ASM("asm/dump/8040d18/8048a74.s");
 
