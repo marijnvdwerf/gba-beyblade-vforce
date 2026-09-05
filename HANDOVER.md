@@ -59,6 +59,17 @@ SendMessage. Agents keep deleting/replacing the worktree `expected` symlink
 by hand — keepalive monitor relinks; F wrote into the main checkout once
 (reverted, diff in /tmp/stray-main-edits-*.diff).
 
+B MERGED (festate.c 5/5: sub_8046A0C, sub_8044054, sub_8044C48, sub_8044ED4,
+sub_8048AE8 — best festate yield ever; new src/festate.h; IWRAM 0x16C–0x2F0
+and 0x5E4–0x5F0 typed in ram.c/ram.h with sizes preserved; FrontendSpriteTriple;
+`(sub_8057C40() >> 4) & 3` form is source — `& 0x30` changes bytes). D, E, G
+MERGED parked-only (no header changes, drafts under #if 0): D sub_8050C18 +
+allocateMenuItems; E renderEnvironmentActors, sub_80522D4, sub_8055340
+(finding: `s16 : 4; s16 unk7C_4 : 12` reproduces `lsl #16; asr #20`),
+sub_80526C8; G LoadSpriteSheet, sub_806014C. User: learnings for failed
+functions are not wanted (brief trimmed). Parked-only branches merge on the
+manager's read; reviewer runs only on branches with matches.
+
 Round 1 (dispatched, luna decompiler agents, worktrees, brief
 /tmp/brief-2026-09-05.md): A tutorial+hud (sub_804A310 6, sub_804A550 202,
 sub_804EE54 215); B festate small (sub_8046A0C 143, sub_8044054 177,
