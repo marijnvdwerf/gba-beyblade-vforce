@@ -42,8 +42,12 @@ Matching technique). Read them first. Do not read `docs/learnings/processed/`.
      table for each parked one;
    - **shape**: is this the C a person would write? Flag shift/mask
      choreography that is a bitfield, duplicated arms that could be one,
-     `switch (x - 1)` where `switch (x)` might do — as QUESTIONS for the
-     decomp agent to test, never as assertions (you cannot build to verify).
+     `switch (x - 1)` where `switch (x)` might do, and **temporaries**: every
+     single-use local, cached alias (`T* p = &a->b; p->c` used once), or
+     staged value that a person would write inline is a QUESTION "fold this
+     temp" — list each one; the decomp agent tests folding and keeps only the
+     temps the bytes require. All of these are QUESTIONS for the decomp agent
+     to test, never assertions (you cannot build to verify).
 3. Write `/tmp/review-<branch>.md` (a scratch artifact, NOT in the repo —
    the decomp agent reads it from there): for each finding `file:line — what — rule — suggested
    fix`; separate **BLOCKING** (levers, header pollution, missing learnings,
