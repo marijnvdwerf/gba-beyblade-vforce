@@ -25,3 +25,7 @@ node's four child pointers, bounds, and leaf count are exposed in
 current node in a separately typed pointer after the null check reproduces
 the target's reuse of the root argument register for child loads. The
 function diff is instruction-exact and the ROM compare passes.
+
+## sub_804BF3C (0x0804BF3C)
+
+Parked in `src/rider.c` with the best typed semantic draft immediately above the original assembly inclusion; the RiderBase and display-record fields introduced only for this near-match were reverted when the function remained on assembly. First divergence: the target begins with `mov r12, r0`, while the best natural typed draft begins with a different base-pointer allocation (`adds r5, r0`).

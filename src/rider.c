@@ -589,6 +589,58 @@ void allocFXSprite(RiderBase* rider)
     }
 }
 
+#if 0
+void sub_804BF3C(RiderBase* rider, unk32 arg1)
+{
+    SpriteEntry* fxSprite;
+    SpriteEntry* positionSprite;
+    DisplayRecord* camera;
+    s32 fxX;
+    s32 fxY;
+    s32 x;
+    s32 y;
+    s32 rowCount;
+    s32 oldRowCount;
+
+    fxSprite = rider->unk3C0;
+    positionSprite = rider->unk238.unkB8;
+    camera = (DisplayRecord*)rider->unk238.unk3C;
+    if (positionSprite == NULL) {
+        return;
+    }
+    x = (positionSprite->x + camera->unkC) >> 11;
+    y = (positionSprite->y + camera->unk10) >> 11;
+    fxX = ((x - (camera->unkC >> 11)) << 11) - (camera->unkC & 0x700);
+    fxY = ((y - (camera->unk10 >> 11)) << 11) - (camera->unk10 & 0x700);
+    rowCount = (rider->unk3CA + (((positionSprite->y - fxY) >> 8) + 8)) >> 3;
+    if (rowCount > 4) {
+        rowCount = 4;
+    }
+    fxSprite->x = fxX;
+    fxSprite->y = fxY;
+    if (x != rider->unk3D8 || y != rider->unk3DC) {
+        oldRowCount = rider->unk3E4 - rowCount;
+        sub_805EF18((CameraState*)&_gameData->unk434, x, y, 4, rowCount,
+            rider->unk1C0 - 1, rider->unk3D4);
+        if (oldRowCount > 0) {
+            __fastMemoryClearARM(0, (void*)(rider->unk3D4 + (rowCount << 7)), oldRowCount << 7);
+        }
+    } else {
+        oldRowCount = rider->unk3E4;
+        if (rowCount > oldRowCount) {
+            sub_805EF18((CameraState*)&_gameData->unk434, x, y + oldRowCount, 4,
+                rowCount - oldRowCount, rider->unk1C0 - 1,
+                rider->unk3D4 + (oldRowCount << 7));
+        } else if (rowCount < oldRowCount) {
+            __fastMemoryClearARM(0, (void*)(rider->unk3D4 + (rowCount << 7)),
+                (oldRowCount - rowCount) << 7);
+        }
+    }
+    rider->unk3D8 = x;
+    rider->unk3DC = y;
+    rider->unk3E4 = rowCount;
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804bf3c.s");
 
 void sub_804C098(RiderBase* rider)
