@@ -17,6 +17,7 @@ void sub_805E8A0(CameraState* camera, LevelDesign* arg1, unk16 arg2, s32* arg3)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805e8b0.s");
 
+#if 0
 void sub_805E8D8(CameraState* camera, LevelDesign* level, unk16 mode, s32* offsets)
 {
     s8 flags;
@@ -76,7 +77,7 @@ void sub_805E8D8(CameraState* camera, LevelDesign* level, unk16 mode, s32* offse
                         (layerOrigin->unk4 - level->layers[index].unk4) >> 8,
                         (layerOrigin->unk8 - level->layers[index].unk8) >> 8);
                 } else {
-                    sub_8058968(&camera->records[index], index, (layerBase - (index * -1))->unk0,
+                    sub_8058968(&camera->records[index], index, layerBase[index].unk0,
                         0x40, level->layers[index].unkC | 1, x, y);
                 }
             }
@@ -97,6 +98,9 @@ void sub_805E8D8(CameraState* camera, LevelDesign* level, unk16 mode, s32* offse
     }
     camera->unk358 = (flags << 8) | mode;
 }
+
+#endif
+INCLUDE_ASM("asm/dump/8057b80-debug/805e8d8.s");
 
 void sub_805EADC(CameraState* camera)
 {
