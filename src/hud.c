@@ -412,7 +412,26 @@ void sub_804F478(LevelHudData* arg0)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804f794.s");
+void sub_804F794(LevelHudData* arg0)
+{
+    if (arg0->unkF4 != NULL) {
+        sub_8060A94((SpriteEntry*)arg0->unkF4);
+    }
+    if (arg0->unkF8 != NULL) {
+        sub_8060A94((SpriteEntry*)arg0->unkF8);
+    }
+    if (arg0->unkFC != NULL) {
+        sub_8060A94((SpriteEntry*)arg0->unkFC);
+    }
+    if (arg0->unk100 != NULL) {
+        sub_8060A94((SpriteEntry*)arg0->unk100);
+    }
+    arg0->unk100 = NULL;
+    arg0->unkFC = NULL;
+    arg0->unkF8 = NULL;
+    arg0->unkF4 = NULL;
+    arg0->flags &= ~8;
+}
 
 void sub_804F800(s32 arg0)
 {
