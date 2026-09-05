@@ -29,3 +29,7 @@ store-before-compare sequence. The random values are staged from
 `sub_8057C40()` before each actor-field assignment so the actor pointer reload
 occurs before the shift/mask arithmetic. `RiderBase.unk21E` is a halfword field
 at offset `0x21E`; its declaration preserves the existing fixed layout.
+
+## sub_804CB08 (0x0804CB08)
+
+Parked with the semantic draft retained under `#if 0`; first divergence was the target input-magnitude allocation (`r4`) versus the draft allocation (`r9`) immediately after the speed clamp. The draft-proven fields at offsets `0x1C4`, `0x1C8`, `0x1FC`, `0x22E`, and `0x230` were removed from `RiderBase` after parking.
