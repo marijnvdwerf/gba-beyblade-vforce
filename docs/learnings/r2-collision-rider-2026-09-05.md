@@ -7,3 +7,11 @@ Matched in `src/collision.c`. The target's signed loop comparisons establish
 (the existing 0x80-byte storage). A `unk32*` cursor with post-increment emits
 the target's `ldmia` cursor load and exact loop shape. The function diff is
 instruction-exact and the ROM compare passes.
+
+## allocFXSprite (0x0804BEDC)
+
+Matched in `src/rider.c`. The RiderBase byte at `0x3CE` is exposed as
+`unk3CE`; its shift by four reproduces the target size calculation. Keeping an
+`existing` pointer local preserves the three zero stack arguments to
+`LoadSpriteSheet`, and assigning the allocated sprite back after the null
+check reproduces the target store and control flow.

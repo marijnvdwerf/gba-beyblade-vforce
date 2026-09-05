@@ -15,6 +15,7 @@
 extern const unk8 SpriteSheet_86FAEAC[];
 extern const unk8 SpriteSheet_86FAF34[];
 extern const unk8 SpriteSheet_86FB40C[];
+extern const unk8 SpriteSheet_86FBA14[];
 
 #if 0
 void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 arg5, unk32 arg6)
@@ -569,7 +570,25 @@ void renderRider(RiderBase* rider)
 
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804bbf0-renderRider.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804bedc-allocFXSprite.s");
+
+void allocFXSprite(RiderBase* rider)
+{
+    SpriteEntry* existing;
+    SpriteEntry* sprite;
+
+    existing = rider->unk3C0;
+    if (existing == NULL) {
+        sprite = allocSprite(0xFF);
+        if (sprite != NULL) {
+            LoadSpriteSheet(sprite, SpriteSheet_86FBA14, 0, 0, 2, (unk32)existing, (unk32)existing,
+                (unk32)existing);
+            sprite->var20 |= 1;
+            sprite->var24 = (rider->unk3CE << 4) + 0x100;
+        }
+        rider->unk3C0 = sprite;
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804bf3c.s");
 
 void sub_804C098(RiderBase* rider)
