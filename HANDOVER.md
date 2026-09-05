@@ -99,6 +99,13 @@ to a HALFWORD — `u8 isMultiplayer(void)` in multiplayer.h may be wrong
 (measure with a full compare, all matched callers). R2-5 hud pair matched
 (sub_804F794, sub_804F37C) — in review.
 
+R2-1 MERGED 5/5 (renderActor2, sub_8055274, sub_8055288, sub_8060070,
+sub_8061C48; cached ProjectileSystem* temps proven byte-required). R2-4
+4/4 matched (sub_8051868, sub_80515A4, sub_804FB6C, sub_804FC00) and R2-5
+2/2 (sub_804F794, sub_804F37C) in review fixes. R2-2 4/6 so far
+(UnsetRiderFlag, sub_804D104, sub_804C870, sub_804CEF4), on the two big ones.
+All 40 new reds assigned (R2-1..R2-10). Main 481 C / 526 asm / 48%.
+
 ROUND 2 (new leaf pool): merging today's work exposed 40 new reds
 (/tmp/reds-new-2026-09-05.md, avg 123 insns, 17 TUs). Dispatched 6 luna
 agents: R2-1 utility (renderActor2, sub_8055274, sub_8055288, sub_8060070,
