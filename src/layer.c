@@ -8,8 +8,6 @@
 #include "unsorted.h"
 
 extern u8 _unk3000DE0;
-extern unk8 _unk3000E3C;
-extern u8 _unk3000E40[];
 extern s16 Unk_874CC3C[];
 extern s16 Unk_872CC3C[];
 
