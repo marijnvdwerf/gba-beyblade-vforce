@@ -175,109 +175,108 @@ void onSerialCommunication(void);
 
 unk32 sub_806014C(unk8* arg0, unk8* arg1, unk8 arg2)
 {
+    unk8 player;
     unk32 flags;
     unk8 newCounter;
     unk32 localFlag;
-    unk8 player;
     unk16 matchCount;
 
     player = _unk3005DC4->unk3;
     flags = _unk3005DC4->unk14;
-    if ((flags & 0x100) != 0) {
-        return 0;
-    }
-
-    if ((flags & 0xC0) != 0) {
-        localFlag = 0;
-        newCounter = _unk3005DC4->unk5 + 1;
-    } else {
-        newCounter = flags & 0x400;
-        localFlag = 1;
-        if (newCounter != 0) {
+    if ((flags & 0x100) == 0) {
+        if ((flags & 0xC0) != 0) {
+            localFlag = 0;
             newCounter = _unk3005DC4->unk5 + 1;
+        } else if ((flags & 0x400) != 0) {
+            localFlag = 1;
+            newCounter = _unk3005DC4->unk5 + 1;
+        } else {
+            localFlag = 1;
+            newCounter = 0;
         }
-    }
 
-    _unk3005DC4->unk5 = newCounter;
-    if (_unk3005DC4->unk5 > 0x3B) {
-        _unk3005DC4->unk14 |= 0x100;
-        return 0;
-    }
+        _unk3005DC4->unk5 = newCounter;
+        if (_unk3005DC4->unk5 > 0x3B) {
+            _unk3005DC4->unk14 |= 0x100;
+            return 0;
+        }
 
-    flags = _unk3005DC4->unk14 & 0xFFFFFBBF;
-    _unk3005DC4->unk14 = flags;
-    if ((flags & 0x80) != 0) {
-        _unk3005DC4->unk1C++;
-        flags &= 0xFFFFFF7F;
+        flags = _unk3005DC4->unk14 & 0xFFFFFBBF;
         _unk3005DC4->unk14 = flags;
-        if (_unk3005DC4->unk1C >= _unk3005DC4->unk20) {
-            _unk3005DC4->unk14 = flags | 0x100;
-            return 0;
+        if ((flags & 0x80) != 0) {
+            _unk3005DC4->unk1C++;
+            flags &= 0xFFFFFF7F;
+            _unk3005DC4->unk14 = flags;
+            if (_unk3005DC4->unk1C >= _unk3005DC4->unk20) {
+                _unk3005DC4->unk14 = flags | 0x100;
+                return 0;
+            }
+        } else {
+            _unk3005DC4->unk1C = 0;
         }
-    } else {
-        _unk3005DC4->unk1C = 0;
-    }
 
-    if ((_unk3005DC4->unk14 & 2) == 0) {
-        matchCount = 0;
-        *(vu16*)REG_SIOMLT_SEND = 0xDEAF;
+        if ((_unk3005DC4->unk14 & 2) == 0) {
+            matchCount = 0;
+            *(vu16*)REG_SIOMLT_SEND = 0xDEAF;
+            if (sub_8060040() != 0) {
+                if (*(vu16*)REG_SIOMULTI0 == 0xDEAF) {
+                    matchCount = 1;
+                }
+                if (*(vu16*)REG_SIOMULTI1 == 0xDEAF) {
+                    matchCount++;
+                }
+                if (_unk3005DC4->unk4 > 2 && *(vu16*)REG_SIOMULTI2 == 0xDEAF) {
+                    matchCount++;
+                }
+                if (_unk3005DC4->unk4 > 3 && *(vu16*)REG_SIOMULTI3 == 0xDEAF) {
+                    matchCount++;
+                }
+                if (matchCount >= _unk3005DC4->unk4) {
+                    sub_8060404();
+                    return localFlag;
+                }
+                *(vu16*)REG_SIOCNT |= 0x80;
+                _unk3005DC4->unk14 |= 0x200;
+            } else if ((_unk3005DC4->unk14 & 4) == 0) {
+                _unk3005DC4->unk14 |= 4;
+                _unk3000DF0[7] = onSerialCommunication;
+                EnableInterrupt(0x80);
+            }
+            return localFlag;
+        }
+
         if (sub_8060040() != 0) {
-            if (*(vu16*)REG_SIOMULTI0 == 0xDEAF) {
-                matchCount = 1;
+            if ((_unk3005DC4->unk14 & 0x200) == 0) {
+                return 0;
             }
-            if (*(vu16*)REG_SIOMULTI1 == 0xDEAF) {
-                matchCount++;
+            _unk3005DC4->unk14 &= 0xFFFFFDFF;
+            _unk3005DC4->unk0 = 0;
+            __fastMemoryCopyARM(arg1, _unk3005DC4->unk24, _unk3005DC4->unk18);
+            _unk3005DC4->unk3C = _unk3005DC4->unk24;
+            _unk3000DF0[6] = __sub_8757D24;
+            *(vu16*)REG_SIOCNT = _unk3005DC4->unk10;
+            *(vu16*)REG_RCNT = 0xC0;
+            EnableInterrupt(0x40);
+            (*__sub_8757CD0)();
+            if (localFlag != 0 || arg2 != 0) {
+                __fastMemoryCopyARM(_unk3005DC4->unk38, arg0, player * _unk3005DC4->unk18);
             }
-            if (_unk3005DC4->unk4 > 2 && *(vu16*)REG_SIOMULTI2 == 0xDEAF) {
-                matchCount++;
-            }
-            if (_unk3005DC4->unk4 > 3 && *(vu16*)REG_SIOMULTI3 == 0xDEAF) {
-                matchCount++;
-            }
-            if (matchCount >= _unk3005DC4->unk4) {
-                sub_8060404();
-                return localFlag;
-            }
-            *(vu16*)REG_SIOCNT |= 0x80;
-            _unk3005DC4->unk14 |= 0x200;
-        } else if ((_unk3005DC4->unk14 & 4) == 0) {
-            _unk3005DC4->unk14 |= 4;
-            _unk3000DF0[7] = onSerialCommunication;
-            EnableInterrupt(0x80);
+            return localFlag;
         }
-        return localFlag;
-    }
 
-    if (sub_8060040() != 0) {
-        if ((_unk3005DC4->unk14 & 0x200) == 0) {
-            return 0;
-        }
-        _unk3005DC4->unk14 &= 0xFFFFFDFF;
-        _unk3005DC4->unk0 = 0;
-        __fastMemoryCopyARM(arg1, _unk3005DC4->unk24, _unk3005DC4->unk18);
-        _unk3005DC4->unk3C = _unk3005DC4->unk24;
-        _unk3000DF0[6] = __sub_8757D24;
-        *(vu16*)REG_SIOCNT = _unk3005DC4->unk10;
-        *(vu16*)REG_RCNT = 0xC0;
-        EnableInterrupt(0x40);
-        (*__sub_8757CD0)();
         if (localFlag != 0 || arg2 != 0) {
             __fastMemoryCopyARM(_unk3005DC4->unk38, arg0, player * _unk3005DC4->unk18);
         }
+        __fastMemoryCopyARM(arg1, _unk3005DC4->unk40, _unk3005DC4->unk18);
+        if ((_unk3005DC4->unk14 & 0x20) != 0) {
+            _unk3005DC4->unk1C = 0;
+        } else {
+            _unk3005DC4->unk14 |= 0x80;
+        }
+        _unk3005DC4->unk14 &= 0xFFFFFFDE;
         return localFlag;
     }
-
-    if (localFlag != 0 || arg2 != 0) {
-        __fastMemoryCopyARM(_unk3005DC4->unk38, arg0, player * _unk3005DC4->unk18);
-    }
-    __fastMemoryCopyARM(arg1, _unk3005DC4->unk40, _unk3005DC4->unk18);
-    if ((_unk3005DC4->unk14 & 0x20) != 0) {
-        _unk3005DC4->unk1C = 0;
-    } else {
-        _unk3005DC4->unk14 |= 0x80;
-    }
-    _unk3005DC4->unk14 &= 0xFFFFFFDE;
-    return localFlag;
+    return 0;
 }
 #endif
 
