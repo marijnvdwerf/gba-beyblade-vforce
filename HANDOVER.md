@@ -126,6 +126,17 @@ R2-8 MERGED 3/3 festate helpers (sub_8048A74, sub_8043F40, sub_8043DB8;
 temps that fold byte-identically are folded — that rule is now enforced at
 review). Main 494 C / 513 asm / 49%. Session total 42 matched.
 
+R2-7 layer: sub_8059934 + sub_8058968 matched, sub_8059C18 parked (in
+review). It unified `DisplayRecord` with `BGLayer` (same 0x88 layout; moved
+to layer.h). DEBT: BGLayer/Struct3000CA0 use legacy `var00`/`field_C`/`var8`
+names (176 hits in layer.c, a few in common.h/display.h) — pre-existing, needs
+a rename pass to `unk<HEX>` (+ meaningful names where proven), separate task.
+Rulings today: parked drafts are merged only in house style with PROPER
+record types (no `unk8*` cursors), never dropped (sub_804D110); named hardware
+registers only (REG_WIN1H, REG_BLDALPHA, REG_BLDY, PLTT — fixed on main
+760642d7); temps that fold byte-identically are removed (decompiler.md
+462b1ddc); attribution trailers off (settings, global + project).
+
 ROUND 2 (new leaf pool): merging today's work exposed 40 new reds
 (/tmp/reds-new-2026-09-05.md, avg 123 insns, 17 TUs). Dispatched 6 luna
 agents: R2-1 utility (renderActor2, sub_8055274, sub_8055288, sub_8060070,
