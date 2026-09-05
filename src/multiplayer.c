@@ -107,7 +107,13 @@ unk32 sub_8060040(void)
     return 0;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8060070.s");
+unk32 sub_8060070(void)
+{
+    if ((_unk3005DC4->unk14 & 2) != 0) {
+        return 1;
+    }
+    return 0;
+}
 
 unk8 sub_806008C(void)
 {
