@@ -380,6 +380,111 @@ RiderBase* sub_804B7FC(RiderBase* arg0)
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b7fc.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b8f0.s");
+
+#if 0
+void renderRider(RiderBase* rider)
+{
+    Actor* actor;
+    Actor* actor2;
+    SpriteEntry* sprite;
+    void (*positionFunc)(Actor*, unk32*);
+    s32 position[3];
+    s32 x;
+    s32 y;
+    s32 shift;
+    s32 offset;
+    s32 layer;
+    unk8 mode;
+
+    actor = &rider->unk238;
+    actor2 = &rider->unk2FC;
+    if ((rider->unk3CC & 0xC) != 0) {
+        if (rider->unk238.unkB8 != NULL) {
+            sub_8060A94(rider->unk238.unkB8);
+            rider->unk238.unkB8 = NULL;
+        }
+        if (rider->unk2FC.unkB8 != NULL) {
+            sub_8060A94(rider->unk2FC.unkB8);
+            rider->unk2FC.unkB8 = NULL;
+        }
+        if (rider->unk3E8 == 0)
+            return;
+        sub_804EA88(&rider->unk3EC);
+        return;
+    }
+    positionFunc = actor->unkB0;
+    if (positionFunc != NULL) {
+        positionFunc(actor, position);
+        x = position[0] >> 8;
+        y = position[1] >> 8;
+    } else {
+        x = actor->x >> 8;
+        y = actor->y >> 8;
+    }
+    if (actor->unk3C != NULL) {
+        x -= actor->unk3C->unk40 >> 8;
+        y -= actor->unk3C->unk44 >> 8;
+    }
+    if (rider->unk3C4 != NULL) {
+        shift = 8 - ((0xAA * rider->unk208 + 0x8000) >> 16);
+        layer = 0;
+        if (RiderHasFlag(rider, 8) != 0) {
+            layer = Unk_874CC3C[(unk32)((sub_8057C40() >> 4) << 26) >> 24] * 0x10;
+            if (layer > 0)
+                layer = -layer;
+        }
+        rider->unk3C4->x = (x << 8) - 0x700;
+        rider->unk3C4->y = (y << 8) + layer - 0x1C00;
+        offset = 8;
+        if (shift >= 0)
+            offset = shift;
+        rider->unk3C4->frame.word = offset;
+        sprite = rider->unk3C4;
+        sprite->oam_attr_2 = (sprite->oam_attr_2 & 0xFFF) | ((0xF - rider->unk3D0) << 12);
+    }
+    if ((unk32)(y + 0x40) > 0x108 || x < -0x40 || x > 0x118) {
+        rider->unk3C8 &= 0xFFFD;
+    } else {
+        rider->unk3C8 |= 2;
+    }
+    if ((rider->unk3C8 & 2) != 0) {
+        if (RiderHasFlag(rider, 0x1000000) != 0 && rider->unk3C0 == NULL) {
+            allocFXSprite(rider);
+        } else if (RiderHasFlag(rider, 0x1000000) == 0 && rider->unk3C0 != NULL) {
+            sub_804C098(rider);
+        }
+        if (rider->unk3C0 != NULL)
+            sub_804BF3C(rider, 0);
+    } else if (rider->unk3C0 != NULL) {
+        sub_804C098(rider);
+    }
+    renderActor2(actor);
+    sprite = actor->unkB8;
+    if (sprite != NULL) {
+        sprite->oam_attr_2 = (sprite->oam_attr_2 & 0xFFF) | (rider->unk3CF << 12);
+        if (actor->unkB8 != NULL)
+            actor2->unkBC = sprite->var22 + 2;
+    }
+    renderActor2(actor2);
+    if (RiderHasFlag(rider, 4) != 0 || actor->z < 0) {
+        if (actor->z >= 0)
+            mode = rider->unk1C0;
+        else
+            mode = 3;
+        sprite = actor->unkB8;
+        if (sprite != NULL)
+            sprite->oam_attr_2 = (sprite->oam_attr_2 & 0xF3FF) | ((mode & 3) << 10);
+        sprite = actor2->unkB8;
+        if (sprite != NULL)
+            sprite->oam_attr_2 = (sprite->oam_attr_2 & 0xF3FF) | ((mode & 3) << 10);
+    }
+    if (rider->unk3E8 != 0) {
+        sub_804E560(&rider->unk3EC, actor->x, actor->y, actor->z);
+        sub_804EA88(&rider->unk3EC);
+    }
+}
+
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804bbf0-renderRider.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804bedc-allocFXSprite.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804bf3c.s");
