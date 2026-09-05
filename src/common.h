@@ -630,8 +630,8 @@ typedef struct PolyTable {
 } PolyTable;
 
 typedef struct GeometryPoint {
-    unk32 x;
-    unk32 y;
+    s32 x;
+    s32 y;
     unk32 z;
     unk32 padC;
 } GeometryPoint;
