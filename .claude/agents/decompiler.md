@@ -145,8 +145,11 @@ not the reachability boundary.
   draft in the source file directly above its `INCLUDE_ASM` line inside a
   bare `#if 0` … `#endif` (the ROM still builds from the asm), and put the
   first divergence, the step table and any unproven layout the draft
-  assumes in your learnings file. Fields the draft needs stay in headers
-  only if they are asm-proven.
+  assumes in your learnings file. Headers get NO field that only a parked
+  draft uses (user ruling 2026-09-06). A draft must still be properly typed:
+  if it needs fields the header lacks, declare a scratch struct INSIDE its
+  `#if 0` block (`typedef struct RiderDraft { … /* 0xNN */ } RiderDraft;`
+  with the layout the asm proves) and use it only there.
 - Never read docs/learnings/processed/ (archive; some files are thousands of
   lines and will exhaust your context). Read only learnings files that name a
   function on your list (`rg -l <name> docs/learnings/*.md`).
