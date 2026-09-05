@@ -751,7 +751,44 @@ void sub_8059B00(u8 layer, u8 angle, u16 xAngle, u16 yAngle)
     }
 }
 
+#if 0
+void sub_8059C18(u8 bg0, u8 bg1, u8 bg2, u8 bg3)
+{
+    u8* ptr0;
+    u8* ptr1;
+    u8* ptr2;
+    u8* ptr3;
+    s32 mask;
+    s32 clear;
+    u8 result;
+
+    ptr0 = (u8*)GetBGLayerCntPtr(0);
+    mask = 3;
+    bg0 &= mask;
+    clear = 4;
+    clear = -clear;
+    result = *ptr0 & clear;
+    result |= bg0;
+    *ptr0 = result;
+    ptr1 = (u8*)GetBGLayerCntPtr(1);
+    bg1 &= mask;
+    result = *ptr1 & clear;
+    result |= bg1;
+    *ptr1 = result;
+    ptr2 = (u8*)GetBGLayerCntPtr(2);
+    bg2 &= mask;
+    result = *ptr2 & clear;
+    result |= bg2;
+    *ptr2 = result;
+    ptr3 = (u8*)GetBGLayerCntPtr(3);
+    bg3 &= mask;
+    result = *ptr3 & clear;
+    result |= bg3;
+    *ptr3 = result;
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8059c18.s");
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8059cb4.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059cc8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059cf0.s");
