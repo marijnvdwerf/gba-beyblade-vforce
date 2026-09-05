@@ -200,12 +200,104 @@ void sub_80556F4(void)
     deallocate_80637CC(&gameData->projectileSystem.palette5C);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055734.s");
+extern const unk8 _8078a08[];
+extern const unk8 _8078a98[];
+extern const unk8 _8078b28[];
+extern const unk8 _8078bb8[];
+extern const unk8 _8078c48[];
+extern const unk8 _8078cd8[];
+extern const unk8 _8078d68[];
+extern const unk8 _8078df8[];
+
+void sub_8055734(unk32 arg0, Actor* arg1, Actor* arg2)
+{
+    GameData* gameData;
+    ProjectileSystem* effect;
+    Actor* base;
+    const unk8* resource;
+
+    gameData = _gameData;
+    effect = &gameData->projectileSystem;
+    base = gameData->base.unk0;
+    resource = _8078a08;
+    switch (arg0) {
+    case 0:
+        resource = _8078a08;
+        break;
+    case 1:
+        resource = _8078a98;
+        break;
+    case 2:
+        resource = _8078b28;
+        break;
+    case 3:
+        resource = _8078bb8;
+        break;
+    case 5:
+        resource = _8078cd8;
+        break;
+    case 6:
+        resource = _8078d68;
+        break;
+    case 7:
+        resource = _8078df8;
+        break;
+    case 4:
+    case 8:
+        resource = _8078c48;
+        break;
+    }
+    if (arg1 != NULL) {
+        sub_804C3D4(effect, arg1->x, arg1->y, arg1->z, resource);
+    } else {
+        sub_804C3D4(effect, base->x, base->y, base->z, resource);
+    }
+    if (arg2 == NULL) {
+        if (arg1 != NULL) {
+            sub_804C34C(effect, arg1->x, arg1->y, arg1->z);
+        } else {
+            sub_804C34C(effect, base->x, base->y, base->z);
+        }
+    } else {
+        sub_804C34C(effect, arg2->x, arg2->y, arg2->z);
+    }
+    sub_804C354(effect, 0, 0, 0);
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/805582c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805589c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80558b8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80558d0.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80558e8.s");
+
+void sub_80558B8(void)
+{
+    ProjectileSystem* effect;
+
+    effect = &_gameData->projectileSystem;
+    effect->unk28 = 6;
+}
+
+void sub_80558D0(void)
+{
+    ProjectileSystem* effect;
+
+    effect = &_gameData->projectileSystem;
+    effect->unk28 = 0x20;
+}
+
+void sub_80558E8(unk32 arg0)
+{
+    GameData* gameData;
+
+    gameData = _gameData;
+    switch (arg0) {
+    case 0:
+        gameData->projectileSystem.unk72 = 8;
+        break;
+    case 1:
+        gameData->projectileSystem.unk70 = 8;
+        break;
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055914.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805599c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055b64.s");
