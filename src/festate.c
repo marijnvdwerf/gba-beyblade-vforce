@@ -1107,7 +1107,52 @@ void sub_8046814(FrontendState* state, u32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8046a0c.s");
+void sub_8046A0C(FrontendState* state, unk32 arg1)
+{
+    unk8 result;
+    s32 delta;
+
+    switch (arg1) {
+    case 0:
+        sub_8049168();
+        _unk30004B8 = 0xFFFF0000;
+        _unk30004B4 = 0;
+        sub_80596AC(&state->unk250, -0x10000, 0);
+        _unk30004C0 = 0;
+        _unk30004C1 = 0;
+        _unk30004BC = 0;
+        break;
+    case 1:
+        sub_80439A0(&state->unk140);
+        sub_8061844(sub_804A0E0(0), (s16)(-(_unk30004B8 >> 8) + 0x10), 0x4A);
+        if (_unk30004C1 != 0 && _unk30004C0 == 0) {
+            result = sub_80515A4();
+            if (result != 0) {
+                sub_8051640(1);
+            }
+            _unk30004C0 = arg1;
+            sub_8061660(sub_804A0E0(0), _806E0DC[result != 0 ? 1 : 2][getLanguage()], 0xF);
+        }
+        delta = (_unk30004B4 - _unk30004B8) >> 2;
+        sub_80596AC(&state->unk250, delta, 0);
+        _unk30004B8 += delta;
+        if (delta == 0 && _unk30004C1 == 0) {
+            sub_8061660(sub_804A0E0(0), _806E0DC[0][getLanguage()], 0xF);
+            _unk30004C1 = 1;
+        }
+        _unk30004BC++;
+        break;
+    case 2:
+        if (_unk30004C0 != 0
+            && (((_unk3005DA0 & 1) != 0 && _unk30004BC > 0x78) || _unk30004BC > 0x258)) {
+            sub_80490F8(_unk3000648);
+            _unk30004B4 = 0xFFFF0000;
+        }
+        break;
+    default:
+        break;
+    }
+}
 
 void sub_8046B94(FrontendState* state, u32 arg1)
 {
