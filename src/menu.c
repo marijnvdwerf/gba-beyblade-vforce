@@ -89,6 +89,110 @@ void sub_805AD9C(MenuState* state)
 }
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/805ad9c.s");
+
+#if 0
+void allocateMenuItems(MenuState* state, MenuItemDescriptor* descriptors, unk32 selected)
+{
+    UnkMenuItem* item;
+    UnkMenuItem* nextItem;
+    UnkMenuItem* itemNext;
+    MenuItemDescriptor* base;
+    MenuItemDescriptor* descriptor;
+    MenuItemDescriptor* descriptorNext;
+    const MenuOptionSet* descriptorTable;
+    const unk8* stateByte;
+    unk32 itemCount;
+    unk32 language;
+    unk32 enabledCount;
+    unk32 totalCount;
+    unk32 index;
+    unk32 secondaryCount;
+    unk32 size;
+    s32 difference;
+    unk32 center;
+    unk32 currentCenter;
+
+    base = descriptors;
+    itemCount = 0;
+    index = 0;
+    state->unk24 = selected;
+    enabledCount = 0;
+    language = state->unk8;
+    if (base->labels[language] != NULL) {
+        do {
+            if ((descriptors->flags & 1) != 0)
+                enabledCount++;
+            descriptors++;
+            itemCount++;
+        } while (descriptors->labels[language] != NULL);
+    }
+    totalCount = itemCount + enabledCount;
+    state->unk9 = state->unkA * totalCount;
+    difference = 0xA0 - state->unk9;
+    center = (difference + (difference >> 31)) >> 1;
+    center += state->unk20;
+    state->itemCount = itemCount;
+    state->objectCount = totalCount;
+    size = totalCount * 0x4C;
+    state->menuBlock = slowAllocate(size);
+    if (state->menuBlock == NULL)
+        printf(Str_8755370);
+    item = state->menuBlock->address;
+    state->items = item;
+    nextItem = item + itemCount;
+    descriptor = base;
+    while (descriptor->labels[state->unk8] != NULL) {
+        itemNext = item + 1;
+        descriptorNext = descriptor + 1;
+        secondaryCount = 0;
+        descriptorTable = descriptor->subitems;
+        if (descriptorTable != NULL) {
+            while (descriptorTable->values[state->unk8] != NULL) {
+                descriptorTable++;
+                secondaryCount++;
+            }
+        }
+        currentCenter = center + descriptor->y;
+        allocFont(&item->text, state->spriteSheet, state->font, state->unk1C + descriptor->x,
+            currentCenter, state->tileCount, 2);
+        item->unk30 = descriptor->labels[state->unk8];
+        item->flags = descriptor->flags;
+        item->options = descriptor->subitems;
+        item->value = 0;
+        item->unk44 = 0;
+        item->count = secondaryCount;
+        item->next = NULL;
+        sub_805AC80(state, item);
+        if (descriptor->subitems != NULL && (descriptor->flags & 1) != 0) {
+            currentCenter += state->unkA;
+            allocFont(&nextItem->text, state->spriteSheet, state->font,
+                state->unk1C + descriptor->x, currentCenter, state->tileCount, 2);
+            nextItem->unk30 = NULL;
+            nextItem->flags = descriptor->flags;
+            nextItem->options = descriptor->subitems;
+            nextItem->value = 0;
+            nextItem->unk44 = 0;
+            nextItem->count = secondaryCount;
+            nextItem->next = NULL;
+            item->next = nextItem;
+            item->options = NULL;
+            sub_805AC80(state, item);
+            sub_805AC80(state, nextItem);
+            nextItem++;
+        }
+        if (index == selected)
+            stateByte = &state->unk2E;
+        else
+            stateByte = &state->unk2C;
+        sub_806185C(item, *stateByte);
+        index++;
+        item = itemNext;
+        center = currentCenter + state->unkA;
+        descriptor = descriptorNext;
+    }
+}
+
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/805add4-allocateMenuItems.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805afb8-nullsub_48.s");
 
