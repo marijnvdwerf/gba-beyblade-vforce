@@ -18,3 +18,14 @@ Matched in `src/riderphysics.c`. The signed `s32` parameter and fixed-point
 formula `rider->unk208 = (arg1 * 0xC0 >> 8) + 0x600` reproduce the target's
 multiply-by-three, shift-by-six, arithmetic shift-by-eight, and `0x600`
 addition. The existing `RiderBase.unk208` signed field is retained.
+
+## sub_804CEF4 (0x0804CEF4)
+
+Matched in `src/riderphysics.c`. The action selector is an unsigned `unk32`
+used in an explicit `if (action <= 4)` dense switch; retaining an empty case 3
+produces the target jump table. The repeated speed updates use direct
+`rider->unk208 += -0x600` followed by the signed clamp, which preserves the
+store-before-compare sequence. The random values are staged from
+`sub_8057C40()` before each actor-field assignment so the actor pointer reload
+occurs before the shift/mask arithmetic. `RiderBase.unk21E` is a halfword field
+at offset `0x21E`; its declaration preserves the existing fixed layout.

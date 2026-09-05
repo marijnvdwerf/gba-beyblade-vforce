@@ -2,6 +2,7 @@
 
 #include <agb/bios.h>
 
+#include "debug.h"
 #include "effects.h"
 #include "include_asm.h"
 #include "music.h"
@@ -29,7 +30,55 @@ void sub_804C888(RiderBase* rider, unk8 arg1)
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c8c0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c8f0-RiderAI_804C8F0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804cb08.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804cef4.s");
+
+void sub_804CEF4(RiderBase* rider, unk32 action)
+{
+    s32 random;
+
+    rider->unk21E = 0x3C;
+    SetRiderFlag(rider, 0x40);
+    rider->unk0->unk48 = 0x300;
+    rider->unk0->z += 0x400;
+    SetRiderFlag(rider, 2);
+    if (action <= 4) {
+        switch (action) {
+        case 0:
+            if (RiderHasFlag(rider, 8) == 0)
+                rider->unk208 = 0x208 - 8;
+            else
+                rider->unk208 >>= 1;
+            break;
+        case 1:
+            rider->unk208 += -0x600;
+            if (rider->unk208 <= 0x1FF)
+                rider->unk208 = 0x200;
+            random = sub_8057C40();
+            rider->unk0->unk40 = (((random >> 4) & 0xF) - 8) << 6;
+            random = sub_8057C40();
+            rider->unk0->unk44 = ((((random >> 4) + 0xC8) & 0xF) - 8) << 6;
+            rider->unk0->unk48 = 0x500;
+            rider->unk0->z += 0x400;
+            SetRiderFlag(rider, 2);
+            break;
+        case 2:
+            rider->unk208 += -0x600;
+            if (rider->unk208 <= 0x1FF)
+                rider->unk208 = 0x200;
+            rider->unk21E = 0x258;
+            SetRiderFlag(rider, 0x40);
+            break;
+        case 3:
+            break;
+        case 4:
+            rider->unk208 += -0x600;
+            if (rider->unk208 <= 0x1FF)
+                rider->unk208 = 0x200;
+            rider->unk22C = 0;
+            break;
+        }
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d048.s");
 
 void sub_804D104(RiderBase* rider)
