@@ -209,10 +209,6 @@ extern const unk8 _8078cd8[];
 extern const unk8 _8078d68[];
 extern const unk8 _8078df8[];
 
-extern void sub_804C3D4(ProjectileSystem*, unk32, unk32, unk32, const unk8*);
-extern void sub_804C34C(ProjectileSystem*, unk32, unk32, unk32);
-extern void sub_804C354(ProjectileSystem*, unk32, unk32, unk32);
-
 void sub_8055734(unk32 arg0, Actor* arg1, Actor* arg2)
 {
     GameData* gameData;
