@@ -15,6 +15,7 @@
 extern const unk8 SpriteSheet_86FAEAC[];
 extern const unk8 SpriteSheet_86FAF34[];
 extern const unk8 SpriteSheet_86FB40C[];
+extern const unk8 SpriteSheet_86FBA14[];
 
 #if 0
 void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 arg5, unk32 arg6)
@@ -569,7 +570,115 @@ void renderRider(RiderBase* rider)
 
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804bbf0-renderRider.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804bedc-allocFXSprite.s");
+
+void allocFXSprite(RiderBase* rider)
+{
+    SpriteEntry* sprite;
+
+    if (rider->unk3C0 == NULL) {
+        sprite = allocSprite(0xFF);
+        if (sprite != NULL) {
+            LoadSpriteSheet(sprite, SpriteSheet_86FBA14, 0, 0, 2, 0, 0, 0);
+            sprite->var20 |= 1;
+            sprite->var24 = (rider->unk3CE << 4) + 0x100;
+        }
+        rider->unk3C0 = sprite;
+    }
+}
+
+#if 0
+typedef struct RiderDraftCameraRecord {
+    unk8 pad0[0xC]; /* 0x0 */
+    s32 unkC; /* 0xC */
+    s32 unk10; /* 0x10 */
+} RiderDraftCameraRecord;
+
+typedef struct RiderDraftCamera {
+    RiderDraftCameraRecord records[1]; /* 0x0 */
+} RiderDraftCamera;
+
+typedef struct RiderDraftActor {
+    unk8 pad0[0x3C]; /* 0x0 */
+    RiderDraftCamera* unk3C; /* 0x3C */
+    unk8 pad40[0x78]; /* 0x40 */
+    SpriteEntry* unkB8; /* 0xB8 */
+} RiderDraftActor;
+
+typedef struct RiderDraft {
+    unk8 pad0[0x1C0]; /* 0x0 */
+    unk8 unk1C0; /* 0x1C0 */
+    unk8 pad1C1[0x77]; /* 0x1C1 */
+    RiderDraftActor unk238; /* 0x238 */
+    unk8 pad2F4[0xCC]; /* 0x2F4 */
+    SpriteEntry* unk3C0; /* 0x3C0 */
+    unk8 pad3C4[6]; /* 0x3C4 */
+    unk16 unk3CA; /* 0x3CA */
+    unk8 pad3CC[8]; /* 0x3CC */
+    unk8* unk3D4; /* 0x3D4 */
+    s32 unk3D8; /* 0x3D8 */
+    s32 unk3DC; /* 0x3DC */
+    unk8 pad3E0[4]; /* 0x3E0 */
+    unk32 unk3E4; /* 0x3E4 */
+} RiderDraft;
+
+typedef struct RiderDraftGameData {
+    unk8 pad0[0x434]; /* 0x0 */
+    RiderDraftCamera camera; /* 0x434 */
+} RiderDraftGameData;
+
+void sub_805EF18(RiderDraftCamera*, s32, s32, s32, s32, unk32, unk8*);
+
+void sub_804BF3C(RiderBase* rider, unk32 arg1)
+{
+    RiderDraft* r = (RiderDraft*)rider;
+    RiderDraftGameData* gameData;
+    SpriteEntry* fxSprite;
+    SpriteEntry* positionSprite;
+    RiderDraftCamera* camera;
+    s32 fxX;
+    s32 fxY;
+    s32 x;
+    s32 y;
+    s32 rowCount;
+    s32 oldRowCount;
+
+    gameData = (RiderDraftGameData*)_gameData;
+    fxSprite = r->unk3C0;
+    positionSprite = r->unk238.unkB8;
+    camera = r->unk238.unk3C;
+    if (positionSprite == NULL) {
+        return;
+    }
+    x = (positionSprite->x + camera->records[0].unkC) >> 11;
+    y = (positionSprite->y + camera->records[0].unk10) >> 11;
+    fxX = ((x - (camera->records[0].unkC >> 11)) << 11) - (camera->records[0].unkC & 0x700);
+    fxY = ((y - (camera->records[0].unk10 >> 11)) << 11) - (camera->records[0].unk10 & 0x700);
+    rowCount = (r->unk3CA + (((positionSprite->y - fxY) >> 8) + 8)) >> 3;
+    if (rowCount > 4) {
+        rowCount = 4;
+    }
+    fxSprite->x = fxX;
+    fxSprite->y = fxY;
+    if (x != r->unk3D8 || y != r->unk3DC) {
+        oldRowCount = r->unk3E4 - rowCount;
+        sub_805EF18(&gameData->camera, x, y, 4, rowCount, r->unk1C0 - 1, r->unk3D4);
+        if (oldRowCount > 0) {
+            __fastMemoryClearARM(0, r->unk3D4 + (rowCount << 7), oldRowCount << 7);
+        }
+    } else {
+        oldRowCount = r->unk3E4;
+        if (rowCount > oldRowCount) {
+            sub_805EF18(&gameData->camera, x, y + oldRowCount, 4, rowCount - oldRowCount,
+                r->unk1C0 - 1, r->unk3D4 + (oldRowCount << 7));
+        } else if (rowCount < oldRowCount) {
+            __fastMemoryClearARM(0, r->unk3D4 + (rowCount << 7), (oldRowCount - rowCount) << 7);
+        }
+    }
+    r->unk3D8 = x;
+    r->unk3DC = y;
+    r->unk3E4 = rowCount;
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804bf3c.s");
 
 void sub_804C098(RiderBase* rider)
