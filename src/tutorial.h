@@ -5,7 +5,7 @@
 
 void initTutorialManagement(u16);
 void StoreLevelVar14(unk32);
-void sub_804A550(unk8*);
+void sub_804A550(TutorialEntry*);
 void sub_804A72C(void);
 
 #endif
