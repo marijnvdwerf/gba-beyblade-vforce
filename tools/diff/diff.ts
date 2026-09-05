@@ -44,10 +44,12 @@ function listSymbols(objectDiff: diff.ObjectDiff): display.SymbolDisplay[] {
 
 async function findExpectedObjects(): Promise<ObjectMatch[]> {
   const matches: ObjectMatch[] = [];
-  const expectedGlob = new Bun.Glob("expected/CMakeFiles/rom.dir/src/*.c.o");
+  // Scan from inside expected/: in agent worktrees it is a symlink, which
+  // Bun.Glob does not descend into from a parent cwd.
+  const expectedGlob = new Bun.Glob("CMakeFiles/rom.dir/src/*.c.o");
 
-  for await (const relativeExpectedPath of expectedGlob.scan({ cwd: repoRoot })) {
-    const expectedPath = resolve(repoRoot, relativeExpectedPath);
+  for await (const relativeExpectedPath of expectedGlob.scan({ cwd: expectedRoot })) {
+    const expectedPath = resolve(expectedRoot, relativeExpectedPath);
     const expectedObject = await parseObject(expectedPath, "target");
     const expectedOnly = diff.runDiff(expectedObject, undefined, config, mappings);
     const expectedDiff = expectedOnly.left;
