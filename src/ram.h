@@ -29,6 +29,8 @@ extern unk8 _unk3000BFC;
 extern unk8 _unk3000BFD;
 extern unk32 _unk3000C00;
 extern unk32 _unk3000C10[2];
+extern s32 withBoundingAreaCount;
+extern unk32 withBoundingAreas[32];
 extern s32 _unk3000C04;
 extern unk8 _unk3000D30[80];
 extern s32 _unk3000C08;

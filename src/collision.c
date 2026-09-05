@@ -2,8 +2,6 @@
 #include "include_asm.h"
 #include "ram.h"
 
-extern s32 withBoundingAreaCount;
-extern unk32 withBoundingAreas[32];
 void sub_80561EC(unk32, unk32, unk32);
 extern void def_94_0_8055CFC(void*, void*, void*, unk32);
 extern void def_94_4_AddWithBoundingAreaMessage(void*, unk32, void*);
@@ -32,15 +30,12 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/805616c-def_94_4_AddWithBoundingAreaMessa
 void sub_80561A0(unk32 arg0, unk32 arg1)
 {
     s32 i;
-    unk32* ptr;
 
     i = 0;
     if (i < withBoundingAreaCount) {
-        ptr = withBoundingAreas;
         do {
-            sub_80561EC(arg0, arg1, *ptr);
+            sub_80561EC(arg0, arg1, withBoundingAreas[i]);
             i++;
-            ptr++;
         } while (i < withBoundingAreaCount);
     }
     withBoundingAreaCount = 0;
