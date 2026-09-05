@@ -236,20 +236,18 @@ void sub_8043DB8(SpriteTextCleanup** arg0, LevelState* arg1, CurrentGameStateTai
 void sub_8043F40(SpriteTextCleanup** arg0, CurrentGameStateTail* arg1, s32 arg2)
 {
     SpriteTextCleanup* text;
-    s32 position;
     unk8 mode;
 
-    position = arg2;
-    sub_8061844(arg0[0], (position >> 8) + 0x12, arg0[0]->y >> 8);
-    sub_8061844(arg0[1], (position >> 8) + 0x80, arg0[1]->y >> 8);
-    sub_8061844(arg0[2], (position >> 8) + 0x12, arg0[2]->y >> 8);
-    sub_8061844(arg0[3], (position >> 8) + 0x80, arg0[3]->y >> 8);
-    sub_8061844(arg0[4], (position >> 8) + 0x12, arg0[4]->y >> 8);
-    sub_8061844(arg0[5], (position >> 8) + 0x80, arg0[5]->y >> 8);
-    sub_8061844(arg0[6], (position >> 8) + 0x12, arg0[6]->y >> 8);
-    sub_8061844(arg0[7], (position >> 8) + 0x80, arg0[7]->y >> 8);
-    sub_8061844(arg0[8], position >> 8, arg0[8]->y >> 8);
-    sub_8061844(arg0[9], position >> 8, arg0[9]->y >> 8);
+    sub_8061844(arg0[0], (arg2 >> 8) + 0x12, arg0[0]->y >> 8);
+    sub_8061844(arg0[1], (arg2 >> 8) + 0x80, arg0[1]->y >> 8);
+    sub_8061844(arg0[2], (arg2 >> 8) + 0x12, arg0[2]->y >> 8);
+    sub_8061844(arg0[3], (arg2 >> 8) + 0x80, arg0[3]->y >> 8);
+    sub_8061844(arg0[4], (arg2 >> 8) + 0x12, arg0[4]->y >> 8);
+    sub_8061844(arg0[5], (arg2 >> 8) + 0x80, arg0[5]->y >> 8);
+    sub_8061844(arg0[6], (arg2 >> 8) + 0x12, arg0[6]->y >> 8);
+    sub_8061844(arg0[7], (arg2 >> 8) + 0x80, arg0[7]->y >> 8);
+    sub_8061844(arg0[8], arg2 >> 8, arg0[8]->y >> 8);
+    sub_8061844(arg0[9], arg2 >> 8, arg0[9]->y >> 8);
     if ((arg1->unkC & 4) != 0) {
         text = arg0[2];
         mode = ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xE : 0xF;
@@ -2303,27 +2301,24 @@ INCLUDE_ASM("asm/dump/8040d18/804868c.s");
 
 void sub_8048A74(FrontendSpriteTriple* arg0, s32 arg1)
 {
-    unk16 value;
-
     if ((arg0->state & 1) != 0) {
         arg0->sprite2->frame.word = arg0->timer & 3;
     } else if ((arg0->state & 2) != 0) {
-        value = arg0->timer;
-        if (value <= 3) {
-            arg0->sprite2->frame.word = value + 4;
+        if (arg0->timer <= 3) {
+            arg0->sprite2->frame.word = arg0->timer + 4;
         }
     }
     if (((sub_8057C40() >> 4) & 0xF) == 0) {
         arg0->timer++;
     }
     if (arg0->sprite0 != NULL) {
-        arg0->sprite0->x = arg1 + (0xC0 << 5);
+        arg0->sprite0->x = arg1 + 0x1800;
     }
     if (arg0->sprite1 != NULL) {
-        arg0->sprite1->x = arg1 + (0x98 << 8);
+        arg0->sprite1->x = arg1 + 0x9800;
     }
     if (arg0->sprite2 != NULL) {
-        arg0->sprite2->x = arg1 + (0xB0 << 7);
+        arg0->sprite2->x = arg1 + 0x5800;
     }
 }
 
