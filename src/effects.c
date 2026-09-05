@@ -132,18 +132,18 @@ void sub_8055340(void)
             effect->unk72--;
             sub_80631EC(&effect->palette48, PLTT, effect->unk72);
         }
-        *(vu16*)0x05000000 = 0;
+        *(vu16*)PLTT = 0;
     }
     if (effect->unk7C_4 != 0) {
         effect->unk7C_4 += (effect->unk7E - effect->unk7C_4) >> 3;
         *(vu16*)REG_MOSAIC = 0;
         *(vu16*)(REG_MOSAIC + 2) = 0xFFFF;
         *(vu16*)REG_WIN0H = 0xF0;
-        *(vu16*)(REG_WIN0H + 2) = 0xF0;
+        *(vu16*)REG_WIN1H = 0xF0;
         blend = effect->unk7C_4;
         *(vu16*)REG_WIN0V = blend;
         blend = 0xA0 - (effect->unk7C_4);
-        *(vu16*)(REG_WIN0V + 2) = (blend << 8) | 0xA0;
+        *(vu16*)REG_WIN1V = (blend << 8) | 0xA0;
         *(vu16*)REG_DISPCNT |= 0x6000;
         if ((effect->unk7C_4) == 0) {
             effect->unk7C_4 = 0;

@@ -494,7 +494,7 @@ void sub_8052978(unk32 arg0, void (*arg1)(void))
         _unk3000C04 = 0x40;
         _unk3000C08 = 0;
         *(vu16*)REG_BLDCNT = 0xFF;
-        *(vu16*)(REG_BLDCNT + 4) = 0x10;
+        *(vu16*)REG_BLDY = 0x10;
         break;
     case 5:
         _unk3000C0C = arg1;
@@ -505,7 +505,7 @@ void sub_8052978(unk32 arg0, void (*arg1)(void))
         *(vu16*)REG_BLDY = 0;
         _unk3000C04 += _unk3000C08;
         *(vu16*)REG_BLDCNT = 0xE41;
-        *(vu16*)(REG_BLDCNT + 2) = 0xE08;
+        *(vu16*)REG_BLDALPHA = 0xE08;
         if (_unk3000C04 < 0) {
             _unk3000C04 = 0;
             _unk3000C08 = 0;
