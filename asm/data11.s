@@ -14,6 +14,7 @@ Unk_8074D3C:
     .4byte Unk_8071134
     .4byte Unk_8071B54
 
+global word_8074D64
 word_8074D64:
     .2byte 4, 1, -2, 6, 5, -10, 0xD, 7, 0, -15, 0xE
     .2byte 9, 3, 1, -8, -3, 7, -9, -10, 0xB, -4

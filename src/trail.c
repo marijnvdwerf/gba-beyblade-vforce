@@ -1,3 +1,5 @@
+#include "trail.h"
+
 #include <agb/types.h>
 
 #include "debug.h"

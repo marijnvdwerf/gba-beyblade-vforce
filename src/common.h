@@ -522,13 +522,19 @@ struct SpriteString {
     unk32 timer;
 };
 
+typedef struct ParticleFrameData {
+    unk16 frame0;
+    unk16 frame1;
+    unk8 pad4[4];
+} ParticleFrameData;
+
 typedef struct Particle {
     SpriteEntry* sprite;
     unk8 pad4[0x20];
 } Particle;
 
 typedef struct ParticleSystem {
-    unk32 unk0;
+    const ParticleFrameData* unk0;
     s16 count;
     unk16 unk6;
     Particle* particles;

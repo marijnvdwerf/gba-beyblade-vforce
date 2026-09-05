@@ -3,7 +3,10 @@
 #include "common.h"
 #include "include_asm.h"
 #include "memory.h"
+#include "ram.h"
 #include "sprite.h"
+
+extern const s16 word_8074D64[];
 
 #if 0
 void allocateParticleSystem(
@@ -113,7 +116,7 @@ void sub_804E584(ParticleSystem* arg0, unk32 arg1, unk32 arg2, unk32 arg3)
 }
 
 #if 0
-void sub_804E594(ParticleSystem* arg0, unk32 arg1, unk32 arg2, unk16 arg3, unk16 arg6, unk32 arg7)
+void sub_804E594(ParticleSystem* arg0, unk32 arg1, unk32 arg2, unk16 arg3, unk16 arg6, s16 arg7)
 {
     Particle* particle;
     SpriteEntry* previous;
@@ -122,18 +125,18 @@ void sub_804E594(ParticleSystem* arg0, unk32 arg1, unk32 arg2, unk16 arg3, unk16
     s32 x;
     s32 y;
     s32 z;
-    u16 spriteFrame;
+    unk16 spriteFrame;
     s16 arg1s;
     s16 arg2s;
     const s16* table;
     const s16* tableBase;
-    const unk16* frameData;
+    const ParticleFrameData* frameData;
     s16 index;
+    unk16 count;
 
     index = arg0->unk6;
     particle = &arg0->particles[index];
-    table = (const s16*)(const unk8*)0x8074D64;
-    table += 0;
+    table = word_8074D64;
     tableBase = table;
     tableIndex = (_unk3000E30[0] >> 3) + index;
     tableIndex &= 0x1F;
@@ -146,9 +149,7 @@ void sub_804E594(ParticleSystem* arg0, unk32 arg1, unk32 arg2, unk16 arg3, unk16
     scale = ((s32)tableBase[tableIndex + 2] * arg2s) >> 8;
     z = scale;
     previous = particle->sprite;
-    arg7 = (arg7 << 16) >> 13;
-    arg7 += 0x20;
-    frameData = (const unk16*)(arg0->unk0 + arg7);
+    frameData = &arg0->unk0[arg7 + 4];
     particle->unk1A = arg3;
     particle->unkC = 0;
     particle->unk8 = 0;
@@ -160,14 +161,15 @@ void sub_804E594(ParticleSystem* arg0, unk32 arg1, unk32 arg2, unk16 arg3, unk16
     particle->z = z + (((arg0->unk18 - arg0->unk2C) * arg1s) >> 8);
     particle->unk22 = arg6;
     particle->unk20 = arg6;
-    spriteFrame = frameData[0];
+    spriteFrame = frameData->frame0;
     particle->unk1C = spriteFrame;
-    particle->unk1E = frameData[1];
+    particle->unk1E = frameData->frame1;
     if (previous != NULL) {
         previous->frame.word = spriteFrame;
     }
     arg0->unk6++;
-    if (arg0->unk6 >= (u16)arg0->count) {
+    count = arg0->count;
+    if (arg0->unk6 >= count) {
         arg0->unk6 = 0;
     }
 }

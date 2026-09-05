@@ -3,11 +3,9 @@
 #include "debug.h"
 #include "include_asm.h"
 #include "memory.h"
+#include "trail.h"
 
 extern const unk8 Str_8726FE4[];
-
-extern void sub_804A908(UnkTrail*);
-extern void sub_804ABD0(UnkTrail*, unk32, unk32);
 
 void newProjectileSystem(ProjectileSystem* arg0, s32 arg1, const unk8* arg2, unk32 arg3, void* arg4)
 {
