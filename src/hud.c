@@ -21,6 +21,10 @@ extern const unk8 SpriteSheet_821CF10[];
 extern const unk8 SpriteSheet_821DB5C[];
 extern const unk8 SpriteSheet_821DEA8[];
 extern const unk8 SpriteSheet_8224DC4[];
+extern const unk8 SpriteSheet_8225414[];
+extern const unk8 SpriteSheet_82266B4[];
+extern const unk8 SpriteSheet_8227954[];
+extern const unk8 SpriteSheet_8227C24[];
 extern const unk8 SpriteSheet_821DFF0[];
 extern const unk8 SpriteSheet_8224868[];
 extern const unk8 Str_8727048[];
@@ -308,7 +312,40 @@ void sub_804F2A0(LevelHudData* arg0)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804f37c.s");
+void sub_804F37C(LevelHudData* arg0)
+{
+    SpriteEntry* sprite;
+
+    if (arg0->unkF4 == NULL) {
+        arg0->unkF4 = allocSprite(0);
+    }
+    if (arg0->unkF8 == NULL) {
+        arg0->unkF8 = allocSprite(0);
+    }
+    if (arg0->unkFC == NULL) {
+        arg0->unkFC = allocSprite(0);
+    }
+    if (arg0->unk100 == NULL) {
+        arg0->unk100 = allocSprite(0);
+    }
+    sprite = (SpriteEntry*)arg0->unkF4;
+    if (sprite != NULL) {
+        LoadSpriteSheet(sprite, SpriteSheet_8225414, 0x4A00, -0x2000, 0, 0, 0, 0);
+    }
+    sprite = (SpriteEntry*)arg0->unkF8;
+    if (sprite != NULL) {
+        LoadSpriteSheet(sprite, SpriteSheet_82266B4, 0x8A00, -0x2000, 0, 0, 0, 0);
+    }
+    sprite = (SpriteEntry*)arg0->unkFC;
+    if (sprite != NULL) {
+        LoadSpriteSheet(sprite, SpriteSheet_8227954, 0xA00, -0x2000, 0, 0, 0, 0);
+    }
+    sprite = (SpriteEntry*)arg0->unk100;
+    if (sprite != NULL) {
+        LoadSpriteSheet(sprite, SpriteSheet_8227C24, 0x4200, -0x2000, 0, 0, 0, 0);
+    }
+    arg0->flags |= 8;
+}
 
 void sub_804F478(LevelHudData* arg0)
 {
