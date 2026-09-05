@@ -54,5 +54,6 @@ Matching technique). Read them first. Do not read `docs/learnings/processed/`.
 ## Report
 
 Per branch one line: CLEAN, or BLOCKING n / QUESTIONS n / NITS n with the
-one-sentence gist of each blocker. Then the path of the review file. Nothing
-else — the manager merges.
+one-sentence gist of each blocker; then the FULL findings section verbatim
+(the manager appends it to the review file if your own write was denied);
+then the path of the review file. Nothing else — the manager merges.
