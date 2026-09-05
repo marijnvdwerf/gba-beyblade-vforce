@@ -233,7 +233,10 @@ void SetRiderFlag(RiderBase* rider, unk32 flags)
     rider->flags |= flags;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e40c-UnsetRiderFlag.s");
+void UnsetRiderFlag(RiderBase* rider, unk32 flags)
+{
+    rider->flags &= ~flags;
+}
 
 unk8 RiderHasFlag(RiderBase* rider, unk32 flags)
 {
