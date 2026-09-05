@@ -1,8 +1,14 @@
+#include "hud.h"
+
+#include "effects.h"
+#include "gameinit.h"
 #include "gamestate.h"
 #include "include_asm.h"
 #include "levelhud.h"
 #include "motion.h"
+#include "music.h"
 #include "ram.h"
+#include "riderphysics.h"
 #include "sprite.h"
 #include "spritetext.h"
 #include "unsorted.h"
@@ -19,10 +25,8 @@ extern const unk8 SpriteSheet_821DFF0[];
 extern const unk8 SpriteSheet_8224868[];
 extern const unk8 Str_8727048[];
 
-void sub_804F478(SpriteTextCleanup*);
-void sub_804F05C(SpriteTextCleanup*);
-void sub_804F2A0(SpriteTextCleanup*);
-void sub_8061C48(SpriteTextCleanup*, unk32, unk8);
+void sub_804F37C(SpriteTextCleanup*);
+void sub_804F794(SpriteTextCleanup*);
 
 void LoadHUD(void)
 {
@@ -315,7 +319,111 @@ void sub_804F2A0(SpriteTextCleanup* arg0)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f37c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804f478.s");
+
+void sub_804F478(SpriteTextCleanup* arg0)
+{
+    LevelHudData* state;
+    s32 mode;
+    s16 value;
+    state = (LevelHudData*)arg0;
+    if ((s16)state->unk104 != 0) {
+        state->unk104--;
+        if (state->unk104 != 0) {
+            if ((state->flags & 8) == 0) {
+                sub_804F37C((SpriteTextCleanup*)state);
+            }
+            switch (state->unk10C) {
+            case 1:
+                state->unkF4->unkC += (0x2C00 - state->unkF4->unkC) >> 3;
+                state->unkF8->unkC += (0x2C00 - state->unkF8->unkC) >> 3;
+                state->unkFC->unkC = state->unkF8->unkC & 0xFFFFFF00;
+                state->unk100->unkC = (state->unkF8->unkC & 0xFFFFFF00) - 0x400;
+                if ((s16)state->unk104 <= 0x171) {
+                    state->unk10C = 3;
+                    sub_804ABFC(0xB);
+                }
+                state->unk108 = 0x30;
+                break;
+            case 3:
+                value = state->unk106 += state->unk108;
+                if (value > 0x80F) {
+                    state->unk106 = 0x80F;
+                    state->unk108 = -state->unk108;
+                    sub_804ABFC(0xB);
+                }
+                value = state->unk106;
+                if (value < 0) {
+                    state->unk106 = 0;
+                    state->unk108 = -state->unk108;
+                    sub_804ABFC(0xB);
+                }
+                mode = state->unk106 >> 7;
+                state->unkF4->unk18 = mode > 8 ? 8 : mode;
+                state->unkF8->unk18 = mode > 8 ? mode - 8 : 0;
+                state->unk100->unk8
+                    = ((state->unkF4->unk8 & 0xFFFFFF00) - 0x800) + (state->unk106 << 4);
+                value = state->unk104;
+                if (value <= 0x3B) {
+                    state->unk10C = 2;
+                    sub_804C888(&_gameData->base, 0);
+                    sub_8055734(1, 0, 0);
+                    sub_804F84C(1);
+                    sub_804C870(&_gameData->base, 0);
+                }
+                if ((_unk3005DA0 & 3) == 0) {
+                    break;
+                }
+                state->unk104 = 0x78;
+                state->unk10C = 4;
+                sub_804C888(&_gameData->base, 0);
+                sub_8055734(1, 0, 0);
+                sub_804F84C(1);
+                if (mode == 0x10) {
+                    sub_804FB6C();
+                    if (sub_8051780(4) == 0) {
+                        sub_8053954();
+                    }
+                    sub_804ABFC(5);
+                } else {
+                    sub_804ABFC(4);
+                }
+                sub_804C870(&_gameData->base, state->unk106);
+                break;
+            case 4: {
+                s32 mode4;
+                s32 bits4;
+
+                mode4 = state->unk106 >> 7;
+                bits4 = state->unk104 & 3;
+                if (bits4 <= 1) {
+                    state->unkF4->unk18 = 0;
+                    state->unkF8->unk18 = 0;
+                } else {
+                    state->unkF4->unk18 = mode4 > 8 ? 8 : mode4;
+                    state->unkF8->unk18 = mode4 > 8 ? mode4 - 8 : 0;
+                }
+                if ((s16)state->unk104 <= 0x3B) {
+                    state->unk10C = 2;
+                }
+                break;
+            }
+            case 2:
+                state->unkF4->unk8 += (-0xA000 - state->unkF4->unk8) >> 2;
+                state->unkF8->unk8 = (state->unkF4->unk8 & 0xFFFFFF00) + 0x4000;
+                state->unkFC->unk8 = (state->unkF4->unk8 & 0xFFFFFF00) - 0x4000;
+                state->unk100->unk8
+                    = ((state->unkF4->unk8 & 0xFFFFFF00) - 0x800) + (state->unk106 << 4);
+                break;
+            }
+            return;
+        }
+    }
+
+    if ((state->flags & 8) != 0) {
+        sub_804F794((SpriteTextCleanup*)state);
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f794.s");
 
 void sub_804F800(s32 arg0)

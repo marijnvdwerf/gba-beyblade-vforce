@@ -12,5 +12,6 @@ extern const unk8* _806E6FC[];
 extern const unk8* _806E710[];
 void sub_804FD64(void);
 void sub_804F84C(u8);
+void sub_804FB6C(void);
 
 #endif

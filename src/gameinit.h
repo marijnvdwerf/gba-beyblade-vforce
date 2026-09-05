@@ -9,5 +9,6 @@ void initRiders(void);
 void initCollisionData(void);
 void sub_80539E8(Actor*);
 void sub_80538C0(void);
+void sub_8053954(void);
 
 #endif

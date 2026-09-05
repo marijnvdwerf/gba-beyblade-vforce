@@ -121,8 +121,8 @@ typedef struct ProjectileSystem {
 
 typedef struct LevelHudObject {
     unk8 pad0[8];
-    unk32 unk8;
-    unk32 unkC;
+    s32 unk8;
+    s32 unkC;
     unk8 pad10[8];
     unk16 unk18;
 } LevelHudObject;
@@ -137,10 +137,10 @@ typedef struct LevelHudData {
     s32 status; /* 0xF0 */
     LevelHudObject* unkF4; /* 0xF4 */
     LevelHudObject* unkF8; /* 0xF8 */
-    unk32 unkFC; /* 0xFC */
+    LevelHudObject* unkFC; /* 0xFC */
     LevelHudObject* unk100; /* 0x100 */
     unk16 unk104; /* 0x104 */
-    unk16 unk106; /* 0x106 */
+    s16 unk106; /* 0x106 */
     unk16 unk108; /* 0x108 */
     unk16 state; /* 0x10A */
     unk16 unk10C; /* 0x10C */
