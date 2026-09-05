@@ -151,6 +151,18 @@ again) once a camera match proves the semantics; lives here because src/
 comments are banned. `_unk3000CA0` is `Struct3000CA0[4]` (96-byte slot);
 `_unk3000E3C` is a byte; RAM externs moved to ram.h.
 
+R2-2/R2-2b MERGED: UnsetRiderFlag, sub_804D104, sub_804C870, sub_804CEF4
+matched; sub_804CB08 + sub_804D110 parked as house-style drafts with in-block
+`RiderDraft` scratch structs (RULING: no draft-only fields in headers; drafts
+declare a scratch struct inside their `#if 0`). `+ 0xC8` in sub_804CEF4 is
+byte-required (target `add r0, #200`). MAIN CROSSED 50%: 502 C / 505 asm.
+Round-3 pool (14 new reds, mostly ≤100 insns): sub_804C34C 6, sub_804C354 6
+(projectile), sub_805749C 6 (beyblade), sub_8043960 9 + sub_8043970 24
+(packet), printTime 27 (spritetext), renderActor 27 (actor), sub_80658A4 55
+(backup), sub_8050DF8 63 (iconmenu), sub_804C3D4 72 (projectile), sub_80513AC
+87 (gamestate), sub_804423C 97 + sub_8044314 123 (festate), sub_804A908 272
+(trail). Prompt archive: /tmp/agent-prompts-2026-09-05.md.
+
 ROUND 2 (new leaf pool): merging today's work exposed 40 new reds
 (/tmp/reds-new-2026-09-05.md, avg 123 insns, 17 TUs). Dispatched 6 luna
 agents: R2-1 utility (renderActor2, sub_8055274, sub_8055288, sub_8060070,
