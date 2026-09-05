@@ -657,8 +657,25 @@ typedef struct GeometrySpline {
 
 typedef struct LevelGeometryTable LevelGeometryTable;
 
+typedef struct LevelDesignLayer {
+    void* unk0;
+    s32 unk4;
+    s32 unk8;
+    unk32 unkC;
+    unk8 pad10[8];
+} LevelDesignLayer;
+
 typedef struct LevelDesign {
-    unk8 pad0[0x80];
+    unk32 unk0;
+    unk32 unk4;
+    unk32 unk8;
+    unk32 unkC;
+    unk32 unk10;
+    LevelDesignLayer layers[4];
+    unk8 unk74;
+    unk8 pad75[3];
+    void* unk78;
+    void* unk7C;
     LevelGeometryTable* geometry;
 } LevelDesign;
 

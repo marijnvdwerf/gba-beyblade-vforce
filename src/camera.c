@@ -3,18 +3,100 @@
 #include <agb/memory_map.h>
 
 #include "common.h"
+#include "geometry.h"
 #include "include_asm.h"
 #include "layer.h"
+#include "system.h"
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805e878.s");
 
-void sub_805E8A0(CameraState* camera, unk32* arg1, unk16 arg2, unk32* arg3)
+void sub_805E8A0(CameraState* camera, LevelDesign* arg1, unk16 arg2, s32* arg3)
 {
     sub_805E8D8(camera, arg1, arg2, arg3);
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805e8b0.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805e8d8.s");
+
+void sub_805E8D8(CameraState* camera, LevelDesign* level, unk16 mode, s32* offsets)
+{
+    s8 flags;
+    s8 index;
+    CameraState* state;
+    LevelDesignLayer* layerOrigin;
+    LevelDesignLayer* layerBase;
+    unk32 settings;
+    s32 y;
+    s32 x;
+
+    flags = 0;
+    camera->unk220 = level;
+    camera->unk224 = 0;
+    camera->unk354 &= -2;
+    camera->callback = NULL;
+    camera->unk348 = 0;
+    camera->unk355 = 0xF;
+    camera->unk356 = -1;
+    camera->unk35C = 0;
+    camera->unk35E = 0;
+    camera->unk360 = 0xF0;
+    camera->unk362 = 0xA0;
+    camera->unk364 = 0;
+    camera->unk368 = 0;
+    *(vu16*)0x04000050 = 0x3FFF;
+    sub_8059934();
+    state = camera;
+    layerOrigin = &level->layers[0];
+    index = 0;
+    layerBase = &level->layers[0];
+    do {
+        {
+            s32* xBase;
+
+            xBase = offsets;
+            xBase += index * 2;
+            x = *xBase;
+        }
+        {
+            s32* yBase;
+
+            yBase = offsets + 1;
+            yBase += index * 2;
+            y = *yBase;
+        }
+        {
+            LevelDesignLayer* layer;
+
+            layer = layerBase + index;
+            if (layer->unk0 != NULL) {
+                flags |= 1 << index;
+                if (&camera->records[index] != (DisplayRecord*)state
+                    && (level->layers[index].unk4 != 0 || level->layers[index].unk8 != 0)) {
+                    sub_8058968(&camera->records[index], index, (*((layerBase + index))).unk0, 0x40,
+                        level->layers[index].unkC | 1,
+                        (layerOrigin->unk4 - level->layers[index].unk4) >> 8,
+                        (layerOrigin->unk8 - level->layers[index].unk8) >> 8);
+                } else {
+                    sub_8058968(&camera->records[index], index, (layerBase - (index * -1))->unk0,
+                        0x40, level->layers[index].unkC | 1, x, y);
+                }
+            }
+        }
+        index++;
+    } while (index <= 3);
+    settings = level->unk74;
+    sub_8059C18(
+        (settings << 30) >> 30, (settings << 28) >> 30, (settings << 26) >> 30, settings >> 6);
+    if (level->unk78 != NULL) {
+        loadPalette(level->unk78);
+    }
+    if (level->unk7C != NULL) {
+        loadPalette2(level->unk7C);
+    }
+    if (level->geometry != NULL) {
+        getLevelGeometryAddresses(&camera->geometry, level->geometry);
+    }
+    camera->unk358 = (flags << 8) | mode;
+}
 
 void sub_805EADC(CameraState* camera)
 {
@@ -41,7 +123,7 @@ void sub_805EB00(CameraState* camera)
     }
     i = 0;
     do {
-        if (camera->unk220->entries[i].display != NULL) {
+        if (camera->unk220->layers[i].unk0 != NULL) {
             sub_8058EF4(&camera->records[i]);
         }
         i++;
@@ -95,7 +177,7 @@ void sub_805EBCC(CameraState* camera)
             = (state->records[0].unk4 << 11) - (state->records[0].unk44 + (0xA0 << 8));
     i = 0;
     do {
-        if (camera->unk220->entries[i].display != NULL) {
+        if (camera->unk220->layers[i].unk0 != NULL) {
             scale = camera->unk220->entries[i].unk14;
             record = &camera->records[i];
             if (record != (DisplayRecord*)state) {
@@ -122,10 +204,10 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805eea4.s");
 
 unk32* sub_805EEE0(CameraState* arg0)
 {
-    if (arg0->unk220->unk80 == 0) {
+    if (arg0->unk220->geometry == NULL) {
         return 0;
     }
-    return &arg0->unk228;
+    return (unk32*)&arg0->geometry;
 }
 
 void sub_805EEFC(CameraState* camera, unk32 arg1, unk32 arg2)
