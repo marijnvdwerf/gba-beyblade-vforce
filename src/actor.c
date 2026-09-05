@@ -13,6 +13,7 @@ void actor_80580C0(Actor*, unk16, unk16);
 void ActorSetFrameSequence(Actor*, unk32);
 void sub_8058838(Actor*);
 void actor_8058638(Actor*);
+void renderActor(Actor*, unk32);
 
 #if 0
 void actor_8057C58(
@@ -411,7 +412,11 @@ void sub_8058754(Actor* actor, unk32* output)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8058778-renderActor2.s");
+void renderActor2(Actor* actor)
+{
+    renderActor(actor, 0);
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8058784.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058794.s");
 

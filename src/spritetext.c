@@ -8,6 +8,7 @@
 #include "unsorted.h"
 
 extern void sub_806123C(SpriteTextCleanup*);
+extern u8 printTime(SpriteTextCleanup*, unk32, unk8);
 extern const unk8 Str_8755B58[];
 extern const u8 byte_807D980[];
 
@@ -387,7 +388,13 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8061a18-printTime.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061ae8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061ba0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061c24.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8061c48.s");
+
+u8 sub_8061C48(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
+{
+    sub_8061228(arg0);
+    return printTime(arg0, arg1, arg2);
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8061c6c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061c90.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061cb4.s");

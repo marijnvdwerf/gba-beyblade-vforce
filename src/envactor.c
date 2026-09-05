@@ -515,5 +515,18 @@ void initProjectileSystem(void)
     *(vu16*)REG_DISPCNT |= 0x6000;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055274.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055288.s");
+unk32 sub_8055274(void)
+{
+    ProjectileSystem* projectileSystem;
+
+    projectileSystem = &_gameData->projectileSystem;
+    return projectileSystem->unk2C;
+}
+
+unk32 sub_8055288(void)
+{
+    ProjectileSystem* projectileSystem;
+
+    projectileSystem = &_gameData->projectileSystem;
+    return projectileSystem->unk30;
+}
