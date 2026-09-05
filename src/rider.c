@@ -379,6 +379,89 @@ RiderBase* sub_804B7FC(RiderBase* arg0)
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b7fc.s");
+#if 0
+void sub_804B8F0(RiderBase* rider, void* target)
+{
+    RiderBase* riderBase = rider;
+    QuadTree* quadTree;
+    Actor* actor;
+    void* node;
+    void* node2;
+    unk32 i;
+    unk32 value;
+    unk32* filtered;
+    EnvironmentObject* object;
+    s32 x;
+    s32 y;
+
+    actor = &rider->unk238;
+    quadTree = &_gameData->unk7A4;
+    value = rider->unk4->unk3CC & 4;
+    if (value != 0)
+        return;
+    actor->unk3B = 0;
+    rider->unk2FC.unk3B = 0;
+    rider->unk1B4 = -0x40000;
+    sub_804D104(rider);
+    if (RiderHasFlag(rider, 0x800) == 0 && RiderHasFlag(rider, 0x400) == 0)
+        sub_804CB08(rider, actor);
+    sub_804D110(rider, actor);
+    x = actor->x >> 5;
+    y = actor->y >> 5;
+    node = GetQuadTreeNodeForPos(quadTree, (actor->x + actor->unk40) >> 5,
+        (actor->y + actor->unk44) >> 5);
+    node2 = GetQuadTreeNodeForPos(quadTree, x, y);
+    if (actor->unk84 == -1) {
+        (void)*(vu16*)REG_VCOUNT;
+        if (node != NULL) {
+            riderBase->unk11C = sub_805C9A4(actor, target, 0, 0, node);
+            if (node2 != NULL && node2 != node)
+                riderBase->unk11C = sub_805C9A4(actor, target, 0, 0, node2);
+        }
+    }
+    if (quadTree->unk48 != 0) {
+        unk32 entries[quadTree->unk48];
+
+        filtered = entries;
+        for (i = 0; i < quadTree->unk48; i++) {
+            value = quadTree->unk4C[i];
+            object = GetStruct4(value);
+            if (object == NULL || object->actor == NULL)
+                filtered[i] = 0;
+            else
+                filtered[i] = (unk32)&object->unk40;
+        }
+        value = sub_805CEB8(actor, quadTree->unk4C, quadTree->unk48, filtered, target);
+        riderBase->unk11C += value;
+    }
+    sub_80561A0((unk32)actor, (unk32)target);
+    (void)*(vu16*)REG_VCOUNT;
+    nullsub_6(actor, rider);
+    nullsub_5(rider);
+    riderBase->unk1A8 = actor->x;
+    riderBase->unk1AC = actor->y;
+    riderBase->unk1B0 = actor->z;
+    sub_80584B8(actor);
+    riderBase->unk2FC.x = actor->x;
+    riderBase->unk2FC.y = actor->y;
+    if (actor->unk84 == -1)
+        riderBase->unk2FC.z = riderBase->unk1B4;
+    else
+        riderBase->unk2FC.z = -0x10000;
+    sub_80584B8(&riderBase->unk2FC);
+    if (RiderHasFlag(riderBase, 2) == 0) {
+        value = 0x80 - riderBase->unk62;
+        if (riderBase->unk3E8 != 0 && riderBase->unk208 > 0x100 &&
+            (riderBase->unk3CC & 8) == 0) {
+            value = (_unk3000E30[0] >> 4) & 3;
+            if (value == 0)
+                sub_804E594(&riderBase->unk3EC, -0x40, 0x12C, 0x46, 0x78, 2);
+            if (riderBase->unk19C <= 3 && value == 1)
+                sub_804E594(&riderBase->unk3EC, 0x40, 0x200, 0x46, 0x78, 2);
+        }
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b8f0.s");
 
 #if 0
