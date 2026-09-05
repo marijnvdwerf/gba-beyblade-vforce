@@ -17,6 +17,7 @@ extern unk8 _80757ac[];
 extern unk8 _80757ec[];
 extern unk8 _807582c[];
 extern s32 _80788cc[];
+extern unk32 sub_805749C(unk32);
 
 void sub_80510FC(void);
 
@@ -368,7 +369,12 @@ unk32 sub_8051820(void)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805185c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8051868.s");
+
+unk8 sub_8051868(void)
+{
+    return sub_805749C(sub_8051820());
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/805187c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80518c8.s");
 
