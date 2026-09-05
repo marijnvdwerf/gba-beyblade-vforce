@@ -578,8 +578,8 @@ typedef struct RiderBase {
     unk8 pad18[4];
     unk32 unk1C;
     unk8 pad20[0x20];
-    s32 unk40; /* 0x40 */
-    s32 unk44; /* 0x44 */
+    unk32 unk40; /* 0x40 */
+    unk32 unk44; /* 0x44 */
     unk8 pad48[8];
     unk16 unk50; /* 0x50 */
     unk16 unk52; /* 0x52 */

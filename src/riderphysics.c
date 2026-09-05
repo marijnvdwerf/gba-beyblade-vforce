@@ -123,11 +123,12 @@ unk32 rider_vs_rider_collision_804DB94(RiderBase* rider0, RiderBase* rider1)
     s32 dx;
     s32 dy;
     s32 dz;
-    s32 magnitude;
+    u16 magnitude;
+    s32 magnitudeSigned;
     s32 sepX;
     s32 sepY;
     s32 sepZ;
-    s32 scale;
+    u16 scale;
 
     pos0 = rider0->unk0;
     pos1 = rider1->unk0;
@@ -141,7 +142,8 @@ unk32 rider_vs_rider_collision_804DB94(RiderBase* rider0, RiderBase* rider1)
     dy = (y1 - y0) >> 8;
     dz = (z1 - z0) >> 8;
     magnitude = Sqrt(dx * dx + dy * dy + dz * dz);
-    if ((s32)magnitude <= 0x15) {
+    magnitudeSigned = magnitude;
+    if (magnitudeSigned <= 0x15) {
         dx = (dx << 8) / magnitude;
         dy = (dy << 8) / magnitude;
         dz = (dz << 8) / magnitude;

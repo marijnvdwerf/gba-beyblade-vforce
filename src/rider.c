@@ -380,7 +380,7 @@ RiderBase* sub_804B7FC(RiderBase* arg0)
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b7fc.s");
 #if 0
-void sub_804B8F0(RiderBase* rider, void* target)
+void sub_804B8F0(RiderBase* rider, unk8* target)
 {
     RiderBase* riderBase = rider;
     QuadTree* quadTree;
