@@ -70,6 +70,18 @@ sub_80526C8; G LoadSpriteSheet, sub_806014C. User: learnings for failed
 functions are not wanted (brief trimmed). Parked-only branches merge on the
 manager's read; reviewer runs only on branches with matches.
 
+C MERGED: allocQuadTree matched, sub_805E8D8 parked one instruction short
+(`add r2,r4,r3` vs `add r2,r3,r4`; the only byte-identical form was an
+artificial `(base - (i * -1))` and was REJECTED). RULING (user): allocQuadTree
+carves a raw slowAllocate block with `unk8* nodes` + `(QuadTreeNode*)` casts
+on the stores — accepted (typed `nodes + nodeCount` forms diverge at the
+frame/regalloc because the byte product must stay live). Review fixes landed:
+geometry.h prototypes, REG_BLDCNT, TileMapHeader shared, LevelDesign padding.
+Reviewer now writes /tmp/review-<branch>.md (scratch, not repo) and flags
+foldable temps. F done: rider_vs_rider_collision matched, renderRider +
+sub_804B8F0 parked (in review). A round 2: sub_804F2A0 + sub_804F05C matched,
+sub_804F478 in progress. B round 2 (festate 329–463) in progress.
+
 Round 1 (dispatched, luna decompiler agents, worktrees, brief
 /tmp/brief-2026-09-05.md): A tutorial+hud (sub_804A310 6, sub_804A550 202,
 sub_804EE54 215); B festate small (sub_8046A0C 143, sub_8044054 177,
