@@ -1,6 +1,10 @@
 #include "riderphysics.h"
 
+#include <agb/bios.h>
+
+#include "effects.h"
 #include "include_asm.h"
+#include "music.h"
 #include "rider.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c4b4-s_rider_804C4B4.s");
@@ -105,7 +109,88 @@ void sub_804DAA0(RiderBase* rider0, RiderBase* rider1)
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804daa0.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804db94-rider_vs_rider_collision_804DB94.s");
+
+unk32 rider_vs_rider_collision_804DB94(RiderBase* rider0, RiderBase* rider1)
+{
+    Actor* pos0;
+    Actor* pos1;
+    s32 x0;
+    s32 y0;
+    s32 z0;
+    s32 x1;
+    s32 y1;
+    s32 z1;
+    s32 dx;
+    s32 dy;
+    s32 dz;
+    s32 magnitude;
+    s32 sepX;
+    s32 sepY;
+    s32 sepZ;
+    s32 scale;
+
+    pos0 = rider0->unk0;
+    pos1 = rider1->unk0;
+    x0 = pos0->x;
+    y0 = pos0->y;
+    z0 = pos0->z;
+    x1 = pos1->x;
+    y1 = pos1->y;
+    z1 = pos1->z;
+    dx = (x1 - x0) >> 8;
+    dy = (y1 - y0) >> 8;
+    dz = (z1 - z0) >> 8;
+    magnitude = Sqrt(dx * dx + dy * dy + dz * dz);
+    if ((s32)magnitude <= 0x15) {
+        dx = (dx << 8) / magnitude;
+        dy = (dy << 8) / magnitude;
+        dz = (dz << 8) / magnitude;
+        sepX = pos0->unk40 - pos1->unk40;
+        sepY = pos0->unk44 - pos1->unk44;
+        sepZ = pos0->unk48 - pos1->unk48;
+        scale = Sqrt(sepX * sepX + sepY * sepY + sepZ * sepZ);
+        dx = ((dx * scale) << 8) >> 16;
+        dy = ((dy * scale) << 8) >> 16;
+        dz = ((dz * scale) << 8) >> 16;
+        if (RiderHasFlag(rider0, 2) != 0) {
+            pos0->unk40 -= (rider0->unk228 * dx) >> 8;
+            pos0->unk44 -= (rider0->unk228 * dy) >> 8;
+            pos0->unk48 -= (rider0->unk228 * dz) >> 8;
+        } else {
+            rider0->unk40 -= (rider0->unk228 * dx) >> 8;
+            rider0->unk44 += (rider0->unk228 * dy) >> 8;
+        }
+        if (RiderHasFlag(rider1, 2) != 0) {
+            pos1->unk40 += (rider1->unk228 * dx) >> 8;
+            pos1->unk44 += (rider1->unk228 * dy) >> 8;
+            pos1->unk48 += (rider1->unk228 * dz) >> 8;
+        } else {
+            rider1->unk40 += (rider1->unk228 * dx) >> 8;
+            rider1->unk44 -= (rider1->unk228 * dy) >> 8;
+        }
+        if (RiderHasFlag(rider0, 0x4000000) == 0) {
+            sub_8055734(4, 0, 0);
+            sub_80558B8();
+            sub_80558E8(0);
+            sub_804ABFC(1);
+        }
+        if (RiderHasFlag(rider0, 0x4000000) != 0 && RiderHasFlag(rider1, 0x4000000) == 0) {
+            if (rider1->unk208 > 0x1FF)
+                rider0->unk208 += -0x200;
+            rider0->unk220 += 0xF0;
+        }
+        if (RiderHasFlag(rider1, 0x4000000) != 0 && RiderHasFlag(rider0, 0x4000000) == 0) {
+            if (rider1->unk208 > 0x1FF) {
+                rider1->unk208 += -0x200;
+                if (rider1->unk208 <= 0x1FF)
+                    rider1->unk208 = 0x200;
+            }
+            rider1->unk220 += 0xF0;
+        }
+    }
+    return 0;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ddf8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804df88.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804dff4.s");
