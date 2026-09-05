@@ -127,7 +127,7 @@ typedef struct LevelHudObject {
     unk16 unk18;
 } LevelHudObject;
 
-typedef struct LevelHudData {
+struct LevelHudData {
     SpriteTextCleanup text0; /* 0x00 */
     SpriteTextCleanup text1; /* 0x30 */
     SpriteTextCleanup text2; /* 0x60 */
@@ -139,7 +139,7 @@ typedef struct LevelHudData {
     LevelHudObject* unkF8; /* 0xF8 */
     LevelHudObject* unkFC; /* 0xFC */
     LevelHudObject* unk100; /* 0x100 */
-    unk16 unk104; /* 0x104 */
+    s16 unk104; /* 0x104 */
     s16 unk106; /* 0x106 */
     unk16 unk108; /* 0x108 */
     unk16 state; /* 0x10A */
@@ -157,7 +157,7 @@ typedef struct LevelHudData {
     u8 unk12D; /* 0x12D */
     unk8 pad12E[2]; /* 0x12E */
     s32 unk130; /* 0x130 */
-} LevelHudData;
+};
 
 typedef struct GameData {
     RiderBase base; /* 0x000 */

@@ -25,8 +25,8 @@ extern const unk8 SpriteSheet_821DFF0[];
 extern const unk8 SpriteSheet_8224868[];
 extern const unk8 Str_8727048[];
 
-void sub_804F37C(SpriteTextCleanup*);
-void sub_804F794(SpriteTextCleanup*);
+void sub_804F37C(LevelHudData*);
+void sub_804F794(LevelHudData*);
 
 void LoadHUD(void)
 {
@@ -160,23 +160,21 @@ void sub_804EE54(void)
     } else {
         sub_804FD64();
     }
-    sub_804F478(&state->text0);
-    sub_804F05C(&state->text0);
-    sub_804F2A0(&state->text0);
+    sub_804F478(state);
+    sub_804F05C(state);
+    sub_804F2A0(state);
 }
 
-void sub_804F05C(SpriteTextCleanup* arg0)
+void sub_804F05C(LevelHudData* arg0)
 {
     LevelHudData* state;
-    SpriteEntry* sprite;
     SpriteEntry* sprite110;
-    unk16 value;
     s32 temp;
     s32 time;
     s32 y;
     unk8 finalMode;
 
-    state = (LevelHudData*)arg0;
+    state = arg0;
     state->unk128 = state->unk128 + ((state->unk12A - state->unk128) >> 4);
     temp = (state->unk128 * 0x29) >> 0x10;
     if (temp == 0) {
@@ -209,16 +207,14 @@ void sub_804F05C(SpriteTextCleanup* arg0)
                 state->unk11C = NULL;
             }
         }
-        sprite = state->unk118;
-        if (sprite != NULL) {
-            sprite->frame.word = temp <= 0x1A ? temp - 1 : 0x19;
+        if (state->unk118 != NULL) {
+            state->unk118->frame.word = temp <= 0x1A ? temp - 1 : 0x19;
         }
         if (state->unk11C != NULL) {
             state->unk11C->frame.word = temp - 0x1A;
         }
     }
-    value = state->unk12A;
-    if (value > 0xBD00) {
+    if (state->unk12A > 0xBD00) {
         SpriteEntry* top110;
         SpriteEntry* top114;
         unk16 topMode;
@@ -231,7 +227,7 @@ void sub_804F05C(SpriteTextCleanup* arg0)
         }
         top114->frame.word = topMode;
         top110->frame.word = topMode;
-    } else if (value <= 0x2FFF) {
+    } else if (state->unk12A <= 0x2FFF) {
         SpriteEntry* low110;
         SpriteEntry* low114;
         unk16 lowMode;
@@ -280,13 +276,12 @@ void sub_804F05C(SpriteTextCleanup* arg0)
     sub_8061C48(&state->text2, time, finalMode);
 }
 
-void sub_804F2A0(SpriteTextCleanup* arg0)
+void sub_804F2A0(LevelHudData* arg0)
 {
     LevelHudData* state;
     SpriteEntry* sprite;
-    unk32 mode;
 
-    state = (LevelHudData*)arg0;
+    state = arg0;
     if (state->unk12C == 0) {
         if (state->unk120 != NULL) {
             sub_8060A94(state->unk120);
@@ -303,12 +298,7 @@ void sub_804F2A0(SpriteTextCleanup* arg0)
     if (state->unk120 != NULL) {
         if ((state->flags & 1) != 0) {
             sprite = state->unk120;
-            if (((_unk3000E30[0] >> 4) & 3) <= 1) {
-                mode = state->unk12C - 1;
-            } else {
-                mode = 5;
-            }
-            sprite->frame.word = mode;
+            sprite->frame.word = ((_unk3000E30[0] >> 4) & 3) <= 1 ? state->unk12C - 1 : 5;
         } else {
             state->unk120->frame.word = state->unk12C - 1;
         }
@@ -320,17 +310,17 @@ void sub_804F2A0(SpriteTextCleanup* arg0)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804f37c.s");
 
-void sub_804F478(SpriteTextCleanup* arg0)
+void sub_804F478(LevelHudData* arg0)
 {
     LevelHudData* state;
     s32 mode;
     s16 value;
-    state = (LevelHudData*)arg0;
-    if ((s16)state->unk104 != 0) {
+    state = arg0;
+    if (state->unk104 != 0) {
         state->unk104--;
         if (state->unk104 != 0) {
             if ((state->flags & 8) == 0) {
-                sub_804F37C((SpriteTextCleanup*)state);
+                sub_804F37C(state);
             }
             switch (state->unk10C) {
             case 1:
@@ -338,7 +328,7 @@ void sub_804F478(SpriteTextCleanup* arg0)
                 state->unkF8->unkC += (0x2C00 - state->unkF8->unkC) >> 3;
                 state->unkFC->unkC = state->unkF8->unkC & 0xFFFFFF00;
                 state->unk100->unkC = (state->unkF8->unkC & 0xFFFFFF00) - 0x400;
-                if ((s16)state->unk104 <= 0x171) {
+                if (state->unk104 <= 0x171) {
                     state->unk10C = 3;
                     sub_804ABFC(0xB);
                 }
@@ -391,18 +381,16 @@ void sub_804F478(SpriteTextCleanup* arg0)
                 break;
             case 4: {
                 s32 mode4;
-                s32 bits4;
 
                 mode4 = state->unk106 >> 7;
-                bits4 = state->unk104 & 3;
-                if (bits4 <= 1) {
+                if ((state->unk104 & 3) <= 1) {
                     state->unkF4->unk18 = 0;
                     state->unkF8->unk18 = 0;
                 } else {
                     state->unkF4->unk18 = mode4 > 8 ? 8 : mode4;
                     state->unkF8->unk18 = mode4 > 8 ? mode4 - 8 : 0;
                 }
-                if ((s16)state->unk104 <= 0x3B) {
+                if (state->unk104 <= 0x3B) {
                     state->unk10C = 2;
                 }
                 break;
@@ -420,7 +408,7 @@ void sub_804F478(SpriteTextCleanup* arg0)
     }
 
     if ((state->flags & 8) != 0) {
-        sub_804F794((SpriteTextCleanup*)state);
+        sub_804F794(state);
     }
 }
 

@@ -20,6 +20,7 @@ typedef struct SpriteTextCleanup SpriteTextCleanup;
 typedef struct FrontendSelectionObject FrontendSelectionObject;
 typedef struct ItemDescriptionEntry ItemDescriptionEntry;
 typedef struct FrontendMotionData FrontendMotionData;
+typedef struct LevelHudData LevelHudData;
 
 typedef union PaletteBuffer {
     unk16* half;
