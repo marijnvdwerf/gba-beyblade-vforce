@@ -5,7 +5,60 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-03, session 5 (Opus agent worktree kept alive per user; no monitor).
+Last updated: 2026-09-05, session 6 (bitfield merge; round-1 agents dispatched).
+
+## Session 6 (2026-09-05)
+
+State: main green; 463 C / 544 asm / 46%, 13/66 TUs done (riderstate.c DONE).
+Scout inventory /tmp/reds-by-tu-2026-09-05.md: 44 reds = 14 ARM + 30 real,
+ALL 30 without a draft, unchanged since session 5.
+
+BITFIELDS (user's own branch `decomp/sub_8050050`, merged 75ccbb6f after a
+luna cleanup): sub_8050050, sub_8050184, sub_80501A8 matched by declaring C
+bitfields in RiderState; the `(x<<22)>>22` / `(x<<28)>>28` / mask-and-or
+choreography in four already-matched functions collapsed to plain field
+access. The skill line claiming "the shift pair IS the source" was WRONG and
+is rewritten; measured lowering table in docs/learnings/bitfields-2026-09-05.md
+(reads: 4-bit@0 → ldrb;lsl28;lsr28, 4-bit@4 → ldrb;lsr4, 10-bit@0 →
+ldrh;lsl22;lsr22, 6-bit@10 → ldrb next byte;lsr2; writes = mask/preserve/
+merge/store at allocation-unit width; `|=`/`&=` extract-first). Naming
+convention `unk<BYTEHEX>_<BITDEC>` (unk6_0 : 10, unk6_10 : 6, unkD_0 : 4) now
+in decompiler.md. A union WRAPPER around u8 bitfields is 4 bytes in agbcc
+(hence the branch's packed attribute) — put bitfields directly in the struct
+instead; no attribute needed.
+Bitfield retry candidates (agent survey): parked LoadSpriteSheet (sprite.c
+`((c>>1)&0xF)<<12`), sub_80526C8 (gameloop.c oam attr mask-and-or),
+sub_806014C (multiplayer.c unk14 masks), sub_8047E5C (festate.c `(f()>>4)&0xF`);
+matched-but-ugly ActorSetFrameSequence `(flags&0xC)>>2`, sub_8061130/
+sub_8061168 OAM mask-and-or, sub_804AB50 `arg1&0xF`.
+
+Opus learnings (docs/learnings/opus-2026-09-03.md): assessed — four measured
+rules worth folding (s32 blocks `a*2+b*2→(a+b)*2` fold; store-then-readback
+orders the base load first; `if ((x = g) != 0)` yields the mov copy;
+`base + (off + const)` stages the displacement); the s8/cast story and the
+updateKeyState "patterns" are unmeasured → archive, don't fold. User: later.
+
+Open: (1) `effort: high` in .claude/agents/decompiler.md is an UNCOMMITTED
+local edit of unknown origin — confirm and commit or drop; (2) proposed
+`tools/unused-fields.py` (libclang over build/compile_commands.json: struct
+fields never referenced by committed C — enforces the "fields exist only when
+C uses them" rule; `#if 0` drafts naturally excluded) — user undecided;
+(3)–(6) carried from session 5: `&_spritesFree` ruling, frontend
+unk588/unkC callback signature, raw 0x0D000000 in the backup.c draft,
+`out.json` on main.
+
+Round 1 (dispatched, luna decompiler agents, worktrees, brief
+/tmp/brief-2026-09-05.md): A tutorial+hud (sub_804A310 6, sub_804A550 202,
+sub_804EE54 215); B festate small (sub_8046A0C 143, sub_8044054 177,
+sub_8044C48 240, sub_8044ED4 240, sub_8048AE8 242, + bitfield retry of parked
+sub_8047E5C); C geometry+camera (allocQuadTree 222, sub_805E8D8 240);
+D iconmenu+menu (sub_8050C18 232, allocateMenuItems 232); E envactor/gameloop/
+effects (renderEnvironmentActors 241, sub_80522D4 261, sub_8055340 288, +
+bitfield retry sub_80526C8); F rider+riderphysics (rider_vs_rider_collision_
+804DB94 285, renderRider 339, sub_804B8F0 345); G bitfield retries sprite+
+multiplayer (LoadSpriteSheet, sub_806014C). Held for round 2: festate large
+(sub_80448F4 329, sub_8048310 343, sub_804868C 377, sub_804444C 463) and
+the eight ≥440 giants.
 
 ## Session 5 (2026-09-03)
 
