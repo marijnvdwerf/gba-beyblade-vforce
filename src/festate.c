@@ -189,7 +189,36 @@ void sub_8043D84(FrontendState* state, u32 arg1)
 }
 
 INCLUDE_ASM("asm/dump/8040d18/8043db8.s");
-INCLUDE_ASM("asm/dump/8040d18/8043f40.s");
+
+void sub_8043F40(SpriteTextCleanup** arg0, CurrentGameStateTail* arg1, s32 arg2)
+{
+    SpriteTextCleanup* text;
+    s32 position;
+    unk8 mode;
+
+    position = arg2;
+    sub_8061844(arg0[0], (position >> 8) + 0x12, arg0[0]->y >> 8);
+    sub_8061844(arg0[1], (position >> 8) + 0x80, arg0[1]->y >> 8);
+    sub_8061844(arg0[2], (position >> 8) + 0x12, arg0[2]->y >> 8);
+    sub_8061844(arg0[3], (position >> 8) + 0x80, arg0[3]->y >> 8);
+    sub_8061844(arg0[4], (position >> 8) + 0x12, arg0[4]->y >> 8);
+    sub_8061844(arg0[5], (position >> 8) + 0x80, arg0[5]->y >> 8);
+    sub_8061844(arg0[6], (position >> 8) + 0x12, arg0[6]->y >> 8);
+    sub_8061844(arg0[7], (position >> 8) + 0x80, arg0[7]->y >> 8);
+    sub_8061844(arg0[8], position >> 8, arg0[8]->y >> 8);
+    sub_8061844(arg0[9], position >> 8, arg0[9]->y >> 8);
+    if ((arg1->unkC & 4) != 0) {
+        text = arg0[2];
+        mode = ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xE : 0xF;
+        sub_806185C(text, mode);
+        text = arg0[3];
+        mode = ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xD : 0xF;
+        sub_806185C(text, mode);
+    }
+    text = arg0[9];
+    mode = (((sub_8057C40() >> 4) & 8) != 0) ? 0xE : 0xF;
+    sub_806185C(text, mode);
+}
 
 void sub_8044054(FrontendState* state, unk32 arg1)
 {
