@@ -188,7 +188,50 @@ void sub_8043D84(FrontendState* state, u32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8043db8.s");
+void sub_8043DB8(SpriteTextCleanup** arg0, LevelState* arg1, CurrentGameStateTail* arg2, unk32 arg3)
+{
+    LevelDescription* description;
+    unk32 scale;
+    unk32 mask;
+    u32 language;
+
+    description = getLevelDescription2();
+    scale = arg3 & 0xFF;
+    mask = arg3 >> 8;
+    language = getLanguage();
+    if ((mask & 1) != 0) {
+        sub_8061660(arg0[0], _806E97C[0][language], 0xE);
+        if (arg2->unk0 != 0) {
+            sub_8061C48(arg0[1], (scale * arg2->unk0) >> 5, 0xF);
+        } else {
+            sub_8061660(arg0[1], Str_86FD468, 0xF);
+        }
+    }
+    if ((mask & 2) != 0) {
+        sub_8061660(arg0[2], _806E97C[1][language], 0xE);
+        sub_8061C48(arg0[3], (scale * arg1->unk4) >> 5, 0xF);
+    }
+    if ((mask & 4) != 0) {
+        sub_8061660(arg0[4], _806E97C[2][language], 0xE);
+        showNumber_2(arg0[5], (scale * arg2->unk4) >> 5, 0xF);
+    }
+    if ((mask & 8) != 0) {
+        sub_8061660(arg0[6], _806E97C[3][language], 0xE);
+        showNumber_2(arg0[7], (scale * arg2->unk8) >> 5, 0xF);
+        showString(arg0[7], Str_86FD46C, 0xF);
+        showNumber(arg0[7], description->unk1, 0xF);
+    }
+    if ((mask & 0x10) != 0 && (arg2->unkC & 4) != 0) {
+        sub_8061660(arg0[8], _806E97C[4][language], 0xE);
+    }
+    if ((mask & 0x20) != 0) {
+        if ((arg2->unkC & 1) != 0) {
+            sub_8061660(arg0[9], _806E97C[5][language], 0xE);
+        } else {
+            sub_8061660(arg0[9], _806E97C[6][language], 0xE);
+        }
+    }
+}
 
 void sub_8043F40(SpriteTextCleanup** arg0, CurrentGameStateTail* arg1, s32 arg2)
 {
