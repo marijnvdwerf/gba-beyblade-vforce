@@ -38,8 +38,7 @@ orders the base load first; `if ((x = g) != 0)` yields the mov copy;
 `base + (off + const)` stages the displacement); the s8/cast story and the
 updateKeyState "patterns" are unmeasured → archive, don't fold. User: later.
 
-Open: (1) `effort: high` in .claude/agents/decompiler.md is an UNCOMMITTED
-local edit of unknown origin — confirm and commit or drop; (2) proposed
+Open: (1) TODO merge DisplayRecord/BGLayer naming (see R2-7); (2) proposed
 `tools/unused-fields.py` (libclang over build/compile_commands.json: struct
 fields never referenced by committed C — enforces the "fields exist only when
 C uses them" rule; `#if 0` drafts naturally excluded) — user undecided;
@@ -144,6 +143,13 @@ sub_804BF3C parked) — in review; its `(unk32)nullptr` argument lever was
 caught by the manager read and replaced by plain `0` (byte-identical).
 R2-2 retired (compaction loop); R2-2b cleaning its branch (drafts must be
 house-style with proper types before merge — user ruling).
+
+R2-7 MERGED: sub_8059934, sub_8058968 matched; sub_8059C18 parked.
+`typedef BGLayer DisplayRecord` ACCEPTED (user) with a TODO: merge the two
+names properly — retire `DisplayRecord` in favour of `BGLayer` (or split
+again) once a camera match proves the semantics; lives here because src/
+comments are banned. `_unk3000CA0` is `Struct3000CA0[4]` (96-byte slot);
+`_unk3000E3C` is a byte; RAM externs moved to ram.h.
 
 ROUND 2 (new leaf pool): merging today's work exposed 40 new reds
 (/tmp/reds-new-2026-09-05.md, avg 123 insns, 17 TUs). Dispatched 6 luna
