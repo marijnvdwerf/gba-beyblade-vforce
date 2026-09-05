@@ -13,10 +13,6 @@ extern const unk8 Str_8755474[];
 extern const unk8 Str_87554B4[];
 extern const unk8 Str_87554F0[];
 extern const unk8 Str_87554F4[];
-extern const unk8 Str_8755530[];
-extern const unk8 Str_875557C[];
-extern const unk8 Str_87555A8[];
-extern const unk8 Str_87555F0[];
 
 void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable* geometry)
 {
@@ -206,7 +202,7 @@ void initQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 ar
 }
 
 void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 arg2, unk16 arg3,
-    unk16 nodeCount, unk16 arg5, unk32 (*arg6)(LevelGeometryTable*, GeometryLine*))
+    unk16 nodeCount, unk16 arg5, unk32 arg6)
 {
     AllocatedBlock* block;
     unk8* nodes;
@@ -272,7 +268,7 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
             quadTree->unk4C = quadTree->block28->address;
             nodes = quadTree->block24->address;
             quadTree->unk2C = (QuadTreeNode*)nodes;
-            quadTree->unk30 = (GeometryLine**)&nodes[arg4];
+            quadTree->unk30 = (QuadTreeNode*)&nodes[arg4];
             quadTree->unk14[0] = (QuadTreeNode*)nodes;
             quadTree->unk14[1] = quadTree->unk14[0] + 1;
             quadTree->unk14[2] = quadTree->unk14[1] + 1;
@@ -302,22 +298,95 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
 }
 
 #if 0
-void sub_805BDBC(QuadTree* quadTree, LevelGeometryAddresses* geometry)
+typedef struct GeometryPointDraft {
+    s32 x;
+    s32 y;
+    unk32 z;
+    unk32 padC;
+} GeometryPointDraft;
+
+typedef struct GeometryLineDraft {
+    unk32 point0;
+    unk32 point1;
+    unk8 pad8[5];
+    unk8 unkD;
+    unk8 padE[2];
+    unk8 unk10;
+    unk8 pad11[0xF];
+} GeometryLineDraft;
+
+typedef struct GeometrySplineDraft {
+    s32 pointCount;
+    unk8 pad4[0x1C];
+    unk32 pointIndices[1];
+} GeometrySplineDraft;
+
+typedef struct GeometryTableDraft {
+    unk32 pointCount;
+    union {
+        unk16 splineCount;
+        s32 splineCountWord;
+    } count;
+    s32 lineCount;
+} GeometryTableDraft;
+
+typedef struct GeometryAddressesDraft {
+    GeometryTableDraft* unk0;
+    GeometryPointDraft* unk4;
+    GeometrySplineDraft* unk8;
+    GeometryLineDraft* unkC;
+    unk8 pad10[4];
+    GeometrySplineDraft* unk14[0x40];
+} GeometryAddressesDraft;
+
+typedef struct QuadTreeEntryDraft {
+    GeometrySplineDraft* spline;
+    unk16 pointIndex;
+    unk16 splineIndex;
+} QuadTreeEntryDraft;
+
+typedef struct QuadTreeNodeDraft {
+    struct QuadTreeNodeDraft* unk0;
+    struct QuadTreeNodeDraft* unk4;
+    struct QuadTreeNodeDraft* unk8;
+    struct QuadTreeNodeDraft* unkC;
+    GeometryLineDraft** unk10;
+    QuadTreeEntryDraft* unk14;
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk24;
+    unk16 unk28;
+    unk16 unk2A;
+} QuadTreeNodeDraft;
+
+typedef struct QuadTreeDraft {
+    unk8 pad0[0x2C];
+    QuadTreeNodeDraft* unk2C;
+    GeometryLineDraft** unk30;
+    unk32* unk34;
+    unk16 unk38;
+    unk16 unk3A;
+} QuadTreeDraft;
+
+unk32 sub_805BF18(s32, s32, s32, s32, s32, s32, s32, s32);
+
+void sub_805BDBC(QuadTreeDraft* quadTree, GeometryAddressesDraft* geometry)
 {
-    QuadTreeNode* node;
+    QuadTreeNodeDraft* node;
     s32 splineIndex;
     s32 pointIndex;
     s32 entryCount;
-    QuadTreeEntry* output;
-    QuadTreeNode* nextNode;
+    QuadTreeEntryDraft* output;
+    QuadTreeNodeDraft* nextNode;
     s32 nodeIndex;
     s32 outerIndex;
     s32 nextSplineIndex;
     s32 splineCount;
     unk32* pointIndices;
-    GeometrySpline* spline;
-    GeometryPoint* previous;
-    GeometryPoint* point;
+    GeometrySplineDraft* spline;
+    GeometryPointDraft* previous;
+    GeometryPointDraft* point;
     s32 minX;
     s32 minY;
     s32 maxX;
@@ -325,7 +394,7 @@ void sub_805BDBC(QuadTree* quadTree, LevelGeometryAddresses* geometry)
 
     node = quadTree->unk2C;
     quadTree->unk34 = quadTree->unk30 + quadTree->unk3A;
-    output = (QuadTreeEntry*)quadTree->unk34;
+    output = (QuadTreeEntryDraft*)quadTree->unk34;
     outerIndex = 0;
     if (outerIndex < quadTree->unk38) {
         do {
@@ -406,13 +475,41 @@ void deallocateQuadTree(QuadTree* arg0)
 }
 
 #if 0
-void allocateDynamicBoundingAreas(QuadTree* quadTree, LevelGeometryAddresses* geometry)
+typedef struct GeometryTableAllocDraft {
+    unk8 pad0[8];
+    s32 lineCount;
+} GeometryTableAllocDraft;
+
+typedef struct GeometryLineAllocDraft {
+    unk8 pad0[0x11];
+    unk8 unk11;
+    unk8 pad12[0xE];
+} GeometryLineAllocDraft;
+
+typedef struct GeometryAddressesAllocDraft {
+    GeometryTableAllocDraft* unk0;
+    unk8 pad4[8];
+    GeometryLineAllocDraft* unkC;
+} GeometryAddressesAllocDraft;
+
+typedef struct QuadTreeAllocDraft {
+    unk8 pad0[0x44];
+    unk16 unk44;
+    unk8 pad46[2];
+    unk16 unk48;
+    unk8 pad4A[2];
+    unk32* unk4C;
+} QuadTreeAllocDraft;
+
+extern const unk8 Str_8755530[];
+
+void allocateDynamicBoundingAreas(QuadTreeAllocDraft* quadTree, GeometryAddressesAllocDraft* geometry)
 {
     s32 count;
     s32 max;
     s32 remaining;
     s32 index;
-    GeometryLine* record;
+    GeometryLineAllocDraft* record;
     unk32* output;
 
     max = quadTree->unk44;
@@ -439,14 +536,87 @@ void allocateDynamicBoundingAreas(QuadTree* quadTree, LevelGeometryAddresses* ge
 INCLUDE_ASM("asm/dump/8057b80-debug/805bfe8-allocateDynamicBoundingAreas.s");
 
 #if 0
-QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX, s32 minY,
-    s32 maxX, s32 maxY, unk32 (*callback)(LevelGeometryTable*, GeometryLine*))
+typedef struct InitGeometryTableDraft {
+    unk32 pointCount;
+    union {
+        unk16 splineCount;
+        s32 splineCountWord;
+    } count;
+    s32 lineCount;
+    unk8 padC[0x10];
+} InitGeometryTableDraft;
+
+typedef struct InitGeometryPointDraft {
+    s32 x;
+    s32 y;
+    unk32 z;
+    unk32 padC;
+} InitGeometryPointDraft;
+
+typedef struct InitGeometryLineDraft {
+    unk32 point0;
+    unk32 point1;
+    unk8 unk8;
+    unk8 pad9[7];
+    unk8 unk10;
+    unk8 unk11;
+    unk8 pad12[0xE];
+} InitGeometryLineDraft;
+
+typedef struct InitGeometryAddressesDraft {
+    InitGeometryTableDraft* unk0;
+    InitGeometryPointDraft* unk4;
+    unk8 pad8[4];
+    InitGeometryLineDraft* unkC;
+} InitGeometryAddressesDraft;
+
+typedef struct InitGeometryEntryDraft {
+    unk8 data[8];
+} InitGeometryEntryDraft;
+
+typedef struct InitQuadTreeNodeDraft {
+    struct InitQuadTreeNodeDraft* unk0;
+    struct InitQuadTreeNodeDraft* unk4;
+    struct InitQuadTreeNodeDraft* unk8;
+    struct InitQuadTreeNodeDraft* unkC;
+    InitGeometryLineDraft** unk10;
+    InitGeometryEntryDraft* unk14;
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk24;
+    unk16 unk28;
+    unk16 unk2A;
+} InitQuadTreeNodeDraft;
+
+typedef struct InitQuadTreeDraft {
+    unk8 pad0[0x10];
+    InitGeometryAddressesDraft* unk10;
+    InitQuadTreeNodeDraft* unk14[4];
+    unk8 pad24[8];
+    InitQuadTreeNodeDraft* unk2C;
+    InitGeometryLineDraft** unk30;
+    unk8 pad34[4];
+    unk16 unk38;
+    unk16 unk3A;
+    unk16 unk3C;
+    unk16 unk3E;
+    unk16 unk40;
+} InitQuadTreeDraft;
+
+typedef unk32 (*InitQuadTreeCallbackDraft)(InitGeometryTableDraft*, InitGeometryLineDraft*);
+
+extern const unk8 Str_875557C[];
+extern const unk8 Str_87555A8[];
+extern const unk8 Str_87555F0[];
+InitQuadTreeNodeDraft* initQuadTreeNode(InitQuadTreeDraft* quadTree, InitQuadTreeNodeDraft* node, s32 minX, s32 minY,
+    s32 maxX, s32 maxY, InitQuadTreeCallbackDraft callback)
 {
-    LevelGeometryAddresses* geometry;
-    GeometryLine* line;
-    GeometryPoint* points;
-    GeometryPoint* point0;
-    GeometryPoint* point1;
+    InitGeometryAddressesDraft* geometry;
+    InitGeometryLineDraft* line;
+    InitGeometryPointDraft* points;
+    InitGeometryPointDraft* point0;
+    InitGeometryPointDraft* point1;
     s32 width;
     s32 height;
     s32 lineIndex;

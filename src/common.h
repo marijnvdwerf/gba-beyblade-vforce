@@ -654,7 +654,7 @@ typedef struct GeometryLine {
 } GeometryLine; /* 0x20 */
 
 typedef struct GeometrySpline {
-    s32 pointCount;
+    unk32 pointCount;
     unk32 size;
     unk8 pad8[4];
     unk16 unkC; /* 0x0C */

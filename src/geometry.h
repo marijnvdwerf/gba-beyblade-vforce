@@ -10,13 +10,10 @@ void getLevelGeometryAddresses(LevelGeometryAddresses*, LevelGeometryTable*);
 void StoreMetadataAddr(LevelGeometryAddresses*, LineMetadata**);
 void newCollisionDataRam(LevelGeometryAddresses*, LevelGeometryTable*, unk16);
 void initQuadTree(QuadTree*, LevelGeometryAddresses*, unk16, unk16, unk16, unk16);
-void allocQuadTree(QuadTree*, LevelGeometryAddresses*, unk16, unk16, unk16, unk16,
-    unk32 (*)(LevelGeometryTable*, GeometryLine*));
+void allocQuadTree(QuadTree*, LevelGeometryAddresses*, unk16, unk16, unk16, unk16, unk32);
 void allocateDynamicBoundingAreas(QuadTree*, LevelGeometryAddresses*);
-QuadTreeNode* initQuadTreeNode(
-    QuadTree*, QuadTreeNode*, s32, s32, s32, s32, unk32 (*)(LevelGeometryTable*, GeometryLine*));
+QuadTreeNode* initQuadTreeNode(QuadTree*, QuadTreeNode*, s32, s32, s32, s32, unk32);
 void sub_805BDBC(QuadTree*, LevelGeometryAddresses*);
-unk32 sub_805BF18(s32, s32, s32, s32, s32, s32, s32, s32);
 LineMetadata* GetLineMetaData(LevelGeometryAddresses*, unk32);
 LineMetaObject* getLineMetaAtIndex(LevelGeometryAddresses*, LineMetadata*, s32);
 LineMetaObject* getLineMetaObjectBytype(LevelGeometryAddresses*, LineMetadata*, unk32);
