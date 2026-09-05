@@ -6,12 +6,18 @@
 #include "gamestate.h"
 #include "geometry.h"
 #include "include_asm.h"
+#include "music.h"
 #include "spritetext.h"
 #include "unsorted.h"
 
 INCLUDE_ASM("asm/dump/8040d18/804a2f0.s");
 INCLUDE_ASM("asm/dump/8040d18/804a300.s");
-INCLUDE_ASM("asm/dump/8040d18/804a310.s");
+
+void sub_804A310(void)
+{
+    sub_804AE34(0, 0x3C);
+}
+
 INCLUDE_ASM("asm/dump/8040d18/804a320.s");
 INCLUDE_ASM("asm/dump/8040d18/804a330.s");
 INCLUDE_ASM("asm/dump/8040d18/804a33c.s");
