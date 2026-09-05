@@ -33,3 +33,7 @@ at offset `0x21E`; its declaration preserves the existing fixed layout.
 ## sub_804CB08 (0x0804CB08)
 
 Parked with the semantic draft retained under `#if 0`; first divergence was the target input-magnitude allocation (`r4`) versus the draft allocation (`r9`) immediately after the speed clamp. The draft-proven fields at offsets `0x1C4`, `0x1C8`, `0x1FC`, `0x22E`, and `0x230` were removed from `RiderBase` after parking.
+
+## sub_804D110 (0x0804D110)
+
+Parked with the best available semantic draft under `#if 0`; the first unresolved target-specific divergence is the AI-speed branch at `0x0804D2A8`, where the target performs additional clamping, flag, and animation-state updates beyond the draft.

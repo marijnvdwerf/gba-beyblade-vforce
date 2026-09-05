@@ -239,6 +239,110 @@ void sub_804D104(RiderBase* rider)
     rider->unk4C = rider->unk44;
 }
 
+#if 0
+void sub_804D110(unk8 *rider, unk8 *other)
+{
+    s32 delta;
+    s32 value;
+    s32 angle;
+    s32 speed;
+    s16 timer;
+    u8 oldDirection;
+    unk8 *state;
+
+    state = *(unk8 **)rider;
+    oldDirection = *(u8 *)(rider + 8);
+    UnsetRiderFlag(rider, 0x1000004);
+    *(unk8 *)(rider + 0x1c0) = 0;
+    delta = *(s32 *)(rider + 0x20) - *(s32 *)(rider + 0x24);
+    *(s32 *)(rider + 0x1c) += delta;
+    *(s32 *)(rider + 0xc) = (*(s32 *)(rider + 0xc) + (delta >> 4)) & 0xff;
+    *(s32 *)(rider + 0x24) = *(s32 *)(rider + 0x20);
+    if (*(s32 *)(other + 0xc) > *(s32 *)(rider + 0x1b8))
+        *(s32 *)(rider + 0x1b8) = *(s32 *)(other + 0xc);
+    *(s32 *)(rider + 0x1c) &= 0xfff;
+    *(s32 *)(rider + 0x74) &= 0xfff;
+    if ((RiderHasFlag(rider, 0x12) << 24) == 0)
+        *(s32 *)(rider + 0x14) = sub_804E258(*(s32 *)(rider + 0x10), *(s32 *)(rider + 0x1c), 0x40, 0xfff, 0x10, 0x50);
+    *(s16 *)(rider + 0x98) = 0;
+    timer = *(s16 *)(rider + 0x22e);
+    if (timer != 0)
+        *(s16 *)(rider + 0x22e) = timer - 1;
+    if ((RiderHasFlag(rider, 0x4000000) << 24) == 0) {
+        value = *(s32 *)(rider + 0x208);
+        if (*(s32 *)((unk8 *)_currentGameState + 0xc64) & 1) {
+            if ((RiderHasFlag(rider, 0x80000) << 24) != 0 &&
+                (RiderHasFlag(rider, 2) << 24) == 0 && value > 0x1ff)
+                value -= 8;
+        } else if ((RiderHasFlag(rider, 0x80000) << 24) != 0 &&
+                   (RiderHasFlag(rider, 2) << 24) == 0 && value > 0x1ff)
+            value -= 1;
+        *(s32 *)(rider + 0x208) = value;
+        if (value <= 0)
+            sub_804C0C0(*(unk32 *)(rider + 4));
+    } else {
+        value = *(s32 *)(rider + 0x208);
+        value += *(s16 *)(rider + 0x22c);
+        if (value < 0)
+            value = 0;
+        if (value > 0x200)
+            value = 0x200;
+        *(s32 *)(rider + 0x208) = value;
+    }
+    if ((RiderHasFlag(rider, 8) << 24) != 0) {
+        SetRiderFlag(*(unk32 *)((unk8 *)_gameData + 0x65c), 0x400);
+        sub_8056EC0();
+        sub_8053E18(0);
+        UnsetRiderFlag(rider, 8);
+    }
+    if ((RiderHasFlag(rider, 0x20) << 24) == 0) {
+        SetRiderFlag(rider, 0x20);
+        sub_804C118(*(unk32 *)(rider + 4));
+        sub_8053920();
+        sub_804C0C0(*(unk32 *)(rider + 4));
+    }
+    if ((RiderHasFlag(rider, 0x400) << 24) != 0 ||
+        (RiderHasFlag(rider, 0x40) << 24) != 0) {
+        *(s16 *)(rider + 0x52) = 0x28;
+        *(s16 *)(rider + 0x50) = 0x28;
+    }
+    if ((RiderHasFlag(rider, 2) << 24) == 0)
+        sub_804D8D8(rider);
+    *(s32 *)(rider + 0x1fc) += 1;
+    if ((RiderHasFlag(rider, 0x400000) << 24) == 0)
+        sub_804D710(rider);
+    if ((RiderHasFlag(rider, 0x2000) << 24) != 0) {
+        timer = *(s16 *)(rider + 0x1b8) - 1;
+        *(s16 *)(rider + 0x1b8) = timer;
+        if (timer == 0)
+            UnsetRiderFlag(rider, 0x2000);
+    }
+    if ((RiderHasFlag(rider, 2) << 24) != 0)
+        *(s32 *)(rider + 0x198) += 1;
+    else
+        *(s32 *)(rider + 0x19c) += 1;
+    if ((RiderHasFlag(rider, 2) << 24) == 0) {
+        if ((sub_804E454(rider, 2) << 24) != 0)
+            sub_804DFF4(rider);
+        *(s32 *)(rider + 0xec) = *(s32 *)(rider + 0xe4);
+        *(unk8 *)(rider + 9) = *(unk8 *)(rider + 8);
+    }
+    if ((RiderHasFlag(rider, 2) << 24) != 0) {
+        if ((sub_804E454(rider, 2) << 24) == 0)
+            sub_804E090(rider);
+    }
+    if ((RiderHasFlag(rider, 4) << 24) != 0 && *(s32 *)(rider + 0xcc) == 0)
+        sub_804E1DC(rider);
+    sub_804DDF8(rider, other);
+    sub_804D754(rider);
+    *(s32 *)(rider + 0x1a0) = *(s32 *)(other + 0x40);
+    *(s32 *)(rider + 0x1a4) = *(s32 *)(other + 0x44);
+    *(s32 *)(rider + 0x9c) = (*(s32 *)(rider + 0x9c) ^ *(s32 *)(rider + 0xa0)) & (*(s32 *)(rider + 0x9c) | *(s32 *)(rider + 0xa0));
+    *(s32 *)(rider + 0xa8) = (*(s32 *)(rider + 0xa8) ^ *(s32 *)(rider + 0xac)) & (*(s32 *)(rider + 0xa8) | *(s32 *)(rider + 0xac));
+    SetRiderFlag(rider, 2);
+    *(s32 *)(rider + 0x88) = 0;
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d110.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d710.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d754.s");
