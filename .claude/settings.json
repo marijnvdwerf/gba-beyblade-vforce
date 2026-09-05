@@ -6,5 +6,8 @@
       "tools/diff/node_modules"
     ]
   },
-  "includeCoAuthoredBy": false
+  "attribution": {
+    "commit": "",
+    "pr": ""
+  }
 }
