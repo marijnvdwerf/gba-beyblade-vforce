@@ -62,6 +62,7 @@ typedef struct {
 extern Struct3000CA0 _unk3000CA0[10];
 extern u8 _unk3000DE0;
 extern u8 _unk3000E3C;
+extern u8 _unk3000E40[];
 extern s16 Unk_874CC3C[];
 extern s16 Unk_872CC3C[];
 
@@ -607,7 +608,25 @@ void sub_80596AC(void* arg0, unk32 deltaX, unk32 deltaY)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/80596ac.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059904.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8059934.s");
+
+void sub_8059934(void)
+{
+    u8 i;
+    u8 zero;
+
+    _unk3000DE0 = zero = 0;
+    _unk3000E40[0] = zero;
+    _unk3000E3C = 0x20;
+    i = 0;
+    do {
+        *GetBGLayerHOffsetPtr(i) = 0;
+        *GetBGLayerVOffsetPtr(i) = 0;
+        i++;
+    } while (i <= 3);
+    sub_8059B00(2, 0, 0x100, 0x100);
+    sub_8059B00(3, 0, 0x100, 0x100);
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8059994.s");
 
 vu16* GetBGLayerHOffsetPtr(u8 layer)
