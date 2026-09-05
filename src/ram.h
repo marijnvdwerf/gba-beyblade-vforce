@@ -95,19 +95,19 @@ typedef struct BeybladeActorData {
 } BeybladeActorData;
 
 typedef struct ProjectileEntry {
-    unk32 x;
-    unk32 y;
-    unk32 z;
+    s32 x;
+    s32 y;
+    s32 z;
     unk32 velocityX;
     unk32 velocityY;
     unk32 velocityZ;
     unk32 accelerationX;
     unk32 accelerationY;
     unk32 accelerationZ;
-    unk32 duration;
+    s32 duration;
     unk16 flags;
     s16 trailDelay;
-    unk16 unk2C;
+    s16 unk2C;
     UnkTrail* trail;
 } ProjectileEntry;
 
@@ -117,9 +117,9 @@ typedef struct ProjectileSystem {
     unk8 pad6[2];
     ProjectileEntry* entries;
     UnkTrail* trails;
-    unk32 unk10;
-    unk32 unk14;
-    unk32 unk18;
+    s32 unk10;
+    s32 unk14;
+    s32 unk18;
     unk32 unk1C;
     unk32 unk20;
     unk32 unk24;
