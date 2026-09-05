@@ -58,14 +58,24 @@ typedef struct Sub8052140Data {
 } Sub8052140Data;
 
 typedef struct QuadTreeNode {
-    unk8 data[0x2C];
+    struct QuadTreeNode* unk0;
+    struct QuadTreeNode* unk4;
+    struct QuadTreeNode* unk8;
+    struct QuadTreeNode* unkC;
+    unk8 pad10[8];
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk24;
+    unk16 unk28;
+    unk16 pad2A;
 } QuadTreeNode;
 
 typedef struct QuadTree {
-    unk32 unk0;
-    unk32 unk4;
-    unk32 unk8;
-    unk32 unkC;
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    s32 unkC;
     LevelGeometryAddresses* unk10;
     QuadTreeNode* unk14[4];
     AllocatedBlock* block24;

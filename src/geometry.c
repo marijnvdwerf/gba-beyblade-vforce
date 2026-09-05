@@ -314,7 +314,77 @@ void deallocateQuadTree(QuadTree* arg0)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805bfe8-allocateDynamicBoundingAreas.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805c040-initQuadTreeNode.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805c308-GetQuadTreeNodeForPos.s");
+
+QuadTreeNode* GetQuadTreeNodeForPos(QuadTree* quadTree, s32 x, s32 y)
+{
+    s32 minX;
+    s32 maxX;
+    s32 minY;
+    s32 maxY;
+    s32 midX;
+    s32 midY;
+    s32 quadrant;
+    QuadTreeNode* node;
+    QuadTreeNode* current;
+
+    quadrant = 0;
+    minX = quadTree->unk0;
+    maxX = quadTree->unk8;
+    minY = quadTree->unk4;
+    maxY = quadTree->unkC;
+    midX = minX + ((maxX - minX) >> 1);
+    midY = minY + ((maxY - minY) >> 1);
+    if (x > midX)
+        quadrant = 1;
+    if (y > midY)
+        quadrant |= 2;
+    switch (quadrant) {
+    case 0:
+        node = quadTree->unk14[0];
+        break;
+    case 1:
+        node = quadTree->unk14[1];
+        break;
+    case 2:
+        node = quadTree->unk14[2];
+        break;
+    case 3:
+        node = quadTree->unk14[3];
+        break;
+    }
+    while (node != NULL) {
+        current = node;
+        if (node->unk28 != 0)
+            break;
+        minX = node->unk18;
+        maxX = node->unk20;
+        minY = node->unk1C;
+        maxY = node->unk24;
+        midX = minX + ((maxX - minX) >> 1);
+        midY = minY + ((maxY - minY) >> 1);
+        quadrant = 0;
+        if (x > midX)
+            quadrant = 1;
+        if (y > midY)
+            quadrant |= 2;
+        switch (quadrant) {
+        case 0:
+            node = current->unk0;
+            break;
+        case 1:
+            node = current->unk4;
+            break;
+        case 2:
+            node = current->unk8;
+            break;
+        case 3:
+            node = current->unkC;
+            break;
+        }
+    }
+    return node;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805c3bc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805c444.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805c48c-actor_805C48C.s");
