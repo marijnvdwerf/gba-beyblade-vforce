@@ -62,15 +62,15 @@ void sub_804F9B4(void)
     state->levelHud.unk10C = 1;
     state->levelHud.unk106 = 0;
     state->levelHud.unk108 = 0;
-    state->levelHud.unkF4->unk8 = 0x4A00;
-    state->levelHud.unkF8->unk8 = 0x8A00;
-    state->levelHud.unk100->unk8 = 0x4200;
-    state->levelHud.unkF4->unkC = -0x2000;
-    state->levelHud.unkF8->unkC = -0x2000;
-    state->levelHud.unk100->unkC = -0x2000;
-    state->levelHud.unkF4->unk18 = 0;
-    state->levelHud.unkF8->unk18 = 0;
-    state->levelHud.unk100->unk18 = 0;
+    state->levelHud.unkF4->x = 0x4A00;
+    state->levelHud.unkF8->x = 0x8A00;
+    state->levelHud.unk100->x = 0x4200;
+    state->levelHud.unkF4->y = -0x2000;
+    state->levelHud.unkF8->y = -0x2000;
+    state->levelHud.unk100->y = -0x2000;
+    state->levelHud.unkF4->frame.word = 0;
+    state->levelHud.unkF8->frame.word = 0;
+    state->levelHud.unk100->frame.word = 0;
 }
 
 void sub_804FA40(void)
