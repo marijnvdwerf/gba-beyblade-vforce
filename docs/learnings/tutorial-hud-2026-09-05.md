@@ -25,10 +25,10 @@ advancing lookup uses `languageStrings[index].strings[getLanguage()]`; agbcc
 strength-reduces the indexed access to the target byte-cursor arithmetic while
 keeping the source fully typed.
 
-The matched control flow is a guarded `do/while`: the done flag is initialized
-before the guard, the loop waits for VBlank, updates input, decrements the
-30-frame timer, and advances one page when the input or timeout condition is
-met. The frame toggle uses a zero-initialized `unk16` temporary, conditionally
+The matched control flow is a plain `while (done == 0)`: the done flag is
+initialized before the guard, the loop waits for VBlank, updates input,
+decrements the 30-frame timer, and advances one page when the input or timeout
+condition is met. The frame toggle uses a zero-initialized `unk16` temporary, conditionally
 sets it to one, and performs one final halfword store. This reproduces the
 shared target store and the 24-byte frame with the incoming entry spilled at
 `[sp, #16]` and the loop counter at `[sp, #20]`.
@@ -41,7 +41,7 @@ ROM compare passed.
 
 ## sub_804EE54 (0x0804EE54)
 
-Matched with the existing `LevelHudData` layout rooted at `GameData.levelHud0`.
+Matched with the existing `LevelHudData` layout rooted at `GameData.levelHud`.
 The combined nonzero/decrement condition reproduces the target's initial status
 branch and keeps the cleanup call on the shared path. A direct `switch
 (state->state)` with cases 1 through 6 was tested against the prior
@@ -59,6 +59,19 @@ the target's `beq` polarity in both color-selection arms.
 The HUD data is now one nested `LevelHudData levelHud` member inside
 `GameData`, preserving the original offsets while avoiding a view-struct cast.
 The helper prototypes use `SpriteTextCleanup*` parameters.
+
+`LevelHudData.status` remains `s32` because the target has a signed `bgt` at
+`sub_804EE54 + 0xD4`. `maxY` is used by the signed coordinate interpolation
+with arithmetic shifts at `+0x10E`, `+0x114`, and `+0x11A`; `mode` is used by
+the arithmetic-shift extraction at `+0x12C`, `+0x13A`, `+0x178`, and `+0x186`.
+`mode2` is only equality-tested and therefore uses the default `unk32`; changing
+it from `s32` preserved the full ROM match.
+
+The duplicated mode/color block was also tested hoisted before the switch under
+`state->state == 2 || state->state == 5`. That source shape changed the ROM, so
+the two per-case blocks are retained. The repeated shifts are left as ordinary
+expressions because `sub_8057C40()` returns a value rather than exposing a
+proven packed field.
 
 The final instruction diff matched exactly, including the five-register
 prologue/epilogue, jump table, literal pools, and trailing padding. The full

@@ -77,7 +77,7 @@ void sub_804EE54(void)
     LevelHudData* state;
     s32 maxY;
     s32 mode;
-    s32 mode2;
+    unk32 mode2;
     SpriteTextCleanup* text1;
 
     base = _gameData;

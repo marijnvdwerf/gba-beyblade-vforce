@@ -111,8 +111,8 @@ void sub_804A550(TutorialEntry* arg0)
     TutorialData* tutorial;
     s32 timer;
     s32 index;
-    s32 done;
-    s32 counter;
+    unk32 done;
+    unk32 counter;
 
     gameData = _gameData;
     tutorial = &gameData->tutorial;
@@ -127,50 +127,48 @@ void sub_804A550(TutorialEntry* arg0)
             LoadSpriteSheet(tutorial->unk13C, SpriteSheet_821CCC8, 0x200, 0x6600, 0, 0, 0, 0);
         }
     }
-    if (done == 0) {
-        do {
-            VBlankIntrWait();
-            sub_80627F0();
-            updateKeyState();
-            timer--;
-            if (timer <= 0) {
-                if (tutorial->unk138 == NULL) {
-                    tutorial->unk138 = allocSprite(0);
-                    if (tutorial->unk138 != NULL) {
-                        LoadSpriteSheet(
-                            tutorial->unk138, SpriteSheet_821CB80, 0xDE00, 0x6E00, 0, 0, 0, 0);
-                    }
-                }
-                if ((_unk3005DA0 & 1) != 0 || timer < -200) {
-                    index++;
-                    timer = 15;
-                    if (index < arg0->sprite->languageCount[getLanguage()]) {
-                        sub_8061660(&tutorial->fontData,
-                            arg0->sprite->languageStrings[index].strings[getLanguage()], 0xF);
-                    } else {
-                        done = 1;
-                    }
-                    if (tutorial->unk138 != NULL) {
-                        sub_8060A94(tutorial->unk138);
-                        tutorial->unk138 = NULL;
-                    }
+    while (done == 0) {
+        VBlankIntrWait();
+        sub_80627F0();
+        updateKeyState();
+        timer--;
+        if (timer <= 0) {
+            if (tutorial->unk138 == NULL) {
+                tutorial->unk138 = allocSprite(0);
+                if (tutorial->unk138 != NULL) {
+                    LoadSpriteSheet(
+                        tutorial->unk138, SpriteSheet_821CB80, 0xDE00, 0x6E00, 0, 0, 0, 0);
                 }
             }
-            if (tutorial->unk138 != NULL && (counter & 0xF) == 0) {
-                unk16 frame;
+            if ((_unk3005DA0 & 1) != 0 || timer < -200) {
+                index++;
+                timer = 15;
+                if (index < arg0->sprite->languageCount[getLanguage()]) {
+                    sub_8061660(&tutorial->fontData,
+                        arg0->sprite->languageStrings[index].strings[getLanguage()], 0xF);
+                } else {
+                    done = 1;
+                }
+                if (tutorial->unk138 != NULL) {
+                    sub_8060A94(tutorial->unk138);
+                    tutorial->unk138 = NULL;
+                }
+            }
+        }
+        if (tutorial->unk138 != NULL && (counter & 0xF) == 0) {
+            unk16 frame;
 
-                frame = 0;
-                if (tutorial->unk138->frame.word == 0) {
-                    frame = 1;
-                }
-                tutorial->unk138->frame.word = frame;
+            frame = 0;
+            if (tutorial->unk138->frame.word == 0) {
+                frame = 1;
             }
-            if ((_unk3005DA0 & 8) != 0) {
-                done = 1;
-            }
-            __oam_8756CC0();
-            counter++;
-        } while (done == 0);
+            tutorial->unk138->frame.word = frame;
+        }
+        if ((_unk3005DA0 & 8) != 0) {
+            done = 1;
+        }
+        __oam_8756CC0();
+        counter++;
     }
     if (tutorial->unk138 != NULL) {
         sub_8060A94(tutorial->unk138);
