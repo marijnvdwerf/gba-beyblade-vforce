@@ -235,9 +235,6 @@ void sub_8043DB8(SpriteTextCleanup** arg0, LevelState* arg1, CurrentGameStateTai
 
 void sub_8043F40(SpriteTextCleanup** arg0, CurrentGameStateTail* arg1, s32 arg2)
 {
-    SpriteTextCleanup* text;
-    unk8 mode;
-
     sub_8061844(arg0[0], (arg2 >> 8) + 0x12, arg0[0]->y >> 8);
     sub_8061844(arg0[1], (arg2 >> 8) + 0x80, arg0[1]->y >> 8);
     sub_8061844(arg0[2], (arg2 >> 8) + 0x12, arg0[2]->y >> 8);
@@ -249,16 +246,10 @@ void sub_8043F40(SpriteTextCleanup** arg0, CurrentGameStateTail* arg1, s32 arg2)
     sub_8061844(arg0[8], arg2 >> 8, arg0[8]->y >> 8);
     sub_8061844(arg0[9], arg2 >> 8, arg0[9]->y >> 8);
     if ((arg1->unkC & 4) != 0) {
-        text = arg0[2];
-        mode = ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xE : 0xF;
-        sub_806185C(text, mode);
-        text = arg0[3];
-        mode = ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xD : 0xF;
-        sub_806185C(text, mode);
+        sub_806185C(arg0[2], ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xE : 0xF);
+        sub_806185C(arg0[3], ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xD : 0xF);
     }
-    text = arg0[9];
-    mode = (((sub_8057C40() >> 4) & 8) != 0) ? 0xE : 0xF;
-    sub_806185C(text, mode);
+    sub_806185C(arg0[9], (((sub_8057C40() >> 4) & 8) != 0) ? 0xE : 0xF);
 }
 
 void sub_8044054(FrontendState* state, unk32 arg1)
