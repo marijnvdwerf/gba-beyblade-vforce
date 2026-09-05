@@ -5,6 +5,7 @@
 
 extern const unk8 SpriteSheet_823BF04[];
 extern const unk8 SpriteSheet_823FF84[];
+extern const unk8 SpriteSheet_82411A0[];
 extern const unk8 SpriteSheet_8243874[];
 extern const unk8 SpriteSheet_8251F40[];
 extern const unk8 SpriteSheet_8252994[];
