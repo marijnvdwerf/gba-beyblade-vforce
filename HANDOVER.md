@@ -5,205 +5,101 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-05, session 6 (bitfield merge; round-1 agents dispatched).
+Last updated: 2026-09-06, session 6 close (round 2 merged, skill folded; monitor left on).
 
-## Session 6 (2026-09-05)
+## Session 6 (2026-09-05/06)
 
-State: main green; 463 C / 544 asm / 46%, 13/66 TUs done (riderstate.c DONE).
-Scout inventory /tmp/reds-by-tu-2026-09-05.md: 44 reds = 14 ARM + 30 real,
-ALL 30 without a draft, unchanged since session 5.
+State at close: main green, **505 C / 502 asm / 50%**, 13/66 TUs done;
+baseline refreshed; no agents running; keepalive monitor left ON (user).
+Worktrees: only the kept Opus one (`agent-aa3bb15346941d4ce`) + raw-decomp
+references. Net: +45 C functions, 0 levers merged, `docs/learnings/` folded
+(top level = README + processed/).
 
-BITFIELDS (user's own branch `decomp/sub_8050050`, merged 75ccbb6f after a
-luna cleanup): sub_8050050, sub_8050184, sub_80501A8 matched by declaring C
-bitfields in RiderState; the `(x<<22)>>22` / `(x<<28)>>28` / mask-and-or
-choreography in four already-matched functions collapsed to plain field
-access. The skill line claiming "the shift pair IS the source" was WRONG and
-is rewritten; measured lowering table in docs/learnings/bitfields-2026-09-05.md
-(reads: 4-bit@0 → ldrb;lsl28;lsr28, 4-bit@4 → ldrb;lsr4, 10-bit@0 →
-ldrh;lsl22;lsr22, 6-bit@10 → ldrb next byte;lsr2; writes = mask/preserve/
-merge/store at allocation-unit width; `|=`/`&=` extract-first). Naming
-convention `unk<BYTEHEX>_<BITDEC>` (unk6_0 : 10, unk6_10 : 6, unkD_0 : 4) now
-in decompiler.md. A union WRAPPER around u8 bitfields is 4 bytes in agbcc
-(hence the branch's packed attribute) — put bitfields directly in the struct
-instead; no attribute needed.
-Bitfield retry candidates (agent survey): parked LoadSpriteSheet (sprite.c
-`((c>>1)&0xF)<<12`), sub_80526C8 (gameloop.c oam attr mask-and-or),
-sub_806014C (multiplayer.c unk14 masks), sub_8047E5C (festate.c `(f()>>4)&0xF`);
-matched-but-ugly ActorSetFrameSequence `(flags&0xC)>>2`, sub_8061130/
-sub_8061168 OAM mask-and-or, sub_804AB50 `arg1&0xF`.
+### What happened
 
-Opus learnings (docs/learnings/opus-2026-09-03.md): assessed — four measured
-rules worth folding (s32 blocks `a*2+b*2→(a+b)*2` fold; store-then-readback
-orders the base load first; `if ((x = g) != 0)` yields the mov copy;
-`base + (off + const)` stages the displacement); the s8/cast story and the
-updateKeyState "patterns" are unmeasured → archive, don't fold. User: later.
+- **Bitfields.** User's branch `decomp/sub_8050050` matched three parked
+  riderstate functions with C bitfields; a luna cleanup made the layout
+  cast/attribute-free. The skill's "shift pair IS the source" line was wrong
+  and is rewritten with the measured lowering table (reads, writes, `|=`/`&=`,
+  `mov #16; neg` preserve mask, `s16 : 4; s16 x : 12` ↔ `lsl #16; asr #20`).
+  Naming `unk<BYTEHEX>_<BITDEC>`; bitfields go directly in the struct (a
+  wrapper union is 4 bytes). riderstate.c DONE.
+- **Round 1** (7 luna agents on the 30 draft-less reds): 11 matched — A
+  tutorial/hud 3/3, B festate 5/5 (best festate yield ever), C allocQuadTree,
+  F rider_vs_rider_collision; D/E/G 0 (parked drafts). Then A round 2: hud
+  helpers 3/3; B round 2 on festate 329–463: 0/4 (as history predicts).
+- **Round 2** (40 new reds exposed by the merges, avg 123 insns, 10 agents):
+  22 matched — R2-1 5/5, R2-2 4/6, R2-3 4/4, R2-4 4/4, R2-5 2/2, R2-6 2/4,
+  R2-7 2/3, R2-8 3/3, R2-9 3/4, R2-10 0/5 (geometry). Leaves ≤130 insns
+  remain the ~80% band; 300+ stays ~0.
+- **Process changes.** `review` agent (`.claude/agents/review.md`): read-only
+  luna reviewer, writes `/tmp/review-<branch>.md`, one-line report; flags
+  levers, header pollution, foldable temps, `REG_x + N`. Manager reads every C
+  diff in full before merging (drifted mid-session, corrected). `skill-fold`
+  agent (`.claude/agents/skill-fold.md`, sol) does the bible update; first run
+  merged fb8919a8 (7 added / 14 revised, 19 files archived). Attribution
+  trailers off (`attribution` block, project + global settings).
+  `decompiler.md`: effort high; named registers only; fold byte-identical
+  temps; no draft-only header fields — a parked draft declares a scratch
+  struct inside its own `#if 0`.
+- **Tooling fixes.** diff.ts scanned `expected/` from the repo root and
+  `Bun.Glob` does not descend into symlinks → broken in every worktree
+  (c64911dc). `tools/update-expected` is a no-op when `expected` is a symlink
+  (0b4b41a9). Agents still rm/replace/delete the symlink by hand — the
+  keepalive relinks; watch it.
 
-Open: (1) TODO merge DisplayRecord/BGLayer naming (see R2-7); (2) proposed
-`tools/unused-fields.py` (libclang over build/compile_commands.json: struct
-fields never referenced by committed C — enforces the "fields exist only when
-C uses them" rule; `#if 0` drafts naturally excluded) — user undecided;
-(3)–(6) carried from session 5: `&_spritesFree` ruling, frontend
-unk588/unkC callback signature, raw 0x0D000000 in the backup.c draft,
-`out.json` on main.
+### Rulings (user)
 
-Round-1 merges: A MERGED (sub_804A310, sub_804A550, sub_804EE54 — 3/3;
-GameData 0xF50–0x105E is now `LevelHudData levelHud` with struct-relative
-names text0–3/motion0–1/status/state/flags/unkF4…; TutorialPage typed as
-s32 languageCount[5] + 8×5 string ptrs; hoisting the duplicated HUD colour
-block CHANGES bytes — per-case duplication is source). Review agent
-(.claude/agents/review.md, read-only luna reviewer → docs/learnings/
-review-<date>.md; manager merges) validated on A: caught undocumented s32s.
-Luna 429 outages twice this evening; agents resume from transcripts via
-SendMessage. Agents keep deleting/replacing the worktree `expected` symlink
-by hand — keepalive monitor relinks; F wrote into the main checkout once
-(reverted, diff in /tmp/stray-main-edits-*.diff).
+- allocQuadTree keeps `unk8* nodes` + `(QuadTreeNode*)` casts (raw block
+  carving; every typed form diverges because the byte product must stay
+  live).
+- `typedef BGLayer DisplayRecord` accepted; TODO merge the names once a
+  camera match settles semantics (src comments banned → TODO lives here).
+- Parked drafts: never dropped, merged only in house style with PROPER
+  record types (no `unk8*` cursors); headers get NO field only a draft uses.
+- Learnings for failed functions not wanted (one-line first-divergence).
+- Parked-only branches merge on the manager's read; reviewer only for
+  branches with matches.
+- CurrentGameSave begins with `BackupBlock block0` (session-4 open item
+  resolved). LevelHudData nested in GameData at 0xF50; LevelHudObject deleted
+  (was a SpriteEntry View).
 
-B MERGED (festate.c 5/5: sub_8046A0C, sub_8044054, sub_8044C48, sub_8044ED4,
-sub_8048AE8 — best festate yield ever; new src/festate.h; IWRAM 0x16C–0x2F0
-and 0x5E4–0x5F0 typed in ram.c/ram.h with sizes preserved; FrontendSpriteTriple;
-`(sub_8057C40() >> 4) & 3` form is source — `& 0x30` changes bytes). D, E, G
-MERGED parked-only (no header changes, drafts under #if 0): D sub_8050C18 +
-allocateMenuItems; E renderEnvironmentActors, sub_80522D4, sub_8055340
-(finding: `s16 : 4; s16 unk7C_4 : 12` reproduces `lsl #16; asr #20`),
-sub_80526C8; G LoadSpriteSheet, sub_806014C. User: learnings for failed
-functions are not wanted (brief trimmed). Parked-only branches merge on the
-manager's read; reviewer runs only on branches with matches.
+### Lessons
 
-C MERGED: allocQuadTree matched, sub_805E8D8 parked one instruction short
-(`add r2,r4,r3` vs `add r2,r3,r4`; the only byte-identical form was an
-artificial `(base - (i * -1))` and was REJECTED). RULING (user): allocQuadTree
-carves a raw slowAllocate block with `unk8* nodes` + `(QuadTreeNode*)` casts
-on the stores — accepted (typed `nodes + nodeCount` forms diverge at the
-frame/regalloc because the byte product must stay live). Review fixes landed:
-geometry.h prototypes, REG_BLDCNT, TileMapHeader shared, LevelDesign padding.
-Reviewer now writes /tmp/review-<branch>.md (scratch, not repo) and flags
-foldable temps. F done: rider_vs_rider_collision matched, renderRider +
-sub_804B8F0 parked (in review). A round 2: sub_804F2A0 + sub_804F05C matched,
-sub_804F478 in progress. B round 2 (festate 329–463) in progress.
+- Luna agents stop at context compaction ("text-only restriction") — every
+  long grind needs a revive message; after ~450 tool calls they loop
+  (B, R2-2) → retire and hand the branch to a fresh agent.
+- >7 concurrent luna sessions → provider 429s (two outages; resume via
+  SendMessage, no work lost).
+- `git worktree remove --force` on a live worktree discards uncommitted
+  work (R2-2's partial fixes) — check status first.
+- Two rules that conflicted (typed drafts vs no speculative fields) were
+  resolved by the in-block scratch struct.
+- Leads not yet acted on: `isMultiplayer()` may return a halfword (target
+  normalizes 16 bits in sub_804868C); `Actor+0xA0` ActorRenderState,
+  DisplayRecord 0x40/0x44, nullsub_12 returning its arg (E's evidence, in
+  processed/envactor-gameloop-effects-2026-09-05.md).
 
-F MERGED: rider_vs_rider_collision_804DB94 matched (RiderHasFlag returns
-unk8 — the `lsl #24` is callee normalization, never source); renderRider +
-sub_804B8F0 parked (sub_804B8F0: target keeps the formal in r6 with a copy
-in sl — alias-of-parameter fingerprint — draft still spills it). A round 2
-MERGED: sub_804F2A0, sub_804F05C, sub_804F478 matched (hud.c helpers take
-LevelHudData*; LevelHudData.unk104 s16; the s16 temporary in sub_804F478 is
-byte-required; 15 temp-fold tests recorded in docs/learnings/hud-2026-09-05.md).
-Agent A: 6/6 this session, retired. Session total 16 matched.
+### Next session
 
-B round 2 MERGED parked-only (sub_80448F4, sub_8048310, sub_804868C,
-sub_804444C; festate.c + learnings only). Agent B retired (context-bloated,
-compaction-looping after ~490 tool calls); the festate helper trio went to a
-fresh agent R2-8. Lead from sub_804868C: target normalizes isMultiplayer()
-to a HALFWORD — `u8 isMultiplayer(void)` in multiplayer.h may be wrong
-(measure with a full compare, all matched callers). R2-5 hud pair matched
-(sub_804F794, sub_804F37C) — in review.
+1. **Round 3 pool (14 reds, 13 ≤123 insns)** — three batches: projectile
+   (sub_804C34C 6, sub_804C354 6, sub_804C3D4 72) + beyblade sub_805749C 6 +
+   packet (sub_8043960 9, sub_8043970 24); spritetext printTime 27 + actor
+   renderActor 27 + backup sub_80658A4 55 + iconmenu sub_8050DF8 63;
+   gamestate sub_80513AC 87 + festate (sub_804423C 97, sub_8044314 123) +
+   trail sub_804A908 272. Re-run the callgraph after merging — each merge
+   exposes more leaves.
+2. Debt: BGLayer/Struct3000CA0 legacy `var00`/`field_C` names (176 hits in
+   layer.c) → rename pass to `unk<HEX>`; DisplayRecord/BGLayer TODO.
+3. Proposed `tools/unused-fields.py` (libclang over compile_commands.json;
+   must treat `#if 0` scratch structs as legitimate) — user undecided.
+4. Giants (≥440, 8 of them) still unassigned; historical yield ~0.
+5. Carried: `&_spritesFree` scalar-alias ruling; frontend unk588/unkC
+   callback signature; `out.json` on main.
 
-R2-1 MERGED 5/5 (renderActor2, sub_8055274, sub_8055288, sub_8060070,
-sub_8061C48; cached ProjectileSystem* temps proven byte-required). R2-4
-4/4 matched (sub_8051868, sub_80515A4, sub_804FB6C, sub_804FC00) and R2-5
-2/2 (sub_804F794, sub_804F37C) in review fixes. R2-2 4/6 so far
-(UnsetRiderFlag, sub_804D104, sub_804C870, sub_804CEF4), on the two big ones.
-All 40 new reds assigned (R2-1..R2-10). Main 481 C / 526 asm / 48%.
-
-R2-5 MERGED 2/2 (sub_804F794, sub_804F37C; LevelHudObject View struct
-DELETED — LevelHudData.unkF4/F8/FC/100 are SpriteEntry*, levelhud.c writes
-x/y/frame.word). R2-3 4/4 (effects), R2-8 3/3 (festate helpers; shift-spelled
-constants `(0xC0 << 5)` were transcription — plain literals byte-identical)
-and R2-4 4/4 in review fixes. Session total 38 matched. Manager reads every
-C diff in full before merge, in addition to the reviewer.
-
-R2-4 MERGED 4/4 (sub_8051868, sub_80515A4, sub_804FB6C, sub_804FC00).
-RESOLVED the session-4 open item: CurrentGameSave begins with an embedded
-`BackupBlock block0`; sub_80515A4/sub_80515E0 pass `&unk6FC.block0` (record
-alias, no cast). sub_805749C prototype lives in beyblade.h.
-
-R2-3 MERGED 4/4 (sub_80558B8, sub_80558D0, sub_80558E8, sub_8055734;
-projectile.h owns sub_804C3D4/34C/354 prototypes; eight data9.s resource
-labels made global). Main 491 C / 516 asm / 49%.
-
-R2-8 MERGED 3/3 festate helpers (sub_8048A74, sub_8043F40, sub_8043DB8;
-temps that fold byte-identically are folded — that rule is now enforced at
-review). Main 494 C / 513 asm / 49%. Session total 42 matched.
-
-R2-7 layer: sub_8059934 + sub_8058968 matched, sub_8059C18 parked (in
-review). It unified `DisplayRecord` with `BGLayer` (same 0x88 layout; moved
-to layer.h). DEBT: BGLayer/Struct3000CA0 use legacy `var00`/`field_C`/`var8`
-names (176 hits in layer.c, a few in common.h/display.h) — pre-existing, needs
-a rename pass to `unk<HEX>` (+ meaningful names where proven), separate task.
-Rulings today: parked drafts are merged only in house style with PROPER
-record types (no `unk8*` cursors), never dropped (sub_804D110); named hardware
-registers only (REG_WIN1H, REG_BLDALPHA, REG_BLDY, PLTT — fixed on main
-760642d7); temps that fold byte-identically are removed (decompiler.md
-462b1ddc); attribution trailers off (settings, global + project).
-
-R2-6 MERGED: sub_804E560 + sub_804C208 matched; sub_804E594 (stack-arg
-lifetime) + sub_804EA88 parked; trail.h created; ParticleFrameData typed.
-R2-9 done (sub_80561A0, allocFXSprite, GetQuadTreeNodeForPos matched;
-sub_804BF3C parked) — in review; its `(unk32)nullptr` argument lever was
-caught by the manager read and replaced by plain `0` (byte-identical).
-R2-2 retired (compaction loop); R2-2b cleaning its branch (drafts must be
-house-style with proper types before merge — user ruling).
-
-R2-7 MERGED: sub_8059934, sub_8058968 matched; sub_8059C18 parked.
-`typedef BGLayer DisplayRecord` ACCEPTED (user) with a TODO: merge the two
-names properly — retire `DisplayRecord` in favour of `BGLayer` (or split
-again) once a camera match proves the semantics; lives here because src/
-comments are banned. `_unk3000CA0` is `Struct3000CA0[4]` (96-byte slot);
-`_unk3000E3C` is a byte; RAM externs moved to ram.h.
-
-R2-2/R2-2b MERGED: UnsetRiderFlag, sub_804D104, sub_804C870, sub_804CEF4
-matched; sub_804CB08 + sub_804D110 parked as house-style drafts with in-block
-`RiderDraft` scratch structs (RULING: no draft-only fields in headers; drafts
-declare a scratch struct inside their `#if 0`). `+ 0xC8` in sub_804CEF4 is
-byte-required (target `add r0, #200`). MAIN CROSSED 50%: 502 C / 505 asm.
-Round-3 pool (14 new reds, mostly ≤100 insns): sub_804C34C 6, sub_804C354 6
-(projectile), sub_805749C 6 (beyblade), sub_8043960 9 + sub_8043970 24
-(packet), printTime 27 (spritetext), renderActor 27 (actor), sub_80658A4 55
-(backup), sub_8050DF8 63 (iconmenu), sub_804C3D4 72 (projectile), sub_80513AC
-87 (gamestate), sub_804423C 97 + sub_8044314 123 (festate), sub_804A908 272
-(trail). Prompt archive: /tmp/agent-prompts-2026-09-05.md.
-
-R2-9 MERGED: sub_80561A0, allocFXSprite, GetQuadTreeNodeForPos matched;
-sub_804BF3C parked (in-block scratch structs); QuadTreeNode typed from the
-matched walker; ram.c conflict resolved (withBoundingAreas unk32[32] +
-Struct3000CA0[4]). R2-10 MERGED parked-only (allocateDynamicBoundingAreas,
-sub_805BDBC, initQuadTreeNode; geometry 0/5 — sub_805C9A4 left as asm,
-sub_805CEB8 skipped). ROUND 2 CLOSED: 22 matched of 40 new reds.
-
-SKILL FOLD MERGED (fb8919a8 via skill-fold-style sol agent): 7 bullets
-added, 14 revised, 19 learnings files archived to processed/; top level is
-README only. New checked-in agents: `review` (read-only reviewer →
-/tmp/review-<branch>.md) and `skill-fold` (sol). Learnings-prompt archive of
-all sessions: /tmp/learnings-prompts.md (72 prompts, 134 sessions).
-
-ROUND 2 (new leaf pool): merging today's work exposed 40 new reds
-(/tmp/reds-new-2026-09-05.md, avg 123 insns, 17 TUs). Dispatched 6 luna
-agents: R2-1 utility (renderActor2, sub_8055274, sub_8055288, sub_8060070,
-sub_8061C48); R2-2 riderphysics (UnsetRiderFlag, sub_804D104, sub_804C870,
-sub_804CEF4, sub_804CB08 442, sub_804D110 678); R2-3 effects (sub_80558B8,
-sub_80558D0, sub_80558E8, sub_8055734); R2-4 gamestate+levelhud (sub_8051868,
-sub_80515A4, sub_804FB6C, sub_804FC00); R2-5 hud (sub_804F794, sub_804F37C);
-R2-6 particle+projectile (sub_804E560, sub_804E594, sub_804C208,
-sub_804EA88). QUEUED when slots free (>7 concurrent luna agents → 429s):
-B7 layer (sub_8059934 37, sub_8059C18 73, sub_8058968 91); B8 collision+
-rider (sub_80561A0 33, allocFXSprite 41, GetQuadTreeNodeForPos 89,
-sub_804BF3C 154); B9 geometry (allocateDynamicBoundingAreas 40, sub_805BDBC
-173, initQuadTreeNode 341, sub_805C9A4 644, sub_805CEB8 669); festate trio
-after agent B finishes (sub_8048A74 56, sub_8043F40 122, sub_8043DB8 168).
-Giants (≥440, 8 of them) still unassigned.
-
-Round 1 (dispatched, luna decompiler agents, worktrees, brief
-/tmp/brief-2026-09-05.md): A tutorial+hud (sub_804A310 6, sub_804A550 202,
-sub_804EE54 215); B festate small (sub_8046A0C 143, sub_8044054 177,
-sub_8044C48 240, sub_8044ED4 240, sub_8048AE8 242, + bitfield retry of parked
-sub_8047E5C); C geometry+camera (allocQuadTree 222, sub_805E8D8 240);
-D iconmenu+menu (sub_8050C18 232, allocateMenuItems 232); E envactor/gameloop/
-effects (renderEnvironmentActors 241, sub_80522D4 261, sub_8055340 288, +
-bitfield retry sub_80526C8); F rider+riderphysics (rider_vs_rider_collision_
-804DB94 285, renderRider 339, sub_804B8F0 345); G bitfield retries sprite+
-multiplayer (LoadSpriteSheet, sub_806014C). Held for round 2: festate large
-(sub_80448F4 329, sub_8048310 343, sub_804868C 377, sub_804444C 463) and
-the eight ≥440 giants.
+Prompt archives: /tmp/agent-prompts-2026-09-05.md (this session's 40
+Agent prompts), /tmp/learnings-prompts.md (72 fold/learnings prompts across
+134 sessions). Round brief: /tmp/brief-2026-09-05.md.
 
 ## Session 5 (2026-09-03)
 
