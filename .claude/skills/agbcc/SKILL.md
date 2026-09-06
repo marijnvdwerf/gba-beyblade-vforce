@@ -38,7 +38,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Values live across calls prefer callee-saved registers or spills; one extra live value across one call can change the push mask or spill slot. A target that retains an incoming or normalized value in a callee-saved register where the draft reloads it points to a missing source local/lifetime, not a semantic mismatch.
 - Keep explicit cursor/count/end temporaries when the target keeps distinct values, including separate count and loop-limit copies when the bound occupies a different register; remove them when the target reloads or coalesces instead.
 - A separate successor temporary can keep a moving cursor and freshly loaded pointer in distinct registers: `candidate = cur->next; next = candidate;`.
-- A scalar temporary can force one field/byte load that is reused by multiple tests, or place that load before a later initialization; removing it may duplicate or reorder instructions.
+- A scalar temporary can force one field/byte load that is reused by multiple tests, or place that load before a later initialization; removing it may duplicate or reorder instructions. Conversely, repeating the same shifted or narrowed expression at each call site can be byte-required when caching it changes normalization or instruction order.
 - Open problem: reading a byte field once into a temporary can produce one signed load and reuse, while rereading the field can produce an unsigned load plus later normalization; if natural lifetime variants do not match, do not turn this observation into a field-typing rule.
 - A separate result or magnitude temporary can preserve the original argument for a later sign test while the transformed value occupies the return-value path; an in-place rewrite changes that dataflow.
 - Assignment and initialization order set live-range boundaries and address-materialization order; spell them in target order. An incoming-parameter alias can leave the characteristic `mov sl, r6`; keep that alias when folding it changes the prologue.
@@ -46,7 +46,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - For a pure register-role swap, declaration order, scopes, signedness sweeps, and equivalent VLA-bound spellings often do not change allocator rank. Compare `.greg`, then vary the creation/use order or the lifetime that crosses a call or branch; if the same swap survives those natural probes, park it rather than churning permutations.
 - Nested scopes shorten lifetimes, but a switch-arm-local pointer also defers its global load until that arm; hoisting it changes dispatch allocation.
 - Reuse one compatible local across similar loops when the target preserves one pseudo/register history; separate locals may reshuffle both loops.
-- Conversely, keep initial-pointer and mutable-cursor locals separate when the target keeps both roles live in different registers.
+- Conversely, keep initial-pointer and mutable-cursor locals separate when the target keeps both roles live in different registers; the same applies to table-base pointers and their indexed row pointers when the target retains distinct address-calculation roles.
 - A redundant-looking temporary — including a local alias of a global pointer or a separate `size`/count local — can add the exact pseudo pressure needed, or an unwanted save; keep it only when the target proves the distinct lifetime, and judge it by the prologue and first divergence.
 - Remove temporaries and aliases that fold byte-identically, including single-use call results and direct field values; retain only lifetimes proven by a build. Alias removals interact, so one failed simplification may match after another alias is removed; probe combinations while checking the first divergence.
 - Early `result = 0` or a real 0/1 flag can reproduce early return-register setup and later separate tests; do not fold proven source state away.
@@ -80,6 +80,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 - Let typed indexing expose cancellation between an explicit element-size division and the compiler's implicit scale; manually replacing it with shifts and masks can prevent simplification and add instructions.
 - `ptr[i + k]` on a pointer variable can scale `i` and fold constant `k` into the load displacement, while indexing an embedded array member may scale the whole `i + k` before adding its base. Use the source shape shown by the target address sequence.
 - Bit extraction and mask tests are not interchangeable: `(x >> 4) & 1` preserves a shift-plus-`and` shape (with `asr`/`lsr` selected by type), while `(x & 0x10) != 0` favors a direct mask/test and can change the CFG.
+- Open problem: a target full-width nonzero test may use branchless `neg; orr; lsr #31`, while natural `!= 0` and Boolean forms emit `cmp`/branch/constant selection. The arithmetic identity `((0 - value) | value) >> 31` reproduces the bytes but is an approved fakematch, not a general source-recovery recipe.
 
 ## Loops
 
@@ -97,7 +98,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 
 ## Switches and branches
 
-- Condition spelling picks branch polarity, fall-through, and tail merging: early return, nested `if`, an equivalent combined Boolean, and result-variable forms are not interchangeable. `if ((x = global) != 0)` creates a copy pseudo and can emit `mov` before `cmp`, unlike separate assignment and test. When the target has a branch ladder feeding one shared body, preserve that nesting and shared-body placement.
+- Condition spelling picks branch polarity, fall-through, and tail merging: early return, nested `if`, an equivalent combined Boolean, and result-variable forms are not interchangeable. `if ((x = global) != 0)` creates a copy pseudo and can emit `mov` before `cmp`, unlike separate assignment and test. When the target has a branch ladder feeding one shared body, preserve that nesting and shared-body placement. Keep separately written null guards or nested conditions when short-circuiting or combining them changes branch layout or merges duplicated call arms.
 - In old GCC, a value-less `return;` in a non-void function can reproduce fall-through to the epilogue with `r0` still holding the just-tested value; use it only when that undefined return path is proven by the target.
 - Preserve redundant-looking compares when present; identical function size alone does not validate branch targets.
 - Switch case count controls lowering and block layout. For a jump-table switch, agbcc sorts table entries by selector value but emits case bodies in source order, so order the source cases to match the target's body layout. Sparse switches may become compare trees, and an otherwise empty high case plus `default` can cross a threshold where agbcc pivots on a middle value and uses an unsigned range branch for lower cases.
@@ -148,7 +149,7 @@ Core truth: **recover the C the original programmer wrote.** Equivalent C is not
 ## Calls and ABI
 
 - Prototypes affect both sides: parameter widths select call-site conversions, while definition widths control entry normalization and allocation.
-- Calls without a prototype use default promotions; arguments after r0–r3 go on the stack, so wrong arity changes the frame. In callers with more than four parameters, long-lived values destined for stack arguments 4–5 can remain in callee-saved registers until the stores; preserve those locals rather than rematerializing the arguments.
+- Calls without a prototype use default promotions; arguments after r0–r3 go on the stack, so wrong arity changes the frame. Retain unused formal parameters when later arguments must keep their target ABI positions, including a sixth argument that must remain in its original stack slot. In callers with more than four parameters, long-lived values destined for stack arguments 4–5 can remain in callee-saved registers until the stores; preserve those locals rather than rematerializing the arguments.
 - Direct calls emit `bl`; function-pointer lvalues emit a load plus `_call_via_rN`; match the indirection level.
 - Pass direct function names before adding explicit Thumb-bit arithmetic; relocation handling may already encode the callable address.
 - Passing a call result directly versus storing it in a local can differ by a `mov` and by how long the value remains live. In particular, `tmp = call(); global = tmp;` can materialize `&global` after the call, while `global = call();` may preload the address into a callee-saved register.
