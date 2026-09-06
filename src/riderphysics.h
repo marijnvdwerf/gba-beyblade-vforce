@@ -16,6 +16,7 @@ void convert3DCoordsto2DCoords(Actor*, unk32*);
 unk8 RiderHasFlag(RiderBase*, unk32);
 unk32 sub_804E440(RiderBase*, unk32);
 unk8 sub_804E454(RiderBase*, unk32);
+void sub_804E1DC(RiderBase*);
 void sub_804DAA0(RiderBase*, RiderBase*);
 unk32 rider_vs_rider_collision_804DB94(RiderBase*, RiderBase*);
 

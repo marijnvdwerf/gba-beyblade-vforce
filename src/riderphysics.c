@@ -649,7 +649,17 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804dff4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e090.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e124.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e154.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e1dc.s");
+
+void sub_804E1DC(RiderBase* rider)
+{
+    Actor* actor;
+
+    actor = rider->unk0;
+    UnsetRiderFlag(rider, 0x200);
+    actor->unk4C = 0;
+    actor->unk50 = 0;
+    rider->unk1C = rider->unk10;
+}
 
 void sub_804E1FC(RiderBase* rider, u8 arg1)
 {
