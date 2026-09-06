@@ -211,6 +211,7 @@ extern const unk8 _8078c48[];
 extern const unk8 _8078cd8[];
 extern const unk8 _8078d68[];
 extern const unk8 _8078df8[];
+extern const unk8 _8078e88[];
 
 void sub_8055734(unk32 arg0, Actor* arg1, Actor* arg2)
 {
@@ -267,7 +268,29 @@ void sub_8055734(unk32 arg0, Actor* arg1, Actor* arg2)
     sub_804C354(effect, 0, 0, 0);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/805582c.s");
+void sub_805582C(unk32 unused, Actor* arg1, unk32 arg2, unk32 arg3, unk32 arg4)
+{
+    GameData* gameData;
+    ProjectileSystem* effect;
+    Actor* base;
+    const unk8* resource;
+    unk32 velocityX;
+    unk32 velocityY;
+
+    velocityX = arg2;
+    velocityY = arg3;
+    gameData = _gameData;
+    effect = &gameData->projectileSystem;
+    resource = _8078e88;
+    base = gameData->base.unk0;
+    if (arg1 != NULL) {
+        sub_804C3D4(effect, arg1->x, arg1->y, arg1->z, resource);
+    } else {
+        sub_804C3D4(effect, base->x, base->y, base->z, resource);
+    }
+    sub_804C34C(effect, base->x, base->y, base->z);
+    sub_804C354(effect, velocityX, velocityY, arg4);
+}
 
 void sub_805589C(void)
 {
