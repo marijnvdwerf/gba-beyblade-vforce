@@ -434,8 +434,6 @@ void initGameloop2(void)
 {
     unk32 levelId;
     GameData* gameData;
-    GameData* gameData2;
-    unk8 timer;
 
     levelId = getSomeLevelID();
     sub_804AE8C();
@@ -447,12 +445,10 @@ void initGameloop2(void)
     gameData = _gameData;
     gameData->unk658 = &gameData->base.unk238;
     gameData->unkB53 = 1;
-    gameData2 = _gameData;
-    gameData2->unkC6E = 0x3C;
-    gameData2->unk163C++;
-    timer = gameData2->unk1638;
-    if (timer != 0)
-        gameData2->unk1638 = timer - 1;
+    _gameData->unkC6E = 0x3C;
+    _gameData->unk163C++;
+    if (_gameData->unk1638 != 0)
+        _gameData->unk1638--;
     sub_804F800(_gameData->unk1638);
     sub_804FE9C();
     sub_80538C0();
