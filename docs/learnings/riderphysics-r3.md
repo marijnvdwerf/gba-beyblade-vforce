@@ -11,3 +11,7 @@ The function clears the actor's `unk4C` and `unk50` fields, clears rider flag `0
 ## sub_804E224 (0x0804E224)
 
 The helper computes a signed, capped movement step from the difference between two signed positions. `arg2` is an `unk8` parameter: the callee's `lsl #24`/`lsr #24` normalization is reproduced by the narrow formal. Signed `s32` position, magnitude, result, and cap values reproduce the `bge`, `ble`, `asr`, and final negation sequence.
+
+## sub_804E258 (0x0804E258)
+
+The helper computes a wrapped signed difference, scales it, applies an absolute-value/cap stage, and restores the signs of the scaled result and original difference. The fifth source argument is unused; retaining it keeps the sixth cap argument at the target stack slot. `scale` is `unk8` to reproduce the entry byte normalization, while the wrapped difference and cap remain signed `s32` values.
