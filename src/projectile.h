@@ -21,9 +21,9 @@ typedef struct ProjectileTemplate {
     unk16 unk2E;
 } ProjectileTemplate;
 
-void newSpriteTrail(UnkTrail*, const unk8*, void*, s32, unk32, unk8, unk32);
+void newSpriteTrail(UnkTrail*, const SpriteTrailSheet*, void*, s32, unk32, unk8, unk32);
 void sub_804ABE4(UnkTrail*);
-void newProjectileSystem(ProjectileSystem*, s32, const unk8*, unk32, void*);
+void newProjectileSystem(ProjectileSystem*, s32, const SpriteTrailSheet*, unk32, void*);
 void sub_804C484(ProjectileSystem*);
 void sub_804C208(ProjectileSystem*);
 void sub_804C3D4(ProjectileSystem*, unk32, unk32, unk32, const ProjectileTemplate*);

@@ -7,7 +7,8 @@
 
 extern const unk8 Str_8726FE4[];
 
-void newProjectileSystem(ProjectileSystem* arg0, s32 arg1, const unk8* arg2, unk32 arg3, void* arg4)
+void newProjectileSystem(
+    ProjectileSystem* arg0, s32 arg1, const SpriteTrailSheet* arg2, unk32 arg3, void* arg4)
 {
     AllocatedBlock* block;
     ProjectileEntry* entry;
@@ -174,7 +175,18 @@ void sub_804C3D4(ProjectileSystem* system, unk32 xOffset, unk32 yOffset, unk32 z
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c464.s");
+void sub_804C464(ProjectileSystem* system)
+{
+    ProjectileEntry* entry;
+    s32 count;
+
+    count = system->count;
+    entry = system->entries;
+    while (count-- != 0) {
+        entry->trailDelay = 0;
+        entry++;
+    }
+}
 
 void sub_804C484(ProjectileSystem* system)
 {

@@ -10,7 +10,7 @@
 #include "sprite.h"
 #include "unsorted.h"
 
-extern const unk8 SpriteSheet_86FBF94[];
+extern const SpriteTrailSheet SpriteSheet_86FBF94[];
 
 #if 0
 extern void ActorSetSpriteOffset(EnvironmentActorSlot*, unk16, unk16);

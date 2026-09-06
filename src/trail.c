@@ -10,9 +10,10 @@
 
 extern const u8 Str_8726F84[];
 extern const u8 Str_8726FB4[];
+extern const u8 Unk_874CEBC[];
 
-void newSpriteTrail(
-    UnkTrail* arg0, const u8* arg1, void* arg2, s32 arg3, unk32 arg4, u8 arg5, unk32 arg6)
+void newSpriteTrail(UnkTrail* arg0, const SpriteTrailSheet* arg1, void* arg2, s32 arg3, unk32 arg4,
+    u8 arg5, unk32 arg6)
 {
     AllocatedBlock* allocated;
     SpriteTrailEntry* sprites;
@@ -264,8 +265,55 @@ void sub_804AB50(UnkTrail* arg0, unk16 arg1)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ab60-nullsub_39.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ab64.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ab88.s");
+
+void sub_804AB64(UnkTrail* trail, SpriteTrailEntry* entry, unk32 index)
+{
+    const SpriteTrailFrame* frame;
+    SpriteEntry* sprite;
+
+    frame = trail->spriteSheet->frames;
+    frame += index;
+    entry->unk16 = index;
+    sprite = entry->sprite;
+    entry->unk12 = frame->unk0;
+    sprite->frame.word = frame->unk0;
+    entry->unk14 = frame->unk2;
+    entry->unkE = frame->unk4;
+    entry->unk10 = frame->unk4;
+}
+
+unk32 sub_804AB88(s32 arg0, s32 arg1)
+{
+    s32 value;
+    s32 magnitude;
+    s32 indexValue;
+    s16 index;
+    s32 tableValue;
+
+    value = arg0;
+    magnitude = arg1;
+    if (magnitude < 0) {
+        magnitude = -magnitude;
+    }
+    if (magnitude <= 0x80) {
+        indexValue = -(arg1 >> 1);
+    } else {
+        indexValue = value >> 1;
+        value = arg1;
+    }
+    index = indexValue;
+    tableValue = Unk_874CEBC[index + 0x80];
+    if (value < 0) {
+        tableValue = 0xFF - tableValue;
+    }
+    if (magnitude > 0x80) {
+        tableValue += 0x40;
+        if (tableValue > 0xFF) {
+            tableValue -= 0x100;
+        }
+    }
+    return tableValue;
+}
 
 void sub_804ABD0(UnkTrail* arg0, unk32 arg1, unk32 arg2)
 {
@@ -273,7 +321,13 @@ void sub_804ABD0(UnkTrail* arg0, unk32 arg1, unk32 arg2)
     arg0->unk14 = arg2;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804abd8.s");
+void sub_804ABD8(UnkTrail* arg0, unk32 arg1, unk32 arg2)
+{
+    arg0->unk10 = arg1;
+    arg0->unk14 = arg2;
+    arg0->unk18 = arg1;
+    arg0->unk1C = arg2;
+}
 
 void sub_804ABE4(UnkTrail* arg0)
 {
