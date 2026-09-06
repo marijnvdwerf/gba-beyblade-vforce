@@ -807,7 +807,31 @@ void sub_804E090(RiderBase* rider)
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e090.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e124.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e154.s");
+
+void sub_804E154(RiderBase* rider, unk32 arg1, unk32 arg2)
+{
+    unk16 value;
+
+    value = arg2;
+    UnsetRiderFlag(rider, 0x40000);
+    if (RiderHasFlag(rider, 0x4000000) == 0) {
+        rider->unk1EE -= 0x400;
+        if (rider->unk1EE < 0)
+            rider->unk1EE = 0;
+        rider->unk1F2 -= 0x200;
+        if (rider->unk1F2 < 0)
+            rider->unk1F2 = 0;
+    }
+    rider->unk144 = 0;
+    SetRiderFlag(rider, 0x200);
+    rider->unkCC = 0xA0;
+    rider->unk6C = 0;
+    rider->unk74 = 0;
+    rider->unk70 = 0;
+    rider->unk30 = 0;
+    rider->unk3C = 0;
+    rider->unk150 = value;
+}
 
 void sub_804E1DC(RiderBase* rider)
 {
