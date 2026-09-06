@@ -14,4 +14,10 @@ Matched by typing the resource header as `SpriteTrailSheet` with an 8-byte `Spri
 
 ## sub_804AB88 (0x0804AB88)
 
-Matched with signed `s32` coordinate inputs and an `unk32` return. The table lookup uses the signed halfword-normalized index `(s16)index + 0x80`; preserving separate `value`, `magnitude`, `index`, and `tableValue` locals reproduces the branch and literal-pool sequence exactly. The complete instruction sequence and pool bytes are byte-identical.
+Matched with signed `s32` coordinate inputs and an `unk32` return. The selected wide `indexValue` is assigned to a signed `s16 index` after the branch, then used directly as `index + 0x80`; this preserves the target's single halfword normalization without transcribing a cast. Signed `tableValue`, unary negation for the magnitude, and subtraction by `0x100` reproduce the natural wrap arithmetic and the target literal-pool sequence.
+
+| Question | Result |
+| --- | --- |
+| Fold the single-use `sprite` alias in `sub_804AB64` | Not byte-identical; alias retained. |
+| Replace the selected wide index with a direct `s16 index` in each branch | Not byte-identical; branch-local normalization was emitted. A separate `indexValue` followed by one `s16 index` assignment is byte-identical. |
+| Replace the explicit wrap cast/literal with signed subtraction by `0x100` | Byte-identical; natural form retained. |

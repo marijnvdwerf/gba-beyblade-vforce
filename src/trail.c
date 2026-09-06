@@ -117,7 +117,7 @@ typedef struct UnkTrailDraft {
 } UnkTrailDraft;
 
 void sub_804AB64(UnkTrailDraft*, SpriteTrailEntryDraft*, s16);
-unk32 sub_804AB88(s32, s32);
+unk8 sub_804AB88(s32, s32);
 
 void sub_804A908(UnkTrailDraft* trail)
 {
@@ -286,28 +286,30 @@ unk32 sub_804AB88(s32 arg0, s32 arg1)
 {
     s32 value;
     s32 magnitude;
-    s32 index;
-    unk32 tableValue;
+    s32 indexValue;
+    s16 index;
+    s32 tableValue;
 
     value = arg0;
     magnitude = arg1;
     if (magnitude < 0) {
-        magnitude = 0 - magnitude;
+        magnitude = -magnitude;
     }
     if (magnitude <= 0x80) {
-        index = 0 - (arg1 >> 1);
+        indexValue = -(arg1 >> 1);
     } else {
-        index = value >> 1;
+        indexValue = value >> 1;
         value = arg1;
     }
-    tableValue = Unk_874CEBC[(s16)index + 0x80];
+    index = indexValue;
+    tableValue = Unk_874CEBC[index + 0x80];
     if (value < 0) {
         tableValue = 0xFF - tableValue;
     }
     if (magnitude > 0x80) {
         tableValue += 0x40;
-        if ((s32)tableValue > 0xFF) {
-            tableValue += 0xFFFFFF00;
+        if (tableValue > 0xFF) {
+            tableValue -= 0x100;
         }
     }
     return tableValue;
