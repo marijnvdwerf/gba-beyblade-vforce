@@ -10,6 +10,7 @@
 
 extern const u8 Str_8726F84[];
 extern const u8 Str_8726FB4[];
+extern const u8 Unk_874CEBC[];
 
 void newSpriteTrail(UnkTrail* arg0, const SpriteTrailSheet* arg1, void* arg2, s32 arg3, unk32 arg4,
     u8 arg5, unk32 arg6)
@@ -116,7 +117,7 @@ typedef struct UnkTrailDraft {
 } UnkTrailDraft;
 
 void sub_804AB64(UnkTrailDraft*, SpriteTrailEntryDraft*, s16);
-unk8 sub_804AB88(s32, s32);
+unk32 sub_804AB88(s32, s32);
 
 void sub_804A908(UnkTrailDraft* trail)
 {
@@ -281,7 +282,36 @@ void sub_804AB64(UnkTrail* trail, SpriteTrailEntry* entry, unk32 index)
     entry->unk10 = frame->unk4;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ab88.s");
+unk32 sub_804AB88(s32 arg0, s32 arg1)
+{
+    s32 value;
+    s32 magnitude;
+    s32 index;
+    unk32 tableValue;
+
+    value = arg0;
+    magnitude = arg1;
+    if (magnitude < 0) {
+        magnitude = 0 - magnitude;
+    }
+    if (magnitude <= 0x80) {
+        index = 0 - (arg1 >> 1);
+    } else {
+        index = value >> 1;
+        value = arg1;
+    }
+    tableValue = Unk_874CEBC[(s16)index + 0x80];
+    if (value < 0) {
+        tableValue = 0xFF - tableValue;
+    }
+    if (magnitude > 0x80) {
+        tableValue += 0x40;
+        if ((s32)tableValue > 0xFF) {
+            tableValue += 0xFFFFFF00;
+        }
+    }
+    return tableValue;
+}
 
 void sub_804ABD0(UnkTrail* arg0, unk32 arg1, unk32 arg2)
 {

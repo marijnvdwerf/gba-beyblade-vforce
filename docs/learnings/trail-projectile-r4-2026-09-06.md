@@ -11,3 +11,7 @@ Matched with a signed count load, a typed `ProjectileEntry` cursor, and `while (
 ## sub_804AB64 (0x0804AB64)
 
 Matched by typing the resource header as `SpriteTrailSheet` with an 8-byte `SpriteTrailFrame` array and extending `SpriteTrailEntry` with the accessed halfword fields. Staging the frame-array pointer before adding the index emits the target address formation (`ldr`, `add #0x20`, scaled index, `add`). The complete instruction sequence is byte-identical.
+
+## sub_804AB88 (0x0804AB88)
+
+Matched with signed `s32` coordinate inputs and an `unk32` return. The table lookup uses the signed halfword-normalized index `(s16)index + 0x80`; preserving separate `value`, `magnitude`, `index`, and `tableValue` locals reproduces the branch and literal-pool sequence exactly. The complete instruction sequence and pool bytes are byte-identical.
