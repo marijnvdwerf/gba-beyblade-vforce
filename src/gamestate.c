@@ -215,11 +215,10 @@ void sub_80513AC(void)
     save->unk55C = _currentGameState->unkC68;
     __fastMemoryCopyARM(&_currentGameState->unk4[0], &save->levelStates[0], 0xA8 << 3);
     __fastMemoryCopyARM(&_currentGameState->unk594[0], &save->unk548[0], 0x10);
-    i = 334;
-    do {
+    i = 335;
+    while (i-- != 0) {
         xorSum ^= *ptr++;
-        i--;
-    } while (i != -1);
+    }
     save->checksum = xorSum;
 }
 

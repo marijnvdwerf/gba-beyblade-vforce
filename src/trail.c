@@ -82,7 +82,7 @@ typedef struct CameraStateDraft {
 typedef union SpriteTrailHalfwordDraft {
     unk16 unsignedValue;
     s16 signedValue;
-} __attribute__((packed)) SpriteTrailHalfwordDraft;
+} SpriteTrailHalfwordDraft;
 
 typedef struct SpriteTrailEntryDraft {
     unk32 unk0; /* 0x00 */

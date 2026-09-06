@@ -2,7 +2,7 @@
 
 ## sub_80513AC (0x080513AC)
 
-The checksum pass matches when `_currentGameState` is referenced directly throughout the function. Caching that global changed the saved-register set and the checksum loop. The save pointer is taken from `&_currentGameState->unk6FC`; the checksum walks 335 words from `block0.magic` through the save area and stores the XOR in `checksum`. The dump was replaced and removed after an exact match.
+The checksum pass matches when `_currentGameState` is referenced directly throughout the function. Caching that global changed the saved-register set and the checksum loop. The save pointer is taken from `&_currentGameState->unk6FC`; the checksum walks 335 words from `block0.magic` through the save area and stores the XOR in `checksum`. The natural `i = 335; while (i-- != 0)` form was tested and is byte-identical to the prior countdown form, so it is retained. The dump was replaced and removed after an exact match.
 
 ## sub_804423C (0x0804423C)
 

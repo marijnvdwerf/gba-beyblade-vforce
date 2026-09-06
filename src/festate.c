@@ -345,9 +345,9 @@ void sub_8044314(SpriteTextCleanup** sprites, unk32 unused, s32 value, unk32 mod
 {
     unk32 language;
     s32 scale;
-    unk32 count;
+    s32 count;
     s32 difference;
-    unk32 stage2;
+    s32 stage2;
 
     scale = value >> 5;
     count = (value & 0x1F) + 1;
@@ -373,16 +373,16 @@ void sub_8044314(SpriteTextCleanup** sprites, unk32 unused, s32 value, unk32 mod
             value = _currentGameState->unk6A7;
             difference = _currentGameState->unk6A6 - _currentGameState->unk6A8;
             difference -= value;
-            showNumber_2(sprites[1], (s32)(value * count) >> 5, 0xF);
+            showNumber_2(sprites[1], (value * count) >> 5, 0xF);
             showString(sprites[1], Str_86FD470, 0xF);
-            showNumber(sprites[1], (s32)(difference * count) >> 5, 0xF);
+            showNumber(sprites[1], (difference * count) >> 5, 0xF);
             break;
         case 1:
-            showNumber_2(sprites[3], (s32)(_currentGameState->unk6A8 * count) >> 5, 0xF);
+            showNumber_2(sprites[3], (_currentGameState->unk6A8 * count) >> 5, 0xF);
             break;
         case 2:
             stage2 = _currentGameState->unk6A5 - _currentGameState->unk6A6;
-            showNumber_2(sprites[5], (s32)(stage2 * count) >> 5, 0xF);
+            showNumber_2(sprites[5], (stage2 * count) >> 5, 0xF);
             break;
         }
     }
