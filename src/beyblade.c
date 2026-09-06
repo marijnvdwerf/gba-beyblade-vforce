@@ -13,12 +13,10 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/805703c.s");
 
 const unk8* sub_8057048(unk32 arg0)
 {
-    const unk8** names;
     unk32 language;
 
     language = getLanguage();
-    names = ItemNames[language];
-    return names[arg0];
+    return ItemNames[language][arg0];
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057068.s");
