@@ -51,6 +51,45 @@ void initCollectables(u16 levelId)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056e2c.s");
+#if 0
+void sub_8056EC0(void)
+{
+    GameData* gameData;
+    CollectableData* data;
+    LevelGeometryAddresses* geometry;
+    LevelState* state;
+    CollectableEntry* entry;
+    LineMetadata* metadata;
+    LineMetaObject* object;
+    unk32 bit;
+    s32 i;
+
+    gameData = _gameData;
+    geometry = &gameData->unk65C;
+    data = &gameData->collectables;
+    entry = data->entries;
+    state = sub_8051734();
+    i = 0;
+    while (i < data->count) {
+        bit = 1 << (i & 0x1F);
+        if ((data->collectedBits[i >> 5] & bit) != 0) {
+            if (((&state->unk10)[i >> 5] & bit) == 0) {
+                sub_8051640(0);
+            }
+            metadata = GetLineMetaData(geometry, entry->line);
+            object = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x37AE);
+            if (object != NULL) {
+                sub_8057104(object->unk8.word, 1);
+            } else {
+                printf(Str_8729838);
+            }
+        }
+        entry++;
+        i++;
+    }
+    __fastMemoryCopyARM(data->collectedBits, &state->unk10, 4);
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056ec0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056f7c.s");
 

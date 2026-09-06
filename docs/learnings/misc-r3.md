@@ -16,3 +16,18 @@ Matched as a row renderer using the two camera tables at offsets 0x364 and 0x368
 ## printTime (0x08061A18)
 
 Matched as a millisecond timer formatter. The argument is split into whole seconds with `Div(arg1, 1000)` and a millisecond remainder divided by 10 for the displayed fraction. Whole seconds are split into minutes and seconds with `DivRem`/`Div` by 60. The result and mode locals are byte-sized; retaining the original `arg2` for the final fraction call preserves the target's stack-backed mode reload. The target normalizes the accumulated byte result after the colon and decimal separator calls, which follows from the byte local and `&=` expression. `Str_8755B84`, `Str_8755B88`, and `Str_8755B8C` are the colon, zero, and decimal separator strings.
+
+## sub_8056EC0 (0x08056EC0)
+
+The function iterates the collectable records in `GameData.collectables`, tests each record's collected bit against the level-state bits, and activates the type-1 line metaobject with id `0x37AE`, reporting a missing object through `Str_8729838`. It then copies the four-byte collectable-bit word back from the level state. The clean typed draft uses `CollectableData`, `CollectableEntry`, `LevelGeometryAddresses`, `LevelState`, `LineMetadata`, and `LineMetaObject` fields without offset arithmetic.
+
+The function remains parked because the target prologue materializes the collectable base as the `0x12F4` displacement and then increments that displacement by four before retaining the entry cursor:
+
+```
+ldr r1, .L8056EE0 + 8
+add r6, r0, r1
+add r1, r1, #4
+add r5, r0, r1
+```
+
+The natural typed expression `entry = data->entries` (and equivalent `&data->entries[0]`) materializes a separate `0x12F8` literal, making the first non-relocation divergence the target `add r1, #4` at function offset `0x12`. Pointer-increment variants over typed `CollectableEntry` records either materialize `0x12FC` or are folded back to `0x12F8`; scalar-word cursor variants reproduce the target shape only by treating the record table as raw words. The unresolved address-materialization difference is therefore not accepted as a source-shape match under the typed-struct rules.
