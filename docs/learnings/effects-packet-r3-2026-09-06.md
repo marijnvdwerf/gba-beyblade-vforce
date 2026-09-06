@@ -14,20 +14,9 @@ matches the dump. The owning declaration belongs in `src/effects.h` because `rid
 
 ## `sub_8043960` (`0x8043960`, `src/packet.c`)
 
-The function calls `sub_804393C(arg0)` and stores its byte result at packet offset `0x3`. The packet's first word is a proven width-punned storage location: `background.c` passes the address of the word view, while this function writes an individual byte. The final representation is therefore a union retaining `word` and a byte-field struct view, rather than a second `bytes[4]` array representation.
+The function calls `sub_804393C(arg0)` and stores its byte result at packet offset `0x3`. The earlier `FrontendSubobjectWord` union hypothesis was retracted: `FrontendSubobject` is a separate 0x88-byte display-record layout, and its `unk0` field is restored to a plain `unk32`. The packet functions use the distinct `Packet` type from `src/packet.h`.
 
-The measured final union arm is:
-
-```c
-struct {
-    unk8 unk0;
-    unk8 unk1;
-    unk8 unk2_0 : 4;
-    unk8 unk3;
-} fields;
-```
-
-With only `unk2_0 : 4` (no `unk2_4` field), `unk3` lands at offset `0x3` under agbcc and emits the target `strb [r4, #3]`. The extra `unk2_4 : 4` was unnecessary and was removed. The cross-translation-unit prototype is in `src/packet.h`.
+`Packet` is measured as 16 bytes and exposes only the fields proven by this pass: `unk0`, `unk1`, the low-nibble bitfield `unk2_0 : 4`, checksum byte `unk3`, and payload `unk4[12]`. The cross-translation-unit prototype is in `src/packet.h`.
 
 ## `sub_805589C` (`0x805589C`, `src/effects.c`)
 
@@ -59,9 +48,7 @@ The required alias-fold question was tested by replacing `base->levelHud.unk12A`
 
 ## `sub_8043970` (`0x8043970`, `src/packet.c`)
 
-The function compares the packet checksum byte at offset `0x3` with `sub_804393C(arg0)`, then compares the low nibble at offset `0x2` with `arg1`; on failure it calls `sub_80603E8` and returns zero. The `unk2_0 : 4` bitfield is required: it emits the target `ldrb`, `lsl #28`, `lsr #28` extraction, whereas an ordinary scalar mask emitted `and #15`.
-
-The checksum access uses `arg0->unk0.fields.unk3`, sharing the measured union layout with `sub_8043960`. `sub_80603E8` is defined by `multiplayer.c`; its prototype is now owned by `src/multiplayer.h`, which `packet.c` includes.
+The function compares the packet checksum byte at offset `0x3` with `sub_804393C(arg0)`, then compares the low nibble at offset `0x2` with `arg1`; on failure it calls `sub_80603E8` and returns zero. The `unk2_0 : 4` bitfield is required: it emits the target `ldrb`, `lsl #28`, `lsr #28` extraction, whereas an ordinary scalar mask emitted `and #15`. The checksum access is `arg0->unk3` on the distinct `Packet` layout. `sub_80603E8` is defined by `multiplayer.c`; its prototype is owned by `src/multiplayer.h`, which `packet.c` includes.
 
 ## `sub_805582C` (`0x805582C`, `src/effects.c`)
 
@@ -82,3 +69,5 @@ The duplicated `if (arg1 != NULL)`/fallback call arms and all three single-use a
 ## Review-only prototype and ownership fixes
 
 `sub_80556C4` is declared in `effects.h`, `sub_8043960` is declared in `packet.h`, and `sub_80603E8` is declared in `multiplayer.h` rather than locally in `packet.c`. These changes do not alter the matched function bytes.
+
+The packet buffers are now represented in `GameData` as `Packet unk15C4` at `0x15C4` and `Packet unk15D4[4]` at `0x15D4`; the preceding padding shrinks from `0x98` to `0x88`, preserving all following offsets. `frontend.c` uses `&data->unk15D4[0]` and `&data->unk15C4` for `sub_806014C`; the parked `gameloop.c` draft uses the corresponding typed addresses and packet indexing. The five background display-record address expressions were reverted because those records are unrelated to packet storage.

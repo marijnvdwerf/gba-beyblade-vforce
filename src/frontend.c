@@ -235,7 +235,7 @@ unk32 sub_80493C8(void)
     if (state->unk7F != 0 && sub_805FFE4() != 0 && state->transition.value != 0x40) {
         data = _gameData;
         if (data->unk1619 != 1) {
-            if (sub_806014C(data->unk15D4, data->unk15D4 - 0x10, 1) == 0 && sub_806008C() != 0) {
+            if (sub_806014C(&data->unk15D4[0], &data->unk15C4, 1) == 0 && sub_806008C() != 0) {
                 _gameData->unk1618 = 0;
                 _gameData->unk1619 = 1;
                 state->unk7F = 0;
