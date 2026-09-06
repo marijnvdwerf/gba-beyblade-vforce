@@ -576,17 +576,11 @@ typedef struct RiderTemp {
     unk16 unk424;
 } RiderTemp;
 
-typedef struct RiderECData {
-    unk8 pad0[0xF];
-    unk8 unkF;
-} RiderECData;
-
 typedef struct RiderBase {
     Actor* unk0;
     RiderTemp* unk4;
-    unk8 pad8[4];
-    unk32 unkC; /* 0xC */
-    s32 unk10;
+    unk8 pad8[8];
+    unk32 unk10;
     unk32 unk14;
     unk8 pad18[4];
     unk32 unk1C;
@@ -597,26 +591,13 @@ typedef struct RiderBase {
     unk32 unk4C;
     unk16 unk50; /* 0x50 */
     unk16 unk52; /* 0x52 */
-    unk8 pad54[0x2C];
-    s32 unk80; /* 0x80 */
-    unk8 pad84[0xC];
-    unk32 unk90; /* 0x90 */
-    unk8 pad94[8];
+    unk8 pad54[0x48];
     unk32 flags;
     unk8 padA0[4];
     unk32 unkA4;
     unk8 padA8[0x10];
     SpriteEntry* unkB8;
-    unk32 unkBC; /* 0xBC */
-    unk8 padC0[0x2C];
-    RiderECData* unkEC; /* 0xEC */
-    unk8 padF0[0x7C];
-    unk32 unk16C; /* 0x16C */
-    unk32 unk170; /* 0x170 */
-    unk8 pad174[0x24];
-    unk32 unk198; /* 0x198 */
-    unk32 unk19C; /* 0x19C */
-    unk8 pad1A0[0x5C];
+    unk8 padBC[0x140];
     unk32 unk1FC; /* 0x1FC */
     struct GeometryLine* unk200; /* 0x200 */
     unk8 pad204[4];
