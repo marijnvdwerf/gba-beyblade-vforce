@@ -20,6 +20,31 @@ Measured source-shape attempts included direct actor accesses versus an actor al
 
 `sub_8059CB4` is declared with an `unk8` return in the measured baseline. Its caller then emits the target `lsl r0, #24` / `lsr r0, #24` byte normalization; a `u32` declaration omitted those instructions. The resource pointer uses the runtime offset `config base + config->unk10`; bytes at offset `0x10` in `data/spritesheet-86faeac.bbsprites` are `48 00 00 00`, supporting the packed-resource interpretation.
 
-The target child-sprite sequence loads the complete OAM word from offset `0x10`, masks it with `0xC1FFFFFF`, extracts `(child->x & 0x3E0) << 20`, ORs `0x100`, and stores the complete word back. The parked draft therefore keeps the proven OAM union and bitfield typedef inside its `#if 0` block only; the shared `SpriteEntry` definition and active sprite users remain unchanged.
+The target child-sprite sequence loads the complete OAM word from offset `0x10`, masks it with `0xC1FFFFFF`, extracts `(child->x & 0x3E0) << 20`, ORs `0x100`, and stores the complete word back. The parked draft uses the existing `SpriteEntry` whole-word field directly; no OAM bitfield or union overlay is retained, and the shared `SpriteEntry` definition and active sprite users remain unchanged.
 
 The final full-ROM compare passed with renderActor parked and its dump retained.
+
+### Measured step table
+
+| Change | First differing instruction | Size delta or result |
+| --- | --- | --- |
+| Best valid typed baseline with direct actor field accesses | `0x0000000A`: target `mov r5, r0`, current `mov r4, r0` | No size change; parked |
+| Actor pointer local alias | `0x0000000A`: unchanged | No size change; discarded |
+| Coordinate declaration order and initializer permutations | `0x0000000A`: unchanged | No size change; discarded |
+| Width/height temporaries removed in favor of direct culling expressions | `0x0000000A`: unchanged | No size change; retained direct culling order |
+| Nested sprite/OAM scopes | `0x0000000A`: unchanged | No size change; discarded |
+| Long-lived configuration alias | Prologue allocation changed before the prior body divergence | Did not match; discarded |
+| `sub_8059CB4` return changed from `u32` to `unk8` | Actor allocation remained divergent at `0x0000000A` | Caller gained the target `lsl #24` / `lsr #24` normalization; retained |
+| OAM temporary folded into the `SpriteEntry` store | `0x0000000A`: unchanged | Current literal-pool endpoint was `0x214` versus target `0x220` (`-12` bytes); discarded |
+| Priority temporary folded into direct field assignment/OR | `0x0000000A`: unchanged | Current literal-pool endpoint was `0x21C` versus target `0x220` (`-4` bytes); discarded |
+| Post-call `sprite` alias folded into direct `self->unkB8` accesses | `0x0000000A`: unchanged | Current literal-pool endpoint was `0x218` versus target `0x220` (`-8` bytes); discarded |
+| Callback output changed to `s32*` | No instruction diff | Build failed with an incompatible callback-pointer assignment; discarded |
+| Minimal scratch actor/config layouts with real `BGLayer` and `SpriteEntry` types | Not applicable while parked | Draft enabled once and compiled successfully, then re-parked |
+
+### Review-question geometry experiment
+
+The named overlap predicate rewrite produced a first divergence at `0x00000002` (`mov r7, r8` target versus `mov r7, r0` current). Its current function endpoint was `0x42` versus target `0xAC`, a `-0x6A` byte delta, so the original mask/branch choreography was retained.
+
+### Matched-function review question
+
+Changing `currentIndex` from `s32` to `unk32` compiled with no instruction differences for `sub_8050DF8` and no size delta. The unsigned declaration is retained.
