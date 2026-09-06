@@ -13,8 +13,8 @@ extern const unk8 SpriteSheet_86FBC4C[];
 void gameLoop(void)
 {
     SpriteEntry* sprite = NULL;
-    unk8* item = NULL;
-    unk8* cleanup;
+    Packet* item = NULL;
+    Packet* cleanup;
     unk8 fadeStep;
     unk8 fadeDir;
     unk8 vblankPending;
@@ -24,7 +24,7 @@ void gameLoop(void)
     void (*transition)(unk32, unk32) = sub_8052978;
     unk32 i;
 
-    cleanup = _gameData->unk15C4;
+    cleanup = &_gameData->unk15C4;
     fadeStep = 0xF;
     fadeDir = -1;
     nullsub_12(&_gameData->unk434);
@@ -67,8 +67,8 @@ void gameLoop(void)
         sub_804AD74();
         if (_gameData->unk1618 != 0) {
             *(vu16*)REG_VCOUNT;
-            item = &_gameData->unk15D4[(1 - isMultiplayer()) * 0x10];
-            if (sub_806014C(_gameData->unk15D4, _gameData->unk15C4, 1) == 0 && sub_806008C() != 0) {
+            item = &_gameData->unk15D4[1 - isMultiplayer()];
+            if (sub_806014C(&_gameData->unk15D4[0], &_gameData->unk15C4, 1) == 0 && sub_806008C() != 0) {
                 _gameData->unk1618 = vblankPending;
                 _gameData->unk1619 = 1;
                 sub_8049234(8);

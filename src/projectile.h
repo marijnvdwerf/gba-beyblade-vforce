@@ -29,5 +29,6 @@ void sub_804C208(ProjectileSystem*);
 void sub_804C3D4(ProjectileSystem*, unk32, unk32, unk32, const ProjectileTemplate*);
 void sub_804C34C(ProjectileSystem*, unk32, unk32, unk32);
 void sub_804C354(ProjectileSystem*, unk32, unk32, unk32);
+void sub_804C464(ProjectileSystem*);
 
 #endif

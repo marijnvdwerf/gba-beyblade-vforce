@@ -89,7 +89,15 @@ void initTutorialManagement(u16 levelId)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a488-turorial_804A488.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804a504.s");
+
+// TODO: fakematch???
+unk32 sub_804A504(void)
+{
+    unk32 value;
+
+    value = (unk32)_gameData->tutorial.unk104;
+    return ((0 - value) | value) >> 31;
+}
 
 void sub_804A51C(void)
 {

@@ -8,7 +8,7 @@
 #include "unsorted.h"
 
 extern u8 _unk3000DE0;
-extern s16 Unk_874CC3C[];
+extern const s16 Unk_874CC3C[];
 extern s16 Unk_872CC3C[];
 
 unk32 sub_8059284(BGLayer* r0, u16 r1, u16 r2);

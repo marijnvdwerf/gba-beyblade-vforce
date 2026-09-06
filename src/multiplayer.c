@@ -179,7 +179,7 @@ extern void (*__sub_8757D24)(void);
 void sub_8060404(void);
 void onSerialCommunication(void);
 
-unk32 sub_806014C(unk8* arg0, unk8* arg1, unk8 arg2)
+unk32 sub_806014C(Packet* arg0, Packet* arg1, unk8 arg2)
 {
     unk8 player;
     unk32 flags;

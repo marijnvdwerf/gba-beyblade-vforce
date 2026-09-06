@@ -1,11 +1,25 @@
 #include "packet.h"
 
 #include "include_asm.h"
+#include "multiplayer.h"
 #include "ram.h"
 
 INCLUDE_ASM("asm/dump/8040d18/804393c.s");
-INCLUDE_ASM("asm/dump/8040d18/8043960.s");
-INCLUDE_ASM("asm/dump/8040d18/8043970.s");
+unk8 sub_804393C(Packet*);
+
+void sub_8043960(Packet* arg0)
+{
+    arg0->unk3 = sub_804393C(arg0);
+}
+
+unk32 sub_8043970(Packet* arg0, unk8 arg1)
+{
+    if (arg0->unk3 == sub_804393C(arg0) && arg0->unk2_0 == arg1) {
+        return 1;
+    }
+    sub_80603E8();
+    return 0;
+}
 
 void sub_80439A0(FrontendSubobject* arg0)
 {

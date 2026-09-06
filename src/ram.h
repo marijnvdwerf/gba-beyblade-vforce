@@ -8,6 +8,7 @@
 #include "credits.h"
 #include "memory.h"
 #include "motion.h"
+#include "packet.h"
 #include "palette.h"
 #include "render.h"
 #include "sprite.h"
@@ -272,8 +273,9 @@ typedef struct GameData {
     unk8 pad12F2[2]; /* 0x12F2 */
     CollectableData collectables; /* 0x12F4 */
     TutorialData tutorial; /* 0x13FC */
-    unk8 pad153C[0x98]; /* 0x153C */
-    unk8 unk15D4[0x40]; /* 0x15D4 */
+    unk8 pad153C[0x88]; /* 0x153C */
+    Packet unk15C4; /* 0x15C4 */
+    Packet unk15D4[4]; /* 0x15D4 */
     unk8 pad1614[4]; /* 0x1614 */
     u8 unk1618; /* 0x1618 */
     unk8 unk1619; /* 0x1619 */
