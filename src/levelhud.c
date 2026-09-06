@@ -1,5 +1,6 @@
 #include "levelhud.h"
 
+#include "beyblade.h"
 #include "gamestate.h"
 #include "include_asm.h"
 #include "language.h"
@@ -166,7 +167,28 @@ void sub_804FC00(unk32 arg0)
     state->levelHud.state = 4;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804fcac-getItem.s");
+void getItem(unk32 item)
+{
+    GameData* state;
+    SpriteTextCleanup* text0;
+    MotionGroup* motion;
+    const unk8* const* table;
+
+    state = _gameData;
+    text0 = &state->levelHud.text0;
+    getLevelDescription2();
+    sub_804FD64();
+    state->levelHud.flags |= 0x22;
+    table = &_806E724[0x14];
+    sub_8061660(text0, table[getLanguage()], 0xD);
+    sub_8061660(&state->levelHud.text1, sub_8057048(item), 0xC);
+    motion = &state->levelHud.motion0;
+    newMotionGroup(motion, &state->levelHud.text0.unk14, 2);
+    sub_8050578(motion, 0x6E00, 0x100);
+    sub_80504E4(motion, 0, 0x34, 0, 0x14);
+    state->levelHud.status = 0x80;
+    state->levelHud.state = 6;
+}
 
 void sub_804FD64(void)
 {
