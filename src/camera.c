@@ -212,10 +212,39 @@ LevelGeometryAddresses* sub_805EEE0(CameraState* arg0)
     return &arg0->geometry;
 }
 
-void sub_805EEFC(CameraState* camera, unk32 arg1, unk32 arg2)
+void sub_805EEFC(CameraState* camera, const unk32** arg1, const unk32** arg2)
 {
     camera->unk364 = arg1;
     camera->unk368 = arg2;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805ef18.s");
+void sub_805EF18(
+    CameraState* camera, unk32 x, unk32 y, unk32 width, s32 count, unk32 index, unk32 destination)
+{
+    const unk32** tableA;
+    const unk32** tableB;
+    const unk32* rowA;
+    const unk32* rowB;
+
+    tableA = camera->unk368;
+    if (tableA == NULL) {
+        return;
+    }
+    tableB = camera->unk364;
+    if (tableB == NULL) {
+        return;
+    }
+    rowA = tableA[index];
+    rowB = tableB[index];
+    if (rowA == NULL) {
+        return;
+    }
+    if (rowB == NULL) {
+        return;
+    }
+    while (count-- != 0) {
+        (*__sub_87576D8)(rowA, x, y, width, destination, rowB);
+        y++;
+        destination += width * 0x20;
+    }
+}
