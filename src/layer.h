@@ -72,6 +72,8 @@ typedef struct BGLayer {
     unk32 field_84;
 } BGLayer;
 
+/* TODO: DisplayRecord and BGLayer share this layout; merge the two names once a camera
+   match proves the semantics. */
 typedef BGLayer DisplayRecord;
 
 extern Struct3000CA0 _unk3000CA0[4];
