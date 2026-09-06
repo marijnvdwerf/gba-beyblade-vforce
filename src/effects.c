@@ -268,7 +268,11 @@ void sub_8055734(unk32 arg0, Actor* arg1, Actor* arg2)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805582c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/805589c.s");
+
+void sub_805589C(void)
+{
+    sub_804C464(&_gameData->projectileSystem);
+}
 
 void sub_80558B8(void)
 {
