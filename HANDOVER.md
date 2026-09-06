@@ -87,6 +87,9 @@ Agent prompts), /tmp/learnings-prompts.md (72 fold/learnings prompts across
 
 ## Standing rulings (all sessions, consolidated)
 
+- A user instruction is a decision for that case, not a rule. Do not
+  generalise one-off calls into standing rulings; only add a ruling here
+  when the user explicitly says it is one.
 - Bytes are the only truth: `compare` after every change; never
   `update-expected` on a red tree; merges from the main checkout only.
 - Levers are rejected even when they match: `volatile`/`register`/`asm`,
