@@ -344,7 +344,52 @@ void sub_804423C(SpriteTextCleanup** arg0, s32 arg1)
     sub_806185C(sprite, ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xE : 0xF);
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8044314.s");
+void sub_8044314(SpriteTextCleanup** sprites, void* unused, s32 value, s32 mode)
+{
+    s32 language;
+    s32 scale;
+    s32 count;
+    s32 difference;
+    s32 stage2;
+
+    scale = value >> 5;
+    count = (value & 0x1F) + 1;
+    language = getLanguage();
+    if (count == 1) {
+        switch (scale) {
+        case 0:
+            sub_8061660(sprites[0], _806E8D8[0][language], 0xE);
+            break;
+        case 1:
+            sub_8061660(sprites[2], _806E8D8[1][language], 0xE);
+            break;
+        case 2:
+            sub_8061660(sprites[4], _806E8D8[2][language], 0xE);
+            break;
+        case 3:
+            sub_8061660(sprites[9], _806E914[mode][language], 0xE);
+            break;
+        }
+    } else {
+        switch (scale) {
+        case 0:
+            value = _currentGameState->unk6A7;
+            difference = _currentGameState->unk6A6 - _currentGameState->unk6A8;
+            difference -= value;
+            showNumber_2(sprites[1], (value * count) >> 5, 0xF);
+            showString(sprites[1], Str_86FD470, 0xF);
+            showNumber(sprites[1], (difference * count) >> 5, 0xF);
+            break;
+        case 1:
+            showNumber_2(sprites[3], (_currentGameState->unk6A8 * count) >> 5, 0xF);
+            break;
+        case 2:
+            stage2 = _currentGameState->unk6A5 - _currentGameState->unk6A6;
+            showNumber_2(sprites[5], (stage2 * count) >> 5, 0xF);
+            break;
+        }
+    }
+}
 #if 0
 typedef struct FrontendPacketStateDraft {
     unk8 unk0;
