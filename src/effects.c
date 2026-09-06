@@ -200,21 +200,21 @@ void sub_80556F4(void)
     deallocate_80637CC(&gameData->projectileSystem.palette5C);
 }
 
-extern const unk8 _8078a08[];
-extern const unk8 _8078a98[];
-extern const unk8 _8078b28[];
-extern const unk8 _8078bb8[];
-extern const unk8 _8078c48[];
-extern const unk8 _8078cd8[];
-extern const unk8 _8078d68[];
-extern const unk8 _8078df8[];
+extern const ProjectileTemplate _8078a08[];
+extern const ProjectileTemplate _8078a98[];
+extern const ProjectileTemplate _8078b28[];
+extern const ProjectileTemplate _8078bb8[];
+extern const ProjectileTemplate _8078c48[];
+extern const ProjectileTemplate _8078cd8[];
+extern const ProjectileTemplate _8078d68[];
+extern const ProjectileTemplate _8078df8[];
 
 void sub_8055734(unk32 arg0, Actor* arg1, Actor* arg2)
 {
     GameData* gameData;
     ProjectileSystem* effect;
     Actor* base;
-    const unk8* resource;
+    const ProjectileTemplate* resource;
 
     gameData = _gameData;
     effect = &gameData->projectileSystem;

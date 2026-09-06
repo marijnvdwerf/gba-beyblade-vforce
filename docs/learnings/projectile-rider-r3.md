@@ -19,3 +19,7 @@ Matched with a `RiderTemp` field at offset `0x3C4` typed as `SpriteEntry*`, plus
 ## sub_804C118 (0x0804C118)
 
 Matched with the signed `RiderTemp::unk424` field, the existing item-bit helpers, and a direct `getItem` call. The explicit shifted result test preserves the target's `lsl #24`; repeated field reads preserve the two `ldrsh` instructions. The full instruction sequence and pool word match exactly.
+
+## sub_804C3D4 (0x0804C3D4)
+
+Matched with a shared 0x30-byte `ProjectileTemplate` record and the typed `ProjectileEntry` destination. Staged signed coordinate values and `dx`/`dy` locals preserve the target's arithmetic order across the trail calls. The complete instruction sequence matches exactly.

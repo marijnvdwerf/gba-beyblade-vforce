@@ -7,6 +7,9 @@
 
 extern const unk8 Str_8726FE4[];
 
+void sub_804AB50(UnkTrail*, unk16);
+void sub_804ABD8(UnkTrail*, unk32, unk32);
+
 void newProjectileSystem(ProjectileSystem* arg0, s32 arg1, const unk8* arg2, unk32 arg3, void* arg4)
 {
     AllocatedBlock* block;
@@ -132,8 +135,48 @@ void sub_804C354(ProjectileSystem* arg0, unk32 arg1, unk32 arg2, unk32 arg3)
     arg0->unk20 = arg2;
     arg0->unk24 = arg3;
 }
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c35c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c3d4.s");
+
+void sub_804C3D4(ProjectileSystem* system, unk32 xOffset, unk32 yOffset, unk32 zOffset,
+    const ProjectileTemplate* source)
+{
+    ProjectileEntry* entry;
+    s32 count;
+    s32 x;
+    s32 y;
+    s32 z;
+    s32 dx;
+    s32 dy;
+
+    count = system->count;
+    entry = system->entries;
+    while (count-- != 0) {
+        x = source->unk0 + xOffset;
+        entry->x = x;
+        y = source->unk4 + yOffset;
+        entry->y = y;
+        z = source->unk8 + zOffset;
+        entry->z = z;
+        entry->velocityX = source->unkC;
+        entry->velocityY = source->unk10;
+        entry->velocityZ = source->unk14;
+        entry->accelerationX = source->unk18;
+        entry->accelerationY = source->unk1C;
+        entry->accelerationZ = source->unk20;
+        entry->duration = source->unk24;
+        entry->flags = source->unk28;
+        entry->trailDelay = source->unk2C;
+        entry->unk2C = source->unk2E;
+        dx = x - y;
+        dy = ((x + y) >> 1) - z;
+        sub_804AB50(entry->trail, source->unk2A);
+        sub_804ABD8(entry->trail, dx, dy);
+        source++;
+        entry++;
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c464.s");
 
 void sub_804C484(ProjectileSystem* system)
