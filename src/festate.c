@@ -326,7 +326,24 @@ void sub_8044054(FrontendState* state, unk32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/804423c.s");
+void sub_804423C(SpriteTextCleanup** arg0, s32 arg1)
+{
+    SpriteTextCleanup* sprite;
+
+    sub_8061844(arg0[0], (arg1 >> 8) + 0x18, arg0[0]->y >> 8);
+    sub_8061844(arg0[1], (arg1 >> 8) + 0x80, arg0[1]->y >> 8);
+    sub_8061844(arg0[2], (arg1 >> 8) + 0x18, arg0[2]->y >> 8);
+    sub_8061844(arg0[3], (arg1 >> 8) + 0x80, arg0[3]->y >> 8);
+    sub_8061844(arg0[4], (arg1 >> 8) + 0x18, arg0[4]->y >> 8);
+    sub_8061844(arg0[5], (arg1 >> 8) + 0x80, arg0[5]->y >> 8);
+    sub_8061844(arg0[6], (arg1 >> 8) + 0x18, arg0[6]->y >> 8);
+    sub_8061844(arg0[7], (arg1 >> 8) + 0x80, arg0[7]->y >> 8);
+    sub_8061844(arg0[8], arg1 >> 8, arg0[8]->y >> 8);
+    sub_8061844(arg0[9], arg1 >> 8, arg0[9]->y >> 8);
+    sprite = arg0[9];
+    sub_806185C(sprite, ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xE : 0xF);
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8044314.s");
 #if 0
 typedef struct FrontendPacketStateDraft {
