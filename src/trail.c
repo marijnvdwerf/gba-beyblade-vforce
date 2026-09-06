@@ -71,20 +71,25 @@ void newSpriteTrail(
 #if 0
 typedef struct CameraRecordDraft {
     unk8 pad0[0xC]; /* 0x00 */
-    unk32 field_C; /* 0x0C */
-    unk32 field_10; /* 0x10 */
+    unk32 unkC; /* 0x0C */
+    unk32 unk10; /* 0x10 */
 } CameraRecordDraft;
 
 typedef struct CameraStateDraft {
     CameraRecordDraft records[1]; /* 0x00 */
 } CameraStateDraft;
 
+typedef union SpriteTrailHalfwordDraft {
+    unk16 unsignedValue;
+    s16 signedValue;
+} __attribute__((packed)) SpriteTrailHalfwordDraft;
+
 typedef struct SpriteTrailEntryDraft {
     unk32 unk0; /* 0x00 */
     unk32 unk4; /* 0x04 */
     unk8 pad8[4]; /* 0x08 */
-    unk16 unkC; /* 0x0C */
-    unk16 unkE; /* 0x0E */
+    SpriteTrailHalfwordDraft unkC; /* 0x0C */
+    SpriteTrailHalfwordDraft unkE; /* 0x0E */
     unk16 unk10; /* 0x10 */
     s16 unk12; /* 0x12 */
     s16 unk14; /* 0x14 */
@@ -132,20 +137,20 @@ void sub_804A908(UnkTrailDraft* trail)
         do {
             SpriteTrailEntryDraft* entry;
             SpriteEntry* sprite;
-            s32 delay;
-            s32 nextDelay;
+            unk32 delay;
+            unk32 nextDelay;
 
             entry = &trail->sprites[index];
             sprite = entry->sprite;
-            entry->unkC--;
-            if (entry->unkC == 0) {
+            entry->unkC.unsignedValue--;
+            if (entry->unkC.unsignedValue == 0) {
                 sprite->y = 0xA000;
                 sub_8060F64(sprite, scale, scale, 0);
                 trail->unk2--;
             } else {
                 if (trail->unk28 != NULL) {
-                    x = entry->unk0 - (trail->unk28->records[0].field_C & 0xFFFFFF00);
-                    y = entry->unk4 - (trail->unk28->records[0].field_10 & 0xFFFFFF00);
+                    x = entry->unk0 - (trail->unk28->records[0].unkC & 0xFFFFFF00);
+                    y = entry->unk4 - (trail->unk28->records[0].unk10 & 0xFFFFFF00);
                     sprite->x = x;
                     if (y >= -0x4000) {
                         sprite->y = y;
@@ -153,13 +158,13 @@ void sub_804A908(UnkTrailDraft* trail)
                         sprite->y = 0xA000;
                     }
                 }
-                delay = entry->unkE;
-                if ((s16)entry->unkE > 0x10) {
-                    entry->unkE = delay - 0x10;
+                delay = entry->unkE.unsignedValue;
+                if (entry->unkE.signedValue > 0x10) {
+                    entry->unkE.unsignedValue = delay - 0x10;
                 } else {
                     nextDelay = delay;
                     nextDelay += 0x10;
-                    entry->unkE = nextDelay + entry->unk10;
+                    entry->unkE.unsignedValue = nextDelay + entry->unk10;
                     sprite->frame.word++;
                     if (sprite->frame.word == entry->unk12 + entry->unk14) {
                         if (entry->unk16 == trail->unk26) {
@@ -219,13 +224,16 @@ void sub_804A908(UnkTrailDraft* trail)
                 trail->unk2++;
             }
             entry = &trail->sprites[trail->unk4];
+            if (entry->unkC.signedValue != 0 && entry->unk16 != trail->unk24) {
+                sub_804AB64(trail, entry, trail->unk24);
+            }
             dx = trail->unk18 + (scaledX >> 1) - 0x800;
             y = trail->unk1C + (scaledY >> 1) - 0x800;
             entry->unk0 = dx;
             entry->unk4 = y;
             if (trail->unk28 != NULL) {
-                dx -= trail->unk28->records[0].field_C & 0xFFFFFF00;
-                y -= trail->unk28->records[0].field_10 & 0xFFFFFF00;
+                dx -= trail->unk28->records[0].unkC & 0xFFFFFF00;
+                y -= trail->unk28->records[0].unk10 & 0xFFFFFF00;
             }
             sprite = entry->sprite;
             sprite->x = dx;
@@ -237,7 +245,7 @@ void sub_804A908(UnkTrailDraft* trail)
             sprite->frame.word = 0;
             sprite->oam_attr_2 = (sprite->oam_attr_2 & 0xFFF) | (trail->unk2C << 12);
             sub_8060F64(sprite, 0x100, 0x100, angle);
-            entry->unkC = trail->unk6;
+            entry->unkC.unsignedValue = trail->unk6;
             sub_804AB64(trail, entry, 1);
             trail->unk18 += scaledX;
             trail->unk1C += scaledY;

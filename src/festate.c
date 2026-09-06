@@ -328,8 +328,6 @@ void sub_8044054(FrontendState* state, unk32 arg1)
 
 void sub_804423C(SpriteTextCleanup** arg0, s32 arg1)
 {
-    SpriteTextCleanup* sprite;
-
     sub_8061844(arg0[0], (arg1 >> 8) + 0x18, arg0[0]->y >> 8);
     sub_8061844(arg0[1], (arg1 >> 8) + 0x80, arg0[1]->y >> 8);
     sub_8061844(arg0[2], (arg1 >> 8) + 0x18, arg0[2]->y >> 8);
@@ -340,17 +338,16 @@ void sub_804423C(SpriteTextCleanup** arg0, s32 arg1)
     sub_8061844(arg0[7], (arg1 >> 8) + 0x80, arg0[7]->y >> 8);
     sub_8061844(arg0[8], arg1 >> 8, arg0[8]->y >> 8);
     sub_8061844(arg0[9], arg1 >> 8, arg0[9]->y >> 8);
-    sprite = arg0[9];
-    sub_806185C(sprite, ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xE : 0xF);
+    sub_806185C(arg0[9], ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xE : 0xF);
 }
 
-void sub_8044314(SpriteTextCleanup** sprites, void* unused, s32 value, s32 mode)
+void sub_8044314(SpriteTextCleanup** sprites, unk32 unused, s32 value, unk32 mode)
 {
-    s32 language;
+    unk32 language;
     s32 scale;
-    s32 count;
+    unk32 count;
     s32 difference;
-    s32 stage2;
+    unk32 stage2;
 
     scale = value >> 5;
     count = (value & 0x1F) + 1;
@@ -376,16 +373,16 @@ void sub_8044314(SpriteTextCleanup** sprites, void* unused, s32 value, s32 mode)
             value = _currentGameState->unk6A7;
             difference = _currentGameState->unk6A6 - _currentGameState->unk6A8;
             difference -= value;
-            showNumber_2(sprites[1], (value * count) >> 5, 0xF);
+            showNumber_2(sprites[1], (s32)(value * count) >> 5, 0xF);
             showString(sprites[1], Str_86FD470, 0xF);
-            showNumber(sprites[1], (difference * count) >> 5, 0xF);
+            showNumber(sprites[1], (s32)(difference * count) >> 5, 0xF);
             break;
         case 1:
-            showNumber_2(sprites[3], (_currentGameState->unk6A8 * count) >> 5, 0xF);
+            showNumber_2(sprites[3], (s32)(_currentGameState->unk6A8 * count) >> 5, 0xF);
             break;
         case 2:
             stage2 = _currentGameState->unk6A5 - _currentGameState->unk6A6;
-            showNumber_2(sprites[5], (stage2 * count) >> 5, 0xF);
+            showNumber_2(sprites[5], (s32)(stage2 * count) >> 5, 0xF);
             break;
         }
     }
@@ -432,7 +429,7 @@ extern s32 _unk30001BC;
 extern unk16 _unk30001C0;
 extern SpriteTextCleanup* _unk30001C8[10];
 void sub_804423C(SpriteTextCleanup**, s32);
-void sub_8044314(SpriteTextCleanup**, FrontendPacketStateDraft*, s32, s32);
+void sub_8044314(SpriteTextCleanup**, unk32, s32, unk32);
 
 void sub_804444C(FrontendState* state, unk32 arg1)
 {
