@@ -193,7 +193,8 @@ typedef struct GameData {
     RiderBase* unk42C; /* 0x42C */
     s32 unk430; /* 0x430 */
     void* unk434; /* 0x434 */
-    unk8 pad438[0x224]; /* 0x438 */
+    unk8 pad438[0x220]; /* 0x438 */
+    unk32 unk658; /* 0x658 */
     LevelGeometryAddresses unk65C; /* 0x65C */
     unk8 pad778[0x28]; /* 0x778 */
     unk32 unk7A0; /* 0x7A0 */

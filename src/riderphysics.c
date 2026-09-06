@@ -4,6 +4,7 @@
 
 #include "debug.h"
 #include "effects.h"
+#include "gameinit.h"
 #include "include_asm.h"
 #include "keystate.h"
 #include "music.h"
@@ -242,7 +243,42 @@ void sub_804CEF4(RiderBase* rider, unk32 action)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804d048.s");
+void sub_804D048(RiderBase* rider)
+{
+    GeometryLine* line;
+    LevelGeometryAddresses* geometry;
+    Actor* actor;
+    GeometryPoint* point;
+
+    line = rider->unk200;
+    geometry = &_gameData->unk65C;
+    actor = rider->unk0;
+    if (line != NULL) {
+        point = &geometry->unk4[line->point0];
+        actor->x = point->x << 5;
+        actor->y = point->y << 5;
+        actor->z = (point->z << 5) + 0x8000;
+        actor->unk40 = 0;
+        actor->unk44 = 0;
+        actor->unk48 = 0;
+        rider->unk40 = 0;
+        rider->unk44 = 0;
+        rider->unk208 = 0xC00;
+        rider->unk1FC = 0;
+        rider->unk234 = 0;
+        sub_804C888(rider, 1);
+        if (_gameData->unk1618 != 0) {
+            if (_currentGameState->unk6A4 == 2) {
+                SetRiderFlag(rider, 0x20000);
+                _gameData->unk658 = 0;
+            } else {
+                initGameloop2();
+            }
+        } else {
+            initGameloop2();
+        }
+    }
+}
 
 void sub_804D104(RiderBase* rider)
 {
@@ -645,7 +681,122 @@ unk32 rider_vs_rider_collision_804DB94(RiderBase* rider0, RiderBase* rider1)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ddf8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804df88.s");
+
+#if 0
+typedef struct RiderDFF4Draft {
+    unk8 pad0[0x10];
+    unk32 unk10;
+    unk32 unk14;
+    unk8 pad18[4];
+    unk32 unk1C;
+    unk8 pad20[0x50];
+    unk32 unk70;
+    unk8 pad74[0x28];
+    unk32 flags;
+    unk8 padA0[0x18];
+    SpriteEntry* unkB8;
+    unk8 padBC[0x16];
+    unk8 unkD2;
+    unk8 padD3[0x71];
+    unk16 unk144;
+    unk8 pad146[0x22];
+    unk32 unk168;
+    unk8 pad16C[0x2C];
+    s32 unk198;
+    unk32 unk19C;
+    unk8 pad1A0[0x1C];
+    unk32 unk1BC;
+} RiderDFF4Draft;
+
+void sub_804DFF4(RiderBase* rider)
+{
+    RiderDFF4Draft* r;
+    unk32 zero;
+
+    r = (RiderDFF4Draft*)rider;
+    zero = r->unk70;
+    zero = 0;
+    r->unk19C = zero;
+    r->unk1BC = zero;
+    UnsetRiderFlag(rider, 0x8000);
+    r->unk1C = r->unk10;
+    r->unk14 = zero;
+    r->unk144 = zero;
+    r->unk168 = zero;
+    if (r->unkB8 != NULL && RiderHasFlag(rider, 0x4000000) == 0)
+        sub_804E154(rider, 0, 0);
+    UnsetRiderFlag(rider, 0x20);
+    r->unkD2 = 0;
+    if (RiderHasFlag(rider, 0x4000000) == 0 && r->unk198 > 8)
+        sub_80558B8();
+    UnsetRiderFlag(rider, 0x4010);
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804dff4.s");
+
+#if 0
+typedef struct RiderE090InnerDraft {
+    unk8 pad0[0xF];
+    unk8 unkF;
+} RiderE090InnerDraft;
+
+typedef struct RiderE090Draft {
+    Actor* unk0;
+    unk8 pad4[8];
+    unk32 unkC;
+    s32 unk10;
+    unk8 pad14[0x6C];
+    s32 unk80;
+    unk8 pad84[0xC];
+    unk32 unk90;
+    unk8 pad94[8];
+    unk32 flags;
+    unk8 padA0[0x1C];
+    unk32 unkBC;
+    unk8 padC0[0x2C];
+    RiderE090InnerDraft* unkEC;
+    unk8 padF0[0x7C];
+    unk32 unk16C;
+    s32 unk170;
+    unk8 pad174[0x24];
+    unk32 unk198;
+    unk32 unk19C;
+} RiderE090Draft;
+
+void sub_804E090(RiderBase* rider)
+{
+    RiderE090Draft* r;
+    s32 value;
+    RiderE090InnerDraft* inner;
+    s32 angle;
+    s32 result;
+
+    r = (RiderE090Draft*)rider;
+    r->unk19C = 0;
+    r->unk198 = 0;
+    r->unkBC = -1;
+    value = r->unk170;
+    UnsetRiderFlag(rider, 0x40000);
+    if (value > 0) {
+        if (r->unk80 <= 0)
+            return;
+        inner = r->unkEC;
+        if (inner != NULL && inner->unkF == 0x81) {
+            angle = (0x80 - r->unk16C) & 0xFF;
+            angle &= 0x7F;
+            result = sub_804E358(angle, r->unk10 >> 4);
+            angle = r->unk10 >> 4;
+            result = (result << 16) >> 15;
+            result -= 0x80;
+            angle -= result;
+            angle &= 0xFF;
+            r->unkC = angle;
+            return;
+        }
+        r->unk90 = r->unk0->z;
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e090.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e124.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e154.s");
