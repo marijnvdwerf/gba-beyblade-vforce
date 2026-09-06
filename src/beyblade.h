@@ -8,6 +8,7 @@ void emptyBeybladeActorData(void);
 void deallocBeybladeActorData(void);
 BeybladeActorData* getBeybladeActorData(unk32);
 void sub_8057104(s32, unk32);
+unk8 sub_80570D4(s32);
 
 struct ItemDescriptionEntry {
     unk8 data[24];

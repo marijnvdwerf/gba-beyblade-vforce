@@ -18,8 +18,12 @@ Matched with a `RiderTemp` field at offset `0x3C4` typed as `SpriteEntry*`, plus
 
 ## sub_804C118 (0x0804C118)
 
-Matched with the signed `RiderTemp::unk424` field, the existing item-bit helpers, and a direct `getItem` call. The explicit shifted result test preserves the target's `lsl #24`; repeated field reads preserve the two `ldrsh` instructions. The full instruction sequence and pool word match exactly.
+Matched with the signed `RiderTemp::unk424` field, the existing item-bit helpers, and a direct `getItem` call. The `unk8` return declaration of `sub_80570D4` causes the target's caller-side `lsl #24` normalization without an explicit source shift; repeated field reads preserve the two `ldrsh` instructions. The full instruction sequence and pool word match exactly.
 
 ## sub_804C3D4 (0x0804C3D4)
 
 Matched with a shared 0x30-byte `ProjectileTemplate` record and the typed `ProjectileEntry` destination. Staged signed coordinate values and `dx`/`dy` locals preserve the target's arithmetic order across the trail calls. The complete instruction sequence matches exactly.
+
+## sub_804AB50 prototype fixup
+
+The shared `trail.h` declaration for `sub_804AB50` uses a wide `unk16` parameter, and `trail.c` narrows it into a local `u8` before applying the low-nibble mask. This preserves the target `sub_804AB50` body while allowing `sub_804C3D4` to pass its `ldrh` result directly. The measured `u8` header variant inserted `lsl #24` / `lsr #24` in `sub_804C3D4` and failed the ROM compare; a function-pointer cast was also tested and rejected because it emitted an indirect call. The only C caller is `sub_804C3D4`.

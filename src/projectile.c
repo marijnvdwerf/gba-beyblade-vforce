@@ -7,9 +7,6 @@
 
 extern const unk8 Str_8726FE4[];
 
-void sub_804AB50(UnkTrail*, unk16);
-void sub_804ABD8(UnkTrail*, unk32, unk32);
-
 void newProjectileSystem(ProjectileSystem* arg0, s32 arg1, const unk8* arg2, unk32 arg3, void* arg4)
 {
     AllocatedBlock* block;

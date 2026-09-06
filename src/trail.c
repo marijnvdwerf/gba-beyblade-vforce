@@ -70,9 +70,12 @@ void newSpriteTrail(
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a908.s");
 
-void sub_804AB50(UnkTrail* arg0, u8 arg1)
+void sub_804AB50(UnkTrail* arg0, unk16 arg1)
 {
-    arg0->unk2C = arg1 & 0xF;
+    u8 value;
+
+    value = arg1;
+    arg0->unk2C = value & 0xF;
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ab60-nullsub_39.s");
