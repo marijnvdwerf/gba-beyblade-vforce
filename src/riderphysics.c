@@ -871,7 +871,27 @@ s32 sub_804E258(s32 arg0, s32 arg1, s32 period, unk8 scale, unk32 unused, s32 li
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e2a4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e328.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e358.s");
+
+s16 sub_804E358(unk8 arg0, unk8 arg1)
+{
+    s16 delta;
+    s16 magnitude;
+    s16 result;
+
+    delta = arg1 - arg0;
+    if (delta < 0)
+        magnitude = -delta;
+    else
+        magnitude = delta;
+    if (magnitude > 0x80)
+        result = 0x100 - magnitude;
+    else
+        result = magnitude;
+    if (delta < 0 || magnitude > 0x80)
+        result = -result;
+    return result;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e3b0.s");
 
 void convert3DCoordsto2DCoords(Actor* actor, unk32* output)
