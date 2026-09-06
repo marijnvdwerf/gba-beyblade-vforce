@@ -90,6 +90,7 @@ void initTutorialManagement(u16 levelId)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a488-turorial_804A488.s");
 
+// TODO: fakematch???
 unk32 sub_804A504(void)
 {
     unk32 value;
