@@ -111,8 +111,13 @@ typedef struct FrontendSubobjectData {
     FrontendMotionData* unk28;
 } FrontendSubobjectData;
 
+typedef union FrontendSubobjectWord {
+    unk32 word;
+    unk8 bytes[4];
+} FrontendSubobjectWord;
+
 typedef struct FrontendSubobject {
-    unk32 unk0;
+    FrontendSubobjectWord unk0;
     unk8 pad4[0xC];
     FrontendSubobjectData* unk10;
     s32 unk14;

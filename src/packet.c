@@ -4,7 +4,13 @@
 #include "ram.h"
 
 INCLUDE_ASM("asm/dump/8040d18/804393c.s");
-INCLUDE_ASM("asm/dump/8040d18/8043960.s");
+unk8 sub_804393C(FrontendSubobject*);
+
+void sub_8043960(FrontendSubobject* arg0)
+{
+    arg0->unk0.bytes[3] = sub_804393C(arg0);
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8043970.s");
 
 void sub_80439A0(FrontendSubobject* arg0)
