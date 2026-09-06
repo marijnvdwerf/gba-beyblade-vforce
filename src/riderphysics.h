@@ -16,7 +16,7 @@ s16 sub_804E358(unk8, unk8);
 void sub_804D110(RiderBase*, Actor*);
 void convert3DCoordsto2DCoords(Actor*, unk32*);
 unk8 RiderHasFlag(RiderBase*, unk32);
-unk32 sub_804E440(RiderBase*, unk32);
+unk8 sub_804E440(RiderBase*, unk32);
 unk8 sub_804E454(RiderBase*, unk32);
 void sub_804E1DC(RiderBase*);
 s32 sub_804E224(s32, s32, unk8, s32);

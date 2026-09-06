@@ -515,7 +515,15 @@ void sub_804D110(RiderBase* rider, Actor* other)
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d110.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804d710.s");
+
+void sub_804D710(RiderBase* rider)
+{
+    if (rider->unk19C == 4)
+        sub_804ABFC(2);
+    if (sub_804E440(rider, 0x80000) != 0 && RiderHasFlag(rider, 0x80000) != 0)
+        sub_804ABFC(0x11);
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d754.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d8d8.s");
 
@@ -905,7 +913,7 @@ unk8 RiderHasFlag(RiderBase* rider, unk32 flags)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e42c-RiderHasSomeFlags.s");
 
-unk32 sub_804E440(RiderBase* rider, unk32 flags)
+unk8 sub_804E440(RiderBase* rider, unk32 flags)
 {
     if ((rider->unkA4 & flags) != 0)
         return 1;
