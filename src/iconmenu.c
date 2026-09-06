@@ -194,7 +194,7 @@ void sub_8050DF8(FrontendMenu* menu, s32 index)
     FrontendMenuItem* current;
     FrontendMenuItem* selected;
     FrontendMenuItemData* selectedData;
-    s32 currentIndex;
+    unk32 currentIndex;
 
     currentIndex = menu->selection;
     current = menu->items + currentIndex;
