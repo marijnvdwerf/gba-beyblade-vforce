@@ -5,43 +5,68 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-06, session 7 (Round 3 merged; Round 4 small leaves running).
+Last updated: 2026-09-06, session 7 close (Rounds 3 + 4 merged, skill folded, monitors stopped).
 
 ## Session 7 (2026-09-06)
 
-State: main green, **529 C / 478 asm / 53%**, 14/66 TUs done; baseline
-refreshed. Round 3 (29 draft-less reds, 6 luna agents): 23 matched, 6 parked
-(sub_804DFF4, sub_804E090, sub_80658A4, sub_8056EC0, sub_804A908; sub_805DCFC
-was parked then unparked under the accepted overlay layout). riderphysics
-large (sub_804D8D8/804DDF8/RiderAI_804C8F0) deferred by the user.
+State at close: main green, **545 C / 462 asm / 54%**, 14/66 TUs done;
+baseline refreshed; no agents running; no monitors running. Worktrees: only
+the kept Opus one (`agent-aa3bb15346941d4ce`) + raw-decomp references.
+Net: +40 C functions over two rounds.
 
-- Process: one `review` agent per finished branch (not per round), invoked
-  with the branch + its assignment list; findings go to
-  `/tmp/review-<branch>.md`; the decomp agent reads that file, fixes, then I
-  read the whole diff myself before merging. Reviewers missed real levers
-  twice (`(s32)(a*b) >> 5` casts, `__attribute__((packed))` in a draft,
-  draft-only typedefs in common.h) — the manager read is not optional.
-- Learnings files must be dated `<scope>-<date>.md`; my first prompts said
-  `-r3.md` and every reviewer flagged it. Use dated names in prompts.
-- `FrontendSubobjectWord` union was rejected after a luna research pass:
-  packet functions work on 16-byte `Packet` records (packet.h) at
-  `GameData.unk15C4` / `unk15D4[4]`; `FrontendState.unkB8/unk140` are
-  0x88-byte display records. Both typed in place; frontend.c/gameloop.c
-  callers lost their `- 0x10` byte arithmetic.
+- **Round 3** (29 draft-less reds, 6 luna agents): 23 matched, 6 parked
+  (sub_804DFF4 discarded load, sub_804E090 second mask register,
+  sub_80658A4, sub_8056EC0 base+4 cursor, sub_804A908 r7/r8/r9 prologue;
+  sub_805DCFC unparked under an accepted layout).
+- **Round 4** (18 reds, 6 agents): 16 matched — trail ×3 + projectile
+  (R4-1), packet checksum/beyblade/riderphysics/gameinit/levelhud (R4-2),
+  riderphysics 2/3 (R4-3), iconmenu + geometry (R4-4), 3 tiny leaves (R4-6);
+  parked: sub_804D754 (16-byte target-only `cmp #1/bls; cmp #0x400/bne;
+  r0=-1` block with a dead result), renderActor (entry `mov r5,r0` vs
+  `mov r4,r0` allocator rank), sub_80420C4 dialogue giant (R4-5: first
+  divergence moved 0x1D8 → 0x226 in ~50 builds; best draft parked, worth a
+  fresh agent).
+- **Process.** One `review` agent per finished branch, prompt = branch +
+  assignment list, findings in `/tmp/review-<branch>.md`; the decomp agent
+  fixes from that file; then the manager reads the whole diff. Reviewers
+  missed real levers four times ((s32) casts before `>> 5`, `(s16)` on a
+  local, `__attribute__((packed))` in a draft, draft-only typedefs in
+  common.h) and the user caught two fakematches in progress (sub_804E154
+  `zero` temp + field-alias pointer; `<< 24` truth tests in dialogue) — read
+  in-progress worktrees, not just finished ones. Learnings files are dated
+  `<scope>-<date>.md`; parked drafts must be house-style too (real types,
+  scratch structs/`extern`s inside the `#if 0`, no Thumb-bit arithmetic).
+- **Types decided.** `Packet` (packet.h, 16 bytes, `s8 unk4[12]` payload,
+  `unk2_0/unk2_4` nibbles, `unk3` checksum) at `GameData.unk15C4` /
+  `unk15D4[4]`; `FrontendState.unkB8/unk140` are 0x88 display records (not
+  packets — the union that conflated them was rejected). `ProjectileTemplate`
+  (0x30), `SpriteTrailSheet/Frame`, `GeometrySplineLine` (0x10, accepted
+  overlay), `CameraState.unk364/unk368` pointer tables, `RiderTemp.unk3C4`
+  `SpriteEntry*`, `s16 RiderBase.unk1EE/unk1F2/unk424`, `Actor* GameData.unk658`.
 - sub_804A504 kept as `((0 - v) | v) >> 31` with `// TODO: fakematch???`
-  (user, one-off): agbcc emits `cmp/beq/mov` for every natural `!= 0` form.
-- sub_804C3D4 only matches if the caller does not narrow sub_804AB50's
-  argument — the callee's prototype is `unk16` with a `u8` local (the
-  original probably had no prototype in scope).
-- Luna agents hit the "text-only" compaction stop 6 times this session; a
-  one-line revive message always resumed them. R3-7 needed two.
-- Round 4 pool (draft-less, non-giant): trail sub_804ABD8/AB64/AB88 +
-  projectile sub_804C464 (R4-1); packet sub_804393C, beyblade sub_80570D4,
-  riderphysics sub_804E358, gameinit initGameloop2, levelhud getItem (R4-2);
-  riderphysics sub_804D710/804E154/804D754 (R4-3); iconmenu sub_8050DF8,
-  geometry sub_805BF18, actor renderActor (R4-4);
-  riderphysics large ×3 still deferred. 76 🟡 parked drafts are a separate
-  retry pool (collectable sub_8056EC0 looked close: base+4 cursor).
+  (user, one-off). sub_804C3D4 needs sub_804AB50's parameter `unk16` with a
+  `u8` local (caller must not narrow; original likely had no prototype).
+- Luna agents hit the compaction stop ~10 times; a one-line revive always
+  worked. R4-3/R4-4/R4-5 each ran 350–400 tool calls before parking.
+
+### Next session
+
+1. **Round 5 pool** — 15 draft-less leaves exposed by Round 4's parked
+   drafts (callgraph follows `#if 0` calls): teletype sub_8063F5C 5,
+   sub_806417C 8, sub_8064188 8, sub_806415C 15, sub_8063F64 15,
+   sub_8063E18 138, sub_8063F84 170; effects sub_8055C30 14, sub_8055914 63,
+   sub_805599C 199; beyblade GetTalkingHead 9, tutorial sub_804A364 8,
+   display sub_8050894 10, layer sub_8059CB4 11, actor sub_8058390 38.
+   Matching sub_8063F5C/806417C/8064188/8059CB4/8058390 also unblocks the
+   parked dialogue and renderActor drafts — retry those after.
+2. riderphysics large (sub_804D8D8 173, sub_804DDF8 189, RiderAI_804C8F0
+   228) still deferred by the user; riderphysics/geometry/collision have too
+   many parked drafts to keep piling on.
+3. Giants (≥440, 11): dialogue sub_80420C4 is the only one attempted (parked
+   at 0x226). Others untried.
+4. Debt carried: BGLayer/Struct3000CA0 `var00`/`field_C` rename; `&_spritesFree`
+   ruling; frontend unk588/unkC callback signature; `tools/unused-fields.py`
+   decision; DisplayRecord/BGLayer TODO in layer.h.
 
 ## Session 6 (2026-09-05/06)
 
