@@ -273,7 +273,13 @@ void sub_804ABD0(UnkTrail* arg0, unk32 arg1, unk32 arg2)
     arg0->unk14 = arg2;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804abd8.s");
+void sub_804ABD8(UnkTrail* arg0, unk32 arg1, unk32 arg2)
+{
+    arg0->unk10 = arg1;
+    arg0->unk14 = arg2;
+    arg0->unk18 = arg1;
+    arg0->unk1C = arg2;
+}
 
 void sub_804ABE4(UnkTrail* arg0)
 {
