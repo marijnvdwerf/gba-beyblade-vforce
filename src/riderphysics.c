@@ -645,7 +645,59 @@ unk32 rider_vs_rider_collision_804DB94(RiderBase* rider0, RiderBase* rider1)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ddf8.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804df88.s");
+
+#if 0
+typedef struct RiderDFF4Draft {
+    unk8 pad0[0x10];
+    unk32 unk10;
+    unk32 unk14;
+    unk8 pad18[4];
+    unk32 unk1C;
+    unk8 pad20[0x50];
+    unk32 unk70;
+    unk8 pad74[0x28];
+    unk32 flags;
+    unk8 padA0[0x18];
+    SpriteEntry* unkB8;
+    unk8 padBC[0x16];
+    unk8 unkD2;
+    unk8 padD3[0x71];
+    unk16 unk144;
+    unk8 pad146[0x22];
+    unk32 unk168;
+    unk8 pad16C[0x2C];
+    s32 unk198;
+    unk32 unk19C;
+    unk8 pad1A0[0x1C];
+    unk32 unk1BC;
+} RiderDFF4Draft;
+
+void sub_804DFF4(RiderBase* rider)
+{
+    RiderDFF4Draft* r;
+    unk32 zero;
+
+    r = (RiderDFF4Draft*)rider;
+    zero = r->unk70;
+    zero = 0;
+    r->unk19C = zero;
+    r->unk1BC = zero;
+    UnsetRiderFlag(rider, 0x8000);
+    r->unk1C = r->unk10;
+    r->unk14 = zero;
+    r->unk144 = zero;
+    r->unk168 = zero;
+    if (r->unkB8 != NULL && RiderHasFlag(rider, 0x4000000) == 0)
+        sub_804E154(rider, 0, 0);
+    UnsetRiderFlag(rider, 0x20);
+    r->unkD2 = 0;
+    if (RiderHasFlag(rider, 0x4000000) == 0 && r->unk198 > 8)
+        sub_80558B8();
+    UnsetRiderFlag(rider, 0x4010);
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804dff4.s");
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e090.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e124.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e154.s");
