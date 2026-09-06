@@ -8,7 +8,6 @@
 #include "unsorted.h"
 
 extern void sub_806123C(SpriteTextCleanup*);
-extern u8 printTime(SpriteTextCleanup*, unk32, unk8);
 extern const unk8 Str_8755B58[];
 extern const u8 byte_807D980[];
 extern const unk8 Str_8755B84[];

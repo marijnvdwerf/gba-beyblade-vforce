@@ -46,7 +46,7 @@ unk32 sub_806586C(u8 timerIndex, void (**isrOut)(void))
 }
 
 #if 0
-void sub_80658A4(const unk16* config)
+void sub_80658A4(const TimerConfig* config)
 {
     unk32 mask;
     vu16* irq;
@@ -69,9 +69,8 @@ void sub_80658A4(const unk16* config)
     _batteryBackupTimer_REG = timer;
     *(vu16*)REG_IME = 1;
 }
-#else
-INCLUDE_ASM("asm/dump/8064f38/80658a4.s");
 #endif
+INCLUDE_ASM("asm/dump/8064f38/80658a4.s");
 
 void sub_806592C(void)
 {
@@ -93,6 +92,7 @@ void sub_806592C(void)
 void DMA3Copy(unk32 src, unk32 dst, unk16 count)
 {
     unk16 waitcnt;
+    unk16 ime;
     const BatteryBackupConfig* config;
     count = count;
     ime = *(vu16*)REG_IME;

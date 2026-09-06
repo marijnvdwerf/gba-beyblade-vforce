@@ -218,8 +218,6 @@ void sub_805EEFC(CameraState* camera, const unk32** arg1, const unk32** arg2)
     camera->unk368 = arg2;
 }
 
-extern void (*__sub_87576D8)(const unk32*, unk32, unk32, unk32, unk32, const unk32*);
-
 void sub_805EF18(
     CameraState* camera, unk32 x, unk32 y, unk32 width, s32 count, unk32 index, unk32 destination)
 {

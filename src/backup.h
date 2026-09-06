@@ -35,7 +35,7 @@ extern const TimerConfig Unk_8756894;
 unk16 initBatteryBackup(u16 arg0);
 void onTimer2Overflow(void);
 unk32 sub_806586C(u8 timerIndex, void (**isrOut)(void));
-void sub_80658A4(const unk16* config);
+void sub_80658A4(const TimerConfig* config);
 void sub_806592C(void);
 void DMA3Copy(unk32 src, unk32 dst, unk16 count);
 unk32 sub_80659F0(u16 sector, void* buffer);
