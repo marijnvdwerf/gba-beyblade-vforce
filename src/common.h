@@ -670,6 +670,11 @@ typedef struct GeometrySpline {
     unk32 pointIndices[1];
 } GeometrySpline;
 
+typedef struct GeometrySplineLine {
+    unk8 pad0[0xC];
+    unk32 unkC;
+} GeometrySplineLine;
+
 typedef struct LevelGeometryTable LevelGeometryTable;
 
 typedef struct TileMapHeader {
