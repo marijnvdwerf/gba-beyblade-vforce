@@ -195,7 +195,7 @@ typedef struct GameData {
     s32 unk430; /* 0x430 */
     void* unk434; /* 0x434 */
     unk8 pad438[0x220]; /* 0x438 */
-    unk32 unk658; /* 0x658 */
+    Actor* unk658; /* 0x658 */
     LevelGeometryAddresses unk65C; /* 0x65C */
     unk8 pad778[0x28]; /* 0x778 */
     unk32 unk7A0; /* 0x7A0 */
@@ -321,7 +321,7 @@ typedef struct CurrentGameState {
     u8 unk3;
     LevelState unk4[0x38];
     LevelSlot unk544[10];
-    unk8 unk594[0x10];
+    unk32 unk594[4];
     unk8 pad5A4[0x100];
     unk8 unk6A4;
     unk8 unk6A5;

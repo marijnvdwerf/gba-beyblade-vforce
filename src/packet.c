@@ -4,8 +4,22 @@
 #include "multiplayer.h"
 #include "ram.h"
 
-INCLUDE_ASM("asm/dump/8040d18/804393c.s");
-unk8 sub_804393C(Packet*);
+unk8 sub_804393C(Packet* arg0)
+{
+    unk32 checksum;
+    s32 i;
+    const s8* data;
+
+    checksum = arg0->unk2_4;
+    checksum += arg0->unk2_0;
+    i = 0;
+    data = arg0->unk4;
+    do {
+        checksum ^= data[i];
+        i++;
+    } while (i <= 0xB);
+    return checksum;
+}
 
 void sub_8043960(Packet* arg0)
 {

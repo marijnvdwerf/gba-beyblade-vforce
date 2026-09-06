@@ -17,6 +17,7 @@
 #include "keystate.h"
 #include "levelhud.h"
 #include "multiplayer.h"
+#include "music.h"
 #include "rider.h"
 #include "riderphysics.h"
 #include "spritetext.h"
@@ -429,7 +430,36 @@ void closeGame(void)
     sub_8053F0C(1);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8053d58-initGameloop2.s");
+void initGameloop2(void)
+{
+    unk32 levelId;
+    GameData* gameData;
+
+    levelId = getSomeLevelID();
+    sub_804AE8C();
+    sub_804AFD4(0);
+    sub_8054FE0();
+    deallocEventListeners();
+    initLevelEnvironmentActors(levelId);
+    initEventListeners(levelId);
+    gameData = _gameData;
+    gameData->unk658 = &gameData->base.unk238;
+    gameData->unkB53 = 1;
+    _gameData->unkC6E = 0x3C;
+    _gameData->unk163C++;
+    if (_gameData->unk1638 != 0)
+        _gameData->unk1638--;
+    sub_804F800(_gameData->unk1638);
+    sub_804FE9C();
+    sub_80538C0();
+    initRiders();
+    sub_8056F7C();
+    sub_805BA3C(&_gameData->unk65C);
+    deallocateQuadTree(&_gameData->unk7A4);
+    initCollisionData();
+    sub_8056FAC();
+    sub_804AD44();
+}
 
 void sub_8053E18(u8 arg0)
 {
