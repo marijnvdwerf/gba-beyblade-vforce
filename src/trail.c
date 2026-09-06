@@ -11,8 +11,8 @@
 extern const u8 Str_8726F84[];
 extern const u8 Str_8726FB4[];
 
-void newSpriteTrail(
-    UnkTrail* arg0, const u8* arg1, void* arg2, s32 arg3, unk32 arg4, u8 arg5, unk32 arg6)
+void newSpriteTrail(UnkTrail* arg0, const SpriteTrailSheet* arg1, void* arg2, s32 arg3, unk32 arg4,
+    u8 arg5, unk32 arg6)
 {
     AllocatedBlock* allocated;
     SpriteTrailEntry* sprites;
@@ -264,7 +264,23 @@ void sub_804AB50(UnkTrail* arg0, unk16 arg1)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ab60-nullsub_39.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ab64.s");
+
+void sub_804AB64(UnkTrail* trail, SpriteTrailEntry* entry, unk32 index)
+{
+    const SpriteTrailFrame* frame;
+    SpriteEntry* sprite;
+
+    frame = trail->spriteSheet->frames;
+    frame += index;
+    entry->unk16 = index;
+    sprite = entry->sprite;
+    entry->unk12 = frame->unk0;
+    sprite->frame.word = frame->unk0;
+    entry->unk14 = frame->unk2;
+    entry->unkE = frame->unk4;
+    entry->unk10 = frame->unk4;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ab88.s");
 
 void sub_804ABD0(UnkTrail* arg0, unk32 arg1, unk32 arg2)
