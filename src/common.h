@@ -592,8 +592,8 @@ typedef struct RiderBase {
     unk32 unk3C; /* 0x3C */
     unk32 unk40; /* 0x40 */
     unk32 unk44; /* 0x44 */
-    s32 unk48;
-    s32 unk4C;
+    unk32 unk48;
+    unk32 unk4C;
     unk16 unk50; /* 0x50 */
     unk16 unk52; /* 0x52 */
     unk8 pad54[0x18];
@@ -621,8 +621,7 @@ typedef struct RiderBase {
     unk8 pad1F4[8];
     unk32 unk1FC; /* 0x1FC */
     struct GeometryLine* unk200; /* 0x200 */
-    s16 unk204; /* 0x204 */
-    s16 unk206; /* 0x206 */
+    unk8 pad204[4];
     s32 unk208; /* 0x208 */
     unk8 pad20C[4];
     unk32 unk210; /* 0x210 */

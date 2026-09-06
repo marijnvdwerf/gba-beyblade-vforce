@@ -15,3 +15,32 @@
 - The `RiderHasFlag` result is tested directly; plain zero stores and signed `s16` field declarations reproduce the target evaluation order and register allocation without aliases or casts.
 - A local `unk16` copy of the third argument is required to keep its entry normalization and final halfword store shape.
 - Matched all instructions at `0x0804E154`.
+
+## sub_804D754 (0x0804D754)
+
+- The function is parked with its dump retained. A typed natural draft is kept directly above the `INCLUDE_ASM` line in `src/riderphysics.c` inside `#if 0`; draft-only fields are confined to `RiderD754Draft`.
+- The target's category ladder compares against `0x8FF`, `0x3FF`, `0x1FF`, and `0xFF`, and writes `Actor->unk36` as `(0x100 - value) >> 1` for the final threshold. The target reads the current and motion-target halfwords at offsets `0x204` and `0x206`.
+- The natural draft matches the target through `cmp r4, r3`. The first divergence is the following target-only 16-byte sequence:
+
+      cmp r4, #1
+      bls .L804D840
+      mov r0, #0x80
+      lsl r0, r0, #3
+      cmp r4, r0
+      bne .L804D844
+      .L804D840:
+      mov r0, #1
+      neg r0, r0
+
+  The computed `-1` is overwritten before the visible clear-and-call sequence, so its result appears dead. The sequence resembles a category switch/ladder pivot (`cmp #1`/`bls`, `cmp #0x400`/`bne`, `r0 = -1`), although the visible category ladder only produces values `0` through `4`.
+- Step table:
+
+  | Change | Result |
+  | --- | --- |
+  | Use `s32` temporaries for fields `0x204` and `0x206` | Entry loads matched the target's signed `ldrsh` instructions. |
+  | Use `actor_80580C0(Actor*, unk16, unk16)` | Helper argument setup matched the target. |
+  | Correct the motion-target field from `0x20A` to `0x206` | Target field loads/stores and the `0x206` literal matched. |
+  | Restore the direct natural call `actor_80580C0(actor, category, category)` | First divergence remained at target offset `0xE0`; the candidate was `0x10` bytes shorter. |
+  | Add the unused conditional/comma expression for the apparent `-1` result | agbcc rejected the direct comma expression because its left operand had no effect. |
+  | Use `((void)((category <= 1 || category == 0x400) ? -1 : 0), category)` | It compiled but optimized away; first divergence and the `0x10` size delta were unchanged. |
+  | Park the best typed draft under `#if 0` and restore `INCLUDE_ASM` | The dump remains authoritative and no artificial matching construct is shipped. |
