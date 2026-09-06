@@ -188,7 +188,32 @@ void sub_8050C18(FrontendMenu* menu)
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8050c18.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050df8.s");
+
+void sub_8050DF8(FrontendMenu* menu, s32 index)
+{
+    FrontendMenuItem* current;
+    FrontendMenuItem* selected;
+    FrontendMenuItemData* selectedData;
+    unk32 currentIndex;
+
+    currentIndex = menu->selection;
+    current = menu->items + currentIndex;
+    if (index >= 0 && index < menu->itemCount && (menu->flags & 1) == 0) {
+        selected = menu->items + index;
+        if (selected->sprite != NULL) {
+            sub_8061078(selected->sprite, 1);
+        }
+        if (current->sprite != NULL) {
+            sub_8061078(current->sprite, 2);
+        }
+        current->position = current->data->nextPosition;
+        selectedData = selected->data;
+        selected->position = selectedData->previousPosition;
+        menu->position = 0xFFFF - index * menu->step;
+        menu->selection = index;
+        sub_8061660(&menu->text, selectedData->labels[getLanguage()], menu->config->address->unkA);
+    }
+}
 
 void sub_8050E80(FrontendMenu* menu)
 {
