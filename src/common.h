@@ -114,6 +114,13 @@ typedef struct FrontendSubobjectData {
 typedef union FrontendSubobjectWord {
     unk32 word;
     unk8 bytes[4];
+
+    struct {
+        unk8 pad0[2];
+        unk8 unk2_0 : 4;
+        unk8 unk2_4 : 4;
+        unk8 unk3;
+    } fields;
 } FrontendSubobjectWord;
 
 typedef struct FrontendSubobject {
