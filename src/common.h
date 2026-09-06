@@ -575,7 +575,7 @@ typedef struct RiderTemp {
     unk8 pad3C8[4];
     unk16 unk3CC;
     unk8 pad3CE[0x56];
-    unk16 unk424;
+    s16 unk424;
 } RiderTemp;
 
 typedef struct RiderBase {

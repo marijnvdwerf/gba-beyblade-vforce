@@ -17,6 +17,9 @@ extern const unk8 SpriteSheet_86FAF34[];
 extern const unk8 SpriteSheet_86FB40C[];
 extern const unk8 SpriteSheet_86FBA14[];
 
+unk32 sub_80570D4(s32);
+void getItem(unk32);
+
 #if 0
 void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 arg5, unk32 arg6)
 {
@@ -707,7 +710,13 @@ void sub_804C0EC(RiderTemp* rider, unk8 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c118.s");
+void sub_804C118(RiderTemp* rider)
+{
+    if (rider->unk424 != -1 && (sub_80570D4(rider->unk424) << 24) == 0) {
+        sub_8057104(rider->unk424, 1);
+        getItem(rider->unk424);
+    }
+}
 
 void nullsub_2(void)
 {
