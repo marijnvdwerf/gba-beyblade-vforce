@@ -68,6 +68,183 @@ void newSpriteTrail(
     }
 }
 
+#if 0
+typedef struct CameraRecordDraft {
+    unk8 pad0[0xC]; /* 0x00 */
+    unk32 field_C; /* 0x0C */
+    unk32 field_10; /* 0x10 */
+} CameraRecordDraft;
+
+typedef struct CameraStateDraft {
+    CameraRecordDraft records[1]; /* 0x00 */
+} CameraStateDraft;
+
+typedef struct SpriteTrailEntryDraft {
+    unk32 unk0; /* 0x00 */
+    unk32 unk4; /* 0x04 */
+    unk8 pad8[4]; /* 0x08 */
+    unk16 unkC; /* 0x0C */
+    unk16 unkE; /* 0x0E */
+    unk16 unk10; /* 0x10 */
+    s16 unk12; /* 0x12 */
+    s16 unk14; /* 0x14 */
+    unk16 unk16; /* 0x16 */
+    SpriteEntry* sprite; /* 0x18 */
+} SpriteTrailEntryDraft;
+
+typedef struct UnkTrailDraft {
+    unk16 unk0; /* 0x00 */
+    unk16 unk2; /* 0x02 */
+    unk16 unk4; /* 0x04 */
+    unk16 unk6; /* 0x06 */
+    SpriteTrailEntryDraft* sprites; /* 0x08 */
+    AllocatedBlock* block; /* 0x0C */
+    s32 unk10; /* 0x10 */
+    s32 unk14; /* 0x14 */
+    s32 unk18; /* 0x18 */
+    s32 unk1C; /* 0x1C */
+    const unk8* spriteSheet; /* 0x20 */
+    s16 unk24; /* 0x24 */
+    unk16 unk26; /* 0x26 */
+    CameraStateDraft* unk28; /* 0x28 */
+    unk16 unk2C; /* 0x2C */
+} UnkTrailDraft;
+
+void sub_804AB64(UnkTrailDraft*, SpriteTrailEntryDraft*, s16);
+unk8 sub_804AB88(s32, s32);
+
+void sub_804A908(UnkTrailDraft* trail)
+{
+    unk32 remaining;
+    unk32 count;
+    unk32 previous;
+    s32 index;
+    unk32 scale;
+    s32 x;
+    s32 y;
+
+    remaining = trail->unk2;
+    index = trail->unk4;
+    count = remaining;
+    remaining--;
+    if (count != 0) {
+        scale = 0x100;
+        do {
+            SpriteTrailEntryDraft* entry;
+            SpriteEntry* sprite;
+            s32 delay;
+            s32 nextDelay;
+
+            entry = &trail->sprites[index];
+            sprite = entry->sprite;
+            entry->unkC--;
+            if (entry->unkC == 0) {
+                sprite->y = 0xA000;
+                sub_8060F64(sprite, scale, scale, 0);
+                trail->unk2--;
+            } else {
+                if (trail->unk28 != NULL) {
+                    x = entry->unk0 - (trail->unk28->records[0].field_C & 0xFFFFFF00);
+                    y = entry->unk4 - (trail->unk28->records[0].field_10 & 0xFFFFFF00);
+                    sprite->x = x;
+                    if (y >= -0x4000) {
+                        sprite->y = y;
+                    } else {
+                        sprite->y = 0xA000;
+                    }
+                }
+                delay = entry->unkE;
+                if ((s16)entry->unkE > 0x10) {
+                    entry->unkE = delay - 0x10;
+                } else {
+                    nextDelay = delay;
+                    nextDelay += 0x10;
+                    entry->unkE = nextDelay + entry->unk10;
+                    sprite->frame.word++;
+                    if (sprite->frame.word == entry->unk12 + entry->unk14) {
+                        if (entry->unk16 == trail->unk26) {
+                            sub_804AB64(trail, entry, trail->unk24);
+                        } else {
+                            sprite->y = 0xA000;
+                            sub_8060F64(sprite, scale, scale, 0);
+                            trail->unk2--;
+                        }
+                    }
+                }
+            }
+            index--;
+            if (index < 0) {
+                index = trail->unk0 - 1;
+            }
+            previous = remaining;
+            remaining--;
+        } while (previous != 0);
+    }
+
+    {
+        s32 dx;
+        s32 dxSquared;
+        s32 dySquared;
+        s32 distanceSquared;
+        s32 radius;
+        s32 xRatio;
+        s32 yRatio;
+        s32 scaledX;
+        s32 scaledY;
+        unk8 angle;
+        SpriteTrailEntryDraft* entry;
+        SpriteEntry* sprite;
+
+        dx = trail->unk10 - trail->unk18;
+        x = trail->unk14 - trail->unk1C;
+        dxSquared = dx;
+        dxSquared *= dx;
+        dySquared = x;
+        dySquared *= x;
+        distanceSquared = dxSquared + dySquared;
+        if (distanceSquared <= 0xD00 * 0xD00) {
+            return;
+        } else {
+            radius = Sqrt(distanceSquared);
+            xRatio = (dx << 8) / radius;
+            yRatio = (x << 8) / radius;
+            angle = sub_804AB88(xRatio, yRatio);
+            scaledX = (xRatio * 0xD00) >> 8;
+            scaledY = (yRatio * 0xD00) >> 8;
+            trail->unk4++;
+            if (trail->unk4 == trail->unk0) {
+                trail->unk4 = 0;
+            }
+            if (trail->unk2 < trail->unk0) {
+                trail->unk2++;
+            }
+            entry = &trail->sprites[trail->unk4];
+            dx = trail->unk18 + (scaledX >> 1) - 0x800;
+            y = trail->unk1C + (scaledY >> 1) - 0x800;
+            entry->unk0 = dx;
+            entry->unk4 = y;
+            if (trail->unk28 != NULL) {
+                dx -= trail->unk28->records[0].field_C & 0xFFFFFF00;
+                y -= trail->unk28->records[0].field_10 & 0xFFFFFF00;
+            }
+            sprite = entry->sprite;
+            sprite->x = dx;
+            if (y >= -0x4000) {
+                sprite->y = y;
+            } else {
+                sprite->y = 0xA000;
+            }
+            sprite->frame.word = 0;
+            sprite->oam_attr_2 = (sprite->oam_attr_2 & 0xFFF) | (trail->unk2C << 12);
+            sub_8060F64(sprite, 0x100, 0x100, angle);
+            entry->unkC = trail->unk6;
+            sub_804AB64(trail, entry, 1);
+            trail->unk18 += scaledX;
+            trail->unk1C += scaledY;
+        }
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a908.s");
 
 void sub_804AB50(UnkTrail* arg0, u8 arg1)
