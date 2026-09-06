@@ -321,7 +321,7 @@ typedef struct CurrentGameState {
     u8 unk3;
     LevelState unk4[0x38];
     LevelSlot unk544[10];
-    unk8 unk594[0x10];
+    unk32 unk594[4];
     unk8 pad5A4[0x100];
     unk8 unk6A4;
     unk8 unk6A5;

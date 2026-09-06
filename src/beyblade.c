@@ -18,7 +18,13 @@ const ItemDescriptionEntry* sub_80570C0(unk32 index)
     return &ItemDescription[index];
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80570d4.s");
+unk8 sub_80570D4(s32 arg0)
+{
+    if ((_currentGameState->unk594[arg0 >> 5] & (1 << (arg0 & 0x1F))) != 0) {
+        return 1;
+    }
+    return 0;
+}
 
 #if 0
 void sub_8057104(s32 arg0, unk32 arg1)
