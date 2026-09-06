@@ -11,6 +11,9 @@ extern void sub_806123C(SpriteTextCleanup*);
 extern u8 printTime(SpriteTextCleanup*, unk32, unk8);
 extern const unk8 Str_8755B58[];
 extern const u8 byte_807D980[];
+extern const unk8 Str_8755B84[];
+extern const unk8 Str_8755B88[];
+extern const unk8 Str_8755B8C[];
 
 void allocFont(SpriteTextCleanup* arg0, const unk8* arg1, const unk8* arg2, s16 arg3, s16 arg4,
     unk16 arg5, unk16 arg6)
@@ -384,7 +387,38 @@ u8 showNumber_2(SpriteTextCleanup* arg0, unk32 arg1, u8 arg2)
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/80619a4.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8061a18-printTime.s");
+
+u8 printTime(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
+{
+    unk32 seconds;
+    unk32 fraction;
+    unk32 remainder;
+    unk32 minutes;
+    unk8 result;
+    unk8 mode;
+    unk32 divisor;
+
+    mode = arg2;
+    result = 1;
+    divisor = 1000;
+    seconds = Div(arg1, divisor);
+    fraction = DivRem(arg1, divisor) / 10;
+    remainder = DivRem(seconds, 60);
+    minutes = Div(seconds, 60);
+    result &= showNumber(arg0, minutes, mode);
+    result &= showString(arg0, Str_8755B84, mode);
+    if (remainder <= 9) {
+        result &= showString(arg0, Str_8755B88, mode);
+    }
+    result &= showNumber(arg0, remainder, mode);
+    result &= showString(arg0, Str_8755B8C, mode);
+    if (fraction <= 9) {
+        result &= showString(arg0, Str_8755B88, mode);
+    }
+    result &= showNumber(arg0, fraction, arg2);
+    return result;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8061ae8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061ba0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061c24.s");

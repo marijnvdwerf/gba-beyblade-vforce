@@ -12,3 +12,7 @@ The function was parked after natural C variants remained near-misses. Its seman
 ## sub_805EF18 (0x0805EF18)
 
 Matched as a row renderer using the two camera tables at offsets 0x364 and 0x368. The indexed entries are separate row pointers: keeping table bases (`tableA`/`tableB`) distinct from indexed rows (`rowA`/`rowB`) reproduces the target's r9/r7 row registers and the target's address-calculation order. The count uses `while (count-- != 0)` to preserve the target's pre-body countdown test. The destination remains an integer address (`unk32`) because this function only advances and forwards it; the real call sites provide the buffer address. The target's callback is the imported function pointer `__sub_87576D8`, called with the two row pointers, coordinates, width, destination, and the second row pointer.
+
+## printTime (0x08061A18)
+
+Matched as a millisecond timer formatter. The argument is split into whole seconds with `Div(arg1, 1000)` and a millisecond remainder divided by 10 for the displayed fraction. Whole seconds are split into minutes and seconds with `DivRem`/`Div` by 60. The result and mode locals are byte-sized; retaining the original `arg2` for the final fraction call preserves the target's stack-backed mode reload. The target normalizes the accumulated byte result after the colon and decimal separator calls, which follows from the byte local and `&=` expression. `Str_8755B84`, `Str_8755B88`, and `Str_8755B8C` are the colon, zero, and decimal separator strings.
