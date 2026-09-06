@@ -15,6 +15,7 @@ struct GameData;
 unk32 sub_804B7FC(struct GameData*);
 void sub_804B754(void);
 void sub_804C098(RiderBase*);
+void sub_804C0C0(RiderTemp*);
 unk8 sub_804DA48(unk8*, unk8*, unk32);
 void sub_804FE14(void);
 void sub_804FE30(void);

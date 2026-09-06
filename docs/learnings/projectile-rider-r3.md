@@ -11,3 +11,7 @@ Matched with direct typed field stores to `ProjectileSystem::unk1C`, `unk20`, an
 ## sub_805749C (0x0805749C)
 
 Matched with a direct indexed read from `byte_807D7C0`. The existing `unk8` return and `unk32` index produce the byte load and the target's literal pool word exactly.
+
+## sub_804C0C0 (0x0804C0C0)
+
+Matched with a `RiderTemp` field at offset `0x3C4` typed as `SpriteEntry*`, plus the existing halfword field at `0x3CC`. The function sets bit 2, frees the optional sprite, and clears the pointer. The target instruction sequence and register usage match exactly.

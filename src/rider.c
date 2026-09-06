@@ -690,7 +690,13 @@ void sub_804C098(RiderBase* rider)
     rider->unk3E4 = 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c0c0.s");
+void sub_804C0C0(RiderTemp* rider)
+{
+    rider->unk3CC |= 4;
+    if (rider->unk3C4 != NULL)
+        sub_8060A94(rider->unk3C4);
+    rider->unk3C4 = NULL;
+}
 
 void sub_804C0EC(RiderTemp* rider, unk8 arg1)
 {

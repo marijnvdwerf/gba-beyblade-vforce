@@ -570,7 +570,9 @@ typedef struct RiderState {
 } RiderState;
 
 typedef struct RiderTemp {
-    unk8 pad0[0x3CC];
+    unk8 pad0[0x3C4];
+    SpriteEntry* unk3C4;
+    unk8 pad3C8[4];
     unk16 unk3CC;
     unk8 pad3CE[0x56];
     unk16 unk424;
