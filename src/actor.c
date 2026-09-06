@@ -92,6 +92,197 @@ void actor_8057C58(
 }
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8057c58-actor_8057C58.s");
+#if 0
+typedef struct RenderActorDraftConfig {
+    unk32 unk0;
+    unk8 pad4[3];
+    unk8 unk7;
+    unk32 unk8;
+    unk8 padC[4];
+    unk32 unk10;
+    unk8 pad14[4];
+    unk32 unk18;
+} RenderActorDraftConfig;
+
+typedef struct RenderActorDraftLayer {
+    unk8 pad0[0x40];
+    s32 field_40;
+    s32 field_44;
+} RenderActorDraftLayer;
+
+typedef struct RenderActorDraftOamFlags {
+    unk32 : 8;
+    unk32 unk11_0 : 1;
+    unk32 : 16;
+    unk32 unk13_1 : 5;
+    unk32 : 2;
+} RenderActorDraftOamFlags;
+
+typedef union RenderActorDraftOamFlagsValue {
+    unk32 word;
+    RenderActorDraftOamFlags bits;
+} RenderActorDraftOamFlagsValue;
+
+typedef struct RenderActorDraftSprite {
+    unk8 pad0[0x10];
+    RenderActorDraftOamFlagsValue unk10;
+    unk16 oam_attr_2;
+    unk16 var16;
+    union {
+        unk16 word;
+        unk8 b[2];
+    } frame;
+    unk16 unk1A;
+    unk16 flip_h_v;
+    unk16 unk1E;
+    unk16 var20;
+    unk16 var22;
+    s32 var24;
+    const unk8* unk28;
+    const unk8* unk2C;
+    RenderActorDraftSprite* unk30;
+} RenderActorDraftSprite;
+
+typedef struct RenderActorDraft {
+    RenderActorDraftConfig* unk0;
+    s32 x;
+    s32 y;
+    s32 z;
+    unk8 unk10;
+    unk8 unk11;
+    unk16 unk12;
+    unk16 unk14;
+    unk16 unk16;
+    unk8 pad18[2];
+    unk16 unk1A;
+    unk16 unk1C;
+    unk16 unk1E;
+    unk16 unk20;
+    unk16 unk22;
+    unk8 unk24;
+    unk8 unk25;
+    unk16 unk26;
+    unk16 unk28;
+    unk8 pad2A[4];
+    unk16 unk2E;
+    unk8 unk30;
+    unk8 unk31;
+    unk8 unk32;
+    unk8 unk33;
+    unk16 unk34;
+    unk16 unk36;
+    unk8 unk38;
+    unk8 unk39;
+    unk8 unk3A;
+    s8 unk3B;
+    RenderActorDraftLayer* unk3C;
+    s32 unk40;
+    s32 unk44;
+    s32 unk48;
+    s32 unk4C;
+    s32 unk50;
+    s32 unk54;
+    unk32 unk58;
+    unk8 pad5C[0xC];
+    s32 unk68;
+    s32 unk6C;
+    s32 unk70;
+    unk8 pad74[0x24];
+    unk8 unk98;
+    unk8 pad99[1];
+    unk16 unk9A;
+    unk16 unk9C;
+    unk16 unk9E;
+    s16 unkA0;
+    s16 unkA2;
+    s8 unkA4;
+    s8 unkA5;
+    unk8 padA6[0xA];
+    void (*unkB0)(Actor*, unk32*);
+    unk32 unkB4;
+    RenderActorDraftSprite* unkB8;
+    unk16 unkBC;
+    unk8 padBE[2];
+} RenderActorDraft;
+
+unk8 sub_8059CB4(RenderActorDraftLayer*);
+
+void renderActor(Actor* actor, unk32 arg1)
+{
+    RenderActorDraft* self;
+    s32 x = 0, y = 0;
+    s32 position[3];
+    void (*callback)(Actor*, unk32*);
+    unk32 oam;
+    unk32 priority;
+    RenderActorDraftSprite* oldSprite;
+    RenderActorDraftSprite* sprite;
+
+    self = (RenderActorDraft*)actor;
+    callback = self->unkB0;
+    if (callback != NULL) {
+        callback(actor, position);
+        x = position[0] >> 8;
+        y = position[1] >> 8;
+    } else {
+        x = self->x >> 8;
+        y = self->y >> 8;
+    }
+    if (self->unk3C != NULL) {
+        x -= self->unk3C->field_40 >> 8;
+        y -= self->unk3C->field_44 >> 8;
+    }
+    if ((self->unk31 & 1) != 0) {
+        x -= self->unkA0 - self->unkA4;
+    } else {
+        x -= self->unkA0 + self->unkA4;
+    }
+    y -= self->unkA2 + self->unkA5;
+    if (self->unk70 == 0 || x + (self->unk10 * self->unk12 >> 8) < 0 || x > 0xEF
+        || y + (self->unk11 * self->unk14 >> 8) < 0 || y > 0x9F) {
+        if (self->unkB8 != NULL) {
+            sub_8060A94((SpriteEntry*)self->unkB8);
+            self->unkB8 = NULL;
+        }
+        return;
+    }
+    oldSprite = self->unkB8;
+    if (oldSprite == NULL) {
+        self->unkB8 = (RenderActorDraftSprite*)allocSprite(self->unkBC);
+        if (self->unkB8 == NULL)
+            return;
+        self->unkB8->var20 = (unk16)(unk32)oldSprite;
+        if ((self->unk98 & 2) != 0)
+            self->unkB8->var20 |= 1;
+        self->unkB8->unk1A = 0xFFFF;
+        self->unkB8->unk30 = oldSprite;
+        self->unkB8->var24 = -1;
+    }
+    self->unk16 = self->unk16 & 0xFF;
+    self->unkB8->unk2C = (const unk8*)self->unk0;
+    self->unkB8->flip_h_v = self->unk31;
+    self->unkB8->x = x << 8;
+    self->unkB8->y = y << 8;
+    self->unkB8->frame.word = self->unk22;
+    self->unkB8->var16 = self->unk30;
+    self->unkB8->unk28 = (const unk8*)self->unk0 + self->unk0->unk10;
+    sprite = self->unkB8;
+    oam = ((self->unk38 & 3) << 14) | ((~self->unk3A & 1) << 13) | ((self->unk39 & 3) << 10)
+        | 0x1000 | ((self->unk38 & 0xC) << 28);
+    sprite->unk10.word = oam;
+    priority = (((self->unk3A >> 1) & 0xF) << 12);
+    if (self->unk3C != NULL)
+        priority |= ((sub_8059CB4(self->unk3C) + self->unk3B) & 3) << 10;
+    else
+        priority |= (self->unk3B & 3) << 10;
+    sprite->oam_attr_2 = priority;
+    sub_8060F64((SpriteEntry*)self->unkB8, self->unk12, self->unk14, self->unk16);
+    sprite = self->unkB8;
+    if (sprite->unk30 != NULL)
+        sprite->unk10.word = (sprite->unk10.word & 0xC1FFFFFF)
+            | ((sprite->unk30->x & 0x3E0) << 20) | 0x100;
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8057d88-renderActor.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8057fac.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8057fdc.s");
