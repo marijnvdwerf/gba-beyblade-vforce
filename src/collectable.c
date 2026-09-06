@@ -94,7 +94,16 @@ void sub_8056EC0(void)
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056ec0.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8056f7c.s");
+
+void sub_8056F7C(void)
+{
+    GameData* gameData;
+    LevelState* state;
+
+    gameData = _gameData;
+    state = sub_8051734();
+    __fastMemoryCopyARM(&state->unk10, &gameData->collectables.collectedBits[0], 4);
+}
 
 void sub_8056FAC(void)
 {
