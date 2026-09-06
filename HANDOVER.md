@@ -113,6 +113,8 @@ Agent prompts), /tmp/learnings-prompts.md (72 fold/learnings prompts across
   untouched `INCLUDE_ASM`, house-style with proper record types; dump kept.
   No learnings for failures (one-line first divergence).
 - Accepted layouts: allocQuadTree carves a raw block with `unk8*` + casts;
+  sub_805DCFC reaches the line records after `GeometrySpline.pointIndices[count]`
+  via `(GeometrySplineLine*)&spline->pointIndices[count]` (user, 2026-09-06);
   `typedef BGLayer DisplayRecord` (TODO in layer.h); CurrentGameSave starts
   with `BackupBlock block0`; GameData.levelHud is a nested LevelHudData;
   FrontendState through 0x5AC (no `_unk3000BE0` split).
