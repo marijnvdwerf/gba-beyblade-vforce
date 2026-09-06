@@ -15,24 +15,89 @@
 INCLUDE_ASM("asm/dump/8040d18/8041ea0-teletypeDefaultUserCodeHandler.s");
 
 #if 0
-void sub_80420C4(FrontendState* state, unk32 command)
+typedef struct DialogueDisplayRecordDraft {
+    unk8 pad0[0x14];
+    unk32 unk14;
+    unk8 pad18[0xC];
+    unk32 unk24;
+    unk8 pad28[0x54];
+    unk8 unk7C;
+    unk8 pad7D[3];
+    unk8 pad80[8];
+} DialogueDisplayRecordDraft;
+
+typedef struct TalkingHeadDraft {
+    unk8 pad0[0x18];
+    unk32 unk18;
+    unk8 pad1C[4];
+    unk32 unk20;
+} TalkingHeadDraft;
+
+typedef struct DialogueTransitionDraft {
+    unk8 unk590[0x18];
+} DialogueTransitionDraft;
+
+typedef struct DialogueFrontendStateDraft {
+    unk8 pad0[0xB8];
+    DialogueDisplayRecordDraft display[4];
+    unk8 pad2D8[0x2B8];
+    DialogueTransitionDraft transition;
+} DialogueFrontendStateDraft;
+
+typedef struct DialogueStateDraft {
+    unk32 unk0;
+    unk8 pad4[36];
+} DialogueStateDraft;
+
+extern void* _unk300007C;
+extern unk8 _unk3000080[60];
+extern void* _unk3000EE8;
+extern DialogueStateDraft _unk3000EEC;
+extern s32 _unk30000BC;
+extern s32 _unk30000C0;
+extern s32 _unk30000C4;
+extern s32 _unk30000C8;
+extern s32 _unk30000CC;
+extern s32 _unk30000D0;
+extern unk8 _unk30000D4;
+extern unk8 _unk30000D5;
+extern unk16 _unk30000D6;
+extern SpriteEntry* _unk30000D8;
+
+extern const unk8 FontStyle_80688B8[];
+extern const unk8 SpriteSheet_821CB80[];
+const unk8* const* sub_804A364(void);
+void* sub_8063E18(const unk8*, const unk8*, unk32, unk32, unk32, unk32, unk32);
+void sub_8063F5C(void*, void (*)(void));
+void teletypeDefaultUserCodeHandler(void);
+TalkingHeadDraft* GetTalkingHead(s32);
+void sub_8055914(void*, unk32, unk32, unk32, unk32);
+void sub_805599C(void*);
+void sub_8055C30(void*);
+void sub_8063F64(void*);
+void sub_8063F84(void*);
+void sub_806415C(void*);
+unk32 sub_806417C(void*);
+unk32 sub_8064188(void*);
+
+void sub_80420C4(DialogueFrontendStateDraft* state, unk32 command)
 {
-    FrontendSubobject* base;
+    DialogueDisplayRecordDraft* base;
     const unk8* const* languageStrings;
-    FrontendSubobject* subobject1;
-    FrontendSubobject* subobject2;
-    FrontendSubobject* subobject3;
+    DialogueDisplayRecordDraft* subobject1;
+    DialogueDisplayRecordDraft* subobject2;
+    DialogueDisplayRecordDraft* subobject3;
     unk32 count;
     unk32 value;
     s32 updatedBc;
     unk32 flags;
     s32 blend;
-    TalkingHead* talkingHead;
-    TalkingHead* talkingHead2;
+    TalkingHeadDraft* talkingHead;
+    TalkingHeadDraft* talkingHead2;
     LevelState* levelState;
     SpriteEntry* sprite;
 
-    base = &state->unkB8;
+    base = &state->display[0];
     switch (command) {
     case 0:
         languageStrings = sub_804A364();
@@ -52,9 +117,9 @@ void sub_80420C4(FrontendState* state, unk32 command)
         subobject3->unk7C |= 3;
         subobject3->unk14 = -0xC00;
         languageStrings += getLanguage();
-        _unk300007C = sub_8063E18(
-            *languageStrings, FontStyle_80688B8, 0x78, 0x800, 0x6400, 0xE000, 0);
-        sub_8063F5C(_unk300007C, (void*)((unk8*)teletypeDefaultUserCodeHandler + 1));
+        _unk300007C
+            = sub_8063E18(*languageStrings, FontStyle_80688B8, 0x78, 0x800, 0x6400, 0xE000, 0);
+        sub_8063F5C(_unk300007C, teletypeDefaultUserCodeHandler);
         _unk3000EE8 = _unk3000080;
         _unk3000EEC.unk0 = 0;
         talkingHead = GetTalkingHead(0);
