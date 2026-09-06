@@ -460,7 +460,48 @@ void sub_805BDBC(QuadTreeDraft* quadTree, GeometryAddressesDraft* geometry)
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/805bdbc.s");
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805bf18.s");
+unk32 sub_805BF18(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7)
+{
+    s32 temp;
+    unk16 flags;
+
+    flags = 0;
+    if (arg4 > arg6) {
+        temp = arg6;
+        arg6 = arg4;
+        arg4 = temp;
+    }
+    if (arg5 > arg7) {
+        temp = arg7;
+        arg7 = arg5;
+        arg5 = temp;
+    }
+    if (arg4 >= arg0 && arg4 < arg2) {
+        flags = 1;
+    }
+    if (arg6 >= arg0 && arg6 < arg2) {
+        flags |= 1;
+    }
+    if (arg5 >= arg1 && arg5 < arg3) {
+        flags |= 2;
+    }
+    if (arg7 >= arg1 && arg7 < arg3) {
+        flags |= 2;
+    }
+    if (arg4 < arg0 && arg6 >= arg2 && (flags & 2) != 0) {
+        flags = 3;
+    }
+    if (arg5 < arg1 && arg7 >= arg3 && (flags & 1) != 0) {
+        flags = 3;
+    }
+    if (arg4 < arg0 && arg6 >= arg2 && arg5 < arg1 && arg7 >= arg3) {
+        flags = 3;
+    }
+    if (flags == 3) {
+        return 1;
+    }
+    return 0;
+}
 
 void deallocateQuadTree(QuadTree* arg0)
 {
