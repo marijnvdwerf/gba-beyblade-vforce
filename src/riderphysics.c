@@ -704,4 +704,11 @@ unk32 sub_804E440(RiderBase* rider, unk32 flags)
     return 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e454.s");
+unk8 sub_804E454(RiderBase* rider, unk32 flags)
+{
+    if ((rider->unkA0 & flags) == flags)
+        return 1;
+    return 0;
+}
+
+ASM_ZEROPAD
