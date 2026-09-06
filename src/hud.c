@@ -476,7 +476,19 @@ void sub_804F800(s32 arg0)
     base->levelHud.unk12C = arg0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804f824.s");
+void sub_804F824(s32 arg0)
+{
+    GameData* base;
+
+    base = _gameData;
+    if (arg0 > 0xFFFF) {
+        arg0 = 0xFFFF;
+    }
+    if (arg0 < 0) {
+        arg0 = 0;
+    }
+    base->levelHud.unk12A = arg0;
+}
 
 void sub_804F84C(u8 arg0)
 {
