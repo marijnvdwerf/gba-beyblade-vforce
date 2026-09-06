@@ -326,8 +326,67 @@ void sub_8044054(FrontendState* state, unk32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/804423c.s");
-INCLUDE_ASM("asm/dump/8040d18/8044314.s");
+void sub_804423C(SpriteTextCleanup** arg0, s32 arg1)
+{
+    sub_8061844(arg0[0], (arg1 >> 8) + 0x18, arg0[0]->y >> 8);
+    sub_8061844(arg0[1], (arg1 >> 8) + 0x80, arg0[1]->y >> 8);
+    sub_8061844(arg0[2], (arg1 >> 8) + 0x18, arg0[2]->y >> 8);
+    sub_8061844(arg0[3], (arg1 >> 8) + 0x80, arg0[3]->y >> 8);
+    sub_8061844(arg0[4], (arg1 >> 8) + 0x18, arg0[4]->y >> 8);
+    sub_8061844(arg0[5], (arg1 >> 8) + 0x80, arg0[5]->y >> 8);
+    sub_8061844(arg0[6], (arg1 >> 8) + 0x18, arg0[6]->y >> 8);
+    sub_8061844(arg0[7], (arg1 >> 8) + 0x80, arg0[7]->y >> 8);
+    sub_8061844(arg0[8], arg1 >> 8, arg0[8]->y >> 8);
+    sub_8061844(arg0[9], arg1 >> 8, arg0[9]->y >> 8);
+    sub_806185C(arg0[9], ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xE : 0xF);
+}
+
+void sub_8044314(SpriteTextCleanup** sprites, unk32 unused, s32 value, unk32 mode)
+{
+    unk32 language;
+    s32 scale;
+    s32 count;
+    s32 difference;
+    s32 stage2;
+
+    scale = value >> 5;
+    count = (value & 0x1F) + 1;
+    language = getLanguage();
+    if (count == 1) {
+        switch (scale) {
+        case 0:
+            sub_8061660(sprites[0], _806E8D8[0][language], 0xE);
+            break;
+        case 1:
+            sub_8061660(sprites[2], _806E8D8[1][language], 0xE);
+            break;
+        case 2:
+            sub_8061660(sprites[4], _806E8D8[2][language], 0xE);
+            break;
+        case 3:
+            sub_8061660(sprites[9], _806E914[mode][language], 0xE);
+            break;
+        }
+    } else {
+        switch (scale) {
+        case 0:
+            value = _currentGameState->unk6A7;
+            difference = _currentGameState->unk6A6 - _currentGameState->unk6A8;
+            difference -= value;
+            showNumber_2(sprites[1], (value * count) >> 5, 0xF);
+            showString(sprites[1], Str_86FD470, 0xF);
+            showNumber(sprites[1], (difference * count) >> 5, 0xF);
+            break;
+        case 1:
+            showNumber_2(sprites[3], (_currentGameState->unk6A8 * count) >> 5, 0xF);
+            break;
+        case 2:
+            stage2 = _currentGameState->unk6A5 - _currentGameState->unk6A6;
+            showNumber_2(sprites[5], (stage2 * count) >> 5, 0xF);
+            break;
+        }
+    }
+}
 #if 0
 typedef struct FrontendPacketStateDraft {
     unk8 unk0;
@@ -370,7 +429,7 @@ extern s32 _unk30001BC;
 extern unk16 _unk30001C0;
 extern SpriteTextCleanup* _unk30001C8[10];
 void sub_804423C(SpriteTextCleanup**, s32);
-void sub_8044314(SpriteTextCleanup**, FrontendPacketStateDraft*, s32, s32);
+void sub_8044314(SpriteTextCleanup**, unk32, s32, unk32);
 
 void sub_804444C(FrontendState* state, unk32 arg1)
 {

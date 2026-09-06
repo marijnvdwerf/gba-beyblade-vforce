@@ -195,7 +195,32 @@ unk32 sub_805137C(void)
     return result;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80513ac.s");
+void sub_80513AC(void)
+{
+    CurrentGameSave* save;
+    unk32 xorSum;
+    unk32* ptr;
+    unk32 i;
+
+    save = &_currentGameState->unk6FC;
+    xorSum = 0;
+    ptr = &save->block0.magic;
+    save->block0.magic = 0xDEAD;
+    save->block0.unk4 = _currentGameState->unk0;
+    save->block0.unk5 = _currentGameState->unk1;
+    save->block0.unk6 = _currentGameState->unk2;
+    save->block0.unk7 = _currentGameState->unk3;
+    save->unk558 = _currentGameState->unk6E4;
+    save->unk55A = _currentGameState->unk6E6;
+    save->unk55C = _currentGameState->unkC68;
+    __fastMemoryCopyARM(&_currentGameState->unk4[0], &save->levelStates[0], 0xA8 << 3);
+    __fastMemoryCopyARM(&_currentGameState->unk594[0], &save->unk548[0], 0x10);
+    i = 335;
+    while (i-- != 0) {
+        xorSum ^= *ptr++;
+    }
+    save->checksum = xorSum;
+}
 
 void sub_8051488(void)
 {
