@@ -46,5 +46,6 @@ LevelGeometryAddresses* sub_805EEE0(CameraState*);
 void sub_805E8D8(CameraState*, LevelDesign*, unk16, s32*);
 void sub_805E8A0(CameraState*, LevelDesign*, unk16, s32*);
 void sub_805EEFC(CameraState*, unk32, unk32);
+void sub_805EF18(CameraState*, s32, s32, s32, s32, unk32, unk32);
 
 #endif

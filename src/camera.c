@@ -218,4 +218,35 @@ void sub_805EEFC(CameraState* camera, unk32 arg1, unk32 arg2)
     camera->unk368 = arg2;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805ef18.s");
+extern void (*__sub_87576D8)(unk32*, s32, s32, s32, unk32, unk32*);
+
+void sub_805EF18(
+    CameraState* camera, s32 x, s32 y, s32 width, s32 count, unk32 index, unk32 destination)
+{
+    unk32* tableA;
+    unk32* tableB;
+    unk32* rowA;
+    unk32* rowB;
+
+    tableA = (unk32*)camera->unk368;
+    if (tableA == NULL) {
+        return;
+    }
+    tableB = (unk32*)camera->unk364;
+    if (tableB == NULL) {
+        return;
+    }
+    rowA = (unk32*)tableA[index];
+    rowB = (unk32*)tableB[index];
+    if (rowA == NULL) {
+        return;
+    }
+    if (rowB == NULL) {
+        return;
+    }
+    while (count-- != 0) {
+        (*__sub_87576D8)(rowA, x, y, width, destination, rowB);
+        y++;
+        destination += width * 0x20;
+    }
+}
