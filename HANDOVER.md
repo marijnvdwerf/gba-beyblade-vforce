@@ -5,7 +5,41 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-06, session 6 close (round 2 merged, skill folded; monitor left on).
+Last updated: 2026-09-06, session 7 (Round 3 merged; Round 4 small leaves running).
+
+## Session 7 (2026-09-06)
+
+State: main green, **529 C / 478 asm / 53%**, 14/66 TUs done; baseline
+refreshed. Round 3 (29 draft-less reds, 6 luna agents): 23 matched, 6 parked
+(sub_804DFF4, sub_804E090, sub_80658A4, sub_8056EC0, sub_804A908; sub_805DCFC
+was parked then unparked under the accepted overlay layout). riderphysics
+large (sub_804D8D8/804DDF8/RiderAI_804C8F0) deferred by the user.
+
+- Process: one `review` agent per finished branch (not per round), invoked
+  with the branch + its assignment list; findings go to
+  `/tmp/review-<branch>.md`; the decomp agent reads that file, fixes, then I
+  read the whole diff myself before merging. Reviewers missed real levers
+  twice (`(s32)(a*b) >> 5` casts, `__attribute__((packed))` in a draft,
+  draft-only typedefs in common.h) — the manager read is not optional.
+- Learnings files must be dated `<scope>-<date>.md`; my first prompts said
+  `-r3.md` and every reviewer flagged it. Use dated names in prompts.
+- `FrontendSubobjectWord` union was rejected after a luna research pass:
+  packet functions work on 16-byte `Packet` records (packet.h) at
+  `GameData.unk15C4` / `unk15D4[4]`; `FrontendState.unkB8/unk140` are
+  0x88-byte display records. Both typed in place; frontend.c/gameloop.c
+  callers lost their `- 0x10` byte arithmetic.
+- sub_804A504 kept as `((0 - v) | v) >> 31` with `// TODO: fakematch???`
+  (user, one-off): agbcc emits `cmp/beq/mov` for every natural `!= 0` form.
+- sub_804C3D4 only matches if the caller does not narrow sub_804AB50's
+  argument — the callee's prototype is `unk16` with a `u8` local (the
+  original probably had no prototype in scope).
+- Luna agents hit the "text-only" compaction stop 6 times this session; a
+  one-line revive message always resumed them. R3-7 needed two.
+- Round 4 pool (draft-less, non-giant): trail sub_804ABD8/AB64/AB88 +
+  projectile sub_804C464 (R4-1); packet sub_804393C, beyblade sub_80570D4,
+  riderphysics sub_804E358, gameinit initGameloop2, levelhud getItem (R4-2);
+  riderphysics large ×3 still deferred. 76 🟡 parked drafts are a separate
+  retry pool (collectable sub_8056EC0 looked close: base+4 cursor).
 
 ## Session 6 (2026-09-05/06)
 
