@@ -52,9 +52,11 @@ description: Session rules for orchestrating decompilation subagents
   noise — `compare` is the authority.
 - Skill maintenance is batched: the manager does NOT edit
   `.claude/skills/agbcc/SKILL.md` by hand. New patterns go into the agents'
-  `docs/learnings/*.md`; periodically a **gpt-5.6-sol** agent processes the
-  batch (folds generic patterns into the skill, then `git mv`s the consumed
-  files to `docs/learnings/processed/`). The manager only reviews its diff.
+  `docs/learnings/*.md`; periodically the `skill-fold` agent
+  (`.claude/agents/skill-fold.md`, gpt-5.6-sol, worktree) processes the batch
+  (folds generic measured patterns into the skill, then `git mv`s the consumed
+  files to `docs/learnings/processed/`). Pass session-specific INCLUDE/EXCLUDE
+  lists in the invocation. The manager only reviews its diff.
 - `HANDOVER.md` is the living state file for the next session (active
   agents, merged work, stuck points, next candidates). Update it on every
   merge, every agent start/finish, and every change of plan.
