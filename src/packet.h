@@ -9,6 +9,7 @@ typedef struct Packet {
     unk8 unk0;
     unk8 unk1;
     unk8 unk2_0 : 4;
+    unk8 unk2_4 : 4;
     unk8 unk3;
     unk8 unk4[12];
 } Packet;
