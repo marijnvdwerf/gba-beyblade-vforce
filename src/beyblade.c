@@ -6,6 +6,8 @@
 #include "ram.h"
 #include "unsorted.h"
 
+extern const unk8 byte_807D7C0[];
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/805703c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057048.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8057068.s");
@@ -214,4 +216,8 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/805741c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805743c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805745c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805747c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/805749c.s");
+
+unk8 sub_805749C(unk32 arg0)
+{
+    return byte_807D7C0[arg0];
+}
