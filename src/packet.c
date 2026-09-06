@@ -8,14 +8,14 @@ unk8 sub_804393C(Packet* arg0)
 {
     unk32 checksum;
     s32 i;
-    const unk8* data;
+    const s8* data;
 
     checksum = arg0->unk2_4;
     checksum += arg0->unk2_0;
     i = 0;
     data = arg0->unk4;
     do {
-        checksum ^= (s8)data[i];
+        checksum ^= data[i];
         i++;
     } while (i <= 0xB);
     return checksum;
