@@ -4,6 +4,7 @@
 #include "common.h"
 
 void sub_804FEE8(void);
+void getItem(unk32);
 void sub_804FA40(void);
 void sub_804FAD4(void);
 void sub_804FC00(unk32);

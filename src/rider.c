@@ -6,6 +6,7 @@
 #include "beyblade.h"
 #include "geometry.h"
 #include "include_asm.h"
+#include "levelhud.h"
 #include "memory.h"
 #include "particle.h"
 #include "riderphysics.h"
@@ -690,7 +691,13 @@ void sub_804C098(RiderBase* rider)
     rider->unk3E4 = 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c0c0.s");
+void sub_804C0C0(RiderTemp* rider)
+{
+    rider->unk3CC |= 4;
+    if (rider->unk3C4 != NULL)
+        sub_8060A94(rider->unk3C4);
+    rider->unk3C4 = NULL;
+}
 
 void sub_804C0EC(RiderTemp* rider, unk8 arg1)
 {
@@ -701,7 +708,13 @@ void sub_804C0EC(RiderTemp* rider, unk8 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c118.s");
+void sub_804C118(RiderTemp* rider)
+{
+    if (rider->unk424 != -1 && sub_80570D4(rider->unk424) == 0) {
+        sub_8057104(rider->unk424, 1);
+        getItem(rider->unk424);
+    }
+}
 
 void nullsub_2(void)
 {
