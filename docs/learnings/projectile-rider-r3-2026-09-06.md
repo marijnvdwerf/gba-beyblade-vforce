@@ -27,3 +27,10 @@ Matched with a shared 0x30-byte `ProjectileTemplate` record and the typed `Proje
 ## sub_804AB50 prototype fixup
 
 The shared `trail.h` declaration for `sub_804AB50` uses a wide `unk16` parameter, and `trail.c` narrows it into a local `u8` before applying the low-nibble mask. This preserves the target `sub_804AB50` body while allowing `sub_804C3D4` to pass its `ldrh` result directly. The measured `u8` header variant inserted `lsl #24` / `lsr #24` in `sub_804C3D4` and failed the ROM compare; a function-pointer cast was also tested and rejected because it emitted an indirect call. The only C caller is `sub_804C3D4`.
+
+
+## Temporary fold probes
+
+- Folding `dx` directly into `sub_804ABD8` failed the full ROM comparison; the `dx` local was restored.
+- Folding `dy` directly into `sub_804ABD8` failed the full ROM comparison; the `dy` local was restored.
+- Folding `trail.c`'s `value` into `(u8)arg1 & 0xF` failed the full ROM comparison; the `u8 value` local was restored.
