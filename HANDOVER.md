@@ -38,6 +38,8 @@ large (sub_804D8D8/804DDF8/RiderAI_804C8F0) deferred by the user.
 - Round 4 pool (draft-less, non-giant): trail sub_804ABD8/AB64/AB88 +
   projectile sub_804C464 (R4-1); packet sub_804393C, beyblade sub_80570D4,
   riderphysics sub_804E358, gameinit initGameloop2, levelhud getItem (R4-2);
+  riderphysics sub_804D710/804E154/804D754 (R4-3); iconmenu sub_8050DF8,
+  geometry sub_805BF18, actor renderActor (R4-4);
   riderphysics large ×3 still deferred. 76 🟡 parked drafts are a separate
   retry pool (collectable sub_8056EC0 looked close: base+4 cursor).
 
