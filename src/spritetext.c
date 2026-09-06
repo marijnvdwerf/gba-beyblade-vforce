@@ -393,7 +393,6 @@ u8 printTime(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
     unk32 seconds;
     unk32 fraction;
     unk32 remainder;
-    unk32 minutes;
     unk8 result;
     unk8 mode;
     unk32 divisor;
@@ -404,8 +403,7 @@ u8 printTime(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
     seconds = Div(arg1, divisor);
     fraction = DivRem(arg1, divisor) / 10;
     remainder = DivRem(seconds, 60);
-    minutes = Div(seconds, 60);
-    result &= showNumber(arg0, minutes, mode);
+    result &= showNumber(arg0, Div(seconds, 60), mode);
     result &= showString(arg0, Str_8755B84, mode);
     if (remainder <= 9) {
         result &= showString(arg0, Str_8755B88, mode);

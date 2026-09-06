@@ -212,32 +212,32 @@ LevelGeometryAddresses* sub_805EEE0(CameraState* arg0)
     return &arg0->geometry;
 }
 
-void sub_805EEFC(CameraState* camera, unk32 arg1, unk32 arg2)
+void sub_805EEFC(CameraState* camera, const unk32** arg1, const unk32** arg2)
 {
     camera->unk364 = arg1;
     camera->unk368 = arg2;
 }
 
-extern void (*__sub_87576D8)(unk32*, s32, s32, s32, unk32, unk32*);
+extern void (*__sub_87576D8)(const unk32*, unk32, unk32, unk32, unk32, const unk32*);
 
 void sub_805EF18(
-    CameraState* camera, s32 x, s32 y, s32 width, s32 count, unk32 index, unk32 destination)
+    CameraState* camera, unk32 x, unk32 y, unk32 width, s32 count, unk32 index, unk32 destination)
 {
-    unk32* tableA;
-    unk32* tableB;
-    unk32* rowA;
-    unk32* rowB;
+    const unk32** tableA;
+    const unk32** tableB;
+    const unk32* rowA;
+    const unk32* rowB;
 
-    tableA = (unk32*)camera->unk368;
+    tableA = camera->unk368;
     if (tableA == NULL) {
         return;
     }
-    tableB = (unk32*)camera->unk364;
+    tableB = camera->unk364;
     if (tableB == NULL) {
         return;
     }
-    rowA = (unk32*)tableA[index];
-    rowB = (unk32*)tableB[index];
+    rowA = tableA[index];
+    rowB = tableB[index];
     if (rowA == NULL) {
         return;
     }

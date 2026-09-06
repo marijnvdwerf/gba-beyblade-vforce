@@ -34,8 +34,8 @@ typedef struct CameraState {
     unk16 unk35E;
     unk16 unk360;
     unk16 unk362;
-    unk32 unk364;
-    unk32 unk368;
+    const unk32** unk364;
+    const unk32** unk368;
 } CameraState;
 
 void nullsub_12(void*);
@@ -45,7 +45,7 @@ void sub_805EBCC(CameraState*);
 LevelGeometryAddresses* sub_805EEE0(CameraState*);
 void sub_805E8D8(CameraState*, LevelDesign*, unk16, s32*);
 void sub_805E8A0(CameraState*, LevelDesign*, unk16, s32*);
-void sub_805EEFC(CameraState*, unk32, unk32);
-void sub_805EF18(CameraState*, s32, s32, s32, s32, unk32, unk32);
+void sub_805EEFC(CameraState*, const unk32**, const unk32**);
+void sub_805EF18(CameraState*, unk32, unk32, unk32, s32, unk32, unk32);
 
 #endif

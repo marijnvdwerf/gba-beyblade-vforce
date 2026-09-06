@@ -860,6 +860,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805dbc0-GetPointAtSplineIndex.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805dbf0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805dcd4-GetSplineLineAtIndex.s");
 
+#if 0
 GeometrySplineLine* sub_805DCFC(LevelGeometryAddresses* arg0, GeometrySpline* spline, s32 index)
 {
     GeometrySplineLine* lines;
@@ -875,6 +876,8 @@ GeometrySplineLine* sub_805DCFC(LevelGeometryAddresses* arg0, GeometrySpline* sp
     }
     return &lines[index];
 }
+#endif
+INCLUDE_ASM("asm/dump/8057b80-debug/805dcfc.s");
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805dd18.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805df04.s");
