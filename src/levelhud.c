@@ -11,6 +11,7 @@
 
 extern const unk8* _806E724[];
 extern const unk8* _806E8C4[];
+extern const unk8 Str_8727048[];
 
 #if 0
 void sub_804F878(void)
@@ -230,7 +231,19 @@ void sub_804FE30(void)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804fe50.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804fe9c.s");
+
+void sub_804FE9C(void)
+{
+    GameData* state;
+    SpriteTextCleanup* hud;
+
+    state = _gameData;
+    state->levelHud.unk12D = sub_80518F0();
+    hud = &state->levelHud.text3;
+    showNumber_2(hud, state->levelHud.unk12D, 0xF);
+    showString(hud, Str_8727048, 0xF);
+    showNumber(hud, getLevelDescription2()->unk1, 0xF);
+}
 
 void sub_804FEE8(void)
 {
