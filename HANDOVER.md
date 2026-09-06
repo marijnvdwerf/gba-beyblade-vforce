@@ -170,6 +170,12 @@ Struct3000CA0[4]). R2-10 MERGED parked-only (allocateDynamicBoundingAreas,
 sub_805BDBC, initQuadTreeNode; geometry 0/5 — sub_805C9A4 left as asm,
 sub_805CEB8 skipped). ROUND 2 CLOSED: 22 matched of 40 new reds.
 
+SKILL FOLD MERGED (fb8919a8 via skill-fold-style sol agent): 7 bullets
+added, 14 revised, 19 learnings files archived to processed/; top level is
+README only. New checked-in agents: `review` (read-only reviewer →
+/tmp/review-<branch>.md) and `skill-fold` (sol). Learnings-prompt archive of
+all sessions: /tmp/learnings-prompts.md (72 prompts, 134 sessions).
+
 ROUND 2 (new leaf pool): merging today's work exposed 40 new reds
 (/tmp/reds-new-2026-09-05.md, avg 123 insns, 17 TUs). Dispatched 6 luna
 agents: R2-1 utility (renderActor2, sub_8055274, sub_8055288, sub_8060070,
