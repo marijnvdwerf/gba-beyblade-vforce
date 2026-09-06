@@ -242,7 +242,42 @@ void sub_804CEF4(RiderBase* rider, unk32 action)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804d048.s");
+void sub_804D048(RiderBase* rider)
+{
+    GeometryLine* line;
+    LevelGeometryAddresses* geometry;
+    Actor* actor;
+    GeometryPoint* point;
+
+    line = rider->unk200;
+    geometry = &_gameData->unk65C;
+    actor = rider->unk0;
+    if (line != NULL) {
+        point = &geometry->unk4[line->point0];
+        actor->x = point->x << 5;
+        actor->y = point->y << 5;
+        actor->z = (point->z << 5) + 0x8000;
+        actor->unk40 = 0;
+        actor->unk44 = 0;
+        actor->unk48 = 0;
+        rider->unk40 = 0;
+        rider->unk44 = 0;
+        rider->unk208 = 0xC00;
+        rider->unk1FC = 0;
+        rider->unk234 = 0;
+        sub_804C888(rider, 1);
+        if (_gameData->unk1618 != 0) {
+            if (_currentGameState->unk6A4 == 2) {
+                SetRiderFlag(rider, 0x20000);
+                _gameData->unk658 = 0;
+            } else {
+                initGameloop2();
+            }
+        } else {
+            initGameloop2();
+        }
+    }
+}
 
 void sub_804D104(RiderBase* rider)
 {
@@ -698,6 +733,39 @@ void sub_804DFF4(RiderBase* rider)
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804dff4.s");
 
+#if 0
+void sub_804E090(RiderBase* rider)
+{
+    s32 value;
+    RiderECData* inner;
+    s32 angle;
+    s32 result;
+
+    rider->unk19C = 0;
+    rider->unk198 = 0;
+    rider->unkBC = -1;
+    value = rider->unk170;
+    UnsetRiderFlag(rider, 0x40000);
+    if (value > 0) {
+        if (rider->unk80 <= 0)
+            return;
+        inner = rider->unkEC;
+        if (inner != NULL && inner->unkF == 0x81) {
+            angle = (0x80 - rider->unk16C) & 0xFF;
+            angle &= 0x7F;
+            result = sub_804E358(angle, rider->unk10 >> 4);
+            angle = rider->unk10 >> 4;
+            result = (result << 16) >> 15;
+            result -= 0x80;
+            angle -= result;
+            angle &= 0xFF;
+            rider->unkC = angle;
+            return;
+        }
+        rider->unk90 = rider->unk0->z;
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e090.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e124.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e154.s");
