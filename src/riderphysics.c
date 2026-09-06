@@ -515,8 +515,113 @@ void sub_804D110(RiderBase* rider, Actor* other)
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d110.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804d710.s");
+
+void sub_804D710(RiderBase* rider)
+{
+    if (rider->unk19C == 4)
+        sub_804ABFC(2);
+    if (sub_804E440(rider, 0x80000) != 0 && RiderHasFlag(rider, 0x80000) != 0)
+        sub_804ABFC(0x11);
+}
+
+#if 0
+typedef struct RiderD754Draft {
+    Actor* unk0; /* 0x00 */
+    unk8 pad4[0x44]; /* 0x04 */
+    s32 unk48; /* 0x48 */
+    s32 unk4C; /* 0x4C */
+    unk8 pad50[0x1B4]; /* 0x50 */
+    s16 unk204; /* 0x204 */
+    s16 unk206; /* 0x206 */
+    s32 unk208; /* 0x208 */
+} RiderD754Draft;
+
+void actor_80580C0(Actor*, unk16, unk16);
+void sub_8058390(Actor*, unk16, unk16, unk16);
+
+void sub_804D754(RiderD754Draft* rider)
+{
+    Actor* actor;
+    s32 current;
+    s32 target;
+    unk32 direction;
+    unk32 category;
+    s32 motion;
+    s32 value;
+
+    actor = rider->unk0;
+    current = rider->unk204;
+    target = rider->unk206;
+    direction = 0;
+    motion = -1;
+    if (rider->unk48 > 0xC)
+        direction = 1;
+    else if (rider->unk48 < -0xC)
+        direction = 2;
+    if (rider->unk4C > 0xC)
+        direction |= 4;
+    else if (rider->unk4C < -0xC)
+        direction |= 8;
+    switch (direction) {
+    case 1:
+        motion = 2;
+        break;
+    case 5:
+        motion = 1;
+        break;
+    case 9:
+        motion = 3;
+        break;
+    case 2:
+        motion = 6;
+        break;
+    case 10:
+        motion = 5;
+        break;
+    case 6:
+        motion = 7;
+        break;
+    case 4:
+        motion = 0;
+        break;
+    case 8:
+        motion = 4;
+        break;
+    }
+    category = 0;
+    value = rider->unk208;
+    if (value <= 0x8FF)
+        category = 1;
+    if (value <= 0x3FF)
+        category = 2;
+    if (value <= 0x1FF)
+        category = 3;
+    if (value <= 0xFF) {
+        actor->unk36 = (0x100 - value) >> 1;
+        category = 4;
+    }
+    if (category != current) {
+        actor->unk31 = 0;
+        actor_80580C0(actor, category, category);
+        rider->unk204 = category;
+        rider->unk206 = -1;
+    }
+    if (category <= 1 && motion != target) {
+        if (motion >= 0) {
+            actor->unk31 = 0;
+            sub_8058390(actor, 5, motion, 0);
+            rider->unk206 = motion;
+        } else {
+            actor->unk31 = 0;
+            actor_80580C0(actor, category, category);
+            rider->unk204 = category;
+            rider->unk206 = -1;
+        }
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d754.s");
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d8d8.s");
 
 void nullsub_5(void)
@@ -799,7 +904,31 @@ void sub_804E090(RiderBase* rider)
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e090.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e124.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e154.s");
+
+void sub_804E154(RiderBase* rider, unk32 arg1, unk32 arg2)
+{
+    unk16 value;
+
+    value = arg2;
+    UnsetRiderFlag(rider, 0x40000);
+    if (RiderHasFlag(rider, 0x4000000) == 0) {
+        rider->unk1EE -= 0x400;
+        if (rider->unk1EE < 0)
+            rider->unk1EE = 0;
+        rider->unk1F2 -= 0x200;
+        if (rider->unk1F2 < 0)
+            rider->unk1F2 = 0;
+    }
+    rider->unk144 = 0;
+    SetRiderFlag(rider, 0x200);
+    rider->unkCC = 0xA0;
+    rider->unk6C = 0;
+    rider->unk74 = 0;
+    rider->unk70 = 0;
+    rider->unk30 = 0;
+    rider->unk3C = 0;
+    rider->unk150 = value;
+}
 
 void sub_804E1DC(RiderBase* rider)
 {
@@ -925,7 +1054,7 @@ unk8 RiderHasFlag(RiderBase* rider, unk32 flags)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e42c-RiderHasSomeFlags.s");
 
-unk32 sub_804E440(RiderBase* rider, unk32 flags)
+unk8 sub_804E440(RiderBase* rider, unk32 flags)
 {
     if ((rider->unkA4 & flags) != 0)
         return 1;

@@ -602,20 +602,39 @@ typedef struct RiderBase {
     unk32 unk14;
     unk8 pad18[4];
     unk32 unk1C;
-    unk8 pad20[0x20];
+    unk8 pad20[0x10];
+    unk32 unk30; /* 0x30 */
+    unk8 pad34[8];
+    unk32 unk3C; /* 0x3C */
     unk32 unk40; /* 0x40 */
     unk32 unk44; /* 0x44 */
     unk32 unk48;
     unk32 unk4C;
     unk16 unk50; /* 0x50 */
     unk16 unk52; /* 0x52 */
-    unk8 pad54[0x48];
+    unk8 pad54[0x18];
+    unk32 unk6C; /* 0x6C */
+    unk32 unk70; /* 0x70 */
+    unk32 unk74; /* 0x74 */
+    unk8 pad78[0x24];
     unk32 flags;
     unk32 unkA0; /* 0xA0 */
     unk32 unkA4;
     unk8 padA8[0x10];
     SpriteEntry* unkB8;
-    unk8 padBC[0x140];
+    unk8 padBC[0x10];
+    unk32 unkCC; /* 0xCC */
+    unk8 padD0[0x74];
+    unk16 unk144; /* 0x144 */
+    unk8 pad146[0xA];
+    unk16 unk150; /* 0x150 */
+    unk8 pad152[0x4A];
+    unk32 unk19C; /* 0x19C */
+    unk8 pad1A0[0x4E];
+    s16 unk1EE; /* 0x1EE */
+    unk8 pad1F0[2];
+    s16 unk1F2; /* 0x1F2 */
+    unk8 pad1F4[8];
     unk32 unk1FC; /* 0x1FC */
     struct GeometryLine* unk200; /* 0x200 */
     unk8 pad204[4];
