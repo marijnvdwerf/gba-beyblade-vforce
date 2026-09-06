@@ -669,7 +669,27 @@ void sub_804E1FC(RiderBase* rider, u8 arg1)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e20c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e224.s");
+
+s32 sub_804E224(s32 arg0, s32 arg1, unk8 arg2, s32 limit)
+{
+    s32 delta;
+    s32 magnitude;
+    s32 result;
+
+    delta = arg1 - arg0;
+    magnitude = delta;
+    if (delta < 0)
+        magnitude = -delta;
+    result = (magnitude * arg2) >> 8;
+    if (result == 0 && magnitude != 0)
+        result = magnitude;
+    if (result > limit)
+        result = limit;
+    if (delta < 0)
+        result = -result;
+    return result;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e258.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e2a4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e328.s");
