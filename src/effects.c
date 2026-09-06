@@ -182,7 +182,10 @@ void sub_805568C(void)
     gameData->projectileSystem.unk88 = sub_804B7FC(gameData);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80556c4.s");
+void sub_80556C4(void)
+{
+    _gameData->projectileSystem.unk7A = 0;
+}
 
 unk32 sub_80556DC(unk32 arg0)
 {
