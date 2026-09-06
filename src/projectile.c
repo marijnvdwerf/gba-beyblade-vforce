@@ -119,7 +119,13 @@ void sub_804C208(ProjectileSystem* arg0)
     arg0->unk18 += arg0->unk24;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c34c.s");
+void sub_804C34C(ProjectileSystem* arg0, unk32 arg1, unk32 arg2, unk32 arg3)
+{
+    arg0->unk10 = arg1;
+    arg0->unk14 = arg2;
+    arg0->unk18 = arg3;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c354.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c35c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c3d4.s");
