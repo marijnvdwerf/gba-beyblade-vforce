@@ -81,7 +81,10 @@ unk8 sub_80571D0(FrontendResource* arg0)
     return arg0->state == arg0->data->count;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80571e4-GetTalkingHead.s");
+TalkingHead* GetTalkingHead(s32 index)
+{
+    return &TalkingHeads[index];
+}
 
 void emptyBeybladeActorData(void)
 {

@@ -9,6 +9,7 @@ typedef struct TalkingHead {
     unk32 unk18;
     unk8 pad1C[4];
     unk32 unk20;
+    unk8 pad24[4];
 } TalkingHead;
 
 void emptyBeybladeActorData(void);
@@ -46,6 +47,7 @@ extern const BeybladeData _807ac28[];
 
 void allocateBeybladeObjectPalettes(void);
 
+extern TalkingHead TalkingHeads[];
 TalkingHead* GetTalkingHead(s32);
 
 #endif
