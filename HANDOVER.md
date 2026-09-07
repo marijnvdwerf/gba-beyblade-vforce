@@ -120,6 +120,9 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
 - sub_805CEB8 PARKED (d5cc49d3, 15-step table; `callbackDone` stack-slot
   lead). Reviewer running. Effects ×6 matched (cbcf213e), reviewer running.
 - Merged: effects ×6 (32ba1425). **632 C / 375 asm / 63%.**
+- User ruling: selectBladeFrontendHandler may use `unk8* p = &state->unk80;`
+  with trailing `// TODO: fake match? Is this temp required?` (one-off
+  exception, like sub_8050A50). Fresh agent unparking it.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
