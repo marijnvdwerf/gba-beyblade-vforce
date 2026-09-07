@@ -269,7 +269,7 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
             quadTree->unk4C = quadTree->block28->address;
             nodes = quadTree->block24->address;
             quadTree->unk2C = (QuadTreeNode*)nodes;
-            quadTree->unk30 = (QuadTreeNode*)&nodes[arg4];
+            quadTree->unk30 = (GeometryLine**)&nodes[arg4];
             quadTree->unk14[0] = (QuadTreeNode*)nodes;
             quadTree->unk14[1] = quadTree->unk14[0] + 1;
             quadTree->unk14[2] = quadTree->unk14[1] + 1;
@@ -298,104 +298,33 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
     }
 }
 
-#if 0
-typedef struct GeometryPointDraft {
-    s32 x;
-    s32 y;
-    unk32 z;
-    unk32 padC;
-} GeometryPointDraft;
+unk8 sub_805BF18(s32, s32, s32, s32, s32, s32, s32, s32);
 
-typedef struct GeometryLineDraft {
-    unk32 point0;
-    unk32 point1;
-    unk8 pad8[5];
-    unk8 unkD;
-    unk8 padE[2];
-    unk8 unk10;
-    unk8 pad11[0xF];
-} GeometryLineDraft;
-
-typedef struct GeometrySplineDraft {
-    s32 pointCount;
-    unk8 pad4[0x1C];
-    unk32 pointIndices[1];
-} GeometrySplineDraft;
-
-typedef struct GeometryTableDraft {
-    unk32 pointCount;
-    union {
-        unk16 splineCount;
-        s32 splineCountWord;
-    } count;
-    s32 lineCount;
-} GeometryTableDraft;
-
-typedef struct GeometryAddressesDraft {
-    GeometryTableDraft* unk0;
-    GeometryPointDraft* unk4;
-    GeometrySplineDraft* unk8;
-    GeometryLineDraft* unkC;
-    unk8 pad10[4];
-    GeometrySplineDraft* unk14[0x40];
-} GeometryAddressesDraft;
-
-typedef struct QuadTreeEntryDraft {
-    GeometrySplineDraft* spline;
-    unk16 pointIndex;
-    unk16 splineIndex;
-} QuadTreeEntryDraft;
-
-typedef struct QuadTreeNodeDraft {
-    struct QuadTreeNodeDraft* unk0;
-    struct QuadTreeNodeDraft* unk4;
-    struct QuadTreeNodeDraft* unk8;
-    struct QuadTreeNodeDraft* unkC;
-    GeometryLineDraft** unk10;
-    QuadTreeEntryDraft* unk14;
-    s32 unk18;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
-    unk16 unk28;
-    unk16 unk2A;
-} QuadTreeNodeDraft;
-
-typedef struct QuadTreeDraft {
-    unk8 pad0[0x2C];
-    QuadTreeNodeDraft* unk2C;
-    GeometryLineDraft** unk30;
-    unk32* unk34;
-    unk16 unk38;
-    unk16 unk3A;
-} QuadTreeDraft;
-
-unk32 sub_805BF18(s32, s32, s32, s32, s32, s32, s32, s32);
-
-void sub_805BDBC(QuadTreeDraft* quadTree, GeometryAddressesDraft* geometry)
+void sub_805BDBC(QuadTree* quadTree, LevelGeometryAddresses* geometry)
 {
-    QuadTreeNodeDraft* node;
+    QuadTreeNode* node;
     s32 splineIndex;
     s32 pointIndex;
     s32 entryCount;
-    QuadTreeEntryDraft* output;
-    QuadTreeNodeDraft* nextNode;
+    QuadTreeSplineEntry* output;
+    QuadTreeNode* nextNode;
     s32 nodeIndex;
     s32 outerIndex;
     s32 nextSplineIndex;
     s32 splineCount;
+    s32 pointCount;
     unk32* pointIndices;
-    GeometrySplineDraft* spline;
-    GeometryPointDraft* previous;
-    GeometryPointDraft* point;
+    GeometrySpline* spline;
+    GeometryPoint* previous;
+    GeometryPoint* point;
     s32 minX;
     s32 minY;
     s32 maxX;
     s32 maxY;
 
     node = quadTree->unk2C;
-    quadTree->unk34 = quadTree->unk30 + quadTree->unk3A;
-    output = (QuadTreeEntryDraft*)quadTree->unk34;
+    quadTree->unk34 = (QuadTreeSplineEntry*)(quadTree->unk30 + quadTree->unk3A);
+    output = quadTree->unk34;
     outerIndex = 0;
     if (outerIndex < quadTree->unk38) {
         do {
@@ -414,39 +343,41 @@ void sub_805BDBC(QuadTreeDraft* quadTree, GeometryAddressesDraft* geometry)
                 if (entryCount < splineCount) {
                     do {
                         spline = geometry->unk14[splineIndex];
-                        nextSplineIndex = splineIndex + 1;
                         previous = geometry->unk4 + spline->pointIndices[0];
                         pointIndex = 1;
-                        pointIndices = spline->pointIndices + 1;
-                        while (pointIndex < spline->pointCount) {
-                            point = geometry->unk4 + *pointIndices;
-                            if (previous->x < point->x) {
-                                minX = previous->x - 0x10;
-                                maxX = point->x + 0x10;
-                            } else {
-                                minX = point->x - 0x10;
-                                maxX = previous->x + 0x10;
-                            }
-                            if (previous->y < point->y) {
-                                minY = previous->y - 0x10;
-                                maxY = point->y;
-                            } else {
-                                minY = point->y - 0x10;
-                                maxY = previous->y;
-                            }
-                            maxY += 0x10;
-                            if (sub_805BF18(node->unk18, node->unk1C, node->unk20, node->unk24,
-                                    minX, minY, maxX, maxY)
-                                != 0) {
-                                output->spline = spline;
-                                output->pointIndex = pointIndex - 1;
-                                output->splineIndex = splineIndex;
-                                output += 1;
-                                entryCount += 1;
-                            }
-                            previous = point;
-                            pointIndices += 1;
-                            pointIndex += 1;
+                        pointCount = spline->pointCount;
+                        nextSplineIndex = splineIndex + 1;
+                        if (pointIndex < pointCount) {
+                            pointIndices = spline->pointIndices + 1;
+                            do {
+                                point = geometry->unk4 + *pointIndices;
+                                if (previous->x < point->x) {
+                                    minX = previous->x - 0x10;
+                                    maxX = point->x + 0x10;
+                                } else {
+                                    minX = point->x - 0x10;
+                                    maxX = previous->x + 0x10;
+                                }
+                                if (previous->y < point->y) {
+                                    minY = previous->y - 0x10;
+                                    maxY = point->y + 0x10;
+                                } else {
+                                    minY = point->y - 0x10;
+                                    maxY = previous->y + 0x10;
+                                }
+                                if (sub_805BF18(node->unk18, node->unk1C, node->unk20, node->unk24,
+                                        minX, minY, maxX, maxY)
+                                    != 0) {
+                                    output->unk0 = spline;
+                                    output->unk4 = pointIndex - 1;
+                                    output->unk6 = splineIndex;
+                                    output += 1;
+                                    entryCount += 1;
+                                }
+                                previous = point;
+                                pointIndices += 1;
+                                pointIndex += 1;
+                            } while (pointIndex < spline->pointCount);
                         }
                         splineIndex = nextSplineIndex;
                     } while (splineIndex < geometry->unk0->count.splineCountWord);
@@ -458,10 +389,8 @@ void sub_805BDBC(QuadTreeDraft* quadTree, GeometryAddressesDraft* geometry)
         } while (outerIndex < quadTree->unk38);
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/805bdbc.s");
 
-unk32 sub_805BF18(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7)
+unk8 sub_805BF18(s32 arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7)
 {
     s32 temp;
     unk16 flags;

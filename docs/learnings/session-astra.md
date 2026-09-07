@@ -137,3 +137,152 @@ void allocateDynamicBoundingAreas(QuadTree* quadTree, LevelGeometryAddresses* ge
 The function is internal to the translation unit; its literal-pool zero padding
 matches without an added alignment directive. Full ROM SHA1 compare passes:
 `cd527c8c24e20e33913fc45199e64b3e6138a6e5`.
+
+
+# sub_805BDBC — matched 2026-09-07
+
+Address: `0x0805BDBC`; translation unit: `src/geometry.c`.
+
+The mainLoop callgraph reaches this function through allocQuadTree, immediately
+after dynamic bounding areas are collected. For each populated quadtree node,
+it tests spline segment bounding rectangles against the node and appends
+8-byte records containing the spline pointer and two halfword indices.
+The initial output region follows unk3A four-byte line pointers at unk30.
+
+The parked draft and m2c established the scan semantics. Replaced the parked
+scratch layouts with the shared QuadTree/QuadTreeNode/GeometrySpline types.
+Added only accessed fields: node unk14/unk2A, tree unk34, and the 8-byte
+QuadTreeSplineEntry record with unk0/unk4/unk6. Corrected tree unk30 to
+GeometryLine** and updated its allocation assignment. GeometrySpline.pointCount
+is signed, proven by the signed bge/blt comparisons against point indices.
+The overlap helper sub_805BF18 returns unk8: its caller tests a byte-normalized
+return (lsl #24); changing both declaration and definition preserves the
+already-matched helper bytes.
+
+## Controlled experiments
+
+| Change | First divergence | Function size delta |
+| --- | --- | --- |
+| Typed parked draft, corrected helper return and spline count | +0x26: r5 instead of r4; point loop entry differs | -4 |
+| Explicit point-loop entry test and do/while; point cursor initialized inside guard | +0x26: Y-bound register swap; count load after next spline index | 0 |
+| Fold final maxY padding into call argument | +0x26 remains; fewer Y-load/move instructions | -2 |
+| Compute maxY + 0x10 in each branch | +0x80: point-count load follows index advance | 0 |
+| Stage pointCount before nextSplineIndex assignment | None; ROM SHA1 passes | 0 |
+| Remove splineCount temporary | +0x52: spline-count load moves after successor setup | +2 |
+| Replace nextNode with node++ at end | +0x40: stack slot changes, successor calculation moves | 0 |
+| Replace nextSplineIndex with splineIndex++ | +0x86: successor index and point cursor stack slots swap | 0 |
+| Fold nodeIndex into outerIndex | +0x24: loop index gets spilled early | +2 |
+| Restore byte-required temporaries and format | None; ROM SHA1 passes | 0 |
+
+The pointCount temporary is also byte-required: folding it into the entry
+comparison is the third-to-last pre-match state, with the load following the
+nextSplineIndex assignment. Each single-use successor/count temporary was
+therefore tested independently rather than removed on stylistic grounds.
+Other locals are reused through the loops or bounds calculations.
+
+The compiler shares the branch-local maxY padding into one add after the join,
+but its allocation differs from an explicit shared maxY += 0x10 statement.
+Computing the complete bound in each branch matches and keeps the source
+symmetric with the X-bound calculation. No register pinning, volatile, raw
+offset dereferences, or artificial branches are needed.
+
+Layout checks compiled for arm-none-eabi confirm entry size 8, entry offsets
+0/4/6, node size 0x2C and fields 0x14/0x2A, tree size 0x58 and fields
+0x30/0x34, and spline pointIndices at 0x20. No existing layout size changed.
+
+Final source:
+
+```c
+void sub_805BDBC(QuadTree* quadTree, LevelGeometryAddresses* geometry)
+{
+    QuadTreeNode* node;
+    s32 splineIndex;
+    s32 pointIndex;
+    s32 entryCount;
+    QuadTreeSplineEntry* output;
+    QuadTreeNode* nextNode;
+    s32 nodeIndex;
+    s32 outerIndex;
+    s32 nextSplineIndex;
+    s32 splineCount;
+    s32 pointCount;
+    unk32* pointIndices;
+    GeometrySpline* spline;
+    GeometryPoint* previous;
+    GeometryPoint* point;
+    s32 minX;
+    s32 minY;
+    s32 maxX;
+    s32 maxY;
+
+    node = quadTree->unk2C;
+    quadTree->unk34 = (QuadTreeSplineEntry*)(quadTree->unk30 + quadTree->unk3A);
+    output = quadTree->unk34;
+    outerIndex = 0;
+    if (outerIndex < quadTree->unk38) {
+        do {
+            if (node->unk28 == 0) {
+                node->unk14 = NULL;
+                node->unk2A = 0;
+                node++;
+                nodeIndex = outerIndex + 1;
+            } else {
+                node->unk14 = output;
+                entryCount = 0;
+                splineIndex = 0;
+                splineCount = geometry->unk0->count.splineCountWord;
+                nextNode = node + 1;
+                nodeIndex = outerIndex + 1;
+                if (entryCount < splineCount) {
+                    do {
+                        spline = geometry->unk14[splineIndex];
+                        previous = geometry->unk4 + spline->pointIndices[0];
+                        pointIndex = 1;
+                        pointCount = spline->pointCount;
+                        nextSplineIndex = splineIndex + 1;
+                        if (pointIndex < pointCount) {
+                            pointIndices = spline->pointIndices + 1;
+                            do {
+                                point = geometry->unk4 + *pointIndices;
+                                if (previous->x < point->x) {
+                                    minX = previous->x - 0x10;
+                                    maxX = point->x + 0x10;
+                                } else {
+                                    minX = point->x - 0x10;
+                                    maxX = previous->x + 0x10;
+                                }
+                                if (previous->y < point->y) {
+                                    minY = previous->y - 0x10;
+                                    maxY = point->y + 0x10;
+                                } else {
+                                    minY = point->y - 0x10;
+                                    maxY = previous->y + 0x10;
+                                }
+                                if (sub_805BF18(node->unk18, node->unk1C, node->unk20, node->unk24,
+                                        minX, minY, maxX, maxY)
+                                    != 0) {
+                                    output->unk0 = spline;
+                                    output->unk4 = pointIndex - 1;
+                                    output->unk6 = splineIndex;
+                                    output += 1;
+                                    entryCount += 1;
+                                }
+                                previous = point;
+                                pointIndices += 1;
+                                pointIndex += 1;
+                            } while (pointIndex < spline->pointCount);
+                        }
+                        splineIndex = nextSplineIndex;
+                    } while (splineIndex < geometry->unk0->count.splineCountWord);
+                }
+                node->unk2A = entryCount;
+                node = nextNode;
+            }
+            outerIndex = nodeIndex;
+        } while (outerIndex < quadTree->unk38);
+    }
+}
+```
+
+Instruction diff is exact and full ROM SHA1 compare passes:
+`cd527c8c24e20e33913fc45199e64b3e6138a6e5`.

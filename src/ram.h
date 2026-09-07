@@ -60,18 +60,25 @@ typedef struct Sub8052140Data {
     unk32 unk58;
 } Sub8052140Data;
 
+typedef struct QuadTreeSplineEntry {
+    GeometrySpline* unk0;
+    unk16 unk4;
+    unk16 unk6;
+} QuadTreeSplineEntry;
+
 typedef struct QuadTreeNode {
     struct QuadTreeNode* unk0;
     struct QuadTreeNode* unk4;
     struct QuadTreeNode* unk8;
     struct QuadTreeNode* unkC;
-    unk8 pad10[8];
+    unk8 pad10[4];
+    QuadTreeSplineEntry* unk14;
     s32 unk18;
     s32 unk1C;
     s32 unk20;
     s32 unk24;
     unk16 unk28;
-    unk16 pad2A;
+    unk16 unk2A;
 } QuadTreeNode;
 
 typedef struct QuadTree {
@@ -84,8 +91,8 @@ typedef struct QuadTree {
     AllocatedBlock* block24;
     AllocatedBlock* block28;
     QuadTreeNode* unk2C;
-    QuadTreeNode* unk30;
-    unk8 pad34[4];
+    GeometryLine** unk30;
+    QuadTreeSplineEntry* unk34;
     unk16 unk38;
     unk16 unk3A;
     unk16 unk3C;
