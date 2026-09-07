@@ -63,7 +63,16 @@ CALLBACKS = [
     ("_unk3000DF0[5]", ["onTimer2Overflow"]),
     ("_unk3000DF0[6]", ["sub_8757D24", "sub_8757CD0", "sub_8757E4C"]),
     ("_unk3000DF0[7]", ["onSerialCommunication", "sub_8757FCC"]),
+    # gameLoop.c: transition is initialized to sub_8052978 at its declaration.
+    ("gameLoop.transition", ["sub_8052978"]),
+    # geometry.c: initQuadTree passes literal 0 as allocQuadTree arg6; asm/ caller 80575f4 calls initQuadTree (no filter argument).
+    ("QuadTreeLineFilter", []),
+    # envactor.c:150 and rider.c:48,61 store convert3DCoordsto2DCoords in Actor.unkB0.
     ("Actor.unkB0", ["convert3DCoordsto2DCoords"]),
+    # actor.c:92 initializes Actor.unkC0 to zero; asm/ only exposes setter 8058630 (no callers/stores found), and no non-null C stores exist.
+    ("Actor.unkC0", []),
+    # layer.c:417 and asm/dump/8057b80-debug/8059310.s:31-43 select these two copies.
+    ("LayerCopyFunc", ["sub_80594FC", "__sub_8756FC0"]),
     ("CameraState.callback", ["sub_80522D4"]),
     ("MenuState.callback", ["sub_8043604", "sub_8052B08"]),
     ("_renderFunctionOffsets", [
@@ -87,6 +96,12 @@ CALLBACK_NODE_NAMES = [callback[0] for callback in CALLBACKS]
 INDIRECT_SITES = {
     ("sub_8049344", "stored"): ("unk588",),
     ("sub_8049344", "callback"): ("unk10", "unk14", "unk588"),
+    ("gameLoop", "transition"): ("gameLoop.transition",),
+    ("initQuadTreeNode", "callback"): ("QuadTreeLineFilter",),
+    ("renderActor", "callback"): ("Actor.unkB0",),
+    ("renderRider", "positionFunc"): ("Actor.unkB0",),
+    ("sub_80581B8", "callback"): ("Actor.unkC0",),
+    ("sub_8059310", "copy"): ("LayerCopyFunc",),
     ("handleEventListeners", "handler"): ("handler",),
 }
 INDIRECT_LOCAL_NAMES = {"callback", "stored", "transition"}
