@@ -2,6 +2,7 @@
 #define _BEYBLADE_H
 
 #include "common.h"
+#include "ram.h"
 
 typedef struct TalkingHead {
     unk8 pad0[0x18];
@@ -9,8 +10,6 @@ typedef struct TalkingHead {
     unk8 pad1C[4];
     unk32 unk20;
 } TalkingHead;
-
-#include "ram.h"
 
 void emptyBeybladeActorData(void);
 void deallocBeybladeActorData(void);
