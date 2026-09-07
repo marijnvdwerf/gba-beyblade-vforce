@@ -40,7 +40,7 @@ void initGame(void)
     _levelDataBlockPtr = block;
     _gameData = (GameData*)block->address;
     __fastMemoryClearARM(0, &_gameData->unk1620, 0x18);
-    _gameData->unkC24 |= 0xFFFF;
+    _gameData->unkC24 |= -1;
     _gameData->unkC28 = -1;
     _gameData->unkC2C = -1;
     _gameData->unkC26 |= -1;
@@ -68,7 +68,7 @@ void initGameLoop(void)
     getLevelDescription2();
     _gameData->unk161C = 0;
     _gameData->unk998 = 0;
-    _gameData->unkC24 |= 0xFFFF;
+    _gameData->unkC24 |= -1;
     _gameData->unkC28 = -1;
     _gameData->unkC2C = -1;
     _gameData->unkC26 |= -1;
@@ -99,9 +99,9 @@ void initGameLoop(void)
     _gameData->unk42C = ridersBlock->address;
     initRiders();
     levelIdCopy = levelId;
-    initLevelEnvironmentActors((u16)levelId);
+    initLevelEnvironmentActors(levelId);
     initEventListeners(levelId);
-    levelIdCopy = (u16)levelId;
+    levelIdCopy = levelId;
     initCollectables(levelIdCopy);
     initTutorialManagement(levelIdCopy);
     nullsub_2();
@@ -347,8 +347,8 @@ void initCollisionData(void)
     LevelDescription* description;
     LevelGeometryAddresses* collision;
 
-    levelNo = (unk16)GetLevelDescriptionNo();
-    metadata = getLevelMetadata((unk16)getSomeLevelID());
+    levelNo = GetLevelDescriptionNo();
+    metadata = getLevelMetadata(getSomeLevelID());
     description = getLevelDescription2();
     geometry = LevelDesigns[levelNo].geometry;
     collision = &_gameData->unk65C;
