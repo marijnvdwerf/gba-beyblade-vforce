@@ -347,7 +347,7 @@ void initCollisionData(void)
     LevelDescription* description;
     LevelGeometryAddresses* collision;
 
-    levelNo = (unk16)GetLevelDescriptionNo();
+    levelNo = GetLevelDescriptionNo();
     metadata = getLevelMetadata((unk16)getSomeLevelID());
     description = getLevelDescription2();
     geometry = LevelDesigns[levelNo].geometry;
