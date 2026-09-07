@@ -54,6 +54,10 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   (all natural forms measured, allocation-only divergence at 0x02).
 - Running: giants selectBladeFrontendHandler, sub_8052B24 (status checks
   sent), plus sub_805CEB8 geometry 1352 (user, new agent).
+- User: the raw-decomp reference worktrees are now fully irrelevant — do not
+  point agents or analyses at them (decompiler.md still mentions them).
+- Luna analysis running: every red function's `bl` callees classified
+  MATCHED / DRAFT / NONE → /tmp/red-callees.md + "all callees matched" list.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
