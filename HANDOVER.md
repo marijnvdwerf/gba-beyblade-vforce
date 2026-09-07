@@ -117,6 +117,8 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   (address-taken, likely passed to the indirect callback); frame 96 vs 92.
 - Launched: math pair; sub_805C3BC + levelselect pair + sub_80594FC.
   Fresh agent fixing sub_8052B24 parking hygiene (8 blockers) in its worktree.
+- sub_805CEB8 PARKED (d5cc49d3, 15-step table; `callbackDone` stack-slot
+  lead). Reviewer running. Effects ×6 matched (cbcf213e), reviewer running.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
