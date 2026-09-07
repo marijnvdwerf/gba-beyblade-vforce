@@ -294,7 +294,7 @@ void sub_8065760(SpriteString* string, unk32 arg1, unk32 arg2, unk32 arg3, unk32
     u16 count;
     unk32 offset;
 
-    count = (u16)maxCount;
+    count = maxCount;
     offset = 0;
     if (count > string->count) {
         count = string->count;
