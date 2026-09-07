@@ -3,6 +3,12 @@
 
 #include "common.h"
 
+typedef struct EffectSprites {
+    SpriteEntry* unk0;
+    SpriteEntry* unk4;
+    unk8 pad8[0x34];
+} EffectSprites;
+
 void sub_805529C(void);
 void sub_8055340(void);
 void sub_8055624(void);
@@ -16,10 +22,10 @@ void sub_80558B8(void);
 void sub_80558D0(void);
 void sub_80558E8(unk32);
 
-void sub_8055914(unk32*, unk32, unk32, unk32, unk32);
+void sub_8055914(EffectSprites*, unk32, unk32, unk32, unk32);
 
-void sub_805599C(unk32*);
+void sub_805599C(EffectSprites*);
 
-void sub_8055C30(unk32*);
+void sub_8055C30(EffectSprites*);
 
 #endif

@@ -2,6 +2,7 @@
 #define _DIALOGUE_H
 
 #include "common.h"
+#include "effects.h"
 #include "teletype.h"
 
 typedef struct DialogueState {
@@ -10,7 +11,7 @@ typedef struct DialogueState {
 } DialogueState;
 
 extern TeletypeState* _unk300007C;
-extern unk32 _unk3000080[15];
+extern EffectSprites _unk3000080;
 extern void* _unk3000EE8;
 extern DialogueState _unk3000EEC;
 extern s32 _unk30000BC;

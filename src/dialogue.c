@@ -51,10 +51,10 @@ void sub_80420C4(FrontendState* state, unk32 command)
         _unk300007C
             = sub_8063E18(*languageStrings, FontStyle_80688B8, 0x78, 0x800, 0x6400, 0xE000, 0);
         sub_8063F5C(_unk300007C, teletypeDefaultUserCodeHandler);
-        _unk3000EE8 = _unk3000080;
+        _unk3000EE8 = &_unk3000080;
         _unk3000EEC.unk0 = 0;
         sub_8055914(
-            _unk3000080, GetTalkingHead(0)->unk18, GetTalkingHead(0)->unk20, 0x1700, 0x1700);
+            &_unk3000080, GetTalkingHead(0)->unk18, GetTalkingHead(0)->unk20, 0x1700, 0x1700);
         _unk30000D4 = 0;
         _unk30000D5 = 0;
         _unk30000D6 = 0;
@@ -113,12 +113,12 @@ void sub_80420C4(FrontendState* state, unk32 command)
         } else {
             _unk30000D8->y = 0xA000;
         }
-        sub_805599C(_unk3000080);
+        sub_805599C(&_unk3000080);
         break;
     case 7:
         sub_8063F64(_unk300007C);
         sub_8060A94(_unk30000D8);
-        sub_8055C30(_unk3000080);
+        sub_8055C30(&_unk3000080);
         break;
     case 8:
         *(vu16*)REG_BLDCNT = 0x9F;
