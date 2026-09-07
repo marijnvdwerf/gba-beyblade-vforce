@@ -52,6 +52,8 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   proven) and `FontStyle` (12 bytes) — small-red batch complete: +21 C,
   **621 C / 386 asm / 62%**. sub_8063DAC ships the count/temp countdown
   (all natural forms measured, allocation-only divergence at 0x02).
+- Running: giants selectBladeFrontendHandler, sub_8052B24 (status checks
+  sent), plus sub_805CEB8 geometry 1352 (user, new agent).
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
