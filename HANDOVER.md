@@ -5,7 +5,50 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-06, session 7 close (Rounds 3 + 4 merged, skill folded, monitors stopped).
+Last updated: 2026-09-07, session 8 — Round 5-A/B merged.
+
+## Session 8 (2026-09-07)
+
+Cycle per user: decomp agent → manager glances at incoming code → review
+agent (report in /tmp) → revive decomp agent to apply → manager reads + merges.
+Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
+
+- **Round 5-A** (running): one luna decompiler in its own worktree from
+  45c6ad0d, using branch `raw-decomp-3` (user's 8 matched functions +
+  parked GetLineIndexOfType, written against looser rules) as a muse only —
+  re-deriving sub_8050A50, sub_805AD9C, sub_8057104, sub_804A280,
+  sub_804DA48, sub_805AD24, sub_805AFBC, sub_8056EC0 in house style (no
+  ptrC cast-and-offset, no `(s16)` field casts, RiderBase* params, unk<HEX>
+  MenuState names, folded temps). Learnings → docs/learnings/round5-style-2026-09-07.md.
+- Round 5-A rulings (user, 2026-09-07): sub_8050A50 keeps the raw-decomp-3
+  shape (`unk8* ptrC`, `offset += sizeof(DisplayRecord)`, cast at the call)
+  — user-accepted for this function. sub_805AFBC: no gotos/labels and no
+  bare `{}` block; start from efc48e10's while loop. A "compare broke" is not
+  evidence: retyping a field (GameData.unkC26 u16→s16) requires diffing every
+  user and reading their target asm.
+- 5-A must, before reporting done, copy raw-decomp-3's two learnings files
+  verbatim into its worktree and commit its own learnings file, so 5-B starts
+  from a committed record (user).
+- **Round 5-A done** (11:00): 8/8 matched, 9 commits + learnings commit
+  3b486000 on `worktree-agent-ad85dfd4f5be25cbb`; agent hit the main-checkout
+  editing bug once (stray diff saved to /tmp, reverted).
+- **Round 5-B done + MERGED** (fast-forward, compare green, baseline
+  refreshed; Totals: 14 TUs done / 66, 454 asm remaining, 553 C functions, 55%). Same worktree, fresh luna: temps
+  + signedness + unkC26. 4 compaction stops revived. Results: unkC26 → s16
+  everywhere, sub_804A280 cast-free, initGame/initGameLoop `|= -1`
+  (target ldrh/orr/strh); sub_805AD24 arg3 → unk32; sub_805AFBC step/old →
+  unk32, return unk32, no goto/block; sub_804DA48 radius + x0..z1 stay s32
+  (unk32 flips blt→blo / asr→lsr); sub_8056EC0 gameData alias folds,
+  geometry alias byte-required; LevelState.unk10[2] proven two-word bitset;
+  MenuState fields unk0/4/28/34. Review (luna, 2nd try — 1st died "prompt
+  too long"; give reviewers an explicit read list) found 5 blocking, all
+  resolved. Learnings: round5-style-2026-09-07.md (+ verbatim raw-decomp-3
+  copies). Worktree removed.
+- Process lessons: a luna agent edited the MAIN checkout for 25 min (diff
+  empty in worktree) — give agents the absolute worktree path in the prompt;
+  "compare broke" is not evidence — retyping a field means diffing every
+  user; tell agents to REPORT when only a rule-breaking shape matches.
+- The handover's Round 5 leaf pool (teletype/effects/etc.) is queued after.
 
 ## Session 7 (2026-09-06)
 
