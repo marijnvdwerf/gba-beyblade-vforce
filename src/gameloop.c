@@ -440,8 +440,8 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
     targetSprite = targetActor->unkB8;
     geometry = &gameData->unk434.geometry;
     mainActor = gameData->base.unk0;
-    actorCount = gameData->unkC84;
-    current = gameData->unkC7C;
+    actorCount = gameData->environmentActors.actorCount;
+    current = gameData->environmentActors.actorContainer;
     callbackData = nullsub_12(&gameData->unk434);
     if (actorCount == 0) {
         return;

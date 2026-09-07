@@ -951,3 +951,72 @@ Committed the preceding gameLoop match as `44658209`. Confirmed this handler is 
 Retained base, languageStrings, layer, sprite, and levelState preserve initial snapshots/call or store ordering. languageStrings is fetched before initializing the display records, then indexed by language afterward; folding the query into the later use would move the call. Count and blend represent reused arithmetic/control-flow values. No matching hacks or source comments added.
 
 Final formatted source passes the full ROM SHA1 `cd527c8c24e20e33913fc45199e64b3e6138a6e5`. The diff's handler-pointer literal spelling is relocation noise; the only actual residual before zero alignment was NOP bytes C0 46 at ROM +0x4257A versus original 00 00. Removed the assembly fallback after verification. Changes remain uncommitted.
+
+## initLevelEnvironmentActors — 0x08054768 (matched)
+
+Committed the preceding sub_80420C4 match as `e75d99f1`. Confirmed reachability through mainLoop's callgraph and read both C call sites in gameinit.c. The existing u16 level parameter is correct. Read the full dump and surrounding TU and generated an m2c draft; its apparent extra arguments are misidentified locals because the frame is 0x268 bytes. No Ghidra or subagents used.
+
+### Semantics and layout
+
+The function scans metadata for actor configurations (type 2 / ID D679), counts optional effects (type 1 / F4FA), allocates one packed block, indexes line references from AF90 metadata, then initializes each selected actor and its optional sprite/effect. The two 32-entry local arrays hold configurations and selected line indices. The original has no bounds check on these arrays and continues after the allocation-failure printf; the matching implementation preserves those behaviors.
+
+- Grouped GameData +C74 through +C9F into EnvironmentActorAllocation, preserving the existing allocation, actor/effect pointers, counts, line-object table, point table, and four callback words. Existing users now reference this embedded record. Its size is 0x2C; GameData +CA0 is unchanged. Count fields remain unk32; local loop counters are signed because the dump uses signed comparisons.
+- Actor remains 0xC4 bytes. Exposed only the accessed +39 flag, +3C display pointer, +90/+94 callback pointers, and +BC halfword sprite ID. Existing Actor/EnvironmentActorSlot helper types were reused rather than introducing another actor view.
+- EnvironmentNode is 0x1C bytes: sprite at +0, midpoint x/y at +4/+8, z at +C, halfwords at +10/+12, sheet at +14, actor at +18. The old draft incorrectly placed a geometry pointer at +0 and omitted midpoint y.
+- EnvironmentObject is 0x4C bytes. Added its accessed offsets through +3C; untouched ranges remain padding. EnvironmentPointEntry is eight bytes, with a halfword line index and a GeometryLine pointer at +4.
+- GeometryPoint.z must be s32: the actor initialization arguments use arithmetic right shifts, including z. Metadata type 4 exposes three words at +8/+C/+10; type E exposes signed halfwords at +8/+C. The latter are `ldrsh` at function offsets +48E/+492. ActorSetSpriteOffset must accept wide signed arguments; the former unk16 prototype removed these sign extensions. Its own stored halfwords and full-ROM bytes remain unchanged.
+- Added typed configuration/sheet pointer members to the existing LineMetaObjectValue union. Type-2 payload reads at +8 are word pointer loads; the pre-existing word/half alternatives remain for numeric and type-3 metadata. No new union was introduced to overlay actor layouts.
+- The sprite's optional type-4 FB93 x/y offsets were missing from the old draft. Actor display selection uses the original F70C value; only the sprite layer maps 1 to 2, 2 to 1, otherwise 0. The old draft overwrote the display index with the mapped layer.
+- Final endpoint-relative coordinates subtract the actor position shifted right five from each endpoint independently. The old draft incorrectly added endpoint 1 to endpoint 0 for x/y. Sprite IDs advance by eight from 0x200.
+
+ARM-target clang layout assertions checked Actor size and +3C/+90/+BC, EnvironmentNode size and actor offset, EnvironmentObject size and accessed halfwords, EnvironmentPointEntry size, allocation size/callback offset, GameData +C74/+CA0, and the two metadata payload layouts. All passed.
+
+### Matching steps
+
+The counts below are differing nonliteral diff rows, excluding PC-relative literal-address changes. They are diagnostic counts, not a match percentage. Each retained change was rebuilt separately. Only the ROM SHA1 establishes a match.
+
+| Change | Result / first divergence |
+| --- | --- |
+| Corrected semantic draft with separate metadata payload temporaries | Hundreds of differences; first real difference +82 |
+| Remove standalone scope around the second scan | Byte-identical; removed at the user's request |
+| Cache the point-table entry before its two stores | Removes repeated metadata payload/address load |
+| Reuse geometryLine for both endpoint lookups in the actor loop | Reduced the then-current residual from 243 to 152 rows |
+| Reuse metaobject for all metadata query results, casting the record for each payload tag | 119 rows after the layer-switch trial; restores query results to r5 |
+| Ternary layer mapping | 111 rows; still wrong layer/metadata register allocation |
+| Indexed actorConfigs[selectedCount] instead of a handwritten cursor | Restores geometry-before-array setup at +82; 120 rows |
+| Signed narrow spriteLayer | s16 and s8 both give 51 rows; unk32/s32/unk16/unk8 do not produce the required allocation |
+| Restore actorConfig temporary before storing into actorConfigs | First scan matches completely; 35 rows, first +FE |
+| Switch for the layer mapping | 31 rows, first +FE; restores the two equality branches and default assignment |
+| Replace explicit spriteId counter with lineIndex * 8 + 0x200 | 10 rows, first +1F8; fixes all spill-slot ordering and loop preheader setup |
+| Store lineObjects[index].actor before caching lineObject | Six rows, first +2DA; fixes add/store/mov ordering at +1F8 |
+| for loop with actorBase++ before continue when metadata is absent, and actorBase++ after the normal body | Exact instructions and full ROM SHA1 match |
+
+The apparent spriteId local was a compiler-generated induction variable. Writing it explicitly before the loop gave it spill slot +258, displacing two compiler-generated geometry aliases. Moving that explicit initialization inside the loop guard changed induction optimization and register allocation throughout the function. Deriving the ID directly from lineIndex recovers geometry aliases at +258/+25C, generated ID at +260, and actor-subrecord cursor at +264.
+
+The final six-row residual was control-flow placement of the generated actor+90 cursor increment. A do/while with a metadata guard, a for loop with actorBase++ in its update expression, and a goto to a shared increment all left that update in a common block. A for loop advancing the actor before continue on missing metadata produces the original separate cursor update at +2DA, while still sharing the base-pointer increment. It also restores the literal pool at +2E4 and the subsequent pool at +350. No explicit interior-pointer stride, duplicated view struct, volatile, register declaration, or assembly workaround was needed.
+
+The signed narrow layer local is supported by changed codegen, not by a uniquely recoverable original width: s8 and s16 are indistinguishable here because its values are only 0, 1, and 2. Retained s16. This is not evidence that all layer fields or function parameters are signed halfwords.
+
+### Required cleanup trials
+
+| Fold / simplification from the matching source | Result |
+| --- | --- |
+| gameData snapshot | 17 differing rows, first +16; retain |
+| allocationField record alias | 78 rows, first +16; retain |
+| actorConfig temporary | 16 rows, first +A6; retain |
+| Initial display alias | 155 rows, first +F0; retain |
+| Mapped display alias | 184 rows, first +F0; retain |
+| pointEntry alias | 85 rows, first +84; retain |
+| geometryLine endpoint alias | 178 rows, first +84; retain |
+| point0 / point1 aliases | 273 / 188 rows, first +5C / +84; retain |
+| lineObject alias | 336 rows, first +F0; retain |
+| Midpoint x / y temporaries | 61 / 60 rows, first +276 / +278; retain |
+| Stage old actor x / y directly in delta expression | 10 / 2 rows, first +282 / +28E; retain load staging |
+| Separate actorState/callback aliases | No benefit; removed |
+| NULL callback reset and literal zero flag stores instead of reusing actorType | Byte-identical; simplified |
+| Explicit halfword casts on index/ID/truncating assignments | Byte-identical; removed |
+| sizeof for all four packed allocation component sizes | Byte-identical; use sizeof |
+
+The allocation sizes, block, sprite, metadata, and geometry-loader results are reused values or snapshots across calls. The packed block's byte additions are allocation boundaries; record accesses and loop strides use typed fields/arrays. Restored unrelated parked function bodies after exploratory replacements, retaining only the field-path migrations required by the embedded allocation record. No source comments added.
+
+Final clang-formatted implementation passes `cmake --build build --target compare`, SHA1 `cd527c8c24e20e33913fc45199e64b3e6138a6e5`. Removed `8054768-initLevelEnvironmentActors.s` only after verification. The new match and these notes remain uncommitted in the main checkout.

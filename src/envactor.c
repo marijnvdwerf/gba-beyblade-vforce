@@ -1,5 +1,8 @@
+#include "envactor.h"
+
 #include <agb/memory_map.h>
 
+#include "actor.h"
 #include "debug.h"
 #include "geometry.h"
 #include "include_asm.h"
@@ -7,35 +10,32 @@
 #include "palette.h"
 #include "projectile.h"
 #include "ram.h"
+#include "riderphysics.h"
 #include "sprite.h"
 #include "unsorted.h"
 
 extern const SpriteTrailSheet SpriteSheet_86FBF94[];
 
-#if 0
-extern void ActorSetSpriteOffset(EnvironmentActorSlot*, unk16, unk16);
-extern void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);
-extern void actor_80585F8(EnvironmentActorSlot*, unk16, unk16, unk16, unk16);
-extern void actor_805C48C(EnvironmentActorSlot*, LevelGeometryAddresses*, unk32, unk32);
-extern void sub_8056B54(void);
-extern void _return_false(void);
-extern void sub_80550B8(void);
 extern const unk8 SpriteSheet_86FAEAC[];
 extern const unk8 Str_8729738[];
-extern void convert3DCoordsto2DCoords(void);
+void sub_8056B54(void);
+void _return_false(void);
+void sub_80550B8(void);
+void ActorSetSpriteOffset(EnvironmentActorSlot*, s32, s32);
+void actor_80585F8(EnvironmentActorSlot*, unk16, unk16, unk16, unk16);
 
 void initLevelEnvironmentActors(u16 level)
 {
     GameData* gameData;
     unk32 actorSize;
     EnvironmentActorAllocation* allocationField;
-    EnvironmentActorConfig* actorConfigs[0x20];
-    EnvironmentActorConfig* actorConfig;
+    ActorConfig* actorConfigs[0x20];
+    ActorConfig* actorConfig;
     unk32 selectedLines[0x20];
     LevelGeometryAddresses geometry;
-    unk32 callbackData[3];
-    unk32 lineIndex;
-    unk32 selectedCount;
+    void* callbackData[3];
+    s32 lineIndex;
+    s32 selectedCount;
     unk32 effectCount;
     unk32 lineSize;
     unk32 effectSizeBytes;
@@ -44,31 +44,30 @@ void initLevelEnvironmentActors(u16 level)
     EnvironmentObject* lineObject;
     EnvironmentNode* effect;
     EnvironmentPointEntry* points;
+    EnvironmentPointEntry* pointEntry;
+    GeometryLine* geometryLine;
     GeometryPoint* point0;
     GeometryPoint* point1;
-    unk32 spriteId;
-    EnvironmentActorState* actorState;
     LineMetadata* metadata;
     LineMetaObject* metaobject;
-    EnvironmentActorOffsetMeta* offsetMeta;
-    EnvironmentActorTransformMeta* transformMeta;
-    EnvironmentActorSlot* actorBase;
+    Actor* actorBase;
     AllocatedBlock* block;
     SpriteEntry* sprite;
-    unk32 geometryData;
-    unk32 metadataData;
+    LevelGeometryTable* geometryData;
+    LineMetadata** metadataData;
     unk32 allocationSize;
     unk32 actorType;
+    s16 spriteLayer;
+    DisplayRecord* display;
     unk32 xDelta;
     unk32 yDelta;
     unk32 x;
     unk32 y;
-    unk32 z;
 
     gameData = _gameData;
-    allocationField = (EnvironmentActorAllocation*)&gameData->unkC74;
-    geometryData = (unk32)loadLevelGeometry(level);
-    metadataData = (unk32)getLevelMetadata(level);
+    allocationField = &gameData->environmentActors;
+    geometryData = loadLevelGeometry(level);
+    metadataData = getLevelMetadata(level);
     selectedCount = 0;
     effectCount = 0;
     if (metadataData == 0) {
@@ -77,26 +76,20 @@ void initLevelEnvironmentActors(u16 level)
     if (geometryData == 0) {
         return;
     }
-    getLevelGeometryAddresses(&geometry, (LevelGeometryTable*)geometryData);
-    StoreMetadataAddr(&geometry, (LineMetadata**)metadataData);
-    sub_805E514(&gameData->unkC90, 0, 0, (unk32)sub_80550B8, selectedCount);
-    sub_805E50C(callbackData, 0, (unk32)sub_8056B54, (unk32)_return_false);
+    getLevelGeometryAddresses(&geometry, geometryData);
+    StoreMetadataAddr(&geometry, metadataData);
+    sub_805E514(gameData->environmentActors.callbacks, 0, 0, (unk32)sub_80550B8, selectedCount);
+    sub_805E50C(callbackData, 0, sub_8056B54, _return_false);
     lineIndex = 0;
     if (selectedCount < geometry.unk0->lineCount) {
-        EnvironmentActorConfig** actorConfigCursor;
-
-        actorConfigCursor = actorConfigs;
         do {
             metadata = GetLineMetaData(&geometry, lineIndex);
             if (metadata != NULL) {
-                metaobject = getLineMetaobjectByTypeAndId(
-                    &geometry, metadata, 2, 0xD679);
+                metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 2, 0xD679);
                 if (metaobject != NULL) {
-                    actorConfig = ((EnvironmentActorMetaObject*)metaobject)->config;
-                    actorConfigCursor[0] = actorConfig;
-                    actorConfigCursor++;
-                    selectedLines[selectedCount] = lineIndex;
-                    selectedCount++;
+                    actorConfig = metaobject->unk8.config;
+                    actorConfigs[selectedCount] = actorConfig;
+                    selectedLines[selectedCount++] = lineIndex;
                     metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xF4FA);
                     if (metaobject != NULL) {
                         effectCount++;
@@ -110,10 +103,10 @@ void initLevelEnvironmentActors(u16 level)
     if (block != NULL) {
         deallocateBlock(block);
     }
-    actorSize = selectedCount * 0xC4;
-    lineSize = geometry.unk0->lineCount * 0x4C;
-    effectSizeBytes = effectCount * 0x1C;
-    pointSize = geometry.unk0->count.splineCountWord * 8;
+    actorSize = selectedCount * sizeof(Actor);
+    lineSize = geometry.unk0->lineCount * sizeof(EnvironmentObject);
+    effectSizeBytes = effectCount * sizeof(EnvironmentNode);
+    pointSize = geometry.unk0->count.splineCountWord * sizeof(EnvironmentPointEntry);
     allocationSize = actorSize + lineSize + effectSizeBytes + pointSize;
     block = slowAllocate(allocationSize);
     allocationField->block = block;
@@ -121,146 +114,141 @@ void initLevelEnvironmentActors(u16 level)
     if (block == NULL) {
         printf(Str_8729738, allocationSize);
     }
-    actorBase = (EnvironmentActorSlot*)block->address;
+    actorBase = block->address;
     allocationField->actorContainer = (EnvironmentActorContainer*)actorBase;
     lineObjects = (EnvironmentObject*)((unk8*)actorBase + actorSize);
     effect = (EnvironmentNode*)((unk8*)lineObjects + lineSize);
     points = (EnvironmentPointEntry*)((unk8*)effect + effectSizeBytes);
     allocationField->lineObjects = lineObjects;
-    allocationField->points = (unk32)points;
+    allocationField->points = points;
     allocationField->effect = effect;
     allocationField->effectCount = effectCount;
     __fastMemoryClearARM(0, lineObjects, lineSize + effectSizeBytes + pointSize);
-    {
-        GeometryLine* geometryLine;
-
-        lineIndex = 0;
-        if (lineIndex < geometry.unk0->lineCount) {
-            do {
-                geometryLine = &geometry.unkC[lineIndex];
-                metadata = GetLineMetaData(&geometry, lineIndex);
-                if (metadata != NULL) {
-                    metaobject = getLineMetaobjectByTypeAndId(
-                        &geometry, metadata, 1, 0xAF90);
-                    if (metaobject != NULL) {
-                        points[metaobject->unk8.word].geometry = geometryLine;
-                        points[metaobject->unk8.word].line = (unk16)lineIndex;
-                    }
-                }
-                lineIndex++;
-            } while (lineIndex < geometry.unk0->lineCount);
-        }
-    }
-    effect = allocationField->effect;
     lineIndex = 0;
-    spriteId = 0;
-    actorState = &actorBase->state90;
-    if (lineIndex < selectedCount) {
+    if (lineIndex < geometry.unk0->lineCount) {
         do {
-            lineObject = &lineObjects[selectedLines[lineIndex]];
-            lineObject->unk0 = actorBase;
-            point0 = &geometry.unk4[geometry.unkC[selectedLines[lineIndex]].point0];
-            point1 = &geometry.unk4[geometry.unkC[selectedLines[lineIndex]].point1];
-            x = point0->x >> 3;
-            y = point0->y >> 3;
-            z = point0->z >> 3;
-            actor_8057C58(
-                actorBase, actorConfigs[lineIndex], _gameData->unk434, x, y, z, -1);
-            actorBase->unk39 = 0;
-            actorState->unk20 = (void*)convert3DCoordsto2DCoords;
-            actorBase->unk68 = 0;
-            actorState->unk2C = (unk16)(spriteId + 0x200);
-            actorState->unk24 = selectedLines[lineIndex];
-            actorState->unk0 = (void*)((unk8*)allocationField + 0x1C);
-            x = (point0->x + point1->x) << 4;
-            y = (point0->y + point1->y) << 4;
-            xDelta = x - actorBase->unk4.x;
-            actorBase->unk4.x = x;
-            yDelta = y - actorBase->y;
-            actorBase->y = y;
-            actorState->unk4 = callbackData;
-            actor_80585F8(actorBase, 0, 0, 1, 1);
-            actor_805C48C(actorBase, &geometry, 0, 0);
-            actorState->unk4 = NULL;
-            actorBase->unk4.x -= xDelta;
-            actorBase->y -= yDelta;
-            metadata = GetLineMetaData(&geometry, selectedLines[lineIndex]);
+            geometryLine = &geometry.unkC[lineIndex];
+            metadata = GetLineMetaData(&geometry, lineIndex);
             if (metadata != NULL) {
-                metaobject = getLineMetaobjectByTypeAndId(
-                    &geometry, metadata, 1, 0xF70C);
-                actorType = 0;
+                metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xAF90);
                 if (metaobject != NULL) {
-                    actorType = metaobject->unk8.word;
+                    pointEntry = &points[metaobject->unk8.word];
+                    pointEntry->geometry = geometryLine;
+                    pointEntry->line = lineIndex;
                 }
-                if (actorType == 1) {
-                    actorType = 2;
-                } else if (actorType == 2) {
-                    actorType = 1;
-                } else {
-                    actorType = 0;
-                }
-                actorBase->unk3C = &_gameData->unk434[actorType];
-                metaobject = getLineMetaobjectByTypeAndId(
-                    &geometry, metadata, 2, 0xFB93);
-                if (metaobject != NULL) {
-                    sprite = allocSprite((unk16)(spriteId + 0x200));
-                    LoadSpriteSheet(sprite, (const void*)metaobject->unk8.word, 0, 0, 0, actorType, 0, 0);
-                    lineObject->sprite = sprite;
-                    lineObject->unk8 = 0;
-                    lineObject->unkC = 0;
-                }
-                metaobject = getLineMetaobjectByTypeAndId(
-                    &geometry, metadata, 1, 0xF4FA);
-                if (metaobject != NULL) {
-                    effect->geometry = &geometry.unkC[selectedLines[lineIndex]];
-                    effect->unk8 = (point0->x + point1->x) << 4;
-                    effect->unkC = lineObject->unk12 << 8;
-                    effect->unk10 = 0;
-                    effect->unk12 = 0;
-                    effect->unk14 = SpriteSheet_86FAEAC;
-                    effect->actor = actorBase;
-                    effect++;
-                }
-                transformMeta = (EnvironmentActorTransformMeta*)getLineMetaobjectByTypeAndId(
-                    &geometry, metadata, 4, 0xD679);
-                if (transformMeta != NULL) {
-                    actorBase->unk4.x += transformMeta->x << 8;
-                    actorBase->y += transformMeta->y << 8;
-                    actorBase->z += transformMeta->z << 8;
-                }
-                metaobject = getLineMetaobjectByTypeAndId(
-                    &geometry, metadata, 1, 0xBF84);
-                if (metaobject != NULL) {
-                    lineObject->unk3A = (unk16)metaobject->unk8.word;
-                } else {
-                    lineObject->unk3A = 0;
-                }
-                offsetMeta = (EnvironmentActorOffsetMeta*)getLineMetaobjectByTypeAndId(
-                    &geometry, metadata, 0xE, 0xD679);
-                if (offsetMeta != NULL) {
-                    ActorSetSpriteOffset(actorBase, offsetMeta->x, offsetMeta->y);
-                }
-                if (getLineMetaObjectBytype(
-                        &geometry, metadata, 0xB) != NULL) {
-                    lineObject->unk10 |= 1;
-                }
-                lineObject->unk14 = point0->x + point1->x - (actorBase->unk4.x >> 5);
-                lineObject->unk18 = point0->y + point1->y - (actorBase->y >> 5);
-                lineObject->unk1C = point0->z - (actorBase->z >> 5);
-                lineObject->unk20 = point1->x - (actorBase->unk4.x >> 5);
-                lineObject->unk24 = point1->y - (actorBase->y >> 5);
-                lineObject->unk28 = point1->z - (actorBase->z >> 5);
-                lineObject->unk38 = 0;
-                lineObject->unk3C = 0;
             }
-            actorState = (EnvironmentActorState*)((unk8*)actorState + 0xC4);
-            actorBase = (EnvironmentActorSlot*)((unk8*)actorBase + 0xC4);
             lineIndex++;
-        } while (lineIndex < selectedCount);
+        } while (lineIndex < geometry.unk0->lineCount);
+    }
+    for (lineIndex = 0; lineIndex < selectedCount; lineIndex++) {
+        lineObjects[selectedLines[lineIndex]].actor = actorBase;
+        lineObject = &lineObjects[selectedLines[lineIndex]];
+        geometryLine = &geometry.unkC[selectedLines[lineIndex]];
+        point0 = &geometry.unk4[geometryLine->point0];
+        point1 = &geometry.unk4[geometryLine->point1];
+        actorType = 0;
+        display = &_gameData->unk434.records[0];
+        actor_8057C58(actorBase, actorConfigs[lineIndex], display, point0->x >> 3, point0->y >> 3,
+            point0->z >> 3, -1);
+        actorBase->unk39 = 0;
+        actorBase->unkB0 = convert3DCoordsto2DCoords;
+        actorBase->unk68 = 0;
+        actorBase->unkBC = (lineIndex * 8 + 0x200);
+        actorBase->unkB4 = selectedLines[lineIndex];
+        actorBase->callbacks.unk0 = allocationField->callbacks;
+        x = (point0->x + point1->x) << 4;
+        xDelta = actorBase->x;
+        y = (point0->y + point1->y) << 4;
+        yDelta = actorBase->y;
+        xDelta = x - xDelta;
+        actorBase->x = x;
+        yDelta = y - yDelta;
+        actorBase->y = y;
+        actorBase->callbacks.unk4 = callbackData;
+        actor_80585F8((EnvironmentActorSlot*)actorBase, 0, 0, 1, 1);
+        actor_805C48C((EnvironmentActorSlot*)actorBase, &geometry, 0, 0);
+        actorBase->callbacks.unk4 = NULL;
+        actorBase->x -= xDelta;
+        actorBase->y -= yDelta;
+        metadata = GetLineMetaData(&geometry, selectedLines[lineIndex]);
+        if (metadata == NULL) {
+            actorBase++;
+            continue;
+        }
+        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xF70C);
+        if (metaobject != NULL) {
+            actorType = metaobject->unk8.word;
+        }
+        display = &_gameData->unk434.records[actorType];
+        switch (actorType) {
+        case 1:
+            spriteLayer = 2;
+            break;
+        case 2:
+            spriteLayer = 1;
+            break;
+        default:
+            spriteLayer = 0;
+            break;
+        }
+        actorBase->unk3C = display;
+        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 2, 0xFB93);
+        if (metaobject != NULL) {
+            sprite = allocSprite((lineIndex * 8 + 0x200));
+            LoadSpriteSheet(sprite, metaobject->unk8.data, 0, 0, 0, spriteLayer, 0, 0);
+            lineObject->sprite = sprite;
+            lineObject->unk8 = 0;
+            lineObject->unkC = 0;
+            metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 4, 0xFB93);
+            if (metaobject != NULL) {
+                lineObject->unk8 = ((EnvironmentActorTransformMeta*)metaobject)->x;
+                lineObject->unkC = ((EnvironmentActorTransformMeta*)metaobject)->y;
+            }
+        }
+        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xF4FA);
+        if (metaobject != NULL) {
+            effect->unk4 = (point0->x + point1->x) << 4;
+            effect->unk8 = (point0->y + point1->y) << 4;
+            effect->unkC = lineObject->unk12 << 8;
+            effect->unk12 = 0;
+            effect->unk10 = 0;
+            effect->unk14 = SpriteSheet_86FAEAC;
+            effect->actor = actorBase;
+            effect++;
+        }
+        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 4, 0xD679);
+        if (metaobject != NULL) {
+            actorBase->x += ((EnvironmentActorTransformMeta*)metaobject)->x << 8;
+            actorBase->y += ((EnvironmentActorTransformMeta*)metaobject)->y << 8;
+            actorBase->z += ((EnvironmentActorTransformMeta*)metaobject)->z << 8;
+        }
+        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xBF84);
+        if (metaobject != NULL) {
+            lineObject->unk3A = metaobject->unk8.word;
+        } else {
+            lineObject->unk3A = 0;
+        }
+        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 0xE, 0xD679);
+        if (metaobject != NULL) {
+            ActorSetSpriteOffset((EnvironmentActorSlot*)actorBase,
+                ((EnvironmentActorOffsetMeta*)metaobject)->x,
+                ((EnvironmentActorOffsetMeta*)metaobject)->y);
+        }
+        metaobject = getLineMetaObjectBytype(&geometry, metadata, 0xB);
+        if (metaobject != NULL) {
+            lineObject->unk10 |= 1;
+        }
+        lineObject->unk14 = point0->x - (actorBase->x >> 5);
+        lineObject->unk18 = point0->y - (actorBase->y >> 5);
+        lineObject->unk1C = point0->z - (actorBase->z >> 5);
+        lineObject->unk20 = point1->x - (actorBase->x >> 5);
+        lineObject->unk24 = point1->y - (actorBase->y >> 5);
+        lineObject->unk28 = point1->z - (actorBase->z >> 5);
+        lineObject->unk38 = 0;
+        lineObject->unk3C = 0;
+        actorBase++;
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8054768-initLevelEnvironmentActors.s");
 
 #if 0
 void renderEnvironmentActors(void)
@@ -282,10 +270,10 @@ void renderEnvironmentActors(void)
     SpriteEntry* lineSprite;
     SpriteEntry* sprite;
 
-    actorCount = _gameData->unkC84;
-    effectCount = _gameData->unkC80;
-    actor = (Actor*)_gameData->unkC7C;
-    effect = _gameData->unkC78;
+    actorCount = _gameData->environmentActors.actorCount;
+    effectCount = _gameData->environmentActors.effectCount;
+    actor = (Actor*)_gameData->environmentActors.actorContainer;
+    effect = _gameData->environmentActors.effect;
     camera = (DisplayRecord*)nullsub_12(&_gameData->unk434);
     if (actorCount == 0)
         return;
@@ -376,8 +364,8 @@ void updateEnvirenmentActors(void)
     s32 oldY;
     s32 oldZ;
 
-    count = _gameData->unkC84;
-    record = (unk8*)_gameData->unkC7C;
+    count = _gameData->environmentActors.actorCount;
+    record = (unk8*)_gameData->environmentActors.actorContainer;
     metaBase = (unk8*)_gameData + 0x65C;
     actor = record;
     remaining = count;
@@ -434,10 +422,10 @@ void sub_8054FE0(void)
     EnvironmentNode* node;
     EnvironmentObject* object;
 
-    actorCount = _gameData->unkC84;
-    nodeCount = _gameData->unkC80;
-    actorContainer = _gameData->unkC7C;
-    node = _gameData->unkC78;
+    actorCount = _gameData->environmentActors.actorCount;
+    nodeCount = _gameData->environmentActors.effectCount;
+    actorContainer = _gameData->environmentActors.actorContainer;
+    node = _gameData->environmentActors.effect;
     if (actorCount-- != 0) {
         actor = actorContainer->slots;
         do {
@@ -460,14 +448,14 @@ void sub_8054FE0(void)
         }
         node++;
     }
-    if (_gameData->unkC74 != NULL) {
-        deallocateBlock(_gameData->unkC74);
+    if (_gameData->environmentActors.block != NULL) {
+        deallocateBlock(_gameData->environmentActors.block);
     }
-    _gameData->unkC74 = NULL;
-    _gameData->unkC84 = 0;
-    _gameData->unkC7C = NULL;
-    _gameData->unkC88 = NULL;
-    _gameData->unkC8C = 0;
+    _gameData->environmentActors.block = NULL;
+    _gameData->environmentActors.actorCount = 0;
+    _gameData->environmentActors.actorContainer = NULL;
+    _gameData->environmentActors.lineObjects = NULL;
+    _gameData->environmentActors.points = 0;
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80550b8.s");

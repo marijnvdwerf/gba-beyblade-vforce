@@ -410,6 +410,11 @@ struct ActorConfig {
     ActorFrameSequence sequences[1];
 };
 
+typedef struct ActorCollisionCallbacks {
+    unk32* unk0;
+    void** unk4;
+} ActorCollisionCallbacks;
+
 typedef struct Actor {
     ActorConfig* unk0;
     s32 x;
@@ -438,7 +443,10 @@ typedef struct Actor {
     unk8 unk33;
     unk16 unk34;
     unk16 unk36;
-    unk8 pad38[6];
+    unk8 pad38;
+    unk8 unk39;
+    unk8 pad3A[2];
+    void* unk3C;
     s32 unk40;
     s32 unk44;
     s32 unk48;
@@ -455,7 +463,8 @@ typedef struct Actor {
     struct AllocatedBlock* unk7C;
     void* unk80;
     s32 unk84;
-    unk8 pad88[0x10];
+    unk8 pad88[8];
+    ActorCollisionCallbacks callbacks;
     unk8 unk98;
     unk8 pad99[1];
     unk16 unk9A;
@@ -468,7 +477,8 @@ typedef struct Actor {
     void (*unkB0)(struct Actor*, unk32*);
     unk32 unkB4;
     SpriteEntry* unkB8;
-    unk8 padBC[4];
+    unk16 unkBC;
+    unk8 padBE[2];
     void (*unkC0)(struct Actor*, s32); /* 0xC0 */
 } Actor;
 
@@ -500,14 +510,51 @@ typedef struct EnvironmentActorContainer {
 
 typedef struct EnvironmentNode {
     SpriteEntry* sprite;
-    unk8 pad4[0x18];
+    unk32 unk4;
+    unk32 unk8;
+    unk32 unkC;
+    unk16 unk10;
+    unk16 unk12;
+    const unk8* unk14;
+    Actor* actor;
 } EnvironmentNode;
 
 typedef struct EnvironmentObject {
     Actor* actor;
     SpriteEntry* sprite;
-    unk8 pad8[0x44];
+    unk32 unk8;
+    unk32 unkC;
+    unk16 unk10;
+    unk16 unk12;
+    unk32 unk14;
+    unk32 unk18;
+    unk32 unk1C;
+    unk32 unk20;
+    unk32 unk24;
+    unk32 unk28;
+    unk8 pad2C[0xC];
+    unk16 unk38;
+    unk16 unk3A;
+    unk16 unk3C;
+    unk8 pad3E[0xE];
 } EnvironmentObject;
+
+typedef struct EnvironmentPointEntry {
+    unk16 line;
+    unk8 pad2[2];
+    struct GeometryLine* geometry;
+} EnvironmentPointEntry;
+
+typedef struct EnvironmentActorAllocation {
+    AllocatedBlock* block;
+    EnvironmentNode* effect;
+    EnvironmentActorContainer* actorContainer;
+    unk32 effectCount;
+    unk32 actorCount;
+    EnvironmentObject* lineObjects;
+    EnvironmentPointEntry* points;
+    unk32 callbacks[4];
+} EnvironmentActorAllocation;
 
 struct Actor;
 
@@ -735,7 +782,7 @@ typedef struct PolyTable {
 typedef struct GeometryPoint {
     s32 x;
     s32 y;
-    unk32 z;
+    s32 z;
     unk32 padC;
 } GeometryPoint;
 
@@ -818,6 +865,8 @@ typedef struct LineMetaObject LineMetaObject;
 typedef struct LineMetadata LineMetadata;
 
 typedef union LineMetaObjectValue {
+    ActorConfig* config;
+    const unk8* data;
     unk32 word;
     unk16 half;
 } LineMetaObjectValue;

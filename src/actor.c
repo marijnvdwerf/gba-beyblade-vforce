@@ -450,7 +450,7 @@ void rider_8058614(Actor* actor, unk16 arg1, unk16 arg2, unk16 arg3)
     actor->unk9E = arg3;
 }
 
-void ActorSetSpriteOffset(EnvironmentActorSlot* actor, unk16 arg1, unk16 arg2)
+void ActorSetSpriteOffset(EnvironmentActorSlot* actor, s32 arg1, s32 arg2)
 {
     actor->unkA0 = arg1;
     actor->unkA2 = arg2;
