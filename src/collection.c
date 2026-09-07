@@ -57,9 +57,6 @@ extern SpriteEntry* _unk3000138;
 extern SpriteEntry* _unk300013C;
 extern DecompressorState _unk3000140;
 
-extern unk8 sub_805703C(unk32);
-extern const unk8* sub_8057068(unk32);
-extern const unk8* sub_8057094(unk32);
 extern void sub_8055C4C(DecompressorState*);
 extern unk8* getDecompressorData(DecompressorState*, const unk8*);
 extern void sub_8055CA0(DecompressorState*);

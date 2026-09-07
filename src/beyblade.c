@@ -8,8 +8,16 @@
 
 extern const unk8 byte_807D7C0[];
 extern const unk8** ItemNames[];
+extern const unk8 _807a53c[];
+extern const unk8 Pal_836067C[];
+extern const unk8 SpriteSheet_836087C[];
+extern const unk8* CollectionPalettes[];
+extern const unk8* CollectionSpriteSheets[];
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/805703c.s");
+unk8 sub_805703C(unk32 arg0)
+{
+    return _807a53c[arg0];
+}
 
 const unk8* sub_8057048(unk32 arg0)
 {
@@ -19,8 +27,21 @@ const unk8* sub_8057048(unk32 arg0)
     return ItemNames[language][arg0];
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8057068.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8057094.s");
+const unk8* sub_8057068(unk32 arg0)
+{
+    if (sub_80570D4(arg0) != 0) {
+        return CollectionPalettes[arg0];
+    }
+    return Pal_836067C;
+}
+
+const unk8* sub_8057094(unk32 arg0)
+{
+    if (sub_80570D4(arg0) != 0) {
+        return CollectionSpriteSheets[arg0];
+    }
+    return SpriteSheet_836087C;
+}
 
 const ItemDescriptionEntry* sub_80570C0(unk32 index)
 {
