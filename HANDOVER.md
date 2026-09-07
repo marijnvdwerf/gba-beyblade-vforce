@@ -65,8 +65,9 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
   structs, gameloop `Packet*`→`RiderState*` casts, sub_804B4FC signature
   conflict — canonical form attempted then reported. User ruling on those
   three still open.
-- **Cast-removal branch** `worktree-agent-af09d3dab57679a18` (luna, done
-  13:35, 27 commits): unkC24 → s16; ~15 casts absorbed into declarations,
+- **Cast-removal branch MERGED** (14:55, fast-forward, compare green, baseline
+  refreshed; worktree removed). Was `worktree-agent-af09d3dab57679a18` (luna,
+  32 commits): unkC24 → s16; ~15 casts absorbed into declarations,
   ~12 kept with cited codegen; learnings cast-removal-2026-09-07.md. Reviewer
   reviewed 13:50 (8 BLOCKING / 2 Q, mostly missing instruction evidence
   for kept casts; battery `void*` params; extern in sound.c). Agent
