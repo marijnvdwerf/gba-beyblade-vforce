@@ -74,6 +74,11 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   doubt is resolved: no union, no cast; credits.c:45 gets the two-byte test.
   selectBladeFrontendHandler unparked on that shape (its draft tested only
   `value`); the manager's "agbcc will not fuse" claim was wrong.
+- sub_8052B24: checkpoint 0a238fa8, first structural divergence ~0x20A
+  (rotated while-loop entry), revived with: bottom-tested `while (done == 0
+  || x != target)`, callback stored through a function-pointer typedef (no
+  +1), direct `_gameData->` in the loop. Branch upgrades GameData in ram.h
+  (unk870/unk8A0/unk8A8 SpriteTextCleanup + u16) — audit all users at merge.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
