@@ -412,7 +412,7 @@ void sub_8054FE0(void)
     s32 actorCount;
     s32 nodeCount;
     EnvironmentActorContainer* actorContainer;
-    EnvironmentActorRecord* actor;
+    Actor* actor;
     EnvironmentNode* node;
     EnvironmentObject* object;
 
@@ -423,12 +423,12 @@ void sub_8054FE0(void)
     if (actorCount-- != 0) {
         actor = actorContainer->slots;
         do {
-            object = GetStruct4(actor->slot.objectId);
-            if (actor->slot.sprite != NULL) {
-                sub_8060A94(actor->slot.sprite);
+            object = GetStruct4(actor->unkB4);
+            if (actor->unkB8 != NULL) {
+                sub_8060A94(actor->unkB8);
             }
             zero = 0;
-            actor->slot.sprite = zero;
+            actor->unkB8 = zero;
             if (object->sprite != NULL) {
                 sub_8060A94(object->sprite);
             }

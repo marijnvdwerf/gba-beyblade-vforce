@@ -495,28 +495,8 @@ struct ActorTimerEntry {
     unk32 unkC;
 };
 
-typedef struct EnvironmentActorSlotData {
-    unk32 objectId;
-    SpriteEntry* sprite;
-    unk8 pad8[0x98];
-    unk16 unkA0;
-    unk16 unkA2;
-    unk8 padA4[4];
-    unk16 unkA8;
-    unk16 unkAA;
-    unk16 unkAC;
-    unk16 unkAE;
-    unk8 padB0[0x14];
-} EnvironmentActorSlotData;
-
-typedef union EnvironmentActorRecord {
-    Actor actor;
-    EnvironmentActorSlotData slot;
-} EnvironmentActorRecord;
-
 typedef struct EnvironmentActorContainer {
-    unk8 pad0[0xB4];
-    EnvironmentActorRecord slots[1];
+    Actor slots[1];
 } EnvironmentActorContainer;
 
 typedef struct EnvironmentNode {
