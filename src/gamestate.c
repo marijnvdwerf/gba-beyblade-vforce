@@ -421,7 +421,7 @@ unk32 sub_80518F0(void)
     u32 value;
     unk32 count;
 
-    value = sub_8051734()->unk10;
+    value = sub_8051734()->unk10[0];
     count = 0;
     if (value != 0) {
         do {

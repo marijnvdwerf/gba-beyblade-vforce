@@ -1,3 +1,4 @@
+#include "beyblade.h"
 #include "gamestate.h"
 #include "geometry.h"
 #include "include_asm.h"
@@ -5,6 +6,7 @@
 #include "unsorted.h"
 
 extern const unk8 Str_8729804[];
+extern const unk8 Str_8729838[];
 
 void initCollectables(u16 levelId)
 {
@@ -52,11 +54,8 @@ void initCollectables(u16 levelId)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056e2c.s");
 
-#if 0
 void sub_8056EC0(void)
 {
-    extern const unk8 Str_8729838[];
-    extern void sub_8057104(s32, unk32);
     GameData* gameData;
     CollectableData* data;
     LevelGeometryAddresses* geometry;
@@ -64,7 +63,6 @@ void sub_8056EC0(void)
     CollectableEntry* cursor;
     LineMetadata* metadata;
     LineMetaObject* object;
-    unk32 bit;
     s32 i;
 
     gameData = _gameData;
@@ -74,9 +72,8 @@ void sub_8056EC0(void)
     state = sub_8051734();
     i = 0;
     while (i < data->count) {
-        bit = 1 << (i & 0x1F);
-        if ((data->collectedBits[i >> 5] & bit) != 0) {
-            if (((&state->unk10)[i >> 5] & bit) == 0) {
+        if ((data->collectedBits[i >> 5] & (1 << (i & 0x1F))) != 0) {
+            if ((state->unk10[i >> 5] & (1 << (i & 0x1F))) == 0) {
                 sub_8051640(0);
             }
             metadata = GetLineMetaData(geometry, cursor->line);
@@ -90,10 +87,8 @@ void sub_8056EC0(void)
         cursor++;
         i++;
     }
-    __fastMemoryCopyARM(data->collectedBits, &state->unk10, 4);
+    __fastMemoryCopyARM(data->collectedBits, state->unk10, 4);
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8056ec0.s");
 
 void sub_8056F7C(void)
 {
