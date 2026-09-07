@@ -249,7 +249,47 @@ void processMetadata_3(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/805450c-processMetadata_4.s");
+void processMetadata_4(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
+    LineMetadata* arg3, LineMetaObject* event)
+{
+    RiderBase* rider;
+    Actor* actor;
+    LineMetaObject* metadata;
+    unk32 x;
+    unk32 y;
+
+    GetStruct4(lineIndex);
+    metadata = event;
+    rider = (RiderBase*)_unk3000C10[0];
+    if (rider != NULL) {
+        actor = rider->unk0;
+        rider->unk40 += metadata->unk8.transform.x;
+        rider->unk44 += metadata->unk8.transform.y;
+        actor->unk48 += metadata->unk8.transform.z;
+        if (RiderHasFlag(rider, 0x4000000) == 0) {
+            if (metadata->unk8.transform.z != 0) {
+                sub_804ABFC(0xD);
+                sub_8055734(3, NULL, NULL);
+            } else {
+                x = 0;
+                y = 0;
+                if (metadata->unk8.transform.x != 0) {
+                    x = -0x1CC;
+                    if (metadata->unk8.transform.x > 0)
+                        x = 0x1CC;
+                }
+                if (metadata->unk8.transform.y != 0) {
+                    y = -0x1CC;
+                    if (metadata->unk8.transform.y > 0)
+                        y = 0x1CC;
+                }
+                sub_804ABFC(0xE);
+                sub_805582C(0, NULL, x * 4, -y * 4, 0);
+            }
+        }
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80545b0-processMetadata_5.s");
 
 void processMetadata_8(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,

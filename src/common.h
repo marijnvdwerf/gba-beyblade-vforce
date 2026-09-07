@@ -840,9 +840,9 @@ typedef struct LineMetaObject LineMetaObject;
 typedef struct LineMetadata LineMetadata;
 
 typedef struct LineMetaTransform {
-    unk32 x;
-    unk32 y;
-    unk32 z;
+    s32 x;
+    s32 y;
+    s32 z;
 } LineMetaTransform;
 
 typedef struct LineMetaOffset {
