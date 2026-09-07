@@ -19,6 +19,7 @@
 extern const unk8 Str_8729658[];
 extern const unk8 Str_87296A4[];
 extern const unk8 Str_87296D8[];
+extern void turorial_804A488(unk32);
 #if 0
 void initEventListeners(unk32 levelId)
 {
@@ -179,7 +180,32 @@ void nullsub_42(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineInde
 {
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80543a8-processMetadata_1.s");
+void processMetadata_1(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
+    LineMetadata* arg3, LineMetaObject* event)
+{
+    EnvironmentObject* target;
+    RiderBase* rider;
+
+    target = GetStruct4(lineIndex);
+    rider = (RiderBase*)_unk3000C10[0];
+    if (rider != NULL) {
+        switch (event->id) {
+        case 0x4ECB:
+            target->unk3C = event->unk8.word;
+            break;
+        case 0x2A39:
+            rider->unk208 = 0xC00;
+            sub_8055734(0, NULL, NULL);
+            sub_804ABFC(0xC);
+            break;
+        case 0x8CEC:
+            if (RiderHasFlag(rider, 0x4000000) == 0 && sub_8051780(4) == 0
+                && _gameData->unk161B == 0)
+                turorial_804A488(lineIndex);
+            break;
+        }
+    }
+}
 
 void processMetadata_2(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
     LineMetadata* arg3, LineMetaObject* event)
