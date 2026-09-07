@@ -330,7 +330,6 @@ void sub_80558E8(unk32 arg0)
 
 void sub_8055914(EffectSprites* effect, const unk8* sheet0, const unk8* sheet1, unk32 y0, unk32 y1)
 {
-
     effect->unk28 = 0;
     effect->unk2A = 0;
     effect->unk24 = 0;
