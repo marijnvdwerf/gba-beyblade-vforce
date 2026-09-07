@@ -63,7 +63,7 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   "reds exhausted" was a blind spot). Ranked: sub_8052B24 9, teletypeDefault
   UserCodeHandler 8, sub_805D650 4–6, selectBladeFrontendHandler 5,
   sub_80561EC 4; small: sub_8063B44/turorial_804A488/sub_805DFD4/sub_8041188
-  1 each. Table: docs/red-unlockers-2026-09-07.md.
+  1 each.
 - Launched (user agreed): teletypeDefaultUserCodeHandler agent; one agent
   for the four small unlockers. 5 luna running.
 - selectBladeFrontendHandler: instruction-exact but ROM SHA fails — agent had
