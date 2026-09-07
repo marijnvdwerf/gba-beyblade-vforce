@@ -10,6 +10,9 @@ Matched in `src/actor.c`.
 - A local `unk16 *frames` assigned from `entry->frames` is byte-required. Direct `entry->frames[frame]` produced an extra saved register and a different frame-index schedule; the pointer local reproduces the target's `add #8`, scaled index, and load sequence.
 - All parameters use `unk16`; the target performs `lsl #16`/`lsr #16` normalization on each at entry.
 - The loop uses a wide `unk32 index`; the target reloads `actor->unk28` each iteration and advances the entry pointer by its `size` field.
+- A coordinator-requested `unk8 *cursor` with one `ActorSequenceEntry *entry` view assigned at the top of each loop iteration was tested. It did not match: the compiler saved `r7`, with the first code difference at the prologue (`push {r4, r5, r6, r7, lr}` instead of `push {r4, r5, r6, lr}`), followed by the sequence/frame register roles changing.
+- An `unk32 cursor` variant was also tested and failed for the same reason; its first difference was the extra `r7` save and its normalized sequence/frame values were allocated to `r6`/`r5` rather than target `r5`/`r2`.
+- The exact match requires repeated typed views at field-use points: `((ActorSequenceEntry *)cursor)->unk0`, `((ActorSequenceEntry *)cursor)->unk4`, and `((ActorSequenceEntry *)cursor)->size`. The successful form uses a single `unk8 *cursor`, and the only named `entry` view is created in the success arm for the payload pointer. These are casts of the cursor itself, not casts of offset expressions; replacing them with one loop-top `entry` view was not byte-identical.
 
 ## GetTalkingHead (0x080571E4)
 

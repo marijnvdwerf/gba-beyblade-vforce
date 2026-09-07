@@ -341,19 +341,22 @@ void sub_8058390(Actor* actor, unk16 sequence, unk16 frame, unk16 callbackSequen
     ActorConfig* config;
     ActorSequenceEntry* entry;
     unk16* frames;
+    unk8* cursor;
     unk32 index;
 
     config = actor->unk0;
-    entry = (ActorSequenceEntry*)((unk8*)config + config->unk18);
+    cursor = (unk8*)config + config->unk18;
     index = 0;
     while (index < actor->unk28) {
-        if (entry->unk0 == sequence && frame < entry->unk4) {
+        if (((ActorSequenceEntry*)cursor)->unk0 == sequence
+            && frame < ((ActorSequenceEntry*)cursor)->unk4) {
             actor->unk2E = callbackSequence;
+            entry = (ActorSequenceEntry*)cursor;
             frames = entry->frames;
             ActorSetFrameSequence(actor, frames[frame]);
             return;
         }
-        entry = (ActorSequenceEntry*)((unk8*)entry + entry->size);
+        cursor += ((ActorSequenceEntry*)cursor)->size;
         index++;
     }
 }
