@@ -18,9 +18,8 @@ Only work on functions reachable in `uv run tools/callgraph.py mainLoop`.
 This callgraph is the authority: functions reached through ROM handler tables
 are reachable too, and appear beneath 🧭 table nodes even without a direct C
 call site. Read every real C call site when one exists; for table callbacks,
-derive the signature from the table and dispatcher usage. `uv run
-tools/worklist.py` is a secondary, incomplete pool of direct C-call candidates,
-not the reachability boundary.
+derive the signature from the table and dispatcher usage. `uv run tools/todo.py` is the size-sorted worklist derived from that reachability
+graph; the callgraph remains the reachability boundary.
 
 ## Per-function loop — strictly one function at a time, never batch
 
@@ -40,7 +39,7 @@ not the reachability boundary.
    `-g`), so you can see which statement each instruction came from.
 6. Run `cmake --build build --target compare` — must pass.
 7. `git rm` the dump file. (The worklist needs no bookkeeping — a decompiled
-   function drops out of `uv run tools/worklist.py` automatically.)
+   function drops out of `uv run tools/todo.py` automatically.)
 8. Only then start the next function.
 
 ## Code style — non-negotiable
