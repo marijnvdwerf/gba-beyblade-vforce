@@ -9,5 +9,6 @@ void sub_8056F7C(void);
 void sub_8056FAC(void);
 
 void sub_8056EC0(void);
+void sub_8056E2C(unk32);
 
 #endif

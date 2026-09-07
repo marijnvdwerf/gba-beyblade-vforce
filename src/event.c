@@ -3,6 +3,7 @@
 #include <agb/types.h>
 
 #include "actor.h"
+#include "collectable.h"
 #include "debug.h"
 #include "effects.h"
 #include "gameinit.h"
@@ -13,9 +14,6 @@
 #include "ram.h"
 #include "riderstate.h"
 #include "unsorted.h"
-
-extern void sub_8056E2C(unk32);
-extern void actor_80580C0(Actor*, unk16, unk16);
 
 extern const unk8 Str_8729658[];
 extern const unk8 Str_87296A4[];
