@@ -19,7 +19,7 @@ INCLUDE_ASM("asm/dump/8040d18/8041ea0-teletypeDefaultUserCodeHandler.s");
 
 extern const unk8 FontStyle_80688B8[];
 extern const unk8 SpriteSheet_821CB80[];
-void teletypeDefaultUserCodeHandler(void);
+void teletypeDefaultUserCodeHandler(TeletypeState*, unk32);
 
 void sub_80420C4(FrontendState* state, unk32 command)
 {

@@ -4,6 +4,7 @@
 #include "include_asm.h"
 #include "memory.h"
 #include "packet.h"
+#include "spritetext.h"
 #include "system.h"
 #include "unsorted.h"
 
@@ -43,7 +44,6 @@ extern const unk8 Str_8755A08[];
 void freeSpriteVramLocation(s32, s32);
 void sub_8060B38(SpriteEntry*);
 SpriteEntry* sub_8060E8C(SpriteEntry*, u16, u16, u8);
-SpriteEntry* sub_8060C1C(SpriteTextBlock*, unk16, unk16);
 
 void sub_80604D4(SpriteEntry* current)
 {
