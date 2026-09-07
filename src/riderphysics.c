@@ -2,6 +2,7 @@
 
 #include <agb/bios.h>
 
+#include "ai.h"
 #include "collectable.h"
 #include "debug.h"
 #include "effects.h"
@@ -543,8 +544,6 @@ typedef struct RiderBaseDraft {
     unk8 pad6C[0x20];
     s32 unk8C;
 } RiderBaseDraft;
-
-s16 sub_8057878(s16, s16);
 
 void sub_804D8D8(RiderBase* rider)
 {

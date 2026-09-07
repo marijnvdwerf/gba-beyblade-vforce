@@ -233,14 +233,12 @@ void sub_804FE30(void)
 void sub_804FE50(void)
 {
     GameData* state;
-    SpriteTextCleanup* hud;
 
     state = _gameData;
     state->levelHud.unk12D++;
-    hud = &state->levelHud.text3;
-    showNumber_2(hud, state->levelHud.unk12D, 0xF);
-    showString(hud, Str_8727048, 0xF);
-    showNumber(hud, getLevelDescription2()->unk1, 0xF);
+    showNumber_2(&state->levelHud.text3, state->levelHud.unk12D, 0xF);
+    showString(&state->levelHud.text3, Str_8727048, 0xF);
+    showNumber(&state->levelHud.text3, getLevelDescription2()->unk1, 0xF);
 }
 
 void sub_804FE9C(void)
