@@ -52,8 +52,8 @@ void sub_805AD24(MenuState* arg0, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4
     unk32 arg6, unk8 arg7, unk8 arg8, unk8 arg9, unk8 argA, MenuStateCallback argB,
     MenuStateValueCallback argC, unk8 argD)
 {
-    arg0->spriteSheet = arg1;
-    arg0->font = arg2;
+    arg0->unk0 = arg1;
+    arg0->unk4 = arg2;
     arg0->unk10 = NULL;
     arg0->items = NULL;
     arg0->unk1C = arg3;
@@ -62,12 +62,12 @@ void sub_805AD24(MenuState* arg0, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4
     arg0->unk9 = 0;
     arg0->unk24 = 0;
     arg0->callback = argB;
-    arg0->valueCallback = argC;
+    arg0->unk34 = argC;
     arg0->unk2C = arg8;
     arg0->unk2D = arg9;
     arg0->unk2E = arg7;
     arg0->unk2F = argA;
-    arg0->tileCount = arg5;
+    arg0->unk28 = arg5;
     arg0->items = NULL;
     arg0->objectCount = 0;
     arg0->itemCount = 0;
@@ -157,8 +157,8 @@ void allocateMenuItems(MenuState* state, MenuItemDescriptor* descriptors, unk32 
             }
         }
         currentCenter = center + descriptor->y;
-        allocFont(&item->text, state->spriteSheet, state->font, state->unk1C + descriptor->x,
-            currentCenter, state->tileCount, 2);
+        allocFont(&item->text, state->unk0, state->unk4, state->unk1C + descriptor->x,
+            currentCenter, state->unk28, 2);
         item->unk30 = descriptor->labels[state->unk8];
         item->flags = descriptor->flags;
         item->options = descriptor->subitems;
@@ -169,8 +169,8 @@ void allocateMenuItems(MenuState* state, MenuItemDescriptor* descriptors, unk32 
         sub_805AC80(state, item);
         if (descriptor->subitems != NULL && (descriptor->flags & 1) != 0) {
             currentCenter += state->unkA;
-            allocFont(&nextItem->text, state->spriteSheet, state->font,
-                state->unk1C + descriptor->x, currentCenter, state->tileCount, 2);
+            allocFont(&nextItem->text, state->unk0, state->unk4,
+                state->unk1C + descriptor->x, currentCenter, state->unk28, 2);
             nextItem->unk30 = NULL;
             nextItem->flags = descriptor->flags;
             nextItem->options = descriptor->subitems;

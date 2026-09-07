@@ -237,8 +237,8 @@ typedef void (*MenuStateCallback)(UnkMenuItem*, s32, UnkMenuItem*, s32);
 typedef void (*MenuStateValueCallback)(UnkMenuItem*, s32);
 
 typedef struct MenuState {
-    unk32 spriteSheet; /* 0x00 */
-    unk32 font; /* 0x04 */
+    unk32 unk0; /* 0x00 */
+    unk32 unk4; /* 0x04 */
     u8 unk8;
     u8 unk9;
     unk16 unkA; /* 0x0A */
@@ -249,13 +249,13 @@ typedef struct MenuState {
     unk32 unk1C; /* 0x1C */
     unk32 unk20; /* 0x20 */
     unk32 unk24; /* 0x24 */
-    unk32 tileCount; /* 0x28 */
+    unk32 unk28; /* 0x28 */
     unk8 unk2C; /* 0x2C */
     unk8 unk2D; /* 0x2D */
     u8 unk2E;
     u8 unk2F;
     MenuStateCallback callback; /* 0x30 */
-    MenuStateValueCallback valueCallback; /* 0x34 */
+    MenuStateValueCallback unk34; /* 0x34 */
     FrontendMenu menu; /* 0x38 */
     UnkMotion* objectItems; /* 0xA8 */
     AllocatedBlock* block; /* 0xAC */
