@@ -12,6 +12,7 @@
 #include "memory.h"
 #include "music.h"
 #include "ram.h"
+#include "riderphysics.h"
 #include "riderstate.h"
 #include "unsorted.h"
 
@@ -179,7 +180,29 @@ void nullsub_42(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineInde
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80543a8-processMetadata_1.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/805444c-processMetadata_2.s");
+
+void processMetadata_2(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
+    LineMetadata* arg3, LineMetaObject* event)
+{
+    Actor* actor;
+    unk32 saved;
+
+    if (event->id == 0x524D) {
+        actor = GetStruct4(lineIndex)->actor;
+        if (actor != NULL) {
+            saved = actor->unkB4;
+            if (actor->unkB8 != NULL) {
+                sub_8060A94(actor->unkB8);
+            }
+            actor_8057C58(actor, event->unk8.config, actor->unk3C, actor->x >> 8, actor->y >> 8,
+                actor->z >> 8, actor->unk70);
+            actor->unkB0 = convert3DCoordsto2DCoords + 1;
+            actor->unk68 = 0;
+            actor->unkBC = 0x10;
+            actor->unkB4 = saved;
+        }
+    }
+}
 
 void processMetadata_3(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
     LineMetadata* arg3, LineMetaObject* event)
