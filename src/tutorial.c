@@ -12,6 +12,8 @@
 #include "spritetext.h"
 #include "unsorted.h"
 
+extern const unk8* const* sub_804A378(unk32);
+
 INCLUDE_ASM("asm/dump/8040d18/804a2f0.s");
 INCLUDE_ASM("asm/dump/8040d18/804a300.s");
 
@@ -30,7 +32,11 @@ void StoreLevelVar14(unk32 arg0)
     _unk3000C00 = arg0;
 }
 
-INCLUDE_ASM("asm/dump/8040d18/804a364.s");
+const unk8* const* sub_804A364(void)
+{
+    return sub_804A378(_unk3000C00);
+}
+
 INCLUDE_ASM("asm/dump/8040d18/804a378.s");
 extern const unk8 Str_87233E8[];
 extern const unk8 SpriteSheet_82B05EC[];

@@ -13,3 +13,9 @@
 - `unk8` is retained as the return type because the existing `renderActor` call site normalizes the result with `lsl #24` and `lsr #24`; the callee itself matches without an extra narrowing sequence.
 - The explicit `unk32 *` view of the register-pointer result is required to produce the target `ldr` rather than a halfword load.
 - `bun run tools/diff/diff.ts sub_8059CB4` and the `renderActor` caller diff report no instruction differences, and the full ROM compare passes.
+
+## sub_804A364 (0x0804A364)
+
+- The target loads `_unk3000C00`, calls `sub_804A378` with that value, and returns the helper result unchanged.
+- Declaring `sub_804A378` as returning `const unk8* const*` and matching the public `sub_804A364` prototype preserves the pointer result used by `sub_80420C4`.
+- `bun run tools/diff/diff.ts sub_804A364` and the `sub_80420C4` caller diff report no instruction differences, and the full ROM compare passes.
