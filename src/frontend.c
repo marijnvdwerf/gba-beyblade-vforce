@@ -155,7 +155,7 @@ extern void (*__oam_8756CC0)(void);
 
 void sub_8049264(void)
 {
-    _gameData->unkC26 = (unk16)-1;
+    _gameData->unkC26 = -1;
     _unk3000650.unk4 = 0;
     _unk3000650.unkC = 0;
     sub_804924C(7);
