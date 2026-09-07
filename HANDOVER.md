@@ -93,10 +93,13 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
   kept). GameData.unkC24/unkC26/unkC6C/unkC6E are s16 (`|= -1` init).
 - **Tooling**: `tools/todo.py` replaced worklist.py (TSV tu/size/name of 🔴/🟡
   reachable functions, `--color red|yellow`). callgraph.py now ends with a
-  `⚠ unresolved indirect calls` section (7 local-pointer sites today:
-  gameLoop transition, handleEventListeners handler, initQuadTreeNode /
+  `⚠ unresolved indirect calls` section (6 local-pointer sites today:
+  gameLoop transition, initQuadTreeNode /
   renderActor / sub_80581B8 callback, renderRider positionFunc, sub_8059310
   copy) — when a new one appears, add a CALLBACKS/HANDLER_TABLES entry.
+  `_8078990` event-handler table (30 entries, 17 unique targets, all still
+  asm: processMetadata_1..10/default, nullsub_14/15/42) is now modelled
+  (37e34117) — a new red pool for a future round.
 - Reviewer note: luna reviewers overflow on big diffs/learnings — always give
   an explicit read list, split by file group, forbid processed/ and SKILL.md.
 - Pending: skill-fold pass over round5-style / cast-removal / raw-decomp-4
