@@ -71,6 +71,14 @@ CALLBACKS = [
     ("Actor.unkB0", ["convert3DCoordsto2DCoords"]),
     # actor.c:92 initializes Actor.unkC0 to zero; asm/ only exposes setter 8058630 (no callers/stores found), and no non-null C stores exist.
     ("Actor.unkC0", []),
+    # teletype.c:143-146 and dialogue.c:53; constructor asm 8063e18.s:100-103.
+    ("TeletypeState.unkDC", ["nullsub_22", "teletypeDefaultUserCodeHandler"]),
+    # asm/dump/8057b80-debug/8063e18.s:104-106 stores nullsub_16 at unkE0.
+    ("TeletypeState.unkE0", ["nullsub_16"]),
+    # asm/dump/8057b80-debug/8063e18.s:107-109 stores nullsub_21 at unkE4.
+    ("TeletypeState.unkE4", ["nullsub_21"]),
+    # asm/dump/8057b80-debug/8063e18.s:110-112 stores sub_8063DAC at unkE8.
+    ("TeletypeState.unkE8", ["sub_8063DAC"]),
     # layer.c:417 and asm/dump/8057b80-debug/8059310.s:31-43 select these two copies.
     ("LayerCopyFunc", ["sub_80594FC", "__sub_8756FC0"]),
     ("CameraState.callback", ["sub_80522D4"]),
