@@ -72,7 +72,7 @@ extern unk32 _unk3005E10;
 extern SfxTable* _unk3005E14;
 extern u16 _unk3005E18;
 extern unk8 (*_soundMixer)[];
-extern unk32 _unk3005E20;
+extern unk8* _unk3005E20;
 extern SoundStructA (*_unk3005E24)[2];
 extern SoundStructF (*_unk3005E28)[16];
 extern AllocatedBlock* _soundMixerBlock;
@@ -666,7 +666,7 @@ void Sound_8062BA8(unk32 arg0)
     Sound_8062B2C();
 
     _unk3005E00 = (unk8(*)[])(*_unk3005E14->var08)[arg0][0];
-    _unk3005E20 = (unk32)(*_unk3005E14->var08)[arg0][1];
+    _unk3005E20 = (*_unk3005E14->var08)[arg0][1];
 
     _unk3005E08 = 0;
     _unk3005E10 = 0;
