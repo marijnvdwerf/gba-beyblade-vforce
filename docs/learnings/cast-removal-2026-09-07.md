@@ -1,67 +1,147 @@
 # Cast-removal pass — 2026-09-07
 
-Scope: active casts matching `(s8|u8|s16|u16|s32|u32|unk8|unk16|unk32)` in reachable source. Casts in `#if 0`, `include_asm.h`, and RAM-only placeholders were excluded unless a RAM placeholder's declaration was upgraded to the type proven by an active use. Each source experiment was followed by a build, a symbol diff where applicable, and `cmake --build build --target compare`. The comparison passed after every restored or accepted experiment.
+Scope: active, reachable C code only. Casts in `#if 0` drafts and in
+`include_asm.h` were not edited. Every source experiment was compiled and
+followed by `cmake --build build --target compare`; the ROM comparison is the
+final authority. A compiler diagnostic by itself was not treated as evidence
+for retaining a cast: pointer and declaration alternatives were tested where
+that question arose.
 
 ## Declaration corrections
 
-| Location | Correction | Evidence and result |
+| Location | Final declaration | Evidence |
 |---|---|---|
-| `src/ram.h`, `GameData.unkC24` at `0xC24` | `u16` to `s16` | The music-state consumers compare the field with `-1`; direct reads in `sub_804AE8C` (`0x0804AE8C`), `sub_804AECC` (`0x0804AECC`), and `sub_804AF5C` (`0x0804AF5C`) match after the declaration correction. The initialization sentinels in `initGame` and `initGameLoop` use `|= -1`. |
-| `src/ram3.c`, `_unk3005E20` at `0x03005E20` | `void*` to `unk8*`; matching extern in `src/sound.c` | `Sound_8062BA8` stores the second pointer from the SFX table and later treats it as byte-stream data. Removing the integer cast while using `unk8*` produced an exact function diff and a passing ROM comparison. |
-| `src/keystate.c`, `_unk3005DA8` | `void*` to `unk32` | The value is an integer timer/reference point. Removing the cast in `sub_805AB44` (`0x0805AB44`) after correcting the declaration retained the target output. |
-| `src/backup.h`, `sub_8065AA0` and `sub_8065BD4` | data argument `u32` to `void*` | The active battery caller passes a `BackupBlock*`; changing the helper declarations to pointer-compatible prototypes allowed removal of the caller's pointer-to-integer cast without changing the ABI or ROM. Parked implementations were not edited. |
-| `src/levelrow.c`, `sub_804A280` (`0x0804A280`) | index `s32` to `unk32` | This related declaration correction preserves the unsigned table-index expression without adding a cast. The function remained exact. |
+| `src/ram.h`, `GameData.unkC24` at offset `0xC24` | `s16` (layout unchanged) | `sub_804AE8C` loads the field with `ldrsh` at `0x0804AE98` and compares it with `-1` at `0x0804AE9E`; `sub_804AECC` uses `ldrsh` at `0x0804AED6` and compares at `0x0804AEDC`. `initGame` reads the same location with `ldrh` at `0x080532E6`, applies `orr` at `0x080532E8`, and writes with `strh` at `0x080532EA`. The mixed unsigned initialization access and signed consumers are consistent with a signed halfword field. |
+| `src/ram3.c` and `src/sound.h`, `_unk3005E20` at `0x03005E20` | `unk8*`, with the extern owned by `sound.h` | `Sound_8062BA8` stores the SFX table's byte-stream pointer directly. Removing the assignment's integer cast with this declaration produced an exact function diff and a passing ROM comparison. `ram3.c` remains the sole definition. |
+| `src/keystate.c`, `_unk3005DA8` | `unk32` | `sub_805AB44` now subtracts the global directly from the word timer value; the declaration correction and cast removal produced the target bytes. The active assignments in the recording path remain separately typed as required by their existing source. |
+| `src/backup.h`, battery helper data parameters | `unk16*` for `sub_8065AA0`, `writeToBatteryBackup`, and `sub_8065BD4` | The active helper implementation reads halfwords, and the concrete halfword-buffer declaration preserves the target ABI and loop. The earlier integer/`void*` declarations were replaced with this concrete type. |
+| `src/levelrow.c`, `sub_804A280` index | `unk32` | The table index is naturally word-sized in the matched function; changing the declaration removed the cast without changing its instruction stream. |
 
-## Removed casts and equivalent source corrections
+The signed sentinel source was also normalized in `src/gameinit.c`:
 
-| Function/address | File and expression | Decision and evidence |
+```
+_gameData->unkC24 |= -1;
+_gameData->unkC28 = -1;
+_gameData->unkC2C = -1;
+_gameData->unkC26 |= -1;
+```
+
+The corresponding redundant casts in initialization and music callers were
+removed only after their existing declarations supplied the same conversion.
+
+## Casts removed with matching output
+
+The following changes were individually built and compared, and their final
+forms are present in the source.
+
+| Function or expression | File | Change |
 |---|---|---|
-| `sub_8046468` / `0x08046468` | `src/festate.c`, `mode = (unk8)arg2` | Removed. The destination/local declaration already supplies the byte width; exact diff and compare passed. |
-| `sub_8046A0C` / `0x08046A0C` | `src/festate.c`, `(s16)(-(_unk30004B8 >> 8) + 0x10)` | Removed. The call prototype and destination preserve the required narrowing; exact diff and compare passed. |
-| `sub_8049018` / `0x08049018` | `src/frontend.c`, two `(unk32)-65536` initializers | Removed. The assignment destinations are word-sized and the literal already has the required representation; exact diff and compare passed. |
-| `sub_8049264` / `0x08049264` | `src/frontend.c`, `_gameData->unkC26 = (unk16)-1` | Removed after the field was declared `s16`; the assignment emits the same halfword store. |
-| `initGameLoop` | `src/gameinit.c`, `initLevelEnvironmentActors((u16)levelId)` | Removed. The helper's parameter prototype supplies the narrowing at the call boundary. |
-| `initGameLoop` | `src/gameinit.c`, `levelIdCopy = (u16)levelId` | Removed. `levelIdCopy` is already declared at the required width. |
-| `initCollisionData` | `src/gameinit.c`, `(unk16)GetLevelDescriptionNo()` | Removed. The `levelNo` declaration and downstream indexed use preserve the target conversion. |
-| `initCollisionData` | `src/gameinit.c`, `getLevelMetadata((unk16)getSomeLevelID())` | Removed. The callee prototype supplies the required argument width. |
-| `sub_8052978` / `0x08052978` | `src/gameloop.c`, `_unk3000C08 = (unk32)-2` | Removed. The global is word-sized and the literal representation is unchanged. |
-| `getLineMetaobjectByTypeAndId` | `src/geometry.c`, `key = (u16)id` | Removed. `key` is `u16`, so the assignment performs the same narrowing; exact diff and compare passed. |
-| `sub_804F05C` / `0x0804F05C` | `src/hud.c`, two `(s16)` coordinate arguments | Removed. The coordinate helper's prototype and arithmetic produce the target argument width. |
-| `sub_805AB44` / `0x0805AB44` | `src/keystate.c`, `(unk32)_unk3005DA8` | Removed with the `_unk3005DA8` declaration correction above. |
-| `sub_804AD74` / `0x0804AD74` | `src/music.c`, `_unk3000F1C = (s16)lower` | Removed. The global is a signed halfword and the assignment naturally emits the target store. |
-| `sub_804AE8C` / `0x0804AE8C` and `sub_804AECC` / `0x0804AECC` | `src/music.c`, explicit `(s16)` reads of `GameData.unkC24` | Removed with the `s16` field correction. |
-| `sub_804AF5C` / `0x0804AF5C` | `src/music.c`, `(s16)_gameData->unkC26` | Removed. `unkC26` is already `s16`; the function diff and full compare passed. |
-| `sub_80574D0` | `src/battery.c`, `(unk32)data` passed to `sub_8065AA0` | Removed after changing the helper prototype to `void*`; the caller and helper remain pointer-compatible. |
-| `sub_80657EC` / `0x080657EC` | `src/spritestring.c`, `(u8)value` entry normalization and `(u8)flags` store | Removed. The parameter and byte field/store shape already produce the target. |
-| `sub_8065760` / `0x08065760` | `src/spritestring.c`, `count = (u16)maxCount` | Removed. `count` is `u16`; exact diff and compare passed. |
-| `sub_80434EC` / `0x080434EC` | `src/menuobject.c`, `count != (unk32)-1` | Removed. `count` is already word-sized and the sentinel literal is unchanged. |
-| `sub_804374C` / `0x0804374C` | `src/menuobject.c`, two `sub_805B210(...) != (unk32)-1` tests | Removed. The return type is word-sized and the comparison representation is unchanged. |
-| `Sound_80629F0` / `0x080629F0` | `src/sound.c`, `Sound_8062910(var1, arg0, (unk32)arg1)` | Removed. `arg1` is already `unk32`; the function diff was exact and the ROM comparison passed. |
-| `Sound_8062BA8` / `0x08062BA8` | `src/sound.c`, `(unk32)(*_unk3005E14->var08)[arg0][1]` | Removed with `_unk3005E20` corrected to `unk8*`. The direct pointer assignment was byte-identical. |
-| File-scope `FIXED_16_16` macro | `src/sound.c`, outer `(unk32)` around floating-point initializers | Removed. The destination is `u32`; all MIDI table bytes remained exact and the full comparison passed. |
+| `sub_8046468` (`0x08046468`) | `src/festate.c` | Removed `(unk8)arg2` when assigning the already-byte-sized `mode`. |
+| `sub_8046A0C` (`0x08046A0C`) | `src/festate.c` | Removed the redundant `(s16)` around the coordinate expression passed to the typed helper. |
+| `sub_8049018` (`0x08049018`) | `src/frontend.c` | Removed casts around the word-sized `-65536` initializers. |
+| `sub_8049264` (`0x08049264`) | `src/frontend.c` | Removed `(unk16)-1` after the destination field was typed as a signed halfword. |
+| `initGameLoop` | `src/gameinit.c` | Removed `(u16)` from `initLevelEnvironmentActors(levelId)` and from the already-`u16` `levelIdCopy` assignment. |
+| `initCollisionData` | `src/gameinit.c` | Removed the casts around `GetLevelDescriptionNo()` and `getSomeLevelID()`; the declarations and callee prototype provide the required widths. |
+| `sub_8052978` (`0x08052978`) | `src/gameloop.c` | Removed `(unk32)` from the word-sized `-2` assignment. |
+| `getLineMetaobjectByTypeAndId` | `src/geometry.c` | Removed `(u16)id` when assigning to the `u16` key local. |
+| `sub_804F05C` (`0x0804F05C`) | `src/hud.c` | Removed both `(s16)` coordinate-argument casts; the helper declaration and arithmetic emit the same narrowing. |
+| `sub_805AB44` (`0x0805AB44`) | `src/keystate.c` | Removed `(unk32)_unk3005DA8` after declaring the global as `unk32`. |
+| `sub_804AD74` (`0x0804AD74`) | `src/music.c` | Removed `(s16)lower` on the global assignment after the destination was typed `s16`; the two call-site `(unk16)lower` casts remain. |
+| `sub_804AE8C`, `sub_804AECC`, `sub_804AF5C` | `src/music.c` | Removed explicit signed-halfword field-read casts after the `GameData` declaration correction. |
+| `sub_80657EC` (`0x080657EC`) | `src/spritestring.c` | Removed the redundant `(u8)` parameter normalization and byte-field assignment cast. |
+| `sub_8065760` (`0x08065760`) | `src/spritestring.c` | Removed `(u16)maxCount` when assigning to the `u16` local. |
+| `sub_80434EC`, `sub_804374C` | `src/menuobject.c` | Removed redundant `(unk32)-1` sentinel casts from word comparisons. |
+| `Sound_80629F0` (`0x080629F0`) | `src/sound.c` | Removed `(unk32)arg1` from the already-word-sized helper argument. |
+| `Sound_8062BA8` (`0x08062BA8`) | `src/sound.c` | Removed the pointer-to-integer cast when assigning the byte-stream pointer to `_unk3005E20`. |
+| `FIXED_16_16` | `src/sound.c` | Removed the outer `(unk32)` around floating-point table initializers; the `u32` MIDI table bytes remained identical. |
+| `memset` (`0x08067A8C`) | `src/libc.c` | Changed `*s++ = (unk8)c` to `*s++ = c`. The no-cast output is exact, including the target mask/build sequence (`and r4,r0` at relative `0x18`, then `lsl`, `orr`, `lsl`, `orr`) and the byte loop's `strb` at relative `0x42`. |
+| `sub_805A53C` (`0x0805A53C`) | `src/memory.c` | Changed the `address` local from `unk32` to `unk8*`, used `address = current->address`, and expressed `firstGap = address - base`. The pointer-typed version matched exactly; no pointer-to-integer cast remains in this path. |
+| `sub_8065BD4` (`0x08065BD4`) | `src/backup.c` | Changed the data parameter from the old integer form to `unk16*` and removed the redundant cast at the `writeToBatteryBackup` call. |
 
-## Retained casts
+The two HUD/menu lifetime questions were also tested. Folding
+`text2 = &state->text2` into the following `sub_8061844` call changed address
+materialization order and did not match, so the alias remains. Inlining
+`sub_8043720(object) | 0x80000000` into `sub_80490CC` changed the generated
+instruction layout, so the staged `next` local remains. Both folded variants
+were restored and the restoration compare passed.
 
-| Function/address | File and cast | Evidence |
+## Casts retained by measured code generation
+
+These casts remain in live source because the target operation or a tested
+alternative requires them. The cited addresses are target ROM addresses unless
+noted as function-relative offsets.
+
+| Function | Cast | Evidence and failed alternative |
 |---|---|---|
-| `sub_8049FF8` / `0x08049FF8` | `src/background.c`, `(unk8)state->transition.value` | Retained. Other consumers of the same storage use signed-byte loads (`ldrsb`), while this comparison needs the target's unsigned-byte load (`ldrb`) before comparing with `0x40`. Changing the cast or global field type would break the established signed consumers. |
-| `sub_80491E0` / `0x080491E0` | `src/frontend.c`, `(unk32)value >> 31` | Retained. Without the cast, agbcc emits `asr r3, #31`; the target is `lsr r3, #31`. This is a genuine unsigned shift view. |
-| `newCollisionDataRam` / `0x0805B938` | `src/geometry.c`, `i < (s16)count` | Retained. The target normalizes `count` with `lsl #16; lsr #16` and uses a signed loop comparison. Removing the cast changes the loop and fails the ROM comparison. |
-| `sub_804A110` / `0x0804A110` | `src/levelrow.c`, both `(s16)sub_80491E0(...)` results | Retained. Each target call is followed by `lsl #16; asr #16`; removing either cast changes the first divergent instruction and fails compare. |
-| `sub_804AD74` / `0x0804AD74` | `src/music.c`, both `(unk16)lower` arguments to `sub_804AFD4` | Retained. The target emits unsigned halfword normalization before each call (`lsl #16; lsr #16`). Removing either cast changes the caller. |
-| `sub_8050114` / `0x08050114` | `src/riderstate.c`, `(s16)(prefix.unk2 ^ prefix.unk4)` | Retained. The target has `ldrh`, `eor`, `lsl #16`, `asr #16`; removing the cast removes the required signed halfword normalization. |
-| `showString` / `0x080614BC` | `src/spritetext.c`, three `u16` casts on `advance - width[ch]`, `advance + offset`, and `x + advance` | Retained. Each produces the target's `lsl #16; lsr #16` normalization. Independent removal of each cast caused instruction and layout differences. |
-| `sub_80610EC` / `0x080610EC` | `src/sprite.c`, `(u32)spriteEntry->unk10 >> 30` | Retained. Removing it changes the target `lsr #30` to `asr #30`; `SpriteEntry.unk10` remains signed for its other users. |
-| `sub_8061110` / `0x08061110` | `src/sprite.c`, `(u32)spriteEntry->unk10 >> 30` | Retained for the same signed-field/unsigned-shift evidence; independent removal changes `lsr #30` to `asr #30`. |
-| `memset` / `0x08067A8C` | `src/libc.c`, `*s++ = (unk8)c` | Retained. `c` is `s32`; removing the cast changes the byte-mask/store sequence and fails compare. |
-| `sub_805A53C` / `0x0805A53C` | `src/memory.c`, `(unk32)current->address` | Retained. This is an explicit pointer-to-integer conversion used for address arithmetic; removing it produces an incompatible pointer/integer expression and warning. |
-| `newSpriteTrail` / `0x0804A838` | `src/trail.c`, three `(unk32)arg0` conversions | Retained. `arg0` is a pointer set to `NULL`, but replacing the conversions with integer zero changes agbcc's allocation/register behavior and ROM output. |
-| `sub_804A504` / `0x0804A504` | `src/tutorial.c`, `(unk32)_gameData->tutorial.unk104` | Retained. The pointer is deliberately converted to an integer for the branchless nonzero test `((0 - value) | value) >> 31`; the conversion is part of the proven expression shape. |
+| `sub_8049FF8` (`0x08049FF8`) | `(unk8)state->transition.value` | The target loads the comparison byte with `ldrb` at `0x0804A0C8` and compares it with `0x40` at `0x0804A0CA`. Other uses of this storage require signed-byte loads, so changing the shared field type would not preserve all consumers. |
+| `sub_80491E0` (`0x080491E0`) | `(unk32)value >> 31` | The target uses logical `lsrs r3,r2,#31` at `0x080491E2`. Removing the cast produces an arithmetic shift (`asr`), so the cast is the required unsigned view. |
+| `newCollisionDataRam` (`0x0805B938`) | `(s16)count` | The target count normalization is `lsl r2,#16` at `0x0805B942` followed by `lsr r6,r2,#16` at `0x0805B944`; removing the cast changed the loop conversion/compare and failed the ROM comparison. |
+| `sub_804A110` (`0x0804A110`) | both `(s16)sub_80491E0(...)` results | The first result has `lsl r0,#16` at `0x0804A1BC` and `asr r5,r0,#16` at `0x0804A1BE`. The second has `lsl r0,#16` at `0x0804A1D2` and `asr r2,r0,#16` at `0x0804A1D4`. Removing either cast removes the required signed normalization. |
+| `sub_804AD74` (`0x0804AD74`) | both `(unk16)lower` call arguments | Each call requires unsigned halfword normalization (`lsl #16; lsr #16`) before `sub_804AFD4`; removing either cast changed the caller's instruction stream. |
+| `sub_8050114` (`0x08050114`) | `(s16)(arg0->prefix.unk2 ^ arg0->prefix.unk4)` | The target performs `lsl #16` at `0x0805011C` and `asr #16` at `0x0805011E`. The analogous checksum expression in `sub_805024C` is already cast-free and remains so. |
+| `showString` (`0x080614BC`) | three `u16` narrowing casts | The casts on `advance - width[ch]`, `advance + offset`, and `x + advance` each produce required `lsl #16; lsr #16` normalization. Removing any one changed instructions/layout and failed compare. |
+| `sub_80610EC` (`0x080610EC`) | `(u32)spriteEntry->unk10` | Removing it changes the target `lsr r0,#30` at `0x080610F8` to `asr #30`. The field remains signed/unknown for other users, so this local unsigned shift view is required. |
+| `sub_8061110` (`0x08061110`) | `(u32)spriteEntry->unk10` | Removing it changes the target `lsr r1,#30` at `0x0806111C` to `asr #30`, independently of the first function. |
+| `sub_804A504` (`0x0804A504`) | `(unk32)_gameData->tutorial.unk104` | The target sequence is `ldr r1,[r0]` at `0x0804A510`, `neg r0,r1` at `0x0804A514`, `orr r0,r0,r1` at `0x0804A516`, and `lsr r0,#31` at `0x0804A518`. The pointer-to-integer conversion is part of the branchless nonzero test and the existing `// TODO: fakematch???` source shape was retained. A no-cast attempt could not form the integer expression; the instruction sequence, not that diagnostic, is the evidence for the final decision. |
+| `newSpriteTrail` (`0x0804A838`) | `sprites->unkC = (unk32)arg0` | `SpriteTrailEntry.unkC` is a halfword field and the target writes it with `strh` at `0x0804A8C6` from the existing zero register (`mov r4,#0` at `0x0804A8B8`). Replacing the source with integer zero introduced a new `mov r0,#0` and changed the `strh` source at relative `0x8E`; assigning the pointer directly is not a declaration correction for a halfword field. |
+| `newSpriteTrail` (`0x0804A838`) | the three `(unk32)arg0` arguments to `LoadSpriteSheet` | The target stores the existing zero in the three stack argument slots at `0x0804A8D0`, `0x0804A8D2`, and `0x0804A8D4`. Replacing any one cast with integer zero introduced `mov r7,#0` and changed that store's source register. A local prototype experiment independently retyped each trailing parameter as `const void*` and removed its cast; all three local variants passed compare and the function diff, but that prototype is artificial and cannot be made global: other callers pass numeric values, including `1` and the `ch` character index. The shared `sprite.h` declaration therefore remains all `unk32`, and the casts remain at this pointer-as-numeric API boundary. |
+| `sub_80574D0` (`0x080574D0`) | both `(unk16*)data` calls | `data` is an array of eight-byte `BackupBlock` records, while the battery helpers consume four halfwords. Retyping both helper declarations temporarily to `BackupBlock*` and removing the caller casts left `sub_80574D0` instruction-identical. It did not provide a valid project-wide declaration: `writeToBatteryBackup`'s body reads four halfwords and advances by two bytes. With its parameter changed to `BackupBlock*`, the first divergence was in the prologue: the target has `mov r4,r1` at relative `0x04`, `lsl r0,#16` at `0x06`, and `lsr r1,r0,#16` at `0x08`; adapted variants delayed/omitted the data-pointer move and used the normalized sector in `r2`. An indexed `BackupBlock` access also changed the loop by introducing scaled-index arithmetic instead of the target's `ldrh`/`add #2` cursor sequence. The declarations and casts were restored to `unk16*`; diagnostics were not used as the reason to retain them. |
 
-## Excluded parked casts
+## Explicitly tested trail declaration variants
 
-Casts in `#if 0` implementations were left untouched, including the parked drafts in `actor.c`, `rider.c`, `riderphysics.c`, `particle.c`, `iconmenu.c`, `sound.c`, `spritetext.c`, `gameinit.c`, and `gameloop.c`. No header field was added solely to satisfy a parked draft.
+The shared declaration is currently:
+
+```
+void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32,
+    unk32, unk32, unk32);
+```
+
+For each of the final three parameters, a local-only prototype was tested by
+macro-renaming the declaration from `sprite.h`, declaring that one parameter as
+`const void*`, and removing exactly one `(unk32)arg0` cast. The first, second,
+and third trailing-parameter variants all produced an instruction-identical
+`newSpriteTrail` and passed the full ROM comparison. They were all restored.
+This proves that each individual conversion is codegen-redundant in an
+isolated prototype, but not that the shared API parameter is a pointer: other
+reachable callers pass numeric metadata (and `showString` passes `ch` in the
+last slot). No local prototype or overload remains in the final source.
+
+## Battery declaration experiment
+
+The two casts in `battery.c` were not left solely because an incompatible-pointer
+message was emitted. The following declaration/body experiment was performed.
+
+1. Change the helper declarations to `BackupBlock*` and remove both casts in
+   `sub_80574D0`. That caller remains instruction-identical and the full ROM
+   comparison passes.
+2. Change `writeToBatteryBackup` to `BackupBlock*` and adapt its body to retain
+   the four halfword comparisons. The target's prologue diverges at relative
+   `0x04` (`mov r4,r1`), and the normalized sector/pointer register assignment
+   differs. Using `data->...` indexing additionally changes the target cursor
+   loop (`ldrh`, `add #2`, `add #2`) to scaled-index address arithmetic.
+3. Restore the concrete `unk16*` declarations and both casts. The restoration
+   compare passes.
+
+`BackupBlock` remains the honest eight-byte record type used by save-state code;
+no speculative halfword-view field or duplicate overlay structure was added.
+
+## Excluded code
+
+Casts in parked `#if 0` implementations were intentionally left untouched,
+including the drafts in `actor.c`, `rider.c`, `riderphysics.c`, `particle.c`,
+`iconmenu.c`, `sound.c`, `spritetext.c`, `gameinit.c`, and `gameloop.c`. No
+header field was added solely for a parked draft. No source comments were added
+for match justification.
 
 ## Verification
 
-The final source state was built with `cmake --build build --target compare`; the `rom-matches` test passed. Generated `expected` and `tools/diff/node_modules` remain untracked and were not staged.
+The final restoration after the trail declaration experiments was verified with
+`cmake --build build --target compare`; the `rom-matches` test passed. The final
+source compare result is the expected baseline SHA1:
+
+```
+cd527c8c24e20e33913fc45199e64b3e6138a6e5
+```
+
+Generated `expected` and `tools/diff/node_modules` remain untracked and were
+not staged.
