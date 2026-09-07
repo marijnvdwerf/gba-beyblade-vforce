@@ -39,8 +39,8 @@ void sub_80658A4(const TimerConfig* config);
 void sub_806592C(void);
 void DMA3Copy(unk32 src, unk32 dst, unk16 count);
 unk32 sub_80659F0(u16 sector, void* buffer);
-u16 sub_8065AA0(u16 sector, u32 data);
+u16 sub_8065AA0(u16 sector, void* data);
 unk32 writeToBatteryBackup(u16 sector, unk16* data);
-u16 sub_8065BD4(u16 sector, u32 data);
+u16 sub_8065BD4(u16 sector, void* data);
 
 #endif

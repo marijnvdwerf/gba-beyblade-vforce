@@ -30,7 +30,7 @@ u32 sub_80574D0(BackupBlock* data, u32 index, s32 size)
     blockCount = (size + 7) >> 3;
     for (blockCount--; blockCount != -1; blockCount--) {
         for (retry = 7; retry != 0xFFFF; retry--) {
-            if (sub_8065AA0(batteryIndex, (unk32)data) == 0) {
+            if (sub_8065AA0(batteryIndex, data) == 0) {
                 writeResult = writeToBatteryBackup(batteryIndex, (unk16*)data);
                 if (writeResult == 0) {
                     retry = 0;
