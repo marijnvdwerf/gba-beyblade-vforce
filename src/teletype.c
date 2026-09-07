@@ -33,6 +33,13 @@ INCLUDE_ASM("asm/dump/8057b80-debug/80640f8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8064104-pushTeletypeStringPalette.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8064130.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8064140.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/806415c.s");
+void sub_8063CF4(TeletypeState*);
+
+void sub_806415C(TeletypeState* state)
+{
+    sub_8063CF4(state);
+    state->unkBA = (state->unkBA & 0xFFFB) | 0x10;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/806417c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8064188.s");
