@@ -26,7 +26,7 @@ function (`git add -A src asm && git commit`) — the manager merges your branch
   raw offset, a `unk8*` parameter, a hoisted temp, an invented name, a bare
   block, a goto), do not silently park and do not silently ship it: say so in
   your final report — function, rule, and the exact shape that matches — and
-  continue with the next function. The manager gets a ruling.
+  continue with the next function. The manager gets a decision.
 - "compare broke" is not evidence. Retyping a shared field means `rg` every
   user, `diff.ts` each one, and reading the target asm of any that diverges
   (ldrsh/asr → that user was matched at the wrong width: fix it; ldrh →
@@ -166,7 +166,7 @@ graph; the callgraph remains the reachability boundary.
   bare `#if 0` … `#endif` (the ROM still builds from the asm), and put the
   first divergence, the step table and any unproven layout the draft
   assumes in your learnings file. Headers get NO field that only a parked
-  draft uses (user ruling 2026-09-06). A draft must still be properly typed:
+  draft uses (user decision 2026-09-06). A draft must still be properly typed:
   if it needs fields the header lacks, declare a scratch struct INSIDE its
   `#if 0` block (`typedef struct RiderDraft { … /* 0xNN */ } RiderDraft;`
   with the layout the asm proves) and use it only there.
