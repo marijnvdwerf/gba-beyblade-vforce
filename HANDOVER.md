@@ -68,7 +68,11 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
 - **Cast-removal branch** `worktree-agent-af09d3dab57679a18` (luna, done
   13:35, 27 commits): unkC24 → s16; ~15 casts absorbed into declarations,
   ~12 kept with cited codegen; learnings cast-removal-2026-09-07.md. Reviewer
-  running → /tmp/review-cast-removal.md; then fix → merge.
+  reviewed 13:50 (8 BLOCKING / 2 Q, mostly missing instruction evidence
+  for kept casts; battery `void*` params; extern in sound.c). Agent
+  reviving through repeated compaction stops (4 so far); most fixes in,
+  learnings rewrite + battery/trail retype tests pending. Rule restated to
+  it: a compiler diagnostic is not evidence — retype the declaration.
 - The handover's Round 5 leaf pool (teletype/effects/etc.) is queued after.
 
 ## Session 7 (2026-09-06)
