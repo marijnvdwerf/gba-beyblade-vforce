@@ -159,7 +159,13 @@ void sub_8055340(void)
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055340.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80555f4.s");
+
+void sub_80555F4(void)
+{
+    _gameData->projectileSystem.unk7E = 0x180;
+    _gameData->projectileSystem.unk76 = 1;
+    _gameData->projectileSystem.unk78 = 1;
+}
 
 void sub_8055624(void)
 {
@@ -433,12 +439,63 @@ void sub_8055B64(EffectSprites* effect, unk8 side)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055b7c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055ba0.s");
+void sub_8055B7C(EffectSprites* effect, unk8 side)
+{
+    if (side != 0) {
+        effect->unk20 = 0xF400;
+        effect->unk24 = 0;
+    } else {
+        effect->unk18 = -0x4400;
+        effect->unk1C = 0;
+    }
+}
+
+void sub_8055BA0(EffectSprites* effect, unk8 side, unk32 value)
+{
+    if (side != 0) {
+        effect->unk24 = value;
+    } else {
+        effect->unk1C = value;
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055bb0.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055bc0.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055c04.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055c18.s");
+
+void sub_8055BC0(EffectSprites* effect, unk8 side, unk8 enabled)
+{
+    if (side != 0) {
+        if (enabled != 0) {
+            effect->unk2A |= 4;
+        } else {
+            effect->unk2A &= ~4;
+        }
+    } else {
+        if (enabled != 0) {
+            effect->unk28 |= 4;
+        } else {
+            effect->unk28 &= ~4;
+        }
+    }
+}
+
+void sub_8055C04(EffectSprites* effect, unk8 side, const unk8* sheet, const unk16* palette)
+{
+    if (side != 0) {
+        effect->unk34 = sheet;
+        effect->unk38 = palette;
+    } else {
+        effect->unk2C = sheet;
+        effect->unk30 = palette;
+    }
+}
+
+unk8 sub_8055C18(EffectSprites* effect, unk8 side)
+{
+    if (side != 0) {
+        return effect->unk2A & 1;
+    }
+    return effect->unk28 & 1;
+}
 
 void sub_8055C30(EffectSprites* arg0)
 {

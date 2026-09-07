@@ -37,3 +37,27 @@ The direct typed body initially allocated `description`, `levelState`, and `leve
 The function calls `GetSplineAtIndex`, clamps a signed fixed-point position to the spline's last point while preserving its low ten bits, interpolates the three signed point coordinates, and stores the fraction and segment index in the five-word output array. The target's `bge` and `blt` branches and arithmetic right shifts prove `s32 position` and `s32 index`; the spline-index formal remains `unk32` because the target has no entry narrowing before the `GetSplineAtIndex` call, despite the rider call site sourcing an `s16` field. The output pointer is returned in `r0` after the final store, so the declaration uses `s32*` as both the output parameter and return type. Computing `position & 0x3FF` directly in the first interpolation expression, rather than staging `fraction` before the coordinate loads, preserved the target's `ldr`/`sub`/literal-load/`and` order; CSE then reused the fraction for all three coordinates and the output store. The typed `GeometrySpline.pointIndices` member and `s32` output indexing reproduce the `spline + 0x20` address and five stores without raw offset arithmetic.
 
 Coordinator-approved typed indexing probes were tested after the raw-offset draft was parked. With `flags = &levelState->unk10[1 + (index >> 5)]`, the first divergence remained at `0x14`: target `mov r1, r0` and `mov r3, #0`, while the candidate emitted `mov r3, r0` and `mov r2, #0`; subsequent count/index uses were correspondingly allocated to `r1`/`r2` instead of target `r2`/`r3`. With `wordIndex = index >> 5; flags = &levelState->unk10[wordIndex + 1]`, the same first divergence and register assignment occurred. Both typed candidates therefore remained parked, and the asm inclusion was restored.
+
+## sub_8055BC0 (0x08055BC0)
+
+The third parameter is an `unk8`, not the existing `unk32` declaration: the target normalizes it with `lsl #24; lsr #24` before both tests, and the typed formal reproduces that sequence. The `side` parameter remains `unk8` and emits only `lsl #24` before its test. Nested branch-local halfword read-modify-write operations on `EffectSprites.unk28`/`unk2A` match the target exactly; no caller casts are needed because all real callers pass constants.
+
+## sub_80555F4 (0x08055F4)
+
+Direct stores to `_gameData->projectileSystem.unk7E`, `unk76`, and `unk78` reproduce the target's three halfword stores and literal offsets exactly. The existing `ProjectileSystem` layout supplies the proven offsets and widths; no temporary is required.
+
+## sub_8055B7C (0x08055B7C)
+
+The `unk8 side` formal normalizes with `lsl #24; lsr #24`. The false arm's target store at function offset `0x1A` is `str r1, [r2, #28]`; a controlled `effect->unk1C = 0` build produces that exact instruction (and the complete function match), so the final source uses the literal zero.
+
+## sub_8055C18 (0x08055C18)
+
+The target's `bne` fall-through is recovered by testing `side != 0` first and returning `EffectSprites.unk2A & 1`; the zero-side return of `unk28 & 1` remains the fall-through body before the branch. The `unk8` parameter emits only `lsl #24`, and the existing `unk8` return type is byte-identical.
+
+## sub_8055C04 (0x08055C04)
+
+The second parameter is an `unk8`, replacing the prior `unk32` prototype: the target performs only `lsl #24` before its side test. Direct stores of the typed sheet and palette pointers to the selected `EffectSprites` fields match exactly, and `teletypeDefaultUserCodeHandler` remains byte-identical after the prototype correction.
+
+## sub_8055BA0 (0x08055BA0)
+
+The existing `(EffectSprites*, unk8, unk32)` signature is proven: `side` emits `lsl #24`, while the wide value is stored directly into `unk24` or `unk1C` according to the branch. The direct conditional stores match all instructions.

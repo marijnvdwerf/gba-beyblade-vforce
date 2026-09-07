@@ -49,8 +49,8 @@ void sub_8055914(EffectSprites*, const unk8*, const unk8*, unk32, unk32);
 void sub_8055B64(EffectSprites*, unk8);
 void sub_8055B7C(EffectSprites*, unk8);
 void sub_8055BA0(EffectSprites*, unk8, unk32);
-void sub_8055BC0(EffectSprites*, unk8, unk32);
-void sub_8055C04(EffectSprites*, unk32, const unk8*, const unk16*);
+void sub_8055BC0(EffectSprites*, unk8, unk8);
+void sub_8055C04(EffectSprites*, unk8, const unk8*, const unk16*);
 unk8 sub_8055C18(EffectSprites*, unk8);
 
 void sub_805599C(EffectSprites*);
