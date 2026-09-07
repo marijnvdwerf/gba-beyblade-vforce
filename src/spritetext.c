@@ -299,6 +299,102 @@ u8 sub_8061660(SpriteTextCleanup* arg0, const u8* arg1, u8 arg2)
     return showString(arg0, arg1, arg2);
 }
 
+#if 0
+SpriteEntry* sub_8060E8C(SpriteEntry*, unk16, unk16, unk8);
+void sub_806100C(SpriteEntry*, unk16, unk16);
+void sub_8061158(SpriteEntry*);
+
+void sub_8061684(SpriteTextCleanup* text, unk16 arg1, unk16 arg2)
+{
+    SpriteEntry* sprite;
+    unk32 count;
+    unk32 flags;
+
+    if (text->unk14.count != 0) {
+        if ((text->unk8 & 4) != 0) {
+            sprite = text->unk14.prev;
+            count = text->unk14.count;
+            count--;
+            while (count != -1) {
+                sub_806100C(sprite, arg1, arg2);
+                sprite = sprite->next;
+                count--;
+            }
+        } else {
+            if (text->ptr2C != NULL) {
+                SpriteEntry* child;
+
+                child = text->ptr2C;
+                sub_8061160(child);
+                child = text->ptr2C = sub_8060E8C(child, arg1, arg2, child->frame.b[0]);
+                if (child == NULL) {
+                    sprite = text->unk14.prev;
+                    count = text->unk14.count;
+                    count--;
+                    while (count != -1) {
+                        sprite->unk30 = NULL;
+                        sprite->unk10 &= ~0x3E000300;
+                        sprite = sprite->next;
+                        count--;
+                    }
+                } else {
+                    flags = ((child->x & 0x3E0) << 20) | 0x100;
+                    sprite = text->unk14.prev;
+                    count = text->unk14.count;
+                    if ((text->unk8 & 8) == 0) {
+                        if (child->frame.b[0] != 0) {
+                            if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
+                                flags |= 0x200;
+                            }
+                        } else {
+                            if (child->oam_attr_2 > 0x100 || child->var16 > 0x100) {
+                                flags |= 0x200;
+                            }
+                        }
+                    }
+                    count--;
+                    while (count != -1) {
+                        sprite->unk30 = child;
+                        sprite->unk10 = (sprite->unk10 & 0xC1FFFCFF) | flags;
+                        sprite = sprite->next;
+                        count--;
+                    }
+                    sub_8061158(child);
+                }
+            } else {
+                SpriteEntry* child;
+
+                child = text->ptr2C = sub_8060E8C(NULL, arg1, arg2, 0);
+                if (child != NULL) {
+                    flags = ((child->x & 0x3E0) << 20) | 0x100;
+                    sprite = text->unk14.prev;
+                    count = text->unk14.count;
+                    if ((text->unk8 & 8) == 0) {
+                        if (child->frame.b[0] != 0) {
+                            if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
+                                flags |= 0x200;
+                            }
+                        } else {
+                            if (child->oam_attr_2 > 0x100 || child->var16 > 0x100) {
+                                flags |= 0x200;
+                            }
+                        }
+                    }
+                    count--;
+                    while (count != -1) {
+                        sprite->unk30 = child;
+                        sprite->unk10 = (sprite->unk10 & 0xC1FFFCFF) | flags;
+                        sprite = sprite->next;
+                        count--;
+                    }
+                    sub_8061158(child);
+                }
+            }
+        }
+    }
+    sub_806123C(text);
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8061684.s");
 
 void sub_8061824(SpriteTextCleanup* arg0, s16 arg1, s16 arg2)
@@ -455,7 +551,12 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8061e94.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061e9c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061f3c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80622d0.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/80622e8.s");
+
+void sub_80622E8(UnkMenuItem* item, SpriteTextCleanup* cleanup)
+{
+    allocFont(cleanup, item->text.unk24, item->text.unk20, (item->text.x << 8) >> 16,
+        (item->text.y << 8) >> 16, item->text.unkC, item->text.unk8);
+}
 
 void sub_8062318(SpriteTextCleanup* arg0, unk8 arg1)
 {

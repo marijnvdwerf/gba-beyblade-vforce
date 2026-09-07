@@ -23,7 +23,11 @@ void nullsub_33(FrontendState* state, unk32 arg1)
 {
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8048fcc.s");
+FrontendState* sub_8048FCC(void)
+{
+    return &_unk3000650;
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8048fd4.s");
 
 void sub_8048FE4(void)

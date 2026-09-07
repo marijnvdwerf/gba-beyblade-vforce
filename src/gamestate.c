@@ -421,7 +421,22 @@ unk8 sub_8051868(void)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805187c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80518c8.s");
+
+unk32 sub_80518C8(s32 index)
+{
+    u32 value;
+    unk32 count;
+
+    value = sub_8051720(index)->unk10[0];
+    count = 0;
+    while (value != 0) {
+        if ((value & 1) != 0) {
+            count++;
+        }
+        value >>= 1;
+    }
+    return count;
+}
 
 unk32 sub_80518F0(void)
 {
