@@ -110,6 +110,13 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   singletons. Waiting for a slot: math pair (sub_805A1DC/sub_805A148),
   sub_80594FC layer, displayFrontendLevel + sub_8041288 levelselect,
   sub_805C3BC geometry.
+- Merged parked selectBladeFrontendHandler (3bde3b6f) after hygiene fixes;
+  credits.c transition test fixed. Alias ruling (`&state->unk80` in r8)
+  still open — needed to unpark.
+- sub_805CEB8: body lead — target keeps `callbackDone` in a stack slot
+  (address-taken, likely passed to the indirect callback); frame 96 vs 92.
+- Launched: math pair; sub_805C3BC + levelselect pair + sub_80594FC.
+  Fresh agent fixing sub_8052B24 parking hygiene (8 blockers) in its worktree.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
