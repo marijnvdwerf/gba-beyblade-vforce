@@ -77,7 +77,7 @@ void sub_80510FC(void)
         } else {
             levelState->unk0 = 4;
         }
-        __fastMemoryClearARM(0, &levelState->unk10, 4);
+        __fastMemoryClearARM(0, &levelState->unk10[0], 4);
         __fastMemoryClearARM(0, &levelState->unk10[1], 4);
         index++;
     } while (index <= 0x37);
