@@ -745,3 +745,112 @@ void sub_804DAA0(RiderBase* rider, RiderBase* other)
 
 Instruction diff is exact; full ROM SHA1 compare passes:
 `cd527c8c24e20e33913fc45199e64b3e6138a6e5`.
+
+
+# sub_804D754 — parked 2026-09-07
+
+Address: `0x0804D754`; translation unit: `src/riderphysics.c`.
+
+Reachable from mainLoop through sub_804D110. Read its C draft caller and the
+target dump. The function selects motion from signed X/Y velocities, selects
+an animation category from speed thresholds, and updates actor animation and
+rider state. m2c confirms those paths but exposes an unused conditional before
+the first actor_80580C0 call.
+
+The natural typed draft matches everything except target offsets +0xE0..+0xEE:
+category <= 1 or category == 0x400 selects -1 into r0, which is overwritten
+before use. The checks and assignment occupy 16 bytes. The category is already
+restricted to 0..4 by the preceding code, making the 0x400 case unreachable.
+The literal-pool offset differences are consequences of the missing block.
+
+## Controlled experiments
+
+| Change | First divergence / size delta | Outcome |
+| --- | --- | --- |
+| Activate typed natural draft with existing helper declarations | +0xE0 block missing; earlier pool displacements differ; -16 bytes | Natural near-match |
+| Assign current = -1 under the target condition | +0xE2: branch ends early; comparison/negative assignment removed; -8 bytes | Diagnostic only |
+| Ternary store to actor->unk31 before its zero store | Same incomplete condition; -8 bytes | Dead store removed; rejected |
+| Precompute value = category, conditionally overwrite with -1 | Same incomplete condition; -8 bytes | Unused result removed; rejected |
+| Remove cached current and compare the rider field directly | +0x02: extra high-register save and changed loads | Worse |
+
+Read all-pass compiler output for the conditional-overwrite probe. The
+comparison against 0x400 and negative assignment do not survive in the final
+assembly. No volatile, register pinning, barriers, or fabricated helper was
+used to retain dead work. The diagnostic unused assignments/stores were not
+kept in source because they are not justified recovered behavior.
+
+The checklist covered temporary reduction, if/ternary/conditional-overwrite
+forms, and store order. There is no loop. Signed velocity comparisons and
+signed halfword loads establish the draft types; category remains unsigned
+for the target bls/bhi. Declaration scopes do not give the discarded result
+an observable use. Recovering the provenance of the dead conditional remains
+unresolved.
+
+Kept the original natural draft with its scratch RiderD754Draft layout under
+#if 0. Removed provisional shared-header fields unk204/unk206 and signedness
+changes to unk48/unk4C because this function remains unmatched. Its original
+assembly remains active. Full-ROM SHA1 compare passes:
+`cd527c8c24e20e33913fc45199e64b3e6138a6e5`.
+
+
+## sub_804D754 follow-up: grouped switch cases
+
+Tested the user's proposed switch(category) with grouped case 0, case 1,
+and case 0x400 labels assigning current = -1. Tested both a break after the
+assignment and fallthrough into default containing the actor reset/call/stores.
+Both produce the same partial block as the earlier conditional probes:
++0xE2 branches early, and the +0xE8 comparison, +0xEA branch, and +0xEC/+0xEE
+negative assignment are eliminated. Both are 8 bytes short. The switch form
+does not solve the residual. Restored the original assembly and natural parked
+draft; full ROM compare passes again.
+
+
+# sub_804CB08 — matched 2026-09-07
+
+Address: `0x0804CB08`; translation unit: `src/riderphysics.c`.
+
+Reachable through mainLoop -> sub_804B8F0. Read the parked C caller in rider.c
+and its target call: the actor parameter is passed but unused by this function.
+m2c establishes the two input streams and major control paths. Corrected the
+parked draft's semantics using the original assembly:
+
+- _keyInput / rider->unk1C4 is held input; _unk3005DA0 / rider->unk1C8 is newly
+  pressed input. updateKeyState confirms the latter is current & ~previous.
+  Capture both before checking flag 2, and do not call RiderHasFlag again to
+  select an input source. Direction uses held input; dash and brake initiation
+  use pressed input; sustained braking uses held input.
+- Put the flag-2 fallback at the end using the outer if/else, matching the
+  original late branch layout.
+- Load both rotation coefficients before either steering calculation. Compute
+  both rotated motion coordinates before writing back X then Y.
+- Precompute wobble frequency before the speed guard. Recompute the phase
+  from rider->unk1FC for each axis, with an unk8 conversion for the table
+  index. Update X before reading the phase for Y; caching a single phase
+  incorrectly removes the target's second load/multiplication.
+
+Added only accessed RiderBase halfwords unk1C4, unk1C8, unk22E, and unk230.
+Corrected unk1FC to s32 because the phase product is arithmetically shifted.
+The existing trig table is signed halfwords, matching the two ldsh loads.
+No layout aliases or raw offsets were carried over from the parked draft.
+
+## Controlled experiments
+
+| Change | First divergence | Outcome |
+| --- | --- | --- |
+| Typed draft with separate held/pressed inputs and corrected outer if/else | +0x28: temporary register differs; rotation and tail evaluation order differ later | Near match |
+| Stage both coefficients and rotation results; make final phase reads direct per-axis expressions | None | Full ROM SHA1 passes |
+| Remove timer1 alias | Pool offsets differ by +0x23A; pointer retention/store sequence changes later | Rejected |
+| Remove timer0 alias | +0x2E2: timer pointer register changes | Rejected |
+| Fold rotateX into final shifted assignment | +0x1A: scratch register allocation changes | Rejected |
+| Shift rotateY when it is first computed, leaving a later copy | None | Kept |
+| Fold rotateY into moveY before moveX writeback | +0x212: Y shift/store precedes X | Rejected |
+
+The timer aliases and rotation temporaries each have one downstream use but
+are byte-required, as tested independently above. Both timers are struct-field
+pointers, not scalar-global aliases. The other locals have multiple uses.
+No artificial shapes, volatile, register pinning, or barriers were used.
+
+ARM-target layout checks confirm offsets 0x1C4, 0x1C8, 0x1FC, 0x22E, 0x230,
+and the following field at 0x234. All previously matched code remains identical
+under the full ROM check. Instruction diff is exact; ROM SHA1 compare passes:
+`cd527c8c24e20e33913fc45199e64b3e6138a6e5`.
