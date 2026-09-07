@@ -139,6 +139,11 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
 - Merged: spritetext/singletons ×3 (35c8cc8d; sub_8061684 parked at 0x08
   allocation). **635 C / 372 asm / 63%.** Math pair rewritten as quaternion
   source, one fold test outstanding, then merge.
+- Merged: math pair (89e922c6; quaternion product with a measured
+  interleaved-load accumulator, quat→matrix). **637 C / 370 asm / 63%.**
+- selectBladeFrontendHandler unpark: all instructions match; the last two
+  literal rows were a wrong register name in the draft (BG2PA/PB vs
+  BLDCNT/BLDALPHA) — fix sent, expecting green.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
