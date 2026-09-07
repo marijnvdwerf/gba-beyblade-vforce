@@ -104,6 +104,12 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
 - Merged: teletypeDefaultUserCodeHandler (c29709c9) — dialogue.c DONE.
   **626 C / 381 asm / 62%, 16 TUs.** New small reds: sub_8063AD8 108,
   sub_80555F4 48, sub_80518C8 40.
+- Tooling: callgraph.py rendered every child of a 🧭 callback-table node
+  as a leaf (580b8f2d fixes it) — 12 more reds surfaced. Launched three
+  batches: effects ×6, teletype ×7, spritetext ×2 + frontend/gamestate
+  singletons. Waiting for a slot: math pair (sub_805A1DC/sub_805A148),
+  sub_80594FC layer, displayFrontendLevel + sub_8041288 levelselect,
+  sub_805C3BC geometry.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
