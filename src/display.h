@@ -21,7 +21,7 @@ typedef struct DisplayData {
     unk16 unk2;
     unk16 unk4;
     unk32 pad8;
-    DisplayRecord* ptrC;
+    unk8* ptrC;
 } DisplayData;
 
 void sub_8050A50(DisplayData*);
