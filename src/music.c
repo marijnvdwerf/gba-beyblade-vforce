@@ -122,7 +122,7 @@ void sub_804AD74(void)
             sub_804AFD4((unk16)lower);
         }
         if (upper == 0 && lower == 0) {
-            _unk3000F1C = (s16)lower;
+            _unk3000F1C = lower;
         }
     }
     value = _unk3000F1C;
