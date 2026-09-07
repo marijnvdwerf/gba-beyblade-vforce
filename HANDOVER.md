@@ -86,8 +86,8 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
   s8 oldDirection/fade locals. Learnings: raw-decomp-4-2026-09-07.md (1100+
   lines — reviewers must not read it whole).
 - **Rulings (user, 2026-09-07)**: `Packet` is a union of PacketTransport (wire
-  bytes) and RiderStateData (`typedef Packet RiderState`) — proven pun, the
-  payload IS the rider state. `LineMetaObjectValue` union carries typed
+  bytes) and RiderStateData (`typedef Packet RiderState`) — the packet and rider-state
+  views use the same storage, and the payload IS the rider state. `LineMetaObjectValue` union carries typed
   payload members (config/data/transform/offset) instead of view structs.
   GameData.unk434 is `CameraState` (geometry at unk434.geometry, offset checks
   kept). GameData.unkC24/unkC26/unkC6C/unkC6E are s16 (`|= -1` init).
@@ -365,7 +365,7 @@ Agent prompts), /tmp/learnings-prompts.md (72 fold/learnings prompts across
   are not (`&_spritesFree` still open).
 - Types: `unk8/16/32` default; sign only on evidence (asr/ldrsh/ldrsb/signed
   branch/call site); widths decided by matched callers too; bitfields
-  `unk<BYTEHEX>_<BITDEC>` directly in the struct; unions only for proven puns.
+  `unk<BYTEHEX>_<BITDEC>` directly in the struct; unions only when assembly proves that the same storage is accessed at different widths.
 - Headers: one typedef per layout, in the owning TU's header; fields exist
   only when committed C accesses them; a parked draft declares any extra
   layout as a scratch struct INSIDE its `#if 0`; RAM decls live in ram.h,
@@ -488,8 +488,8 @@ Agent prompts), /tmp/learnings-prompts.md (72 fold/learnings prompts across
 - `LevelGeometryTable.count` is a documented union (s16 splineCount /
   unk32 splineCountWord): ldrsh in getLevelGeometryAddresses, ldr in
   GetSplineAtIndex.
-- Unions only for asm-proven width puns (strh/ldrb on the same bytes), with a
-  comment citing both instructions. No casts on field reads. Raw-offset blobs
+- Unions only when asm proves different-width accesses to the same bytes
+  (`strh`/`ldrb`), with a comment citing both instructions. No casts on field reads. Raw-offset blobs
   with offset tables may use `(unk8*)base + offset`; fixed-stride tables are
   arrays. Variable-size records advance a byte cursor.
 

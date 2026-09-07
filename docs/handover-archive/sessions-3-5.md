@@ -141,7 +141,7 @@ prompts small (P2 died of context overflow).
   const ItemDescriptionEntry*; OBJ_PLTT], sub_80480EC; `_unk30005B0/B4`
   SpriteEntry*, `_unk30005B8/BC` s32; FrontendSelectionObject.unkE). Parked:
   sub_8047E5C, sub_8045CB4 (both need the u16 view of SpriteEntry+0x18 —
-  same pun as LoadSpriteSheet → dedicated union agent running), sub_804444C
+  same overlapping-storage case as LoadSpriteSheet → dedicated union agent running), sub_804444C
   (prologue/global lifetime), selectBladeFrontendHandler (not attempted).
   `ItemDescriptionEntry` is now `struct` + forward typedef in common.h (C90:
   no duplicate typedefs). Geometry/actor/camera agent retired after two runs with 0/6 and no
@@ -151,7 +151,7 @@ prompts small (P2 died of context overflow).
   Remaining from that batch, untouched: sub_805EB00, actor_8057C58,
   sub_80596AC[raw1], sub_80526C8, actor_805C48C.
   From-asm yield this wave: 2/12 (festate-A 2/6, geometry 0/6).
-  Union agent (sprite frame pun) produced nothing — see LoadSpriteSheet row.
+  Union agent (sprite frame overlapping-storage case) produced nothing — see LoadSpriteSheet row.
   User decision 2026-08-28: measure asmlift as a draft source BEFORE any more
   from-asm batches (festate-B / geometry redo paused). asmlift stash applied
   to main as untracked decomp.yaml + docs/asmlift.md; measurement agent
@@ -220,7 +220,7 @@ prompts small (P2 died of context overflow).
   Waiting on the frontend round-1 agent before testing §4 sub_8049CE8,
   §6 sub_805041C, §7 sub_804967C, §15 sub_8049458 (same TUs).
 - Rule (user, 2026-08-28): NO COMMENTS in src/ except struct-field offset
-  markers `/* 0x1C8 */` (decompiler.md d3c1975). Union/pun citations and
+  markers `/* 0x1C8 */` (decompiler.md d3c1975). Union citations describing different-width accesses and
   `NONMATCHING` markers are gone: parked drafts are bare `#if 0`, all
   justification/first-divergence text lives in docs/learnings. A luna agent
   is sweeping existing comments out of src/ into
@@ -307,7 +307,7 @@ prompts small (P2 died of context overflow).
   View clone of SpriteEntry (u16 frame at +0x18) + casts, pointer-to-global
   aliases and cast-and-offset into `_806DB8C`; sub_8046A0C cast-and-offset
   into `_806E0DC`. Sent back: SpriteEntry `union { u16 word; u8 b[2]; }
-  frame` is the only allowed pun representation (3 consumers now), index the
+  frame` is the only allowed representation for the same bytes viewed at two widths (3 consumers now), index the
   tables, no aliases — or park. decompiler.md now names these levers.
 - Round-2b (retry) first pass: newIconMenu + sub_8063220 drafted (parked),
   8 untouched, draft-only header layouts added — revived with the standard
@@ -315,10 +315,10 @@ prompts small (P2 died of context overflow).
   functions, add headers for parked drafts, excuse a red compare; every
   revival needs the same three corrections, so they are now all in
   decompiler.md.
-- SpriteEntry+0x18 pun, decisive finding: `union __attribute__((packed))
+- SpriteEntry+0x18 overlapping-storage case, decisive finding: `union __attribute__((packed))
   { u16 word; u8 b[2]; } frame` is byte-neutral for all matched sprite code;
   the same union WITHOUT `packed` changes 28 bytes near 0x806069C; a
-  nested-struct union is 4 bytes. So the pun is expressible only with the
+  nested-struct union is 4 bytes. So this same-storage representation is expressible only with the
   GCC attribute. USER RULING NEEDED: allow `__attribute__((packed))` on that
   one union when a consumer matches (sub_8045160 matched with an equivalent
   View clone, i.e. it WOULD match), or keep the four consumers parked.
@@ -458,7 +458,7 @@ prompts small (P2 died of context overflow).
 - Leaf H merged: sub_8059B00 (layer.c). FLAG for user: only the form with
   sub-object aliases into _unk3000D00[index] (matrixA/B/C, base/transform)
   matches — same lever class as the accepted sub_8048FFC precedent; step
-  table + LayerTransformValue word/half pun proof in docs/learnings/leaves-h.md.
+  table + LayerTransformValue word/half access proof in docs/learnings/leaves-h.md.
   Merged under that precedent; revert if the user rules otherwise.
 - Leaf K: sub_8059FA0 (14 insns, `a*b/256` as s16) PARKED — every natural
   form coalesces the `mov r1, r0` copy; step table in

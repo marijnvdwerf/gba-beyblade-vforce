@@ -121,12 +121,7 @@ graph; the callgraph remains the reachability boundary.
   fields and `*(u8*)&p->unkNN` on halfwords: find the real field shape.
   Tables walked with `base + i * SIZE` are arrays of a SIZE-byte struct —
   declare them as such and index.
-- **Unions only for proven puns.** A union is allowed solely when the asm
-  proves the same storage is written at one width and read at another
-  (e.g. `strh` at +N in one function, `ldrb` at +N+1 in another — agbcc never
-  narrows loads, so the original source punned it). Cite both instructions in
-  your learnings file, never in the source. Never use a union to paper over an
-  unknown layout.
+- **Unions only for proven differing-width accesses.** A union is allowed solely when the asm proves the same storage is written at one width and read at another (e.g. `strh` at +N in one function, `ldrb` at +N+1 in another — agbcc never narrows loads, so the original source uses two views of that storage). Cite both instructions in your learnings file, never in the source. Never use a union to paper over an unknown layout.
 - **Fields exist only when accessed.** Add a struct field only when the
   function you are matching reads or writes it. Never copy a draft's or
   raw-decomp's speculative layout into a header; untouched bytes are
@@ -165,7 +160,7 @@ graph; the callgraph remains the reachability boundary.
   struct-field offset marker (`unk32 unk1C8; /* 0x1C8 */`). No prose, no
   instruction citations, no "NONMATCHING" notes, no hypotheses, no compiler
   observations — all of that goes in your docs/learnings file, keyed by
-  function and address. Justify unions and width puns there too.
+  function and address. Justify unions and differing-width accesses there too.
 - NEVER throw away a near-miss. When you park a function, keep the best
   draft in the source file directly above its `INCLUDE_ASM` line inside a
   bare `#if 0` … `#endif` (the ROM still builds from the asm), and put the

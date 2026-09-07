@@ -72,7 +72,7 @@ The following source forms were established by controlled comparisons:
 - The target initialization path is a real loop with rematerialized zero call
   arguments, not five independent unrolled calls.
 
-## Transition halfword-pun lead
+## Transition halfword-overlap lead
 
 The target transition guard reads the first two bytes of `FrontendTransition`
 with `ldrh` from `FrontendState + 0x584`. The current canonical structure has
