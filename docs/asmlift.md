@@ -5,7 +5,7 @@
 Set `ASMLIFT_DIR` to use another checkout; commands below default to the local checkout:
 
 ```sh
-ASMLIFT_DIR="${ASMLIFT_DIR:-/Users/marijn/Projects/asmlift}"
+ASMLIFT_DIR="${ASMLIFT_DIR:?set ASMLIFT_DIR to your asmlift checkout}"
 ```
 
 ## Installation

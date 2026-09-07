@@ -28,7 +28,7 @@ tools:
     # Keep this relative to decomp.yaml so the CLI resolves it from the project root.
     elf: build/rom.elf
     compiler: >-
-      ASMLIFT_DIR="${ASMLIFT_DIR:-/Users/marijn/Projects/asmlift}";
+      ASMLIFT_DIR="${ASMLIFT_DIR:?set ASMLIFT_DIR to your asmlift checkout}";
       AGBCC_ROOT="${AGBCC:-$HOME/agbcc/tools/agbcc}";
       tools/agbcc
       --cpp=cc
