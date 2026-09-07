@@ -367,6 +367,9 @@ Agent prompts), /tmp/learnings-prompts.md (72 fold/learnings prompts across
   `git -C <wt> add -A src asm docs && git -C <wt> commit` yourself).
   Learnings (`docs/learnings/<scope>.md`) are written inside the worktree and
   arrive via the merge.
+- Merge style (user, 2026-09-07): ONE squash commit per agent branch —
+  `git merge --squash <branch>` then `git commit -m "Decompile <funcs> (<tu>)"`;
+  never fast-forward an agent's commit chain onto main.
 - Merge recipe, ALWAYS from the main checkout (`pwd` first; never from a
   shell cd'd into a worktree — that merges the branch into itself and then
   `worktree remove` pulls the rug): `git merge <branch>`; resolve header
