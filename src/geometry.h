@@ -19,7 +19,7 @@ LineMetadata* GetLineMetaData(LevelGeometryAddresses*, unk32);
 LineMetaObject* getLineMetaAtIndex(LevelGeometryAddresses*, LineMetadata*, s32);
 LineMetaObject* getLineMetaObjectBytype(LevelGeometryAddresses*, LineMetadata*, unk32);
 LineMetaObject* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, LineMetadata*, unk32, unk32);
-unk32 GetLineIndexOfType(LevelGeometryAddresses*, unk16, unk16);
+unk32 GetLineIndexOfType(LevelGeometryAddresses*, unk8, unk16);
 void sub_805BA3C(LevelGeometryAddresses*);
 void deallocateQuadTree(QuadTree*);
 void sub_805E50C(void**, void*, void*, void*);
