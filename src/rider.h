@@ -17,7 +17,7 @@ void sub_804B754(void);
 void sub_804C098(RiderBase*);
 void sub_804C0C0(RiderTemp*);
 void sub_804C118(RiderTemp*);
-unk8 sub_804DA48(unk8*, unk8*, unk32);
+unk8 sub_804DA48(RiderBase*, RiderBase*, s32);
 void sub_804FE14(void);
 void sub_804FE30(void);
 void sub_805568C(void);
