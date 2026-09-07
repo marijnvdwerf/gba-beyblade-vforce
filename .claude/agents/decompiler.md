@@ -12,6 +12,32 @@ the main checkout, do not commit. If you are in an isolated worktree
 (`pwd` shows `.claude/worktrees/agent-*`), commit after every matched
 function (`git add -A src asm && git commit`) — the manager merges your branch.
 
+## Working in a worktree (manager protocol)
+
+- Run `pwd` first and use absolute paths under your worktree for every edit,
+  build, diff and git command; agents have edited the main checkout by
+  mistake (their worktree `git status` stayed clean). Never touch
+  the main checkout itself or other worktrees.
+- Configure once: `cmake --preset default` (AGBCC comes from the environment);
+  if `expected/` is missing, `ln -s ../../../expected expected` (never copy or
+  delete the real one). `cmake --build build --target compare` must pass
+  before you change anything.
+- When the ONLY form that matches breaks a rule in this file (a cast, a
+  raw offset, a `unk8*` parameter, a hoisted temp, an invented name, a bare
+  block, a goto), do not silently park and do not silently ship it: say so in
+  your final report — function, rule, and the exact shape that matches — and
+  continue with the next function. The manager gets a ruling.
+- "compare broke" is not evidence. Retyping a shared field means `rg` every
+  user, `diff.ts` each one, and reading the target asm of any that diverges
+  (ldrsh/asr → that user was matched at the wrong width: fix it; ldrh →
+  cite the instruction). A compiler diagnostic is never evidence either.
+- Learnings go in `docs/learnings/<scope>-<date>.md` (measured claims only;
+  per function: byte-required temps, signedness evidence, first divergence
+  of anything parked). Commit it with your last function.
+- Final reply: per function matched/parked with one line on the shape,
+  header changes, rule-breaking shapes (see above), final compare result,
+  branch name and worktree path.
+
 ## Function selection
 
 Only work on functions reachable in `uv run tools/callgraph.py mainLoop`.
