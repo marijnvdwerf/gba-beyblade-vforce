@@ -1,5 +1,6 @@
 #include "ram.h"
 
+#include "dialogue.h"
 #include "keystate.h"
 #include "layer.h"
 
@@ -31,16 +32,16 @@ void* _unk3000074 = NULL;
 void* _unk3000078 = NULL;
 void* _unk300007C = NULL;
 unk8 _unk3000080[60] = { 0 };
-void* _unk30000BC = NULL;
-void* _unk30000C0 = NULL;
-void* _unk30000C4 = NULL;
-void* _unk30000C8 = NULL;
-void* _unk30000CC = NULL;
-void* _unk30000D0 = NULL;
+s32 _unk30000BC = 0;
+s32 _unk30000C0 = 0;
+s32 _unk30000C4 = 0;
+s32 _unk30000C8 = 0;
+s32 _unk30000CC = 0;
+s32 _unk30000D0 = 0;
 unk8 _unk30000D4 = 0;
 unk8 _unk30000D5 = 0;
-unk16 _unk30000D6 = 0;
-void* _unk30000D8 = NULL;
+unk8 _unk30000D6 = 0;
+SpriteEntry* _unk30000D8 = NULL;
 unk8 _unk30000DC = 0;
 unk16 _unk30000DD = 0;
 void* _unk30000E0 = NULL;

@@ -1,3 +1,5 @@
+#include "dialogue.h"
+
 #include <agb/memory_map.h>
 
 #include "beyblade.h"
@@ -14,117 +16,56 @@
 
 INCLUDE_ASM("asm/dump/8040d18/8041ea0-teletypeDefaultUserCodeHandler.s");
 
-#if 0
-typedef struct DialogueDisplayRecordDraft {
-    unk8 pad0[0x14];
-    unk32 unk14;
-    unk8 pad18[0xC];
-    unk32 unk24;
-    unk8 pad28[0x54];
-    unk8 unk7C;
-    unk8 pad7D[3];
-    unk8 pad80[8];
-} DialogueDisplayRecordDraft;
-
-typedef struct TalkingHeadDraft {
-    unk8 pad0[0x18];
-    unk32 unk18;
-    unk8 pad1C[4];
-    unk32 unk20;
-} TalkingHeadDraft;
-
-typedef struct DialogueTransitionDraft {
-    unk8 unk590[0x18];
-} DialogueTransitionDraft;
-
-typedef struct DialogueFrontendStateDraft {
-    unk8 pad0[0xB8];
-    DialogueDisplayRecordDraft display[4];
-    unk8 pad2D8[0x2B8];
-    DialogueTransitionDraft transition;
-} DialogueFrontendStateDraft;
-
-typedef struct DialogueStateDraft {
-    unk32 unk0;
-    unk8 pad4[36];
-} DialogueStateDraft;
-
-extern void* _unk300007C;
-extern unk8 _unk3000080[60];
-extern void* _unk3000EE8;
-extern DialogueStateDraft _unk3000EEC;
-extern s32 _unk30000BC;
-extern s32 _unk30000C0;
-extern s32 _unk30000C4;
-extern s32 _unk30000C8;
-extern s32 _unk30000CC;
-extern s32 _unk30000D0;
-extern unk8 _unk30000D4;
-extern unk8 _unk30000D5;
-extern unk16 _unk30000D6;
-extern SpriteEntry* _unk30000D8;
-
 extern const unk8 FontStyle_80688B8[];
 extern const unk8 SpriteSheet_821CB80[];
 const unk8* const* sub_804A364(void);
 void* sub_8063E18(const unk8*, const unk8*, unk32, unk32, unk32, unk32, unk32);
 void sub_8063F5C(void*, void (*)(void));
 void teletypeDefaultUserCodeHandler(void);
-TalkingHeadDraft* GetTalkingHead(s32);
+TalkingHead* GetTalkingHead(s32);
 void sub_8055914(void*, unk32, unk32, unk32, unk32);
 void sub_805599C(void*);
 void sub_8055C30(void*);
 void sub_8063F64(void*);
 void sub_8063F84(void*);
 void sub_806415C(void*);
-unk32 sub_806417C(void*);
-unk32 sub_8064188(void*);
+unk8 sub_806417C(void*);
+unk8 sub_8064188(void*);
 
-void sub_80420C4(DialogueFrontendStateDraft* state, unk32 command)
+void sub_80420C4(FrontendState* state, unk32 command)
 {
-    DialogueDisplayRecordDraft* base;
+    FrontendSubobject* base;
     const unk8* const* languageStrings;
-    DialogueDisplayRecordDraft* subobject1;
-    DialogueDisplayRecordDraft* subobject2;
-    DialogueDisplayRecordDraft* subobject3;
     unk32 count;
-    unk32 value;
-    s32 updatedBc;
-    unk32 flags;
     s32 blend;
-    TalkingHeadDraft* talkingHead;
-    TalkingHeadDraft* talkingHead2;
+    unk32 layer;
     LevelState* levelState;
     SpriteEntry* sprite;
 
-    base = &state->display[0];
+    base = &state->unkB8;
     switch (command) {
     case 0:
         languageStrings = sub_804A364();
         base->unk24 = 0;
         base->unk7C |= 3;
         base->unk14 = 0xA00;
-        subobject1 = base + 1;
-        subobject1->unk24 = 0;
-        subobject1->unk7C |= 3;
-        subobject1->unk14 = 0x800;
-        subobject2 = base + 2;
-        subobject2->unk24 = 0;
-        subobject2->unk7C |= 3;
-        subobject2->unk14 = -0x600;
-        subobject3 = base + 3;
-        subobject3->unk24 = 0;
-        subobject3->unk7C |= 3;
-        subobject3->unk14 = -0xC00;
+        base[1].unk24 = 0;
+        base[1].unk7C |= 3;
+        base[1].unk14 = 0x800;
+        base[2].unk24 = 0;
+        base[2].unk7C |= 3;
+        base[2].unk14 = -0x600;
+        base[3].unk24 = 0;
+        base[3].unk7C |= 3;
+        base[3].unk14 = -0xC00;
         languageStrings += getLanguage();
         _unk300007C
             = sub_8063E18(*languageStrings, FontStyle_80688B8, 0x78, 0x800, 0x6400, 0xE000, 0);
         sub_8063F5C(_unk300007C, teletypeDefaultUserCodeHandler);
         _unk3000EE8 = _unk3000080;
         _unk3000EEC.unk0 = 0;
-        talkingHead = GetTalkingHead(0);
-        talkingHead2 = GetTalkingHead(0);
-        sub_8055914(_unk3000080, talkingHead->unk18, talkingHead2->unk20, 0x1700, 0x1700);
+        sub_8055914(
+            _unk3000080, GetTalkingHead(0)->unk18, GetTalkingHead(0)->unk20, 0x1700, 0x1700);
         _unk30000D4 = 0;
         _unk30000D5 = 0;
         _unk30000D6 = 0;
@@ -153,27 +94,23 @@ void sub_80420C4(DialogueFrontendStateDraft* state, unk32 command)
             _unk30000D6 = 1;
         }
         _unk30000BC = _unk30000BC + ((_unk30000C0 - _unk30000BC) >> 3);
-        updatedBc = _unk30000BC;
         _unk30000C4 = _unk30000C4 + ((_unk30000C8 - _unk30000C4) >> 3);
-        value = updatedBc >> 9;
-        *(vu16*)REG_WIN0V = ((0x34 - value) << 8) | (value + 0x34);
+        *(vu16*)REG_WIN0V = ((0x34 - (_unk30000BC >> 9)) << 8) | ((_unk30000BC >> 9) + 0x34);
         *(vu16*)REG_WIN1V = ((_unk30000C4 >> 8) + 0x60) | 0x6000;
-        flags = _unk3000EEC.unk0;
-        if ((flags & 1) != 0) {
+        if ((_unk3000EEC.unk0 & 1) != 0) {
             _unk30000C0 = 0;
             _unk30000D0 = 0x10;
-            value = _unk30000BC >> 8;
-            if (value == 0) {
+            if ((_unk30000BC >> 8) == 0) {
+                layer = (_unk3000EEC.unk0 & 0x300) >> 8;
                 _unk30000C0 = 0x5800;
                 _unk30000D0 = 0;
                 *(vu16*)REG_DISPCNT &= 0xF0FF;
-                *(vu16*)REG_DISPCNT |= 0x100 << ((flags & 0x300) >> 8);
+                *(vu16*)REG_DISPCNT |= 0x100 << layer;
                 _unk3000EEC.unk0 &= ~1;
             }
         }
-        flags = _unk3000EEC.unk0;
-        if ((flags & 2) != 0 && ((sub_8057C40() >> 4) & 3) == 0) {
-            count = (flags & 0x3C00) >> 10;
+        if ((_unk3000EEC.unk0 & 2) != 0 && ((sub_8057C40() >> 4) & 3) == 0) {
+            count = (_unk3000EEC.unk0 & 0x3C00) >> 10;
             _unk30000CC = 0x10;
             _unk30000D0 = 0;
             if (count == 0 || --count == 0) {
@@ -241,5 +178,5 @@ void sub_80420C4(DialogueFrontendStateDraft* state, unk32 command)
         break;
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/8040d18/80420c4.s");
+
+asm(".align 2, 0\n");

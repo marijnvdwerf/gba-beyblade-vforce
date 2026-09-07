@@ -1,3 +1,4 @@
+#include "dialogue.h"
 #include "ram.h"
 
 void (*_unk3000DF0[14])(void) = { 0 };
@@ -8,7 +9,7 @@ unk8 _unk3000E3D[3] = { 0 };
 unk8 _unk3000E40[160] = { 0 };
 unk8 _unk3000EE0[8] = { 0 };
 void* _unk3000EE8 = NULL;
-unk8 _unk3000EEC[40] = { 0 };
+DialogueState _unk3000EEC = { 0 };
 s16 _unk3000F14 = 0;
 unk8 _unk3000F16[2] = { 0 };
 s16 _unk3000F18 = 0;

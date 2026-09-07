@@ -354,7 +354,7 @@ LevelState* sub_8051734(void)
     return sub_8051720(getSomeLevelID());
 }
 
-unk32 sub_8051744(void)
+unk8 sub_8051744(void)
 {
     s32 index;
 

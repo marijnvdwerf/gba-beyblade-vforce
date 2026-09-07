@@ -125,7 +125,7 @@ typedef struct FrontendSubobject {
     s16 unk4A;
     unk8 pad4C[0x30];
     unk8 unk7C;
-    unk8 pad7D[3];
+    unk8 pad7D[0xB];
 } FrontendSubobject;
 
 typedef struct FrontendState FrontendState;
@@ -313,12 +313,10 @@ struct FrontendState {
     unk8 pad94[0x20];
     FrontendObject* unkB4;
     FrontendSubobject unkB8;
-    unk8 pad138[8];
     FrontendSubobject unk140;
-    unk8 pad1C0[8];
-    unk32 unk1C8; /* 0x1C8 */
-    unk8 pad1CC[0x84];
-    unk8 unk250[0x1D4];
+    FrontendSubobject unk1C8; /* 0x1C8 */
+    FrontendSubobject unk250;
+    unk8 pad2D8[0x14C];
     unk32 unk424;
     unk8 pad428[0x30];
     UnkMotion motion;

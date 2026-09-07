@@ -917,3 +917,37 @@ The actor, cleanup packet, rider, target, and transition locals are byte-require
 Flagged shape: the conditional current-pointer increment at the end of the rider loop has no lasting effect, but retains the original unused halfword flag load/AND. The compiler removes an empty branch or continue entirely. The user explicitly requested a comment at this no-op branch; that one explanatory source comment is an authorized exception to the usual no-comments rule. The key-input narrowing is also byte-required; it represents a 16-bit hardware value rather than a raw shift sequence.
 
 Final formatted source has no differing instructions. Four diff-tool literal rows show `sub_80529781` versus `sub_8052978`; these are relocation-display noise, confirmed by full-ROM SHA1 `cd527c8c24e20e33913fc45199e64b3e6138a6e5`. Removed the assembly fallback only after compare passed. Changes left uncommitted.
+
+## sub_80420C4 — 0x080420C4 (matched)
+
+Committed the preceding gameLoop match as `44658209`. Confirmed this handler is reachable through the frontend ROM table (entry with ID 10 in asm/data12.s); its state/command signature follows the FrontendObject dispatch machinery. Read the full dump, surrounding dialogue TU, and generated the required m2c semantic draft.
+
+### Layout and types
+
+- Reused FrontendState and FrontendSubobject instead of the parked draft's duplicate display layouts. FrontendSubobject now includes its trailing eight padding bytes (size 0x88). Removed equivalent padding from FrontendState and exposed its third/fourth records at +0x1C8 and +0x250. ARM clang checks preserve all four record offsets, transition.unk590 at +0x590, and overall FrontendState size 0x5AC.
+- Added TalkingHead's accessed words at +0x18/+0x20 and DialogueState's word at +0; the remaining bytes are padding. DialogueState remains 0x28 bytes, preserving the pinned IWRAM block.
+- Upgraded the existing RAM definitions in place: the six interpolation/blend globals from +0xBC through +0xD0 are s32 (arithmetic shifts/signed blend comparison); +0xD8 is SpriteEntry*. The +0xD6 flag is a scalar unk8, as demonstrated by strb/ldrb. The user challenged an interim two-byte-array representation: there is no evidence of indexing, so it was removed. Natural alignment retains the next pointer at +0xD8; no padding symbol or array is required. Verified symbol addresses +0xD4, +0xD5, +0xD6, +0xD8 and the full ROM.
+- sub_8051744 returns unk8 according to the caller's lsl #24; updated its existing definition and declaration, preserving its own bytes and the full ROM.
+- Corrected the parked draft's flags snapshot after the random helper: the count must be loaded from the current global after the call.
+
+### Matching experiments
+
+| Change | Result |
+| --- | --- |
+| Shared fields addressed directly through state for each record | First mismatch +0x4: state/base lifetimes differ |
+| Record cursor at the first frontend record, then indexed 0x88-byte records | Correct case-0 addressing and register allocation |
+| Inline repeated window half-height expression | Restores hardware address load before the asr |
+| Stage layer extraction before resetting interpolation targets | Restores extraction/store order; matches case 1 |
+| Correct sub_8051744 return width | No differing instructions; only two bytes of trailing padding differ |
+| File-scope zero alignment | Full ROM match |
+| Fold sprite allocation temporary | Two differing rows; shifts global-address load to +0x142; retain |
+| Fold value, updatedBc, talkingHead2, then talkingHead | Byte-identical; remove all |
+| Fold three record aliases into base[index] | Byte-identical; remove all |
+| Fold cached flags | Byte-identical; remove |
+| Fold layer extraction | 38 differing non-literal rows, first +0x208; retain |
+| Fold levelState result into condition | Seven differing rows, first +0x44A; moves query across DISPCNT store; retain |
+| Fold base cursor | 25 differing rows, first +0x4; retain |
+
+Retained base, languageStrings, layer, sprite, and levelState preserve initial snapshots/call or store ordering. languageStrings is fetched before initializing the display records, then indexed by language afterward; folding the query into the later use would move the call. Count and blend represent reused arithmetic/control-flow values. No matching hacks or source comments added.
+
+Final formatted source passes the full ROM SHA1 `cd527c8c24e20e33913fc45199e64b3e6138a6e5`. The diff's handler-pointer literal spelling is relocation noise; the only actual residual before zero alignment was NOP bytes C0 46 at ROM +0x4257A versus original 00 00. Removed the assembly fallback after verification. Changes remain uncommitted.

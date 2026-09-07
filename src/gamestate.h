@@ -21,7 +21,7 @@ unk32 sub_805137C(void);
 void sub_8051688(unk32);
 void sub_8051798(unk32);
 u8 sub_805162C(void);
-unk32 sub_8051744(void);
+unk8 sub_8051744(void);
 unk32 sub_80518F0(void);
 unk32 sub_8051820(void);
 unk8 sub_8051868(void);
