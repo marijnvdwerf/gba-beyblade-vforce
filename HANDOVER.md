@@ -367,6 +367,8 @@ Agent prompts), /tmp/learnings-prompts.md (72 fold/learnings prompts across
   `git -C <wt> add -A src asm docs && git -C <wt> commit` yourself).
   Learnings (`docs/learnings/<scope>.md`) are written inside the worktree and
   arrive via the merge.
+- Reviewer on EVERY branch, regardless of size (user, 2026-09-07) — no
+  manager-only reads as a substitute; the manager read comes after the review.
 - Merge style (user, 2026-09-07): ONE squash commit per agent branch —
   `git merge --squash <branch>` then `git commit -m "Decompile <funcs> (<tu>)"`;
   never fast-forward an agent's commit chain onto main.
