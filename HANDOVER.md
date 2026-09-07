@@ -123,6 +123,12 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
 - User decision: selectBladeFrontendHandler may use `unk8* p = &state->unk80;`
   with trailing `// TODO: fake match? Is this temp required?` (one-off
   exception, like sub_8050A50). Fresh agent unparking it.
+- Merged parked sub_8052B24 (d97d5408) after hygiene fixes; MenuItemDescriptor
+  in menu.h; `_806E7B0` label added in data12.s.
+- Math pair matched but shipped as m2c output (temp_rN names, assignments in
+  expressions, no-op (s32) casts) — sent back to rewrite as quaternion
+  product / quat→matrix source. Spritetext batch: 3/4 matched, sub_8061684
+  (416) parking (allocation).
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
