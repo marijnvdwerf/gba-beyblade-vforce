@@ -12,7 +12,7 @@ typedef struct ScreenLayout {
 } ScreenLayout;
 
 void sub_80508A4(UnkStruct_sub1*);
-void sub_8050894(void*);
+void sub_8050894(UnkStruct_sub1*);
 void sub_80508CC(void*, ScreenLayout*, unk32);
 void newLayerManagement(void*, void*, ScreenLayout*, unk16, unk8);
 

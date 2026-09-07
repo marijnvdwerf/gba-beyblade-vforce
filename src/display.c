@@ -1,9 +1,16 @@
 #include "display.h"
 
+#include <agb/memory_map.h>
+
 #include "include_asm.h"
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80506f4-newLayerManagement.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050894.s");
+
+void sub_8050894(UnkStruct_sub1* data)
+{
+    *(vu16*)REG_DISPCNT = (data->var06 << 8) | data->var08;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80508a4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80508cc.s");
 
