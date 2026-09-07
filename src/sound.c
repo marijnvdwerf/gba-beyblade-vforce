@@ -539,7 +539,7 @@ unk32 Sound_80629F0(SoundStructE* arg0, unk32 arg1)
     SoundStructA* var1 = &(*_unk3005E24)[0];
     for (i = _unk3005E04 - 1; i != -1; i--) {
         if (var1->var16 == 0) {
-            Sound_8062910(var1, arg0, (unk32)arg1);
+            Sound_8062910(var1, arg0, arg1);
             var1->var18 = _unk3000D9C++;
 
             return var1->var18;
