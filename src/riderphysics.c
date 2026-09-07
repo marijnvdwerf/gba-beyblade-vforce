@@ -522,6 +522,28 @@ void sub_804D754(RiderD754Draft* rider)
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d754.s");
 
 #if 0
+typedef struct RiderBaseDraft {
+    unk8 pad0[0x40];
+    s32 unk40;
+    s32 unk44;
+    s32 unk48;
+    s32 unk4C;
+    s16 unk50;
+    s16 unk52;
+    s16 unk54;
+    s16 unk56;
+    s16 unk58;
+    s16 unk5A;
+    s16 unk5C;
+    s16 unk5E;
+    s16 unk60;
+    s16 unk62;
+    s32 unk64;
+    s32 unk68;
+    unk8 pad6C[0x20];
+    s32 unk8C;
+} RiderBaseDraft;
+
 s16 sub_8057878(s16, s16);
 
 void sub_804D8D8(RiderBase* rider)
@@ -536,21 +558,23 @@ void sub_804D8D8(RiderBase* rider)
     s16 angle;
     s32 speedX;
     s32 speedY;
+    RiderBaseDraft* draft;
 
-    speedX = rider->unk50;
-    speedY = rider->unk52;
-    maxX = rider->unk54;
-    maxY = rider->unk58;
-    x = rider->unk40;
-    y = rider->unk44;
+    draft = (RiderBaseDraft*)rider;
+    speedX = draft->unk50;
+    speedY = draft->unk52;
+    maxX = draft->unk54;
+    maxY = draft->unk58;
+    x = draft->unk40;
+    y = draft->unk44;
     dirX = (x * speedX) >> 8;
     dirY = (y * speedY) >> 8;
     if (RiderHasFlag(rider, 0x100000) != 0)
         maxX = maxY;
     if (RiderHasFlag(rider, 0x400000) == 0)
-        maxY = rider->unk56;
+        maxY = draft->unk56;
     else
-        maxY = rider->unk5A;
+        maxY = draft->unk5A;
     if (maxX > (x < 0 ? -x : x)) {
         dirX = x;
         UnsetRiderFlag(rider, 0x100000);
@@ -575,20 +599,20 @@ void sub_804D8D8(RiderBase* rider)
     }
     x -= dirX;
     y -= dirY;
-    rider->unk8C = y;
-    rider->unk60 = x;
-    rider->unk40 = x;
-    rider->unk44 = y;
-    rider->unk48 -= x;
-    rider->unk4C -= y;
+    draft->unk8C = y;
+    draft->unk60 = x;
+    draft->unk40 = x;
+    draft->unk44 = y;
+    draft->unk48 -= x;
+    draft->unk4C -= y;
     length = Sqrt(x * x + y * y);
     length = (unk16)length;
-    rider->unk5C = (x << 8) / length;
-    rider->unk5E = (y << 8) / length;
-    angle = sub_8057878(rider->unk5C, rider->unk5E);
-    rider->unk62 = angle;
-    rider->unk64 = length;
-    rider->unk68 = 0;
+    draft->unk5C = (x << 8) / length;
+    draft->unk5E = (y << 8) / length;
+    angle = sub_8057878(draft->unk5C, draft->unk5E);
+    draft->unk62 = angle;
+    draft->unk64 = length;
+    draft->unk68 = 0;
 }
 
 #endif
