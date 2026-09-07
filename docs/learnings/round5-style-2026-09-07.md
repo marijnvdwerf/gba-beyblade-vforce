@@ -3,6 +3,11 @@
 These notes record source shapes measured against the target objects. They are
 not source-code comments or general compiler assumptions.
 
+Provenance: `session-8-raw-decomp-3.md` and `session-8-raw-decomp-3b.md` are
+EARLIER notes copied verbatim from the user's `raw-decomp-3` branch (the muse
+for this round). Where they disagree with this file, this file is the later
+measurement and wins.
+
 ## sub_8050A50 (0x08050A50, src/display.c)
 
 The exact source keeps separate `count` and byte `offset` locals. The loop

@@ -1,5 +1,9 @@
 # Session 8 learnings
 
+EARLIER notes, copied verbatim from the user's `raw-decomp-3` branch
+(pre-house-style). Superseded where they conflict with
+`round5-style-2026-09-07.md`.
+
 ## Hoisted common code prevents branch duplication
 
 When the target duplicates address computation or field access in each branch of an `if/else`, the source must duplicate it too. Hoisting into a shared local before the branch lets the compiler factor it out, producing a single computation before the branch instead of one per arm. Write the repeated expression inline in each arm (`array[i] |= mask` / `array[i] &= ~mask`) rather than caching the pointer or mask.

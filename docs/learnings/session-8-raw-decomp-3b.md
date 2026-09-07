@@ -1,5 +1,9 @@
 # Session 8b learnings — sub_805AFBC (menu item navigation)
 
+EARLIER notes, copied verbatim from the user's `raw-decomp-3` branch
+(pre-house-style). Superseded where they conflict with
+`round5-style-2026-09-07.md`.
+
 ## sub_805AFBC (0x805AFBC, menu.c)
 
 Menu item cursor movement: steps through items (up or down based on `arg1`),
