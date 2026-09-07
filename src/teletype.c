@@ -46,4 +46,7 @@ unk8 sub_806417C(TeletypeState* state)
     return (state->unkBA >> 2) & 1;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8064188.s");
+unk8 sub_8064188(TeletypeState* state)
+{
+    return (state->unkBA >> 1) & 1;
+}
