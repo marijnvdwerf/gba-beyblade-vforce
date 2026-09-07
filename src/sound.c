@@ -86,7 +86,7 @@ extern unk8 _unk3005E78;
 void (*__sub_87577B4)(SoundStructA*, unk32, unk32);
 void (*__sound_8757A64)(unk32, unk32, unk32);
 
-#define FIXED_16_16(hz) ((unk32)((hz) * 65536.0))
+#define FIXED_16_16(hz) ((hz) * 65536.0)
 
 const u32 MidiNoteFrequencies[128] = {
     FIXED_16_16(8.1758),
