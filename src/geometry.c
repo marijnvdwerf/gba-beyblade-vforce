@@ -721,7 +721,22 @@ GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses* arg0, s32 arg1)
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805dbac-GetPointAtIndex.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805dbc0-GetPointAtSplineIndex.s");
+
+GeometryPoint* GetPointAtSplineIndex(LevelGeometryAddresses* arg0, s32 splineIndex, s32 pointIndex)
+{
+    GeometrySpline* spline;
+    unk32* offsets;
+
+    spline = GetSplineAtIndex(arg0, splineIndex);
+    if (spline != NULL) {
+        offsets = spline->pointIndices;
+        if (pointIndex < spline->pointCount) {
+            return &arg0->unk4[offsets[pointIndex]];
+        }
+    }
+    return NULL;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805dbf0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805dcd4-GetSplineLineAtIndex.s");
 

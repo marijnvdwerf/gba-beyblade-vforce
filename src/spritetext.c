@@ -456,4 +456,12 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8061e9c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061f3c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80622d0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80622e8.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8062318.s");
+
+void sub_8062318(SpriteTextCleanup* arg0, unk8 arg1)
+{
+    if (arg0 != NULL) {
+        arg0->unk2B = arg1;
+    }
+}
+
+ASM_ZEROPAD

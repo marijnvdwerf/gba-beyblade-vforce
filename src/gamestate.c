@@ -395,7 +395,14 @@ unk32 GetLevelDescriptionNo(void)
     return description->unk0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80517e8.s");
+unk8 sub_80517E8(unk32 index)
+{
+    if ((sub_8051720(index)->unk0 & 2) != 0) {
+        return 1;
+    }
+    return 0;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8051804.s");
 
 unk32 sub_8051820(void)

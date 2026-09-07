@@ -28,7 +28,7 @@ void deallocateQuadTree(QuadTree*);
 void sub_805E50C(void**, void*, void*, void*);
 unk32* sub_805E514(unk32*, unk32, unk32, unk32, unk32);
 GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses*, s32);
-GeometryPoint* GetPointAtSplineIndex(LevelGeometryAddresses*, unk32, unk32);
+GeometryPoint* GetPointAtSplineIndex(LevelGeometryAddresses*, s32, s32);
 void sub_805C3BC(LevelGeometryAddresses*, Actor*, unk32, unk32);
 GeometrySplineLine* sub_805DCFC(LevelGeometryAddresses*, GeometrySpline*, s32);
 void sub_805DFD4(LevelGeometryAddresses*, s16, s32*, s32);
