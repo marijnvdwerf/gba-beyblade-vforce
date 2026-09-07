@@ -1,4 +1,8 @@
+#include "teletype.h"
+
 #include "include_asm.h"
+#include "memory.h"
+#include "sprite.h"
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8063ab4.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8063ad8.s");
@@ -16,7 +20,14 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8063df0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8063e18.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8063f40.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8063f5c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8063f64.s");
+
+void sub_8063F64(TeletypeState* state)
+{
+    state->unk0 = 0;
+    sub_8060CDC(&state->unkEC);
+    deallocateBlock(state->unkC4);
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8063f84.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80640f8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8064104-pushTeletypeStringPalette.s");
