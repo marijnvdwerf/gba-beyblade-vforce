@@ -144,6 +144,13 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
 - selectBladeFrontendHandler unpark: all instructions match; the last two
   literal rows were a wrong register name in the draft (BG2PA/PB vs
   BLDCNT/BLDALPHA) — fix sent, expecting green.
+- Tooling: callgraph.py only recognised `*Func`/`*Handler` typedefs for local
+  indirect calls, so the parked sub_805CEB8 draft's `callback3/4` rendered as
+  bogus red leaves (3c970c4b fixes; they now sit under ⚠ — model the
+  `rider->callbacks.unk4` table with a CALLBACKS entry when known).
+- selectBladeFrontendHandler MATCHED (bed454a9, 2172 B, largest function);
+  review fixes in flight (sub_805185C → gamestate.h, s8 evidence, ROM externs
+  out of ram.h, nine fold tests), then merge.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
