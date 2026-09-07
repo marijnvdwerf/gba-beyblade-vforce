@@ -190,7 +190,20 @@ void processMetadata_3(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
 INCLUDE_ASM("asm/dump/804a388-tutorial/805450c-processMetadata_4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80545b0-processMetadata_5.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054684-processMetadata_8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80546a4-processMetadata_9.s");
+
+void processMetadata_9(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
+    LineMetadata* arg3, LineMetaObject* event)
+{
+    Actor* actor;
+
+    actor = GetStruct4(lineIndex)->actor;
+    if (actor != NULL) {
+        actor->unk40 = event->unk8.transform.x;
+        actor->unk44 = event->unk8.transform.y;
+        actor->unk48 = event->unk8.transform.z;
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80546c8-processMetadata_A.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80546e8-processMetadata_C.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805470c-processMetadata_D.s");
