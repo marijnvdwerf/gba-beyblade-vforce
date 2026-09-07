@@ -101,7 +101,7 @@ void initGameLoop(void)
     levelIdCopy = levelId;
     initLevelEnvironmentActors(levelId);
     initEventListeners(levelId);
-    levelIdCopy = (u16)levelId;
+    levelIdCopy = levelId;
     initCollectables(levelIdCopy);
     initTutorialManagement(levelIdCopy);
     nullsub_2();
