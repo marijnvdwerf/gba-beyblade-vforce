@@ -765,7 +765,14 @@ void sub_8059C18(u8 bg0, u8 bg1, u8 bg2, u8 bg3)
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8059c18.s");
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8059cb4.s");
+unk8 sub_8059CB4(BGLayer* layer)
+{
+    unk32 value;
+
+    value = *(unk32*)GetBGLayerCntPtr(layer->layerIndex);
+    return (value << 30) >> 30;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8059cc8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059cf0.s");
 
