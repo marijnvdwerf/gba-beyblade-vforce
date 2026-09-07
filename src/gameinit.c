@@ -559,5 +559,5 @@ s32 sub_80540C8(s32 arg0, s32 arg1, s32 arg2)
 
 void SetRiderGlobal(RiderBase* arg0)
 {
-    _unk3000C10[0] = arg0;
+    _unk3000C10 = arg0;
 }

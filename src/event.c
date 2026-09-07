@@ -188,7 +188,7 @@ void processMetadata_1(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     RiderBase* rider;
 
     target = GetStruct4(lineIndex);
-    rider = _unk3000C10[0];
+    rider = _unk3000C10;
     if (rider != NULL) {
         switch (event->id) {
         case 0x4ECB:
@@ -261,7 +261,7 @@ void processMetadata_4(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
 
     GetStruct4(lineIndex);
     metadata = event;
-    rider = _unk3000C10[0];
+    rider = _unk3000C10;
     if (rider != NULL) {
         actor = rider->unk0;
         rider->unk40 += metadata->unk8.transform.x;
