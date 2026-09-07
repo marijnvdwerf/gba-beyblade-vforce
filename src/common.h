@@ -602,15 +602,21 @@ typedef struct RiderTemp {
 typedef struct RiderBase {
     Actor* unk0;
     RiderTemp* unk4;
-    unk8 pad8[4];
+    unk8 unk8;
+    unk8 unk9;
+    unk8 padA[2];
     unk32 unkC;
     s32 unk10;
     unk32 unk14;
-    unk8 pad18[4];
+    unk32 unk18;
     unk32 unk1C;
-    unk8 pad20[0x10];
+    unk32 unk20;
+    unk32 unk24;
+    unk32 unk28;
+    unk32 unk2C;
     unk32 unk30; /* 0x30 */
-    unk8 pad34[8];
+    unk32 unk34;
+    unk32 unk38;
     unk32 unk3C; /* 0x3C */
     unk32 unk40; /* 0x40 */
     unk32 unk44; /* 0x44 */
@@ -624,30 +630,50 @@ typedef struct RiderBase {
     unk32 unk74; /* 0x74 */
     unk8 pad78[8];
     s32 unk80;
-    unk8 pad84[0xC];
+    unk8 pad84[4];
+    unk32 unk88;
+    unk8 pad8C[4];
     unk32 unk90;
-    unk8 pad94[8];
+    unk8 pad94[4];
+    unk16 unk98;
+    unk8 pad9A[2];
     unk32 flags;
     unk32 unkA0; /* 0xA0 */
     unk32 unkA4;
-    unk8 padA8[0x10];
+    unk32 unkA8;
+    unk32 unkAC;
+    unk32 unkB0;
+    unk8 padB4[4];
     SpriteEntry* unkB8;
     unk32 unkBC;
     unk8 padC0[0xC];
     unk32 unkCC; /* 0xCC */
-    unk8 padD0[0x1C];
+    unk8 padD0[0x14];
+    struct GeometryLine* unkE4;
+    unk8 padE8[4];
     struct GeometryLine* unkEC;
     unk8 padF0[0x54];
     unk16 unk144; /* 0x144 */
     unk8 pad146[0xA];
     unk16 unk150; /* 0x150 */
-    unk8 pad152[0x1A];
+    unk8 pad152[2];
+    unk32 unk154;
+    unk32 unk158;
+    unk32 unk15C;
+    unk8 pad160[0xC];
     unk32 unk16C;
     s32 unk170;
     unk8 pad174[0x24];
     unk32 unk198;
     unk32 unk19C; /* 0x19C */
-    unk8 pad1A0[0x24];
+    unk32 unk1A0;
+    unk32 unk1A4;
+    unk8 pad1A8[0x10];
+    unk16 unk1B8;
+    unk8 pad1BA[2];
+    s32 unk1BC;
+    unk8 unk1C0;
+    unk8 pad1C1[3];
     unk16 unk1C4;
     unk8 pad1C6[2];
     unk16 unk1C8;
@@ -662,14 +688,14 @@ typedef struct RiderBase {
     s32 unk208; /* 0x208 */
     struct RiderBase* unk20C;
     s32 unk210; /* 0x210 */
-    unk8 pad214[4];
-    unk16 unk218; /* 0x218 */
-    unk16 unk21A; /* 0x21A */
+    struct GeometrySpline* unk214;
+    s16 unk218; /* 0x218 */
+    s16 unk21A; /* 0x21A */
     unk16 unk21C; /* 0x21C */
     unk16 unk21E; /* 0x21E */
     s16 unk220; /* 0x220 */
     s16 unk222; /* 0x222 */
-    unk8 pad224[4];
+    s32 unk224;
     unk16 unk228; /* 0x228 */
     unk16 unk22A; /* 0x22A */
     unk16 unk22C; /* 0x22C */
@@ -734,7 +760,8 @@ typedef struct GeometrySpline {
 } GeometrySpline;
 
 typedef struct GeometrySplineLine {
-    unk8 pad0[0x10];
+    unk8 pad0[0xC];
+    s32 unkC;
 } GeometrySplineLine;
 
 typedef struct LevelGeometryTable LevelGeometryTable;

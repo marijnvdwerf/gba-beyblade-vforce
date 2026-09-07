@@ -25,4 +25,10 @@ s32 sub_804E258(s32, s32, s32, unk8, unk32, s32);
 void sub_804DAA0(RiderBase*, RiderBase*);
 unk32 rider_vs_rider_collision_804DB94(RiderBase*, RiderBase*);
 
+void sub_804D710(RiderBase*);
+void sub_804D754(RiderBase*);
+void sub_804D8D8(RiderBase*);
+void sub_804DDF8(RiderBase*, Actor*);
+void sub_804DFF4(RiderBase*);
+
 #endif

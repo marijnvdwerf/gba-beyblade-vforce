@@ -854,3 +854,29 @@ ARM-target layout checks confirm offsets 0x1C4, 0x1C8, 0x1FC, 0x22E, 0x230,
 and the following field at 0x234. All previously matched code remains identical
 under the full ROM check. Instruction diff is exact; ROM SHA1 compare passes:
 `cd527c8c24e20e33913fc45199e64b3e6138a6e5`.
+
+## sub_804D110 — 0x0804D110 (matched)
+
+- Committed the preceding sub_804CB08 match as `6c82e673` before starting.
+- Confirmed mainLoop reachability and read the caller in rider.c: rider plus its Actor. Ran m2c against the original dump; replaced the parked draft in the same TU position.
+- Corrected draft semantics: E258 receives period 0xFFF then scale 0x40; the player speed decrement has no extra threshold; player death sets 0x8000000; the AI branch repeats the 0x4000000 test, regenerates only at speeds 0x201..0xBFF, blinks at <=0x100, and uses death flag 0x1000. The timer-zero test is outside the decrement condition. Landing/history updates each retain their separate flag calls; the final helper condition uses 0x200.
+- Extended only accessed RiderBase fields. Signed loads prove unk218/unk21A are s16; arithmetic shifts prove unk224 and GeometrySplineLine.unkC are s32; signed height comparison proves unk1BC is s32. All new offsets and the unchanged 0x428 RiderBase / 0x10 GeometrySplineLine sizes checked with ARM-target clang typedef assertions.
+
+Experiments (offsets relative to function start):
+
+| Change | Result |
+| --- | --- |
+| Correct semantic draft, direct field expressions | First substantive mismatch +0x344: direction assignment/reload; extra ldrb, plus spline load ordering |
+| Keep wide direction for both byte store and comparison | Removes direction reload and size delta |
+| Stage angular velocity as s16 | Still delays ldsh until after line load/shift at +0x3E8 |
+| Stage angular velocity as s32 | Exact instruction match; full ROM compare passes |
+| Fold line pointer into the later expression | Changes helper/read ordering and register lifetimes; first mismatch +0xE; rejected |
+| Fold angle sum `value` into final assignment | First mismatch +0x2FC; moves unk10 load/add past unk6C update; rejected |
+| Fold angular velocity into multiplication | Moves line load/shift before signed-halfword load; rejected |
+| Use s8 oldDirection instead of unk8 plus expression cast | Byte-identical; removes the cast |
+| Use unk32 for value and direction | Byte-identical; retained default types |
+| Flatten nested transition tests into && | Byte-identical |
+
+Retained temporaries: delta is reused and must be signed for asr #4; oldDirection preserves the pre-update byte and sign-extends at the comparison; direction serves the store and comparison without an unwanted reload; value stages the angle sum before the other angle update; line keeps the helper call before the angular-velocity read; s32 angularVelocity forces signed extension before the line field load. No raw offset accesses or artificial casts are needed. Direct blink-helper expressions naturally load unk4 before the random helper call.
+
+Final source formatted, instruction diff exact, full ROM compare passed with SHA1 `cd527c8c24e20e33913fc45199e64b3e6138a6e5`. Removed the assembly dump after verification. New match left uncommitted pending the next user request.

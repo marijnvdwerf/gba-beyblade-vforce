@@ -12,4 +12,7 @@ void sub_80539E8(Actor*);
 void sub_80538C0(void);
 void sub_8053954(void);
 
+void sub_8053920(void);
+void sub_8053E18(u8);
+
 #endif
