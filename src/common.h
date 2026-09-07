@@ -656,15 +656,15 @@ typedef struct RiderBase {
     struct GeometryLine* unk200; /* 0x200 */
     unk8 pad204[4];
     s32 unk208; /* 0x208 */
-    unk8 pad20C[4];
-    unk32 unk210; /* 0x210 */
+    struct RiderBase* unk20C;
+    s32 unk210; /* 0x210 */
     unk8 pad214[4];
     unk16 unk218; /* 0x218 */
     unk16 unk21A; /* 0x21A */
     unk16 unk21C; /* 0x21C */
     unk16 unk21E; /* 0x21E */
-    unk16 unk220; /* 0x220 */
-    unk16 unk222; /* 0x222 */
+    s16 unk220; /* 0x220 */
+    s16 unk222; /* 0x222 */
     unk8 pad224[4];
     unk16 unk228; /* 0x228 */
     unk16 unk22A; /* 0x22A */

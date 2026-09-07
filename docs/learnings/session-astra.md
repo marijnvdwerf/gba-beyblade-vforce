@@ -652,3 +652,96 @@ void sub_804DFF4(RiderBase* rider)
 
 Final compare (assembly active):
 `cd527c8c24e20e33913fc45199e64b3e6138a6e5` — passes.
+
+
+# sub_804DAA0 — matched 2026-09-07
+
+Address: `0x0804DAA0`; translation unit: `src/riderphysics.c`.
+
+Reachable from mainLoop through the rider-pair loop. Read the parked C caller
+in rider.c and its assembly call. It passes two riders after their collision
+check. This function orders them by flag 0x04000000, checks eligibility and
+squared distance, sets a rider flag/timer, and records the other rider.
+m2c confirms the rider swap and distance test; it cannot decode the two ldsh
+instructions, whose signedness was read directly from the target.
+
+Added RiderBase.unk20C as RiderBase*. Corrected unk210 to s32 for the signed
+distance comparison, and unk220/unk222 to s16 for the two signed halfword loads.
+No other layout fields were added. All six actor coordinates must be staged
+before calculating differences, following the target load order. Swapping the
+actual parameter variables avoids keeping redundant copies of the original
+arguments live across the initial flag check.
+
+## Controlled experiments
+
+| Change | First divergence | Outcome |
+| --- | --- | --- |
+| Typed parked draft, signed fields and six staged coordinates | +0x06: original argument retained in r4; extra parameter copies | Near match |
+| Swap rider/other parameters with one temporary | None | Full ROM SHA1 passes |
+| Fold value0 while value1 remains cached | +0x92: literal load order changes | Rejected initially |
+| Fold value1 | None | Removed |
+| Fold distance | None | Removed |
+| Fold x0, y0, or z0 individually | +0x58: first actor pointer in r4 instead of r0 | Rejected |
+| Fold x1 | +0x64: y1 loads before x1 | Rejected |
+| Fold y1 or z1 individually | +0x5A: actor pointer register changes | Rejected |
+| Fold pos0 or pos1 alias individually | +0x58 or +0x5A: actor load ordering changes | Rejected |
+| Fold value0 again after removing value1 | None | Removed |
+| Inline repeated flag constant | None | Removed flags local |
+
+The value0/value1 result demonstrates interacting simplifications: one cached
+halfword alone changes load order, while direct comparison of both fields is
+byte-identical. The retained coordinate locals and actor pointers were each
+independently tested and are byte-required. The swap temporary is ordinary
+source-level swapping; no artificial shapes or register controls are needed.
+
+ARM-target offset checks pass for unk20C/unk210/unk220/unk222. The shared
+signedness corrections preserve all other matched code under the ROM check.
+
+Final source:
+
+```c
+void sub_804DAA0(RiderBase* rider, RiderBase* other)
+{
+    RiderBase* temp;
+    Actor* pos0;
+    Actor* pos1;
+    s32 x0, y0, z0;
+    s32 x1, y1, z1;
+    s32 dx;
+    s32 dy;
+    s32 dz;
+
+    if (RiderHasFlag(rider, 0x04000000) == 0) {
+        temp = rider;
+        rider = other;
+        other = temp;
+    }
+    if (RiderHasFlag(rider, 0x04000000) != 0 && RiderHasFlag(other, 0x04000000) == 0
+        && RiderHasFlag(rider, 1) == 0 && RiderHasFlag(rider, 0x40) == 0) {
+        pos0 = rider->unk0;
+        pos1 = other->unk0;
+        x0 = pos0->x;
+        y0 = pos0->y;
+        z0 = pos0->z;
+        x1 = pos1->x;
+        y1 = pos1->y;
+        z1 = pos1->z;
+        dx = (x1 - x0) >> 8;
+        dy = (y1 - y0) >> 8;
+        dz = (z1 - z0) >> 8;
+        if (dx * dx + dy * dy + dz * dz < rider->unk210) {
+            if (rider->unk220 > rider->unk222) {
+                SetRiderFlag(rider, 0x40);
+                rider->unk21E = 0x3C;
+            } else {
+                SetRiderFlag(rider, 1);
+                rider->unk21E = rider->unk21C;
+            }
+            rider->unk20C = other;
+        }
+    }
+}
+```
+
+Instruction diff is exact; full ROM SHA1 compare passes:
+`cd527c8c24e20e33913fc45199e64b3e6138a6e5`.
