@@ -314,7 +314,7 @@ Agent prompts), /tmp/learnings-prompts.md (72 fold/learnings prompts across
 - `uv run tools/asm-annotated.py src/<f>.c <fn> [--all-passes]` — agbcc asm
   plus `.lreg`/`.greg` dumps for the current C (allocator priority ≈
   refs / live_length is readable there).
-- `uv run tools/worklist.py` — functions called from C but still asm.
+- `uv run tools/todo.py [--color red|yellow]` — functions reachable from mainLoop still not matched, with sizes.
 - `uv run tools/lint.py src/*.c` — lint (first check: prototypes for functions
   defined in another TU → belong in that TU's header); exit 1 on findings.
   Header pass (c5146ca..bac86d6) done: lint exits 0; every cross-TU prototype

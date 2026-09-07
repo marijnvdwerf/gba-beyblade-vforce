@@ -127,6 +127,7 @@ class Function:
     kind: str  # "c", "provisional", or "unknown"
     calls: list[str] = field(default_factory=list)
     indirect_names: set[str] = field(default_factory=set)
+    indirect_sites: list[tuple[str, str, str | None]] = field(default_factory=list)
     synthetic: bool = False
     special_kind: str = ""  # "runtime" or "data"
     data_targets: tuple[str, ...] = ()
@@ -275,16 +276,29 @@ def function_pointer_names(body, source: bytes) -> set[str]:
 
 def extract_c_calls(
     body, source: bytes, macros: set[str], invert_literal_zero: bool
-) -> list[str]:
+) -> tuple[list[str], list[tuple[str, str, str | None]]]:
     calls: list[tuple[int, str]] = []
+    indirect_sites: list[tuple[str, str, str | None]] = []
     for node in iter_active_nodes(body, source, invert_literal_zero):
         if node.type != "call_expression":
             continue
-        name = call_target_name(node.child_by_field_name("function"), source)
-        if name is None or name in CONTROL_WORDS or name in macros:
+        function_node = node.child_by_field_name("function")
+        name = call_target_name(function_node, source)
+        if name is None:
+            if function_node is not None and function_node.type == "field_expression":
+                field = function_node.child_by_field_name("field")
+                if field is not None:
+                    field_name = node_text(source, field)
+                    if field_name not in INDIRECT_FIELD_NAMES:
+                        argument = function_node.child_by_field_name("argument")
+                        indirect_sites.append(("field", field_name, None))
+            continue
+        if name in CONTROL_WORDS or name in macros:
             continue
         calls.append((node.start_byte, name))
-    return [name for _, name in sorted(calls)]
+        if name in INDIRECT_LOCAL_NAMES:
+            indirect_sites.append(("local", name, None))
+    return [name for _, name in sorted(calls)], indirect_sites
 
 
 def add_function(functions: Functions, function: Function) -> None:
@@ -317,17 +331,19 @@ def index_c_sources(functions: Functions) -> None:
                 if name is None:
                     continue
                 body = node.child_by_field_name("body")
+                calls, indirect_sites = (
+                    extract_c_calls(body, source, macros, invert_literal_zero)
+                    if body is not None
+                    else ([], [])
+                )
                 add_function(
                     functions,
                     Function(
                         name=name,
                         file=relpath(path),
                         kind=kind,
-                        calls=(
-                            extract_c_calls(body, source, macros, invert_literal_zero)
-                            if body is not None
-                            else []
-                        ),
+                        calls=calls,
+                        indirect_sites=indirect_sites,
                         indirect_names=function_pointer_names(body, source),
                     ),
                 )
@@ -601,8 +617,10 @@ def build_handler_tables() -> tuple[dict[str, list[str]], dict[str, list[str]]]:
     return nodes, slots_by_name
 
 
-def resolve_indirect_calls(functions: Functions) -> None:
+def resolve_indirect_calls(functions: Functions) -> set[tuple[str, str, str, str | None]]:
     nodes, slots_by_name = build_handler_tables()
+    unresolved: set[tuple[str, str, str, str | None]] = set()
+    covered_callback_fields = {name.rsplit(".", 1)[-1] for name in CALLBACK_NAMES if "." in name}
     for node, children in nodes.items():
         functions[node] = Function(
             name=node, file="", kind="unknown", calls=children, synthetic=True
@@ -623,12 +641,18 @@ def resolve_indirect_calls(functions: Functions) -> None:
                 ]
             elif target in function.indirect_names or target in INDIRECT_LOCAL_NAMES:
                 replacements = []
+                if (function.name, target) not in INDIRECT_SITES:
+                    unresolved.add((function.name, "local", target, None))
             else:
                 replacements = [target]
             for replacement in replacements:
                 if replacement not in resolved:
                     resolved.append(replacement)
+        for kind, name, struct_type in function.indirect_sites:
+            if (kind == "field" and name not in covered_callback_fields and name not in INDIRECT_FIELD_NAMES):
+                unresolved.add((function.name, kind, name, struct_type))
         function.calls = resolved
+    return unresolved
 
 
 def add_callbacks(functions: Functions) -> None:
@@ -695,13 +719,13 @@ def resolve_all_edges(functions: Functions) -> None:
         function.calls = resolved
 
 
-def build_index() -> Functions:
+def build_index() -> tuple[Functions, set[tuple[str, str, str, str | None]]]:
     functions: Functions = OrderedDict()
     index_c_sources(functions)
-    resolve_indirect_calls(functions)
+    unresolved = resolve_indirect_calls(functions)
     add_callbacks(functions)
     resolve_all_edges(functions)
-    return functions
+    return functions, unresolved
 
 
 def resolve_root(functions: Functions, requested: str) -> str:
@@ -792,10 +816,31 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
 
 def main(argv: Iterable[str] | None = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
-    functions = build_index()
+    functions, unresolved = build_index()
     root = resolve_root(functions, args.root)
     try:
         print(render(functions, root))
+        reachable = set()
+        pending = [root]
+        if root not in CALLBACK_NAMES:
+            pending.extend(CALLBACK_NODE_NAMES)
+        while pending:
+            name = pending.pop()
+            if name in reachable:
+                continue
+            reachable.add(name)
+            pending.extend(functions.get(name, Function(name, "", "unknown")).calls)
+        sites = sorted(site for site in unresolved if site[0] in reachable)
+        if sites:
+            print("\n⚠ unresolved indirect calls (add a CALLBACKS/HANDLER_TABLES entry):")
+            seen = set()
+            for function, kind, name, struct_type in sites:
+                key = (function, kind, name)
+                if key in seen:
+                    continue
+                seen.add(key)
+                detail = f" ({struct_type})" if struct_type else ""
+                print(f"{function}: {kind} {name}{detail}")
     except BrokenPipeError:
         # Be friendly to ordinary Unix pipelines such as `| head`.
         return 0
