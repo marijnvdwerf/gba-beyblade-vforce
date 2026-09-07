@@ -294,7 +294,6 @@ void processMetadata_4(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
 void processMetadata_5(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
     LineMetadata* arg3, LineMetaObject* event)
 {
-    EnvironmentObject* target;
     GeometrySpline* found;
     GeometryPoint* point;
     Actor* actor;
@@ -305,8 +304,7 @@ void processMetadata_5(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     s32 z;
     s32 index;
 
-    target = GetStruct4(lineIndex);
-    actor = target->actor;
+    actor = GetStruct4(lineIndex)->actor;
     found = NULL;
     if (actor != NULL) {
         for (index = 0; index < arg0->unk0->count.splineCountWord; index++) {
@@ -327,7 +325,7 @@ void processMetadata_5(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
                 z = (point->z << 5) - actor->z;
                 sub_805C3BC(arg0, actor, splineIndex, pointIndex << 10);
                 actor->unk40 = event->unk8.transform.y;
-                actor_80585F0((UnkActor*)actor, 0xA);
+                actor_80585F0(actor, 0xA);
                 actor->unk9A = x >> 8;
                 actor->unk9C = y >> 8;
                 actor->unk9E = z >> 8;

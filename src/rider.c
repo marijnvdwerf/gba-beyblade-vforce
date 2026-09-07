@@ -41,7 +41,7 @@ void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4,
     actor_8057C58(actor, actorConfig, arg1, arg2, arg3, arg4, -1);
     ActorSetSpriteOffset(actor, 0xF, 0x14);
     rider_8058614(actor, 0, 0, 4);
-    actor_80585F0((UnkActor*)actor, 7);
+    actor_80585F0(actor, 7);
     actor_80585F8(actor, -1, -1, 1, 1);
     actor->unk90 = (unk32)_unk3000FD0;
     actor->unk94 = (unk32)_unk3000FC0;
@@ -472,7 +472,7 @@ void renderRider(RiderBase* rider)
     Actor* actor;
     Actor* actor2;
     SpriteEntry* sprite;
-    void (*positionFunc)(Actor*, unk32*);
+    ActorPositionFunc positionFunc;
     s32 position[3];
     s32 x;
     s32 y;

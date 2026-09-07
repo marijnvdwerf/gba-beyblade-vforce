@@ -143,7 +143,7 @@ void renderActor(Actor* actor, unk32 arg1)
     RenderActorDraft* self;
     s32 x = 0, y = 0;
     s32 position[3];
-    void (*callback)(Actor*, unk32*);
+    ActorPositionFunc callback;
     unk32 oam;
     unk32 priority;
     SpriteEntry* oldSprite;
@@ -454,7 +454,7 @@ void sub_80585C8(Actor* actor, unk32 arg1)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/80585e8.s");
 
-void actor_80585F0(UnkActor* arg0, unk8 arg1)
+void actor_80585F0(Actor* arg0, unk8 arg1)
 {
     arg0->unk8D = arg1;
 }

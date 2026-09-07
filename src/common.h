@@ -376,11 +376,6 @@ typedef struct UnkTrail {
     unk16 unk2C;
 } UnkTrail;
 
-typedef struct UnkActor {
-    unk8 unk0[0x8D];
-    unk8 unk8D;
-} UnkActor;
-
 typedef struct ActorFrame {
     unk8 unk0;
     unk8 unk1;
@@ -467,7 +462,9 @@ typedef struct Actor {
     struct AllocatedBlock* unk7C;
     void* unk80;
     s32 unk84;
-    unk8 pad88[8];
+    unk8 pad88[5];
+    unk8 unk8D; /* 0x8D */
+    unk8 pad8E[2];
     ActorCollisionCallbacks callbacks;
     unk8 unk98;
     unk8 pad99[1];
@@ -546,8 +543,6 @@ typedef struct EnvironmentActorAllocation {
     EnvironmentPointEntry* points;
     unk32 callbacks[4];
 } EnvironmentActorAllocation;
-
-struct Actor;
 
 typedef struct SpriteStringActorBlock SpriteStringActorBlock;
 
