@@ -521,6 +521,77 @@ void sub_804D754(RiderD754Draft* rider)
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d754.s");
 
+#if 0
+s16 sub_8057878(s16, s16);
+
+void sub_804D8D8(RiderBase* rider)
+{
+    s32 x;
+    s32 y;
+    s32 maxX;
+    s32 maxY;
+    s32 dirX;
+    s32 dirY;
+    s32 length;
+    s16 angle;
+    s32 speedX;
+    s32 speedY;
+
+    speedX = rider->unk50;
+    speedY = rider->unk52;
+    maxX = rider->unk54;
+    maxY = rider->unk58;
+    x = rider->unk40;
+    y = rider->unk44;
+    dirX = (x * speedX) >> 8;
+    dirY = (y * speedY) >> 8;
+    if (RiderHasFlag(rider, 0x100000) != 0)
+        maxX = maxY;
+    if (RiderHasFlag(rider, 0x400000) == 0)
+        maxY = rider->unk56;
+    else
+        maxY = rider->unk5A;
+    if (maxX > (x < 0 ? -x : x)) {
+        dirX = x;
+        UnsetRiderFlag(rider, 0x100000);
+    } else {
+        SetRiderFlag(rider, 0x100000);
+    }
+    if (maxY > (y < 0 ? -y : y)) {
+        dirY = y;
+        UnsetRiderFlag(rider, 0x400000);
+    } else {
+        SetRiderFlag(rider, 0x400000);
+    }
+    if (dirX == 0 && x != 0) {
+        dirX = 1;
+        if (x < 0)
+            dirX = -1;
+    }
+    if (dirY == 0 && y != 0) {
+        dirY = 1;
+        if (y < 0)
+            dirY = -1;
+    }
+    x -= dirX;
+    y -= dirY;
+    rider->unk8C = y;
+    rider->unk60 = x;
+    rider->unk40 = x;
+    rider->unk44 = y;
+    rider->unk48 -= x;
+    rider->unk4C -= y;
+    length = Sqrt(x * x + y * y);
+    length = (unk16)length;
+    rider->unk5C = (x << 8) / length;
+    rider->unk5E = (y << 8) / length;
+    angle = sub_8057878(rider->unk5C, rider->unk5E);
+    rider->unk62 = angle;
+    rider->unk64 = length;
+    rider->unk68 = 0;
+}
+
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d8d8.s");
 
 void nullsub_5(void)
