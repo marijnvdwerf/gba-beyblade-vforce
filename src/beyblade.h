@@ -7,9 +7,9 @@
 typedef struct TalkingHead {
     unk8 pad0[0x18];
     const unk8* unk18;
-    unk8 pad1C[4];
+    const unk16* unk1C;
     const unk8* unk20;
-    unk8 pad24[4];
+    const unk16* unk24;
 } TalkingHead;
 
 void emptyBeybladeActorData(void);

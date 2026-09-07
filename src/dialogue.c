@@ -15,10 +15,82 @@
 #include "teletype.h"
 #include "tutorial.h"
 
-INCLUDE_ASM("asm/dump/8040d18/8041ea0-teletypeDefaultUserCodeHandler.s");
-
 extern const unk8 SpriteSheet_821CB80[];
-void teletypeDefaultUserCodeHandler(TeletypeState*, unk32);
+extern const unk8 Str_86FCF58[];
+
+void teletypeDefaultUserCodeHandler(TeletypeState* state, unk32 command)
+{
+    unk32 value;
+    EffectSprites* effects;
+    unk8 sideA;
+    TalkingHead* head;
+    unk32 code;
+
+    code = (command & 0x7F000000) >> 24;
+    value = command & 0xFFFFFF;
+    effects = _unk3000EE8;
+    if (command & 0x80000000) {
+        value = -value;
+    }
+    switch (code) {
+    case 0x50:
+    case 0x70:
+        sub_80640F8(state);
+        sub_80640F8(state);
+        break;
+    case 0x41:
+    case 0x61:
+        sideA = code == 0x61;
+        head = GetTalkingHead(value);
+        sub_8055C04(effects, sideA, sideA != 0 ? head->unk20 : head->unk18,
+            sideA != 0 ? head->unk24 : head->unk1C);
+        if (sub_8055C18(effects, sideA) != 0) {
+            sub_8055B7C(effects, sideA);
+            return;
+        }
+        sub_8055B64(effects, sideA);
+        return;
+    case 0x42:
+    case 0x62:
+        sub_8055B7C(effects, code == 0x62);
+        break;
+    case 0x56:
+    case 0x76:
+        sub_8055BA0(effects, code == 0x76, value);
+        break;
+    case 0x51:
+    case 0x71:
+        sub_8055BC0(effects, code == 0x71, 1);
+        break;
+    case 0x55:
+    case 0x75:
+        sub_8055BC0(effects, code == 0x75, 0);
+        break;
+    case 0x54:
+    case 0x74:
+        _unk3000EEC.unk0 = (_unk3000EEC.unk0 | 1) & 0xFFFFFCFF;
+        _unk3000EEC.unk0 |= (value & 3) << 8;
+        break;
+    case 0x46:
+    case 0x66:
+        _unk3000EEC.unk0 = (_unk3000EEC.unk0 | 2) & 0xFFFFC3FF;
+        _unk3000EEC.unk0 |= (value << 10) & 0x3C00;
+        break;
+    case 0x63:
+        sub_8064130(state);
+        break;
+    case 0x43:
+        pushTeletypeStringPalette(state, value);
+        break;
+    case 0x4E:
+    case 0x6E:
+        sub_80640F8(state);
+        break;
+    default:
+        printf(Str_86FCF58, code);
+        break;
+    }
+}
 
 void sub_80420C4(FrontendState* state, unk32 command)
 {

@@ -51,6 +51,9 @@ TeletypeState* sub_8063E18(const unk8*, const FontStyle*, unk32, unk32, unk32, u
 void sub_8063F5C(TeletypeState*, TeletypeCallback);
 void sub_8063F64(TeletypeState*);
 void sub_8063F84(TeletypeState*);
+void sub_80640F8(TeletypeState*);
+void pushTeletypeStringPalette(TeletypeState*, unk8);
+void sub_8064130(TeletypeState*);
 void sub_806415C(TeletypeState*);
 unk8 sub_806417C(TeletypeState*);
 unk8 sub_8064188(TeletypeState*);

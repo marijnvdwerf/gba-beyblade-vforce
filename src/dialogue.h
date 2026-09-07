@@ -12,7 +12,7 @@ typedef struct DialogueState {
 
 extern TeletypeState* _unk300007C;
 extern EffectSprites _unk3000080;
-extern void* _unk3000EE8;
+extern EffectSprites* _unk3000EE8;
 extern DialogueState _unk3000EEC;
 extern s32 _unk30000BC;
 extern s32 _unk30000C0;
