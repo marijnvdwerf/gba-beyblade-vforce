@@ -4,15 +4,18 @@
 #include "common.h"
 #include "ram.h"
 
+typedef unk8 (*QuadTreeLineFilter)(LevelGeometryAddresses*, GeometryLine*);
+
 LevelGeometryTable* loadLevelGeometry(u16);
 LineMetadata** getLevelMetadata(u16);
 void getLevelGeometryAddresses(LevelGeometryAddresses*, LevelGeometryTable*);
 void StoreMetadataAddr(LevelGeometryAddresses*, LineMetadata**);
 void newCollisionDataRam(LevelGeometryAddresses*, LevelGeometryTable*, unk16);
 void initQuadTree(QuadTree*, LevelGeometryAddresses*, unk16, unk16, unk16, unk16);
-void allocQuadTree(QuadTree*, LevelGeometryAddresses*, unk16, unk16, unk16, unk16, unk32);
+void allocQuadTree(
+    QuadTree*, LevelGeometryAddresses*, unk16, unk16, unk16, unk16, QuadTreeLineFilter);
 void allocateDynamicBoundingAreas(QuadTree*, LevelGeometryAddresses*);
-QuadTreeNode* initQuadTreeNode(QuadTree*, QuadTreeNode*, s32, s32, s32, s32, unk32);
+QuadTreeNode* initQuadTreeNode(QuadTree*, QuadTreeNode*, s32, s32, s32, s32, QuadTreeLineFilter);
 QuadTreeNode* GetQuadTreeNodeForPos(QuadTree*, s32, s32);
 void sub_805BDBC(QuadTree*, LevelGeometryAddresses*);
 LineMetadata* GetLineMetaData(LevelGeometryAddresses*, unk32);

@@ -697,8 +697,8 @@ typedef struct GeometryPoint {
 } GeometryPoint;
 
 typedef struct GeometryLine {
-    unk32 point0;
-    unk32 point1;
+    s32 point0;
+    s32 point1;
     unk8 unk8;
     unk8 pad9[7];
     unk8 unk10;

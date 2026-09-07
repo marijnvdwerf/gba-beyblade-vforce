@@ -286,3 +286,192 @@ void sub_805BDBC(QuadTree* quadTree, LevelGeometryAddresses* geometry)
 
 Instruction diff is exact and full ROM SHA1 compare passes:
 `cd527c8c24e20e33913fc45199e64b3e6138a6e5`.
+
+
+# initQuadTreeNode — matched 2026-09-07
+
+Address: `0x0805C040`; translation unit: `src/geometry.c`.
+
+Reachable through mainLoop -> allocQuadTree and recursively through itself.
+Read all four allocQuadTree calls and the recursive calls. The outer calls
+supply a tree, node, four signed bounds, and an optional callback. The callback
+receives LevelGeometryAddresses*, not its underlying LevelGeometryTable*,
+and returns a byte (the target normalizes the return with lsl #24). Added
+QuadTreeLineFilter and propagated it through allocQuadTree and the public
+prototype. The callback invocation now uses the geometry wrapper directly.
+
+Recovered behavior: scan non-dynamic lines, test expanded line bounds against
+the node, collect line pointers, and recursively split crowded nodes if they
+are larger than 0x7F in both dimensions. Children belong to node->unk0/4/8/C,
+not quadTree->unk14; the parked draft used the wrong owner. Child allocation
+uses four post-increments of the halfword node count, retaining the target's
+halfword wrap at each index. The local dynamicIndex is s32 (signed comparison
+and unnormalized increments), narrowed only when stored to quadTree->unk3A.
+
+Corrected GeometryLine.point0 and point1 to s32, as the target explicitly
+rejects negative indices. Added only node->unk10, a GeometryLine** field
+previously covered by padding. The remaining fields and layouts already exist.
+All four point coordinates are loaded before either axis is sorted, following
+the target's load order. Flags initialize after padding the bounds, not before
+the callback. The initial loop entry compares selectedCount, which is zero,
+against lineCount; subsequent iterations compare lineIndex.
+
+## Controlled experiments
+
+| Change | First divergence | Result |
+| --- | --- | --- |
+| Typed draft with the semantic, signedness, coordinate-order and child-allocation corrections above | +0x1AA: centerY add operands reversed; return paths also merged/reversed | Same function size; ROM differs |
+| Write centerY as minY + half-height and end with zero-count early return | None | Full ROM SHA1 passes |
+| Fold width into the split condition | +0x0A: stack allocation 40 instead of 48 bytes | Rejected |
+| Fold height into the split condition | +0x0A: stack allocation 44 instead of 48 bytes | Rejected |
+| Restore both byte-required locals and format | None | Full ROM SHA1 passes |
+
+The width and height locals each have one use but preserve values computed
+before the scan, and independently removing either breaks the match. Other
+locals are reused; no additional single-use aliases remain. No artificial
+branches, register pinning, volatile, or raw offset accesses are needed.
+
+ARM-target layout checks confirm node size 0x2C, node line/entry pointers at
+0x10/0x14, halfword counts at 0x28/0x2A, GeometryLine size 0x20 with point
+indices at 0/4, and QuadTree size 0x58. Signedness and callback prototype
+corrections preserve all previously matched bytes under the full ROM check.
+
+Final source:
+
+```c
+QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX, s32 minY, s32 maxX,
+    s32 maxY, QuadTreeLineFilter callback)
+{
+    LevelGeometryAddresses* geometry;
+    GeometryLine* line;
+    GeometryPoint* points;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    s32 width;
+    s32 height;
+    s32 lineIndex;
+    s32 selectedCount;
+    s32 dynamicIndex;
+    s32 containedCount;
+    s32 left;
+    s32 right;
+    s32 top;
+    s32 bottom;
+    unk16 flags;
+    s32 i;
+
+    geometry = quadTree->unk10;
+    line = geometry->unkC;
+    points = geometry->unk4;
+    selectedCount = 0;
+    dynamicIndex = quadTree->unk3A;
+    containedCount = 0;
+    node->unk18 = minX;
+    node->unk20 = maxX;
+    node->unk1C = minY;
+    node->unk24 = maxY;
+    width = maxX - minX;
+    height = maxY - minY;
+    lineIndex = 0;
+    if (selectedCount < geometry->unk0->lineCount) {
+        do {
+            point0 = &points[line->point0];
+            point1 = &points[line->point1];
+            if ((line->unk11 & 8) == 0 && (callback == NULL || callback(geometry, line) != 0)
+                && line->point0 >= 0 && line->point1 >= 0) {
+                left = point0->x;
+                top = point0->y;
+                right = point1->x;
+                bottom = point1->y;
+                if (left > right) {
+                    i = right;
+                    right = left;
+                    left = i;
+                }
+                if (top > bottom) {
+                    i = bottom;
+                    bottom = top;
+                    top = i;
+                }
+                left -= 0x10;
+                right += 0x10;
+                top -= 0x10;
+                bottom += 0x10;
+                flags = 0;
+                if (left >= minX && left <= maxX) {
+                    flags = 1;
+                }
+                if (right >= minX && right <= maxX) {
+                    flags |= 1;
+                }
+                if (top >= minY && top <= maxY) {
+                    flags |= 2;
+                }
+                if (bottom >= minY && bottom <= maxY) {
+                    flags |= 2;
+                }
+                if (left <= minX && right >= maxX && (flags & 2) != 0) {
+                    flags = 3;
+                }
+                if (top <= minY && bottom >= maxY && (flags & 1) != 0) {
+                    flags = 3;
+                }
+                if (left <= minX && right >= maxX && top <= minY && bottom >= maxY) {
+                    flags = 3;
+                    containedCount += 1;
+                }
+                if (flags == 3) {
+                    if (dynamicIndex < quadTree->unk40) {
+                        quadTree->unk30[dynamicIndex] = line;
+                        dynamicIndex += 1;
+                    } else {
+                        printf(Str_875557C);
+                    }
+                    selectedCount += 1;
+                }
+            }
+            line++;
+            lineIndex += 1;
+        } while (lineIndex < geometry->unk0->lineCount);
+    }
+    if (selectedCount > quadTree->unk3C && containedCount < quadTree->unk3C && width > 0x7F
+        && height > 0x7F) {
+        s32 centerX;
+        s32 centerY;
+
+        centerX = ((maxX - minX) >> 1) + minX;
+        centerY = minY + ((maxY - minY) >> 1);
+        node->unk10 = NULL;
+        node->unk14 = NULL;
+        node->unk28 = 0;
+        node->unk2A = 0;
+        if (quadTree->unk38 + 4 >= quadTree->unk3E) {
+            printf(Str_87555A8);
+        }
+        node->unk0 = &quadTree->unk2C[quadTree->unk38++];
+        node->unk4 = &quadTree->unk2C[quadTree->unk38++];
+        node->unk8 = &quadTree->unk2C[quadTree->unk38++];
+        node->unkC = &quadTree->unk2C[quadTree->unk38++];
+        node->unk0 = initQuadTreeNode(quadTree, node->unk0, minX, minY, centerX, centerY, callback);
+        node->unk4 = initQuadTreeNode(quadTree, node->unk4, centerX, minY, maxX, centerY, callback);
+        node->unk8 = initQuadTreeNode(quadTree, node->unk8, minX, centerY, centerX, maxY, callback);
+        node->unkC = initQuadTreeNode(quadTree, node->unkC, centerX, centerY, maxX, maxY, callback);
+        return node;
+    }
+    node->unk28 = selectedCount;
+    node->unk2A = 0;
+    node->unk14 = NULL;
+    node->unk10 = quadTree->unk30 + quadTree->unk3A;
+    quadTree->unk3A = dynamicIndex;
+    if (selectedCount > 0x20) {
+        printf(Str_87555F0, selectedCount, 0x20);
+    }
+    if (selectedCount == 0) {
+        return NULL;
+    }
+    return node;
+}
+```
+
+Instruction diff is exact; full-ROM SHA1 compare passes:
+`cd527c8c24e20e33913fc45199e64b3e6138a6e5`.

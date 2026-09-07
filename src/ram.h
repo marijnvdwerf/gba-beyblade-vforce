@@ -71,7 +71,7 @@ typedef struct QuadTreeNode {
     struct QuadTreeNode* unk4;
     struct QuadTreeNode* unk8;
     struct QuadTreeNode* unkC;
-    unk8 pad10[4];
+    GeometryLine** unk10;
     QuadTreeSplineEntry* unk14;
     s32 unk18;
     s32 unk1C;

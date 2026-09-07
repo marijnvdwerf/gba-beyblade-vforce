@@ -14,6 +14,9 @@ extern const unk8 Str_87554B4[];
 extern const unk8 Str_87554F0[];
 extern const unk8 Str_87554F4[];
 extern const unk8 Str_8755530[];
+extern const unk8 Str_875557C[];
+extern const unk8 Str_87555A8[];
+extern const unk8 Str_87555F0[];
 
 void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable* geometry)
 {
@@ -203,7 +206,7 @@ void initQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 ar
 }
 
 void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 arg2, unk16 arg3,
-    unk16 nodeCount, unk16 arg5, unk32 arg6)
+    unk16 nodeCount, unk16 arg5, QuadTreeLineFilter arg6)
 {
     AllocatedBlock* block;
     unk8* nodes;
@@ -477,100 +480,25 @@ void allocateDynamicBoundingAreas(QuadTree* quadTree, LevelGeometryAddresses* ge
     quadTree->unk48 = count;
 }
 
-#if 0
-typedef struct InitGeometryTableDraft {
-    unk32 pointCount;
-    union {
-        unk16 splineCount;
-        s32 splineCountWord;
-    } count;
-    s32 lineCount;
-    unk8 padC[0x10];
-} InitGeometryTableDraft;
-
-typedef struct InitGeometryPointDraft {
-    s32 x;
-    s32 y;
-    unk32 z;
-    unk32 padC;
-} InitGeometryPointDraft;
-
-typedef struct InitGeometryLineDraft {
-    unk32 point0;
-    unk32 point1;
-    unk8 unk8;
-    unk8 pad9[7];
-    unk8 unk10;
-    unk8 unk11;
-    unk8 pad12[0xE];
-} InitGeometryLineDraft;
-
-typedef struct InitGeometryAddressesDraft {
-    InitGeometryTableDraft* unk0;
-    InitGeometryPointDraft* unk4;
-    unk8 pad8[4];
-    InitGeometryLineDraft* unkC;
-} InitGeometryAddressesDraft;
-
-typedef struct InitGeometryEntryDraft {
-    unk8 data[8];
-} InitGeometryEntryDraft;
-
-typedef struct InitQuadTreeNodeDraft {
-    struct InitQuadTreeNodeDraft* unk0;
-    struct InitQuadTreeNodeDraft* unk4;
-    struct InitQuadTreeNodeDraft* unk8;
-    struct InitQuadTreeNodeDraft* unkC;
-    InitGeometryLineDraft** unk10;
-    InitGeometryEntryDraft* unk14;
-    s32 unk18;
-    s32 unk1C;
-    s32 unk20;
-    s32 unk24;
-    unk16 unk28;
-    unk16 unk2A;
-} InitQuadTreeNodeDraft;
-
-typedef struct InitQuadTreeDraft {
-    unk8 pad0[0x10];
-    InitGeometryAddressesDraft* unk10;
-    InitQuadTreeNodeDraft* unk14[4];
-    unk8 pad24[8];
-    InitQuadTreeNodeDraft* unk2C;
-    InitGeometryLineDraft** unk30;
-    unk8 pad34[4];
-    unk16 unk38;
-    unk16 unk3A;
-    unk16 unk3C;
-    unk16 unk3E;
-    unk16 unk40;
-} InitQuadTreeDraft;
-
-typedef unk32 (*InitQuadTreeCallbackDraft)(InitGeometryTableDraft*, InitGeometryLineDraft*);
-
-extern const unk8 Str_875557C[];
-extern const unk8 Str_87555A8[];
-extern const unk8 Str_87555F0[];
-InitQuadTreeNodeDraft* initQuadTreeNode(InitQuadTreeDraft* quadTree, InitQuadTreeNodeDraft* node, s32 minX, s32 minY,
-    s32 maxX, s32 maxY, InitQuadTreeCallbackDraft callback)
+QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX, s32 minY, s32 maxX,
+    s32 maxY, QuadTreeLineFilter callback)
 {
-    InitGeometryAddressesDraft* geometry;
-    InitGeometryLineDraft* line;
-    InitGeometryPointDraft* points;
-    InitGeometryPointDraft* point0;
-    InitGeometryPointDraft* point1;
+    LevelGeometryAddresses* geometry;
+    GeometryLine* line;
+    GeometryPoint* points;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
     s32 width;
     s32 height;
     s32 lineIndex;
     s32 selectedCount;
-    unk16 dynamicIndex;
+    s32 dynamicIndex;
     s32 containedCount;
     s32 left;
     s32 right;
     s32 top;
     s32 bottom;
     unk16 flags;
-    unk16 nextNode;
     s32 i;
 
     geometry = quadTree->unk10;
@@ -586,23 +514,21 @@ InitQuadTreeNodeDraft* initQuadTreeNode(InitQuadTreeDraft* quadTree, InitQuadTre
     width = maxX - minX;
     height = maxY - minY;
     lineIndex = 0;
-    if (lineIndex < geometry->unk0->lineCount) {
+    if (selectedCount < geometry->unk0->lineCount) {
         do {
             point0 = &points[line->point0];
             point1 = &points[line->point1];
-            flags = 0;
-            if ((line->unk11 & 8) == 0
-                && (callback == NULL || (callback(geometry->unk0, line) << 24) != 0)
+            if ((line->unk11 & 8) == 0 && (callback == NULL || callback(geometry, line) != 0)
                 && line->point0 >= 0 && line->point1 >= 0) {
                 left = point0->x;
+                top = point0->y;
                 right = point1->x;
+                bottom = point1->y;
                 if (left > right) {
                     i = right;
                     right = left;
                     left = i;
                 }
-                top = point0->y;
-                bottom = point1->y;
                 if (top > bottom) {
                     i = bottom;
                     bottom = top;
@@ -612,6 +538,7 @@ InitQuadTreeNodeDraft* initQuadTreeNode(InitQuadTreeDraft* quadTree, InitQuadTre
                 right += 0x10;
                 top -= 0x10;
                 bottom += 0x10;
+                flags = 0;
                 if (left >= minX && left <= maxX) {
                     flags = 1;
                 }
@@ -654,7 +581,7 @@ InitQuadTreeNodeDraft* initQuadTreeNode(InitQuadTreeDraft* quadTree, InitQuadTre
         s32 centerY;
 
         centerX = ((maxX - minX) >> 1) + minX;
-        centerY = ((maxY - minY) >> 1) + minY;
+        centerY = minY + ((maxY - minY) >> 1);
         node->unk10 = NULL;
         node->unk14 = NULL;
         node->unk28 = 0;
@@ -662,16 +589,14 @@ InitQuadTreeNodeDraft* initQuadTreeNode(InitQuadTreeDraft* quadTree, InitQuadTre
         if (quadTree->unk38 + 4 >= quadTree->unk3E) {
             printf(Str_87555A8);
         }
-        nextNode = quadTree->unk38;
-        quadTree->unk14[0] = &quadTree->unk2C[nextNode + 0];
-        quadTree->unk14[1] = &quadTree->unk2C[nextNode + 1];
-        quadTree->unk14[2] = &quadTree->unk2C[nextNode + 2];
-        quadTree->unk38 = nextNode + 4;
-        quadTree->unk14[3] = &quadTree->unk2C[nextNode + 3];
-        node->unk0 = initQuadTreeNode(quadTree, quadTree->unk14[0], minX, minY, centerX, centerY, callback);
-        node->unk4 = initQuadTreeNode(quadTree, quadTree->unk14[1], centerX, minY, maxX, centerY, callback);
-        node->unk8 = initQuadTreeNode(quadTree, quadTree->unk14[2], minX, centerY, centerX, maxY, callback);
-        node->unkC = initQuadTreeNode(quadTree, quadTree->unk14[3], centerX, centerY, maxX, maxY, callback);
+        node->unk0 = &quadTree->unk2C[quadTree->unk38++];
+        node->unk4 = &quadTree->unk2C[quadTree->unk38++];
+        node->unk8 = &quadTree->unk2C[quadTree->unk38++];
+        node->unkC = &quadTree->unk2C[quadTree->unk38++];
+        node->unk0 = initQuadTreeNode(quadTree, node->unk0, minX, minY, centerX, centerY, callback);
+        node->unk4 = initQuadTreeNode(quadTree, node->unk4, centerX, minY, maxX, centerY, callback);
+        node->unk8 = initQuadTreeNode(quadTree, node->unk8, minX, centerY, centerX, maxY, callback);
+        node->unkC = initQuadTreeNode(quadTree, node->unkC, centerX, centerY, maxX, maxY, callback);
         return node;
     }
     node->unk28 = selectedCount;
@@ -682,13 +607,11 @@ InitQuadTreeNodeDraft* initQuadTreeNode(InitQuadTreeDraft* quadTree, InitQuadTre
     if (selectedCount > 0x20) {
         printf(Str_87555F0, selectedCount, 0x20);
     }
-    if (selectedCount != 0) {
-        return node;
+    if (selectedCount == 0) {
+        return NULL;
     }
-    return NULL;
+    return node;
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/805c040-initQuadTreeNode.s");
 
 QuadTreeNode* GetQuadTreeNodeForPos(QuadTree* quadTree, s32 x, s32 y)
 {
