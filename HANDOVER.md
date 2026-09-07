@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-07 20:04, session 8 (599 C / 408 asm / 59%, 15 TUs).
+Last updated: 2026-09-07 20:59, session 8 (600 C / 407 asm / 60%, 15 TUs).
 
 ## Session 8 (2026-09-07)
 
@@ -169,7 +169,18 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
   Lesson: the `+1` on a Thumb function pointer / `sym+1` .word rows are a
   declaration problem or relocation noise — never source arithmetic; a
   sparse `switch` on an unsigned operand lowers to `cmp/beq; cmp/bcc`.
-- **Running (20:04)**: collection collectionListFrontendHandler (2564-byte
+- **20:04–20:59**: RiderAI_804C8F0 (536 bytes) MATCHED + sub_804DDF8 parked,
+  squash-merged f6f2631b (switch on `(unk32)((unk1C3 + 0x10) & 0xFF) >> 5`,
+  `s32 result[6]`, sub_805DFD4 out-param → `s32*`, math/geometry prototypes
+  moved to owners; a checkpoint's global flag replace had hit sub_804D110 —
+  caught by compare, reverted). Teletype callback fields modelled in
+  callgraph (f6c7ad5a) — ⚠ section empty again. Remaining reds ≤700 bytes:
+  only ARM routines; next tier is giants >700 (user's call).
+- **Running (20:59)**: collection collectionListFrontendHandler — dispatch
+  exact through 0x26, case-0 body is a real loop; current lead: target has
+  a 20-byte frame (one stack word the draft keeps in r8 — an address-taken
+  local / out-param), checkpoint a01496c3.
+- (20:04 snapshot) collection collectionListFrontendHandler (2564-byte
   giant; dispatch exact through 0x26 after `switch (unk32 command)`,
   checkpoint a01496c3, working case-0 body); riderphysics RiderAI_804C8F0
   (everything matches except entry rider r7/direction r6 rank, checkpoint
