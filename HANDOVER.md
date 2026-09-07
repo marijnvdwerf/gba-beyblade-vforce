@@ -58,6 +58,17 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   point agents or analyses at them (decompiler.md still mentions them).
 - Luna analysis running: every red function's `bl` callees classified
   MATCHED / DRAFT / NONE → /tmp/red-callees.md + "all callees matched" list.
+- Unlock analysis (user): red functions whose callees are not yet reached
+  (`callgraph.py` does not follow `bl` inside asm-only functions, so
+  "reds exhausted" was a blind spot). Ranked: sub_8052B24 9, teletypeDefault
+  UserCodeHandler 8, sub_805D650 4–6, selectBladeFrontendHandler 5,
+  sub_80561EC 4; small: sub_8063B44/turorial_804A488/sub_805DFD4/sub_8041188
+  1 each. Table: docs/red-unlockers-2026-09-07.md.
+- Launched (user agreed): teletypeDefaultUserCodeHandler agent; one agent
+  for the four small unlockers. 5 luna running.
+- selectBladeFrontendHandler: instruction-exact but ROM SHA fails — agent had
+  added a transition union (rejected shape); told to revert and locate the
+  diff with mapfile_parser first_diff. sub_805CEB8 checkpointed d591eac0.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
