@@ -324,7 +324,6 @@ void sub_80657EC(SpriteString* string, u8 value)
     unk32 mask;
     unk32 low;
 
-    value = (u8)value;
     flags = 0x10;
     flags |= string->flags;
     mask = 0xF;
