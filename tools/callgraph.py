@@ -274,15 +274,6 @@ def function_pointer_names(body, source: bytes) -> set[str]:
     return names
 
 
-def declared_pointer_type(body, source: bytes, object_name: str) -> str | None:
-    if body is None:
-        return None
-    match = re.search(
-        rf"\b([A-Za-z_]\w*)\s*\*\s*{re.escape(object_name)}\b", node_text(source, body)
-    )
-    return match.group(1) if match else None
-
-
 def extract_c_calls(
     body, source: bytes, macros: set[str], invert_literal_zero: bool
 ) -> tuple[list[str], list[tuple[str, str, str | None]]]:
@@ -300,9 +291,7 @@ def extract_c_calls(
                     field_name = node_text(source, field)
                     if field_name not in INDIRECT_FIELD_NAMES:
                         argument = function_node.child_by_field_name("argument")
-                        object_name = node_text(source, argument).strip() if argument else ""
-                        object_name = object_name.removeprefix("*").strip()
-                        indirect_sites.append(("field", field_name, declared_pointer_type(body, source, object_name)))
+                        indirect_sites.append(("field", field_name, None))
             continue
         if name in CONTROL_WORDS or name in macros:
             continue
@@ -652,9 +641,8 @@ def resolve_indirect_calls(functions: Functions) -> set[tuple[str, str, str, str
                 ]
             elif target in function.indirect_names or target in INDIRECT_LOCAL_NAMES:
                 replacements = []
-                if target in INDIRECT_LOCAL_NAMES and (function.name, "local", target, None) not in unresolved:
-                    if (function.name, target) not in INDIRECT_SITES:
-                        unresolved.add((function.name, "local", target, None))
+                if (function.name, target) not in INDIRECT_SITES:
+                    unresolved.add((function.name, "local", target, None))
             else:
                 replacements = [target]
             for replacement in replacements:
@@ -731,15 +719,13 @@ def resolve_all_edges(functions: Functions) -> None:
         function.calls = resolved
 
 
-def build_index() -> Functions:
+def build_index() -> tuple[Functions, set[tuple[str, str, str, str | None]]]:
     functions: Functions = OrderedDict()
     index_c_sources(functions)
     unresolved = resolve_indirect_calls(functions)
     add_callbacks(functions)
-    functions["__unresolved_indirect_calls__"] = Function(name="__unresolved_indirect_calls__", file="", kind="unknown", synthetic=True, data_targets=tuple())
-    functions["__unresolved_indirect_calls__"].indirect_sites = sorted(unresolved)
     resolve_all_edges(functions)
-    return functions
+    return functions, unresolved
 
 
 def resolve_root(functions: Functions, requested: str) -> str:
@@ -830,14 +816,29 @@ def parse_args(argv: Iterable[str]) -> argparse.Namespace:
 
 def main(argv: Iterable[str] | None = None) -> int:
     args = parse_args(sys.argv[1:] if argv is None else argv)
-    functions = build_index()
+    functions, unresolved = build_index()
     root = resolve_root(functions, args.root)
     try:
         print(render(functions, root))
-        unresolved = functions.get("__unresolved_indirect_calls__")
-        if unresolved and unresolved.indirect_sites:
+        reachable = set()
+        pending = [root]
+        if root not in CALLBACK_NAMES:
+            pending.extend(CALLBACK_NODE_NAMES)
+        while pending:
+            name = pending.pop()
+            if name in reachable:
+                continue
+            reachable.add(name)
+            pending.extend(functions.get(name, Function(name, "", "unknown")).calls)
+        sites = sorted(site for site in unresolved if site[0] in reachable)
+        if sites:
             print("\n⚠ unresolved indirect calls (add a CALLBACKS/HANDLER_TABLES entry):")
-            for function, kind, name, struct_type in unresolved.indirect_sites:
+            seen = set()
+            for function, kind, name, struct_type in sites:
+                key = (function, kind, name)
+                if key in seen:
+                    continue
+                seen.add(key)
                 detail = f" ({struct_type})" if struct_type else ""
                 print(f"{function}: {kind} {name}{detail}")
     except BrokenPipeError:
