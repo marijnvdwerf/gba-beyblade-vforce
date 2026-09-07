@@ -19,6 +19,7 @@ extern void actor_80580C0(Actor*, unk16, unk16);
 
 extern const unk8 Str_8729658[];
 extern const unk8 Str_87296A4[];
+extern const unk8 Str_87296D8[];
 #if 0
 void initEventListeners(unk32 levelId)
 {
@@ -166,7 +167,12 @@ void handleEventListeners(unk32 geometry, unk16 eventId)
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/80542a8-handleEventListeners.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8054388-processMetadata_default.s");
+void processMetadata_default(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
+    LineMetadata* arg3, LineMetaObject* event)
+{
+    GetStruct4(lineIndex);
+    printf(Str_87296D8, lineIndex);
+}
 INCLUDE_ASM("asm/dump/804a388-tutorial/80543a4-nullsub_42.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80543a8-processMetadata_1.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805444c-processMetadata_2.s");
