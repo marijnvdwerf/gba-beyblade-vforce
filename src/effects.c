@@ -328,32 +328,27 @@ void sub_80558E8(unk32 arg0)
     }
 }
 
-void sub_8055914(EffectSprites* effect, unk32 sheet0, unk32 sheet1, unk32 y0, unk32 y1)
+void sub_8055914(EffectSprites* effect, const unk8* sheet0, const unk8* sheet1, unk32 y0, unk32 y1)
 {
-    unk32 zero;
-    unk32 vram0;
-    unk32 vram1;
-    zero = 0;
-    effect->unk28 = zero;
-    effect->unk2A = zero;
-    effect->unk24 = zero;
-    effect->unk1C = zero;
-    vram0 = -0x4400;
-    effect->unk18 = vram0;
-    effect->unk8 = vram0;
-    vram1 = 0xF400;
-    effect->unk20 = vram1;
-    effect->unk10 = vram1;
+
+    effect->unk28 = 0;
+    effect->unk2A = 0;
+    effect->unk24 = 0;
+    effect->unk1C = 0;
+    effect->unk18 = -0x4400;
+    effect->unk8 = -0x4400;
+    effect->unk20 = 0xF400;
+    effect->unk10 = 0xF400;
     effect->unkC = y0;
     effect->unk14 = y1;
-    effect->unk34 = zero;
-    effect->unk2C = zero;
-    effect->unk38 = zero;
-    effect->unk30 = zero;
-    effect->unk0 = allocSprite(zero);
-    LoadSpriteSheet(effect->unk0, (const void*)sheet0, vram0, y0, zero, zero, zero, zero);
-    effect->unk4 = allocSprite(zero);
-    LoadSpriteSheet(effect->unk4, (const void*)sheet1, vram1, y1, zero, zero, 1, zero);
+    effect->unk34 = 0;
+    effect->unk2C = 0;
+    effect->unk38 = 0;
+    effect->unk30 = 0;
+    effect->unk0 = allocSprite(0);
+    LoadSpriteSheet(effect->unk0, sheet0, -0x4400, y0, 0, 0, 0, 0);
+    effect->unk4 = allocSprite(0);
+    LoadSpriteSheet(effect->unk4, sheet1, 0xF400, y1, 0, 0, 1, 0);
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805599c.s");

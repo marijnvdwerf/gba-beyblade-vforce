@@ -6,9 +6,9 @@
 
 typedef struct TalkingHead {
     unk8 pad0[0x18];
-    unk32 unk18;
+    const unk8* unk18;
     unk8 pad1C[4];
-    unk32 unk20;
+    const unk8* unk20;
     unk8 pad24[4];
 } TalkingHead;
 

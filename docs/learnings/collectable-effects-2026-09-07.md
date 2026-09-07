@@ -29,8 +29,8 @@ The final source keeps separate `index` and `entry` cursor locals, initializes `
 
 ## `sub_8055914` (`0x08055914`)
 
-- The `EffectSprites` fields accessed by this function are represented at their observed offsets: halfword fields at `0x28` and `0x2A`, and word fields at `0x08`, `0x0C`, `0x10`, `0x14`, `0x18`, `0x1C`, `0x20`, `0x24`, `0x2C`, `0x30`, `0x34`, and `0x38`. The two sprite pointers remain at `0x00` and `0x04`.
-- Keeping `zero`, `vram0`, and `vram1` as named locals reproduces the target's register/literal lifetime. A temporary `SpriteEntry*` alias did not match: it emitted an extra `mov` before each store. Direct assignment from `allocSprite` to `effect->unk0`/`effect->unk4` removes those instructions and matches the target.
-- The target literal pool contains `0xFFFFBC00` (`-0x4400`) and the initializer emits `0x0000F400` with the observed `mov`/`lsl` sequence. The final function and trailing alignment bytes are instruction-identical.
-- The requested function prototype keeps `sheet0` and `sheet1` as `unk32`, while `LoadSpriteSheet` declares its sheet parameter as `const void*`. The matching source therefore necessarily uses `(const void*)sheet0` and `(const void*)sheet1`; these are the only rule-breaking casts in the matched implementation and should remain flagged for review.
-- No parked draft or unresolved first divergence remains. The function diff is instruction-identical and the ROM comparison passes.
+- `EffectSprites` remains a flat fixed-layout record. This function accesses word fields at `0x08`, `0x0C`, `0x10`, `0x14`, `0x18`, `0x1C`, `0x20`, `0x24`, `0x2C`, `0x30`, `0x34`, and `0x38`, halfword fields at `0x28` and `0x2A`, and sprite pointers at `0x00` and `0x04`. No sub-record or array type is introduced because this function does not prove a stride.
+- Replacing the former `zero`, `vram0`, and `vram1` locals with plain literals preserves the target store order and instruction sequence. Direct assignment from `allocSprite(0)` to each destination field is required; a temporary `SpriteEntry*` alias inserted an extra `mov` before the pointer store.
+- The target literal pool contains `0xFFFFBC00` (`-0x4400`) and the second coordinate uses `0x0000F400`, with the observed `mov`/`lsl` materialization. The final function and trailing alignment bytes are instruction-identical.
+- `sheet0` and `sheet1` are `const unk8*` parameters. `TalkingHead.unk18` and `TalkingHead.unk20` use the same pointer type because `sub_80420C4` forwards those fields directly. The casts to `const void*` were removed; `LoadSpriteSheet` keeps its existing generic `const void*` declaration for its other callers.
+- The required blank line after the function declaration is retained. No parked draft or unresolved first divergence remains.

@@ -35,7 +35,7 @@ void sub_80558B8(void);
 void sub_80558D0(void);
 void sub_80558E8(unk32);
 
-void sub_8055914(EffectSprites*, unk32, unk32, unk32, unk32);
+void sub_8055914(EffectSprites*, const unk8*, const unk8*, unk32, unk32);
 
 void sub_805599C(EffectSprites*);
 
