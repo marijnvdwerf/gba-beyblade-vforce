@@ -99,7 +99,7 @@ void initGameLoop(void)
     _gameData->unk42C = ridersBlock->address;
     initRiders();
     levelIdCopy = levelId;
-    initLevelEnvironmentActors((u16)levelId);
+    initLevelEnvironmentActors(levelId);
     initEventListeners(levelId);
     levelIdCopy = (u16)levelId;
     initCollectables(levelIdCopy);
