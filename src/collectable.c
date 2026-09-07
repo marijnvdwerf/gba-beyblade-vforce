@@ -167,4 +167,4 @@ void nullsub_7(void)
 {
 }
 
-asm(".align 2, 0\n");
+ASM_ZEROPAD

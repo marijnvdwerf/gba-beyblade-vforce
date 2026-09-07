@@ -245,4 +245,4 @@ void sub_8050584(UnkMotion* arg0)
     sub_8050384(arg0);
 }
 
-asm(".align 2, 0");
+ASM_ZEROPAD

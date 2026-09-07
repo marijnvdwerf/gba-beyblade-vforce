@@ -115,7 +115,7 @@ graph; the callgraph remains the reachability boundary.
   is removed. Only byte-required temps stay (record which, in your learnings).
 - **Never emit fake symbols** (zero-size markers, `.NON_MATCHING` labels).
   If trailing bytes differ, the legitimate tool is file-scope
-  `asm(".align 2, 0\n");` (the original zero-pads where agbcc emits `0xC046`).
+  `ASM_ZEROPAD` (the original zero-pads where agbcc emits `0xC046`).
 - **No casts on struct-field reads/writes.** `(s8)p->unk0` means `unk0` *is*
   `s8` — fix the declaration. The same goes for `(T*)p->unkNN` on pointer
   fields and `*(u8*)&p->unkNN` on halfwords: find the real field shape.

@@ -97,4 +97,4 @@ RenderCode* allocateRenderCode(RenderCode* arg0, AllocatedBlock** arg1)
     return arg0;
 }
 
-asm(".align 2, 0");
+ASM_ZEROPAD

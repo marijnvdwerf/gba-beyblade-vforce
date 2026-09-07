@@ -257,4 +257,4 @@ u16 sub_8065BD4(u16 sector, unk16* data)
     return result;
 }
 
-asm(".align 2, 0");
+ASM_ZEROPAD

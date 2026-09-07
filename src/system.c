@@ -98,4 +98,4 @@ void nullsub_30(void)
 {
 }
 
-asm(".align 2, 0");
+ASM_ZEROPAD

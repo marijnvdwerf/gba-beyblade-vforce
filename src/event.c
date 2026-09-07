@@ -423,4 +423,4 @@ void nullsub_15(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineInde
 {
 }
 
-asm(".align 2, 0\n");
+ASM_ZEROPAD

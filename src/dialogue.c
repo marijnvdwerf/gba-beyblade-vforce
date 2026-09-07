@@ -168,4 +168,4 @@ void sub_80420C4(FrontendState* state, unk32 command)
     }
 }
 
-asm(".align 2, 0\n");
+ASM_ZEROPAD

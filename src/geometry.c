@@ -787,4 +787,4 @@ s32 GetLineIndexOfType(LevelGeometryAddresses* addresses, unk8 type, unk16 start
     return -1;
 }
 
-asm(".align 2, 0\n");
+ASM_ZEROPAD
