@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-07 16:24, session 8 — Round 6 wave 1 merged (588 C / 419 asm / 58%).
+Last updated: 2026-09-07 17:19, session 8 — Round 6 waves 1–2 merged (591 C / 416 asm / 59%, 15 TUs).
 
 ## Session 8 (2026-09-07)
 
@@ -126,6 +126,22 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
   sub_8063CF4 done, sub_8063E18 296 in progress, sub_8063F84 372 next);
   R6-5 tutorial sub_804A378 (16). Remaining <100 reds after these: only
   asm/arm*.s ARM routines. Next pool: reds 100–300 via todo.py.
+- **Round 6 wave 2 merged**: sub_804A378 (83c1f079), collectable
+  sub_8056E2C + effects sub_8055914 (59073da6; collectable.c DONE).
+  Rulings: agents get NO prior-history pointers in prompts (user killed two
+  agents that had them; relaunched clean); a search loop whose target tests
+  the element before the bound is `while (elem != x && i < n)` — read the
+  asm before offering a "park" fallback; `zero`/`vramN` literal temps are
+  levers (write literals); flat `unkNN` fields stay flat without stride
+  evidence; TalkingHead.unk18/unk20 are `const unk8*`. Merge recipe now:
+  `bash -o pipefail -c '… && …'` — `| tail` masked failures twice and a
+  branch was deleted after a failed ff (recovered from the reflog hash).
+- **Running (17:19)**: teletype (sub_8063E18 constructor near-miss: signed
+  descending clear loop, then sub_8063F84); event.c R6-6 (processMetadata_2/
+  _1/_4/_5 + Actor.unkB0 retype incl. rider.c Thumb-bit stores); riderphysics
+  sub_804D8D8 (allocator-rank residual r4/r8/r9/sl, checkpointed); levelselect
+  sub_80413FC giant (checkpoint 2dfdfaec, first divergence 0xBA, −24 bytes;
+  LevelDescription padE[4] bug sent back). Reviews for these still owed.
 - Round 6 plan was: reds <100 bytes, 3 per agent, one active agent per TU: R6-1 event.c processMetadata_3/_6/_10; R6-2
   teletype.c sub_8063F64/806415C/806417C; R6-3 actor sub_8058390 +
   beyblade GetTalkingHead + display sub_8050894; R6-4 effects sub_8055C30 +
