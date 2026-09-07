@@ -79,6 +79,18 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   || x != target)`, callback stored through a function-pointer typedef (no
   +1), direct `_gameData->` in the loop. Branch upgrades GameData in ram.h
   (unk870/unk8A0/unk8A8 SpriteTextCleanup + u16) — audit all users at merge.
+- Merged: small unlockers ×4 (84980420: sub_8063B44, GetPointAtIndex,
+  sub_805DFD4, sub_8041188; turorial_804A488 parked — only a byte-offset
+  form matches; `LevelGeometryTable.pointCount` is `s32` by `blt`).
+  **625 C / 382 asm / 62%.**
+- teletypeDefaultUserCodeHandler MATCHED (df33f84d + cleanup 8dd2a233):
+  identical duplicated case tails let agbcc cross-jump (`b` into the shared
+  tail) — a goto is never needed; `<< 24` truth test was the callee's unk8
+  return. Reviewer running; then merge (unlocks 8 leaves).
+- selectBladeFrontendHandler: structure fully matched (checkpoints 8609a50f…
+  2b2e9bab; credits.c:45 fixed to the two-byte test), only allocation left
+  (state r7 / index r6 / state+0x80 in r8; 12 bytes short). Revived with a
+  record alias for +0x80, 12-build budget, then park.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
