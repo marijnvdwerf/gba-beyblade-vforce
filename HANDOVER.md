@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-07 19:09, session 8 (598 C / 409 asm / 59%, 15 TUs).
+Last updated: 2026-09-07 20:04, session 8 (599 C / 408 asm / 59%, 15 TUs).
 
 ## Session 8 (2026-09-07)
 
@@ -158,7 +158,23 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
   unk10/unk14 had no matched user after all). Teletype sub_8063F84 PARKED
   (r8/r9 save mask). Both branches in review-fix loops (scratch structs must
   cover every draft access; drafts must be enableable; step tables).
-- **Running (19:09)**: collection collectionListFrontendHandler (2564-byte
+- **19:09–20:04**: levelselect sub_80413FC parked + squash-merged
+  (f1784b31; LevelDescription unk10/unk14 reverted — draft-only); teletype
+  squash-merged (8843218f: sub_8063CF4 matched, sub_8063E18/sub_8063F84
+  parked, TeletypeState fields limited to matched users, callback typedef).
+  lint.py crash fixed (87793455): py-tree-sitter Node use-after-free during
+  GC when generators held Nodes of a dropped Tree — now iterative walks,
+  retained trees, materialised declarations; verified output-identical and
+  30/30 stable. Riderphysics sub_804DDF8 parked (allocator rank at 0x12).
+  Lesson: the `+1` on a Thumb function pointer / `sym+1` .word rows are a
+  declaration problem or relocation noise — never source arithmetic; a
+  sparse `switch` on an unsigned operand lowers to `cmp/beq; cmp/bcc`.
+- **Running (20:04)**: collection collectionListFrontendHandler (2564-byte
+  giant; dispatch exact through 0x26 after `switch (unk32 command)`,
+  checkpoint a01496c3, working case-0 body); riderphysics RiderAI_804C8F0
+  (everything matches except entry rider r7/direction r6 rank, checkpoint
+  484fda39). Both get a reviewer + one squash commit each when done.
+- (19:09 snapshot) collection collectionListFrontendHandler (2564-byte
   giant, R6-12); riderphysics sub_804DDF8 → RiderAI_804C8F0 (R6-13, user
   un-deferred them: "an attempt beats nothing"); teletype + levelselect
   review fixes.
