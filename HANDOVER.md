@@ -129,6 +129,13 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   expressions, no-op (s32) casts) — sent back to rewrite as quaternion
   product / quat→matrix source. Spritetext batch: 3/4 matched, sub_8061684
   (416) parking (allocation).
+- Merged parked sub_805CEB8 (d7df42ae): `&callbackDone` address-taken was
+  right (frame 96 = 96); remaining divergence is allocation only (0x0C
+  `mov r8,r0` vs `mov r7,r0`). Worth a fresh attempt.
+- Spritetext batch 3/4 (sub_8061684 parked at 0x08 allocation) — reviewer
+  running. Levelselect batch: sub_805C3BC, sub_8041288, displayFrontendLevel
+  matched; sub_80594FC in progress. Teletype 5/7 (sub_8063D38 budgeted,
+  sub_8063BA8 pending).
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
