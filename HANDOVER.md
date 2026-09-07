@@ -39,6 +39,15 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   if none) and headers need an own levelselect.h + `_3000038` placeholder
   upgrade (requested). asm/data12.s `_8068710` rewritten field-wise (user).
   Luna research agent on TeletypeConfig.unk0's pointee running.
+- Merged: levelselect ×3 (ac25ec27); sub_8041344 parked by user decision —
+  only `(unk8)(arg1 + 0)` matches (target narrows after the first row load,
+  narrowed value reused in r4; unk8 formal / unk32 formal / u8 local all
+  diverge; step table in the learnings). New src/levelselect.h;
+  `_3000038` upgraded in place to LevelSelectState (32 bytes, pad1C).
+- Teletype: research proved TeletypeConfig is the 12-byte `FontStyle`
+  record (asm/data12.s FontStyle_80688B8 = sheet, ShadowFontMeta, .2byte 0,15)
+  whose first word is a sprite sheet; agent is applying `SpriteSheet`
+  (sprite.h, proven bytes +4/+5) + `FontStyle`. Then merge.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
