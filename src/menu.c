@@ -48,24 +48,31 @@ void sub_805AC80(MenuState* arg0, UnkMenuItem* arg1)
     }
 }
 
-#if 0
 void sub_805AD24(MenuState* arg0, unk32 arg1, unk32 arg2, s32 arg3, unk32 arg4, unk32 arg5,
-    unk16 arg6, unk8 arg7, unk8 arg8, unk8 arg9, unk8 argA, MenuStateCallback argB,
-    MenuStateValueCallback argC, unk32 argD)
+    unk32 arg6, unk8 arg7, unk8 arg8, unk8 arg9, unk8 argA, MenuStateCallback argB,
+    MenuStateValueCallback argC, unk8 argD)
 {
+    arg0->spriteSheet = arg1;
+    arg0->font = arg2;
+    arg0->unk10 = NULL;
     arg0->items = NULL;
+    arg0->unk1C = arg3;
+    arg0->unk20 = arg4;
+    arg0->unkA = arg6;
     arg0->unk9 = 0;
     arg0->unk24 = 0;
     arg0->callback = argB;
-    arg0->unk2E = arg9;
+    arg0->valueCallback = argC;
+    arg0->unk2C = arg8;
+    arg0->unk2D = arg9;
+    arg0->unk2E = arg7;
     arg0->unk2F = argA;
+    arg0->tileCount = arg5;
     arg0->items = NULL;
     arg0->objectCount = 0;
     arg0->itemCount = 0;
     arg0->unk8 = argD;
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/805ad24.s");
 
 void sub_805AD9C(MenuState* state)
 {
