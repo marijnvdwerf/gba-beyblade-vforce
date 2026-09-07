@@ -15,6 +15,7 @@
 #include "unsorted.h"
 
 extern void sub_8056E2C(unk32);
+extern void actor_80580C0(Actor*, unk16, unk16);
 
 extern const unk8 Str_8729658[];
 extern const unk8 Str_87296A4[];
@@ -190,7 +191,17 @@ void processMetadata_3(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805450c-processMetadata_4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80545b0-processMetadata_5.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8054684-processMetadata_8.s");
+
+void processMetadata_8(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
+    LineMetadata* arg3, LineMetaObject* event)
+{
+    Actor* actor;
+
+    actor = GetStruct4(lineIndex)->actor;
+    if (actor != NULL) {
+        actor_80580C0(actor, event->unk8.sequence.unk0, event->unk8.sequence.unk2);
+    }
+}
 
 void processMetadata_9(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
     LineMetadata* arg3, LineMetaObject* event)

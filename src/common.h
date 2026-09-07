@@ -849,6 +849,11 @@ typedef struct LineMetaOffset {
     s16 y;
 } LineMetaOffset;
 
+typedef struct LineMetaSequence {
+    unk16 unk0;
+    unk16 unk2;
+} LineMetaSequence;
+
 typedef union LineMetaObjectValue {
     ActorConfig* config;
     const unk8* data;
@@ -856,6 +861,7 @@ typedef union LineMetaObjectValue {
     unk16 half;
     LineMetaTransform transform;
     LineMetaOffset offset;
+    LineMetaSequence sequence;
 } LineMetaObjectValue;
 
 struct LineMetaObject {
