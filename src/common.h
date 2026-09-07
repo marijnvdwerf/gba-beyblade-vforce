@@ -132,6 +132,7 @@ typedef struct FrontendSubobject {
 } FrontendSubobject;
 
 typedef struct FrontendState FrontendState;
+typedef void (*FrontendStateCallback)(FrontendState*, unk32);
 typedef struct InputSequence InputSequence;
 
 typedef struct UnkMenuItem UnkMenuItem;
@@ -288,7 +289,7 @@ typedef struct FrontendTransition {
     s8 unk585;
     s8 unk586;
     unk8 pad587[1];
-    void (*unk588)(FrontendState*, unk32);
+    FrontendStateCallback unk588;
     unk32 unk58C;
     UnkStruct_sub1 unk590; /* 0x590 */
     unk32 unk5A8; /* 0x5A8 */
@@ -998,6 +999,8 @@ typedef struct LevelDescription {
     void* unkC4;
     unk8 padC8[8];
 } LevelDescription;
+
+typedef char LevelDescriptionSizeCheck[(sizeof(LevelDescription) == 0xD0) ? 1 : -1];
 
 #define true 1
 #define false 0

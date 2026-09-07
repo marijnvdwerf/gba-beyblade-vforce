@@ -179,7 +179,7 @@ void sub_8049264(void)
     _unk3000650.transition.unk5A8 = 0;
 }
 
-void StoreFunction(void (*function)(FrontendState*, unk32))
+void StoreFunction(FrontendStateCallback function)
 {
     _unk3000650.transition.unk588 = function;
 }

@@ -43,6 +43,8 @@ extern const FrontendMotionData _8068890;
 
 FrontendState* sub_8048FCC(void);
 void sub_8049018(void);
+void StoreFunction(FrontendStateCallback);
+void sub_8049DE0(FrontendState*, u32);
 void sub_80490CC(unk32, unk32);
 void sub_80490F8(unk32);
 void sub_8049168(void);
