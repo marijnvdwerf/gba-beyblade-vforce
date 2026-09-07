@@ -48,6 +48,13 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
   empty in worktree) — give agents the absolute worktree path in the prompt;
   "compare broke" is not evidence — retyping a field means diffing every
   user; tell agents to REPORT when only a rule-breaking shape matches.
+- **raw-decomp-4 (running, 12:41→)**: user branch with 12 more matched
+  functions on top of raw-decomp-3 (f9d014b6 GetLineIndexOfType …
+  9dfd30f7 initLevelEnvironmentActors, incl. gameLoop and dialogue
+  sub_80420C4). Luna agent rebasing `--onto main f9d014b6~1` in
+  `.claude/worktrees/raw-decomp-4` with compare per commit. Plan (user):
+  review agent on the rebased branch → luna fix agent on the same branch →
+  manager read → merge. No re-derivation round needed (quality is higher).
 - The handover's Round 5 leaf pool (teletype/effects/etc.) is queued after.
 
 ## Session 7 (2026-09-06)
