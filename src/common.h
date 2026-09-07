@@ -388,8 +388,9 @@ typedef struct ActorFrame {
 typedef struct ActorSequenceEntry {
     unk16 unk0;
     unk16 size;
-    unk8 pad4[4];
-    unk16 sequence;
+    unk16 unk4;
+    unk8 pad6[2];
+    unk16 frames[1];
 } ActorSequenceEntry;
 
 typedef struct ActorFrameSequence {

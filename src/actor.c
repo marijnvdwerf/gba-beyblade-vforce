@@ -239,7 +239,7 @@ void actor_80580C0(Actor* actor, unk16 sequence, unk16 callbackSequence)
                 actor->unk1E = 0;
                 actor->unk1A = sequence;
                 actor->unk2E = callbackSequence;
-                ActorSetFrameSequence(actor, entry->sequence);
+                ActorSetFrameSequence(actor, entry->frames[0]);
                 return;
             }
             size = entry->size;
@@ -335,7 +335,29 @@ void ActorSetFrameSequence(Actor* actor, unk32 sequence)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/80582d0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805832c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8058390.s");
+
+void sub_8058390(Actor* actor, unk16 sequence, unk16 frame, unk16 callbackSequence)
+{
+    ActorConfig* config;
+    ActorSequenceEntry* entry;
+    unk16* frames;
+    unk32 index;
+
+    config = actor->unk0;
+    entry = (ActorSequenceEntry*)((unk8*)config + config->unk18);
+    index = 0;
+    while (index < actor->unk28) {
+        if (entry->unk0 == sequence && frame < entry->unk4) {
+            actor->unk2E = callbackSequence;
+            frames = entry->frames;
+            ActorSetFrameSequence(actor, frames[frame]);
+            return;
+        }
+        entry = (ActorSequenceEntry*)((unk8*)entry + entry->size);
+        index++;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/80583dc-ActorSetFrame.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058478.s");
 
