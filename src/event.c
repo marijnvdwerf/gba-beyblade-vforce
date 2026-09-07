@@ -2,6 +2,7 @@
 
 #include <agb/types.h>
 
+#include "actor.h"
 #include "debug.h"
 #include "effects.h"
 #include "gameinit.h"
@@ -220,7 +221,18 @@ void processMetadata_C(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/805470c-processMetadata_D.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8054714-processMetadata_E.s");
+
+void processMetadata_E(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
+    LineMetadata* arg3, LineMetaObject* event)
+{
+    Actor* actor;
+
+    actor = GetStruct4(lineIndex)->actor;
+    if (actor != NULL) {
+        ActorSetSpriteOffset(actor, event->unk8.offset.x, event->unk8.offset.y);
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054738-nullsub_14.s");
 
 void processMetadata_10(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
