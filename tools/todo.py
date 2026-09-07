@@ -42,7 +42,7 @@ def main() -> int:
     rows = []
     for name, tu in functions.items():
         size, filepath = sizes.get(name, (0, ""))
-        rows.append((tu or filepath, size, name))
+        rows.append((tu or filepath.removesuffix(".o"), size, name))
     rows.sort(key=lambda row: -row[1])
     if args.json:
         print(json.dumps([{"tu": tu, "size": size, "name": name} for tu, size, name in rows]))
