@@ -177,15 +177,16 @@ void processMetadata_3(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     EnvironmentObject* target;
 
     target = GetStruct4(lineIndex);
-    if (event->id != 0x37AE) {
-        if (event->id == 0x4ECB) {
-            target->unk3E = event->unk8.word;
-        }
-    } else {
+    switch (event->id) {
+    case 0x4ECB:
+        target->unk3E = event->unk8.word;
+        break;
+    case 0x37AE:
         sub_8056E2C(lineIndex);
         sub_8055734(2, NULL, NULL);
         sub_80558E8(1);
         sub_804ABFC(0x10);
+        break;
     }
 }
 
@@ -216,7 +217,17 @@ void processMetadata_9(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80546c8-processMetadata_A.s");
+void processMetadata_A(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
+    LineMetadata* arg3, LineMetaObject* event)
+{
+    Actor* actor;
+
+    actor = GetStruct4(lineIndex)->actor;
+    if (actor != NULL) {
+        actor->unk68 = event->unk8.transform.x;
+        actor->unk70 = event->unk8.transform.y;
+    }
+}
 
 void processMetadata_C(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
     LineMetadata* arg3, LineMetaObject* event)
