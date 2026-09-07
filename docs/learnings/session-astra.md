@@ -562,3 +562,93 @@ void sub_804E090(RiderBase* rider)
 
 Instruction diff is exact; ROM SHA1 compare passes:
 `cd527c8c24e20e33913fc45199e64b3e6138a6e5`.
+
+
+# sub_804DFF4 — parked 2026-09-07
+
+Address: `0x0804DFF4`; translation unit: `src/riderphysics.c`.
+
+Reachable through mainLoop -> sub_804D110. Read its parked C caller and the
+assembly path. The function clears rider state, optionally calls sub_804E154,
+conditionally triggers sub_80558B8, and clears further flags. m2c recovers this
+behavior but omits the target's unused entry load from rider offset 0x70.
+
+## Controlled experiments
+
+| Change | First divergence / size | Outcome |
+| --- | --- | --- |
+| Enable typed draft, zero = unk70 then zero = 0 | +0x04: mov r4,0 instead of ldr r0,[r5,0x70]; zero initialization too early | -4 bytes including padding |
+| Set zero to 0 only if its loaded value is nonzero | +0x02: register roles change; load gains compare/branch | Worse |
+| zero = unk70 ? 0 : 0 | Same as initial draft | Load eliminated |
+| Remove zero temp; direct zero stores | Only missing instruction is +0x04 ldr r0,[r5,0x70] | Best; -4 bytes including padding |
+| Put first zero store in both arms of if (unk70 != 0) | +0x04: ldr r1 instead of r0, extra compare/branch and duplicated stores | Worse |
+
+The direct-store draft fixes the zero register's initialization order and
+matches the remaining instructions, modulo the missing load's shifted branch
+and pool addresses. The current assembly comparison includes four-byte pool
+alignment, so one missing two-byte load reduces the total function by four
+bytes. Read the compiler's all-pass output for the direct-store draft; it has
+no surviving read of offset 0x70. An unused plain load has no observable C
+behavior here. No volatile, register pinning, barriers, or fabricated helper
+was added to force retention.
+
+The near-miss checklist covered zero-temp reduction, ternary versus explicit
+conditional forms, and store/initialization order. There is no loop to reshape.
+Signedness for the >8 counter test comes from ble; changing that sign cannot
+supply the unrelated missing entry read. A declaration-scope-only change cannot
+make a discarded ordinary read observable. The remaining source provenance of
+the unused load is unresolved.
+
+Preserved the simpler direct-store draft under #if 0 with a local scratch
+layout. New fields unkD2/unk168/unk1BC and signed unk198 are confined to that
+scratch layout; all provisional header changes were removed. No original dump
+was deleted. Full ROM SHA1 passes using the original assembly.
+
+Best draft:
+
+```c
+typedef struct RiderDFF4Draft {
+    unk8 pad0[0x10];
+    s32 unk10;
+    unk32 unk14;
+    unk8 pad18[4];
+    unk32 unk1C;
+    unk8 pad20[0x98];
+    SpriteEntry* unkB8;
+    unk8 padBC[0x16];
+    unk8 unkD2;
+    unk8 padD3[0x71];
+    unk16 unk144;
+    unk8 pad146[0x22];
+    unk32 unk168;
+    unk8 pad16C[0x2C];
+    s32 unk198;
+    unk32 unk19C;
+    unk8 pad1A0[0x1C];
+    unk32 unk1BC;
+} RiderDFF4Draft;
+
+void sub_804DFF4(RiderBase* rider)
+{
+    RiderDFF4Draft* r;
+
+    r = (RiderDFF4Draft*)rider;
+    r->unk19C = 0;
+    r->unk1BC = 0;
+    UnsetRiderFlag(rider, 0x8000);
+    r->unk1C = r->unk10;
+    r->unk14 = 0;
+    r->unk144 = 0;
+    r->unk168 = 0;
+    if (r->unkB8 != NULL && RiderHasFlag(rider, 0x4000000) == 0)
+        sub_804E154(rider, 0, 0);
+    UnsetRiderFlag(rider, 0x20);
+    r->unkD2 = 0;
+    if (RiderHasFlag(rider, 0x4000000) == 0 && r->unk198 > 8)
+        sub_80558B8();
+    UnsetRiderFlag(rider, 0x4010);
+}
+```
+
+Final compare (assembly active):
+`cd527c8c24e20e33913fc45199e64b3e6138a6e5` — passes.

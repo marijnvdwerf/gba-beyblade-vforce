@@ -793,15 +793,11 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804df88.s");
 #if 0
 typedef struct RiderDFF4Draft {
     unk8 pad0[0x10];
-    unk32 unk10;
+    s32 unk10;
     unk32 unk14;
     unk8 pad18[4];
     unk32 unk1C;
-    unk8 pad20[0x50];
-    unk32 unk70;
-    unk8 pad74[0x28];
-    unk32 flags;
-    unk8 padA0[0x18];
+    unk8 pad20[0x98];
     SpriteEntry* unkB8;
     unk8 padBC[0x16];
     unk8 unkD2;
@@ -819,18 +815,15 @@ typedef struct RiderDFF4Draft {
 void sub_804DFF4(RiderBase* rider)
 {
     RiderDFF4Draft* r;
-    unk32 zero;
 
     r = (RiderDFF4Draft*)rider;
-    zero = r->unk70;
-    zero = 0;
-    r->unk19C = zero;
-    r->unk1BC = zero;
+    r->unk19C = 0;
+    r->unk1BC = 0;
     UnsetRiderFlag(rider, 0x8000);
     r->unk1C = r->unk10;
-    r->unk14 = zero;
-    r->unk144 = zero;
-    r->unk168 = zero;
+    r->unk14 = 0;
+    r->unk144 = 0;
+    r->unk168 = 0;
     if (r->unkB8 != NULL && RiderHasFlag(rider, 0x4000000) == 0)
         sub_804E154(rider, 0, 0);
     UnsetRiderFlag(rider, 0x20);
