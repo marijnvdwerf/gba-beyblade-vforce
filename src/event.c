@@ -14,12 +14,13 @@
 #include "ram.h"
 #include "riderphysics.h"
 #include "riderstate.h"
+#include "tutorial.h"
 #include "unsorted.h"
 
 extern const unk8 Str_8729658[];
 extern const unk8 Str_87296A4[];
 extern const unk8 Str_87296D8[];
-extern void turorial_804A488(unk32);
+extern const unk8 Str_87296E8[];
 #if 0
 void initEventListeners(unk32 levelId)
 {
@@ -222,7 +223,7 @@ void processMetadata_2(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
             }
             actor_8057C58(actor, event->unk8.config, actor->unk3C, actor->x >> 8, actor->y >> 8,
                 actor->z >> 8, actor->unk70);
-            actor->unkB0 = convert3DCoordsto2DCoords + 1;
+            actor->unkB0 = convert3DCoordsto2DCoords;
             actor->unk68 = 0;
             actor->unkBC = 0x10;
             actor->unkB4 = saved;
@@ -290,7 +291,50 @@ void processMetadata_4(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80545b0-processMetadata_5.s");
+void processMetadata_5(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
+    LineMetadata* arg3, LineMetaObject* event)
+{
+    EnvironmentObject* target;
+    GeometrySpline* found;
+    GeometryPoint* point;
+    Actor* actor;
+    unk32 splineIndex;
+    unk32 pointIndex;
+    s32 x;
+    s32 y;
+    s32 z;
+    s32 index;
+
+    target = GetStruct4(lineIndex);
+    actor = target->actor;
+    found = NULL;
+    if (actor != NULL) {
+        for (index = 0; index < arg0->unk0->count.splineCountWord; index++) {
+            if (arg0->unk14[index]->unkC == event->id) {
+                found = arg0->unk14[index];
+                splineIndex = index;
+                break;
+            }
+        }
+        if (found == NULL) {
+            printf(Str_87296E8);
+        } else {
+            pointIndex = event->unk8.transform.z;
+            point = GetPointAtSplineIndex(arg0, splineIndex, pointIndex);
+            if (point != NULL) {
+                x = (point->x << 5) - actor->x;
+                y = (point->y << 5) - actor->y;
+                z = (point->z << 5) - actor->z;
+                sub_805C3BC(arg0, actor, splineIndex, pointIndex << 10);
+                actor->unk40 = event->unk8.transform.y;
+                actor_80585F0((UnkActor*)actor, 0xA);
+                actor->unk9A = x >> 8;
+                actor->unk9C = y >> 8;
+                actor->unk9E = z >> 8;
+            }
+        }
+    }
+}
 
 void processMetadata_8(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
     LineMetadata* arg3, LineMetaObject* event)

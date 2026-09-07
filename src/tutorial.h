@@ -8,6 +8,7 @@ void initTutorialManagement(u16);
 void StoreLevelVar14(unk32);
 void sub_804A550(TutorialEntry*);
 void sub_804A72C(void);
+void turorial_804A488(unk32);
 
 const unk8* const* sub_804A364(void);
 const unk8* const* sub_804A378(unk32);
