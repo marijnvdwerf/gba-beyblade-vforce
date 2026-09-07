@@ -241,7 +241,7 @@ typedef struct MenuState {
     u8 unk9;
     unk8 padA[2];
     UnkMenuItem* items; /* 0xC */
-    unk8 pad10[4]; /* 0x10 */
+    AllocatedBlock* unk10; /* 0x10 */
     s32 itemCount; /* 0x14 */
     s32 objectCount; /* 0x18 */
     unk8 pad1C[8];

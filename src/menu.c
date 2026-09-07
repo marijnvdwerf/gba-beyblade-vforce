@@ -67,28 +67,25 @@ void sub_805AD24(MenuState* arg0, unk32 arg1, unk32 arg2, s32 arg3, unk32 arg4, 
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/805ad24.s");
 
-#if 0
 void sub_805AD9C(MenuState* state)
 {
-    s32 count;
     UnkMenuItem* item;
+    s32 count;
 
     item = state->items;
     count = state->objectCount;
-    do {
+    while (count--) {
         sub_8061204(&item->text);
         item++;
-    } while (count-- != 0);
-    if (state->menuBlock != NULL) {
-        deallocateBlock(state->menuBlock);
-        state->menuBlock = NULL;
+    }
+    if (state->unk10 != NULL) {
+        deallocateBlock(state->unk10);
+        state->unk10 = NULL;
     }
     state->itemCount = 0;
     state->objectCount = 0;
     state->unk9 = 0;
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/805ad9c.s");
 
 #if 0
 void allocateMenuItems(MenuState* state, MenuItemDescriptor* descriptors, unk32 selected)
