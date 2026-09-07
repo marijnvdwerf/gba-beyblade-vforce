@@ -44,6 +44,12 @@ HANDLER_TABLES = [
         "stride": 4,
         "slots": {0: "unk0"},
     },
+    {
+        "label": "_8078990",
+        "stride": 4,
+        "slots": {0: "handler"},
+        "aliases": False,
+    },
 ]
 
 CALLBACKS = [
@@ -81,6 +87,7 @@ CALLBACK_NODE_NAMES = [callback[0] for callback in CALLBACKS]
 INDIRECT_SITES = {
     ("sub_8049344", "stored"): ("unk588",),
     ("sub_8049344", "callback"): ("unk10", "unk14", "unk588"),
+    ("handleEventListeners", "handler"): ("handler",),
 }
 INDIRECT_LOCAL_NAMES = {"callback", "stored", "transition"}
 # ``unk588`` stores a callback selected from the same two frontend-handler
@@ -606,6 +613,8 @@ def build_handler_tables() -> tuple[dict[str, list[str]], dict[str, list[str]]]:
                 nodes[node] = functions
                 slots_by_name.setdefault(slot_name, []).append(node)
             for alias, source_slots in INDIRECT_SLOT_ALIASES.items():
+                if not table.get("aliases", True):
+                    continue
                 functions: list[str] = []
                 for source_slot in source_slots:
                     for target in targets.get(source_slot, ()):
