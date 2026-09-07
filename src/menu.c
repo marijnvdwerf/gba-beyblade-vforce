@@ -48,7 +48,7 @@ void sub_805AC80(MenuState* arg0, UnkMenuItem* arg1)
     }
 }
 
-void sub_805AD24(MenuState* arg0, unk32 arg1, unk32 arg2, s32 arg3, unk32 arg4, unk32 arg5,
+void sub_805AD24(MenuState* arg0, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 arg5,
     unk32 arg6, unk8 arg7, unk8 arg8, unk8 arg9, unk8 argA, MenuStateCallback argB,
     MenuStateValueCallback argC, unk8 argD)
 {
@@ -200,13 +200,13 @@ void allocateMenuItems(MenuState* state, MenuItemDescriptor* descriptors, unk32 
 INCLUDE_ASM("asm/dump/8057b80-debug/805add4-allocateMenuItems.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805afb8-nullsub_48.s");
 
-s32 sub_805AFBC(MenuState* state, u8 arg1)
+unk32 sub_805AFBC(MenuState* state, u8 arg1)
 {
-    s32 step;
+    unk32 step;
     s32 current;
     s32 count;
     UnkMenuItem* item;
-    s32 old;
+    unk32 old;
     UnkMenuItem* oldItem;
 
     current = state->unk24;

@@ -43,7 +43,7 @@ void initGame(void)
     _gameData->unkC24 |= 0xFFFF;
     _gameData->unkC28 = -1;
     _gameData->unkC2C = -1;
-    _gameData->unkC26 |= 0xFFFF;
+    _gameData->unkC26 |= -1;
     _gameData->unk7A0 = 0;
     _gameData->unkB56 = 0;
     _gameData->unkB34 = 0;
@@ -71,7 +71,7 @@ void initGameLoop(void)
     _gameData->unkC24 |= 0xFFFF;
     _gameData->unkC28 = -1;
     _gameData->unkC2C = -1;
-    _gameData->unkC26 |= 0xFFFF;
+    _gameData->unkC26 |= -1;
     _gameData->unkC6C |= 0xFFFF;
     _gameData->unkB53 = 0;
     _gameData->unkC6E = 0;

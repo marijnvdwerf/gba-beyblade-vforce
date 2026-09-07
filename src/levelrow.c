@@ -84,12 +84,12 @@ void sub_804A280(FrontendState* arg0)
     index = arg0->unk4;
     entry = &_8069FC8[index];
 
-    if (entry->data->unk0 == (s16)_gameData->unkC26)
+    if (entry->data->unk0 == _gameData->unkC26)
         return;
     if (arg0->transition.unk586 != arg0->transition.value)
         return;
 
-    if ((s16)_gameData->unkC26 != -1)
+    if (_gameData->unkC26 != -1)
         sub_804AF5C();
     if (index != -1 && entry->data->unk0 != -1)
         sub_804AF04(entry->data->unk0);
