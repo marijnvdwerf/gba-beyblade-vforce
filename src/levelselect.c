@@ -18,6 +18,8 @@
 #include "tutorial.h"
 #include "unsorted.h"
 
+extern const unk8 Str_86FCF54[];
+
 void sub_8041078(LevelSelectState* state)
 {
     SpriteTextCleanup* sprite;
@@ -36,7 +38,41 @@ void sub_8041078(LevelSelectState* state)
 }
 
 INCLUDE_ASM("asm/dump/8040d18/80410b4-displayFrontendLevel.s");
-INCLUDE_ASM("asm/dump/8040d18/8041188.s");
+
+void sub_8041188(LevelSelectState* state, LevelDescription* description, LevelState* levelState,
+    unk32 levelIndex)
+{
+    unk32 language;
+    LevelState* laterLevelState;
+    unk32 laterIndex;
+
+    laterLevelState = levelState;
+    laterIndex = levelIndex;
+    language = getLanguage();
+    if (description->unk1C != 0 && (levelState->unk0 & 2) == 0 && sub_8051780(4) == 0) {
+        sub_8061228(state->rows[3]);
+        sub_8061228(state->rows[4]);
+        sub_8061228(state->rows[5]);
+        sub_8061660(state->rows[2], description->unk54[language], 0xF);
+    } else {
+        sub_8061228(state->rows[2]);
+        if (sub_8051780(4) != 0) {
+            sub_8061228(state->rows[3]);
+            sub_8061228(state->rows[4]);
+            sub_8061228(state->rows[5]);
+        } else {
+            sub_8061660(state->rows[3], _806E97C[1][language], 0xE);
+            printTime(state->rows[3], laterLevelState->unk4, 0xF);
+            sub_8061660(state->rows[4], _806E97C[7][language], 0xE);
+            printTime(state->rows[4], laterLevelState->unk8, 0xF);
+            sub_8061660(state->rows[5], _806E97C[8][language], 0xE);
+            showNumber(state->rows[5], sub_80518C8(laterIndex), 0xF);
+            showString(state->rows[5], Str_86FCF54, 0xF);
+            showNumber(state->rows[5], description->unk1, 0xF);
+        }
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8041288.s");
 
 void sub_8041324(unk32 arg0)

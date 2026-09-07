@@ -21,14 +21,16 @@ struct TeletypeState {
     unk8 unkC;
     unk8 unkD;
     unk8 unkE;
-    unk8 pad0F[0x9D];
+    unk8 pad0F[0xD];
+    unk8 unk1C[0x80];
+    unk8 pad9C[0x10];
     unk32 unkAC;
     unk32 unkB0;
     unk8 padB4[6];
     unk16 unkBA;
     unk16 unkBC;
     unk8 unkBE;
-    unk8 padBF;
+    unk8 unkBF;
     unk8 unkC0;
     unk8 unkC1;
     unk8 unkC2;
@@ -44,6 +46,7 @@ struct TeletypeState {
 
 extern const FontStyle FontStyle_80688B8;
 
+void sub_8063AD8(TeletypeState*, unk32);
 TeletypeState* sub_8063E18(const unk8*, const FontStyle*, unk32, unk32, unk32, unk32, unk16);
 void sub_8063F5C(TeletypeState*, TeletypeCallback);
 void sub_8063F64(TeletypeState*);

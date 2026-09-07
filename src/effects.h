@@ -33,6 +33,7 @@ extern DecompressorState _unk3000140;
 
 void sub_805529C(void);
 void sub_8055340(void);
+void sub_80555F4(void);
 void sub_8055624(void);
 void sub_80556C4(void);
 unk32 sub_80556DC(unk32);

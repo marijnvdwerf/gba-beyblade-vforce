@@ -20,6 +20,7 @@ typedef struct LevelSelectSpriteData {
 extern const LevelSelectSpriteData _8068710[];
 
 void sub_8041078(LevelSelectState*);
+void sub_8041188(LevelSelectState*, LevelDescription*, LevelState*, unk32);
 void sub_8041324(unk32);
 void sub_8041344(LevelSelectState*, unk32);
 void sub_8041364(LevelSelectState*);

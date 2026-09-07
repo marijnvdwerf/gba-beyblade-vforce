@@ -720,7 +720,16 @@ GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses* arg0, s32 arg1)
     return NULL;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805dbac-GetPointAtIndex.s");
+GeometryPoint* GetPointAtIndex(LevelGeometryAddresses* arg0, s32 arg1)
+{
+    GeometryPoint* points;
+
+    points = arg0->unk4;
+    if (arg1 < arg0->unk0->pointCount) {
+        return &points[arg1];
+    }
+    return NULL;
+}
 
 GeometryPoint* GetPointAtSplineIndex(LevelGeometryAddresses* arg0, s32 splineIndex, s32 pointIndex)
 {
@@ -758,7 +767,34 @@ GeometrySplineLine* sub_805DCFC(LevelGeometryAddresses* arg0, GeometrySpline* sp
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805dd18.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805df04.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805dfd4.s");
+
+s32* sub_805DFD4(LevelGeometryAddresses* addresses, unk32 splineIndex, s32* result, s32 position)
+{
+    GeometrySpline* spline;
+    unk32* pointIndices;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    s32 index;
+
+    spline = GetSplineAtIndex(addresses, splineIndex);
+    pointIndices = spline->pointIndices;
+    if (position < 0) {
+        position = 0;
+    }
+    if ((position >> 10) >= spline->pointCount) {
+        position = ((spline->pointCount - 1) << 10) | (position & 0x3FF);
+    }
+    index = position >> 10;
+    point0 = GetPointAtIndex(addresses, pointIndices[index]);
+    point1 = GetPointAtIndex(addresses, pointIndices[index + 1]);
+    result[0] = point0->x + ((point1->x - point0->x) * (position & 0x3FF) >> 10);
+    result[1] = point0->y + ((point1->y - point0->y) * (position & 0x3FF) >> 10);
+    result[2] = point0->z + ((point1->z - point0->z) * (position & 0x3FF) >> 10);
+    result[3] = position & 0x3FF;
+    result[4] = index;
+    return result;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805e068.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e0d8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e18c.s");

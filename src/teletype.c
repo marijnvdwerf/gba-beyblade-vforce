@@ -6,10 +6,31 @@
 #include "spritetext.h"
 
 void sub_8063AB4(TeletypeState*);
+extern const unk8 byte_807D980[];
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8063ab4.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8063ad8.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8063b44.s");
+
+unk32 sub_8063B44(TeletypeState* state)
+{
+    unk8 code;
+    unk8 palette;
+    unk32 result;
+
+    code = state->unk1C[state->unkBF];
+    result = 0;
+    if (code != 0) {
+        palette = byte_807D980[code];
+        sub_8063AD8(state, palette);
+        state->unkAC += (state->unkD + (state->unkC1 - state->unk8[palette])) << 8;
+        state->unkBF++;
+        state->unkC0++;
+    } else {
+        result = 1;
+    }
+    return result;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8063ba8.s");
 
 void sub_8063CD0(TeletypeState* state)

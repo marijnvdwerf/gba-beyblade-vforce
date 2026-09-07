@@ -98,6 +98,43 @@ void initTutorialManagement(u16 levelId)
     }
 }
 
+#if 0
+void turorial_804A488(unk32 arg0)
+{
+    s32 index;
+    s32 count;
+    LevelState* levelState;
+    TutorialData* tutorial;
+    TutorialEntry* entry;
+    unk32 mask;
+    unk32* levelFlags;
+    unk32* flags;
+
+    tutorial = &_gameData->tutorial;
+    entry = tutorial->entries;
+    levelState = sub_8051734();
+    index = 0;
+    if (entry->line - 1 != arg0) {
+        count = tutorial->count;
+        if (index < count) {
+            do {
+                index++;
+                entry++;
+            } while (entry->line - 1 != arg0 && index < count);
+        }
+    }
+    if (index != tutorial->count && entry->line != 0) {
+        levelFlags = &levelState->unk10[1];
+        flags = &levelFlags[index >> 5];
+        mask = 1 << (index & 0x1F);
+        if ((*flags & mask) == 0) {
+            sub_80555F4();
+            tutorial->unk104 = entry;
+            *flags |= mask;
+        }
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804a488-turorial_804A488.s");
 
 unk32 sub_804A504(void)

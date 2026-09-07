@@ -818,7 +818,7 @@ typedef struct LevelDesign {
 } LevelDesign;
 
 struct LevelGeometryTable {
-    unk32 pointCount;
+    s32 pointCount;
 
     union {
         s16 splineCount;
@@ -989,7 +989,8 @@ typedef struct LevelDescription {
     LineMetadata** metadata;
     unk32 unk30;
     unk32 unk34;
-    unk8 pad38[0x30];
+    unk8 pad38[0x1C];
+    const unk8* unk54[5]; /* 0x54 */
     const unk8* unk68[6];
     unk8 pad80[0x10];
     unk32 unk90;
