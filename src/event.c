@@ -267,7 +267,10 @@ void processMetadata_E(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8054738-nullsub_14.s");
+void nullsub_14(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
+    LineMetadata* arg3, LineMetaObject* event)
+{
+}
 
 void processMetadata_10(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
     LineMetadata* arg3, LineMetaObject* event)
