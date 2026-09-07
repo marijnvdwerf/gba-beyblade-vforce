@@ -82,7 +82,7 @@ void actor_8057C58(
     actor->unk98 = zero8;
     actor->unk90 = zero;
     actor->unk94 = zero;
-    actor->unkB0 = zero;
+    actor->unkB0 = NULL;
     actor->unkB4 = zero;
     rider_8058614(actor, actor->unk10 >> 1, actor->unk11, 0);
     actor_80585F8(actor, 0, 0, actor->unk10, actor->unk11);
@@ -131,7 +131,7 @@ typedef struct RenderActorDraft {
     s8 unkA4;
     s8 unkA5;
     unk8 padA6[0xA];
-    void (*unkB0)(Actor*, unk32*);
+    ActorPositionFunc unkB0;
     unk8 padB4[4];
     SpriteEntry* unkB8;
     unk16 unkBC;

@@ -15,6 +15,8 @@ typedef struct AllocatedBlock AllocatedBlock;
 typedef struct ActorConfig ActorConfig;
 typedef struct BGLayer DisplayRecord;
 typedef struct ActorTimerEntry ActorTimerEntry;
+struct Actor;
+typedef void (*ActorPositionFunc)(struct Actor*, unk32*);
 typedef struct SpriteEntry SpriteEntry;
 typedef struct SpriteTextBlock SpriteTextBlock;
 typedef struct SpriteTextCleanup SpriteTextCleanup;
@@ -481,7 +483,7 @@ typedef struct Actor {
     unk16 unkAA;
     unk16 unkAC;
     unk16 unkAE;
-    void (*unkB0)(struct Actor*, unk32*);
+    ActorPositionFunc unkB0;
     unk32 unkB4;
     SpriteEntry* unkB8;
     unk16 unkBC;

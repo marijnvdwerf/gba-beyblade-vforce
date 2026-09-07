@@ -45,7 +45,7 @@ void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4,
     actor_80585F8(actor, -1, -1, 1, 1);
     actor->unk90 = (unk32)_unk3000FD0;
     actor->unk94 = (unk32)_unk3000FC0;
-    actor->unkB0 = (unk32)(convert3DCoordsto2DCoords + 1);
+    actor->unkB0 = convert3DCoordsto2DCoords;
     actor->unkB4 = (unk32)rider;
     spriteOffset = 0x10;
     if (arg5 != 0)
@@ -58,7 +58,7 @@ void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4,
     sub_80585C8(actor2, 1);
     ActorSetSpriteOffset(actor2, 8, 4);
     actor2->unk39 = 0;
-    actor2->unkB0 = (unk32)(convert3DCoordsto2DCoords + 1);
+    actor2->unkB0 = convert3DCoordsto2DCoords;
     actor2->unkBC = 0x100;
     base->unk3D4 = (((arg5 * 0x10) + 0x100) << 5) + 0x06010000;
     base->unk3C8 = 0;
