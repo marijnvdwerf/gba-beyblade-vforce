@@ -70,7 +70,7 @@ void sub_80434EC(FrontendState* object)
     if (count != 0) {
         item = object->menuState.objectItems;
         count--;
-        while (count != (unk32)-1) {
+        while (count != -1) {
             sub_805041C(item);
             item++;
             count--;
