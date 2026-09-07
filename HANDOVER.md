@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-07, session 8 — Round 5-A/B merged.
+Last updated: 2026-09-07, session 8 — raw-decomp-4 merged (564 C / 443 asm / 56%).
 
 ## Session 8 (2026-09-07)
 
@@ -74,6 +74,34 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
   reviving through repeated compaction stops (4 so far); most fixes in,
   learnings rewrite + battery/trail retype tests pending. Rule restated to
   it: a compiler diagnostic is not evidence — retype the declaration.
+- **raw-decomp-4 MERGED** (15:40, fast-forward 9e801057; compare green, lint
+  0, baseline refreshed, worktree removed; branch kept as the user's).
+  +11 functions incl. gameLoop, dialogue sub_80420C4,
+  initLevelEnvironmentActors, initQuadTreeNode, sub_805BDBC,
+  allocateDynamicBoundingAreas, GetLineIndexOfType, sub_804CB08/D110/DAA0/E090.
+  Fix agent resolved 17 review findings + 9 from the manager read (rider.h
+  prototypes after `#endif`; dead `timer` lever → unkC6C s16 `|= -1`;
+  EnvironmentActorContainer wrapper → `Actor*`). Retained with measured
+  evidence: KEYINPUT `(unk16)` casts, `(unk8)` sine-table index, `(unk16)angle`,
+  s8 oldDirection/fade locals. Learnings: raw-decomp-4-2026-09-07.md (1100+
+  lines — reviewers must not read it whole).
+- **Rulings (user, 2026-09-07)**: `Packet` is a union of PacketTransport (wire
+  bytes) and RiderStateData (`typedef Packet RiderState`) — proven pun, the
+  payload IS the rider state. `LineMetaObjectValue` union carries typed
+  payload members (config/data/transform/offset) instead of view structs.
+  GameData.unk434 is `CameraState` (geometry at unk434.geometry, offset checks
+  kept). GameData.unkC24/unkC26/unkC6C/unkC6E are s16 (`|= -1` init).
+- **Tooling**: `tools/todo.py` replaced worklist.py (TSV tu/size/name of 🔴/🟡
+  reachable functions, `--color red|yellow`). callgraph.py now ends with a
+  `⚠ unresolved indirect calls` section (7 local-pointer sites today:
+  gameLoop transition, handleEventListeners handler, initQuadTreeNode /
+  renderActor / sub_80581B8 callback, renderRider positionFunc, sub_8059310
+  copy) — when a new one appears, add a CALLBACKS/HANDLER_TABLES entry.
+- Reviewer note: luna reviewers overflow on big diffs/learnings — always give
+  an explicit read list, split by file group, forbid processed/ and SKILL.md.
+- Pending: skill-fold pass over round5-style / cast-removal / raw-decomp-4
+  learnings; raw-decomp-3 reference worktree still checked out (remove when
+  the user says).
 - The handover's Round 5 leaf pool (teletype/effects/etc.) is queued after.
 
 ## Session 7 (2026-09-06)
