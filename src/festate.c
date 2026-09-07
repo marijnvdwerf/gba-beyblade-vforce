@@ -1946,6 +1946,362 @@ INCLUDE_ASM("asm/dump/8040d18/8047080.s");
 INCLUDE_ASM("asm/dump/8040d18/80470c8.s");
 INCLUDE_ASM("asm/dump/8040d18/804712c.s");
 INCLUDE_ASM("asm/dump/8040d18/8047494.s");
+#if 0
+#include "effects.h"
+#include "keystate.h"
+
+typedef struct FrontendBladeState {
+    SpriteEntry* unk0; /* 0x00 */
+    SpriteEntry* unk4; /* 0x04 */
+    SpriteEntry* unk8; /* 0x08 */
+    SpriteEntry* unkC; /* 0x0C */
+    SpriteEntry* unk10; /* 0x10 */
+    SpriteTextCleanup* unk14; /* 0x14 */
+    SpriteTextCleanup* unk18; /* 0x18 */
+    SpriteTextCleanup* unk1C; /* 0x1C */
+    SpriteTextCleanup* unk20; /* 0x20 */
+    SpriteTextCleanup* unk24; /* 0x24 */
+    SpriteTextCleanup* unk28; /* 0x28 */
+    SpriteTextCleanup* unk2C; /* 0x2C */
+    SpriteTextCleanup* unk30; /* 0x30 */
+    s8 unk34; /* 0x34 */
+    s8 unk35; /* 0x35 */
+    unk8 unk36; /* 0x36 */
+    unk8 pad37[1]; /* 0x37 */
+    DecompressorState decompressor; /* 0x38 */
+} FrontendBladeState;
+
+typedef char FrontendBladeStateSizeCheck[(sizeof(FrontendBladeState) == 0x48) ? 1 : -1];
+
+extern const unk8 SpriteSheet_825125C[];
+extern const unk8 SpriteSheet_82516A8[];
+extern const unk8 SpriteSheet_8251AF4[];
+extern const unk8 Str_86FD640[];
+extern const unk8 Str_86FD68C[];
+extern const unk8 Str_86FD6C8[];
+extern const unk8 Str_86FD704[];
+extern const unk8 Str_86FD740[];
+extern const unk8 Str_86FD77C[];
+extern const unk8 Str_86FD7B8[];
+
+extern s32 _unk30004E4;
+extern s32 _unk30004E8[2];
+extern FrontendBladeState _unk30004F0;
+extern unk8 _unk3000538;
+extern unk8 _unk3000539;
+extern unk8 _unk300053A;
+extern unk8 _unk300053B;
+extern SpriteEntry* _unk300053C;
+extern SpriteEntry* _unk3000540;
+extern SpriteEntry* _unk3000544;
+extern s32 _unk3000548;
+extern s32 _unk300054C;
+extern s32 _unk3000550;
+extern s32 _unk3000554;
+extern s32 _unk3000558;
+extern s32 _unk300055C;
+extern s32 _unk3000560;
+extern s32 _unk3000564;
+
+extern void initBBCollectionSprite(FrontendBladeState*);
+extern void sub_8047080(FrontendBladeState*, unk32);
+extern void sub_80470C8(FrontendBladeState*);
+extern void sub_804712C(FrontendBladeState*);
+extern void sub_805185C(s8);
+extern void sub_8062318(SpriteTextCleanup*, unk32);
+
+void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
+{
+    s32 index;
+    s32 count;
+    s32 nextIndex;
+    s32 direction;
+    s32 delta;
+    s32 positionDelta;
+    unk16 keyBits;
+    SpriteEntry* sprite;
+    SpriteEntry* sprite2;
+    SpriteEntry* sprite3;
+    SpriteEntry* sprite4;
+    SpriteEntry* sprite5;
+    SpriteEntry* sprite6;
+    KeyState* keyState5;
+    KeyState* keyState4;
+
+    switch (command) {
+    case 0:
+        index = 0;
+        while (sub_80570D4(index) == 0 && index <= 0x3B) {
+            index++;
+        }
+        if (index == 0x3C) {
+            printf(Str_86FD640);
+        }
+        _unk30004F0.unk34 = index;
+        _unk30004F0.unk35 = 0;
+        _unk30004F0.unk0 = NULL;
+        sprite = allocSprite(0);
+        _unk300053C = sprite;
+        if (sprite != NULL) {
+            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+        } else {
+            printf(Str_86FD68C);
+        }
+        sprite2 = allocSprite(0);
+        _unk3000540 = sprite2;
+        if (sprite2 != NULL) {
+            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+        } else {
+            printf(Str_86FD6C8);
+        }
+        sprite3 = allocSprite(0);
+        _unk3000544 = sprite3;
+        if (sprite3 != NULL) {
+            LoadSpriteSheet(sprite3, SpriteSheet_823BF04, 0x18000, 0x1B00, 0, 0, 2, 2);
+        } else {
+            printf(Str_86FD704);
+        }
+        sprite4 = allocSprite(0);
+        _unk30004F0.unk8 = sprite4;
+        if (sprite4 != NULL) {
+            LoadSpriteSheet(sprite4, SpriteSheet_825125C, 0xAC00, 0xA000, 0, 0, 0, 0);
+        } else {
+            printf(Str_86FD740);
+        }
+        sprite5 = allocSprite(0);
+        _unk30004F0.unkC = sprite5;
+        if (sprite5 != NULL) {
+            LoadSpriteSheet(sprite5, SpriteSheet_82516A8, 0xAC00, 0xA000, 0, 0, 0, 0);
+        } else {
+            printf(Str_86FD77C);
+        }
+        sprite6 = allocSprite(0);
+        _unk30004F0.unk10 = sprite6;
+        if (sprite6 != NULL) {
+            LoadSpriteSheet(sprite6, SpriteSheet_8251AF4, 0xAC00, 0xA000, 0, 0, 0, 0);
+        } else {
+            printf(Str_86FD7B8);
+        }
+        _unk3000548 = 0x800;
+        _unk300054C = 0xD800;
+        _unk3000550 = 0x4800;
+        _unk3000554 = 0xDC00;
+        _unk3000558 = 0x1A00;
+        _unk300055C = 0x1B00;
+        _unk30004E8[0] = 0x10000;
+        _unk30004E4 = 0;
+        sub_80596AC(&state->unk250, -_unk30004E8[0], 0x2400);
+        _unk30004F0.unk14 = sub_804A0E0(0);
+        _unk30004F0.unk18 = sub_804A0E0(1);
+        _unk30004F0.unk1C = sub_804A0E0(2);
+        _unk30004F0.unk20 = sub_804A0E0(3);
+        _unk30004F0.unk24 = sub_804A0E0(4);
+        _unk30004F0.unk28 = sub_804A0E0(5);
+        _unk30004F0.unk2C = sub_804A0E0(6);
+        _unk30004F0.unk30 = sub_804A0E0(7);
+        sub_8062318(_unk30004F0.unk14, 1);
+        sub_8062318(_unk30004F0.unk18, 1);
+        sub_8062318(_unk30004F0.unk1C, 1);
+        sub_8062318(_unk30004F0.unk20, 1);
+        sub_8062318(_unk30004F0.unk24, 1);
+        sub_8062318(_unk30004F0.unk28, 1);
+        sub_8062318(_unk30004F0.unk2C, 1);
+        sub_8062318(_unk30004F0.unk30, 1);
+        _unk30004F0.unk4 = NULL;
+        _unk30004F0.unk36 = 0;
+        sub_8055C4C(&_unk30004F0.decompressor);
+        _unk3000539 = 0;
+        _unk3000538 = 1;
+        state->unk80 |= 0x30;
+        _unk300053A = 0;
+        _unk300053B = 0;
+        _unk3000560 = 0;
+        _unk3000564 = 0;
+        return;
+    case 7:
+        if (_unk30004F0.unk8 != NULL) {
+            sub_8060A94(_unk30004F0.unk8);
+        }
+        if (_unk30004F0.unkC != NULL) {
+            sub_8060A94(_unk30004F0.unkC);
+        }
+        if (_unk30004F0.unk10 != NULL) {
+            sub_8060A94(_unk30004F0.unk10);
+        }
+        if (_unk300053C != NULL) {
+            sub_8060A94(_unk300053C);
+        }
+        if (_unk3000540 != NULL) {
+            sub_8060A94(_unk3000540);
+        }
+        if (_unk3000544 != NULL) {
+            sub_8060A94(_unk3000544);
+        }
+        if (_unk30004F0.unk0 != NULL) {
+            sub_8060A94(_unk30004F0.unk0);
+        }
+        sub_8055CA0(&_unk30004F0.decompressor);
+        return;
+    case 8:
+        if (arg2 == 1) {
+            _unk3000539 = arg2;
+        }
+        return;
+    case 1:
+        sub_80439A0(&state->unk140);
+        if (state->transition.value == 0 && state->transition.unk585 == 0) {
+            *(vu16*)REG_BG2PA = 0xF40;
+            *(vu16*)REG_BG2PB = ((0x10 - _unk3000560) << 8) | _unk3000560;
+            if (_unk3000560 != _unk3000564) {
+                delta = _unk3000560 - 1;
+                if (_unk3000564 > _unk3000560) {
+                    delta = _unk3000560 + 1;
+                }
+                _unk3000560 = delta;
+            }
+            if (_unk3000560 == 0 && _unk300053B == 0) {
+                initBBCollectionSprite(&_unk30004F0);
+                _unk3000564 = 0x10;
+            }
+            if (_unk300053A == 0) {
+                sub_8047080(&_unk30004F0, 1);
+                sub_804712C(&_unk30004F0);
+                _unk300053A = 1;
+            }
+        }
+        if (_unk300053C != NULL) {
+            _unk300053C->x += (((_unk3000548 - _unk300053C->x) >> 2)
+                + Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1] - _unk30004E4);
+        }
+        if (_unk3000540 != NULL) {
+            _unk3000540->x += (((_unk300054C - _unk3000540->x) >> 2)
+                - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1] + _unk30004E4);
+        }
+        sprite = _unk3000544;
+        if (sprite != NULL) {
+            sprite->x += ((_unk3000554 - sprite->x) >> 2) - _unk30004E4;
+            sprite->y += (_unk300055C - sprite->y) >> 3;
+            direction = (((sub_8057C40() >> 8) & 1) != 0) ? 2 : 3;
+            sprite->frame.word = direction;
+        }
+        if (_unk3000539 != 0 && ((_unk30004E8[0] >> 8) > 0xFE) && _unk30004E4 == 0x10000) {
+            _unk30004E4 = 0;
+        }
+        positionDelta = (_unk30004E4 - _unk30004E8[0]) >> 2;
+        sub_80596AC(&state->unk250, -positionDelta, 0);
+        _unk30004E8[0] += positionDelta;
+        return;
+    case 2:
+        if ((_unk3005DA0 & 2) != 0) {
+            _unk300053B = 2;
+            _unk3000564 = 0;
+            sub_8047080(&_unk30004F0, 1);
+        }
+        if ((_unk3005DA0 & 1) != 0) {
+            _unk300053B = 1;
+            _unk3000564 = 0;
+            sub_8047080(&_unk30004F0, 1);
+        }
+        if (_unk300053B != 0 && _unk3000560 == _unk3000564) {
+            sub_80470C8(&_unk30004F0);
+            _unk30004E4 = 0x10000;
+            _unk3000539 = 0;
+            _unk3000548 = 0xFFFF0000;
+            _unk300054C = 0x1E000;
+            _unk3000550 = 0xFFFF0000;
+            _unk3000554 = 0x1E000;
+            if (_unk300053B == 1) {
+                if (sub_8051780(4) != 0) {
+                    sub_805185C(_unk30004F0.unk34);
+                    sub_80490F8(0x1F);
+                    sub_804ABFC(8);
+                } else if ((_currentGameState->unkC64 & 4) != 0) {
+                    sub_805185C(_unk30004F0.unk34);
+                    sub_80490F8(0x1B);
+                    sub_804ABFC(8);
+                } else {
+                    sub_804ABFC(9);
+                    sub_8049178();
+                }
+            } else {
+                sub_804ABFC(9);
+                sub_8049178();
+            }
+        }
+        if ((_keyInput & 0x30) != 0 && _unk300053A != 0) {
+            keyState5 = sub_805A914(5);
+            keyState4 = sub_805A914(4);
+            if ((_unk3005DA0 & 0x20) != 0
+                || ((_keyInput & 0x20) != 0 && keyState5->var08 > 0xF0
+                    && ((sub_8057C40() >> 4) & 7) == 0)) {
+                count = 0;
+                nextIndex = _unk30004F0.unk34 - 1;
+                if (nextIndex < 0) {
+                    nextIndex += 0x3C;
+                }
+                while (sub_80570D4(nextIndex) == 0 && count <= 0x3B) {
+                    nextIndex--;
+                    if (nextIndex < 0) {
+                        nextIndex += 0x3C;
+                    }
+                    count++;
+                }
+                _unk30004F0.unk34 = nextIndex;
+                _unk30004F0.unk35 = 0;
+                sub_8047080(&_unk30004F0, 0);
+                sub_804712C(&_unk30004F0);
+                _unk3000564 = 0;
+                sub_804ABFC(7);
+            } else if ((_unk3005DA0 & 0x10) != 0
+                || ((_keyInput & 0x10) != 0 && keyState4->var08 > 0xF0
+                    && ((sub_8057C40() >> 4) & 7) == 0)) {
+                count = 0;
+                nextIndex = _unk30004F0.unk34 + 1;
+                if (nextIndex > 0x3B) {
+                    nextIndex -= 0x3C;
+                }
+                while (sub_80570D4(nextIndex) == 0 && count <= 0x3B) {
+                    nextIndex++;
+                    if (nextIndex > 0x3B) {
+                        nextIndex -= 0x3C;
+                    }
+                    count++;
+                }
+                _unk30004F0.unk34 = nextIndex;
+                _unk30004F0.unk35 = 0;
+                sub_8047080(&_unk30004F0, 0);
+                sub_804712C(&_unk30004F0);
+                _unk3000564 = 0;
+                sub_804ABFC(7);
+            }
+        }
+        if ((_unk3005DA0 & 0xC0) != 0) {
+            if ((keyBits = _unk3005DA0 & 0x40) != 0) {
+                if (_unk30004F0.unk35 > 0) {
+                    _unk30004F0.unk35--;
+                } else {
+                    _unk30004F0.unk35 = 4;
+                }
+                _unk3000564 = 0;
+                sub_8047080(&_unk30004F0, 0);
+                sub_804ABFC(7);
+            } else {
+                if (_unk30004F0.unk35 <= 3) {
+                    _unk30004F0.unk35++;
+                } else {
+                    _unk30004F0.unk35 = keyBits;
+                }
+                _unk3000564 = 0;
+                sub_8047080(&_unk30004F0, 0);
+                sub_804ABFC(7);
+            }
+            sub_804712C(&_unk30004F0);
+        }
+        return;
+    }
+}
+
+#endif
 INCLUDE_ASM("asm/dump/8040d18/80475e0-selectBladeFrontendHandler.s");
 
 void sub_8047E5C(FrontendState* state, unk32 arg1)
