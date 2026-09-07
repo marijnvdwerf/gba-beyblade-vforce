@@ -264,7 +264,7 @@ void sub_804F05C(LevelHudData* arg0)
         sub_8061844(text2, 0xA, temp + 0x14);
     }
     if (sub_8051780(4) == 0) {
-        sub_8061844(&state->text3, 0xD0, (s16)(temp + 4));
+        sub_8061844(&state->text3, 0xD0, temp + 4);
         state->unk124->y = y;
     }
     time = _gameData->base.unk234 << 4;
