@@ -475,3 +475,90 @@ QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX,
 
 Instruction diff is exact; full-ROM SHA1 compare passes:
 `cd527c8c24e20e33913fc45199e64b3e6138a6e5`.
+
+
+# sub_804E090 — matched 2026-09-07
+
+Address: `0x0804E090`; translation unit: `src/riderphysics.c`.
+
+Reachable through mainLoop and sub_804D110; read its parked caller and the
+assembly call. The function resets two counters and unkBC, captures unk170
+before clearing rider flag 0x40000, and conditionally changes an angle or
+copies the actor Z value. The geometry-line pointer at unkEC is assigned from
+the preceding contact line in the caller. Its byte at 0xF is tested for 0x81.
+
+Added only accessed RiderBase fields: unkC, unk80, unk90, unkBC, unkEC,
+unk16C, unk170, and unk198. The existing unk10 is now s32, proven by asr #4;
+unk80/unk170 are signed because of ble. The line pointer uses the existing
+GeometryLine layout. Added the public function declaration. No new duplicate
+scratch layouts remain in the source. The raw-decomp draft has a different
+fallback scope; the original assembly is authoritative.
+
+## Controlled experiments
+
+| Change | First divergence | Result |
+| --- | --- | --- |
+| Natural typed draft with byte angle and doubled s16 helper result | +0x56: byte conversion shifts/mask, plus reassociated final subtraction | No match |
+| Wide angle and explicit initial 0xFF mask | +0x5C: mask cached in r4 across call | Closer |
+| Stage reloaded angle and doubled result before subtraction | +0x5C: cached mask remains | Arithmetic matches |
+| Initial byte cast instead of explicit mask | +0x56: shift/mask conversion returns | Rejected |
+| Separate angle &= 0x7F statement | +0x5C unchanged | Equivalent |
+| Signed unk16C | +0x5C unchanged | Reverted to unk32 |
+| Final unsigned modulo 256 | +0x5C unchanged | Rejected |
+| Final (unk16)angle & 0xFF | None | Exact instructions |
+| Replace final conversion with separate unk16 newAngle local | +0x5C: cached mask returns; result register changes | Rejected |
+| Make the shared angle local unk16 | +0x72: extra narrowing shifts | Rejected |
+| Restore final conversion and format | None | Full ROM SHA1 passes |
+| Fold s16 result into doubled delta before reloading angle | +0x70: sign extension/doubling moves before angle load | Rejected |
+| Remove captured value and read unk170 after flag clear | +0x00: push set changes and load moves | Rejected |
+
+Flagged source shape: the final halfword conversion before the 0xFF mask is
+byte-required, despite being redundant for the resulting low eight bits.
+It prevents agbcc from retaining the first 0xFF mask across sub_804E358 in r4.
+Removing it changes the ROM. The initial 0xFF then 0x7F masks also preserve
+the target's two explicit masks. The final halfword conversion is on a local,
+not a struct field. No register pinning, volatile, barriers, or raw-offset
+accesses were used.
+
+The captured value and s16 result each have one use but are independently
+byte-required as shown above. Arithmetic uses multiplication by two rather
+than transcribing the target's sign-extension shift pair.
+
+ARM-target offset checks passed for all accessed RiderBase fields and the
+existing GeometryLine.unkF offset/0x20-byte layout. Full ROM comparison also
+passes after upgrading the shared struct types.
+
+Final source:
+
+```c
+void sub_804E090(RiderBase* rider)
+{
+    s32 value;
+    s32 angle;
+    s16 result;
+    s32 delta;
+
+    rider->unk19C = 0;
+    rider->unk198 = 0;
+    rider->unkBC = -1;
+    value = rider->unk170;
+    UnsetRiderFlag(rider, 0x40000);
+    if (value > 0 && rider->unk80 > 0) {
+        if (rider->unkEC != NULL && rider->unkEC->unkF == 0x81) {
+            angle = (0x80 - rider->unk16C) & 0xFF;
+            angle &= 0x7F;
+            result = sub_804E358(angle, rider->unk10 >> 4);
+            angle = rider->unk10 >> 4;
+            delta = result * 2;
+            delta -= 0x80;
+            angle -= delta;
+            rider->unkC = (unk16)angle & 0xFF;
+        } else {
+            rider->unk90 = rider->unk0->z;
+        }
+    }
+}
+```
+
+Instruction diff is exact; ROM SHA1 compare passes:
+`cd527c8c24e20e33913fc45199e64b3e6138a6e5`.

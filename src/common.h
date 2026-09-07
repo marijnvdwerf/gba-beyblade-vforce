@@ -602,8 +602,9 @@ typedef struct RiderTemp {
 typedef struct RiderBase {
     Actor* unk0;
     RiderTemp* unk4;
-    unk8 pad8[8];
-    unk32 unk10;
+    unk8 pad8[4];
+    unk32 unkC;
+    s32 unk10;
     unk32 unk14;
     unk8 pad18[4];
     unk32 unk1C;
@@ -621,19 +622,30 @@ typedef struct RiderBase {
     unk32 unk6C; /* 0x6C */
     unk32 unk70; /* 0x70 */
     unk32 unk74; /* 0x74 */
-    unk8 pad78[0x24];
+    unk8 pad78[8];
+    s32 unk80;
+    unk8 pad84[0xC];
+    unk32 unk90;
+    unk8 pad94[8];
     unk32 flags;
     unk32 unkA0; /* 0xA0 */
     unk32 unkA4;
     unk8 padA8[0x10];
     SpriteEntry* unkB8;
-    unk8 padBC[0x10];
+    unk32 unkBC;
+    unk8 padC0[0xC];
     unk32 unkCC; /* 0xCC */
-    unk8 padD0[0x74];
+    unk8 padD0[0x1C];
+    struct GeometryLine* unkEC;
+    unk8 padF0[0x54];
     unk16 unk144; /* 0x144 */
     unk8 pad146[0xA];
     unk16 unk150; /* 0x150 */
-    unk8 pad152[0x4A];
+    unk8 pad152[0x1A];
+    unk32 unk16C;
+    s32 unk170;
+    unk8 pad174[0x24];
+    unk32 unk198;
     unk32 unk19C; /* 0x19C */
     unk8 pad1A0[0x4E];
     s16 unk1EE; /* 0x1EE */

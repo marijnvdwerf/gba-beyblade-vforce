@@ -842,70 +842,34 @@ void sub_804DFF4(RiderBase* rider)
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804dff4.s");
 
-#if 0
-typedef struct RiderE090InnerDraft {
-    unk8 pad0[0xF];
-    unk8 unkF;
-} RiderE090InnerDraft;
-
-typedef struct RiderE090Draft {
-    Actor* unk0;
-    unk8 pad4[8];
-    unk32 unkC;
-    s32 unk10;
-    unk8 pad14[0x6C];
-    s32 unk80;
-    unk8 pad84[0xC];
-    unk32 unk90;
-    unk8 pad94[8];
-    unk32 flags;
-    unk8 padA0[0x1C];
-    unk32 unkBC;
-    unk8 padC0[0x2C];
-    RiderE090InnerDraft* unkEC;
-    unk8 padF0[0x7C];
-    unk32 unk16C;
-    s32 unk170;
-    unk8 pad174[0x24];
-    unk32 unk198;
-    unk32 unk19C;
-} RiderE090Draft;
-
 void sub_804E090(RiderBase* rider)
 {
-    RiderE090Draft* r;
     s32 value;
-    RiderE090InnerDraft* inner;
     s32 angle;
-    s32 result;
+    s16 result;
+    s32 delta;
 
-    r = (RiderE090Draft*)rider;
-    r->unk19C = 0;
-    r->unk198 = 0;
-    r->unkBC = -1;
-    value = r->unk170;
+    rider->unk19C = 0;
+    rider->unk198 = 0;
+    rider->unkBC = -1;
+    value = rider->unk170;
     UnsetRiderFlag(rider, 0x40000);
-    if (value > 0) {
-        if (r->unk80 <= 0)
-            return;
-        inner = r->unkEC;
-        if (inner != NULL && inner->unkF == 0x81) {
-            angle = (0x80 - r->unk16C) & 0xFF;
+    if (value > 0 && rider->unk80 > 0) {
+        if (rider->unkEC != NULL && rider->unkEC->unkF == 0x81) {
+            angle = (0x80 - rider->unk16C) & 0xFF;
             angle &= 0x7F;
-            result = sub_804E358(angle, r->unk10 >> 4);
-            angle = r->unk10 >> 4;
-            result = (result << 16) >> 15;
-            result -= 0x80;
-            angle -= result;
-            angle &= 0xFF;
-            r->unkC = angle;
-            return;
+            result = sub_804E358(angle, rider->unk10 >> 4);
+            angle = rider->unk10 >> 4;
+            delta = result * 2;
+            delta -= 0x80;
+            angle -= delta;
+            rider->unkC = (unk16)angle & 0xFF;
+        } else {
+            rider->unk90 = rider->unk0->z;
         }
-        r->unk90 = r->unk0->z;
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e090.s");
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e124.s");
 
 void sub_804E154(RiderBase* rider, unk32 arg1, unk32 arg2)
