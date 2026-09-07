@@ -48,6 +48,32 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
   empty in worktree) — give agents the absolute worktree path in the prompt;
   "compare broke" is not evidence — retyping a field means diffing every
   user; tell agents to REPORT when only a rule-breaking shape matches.
+- **raw-decomp-4 (running, 12:41→)**: user branch with 12 more matched
+  functions on top of raw-decomp-3 (f9d014b6 GetLineIndexOfType …
+  9dfd30f7 initLevelEnvironmentActors, incl. gameLoop and dialogue
+  sub_80420C4). Luna agent rebasing `--onto main f9d014b6~1` in
+  `.claude/worktrees/raw-decomp-4` with compare per commit. Plan (user):
+  review agent on the rebased branch → luna fix agent on the same branch →
+  manager read → merge. No re-derivation round needed (quality is higher).
+- raw-decomp-4 rebased (12 commits on main, compare green, 12:50). Review
+  took two luna reviewers (first died "prompt too long" after 13 findings —
+  the 1022-line session-astra.md learnings + tool schemas; split by file
+  slice): 17 BLOCKING / 3 QUESTIONS in /tmp/review-raw-decomp-4.md. Fix
+  agent (luna, 13:15→) on the branch itself: unkF field, s32 return, header
+  prototypes (~30 local decls), unevidenced s8/s16/s32, three if-shape
+  questions, then the design items — envactor Container/Slot + Meta view
+  structs, gameloop `Packet*`→`RiderState*` casts, sub_804B4FC signature
+  conflict — canonical form attempted then reported. User ruling on those
+  three still open.
+- **Cast-removal branch MERGED** (14:55, fast-forward, compare green, baseline
+  refreshed; worktree removed). Was `worktree-agent-af09d3dab57679a18` (luna,
+  32 commits): unkC24 → s16; ~15 casts absorbed into declarations,
+  ~12 kept with cited codegen; learnings cast-removal-2026-09-07.md. Reviewer
+  reviewed 13:50 (8 BLOCKING / 2 Q, mostly missing instruction evidence
+  for kept casts; battery `void*` params; extern in sound.c). Agent
+  reviving through repeated compaction stops (4 so far); most fixes in,
+  learnings rewrite + battery/trail retype tests pending. Rule restated to
+  it: a compiler diagnostic is not evidence — retype the declaration.
 - The handover's Round 5 leaf pool (teletype/effects/etc.) is queued after.
 
 ## Session 7 (2026-09-06)

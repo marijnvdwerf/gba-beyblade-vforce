@@ -548,7 +548,7 @@ void sub_8052978(unk32 arg0, void (*arg1)(void))
         }
         break;
     case 3:
-        _unk3000C08 = (unk32)-2;
+        _unk3000C08 = -2;
         sub_805565C();
         break;
     case 4:

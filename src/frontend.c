@@ -46,8 +46,8 @@ unk8 sub_8048FFC(void)
 
 void sub_8049018(void)
 {
-    _unk3000650.unk84 = _unk3000650.unk88 = (unk32)-65536;
-    _unk3000650.unk8C = _unk3000650.unk90 = (unk32)-65536;
+    _unk3000650.unk84 = _unk3000650.unk88 = -65536;
+    _unk3000650.unk8C = _unk3000650.unk90 = -65536;
 }
 
 void sub_804903C(FrontendSubobject* object, unk32 arg1, unk32 arg2)
@@ -155,7 +155,7 @@ extern void (*__oam_8756CC0)(void);
 
 void sub_8049264(void)
 {
-    _gameData->unkC26 = (unk16)-1;
+    _gameData->unkC26 = -1;
     _unk3000650.unk4 = 0;
     _unk3000650.unkC = 0;
     sub_804924C(7);

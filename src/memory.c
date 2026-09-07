@@ -145,14 +145,14 @@ AllocatedBlock* sub_805A53C(u32 size, unk8* base, unk32 capacity, AllocatedBlock
     u32 finalGap;
     unk8* end;
     unk8* last;
-    unk32 address;
+    unk8* address;
     AllocatedBlock* cur;
 
-    address = (unk32)current->address;
+    address = current->address;
     cur = current;
     firstGap = 0;
     if (address != 0) {
-        firstGap = (unk8*)address - base;
+        firstGap = address - base;
     }
 
     if (firstGap >= size) {

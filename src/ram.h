@@ -250,7 +250,7 @@ typedef struct GameData {
     unk8 padB5C[0x2C]; /* 0xB5C */
     PolyTable unkB88; /* 0xB88 */
     RenderCode renderCode; /* 0xBA0 */
-    u16 unkC24; /* 0xC24 */
+    s16 unkC24; /* 0xC24 */
     s16 unkC26; /* 0xC26 */
     unk32 unkC28; /* 0xC28 */
     unk32 unkC2C; /* 0xC2C */

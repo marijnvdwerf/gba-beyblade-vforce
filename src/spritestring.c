@@ -294,7 +294,7 @@ void sub_8065760(SpriteString* string, unk32 arg1, unk32 arg2, unk32 arg3, unk32
     u16 count;
     unk32 offset;
 
-    count = (u16)maxCount;
+    count = maxCount;
     offset = 0;
     if (count > string->count) {
         count = string->count;
@@ -324,7 +324,6 @@ void sub_80657EC(SpriteString* string, u8 value)
     unk32 mask;
     unk32 low;
 
-    value = (u8)value;
     flags = 0x10;
     flags |= string->flags;
     mask = 0xF;
@@ -332,5 +331,5 @@ void sub_80657EC(SpriteString* string, u8 value)
     mask -= 0x1F;
     flags &= mask;
     flags |= low;
-    string->flags = (u8)flags;
+    string->flags = flags;
 }

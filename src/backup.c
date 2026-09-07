@@ -238,7 +238,7 @@ unk32 writeToBatteryBackup(u16 sector, unk16* data)
     return result;
 }
 
-u16 sub_8065BD4(u16 sector, u32 data)
+u16 sub_8065BD4(u16 sector, unk16* data)
 {
     u16 result;
     u8 retries;
@@ -247,7 +247,7 @@ u16 sub_8065BD4(u16 sector, u32 data)
     while (retries <= 2) {
         result = sub_8065AA0(sector, data);
         if (result == 0) {
-            result = writeToBatteryBackup(sector, (unk16*)data);
+            result = writeToBatteryBackup(sector, data);
         }
         if (result == 0) {
             break;

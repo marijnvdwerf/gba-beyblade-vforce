@@ -22,7 +22,7 @@ KeyState _unk3005CB0[10] = { 0 };
 u16 _unk3005DA0 = 0;
 unk8 _pad3[2] = { 0 };
 unk16 _unk3005DA4 = 0;
-void* _unk3005DA8 = NULL;
+unk32 _unk3005DA8 = 0;
 unk16 _unk3005DAC = 0;
 unk16* _keyRecordingData = NULL;
 unk16 _unk3005DB4 = 0;
@@ -194,7 +194,7 @@ void sub_805AB38(void)
 
 unk32 sub_805AB44(void)
 {
-    return _unk3000E30[0] - (unk32)_unk3005DA8;
+    return _unk3000E30[0] - _unk3005DA8;
 }
 
 unk8 sub_805AB58(void)

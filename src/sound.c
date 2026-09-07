@@ -72,7 +72,6 @@ extern unk32 _unk3005E10;
 extern SfxTable* _unk3005E14;
 extern u16 _unk3005E18;
 extern unk8 (*_soundMixer)[];
-extern unk32 _unk3005E20;
 extern SoundStructA (*_unk3005E24)[2];
 extern SoundStructF (*_unk3005E28)[16];
 extern AllocatedBlock* _soundMixerBlock;
@@ -86,7 +85,7 @@ extern unk8 _unk3005E78;
 void (*__sub_87577B4)(SoundStructA*, unk32, unk32);
 void (*__sound_8757A64)(unk32, unk32, unk32);
 
-#define FIXED_16_16(hz) ((unk32)((hz) * 65536.0))
+#define FIXED_16_16(hz) ((hz) * 65536.0)
 
 const u32 MidiNoteFrequencies[128] = {
     FIXED_16_16(8.1758),
@@ -539,7 +538,7 @@ unk32 Sound_80629F0(SoundStructE* arg0, unk32 arg1)
     SoundStructA* var1 = &(*_unk3005E24)[0];
     for (i = _unk3005E04 - 1; i != -1; i--) {
         if (var1->var16 == 0) {
-            Sound_8062910(var1, arg0, (unk32)arg1);
+            Sound_8062910(var1, arg0, arg1);
             var1->var18 = _unk3000D9C++;
 
             return var1->var18;
@@ -666,7 +665,7 @@ void Sound_8062BA8(unk32 arg0)
     Sound_8062B2C();
 
     _unk3005E00 = (unk8(*)[])(*_unk3005E14->var08)[arg0][0];
-    _unk3005E20 = (unk32)(*_unk3005E14->var08)[arg0][1];
+    _unk3005E20 = (*_unk3005E14->var08)[arg0][1];
 
     _unk3005E08 = 0;
     _unk3005E10 = 0;

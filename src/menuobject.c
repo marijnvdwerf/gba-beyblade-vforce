@@ -70,7 +70,7 @@ void sub_80434EC(FrontendState* object)
     if (count != 0) {
         item = object->menuState.objectItems;
         count--;
-        while (count != (unk32)-1) {
+        while (count != -1) {
             sub_805041C(item);
             item++;
             count--;
@@ -193,12 +193,12 @@ void sub_804374C(FrontendState* object)
                 sub_805AFBC(&object->menuState, 1);
             }
             if ((_unk3005DA0 & 0x20) != 0) {
-                if (sub_805B210(&object->menuState) != (unk32)-1) {
+                if (sub_805B210(&object->menuState) != -1) {
                     sub_80490CC(9, sub_8043720(object));
                 }
                 sub_805B050(&object->menuState, 0);
             } else if ((_unk3005DA0 & 0x10) != 0) {
-                if (sub_805B210(&object->menuState) != (unk32)-1) {
+                if (sub_805B210(&object->menuState) != -1) {
                     next = sub_8043720(object) | 0x80000000;
                     sub_80490CC(9, next);
                 }

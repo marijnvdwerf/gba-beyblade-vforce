@@ -12,6 +12,8 @@ typedef struct SfxTable {
     unk8* (*data)[];
 } SfxTable;
 
+extern unk8* _unk3005E20;
+
 void sub_80627F0(void);
 void Sound_8062694(void);
 void Sound_80626E0(void);

@@ -187,7 +187,7 @@ LineMetaObject* getLineMetaobjectByTypeAndId(
     }
     count = metadata->count;
     if (index < count) {
-        key = (u16)id;
+        key = id;
         limit = count;
         for (; index < limit; index++) {
             if (ptr->type == type && ptr->id == key) {

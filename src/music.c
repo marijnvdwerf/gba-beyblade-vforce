@@ -122,7 +122,7 @@ void sub_804AD74(void)
             sub_804AFD4((unk16)lower);
         }
         if (upper == 0 && lower == 0) {
-            _unk3000F1C = (s16)lower;
+            _unk3000F1C = lower;
         }
     }
     value = _unk3000F1C;
@@ -158,7 +158,7 @@ void sub_804AE34(unk32 arg0, unk32 arg1)
 
 void sub_804AE8C(void)
 {
-    if ((s16)_gameData->unkC24 != -1) {
+    if (_gameData->unkC24 != -1) {
         Sound_8062A90(_gameData->unkC28);
     }
     _gameData->unkC24 = -1;
@@ -166,7 +166,7 @@ void sub_804AE8C(void)
 
 void sub_804AECC(unk32 arg0)
 {
-    if ((s16)_gameData->unkC24 != -1) {
+    if (_gameData->unkC24 != -1) {
         Sound_8062AF4(_gameData->unkC28, arg0);
     }
 }
@@ -184,7 +184,7 @@ void sub_804AF04(unk32 arg0)
 
 void sub_804AF5C(void)
 {
-    if ((s16)_gameData->unkC26 != -1) {
+    if (_gameData->unkC26 != -1) {
         Sound_8062A90(_gameData->unkC2C);
     }
     _gameData->unkC26 = -1;
