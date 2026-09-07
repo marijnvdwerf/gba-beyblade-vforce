@@ -23,4 +23,8 @@ void sub_805AB38(void);
 void sub_805AAB4(void);
 unk8 sub_805AB58(void);
 
+void sub_805AAE0(void);
+
+void sub_805AAD4(void);
+
 #endif

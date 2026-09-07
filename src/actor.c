@@ -85,7 +85,7 @@ void actor_8057C58(
     actor->unkB0 = zero;
     actor->unkB4 = zero;
     rider_8058614(actor, actor->unk10 >> 1, actor->unk11, 0);
-    actor_80585F8((EnvironmentActorSlot*)actor, 0, 0, actor->unk10, actor->unk11);
+    actor_80585F8(actor, 0, 0, actor->unk10, actor->unk11);
     actor->unkB8 = NULL;
     actor->unkBC = zero;
     ActorSetFrameSequence(actor, 0);
@@ -435,7 +435,7 @@ void actor_80585F0(UnkActor* arg0, unk8 arg1)
     arg0->unk8D = arg1;
 }
 
-void actor_80585F8(EnvironmentActorSlot* actor, unk16 arg1, unk16 arg2, unk16 arg3, unk16 arg4)
+void actor_80585F8(Actor* actor, unk16 arg1, unk16 arg2, unk16 arg3, unk16 arg4)
 {
     actor->unkA8 = arg1;
     actor->unkAA = arg2;
@@ -450,7 +450,7 @@ void rider_8058614(Actor* actor, unk16 arg1, unk16 arg2, unk16 arg3)
     actor->unk9E = arg3;
 }
 
-void ActorSetSpriteOffset(EnvironmentActorSlot* actor, s32 arg1, s32 arg2)
+void ActorSetSpriteOffset(Actor* actor, s32 arg1, s32 arg2)
 {
     actor->unkA0 = arg1;
     actor->unkA2 = arg2;

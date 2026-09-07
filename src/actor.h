@@ -13,5 +13,7 @@ void ActorSetFrame(Actor*, unk32, u8);
 void sub_8058794(Actor*, unk32, unk32, unk32, unk32);
 void sub_80588DC(Actor*);
 void sub_8058754(Actor*, unk32*);
+void actor_80585F8(Actor*, unk16, unk16, unk16, unk16);
+void ActorSetSpriteOffset(Actor*, s32, s32);
 
 #endif

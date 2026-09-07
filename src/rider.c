@@ -25,24 +25,24 @@ void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4,
     RiderBase* base;
     Actor* actor;
     Actor* actor2;
-    EnvironmentActorSlot* environmentActor;
+    Actor* environmentActor;
     unk32 value;
     unk16 spriteOffset;
     unk8 enabled;
 
     base = rider;
     actor = &base->unk238;
-    environmentActor = (EnvironmentActorSlot*)actor;
+    environmentActor = actor;
     getBeybladeData0(arg6);
     __fastMemoryClearARM(0, actor, sizeof(Actor));
     __fastMemoryClearARM(0, &environmentActor->unkA8, 8);
     actorConfig = getBeyBladeActorDataForIndex(arg6);
     base->unk2FC.unk39 = getBeybladeActorData(arg6)->unk4;
     actor_8057C58(actor, actorConfig, arg1, arg2, arg3, arg4, -1);
-    ActorSetSpriteOffset((EnvironmentActorSlot*)actor, 0xF, 0x14);
+    ActorSetSpriteOffset(actor, 0xF, 0x14);
     rider_8058614(actor, 0, 0, 4);
     actor_80585F0((UnkActor*)actor, 7);
-    actor_80585F8((EnvironmentActorSlot*)actor, -1, -1, 1, 1);
+    actor_80585F8(actor, -1, -1, 1, 1);
     actor->unk90 = (unk32)_unk3000FD0;
     actor->unk94 = (unk32)_unk3000FC0;
     actor->unkB0 = (unk32)(convert3DCoordsto2DCoords + 1);
@@ -56,7 +56,7 @@ void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4,
     actor2 = &base->unk2FC;
     actor_8057C58(actor2, (ActorConfig*)SpriteSheet_86FAEAC, arg1, 0xFFFF8300, 0xFFFF8300, 0x7D00, -1);
     sub_80585C8(actor2, 1);
-    ActorSetSpriteOffset((EnvironmentActorSlot*)actor2, 8, 4);
+    ActorSetSpriteOffset(actor2, 8, 4);
     actor2->unk39 = 0;
     actor2->unkB0 = (unk32)(convert3DCoordsto2DCoords + 1);
     actor2->unkBC = 0x100;
@@ -192,7 +192,7 @@ void sub_804B4A4(RiderBase* arg0)
 }
 
 #if 0
-void sub_804B4FC(unk8* target, s32 item)
+void sub_804B4FC(LevelGeometryAddresses* target, RiderState* item)
 {
     s32 i;
     unk32 value;

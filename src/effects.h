@@ -16,4 +16,10 @@ void sub_80558B8(void);
 void sub_80558D0(void);
 void sub_80558E8(unk32);
 
+void sub_8055914(unk32*, unk32, unk32, unk32, unk32);
+
+void sub_805599C(unk32*);
+
+void sub_8055C30(unk32*);
+
 #endif

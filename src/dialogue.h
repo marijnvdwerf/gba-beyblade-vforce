@@ -2,21 +2,15 @@
 #define _DIALOGUE_H
 
 #include "common.h"
-
-typedef struct TalkingHead {
-    unk8 pad0[0x18];
-    unk32 unk18;
-    unk8 pad1C[4];
-    unk32 unk20;
-} TalkingHead;
+#include "teletype.h"
 
 typedef struct DialogueState {
     unk32 unk0;
     unk8 pad4[0x24];
 } DialogueState;
 
-extern void* _unk300007C;
-extern unk8 _unk3000080[60];
+extern TeletypeState* _unk300007C;
+extern unk32 _unk3000080[15];
 extern void* _unk3000EE8;
 extern DialogueState _unk3000EEC;
 extern s32 _unk30000BC;

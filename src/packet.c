@@ -10,10 +10,10 @@ unk8 sub_804393C(Packet* arg0)
     s32 i;
     const s8* data;
 
-    checksum = arg0->unk2_4;
-    checksum += arg0->unk2_0;
+    checksum = arg0->packet.unk2_4;
+    checksum += arg0->packet.unk2_0;
     i = 0;
-    data = arg0->unk4;
+    data = arg0->packet.unk4;
     do {
         checksum ^= data[i];
         i++;
@@ -23,12 +23,12 @@ unk8 sub_804393C(Packet* arg0)
 
 void sub_8043960(Packet* arg0)
 {
-    arg0->unk3 = sub_804393C(arg0);
+    arg0->packet.unk3 = sub_804393C(arg0);
 }
 
 unk32 sub_8043970(Packet* arg0, unk8 arg1)
 {
-    if (arg0->unk3 == sub_804393C(arg0) && arg0->unk2_0 == arg1) {
+    if (arg0->packet.unk3 == sub_804393C(arg0) && arg0->packet.unk2_0 == arg1) {
         return 1;
     }
     sub_80603E8();

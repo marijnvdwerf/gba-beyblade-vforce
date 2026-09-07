@@ -16,4 +16,8 @@ void sub_804FD64(void);
 void sub_804F84C(u8);
 void sub_804FB6C(void);
 
+void sub_804F878(void);
+
+void sub_804F9B4(void);
+
 #endif

@@ -3,6 +3,7 @@
 #include <agb/memory_map.h>
 
 #include "actor.h"
+#include "collision.h"
 #include "debug.h"
 #include "geometry.h"
 #include "include_asm.h"
@@ -18,11 +19,6 @@ extern const SpriteTrailSheet SpriteSheet_86FBF94[];
 
 extern const unk8 SpriteSheet_86FAEAC[];
 extern const unk8 Str_8729738[];
-void sub_8056B54(void);
-void _return_false(void);
-void sub_80550B8(void);
-void ActorSetSpriteOffset(EnvironmentActorSlot*, s32, s32);
-void actor_80585F8(EnvironmentActorSlot*, unk16, unk16, unk16, unk16);
 
 void initLevelEnvironmentActors(u16 level)
 {
@@ -165,8 +161,8 @@ void initLevelEnvironmentActors(u16 level)
         yDelta = y - yDelta;
         actorBase->y = y;
         actorBase->callbacks.unk4 = callbackData;
-        actor_80585F8((EnvironmentActorSlot*)actorBase, 0, 0, 1, 1);
-        actor_805C48C((EnvironmentActorSlot*)actorBase, &geometry, 0, 0);
+        actor_80585F8(actorBase, 0, 0, 1, 1);
+        actor_805C48C(actorBase, &geometry, 0, 0);
         actorBase->callbacks.unk4 = NULL;
         actorBase->x -= xDelta;
         actorBase->y -= yDelta;
@@ -201,8 +197,8 @@ void initLevelEnvironmentActors(u16 level)
             lineObject->unkC = 0;
             metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 4, 0xFB93);
             if (metaobject != NULL) {
-                lineObject->unk8 = ((EnvironmentActorTransformMeta*)metaobject)->x;
-                lineObject->unkC = ((EnvironmentActorTransformMeta*)metaobject)->y;
+                lineObject->unk8 = metaobject->unk8.transform.x;
+                lineObject->unkC = metaobject->unk8.transform.y;
             }
         }
         metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xF4FA);
@@ -218,9 +214,9 @@ void initLevelEnvironmentActors(u16 level)
         }
         metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 4, 0xD679);
         if (metaobject != NULL) {
-            actorBase->x += ((EnvironmentActorTransformMeta*)metaobject)->x << 8;
-            actorBase->y += ((EnvironmentActorTransformMeta*)metaobject)->y << 8;
-            actorBase->z += ((EnvironmentActorTransformMeta*)metaobject)->z << 8;
+            actorBase->x += metaobject->unk8.transform.x << 8;
+            actorBase->y += metaobject->unk8.transform.y << 8;
+            actorBase->z += metaobject->unk8.transform.z << 8;
         }
         metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xBF84);
         if (metaobject != NULL) {
@@ -230,9 +226,7 @@ void initLevelEnvironmentActors(u16 level)
         }
         metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 0xE, 0xD679);
         if (metaobject != NULL) {
-            ActorSetSpriteOffset((EnvironmentActorSlot*)actorBase,
-                ((EnvironmentActorOffsetMeta*)metaobject)->x,
-                ((EnvironmentActorOffsetMeta*)metaobject)->y);
+            ActorSetSpriteOffset(actorBase, metaobject->unk8.offset.x, metaobject->unk8.offset.y);
         }
         metaobject = getLineMetaObjectBytype(&geometry, metadata, 0xB);
         if (metaobject != NULL) {
@@ -418,7 +412,7 @@ void sub_8054FE0(void)
     s32 actorCount;
     s32 nodeCount;
     EnvironmentActorContainer* actorContainer;
-    EnvironmentActorSlot* actor;
+    EnvironmentActorRecord* actor;
     EnvironmentNode* node;
     EnvironmentObject* object;
 
@@ -429,12 +423,12 @@ void sub_8054FE0(void)
     if (actorCount-- != 0) {
         actor = actorContainer->slots;
         do {
-            object = GetStruct4(actor->objectId);
-            if (actor->sprite != NULL) {
-                sub_8060A94(actor->sprite);
+            object = GetStruct4(actor->slot.objectId);
+            if (actor->slot.sprite != NULL) {
+                sub_8060A94(actor->slot.sprite);
             }
             zero = 0;
-            actor->sprite = zero;
+            actor->slot.sprite = zero;
             if (object->sprite != NULL) {
                 sub_8060A94(object->sprite);
             }

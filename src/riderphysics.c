@@ -38,8 +38,6 @@ void sub_804C888(RiderBase* rider, unk8 arg1)
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c8c0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c8f0-RiderAI_804C8F0.s");
 
-void RiderAI_804C8F0(RiderBase*);
-
 void sub_804CB08(RiderBase* rider, Actor* actor)
 {
     s32 inputMagnitude;
@@ -747,7 +745,7 @@ void sub_804E090(RiderBase* rider)
     value = rider->unk170;
     UnsetRiderFlag(rider, 0x40000);
     if (value > 0 && rider->unk80 > 0) {
-        if (rider->unkEC != NULL && *((unk8*)rider->unkEC + 0xF) == 0x81) {
+        if (rider->unkEC != NULL && rider->unkEC->unkF == 0x81) {
             angle = (0x80 - rider->unk16C) & 0xFF;
             angle &= 0x7F;
             result = sub_804E358(angle, rider->unk10 >> 4);

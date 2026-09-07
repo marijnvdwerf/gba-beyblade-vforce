@@ -72,8 +72,6 @@ typedef struct BGLayer {
     unk32 field_84;
 } BGLayer;
 
-/* TODO: merge DisplayRecord into BGLayer */
-typedef BGLayer DisplayRecord;
 
 extern Struct3000CA0 _unk3000CA0[4];
 extern LayerTransformRecord _unk3000D00[2];

@@ -464,7 +464,7 @@ void allocateDynamicBoundingAreas(QuadTree* quadTree, LevelGeometryAddresses* ge
     record = geometry->unkC;
     output = quadTree->unk4C;
     while (remaining-- != 0) {
-        if ((record->unk11 & 8) != 0) {
+        if (record->unk11_3 != 0) {
             *output++ = index;
             count += 1;
             if (count > max) {
@@ -518,7 +518,7 @@ QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX,
         do {
             point0 = &points[line->point0];
             point1 = &points[line->point1];
-            if ((line->unk11 & 8) == 0 && (callback == NULL || callback(geometry, line) != 0)
+            if (line->unk11_3 == 0 && (callback == NULL || callback(geometry, line) != 0)
                 && line->point0 >= 0 && line->point1 >= 0) {
                 left = point0->x;
                 top = point0->y;
@@ -771,7 +771,8 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805e648.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e77c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e7c0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e804.s");
-unk32 GetLineIndexOfType(LevelGeometryAddresses* addresses, unk8 type, unk16 startIndex)
+
+s32 GetLineIndexOfType(LevelGeometryAddresses* addresses, unk8 type, unk16 startIndex)
 {
     unk16 index;
     GeometryLine* line;
@@ -779,7 +780,7 @@ unk32 GetLineIndexOfType(LevelGeometryAddresses* addresses, unk8 type, unk16 sta
     line = addresses->unkC + startIndex;
     index = startIndex;
     for (; index < addresses->unk0->lineCount; line++, index++) {
-        if (*((unk8*)line + 0xF) == type) {
+        if (line->unkF == type) {
             return index;
         }
     }

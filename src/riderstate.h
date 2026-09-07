@@ -2,8 +2,11 @@
 #define _RIDERSTATE_H
 
 #include "common.h"
+#include "packet.h"
 
 void sub_804FF88(unk16);
+void sub_804FF5C(Packet*);
+void sub_804FFD4(void);
 void sub_80501F8(RiderState* state, RiderBase* riders);
 void sub_805024C(RiderState* arg0);
 void sub_8050050(RiderState* state, RiderState* other);

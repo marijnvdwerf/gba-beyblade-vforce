@@ -2,6 +2,14 @@
 #define _BEYBLADE_H
 
 #include "common.h"
+
+typedef struct TalkingHead {
+    unk8 pad0[0x18];
+    unk32 unk18;
+    unk8 pad1C[4];
+    unk32 unk20;
+} TalkingHead;
+
 #include "ram.h"
 
 void emptyBeybladeActorData(void);
@@ -36,5 +44,9 @@ typedef struct BeybladeData {
 const BeybladeData* getBeybladeData0(unk32);
 extern void* RiderPalettes[];
 extern const BeybladeData _807ac28[];
+
+void allocateBeybladeObjectPalettes(void);
+
+TalkingHead* GetTalkingHead(s32);
 
 #endif

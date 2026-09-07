@@ -5,6 +5,7 @@
 
 void sub_804E1FC(RiderBase*, u8);
 void sub_804C870(RiderBase*, s32);
+void RiderAI_804C8F0(RiderBase*);
 void sub_804C888(RiderBase*, unk8);
 void sub_804CB08(RiderBase*, Actor*);
 void SetRiderFlag(RiderBase*, unk32);

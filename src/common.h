@@ -13,6 +13,7 @@ typedef unk32 bool32;
 
 typedef struct AllocatedBlock AllocatedBlock;
 typedef struct ActorConfig ActorConfig;
+typedef struct BGLayer DisplayRecord;
 typedef struct ActorTimerEntry ActorTimerEntry;
 typedef struct SpriteEntry SpriteEntry;
 typedef struct SpriteTextBlock SpriteTextBlock;
@@ -446,7 +447,7 @@ typedef struct Actor {
     unk8 pad38;
     unk8 unk39;
     unk8 pad3A[2];
-    void* unk3C;
+    DisplayRecord* unk3C;
     s32 unk40;
     s32 unk44;
     s32 unk48;
@@ -470,10 +471,15 @@ typedef struct Actor {
     unk16 unk9A;
     unk16 unk9C;
     unk16 unk9E;
-    unk8 padA0[4];
+    unk16 unkA0;
+    unk16 unkA2;
     unk8 unkA4;
     unk8 unkA5;
-    unk8 padA6[0xA];
+    unk8 padA6[2];
+    unk16 unkA8;
+    unk16 unkAA;
+    unk16 unkAC;
+    unk16 unkAE;
     void (*unkB0)(struct Actor*, unk32*);
     unk32 unkB4;
     SpriteEntry* unkB8;
@@ -489,7 +495,7 @@ struct ActorTimerEntry {
     unk32 unkC;
 };
 
-typedef struct EnvironmentActorSlot {
+typedef struct EnvironmentActorSlotData {
     unk32 objectId;
     SpriteEntry* sprite;
     unk8 pad8[0x98];
@@ -501,11 +507,16 @@ typedef struct EnvironmentActorSlot {
     unk16 unkAC;
     unk16 unkAE;
     unk8 padB0[0x14];
-} EnvironmentActorSlot;
+} EnvironmentActorSlotData;
+
+typedef union EnvironmentActorRecord {
+    Actor actor;
+    EnvironmentActorSlotData slot;
+} EnvironmentActorRecord;
 
 typedef struct EnvironmentActorContainer {
     unk8 pad0[0xB4];
-    EnvironmentActorSlot slots[1];
+    EnvironmentActorRecord slots[1];
 } EnvironmentActorContainer;
 
 typedef struct EnvironmentNode {
@@ -615,25 +626,6 @@ typedef struct ParticleSystem {
     unk32 unk2C;
     struct AllocatedBlock* unk30;
 } ParticleSystem;
-
-typedef struct RiderStatePrefix {
-    s16 unk0;
-    s16 unk2;
-    s16 unk4;
-    unk16 unk6_0 : 10;
-    unk16 unk6_10 : 6;
-} RiderStatePrefix;
-
-typedef struct RiderState {
-    RiderStatePrefix prefix;
-    u16 unk8;
-    u16 unkA;
-    u8 unkC;
-    u8 unkD_0 : 4;
-    u8 unkD_4 : 4;
-    unk8 padE[0x46];
-    unk32 unk54;
-} RiderState;
 
 typedef struct RiderTemp {
     unk8 pad0[0x3C4];
@@ -790,9 +782,12 @@ typedef struct GeometryLine {
     s32 point0;
     s32 point1;
     unk8 unk8;
-    unk8 pad9[7];
+    unk8 pad9[6];
+    unk8 unkF;
     unk8 unk10;
-    unk8 unk11;
+    unk8 unk11_0 : 3;
+    unk8 unk11_3 : 1;
+    unk8 unk11_4 : 4;
     unk8 pad12[0xE];
 } GeometryLine; /* 0x20 */
 
@@ -864,11 +859,25 @@ struct LevelGeometryTable {
 typedef struct LineMetaObject LineMetaObject;
 typedef struct LineMetadata LineMetadata;
 
+typedef struct LineMetaTransform {
+    unk32 x;
+    unk32 y;
+    unk32 z;
+} LineMetaTransform;
+
+typedef struct LineMetaOffset {
+    s16 x;
+    unk8 pad2[2];
+    s16 y;
+} LineMetaOffset;
+
 typedef union LineMetaObjectValue {
     ActorConfig* config;
     const unk8* data;
     unk32 word;
     unk16 half;
+    LineMetaTransform transform;
+    LineMetaOffset offset;
 } LineMetaObjectValue;
 
 struct LineMetaObject {

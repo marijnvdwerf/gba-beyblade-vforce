@@ -1,9 +1,11 @@
 #include <agb/memory_map.h>
 
 #include "animevent.h"
+#include "beyblade.h"
 #include "bios.h"
 #include "camera.h"
 #include "collectable.h"
+#include "collision.h"
 #include "effects.h"
 #include "envactor.h"
 #include "frontend.h"
@@ -19,6 +21,7 @@
 #include "palette.h"
 #include "projectile.h"
 #include "ram.h"
+#include "results.h"
 #include "rider.h"
 #include "riderphysics.h"
 #include "riderstate.h"
@@ -32,25 +35,7 @@ extern Sub8052140Data _unk3000F50;
 extern void (*__oam_8756CC0)(void);
 void sub_8052978(unk32, void (*)(void));
 void sub_8052140(Sub8052140Data*, unk32);
-void sub_804FF5C(void*);
-void sub_804FFD4(void);
-void allocateBeybladeObjectPalettes(void);
-void sub_804F878(void);
-void sub_804F9B4(void);
-void renderEnvironmentActors(void);
 void sub_80526C8(GameData*, SpriteEntry*, Actor*);
-void renderRider(RiderBase*);
-void sub_804B4FC(LevelGeometryAddresses*, Packet*);
-void nullsub_1(void);
-void sub_804EE2C(void);
-void sub_8052B24(void);
-void nullsub_3(void);
-void updateEnvirenmentActors(void);
-void sub_804EE54(void);
-void sub_804A51C(void);
-void sub_804B5C0(void);
-void sub_805AAE0(void);
-void sub_805AAD4(void);
 void sub_805295C(void);
 
 extern const unk8 SpriteSheet_86FBC4C[];
@@ -122,8 +107,8 @@ void gameLoop(void)
                 sub_804924C(0x1D);
                 sub_8053E18(1);
             }
-            sub_805000C((RiderState*)cleanup, rider);
-            if (sub_8050114((RiderState*)item) == 0) {
+            sub_805000C(cleanup, rider);
+            if (sub_8050114(item) == 0) {
                 sub_80603E8();
             }
         } else if (_gameData->unk1619 != 0 && _gameData->unk161B == 0) {
@@ -145,7 +130,6 @@ void gameLoop(void)
                 current = &_gameData->base;
             }
             renderRider(current);
-            /* No lasting effect; preserves the original unused flag calculation. */
             if (current->unk3C8 & 2)
                 current++;
         }
@@ -155,7 +139,7 @@ void gameLoop(void)
         sub_804B4FC(target, item);
         nullsub_1();
         if (_gameData->unk1618 != 0) {
-            sub_8050050((RiderState*)cleanup, (RiderState*)item);
+            sub_8050050(cleanup, item);
         }
         if (_gameData->unk434.unk224 == NULL) {
             if (RiderHasFlag(rider, 2) == 0) {
@@ -200,13 +184,13 @@ void gameLoop(void)
         }
         if (fadeStep == 0 && (_unk3005DA0 & 8) != 0 && RiderHasFlag(rider, 0x20000) == 0
             && _gameData->unk1618 != 0 && sub_8060040() != 0) {
-            sub_8050184((RiderState*)cleanup, 1);
+            sub_8050184(cleanup, 1);
             _gameData->unk161A = 1;
         }
         if ((fadeStep == 0 && (_unk3005DA0 & 8) != 0 && RiderHasFlag(rider, 0x20000) == 0
                 && (_gameData->unk1618 == 0 || sub_8060040() != 0))
             || (_gameData->unk1618 != 0 && sub_8060040() == 0 && RiderHasFlag(rider, 0x20000) == 0
-                && sub_80501C8((RiderState*)item, 1) != 0)) {
+                && sub_80501C8(item, 1) != 0)) {
             if (sub_8051780(2) == 0) {
                 transition(6, 0);
                 sub_804B5C0();
@@ -250,13 +234,13 @@ void gameLoop(void)
         }
         if (sub_804E440(rider, 0x20000) != 0 && RiderHasFlag(rider, 0x20000) != 0) {
             if (_gameData->unk1618 != 0) {
-                sub_8050184((RiderState*)cleanup, 4);
+                sub_8050184(cleanup, 4);
             }
             if ((timer = _gameData->unkC6C) == -1) {
                 sub_8053E18(0);
             }
         }
-        if (_gameData->unk1618 != 0 && sub_80501C8((RiderState*)item, 4) != 0
+        if (_gameData->unk1618 != 0 && sub_80501C8(item, 4) != 0
             && (timer = _gameData->unkC6C) == -1) {
             SetRiderFlag(rider, 0x20000);
             sub_8053E18(0);

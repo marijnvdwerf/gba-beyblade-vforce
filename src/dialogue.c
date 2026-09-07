@@ -12,25 +12,14 @@
 #include "language.h"
 #include "ram.h"
 #include "sprite.h"
+#include "teletype.h"
 #include "tutorial.h"
 
 INCLUDE_ASM("asm/dump/8040d18/8041ea0-teletypeDefaultUserCodeHandler.s");
 
 extern const unk8 FontStyle_80688B8[];
 extern const unk8 SpriteSheet_821CB80[];
-const unk8* const* sub_804A364(void);
-void* sub_8063E18(const unk8*, const unk8*, unk32, unk32, unk32, unk32, unk32);
-void sub_8063F5C(void*, void (*)(void));
 void teletypeDefaultUserCodeHandler(void);
-TalkingHead* GetTalkingHead(s32);
-void sub_8055914(void*, unk32, unk32, unk32, unk32);
-void sub_805599C(void*);
-void sub_8055C30(void*);
-void sub_8063F64(void*);
-void sub_8063F84(void*);
-void sub_806415C(void*);
-unk8 sub_806417C(void*);
-unk8 sub_8064188(void*);
 
 void sub_80420C4(FrontendState* state, unk32 command)
 {
