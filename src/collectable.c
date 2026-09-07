@@ -2,6 +2,7 @@
 #include "gamestate.h"
 #include "geometry.h"
 #include "include_asm.h"
+#include "levelhud.h"
 #include "ram.h"
 #include "unsorted.h"
 
@@ -52,7 +53,43 @@ void initCollectables(u16 levelId)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8056e2c.s");
+void sub_8056E2C(unk32 lineIndex)
+{
+    GameData* gameData;
+    CollectableData* data;
+    LevelGeometryAddresses* geometry;
+    CollectableEntry* entry;
+    LineMetadata* metadata;
+    LineMetaObject* object;
+    s32 count;
+    s32 index;
+
+    index = 0;
+    gameData = _gameData;
+    data = &gameData->collectables;
+    entry = data->entries;
+    geometry = &gameData->unk434.geometry;
+    if (entry->line != lineIndex && index < (count = data->count)) {
+        do {
+            index++;
+            entry++;
+            if (entry->line == lineIndex) {
+                break;
+            }
+        } while (index < count);
+    }
+    if (index != data->count && entry->geometry != NULL) {
+        sub_804FE50();
+        metadata = GetLineMetaData(geometry, entry->line);
+        if (metadata != NULL) {
+            object = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x37AE);
+            if (object != NULL) {
+                getItem(object->unk8.word);
+            }
+        }
+        data->collectedBits[index >> 5] |= 1 << (index & 0x1F);
+    }
+}
 
 void sub_8056EC0(void)
 {
