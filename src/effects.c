@@ -337,7 +337,15 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8055bb0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055bc0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055c04.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055c18.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055c30.s");
+
+void sub_8055C30(unk32* arg0)
+{
+    sub_8060A94((SpriteEntry*)arg0[0]);
+    arg0[0] = 0;
+    sub_8060A94((SpriteEntry*)arg0[1]);
+    arg0[1] = 0;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055c4c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055c58-getDecompressorData.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055ca0.s");
