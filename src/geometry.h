@@ -31,6 +31,7 @@ GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses*, s32);
 GeometryPoint* GetPointAtSplineIndex(LevelGeometryAddresses*, unk32, unk32);
 void sub_805C3BC(LevelGeometryAddresses*, Actor*, unk32, unk32);
 GeometrySplineLine* sub_805DCFC(LevelGeometryAddresses*, GeometrySpline*, s32);
+void sub_805DFD4(LevelGeometryAddresses*, s16, s32*, s32);
 void actor_805C48C(Actor*, LevelGeometryAddresses*, unk32, unk32);
 void sub_805D650(Actor*);
 

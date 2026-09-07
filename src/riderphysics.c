@@ -12,6 +12,7 @@
 #include "include_asm.h"
 #include "keystate.h"
 #include "levelhud.h"
+#include "math.h"
 #include "music.h"
 #include "packet.h"
 #include "rider.h"
@@ -37,7 +38,93 @@ void sub_804C888(RiderBase* rider, unk8 arg1)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804c8c0.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c8f0-RiderAI_804C8F0.s");
+
+void RiderAI_804C8F0(RiderBase* rider)
+{
+    unk16 direction;
+    unk16 buttons;
+    s32 dx;
+    s32 dy;
+    s32 targetX;
+    s32 targetY;
+    s32 result[6];
+    LevelGeometryAddresses* geometry;
+
+    buttons = rider->unk1C4;
+    direction = 0;
+    if (RiderHasFlag(rider, 0x2000000) != 0) {
+        switch ((unk32)((rider->unk1C3 + 0x10) & 0xFF) >> 5) {
+        case 0:
+            direction = 0x20;
+            break;
+        case 1:
+            direction = 0x60;
+            break;
+        case 2:
+            direction = 0x40;
+            break;
+        case 3:
+            direction = 0x50;
+            break;
+        case 4:
+            direction = 0x10;
+            break;
+        case 5:
+            direction = 0x90;
+            break;
+        case 6:
+            direction = 0x80;
+            break;
+        case 7:
+            direction = 0xA0;
+            break;
+        default:
+            break;
+        }
+    } else if ((RiderHasFlag(rider, 1) != 0 || RiderHasFlag(rider, 0x40) != 0)
+        && rider->unk20C != NULL) {
+        dx = ((rider->unk20C->unk0->x - rider->unk0->x) >> 2) - rider->unk40;
+        dy = ((rider->unk20C->unk0->y - rider->unk0->y) >> 2) - rider->unk44;
+        if (RiderHasFlag(rider, 0x40) != 0) {
+            dx = -dx;
+            dy = -dy;
+        }
+        if (dx > 0)
+            direction = 0x10;
+        else if (dx < 0)
+            direction = 0x20;
+        if (dy > 0)
+            direction |= 0x80;
+        else if (dy < 0)
+            direction |= 0x40;
+        rider->unk21E--;
+        if (rider->unk21E == 0)
+            UnsetRiderFlag(rider, 0x41);
+    } else {
+        geometry = &_gameData->unk434.geometry;
+        if (rider->unk214 != NULL) {
+            sub_805DFD4(geometry, rider->unk218, result, rider->unk224 >> 8);
+            targetX = ((result[0] << 5) - rider->unk0->x) >> 2;
+            targetY = ((result[1] << 5) - rider->unk0->y) >> 2;
+            if (targetX > 0x100)
+                direction |= 0x10;
+            else if (targetX < -0x100)
+                direction |= 0x20;
+            if (targetY > 0x100)
+                direction |= 0x80;
+            else if (targetY < -0x100)
+                direction |= 0x40;
+        }
+    }
+    if (RiderHasFlag(rider, 0x40) != 0 && RiderHasFlag(rider, 0x2000000) != 0) {
+        rider->unk220 = 0;
+        UnsetRiderFlag(rider, 0x40);
+    }
+    rider->unk1C4 = direction;
+    rider->unk1C8 = direction & ~buttons;
+    rider->unk1C6 = buttons & ~rider->unk1C4;
+    UnsetRiderFlag(rider, 0x2000000);
+}
 
 void sub_804CB08(RiderBase* rider, Actor* actor)
 {
@@ -778,7 +865,94 @@ unk32 rider_vs_rider_collision_804DB94(RiderBase* rider0, RiderBase* rider1)
     return 0;
 }
 
+#if 0
+typedef struct RiderDDF8Draft {
+    unk8 pad0[0x40];
+    unk32 unk40; /* 0x40 */
+    unk32 unk44; /* 0x44 */
+    unk8 pad48[0x30];
+    unk32 unk78; /* 0x78 */
+    unk32 unk7C; /* 0x7C */
+    s32 unk80; /* 0x80 */
+    unk8 pad84[4];
+    unk32 unk88; /* 0x88 */
+    unk8 pad8C[0xE0];
+    unk32 unk16C; /* 0x16C */
+    s32 unk170; /* 0x170 */
+    unk8 pad174[4];
+    unk32 unk178[4]; /* 0x178 */
+    unk8 pad188[0x14];
+} RiderDDF8Draft;
+
+void sub_804DDF8(RiderBase* rider, Actor* other)
+{
+    s32 matrix[9];
+    unk32 vec0[4];
+    unk32 vec1[4];
+    unk32 vec2[4];
+    unk32 vec3[4];
+    unk32 angle0;
+    s32 angle1;
+    s32 angle2;
+    s32 q0;
+    s32 q1;
+    s32 q2;
+    s32 q3;
+    s32 q4;
+    s32 q5;
+    unk32 mask;
+    const s16* table;
+    s32 x;
+    s32 y;
+    RiderDDF8Draft* draft;
+
+    draft = (RiderDDF8Draft*)rider;
+    mask = 0xFF;
+    table = Unk_874CC3C;
+    angle0 = (0 - draft->unk16C) & mask;
+    angle0 >>= 1;
+    q0 = table[angle0];
+    angle0 += 0x40;
+    q1 = table[angle0];
+    angle1 = draft->unk170 >> 1;
+    angle1 = (unk8)angle1;
+    q2 = table[angle1];
+    angle1 += 0x40;
+    q3 = table[angle1];
+    angle2 = draft->unk16C >> 1;
+    angle2 = (unk8)angle2;
+    q4 = table[angle2];
+    angle2 += 0x40;
+    q5 = table[angle2];
+    sub_8059FF8(vec0, 0, q0, 0, q1);
+    sub_8059FF8(vec1, 0, 0, q2, q3);
+    sub_8059FF8(vec2, 0, q4, 0, q5);
+    sub_805A148(vec0, vec1, vec3);
+    sub_805A148(vec3, vec2, draft->unk178);
+    sub_805A1DC(draft->unk178, matrix);
+
+    if (sub_804E440(rider, 2) != 0 && RiderHasFlag(rider, 2) == 0) {
+        draft->unk40 = other->unk40;
+        draft->unk44 = -other->unk44;
+    }
+    if (RiderHasFlag(rider, 2) == 0) {
+        x = draft->unk40 << 8;
+        y = draft->unk44 << 8;
+        draft->unk78 = (matrix[0] * x + matrix[6] * y) >> 16;
+        draft->unk80 = (-(matrix[1] * x + matrix[7] * y)) >> 16;
+        draft->unk7C = (-(matrix[2] * x + matrix[8] * y)) >> 16;
+    }
+    if (RiderHasFlag(rider, 2) == 0) {
+        other->unk40 = draft->unk78;
+        other->unk44 = draft->unk7C;
+        other->unk48 = draft->unk80 + other->unk54 + draft->unk88 - 0x78;
+    } else if (draft->unk88 != 0) {
+        other->unk48 += draft->unk88;
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804ddf8.s");
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804df88.s");
 
 #if 0
