@@ -17,7 +17,6 @@
 
 INCLUDE_ASM("asm/dump/8040d18/8041ea0-teletypeDefaultUserCodeHandler.s");
 
-extern const unk8 FontStyle_80688B8[];
 extern const unk8 SpriteSheet_821CB80[];
 void teletypeDefaultUserCodeHandler(TeletypeState*, unk32);
 
@@ -49,7 +48,7 @@ void sub_80420C4(FrontendState* state, unk32 command)
         base[3].unk14 = -0xC00;
         languageStrings += getLanguage();
         _unk300007C
-            = sub_8063E18(*languageStrings, FontStyle_80688B8, 0x78, 0x800, 0x6400, 0xE000, 0);
+            = sub_8063E18(*languageStrings, &FontStyle_80688B8, 0x78, 0x800, 0x6400, 0xE000, 0);
         sub_8063F5C(_unk300007C, teletypeDefaultUserCodeHandler);
         _unk3000EE8 = &_unk3000080;
         _unk3000EEC.unk0 = 0;

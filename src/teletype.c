@@ -5,11 +5,19 @@
 #include "sprite.h"
 #include "spritetext.h"
 
+void sub_8063AB4(TeletypeState*);
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8063ab4.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8063ad8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8063b44.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8063ba8.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8063cd0.s");
+
+void sub_8063CD0(TeletypeState* state)
+{
+    state->unkAC = 0;
+    state->unkB0 += state->unkE << 8;
+    state->unkBE++;
+}
 
 void sub_8063CF4(TeletypeState* state)
 {
@@ -25,12 +33,51 @@ void sub_8063CF4(TeletypeState* state)
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8063d38.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8063dac.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8063ddc-nullsub_16.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8063de0-nullsub_21.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8063de4-nullsub_22.s");
+
+void sub_8063DAC(TeletypeState* state, unk16 value)
+{
+    SpriteEntry* sprite;
+    unk32 count;
+    unk32 temp;
+
+    sprite = state->unkEC.prev;
+    count = state->unkEC.count;
+    for (;;) {
+        temp = count;
+        count--;
+        if (temp == 0) {
+            break;
+        }
+        sprite->y = 0xA000;
+        sprite = sprite->next;
+    }
+    sub_8063AB4(state);
+}
+
+void nullsub_16(TeletypeState* state, const unk8* string)
+{
+}
+
+void nullsub_21(TeletypeState* state, unk8 value)
+{
+}
+
+void nullsub_22(TeletypeState* state, unk32 value)
+{
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8063de8.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8063df0.s");
+
+void sub_8063DF0(TeletypeState* state, const FontStyle* config)
+{
+    state->unk4 = config->unk0;
+    state->unk8 = config->unk4;
+    state->unkC = 5;
+    state->unkD = 0;
+    state->unkE = config->unk0->unk5 + 4;
+    state->unkC1 = config->unk0->unk4;
+    state->unkC2 = config->unk0->unk5;
+}
 #if 0
 typedef struct TeletypeStateDraft TeletypeStateDraft;
 typedef void (*TeletypeDraftCallback)(TeletypeStateDraft*, unk32);
@@ -272,7 +319,12 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8063f84.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80640f8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8064104-pushTeletypeStringPalette.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8064130.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8064140.s");
+
+void sub_8064140(TeletypeState* state)
+{
+    state->unkBA = (state->unkBA & 0xFFE7) | 4;
+    state->unk0++;
+}
 
 void sub_806415C(TeletypeState* state)
 {

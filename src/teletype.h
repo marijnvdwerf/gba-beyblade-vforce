@@ -2,13 +2,26 @@
 #define _TELETYPE_H
 
 #include "common.h"
+#include "sprite.h"
 
 typedef struct TeletypeState TeletypeState;
+typedef struct FontStyle FontStyle;
 typedef void (*TeletypeCallback)(TeletypeState*, unk32);
+
+struct FontStyle {
+    const SpriteSheet* unk0;
+    const unk8* unk4;
+    unk8 pad8[4];
+};
 
 struct TeletypeState {
     const unk8* unk0;
-    unk8 pad04[0xA8];
+    const SpriteSheet* unk4;
+    const unk8* unk8;
+    unk8 unkC;
+    unk8 unkD;
+    unk8 unkE;
+    unk8 pad0F[0x9D];
     unk32 unkAC;
     unk32 unkB0;
     unk8 padB4[6];
@@ -17,7 +30,9 @@ struct TeletypeState {
     unk8 unkBE;
     unk8 padBF;
     unk8 unkC0;
-    unk8 padC1[3];
+    unk8 unkC1;
+    unk8 unkC2;
+    unk8 padC3;
     AllocatedBlock* unkC4;
     SpriteEntry* unkC8;
     unk8 padCC[0x10];
@@ -27,7 +42,9 @@ struct TeletypeState {
     SpriteTextBlock unkEC;
 };
 
-TeletypeState* sub_8063E18(const unk8*, const unk8*, unk32, unk32, unk32, unk32, unk16);
+extern const FontStyle FontStyle_80688B8;
+
+TeletypeState* sub_8063E18(const unk8*, const FontStyle*, unk32, unk32, unk32, unk32, unk16);
 void sub_8063F5C(TeletypeState*, TeletypeCallback);
 void sub_8063F64(TeletypeState*);
 void sub_8063F84(TeletypeState*);
