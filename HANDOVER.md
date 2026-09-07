@@ -7,6 +7,20 @@ and change of plan.
 
 Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
 
+## Session 9 (2026-09-07)
+
+- Skill fold over the eleven 2026-09-07 learnings merged (2262baff, 6 bullets,
+  SKILL.md 200 lines); docs/learnings top level is empty again.
+- Running: two luna decompiler agents on the giants (user's call) —
+  `selectBladeFrontendHandler` (festate, 2172) and `sub_8052B24` (results,
+  1940), checkpoint-then-iterate, park with step table on failure.
+- `todo.py --color red` shows ~20 small reds again (teletype sub_8063DAC/DF0/
+  CD0/8064140 + nullsub_16/21/22, levelselect sub_8041078/1324/1344/1364,
+  beyblade sub_8057068/94/703C, effects ×4, gamestate sub_80517E8, math
+  sub_8059FF8, spritetext sub_8062318, geometry GetPointAtSplineIndex) —
+  exposed by session 8's indirect-call modelling; proposed as the next batch.
+- Keepalive monitor (main-checkout dirty check, 2 min) running.
+
 ## Session 8 (2026-09-07)
 
 State at close: main green at the commit above, **600 C / 407 asm / 60%**,
