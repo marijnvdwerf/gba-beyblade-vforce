@@ -687,6 +687,306 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805c3bc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805c444.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805c48c-actor_805C48C.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805c9a4.s");
+#if 0
+typedef struct CollisionRiderDraft CollisionRiderDraft;
+typedef struct GeometryLineDraft GeometryLineDraft;
+typedef unk32 (*CollisionCallback3)(
+    CollisionRiderDraft*, LevelGeometryAddresses*, GeometryLineDraft*);
+typedef unk32 (*CollisionCallback4)(
+    CollisionRiderDraft*, LevelGeometryAddresses*, GeometryLineDraft*, unk16, unk32*);
+
+typedef struct CollisionCallbackTableDraft {
+    CollisionCallback4 callback4;
+    CollisionCallback3 callback3;
+} CollisionCallbackTableDraft;
+
+typedef struct CollisionCallbacksDraft {
+    unk32* unk0;
+    CollisionCallbackTableDraft* unk4;
+} CollisionCallbacksDraft;
+
+struct GeometryLineDraft {
+    s32 point0;
+    s32 point1;
+    unk8 unk8;
+    unk8 pad9[4];
+    unk8 unkD;
+    unk8 padE;
+    unk8 unkF;
+    unk8 unk10;
+    unk8 unk11_0 : 3;
+    unk8 unk11_3 : 1;
+    unk8 unk11_4 : 4;
+    unk8 pad12[0xE];
+};
+
+struct CollisionRiderDraft {
+    unk8 pad0[4];
+    s32 x;
+    s32 y;
+    unk8 padC[0x34];
+    s32 unk40;
+    s32 unk44;
+    unk8 pad48[4];
+    s32 unk4C;
+    unk16 unk50;
+    unk8 pad52[0x3E];
+    CollisionCallbacksDraft callbacks;
+    unk8 pad98[0x10];
+    s16 unkA8;
+    s16 unkAA;
+    s16 unkAC;
+    s16 unkAE;
+};
+
+unk32 call_rider_94_8(CollisionRiderDraft*, LevelGeometryAddresses*, GeometryLineDraft*, unk16);
+
+unk32 sub_805CEB8(CollisionRiderDraft* rider, LevelGeometryAddresses* geometry, unk32* lineIndices,
+    unk16 lineCount, unk32** filtered)
+{
+    GeometryLineDraft* line;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    unk32* object;
+    CollisionCallback3 callback3;
+    CollisionCallback4 callback4;
+    unk16 collisionMask;
+    s32 i;
+    s32 lineMinY;
+    s32 rectMinY;
+    s32 rectMaxY;
+    s32 broadY0;
+    s32 lineMinX;
+    s32 lineMaxX;
+    unk32 objectX;
+    unk32 objectY;
+    s32 xStart;
+    s32 xExtent;
+    s32 yStart;
+    s32 yExtent;
+    unk8 responseFlags;
+    unk8 overlapMask;
+    unk32 callbackDone;
+    unk8 lineFlags;
+    unk32 callbackMask;
+    s32 lineMaxY;
+    s32 y0;
+    s32 broadY1;
+    s32 rectMinX;
+    s32 rectMaxX;
+    s32 temp;
+    s32 magnitude;
+    s32 yNegativeOffset;
+    s32 yPositiveOffset;
+    s32 yMargin;
+    s32 xNegativeOffset;
+    s32 xPositiveOffset;
+    s16* xNegativeField;
+    s16* yNegativeField;
+    s16* xPositiveField;
+    s16* yPositiveField;
+    collisionMask = 0;
+    i = 0;
+    if (i < lineCount) {
+        do {
+            overlapMask = 0;
+            responseFlags = 0;
+            line = (GeometryLineDraft*)&geometry->unkC[lineIndices[i]];
+            object = filtered[i];
+            lineFlags = line->unk10;
+            callbackDone = 0;
+            callbackMask = 0;
+            point0 = &geometry->unk4[line->point0];
+            point1 = &geometry->unk4[line->point1];
+            if (object != NULL) {
+                objectX = object[0];
+                objectY = object[1];
+            } else {
+                objectY = 0;
+                objectX = 0;
+            }
+            xStart = rider->x + objectX - rider->unk40;
+            xExtent = rider->unk40 - objectX;
+            yStart = rider->y + objectY - rider->unk44;
+            yExtent = rider->unk44 - objectY;
+            if (point0->x < point1->x) {
+                lineMinX = point0->x << 5;
+                lineMaxX = point1->x << 5;
+            } else {
+                lineMinX = point1->x << 5;
+                lineMaxX = point0->x << 5;
+            }
+            if (point0->y < point1->y) {
+                lineMinY = point0->y << 5;
+                lineMaxY = point1->y << 5;
+            } else {
+                lineMinY = point1->y << 5;
+                lineMaxY = point0->y << 5;
+            }
+            yNegativeOffset = rider->unkAA << 8;
+            yPositiveOffset = rider->unkAE << 8;
+            yMargin = rider->unk50;
+            yNegativeField = &rider->unkAA;
+            yPositiveField = &rider->unkAE;
+            if (yExtent > 0) {
+                rectMinY = yStart + yPositiveOffset;
+                rectMaxY = rectMinY + yExtent + yMargin;
+                broadY0 = rectMaxY;
+                broadY1 = yStart + yNegativeOffset;
+            } else {
+                rectMaxY = yStart + yNegativeOffset;
+                broadY1 = rectMaxY + yExtent + yMargin;
+                rectMinY = broadY1;
+                broadY0 = yStart + yPositiveOffset;
+            }
+            xNegativeOffset = rider->unkA8 << 8;
+            xPositiveOffset = rider->unkAC << 8;
+            xNegativeField = &rider->unkA8;
+            xPositiveField = &rider->unkAC;
+            if (xExtent > 0) {
+                rectMinX = xStart + xPositiveOffset;
+                rectMaxX = rectMinX + xExtent + rider->unk4C;
+            } else {
+                rectMaxX = xStart + xNegativeOffset;
+                rectMinX = rectMaxX + xExtent + rider->unk4C;
+            }
+            if (rectMaxX < lineMinX || lineMaxX < rectMinX) {
+                if (broadY0 < lineMinY || lineMaxY < broadY1)
+                    continue;
+            }
+            if (rectMaxX <= lineMinX || lineMaxX <= rectMinX) {
+            } else {
+                overlapMask |= 1;
+                if (rectMinY <= lineMinY && rectMaxY >= lineMinY && (lineFlags & 3) != 0) {
+                    if (callbackDone == 0) {
+                        if (yExtent > 0)
+                            callbackMask |= 1;
+                        else
+                            callbackMask |= 2;
+                        if (call_rider_94_8(rider, geometry, line, callbackMask) == 0)
+                            lineFlags = 0;
+                        callbackDone = 1;
+                    }
+                    if (yExtent > 0) {
+                        if ((lineFlags & 1) != 0) {
+                            rider->y = lineMinY - (*yPositiveField << 8) + objectY;
+                            broadY0 = lineMinY;
+                            responseFlags = 1;
+                            collisionMask |= 1;
+                        }
+                    } else if ((lineFlags & 2) != 0) {
+                        rider->y = lineMinY - (*yNegativeField << 8) + objectY + 0x80;
+                        rectMaxY = lineMinY;
+                        responseFlags = 1;
+                        collisionMask |= 2;
+                    }
+                }
+                if (rectMinY <= lineMaxY && rectMaxY >= lineMaxY && (lineFlags & 0xC) != 0) {
+                    if (callbackDone == 0) {
+                        if (yExtent > 0)
+                            callbackMask |= 4;
+                        else
+                            callbackMask |= 8;
+                        if (call_rider_94_8(rider, geometry, line, callbackMask) == 0)
+                            lineFlags = 0;
+                        callbackDone = 1;
+                    }
+                    if (yExtent > 0) {
+                        if ((lineFlags & 4) != 0) {
+                            rider->y = lineMaxY - (*yPositiveField << 8) + objectY;
+                            y0 = lineMaxY;
+                            responseFlags = 1;
+                            collisionMask |= 4;
+                        }
+                    } else if ((lineFlags & 8) != 0) {
+                        rider->y = lineMaxY - (*yNegativeField << 8) + objectY + 0x80;
+                        rectMaxY = lineMaxY;
+                        responseFlags = 1;
+                        collisionMask |= 8;
+                    }
+                }
+            }
+            if (broadY0 <= rectMinY || rectMaxY <= broadY1)
+                continue;
+            overlapMask |= 2;
+            if (rectMinX <= lineMinX && rectMaxX >= lineMinX && (lineFlags & 0x30) != 0) {
+                if (callbackDone == 0) {
+                    if (xExtent > 0)
+                        callbackMask |= 0x10;
+                    else
+                        callbackMask |= 0x20;
+                    if (call_rider_94_8(rider, geometry, line, callbackMask) == 0)
+                        lineFlags = 0;
+                    callbackDone = 1;
+                }
+                if (xExtent > 0) {
+                    if ((lineFlags & 0x10) != 0) {
+                        rider->x = lineMinX - (*xPositiveField << 8) + objectX;
+                        responseFlags |= 2;
+                        collisionMask |= 0x10;
+                    }
+                } else if ((lineFlags & 0x20) != 0) {
+                    rider->x = lineMinX - (*xNegativeField << 8) + objectX + 0x80;
+                    responseFlags |= 2;
+                    collisionMask |= 0x20;
+                }
+            }
+            if (rectMinX <= lineMaxX && rectMaxX >= lineMaxX && (lineFlags & 0xC0) != 0) {
+                if (callbackDone == 0) {
+                    if (xExtent > 0)
+                        callbackMask |= 0x40;
+                    else
+                        callbackMask |= 0x80;
+                    if (call_rider_94_8(rider, geometry, line, callbackMask) == 0)
+                        lineFlags = 0;
+                }
+                if (xExtent > 0) {
+                    if ((lineFlags & 0x40) != 0) {
+                        rider->x = lineMaxX - (*xPositiveField << 8);
+                        responseFlags |= 2;
+                        collisionMask |= 0x40;
+                    }
+                } else if ((lineFlags & 0x80) != 0) {
+                    rider->x = lineMaxX - (*xNegativeField << 8) + objectX;
+                    responseFlags |= 2;
+                    collisionMask |= 0x80;
+                }
+            }
+            if (overlapMask == 3 && rider->callbacks.unk4 != NULL) {
+                callback3 = rider->callbacks.unk4->callback3;
+                if (callback3 != NULL)
+                    callback3(rider, geometry, line);
+            }
+            if ((responseFlags & 1) != 0) {
+                temp = (line->unkD * yExtent) >> 7;
+                magnitude = temp;
+                if (temp < 0)
+                    magnitude = -temp;
+                if (magnitude <= 0xFF)
+                    temp = 0;
+                rider->unk44 = -temp;
+            }
+            if ((responseFlags & 2) != 0) {
+                temp = (line->unkD * xExtent) >> 7;
+                magnitude = temp;
+                if (temp < 0)
+                    magnitude = -temp;
+                if (magnitude <= 0xFF)
+                    temp = 0;
+                rider->unk40 = -temp;
+            }
+            if (responseFlags != 0 && rider->callbacks.unk4 != NULL) {
+                callback4 = rider->callbacks.unk4->callback4;
+                if (callback4 != NULL)
+                    callback4(rider, geometry, line, collisionMask, &callbackDone);
+            }
+            i++;
+        } while (i < lineCount);
+    }
+    return 0;
+}
+
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/805ceb8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805d400-call_rider_94_8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805d430.s");
