@@ -184,7 +184,7 @@ void sub_804AF04(unk32 arg0)
 
 void sub_804AF5C(void)
 {
-    if ((s16)_gameData->unkC26 != -1) {
+    if (_gameData->unkC26 != -1) {
         Sound_8062A90(_gameData->unkC2C);
     }
     _gameData->unkC26 = -1;
