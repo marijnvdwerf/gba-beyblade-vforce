@@ -149,7 +149,7 @@ void initLevelEnvironmentActors(u16 level)
         actorBase->unk39 = 0;
         actorBase->unkB0 = convert3DCoordsto2DCoords;
         actorBase->unk68 = 0;
-        actorBase->unkBC = (lineIndex * 8 + 0x200);
+        actorBase->unkBC = lineIndex * 8 + 0x200;
         actorBase->unkB4 = selectedLines[lineIndex];
         actorBase->callbacks.unk0 = allocationField->callbacks;
         x = (point0->x + point1->x) << 4;
@@ -190,7 +190,7 @@ void initLevelEnvironmentActors(u16 level)
         actorBase->unk3C = display;
         metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 2, 0xFB93);
         if (metaobject != NULL) {
-            sprite = allocSprite((lineIndex * 8 + 0x200));
+            sprite = allocSprite(lineIndex * 8 + 0x200);
             LoadSpriteSheet(sprite, metaobject->unk8.data, 0, 0, 0, spriteLayer, 0, 0);
             lineObject->sprite = sprite;
             lineObject->unk8 = 0;
@@ -449,7 +449,7 @@ void sub_8054FE0(void)
     _gameData->environmentActors.actorCount = 0;
     _gameData->environmentActors.actorContainer = NULL;
     _gameData->environmentActors.lineObjects = NULL;
-    _gameData->environmentActors.points = 0;
+    _gameData->environmentActors.points = NULL;
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80550b8.s");
