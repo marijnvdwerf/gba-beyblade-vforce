@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-07 18:14, session 8 (597 C / 410 asm / 59%, 15 TUs).
+Last updated: 2026-09-07 19:09, session 8 (598 C / 409 asm / 59%, 15 TUs).
 
 ## Session 8 (2026-09-07)
 
@@ -148,7 +148,21 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
   row is relocation noise; Actor.unk8D typed, UnkActor removed;
   `_unk3000C10` is `RiderBase*[2]`; direct-index search loop reproduces
   `lsl #2; add; ldr` — a cursor local gives `add #4`).
-- **Running (18:14)**: effects sub_805599C (456); teletype (sub_8063E18
+- **18:14–19:09**: effects sub_805599C merged as ONE squash commit
+  (7825f2bd; s32 positions with the `(unk32)(x + 0x4000) > 0x13000`
+  range-check idiom, typed sheet/palette pointers, literal 0x1000).
+  `_unk3000C10` is a scalar `RiderBase*` + `_unk3000C14[4] // padding`
+  (467374b1). New rules: reviewer on EVERY branch; squash-merge only.
+  Levelselect sub_80413FC PARKED (+0xBA r3/r5, −16 bytes, ~500 tool calls);
+  its draft-only header/global changes were reverted (LevelDescription
+  unk10/unk14 had no matched user after all). Teletype sub_8063F84 PARKED
+  (r8/r9 save mask). Both branches in review-fix loops (scratch structs must
+  cover every draft access; drafts must be enableable; step tables).
+- **Running (19:09)**: collection collectionListFrontendHandler (2564-byte
+  giant, R6-12); riderphysics sub_804DDF8 → RiderAI_804C8F0 (R6-13, user
+  un-deferred them: "an attempt beats nothing"); teletype + levelselect
+  review fixes.
+- (18:14 snapshot) effects sub_805599C (456); teletype (sub_8063E18
   parked at entry mov r4/r5 rank after 58 builds, now sub_8063F84 372);
   levelselect sub_80413FC (checkpoints b37b42a9/b3f11d0d, still 0xBA, −16
   bytes; LevelDescription padE bug fixed with static checks). Red pool
