@@ -105,7 +105,21 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
 - Pending: skill-fold pass over round5-style / cast-removal / raw-decomp-4
   learnings; raw-decomp-3 reference worktree still checked out (remove when
   the user says).
-- The handover's Round 5 leaf pool (teletype/effects/etc.) is queued after.
+- Skill fold merged (0424b186: 8 added / 4 revised; 5 learnings archived).
+  decompiler.md got a "Working in a worktree (manager protocol)" section
+  (8668b222) — prompts are now just the function list. MERGE CAVEAT: the
+  four R6 wave-1 branches contain the pre-amend commit 8735e006 (had a
+  homedir path); merge them with `git rebase --onto main 8735e006 <branch>`
+  (from the main checkout), not a plain merge.
+- **Round 6 wave 1 (running, 15:55→)**, reds <100 bytes, 3 per agent, one
+  active agent per TU: R6-1 event.c processMetadata_3/_6/_10; R6-2
+  teletype.c sub_8063F64/806415C/806417C; R6-3 actor sub_8058390 +
+  beyblade GetTalkingHead + display sub_8050894; R6-4 effects sub_8055C30 +
+  layer sub_8059CB4 + tutorial sub_804A364. Wave 2 queue: event.c _9/_C/_E
+  → _8/_A/default → _D + nullsub_14/15/42; teletype sub_8064188/8063F5C.
+  Excluded: asm/arm1.s render_00/06, arm2.s sub_8757CD0 (ARM, no C TU).
+- Never commit homedir paths (user, 2026-09-07); pre-existing:
+  decomp.yaml:31 and docs/asmlift.md:8 default ASMLIFT_DIR to one.
 
 ## Session 7 (2026-09-06)
 
