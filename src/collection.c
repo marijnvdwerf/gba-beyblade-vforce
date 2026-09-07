@@ -2,6 +2,7 @@
 
 #include "beyblade.h"
 #include "debug.h"
+#include "effects.h"
 #include "frontend.h"
 #include "include_asm.h"
 #include "keystate.h"
@@ -30,13 +31,6 @@ typedef struct CollectionListDataDraft {
     SpriteTextCleanup detail;
 } CollectionListData;
 
-typedef struct DecompressorStateDraft {
-    AllocatedBlock* block;
-    const unk8* source;
-    unk8* data;
-    unk32 size;
-} DecompressorState;
-
 extern s32 _unk30000F8;
 extern s32 _unk30000FC;
 extern s32 _unk3000100;
@@ -55,12 +49,6 @@ extern SpriteEntry* _unk3000130;
 extern SpriteEntry* _unk3000134;
 extern SpriteEntry* _unk3000138;
 extern SpriteEntry* _unk300013C;
-extern DecompressorState _unk3000140;
-
-extern void sub_8055C4C(DecompressorState*);
-extern unk8* getDecompressorData(DecompressorState*, const unk8*);
-extern void sub_8055CA0(DecompressorState*);
-
 void collectionListFrontendHandler(FrontendState* state, unk32 command)
 {
     CollectionListData* collectionData;

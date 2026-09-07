@@ -22,6 +22,15 @@ typedef struct EffectSprites {
     const unk16* unk38;
 } EffectSprites;
 
+typedef struct DecompressorState {
+    AllocatedBlock* block;
+    unk8* source;
+    unk8* data;
+    unk32 size;
+} DecompressorState;
+
+extern DecompressorState _unk3000140;
+
 void sub_805529C(void);
 void sub_8055340(void);
 void sub_8055624(void);
@@ -36,9 +45,13 @@ void sub_80558D0(void);
 void sub_80558E8(unk32);
 
 void sub_8055914(EffectSprites*, const unk8*, const unk8*, unk32, unk32);
-void sub_8055B64(EffectSprites*, unk32);
+void sub_8055B64(EffectSprites*, unk8);
 
 void sub_805599C(EffectSprites*);
+
+void sub_8055C4C(DecompressorState*);
+unk8* getDecompressorData(DecompressorState*, unk8*);
+void sub_8055CA0(DecompressorState*);
 
 void sub_8055C30(EffectSprites*);
 

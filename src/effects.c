@@ -1,5 +1,6 @@
 #include "effects.h"
 
+#include <agb/bios.h>
 #include <agb/memory_map.h>
 
 #include "include_asm.h"
@@ -7,6 +8,8 @@
 #include "ram.h"
 #include "rider.h"
 #include "unsorted.h"
+
+extern const unk8 Str_8729780[];
 
 #if 0
 void sub_805529C(void)
@@ -421,7 +424,15 @@ void sub_805599C(EffectSprites* effect)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055b64.s");
+void sub_8055B64(EffectSprites* effect, unk8 side)
+{
+    if (side != 0) {
+        effect->unk20 = 0xAE00;
+    } else {
+        effect->unk18 = 0x1000;
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055b7c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055ba0.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055bb0.s");
@@ -437,6 +448,40 @@ void sub_8055C30(EffectSprites* arg0)
     arg0->unk4 = NULL;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055c4c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055c58-getDecompressorData.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055ca0.s");
+void sub_8055C4C(DecompressorState* state)
+{
+    state->block = NULL;
+    state->source = NULL;
+    state->data = NULL;
+    state->size = 0;
+}
+
+unk8* getDecompressorData(DecompressorState* state, unk8* source)
+{
+    unk8* data;
+
+    data = NULL;
+    if (state->block != NULL) {
+        deallocateBlock(state->block);
+        state->block = NULL;
+    }
+    state->source = source;
+    state->size = *(const unk32*)source >> 8;
+    state->block = slowAllocate(state->size);
+    if (state->block != NULL) {
+        data = state->block->address;
+        LZ77UnCompWram(source, data);
+    } else {
+        printf(Str_8729780, state->size);
+    }
+    state->data = data;
+    return data;
+}
+
+void sub_8055CA0(DecompressorState* state)
+{
+    if (state->block != NULL) {
+        deallocateBlock(state->block);
+        state->block = NULL;
+    }
+}
