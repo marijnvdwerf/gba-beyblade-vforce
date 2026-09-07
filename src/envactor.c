@@ -111,7 +111,7 @@ void initLevelEnvironmentActors(u16 level)
         printf(Str_8729738, allocationSize);
     }
     actorBase = block->address;
-    allocationField->actorContainer = (EnvironmentActorContainer*)actorBase;
+    allocationField->actorContainer = actorBase;
     lineObjects = (EnvironmentObject*)((unk8*)actorBase + actorSize);
     effect = (EnvironmentNode*)((unk8*)lineObjects + lineSize);
     points = (EnvironmentPointEntry*)((unk8*)effect + effectSizeBytes);
@@ -266,7 +266,7 @@ void renderEnvironmentActors(void)
 
     actorCount = _gameData->environmentActors.actorCount;
     effectCount = _gameData->environmentActors.effectCount;
-    actor = (Actor*)_gameData->environmentActors.actorContainer;
+    actor = _gameData->environmentActors.actorContainer;
     effect = _gameData->environmentActors.effect;
     camera = (DisplayRecord*)nullsub_12(&_gameData->unk434);
     if (actorCount == 0)
@@ -411,7 +411,7 @@ void sub_8054FE0(void)
     SpriteEntry* zero;
     s32 actorCount;
     s32 nodeCount;
-    EnvironmentActorContainer* actorContainer;
+    Actor* actorContainer;
     Actor* actor;
     EnvironmentNode* node;
     EnvironmentObject* object;
@@ -421,7 +421,7 @@ void sub_8054FE0(void)
     actorContainer = _gameData->environmentActors.actorContainer;
     node = _gameData->environmentActors.effect;
     if (actorCount-- != 0) {
-        actor = actorContainer->slots;
+        actor = actorContainer;
         do {
             object = GetStruct4(actor->unkB4);
             if (actor->unkB8 != NULL) {

@@ -495,10 +495,6 @@ struct ActorTimerEntry {
     unk32 unkC;
 };
 
-typedef struct EnvironmentActorContainer {
-    Actor slots[1];
-} EnvironmentActorContainer;
-
 typedef struct EnvironmentNode {
     SpriteEntry* sprite;
     unk32 unk4;
@@ -539,7 +535,7 @@ typedef struct EnvironmentPointEntry {
 typedef struct EnvironmentActorAllocation {
     AllocatedBlock* block;
     EnvironmentNode* effect;
-    EnvironmentActorContainer* actorContainer;
+    Actor* actorContainer;
     unk32 effectCount;
     unk32 actorCount;
     EnvironmentObject* lineObjects;
