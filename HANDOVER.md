@@ -55,6 +55,20 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
   `.claude/worktrees/raw-decomp-4` with compare per commit. Plan (user):
   review agent on the rebased branch → luna fix agent on the same branch →
   manager read → merge. No re-derivation round needed (quality is higher).
+- raw-decomp-4 rebased (12 commits on main, compare green, 12:50). Review
+  took two luna reviewers (first died "prompt too long" after 13 findings —
+  the 1022-line session-astra.md learnings + tool schemas; split by file
+  slice): 17 BLOCKING / 3 QUESTIONS in /tmp/review-raw-decomp-4.md. Fix
+  agent (luna, 13:15→) on the branch itself: unkF field, s32 return, header
+  prototypes (~30 local decls), unevidenced s8/s16/s32, three if-shape
+  questions, then the design items — envactor Container/Slot + Meta view
+  structs, gameloop `Packet*`→`RiderState*` casts, sub_804B4FC signature
+  conflict — canonical form attempted then reported. User ruling on those
+  three still open.
+- **Cast-removal branch** `worktree-agent-af09d3dab57679a18` (luna, done
+  13:35, 27 commits): unkC24 → s16; ~15 casts absorbed into declarations,
+  ~12 kept with cited codegen; learnings cast-removal-2026-09-07.md. Reviewer
+  running → /tmp/review-cast-removal.md; then fix → merge.
 - The handover's Round 5 leaf pool (teletype/effects/etc.) is queued after.
 
 ## Session 7 (2026-09-06)
