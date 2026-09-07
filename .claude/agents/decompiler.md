@@ -212,10 +212,6 @@ graph; the callgraph remains the reachability boundary.
   actually moved a diff. Read that top-level glob and
   `.claude/skills/agbcc/SKILL.md` before starting; `processed/` is history and
   is not required reading.
-- The `raw-decomp` worktree (`.claude/worktrees/raw-decomp`, read-only) has
-  many more functions in C. Use it for semantics, names and struct layouts,
-  but re-verify everything here and follow this repo's style rules — it may
-  not match byte-for-byte.
 
 ## When diffs look impossible
 
