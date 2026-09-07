@@ -1787,7 +1787,7 @@ void sub_8046A0C(FrontendState* state, unk32 arg1)
         break;
     case 1:
         sub_80439A0(&state->unk140);
-        sub_8061844(sub_804A0E0(0), (s16)(-(_unk30004B8 >> 8) + 0x10), 0x4A);
+        sub_8061844(sub_804A0E0(0), -(_unk30004B8 >> 8) + 0x10, 0x4A);
         if (_unk30004C1 != 0 && _unk30004C0 == 0) {
             result = sub_80515A4();
             if (result != 0) {
