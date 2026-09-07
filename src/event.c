@@ -167,12 +167,14 @@ void handleEventListeners(unk32 geometry, unk16 eventId)
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/80542a8-handleEventListeners.s");
+
 void processMetadata_default(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
     LineMetadata* arg3, LineMetaObject* event)
 {
     GetStruct4(lineIndex);
     printf(Str_87296D8, lineIndex);
 }
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80543a4-nullsub_42.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80543a8-processMetadata_1.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805444c-processMetadata_2.s");
@@ -248,7 +250,11 @@ void processMetadata_C(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/805470c-processMetadata_D.s");
+void processMetadata_D(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
+    LineMetadata* arg3, LineMetaObject* event)
+{
+    arg1->unk10 = event->unk8.unk0;
+}
 
 void processMetadata_E(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
     LineMetadata* arg3, LineMetaObject* event)

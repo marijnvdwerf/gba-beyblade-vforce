@@ -859,6 +859,7 @@ typedef union LineMetaObjectValue {
     const unk8* data;
     unk32 word;
     unk16 half;
+    unk8 unk0;
     LineMetaTransform transform;
     LineMetaOffset offset;
     LineMetaSequence sequence;
