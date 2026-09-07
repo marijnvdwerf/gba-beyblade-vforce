@@ -13,6 +13,7 @@ extern const unk8 Str_8755474[];
 extern const unk8 Str_87554B4[];
 extern const unk8 Str_87554F0[];
 extern const unk8 Str_87554F4[];
+extern const unk8 Str_8755530[];
 
 void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable* geometry)
 {
@@ -515,42 +516,13 @@ void deallocateQuadTree(QuadTree* arg0)
     arg0->block28 = NULL;
 }
 
-#if 0
-typedef struct GeometryTableAllocDraft {
-    unk8 pad0[8];
-    s32 lineCount;
-} GeometryTableAllocDraft;
-
-typedef struct GeometryLineAllocDraft {
-    unk8 pad0[0x11];
-    unk8 unk11;
-    unk8 pad12[0xE];
-} GeometryLineAllocDraft;
-
-typedef struct GeometryAddressesAllocDraft {
-    GeometryTableAllocDraft* unk0;
-    unk8 pad4[8];
-    GeometryLineAllocDraft* unkC;
-} GeometryAddressesAllocDraft;
-
-typedef struct QuadTreeAllocDraft {
-    unk8 pad0[0x44];
-    unk16 unk44;
-    unk8 pad46[2];
-    unk16 unk48;
-    unk8 pad4A[2];
-    unk32* unk4C;
-} QuadTreeAllocDraft;
-
-extern const unk8 Str_8755530[];
-
-void allocateDynamicBoundingAreas(QuadTreeAllocDraft* quadTree, GeometryAddressesAllocDraft* geometry)
+void allocateDynamicBoundingAreas(QuadTree* quadTree, LevelGeometryAddresses* geometry)
 {
     s32 count;
     s32 max;
     s32 remaining;
-    s32 index;
-    GeometryLineAllocDraft* record;
+    unk32 index;
+    GeometryLine* record;
     unk32* output;
 
     max = quadTree->unk44;
@@ -567,14 +539,14 @@ void allocateDynamicBoundingAreas(QuadTreeAllocDraft* quadTree, GeometryAddresse
                 printf(Str_8755530, max);
                 break;
             }
+            index++;
+        } else {
+            index++;
         }
-        index += 1;
         record++;
     }
     quadTree->unk48 = count;
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/805bfe8-allocateDynamicBoundingAreas.s");
 
 #if 0
 typedef struct InitGeometryTableDraft {
