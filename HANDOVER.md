@@ -94,7 +94,7 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
 - selectBladeFrontendHandler PARKED (97cd3aaa; structure 100% matched, key
   handling fixed 6da70483, credits.c two-byte test). Only allocation left:
   target keeps `&state->unk80` (scalar unk8) in r8 all function — a
-  scalar-field alias; user ruling pending. Reviewer running.
+  scalar-field alias; user decision pending. Reviewer running.
 - sub_8052B24 PARKED (5840a38c, 549 tool calls — agent retired): loop
   rotation appears only with a reduced body (whole-body liveness effect);
   draft-only GameData fields in ram.h (unk870/unk8A0/unk8A8) must revert to
@@ -111,7 +111,7 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   sub_80594FC layer, displayFrontendLevel + sub_8041288 levelselect,
   sub_805C3BC geometry.
 - Merged parked selectBladeFrontendHandler (3bde3b6f) after hygiene fixes;
-  credits.c transition test fixed. Alias ruling (`&state->unk80` in r8)
+  credits.c transition test fixed. Alias decision (`&state->unk80` in r8)
   still open — needed to unpark.
 - sub_805CEB8: body lead — target keeps `callbackDone` in a stack slot
   (address-taken, likely passed to the indirect callback); frame 96 vs 92.
@@ -120,7 +120,7 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
 - sub_805CEB8 PARKED (d5cc49d3, 15-step table; `callbackDone` stack-slot
   lead). Reviewer running. Effects ×6 matched (cbcf213e), reviewer running.
 - Merged: effects ×6 (32ba1425). **632 C / 375 asm / 63%.**
-- User ruling: selectBladeFrontendHandler may use `unk8* p = &state->unk80;`
+- User decision: selectBladeFrontendHandler may use `unk8* p = &state->unk80;`
   with trailing `// TODO: fake match? Is this temp required?` (one-off
   exception, like sub_8050A50). Fresh agent unparking it.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
