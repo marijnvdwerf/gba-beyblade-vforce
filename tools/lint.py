@@ -24,6 +24,8 @@ from tree_sitter import Language, Parser
 ROOT = Path(__file__).resolve().parents[1]
 DEFAULT_MAP = ROOT / "build" / "rom.map"
 C_LANGUAGE = Language(tree_sitter_c.language())
+# Keep parsed trees alive while Node wrappers are consumed.
+_TREE_LIFETIME: list[tuple[object, bytes]] = []
 
 
 @dataclass(frozen=True)
@@ -67,37 +69,43 @@ def same_node(left, right) -> bool:
 
 def iter_active_preprocessor_branch(node, source: bytes) -> Iterator:
     """Yield nodes from the selected branch of a definitely-false #if 0."""
-    if node.type == "preproc_else":
-        for child in node.named_children:
-            yield from iter_active_nodes(child, source)
-        return
-    if node.type == "preproc_elif":
-        condition = node.child_by_field_name("condition")
-        alternative = node.child_by_field_name("alternative")
-        if is_literal_zero(source, condition):
-            if alternative is not None:
-                yield from iter_active_preprocessor_branch(alternative, source)
-            return
-        for child in node.named_children:
-            if same_node(child, condition) or same_node(child, alternative):
+    stack = [(node, True)]
+    while stack:
+        current, branch = stack.pop()
+        if branch and current.type == "preproc_else":
+            stack.extend((child, False) for child in reversed(current.named_children))
+            continue
+        if branch and current.type == "preproc_elif":
+            condition = current.child_by_field_name("condition")
+            alternative = current.child_by_field_name("alternative")
+            if is_literal_zero(source, condition):
+                if alternative is not None:
+                    stack.append((alternative, True))
                 continue
-            yield from iter_active_nodes(child, source)
-        return
-    yield from iter_active_nodes(node, source)
+            stack.extend(
+                (child, False)
+                for child in reversed(current.named_children)
+                if not same_node(child, condition) and not same_node(child, alternative)
+            )
+            continue
+        yield current
+        stack.extend((child, False) for child in reversed(current.named_children))
 
 
 def iter_active_nodes(node, source: bytes) -> Iterator:
     """Walk syntax nodes, omitting the definitely-disabled side of #if 0."""
-    if node.type == "preproc_if":
-        condition = node.child_by_field_name("condition")
-        alternative = node.child_by_field_name("alternative")
-        if is_literal_zero(source, condition):
-            if alternative is not None:
-                yield from iter_active_preprocessor_branch(alternative, source)
-            return
-    yield node
-    for child in node.named_children:
-        yield from iter_active_nodes(child, source)
+    stack = [node]
+    while stack:
+        current = stack.pop()
+        if current.type == "preproc_if":
+            condition = current.child_by_field_name("condition")
+            alternative = current.child_by_field_name("alternative")
+            if is_literal_zero(source, condition):
+                if alternative is not None:
+                    yield from iter_active_preprocessor_branch(alternative, source)
+                continue
+        yield current
+        stack.extend(reversed(current.named_children))
 
 
 def is_file_scope(node) -> bool:
@@ -135,17 +143,25 @@ def direct_function_name(node, source: bytes) -> str | None:
 
 def iter_declarator_function_nodes(node) -> Iterator:
     """Yield function declarators in a declaration, excluding parameters."""
-    if node.type == "parameter_list":
-        return
-    if node.type == "function_declarator":
-        yield node
-    for child in node.named_children:
-        yield from iter_declarator_function_nodes(child)
+    stack = [node]
+    while stack:
+        current = stack.pop()
+        if current.type == "parameter_list":
+            continue
+        if current.type == "function_declarator":
+            yield current
+            stack.extend(
+                child for child in reversed(current.named_children) if child.type != "parameter_list"
+            )
+            continue
+        stack.extend(reversed(current.named_children))
 
 
 def iter_declarations(path: Path) -> Iterator[Declaration]:
     source = path.read_bytes()
     tree = Parser(C_LANGUAGE).parse(source)
+    _TREE_LIFETIME.append((tree, source))
+    declarations: list[Declaration] = []
     for node in iter_active_nodes(tree.root_node, source):
         if node.type != "declaration" or not is_file_scope(node):
             continue
@@ -155,7 +171,10 @@ def iter_declarations(path: Path) -> Iterator[Declaration]:
             if name is None or name in seen:
                 continue
             seen.add(name)
-            yield Declaration(path=path, line=function_node.start_point.row + 1, name=name)
+            declarations.append(
+                Declaration(path=path, line=function_node.start_point.row + 1, name=name)
+            )
+    return iter(declarations)
 
 
 def object_to_c_translation_unit(filepath: Path) -> str | None:
