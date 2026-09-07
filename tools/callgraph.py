@@ -293,7 +293,7 @@ def call_target_name(function, source: bytes) -> str | None:
     return None
 
 
-def function_pointer_names(body, source: bytes) -> set[str]:
+def function_pointer_names(body, source: bytes, typedef_names: set[str] = set()) -> set[str]:
     if body is None:
         return set()
     text = node_text(source, body)
@@ -301,6 +301,12 @@ def function_pointer_names(body, source: bytes) -> set[str]:
     # Typedef function pointers in the drafts are declared as e.g.
     # ``LayerCopyFunc copy;`` and ``EventMetadataHandler handler;``.
     names.update(re.findall(r"\b[A-Za-z_]\w*(?:Func|Handler)\s+([A-Za-z_]\w*)\s*;", text))
+    # Drafts also use typedef names whose spelling does not end in Func/Handler
+    # (for example CollisionCallback3 callback3).  Treat declarations using
+    # any function-pointer typedef as indirect locals as well.
+    if typedef_names:
+        typedef_pattern = "|".join(re.escape(name) for name in typedef_names)
+        names.update(re.findall(r"\b(?:" + typedef_pattern + r")\s+([A-Za-z_]\w*)\s*;", text))
     return names
 
 
@@ -352,6 +358,12 @@ def index_c_sources(functions: Functions) -> None:
     for path in sorted(SRC_DIR.rglob("*.c")):
         source = path.read_bytes()
         tree = parser.parse(source)
+        # Collect typedefs of function-pointer types once per translation unit;
+        # their declarations may be inside parked (#if 0) function bodies.
+        typedef_names = set(re.findall(
+            rb"typedef\s+[^;()]+\(\s*\*\s*([A-Za-z_]\w*)\s*\)", source
+        ))
+        typedef_names = {name.decode("ascii") for name in typedef_names}
         for invert_literal_zero in (False, True):
             kind = "provisional" if invert_literal_zero else "c"
             for node in iter_active_nodes(tree.root_node, source, invert_literal_zero):
@@ -366,6 +378,7 @@ def index_c_sources(functions: Functions) -> None:
                     if body is not None
                     else ([], [])
                 )
+                indirect_names = function_pointer_names(body, source, typedef_names)
                 add_function(
                     functions,
                     Function(
@@ -374,7 +387,7 @@ def index_c_sources(functions: Functions) -> None:
                         kind=kind,
                         calls=calls,
                         indirect_sites=indirect_sites,
-                        indirect_names=function_pointer_names(body, source),
+                        indirect_names=indirect_names,
                     ),
                 )
 
