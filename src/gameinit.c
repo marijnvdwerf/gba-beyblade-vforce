@@ -40,7 +40,7 @@ void initGame(void)
     _levelDataBlockPtr = block;
     _gameData = (GameData*)block->address;
     __fastMemoryClearARM(0, &_gameData->unk1620, 0x18);
-    _gameData->unkC24 |= 0xFFFF;
+    _gameData->unkC24 |= -1;
     _gameData->unkC28 = -1;
     _gameData->unkC2C = -1;
     _gameData->unkC26 |= -1;
@@ -68,7 +68,7 @@ void initGameLoop(void)
     getLevelDescription2();
     _gameData->unk161C = 0;
     _gameData->unk998 = 0;
-    _gameData->unkC24 |= 0xFFFF;
+    _gameData->unkC24 |= -1;
     _gameData->unkC28 = -1;
     _gameData->unkC2C = -1;
     _gameData->unkC26 |= -1;
