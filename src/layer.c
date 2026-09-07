@@ -170,7 +170,7 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
         bgLayer->screenBaseBlock = _unk3000E3C;
     }
 
-    layerCnt = (vu16*)GetBGLayerCntPtr(layerIndex);
+    layerCnt = GetBGLayerCntPtr(layerIndex);
     *layerCnt = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
         | ((bgPriority) << BG_PRIORITY_SHIFT)
         | ((bgLayer->characterBaseBlock) << BG_CHAR_BASE_SHIFT) | (((colorMode & 1) ^ 0x1) << 7);
@@ -268,7 +268,7 @@ void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriorit
     dest = (void*)(0x6000000 + bgLayer->screenBaseBlock * 0x800);
     __fastMemoryClearARM(0, dest, var0);
 
-    layerCnt = (vu16*)GetBGLayerCntPtr(layerIndex);
+    layerCnt = GetBGLayerCntPtr(layerIndex);
     *layerCnt = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
         | ((bgPriority) << BG_PRIORITY_SHIFT)
         | ((bgLayer->characterBaseBlock) << BG_CHAR_BASE_SHIFT);
@@ -639,20 +639,20 @@ vu16* GetBGLayerVOffsetPtr(u8 layer)
     }
 }
 
-BGControl* GetBGLayerCntPtr(u8 layer)
+vu16* GetBGLayerCntPtr(u8 layer)
 {
     switch (layer) {
     case 0:
-        return (BGControl*)REG_BG0CNT;
+        return (vu16*)REG_BG0CNT;
 
     case 1:
-        return (BGControl*)REG_BG1CNT;
+        return (vu16*)REG_BG1CNT;
 
     case 2:
-        return (BGControl*)REG_BG2CNT;
+        return (vu16*)REG_BG2CNT;
 
     case 3:
-        return (BGControl*)REG_BG3CNT;
+        return (vu16*)REG_BG3CNT;
     }
 }
 
@@ -767,7 +767,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8059c18.s");
 
 unk8 sub_8059CB4(BGLayer* layer)
 {
-    return GetBGLayerCntPtr(layer->layerIndex)->unk0_0;
+    return ((BGControl*)GetBGLayerCntPtr(layer->layerIndex))->unk0_0;
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8059cc8.s");

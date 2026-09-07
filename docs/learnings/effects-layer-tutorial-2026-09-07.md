@@ -11,15 +11,16 @@
 
 - The target loads `BGLayer.layerIndex` from offset `0x5E`, calls `GetBGLayerCntPtr`, reads a 32-bit value from the returned address, and extracts bits 0-1 with `lsl #30` followed by `lsr #30`.
 - `unk8` is retained as the return type because the existing `renderActor` call site normalizes the result with `lsl #24` and `lsr #24`; the callee itself matches without an extra narrowing sequence.
-- The final source uses a 32-bit `BGControl` bitfield allocation unit and the cast-free expression `GetBGLayerCntPtr(layer->layerIndex)->unk0_0`. `GetBGLayerCntPtr` returns `BGControl *`; its hardware-register cases return `(BGControl *)REG_BG0CNT` through `(BGControl *)REG_BG3CNT`.
-- The two active 16-bit register writers keep `vu16 *layerCnt` and cast the helper result to `vu16 *` before their halfword stores. `GetBGLayerCntPtr`, `sub_8058AA8`, `unref_8058C74`, `sub_8059CB4`, and `renderActor` all remain exact with this prototype. The `sub_8059C18` references at source lines 741 and later are inside its `#if 0` draft and do not produce object code.
+- The final source uses a 32-bit `BGControl` bitfield allocation unit while retaining the `vu16 *` return type for `GetBGLayerCntPtr`, because BG0CNT through BG3CNT are 16-bit hardware registers. The only cast is in `sub_8059CB4`: `return ((BGControl*)GetBGLayerCntPtr(layer->layerIndex))->unk0_0;`.
+- The two active register writers use the helper result directly as `vu16 *`, preserving their natural halfword stores. `sub_8059CB4`, `sub_8058AA8`, `unref_8058C74`, and `renderActor` all remain exact. The `sub_8059C18` references at source lines 741 and later are inside its `#if 0` draft and do not produce object code.
 
 ### Prototype and expression experiments
 
 | form | first observed divergence | result |
 | --- | --- | --- |
 | `BGControl` bitfield with the original `vu16 *` helper and an explicit cast in `sub_8059CB4` | none | exact target body |
-| `BGControl *GetBGLayerCntPtr` with `GetBGLayerCntPtr(layer->layerIndex)->unk0_0` | none in `GetBGLayerCntPtr`, `sub_8058AA8`, `unref_8058C74`, `sub_8059CB4`, or `renderActor` | final form; cast-free field access |
+| `BGControl *GetBGLayerCntPtr` with `GetBGLayerCntPtr(layer->layerIndex)->unk0_0` | none in `GetBGLayerCntPtr`, `sub_8058AA8`, `unref_8058C74`, `sub_8059CB4`, or `renderActor` | codegen exact, but rejected because it moves `(vu16*)` casts into the two natural halfword writers |
+| `vu16 *GetBGLayerCntPtr` with the `BGControl` field accessed through one cast in `sub_8059CB4` | none in `sub_8059CB4`, `sub_8058AA8`, `unref_8058C74`, or `renderActor` | final source form; preserves the 16-bit register helper and keeps the cast localized to the 32-bit bitfield read |
 | `return *GetBGLayerCntPtr(layer->layerIndex) & 3` with `vu16 *` helper | `0x0A`: expected `ldr`, emitted `ldrh`; then `0x0C` expected `lsl #30`, emitted `mov #3` | rejected; documents that the 16-bit helper cannot express the target load |
 | `return *GetBGLayerCntPtr(layer->layerIndex) & 3` with `vu32 *` helper | `0x0C`: expected `lsl #30`, emitted `mov #3`; `ldr` at `0x0A` matched | rejected; width is right but the mask is not the recovered expression |
 
