@@ -6,7 +6,20 @@
 typedef struct EffectSprites {
     SpriteEntry* unk0;
     SpriteEntry* unk4;
-    unk8 pad8[0x34];
+    unk32 unk8;
+    unk32 unkC;
+    unk32 unk10;
+    unk32 unk14;
+    unk32 unk18;
+    unk32 unk1C;
+    unk32 unk20;
+    unk32 unk24;
+    unk16 unk28;
+    unk16 unk2A;
+    unk32 unk2C;
+    unk32 unk30;
+    unk32 unk34;
+    unk32 unk38;
 } EffectSprites;
 
 void sub_805529C(void);
