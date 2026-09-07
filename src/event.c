@@ -3,13 +3,17 @@
 #include <agb/types.h>
 
 #include "debug.h"
+#include "effects.h"
 #include "gameinit.h"
 #include "geometry.h"
 #include "include_asm.h"
 #include "memory.h"
+#include "music.h"
 #include "ram.h"
 #include "riderstate.h"
 #include "unsorted.h"
+
+extern void sub_8056E2C(unk32);
 
 extern const unk8 Str_8729658[];
 extern const unk8 Str_87296A4[];
@@ -154,7 +158,25 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8054388-processMetadata_default.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80543a4-nullsub_42.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80543a8-processMetadata_1.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805444c-processMetadata_2.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80544bc-processMetadata_3.s");
+
+void processMetadata_3(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
+    LineMetadata* arg3, LineMetaObject* event)
+{
+    EnvironmentObject* target;
+
+    target = GetStruct4(lineIndex);
+    if (event->id != 0x37AE) {
+        if (event->id == 0x4ECB) {
+            target->unk3E = event->unk8.word;
+        }
+    } else {
+        sub_8056E2C(lineIndex);
+        sub_8055734(2, NULL, NULL);
+        sub_80558E8(1);
+        sub_804ABFC(0x10);
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/805450c-processMetadata_4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80545b0-processMetadata_5.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054684-processMetadata_8.s");

@@ -524,7 +524,8 @@ typedef struct EnvironmentObject {
     unk16 unk38;
     unk16 unk3A;
     unk16 unk3C;
-    unk8 pad3E[0xE];
+    unk16 unk3E;
+    unk8 pad40[0xC];
 } EnvironmentObject;
 
 typedef struct EnvironmentPointEntry {
