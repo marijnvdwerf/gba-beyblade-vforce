@@ -220,6 +220,7 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8058038.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8058068.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/80580b4-GetSpriteSheetStructA.s");
 
+// TODO: reduce casts
 void actor_80580C0(Actor* actor, unk16 sequence, unk16 callbackSequence)
 {
     ActorConfig* config;
