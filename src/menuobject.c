@@ -193,7 +193,7 @@ void sub_804374C(FrontendState* object)
                 sub_805AFBC(&object->menuState, 1);
             }
             if ((_unk3005DA0 & 0x20) != 0) {
-                if (sub_805B210(&object->menuState) != (unk32)-1) {
+                if (sub_805B210(&object->menuState) != -1) {
                     sub_80490CC(9, sub_8043720(object));
                 }
                 sub_805B050(&object->menuState, 0);
