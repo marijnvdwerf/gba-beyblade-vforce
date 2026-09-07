@@ -7,6 +7,7 @@
 #include "camera.h"
 #include "common.h"
 #include "credits.h"
+#include "levelselect.h"
 #include "memory.h"
 #include "motion.h"
 #include "packet.h"
@@ -24,6 +25,7 @@ extern s32 _3000014;
 extern unk8 _3000020;
 extern unk8 _3000021;
 extern AllocatedBlock* _3000024;
+extern LevelSelectState _3000038;
 extern CreditsEntry* _currentCreditsPtr;
 extern CreditsEntry* _creditsPtr;
 extern SpriteTextCleanup* _fontPtr;

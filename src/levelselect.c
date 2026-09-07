@@ -1,3 +1,5 @@
+#include "levelselect.h"
+
 #include <agb/memory_map.h>
 
 #include "common.h"
@@ -16,13 +18,60 @@
 #include "tutorial.h"
 #include "unsorted.h"
 
-INCLUDE_ASM("asm/dump/8040d18/8041078.s");
+void sub_8041078(LevelSelectState* state)
+{
+    SpriteTextCleanup* sprite;
+    const LevelSelectSpriteData* data;
+    s32 i;
+
+    for (i = 0; i <= 5; i++) {
+        sprite = sub_804A0E0(i);
+        data = &_8068710[i];
+        sprite->unkC = data->unk8;
+        sprite->x = data->unk0 << 8;
+        sprite->y = data->unk4 << 8;
+        sprite->unk8 = data->unkC;
+        sub_8061E58(sprite, 1);
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/80410b4-displayFrontendLevel.s");
 INCLUDE_ASM("asm/dump/8040d18/8041188.s");
 INCLUDE_ASM("asm/dump/8040d18/8041288.s");
-INCLUDE_ASM("asm/dump/8040d18/8041324.s");
+
+void sub_8041324(unk32 arg0)
+{
+    s32 i;
+
+    for (i = 0; i <= 5; i++) {
+        sub_8061E58(sub_804A0E0(i), arg0);
+    }
+}
+
+#if 0
+void sub_8041344(LevelSelectState* state, unk32 arg1)
+{
+    u8 color = arg1;
+
+    sub_8061E58(state->rows[1], color);
+    sub_8061E58(state->rows[0], color);
+}
+#endif
 INCLUDE_ASM("asm/dump/8040d18/8041344.s");
-INCLUDE_ASM("asm/dump/8040d18/8041364.s");
+
+void sub_8041364(LevelSelectState* state)
+{
+    s32 i;
+
+    for (i = 0; i <= 5; i++) {
+        sub_8061228(sub_804A0E0(i));
+    }
+    if (state->sprite != NULL) {
+        sub_8060A94(state->sprite);
+        state->sprite = NULL;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8041390.s");
 
 #if 0
@@ -96,8 +145,6 @@ void sub_8041288(LevelSelectStateDraft*, LevelDescriptionDraft*, LevelState*, s8
 void sub_8041324(s32);
 void sub_8041344(LevelSelectStateDraft*, s32);
 void sub_8041364(LevelSelectStateDraft*);
-void sub_8062318(SpriteTextCleanup*, unk32);
-unk8 sub_80517E8(unk32);
 void sub_8043960(PacketDraft*);
 unk32 sub_8043970(PacketDraft*, unk8);
 LevelDescriptionDraft* getLevelDescription(unk32);
