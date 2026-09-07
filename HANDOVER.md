@@ -34,6 +34,11 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   awaiting two user decisions: sub_8063DAC count/temp loop (three natural
   forms diverge at 0x02 on state→r3 vs r4) and whether TeletypeConfig.unk0's
   pointee (+4/+5 bytes) becomes a typed record.
+- Merged: singletons ×4 (5e21138e). Levelselect 4/4 matched but
+  sub_8041344 ships `(unk8)(arg1 + 0)` (lever; A/B/C forms requested, park
+  if none) and headers need an own levelselect.h + `_3000038` placeholder
+  upgrade (requested). asm/data12.s `_8068710` rewritten field-wise (user).
+  Luna research agent on TeletypeConfig.unk0's pointee running.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
