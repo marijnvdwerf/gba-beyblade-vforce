@@ -81,7 +81,17 @@ void deallocEventListeners(void)
     _gameData->unkCA8 = 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8054248-processMetadata_6.s");
+void processMetadata_6(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
+    LineMetadata* arg3, LineMetaObject* event)
+{
+    unk16 id;
+
+    id = event->id;
+    handleEventListeners(arg0, id);
+    if (_gameData->unk1618 != 0) {
+        sub_804FF88(id);
+    }
+}
 
 void sub_8054278(LevelGeometryAddresses* arg0, unk16 arg1)
 {
