@@ -1,9 +1,12 @@
 #include "effects.h"
 
+#include <agb/memory_map.h>
+
 #include "include_asm.h"
 #include "projectile.h"
 #include "ram.h"
 #include "rider.h"
+#include "unsorted.h"
 
 #if 0
 void sub_805529C(void)
@@ -350,7 +353,74 @@ void sub_8055914(EffectSprites* effect, const unk8* sheet0, const unk8* sheet1, 
     LoadSpriteSheet(effect->unk4, sheet1, 0xF400, y1, 0, 0, 1, 0);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/805599c.s");
+void sub_805599C(EffectSprites* effect)
+{
+    if ((unk32)(effect->unk8 + 0x4000) > 0x13000) {
+        effect->unk28 &= 0xFFFE;
+        if (effect->unk2C != NULL) {
+            sub_8060A60(effect->unk0);
+            LoadSpriteSheet(effect->unk0, effect->unk2C, -0x4400, effect->unkC, 0, 0, 0, 0);
+            if (effect->unk30 != NULL) {
+                __fastMemoryCopyARM(effect->unk30, (void*)OBJ_PLTT, 0x20);
+            }
+            effect->unk0->oam_attr_2 &= 0xFFF;
+            sub_8055B64(effect, 0);
+            effect->unk2C = NULL;
+            effect->unk30 = NULL;
+        }
+    } else {
+        effect->unk28 |= 1;
+    }
+    if ((unk32)(effect->unk10 + 0x4000) > 0x13000) {
+        effect->unk2A &= 0xFFFE;
+        if (effect->unk34 != NULL) {
+            sub_8060A60(effect->unk4);
+            LoadSpriteSheet(effect->unk4, effect->unk34, -0x4400, effect->unkC, 0, 0, 1, 0);
+            if (effect->unk38 != NULL) {
+                __fastMemoryCopyARM(effect->unk38, (void*)(OBJ_PLTT + 0x20), 0x20);
+            }
+            effect->unk4->oam_attr_2 = (effect->unk4->oam_attr_2 & 0xFFF) | 0x1000;
+            sub_8055B64(effect, 1);
+            effect->unk34 = NULL;
+            effect->unk38 = NULL;
+        }
+    } else {
+        effect->unk2A |= 1;
+    }
+    effect->unk8 += (effect->unk18 - effect->unk8) >> 2;
+    effect->unk10 += (effect->unk20 - effect->unk10) >> 2;
+    effect->unk0->x = effect->unk8;
+    effect->unk4->x = effect->unk10;
+    if ((effect->unk28 & 1) != 0) {
+        effect->unk18 += effect->unk1C;
+    }
+    if ((effect->unk2A & 1) != 0) {
+        effect->unk20 += effect->unk24;
+    }
+    if ((effect->unk28 & 4) != 0) {
+        if (((sub_8057C40() >> 4) & 7) == 0) {
+            if (effect->unk0->frame.word <= 1) {
+                effect->unk0->frame.word++;
+            } else {
+                effect->unk0->frame.word = 0;
+            }
+        }
+    } else {
+        effect->unk0->frame.word = 0;
+    }
+    if ((effect->unk2A & 4) != 0) {
+        if (((sub_8057C40() >> 4) & 7) == 0) {
+            if (effect->unk4->frame.word <= 1) {
+                effect->unk4->frame.word++;
+            } else {
+                effect->unk4->frame.word = 0;
+            }
+        }
+    } else {
+        effect->unk4->frame.word = 0;
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055b64.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055b7c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055ba0.s");

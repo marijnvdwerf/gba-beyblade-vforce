@@ -6,20 +6,20 @@
 typedef struct EffectSprites {
     SpriteEntry* unk0;
     SpriteEntry* unk4;
-    unk32 unk8;
-    unk32 unkC;
-    unk32 unk10;
-    unk32 unk14;
-    unk32 unk18;
-    unk32 unk1C;
-    unk32 unk20;
-    unk32 unk24;
+    s32 unk8;
+    s32 unkC;
+    s32 unk10;
+    s32 unk14;
+    s32 unk18;
+    s32 unk1C;
+    s32 unk20;
+    s32 unk24;
     unk16 unk28;
     unk16 unk2A;
-    unk32 unk2C;
-    unk32 unk30;
-    unk32 unk34;
-    unk32 unk38;
+    const unk8* unk2C;
+    const unk16* unk30;
+    const unk8* unk34;
+    const unk16* unk38;
 } EffectSprites;
 
 void sub_805529C(void);
@@ -36,6 +36,7 @@ void sub_80558D0(void);
 void sub_80558E8(unk32);
 
 void sub_8055914(EffectSprites*, const unk8*, const unk8*, unk32, unk32);
+void sub_8055B64(EffectSprites*, unk32);
 
 void sub_805599C(EffectSprites*);
 
