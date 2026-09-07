@@ -75,7 +75,7 @@ INCLUDE_ASM("asm/dump/8040d18/804a26c.s");
 
 void sub_804A280(FrontendState* arg0)
 {
-    s32 index;
+    unk32 index;
     const FrontendSelectionRecord* entry;
 
     if (arg0->unk0 == arg0->unk4)
