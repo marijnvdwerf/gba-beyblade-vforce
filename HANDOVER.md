@@ -48,6 +48,10 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   record (asm/data12.s FontStyle_80688B8 = sheet, ShadowFontMeta, .2byte 0,15)
   whose first word is a sprite sheet; agent is applying `SpriteSheet`
   (sprite.h, proven bytes +4/+5) + `FontStyle`. Then merge.
+- Merged: teletype ×7 (47c3021c) with `SpriteSheet` (sprite.h, bytes +4/+5
+  proven) and `FontStyle` (12 bytes) — small-red batch complete: +21 C,
+  **621 C / 386 asm / 62%**. sub_8063DAC ships the count/temp countdown
+  (all natural forms measured, allocation-only divergence at 0x02).
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
