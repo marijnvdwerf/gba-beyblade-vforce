@@ -69,6 +69,11 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
 - selectBladeFrontendHandler: instruction-exact but ROM SHA fails — agent had
   added a transition union (rejected shape); told to revert and locate the
   diff with mapfile_parser first_diff. sub_805CEB8 checkpointed d591eac0.
+- **Measured (user's other agent)**: agbcc fuses `a == 0 && b == 0` on two
+  adjacent `s8` fields into one `ldrh; cmp #0` — the transition halfword
+  doubt is resolved: no union, no cast; credits.c:45 gets the two-byte test.
+  selectBladeFrontendHandler unparked on that shape (its draft tested only
+  `value`); the manager's "agbcc will not fuse" claim was wrong.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
