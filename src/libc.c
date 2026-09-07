@@ -81,7 +81,7 @@ void* memset(void* m, s32 c, size_t n)
     }
 
     while (n--)
-        *s++ = (unk8)c;
+        *s++ = c;
 
     return m;
 }
