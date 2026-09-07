@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-07, session 8 — raw-decomp-4 merged (564 C / 443 asm / 56%).
+Last updated: 2026-09-07 16:24, session 8 — Round 6 wave 1 merged (588 C / 419 asm / 58%).
 
 ## Session 8 (2026-09-07)
 
@@ -111,8 +111,22 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
   four R6 wave-1 branches contain the pre-amend commit 8735e006 (had a
   homedir path); merge them with `git rebase --onto main 8735e006 <branch>`
   (from the main checkout), not a plain merge.
-- **Round 6 wave 1 (running, 15:55→)**, reds <100 bytes, 3 per agent, one
-  active agent per TU: R6-1 event.c processMetadata_3/_6/_10; R6-2
+- **Round 6 wave 1 MERGED** (16:15; +27 functions: teletype 5 → dc09c4b9,
+  R6-4 → a1527557, R6-3 → de0debb1, event.c 13 → 48d36928; all rebased onto
+  main dropping 8735e006; compare green, baseline refreshed). Rulings:
+  sparse literal `switch (event->id)` (not if-chains); BGControl bitfield
+  over BGxCNT read via one cast in sub_8059CB4 (GetBGLayerCntPtr stays
+  vu16*); EffectSprites record for _unk3000080; variable-size ActorSequence
+  walk keeps a byte cursor with per-use view casts (loop-top view adds r7)
+  — `// TODO: reduce casts` on actor_80580C0 (fca7d248). Teletype unkBA
+  bitfields measured and rejected (ldrb vs ldrh). Three agents edited the
+  MAIN checkout this round despite the protocol line (diffs in /tmp,
+  reverted) — consider a hook or read-only src/ on main.
+  Still running: teletype agent (worktree recreated from dc09c4b9;
+  sub_8063CF4 done, sub_8063E18 296 in progress, sub_8063F84 372 next);
+  R6-5 tutorial sub_804A378 (16). Remaining <100 reds after these: only
+  asm/arm*.s ARM routines. Next pool: reds 100–300 via todo.py.
+- Round 6 plan was: reds <100 bytes, 3 per agent, one active agent per TU: R6-1 event.c processMetadata_3/_6/_10; R6-2
   teletype.c sub_8063F64/806415C/806417C; R6-3 actor sub_8058390 +
   beyblade GetTalkingHead + display sub_8050894; R6-4 effects sub_8055C30 +
   layer sub_8059CB4 + tutorial sub_804A364. Wave 2 queue: event.c _9/_C/_E
