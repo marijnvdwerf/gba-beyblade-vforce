@@ -19,6 +19,9 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   beyblade sub_8057068/94/703C, effects ×4, gamestate sub_80517E8, math
   sub_8059FF8, spritetext sub_8062318, geometry GetPointAtSplineIndex) —
   exposed by session 8's indirect-call modelling; proposed as the next batch.
+- Small-red batch launched (user: one agent per multi-red TU): teletype ×7,
+  levelselect ×4, beyblade ×3, effects ×4, singletons (gamestate/math/
+  spritetext/geometry) ×4. 7 luna sessions running — at the limit.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
