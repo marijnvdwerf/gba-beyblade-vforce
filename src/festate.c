@@ -1583,7 +1583,7 @@ void sub_8046468(FrontendSelectionObject* arg0, const ItemDescriptionEntry* arg1
     Palette palette;
     unk8 mode;
 
-    mode = (unk8)arg2;
+    mode = arg2;
     getLanguage();
     if ((arg0->unkE & 1) != 0) {
         sub_8060A60(arg0->sprite);
