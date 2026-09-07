@@ -12,7 +12,7 @@
 #include "spritetext.h"
 #include "unsorted.h"
 
-extern const unk8* const* sub_804A378(unk32);
+extern const unk8* const* _806A77C[];
 
 INCLUDE_ASM("asm/dump/8040d18/804a2f0.s");
 INCLUDE_ASM("asm/dump/8040d18/804a300.s");
@@ -37,7 +37,11 @@ const unk8* const* sub_804A364(void)
     return sub_804A378(_unk3000C00);
 }
 
-INCLUDE_ASM("asm/dump/8040d18/804a378.s");
+const unk8* const* sub_804A378(unk32 arg0)
+{
+    return _806A77C[arg0];
+}
+
 extern const unk8 Str_87233E8[];
 extern const unk8 SpriteSheet_82B05EC[];
 extern const unk8 ShadowFontMeta[];
