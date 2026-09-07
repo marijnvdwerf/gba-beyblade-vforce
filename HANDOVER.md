@@ -29,6 +29,11 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   (`(unk8)side` → `unk8` param; `(void*)source` → non-const `unk8*`).
   Teletype 7/7 matched; sent back for draft-copied header fields and a
   transcribed countdown loop. Both awaiting reviewer + merge.
+- Merged: effects ×4 (e63035f2). Singletons ×4 (gamestate/math/spritetext/
+  geometry) matched, reviewed; one wide-formal test outstanding. Teletype
+  awaiting two user decisions: sub_8063DAC count/temp loop (three natural
+  forms diverge at 0x02 on state→r3 vs r4) and whether TeletypeConfig.unk0's
+  pointee (+4/+5 bytes) becomes a typed record.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
