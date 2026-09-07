@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-07 17:19, session 8 — Round 6 waves 1–2 merged (591 C / 416 asm / 59%, 15 TUs).
+Last updated: 2026-09-07 18:14, session 8 (597 C / 410 asm / 59%, 15 TUs).
 
 ## Session 8 (2026-09-07)
 
@@ -136,7 +136,25 @@ Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
   evidence; TalkingHead.unk18/unk20 are `const unk8*`. Merge recipe now:
   `bash -o pipefail -c '… && …'` — `| tail` masked failures twice and a
   branch was deleted after a failed ff (recovered from the reflog hash).
-- **Running (17:19)**: teletype (sub_8063E18 constructor near-miss: signed
+- **Merged 17:20–18:10**: callgraph indirect calls fully modelled (08bc7c81:
+  gameLoop.transition, QuadTreeLineFilter[], Actor.unkB0/unkC0, LayerCopyFunc
+  — ⚠ section now EMPTY; empty nodes audited in C + asm); riderphysics
+  sub_804D8D8 PARKED (062f1a73, allocator rank r4/r8/r9/sl; header retypes
+  reverted — no evidence from matched users); R6-10 levelhud sub_804FE50 +
+  ai sub_8057878 (9a6bba2e, new ai.h; `(s16)angle` cast measured required);
+  event.c R6-6 processMetadata_1/_2/_4/_5 (d71e7904; Actor.unkB0 →
+  `ActorPositionFunc`, rider.c Thumb-bit stores gone — a `+1` on a function
+  pointer means the DECLARATION is wrong, and a `.word sym` vs `sym+1` diff
+  row is relocation noise; Actor.unk8D typed, UnkActor removed;
+  `_unk3000C10` is `RiderBase*[2]`; direct-index search loop reproduces
+  `lsl #2; add; ldr` — a cursor local gives `add #4`).
+- **Running (18:14)**: effects sub_805599C (456); teletype (sub_8063E18
+  parked at entry mov r4/r5 rank after 58 builds, now sub_8063F84 372);
+  levelselect sub_80413FC (checkpoints b37b42a9/b3f11d0d, still 0xBA, −16
+  bytes; LevelDescription padE bug fixed with static checks). Red pool
+  ≤300 bytes exhausted except ARM; next tier: riderphysics RiderAI_804C8F0
+  536 / sub_804DDF8 400 (user-deferred — awaiting go).
+- (17:19 snapshot) teletype (sub_8063E18 constructor near-miss: signed
   descending clear loop, then sub_8063F84); event.c R6-6 (processMetadata_2/
   _1/_4/_5 + Actor.unkB0 retype incl. rider.c Thumb-bit stores); riderphysics
   sub_804D8D8 (allocator-rank residual r4/r8/r9/sl, checkpointed); levelselect
