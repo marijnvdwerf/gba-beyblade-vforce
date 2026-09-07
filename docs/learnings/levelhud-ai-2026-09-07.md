@@ -52,3 +52,10 @@ byte-identical.
 
 The function diff had no differing instructions. The equivalent active helper
 `sub_804AB88` in `src/trail.c` has the same wide-argument and wide-return shape.
+
+Additional type sweep: declaring `angle` as `s16` and indexing with plain
+`angle + 0x80` diverged at target offset `0x12`; the narrow assignment added
+`lsl #16`/`lsr #16` before the branch. Declaring `value` as `s16` diverged at
+target offset `0x2A`, adding halfword normalization after `0xFF - value` and
+changing the subsequent arithmetic and return. The wide `s32` locals and the
+measured `(s16)angle` cast are therefore retained.
