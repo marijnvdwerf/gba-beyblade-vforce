@@ -138,8 +138,6 @@ typedef struct RenderActorDraft {
     unk8 padBE[2];
 } RenderActorDraft;
 
-unk8 sub_8059CB4(BGLayer*);
-
 void renderActor(Actor* actor, unk32 arg1)
 {
     RenderActorDraft* self;

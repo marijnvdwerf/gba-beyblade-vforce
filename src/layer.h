@@ -29,6 +29,11 @@ typedef struct LayerTransformRecord {
     LayerTransformValue unk14;
 } LayerTransformRecord;
 
+typedef struct BGControl {
+    unk32 unk0_0 : 2;
+    unk32 unk0_2 : 30;
+} BGControl;
+
 typedef struct BGLayer {
     s32 columnCount;
     s32 rowCount;
@@ -72,7 +77,6 @@ typedef struct BGLayer {
     unk32 field_84;
 } BGLayer;
 
-
 extern Struct3000CA0 _unk3000CA0[4];
 extern LayerTransformRecord _unk3000D00[2];
 
@@ -81,7 +85,8 @@ void sub_8058EF4(DisplayRecord*);
 void sub_8059934(void);
 void sub_8058F60(DisplayRecord*);
 void sub_80596AC(void*, unk32, unk32);
-vu16* GetBGLayerCntPtr(u8 layer);
+BGControl* GetBGLayerCntPtr(u8 layer);
+unk8 sub_8059CB4(BGLayer*);
 void SetBGOffset(u8 layer, s32 x, s32 y);
 void sub_8059B00(u8, u8, u16, u16);
 void sub_8059C18(u8, u8, u8, u8);
