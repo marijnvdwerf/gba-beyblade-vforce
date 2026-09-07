@@ -1,0 +1,13 @@
+{
+    "search.exclude": {
+        "**/expected/**": true,
+        "**/.claude/**": true,
+        "**/build/**": true,
+        "**/node_modules/**": true
+    },
+    "files.watcherExclude": {
+        "**/expected/**": true,
+        "**/.claude/**": true,
+        "**/build/**": true
+    }
+}
