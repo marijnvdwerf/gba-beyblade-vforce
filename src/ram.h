@@ -255,7 +255,7 @@ typedef struct GameData {
     unk32 unkC28; /* 0xC28 */
     unk32 unkC2C; /* 0xC2C */
     unk8 padC30[0x3C]; /* 0xC30 */
-    u16 unkC6C; /* 0xC6C */
+    s16 unkC6C; /* 0xC6C */
     s16 unkC6E; /* 0xC6E */
     unk8 padC70[4]; /* 0xC70 */
     EnvironmentActorAllocation environmentActors; /* 0xC74 */

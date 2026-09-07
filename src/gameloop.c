@@ -53,7 +53,6 @@ void gameLoop(void)
     RiderBase* rider;
     void (*transition)(unk32, void (*)(void)) = sub_8052978;
     s32 i;
-    s16 timer;
 
     cleanup = &_gameData->unk15C4;
     fadeStep = 0xF;
@@ -89,7 +88,7 @@ void gameLoop(void)
     sub_804F878();
     sub_804F9B4();
 
-    while ((timer = _gameData->unkC6C) != 0) {
+    while (_gameData->unkC6C != 0) {
         if (*(vu16*)REG_VCOUNT <= 0x9F || vblankPending == 0) {
             VBlankIntrWait();
         }
@@ -236,19 +235,18 @@ void gameLoop(void)
             if (_gameData->unk1618 != 0) {
                 sub_8050184(cleanup, 4);
             }
-            if ((timer = _gameData->unkC6C) == -1) {
+            if (_gameData->unkC6C == -1) {
                 sub_8053E18(0);
             }
         }
-        if (_gameData->unk1618 != 0 && sub_80501C8(item, 4) != 0
-            && (timer = _gameData->unkC6C) == -1) {
+        if (_gameData->unk1618 != 0 && sub_80501C8(item, 4) != 0 && _gameData->unkC6C == -1) {
             SetRiderFlag(rider, 0x20000);
             sub_8053E18(0);
         }
         if (fadeStep > 0x20) {
             _gameData->unkC6C = 0;
         }
-        if ((timer = _gameData->unkC6C) > 0) {
+        if (_gameData->unkC6C > 0) {
             if ((RiderHasFlag(rider, 0x400) == 0 && rider->unkB8 == NULL
                     && RiderHasFlag(rider, 2) == 0)
                 || _gameData->unk1618 != 0) {
@@ -257,7 +255,7 @@ void gameLoop(void)
                 SetRiderFlag(rider, 0x400);
             }
         }
-        if ((timer = _gameData->unkC6C) > 0 && RiderHasFlag(rider, 0x400) != 0) {
+        if (_gameData->unkC6C > 0 && RiderHasFlag(rider, 0x400) != 0) {
             _gameData->unkC6C--;
         }
         if (*(vu16*)REG_VCOUNT <= 0x9F) {
