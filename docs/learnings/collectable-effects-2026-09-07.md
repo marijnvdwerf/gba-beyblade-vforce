@@ -2,7 +2,14 @@
 
 ## `sub_8056E2C` (`0x08056E2C`)
 
-The previously exact source used a peeled first test and a `do`/`while` loop with a `break`, plus `index < (count = data->count)`. Those forms reproduce the target rotation but are not retained in source.
+The previously exact source used a peeled first test and a `do`/`while` loop with a `break`, plus `index < (count = data->count)`. The natural line-first `while` form below is byte-identical without that rotated source shape:
+
+```c
+while (entry->line != lineIndex && index < data->count) {
+    index++;
+    entry++;
+}
+```
 
 Natural-form trials, one build per trial:
 
@@ -10,14 +17,15 @@ Natural-form trials, one build per trial:
 | --- | --- | --- |
 | Indexed `for`, uncached count | `0x02`: target `mov r2,r0`, trial `mov r3,r0` | The compiler tests the count before the indexed line load; the natural body was larger than the target. |
 | Cursor `for`, uncached count | `0x04`: target `mov r5,#0`, trial enters an early literal-pool branch | The loop remains ascending with count-first control flow and does not reproduce the target's line-first test. |
-| Cursor `while`, uncached count | `0x04`: target `mov r5,#0`, trial enters an early literal-pool branch | Same count-first rotation and nonmatching layout as the cursor `for`. |
+| Cursor `while`, uncached count with count first | `0x04`: target `mov r5,#0`, trial enters an early literal-pool branch | The operand order produces count-first control flow. |
 | Indexed `for`, cached `count` | `0x02`: target `mov r2,r0`, trial `mov r3,r0` | Caching the count does not restore the target line-first test. |
 | Cursor `for`, cached `count` | `0x04`: target `mov r5,#0`, trial enters an early literal-pool branch | Cached bound changes allocation but remains nonmatching. |
 | Cursor `while`, cached `count` | `0x04`: target `mov r5,#0`, trial enters an early literal-pool branch | Cached bound remains nonmatching. |
 | Indexed natural form with folded `GameData` | `0x02`: target `mov r2,r0`, trial `mov r3,r0` | Folding the `GameData*` local does not restore the target. |
 | Cursor natural form with folded `GameData` | `0x04`: target `mov r5,#0`, trial enters an early literal-pool branch | Folding the `GameData*` local remains nonmatching. |
+| Cursor `while`, line test first, uncached count | No differing instruction | `entry->line != lineIndex && index < data->count` reproduces the target instruction sequence exactly. |
 
-The cursor `for` form was retained as the best natural draft under `#if 0`; it preserves separate index and entry-cursor roles and had the smallest measured natural layout difference. The target assembly remains included because no natural form was byte-identical. No header field was added for the parked draft.
+The final source keeps separate `index` and `entry` cursor locals, initializes `index` before global setup, and uses the line-first `while` condition. No header field was added.
 
 ## `sub_8055914` (`0x08055914`)
 

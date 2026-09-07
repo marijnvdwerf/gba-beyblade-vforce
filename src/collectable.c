@@ -53,7 +53,6 @@ void initCollectables(u16 levelId)
     }
 }
 
-#if 0
 void sub_8056E2C(unk32 lineIndex)
 {
     GameData* gameData;
@@ -64,14 +63,14 @@ void sub_8056E2C(unk32 lineIndex)
     LineMetaObject* object;
     s32 index;
 
+    index = 0;
     gameData = _gameData;
     data = &gameData->collectables;
     entry = data->entries;
     geometry = &gameData->unk434.geometry;
-    for (index = 0; index < data->count; index++, entry++) {
-        if (entry->line == lineIndex) {
-            break;
-        }
+    while (entry->line != lineIndex && index < data->count) {
+        index++;
+        entry++;
     }
     if (index != data->count && entry->geometry != NULL) {
         sub_804FE50();
@@ -85,8 +84,6 @@ void sub_8056E2C(unk32 lineIndex)
         data->collectedBits[index >> 5] |= 1 << (index & 0x1F);
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8056e2c.s");
 
 void sub_8056EC0(void)
 {
