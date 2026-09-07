@@ -145,7 +145,8 @@ struct UnkMenuItem {
     unk32 count;
     unk32 flags;
     const MenuOptionSet* options;
-    unk8 pad44[4];
+    unk8 unk44; /* 0x44 */
+    unk8 pad45[3];
     UnkMenuItem* next;
 };
 

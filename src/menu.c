@@ -200,52 +200,43 @@ void allocateMenuItems(MenuState* state, MenuItemDescriptor* descriptors, unk32 
 INCLUDE_ASM("asm/dump/8057b80-debug/805add4-allocateMenuItems.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805afb8-nullsub_48.s");
 
-#if 0
 s32 sub_805AFBC(MenuState* state, u8 arg1)
 {
-    unk32 step;
+    s32 step;
     s32 current;
     s32 count;
     UnkMenuItem* item;
+    s32 old;
+    UnkMenuItem* oldItem;
 
     current = state->unk24;
     count = state->itemCount;
     step = -1;
     if (arg1 != 0)
         step = 1;
-    goto condition;
-loop:
-    current += step;
-    if (current < 0)
-        current += state->itemCount;
-    if (current >= state->itemCount)
-        current = 0;
-    item = state->items + current;
-    if (item->unk44 != 0)
-        goto condition;
-    {
-        s32 old;
-        UnkMenuItem* oldItem;
 
+    while (count-- != 0) {
+        current += step;
+        if (current < 0)
+            current += state->itemCount;
+        if (current >= state->itemCount)
+            current = 0;
+        item = state->items + current;
+        if (item->unk44 != 0)
+            continue;
         old = state->unk24;
-        if (old == current)
-            goto end;
-        oldItem = state->items + old;
-        state->unk24 = current;
-        sub_806185C(oldItem, state->unk2C);
-        sub_806185C(item, state->unk2E);
-        if (state->callback != NULL)
-            state->callback(oldItem, old, item, current);
-        goto end;
+        if (old != current) {
+            oldItem = state->items + old;
+            state->unk24 = current;
+            sub_806185C(oldItem, state->unk2C);
+            sub_806185C(item, state->unk2E);
+            if (state->callback != NULL)
+                state->callback(oldItem, old, item, current);
+        }
+        break;
     }
-condition:
-    if (count-- != 0)
-        goto loop;
-end:
     return state->unk24;
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/805afbc.s");
 
 s32 sub_805B050(MenuState* arg0, unk8 arg1)
 {
