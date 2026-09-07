@@ -41,5 +41,9 @@ void sub_806415C(TeletypeState* state)
     state->unkBA = (state->unkBA & 0xFFFB) | 0x10;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/806417c.s");
+unk8 sub_806417C(TeletypeState* state)
+{
+    return (state->unkBA >> 2) & 1;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8064188.s");
