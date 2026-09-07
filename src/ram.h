@@ -4,6 +4,7 @@
 #include <stddef.h>
 
 #include "battery.h"
+#include "camera.h"
 #include "common.h"
 #include "credits.h"
 #include "memory.h"
@@ -200,11 +201,7 @@ typedef struct GameData {
     AllocatedBlock* unk428; /* 0x428 */
     RiderBase* unk42C; /* 0x42C */
     s32 unk430; /* 0x430 */
-    void* unk434; /* 0x434 */
-    unk8 pad438[0x220]; /* 0x438 */
-    Actor* unk658; /* 0x658 */
-    LevelGeometryAddresses unk65C; /* 0x65C */
-    unk8 pad778[0x28]; /* 0x778 */
+    CameraState unk434; /* 0x434 */
     unk32 unk7A0; /* 0x7A0 */
     QuadTree unk7A4; /* 0x7A4 */
     unk16 unk7FC; /* 0x7FC */
@@ -259,7 +256,7 @@ typedef struct GameData {
     unk32 unkC2C; /* 0xC2C */
     unk8 padC30[0x3C]; /* 0xC30 */
     u16 unkC6C; /* 0xC6C */
-    u16 unkC6E; /* 0xC6E */
+    s16 unkC6E; /* 0xC6E */
     unk8 padC70[4]; /* 0xC70 */
     AllocatedBlock* unkC74; /* 0xC74 */
     EnvironmentNode* unkC78; /* 0xC78 */
@@ -300,7 +297,7 @@ typedef struct GameData {
 } GameData;
 
 typedef char LevelGeometryAddressesSizeCheck[(sizeof(LevelGeometryAddresses) == 0x11C) ? 1 : -1];
-typedef char GameDataGeometryOffsetCheck[(offsetof(GameData, unk65C) == 0x65C) ? 1 : -1];
+typedef char GameDataGeometryOffsetCheck[(offsetof(GameData, unk434.geometry) == 0x65C) ? 1 : -1];
 typedef char GameDataQuadTreeOffsetCheck[(offsetof(GameData, unk7A4) == 0x7A4) ? 1 : -1];
 
 typedef struct CurrentGameStateTail {

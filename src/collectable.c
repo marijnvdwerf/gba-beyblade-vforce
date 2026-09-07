@@ -56,6 +56,7 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8056e2c.s");
 
 void sub_8056EC0(void)
 {
+    GameData* gameData;
     CollectableData* data;
     LevelGeometryAddresses* geometry;
     LevelState* state;
@@ -64,8 +65,9 @@ void sub_8056EC0(void)
     LineMetaObject* object;
     s32 i;
 
-    geometry = &_gameData->unk65C;
-    data = &_gameData->collectables;
+    gameData = _gameData;
+    geometry = &gameData->unk434.geometry;
+    data = &gameData->collectables;
     cursor = data->entries;
     state = sub_8051734();
     i = 0;
@@ -111,7 +113,7 @@ void sub_8056FAC(void)
     gameData = _gameData;
     records = &gameData->collectables;
     entry = records->entries;
-    geometry = &gameData->unk65C;
+    geometry = &gameData->unk434.geometry;
     index = 0;
     if (index < records->count) {
         value = index;

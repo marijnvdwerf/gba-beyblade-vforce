@@ -351,11 +351,11 @@ void initCollisionData(void)
     metadata = getLevelMetadata((unk16)getSomeLevelID());
     description = getLevelDescription2();
     geometry = LevelDesigns[levelNo].geometry;
-    collision = &_gameData->unk65C;
+    collision = &_gameData->unk434.geometry;
     if (geometry != NULL) {
         newCollisionDataRam(collision, geometry, 3);
     }
-    StoreMetadataAddr(&_gameData->unk65C, metadata);
+    StoreMetadataAddr(&_gameData->unk434.geometry, metadata);
     initQuadTree(&_gameData->unk7A4, collision, description->unkC, 0x400, 0x80, 0x20);
 }
 
@@ -425,7 +425,7 @@ void closeGame(void)
     sub_804A72C();
     nullsub_4();
     sub_804FEE8();
-    sub_805BA3C(&_gameData->unk65C);
+    sub_805BA3C(&_gameData->unk434.geometry);
     deallocateQuadTree(&_gameData->unk7A4);
     sub_8053F0C(1);
 }
@@ -443,7 +443,7 @@ void initGameloop2(void)
     initLevelEnvironmentActors(levelId);
     initEventListeners(levelId);
     gameData = _gameData;
-    gameData->unk658 = &gameData->base.unk238;
+    gameData->unk434.unk224 = &gameData->base.unk238;
     gameData->unkB53 = 1;
     _gameData->unkC6E = 0x3C;
     _gameData->unk163C++;
@@ -454,7 +454,7 @@ void initGameloop2(void)
     sub_80538C0();
     initRiders();
     sub_8056F7C();
-    sub_805BA3C(&_gameData->unk65C);
+    sub_805BA3C(&_gameData->unk434.geometry);
     deallocateQuadTree(&_gameData->unk7A4);
     initCollisionData();
     sub_8056FAC();

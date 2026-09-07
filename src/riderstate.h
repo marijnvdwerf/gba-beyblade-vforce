@@ -10,4 +10,8 @@ void sub_8050050(RiderState* state, RiderState* other);
 void sub_8050184(RiderState* arg0, u8 arg1);
 void sub_80501A8(RiderState* arg0, u8 arg1);
 
+void sub_805000C(RiderState*, RiderBase*);
+unk8 sub_8050114(RiderState*);
+u8 sub_80501C8(RiderState*, u8);
+
 #endif

@@ -73,7 +73,7 @@ void sub_8050050(RiderState* state, RiderState* other)
             currentState = _currentGameState;
             if (currentState->unk6A4 == 2) {
                 SetRiderGlobal(0);
-                handleEventListeners(&_gameData->unk65C, other->unk8);
+                handleEventListeners(&_gameData->unk434.geometry, other->unk8);
             }
         }
     }
@@ -81,7 +81,7 @@ void sub_8050050(RiderState* state, RiderState* other)
     sub_805024C(state);
 }
 
-s32 sub_8050114(RiderState* arg0)
+unk8 sub_8050114(RiderState* arg0)
 {
     unk32 checksum;
     u32 flagBits;

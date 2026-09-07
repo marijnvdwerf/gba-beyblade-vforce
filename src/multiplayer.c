@@ -93,7 +93,7 @@ unk8 sub_805FFE4(void)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/806003c-nullsub_47.s");
 
-unk32 sub_8060040(void)
+unk8 sub_8060040(void)
 {
     unk32 flags;
 
@@ -123,7 +123,7 @@ unk8 sub_806008C(void)
     return 0;
 }
 
-u8 isMultiplayer(void)
+unk16 isMultiplayer(void)
 {
     return _unk3005DC4->unk2;
 }

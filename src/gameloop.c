@@ -2,27 +2,73 @@
 
 #include "animevent.h"
 #include "bios.h"
+#include "camera.h"
+#include "collectable.h"
+#include "effects.h"
+#include "envactor.h"
+#include "frontend.h"
+#include "gameinit.h"
+#include "gamestate.h"
+#include "hud.h"
 #include "include_asm.h"
+#include "keystate.h"
+#include "levelhud.h"
+#include "multiplayer.h"
 #include "music.h"
+#include "packet.h"
+#include "palette.h"
+#include "projectile.h"
 #include "ram.h"
+#include "rider.h"
+#include "riderphysics.h"
+#include "riderstate.h"
 #include "sound.h"
+#include "sprite.h"
 #include "spritetext.h"
+#include "tutorial.h"
+#include "unsorted.h"
+
+extern Sub8052140Data _unk3000F50;
+extern void (*__oam_8756CC0)(void);
+void sub_8052978(unk32, void (*)(void));
+void sub_8052140(Sub8052140Data*, unk32);
+void sub_804FF5C(void*);
+void sub_804FFD4(void);
+void allocateBeybladeObjectPalettes(void);
+void sub_804F878(void);
+void sub_804F9B4(void);
+void renderEnvironmentActors(void);
+void sub_80526C8(GameData*, SpriteEntry*, Actor*);
+void renderRider(RiderBase*);
+void sub_804B4FC(LevelGeometryAddresses*, Packet*);
+void nullsub_1(void);
+void sub_804EE2C(void);
+void sub_8052B24(void);
+void nullsub_3(void);
+void updateEnvirenmentActors(void);
+void sub_804EE54(void);
+void sub_804A51C(void);
+void sub_804B5C0(void);
+void sub_805AAE0(void);
+void sub_805AAD4(void);
+void sub_805295C(void);
+
 extern const unk8 SpriteSheet_86FBC4C[];
 
-#if 0
 void gameLoop(void)
 {
     SpriteEntry* sprite = NULL;
     Packet* item = NULL;
     Packet* cleanup;
-    unk8 fadeStep;
-    unk8 fadeDir;
-    unk8 vblankPending;
+    s8 fadeStep;
+    s8 fadeDir;
+    s8 vblankPending;
     Actor* object;
-    void* target;
+    LevelGeometryAddresses* target;
     RiderBase* rider;
-    void (*transition)(unk32, unk32) = sub_8052978;
-    unk32 i;
+    void (*transition)(unk32, void (*)(void)) = sub_8052978;
+    s32 i;
+    s16 timer;
 
     cleanup = &_gameData->unk15C4;
     fadeStep = 0xF;
@@ -33,12 +79,12 @@ void gameLoop(void)
     *(vu16*)REG_DISPCNT = 0;
     sub_80539E8(&rider->unk238);
     target = sub_805EEE0(&_gameData->unk434);
-    sub_8052140(_unk3000F50, 0x12C);
+    sub_8052140(&_unk3000F50, 0x12C);
     if (sub_8051780(2) != 0 && sub_8051780(8) == 0) {
         sprite = allocSprite(0);
         LoadSpriteSheet(sprite, SpriteSheet_86FBC4C, 0x400, 0x8C00, 1, 0, 0, 0);
         if (sub_8051780(0x20) != 0) {
-            sprite->unk18.h.hword = 2;
+            sprite->frame.word = 2;
         }
     }
     if (sub_8051780(4) != 0 && _gameData->unk1618 != 0) {
@@ -58,7 +104,7 @@ void gameLoop(void)
     sub_804F878();
     sub_804F9B4();
 
-    while (_gameData->timers.s.unkC6C != 0) {
+    while ((timer = _gameData->unkC6C) != 0) {
         if (*(vu16*)REG_VCOUNT <= 0x9F || vblankPending == 0) {
             VBlankIntrWait();
         }
@@ -68,15 +114,16 @@ void gameLoop(void)
         if (_gameData->unk1618 != 0) {
             *(vu16*)REG_VCOUNT;
             item = &_gameData->unk15D4[1 - isMultiplayer()];
-            if (sub_806014C(&_gameData->unk15D4[0], &_gameData->unk15C4, 1) == 0 && sub_806008C() != 0) {
+            if (sub_806014C(&_gameData->unk15D4[0], &_gameData->unk15C4, 1) == 0
+                && sub_806008C() != 0) {
                 _gameData->unk1618 = vblankPending;
                 _gameData->unk1619 = 1;
                 sub_8049234(8);
                 sub_804924C(0x1D);
                 sub_8053E18(1);
             }
-            sub_805000C(cleanup, rider);
-            if (sub_8050114(item) == 0) {
+            sub_805000C((RiderState*)cleanup, rider);
+            if (sub_8050114((RiderState*)item) == 0) {
                 sub_80603E8();
             }
         } else if (_gameData->unk1619 != 0 && _gameData->unk161B == 0) {
@@ -98,10 +145,9 @@ void gameLoop(void)
                 current = &_gameData->base;
             }
             renderRider(current);
-            if (current->unk3C8 & 2) {
+            /* No lasting effect; preserves the original unused flag calculation. */
+            if (current->unk3C8 & 2)
                 current++;
-                current--;
-            }
         }
         __oam_8756CC0();
         updateKeyState();
@@ -109,22 +155,22 @@ void gameLoop(void)
         sub_804B4FC(target, item);
         nullsub_1();
         if (_gameData->unk1618 != 0) {
-            sub_8050050(cleanup, item);
+            sub_8050050((RiderState*)cleanup, (RiderState*)item);
         }
-        if (_gameData->unk658 == NULL) {
+        if (_gameData->unk434.unk224 == NULL) {
             if (RiderHasFlag(rider, 2) == 0) {
-                _gameData->unk658 = &_gameData->base.unk238;
+                _gameData->unk434.unk224 = &_gameData->base.unk238;
                 _gameData->unkB53 = 0;
             }
-        } else if (rider->unk0->unkC < 0) {
-            _gameData->unk658 = NULL;
+        } else if (rider->unk0->z < 0) {
+            _gameData->unk434.unk224 = NULL;
             sub_804ABFC(0xF);
         }
-        if (_gameData->timers.s.unkC6E != 0) {
+        if (_gameData->unkC6E != 0) {
             if (_gameData->unkB53 == 0) {
-                _gameData->timers.s.unkC6E--;
+                _gameData->unkC6E--;
             }
-            if (_gameData->timers.s.unkC6E == 0) {
+            if (_gameData->unkC6E == 0) {
                 sub_804EE2C();
                 if (sub_8051780(4) == 0 && _gameData->unk161B == 0) {
                     _gameData->unk1640 = 1;
@@ -143,7 +189,7 @@ void gameLoop(void)
             sub_804EE54();
             sub_804A51C();
         }
-        if ((unk16)(_gameData->timers.s.unkC6C - 1) <= 0x1E && fadeDir == 0) {
+        if ((unk16)(_gameData->unkC6C - 1) <= 0x1E && fadeDir == 0) {
             transition(4, 0);
             fadeDir = 1;
         }
@@ -154,13 +200,13 @@ void gameLoop(void)
         }
         if (fadeStep == 0 && (_unk3005DA0 & 8) != 0 && RiderHasFlag(rider, 0x20000) == 0
             && _gameData->unk1618 != 0 && sub_8060040() != 0) {
-            sub_8050184(cleanup, 1);
+            sub_8050184((RiderState*)cleanup, 1);
             _gameData->unk161A = 1;
         }
         if ((fadeStep == 0 && (_unk3005DA0 & 8) != 0 && RiderHasFlag(rider, 0x20000) == 0
                 && (_gameData->unk1618 == 0 || sub_8060040() != 0))
             || (_gameData->unk1618 != 0 && sub_8060040() == 0 && RiderHasFlag(rider, 0x20000) == 0
-                && sub_80501C8(item, 1) != 0)) {
+                && sub_80501C8((RiderState*)item, 1) != 0)) {
             if (sub_8051780(2) == 0) {
                 transition(6, 0);
                 sub_804B5C0();
@@ -175,50 +221,50 @@ void gameLoop(void)
         if (sub_8051780(2) != 0) {
             if (sub_8051780(8) == 0 && ((_unk3000E30[0] >> 3) & 0x3F) == 0) {
                 if (sub_8051780(0x20) != 0) {
-                    sprite->unk18.h.hword = sprite->unk18.h.hword == 2 ? 3 : 2;
+                    sprite->frame.word = sprite->frame.word == 2 ? 3 : 2;
                 } else {
-                    sprite->unk18.h.hword = sprite->unk18.h.hword == 0;
+                    sprite->frame.word = sprite->frame.word == 0;
                 }
             }
             if (sub_805AB58() == 0 || (~*(vu16*)REG_KEYINPUT & 9) != 0) {
                 sub_8053E18(1);
             }
             if (sub_805AB58() != 0 && fadeStep == 0 && sub_8051780(0x20) == 0
-                && (~*(vu16*)REG_KEYINPUT & 0x100) != 0) {
+                && ((unk16) ~*(vu16*)REG_KEYINPUT & 0x100) != 0) {
                 sub_805295C();
             }
             if (sub_805AB58() != 0 && fadeStep == 0 && sub_8051780(0x20) == 0
-                && (~*(vu16*)REG_KEYINPUT & 2) != 0) {
-                while ((~*(vu16*)REG_KEYINPUT & 2) != 0) {
+                && ((unk16) ~*(vu16*)REG_KEYINPUT & 2) != 0) {
+                while (((unk16) ~*(vu16*)REG_KEYINPUT & 2) != 0) {
                     VBlankIntrWait();
                     sub_80627F0();
-                    sprite->unk18.h.hword = 4;
+                    sprite->frame.word = 4;
                     __oam_8756CC0();
                 }
                 if (sub_8051780(0x20) != 0) {
-                    sprite->unk18.h.hword = 2;
+                    sprite->frame.word = 2;
                 } else {
-                    sprite->unk18.h.hword = 0;
+                    sprite->frame.word = 0;
                 }
             }
         }
         if (sub_804E440(rider, 0x20000) != 0 && RiderHasFlag(rider, 0x20000) != 0) {
             if (_gameData->unk1618 != 0) {
-                sub_8050184(cleanup, 4);
+                sub_8050184((RiderState*)cleanup, 4);
             }
-            if (_gameData->timers.s.unkC6C == -1) {
+            if ((timer = _gameData->unkC6C) == -1) {
                 sub_8053E18(0);
             }
         }
-        if (_gameData->unk1618 != 0 && sub_80501C8(item, 4) != 0
-            && _gameData->timers.s.unkC6C == -1) {
+        if (_gameData->unk1618 != 0 && sub_80501C8((RiderState*)item, 4) != 0
+            && (timer = _gameData->unkC6C) == -1) {
             SetRiderFlag(rider, 0x20000);
             sub_8053E18(0);
         }
         if (fadeStep > 0x20) {
-            _gameData->timers.s.unkC6C = 0;
+            _gameData->unkC6C = 0;
         }
-        if (_gameData->timers.s.unkC6C > 0) {
+        if ((timer = _gameData->unkC6C) > 0) {
             if ((RiderHasFlag(rider, 0x400) == 0 && rider->unkB8 == NULL
                     && RiderHasFlag(rider, 2) == 0)
                 || _gameData->unk1618 != 0) {
@@ -227,8 +273,8 @@ void gameLoop(void)
                 SetRiderFlag(rider, 0x400);
             }
         }
-        if (_gameData->timers.s.unkC6C > 0 && RiderHasFlag(rider, 0x400) != 0) {
-            _gameData->timers.s.unkC6C--;
+        if ((timer = _gameData->unkC6C) > 0 && RiderHasFlag(rider, 0x400) != 0) {
+            _gameData->unkC6C--;
         }
         if (*(vu16*)REG_VCOUNT <= 0x9F) {
             vblankPending = 1;
@@ -241,8 +287,7 @@ void gameLoop(void)
     transition(1, 0);
     sub_80556F4();
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8051918-gameLoop.s");
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/80520f4.s");
 
 void sub_8052140(Sub8052140Data* arg0, unk32 arg1)
@@ -393,7 +438,7 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
 
     frame = sprite->var22;
     targetSprite = targetActor->unkB8;
-    geometry = &gameData->unk65C;
+    geometry = &gameData->unk434.geometry;
     mainActor = gameData->base.unk0;
     actorCount = gameData->unkC84;
     current = gameData->unkC7C;

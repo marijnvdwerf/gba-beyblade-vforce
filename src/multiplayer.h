@@ -9,6 +9,8 @@ unk8 sub_805FFE4(void);
 unk8 sub_8060070(void);
 unk8 sub_806008C(void);
 unk8 sub_806014C(Packet*, Packet*, unk8);
-u8 isMultiplayer(void);
+unk16 isMultiplayer(void);
+
+unk8 sub_8060040(void);
 
 #endif

@@ -21,6 +21,6 @@ void initKeyRecording(u16);
 void sub_805AAEC(void*, u16);
 void sub_805AB38(void);
 void sub_805AAB4(void);
-unk32 sub_805AB58(void);
+unk8 sub_805AB58(void);
 
 #endif

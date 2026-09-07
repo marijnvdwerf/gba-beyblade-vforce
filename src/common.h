@@ -707,7 +707,8 @@ typedef struct RiderBase {
     Actor unk2FC;
     SpriteEntry* unk3C0;
     SpriteEntry* unk3C4;
-    unk8 pad3C8[4];
+    unk16 unk3C8;
+    unk8 pad3CA[2];
     unk16 unk3CC;
     unk8 unk3CE;
     unk8 pad3CF[1];
@@ -952,7 +953,9 @@ typedef struct LevelDescription {
     const unk8* unk68[6];
     unk8 pad80[0x10];
     unk32 unk90;
-    unk8 pad94[0x2C];
+    unk8 pad94[0x28];
+    unk8 unkBC;
+    unk8 padBD[3];
     const unk8* unkC0;
     void* unkC4;
     unk8 padC8[8];

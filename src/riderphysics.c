@@ -237,7 +237,7 @@ void sub_804D048(RiderBase* rider)
     GeometryPoint* point;
 
     line = rider->unk200;
-    geometry = &_gameData->unk65C;
+    geometry = &_gameData->unk434.geometry;
     actor = rider->unk0;
     if (line != NULL) {
         point = &geometry->unk4[line->point0];
@@ -256,7 +256,7 @@ void sub_804D048(RiderBase* rider)
         if (_gameData->unk1618 != 0) {
             if (_currentGameState->unk6A4 == 2) {
                 SetRiderFlag(rider, 0x20000);
-                _gameData->unk658 = 0;
+                _gameData->unk434.unk224 = 0;
             } else {
                 initGameloop2();
             }
@@ -368,9 +368,9 @@ void sub_804D110(RiderBase* rider, Actor* other)
     if (RiderHasFlag(rider, 0x4000000) != 0 && rider->unk220 != 0)
         rider->unk220--;
     if (rider->unk218 >= 0 && rider->unk214 == NULL)
-        rider->unk214 = _gameData->unk65C.unk14[rider->unk218];
+        rider->unk214 = _gameData->unk434.geometry.unk14[rider->unk218];
     if (RiderHasFlag(rider, 0x4000000) != 0 && rider->unk214 != NULL) {
-        line = sub_805DCFC(&_gameData->unk65C, rider->unk214, rider->unk224 >> 18);
+        line = sub_805DCFC(&_gameData->unk434.geometry, rider->unk214, rider->unk224 >> 18);
         angularVelocity = rider->unk21A;
         rider->unk224 += ((line->unkC >> 2) * angularVelocity) >> 8;
         if ((rider->unk224 >> 18) >= rider->unk214->pointCount - 1)
@@ -747,7 +747,7 @@ void sub_804E090(RiderBase* rider)
     value = rider->unk170;
     UnsetRiderFlag(rider, 0x40000);
     if (value > 0 && rider->unk80 > 0) {
-        if (rider->unkEC != NULL && rider->unkEC->unkF == 0x81) {
+        if (rider->unkEC != NULL && *((unk8*)rider->unkEC + 0xF) == 0x81) {
             angle = (0x80 - rider->unk16C) & 0xFF;
             angle &= 0x7F;
             result = sub_804E358(angle, rider->unk10 >> 4);

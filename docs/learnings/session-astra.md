@@ -880,3 +880,40 @@ Experiments (offsets relative to function start):
 Retained temporaries: delta is reused and must be signed for asr #4; oldDirection preserves the pre-update byte and sign-extends at the comparison; direction serves the store and comparison without an unwanted reload; value stages the angle sum before the other angle update; line keeps the helper call before the angular-velocity read; s32 angularVelocity forces signed extension before the line field load. No raw offset accesses or artificial casts are needed. Direct blink-helper expressions naturally load unk4 before the random helper call.
 
 Final source formatted, instruction diff exact, full ROM compare passed with SHA1 `cd527c8c24e20e33913fc45199e64b3e6138a6e5`. Removed the assembly dump after verification. New match left uncommitted pending the next user request.
+
+## gameLoop — 0x08051918 (matched)
+
+Confirmed mainLoop reachability and read the no-argument call between initGameLoop and closeGame in main.c. Read the complete dump, hosting TU, and m2c output. Activated the existing semantic draft in the same position and corrected its types and obsolete member paths.
+
+### Types and shared layouts
+
+- Fade step and direction are s8: the update sign-extends both operands, truncates the sum, then tests its sign. vblankPending also needs s8: unk8 drops the target's initial low-byte normalization. Its first value is uninitialized in the original; no initialization was invented.
+- isMultiplayer returns unk16 at this caller (lsl/lsr #16); sub_805AB58, sub_8050114, and sub_8060040 return unk8 (lsl #24 checks). Updated declarations/definitions consistently; complete-ROM verification confirmed the existing helpers and other active callers remain byte-identical.
+- GameData.unkC6E is s16. Changing unkC6C to s16 also made gameLoop match, but broke initGameLoop: its existing unsigned `|= 0xFFFF` emits a load/OR that disappears with a signed field. Keep unkC6C's existing unsigned storage and assign it to a s16 local for signed loop/countdown tests. This produces the target ldsh without field casts or a speculative union.
+- Embed the existing CameraState at GameData +0x434 instead of the old void-pointer/padding fragment. Its +0x224 target is GameData +0x658; geometry at +0x228 is GameData +0x65C. Updated existing geometry and target references. No duplicate camera layout or cast-and-offset access is needed.
+- Added only RiderBase.unk3C8 (halfword) and LevelDescription.unkBC (byte). ARM-target clang checks verify CameraState size 0x36C, its placement and end at GameData +0x7A0, RiderBase size 0x428 and field +0x3C8, and LevelDescription size 0xD0 and field +0xBC.
+- Packet pointers remain transport records; the existing RiderState helpers receive explicit conversions of the local packet pointers. Their declarations now agree with the definitions.
+
+### Matching experiments
+
+| Change | Result |
+| --- | --- |
+| Corrected baseline | First substantive mismatch +0x12A: missing vblank normalization; helper return widths and key-wait loop also differ |
+| s8 vblankPending, unk16 isMultiplayer, unk8 sub_805AB58 | Matches through demo-input handling; first substantive mismatch +0x5BA |
+| Stage key input in an unk16 local around while loop | Adds truncations and changes loop rotation; rejected |
+| `(unk16)~REG_KEYINPUT` for the 0x100 and 2 tests, including the inner while | Exact gameLoop instructions; preserves 16-bit inverted hardware input |
+| Signed shared unkC6C | Breaks initGameLoop: drops ldrh/orr at +0x80/+0x82 |
+| Signed local timer for unkC6C; signed shared unkC6E | Full ROM compare passes |
+| Empty rider flag branch / continue at loop end | Removes original unused flag computation; rejected |
+| Conditional `current++` without the draft's following `current--` | Full ROM compare passes; redundant decrement removed |
+| Fold cached object | 22 differing non-literal rows; first +0xA, stack 40 to 36 bytes |
+| Fold cached cleanup packet | 141 differing non-literal rows; first +0xA, stack 40 to 36 bytes |
+| Fold cached rider | 154 differing non-literal rows; first +0xA, stack 40 to 36 bytes |
+| Direct transition calls | 86 differing non-literal rows; changes indirect calls and pool placement |
+| Fold cached target helper result | 33 differing non-literal rows; first +0xA, stack 40 to 36 bytes |
+
+The actor, cleanup packet, rider, target, and transition locals are byte-required and retained. Folding helper results also changes when reads/calls occur; the target's initial snapshots must remain before the frame loop. The timer local is required to preserve both this function and the existing unsigned initialization code.
+
+Flagged shape: the conditional current-pointer increment at the end of the rider loop has no lasting effect, but retains the original unused halfword flag load/AND. The compiler removes an empty branch or continue entirely. The user explicitly requested a comment at this no-op branch; that one explanatory source comment is an authorized exception to the usual no-comments rule. The key-input narrowing is also byte-required; it represents a 16-bit hardware value rather than a raw shift sequence.
+
+Final formatted source has no differing instructions. Four diff-tool literal rows show `sub_80529781` versus `sub_8052978`; these are relocation-display noise, confirmed by full-ROM SHA1 `cd527c8c24e20e33913fc45199e64b3e6138a6e5`. Removed the assembly fallback only after compare passed. Changes left uncommitted.

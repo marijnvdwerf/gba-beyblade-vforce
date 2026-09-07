@@ -197,7 +197,7 @@ unk32 sub_805AB44(void)
     return _unk3000E30[0] - (unk32)_unk3005DA8;
 }
 
-unk32 sub_805AB58(void)
+unk8 sub_805AB58(void)
 {
     return _isKeyRecording == 2;
 }
