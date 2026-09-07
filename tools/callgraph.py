@@ -830,7 +830,7 @@ def render(functions: Functions, root: str) -> str:
                 index == len(children) - 1,
                 depth + 1,
                 False,
-                name not in CALLBACK_NAMES,
+                True,
             )
         active.remove(name)
 
