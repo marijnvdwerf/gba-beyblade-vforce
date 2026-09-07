@@ -72,7 +72,6 @@ extern unk32 _unk3005E10;
 extern SfxTable* _unk3005E14;
 extern u16 _unk3005E18;
 extern unk8 (*_soundMixer)[];
-extern unk8* _unk3005E20;
 extern SoundStructA (*_unk3005E24)[2];
 extern SoundStructF (*_unk3005E28)[16];
 extern AllocatedBlock* _soundMixerBlock;
