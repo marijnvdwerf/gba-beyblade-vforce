@@ -91,6 +91,16 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   2b2e9bab; credits.c:45 fixed to the two-byte test), only allocation left
   (state r7 / index r6 / state+0x80 in r8; 12 bytes short). Revived with a
   record alias for +0x80, 12-build budget, then park.
+- selectBladeFrontendHandler PARKED (97cd3aaa; structure 100% matched, key
+  handling fixed 6da70483, credits.c two-byte test). Only allocation left:
+  target keeps `&state->unk80` (scalar unk8) in r8 all function — a
+  scalar-field alias; user ruling pending. Reviewer running.
+- sub_8052B24 PARKED (5840a38c, 549 tool calls — agent retired): loop
+  rotation appears only with a reduced body (whole-body liveness effect);
+  draft-only GameData fields in ram.h (unk870/unk8A0/unk8A8) must revert to
+  padding at merge. Reviewer running.
+- sub_805CEB8: stuck at the prologue (frame 96 vs 92) with only the first
+  checkpoint (d591eac0) committed; revived to commit + report body divergence.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
