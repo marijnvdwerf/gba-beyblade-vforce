@@ -9,7 +9,9 @@ typedef struct TeletypeState {
     unk16 unkBA;
     unk8 padBC[8];
     AllocatedBlock* unkC4;
-    unk8 padC8[0x24];
+    unk8 padC8[0x14];
+    void (*unkDC)(void);
+    unk8 padE0[0xC];
     SpriteTextBlock unkEC;
 } TeletypeState;
 

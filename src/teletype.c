@@ -19,7 +19,11 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8063de8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8063df0.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8063e18.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8063f40.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8063f5c.s");
+
+void sub_8063F5C(TeletypeState* state, void (*callback)(void))
+{
+    state->unkDC = callback;
+}
 
 void sub_8063F64(TeletypeState* state)
 {
