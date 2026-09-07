@@ -136,6 +136,9 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   running. Levelselect batch: sub_805C3BC, sub_8041288, displayFrontendLevel
   matched; sub_80594FC in progress. Teletype 5/7 (sub_8063D38 budgeted,
   sub_8063BA8 pending).
+- Merged: spritetext/singletons ×3 (35c8cc8d; sub_8061684 parked at 0x08
+  allocation). **635 C / 372 asm / 63%.** Math pair rewritten as quaternion
+  source, one fold test outstanding, then merge.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
