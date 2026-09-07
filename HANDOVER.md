@@ -5,210 +5,111 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-07 20:59, session 8 (600 C / 407 asm / 60%, 15 TUs).
+Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
 
 ## Session 8 (2026-09-07)
 
-Cycle per user: decomp agent → manager glances at incoming code → review
-agent (report in /tmp) → revive decomp agent to apply → manager reads + merges.
-Keepalive monitor ON (55 min). Luna only; every prompt says no subagents.
+State at close: main green at the commit above, **600 C / 407 asm / 60%**,
+15/66 TUs done (collectable.c completed); baseline refreshed; lint 0;
+callgraph ⚠ section empty; no agents running; keepalive monitor stopped.
+Worktrees: kept Opus one (`agent-aa3bb15346941d4ce`) + raw-decomp,
+raw-decomp-2, raw-decomp-3 references (user's; remove only when told).
+Net: +55 C functions. Prompt archive: this session's prompts were short —
+see "How to work" below for the shape that worked.
 
-- **Round 5-A** (running): one luna decompiler in its own worktree from
-  45c6ad0d, using branch `raw-decomp-3` (user's 8 matched functions +
-  parked GetLineIndexOfType, written against looser rules) as a muse only —
-  re-deriving sub_8050A50, sub_805AD9C, sub_8057104, sub_804A280,
-  sub_804DA48, sub_805AD24, sub_805AFBC, sub_8056EC0 in house style (no
-  ptrC cast-and-offset, no `(s16)` field casts, RiderBase* params, unk<HEX>
-  MenuState names, folded temps). Learnings → docs/learnings/round5-style-2026-09-07.md.
-- Round 5-A rulings (user, 2026-09-07): sub_8050A50 keeps the raw-decomp-3
-  shape (`unk8* ptrC`, `offset += sizeof(DisplayRecord)`, cast at the call)
-  — user-accepted for this function. sub_805AFBC: no gotos/labels and no
-  bare `{}` block; start from efc48e10's while loop. A "compare broke" is not
-  evidence: retyping a field (GameData.unkC26 u16→s16) requires diffing every
-  user and reading their target asm.
-- 5-A must, before reporting done, copy raw-decomp-3's two learnings files
-  verbatim into its worktree and commit its own learnings file, so 5-B starts
-  from a committed record (user).
-- **Round 5-A done** (11:00): 8/8 matched, 9 commits + learnings commit
-  3b486000 on `worktree-agent-ad85dfd4f5be25cbb`; agent hit the main-checkout
-  editing bug once (stray diff saved to /tmp, reverted).
-- **Round 5-B done + MERGED** (fast-forward, compare green, baseline
-  refreshed; Totals: 14 TUs done / 66, 454 asm remaining, 553 C functions, 55%). Same worktree, fresh luna: temps
-  + signedness + unkC26. 4 compaction stops revived. Results: unkC26 → s16
-  everywhere, sub_804A280 cast-free, initGame/initGameLoop `|= -1`
-  (target ldrh/orr/strh); sub_805AD24 arg3 → unk32; sub_805AFBC step/old →
-  unk32, return unk32, no goto/block; sub_804DA48 radius + x0..z1 stay s32
-  (unk32 flips blt→blo / asr→lsr); sub_8056EC0 gameData alias folds,
-  geometry alias byte-required; LevelState.unk10[2] proven two-word bitset;
-  MenuState fields unk0/4/28/34. Review (luna, 2nd try — 1st died "prompt
-  too long"; give reviewers an explicit read list) found 5 blocking, all
-  resolved. Learnings: round5-style-2026-09-07.md (+ verbatim raw-decomp-3
-  copies). Worktree removed.
-- Process lessons: a luna agent edited the MAIN checkout for 25 min (diff
-  empty in worktree) — give agents the absolute worktree path in the prompt;
-  "compare broke" is not evidence — retyping a field means diffing every
-  user; tell agents to REPORT when only a rule-breaking shape matches.
-- **raw-decomp-4 (running, 12:41→)**: user branch with 12 more matched
-  functions on top of raw-decomp-3 (f9d014b6 GetLineIndexOfType …
-  9dfd30f7 initLevelEnvironmentActors, incl. gameLoop and dialogue
-  sub_80420C4). Luna agent rebasing `--onto main f9d014b6~1` in
-  `.claude/worktrees/raw-decomp-4` with compare per commit. Plan (user):
-  review agent on the rebased branch → luna fix agent on the same branch →
-  manager read → merge. No re-derivation round needed (quality is higher).
-- raw-decomp-4 rebased (12 commits on main, compare green, 12:50). Review
-  took two luna reviewers (first died "prompt too long" after 13 findings —
-  the 1022-line session-astra.md learnings + tool schemas; split by file
-  slice): 17 BLOCKING / 3 QUESTIONS in /tmp/review-raw-decomp-4.md. Fix
-  agent (luna, 13:15→) on the branch itself: unkF field, s32 return, header
-  prototypes (~30 local decls), unevidenced s8/s16/s32, three if-shape
-  questions, then the design items — envactor Container/Slot + Meta view
-  structs, gameloop `Packet*`→`RiderState*` casts, sub_804B4FC signature
-  conflict — canonical form attempted then reported. User ruling on those
-  three still open.
-- **Cast-removal branch MERGED** (14:55, fast-forward, compare green, baseline
-  refreshed; worktree removed). Was `worktree-agent-af09d3dab57679a18` (luna,
-  32 commits): unkC24 → s16; ~15 casts absorbed into declarations,
-  ~12 kept with cited codegen; learnings cast-removal-2026-09-07.md. Reviewer
-  reviewed 13:50 (8 BLOCKING / 2 Q, mostly missing instruction evidence
-  for kept casts; battery `void*` params; extern in sound.c). Agent
-  reviving through repeated compaction stops (4 so far); most fixes in,
-  learnings rewrite + battery/trail retype tests pending. Rule restated to
-  it: a compiler diagnostic is not evidence — retype the declaration.
-- **raw-decomp-4 MERGED** (15:40, fast-forward 9e801057; compare green, lint
-  0, baseline refreshed, worktree removed; branch kept as the user's).
-  +11 functions incl. gameLoop, dialogue sub_80420C4,
-  initLevelEnvironmentActors, initQuadTreeNode, sub_805BDBC,
-  allocateDynamicBoundingAreas, GetLineIndexOfType, sub_804CB08/D110/DAA0/E090.
-  Fix agent resolved 17 review findings + 9 from the manager read (rider.h
-  prototypes after `#endif`; dead `timer` lever → unkC6C s16 `|= -1`;
-  EnvironmentActorContainer wrapper → `Actor*`). Retained with measured
-  evidence: KEYINPUT `(unk16)` casts, `(unk8)` sine-table index, `(unk16)angle`,
-  s8 oldDirection/fade locals. Learnings: raw-decomp-4-2026-09-07.md (1100+
-  lines — reviewers must not read it whole).
-- **Rulings (user, 2026-09-07)**: `Packet` is a union of PacketTransport (wire
-  bytes) and RiderStateData (`typedef Packet RiderState`) — the packet and rider-state
-  views use the same storage, and the payload IS the rider state. `LineMetaObjectValue` union carries typed
-  payload members (config/data/transform/offset) instead of view structs.
-  GameData.unk434 is `CameraState` (geometry at unk434.geometry, offset checks
-  kept). GameData.unkC24/unkC26/unkC6C/unkC6E are s16 (`|= -1` init).
-- **Tooling**: `tools/todo.py` replaced worklist.py (TSV tu/size/name of 🔴/🟡
-  reachable functions, `--color red|yellow`). callgraph.py now ends with a
-  `⚠ unresolved indirect calls` section (6 local-pointer sites today:
-  gameLoop transition, initQuadTreeNode /
-  renderActor / sub_80581B8 callback, renderRider positionFunc, sub_8059310
-  copy) — when a new one appears, add a CALLBACKS/HANDLER_TABLES entry.
-  `_8078990` event-handler table (30 entries, 17 unique targets, all still
-  asm: processMetadata_1..10/default, nullsub_14/15/42) is now modelled
-  (37e34117) — a new red pool for a future round.
-- Reviewer note: luna reviewers overflow on big diffs/learnings — always give
-  an explicit read list, split by file group, forbid processed/ and SKILL.md.
-- Pending: skill-fold pass over round5-style / cast-removal / raw-decomp-4
-  learnings; raw-decomp-3 reference worktree still checked out (remove when
-  the user says).
-- Skill fold merged (0424b186: 8 added / 4 revised; 5 learnings archived).
-  decompiler.md got a "Working in a worktree (manager protocol)" section
-  (8668b222) — prompts are now just the function list. MERGE CAVEAT: the
-  four R6 wave-1 branches contain the pre-amend commit 8735e006 (had a
-  homedir path); merge them with `git rebase --onto main 8735e006 <branch>`
-  (from the main checkout), not a plain merge.
-- **Round 6 wave 1 MERGED** (16:15; +27 functions: teletype 5 → dc09c4b9,
-  R6-4 → a1527557, R6-3 → de0debb1, event.c 13 → 48d36928; all rebased onto
-  main dropping 8735e006; compare green, baseline refreshed). Rulings:
-  sparse literal `switch (event->id)` (not if-chains); BGControl bitfield
-  over BGxCNT read via one cast in sub_8059CB4 (GetBGLayerCntPtr stays
-  vu16*); EffectSprites record for _unk3000080; variable-size ActorSequence
-  walk keeps a byte cursor with per-use view casts (loop-top view adds r7)
-  — `// TODO: reduce casts` on actor_80580C0 (fca7d248). Teletype unkBA
-  bitfields measured and rejected (ldrb vs ldrh). Three agents edited the
-  MAIN checkout this round despite the protocol line (diffs in /tmp,
-  reverted) — consider a hook or read-only src/ on main.
-  Still running: teletype agent (worktree recreated from dc09c4b9;
-  sub_8063CF4 done, sub_8063E18 296 in progress, sub_8063F84 372 next);
-  R6-5 tutorial sub_804A378 (16). Remaining <100 reds after these: only
-  asm/arm*.s ARM routines. Next pool: reds 100–300 via todo.py.
-- **Round 6 wave 2 merged**: sub_804A378 (83c1f079), collectable
-  sub_8056E2C + effects sub_8055914 (59073da6; collectable.c DONE).
-  Rulings: agents get NO prior-history pointers in prompts (user killed two
-  agents that had them; relaunched clean); a search loop whose target tests
-  the element before the bound is `while (elem != x && i < n)` — read the
-  asm before offering a "park" fallback; `zero`/`vramN` literal temps are
-  levers (write literals); flat `unkNN` fields stay flat without stride
-  evidence; TalkingHead.unk18/unk20 are `const unk8*`. Merge recipe now:
-  `bash -o pipefail -c '… && …'` — `| tail` masked failures twice and a
-  branch was deleted after a failed ff (recovered from the reflog hash).
-- **Merged 17:20–18:10**: callgraph indirect calls fully modelled (08bc7c81:
-  gameLoop.transition, QuadTreeLineFilter[], Actor.unkB0/unkC0, LayerCopyFunc
-  — ⚠ section now EMPTY; empty nodes audited in C + asm); riderphysics
-  sub_804D8D8 PARKED (062f1a73, allocator rank r4/r8/r9/sl; header retypes
-  reverted — no evidence from matched users); R6-10 levelhud sub_804FE50 +
-  ai sub_8057878 (9a6bba2e, new ai.h; `(s16)angle` cast measured required);
-  event.c R6-6 processMetadata_1/_2/_4/_5 (d71e7904; Actor.unkB0 →
-  `ActorPositionFunc`, rider.c Thumb-bit stores gone — a `+1` on a function
-  pointer means the DECLARATION is wrong, and a `.word sym` vs `sym+1` diff
-  row is relocation noise; Actor.unk8D typed, UnkActor removed;
-  `_unk3000C10` is `RiderBase*[2]`; direct-index search loop reproduces
-  `lsl #2; add; ldr` — a cursor local gives `add #4`).
-- **18:14–19:09**: effects sub_805599C merged as ONE squash commit
-  (7825f2bd; s32 positions with the `(unk32)(x + 0x4000) > 0x13000`
-  range-check idiom, typed sheet/palette pointers, literal 0x1000).
-  `_unk3000C10` is a scalar `RiderBase*` + `_unk3000C14[4] // padding`
-  (467374b1). New rules: reviewer on EVERY branch; squash-merge only.
-  Levelselect sub_80413FC PARKED (+0xBA r3/r5, −16 bytes, ~500 tool calls);
-  its draft-only header/global changes were reverted (LevelDescription
-  unk10/unk14 had no matched user after all). Teletype sub_8063F84 PARKED
-  (r8/r9 save mask). Both branches in review-fix loops (scratch structs must
-  cover every draft access; drafts must be enableable; step tables).
-- **19:09–20:04**: levelselect sub_80413FC parked + squash-merged
-  (f1784b31; LevelDescription unk10/unk14 reverted — draft-only); teletype
-  squash-merged (8843218f: sub_8063CF4 matched, sub_8063E18/sub_8063F84
-  parked, TeletypeState fields limited to matched users, callback typedef).
-  lint.py crash fixed (87793455): py-tree-sitter Node use-after-free during
-  GC when generators held Nodes of a dropped Tree — now iterative walks,
-  retained trees, materialised declarations; verified output-identical and
-  30/30 stable. Riderphysics sub_804DDF8 parked (allocator rank at 0x12).
-  Lesson: the `+1` on a Thumb function pointer / `sym+1` .word rows are a
-  declaration problem or relocation noise — never source arithmetic; a
-  sparse `switch` on an unsigned operand lowers to `cmp/beq; cmp/bcc`.
-- **20:04–20:59**: RiderAI_804C8F0 (536 bytes) MATCHED + sub_804DDF8 parked,
-  squash-merged f6f2631b (switch on `(unk32)((unk1C3 + 0x10) & 0xFF) >> 5`,
-  `s32 result[6]`, sub_805DFD4 out-param → `s32*`, math/geometry prototypes
-  moved to owners; a checkpoint's global flag replace had hit sub_804D110 —
-  caught by compare, reverted). Teletype callback fields modelled in
-  callgraph (f6c7ad5a) — ⚠ section empty again. Remaining reds ≤700 bytes:
-  only ARM routines; next tier is giants >700 (user's call).
-- **Running (20:59)**: collection collectionListFrontendHandler — dispatch
-  exact through 0x26, case-0 body is a real loop; current lead: target has
-  a 20-byte frame (one stack word the draft keeps in r8 — an address-taken
-  local / out-param), checkpoint a01496c3.
-- (20:04 snapshot) collection collectionListFrontendHandler (2564-byte
-  giant; dispatch exact through 0x26 after `switch (unk32 command)`,
-  checkpoint a01496c3, working case-0 body); riderphysics RiderAI_804C8F0
-  (everything matches except entry rider r7/direction r6 rank, checkpoint
-  484fda39). Both get a reviewer + one squash commit each when done.
-- (19:09 snapshot) collection collectionListFrontendHandler (2564-byte
-  giant, R6-12); riderphysics sub_804DDF8 → RiderAI_804C8F0 (R6-13, user
-  un-deferred them: "an attempt beats nothing"); teletype + levelselect
-  review fixes.
-- (18:14 snapshot) effects sub_805599C (456); teletype (sub_8063E18
-  parked at entry mov r4/r5 rank after 58 builds, now sub_8063F84 372);
-  levelselect sub_80413FC (checkpoints b37b42a9/b3f11d0d, still 0xBA, −16
-  bytes; LevelDescription padE bug fixed with static checks). Red pool
-  ≤300 bytes exhausted except ARM; next tier: riderphysics RiderAI_804C8F0
-  536 / sub_804DDF8 400 (user-deferred — awaiting go).
-- (17:19 snapshot) teletype (sub_8063E18 constructor near-miss: signed
-  descending clear loop, then sub_8063F84); event.c R6-6 (processMetadata_2/
-  _1/_4/_5 + Actor.unkB0 retype incl. rider.c Thumb-bit stores); riderphysics
-  sub_804D8D8 (allocator-rank residual r4/r8/r9/sl, checkpointed); levelselect
-  sub_80413FC giant (checkpoint 2dfdfaec, first divergence 0xBA, −24 bytes;
-  LevelDescription padE[4] bug sent back). Reviews for these still owed.
-- Round 6 plan was: reds <100 bytes, 3 per agent, one active agent per TU: R6-1 event.c processMetadata_3/_6/_10; R6-2
-  teletype.c sub_8063F64/806415C/806417C; R6-3 actor sub_8058390 +
-  beyblade GetTalkingHead + display sub_8050894; R6-4 effects sub_8055C30 +
-  layer sub_8059CB4 + tutorial sub_804A364. Wave 2 queue: event.c _9/_C/_E
-  → _8/_A/default → _D + nullsub_14/15/42; teletype sub_8064188/8063F5C.
-  Excluded: asm/arm1.s render_00/06, arm2.s sub_8757CD0 (ARM, no C TU).
-- Never commit homedir paths (user, 2026-09-07); pre-existing:
-  decomp.yaml:31 and docs/asmlift.md:8 default ASMLIFT_DIR to one.
+### What landed (in order)
+
+- **Round 5-A/B** — the user's `raw-decomp-3` branch (8 matched functions)
+  re-derived in house style; unkC24/unkC26/unkC6C/unkC6E are `s16` with
+  `|= -1` init (target ldrh/orr/strh); LevelState.unk10[2]; MenuState unk names.
+- **Cast-removal pass** — every `(s|u|unk)(8|16|32)` cast in live C either
+  absorbed into a declaration or kept with the instruction it preserves
+  (`lsr #31/#30`, `lsl #16;asr #16`, byte masks); learnings archived.
+- **raw-decomp-4** (user's 12 commits) rebased, reviewed, merged: gameLoop,
+  dialogue sub_80420C4, initLevelEnvironmentActors, quadtree init/alloc,
+  GetLineIndexOfType, sub_804CB08/D110/DAA0/E090. Decisions: `Packet` is a
+  union of the wire bytes and the rider-state fields (`typedef Packet
+  RiderState`); `LineMetaObjectValue` union carries typed payload members;
+  GameData.unk434 is `CameraState`; Actor.unkB0 is `ActorPositionFunc`.
+- **Round 6** (reds <100 bytes, then 100–700): teletype ×6, event.c ×17
+  (all `_8078990` handlers incl. processMetadata_1/2/4/5), actor/beyblade/
+  display/effects/layer/tutorial/levelhud/ai leaves, sub_8056E2C,
+  sub_8055914, sub_805599C, **RiderAI_804C8F0 (536 bytes matched)**.
+- **Parked** (typed `#if 0` drafts, dumps kept, step tables in learnings):
+  sub_80413FC levelselect (+0xBA r3/r5), collectionListFrontendHandler
+  (init-loop base pointer r7 vs r8, +4 bytes), sub_8063E18 teletype
+  constructor (entry mov r4/r5 rank), sub_8063F84 (r8/r9 save mask),
+  sub_804D8D8 and sub_804DDF8 riderphysics (allocator rank).
+- **Tooling**: `tools/todo.py` replaces worklist.py (`--color red|yellow`);
+  `callgraph.py` prints `⚠ unresolved indirect calls` and every site is now
+  modelled (event handler table `_8078990`, teletype/actor/layer callbacks);
+  `lint.py` no longer crashes (py-tree-sitter Node use-after-free: walks are
+  iterative, trees retained, declarations materialised);
+  `ASM_ZEROPAD` everywhere instead of raw `asm(".align 2, 0")`;
+  `_unk3000C10` is a scalar `RiderBase*` (+4 bytes `// padding`);
+  homedir paths scrubbed (ASMLIFT_DIR must be set); "pun" jargon rewritten
+  in plain words (archives untouched).
+- Skill fold done mid-session (0424b186); the Round 6 learnings
+  (event/teletype/effects/collection/riderphysics/levelselect/…-2026-09-07.md)
+  are NOT folded yet — first task next session.
+
+### Decisions made this session (user)
+
+- A `+1` on a function pointer or a `.word sym` vs `sym+1` diff row is never
+  source arithmetic: it is a wrong declaration or relocation-display noise.
+- A sparse literal compare chain is a `switch`; `cmp/beq; cmp/bcc` means the
+  operand is unsigned. A search loop whose target tests the element before
+  the bound is `while (elem != x && i < n)`.
+- Literal-valued temps (`zero`, `vramN`) are levers — write literals; flat
+  `unkNN` fields stay flat without stride evidence; `(unk32)(x + K) > L` is the
+  accepted unsigned range-check idiom on a signed value.
+- sub_8050A50 keeps its byte-offset shape with `// TODO: fakematch?`;
+  actor_80580C0 carries `// TODO: reduce casts` (both user exceptions to the
+  no-comments rule). A compiler diagnostic is never evidence for a cast.
+- Agents get NO prior-history pointers (no processed/ files) in prompts.
+- Reviewer on every decompilation branch (not on tooling/docs branches);
+  one squash commit per branch, never fast-forward.
+- The word "rulings" is retired — say "decisions".
+- Open doubt (user): `credits.c:45` `*(unk16*)&state->transition` is NOT
+  believed to be the source shape — some other form reproduces the `ldrh`;
+  a union is not the answer. Not for now, but do not build on that cast.
+
+### Lessons for the manager
+
+- Luna agents stop at context compaction ("text-only") roughly every 60–100
+  tool calls on long grinds; a one-line "tool calls are allowed — continue
+  with X" revives them. Past ~450–600 calls they loop: park and stop.
+- Reviewers overflow ("prompt too long") on big diffs or a 1000-line
+  learnings file: give an explicit read list, split by file group, forbid
+  processed/ and SKILL.md.
+- Three agents edited the MAIN checkout despite the worktree rule (their
+  worktree `git status` stays clean — that is the tell). Keepalive tick
+  checks it; save the diff to /tmp, `git checkout` the files, redirect.
+- `cmd | tail -1` masks failures: use `bash -o pipefail -c '… && …'` for
+  merge chains, and never chain `git branch -D` behind a step that can fail
+  (two branches were deleted after a failed ff; recovered from the reflog).
+- Prompts: result first, only the context that changes the outcome, no
+  checklists; put the shared rules in `.claude/agents/decompiler.md` (done:
+  "Working in a worktree (manager protocol)") so a prompt is the function
+  list. Do not hand agents a "park if none match" fallback without reading
+  the asm yourself first.
+- Parked branches must not leave draft-only header/global changes (levelselect
+  and collection both needed a revert pass).
+
+### Next session
+
+1. Skill-fold (sol) over the unfolded 2026-09-07 learnings; archive them.
+2. Reds ≤700 bytes are exhausted except ARM routines (`asm/arm*.s`). The next
+   tier is giants: `s_rider_804C4B4` 956, `sub_80561EC` 1060 (collision),
+   geometry ×4 ~1300, `sub_8052B24` 1940, `selectBladeFrontendHandler` 2172.
+   Historical yield is near zero; RiderAI at 536 did match. Attempt only with
+   checkpoint-then-iterate and a build budget.
+3. Retry parked drafts with fresh agents (`todo.py --color yellow`): the
+   teletype pair, riderphysics pair, festate ×5 (852–1316), renderRider.
+4. Debt carried: BGLayer/Struct3000CA0 `var00`/`field_C` rename; `&_spritesFree`;
+   frontend unk588/unkC callback signature; `tools/unused-fields.py`;
+   DisplayRecord/BGLayer TODO; the transition halfword shape (above);
+   `docs/learnings/processed/` still contains the word "pun".
 
 ## Session 7 (2026-09-06)
 
@@ -268,7 +169,7 @@ Net: +40 C functions over two rounds.
 3. Giants (≥440, 11): dialogue sub_80420C4 is the only one attempted (parked
    at 0x226). Others untried.
 4. Debt carried: BGLayer/Struct3000CA0 `var00`/`field_C` rename; `&_spritesFree`
-   ruling; frontend unk588/unkC callback signature; `tools/unused-fields.py`
+   decision; frontend unk588/unkC callback signature; `tools/unused-fields.py`
    decision; DisplayRecord/BGLayer TODO in layer.h.
 
 ## Session 6 (2026-09-05/06)
@@ -342,17 +243,17 @@ references. Net: +45 C functions, 0 levers merged, `docs/learnings/` folded
 3. Proposed `tools/unused-fields.py` (libclang over compile_commands.json;
    must treat `#if 0` scratch structs as legitimate) — user undecided.
 4. Giants (≥440, 8 of them) still unassigned; historical yield ~0.
-5. Carried: `&_spritesFree` scalar-alias ruling; frontend unk588/unkC
+5. Carried: `&_spritesFree` scalar-alias decision; frontend unk588/unkC
    callback signature; `out.json` on main.
 
 Prompt archives: /tmp/agent-prompts-2026-09-05.md (this session's 40
 Agent prompts), /tmp/learnings-prompts.md (72 fold/learnings prompts across
 134 sessions). Round brief: /tmp/brief-2026-09-05.md.
 
-## Standing rulings (all sessions, consolidated)
+## Standing decisions (all sessions, consolidated)
 
 - A user instruction is a decision for that case, not a rule. Do not
-  generalise one-off calls into standing rulings; only add a ruling here
+  generalise one-off calls into standing decisions; only add one here
   when the user explicitly says it is one.
 - Bytes are the only truth: `compare` after every change; never
   `update-expected` on a red tree; merges from the main checkout only.
