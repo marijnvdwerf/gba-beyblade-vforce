@@ -22,6 +22,13 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
 - Small-red batch launched (user: one agent per multi-red TU): teletype ×7,
   levelselect ×4, beyblade ×3, effects ×4, singletons (gamestate/math/
   spritetext/geometry) ×4. 7 luna sessions running — at the limit.
+- Merged: beyblade ×3 (905f357d). Review found missing header prototypes +
+  no learnings file (fixed before merge).
+- Effects 4/4 matched (`_unk3000140` → `DecompressorState` in place); two
+  casts the agent called "not rule-breaking" folded away byte-identically
+  (`(unk8)side` → `unk8` param; `(void*)source` → non-const `unk8*`).
+  Teletype 7/7 matched; sent back for draft-copied header fields and a
+  transcribed countdown loop. Both awaiting reviewer + merge.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
