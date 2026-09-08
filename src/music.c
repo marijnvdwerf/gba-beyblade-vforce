@@ -83,7 +83,7 @@ void sub_804ACF0(void)
 
 void sub_804AD28(void)
 {
-    sub_804AFD4(_unk3000F14);
+    sub_804AFD4((u16)_unk3000F14); // TODO: figure out how to remove cast
     _unk3000F1C = 0;
 }
 
@@ -200,16 +200,20 @@ void sub_804AFB8(void)
     Sound_8062AB8(_gameData->unkC2C);
 }
 
-void sub_804AFD4(u16 arg0)
+void sub_804AFD4(unk32 arg0)
 {
-    Sound_8062AD4(_gameData->unkC2C, arg0);
-    _currentGameState->unk6E6 = arg0;
+    u16 volume = arg0;
+
+    Sound_8062AD4(_gameData->unkC2C, volume);
+    _currentGameState->unk6E6 = volume;
 }
 
-void sub_804B00C(u16 arg0)
+void sub_804B00C(unk32 arg0)
 {
-    Sound_8062AD4(_gameData->unkC28, arg0);
-    _currentGameState->unk6E4 = arg0;
+    u16 volume = arg0;
+
+    Sound_8062AD4(_gameData->unkC28, volume);
+    _currentGameState->unk6E4 = volume;
 }
 
 void sub_804B044(void)

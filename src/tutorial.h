@@ -3,6 +3,7 @@
 
 #include "common.h"
 
+void sub_804A310(void);
 unk32 sub_804A504(void);
 void initTutorialManagement(u16);
 void StoreLevelVar14(unk32);
