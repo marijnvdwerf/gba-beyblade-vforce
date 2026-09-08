@@ -296,8 +296,20 @@ Last updated: 2026-09-08, session 10 (683 C / 324 asm / 68%, 18 TUs).
   today (its self-check held, but do not rely on it).
 - Skill fold (sol) launched over the 20 unfolded 2026-09-08 files (giants
   weighted; reviewer question list archived unfolded; parks excluded).
-  Next after merge (user to choose): yellows (sub_8056610 +0x02,
-  sub_80561EC +0x36, s_rider_804C4B4, sub_804703C first) or ARM routines.
+  Merged (6ac1025f): 16 bullets touched (unk8-return `lsl #24` pairing,
+  chained-assignment address schedule, callee-saved address reuse rule,
+  collision-response byte-required set, cross-TU width splits, narrow
+  non-void fall-through callbacks, `add sp;strb` byte locals). Top-level
+  docs/learnings is empty again.
+- NEXT (user): make asm/arm2.s (the IWRAM code bank: fastMemory*ARM, OAM
+  upload, sound, timer/serial ISRs, VRAM bump allocator ARM_sub_87569F4/A84)
+  a C TU compiled ARM. Plan agreed in chat: tools/agbcc takes GCC's
+  `-marm`/`-mthumb` and selects agbcc_arm/old_agbcc (neither cc1 accepts
+  the flags itself); `src/iwram.c` with COMPILE_OPTIONS -marm; `.iwram_code`
+  links `src/iwram.c.o(.text)`; 18 per-function dumps under
+  asm/dump/8756a00-iwram/ (split done ONE-OFF, no tools/split-arm.py — user);
+  no other tooling (diff.ts via objdiff-wasm v4t handles ARM). The user
+  already has ARM_sub_87569F4 matching with agbcc_arm -O2 -mthumb-interwork.
 
 ## Session 9 (2026-09-07/08)
 
