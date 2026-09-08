@@ -141,6 +141,8 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   1316 B, parked draft at festate.c:1324) and `.claude/worktrees/actor_805C48C`
   (branch decomp/actor_805C48C, geometry yellow). Both from main c27efdea,
   built, baseline linked. Review + squash-merge when the user says so.
+  Third: `.claude/worktrees/sub_804B8F0` (branch decomp/sub_804B8F0, rider.c
+  parked draft at :385, from main 7e4321b3).
 - Round 2 interim (unmerged, in worktrees): matched def_94_4 (collision A),
   call_rider_94_8 (geometry), sub_80508A4 (display); parked sub_8055F04
   (two-call body, missing dead `lsl #16` at +0x16 after 20+ probes — the
