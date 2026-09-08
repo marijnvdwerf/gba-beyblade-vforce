@@ -131,6 +131,11 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   (sub_805185C, sub_805747C, sub_804E124), spritetext sub_8061880 +
   festate initBBCollectionSprite. Two collision agents share collision.c —
   expect adjacent-hunk conflicts at merge.
+- Merged: singletons ×3 (c32b9817; `GeometryLine.unk11_0:3` split into three
+  1-bit fields, `s8 unk18` added; sub_805185C takes s8 — caller narrows
+  FrontendBladeState.unk34). **672 C / 335 asm / 67%.** spritetext
+  sub_8061880 + festate initBBCollectionSprite matched but sent back for
+  cast choreography (sub_8061684's real 16-bit params; `(void*)OBJ_PLTT`).
 
 ## Session 9 (2026-09-07/08)
 
