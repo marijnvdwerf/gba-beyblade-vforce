@@ -169,6 +169,12 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   builds {NULL, sub_8056B54, _return_false} → callbacks.unk4); ⚠ empty.
   Unreached-callee analysis rerunning on the complete graph (user asked
   which reds add new reds).
+- Unlock analysis (complete graph): reds that reach NEW functions —
+  sub_804712C festate 872 → 8 (sub_804703C, sub_80573C8/3DC/3FC/41C/43C/45C/
+  47C); sub_80561EC collision 1060 → 4 (sub_8056610/67E4/6910, sub_805BAC0);
+  sub_805D650 geometry 1308 → 4 (sub_805D610/DBF0/DD18/E068); sub_8056B54
+  collision 180 → 2 (subset). All other reds are dead ends. Next session:
+  start with sub_804712C and sub_8056B54 (user).
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
