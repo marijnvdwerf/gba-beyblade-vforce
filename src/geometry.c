@@ -957,12 +957,12 @@ void sub_805D650(Actor* actor)
     s32 velocity;
     s32 nextPoint = 0;
     const unk32 capacity = 4;
-    SplineConnection connections[capacity];
+    SplineConnection connections[capacity]; // TODO: fakematch? VLA
     GeometrySplineLine* lines;
     s32 delta;
     GeometrySpline* spline;
     GeometrySplineLine* nextLine;
-    SplineMotionFlags flags;
+    SplineMotionFlags flags; // TODO: fakematch? bitfield flags
     s32 angle;
     s32 previousPosition;
     s32 newPosition;

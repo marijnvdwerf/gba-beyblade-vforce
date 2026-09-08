@@ -46,6 +46,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
         if (_collectionListFontBlock == NULL) {
             printf(Str_86FD214);
         }
+        // TODO: fakematch? nested assignment
         _collectionListFont = (collectionData = _collectionListFontBlock->address)->unk0;
         _unk300012C = collectionData->unkF0;
         _unk3000128 = &collectionData->unk104;
@@ -254,6 +255,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
         }
         if (_unk3000134 != NULL) {
             s32 rowY;
+            // TODO: figure out how to remove cast
             _unk3000134->x
                 = -_unk30000FC + 0x2600 + Unk_874CC3C[0x40 + (unk8)((sub_8057C40() >> 7) * 0x20)];
             rowY = _unk3000114.word * 0xF00;
