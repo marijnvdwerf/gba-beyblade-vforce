@@ -193,6 +193,10 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   (19ef2af2), all folds byte-required, learnings pending. sub_8045CB4 fixes:
   `_unk3000460` split done (94e5c09d); s32 sweep: 458/45C → unk32,
   3C8/3CC/3E0 need s32 (asr +0xA2/+0x2CE); music widths + 8 folds pending.
+- Merged: user's actor_805C48C (1b6f864d; `GeometryLine** output`; temp,
+  duplicated arms and the final `callbackDone = 1` all byte-required).
+  **677 C / 330 asm / 67%.** User's sub_804B8F0 matched (decomp/sub_804B8F0
+  ebb47c50) — review running, luna fix agent next.
 
 ## Session 9 (2026-09-07/08)
 
