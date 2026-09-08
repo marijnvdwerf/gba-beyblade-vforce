@@ -74,6 +74,19 @@ Last updated: 2026-09-08, session 10 (652 C / 355 asm / 65%, 18 TUs).
 - Running: actor_805C48C (geometry, 1304) and sub_8055D64 (collision, 406 →
   unlocks sub_8055F04 + sub_805BAC0), one function each.
 - Tooling: lint.py still SIGBUSes intermittently (exit 138); rerun.
+- actor_805C48C PARKED and merged (64c90bef): matched through 0x344/0x516;
+  residue at 0x346 is `actor->unk40` lifetime in r2 across the first
+  horizontal response arm; missing stack slot was `broadY0` at sp+0x2C.
+  Step table docs/learnings/geometry-2026-09-08b.md; reviewer's 14 fold
+  questions saved as geometry-2026-09-08b-review.md for the unpark agent.
+  Prototype refined to `unk32 actor_805C48C(Actor*, LevelGeometryAddresses*,
+  unk32*, unk16)`. Agent retired at 418 tool calls.
+- Unlock frontier now (todo.py): reds sub_8056610 (468 → sub_804E124) is the
+  last unlocker; sub_805C9A4 is not (call_rider_94_8 already red via the
+  actor_805C48C draft). Yellows: sub_80561EC, actor_805C48C.
+- Running: sub_8055D64 (matched bd8d0b72, doing a 9-item cast/shape cleanup
+  before review), sub_8056610 (caught editing MAIN — reverted, redirected;
+  its diff in /tmp/stray-main-edit-1707.diff).
 
 ## Session 9 (2026-09-07/08)
 
