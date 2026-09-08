@@ -327,6 +327,29 @@ Last updated: 2026-09-08, session 10 (683 C / 324 asm / 68%, 18 TUs).
   sub_8757380/494/574/6D8/7B4, sound_8757A64, fastMemory×4,
   sub_8757CD0/D24/E4C/FCC) + asm/arm1.s render_* (hand-written, out of
   scope). **684 C / 341 asm, 67 TUs.**
+- iwram.c reachability (checked 2026-09-08 end): every function is reached
+  only through the ROM pointer variables in asm/data8.s:2012-2078
+  (`__sub_8757CD0 … __fastMemoryCopy16ARM`, `.4byte <iwram sym>`), so
+  callgraph/todo.py only see the four ISRs (sub_8757CD0/D24/E4C/FCC via the
+  `_unk3000DF0[6]/[7]` table) as red; the rest are reachable but invisible
+  to the tools. Known live callers: `__fastMemoryClearARM/CopyARM` (many
+  TUs), `__oam_8756CC0` (gameloop/frontend), `__sub_8757380` (layer.c),
+  `__sub_87576D8` (camera.c), `__sub_8756FC0` (layer.c LayerCopyFunc +
+  2 dumps), `__sub_87577B4` + `__sound_8757A64` (sound.c), `__sub_8757494`
+  (1 dump), `__sub_8757E4C` (1 dump). NO caller found in C or dumps for
+  `ARM_sub_8756A84`, `sub_8757574`, `fastMemoryClear16ARM`,
+  `fastMemoryCopy16ARM` (data8.s has entries but no `__` global for 574/
+  Clear16/Copy16 — possibly dead or reached from arm1.s/audio). Model the
+  `__X` pointer variables in callgraph.py CALLBACKS (as with
+  `LayerCopyFunc` → `__sub_8756FC0`) so todo.py shows the whole bank.
+  Suggested ARM batches (≤3, all in iwram.c → ≤3 agents at once): memory
+  primitives (fastMemoryClearARM/CopyARM; Clear16/Copy16), tilemap copiers
+  (sub_8756FC0/7380/7494; sub_8757574/76D8/77B4), ISRs (sub_8757CD0/D24/
+  E4C; sub_8757FCC), singles (ARM_sub_8756A84, oam_8756CC0, sound_8757A64).
+  ARM prompts must say: `agbcc_arm -O2 -mthumb-interwork` (CMake -marm),
+  no Thumb register-class lore applies, callers use the `__` pointer vars,
+  prototypes in src/iwram.h (guessed `void f(void)` ones flagged there).
+- Context at 78% at this point — next session starts from this file.
 
 ## Session 9 (2026-09-07/08)
 
