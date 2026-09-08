@@ -779,10 +779,14 @@ typedef struct GeometryLine {
     unk8 padE;
     unk8 unkF;
     unk8 unk10;
-    unk8 unk11_0 : 3;
+    unk8 unk11_0 : 1;
+    unk8 unk11_1 : 1;
+    unk8 unk11_2 : 1;
     unk8 unk11_3 : 1;
     unk8 unk11_4 : 4;
-    unk8 pad12[0xE];
+    unk8 pad12[6];
+    s8 unk18;
+    unk8 pad19[7];
 } GeometryLine; /* 0x20 */
 
 typedef struct GeometrySpline {

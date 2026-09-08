@@ -1028,7 +1028,14 @@ void sub_804E090(RiderBase* rider)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e124.s");
+void sub_804E124(RiderBase* rider, GeometryLine* line)
+{
+    if (line->unk11_1 != 0) {
+        rider->unk40 -= (line->unk18 * 5) >> 3;
+    } else {
+        rider->unk44 += (line->unk18 * 5) >> 3;
+    }
+}
 
 void sub_804E154(RiderBase* rider, unk32 arg1, unk32 arg2)
 {

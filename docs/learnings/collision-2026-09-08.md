@@ -605,7 +605,11 @@ allocation-only after the 132-byte/r8-r9 layout was reached.
 ## sub_8056610 (0x08056610) — not matched; typed draft preserved
 
 The function remains assembly and its best C draft is parked immediately above
-its `INCLUDE_ASM` in `src/collision.c`. The target uses the ABI-compatible
+its `INCLUDE_ASM` in `src/collision.c`. Re-enabling the draft requires folding the scratch rider and line records
+into `RiderBase` and `GeometryLine`; the accessed fields are listed in
+the step table below.
+
+The target uses the ABI-compatible
 signature `void sub_8056610(LevelGeometryAddresses*, GeometryLine*, RiderBase*,
 CollisionResult*)`; the first parameter is unused in the body. The draft uses
 scratch record types inside its `#if 0` block, so the parked-only result layout

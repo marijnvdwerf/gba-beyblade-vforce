@@ -13,6 +13,7 @@ void UnsetRiderFlag(RiderBase*, unk32);
 void sub_804CEF4(RiderBase*, unk32);
 void sub_804D104(RiderBase*);
 void sub_804E090(RiderBase*);
+void sub_804E124(RiderBase*, GeometryLine*);
 void sub_804E154(RiderBase*, unk32, unk32);
 s16 sub_804E358(unk8, unk8);
 void sub_804D110(RiderBase*, Actor*);

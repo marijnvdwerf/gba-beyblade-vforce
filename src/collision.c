@@ -416,8 +416,6 @@ void sub_804ABFC(unk32);
 unk8 RiderHasFlag(CollisionRider6610Draft*, unk32);
 void UnsetRiderFlag(CollisionRider6610Draft*, unk32);
 void sub_80558B8(void);
-void sub_804E124(CollisionRider6610Draft*, CollisionLine6610Draft*);
-
 void sub_8056610(LevelGeometryAddresses* geometry, CollisionLine6610Draft* line,
     CollisionRider6610Draft* rider, CollisionResult6610Draft* result)
 {

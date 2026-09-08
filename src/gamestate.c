@@ -413,7 +413,10 @@ unk32 sub_8051820(void)
     return getLevelDescription2()->unk90;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/805185c.s");
+void sub_805185C(s8 value)
+{
+    _currentGameState->unk2 = value;
+}
 
 unk8 sub_8051868(void)
 {

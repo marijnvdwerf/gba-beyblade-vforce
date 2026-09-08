@@ -11,6 +11,7 @@ extern const unk8** ItemNames[];
 extern const unk8** _807C960[];
 extern const unk8** _807CE24[];
 extern const unk8** _807D2E8[];
+extern const unk8** _807D7AC[];
 extern const unk8 _807a53c[];
 extern const unk8 _807b858[][12];
 extern const unk8** _807BFD8[];
@@ -273,7 +274,10 @@ const unk8* sub_805745C(unk32 arg0)
     return _807D2E8[getLanguage()][arg0];
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/805747c.s");
+const unk8* sub_805747C(unk32 arg0)
+{
+    return _807D7AC[getLanguage()][arg0];
+}
 
 unk8 sub_805749C(unk32 arg0)
 {
