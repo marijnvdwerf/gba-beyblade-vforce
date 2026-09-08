@@ -83,11 +83,11 @@ CALLBACKS = [
     ("LayerCopyFunc", ["sub_80594FC", "__sub_8756FC0"]),
     ("CameraState.callback", ["sub_80522D4"]),
     ("MenuState.callback", ["sub_8043604", "sub_8052B08"]),
-    # envactor.c:78 builds callbackData as {NULL, sub_8056B54, _return_false};
-    # envactor.c:163 stores it in Actor.callbacks.unk4.  sub_805CEB8's
-    # callback3 load is table offset +4, while callback4 is offset +0.
-    ("Actor.callbacks.unk4.callback3", ["sub_8056B54"]),
-    ("Actor.callbacks.unk4.callback4", []),
+    # ActorCollisionFunctions records are installed by envactor.c and collision.c.
+    # sub_805CEB8 dispatches unk0 (response) and unk4 (overlap); unk8 is the
+    # filter callback (_return_false for envactor.c) and is not called there.
+    ("Actor.callbacks.unk4.unk0", ["sub_8056B54", "def_94_0_8055CFC"]),
+    ("Actor.callbacks.unk4.unk4", ["def_94_4_AddWithBoundingAreaMessage"]),
     ("_renderFunctionOffsets", [
         "render_00",
         "render_01",
@@ -115,8 +115,8 @@ INDIRECT_SITES = {
     ("renderRider", "positionFunc"): ("Actor.unkB0",),
     ("sub_80581B8", "callback"): ("Actor.unkC0",),
     ("sub_8059310", "copy"): ("LayerCopyFunc",),
-    ("sub_805CEB8", "callback3"): ("Actor.callbacks.unk4.callback3",),
-    ("sub_805CEB8", "callback4"): ("Actor.callbacks.unk4.callback4",),
+    ("sub_805CEB8", "unk0"): ("Actor.callbacks.unk4.unk0",),
+    ("sub_805CEB8", "unk4"): ("Actor.callbacks.unk4.unk4",),
     ("handleEventListeners", "handler"): ("handler",),
 }
 INDIRECT_LOCAL_NAMES = {"callback", "stored", "transition"}
