@@ -315,6 +315,18 @@ Last updated: 2026-09-08, session 10 (683 C / 324 asm / 68%, 18 TUs).
   runs. After it lands: hand the 17 remaining ARM functions to decompiler
   agents (ARM matching is a different game — agbcc_arm -O2, no Thumb
   register classes; expect new SKILL material).
+  DONE (commit above): steps 1–3 green; ARM_sub_87569F4 is the first
+  ARM function matched from C. Agent slips fixed by the manager: a raw
+  `0x3000E6C` where `_unk3005E6C` belonged (seeded by my prompt), ram.h
+  externs placed after `#endif`, `_unk3005E6C_pad` → `pad_3005E70[4]`.
+  Notes: the four fastMemory* dumps are named by IWRAM run address
+  (3006fac-…) while the rest use ROM addresses; lint.py now SIGSEGVs on the
+  full src/*.c set (both halves pass — tree-sitter bug, tooling debt);
+  `-fhex-asm` is dropped for the ARM cc1 by the wrapper. Remaining ARM
+  reds: 17 in src/iwram.c (ARM_sub_8756A84, oam_8756CC0, sub_8756FC0,
+  sub_8757380/494/574/6D8/7B4, sound_8757A64, fastMemory×4,
+  sub_8757CD0/D24/E4C/FCC) + asm/arm1.s render_* (hand-written, out of
+  scope). **684 C / 341 asm, 67 TUs.**
 
 ## Session 9 (2026-09-07/08)
 
