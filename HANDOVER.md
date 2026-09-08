@@ -108,7 +108,15 @@ Last updated: 2026-09-08, session 10 (652 C / 355 asm / 65%, 18 TUs).
 - Merged: geometry ×3 (680ca9d7; `ActorSplineCallbacks.unk4` added with s32
   index param; sub_805BAC0 keeps `(unk32)((unk8*)line - (unk8*)base) >> 5`
   with a TODO — natural pointer subtraction lowers to `asr #5`, target `lsr`).
-  **667 C / 340 asm / 66%.** Running: festate ×3, sub_8056610.
+  **667 C / 340 asm / 66%.**
+- Merged: festate ×2 (16d2b5a3; sub_8047080 = wide `unk32 color` passed
+  straight to `u8`-parameter callees — the `lsl/lsr #24` is agbcc's own
+  narrowing, explicit shifts or a `u8` param both diverge; sub_80470C8),
+  sub_804703C PARKED (0x0C `ldsb state->unk35` index; scratch
+  `FrontendBladeAssetDraft` 16-byte record, `_80699DC[][8]` — interior label
+  added in asm/data12.s at _80699B4+0x28). **669 C / 338 asm.**
+- sub_8056610 PARKED (b66fe3fc, review running): structure and size exact,
+  residue is an r6/r7 role swap at +0x02 after five lifetime probes.
 
 ## Session 9 (2026-09-07/08)
 
