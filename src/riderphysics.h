@@ -3,6 +3,7 @@
 
 #include "common.h"
 
+void nullsub_5(RiderBase*);
 void sub_804E1FC(RiderBase*, u8);
 void sub_804C870(RiderBase*, s32);
 void RiderAI_804C8F0(RiderBase*);

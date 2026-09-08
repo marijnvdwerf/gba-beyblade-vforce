@@ -461,7 +461,8 @@ typedef struct Actor {
     unk16 unk36;
     unk8 pad38;
     unk8 unk39;
-    unk8 pad3A[2];
+    unk8 pad3A;
+    unk8 unk3B; /* 0x3B */
     DisplayRecord* unk3C;
     s32 unk40;
     s32 unk44;
@@ -652,7 +653,9 @@ typedef struct RiderBase {
     unk32 unk4C;
     unk16 unk50; /* 0x50 */
     unk16 unk52; /* 0x52 */
-    unk8 pad54[0x18];
+    unk8 pad54[0xE];
+    s16 unk62; /* 0x62 */
+    unk8 pad64[8];
     unk32 unk6C; /* 0x6C */
     unk32 unk70; /* 0x70 */
     unk32 unk74; /* 0x74 */
@@ -680,7 +683,9 @@ typedef struct RiderBase {
     struct GeometryLine* unkE4;
     unk8 padE8[4];
     struct GeometryLine* unkEC;
-    unk8 padF0[0x54];
+    unk8 padF0[0x2C];
+    unk16 unk11C; /* 0x11C */
+    unk8 pad11E[0x26];
     unk16 unk144; /* 0x144 */
     unk8 pad146[0xA];
     unk16 unk150; /* 0x150 */
@@ -693,10 +698,13 @@ typedef struct RiderBase {
     s32 unk170;
     unk8 pad174[0x24];
     unk32 unk198;
-    unk32 unk19C; /* 0x19C */
+    s32 unk19C; /* 0x19C */
     unk32 unk1A0;
     unk32 unk1A4;
-    unk8 pad1A8[0x10];
+    unk32 unk1A8; /* 0x1A8 */
+    unk32 unk1AC; /* 0x1AC */
+    unk32 unk1B0; /* 0x1B0 */
+    unk32 unk1B4; /* 0x1B4 */
     unk16 unk1B8;
     unk8 pad1BA[2];
     s32 unk1BC;

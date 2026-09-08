@@ -106,7 +106,7 @@ void sub_8055F04(Actor* actor, RiderBase* rider, GeometryLine* line, unk16 colli
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055f04.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055f2c-def_94_8_collision_8055F2C.s");
 
-void nullsub_6(void)
+void nullsub_6(Actor* actor, RiderBase* rider)
 {
 }
 

@@ -27,6 +27,7 @@ void sub_80501F8(RiderState*, RiderBase*);
 void sub_804C0EC(RiderBase*, unk8);
 void sub_804B4FC(LevelGeometryAddresses*, RiderState*);
 void sub_804B5C0(void);
+void sub_804B8F0(RiderBase*, LevelGeometryAddresses*);
 void renderRider(RiderBase*);
 void nullsub_1(void);
 void nullsub_3(void);

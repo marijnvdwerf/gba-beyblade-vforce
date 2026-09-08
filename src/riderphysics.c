@@ -704,7 +704,7 @@ void sub_804D8D8(RiderBase* rider)
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804d8d8.s");
 
-void nullsub_5(void)
+void nullsub_5(RiderBase* rider)
 {
 }
 

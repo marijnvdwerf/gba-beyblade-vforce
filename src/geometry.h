@@ -43,7 +43,7 @@ unk8 sub_805DBF0(LevelGeometryAddresses*, SplineConnection*, GeometrySpline*, un
 s32* sub_805E068(LevelGeometryAddresses*, unk32, s32*, s32, s32);
 void sub_805D610(Actor*);
 
-unk32 sub_805CEB8(Actor*, LevelGeometryAddresses*, unk32*, unk16, unk32**);
+unk16 sub_805CEB8(Actor*, LevelGeometryAddresses*, unk32*, unk16, unk32**);
 unk8 call_rider_94_8(Actor*, LevelGeometryAddresses*, GeometryLine*, unk16);
 
 #endif

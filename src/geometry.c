@@ -1160,7 +1160,7 @@ unk32 sub_805C9A4(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine**
     return count;
 }
 
-unk32 sub_805CEB8(Actor* rider, LevelGeometryAddresses* geometry, unk32* lineIndices,
+unk16 sub_805CEB8(Actor* rider, LevelGeometryAddresses* geometry, unk32* lineIndices,
     unk16 lineCount, unk32** filtered)
 {
     s32 point0X;
