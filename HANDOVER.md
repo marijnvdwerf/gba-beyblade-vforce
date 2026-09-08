@@ -243,7 +243,10 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   definitions), 7 folds; luna fix agent running in the user's worktree.
 - sub_805C9A4 review: code CLEAN (shape identical to its sibling), two
   learnings blockers (temp inventory, signedness citations) sent to the
-  agent; merge follows its commit.
+  agent; merged (f7ef3a37). **680 C / 327 asm / 68%.** Remaining in flight:
+  geometry leaf branch fix agent (extern removed, nextIndex/remaining →
+  unk32; folds within cap), sub_804B8F0 fix agent, s_rider_804C4B4
+  (first typed draft checkpointed 350006bf, diff loop starting).
 
 ## Session 9 (2026-09-07/08)
 
