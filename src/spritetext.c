@@ -7,6 +7,8 @@
 #include "spritestring.h"
 #include "unsorted.h"
 
+extern void sub_8061684(SpriteTextCleanup*, unk16, unk16);
+
 extern void sub_806123C(SpriteTextCleanup*);
 extern const unk8 Str_8755B58[];
 extern const u8 byte_807D980[];
@@ -424,7 +426,17 @@ void sub_806185C(SpriteTextCleanup* cleanup, unk8 mode)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8061880.s");
+void sub_8061880(SpriteTextCleanup* arg0, s16 arg1, s16 arg2)
+{
+    SpriteEntry* ptr;
+
+    ptr = arg0->ptr2C;
+    if (ptr != NULL) {
+        sub_8061684(arg0, ptr->oam_attr_2 + arg1, ptr->var16 + arg2);
+        return;
+    }
+    sub_8061684(arg0, arg1 + 0x100, arg2 + 0x100);
+}
 
 u8 showNumber(SpriteTextCleanup* arg0, s32 arg1, u8 arg2)
 {

@@ -26,6 +26,9 @@
 extern const unk8 SpriteSheet_825125C[];
 extern const unk8 SpriteSheet_82516A8[];
 extern const unk8 SpriteSheet_8251AF4[];
+extern const unk8 SpriteSheet_823C2C8[];
+extern const unk8 SpriteSheet_824F010[];
+extern const unk8 Pal_825105C[];
 extern const unk8 Str_86FD640[];
 extern const unk8 Str_86FD68C[];
 extern const unk8 Str_86FD6C8[];
@@ -1955,7 +1958,41 @@ void sub_8046CC4(FrontendState* state, u32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8046f2c-initBBCollectionSprite.s");
+void initBBCollectionSprite(FrontendBladeState* state)
+{
+    const BeybladeData* data;
+    s32 category;
+    unk16 frame;
+
+    data = getBeybladeData0(state->unk34);
+    category = state->unk35;
+    if (state->unk0 == NULL) {
+        state->unk0 = allocSprite(1);
+    } else {
+        sub_8060A60(state->unk0);
+    }
+    if (state->unk4 == NULL) {
+        state->unk4 = allocSprite(1);
+        LoadSpriteSheet(state->unk4, SpriteSheet_823C2C8, 0x3F00, 0x6B00, 1, 0, 0, 0);
+    }
+    if (state->unk0 != NULL) {
+        if (category == 0) {
+            LoadSpriteSheet(state->unk0,
+                getDecompressorData(&state->decompressor, data->spriteSheet), 0x1000, 0x3C00, 1, 0,
+                0, 0);
+            if (data->palette != NULL) {
+                __fastMemoryCopyARM(data->palette, (void*)OBJ_PLTT, 0x20);
+            }
+        } else {
+            LoadSpriteSheet(state->unk0, SpriteSheet_824F010, 0x1000, 0x3C00, 1, 0, 0,
+                frame = category - 1); // TODO: fakematch? in-argument assignment
+            __fastMemoryCopyARM(Pal_825105C, (void*)OBJ_PLTT, 0x20);
+        }
+    }
+    if (state->unk4 != NULL) {
+        state->unk4->frame.word = state->unk34;
+    }
+}
 
 #if 0
 typedef struct FrontendBladeAssetDraft {

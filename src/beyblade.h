@@ -41,7 +41,10 @@ void allocateBeyBladeActorPalette(unk32, unk32);
 unk8 sub_805749C(unk32);
 
 typedef struct BeybladeData {
-    unk8 pad0[0x34];
+    unk8 pad0[0x28];
+    unk8* palette;
+    unk8* spriteSheet;
+    unk8 pad30[4];
 } BeybladeData;
 
 const BeybladeData* getBeybladeData0(unk32);
