@@ -159,6 +159,9 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   sub_80594FC parked (0x10 allocation). Both reviewers running.
 - User decision: sub_8063BA8 ships with `// TODO: fakematch? (reason)` on
   the `process = 1;` and `zero = 0;` lines (one-off exception).
+- Merged: teletype ×6 (b861257e; sub_8063D38 parked). **643 C / 364 asm /
+  64%.** Levelselect batch (3 matched, sub_80594FC parked) and the matched
+  selectBladeFrontendHandler await reviewer / final commit, then merge.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
