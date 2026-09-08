@@ -170,8 +170,16 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   80567E4; 8056910 frame 16 vs 8 with the line pointer spilled at [sp] and
   a raw-byte `unk11` read. Display: sub_80508A4 matched, sub_80508CC parked
   (6-build cap), newLayerManagement at 0x2A (settings alias before `i = 0`).
-  User's actor_805C48C matched (decomp/actor_805C48C 19790ece) — review
-  running.
+  User's actor_805C48C matched (decomp/actor_805C48C 19790ece) — reviewed
+  (1 doc blocker, `unk32* output` should be `GeometryLine**`), luna fix
+  agent running in the user's worktree (no isolation — an isolated fix
+  agent cannot edit another worktree; one was mis-launched and stopped).
+- Collision B PARKED both (3014cf4f, review running): sub_80567E4 0x0C
+  `mov r8,r1` ordering + missing staged endpoint loads; sub_8056910 frame
+  16 vs 8, line pointer spilled at [sp], raw-byte `unk11` read.
+- sub_8045CB4 review: 3 blockers (`_unk3000460` shrank 4→1 byte — split
+  into `u8` + `pad_3000461[3]`, not a wrapper; uncited s32 globals), 8 folds;
+  luna fix agent running in the user's worktree.
 
 ## Session 9 (2026-09-07/08)
 
