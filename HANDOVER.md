@@ -276,7 +276,24 @@ Last updated: 2026-09-08, session 10 (683 C / 324 asm / 68%, 18 TUs).
   Parked at 323 calls (structure right, allocation only): target holds
   actor r4, a hoisted zero in r6, −0x1A r10, &unkF4 r9, &unkF8 r8, &unkFC
   ip, r4 reused for &unk108 later, frame 0; every draft form spills
-  `actor`. Park commit pending → hygiene review → merge.
+  `actor`. Parked and merged (f77c55bf; two hygiene fixes: scalar-field
+  aliases removed from the draft, a collateral edit to the parked
+  sub_804D754 draft reverted).
+- **State: main f77c55bf, 683 C / 324 asm / 68%, 18 TUs; baseline
+  refreshed; lint 0; ⚠ empty; no agents running; keepalive monitor on;
+  only `raw-decomp` worktree left. NON-ARM RED LIST IS EMPTY.** Remaining:
+  ARM routines (asm/arm1.s render_00–09, asm/arm2.s sub_8757CD0/D24/E4C/
+  FCC) and the yellows: collision sub_80561EC (+0x36), sub_8056610 (+0x02),
+  sub_80567E4 (0x0C), sub_8056910 (frame 16 vs 8), sub_8055F04 (dead
+  `lsl #16`); geometry sub_805DD18 (frame 12 vs 8); display sub_80508CC,
+  newLayerManagement (0xA0); festate sub_804703C (0x0C); riderphysics
+  s_rider_804C4B4 (register map known); spritetext sub_8061684; sound
+  sub_8062C24; plus older parks (todo.py --color yellow). Session 10 net:
+  +36 C functions. Unfolded learnings: ~17 files from 2026-09-08 (b–f
+  suffixes) — skill-fold is due.
+- Manager lesson: `(cmd || echo FAILED) && next` does NOT stop the chain —
+  use `|| { echo FAILED; false; }`; update-expected ran on a red tree once
+  today (its self-check held, but do not rely on it).
 
 ## Session 9 (2026-09-07/08)
 
