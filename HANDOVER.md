@@ -48,8 +48,8 @@ Last updated: 2026-09-08, session 10 (652 C / 355 asm / 65%, 18 TUs).
   cluster (sub_8056B54 + def_94_0_8055CFC) agent; sub_80561EC after.
 - Running (user's call): three luna decompiler worktrees — sub_80561EC
   (from the user's stash 431f07b1, applied not popped; learnings moved to
-  docs/learnings/collision-2026-09-08.md), sub_804712C (+ its 8 leaves on
-  success), def_94_0_8055CFC (+ its 3 leaves). Both collision agents share
+  docs/learnings/collision-2026-09-08.md), sub_804712C, def_94_0_8055CFC — ONE
+  function each, no continuing into leaves (user). Both collision agents share
   collision.c/.h — expect a header conflict at merge.
 
 ## Session 9 (2026-09-07/08)
