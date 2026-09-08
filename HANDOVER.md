@@ -234,6 +234,10 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   layout (overruled); real items = signedness citations, redundant
   `Unk_874CC3C` extern, nine folds — fresh luna fix agent on the worktree
   (original agent retired at 329 calls), 12-build cap.
+- sub_805C9A4 MATCHED (be96b23f, 1300 B, review running) — prototype
+  `unk32 (Actor*, LevelGeometryAddresses*, GeometryLine**, unk16,
+  QuadTreeNode*)`; the user's sub_804B8F0 caller passes `0, 0, node`, so
+  the branches agree apart from a geometry.h line conflict.
 
 ## Session 9 (2026-09-07/08)
 
