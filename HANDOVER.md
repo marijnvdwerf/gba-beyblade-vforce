@@ -96,6 +96,15 @@ Last updated: 2026-09-08, session 10 (652 C / 355 asm / 65%, 18 TUs).
 - Manager lesson: merge chains must grep `tests passed` only (`FAIL` matched
   "FAILED" and let a broken build through to update-expected); adjacent
   INCLUDE_ASM hunks in one TU conflict when two batches share a file.
+- Merged: spritetext ×3 (890cfc54), sub_8055D64 (8ca1c2ad; `angleDelta` s16,
+  `savedAngle`/`angleValue`/`signedAngle`/`angleThreshold` byte-required;
+  TODO comments on the `angleThreshold` compare and `(unk8)angle` call cast;
+  `EnvironmentObject.unk40/unk44`; sub_8055F04 prototype has an s16 fifth
+  param). **664 C / 343 asm / 66%.** collision-2026-09-08.md is now one
+  file with def_94_0 / sub_8055D64 / parked sub_80561EC sections.
+- sub_8056610 agent's worktree build was reconfigured by the manager after
+  it claimed the cache pointed at main (it did not); a worktree guard now
+  blocks its main-path edits.
 
 ## Session 9 (2026-09-07/08)
 
