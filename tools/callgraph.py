@@ -83,6 +83,11 @@ CALLBACKS = [
     ("LayerCopyFunc", ["sub_80594FC", "__sub_8756FC0"]),
     ("CameraState.callback", ["sub_80522D4"]),
     ("MenuState.callback", ["sub_8043604", "sub_8052B08"]),
+    # envactor.c:78 builds callbackData as {NULL, sub_8056B54, _return_false};
+    # envactor.c:163 stores it in Actor.callbacks.unk4.  sub_805CEB8's
+    # callback3 load is table offset +4, while callback4 is offset +0.
+    ("Actor.callbacks.unk4.callback3", ["sub_8056B54"]),
+    ("Actor.callbacks.unk4.callback4", []),
     ("_renderFunctionOffsets", [
         "render_00",
         "render_01",
@@ -110,6 +115,8 @@ INDIRECT_SITES = {
     ("renderRider", "positionFunc"): ("Actor.unkB0",),
     ("sub_80581B8", "callback"): ("Actor.unkC0",),
     ("sub_8059310", "copy"): ("LayerCopyFunc",),
+    ("sub_805CEB8", "callback3"): ("Actor.callbacks.unk4.callback3",),
+    ("sub_805CEB8", "callback4"): ("Actor.callbacks.unk4.callback4",),
     ("handleEventListeners", "handler"): ("handler",),
 }
 INDIRECT_LOCAL_NAMES = {"callback", "stored", "transition"}
