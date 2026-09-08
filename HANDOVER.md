@@ -180,6 +180,11 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
 - sub_8045CB4 review: 3 blockers (`_unk3000460` shrank 4→1 byte — split
   into `u8` + `pad_3000461[3]`, not a wrapper; uncited s32 globals), 8 folds;
   luna fix agent running in the user's worktree.
+- Merged: collision A (471d573e; def_94_4 + sub_8056B54 matched,
+  `ActorCollisionOverlap` returns unk8, `CollisionResult` 0x28 in
+  collision.h; sub_8055F04 parked with step table). **676 C / 331 asm / 67%.**
+  Display: newLayerManagement parked at 0xA0 (r6/r7 swap), park commit
+  pending. Geometry: sub_805DD18 frame 12 vs 8 at 0x0A, 12-build cap.
 
 ## Session 9 (2026-09-07/08)
 
