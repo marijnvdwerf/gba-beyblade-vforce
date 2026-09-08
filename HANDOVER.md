@@ -87,6 +87,15 @@ Last updated: 2026-09-08, session 10 (652 C / 355 asm / 65%, 18 TUs).
 - Running: sub_8055D64 (matched bd8d0b72, doing a 9-item cast/shape cleanup
   before review), sub_8056610 (caught editing MAIN — reverted, redirected;
   its diff in /tmp/stray-main-edit-1707.diff).
+- Leaf batches (user: ≤3 functions per agent, one TU each): beyblade ×6
+  merged (77bbfcfe, 0941d4ee — `_807xxxx[getLanguage()][i]` string tables,
+  `_807b858[][12]` records); spritetext ×3 and geometry ×3 (sub_805BAC0,
+  sub_805D610, sub_805E068) matched, in review; festate ×3 running.
+  sub_8056610 agent edited MAIN twice (both diffs in /tmp/stray-main-edit-*);
+  redirected with mandatory `cd` prefix — stop it on a third offence.
+- Manager lesson: merge chains must grep `tests passed` only (`FAIL` matched
+  "FAILED" and let a broken build through to update-expected); adjacent
+  INCLUDE_ASM hunks in one TU conflict when two batches share a file.
 
 ## Session 9 (2026-09-07/08)
 
