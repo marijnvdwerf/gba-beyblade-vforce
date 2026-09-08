@@ -601,3 +601,60 @@ allocation-only after the 132-byte/r8-r9 layout was reached.
 - Replacing the threshold with `if ((angleDelta << 16) >= 0x400000)` is not byte-identical. The first divergence is at `0x32`, followed by a different threshold sequence and literal placement instead of the target `lsl r2,r6,#16` at `0x80`. The explicit `angleThreshold` local remains.
 - Inlining both `signedAngle` and `angleValue` into the two angle branches is not byte-identical. The first divergence is at `0x0E` (`mov r4,r1` versus `mov r5,r1`); the inlined form also introduces extra normalization around `0x56` and shortens the branch layout. Both intermediates remain in the source.
 - Removing `(unk8)` from the `sub_804E1FC` call is not byte-identical after rebuilding from the exact source order. The first divergence is at `0x0E` (`mov r4,r1` versus `mov r5,r1`), with register allocation and all subsequent offsets changing. The explicit cast remains despite the `u8` prototype.
+
+## sub_8056610 (0x08056610) — not matched; typed draft preserved
+
+The function remains assembly and its best C draft is parked immediately above
+its `INCLUDE_ASM` in `src/collision.c`. The target uses the ABI-compatible
+signature `void sub_8056610(LevelGeometryAddresses*, GeometryLine*, RiderBase*,
+CollisionResult*)`; the first parameter is unused in the body. The draft uses
+scratch record types inside its `#if 0` block, so the parked-only result layout
+and RiderBase fields do not alter shared headers.
+
+The draft matches the target operation widths, branch structure, literal pool,
+function size (`0x1D4`), and epilogue. The remaining first divergence is at
+function offset `+0x02`:
+
+- target: `mov r7, r1`, followed by `ldr r6, [r4, #0]` at `+0x08`;
+- draft: `mov r6, r1`, followed by `ldr r7, [r4, #0]` at `+0x08`.
+
+All later line accesses use the opposite of the target's r7 role, and all
+later actor accesses use the opposite of the target's r6 role. No instruction
+count, branch displacement, signed shift, literal-pool, or trailing-padding
+difference remains in the best enabled draft.
+
+### Measured allocation probes
+
+Each row is one natural source-layout experiment on top of the checkpoint. The
+candidate was built and diffed, then restored before the next trial. The five
+probes were the maximum allowed for this allocation residue.
+
+| Change | Early result | First measured effect |
+| --- | --- | --- |
+| Swap declaration order of `actor`, `value`, `direction`, and `lineValue` | No allocation change | `+0x02`: draft remained `mov r6, r1`; actor remained r7 |
+| Add a `GeometryLine* currentLine` record alias and use it throughout | Regressed entry allocation and move order | `+0x02`: `mov r4,r2`; `mov r5,r3`; `mov r6,r1`; `ldr r7,[r4]` |
+| Rename the formal line parameter and assign it to a local record pointer | Same regressive entry allocation as the alias trial | `+0x02`: `mov r4,r2`; `mov r5,r3`; `mov r6,r1`; `ldr r7,[r4]` |
+| Initialize `actor` in its declaration | No allocation change | `+0x02`: draft remained `mov r6, r1`; actor remained r7 |
+| Move `actor = rider->unk0` after the initial extrema update | Changed load timing but did not swap roles | Target `ldr r6,[r4]` appeared at `+0x08`, but draft added `ldr r7,[r4]` after the store and diverged there |
+
+The tested natural lifetime/declaration forms did not exchange the two
+callee-saved pointer roles. Register variables, casts used only as allocation
+levers, volatile, inline assembly, and other artificial shapes were not used.
+The r6/r7 swap is therefore parked rather than forced.
+
+The scratch result record proves fields through `+0x24`; the scratch rider
+record splits padding for the accessed `+0x3C` and `+0x74` fields while
+preserving the fixed layout. Actor accesses use the shared `Actor` type rather
+than a duplicate scratch actor layout. The target-only `RiderBase` fields
+`unk94`, `unkE0`, `unkE8`, `unkF0`, `unk174`, and `unk1B4` were restored to
+padding in the shared header; they are scratch-only in the parked draft.
+Result fields `+0x14` through `+0x24`, rider `+0x170`, and local `value` use
+`unk32`; signed declarations remain only where the draft has signed evidence:
+result `+0x8`, rider `+0x1B4`, and the arithmetic shifts on `+0x28`/`+0x34`.
+The shared `RiderBase.unk28`/`unk34` and `GeometryLine.unkD`/`unkE`
+declarations remain baseline unsigned forms because the target function is
+assembly and the signed trial must not perturb other enabled translation units.
+
+Final parking verification: `cmake --build build --target compare` passes with
+the original assembly active. The dump remains at
+`asm/dump/804a388-tutorial/8056610.s`.
