@@ -24,6 +24,7 @@ typedef void (*LayerClearFunc)(BGLayer*, unk32, unk32, unk32, unk32);
 
 extern void (*__sub_8756FC0)(BGLayer*, unk32, unk32, unk32, unk32, unk32, unk32);
 extern void (*__sub_8757380)(BGLayer*, unk32, unk32, unk32, unk32);
+
 void sub_80594FC(BGLayer*, unk32, unk32, unk32, unk32, unk32, unk32);
 
 void sub_8058968(
@@ -454,7 +455,71 @@ void sub_8059310(BGLayer* layer, s32 x, s32 y, s32 srcX, s32 srcY, s32 width, s3
 INCLUDE_ASM("asm/dump/8057b80-debug/8059310.s");
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8059404.s");
+
+#if 0
+void sub_80594FC(
+    BGLayer* layer, unk32 x, unk32 y, unk32 srcX, unk32 srcY, unk32 width, unk32 height)
+{
+    unk32 yValue;
+    unk8* mapAddress;
+    unk8* screenAddress;
+    unk32 columnCount;
+    unk32 rowMask;
+    vu32* dma;
+    unk32 horizontalStride;
+    unk32 horizontalMask;
+    unk32 firstWidth;
+    unk32 firstCount;
+    unk32 secondCount;
+    unk32 fullCount;
+    unk32 row;
+
+    yValue = y;
+    mapAddress = layer->mapAddr;
+    screenAddress = (unk8*)(VRAM + (layer->screenBaseBlock << 11));
+    columnCount = layer->columnCount;
+    horizontalStride = 1 << layer->field_5F;
+    horizontalMask = horizontalStride - 1;
+    rowMask = (1 << layer->field_60) - 1;
+    width &= ~1;
+    srcX &= ~1;
+    x &= ~1;
+    if (width == 0) {
+        width = 2;
+    }
+    mapAddress += yValue * columnCount + x;
+    srcX &= horizontalMask;
+    firstWidth = horizontalStride - srcX;
+    firstCount = (firstWidth >> 1) | DMA_ENABLE;
+    secondCount = ((width - firstWidth) >> 1) | DMA_ENABLE;
+    fullCount = (s32)(width + (width >> 31)) >> 1 | DMA_ENABLE;
+    dma = (vu32*)REG_DMA3SAD;
+    row = srcY;
+    while (row < srcY + height) {
+        unk32 rowOffset;
+
+        rowOffset = (row & rowMask) << layer->field_5F;
+        if (srcX + width > horizontalStride) {
+            dma[0] = (unk32)mapAddress;
+            dma[1] = (unk32)(screenAddress + rowOffset + srcX);
+            dma[2] = firstCount;
+            dma[0] = (unk32)(mapAddress + firstWidth);
+            dma[1] = (unk32)(screenAddress + rowOffset);
+            dma[2] = secondCount;
+            (void)dma[2];
+        } else {
+            dma[0] = (unk32)mapAddress;
+            dma[1] = (unk32)(screenAddress + rowOffset + srcX);
+            dma[2] = fullCount;
+            (void)dma[2];
+        }
+        mapAddress += columnCount;
+        row++;
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/80594fc.s");
+
 INCLUDE_ASM("asm/dump/8057b80-debug/80595fc.s");
 #if 0
 void sub_80596AC(void* arg0, unk32 deltaX, unk32 deltaY)

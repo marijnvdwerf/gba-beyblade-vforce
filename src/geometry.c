@@ -683,7 +683,29 @@ QuadTreeNode* GetQuadTreeNodeForPos(QuadTree* quadTree, s32 x, s32 y)
     return node;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805c3bc.s");
+s32* sub_805DD18(LevelGeometryAddresses*, unk32, s32*, s32);
+
+void sub_805C3BC(LevelGeometryAddresses* geometry, Actor* actor, unk32 splineIndex, unk32 position)
+{
+    s32 values[6];
+    s32* result;
+
+    if ((actor->unk8D & 4) != 0) {
+        result = sub_805DD18(geometry, splineIndex, values, position);
+    } else {
+        result = sub_805DFD4(geometry, splineIndex, values, position);
+    }
+    if (result != NULL) {
+        actor->x = (values[0] << 5) - (actor->unk9A << 8);
+        actor->y = (values[1] << 5) - (actor->unk9C << 8);
+        actor->z = (values[2] << 5) - (actor->unk9E << 8);
+        actor->unk80 = geometry;
+        actor->unk84 = splineIndex;
+        actor->unk88 = position << 8;
+        actor->unk44 = 0;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805c444.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805c48c-actor_805C48C.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805c9a4.s");

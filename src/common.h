@@ -463,15 +463,16 @@ typedef struct Actor {
     struct AllocatedBlock* unk7C;
     void* unk80;
     s32 unk84;
-    unk8 pad88[5];
+    unk32 unk88;
+    unk8 pad8C;
     unk8 unk8D; /* 0x8D */
     unk8 pad8E[2];
     ActorCollisionCallbacks callbacks;
     unk8 unk98;
     unk8 pad99[1];
-    unk16 unk9A;
-    unk16 unk9C;
-    unk16 unk9E;
+    s16 unk9A;
+    s16 unk9C;
+    s16 unk9E;
     unk16 unkA0;
     unk16 unkA2;
     unk8 unkA4;
@@ -989,17 +990,20 @@ typedef struct LevelDescription {
     LineMetadata** metadata;
     unk32 unk30;
     unk32 unk34;
-    unk8 pad38[0x1C];
+    unk8 pad38[8];
+    const unk8* unk40[5];
     const unk8* unk54[5]; /* 0x54 */
     const unk8* unk68[6];
     unk8 pad80[0x10];
     unk32 unk90;
-    unk8 pad94[0x28];
+    const unk8* unk94[5];
+    const unk8* unkA8[5];
     unk8 unkBC;
     unk8 padBD[3];
     const unk8* unkC0;
-    void* unkC4;
-    unk8 padC8[8];
+    const unk8* unkC4;
+    const unk8* unkC8;
+    const unk8* unkCC;
 } LevelDescription;
 
 typedef char LevelDescriptionSizeCheck[(sizeof(LevelDescription) == 0xD0) ? 1 : -1];

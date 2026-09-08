@@ -18,7 +18,14 @@
 #include "tutorial.h"
 #include "unsorted.h"
 
+extern const unk8 Str_86FCF24[];
 extern const unk8 Str_86FCF54[];
+extern const unk8* _806EA5C[];
+extern const unk8* _806EA70[];
+extern const unk8 SpriteSheet_823AA74[];
+extern const unk8 Pal_823B2BC[];
+extern const unk8 SpriteSheet_823B4BC[];
+extern const unk8 Pal_823BD04[];
 
 void sub_8041078(LevelSelectState* state)
 {
@@ -37,7 +44,44 @@ void sub_8041078(LevelSelectState* state)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/80410b4-displayFrontendLevel.s");
+void displayFrontendLevel(
+    LevelSelectState* state, LevelDescription* description, LevelState* levelState)
+{
+    const unk8* palette;
+    const unk8* spriteSheet;
+
+    getLanguage();
+    if (state->sprite == NULL) {
+        state->sprite = allocSprite(1);
+    } else {
+        sub_8060A60(state->sprite);
+    }
+    if ((levelState->unk0 & 2) != 0 || sub_8051780(4) != 0) {
+        if (sub_8051780(4) != 0) {
+            if (_currentGameState->unk6A4 == 2) {
+                spriteSheet = SpriteSheet_823AA74;
+                palette = Pal_823B2BC;
+            } else {
+                spriteSheet = SpriteSheet_823B4BC;
+                palette = Pal_823BD04;
+            }
+        } else {
+            spriteSheet = description->unkC0;
+            palette = description->unkC4;
+        }
+    } else {
+        spriteSheet = description->unkC8;
+        palette = description->unkCC;
+    }
+    if (spriteSheet != NULL) {
+        LoadSpriteSheet(state->sprite, spriteSheet, 0x1000, 0x3C00, 1, 0, 0, 0);
+    } else {
+        printf(Str_86FCF24);
+    }
+    if (palette != NULL) {
+        __fastMemoryCopyARM(palette, (void*)OBJ_PLTT, 0x20);
+    }
+}
 
 void sub_8041188(LevelSelectState* state, LevelDescription* description, LevelState* levelState,
     unk32 levelIndex)
@@ -73,7 +117,23 @@ void sub_8041188(LevelSelectState* state, LevelDescription* description, LevelSt
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8041288.s");
+void sub_8041288(
+    LevelSelectState* state, LevelDescription* description, LevelState* levelState, s8 levelIndex)
+{
+    unk32 language;
+
+    language = getLanguage();
+    if (sub_8051780(4) == 0) {
+        sub_8061660(state->rows[1], description->unk68[language], 0xE);
+        sub_8061660(state->rows[0], description->unk40[language], 0xE);
+    } else if (_currentGameState->unk6A4 == 2) {
+        sub_8061660(state->rows[1], description->unk94[language], 0xE);
+        sub_8061660(state->rows[0], _806EA70[language], 0xE);
+    } else {
+        sub_8061660(state->rows[1], description->unkA8[language], 0xE);
+        sub_8061660(state->rows[0], _806EA5C[language], 0xE);
+    }
+}
 
 void sub_8041324(unk32 arg0)
 {
