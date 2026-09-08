@@ -224,6 +224,11 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   (0x88) but the layer code walks them as `BGLayer`/`DisplayRecord` (also
   0x88) — newLayerManagement's second parameter stays `unk32*` until that
   layout question is settled.
+- User's sub_804B8F0 re-done without levers (decomp/sub_804B8F0 3a12a80d;
+  sub_805CEB8's return retyped `unk16`; RiderBase unk62 s16 / unk11C /
+  unk19C s32 / unk1A8–1B4, Actor.unk3B; sub_805C9A4 prototype `unk32
+  (Actor*, LevelGeometryAddresses*, unk32, unk32, QuadTreeNode*)` derived
+  from the caller and passed to the sub_805C9A4 agent) — review running.
 
 ## Session 9 (2026-09-07/08)
 
