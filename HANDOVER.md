@@ -46,6 +46,11 @@ Last updated: 2026-09-08, session 10 (652 C / 355 asm / 65%, 18 TUs).
   sub_8056B54 → 2; sub_805C9A4/actor_805C48C share call_rider_94_8. All
   other reds are dead ends. Proposed next: sub_804712C agent + collision
   cluster (sub_8056B54 + def_94_0_8055CFC) agent; sub_80561EC after.
+- Running (user's call): three luna decompiler worktrees — sub_80561EC
+  (from the user's stash 431f07b1, applied not popped; learnings moved to
+  docs/learnings/collision-2026-09-08.md), sub_804712C (+ its 8 leaves on
+  success), def_94_0_8055CFC (+ its 3 leaves). Both collision agents share
+  collision.c/.h — expect a header conflict at merge.
 
 ## Session 9 (2026-09-07/08)
 
