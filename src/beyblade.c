@@ -9,6 +9,9 @@
 extern const unk8 byte_807D7C0[];
 extern const unk8** ItemNames[];
 extern const unk8 _807a53c[];
+extern const unk8 _807b858[][12];
+extern const unk8** _807BFD8[];
+extern const unk8** _807C49C[];
 extern const unk8 Pal_836067C[];
 extern unk8 SpriteSheet_836087C[];
 extern const unk8* CollectionPalettes[];
@@ -237,9 +240,21 @@ void allocateBeybladeObjectPalettes(void)
     } while (index <= 0x3B);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80573c8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80573dc.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80573fc.s");
+const unk8* sub_80573C8(unk32 arg0)
+{
+    return _807b858[arg0];
+}
+
+const unk8* sub_80573DC(unk32 arg0)
+{
+    return _807BFD8[getLanguage()][arg0];
+}
+
+const unk8* sub_80573FC(unk32 arg0)
+{
+    return _807C49C[getLanguage()][arg0];
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/805741c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805743c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/805745c.s");
