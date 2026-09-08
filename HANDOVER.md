@@ -157,6 +157,8 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
   break;` in the terminating arms also diverges) → user decision at merge.
   Levelselect batch: sub_805C3BC, sub_8041288, displayFrontendLevel matched;
   sub_80594FC parked (0x10 allocation). Both reviewers running.
+- User decision: sub_8063BA8 ships with `// TODO: fakematch? (reason)` on
+  the `process = 1;` and `zero = 0;` lines (one-off exception).
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
