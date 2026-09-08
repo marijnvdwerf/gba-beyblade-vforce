@@ -218,6 +218,12 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   (geometry 1300, sibling of the matched actor_805C48C) and
   s_rider_804C4B4 (riderphysics 956). After those, only ARM routines
   (asm/arm1.s render_*, asm/arm2.s sub_8757*) and the yellows remain.
+- Merged: display (28c379d5; sub_80508A4 matched, sub_80508CC + newLayer-
+  Management parked with clean drafts). **679 C / 328 asm / 67%.** Debt:
+  the four `FrontendState.unkB8/140/1C8/250` slots are `FrontendSubobject`
+  (0x88) but the layer code walks them as `BGLayer`/`DisplayRecord` (also
+  0x88) — newLayerManagement's second parameter stays `unk32*` until that
+  layout question is settled.
 
 ## Session 9 (2026-09-07/08)
 
