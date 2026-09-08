@@ -160,7 +160,16 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   `pop {r1}; bx r1`; def_94_4 is unk8 with no return statement), new
   `CollisionResult` (0x28) in collision.h; sub_8055F04 parked. Geometry:
   sub_805DBF0 matched (64d85500) but with `(unk8)` casts on the call results
-  in sub_805D650 — sent back (unk8 return + unk16 count, or unk8 locals).
+  in sub_805D650 — resolved: `unk32` return + block-local `unk8 found` at
+  each call site is exact (a6c14479); unk8 return + unk16 count diverged
+  at 0xA6.
+- Collision B (sub_80567E4 300, sub_8056910 460): told to park both after
+  210 tool calls with nothing committed — 0x0C `mov r8,r1` ordering on
+  80567E4; 8056910 frame 16 vs 8 with the line pointer spilled at [sp] and
+  a raw-byte `unk11` read. Display: sub_80508A4 matched, sub_80508CC parked
+  (6-build cap), newLayerManagement at 0x2A (settings alias before `i = 0`).
+  User's actor_805C48C matched (decomp/actor_805C48C 19790ece) — review
+  running.
 
 ## Session 9 (2026-09-07/08)
 
