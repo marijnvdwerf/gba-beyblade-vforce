@@ -247,6 +247,13 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   geometry leaf branch fix agent (extern removed, nextIndex/remaining →
   unk32; folds within cap), sub_804B8F0 fix agent, s_rider_804C4B4
   (first typed draft checkpointed 350006bf, diff loop starting).
+- Merged: user's sub_804B8F0 (01202012; nullsub_5/6 got real prototypes in
+  riderphysics.h/collision.h with the owning definitions updated;
+  sub_805CEB8 returns unk16; all seven folds byte-required). **681 C / 326
+  asm / 68%.** Merge note: a stale duplicate `sub_805C9A4` prototype from
+  that branch had to be dropped from geometry.h; the merge chain stopped
+  silently on the compile error — echo an explicit COMPARE FAILED marker
+  in merge chains.
 
 ## Session 9 (2026-09-07/08)
 
