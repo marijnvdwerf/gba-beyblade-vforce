@@ -85,14 +85,14 @@ void sub_8043AA0(FrontendState* state, u32 arg1)
         }
         _unk3000160 = 0x800;
         _unk3000164 = 0xD800;
-        menu = &state->menuState.menu;
+        menu = &state->menu;
         newIconMenu(menu, _80689A4, 0);
         sub_8050FEC(menu, 0x9600);
         _unk3000168 = 0;
         sub_8049168();
         break;
     case 7:
-        sub_8051028(&state->menuState.menu);
+        sub_8051028(&state->menu);
         if (_unk3000158 != NULL) {
             sub_8060A94(_unk3000158);
         }
@@ -110,7 +110,7 @@ void sub_8043AA0(FrontendState* state, u32 arg1)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->unk140);
-        menu = &state->menuState.menu;
+        menu = &state->menu;
         sub_8050C18(menu);
         if ((_unk3005DA0 & 0x30) != 0) {
             if ((_unk3005DA0 & 0x20) != 0) {
@@ -130,8 +130,8 @@ void sub_8043AA0(FrontendState* state, u32 arg1)
         if ((_unk3005DA0 & 9) != 0 && _unk3000168 == 0) {
             _unk3000160 = 0xFFFF0000;
             _unk3000164 = 0x1E000;
-            sub_8050F98(&state->menuState.menu);
-            switch (state->menuState.menu.selection) {
+            sub_8050F98(&state->menu);
+            switch (state->menu.selection) {
             case 0:
                 value = 0;
                 break;
@@ -627,8 +627,8 @@ void sub_80448F4(FrontendState* state, unk32 arg1)
         }
         _unk30001F8 = 0x800;
         _unk30001FC = 0xD800;
-        newIconMenu(&state->menuState.menu, _8069108, 0);
-        sub_8050FEC(&state->menuState.menu, 0x9600);
+        newIconMenu(&state->menu, _8069108, 0);
+        sub_8050FEC(&state->menu, 0x9600);
         _unk3000200 = 0;
         if (sub_805FFE4() == 0 || sub_8060070() == 0) {
             break;
@@ -639,7 +639,7 @@ void sub_80448F4(FrontendState* state, unk32 arg1)
         sub_8043960(packetState);
         break;
     case 7:
-        sub_8051028(&state->menuState.menu);
+        sub_8051028(&state->menu);
         if (_unk30001F0 != NULL) {
             sub_8060A94(_unk30001F0);
         }
@@ -666,24 +666,24 @@ void sub_80448F4(FrontendState* state, unk32 arg1)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->unk140);
-        sub_8050C18(&state->menuState.menu);
+        sub_8050C18(&state->menu);
         if (sub_805FFE4() == 0 || sub_8060070() == 0) {
             break;
         }
         if (sub_8060040() != 0) {
             if ((_unk3005DA0 & 0x20) != 0) {
-                sub_8050F0C(&state->menuState.menu);
+                sub_8050F0C(&state->menu);
             }
             if ((_unk3005DA0 & 0x10) != 0) {
-                sub_8050E80(&state->menuState.menu);
+                sub_8050E80(&state->menu);
             }
-            packetState->unk4 = state->menuState.menu.selection;
+            packetState->unk4 = state->menu.selection;
             sub_8043960(packetState);
             break;
         }
         if (sub_8043970(record, 8) != 0) {
-            if (record->unk4 != state->menuState.menu.selection) {
-                sub_8050DF8(&state->menuState.menu);
+            if (record->unk4 != state->menu.selection) {
+                sub_8050DF8(&state->menu);
             }
         }
         break;
@@ -700,8 +700,8 @@ void sub_80448F4(FrontendState* state, unk32 arg1)
             sub_8043960(packetState);
             _unk30001F8 = 0xFFFF0000;
             _unk30001FC = 0x1E000;
-            sub_8050F98(&state->menuState.menu);
-            if (state->menuState.menu.selection != 0) {
+            sub_8050F98(&state->menu);
+            if (state->menu.selection != 0) {
                 _unk3000200 = 1;
                 sub_80490F8(0xA);
                 break;
@@ -990,13 +990,13 @@ void sub_804541C(FrontendState* state, u32 arg1)
         }
         _unk3000374 = 0x800;
         _unk3000378.value = 0xD800;
-        menu = &state->menuState.menu;
+        menu = &state->menu;
         newIconMenu(menu, _80692A4, sub_805162C() == 0 ? 3 : 0);
         sub_8050FEC(menu, 0x9600);
         break;
     }
     case 7:
-        sub_8051028(&state->menuState.menu);
+        sub_8051028(&state->menu);
         if (_unk300036C != NULL) {
             sub_8060A94(_unk300036C);
         }
@@ -1014,7 +1014,7 @@ void sub_804541C(FrontendState* state, u32 arg1)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->unk140);
-        menu = &state->menuState.menu;
+        menu = &state->menu;
         sub_8050C18(menu);
         if ((_unk3005DA0 & 0x30) != 0) {
             if ((_unk3005DA0 & 0x20) != 0) {
@@ -1028,8 +1028,8 @@ void sub_804541C(FrontendState* state, u32 arg1)
         if ((_unk3005DA0 & 1) != 0) {
             _unk3000374 = 0xFFFF0000;
             _unk3000378.value = 0x1E000;
-            sub_8050F98(&state->menuState.menu);
-            selection = state->menuState.menu.selection;
+            sub_8050F98(&state->menu);
+            selection = state->menu.selection;
             switch (selection) {
             case 0:
                 sub_80490F8(0x1B);
@@ -1166,13 +1166,13 @@ void sub_8045848(FrontendState* state, u32 arg1)
         }
         _unk30003B0 = 0x800;
         _unk30003B4 = 0xD800;
-        menu = &state->menuState.menu;
+        menu = &state->menu;
         newIconMenu(menu, _80693DC, 0);
         sub_8050FEC(menu, 0x9600);
         sub_8049168();
         break;
     case 7:
-        sub_8051028(&state->menuState.menu);
+        sub_8051028(&state->menu);
         if (_unk30003A8 != NULL) {
             sub_8060A94(_unk30003A8);
         }
@@ -1190,7 +1190,7 @@ void sub_8045848(FrontendState* state, u32 arg1)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->unk140);
-        menu = &state->menuState.menu;
+        menu = &state->menu;
         sub_8050C18(menu);
         if ((_unk3005DA0 & 0x30) != 0) {
             if ((_unk3005DA0 & 0x20) != 0) {
@@ -1204,8 +1204,8 @@ void sub_8045848(FrontendState* state, u32 arg1)
         if ((_unk3005DA0 & 1) != 0) {
             _unk30003B0 = 0xFFFF0000;
             _unk30003B4 = 0x1E000;
-            sub_8050F98(&state->menuState.menu);
-            selection = state->menuState.menu.selection;
+            sub_8050F98(&state->menu);
+            selection = state->menu.selection;
             switch (selection) {
             case 0:
                 sub_8051798(1);
@@ -1249,12 +1249,12 @@ void sub_8045A7C(FrontendState* state, u32 arg1)
         }
         _unk30003C0 = 0x800;
         _unk30003C4 = 0xD800;
-        newIconMenu(&state->menuState.menu, _8069428, 0);
-        sub_8050FEC(&state->menuState.menu, 0x9600);
+        newIconMenu(&state->menu, _8069428, 0);
+        sub_8050FEC(&state->menu, 0x9600);
         break;
     }
     case 7:
-        sub_8051028(&state->menuState.menu);
+        sub_8051028(&state->menu);
         if (_unk30003B8 != NULL) {
             sub_8060A94(_unk30003B8);
         }
@@ -1274,7 +1274,7 @@ void sub_8045A7C(FrontendState* state, u32 arg1)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->unk140);
-        menu = &state->menuState.menu;
+        menu = &state->menu;
         sub_8050C18(menu);
         if ((_unk3005DA0 & 0x30) != 0) {
             if ((_unk3005DA0 & 0x20) != 0) {
@@ -1291,14 +1291,14 @@ void sub_8045A7C(FrontendState* state, u32 arg1)
         if ((_unk3005DA0 & arg1) != 0) {
             _unk30003C0 = 0xFFFF0000;
             _unk30003C4 = 0x1E000;
-            sub_8050FC8(&state->menuState.menu);
+            sub_8050FC8(&state->menu);
             sub_80490F8(0xA);
         }
         if ((_unk3005DA0 & 1) != 0) {
             _unk30003C0 = 0xFFFF0000;
             _unk30003C4 = 0x1E000;
-            sub_8050F98(&state->menuState.menu);
-            selection = state->menuState.menu.selection;
+            sub_8050F98(&state->menu);
+            selection = state->menu.selection;
             switch (selection) {
             case 0:
                 sub_80490F8(0xD);
@@ -1517,11 +1517,11 @@ void sub_80461D8(FrontendState* state, u32 arg1)
         }
         _unk300046C = 0x800;
         _unk3000470 = 0xD800;
-        newIconMenu(&state->menuState.menu, _8069514, _currentGameState->unkC68 == 0 ? 1 : 0);
-        sub_8050FEC(&state->menuState.menu, 0x9600);
+        newIconMenu(&state->menu, _8069514, _currentGameState->unkC68 == 0 ? 1 : 0);
+        sub_8050FEC(&state->menu, 0x9600);
         break;
     case 7:
-        sub_8051028(&state->menuState.menu);
+        sub_8051028(&state->menu);
         if (_unk3000464 != NULL) {
             sub_8060A94(_unk3000464);
         }
@@ -1539,12 +1539,12 @@ void sub_80461D8(FrontendState* state, u32 arg1)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->unk140);
-        sub_8050C18(&state->menuState.menu);
+        sub_8050C18(&state->menu);
         if ((_unk3005DA0 & 0x30) != 0) {
             if ((_unk3005DA0 & 0x20) != 0) {
-                sub_8050F0C(&state->menuState.menu);
+                sub_8050F0C(&state->menu);
             } else {
-                sub_8050E80(&state->menuState.menu);
+                sub_8050E80(&state->menu);
             }
         }
         break;
@@ -1552,8 +1552,8 @@ void sub_80461D8(FrontendState* state, u32 arg1)
         if ((_unk3005DA0 & 1) != 0) {
             _unk300046C = 0xFFFF0000;
             _unk3000470 = 0x1E000;
-            sub_8050F98(&state->menuState.menu);
-            switch (state->menuState.menu.selection) {
+            sub_8050F98(&state->menu);
+            switch (state->menu.selection) {
             case 0:
                 _currentGameState->unkC68 = 1;
                 break;
@@ -1564,7 +1564,7 @@ void sub_80461D8(FrontendState* state, u32 arg1)
             sub_80490F8(0xC);
         }
         if ((_unk3005DA0 & 2) != 0) {
-            sub_8050FC8(&state->menuState.menu);
+            sub_8050FC8(&state->menu);
             sub_8049178();
         }
         break;
@@ -1735,12 +1735,12 @@ void sub_8046814(FrontendState* state, u32 arg1)
         }
         _unk30004AC = 0x800;
         _unk30004B0 = 0xD800;
-        newIconMenu(&state->menuState.menu, _8069108, 0);
-        sub_8050FEC(&state->menuState.menu, 0x9600);
+        newIconMenu(&state->menu, _8069108, 0);
+        sub_8050FEC(&state->menu, 0x9600);
         sub_8049168();
         break;
     case 7:
-        sub_8051028(&state->menuState.menu);
+        sub_8051028(&state->menu);
         if (_unk30004A4 != NULL) {
             sub_8060A94(_unk30004A4);
         }
@@ -1758,26 +1758,26 @@ void sub_8046814(FrontendState* state, u32 arg1)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->unk140);
-        sub_8050C18(&state->menuState.menu);
+        sub_8050C18(&state->menu);
         break;
     case 2:
         if ((_unk3005DA0 & 0x20) != 0) {
-            sub_8050F0C(&state->menuState.menu);
+            sub_8050F0C(&state->menu);
         }
         if ((_unk3005DA0 & 0x10) != 0) {
-            sub_8050E80(&state->menuState.menu);
+            sub_8050E80(&state->menu);
         }
         if ((_unk3005DA0 & arg1) != 0) {
-            sub_8050FC8(&state->menuState.menu);
+            sub_8050FC8(&state->menu);
             sub_80490F8(_unk3000648);
         }
         if ((_unk3005DA0 & 1) != 0) {
-            if (state->menuState.menu.selection != 0) {
+            if (state->menu.selection != 0) {
                 sub_80490F8(_unk3000648);
             } else {
                 sub_80490F8(0x18);
             }
-            sub_8050F98(&state->menuState.menu);
+            sub_8050F98(&state->menu);
         }
         break;
     }
@@ -1893,17 +1893,17 @@ void sub_8046CC4(FrontendState* state, u32 arg1)
         _unk30004E0 = sub_80515E0();
         if (_unk30004E0 != 0 && sub_8051558() != 0) {
             value = sub_8051618() != 0 ? 2 : 0;
-            newIconMenu(&state->menuState.menu, _806980C, value);
+            newIconMenu(&state->menu, _806980C, value);
         } else {
             unk32 result;
             result = sub_8051618() != 0;
-            newIconMenu(&state->menuState.menu, _8069830, result);
+            newIconMenu(&state->menu, _8069830, result);
         }
-        sub_8050FEC(&state->menuState.menu, 0x9600);
+        sub_8050FEC(&state->menu, 0x9600);
         break;
     }
     case 7:
-        sub_8051028(&state->menuState.menu);
+        sub_8051028(&state->menu);
         if (_unk30004D0 != NULL) {
             sub_8060A94(_unk30004D0);
         }
@@ -1921,26 +1921,26 @@ void sub_8046CC4(FrontendState* state, u32 arg1)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->unk140);
-        sub_8050C18(&state->menuState.menu);
+        sub_8050C18(&state->menu);
         break;
     }
     case 2:
         if ((_unk3005DA0 & 0x20) != 0) {
-            sub_8050F0C(&state->menuState.menu);
+            sub_8050F0C(&state->menu);
         }
         if ((_unk3005DA0 & 0x10) != 0) {
-            sub_8050E80(&state->menuState.menu);
+            sub_8050E80(&state->menu);
         }
         if ((_unk3005DA0 & arg1) != 0) {
-            sub_8050FC8(&state->menuState.menu);
+            sub_8050FC8(&state->menu);
             sub_8049178();
         }
         if ((_unk3005DA0 & 1) != 0) {
-            sub_8050F98(&state->menuState.menu);
-            if (state->menuState.menu.selection == 2) {
+            sub_8050F98(&state->menu);
+            if (state->menu.selection == 2) {
                 sub_8051488();
             }
-            if (state->menuState.menu.selection == 1) {
+            if (state->menu.selection == 1) {
                 sub_80510FC();
             }
             if ((_currentGameState->unkC64 & 4) != 0) {
@@ -2349,13 +2349,13 @@ void sub_80480EC(FrontendState* state, unk32 arg1)
         }
         _unk30005B8 = 0x800;
         _unk30005BC = 0xD800;
-        menu = &state->menuState.menu;
+        menu = &state->menu;
         newIconMenu(menu, _8069D04, 0);
         sub_8050FEC(menu, 0x9600);
         sub_8049168();
         break;
     case 7:
-        sub_8051028(&state->menuState.menu);
+        sub_8051028(&state->menu);
         if (_unk30005B0 != NULL) {
             sub_8060A94(_unk30005B0);
         }
@@ -2373,7 +2373,7 @@ void sub_80480EC(FrontendState* state, unk32 arg1)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->unk140);
-        menu = &state->menuState.menu;
+        menu = &state->menu;
         sub_8050C18(menu);
         if ((_unk3005DA0 & 0x30) != 0) {
             if ((_unk3005DA0 & 0x20) != 0) {
@@ -2387,8 +2387,8 @@ void sub_80480EC(FrontendState* state, unk32 arg1)
         if ((_unk3005DA0 & 1) != 0) {
             _unk30005B8 = 0xFFFF0000;
             _unk30005BC = 0x1E000;
-            sub_8050F98(&state->menuState.menu);
-            switch (state->menuState.menu.selection) {
+            sub_8050F98(&state->menu);
+            switch (state->menu.selection) {
             case 0:
                 sub_80490F8(0x1F);
                 break;
@@ -2433,8 +2433,8 @@ void sub_8048310(FrontendState* state, unk32 arg1)
         }
         _unk30005C8 = 0x800;
         _unk30005CC = 0xD800;
-        newIconMenu(&state->menuState.menu, _8069D50, 0);
-        sub_8050FEC(&state->menuState.menu, 0x9600);
+        newIconMenu(&state->menu, _8069D50, 0);
+        sub_8050FEC(&state->menu, 0x9600);
         sub_8049168();
         if (sub_805FFE4() == 0 || sub_8060070() == 0) {
             return;
@@ -2442,7 +2442,7 @@ void sub_8048310(FrontendState* state, unk32 arg1)
         packetState->unk2 = 5;
         break;
     case 7:
-        sub_8051028(&state->menuState.menu);
+        sub_8051028(&state->menu);
         if (_unk30005C0 != NULL) {
             sub_8060A94(_unk30005C0);
         }
@@ -2461,20 +2461,20 @@ void sub_8048310(FrontendState* state, unk32 arg1)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->unk140);
-        sub_8050C18(&state->menuState.menu);
+        sub_8050C18(&state->menu);
         if (sub_805FFE4() != 0 && sub_8060070() != 0 && sub_8060040() != 0
             && (_unk3005DA0 & 0x30) != 0) {
             if ((_unk3005DA0 & 0x20) != 0) {
-                sub_8050F0C(&state->menuState.menu);
+                sub_8050F0C(&state->menu);
             } else {
-                sub_8050E80(&state->menuState.menu);
+                sub_8050E80(&state->menu);
             }
         }
         if (sub_805FFE4() == 0 || sub_8060070() == 0) {
             return;
         }
         if (sub_8060040() != 0) {
-            packetState->unk4 = state->menuState.menu.selection;
+            packetState->unk4 = state->menu.selection;
         }
         break;
     case 2:
@@ -2491,15 +2491,15 @@ void sub_8048310(FrontendState* state, unk32 arg1)
             return;
         }
         if (sub_8060040() == 0
-            && record->unk4 != state->menuState.menu.selection) {
-            sub_8050DF8(&state->menuState.menu);
+            && record->unk4 != state->menu.selection) {
+            sub_8050DF8(&state->menu);
         }
         if ((record->unk2 & 0xF0) == 0x10) {
             packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
             currentGameState = _currentGameState;
-            if (state->menuState.menu.selection == 0) {
+            if (state->menu.selection == 0) {
                 currentGameState->unk6A4 = 1;
-                currentGameState->unk6A9 = state->menuState.menu.selection;
+                currentGameState->unk6A9 = state->menu.selection;
             } else {
                 currentGameState->unk6A4 = 2;
                 currentGameState->unk6A9 = 6;
@@ -2509,7 +2509,7 @@ void sub_8048310(FrontendState* state, unk32 arg1)
             currentGameState->unk6A8 = 0;
             _unk30005C8 = 0xFFFF0000;
             _unk30005CC = 0x1E000;
-            sub_8050F98(&state->menuState.menu);
+            sub_8050F98(&state->menu);
             sub_80490F8(0x21);
         }
         break;
@@ -2543,7 +2543,7 @@ void sub_804868C(FrontendState* state, unk32 arg1)
         }
         _unk30005D8 = 0x800;
         _unk30005DC = 0xD800;
-        menu = &state->menuState.menu;
+        menu = &state->menu;
         newIconMenu(menu, _8069D9C, 0);
         sub_8050FEC(menu, 0x9600);
         sub_8049168();
@@ -2553,7 +2553,7 @@ void sub_804868C(FrontendState* state, unk32 arg1)
         packetState->unk2 = 6;
         break;
     case 7:
-        sub_8051028(&state->menuState.menu);
+        sub_8051028(&state->menu);
         if (_unk30005D0 != NULL) {
             sub_8060A94(_unk30005D0);
         }
@@ -2572,7 +2572,7 @@ void sub_804868C(FrontendState* state, unk32 arg1)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->unk140);
-        menu = &state->menuState.menu;
+        menu = &state->menu;
         sub_8050C18(menu);
         if (sub_805FFE4() != 0 && sub_8060070() != 0 && sub_8060040() != 0
             && (_unk3005DA0 & 0x30) != 0) {
@@ -2607,12 +2607,12 @@ void sub_804868C(FrontendState* state, unk32 arg1)
         if (sub_8043970(record, 6) == 0) {
             return;
         }
-        if (sub_8060040() == 0 && record->unk4 != state->menuState.menu.selection) {
-            sub_8050DF8(&state->menuState.menu);
+        if (sub_8060040() == 0 && record->unk4 != state->menu.selection) {
+            sub_8050DF8(&state->menu);
         }
         if ((record->unk2 & 0xF0) == 0x10) {
             packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
-            switch (state->menuState.menu.selection) {
+            switch (state->menu.selection) {
             case 0:
                 _currentGameState->unk6A5 = 1;
                 break;
@@ -2631,14 +2631,14 @@ void sub_804868C(FrontendState* state, unk32 arg1)
             }
             _unk30005D8 = 0xFFFF0000;
             _unk30005DC = 0x1E000;
-            sub_8050F98(&state->menuState.menu);
+            sub_8050F98(&state->menu);
             sub_80490F8(0x1B);
         }
         if ((record->unk2 & 0xF0) == 0x20) {
             packetState->unk2 = (packetState->unk2 & 0xF) | 0x20;
             _unk30005D8 = 0xFFFF0000;
             _unk30005DC = 0x1E000;
-            sub_8050FC8(&state->menuState.menu);
+            sub_8050FC8(&state->menu);
             sub_80490F8(0x20);
         }
         break;

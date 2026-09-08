@@ -10,9 +10,9 @@ extern const unk8 byte_807D7C0[];
 extern const unk8** ItemNames[];
 extern const unk8 _807a53c[];
 extern const unk8 Pal_836067C[];
-extern const unk8 SpriteSheet_836087C[];
+extern unk8 SpriteSheet_836087C[];
 extern const unk8* CollectionPalettes[];
-extern const unk8* CollectionSpriteSheets[];
+extern unk8* CollectionSpriteSheets[];
 
 unk8 sub_805703C(unk32 arg0)
 {
@@ -35,7 +35,7 @@ const unk8* sub_8057068(unk32 arg0)
     return Pal_836067C;
 }
 
-const unk8* sub_8057094(unk32 arg0)
+unk8* sub_8057094(unk32 arg0)
 {
     if (sub_80570D4(arg0) != 0) {
         return CollectionSpriteSheets[arg0];

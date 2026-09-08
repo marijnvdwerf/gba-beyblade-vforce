@@ -6,7 +6,10 @@
 typedef struct LevelSelectState {
     SpriteEntry* sprite;
     SpriteTextCleanup* rows[6];
-    unk8 pad1C[4];
+    unk8 pad1C;
+    s8 index;
+    unk8 state;
+    unk8 pad1F;
 } LevelSelectState;
 
 typedef struct LevelSelectSpriteData {
@@ -19,6 +22,7 @@ typedef struct LevelSelectSpriteData {
 
 extern const LevelSelectSpriteData _8068710[];
 
+void sub_80413FC(FrontendState*, unk32);
 void sub_8041078(LevelSelectState*);
 void sub_8041188(LevelSelectState*, LevelDescription*, LevelState*, unk32);
 void sub_8041324(unk32);

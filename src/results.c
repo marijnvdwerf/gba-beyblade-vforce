@@ -5,8 +5,8 @@
 #include "beyblade.h"
 #include "frontend.h"
 #include "gameinit.h"
+#include "gameloop.h"
 #include "gamestate.h"
-#include "include_asm.h"
 #include "keystate.h"
 #include "menu.h"
 #include "menuobject.h"
@@ -27,62 +27,34 @@ extern const MenuItemDescriptor _806E870[];
 extern const InputSequence _8078954[];
 extern const InputSequence _8078968[];
 extern const InputSequence _807897c[];
-extern const u16 _807894c[];
+extern const unk16 _807894c[];
 extern const unk8 SpriteSheet_82B1A84[];
 extern const unk8 LargeFontMeta[];
 extern const unk8 SpriteSheet_82B05EC[];
 extern const unk8 ShadowFontMeta[];
 extern void (*__oam_8756CC0)(void);
 
-#if 0
-
-struct ResultsLocals {
+void sub_8052B24(void)
+{
     SpriteTextCleanup font;
+    MenuState menuData;
     FrontendResource record0;
     FrontendResource record1;
     FrontendResource record2;
-};
-
-typedef struct ResultsGameDataScratch {
-    unk8 pad0[0x870];
-    SpriteTextCleanup unk870; /* 0x870 */
-    unk16 unk8A0; /* 0x8A0 */
-} ResultsGameDataScratch;
-
-extern ResultsGameDataScratch* _gameDataResultsScratch;
-
-void sub_8052B24(void)
-{
-    struct ResultsLocals locals;
-    MenuState menuData;
-    MenuState* menu;
     MenuState* state;
-    UnkMenuItem* item;
     unk32 mode;
     SpriteEntry* sprite0;
     SpriteEntry* sprite1;
-    LevelDescription* description;
     unk32 done;
-    unk32 sequence;
-    unk32 sequenceTimer;
-    unk32 animationOffset;
+    unk8 sequence;
+    unk8 sequenceTimer;
+    unk8 animationOffset;
     unk32 target;
     s32 fade;
     unk32 fadeStep;
     Packet* packet;
-    Packet* riderPacket;
-    s32 i;
-    unk32 offset;
-    unk32 value;
-    unk32 count;
-    unk32 delta;
-    u8 language;
-    u8 packetSelection;
-    u16 selection;
-    u16 keys;
+    unk8 language;
     const unk8* const* table;
-    unk32 tableLanguage;
-    MenuStateCallback callback;
 
     getLevelDescription2();
     sprite0 = NULL;
@@ -95,9 +67,9 @@ void sub_8052B24(void)
     fade = 0;
     fadeStep = 1;
     packet = &_gameData->unk15C4;
-    sub_8057158(&locals.record0, _8078954);
-    sub_8057158(&locals.record1, _8078968);
-    sub_8057158(&locals.record2, _807897c);
+    sub_8057158(&record0, _8078954);
+    sub_8057158(&record1, _8078968);
+    sub_8057158(&record2, _807897c);
 
     if (sub_8051780(4) != 0 && _gameData->unk1618 != 0) {
         if (sub_8060040() != 0)
@@ -109,25 +81,21 @@ void sub_8052B24(void)
     }
 
     sub_8061228(&_gameData->unk8A8);
-    sub_8061228(&_gameDataResultsScratch->unk870);
-    _gameDataResultsScratch->unk8A0 = 0;
-    allocFont(&locals.font, SpriteSheet_82B1A84, LargeFontMeta, -0xF0, 0, 0xF0, 2);
+    sub_8061228(&_gameData->unk870);
+    _gameData->unk8A0 = 0;
+    allocFont(&font, SpriteSheet_82B1A84, LargeFontMeta, -0xF0, 0, 0xF0, 2);
     if (_gameData->unk1640 != 0) {
         table = &_806E724[0x1E];
-        tableLanguage = getLanguage();
-        sub_8061660(&locals.font, table[tableLanguage], 0xE);
+        sub_8061660(&font, table[getLanguage()], 0xE);
     } else {
         table = &_806E724[0x19];
-        tableLanguage = getLanguage();
-        sub_8061660(&locals.font, table[tableLanguage], 0xE);
+        sub_8061660(&font, table[getLanguage()], 0xE);
     }
 
     language = getLanguage();
-    callback = sub_8052B08;
-    menu = &menuData;
-    sub_805AD24(menu, (unk32)SpriteSheet_82B05EC, (unk32)ShadowFontMeta, -0xC8, 0, 0xF0, 0xA, 0xD,
-        0xF, 0xA, 0xA, callback, NULL, language);
-    state = menu;
+    sub_805AD24(&menuData, SpriteSheet_82B05EC, ShadowFontMeta, -0xC8, 0, 0xF0, 0xA, 0xD, 0xF, 0xA,
+        0xA, sub_8052B08, NULL, language);
+    state = &menuData;
     if (mode == 2) {
         allocateMenuItems(state, _806E870, 0);
     } else if (_gameData->unk1640 != 0) {
@@ -153,8 +121,10 @@ void sub_8052B24(void)
         sub_80627F0();
 
         if (_gameData->unk1618 != 0) {
+            Packet* riderPacket;
+            unk8 packetSelection;
             riderPacket = &_gameData->unk15D4[1 - isMultiplayer()];
-            packetSelection = sub_806014C(&_gameData->unk15D4[0], packet, 1);
+            packetSelection = sub_806014C(&_gameData->unk15D4[0], &_gameData->unk15C4, 1);
             sub_805000C(packet, &_gameData->base);
             if (sub_8050114(riderPacket) == 0)
                 sub_80603E8();
@@ -172,7 +142,7 @@ void sub_8052B24(void)
             }
             if (sub_80501C8(riderPacket, 6) != 0) {
                 if (_gameData->unk161A != 0) {
-                    sub_80501A8(riderPacket, 2);
+                    sub_80501A8(packet, 2);
                 } else {
                     done = 1;
                     target = 0xFFFF3800;
@@ -182,8 +152,8 @@ void sub_8052B24(void)
                         sub_804AE8C();
                         sub_8053E18(1);
                     }
-                    sub_8050184(riderPacket, 2);
-                    sub_80501A8(riderPacket, 5);
+                    sub_8050184(packet, 2);
+                    sub_80501A8(packet, 5);
                 }
             }
         }
@@ -202,11 +172,10 @@ void sub_8052B24(void)
         }
 
         if (sequenceTimer != 0) {
-            sequenceTimer = (u8)(sequenceTimer - 1);
-            keys = _unk3005DA0;
-            if (keys != 0) {
-                if (keys == _807894c[sequence]) {
-                    sequence = (u8)(sequence + 1);
+            sequenceTimer--;
+            if (_unk3005DA0 != 0) {
+                if (_unk3005DA0 == _807894c[sequence]) {
+                    sequence++;
                     if (sequence == 4 && sub_8051780(4) == 0) {
                         _gameData->unk1641 = 1;
                         sequence = 0;
@@ -223,89 +192,111 @@ void sub_8052B24(void)
         }
 
         if (sub_8051780(4) == 0) {
-            sub_8057164(&locals.record0);
-            if (sub_80571D0(&locals.record0) != 0) {
+            sub_8057164(&record0);
+            if (sub_80571D0(&record0) != 0) {
                 _gameData->unk1638 = 5;
                 sub_804F800(_gameData->unk1638);
             }
-            sub_8057164(&locals.record1);
-            if (sub_80571D0(&locals.record1) != 0) {
+            sub_8057164(&record1);
+            if (sub_80571D0(&record1) != 0) {
+                s32 i;
                 for (i = 0; i < _gameData->unk430; i++)
                     sub_804C0C0(&_gameData->unk42C[i]);
             }
-            sub_8057164(&locals.record2);
-            if (sub_80571D0(&locals.record2) != 0) {
-                description = getLevelDescription2();
-                if (description->unk1 != 0) {
-                    value = _gameData->collectables.collectedBits[0];
-                    count = description->unk1;
+            sub_8057164(&record2);
+            if (sub_80571D0(&record2) != 0) {
+                GameData* gameData;
+                unk32 count;
+                gameData = _gameData;
+                count = getLevelDescription2()->unk1;
+                if (count != 0) {
                     while (count != 0) {
                         count--;
-                        value |= 1 << count;
+                        gameData->collectables.collectedBits[0] |= 1 << count;
                     }
-                    _gameData->collectables.collectedBits[0] = value;
                 }
             }
         }
 
         if (state->itemCount != 0) {
-            count = state->objectCount;
-            item = state->items;
+            MenuState* menu;
+            UnkMenuItem* item;
+            s32 count;
+            s32 delta;
+            menu = state;
+            count = menu->objectCount;
+            item = menu->items;
             delta = target - item->text.x;
             if (delta != 0) {
-                value = sub_80491E0(delta, 0x10);
-                for (i = count - 1; i != 0; i--) {
-                    sub_8061824(&item->text, value, 0);
+                delta = sub_80491E0(delta, 0x10);
+                while (count--) {
+                    sub_8061824(&item->text, (s16)delta, 0); // TODO: figure out how to remove cast
                     item++;
                 }
             }
-            item = state->items;
-            sub_8061844(&locals.font, (item->text.x << 8) >> 16, (item->text.y >> 8) - 0x14);
-            for (i = count; i != 0; i--) {
+            count = menu->objectCount;
+            item = menu->items;
+            sub_8061844(&font, item->text.x >> 8, (item->text.y >> 8) - 0x14);
+            while (count--) {
                 if (item->text.ptr2C != NULL)
                     sub_8061880(&item->text, -0x10, -8);
                 item++;
             }
-        }
 
-        if (mode != 2) {
-            offset = Unk_874CC3C[animationOffset] * 2;
-            offset &= 0xFFFFFF00;
-            sprite0->x -= offset;
-            sprite1->x += offset;
-            item = state->items + sub_805B240(state);
-            animationOffset = (u8)(animationOffset + 4);
-            delta = sub_8061D54(&item->text) - (sprite0->x + 0x1400);
-            if (delta != 0)
-                sprite0->x += sub_80491E0(delta, 0x1C) << 8;
-            delta = sub_8061E44(&item->text) - (sprite0->y + 0x400);
-            if (delta != 0)
-                sprite0->y += sub_80491E0(delta, 4) << 8;
-            delta = sub_8061E08(&item->text) - (sprite1->x - 0x400);
-            if (delta != 0)
-                sprite1->x += sub_80491E0(delta, 0x1C) << 8;
-            delta = sub_8061E44(&item->text) - (sprite1->y + 0x400);
-            if (delta != 0)
-                sprite1->y += sub_80491E0(delta, 4) << 8;
-            offset = Unk_874CC3C[animationOffset] * 2;
-            offset &= 0xFFFFFF00;
-            sprite0->x += offset;
-            sprite1->x -= offset;
+            if (mode != 2) {
+                s32 offset;
+                s32 current;
+                s32 leftX;
+                s32 leftY;
+                s32 rightX;
+                s32 rightY;
+                offset = Unk_874CC3C[animationOffset];
+                offset *= 2;
+                offset &= 0xFFFFFF00;
+                sprite0->x -= offset;
+                sprite1->x += offset;
+                item = menu->items + sub_805B240(state);
+                animationOffset += 4;
+                leftX = sub_8061D54(&item->text);
+                current = sprite0->x + 0x1400;
+                delta = leftX - current;
+                if (delta != 0)
+                    sprite0->x += sub_80491E0(delta, 0x1C) << 8;
+                leftY = sub_8061E44(&item->text);
+                current = sprite0->y + 0x400;
+                delta = leftY - current;
+                if (delta != 0)
+                    sprite0->y += sub_80491E0(delta, 4) << 8;
+                rightX = sub_8061E08(&item->text);
+                current = sprite1->x - 0x400;
+                delta = rightX - current;
+                if (delta != 0)
+                    sprite1->x += sub_80491E0(delta, 0x1C) << 8;
+                rightY = sub_8061E44(&item->text);
+                current = sprite1->y + 0x400;
+                delta = rightY - current;
+                if (delta != 0)
+                    sprite1->y += sub_80491E0(delta, 4) << 8;
+                offset = Unk_874CC3C[animationOffset];
+                offset *= 2;
+                offset &= 0xFFFFFF00;
+                sprite0->x += offset;
+                sprite1->x -= offset;
+            }
         }
 
         __oam_8756CC0();
         if (done == 0 && state->items->text.x == target) {
             if (_gameData->unk1618 == 0 || (_gameData->unk161A != 0 && sub_8060040() != 0)) {
-                selection = sub_805B240(state);
-                keys = _unk3005DA0;
-                if ((keys & 0x40) != 0)
+                s16 selection = sub_805B240(state);
+                if ((_unk3005DA0 & 0x40) != 0)
                     sub_805AFBC(state, 0);
-                if ((keys & 0x80) != 0)
+                if ((_unk3005DA0 & 0x80) != 0)
                     sub_805AFBC(state, 1);
-                if ((keys & 1) != 0) {
-                    if ((s16)selection == 0)
+                if ((_unk3005DA0 & 1) != 0) {
+                    if (selection == 0)
                         done = 1;
-                    if ((s16)selection == 1) {
+                    if (selection == 1) {
                         done = 1;
                         sub_804AF5C();
                         sub_804AE8C();
@@ -314,7 +305,7 @@ void sub_8052B24(void)
                             sub_8050184(packet, 4);
                     }
                 }
-                if ((keys & 8) != 0)
+                if ((_unk3005DA0 & 8) != 0)
                     done = 1;
             }
             if (done != 0) {
@@ -326,7 +317,6 @@ void sub_8052B24(void)
                 fadeStep = -8;
             }
         }
-
     }
 
     if (_gameData->unk1640 == 0) {
@@ -338,9 +328,6 @@ void sub_8052B24(void)
         sub_8060A94(sprite0);
     }
     sub_805AD9C(state);
-    sub_8061204(&locals.font);
+    sub_8061204(&font);
     VBlankIntrWait();
-
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8052b24.s");

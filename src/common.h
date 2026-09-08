@@ -241,8 +241,8 @@ typedef void (*MenuStateCallback)(UnkMenuItem*, s32, UnkMenuItem*, s32);
 typedef void (*MenuStateValueCallback)(UnkMenuItem*, s32);
 
 typedef struct MenuState {
-    unk32 unk0; /* 0x00 */
-    unk32 unk4; /* 0x04 */
+    const unk8* unk0; /* 0x00 */
+    const unk8* unk4; /* 0x04 */
     u8 unk8;
     u8 unk9;
     unk16 unkA; /* 0x0A */
@@ -260,13 +260,6 @@ typedef struct MenuState {
     u8 unk2F;
     MenuStateCallback callback; /* 0x30 */
     MenuStateValueCallback unk34; /* 0x34 */
-    FrontendMenu menu; /* 0x38 */
-    UnkMotion* objectItems; /* 0xA8 */
-    AllocatedBlock* block; /* 0xAC */
-    unk32 timer; /* 0xB0 */
-    SpriteTextCleanup cleanup; /* 0xB4 */
-    UnkMotion motion; /* 0xE4 */
-    unk8 padFC[4];
 } MenuState;
 
 typedef struct FrontendResource {
@@ -329,6 +322,13 @@ struct FrontendState {
     unk8 pad476[2];
 
     MenuState menuState; /* 0x478 */
+    FrontendMenu menu; /* 0x4B0 */
+    UnkMotion* menuObjectItems; /* 0x520 */
+    AllocatedBlock* menuBlock; /* 0x524 */
+    unk32 menuTimer; /* 0x528 */
+    SpriteTextCleanup menuCleanup; /* 0x52C */
+    UnkMotion menuMotion; /* 0x55C */
+    unk8 pad574[4];
 
     unk32 unk578;
     unk32 unk57C;
@@ -410,9 +410,24 @@ struct ActorConfig {
     ActorFrameSequence sequences[1];
 };
 
+struct LevelGeometryAddresses;
+struct GeometryLine;
+typedef void (*ActorCollisionResponse)(
+    struct Actor*, struct LevelGeometryAddresses*, struct GeometryLine*, unk16);
+typedef void (*ActorCollisionOverlap)(
+    struct Actor*, struct LevelGeometryAddresses*, struct GeometryLine*);
+typedef unk8 (*ActorCollisionFilter)(
+    struct Actor*, struct LevelGeometryAddresses*, struct GeometryLine*, unk16);
+
+typedef struct ActorCollisionFunctions {
+    ActorCollisionResponse unk0;
+    ActorCollisionOverlap unk4;
+    ActorCollisionFilter unk8;
+} ActorCollisionFunctions;
+
 typedef struct ActorCollisionCallbacks {
-    unk32* unk0;
-    void** unk4;
+    void* unk0;
+    ActorCollisionFunctions* unk4;
 } ActorCollisionCallbacks;
 
 typedef struct Actor {
@@ -461,10 +476,10 @@ typedef struct Actor {
     s32 unk74;
     ActorTimerEntry* unk78;
     struct AllocatedBlock* unk7C;
-    void* unk80;
+    struct LevelGeometryAddresses* unk80;
     s32 unk84;
-    unk32 unk88;
-    unk8 pad8C;
+    s32 unk88;
+    unk8 unk8C;
     unk8 unk8D; /* 0x8D */
     unk8 pad8E[2];
     ActorCollisionCallbacks callbacks;
@@ -478,10 +493,10 @@ typedef struct Actor {
     unk8 unkA4;
     unk8 unkA5;
     unk8 padA6[2];
-    unk16 unkA8;
-    unk16 unkAA;
-    unk16 unkAC;
-    unk16 unkAE;
+    s16 unkA8;
+    s16 unkAA;
+    s16 unkAC;
+    s16 unkAE;
     ActorPositionFunc unkB0;
     unk32 unkB4;
     SpriteEntry* unkB8;
@@ -604,18 +619,9 @@ typedef struct ParticleSystem {
     struct AllocatedBlock* unk30;
 } ParticleSystem;
 
-typedef struct RiderTemp {
-    unk8 pad0[0x3C4];
-    SpriteEntry* unk3C4;
-    unk8 pad3C8[4];
-    unk16 unk3CC;
-    unk8 pad3CE[0x56];
-    s16 unk424;
-} RiderTemp;
-
 typedef struct RiderBase {
     Actor* unk0;
-    RiderTemp* unk4;
+    struct RiderBase* unk4;
     unk8 unk8;
     unk8 unk9;
     unk8 padA[2];
@@ -734,7 +740,7 @@ typedef struct RiderBase {
     unk8 unk3E9[3];
     ParticleSystem unk3EC;
     struct AllocatedBlock* unk420;
-    unk16 unk424; /* 0x424 */
+    s16 unk424; /* 0x424 */
     unk8 pad426[2];
 } RiderBase; /* 0x428 */
 
@@ -760,7 +766,9 @@ typedef struct GeometryLine {
     s32 point0;
     s32 point1;
     unk8 unk8;
-    unk8 pad9[6];
+    unk8 pad9[4];
+    unk8 unkD;
+    unk8 padE;
     unk8 unkF;
     unk8 unk10;
     unk8 unk11_0 : 3;
@@ -779,11 +787,35 @@ typedef struct GeometrySpline {
 } GeometrySpline;
 
 typedef struct GeometrySplineLine {
-    unk8 pad0[0xC];
+    s8 unk0;
+    unk8 pad1[7];
+    s16 unk8;
+    unk8 padA[2];
     s32 unkC;
 } GeometrySplineLine;
 
 typedef struct LevelGeometryTable LevelGeometryTable;
+
+typedef struct SplineConnection {
+    unk8 pad0[4];
+    unk32 unk4;
+    unk32 unk8;
+    GeometrySplineLine* unkC;
+    GeometrySplineLine* unk10;
+} SplineConnection;
+
+typedef struct SplineMotionFlags {
+    unk8 unk0_0 : 1;
+    unk8 unk0_1 : 1;
+    unk8 unk0_2 : 1;
+    unk8 unk0_3 : 1;
+} SplineMotionFlags;
+
+typedef struct ActorSplineCallbacks {
+    unk8 pad0[8];
+    void (*unk8)(Actor*, struct LevelGeometryAddresses*, GeometrySpline*, s32, s32);
+    void (*unkC)(Actor*, struct LevelGeometryAddresses*, unk32);
+} ActorSplineCallbacks;
 
 typedef struct TileMapHeader {
     unk8 filler00[4];
@@ -978,9 +1010,11 @@ typedef struct LevelDescription {
     unk32 unk4;
     s32 unk8;
     unk16 unkC;
-    unk8 padE[3];
+    unk8 padE[2];
+    u8 unk10;
     u8 unk11;
-    unk8 pad12[6];
+    unk8 pad12[2];
+    s32 unk14;
     unk32 unk18;
     u8 unk1C;
     unk8 unk1D[3];

@@ -19,3 +19,11 @@ Folding `palette` into the palette consumers diverged at offset `0x00`: the cand
 Folding `spriteSheet` into the load/null-test consumers likewise diverged at offset `0x00` with an extra saved `r7`. The staged `spriteSheet` local is retained.
 
 A common row-call tail using `row1`/`row0` locals did not match. The first meaningful divergence is at target offset `0x16`: the target loads the row pointer before shifting the language index, while the candidate shifts the index before loading the pointer. The duplicated branch-local calls are retained.
+
+## sub_80413FC (0x080413FC)
+
+The matched implementation is live in `src/levelselect.c`; its assembly dump has
+been removed. The selected level ID is computed once before the search, and the
+four CurrentGameState level-byte arrays are selected through one shared byte
+pointer. The implementation retains the measured phase-local temporaries and
+pointer lifetimes required by the target allocation.

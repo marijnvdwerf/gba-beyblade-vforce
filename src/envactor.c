@@ -29,7 +29,7 @@ void initLevelEnvironmentActors(u16 level)
     ActorConfig* actorConfig;
     unk32 selectedLines[0x20];
     LevelGeometryAddresses geometry;
-    void* callbackData[3];
+    ActorCollisionFunctions callbackData;
     s32 lineIndex;
     s32 selectedCount;
     unk32 effectCount;
@@ -75,7 +75,7 @@ void initLevelEnvironmentActors(u16 level)
     getLevelGeometryAddresses(&geometry, geometryData);
     StoreMetadataAddr(&geometry, metadataData);
     sub_805E514(gameData->environmentActors.callbacks, 0, 0, (unk32)sub_80550B8, selectedCount);
-    sub_805E50C(callbackData, 0, sub_8056B54, _return_false);
+    sub_805E50C(&callbackData, 0, sub_8056B54, _return_false);
     lineIndex = 0;
     if (selectedCount < geometry.unk0->lineCount) {
         do {
@@ -160,7 +160,7 @@ void initLevelEnvironmentActors(u16 level)
         actorBase->x = x;
         yDelta = y - yDelta;
         actorBase->y = y;
-        actorBase->callbacks.unk4 = callbackData;
+        actorBase->callbacks.unk4 = &callbackData;
         actor_80585F8(actorBase, 0, 0, 1, 1);
         actor_805C48C(actorBase, &geometry, 0, 0);
         actorBase->callbacks.unk4 = NULL;

@@ -52,7 +52,7 @@ void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4,
         spriteOffset = 0x20;
     actor->unkBC = spriteOffset;
     s_rider_804C4B4(base, actor);
-    base->unk4 = (RiderTemp*)base;
+    base->unk4 = base;
     actor2 = &base->unk2FC;
     actor_8057C58(actor2, (ActorConfig*)SpriteSheet_86FAEAC, arg1, 0xFFFF8300, 0xFFFF8300, 0x7D00, -1);
     sub_80585C8(actor2, 1);
@@ -433,7 +433,7 @@ void sub_804B8F0(RiderBase* rider, unk8* target)
             else
                 filtered[i] = (unk32)&object->unk40;
         }
-        value = sub_805CEB8(actor, quadTree->unk4C, quadTree->unk48, filtered, target);
+        value = sub_805CEB8(actor, target, quadTree->unk4C, quadTree->unk48, filtered);
         riderBase->unk11C += value;
     }
     sub_80561A0((unk32)actor, (unk32)target);
@@ -691,7 +691,7 @@ void sub_804C098(RiderBase* rider)
     rider->unk3E4 = 0;
 }
 
-void sub_804C0C0(RiderTemp* rider)
+void sub_804C0C0(RiderBase* rider)
 {
     rider->unk3CC |= 4;
     if (rider->unk3C4 != NULL)
@@ -699,7 +699,7 @@ void sub_804C0C0(RiderTemp* rider)
     rider->unk3C4 = NULL;
 }
 
-void sub_804C0EC(RiderTemp* rider, unk8 arg1)
+void sub_804C0EC(RiderBase* rider, unk8 arg1)
 {
     if (arg1 != 0) {
         rider->unk3CC |= 8;
@@ -708,7 +708,7 @@ void sub_804C0EC(RiderTemp* rider, unk8 arg1)
     }
 }
 
-void sub_804C118(RiderTemp* rider)
+void sub_804C118(RiderBase* rider)
 {
     if (rider->unk424 != -1 && sub_80570D4(rider->unk424) == 0) {
         sub_8057104(rider->unk424, 1);

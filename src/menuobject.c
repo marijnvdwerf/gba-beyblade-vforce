@@ -36,11 +36,11 @@ void sub_8043370(FrontendState* object)
         object->unk7D = 0;
         if (object->menuState.objectCount == 0)
             return;
-        object->menuState.block = slowAllocate(object->menuState.objectCount * 0x18);
-        object->menuState.objectItems = object->menuState.block->address;
-        items = object->menuState.objectItems;
+        object->menuBlock = slowAllocate(object->menuState.objectCount * 0x18);
+        object->menuObjectItems = object->menuBlock->address;
+        items = object->menuObjectItems;
         motion = object->menuState.items;
-        object->menuState.timer = 0;
+        object->menuTimer = 0;
         offset = (0xA0 - object->menuState.unk9) / 2 + data->unk6;
         i = 0;
         while (i < object->menuState.objectCount) {
@@ -68,7 +68,7 @@ void sub_80434EC(FrontendState* object)
 
     count = object->menuState.objectCount;
     if (count != 0) {
-        item = object->menuState.objectItems;
+        item = object->menuObjectItems;
         count--;
         while (count != -1) {
             sub_805041C(item);
@@ -76,13 +76,13 @@ void sub_80434EC(FrontendState* object)
             count--;
         }
     }
-    if (object->menuState.timer != 0) {
-        item = &object->menuState.motion;
+    if (object->menuTimer != 0) {
+        item = &object->menuMotion;
         sub_805041C(item);
-        object->menuState.timer = object->menuState.timer - 1;
-        if (object->menuState.timer == 0) {
+        object->menuTimer = object->menuTimer - 1;
+        if (object->menuTimer == 0) {
             sub_8050584(item);
-            sub_8061204(&object->menuState.cleanup);
+            sub_8061204(&object->menuCleanup);
         }
     }
 }
@@ -98,7 +98,7 @@ void sub_8043558(FrontendState* object)
 
     if (object->menuState.objectCount != 0) {
         table = _8068868;
-        motion = object->menuState.objectItems;
+        motion = object->menuObjectItems;
         item = object->menuState.items;
         i = 0;
         while (i < object->menuState.objectCount) {
@@ -130,9 +130,9 @@ void sub_8043604(UnkMenuItem* oldItem, s32 old, UnkMenuItem* item, s32 current)
 
     table = &_8068890;
     state = sub_8048FCC();
-    timer = &state->menuState.timer;
-    cleanup = &state->menuState.cleanup;
-    motion = &state->menuState.motion;
+    timer = &state->menuTimer;
+    cleanup = &state->menuCleanup;
+    motion = &state->menuMotion;
     if (*timer != 0) {
         sub_8061204(cleanup);
         sub_8050584(motion);
@@ -152,7 +152,7 @@ void sub_80436B0(FrontendState* object)
     unk32 count;
     UnkMotion* item;
 
-    item = object->menuState.objectItems;
+    item = object->menuObjectItems;
     count = object->menuState.objectCount;
     if (count == 0) {
         return;
@@ -161,11 +161,11 @@ void sub_80436B0(FrontendState* object)
         sub_8050584(item);
         item++;
     }
-    if (object->menuState.timer != 0) {
-        sub_8050584(&object->menuState.motion);
-        sub_8061204(&object->menuState.cleanup);
+    if (object->menuTimer != 0) {
+        sub_8050584(&object->menuMotion);
+        sub_8061204(&object->menuCleanup);
     }
-    deallocateBlock(object->menuState.block);
+    deallocateBlock(object->menuBlock);
     sub_805AD9C(&object->menuState);
 }
 

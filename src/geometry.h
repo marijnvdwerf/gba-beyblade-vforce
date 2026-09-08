@@ -25,7 +25,8 @@ LineMetaObject* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, LineMetada
 s32 GetLineIndexOfType(LevelGeometryAddresses*, unk8, unk16);
 void sub_805BA3C(LevelGeometryAddresses*);
 void deallocateQuadTree(QuadTree*);
-void sub_805E50C(void**, void*, void*, void*);
+void sub_805E50C(
+    ActorCollisionFunctions*, ActorCollisionResponse, ActorCollisionOverlap, ActorCollisionFilter);
 unk32* sub_805E514(unk32*, unk32, unk32, unk32, unk32);
 GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses*, s32);
 GeometryPoint* GetPointAtIndex(LevelGeometryAddresses*, s32);
@@ -35,5 +36,11 @@ GeometrySplineLine* sub_805DCFC(LevelGeometryAddresses*, GeometrySpline*, s32);
 s32* sub_805DFD4(LevelGeometryAddresses*, unk32, s32*, s32);
 void actor_805C48C(Actor*, LevelGeometryAddresses*, unk32, unk32);
 void sub_805D650(Actor*);
+unk8 sub_805DBF0(LevelGeometryAddresses*, SplineConnection*, GeometrySpline*, unk16, unk32);
+void sub_805E068(LevelGeometryAddresses*, unk32, s32*, s32, s32);
+void sub_805D610(Actor*);
+
+unk32 sub_805CEB8(Actor*, LevelGeometryAddresses*, unk32*, unk16, unk32**);
+unk8 call_rider_94_8(Actor*, LevelGeometryAddresses*, GeometryLine*, unk16);
 
 #endif

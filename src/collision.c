@@ -3,14 +3,14 @@
 #include "ram.h"
 
 void sub_80561EC(unk32, unk32, unk32);
-extern void def_94_0_8055CFC(void*, void*, void*, unk32);
-extern void def_94_4_AddWithBoundingAreaMessage(void*, unk32, void*);
-extern unk32 def_94_8_collision_8055F2C(void*, void*, void*, unk32);
+extern void def_94_0_8055CFC(Actor*, LevelGeometryAddresses*, GeometryLine*, unk16);
+extern void def_94_4_AddWithBoundingAreaMessage(Actor*, LevelGeometryAddresses*, GeometryLine*);
+extern unk8 def_94_8_collision_8055F2C(Actor*, LevelGeometryAddresses*, GeometryLine*, unk16);
 
 void sub_8055CB8(void)
 {
     withBoundingAreaCount = 0;
-    sub_805E50C(_unk3000FC0, def_94_0_8055CFC, def_94_4_AddWithBoundingAreaMessage,
+    sub_805E50C(&_unk3000FC0, def_94_0_8055CFC, def_94_4_AddWithBoundingAreaMessage,
         def_94_8_collision_8055F2C);
     sub_805E514(_unk3000FD0, 0, 0, 0, 0);
 }

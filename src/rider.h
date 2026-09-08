@@ -16,15 +16,15 @@ struct GameData;
 unk32 sub_804B7FC(struct GameData*);
 void sub_804B754(void);
 void sub_804C098(RiderBase*);
-void sub_804C0C0(RiderTemp*);
-void sub_804C118(RiderTemp*);
+void sub_804C0C0(RiderBase*);
+void sub_804C118(RiderBase*);
 unk8 sub_804DA48(RiderBase*, RiderBase*, s32);
 void sub_804FE14(void);
 void sub_804FE30(void);
 void sub_805568C(void);
 
 void sub_80501F8(RiderState*, RiderBase*);
-void sub_804C0EC(RiderTemp*, unk8);
+void sub_804C0EC(RiderBase*, unk8);
 void sub_804B4FC(LevelGeometryAddresses*, RiderState*);
 void sub_804B5C0(void);
 void renderRider(RiderBase*);

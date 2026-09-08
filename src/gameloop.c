@@ -562,7 +562,7 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8052afc-nullsub_43.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052b00-nullsub_44.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052b04-nullsub_45.s");
 
-void sub_8052B08(UnkMenuItem* oldItem, unk32 old, UnkMenuItem* item, unk32 current)
+void sub_8052B08(UnkMenuItem* oldItem, s32 old, UnkMenuItem* item, s32 current)
 {
     item->text.unk8 |= 8;
     sub_8061684(&item->text, 0x140, 0x120);

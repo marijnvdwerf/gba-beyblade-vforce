@@ -26,7 +26,7 @@ void sub_8043960(Packet* arg0)
     arg0->packet.unk3 = sub_804393C(arg0);
 }
 
-unk32 sub_8043970(Packet* arg0, unk8 arg1)
+u8 sub_8043970(Packet* arg0, unk8 arg1)
 {
     if (arg0->packet.unk3 == sub_804393C(arg0) && arg0->packet.unk2_0 == arg1) {
         return 1;

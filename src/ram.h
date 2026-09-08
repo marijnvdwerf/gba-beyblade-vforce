@@ -241,7 +241,9 @@ typedef struct GameData {
     unk8 pad80C[4]; /* 0x80C */
     SpriteTextCleanup unk810; /* 0x810 */
     SpriteTextCleanup unk840; /* 0x840 */
-    unk8 pad870[0x38]; /* 0x870 */
+    SpriteTextCleanup unk870; /* 0x870 */
+    unk16 unk8A0; /* 0x8A0 */
+    unk8 pad8A2[6];
     SpriteTextCleanup unk8A8; /* 0x8A8 */
     unk8 pad8D8[0x44]; /* 0x8D8 */
     unk32 unk91C; /* 0x91C */
@@ -296,7 +298,9 @@ typedef struct GameData {
     unk8 pad12F2[2]; /* 0x12F2 */
     CollectableData collectables; /* 0x12F4 */
     TutorialData tutorial; /* 0x13FC */
-    unk8 pad153C[0x88]; /* 0x153C */
+    unk8 pad153C[0x84]; /* 0x153C */
+    s16 unk15C0; /* 0x15C0 */
+    unk8 pad15C2[2]; /* 0x15C2 */
     Packet unk15C4; /* 0x15C4 */
     Packet unk15D4[4]; /* 0x15D4 */
     unk8 pad1614[4]; /* 0x1614 */
@@ -345,13 +349,17 @@ typedef struct CurrentGameState {
     LevelState unk4[0x38];
     LevelSlot unk544[10];
     unk32 unk594[4];
-    unk8 pad5A4[0x100];
+    s8 unk5A4[0x40];
+    s8 unk5E4[0x40];
+    s8 unk624[0x40];
+    s8 unk664[0x40];
     unk8 unk6A4;
     unk8 unk6A5;
     unk8 unk6A6;
     unk8 unk6A7;
     unk8 unk6A8;
-    unk8 pad6A9[2];
+    unk8 unk6A9;
+    unk8 pad6AA;
     u8 unk6AB;
     unk16 unk6AC;
     unk16 unk6AE;
@@ -386,7 +394,8 @@ extern unk8 _unk3000E3C;
 extern unk8 _unk3000E40[];
 extern CurrentGameState* _currentGameState;
 extern unk8 _unk3000BE0[28];
-extern void* _unk3000FC0[4];
+extern ActorCollisionFunctions _unk3000FC0;
+extern unk32 pad_3000FCC;
 extern unk32 _unk3000FD0[4];
 extern unk8 _unk3000FE0[304];
 extern unk32 _unk3001110[16];
