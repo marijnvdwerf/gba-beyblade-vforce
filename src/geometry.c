@@ -720,8 +720,8 @@ void sub_805C3BC(LevelGeometryAddresses* geometry, Actor* actor, unk32 splineInd
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805c444.s");
 
-#if 0
-unk32 actor_805C48C(Actor* actor, LevelGeometryAddresses* geometry, unk32* output, unk16 capacity)
+unk32 actor_805C48C(
+    Actor* actor, LevelGeometryAddresses* geometry, GeometryLine** output, unk16 capacity)
 {
     s32 point0X;
     s32 point0Y;
@@ -752,7 +752,6 @@ unk32 actor_805C48C(Actor* actor, LevelGeometryAddresses* geometry, unk32* outpu
     s32 yMargin;
     s32 actorY;
     s32 rectMinX;
-    s32 initialMinX;
     s32 initialMaxX;
     s32 rectMaxX;
 
@@ -800,13 +799,13 @@ unk32 actor_805C48C(Actor* actor, LevelGeometryAddresses* geometry, unk32* outpu
             rectMinY = broadY1;
             broadY0 = actorY + yPositiveOffset;
         }
-        initialMinX = actor->x + (actor->unkA8 << 8);
+        rectMinX = actor->x + (actor->unkA8 << 8);
         initialMaxX = actor->x + (actor->unkAC << 8);
-        if (initialMaxX < lineMinX || lineMaxX < initialMinX) {
+        if (initialMaxX < lineMinX || lineMaxX < rectMinX) {
             if (broadY0 < lineMinY || lineMaxY < broadY1)
                 continue;
         }
-        if (initialMaxX > lineMinX && lineMaxX > initialMinX) {
+        if (initialMaxX > lineMinX && lineMaxX > rectMinX) {
             overlapMask |= 1;
             if (rectMinY <= lineMinY && rectMaxY >= lineMinY && (lineFlags & 3) != 0) {
                 if (callbackDone == 0) {
@@ -896,6 +895,7 @@ unk32 actor_805C48C(Actor* actor, LevelGeometryAddresses* geometry, unk32* outpu
                         callbackMask |= 0x80;
                     if (call_rider_94_8(actor, geometry, line, callbackMask) == 0)
                         lineFlags = 0;
+                    callbackDone = 1;
                 }
                 if (actor->unk40 > 0) {
                     if ((lineFlags & 0x40) != 0) {
@@ -912,7 +912,7 @@ unk32 actor_805C48C(Actor* actor, LevelGeometryAddresses* geometry, unk32* outpu
         }
         if (overlapMask == 3) {
             if (output != NULL && count < capacity) {
-                output[count] = (unk32)line;
+                output[count] = line;
                 count++;
             }
             if (actor->callbacks.unk4 != NULL) {
@@ -939,9 +939,6 @@ unk32 actor_805C48C(Actor* actor, LevelGeometryAddresses* geometry, unk32* outpu
     }
     return count;
 }
-#endif
-
-INCLUDE_ASM("asm/dump/8057b80-debug/805c48c-actor_805C48C.s");
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805c9a4.s");
 
