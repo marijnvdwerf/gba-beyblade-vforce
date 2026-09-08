@@ -238,6 +238,9 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   `unk32 (Actor*, LevelGeometryAddresses*, GeometryLine**, unk16,
   QuadTreeNode*)`; the user's sub_804B8F0 caller passes `0, 0, node`, so
   the branches agree apart from a geometry.h line conflict.
+- sub_804B8F0 review: 1 blocker (local `nullsub_5/6` prototypes with
+  parameters vs the owning `(void)` definitions — fix in owning headers +
+  definitions), 7 folds; luna fix agent running in the user's worktree.
 
 ## Session 9 (2026-09-07/08)
 
