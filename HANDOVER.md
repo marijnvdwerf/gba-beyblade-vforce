@@ -18,7 +18,7 @@ frontend handlers' worth of leaves and selectBladeFrontendHandler (2172 B).
 
 ### Next session
 
-1. Skill-fold (sol) over the 12 unfolded learnings (beyblade, effects ×2,
+1. Skill-fold (sol) over the 14 unfolded learnings (beyblade, effects, frontend, gamestate,
    small-reds, teletype, levelselect ×2, geometry, festate-select-blade,
    results, math, layer, spritetext — all 2026-09-07/08); archive them.
 2. Unlock targets (user): sub_804712C (festate 872 → 8 new), sub_8056B54
