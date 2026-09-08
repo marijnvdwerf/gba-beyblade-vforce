@@ -45,6 +45,13 @@ typedef struct BeybladeData {
 } BeybladeData;
 
 const BeybladeData* getBeybladeData0(unk32);
+const unk8* sub_80573C8(unk32);
+const unk8* sub_80573DC(unk32);
+const unk8* sub_80573FC(unk32);
+const unk8* sub_805741C(unk32);
+const unk8* sub_805743C(unk32);
+const unk8* sub_805745C(unk32);
+const unk8* sub_805747C(unk32);
 extern void* RiderPalettes[];
 extern const BeybladeData _807ac28[];
 

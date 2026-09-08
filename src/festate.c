@@ -33,6 +33,8 @@ extern const unk8 Str_86FD704[];
 extern const unk8 Str_86FD740[];
 extern const unk8 Str_86FD77C[];
 extern const unk8 Str_86FD7B8[];
+extern const unk8* _806E240[][5];
+extern const unk8* _806E31C[][5];
 
 void sub_8043A0C(FrontendState* state, u32 arg1, u32 arg2)
 {
@@ -1957,7 +1959,100 @@ INCLUDE_ASM("asm/dump/8040d18/8046f2c-initBBCollectionSprite.s");
 INCLUDE_ASM("asm/dump/8040d18/804703c.s");
 INCLUDE_ASM("asm/dump/8040d18/8047080.s");
 INCLUDE_ASM("asm/dump/8040d18/80470c8.s");
-INCLUDE_ASM("asm/dump/8040d18/804712c.s");
+
+void sub_804712C(FrontendBladeState* state)
+{
+    unk32 language;
+    s32 index;
+    unk32 hasSprites;
+    const unk8* values;
+
+    language = getLanguage();
+    index = state->unk34;
+    getBeybladeData0(index);
+    hasSprites = 0;
+    sub_804703C(state);
+    sub_8061228(state->unk14);
+    sub_8061228(state->unk18);
+    sub_8061228(state->unk1C);
+    sub_8061228(state->unk20);
+    sub_8061228(state->unk24);
+    sub_8061228(state->unk28);
+    sub_8061228(state->unk2C);
+    if (state->unk8 != NULL) {
+        state->unk8->y = 0xA000;
+    }
+    if (state->unkC != NULL) {
+        state->unkC->y = 0xA000;
+    }
+    if (state->unk10 != NULL) {
+        state->unk10->y = 0xA000;
+    }
+    switch (state->unk35) {
+    case 0:
+        sub_8061660(state->unk14, _806E240[0][language], 0xE);
+        sub_8061660(state->unk18, _806E31C[0][language], 0xE);
+        showString(state->unk18, sub_8057048(index), 0xF);
+        sub_8061660(state->unk1C, _806E31C[1][language], 0xE);
+        showString(state->unk1C, sub_80573DC(index), 0xF);
+        sub_8061660(state->unk20, _806E31C[2][language], 0xE);
+        showString(state->unk20, sub_80573FC(index), 0xF);
+        break;
+    case 1:
+        sub_8061660(state->unk14, _806E240[1][language], 0xE);
+        sub_8061660(state->unk18, _806E31C[0][language], 0xE);
+        showString(state->unk18, sub_805741C(index), 0xF);
+        sub_8061660(state->unk24, _806E240[5][language], 0xE);
+        sub_8061660(state->unk28, _806E240[6][language], 0xE);
+        sub_8061660(state->unk2C, _806E240[7][language], 0xE);
+        hasSprites = 1;
+        values = sub_80573C8(index);
+        break;
+    case 2:
+        sub_8061660(state->unk14, _806E240[2][language], 0xE);
+        sub_8061660(state->unk18, _806E31C[1][language], 0xE);
+        showString(state->unk18, sub_805743C(index), 0xF);
+        sub_8061660(state->unk24, _806E240[5][language], 0xE);
+        sub_8061660(state->unk28, _806E240[6][language], 0xE);
+        sub_8061660(state->unk2C, _806E240[7][language], 0xE);
+        hasSprites = 1;
+        values = sub_80573C8(index) + 4;
+        break;
+    case 3:
+        sub_8061660(state->unk14, _806E240[3][language], 0xE);
+        sub_8061660(state->unk18, _806E31C[1][language], 0xE);
+        showString(state->unk18, sub_805745C(index), 0xF);
+        sub_8061660(state->unk24, _806E240[5][language], 0xE);
+        sub_8061660(state->unk28, _806E240[6][language], 0xE);
+        sub_8061660(state->unk2C, _806E240[7][language], 0xE);
+        hasSprites = 1;
+        values = sub_80573C8(index) + 8;
+        break;
+    case 4:
+        sub_8061660(state->unk14, _806E240[4][language], 0xE);
+        sub_8061660(state->unk18, _806E31C[1][language], 0xE);
+        showString(state->unk18, sub_805747C(index), 0xF);
+        break;
+    case 5:
+        sub_8061660(state->unk14, _806E240[10][language], 0xE);
+        break;
+    }
+    if (hasSprites != 0) {
+        if (state->unk8 != NULL) {
+            state->unk8->y = 0x5400;
+            state->unk8->frame.word = values[0] != 0 ? values[0] - 1 : 0;
+        }
+        if (state->unkC != NULL) {
+            state->unkC->y = 0x6000;
+            state->unkC->frame.word = values[1] != 0 ? values[1] - 1 : 0;
+        }
+        if (state->unk10 != NULL) {
+            state->unk10->y = 0x6C00;
+            state->unk10->frame.word = values[2] != 0 ? values[2] - 1 : 0;
+        }
+    }
+}
+
 INCLUDE_ASM("asm/dump/8040d18/8047494.s");
 
 void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
