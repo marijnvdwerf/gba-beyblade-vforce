@@ -62,12 +62,10 @@ Last updated: 2026-09-08, session 10 (652 C / 355 asm / 65%, 18 TUs).
   into Actor.unk90/unk94.
 - sub_80561EC still running: frame 132 vs 128, byte local at sp+0x80 (Thumb
   has no strb [sp,#imm] → it is a spilled unk8 local, not address-taken).
-- Decision (user): only unlock-bearing reds matter now; dead-end reds are
-  NOT to be listed or planned. After sub_80561EC lands the frontier is flat —
-  remaining unlockers: sub_8056610 → sub_804E124; sub_8055D64 → sub_8055F04
-  + sub_805BAC0; actor_805C48C / sub_805C9A4 → call_rider_94_8 (shared).
-  (The luna rerun /tmp/unlock-analysis-2026-09-08b.md ran on a stale tree
-  and mis-flagged matched spritetext functions as NEW — corrected by hand.)
+- Remaining unlockers after sub_80561EC: sub_8056610 → sub_804E124;
+  sub_8055D64 → sub_8055F04 + sub_805BAC0; actor_805C48C / sub_805C9A4 →
+  call_rider_94_8 (shared). (The luna rerun /tmp/unlock-analysis-2026-09-08b.md
+  ran on a stale tree and mis-flagged matched spritetext functions as NEW.)
 - Running: actor_805C48C (geometry, 1304) luna agent, one function only.
 
 ## Session 9 (2026-09-07/08)
