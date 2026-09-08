@@ -241,6 +241,9 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
 - sub_804B8F0 review: 1 blocker (local `nullsub_5/6` prototypes with
   parameters vs the owning `(void)` definitions — fix in owning headers +
   definitions), 7 folds; luna fix agent running in the user's worktree.
+- sub_805C9A4 review: code CLEAN (shape identical to its sibling), two
+  learnings blockers (temp inventory, signedness citations) sent to the
+  agent; merge follows its commit.
 
 ## Session 9 (2026-09-07/08)
 
