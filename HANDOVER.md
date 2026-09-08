@@ -294,6 +294,10 @@ Last updated: 2026-09-08, session 10 (683 C / 324 asm / 68%, 18 TUs).
 - Manager lesson: `(cmd || echo FAILED) && next` does NOT stop the chain —
   use `|| { echo FAILED; false; }`; update-expected ran on a red tree once
   today (its self-check held, but do not rely on it).
+- Skill fold (sol) launched over the 20 unfolded 2026-09-08 files (giants
+  weighted; reviewer question list archived unfolded; parks excluded).
+  Next after merge (user to choose): yellows (sub_8056610 +0x02,
+  sub_80561EC +0x36, s_rider_804C4B4, sub_804703C first) or ARM routines.
 
 ## Session 9 (2026-09-07/08)
 
