@@ -525,10 +525,41 @@ u8 sub_8061C48(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
 INCLUDE_ASM("asm/dump/8057b80-debug/8061c6c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061c90.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061cb4.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8061d54.s");
+
+unk32 sub_8061D54(SpriteTextCleanup* text)
+{
+    if (text->unk14.count == 0) {
+        return 0;
+    }
+    return text->unk14.prev->x;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8061d68.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8061e08.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8061e44.s");
+
+unk32 sub_8061E08(SpriteTextCleanup* text)
+{
+    SpriteEntry* sprite;
+    unk32 x;
+
+    if (text->unk14.count == 0) {
+        return 0;
+    }
+    sprite = text->unk14.next;
+    x = sprite->x;
+    if (text->unk20 != NULL) {
+        x += (text->unk24[4] - text->unk20[sprite->frame.word]) << 8;
+    }
+    x += text->unk29;
+    return x;
+}
+
+unk32 sub_8061E44(SpriteTextCleanup* text)
+{
+    if (text->unk14.count == 0) {
+        return 0;
+    }
+    return text->unk14.prev->y;
+}
 
 void sub_8061E58(SpriteTextCleanup* text, u8 color)
 {
