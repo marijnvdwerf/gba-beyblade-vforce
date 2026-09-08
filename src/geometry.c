@@ -709,7 +709,230 @@ void sub_805C3BC(LevelGeometryAddresses* geometry, Actor* actor, unk32 splineInd
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805c444.s");
+
+#if 0
+unk32 actor_805C48C(Actor* actor, LevelGeometryAddresses* geometry, unk32* output, unk16 capacity)
+{
+    s32 point0X;
+    s32 point0Y;
+    s32 point1X;
+    s32 point1Y;
+    GeometryLine* line;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    unk16 count;
+    unk16 collisionMask;
+    s32 i;
+    s32 lineMinY;
+    s32 lineMaxY;
+    s32 rectMinY;
+    s32 rectMaxY;
+    s32 broadY0;
+    s32 broadY1;
+    s32 lineMinX;
+    s32 lineMaxX;
+    unk8 responseFlags;
+    unk8 overlapMask;
+    unk32 callbackDone;
+    unk8 lineFlags;
+    unk16 callbackMask;
+    s32 temp;
+    s32 yNegativeOffset;
+    s32 yPositiveOffset;
+    s32 yMargin;
+    s32 actorY;
+    s32 rectMinX;
+    s32 initialMinX;
+    s32 initialMaxX;
+    s32 rectMaxX;
+
+    count = 0;
+    collisionMask = 0;
+    for (i = 0; i < geometry->unk0->lineCount; i++) {
+        overlapMask = 0;
+        responseFlags = 0;
+        line = &geometry->unkC[i];
+        lineFlags = line->unk10;
+        callbackDone = 0;
+        callbackMask = 0;
+        point0 = &geometry->unk4[line->point0];
+        point1 = &geometry->unk4[line->point1];
+        point0X = point0->x << 5;
+        point0Y = point0->y << 5;
+        point1X = point1->x << 5;
+        point1Y = point1->y << 5;
+        if (point0->x < point1->x) {
+            lineMinX = point0X;
+            lineMaxX = point1X;
+        } else {
+            lineMinX = point1X;
+            lineMaxX = point0X;
+        }
+        if (point0->y < point1->y) {
+            lineMinY = point0Y;
+            lineMaxY = point1Y;
+        } else {
+            lineMinY = point1Y;
+            lineMaxY = point0Y;
+        }
+        yNegativeOffset = actor->unkAA << 8;
+        yPositiveOffset = actor->unkAE << 8;
+        actorY = actor->y;
+        yMargin = actor->unk50;
+        if (actor->unk44 > 0) {
+            rectMinY = actorY + yPositiveOffset;
+            rectMaxY = rectMinY + actor->unk44 + yMargin;
+            broadY1 = actorY + yNegativeOffset;
+            broadY0 = rectMaxY;
+        } else {
+            rectMaxY = actorY + yNegativeOffset;
+            broadY1 = rectMaxY + actor->unk44 + yMargin;
+            rectMinY = broadY1;
+            broadY0 = actorY + yPositiveOffset;
+        }
+        initialMinX = actor->x + (actor->unkA8 << 8);
+        initialMaxX = actor->x + (actor->unkAC << 8);
+        if (initialMaxX < lineMinX || lineMaxX < initialMinX) {
+            if (broadY0 < lineMinY || lineMaxY < broadY1)
+                continue;
+        }
+        if (initialMaxX > lineMinX && lineMaxX > initialMinX) {
+            overlapMask |= 1;
+            if (rectMinY <= lineMinY && rectMaxY >= lineMinY && (lineFlags & 3) != 0) {
+                if (callbackDone == 0) {
+                    if (actor->unk44 > 0)
+                        callbackMask |= 1;
+                    else
+                        callbackMask |= 2;
+                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0)
+                        lineFlags = 0;
+                    callbackDone = 1;
+                }
+                if (actor->unk44 > 0) {
+                    if ((lineFlags & 1) != 0) {
+                        actor->y = lineMinY - (actor->unkAE << 8);
+                        broadY0 = lineMinY;
+                        responseFlags = 1;
+                        collisionMask |= 1;
+                    }
+                } else if ((lineFlags & 2) != 0) {
+                    actor->y = lineMinY - (actor->unkAA << 8) + 0x80;
+                    broadY1 = lineMinY;
+                    responseFlags = 1;
+                    collisionMask |= 2;
+                }
+            }
+            if (rectMinY <= lineMaxY && rectMaxY >= lineMaxY && (lineFlags & 0xC) != 0) {
+                if (callbackDone == 0) {
+                    if (actor->unk44 > 0)
+                        callbackMask |= 4;
+                    else
+                        callbackMask |= 8;
+                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0)
+                        lineFlags = 0;
+                    callbackDone = 1;
+                }
+                if (actor->unk44 > 0) {
+                    if ((lineFlags & 4) != 0) {
+                        actor->y = lineMaxY - (actor->unkAE << 8);
+                        broadY0 = lineMaxY;
+                        responseFlags = 1;
+                        collisionMask |= 4;
+                    }
+                } else if ((lineFlags & 8) != 0) {
+                    actor->y = lineMaxY - (actor->unkAA << 8) + 0x80;
+                    broadY1 = lineMaxY;
+                    responseFlags = 1;
+                    collisionMask |= 8;
+                }
+            }
+        }
+        if (actor->unk40 > 0) {
+            rectMinX = actor->x + (actor->unkAC << 8);
+            rectMaxX = rectMinX + actor->unk40 + actor->unk4C;
+        } else {
+            rectMaxX = actor->x + (actor->unkA8 << 8);
+            rectMinX = rectMaxX + actor->unk40 + actor->unk4C;
+        }
+        if (broadY0 > lineMinY && lineMaxY > broadY1) {
+            overlapMask |= 2;
+            if (rectMinX <= lineMinX && rectMaxX >= lineMinX && (lineFlags & 0x30) != 0) {
+                if (callbackDone == 0) {
+                    if (actor->unk40 > 0)
+                        callbackMask |= 0x10;
+                    else
+                        callbackMask |= 0x20;
+                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0)
+                        lineFlags = 0;
+                    callbackDone = 1;
+                }
+                if (actor->unk40 > 0) {
+                    if ((lineFlags & 0x10) != 0) {
+                        actor->x = lineMinX - (actor->unkAC << 8);
+                        responseFlags |= 2;
+                        collisionMask |= 0x10;
+                    }
+                } else if ((lineFlags & 0x20) != 0) {
+                    actor->x = lineMinX - (actor->unkA8 << 8) + 0x80;
+                    responseFlags |= 2;
+                    collisionMask |= 0x20;
+                }
+            }
+            if (rectMinX <= lineMaxX && rectMaxX >= lineMaxX && (lineFlags & 0xC0) != 0) {
+                if (callbackDone == 0) {
+                    if (actor->unk40 > 0)
+                        callbackMask |= 0x40;
+                    else
+                        callbackMask |= 0x80;
+                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0)
+                        lineFlags = 0;
+                }
+                if (actor->unk40 > 0) {
+                    if ((lineFlags & 0x40) != 0) {
+                        actor->x = lineMaxX - (actor->unkAC << 8);
+                        responseFlags |= 2;
+                        collisionMask |= 0x40;
+                    }
+                } else if ((lineFlags & 0x80) != 0) {
+                    actor->x = lineMaxX - (actor->unkA8 << 8) + 0x80;
+                    responseFlags |= 2;
+                    collisionMask |= 0x80;
+                }
+            }
+        }
+        if (overlapMask == 3) {
+            if (output != NULL && count < capacity) {
+                output[count] = (unk32)line;
+                count++;
+            }
+            if (actor->callbacks.unk4 != NULL) {
+                if (actor->callbacks.unk4->unk4 != NULL)
+                    actor->callbacks.unk4->unk4(actor, geometry, line);
+            }
+        }
+        if ((responseFlags & 1) != 0) {
+            temp = (line->unkD * actor->unk44) >> 7;
+            if ((temp < 0 ? -temp : temp) <= 0xFF)
+                temp = 0;
+            actor->unk44 = -temp;
+        }
+        if ((responseFlags & 2) != 0) {
+            temp = (line->unkD * actor->unk40) >> 7;
+            if ((temp < 0 ? -temp : temp) <= 0xFF)
+                temp = 0;
+            actor->unk40 = -temp;
+        }
+        if (responseFlags != 0 && actor->callbacks.unk4 != NULL) {
+            if (actor->callbacks.unk4->unk0 != NULL)
+                actor->callbacks.unk4->unk0(actor, geometry, line, collisionMask);
+        }
+    }
+    return count;
+}
+#endif
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805c48c-actor_805C48C.s");
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805c9a4.s");
 
 unk32 sub_805CEB8(Actor* rider, LevelGeometryAddresses* geometry, unk32* lineIndices,
