@@ -7,6 +7,7 @@
 #include "camera.h"
 #include "common.h"
 #include "credits.h"
+#include "effects.h"
 #include "levelselect.h"
 #include "memory.h"
 #include "motion.h"
@@ -197,6 +198,29 @@ struct LevelHudData {
     unk8 pad12E[2]; /* 0x12E */
     s32 unk130; /* 0x130 */
 };
+
+typedef struct FrontendBladeState {
+    SpriteEntry* unk0; /* 0x00 */
+    SpriteEntry* unk4; /* 0x04 */
+    SpriteEntry* unk8; /* 0x08 */
+    SpriteEntry* unkC; /* 0x0C */
+    SpriteEntry* unk10; /* 0x10 */
+    SpriteTextCleanup* unk14; /* 0x14 */
+    SpriteTextCleanup* unk18; /* 0x18 */
+    SpriteTextCleanup* unk1C; /* 0x1C */
+    SpriteTextCleanup* unk20; /* 0x20 */
+    SpriteTextCleanup* unk24; /* 0x24 */
+    SpriteTextCleanup* unk28; /* 0x28 */
+    SpriteTextCleanup* unk2C; /* 0x2C */
+    SpriteTextCleanup* unk30; /* 0x30 */
+    s8 unk34; /* 0x34 */
+    s8 unk35; /* 0x35 */
+    unk8 unk36; /* 0x36 */
+    unk8 pad37[1]; /* 0x37 */
+    DecompressorState decompressor; /* 0x38 */
+} FrontendBladeState;
+
+typedef char FrontendBladeStateSizeCheck[(sizeof(FrontendBladeState) == 0x48) ? 1 : -1];
 
 typedef struct GameData {
     RiderBase base; /* 0x000 */
@@ -504,6 +528,25 @@ extern SpriteEntry* _unk30004D4;
 extern s32 _unk30004D8;
 extern s32 _unk30004DC;
 extern unk8 _unk30004E0;
+
+extern s32 _unk30004E4;
+extern s32 _unk30004E8[2];
+extern FrontendBladeState _unk30004F0;
+extern unk8 _unk3000538;
+extern unk8 _unk3000539;
+extern unk8 _unk300053A;
+extern unk8 _unk300053B;
+extern SpriteEntry* _unk300053C;
+extern SpriteEntry* _unk3000540;
+extern SpriteEntry* _unk3000544;
+extern s32 _unk3000548;
+extern s32 _unk300054C;
+extern s32 _unk3000550;
+extern s32 _unk3000554;
+extern s32 _unk3000558;
+extern s32 _unk300055C;
+extern s32 _unk3000560;
+extern s32 _unk3000564;
 
 extern SpriteEntry* _unk3000464;
 extern SpriteEntry* _unk3000468;

@@ -5,10 +5,12 @@
 #include "beyblade.h"
 #include "common.h"
 #include "debug.h"
+#include "effects.h"
 #include "frontend.h"
 #include "gamestate.h"
 #include "iconmenu.h"
 #include "include_asm.h"
+#include "keystate.h"
 #include "language.h"
 #include "layer.h"
 #include "menu.h"
@@ -20,6 +22,17 @@
 #include "ram.h"
 #include "spritetext.h"
 #include "unsorted.h"
+
+extern const unk8 SpriteSheet_825125C[];
+extern const unk8 SpriteSheet_82516A8[];
+extern const unk8 SpriteSheet_8251AF4[];
+extern const unk8 Str_86FD640[];
+extern const unk8 Str_86FD68C[];
+extern const unk8 Str_86FD6C8[];
+extern const unk8 Str_86FD704[];
+extern const unk8 Str_86FD740[];
+extern const unk8 Str_86FD77C[];
+extern const unk8 Str_86FD7B8[];
 
 void sub_8043A0C(FrontendState* state, u32 arg1, u32 arg2)
 {
@@ -1946,91 +1959,28 @@ INCLUDE_ASM("asm/dump/8040d18/8047080.s");
 INCLUDE_ASM("asm/dump/8040d18/80470c8.s");
 INCLUDE_ASM("asm/dump/8040d18/804712c.s");
 INCLUDE_ASM("asm/dump/8040d18/8047494.s");
-#if 0
-#include "effects.h"
-#include "keystate.h"
-
-typedef struct FrontendBladeState {
-    SpriteEntry* unk0; /* 0x00 */
-    SpriteEntry* unk4; /* 0x04 */
-    SpriteEntry* unk8; /* 0x08 */
-    SpriteEntry* unkC; /* 0x0C */
-    SpriteEntry* unk10; /* 0x10 */
-    SpriteTextCleanup* unk14; /* 0x14 */
-    SpriteTextCleanup* unk18; /* 0x18 */
-    SpriteTextCleanup* unk1C; /* 0x1C */
-    SpriteTextCleanup* unk20; /* 0x20 */
-    SpriteTextCleanup* unk24; /* 0x24 */
-    SpriteTextCleanup* unk28; /* 0x28 */
-    SpriteTextCleanup* unk2C; /* 0x2C */
-    SpriteTextCleanup* unk30; /* 0x30 */
-    s8 unk34; /* 0x34 */
-    s8 unk35; /* 0x35 */
-    unk8 unk36; /* 0x36 */
-    unk8 pad37[1]; /* 0x37 */
-    DecompressorState decompressor; /* 0x38 */
-} FrontendBladeState;
-
-typedef char FrontendBladeStateSizeCheck[(sizeof(FrontendBladeState) == 0x48) ? 1 : -1];
-
-extern const unk8 SpriteSheet_825125C[];
-extern const unk8 SpriteSheet_82516A8[];
-extern const unk8 SpriteSheet_8251AF4[];
-extern const unk8 Str_86FD640[];
-extern const unk8 Str_86FD68C[];
-extern const unk8 Str_86FD6C8[];
-extern const unk8 Str_86FD704[];
-extern const unk8 Str_86FD740[];
-extern const unk8 Str_86FD77C[];
-extern const unk8 Str_86FD7B8[];
-
-extern s32 _unk30004E4;
-extern s32 _unk30004E8[2];
-extern FrontendBladeState _unk30004F0;
-extern unk8 _unk3000538;
-extern unk8 _unk3000539;
-extern unk8 _unk300053A;
-extern unk8 _unk300053B;
-extern SpriteEntry* _unk300053C;
-extern SpriteEntry* _unk3000540;
-extern SpriteEntry* _unk3000544;
-extern s32 _unk3000548;
-extern s32 _unk300054C;
-extern s32 _unk3000550;
-extern s32 _unk3000554;
-extern s32 _unk3000558;
-extern s32 _unk300055C;
-extern s32 _unk3000560;
-extern s32 _unk3000564;
-
-extern void initBBCollectionSprite(FrontendBladeState*);
-extern void sub_8047080(FrontendBladeState*, unk32);
-extern void sub_80470C8(FrontendBladeState*);
-extern void sub_804712C(FrontendBladeState*);
-extern void sub_805185C(s8);
-extern void sub_8062318(SpriteTextCleanup*, unk32);
 
 void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
 {
+    unk8* p = NULL; // TODO: fakematch? (pointer to the unk80 byte kept in r8 across the function;
+                    // direct field access diverges at 0x02)
     s32 index;
     s32 count;
-    s32 nextIndex;
-    s32 direction;
     s32 delta;
     s32 positionDelta;
-    unk16 keyBits;
     SpriteEntry* sprite;
     SpriteEntry* sprite2;
     SpriteEntry* sprite3;
     SpriteEntry* sprite4;
     SpriteEntry* sprite5;
     SpriteEntry* sprite6;
-    KeyState* keyState5;
     KeyState* keyState4;
+    KeyState* keyState5;
 
     switch (command) {
     case 0:
         index = 0;
+        p = &state->unk80;
         while (sub_80570D4(index) == 0 && index <= 0x3B) {
             index++;
         }
@@ -2112,7 +2062,7 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
         sub_8055C4C(&_unk30004F0.decompressor);
         _unk3000539 = 0;
         _unk3000538 = 1;
-        state->unk80 |= 0x30;
+        *p |= 0x30;
         _unk300053A = 0;
         _unk300053B = 0;
         _unk3000560 = 0;
@@ -2150,8 +2100,8 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
     case 1:
         sub_80439A0(&state->unk140);
         if (state->transition.value == 0 && state->transition.unk585 == 0) {
-            *(vu16*)REG_BG2PA = 0xF40;
-            *(vu16*)REG_BG2PB = ((0x10 - _unk3000560) << 8) | _unk3000560;
+            *(vu16*)REG_BLDCNT = 0xF40;
+            *(vu16*)REG_BLDALPHA = ((0x10 - _unk3000560) << 8) | _unk3000560;
             if (_unk3000560 != _unk3000564) {
                 delta = _unk3000560 - 1;
                 if (_unk3000564 > _unk3000560) {
@@ -2181,8 +2131,7 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
         if (sprite != NULL) {
             sprite->x += ((_unk3000554 - sprite->x) >> 2) - _unk30004E4;
             sprite->y += (_unk300055C - sprite->y) >> 3;
-            direction = (((sub_8057C40() >> 8) & 1) != 0) ? 2 : 3;
-            sprite->frame.word = direction;
+            sprite->frame.word = (((sub_8057C40() >> 8) & 1) != 0) ? 2 : 3;
         }
         if (_unk3000539 != 0 && ((_unk30004E8[0] >> 8) > 0xFE) && _unk30004E4 == 0x10000) {
             _unk30004E4 = 0;
@@ -2235,18 +2184,18 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
                 || ((_keyInput & 0x20) != 0 && keyState5->var08 > 0xF0
                     && ((sub_8057C40() >> 4) & 7) == 0)) {
                 count = 0;
-                nextIndex = _unk30004F0.unk34 - 1;
-                if (nextIndex < 0) {
-                    nextIndex += 0x3C;
+                index = _unk30004F0.unk34 - 1;
+                if (index < 0) {
+                    index += 0x3C;
                 }
-                while (sub_80570D4(nextIndex) == 0 && count <= 0x3B) {
-                    nextIndex--;
-                    if (nextIndex < 0) {
-                        nextIndex += 0x3C;
+                while (sub_80570D4(index) == 0 && count <= 0x3B) {
+                    index--;
+                    if (index < 0) {
+                        index += 0x3C;
                     }
                     count++;
                 }
-                _unk30004F0.unk34 = nextIndex;
+                _unk30004F0.unk34 = index;
                 _unk30004F0.unk35 = 0;
                 sub_8047080(&_unk30004F0, 0);
                 sub_804712C(&_unk30004F0);
@@ -2256,18 +2205,18 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
                 || ((_keyInput & 0x10) != 0 && keyState4->var08 > 0xF0
                     && ((sub_8057C40() >> 4) & 7) == 0)) {
                 count = 0;
-                nextIndex = _unk30004F0.unk34 + 1;
-                if (nextIndex > 0x3B) {
-                    nextIndex -= 0x3C;
+                index = _unk30004F0.unk34 + 1;
+                if (index > 0x3B) {
+                    index -= 0x3C;
                 }
-                while (sub_80570D4(nextIndex) == 0 && count <= 0x3B) {
-                    nextIndex++;
-                    if (nextIndex > 0x3B) {
-                        nextIndex -= 0x3C;
+                while (sub_80570D4(index) == 0 && count <= 0x3B) {
+                    index++;
+                    if (index > 0x3B) {
+                        index -= 0x3C;
                     }
                     count++;
                 }
-                _unk30004F0.unk34 = nextIndex;
+                _unk30004F0.unk34 = index;
                 _unk30004F0.unk35 = 0;
                 sub_8047080(&_unk30004F0, 0);
                 sub_804712C(&_unk30004F0);
@@ -2276,7 +2225,7 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
             }
         }
         if ((_unk3005DA0 & 0xC0) != 0) {
-            if ((keyBits = _unk3005DA0 & 0x40) != 0) {
+            if ((_unk3005DA0 & 0x40) != 0) {
                 if (_unk30004F0.unk35 > 0) {
                     _unk30004F0.unk35--;
                 } else {
@@ -2289,7 +2238,7 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
                 if (_unk30004F0.unk35 <= 3) {
                     _unk30004F0.unk35++;
                 } else {
-                    _unk30004F0.unk35 = keyBits;
+                    _unk30004F0.unk35 = 0;
                 }
                 _unk3000564 = 0;
                 sub_8047080(&_unk30004F0, 0);
@@ -2300,9 +2249,6 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
         return;
     }
 }
-
-#endif
-INCLUDE_ASM("asm/dump/8040d18/80475e0-selectBladeFrontendHandler.s");
 
 void sub_8047E5C(FrontendState* state, unk32 arg1)
 {
