@@ -196,7 +196,16 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
 - Merged: user's actor_805C48C (1b6f864d; `GeometryLine** output`; temp,
   duplicated arms and the final `callbackDone = 1` all byte-required).
   **677 C / 330 asm / 67%.** User's sub_804B8F0 matched (decomp/sub_804B8F0
-  ebb47c50) — review running, luna fix agent next.
+  ebb47c50) — review CANCELLED at the user's request (my scan found a
+  `(unk32**)filtered` cast and an `asm volatile("" : : "r"(angle))`
+  barrier); the user's agent is iterating further.
+- Geometry batch final (50dbae4a, review running): call_rider_94_8 +
+  sub_805DBF0 matched (unk32 return, block-local `unk8 found` at the two
+  sub_805D650 call sites, `unk16 count`, `SplineConnection.unk0` typed);
+  sub_805DD18 parked (frame 12 vs 8; register-role table in
+  geometry-2026-09-08d.md; speculative union reverted). Display: 9 hygiene
+  blockers on its two parks sent to the agent (draft-only ScreenLayout
+  fields, casts in drafts, `void*` param, step tables).
 
 ## Session 9 (2026-09-07/08)
 
