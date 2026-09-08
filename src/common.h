@@ -16,6 +16,7 @@ typedef struct ActorConfig ActorConfig;
 typedef struct BGLayer DisplayRecord;
 typedef struct ActorTimerEntry ActorTimerEntry;
 struct Actor;
+struct RiderBase;
 typedef void (*ActorPositionFunc)(struct Actor*, unk32*);
 typedef struct SpriteEntry SpriteEntry;
 typedef struct SpriteTextBlock SpriteTextBlock;
@@ -412,7 +413,7 @@ struct ActorConfig {
 
 struct LevelGeometryAddresses;
 struct GeometryLine;
-typedef void (*ActorCollisionResponse)(
+typedef unk8 (*ActorCollisionResponse)(
     struct Actor*, struct LevelGeometryAddresses*, struct GeometryLine*, unk16);
 typedef void (*ActorCollisionOverlap)(
     struct Actor*, struct LevelGeometryAddresses*, struct GeometryLine*);
@@ -498,7 +499,12 @@ typedef struct Actor {
     s16 unkAC;
     s16 unkAE;
     ActorPositionFunc unkB0;
-    unk32 unkB4;
+
+    union {
+        struct RiderBase* rider;
+        s32 lineIndex;
+    } unkB4;
+
     SpriteEntry* unkB8;
     unk16 unkBC;
     unk8 padBE[2];

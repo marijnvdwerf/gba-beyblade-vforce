@@ -150,7 +150,7 @@ void initLevelEnvironmentActors(u16 level)
         actorBase->unkB0 = convert3DCoordsto2DCoords;
         actorBase->unk68 = 0;
         actorBase->unkBC = lineIndex * 8 + 0x200;
-        actorBase->unkB4 = selectedLines[lineIndex];
+        actorBase->unkB4.lineIndex = selectedLines[lineIndex];
         actorBase->callbacks.unk0 = allocationField->callbacks;
         x = (point0->x + point1->x) << 4;
         xDelta = actorBase->x;
@@ -423,7 +423,7 @@ void sub_8054FE0(void)
     if (actorCount-- != 0) {
         actor = actorContainer;
         do {
-            object = GetStruct4(actor->unkB4);
+            object = GetStruct4(actor->unkB4.lineIndex);
             if (actor->unkB8 != NULL) {
                 sub_8060A94(actor->unkB8);
             }

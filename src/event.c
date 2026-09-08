@@ -217,7 +217,7 @@ void processMetadata_2(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     if (event->id == 0x524D) {
         actor = GetStruct4(lineIndex)->actor;
         if (actor != NULL) {
-            saved = actor->unkB4;
+            saved = actor->unkB4.lineIndex;
             if (actor->unkB8 != NULL) {
                 sub_8060A94(actor->unkB8);
             }
@@ -226,7 +226,7 @@ void processMetadata_2(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
             actor->unkB0 = convert3DCoordsto2DCoords;
             actor->unk68 = 0;
             actor->unkBC = 0x10;
-            actor->unkB4 = saved;
+            actor->unkB4.lineIndex = saved;
         }
     }
 }

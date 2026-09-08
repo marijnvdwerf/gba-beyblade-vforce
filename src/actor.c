@@ -83,7 +83,7 @@ void actor_8057C58(
     actor->unk90 = zero;
     actor->unk94 = zero;
     actor->unkB0 = NULL;
-    actor->unkB4 = zero;
+    actor->unkB4.lineIndex = zero;
     rider_8058614(actor, actor->unk10 >> 1, actor->unk11, 0);
     actor_80585F8(actor, 0, 0, actor->unk10, actor->unk11);
     actor->unkB8 = NULL;

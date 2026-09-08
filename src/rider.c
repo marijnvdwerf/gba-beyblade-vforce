@@ -46,7 +46,7 @@ void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4,
     actor->unk90 = (unk32)_unk3000FD0;
     actor->unk94 = (unk32)_unk3000FC0;
     actor->unkB0 = convert3DCoordsto2DCoords;
-    actor->unkB4 = (unk32)rider;
+    actor->unkB4.rider = rider;
     spriteOffset = 0x10;
     if (arg5 != 0)
         spriteOffset = 0x20;

@@ -1,9 +1,10 @@
+#include "collision.h"
+
 #include "geometry.h"
 #include "include_asm.h"
 #include "ram.h"
 
 void sub_80561EC(unk32, unk32, unk32);
-extern void def_94_0_8055CFC(Actor*, LevelGeometryAddresses*, GeometryLine*, unk16);
 extern void def_94_4_AddWithBoundingAreaMessage(Actor*, LevelGeometryAddresses*, GeometryLine*);
 extern unk8 def_94_8_collision_8055F2C(Actor*, LevelGeometryAddresses*, GeometryLine*, unk16);
 
@@ -15,7 +16,22 @@ void sub_8055CB8(void)
     sub_805E514(_unk3000FD0, 0, 0, 0, 0);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055cfc-def_94_0_8055CFC.s");
+unk8 def_94_0_8055CFC(
+    Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line, unk16 collisionMask)
+{
+    RiderBase* rider;
+
+    rider = actor->unkB4.rider;
+    if (rider == NULL)
+        return 0;
+    if ((collisionMask & 0x99) != 0) {
+        if ((collisionMask & 0x90) != 0)
+            sub_8055D64(actor, rider, geometry, line, collisionMask & 0x90, 0x40);
+        if ((collisionMask & 9) != 0)
+            sub_8055D64(actor, rider, geometry, line, collisionMask & 9, 0);
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055d64.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055f04.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055f2c-def_94_8_collision_8055F2C.s");

@@ -434,8 +434,8 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
     do {
         if (current->unkB8 != NULL) {
             object = NULL;
-            if (current->unkB4 >= 0) {
-                line = &geometry->unkC[current->unkB4];
+            if (current->unkB4.lineIndex >= 0) {
+                line = &geometry->unkC[current->unkB4.lineIndex];
                 point0 = &geometry->unk4[line->point0];
                 point1 = &geometry->unk4[line->point1];
                 minX = point1->x << 5;
@@ -447,7 +447,7 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
                 minZ = point1->z << 5;
                 if (point0->z < point1->z)
                     minZ = point0->z << 5;
-                object = GetStruct4(current->unkB4);
+                object = GetStruct4(current->unkB4.lineIndex);
             } else {
                 minX = current->x;
                 minY = current->y;
