@@ -51,6 +51,17 @@ Last updated: 2026-09-08, session 10 (652 C / 355 asm / 65%, 18 TUs).
   docs/learnings/collision-2026-09-08.md), sub_804712C, def_94_0_8055CFC — ONE
   function each, no continuing into leaves (user). Both collision agents share
   collision.c/.h — expect a header conflict at merge.
+- Merged: def_94_0_8055CFC (bdd8f340; `ActorCollisionResponse` returns unk8
+  — measured unk8/unk32 identical; `Actor.unkB4` is now
+  `union { struct RiderBase* rider; s32 lineIndex; }` after a luna audit
+  (/tmp/actor-unkB4.md) proved rider actors store a back-pointer and
+  environment actors a line index; six users converted, casts gone) and
+  sub_804712C (4452227e; 2-D language tables, ternary frame writes
+  byte-required). **654 C / 353 asm / 65%**, 46 reds (7 beyblade leaves +
+  sub_804703C now exposed). Debt: rider.c `(unk32)_unk3000FD0/_unk3000FC0`
+  into Actor.unk90/unk94.
+- sub_80561EC still running: frame 132 vs 128, byte local at sp+0x80 (Thumb
+  has no strb [sp,#imm] → it is a spilled unk8 local, not address-taken).
 
 ## Session 9 (2026-09-07/08)
 
