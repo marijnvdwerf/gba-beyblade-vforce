@@ -513,8 +513,226 @@ void sub_8056610(LevelGeometryAddresses* geometry, CollisionLine6610Draft* line,
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056610.s");
+
+#if 0
+typedef struct CollisionResult80567E4Draft {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    unk8 unkC;
+    unk8 unkD;
+    unk8 unkE;
+    unk8 unkF;
+    unk8 pad10[0x18];
+} CollisionResult80567E4Draft;
+
+void sub_80567E4(
+    LevelGeometryAddresses* geometry, GeometryLine* line, Actor* actor, CollisionResult80567E4Draft* result)
+{
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    unk8 direction;
+    s32 point0Coord;
+    s32 point1Coord;
+    s32 actorCoord;
+    s32 point0Other;
+    s32 point1Other;
+    s32 point0Z;
+    s32 point1Z;
+    s32 range;
+    s32 relative;
+    s32 temp;
+    unk8 flags;
+
+    point0 = GetPointAtIndex(geometry, line->point0);
+    point1 = GetPointAtIndex(geometry, line->point1);
+    if (point0 == NULL || point1 == NULL)
+        return;
+    direction = line->unk11_0 & 2;
+    if (direction == 0) {
+        s32 mask;
+        point0Coord = point0->y << 5;
+        point1Coord = point1->y << 5;
+        actorCoord = actor->y + (actor->unk9C << 8) + actor->unk44;
+        point0Other = point0->x << 5;
+        point1Other = point1->x << 5;
+        result->unk4 = actorCoord - point0Coord;
+        mask = 2;
+        mask = -mask;
+        result->unkC &= mask;
+        result->unkD = direction;
+        result->unkE = line->unk18;
+    } else {
+        point0Coord = point0->x << 5;
+        point1Coord = point1->x << 5;
+        actorCoord = actor->x + (actor->unk9A << 8) + actor->unk40;
+        point0Other = point0->y << 5;
+        point1Other = point1->y << 5;
+        result->unk0 = actorCoord - point0Coord;
+        result->unkC |= 1;
+        result->unkD = line->unk18;
+        result->unkE = 0;
+    }
+    result->unkF = line->unk18;
+    if (point0Coord < point1Coord) {
+        point0Z = point0->z << 5;
+        point1Z = point1->z << 5;
+    } else {
+        point0Z = point1->z << 5;
+        point1Z = point0->z << 5;
+        temp = point0Coord;
+        point0Coord = point1Coord;
+        point1Coord = temp;
+    }
+    range = point1Coord - point0Coord;
+    relative = actorCoord - point0Coord;
+    if (relative < 0)
+        result->unk8 = point0Z;
+    else if (relative >= range)
+        result->unk8 = point1Z;
+    else
+        result->unk8 = point0Z + ((line->unk12 * relative) >> 8);
+    if (relative >= 0 && relative <= range)
+        flags = 2 | result->unkC;
+    else {
+        s32 mask;
+        mask = 3;
+        mask = -mask;
+        flags = mask & result->unkC;
+    }
+    result->unkC = flags;
+}
+
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/80567e4.s");
+
+#if 0
+typedef struct CollisionResult8056910Draft {
+    s32 unk0;
+    s32 unk4;
+    s32 unk8;
+    unk8 unkC;
+    unk8 unkD;
+    unk8 unkE;
+    unk8 unkF;
+    unk8 pad10[0x18];
+} CollisionResult8056910Draft;
+
+void sub_8056910(
+    LevelGeometryAddresses* geometry, GeometryLine* line, Actor* actor, CollisionResult8056910Draft* result)
+{
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    GeometryPoint* lowerPoint;
+    GeometryPoint* upperPoint;
+    unk8 direction;
+    s32 point0Coord;
+    s32 point1Coord;
+    s32 point0Other;
+    s32 point1Other;
+    s32 actorCoordinate;
+    s32 originalDifference;
+    s32 originalRelative;
+    s32 sortedDifference;
+    s32 sortedRelative;
+    s32 point0Z;
+    s32 point1Z;
+    s32 interpolation;
+    s32 p0;
+    s32 p1;
+    s32 p2;
+    s32 p3;
+    s32 temp;
+    unk16 value;
+    unk8 flags;
+
+    point0 = GetPointAtIndex(geometry, line->point0);
+    point1 = GetPointAtIndex(geometry, line->point1);
+    direction = line->unk11_0 & 2;
+    if (direction == 0) {
+        point0Coord = point0->y << 5;
+        point1Coord = point1->y << 5;
+        actorCoordinate = actor->y + (actor->unk9C << 8) + actor->unk44;
+        point0Other = point0->x << 5;
+        point1Other = point1->x << 5;
+    } else {
+        point0Coord = point0->x << 5;
+        point1Coord = point1->x << 5;
+        actorCoordinate = actor->x + (actor->unk9A << 8) + actor->unk40;
+        point0Other = point0->y << 5;
+        point1Other = point1->y << 5;
+    }
+    originalDifference = point1Coord - point0Coord;
+    originalRelative = actorCoordinate - point0Coord;
+    if (direction == 0) {
+        if (point0->y < point1->y) {
+            lowerPoint = point0;
+            upperPoint = point1;
+            point0Z = point0Coord;
+            point1Z = point1Coord;
+        } else {
+            lowerPoint = point1;
+            upperPoint = point0;
+            point0Z = point1Coord;
+            point1Z = point0Coord;
+        }
+    } else if (point0->x < point1->x) {
+        lowerPoint = point0;
+        upperPoint = point1;
+        point0Z = point0Coord;
+        point1Z = point1Coord;
+    } else {
+        lowerPoint = point1;
+        upperPoint = point0;
+        point0Z = point1Coord;
+        point1Z = point0Coord;
+    }
+    sortedDifference = point1Z - point0Z;
+    sortedRelative = actorCoordinate - point0Z;
+    point0Z = lowerPoint->z << 5;
+    point1Z = upperPoint->z << 5;
+    interpolation = (originalRelative * line->unk1A) >> 16;
+    if (originalDifference < 0)
+        interpolation = -interpolation;
+    value
+        = line->unk18 + (((line->unk19 - line->unk18) * interpolation) >> 10);
+    if (originalDifference < 0)
+        value = -value;
+    if (direction == 0) {
+        result->unkD = direction;
+        result->unkE = value;
+        flags = -2 & result->unkC;
+    } else {
+        result->unkD = value;
+        result->unkE = 0;
+        flags = 1 | result->unkC;
+    }
+    result->unkC = flags;
+    result->unkF = value;
+    if (sortedRelative < 0) {
+        result->unk8 = point0Z;
+        result->unkC &= -3;
+    } else if (sortedRelative >= sortedDifference) {
+        result->unk8 = point1Z;
+        result->unkC &= -3;
+    } else {
+        p0 = point0Z;
+        p1 = p0 + (line->unk1C << 5);
+        p2 = point1Z + (line->unk12 << 5);
+        p3 = point1Z;
+        temp = p1 + (((p2 - p1) * interpolation) >> 10);
+        p0 = p0 + (((p1 - p0) * interpolation) >> 10);
+        p2 = p2 + (((p3 - p2) * interpolation) >> 10);
+        p1 = p0 + (((temp - p0) * interpolation) >> 10);
+        p2 = temp + (((p2 - temp) * interpolation) >> 10);
+        result->unk8 = p1 + (((p2 - p1) * interpolation) >> 10);
+        result->unkC |= 2;
+    }
+}
+
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056910.s");
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056adc.s");
 
 unk8 sub_8056B54(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line)
