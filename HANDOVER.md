@@ -155,6 +155,12 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   2721a5e3) matched — reviewer running, luna fix agent next; music.c
   widened sub_804AFD4/sub_804B00C to unk32 with u16 locals + a `(u16)` cast
   at sub_804AD28 (flag for the fix agent).
+- Collision A done (98b55488, review running): sub_8056B54 + def_94_4
+  matched — `ActorCollisionOverlap` returns unk8 after all (sub_8056B54's
+  `pop {r1}; bx r1`; def_94_4 is unk8 with no return statement), new
+  `CollisionResult` (0x28) in collision.h; sub_8055F04 parked. Geometry:
+  sub_805DBF0 matched (64d85500) but with `(unk8)` casts on the call results
+  in sub_805D650 — sent back (unk8 return + unk16 count, or unk8 locals).
 
 ## Session 9 (2026-09-07/08)
 
