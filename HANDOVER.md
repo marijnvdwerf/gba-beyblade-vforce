@@ -185,6 +185,14 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   collision.h; sub_8055F04 parked with step table). **676 C / 331 asm / 67%.**
   Display: newLayerManagement parked at 0xA0 (r6/r7 swap), park commit
   pending. Geometry: sub_805DD18 frame 12 vs 8 at 0x0A, 12-build cap.
+- Merged: collision B parks (632db677; sub_80567E4 + sub_8056910 drafts,
+  reviewer's 10 fold questions in /tmp/review-a8213627d346fe188.md for the
+  unpark agent). Display parked newLayerManagement (8cddcc20, review
+  running — ScreenLayout gained draft-only `layers[4]`/`unk74`, likely
+  BLOCKING). actor_805C48C fixes: `GeometryLine** output` byte-identical
+  (19ef2af2), all folds byte-required, learnings pending. sub_8045CB4 fixes:
+  `_unk3000460` split done (94e5c09d); s32 sweep: 458/45C → unk32,
+  3C8/3CC/3E0 need s32 (asr +0xA2/+0x2CE); music widths + 8 folds pending.
 
 ## Session 9 (2026-09-07/08)
 
