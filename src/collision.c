@@ -1,8 +1,11 @@
 #include "collision.h"
 
+#include "effects.h"
 #include "geometry.h"
 #include "include_asm.h"
+#include "music.h"
 #include "ram.h"
+#include "riderphysics.h"
 
 void sub_80561EC(unk32, unk32, unk32);
 extern void def_94_4_AddWithBoundingAreaMessage(Actor*, LevelGeometryAddresses*, GeometryLine*);
@@ -32,7 +35,65 @@ unk8 def_94_0_8055CFC(
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055d64.s");
+void sub_8055D64(Actor* actor, RiderBase* rider, LevelGeometryAddresses* geometry,
+    GeometryLine* line, unk16 collisionMask, unk16 angle)
+{
+    s16 angleDelta;
+    s16 direction;
+    unk16 savedAngle;
+    EnvironmentObject* object;
+    s32 angleThreshold;
+    s16 angleValue;
+    s16 signedAngle;
+
+    angleDelta = sub_804E358(angle, rider->unk8 << 4);
+    direction = 0x10;
+    savedAngle = angle;
+    if (line->unk11_3 != 0)
+        object = GetStruct4(sub_805BAC0(geometry, line));
+    SetRiderFlag(rider, 0x200000);
+    rider->unk1B8 = 8;
+    if (angleDelta < 0) {
+        angleDelta = -angleDelta;
+        direction = -direction;
+    }
+    angleThreshold = angleDelta * 0x10000;
+    if ((collisionMask & 0x90) != 0) {
+        if (line->unk11_3 == 0)
+            rider->unk40 = -rider->unk40;
+        else
+            rider->unk40 = object->unk40 * 2 - rider->unk40;
+    } else if ((collisionMask & 9) != 0) {
+        if (line->unk11_3 == 0)
+            rider->unk44 = -rider->unk44;
+        else
+            rider->unk44 = -(rider->unk44 + object->unk44 * 2);
+    }
+    if (angleThreshold - 0x400000 >= 0) {
+        signedAngle = angle;
+        angleValue = signedAngle + 0x80;
+        angle = angleValue + direction;
+    } else {
+        angleValue = angle;
+        angle = angleValue - direction;
+    }
+    angle &= 0xFF;
+    if (rider->unkB8 != NULL) {
+        sub_8055F04(actor, rider, line, collisionMask, savedAngle);
+    } else {
+        sub_804E1FC(rider, (unk8)angle);
+    }
+    if (RiderHasFlag(rider, 0x04000000) == 0) {
+        sub_8055734(4, NULL, NULL);
+        sub_80558B8();
+        sub_804ABFC(0);
+        if ((_currentGameState->unkC64 & 1) == 0) {
+            if (rider->unk208 > 0x100)
+                rider->unk208 -= 0x100;
+        }
+    }
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055f04.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055f2c-def_94_8_collision_8055F2C.s");
 

@@ -572,3 +572,32 @@ return value.
 This verifies that parking the draft preserves the ROM; it is not an exact C
 match. The function is parked because the remaining differences are
 allocation-only after the 132-byte/r8-r9 layout was reached.
+
+## sub_8055D64 (0x8055D64)
+
+- `EnvironmentObject.unk40` and `.unk44` are word fields at offsets `0x40` and `0x44`; adding those fields while retaining the `0x4C` layout enabled the typed horizontal and vertical reflection accesses.
+- `direction` and the angle intermediate are `s16`; plain signed additions/subtractions produce the target `lsl #16; asr #16` widening sequences. The fixed-point angle intermediate is evaluated before adding direction.
+- The vertical object response matches only with the direct field assignment `rider->unk44 = -(rider->unk44 + object->unk44 * 2)`, which emits the object load/double in `r1`, rider load in `r0`, and two-operand add required by the target. Temporary accumulation forms changed the operand registers.
+- The saved incoming angle remains `unk16`; the local declaration of `sub_8055F04` uses `s16` for its fifth parameter, producing the required sign normalization before the stack argument. The `sub_8055F04` body was not changed.
+- The first remaining divergence after the angle branches were matched was the object-path operand order at `0xCA`; the direct assignment removed it. `bun run tools/diff/diff.ts sub_8055D64` then showed no differing instructions, and `cmake --build build --target compare` passed after formatting and dump removal.
+
+### Follow-up source-shape probes
+
+- Replacing `angleValue = (s16)(((s32)(s16)angle * 0x10000 + (0x80 * 0x10000)) >> 16)` with the signed local-copy form `signedAngle = angle; angleValue = signedAngle + 0x80` is byte-identical. The `s16` local expresses the proven signed view while retaining the target fixed-point normalization.
+- Replacing the same fixed-point expression with `angleValue = (s16)angle + 0x80` is not byte-identical after a forced rebuild; the first structural mismatch is at `0xD6`, with the target positive-branch scaling beginning at `0xDE` and the cast form shortening that branch.
+- The intermediate `angleValue` and the positive-branch `signedAngle` copy are byte-required. Folding them into `angle = (s16)angle + 0x80; angle += direction;` first diverges at `0xDE` and shortens the function; the generated branch uses an immediate add and a different normalization sequence.
+- The direct natural `angleValue = angle + 0x80` form first diverged at `0xDE`; it emitted an immediate add before normalization instead of the target fixed-point scaling.
+- Replacing `angleThreshold - 0x400000 >= 0` with `angleDelta >= 0x40` first diverged at `0x80` by removing the target fixed-point intermediate. Replacing it with `angleThreshold >= 0x400000` also first diverged at `0x80` because constant materialization and branch shape changed.
+- The direct signed test `if ((s16)angleDelta < 0)` first diverged at `0x20`; retaining `signedAngleDelta = angleDelta` preserves the target signed widening and comparison. The later `signedAngle` copy for the positive angle was removable once the per-use `(s16)angle` view was tested.
+- `direction = -direction`, direct `rider->unk1B8 = 8`, and `angleThreshold = angleDelta * 0x10000` are byte-identical to their prior forms and retained.
+- Removing the explicit `(unk8)` casts at `sub_804E358` and the explicit `(s16)` cast at the `sub_8055F04` call are byte-identical. The latter remains an `s16` parameter in the shared header declaration so the saved-angle sign normalization is preserved.
+- Moving the `sub_8055F04` declaration from `collision.c` to `collision.h` and keeping `sub_805BAC0` in `geometry.h` are byte-identical after rebuilding affected translation units.
+
+### Coordinator review probes (fresh builds)
+
+- Declaring `angleDelta` as `s16` and testing it directly with `if (angleDelta < 0)` is byte-identical. This folds the separate signed-angle-delta local without changing the target instruction stream; the direct form is retained.
+- Removing `savedAngle` and passing `angle` to `sub_8055F04` is not byte-identical. The first divergence is at `0x0A`: the frame shrinks from 20 to 16 bytes, and the target's incoming-angle save at `[sp,#12]` disappears. `angle` is modified by the angle response before the helper call, so the saved local remains.
+- Replacing the fixed-point threshold with `if (angleDelta >= 0x40)` is not byte-identical. With the direct `s16 angleDelta` form, the first divergence is at `0x32` (`lsr r6,r0,#16` versus `lsr r7,r0,#16`); the target fixed-point scaling at `0x80` is also removed. The natural comparison is rejected.
+- Replacing the threshold with `if ((angleDelta << 16) >= 0x400000)` is not byte-identical. The first divergence is at `0x32`, followed by a different threshold sequence and literal placement instead of the target `lsl r2,r6,#16` at `0x80`. The explicit `angleThreshold` local remains.
+- Inlining both `signedAngle` and `angleValue` into the two angle branches is not byte-identical. The first divergence is at `0x0E` (`mov r4,r1` versus `mov r5,r1`); the inlined form also introduces extra normalization around `0x56` and shortens the branch layout. Both intermediates remain in the source.
+- Removing `(unk8)` from the `sub_804E1FC` call is not byte-identical after rebuilding from the exact source order. The first divergence is at `0x0E` (`mov r4,r1` versus `mov r5,r1`), with register allocation and all subsequent offsets changing. The explicit cast remains despite the `u8` prototype.
