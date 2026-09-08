@@ -254,6 +254,10 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   that branch had to be dropped from geometry.h; the merge chain stopped
   silently on the compile error — echo an explicit COMPARE FAILED marker
   in merge chains.
+- s_rider_804C4B4: structure right, 908 vs 956 B, prologue shows three
+  long-lived values in r8/r9/r10 vs the draft's one — lead sent (two
+  params + one record alias). Geometry leaf fix agent stalled with a red
+  tree (nullLine fold) — revived to revert and commit.
 
 ## Session 9 (2026-09-07/08)
 
