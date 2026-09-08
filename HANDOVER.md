@@ -151,6 +151,12 @@ Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
 - selectBladeFrontendHandler MATCHED (bed454a9, 2172 B, largest function);
   review fixes in flight (sub_805185C → gamestate.h, s8 evidence, ROM externs
   out of ram.h, nine fold tests), then merge.
+- Teletype batch: 6/7 matched incl. sub_8063BA8 296 (sub_8063D38 parked);
+  BA8 keeps a never-cleared `process` loop flag and a `zero` temp — both
+  measured (removing either flips entry allocation at 0x02; `process = 0;
+  break;` in the terminating arms also diverges) → user decision at merge.
+  Levelselect batch: sub_805C3BC, sub_8041288, displayFrontendLevel matched;
+  sub_80594FC parked (0x10 allocation). Both reviewers running.
 - Keepalive monitor (main-checkout dirty check, 2 min) running.
 
 ## Session 8 (2026-09-07)
