@@ -820,7 +820,8 @@ typedef struct SplineMotionFlags {
 } SplineMotionFlags;
 
 typedef struct ActorSplineCallbacks {
-    unk8 pad0[8];
+    unk8 pad0[4];
+    void (*unk4)(Actor*, struct LevelGeometryAddresses*, s32);
     void (*unk8)(Actor*, struct LevelGeometryAddresses*, GeometrySpline*, s32, s32);
     void (*unkC)(Actor*, struct LevelGeometryAddresses*, unk32);
 } ActorSplineCallbacks;

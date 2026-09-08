@@ -124,7 +124,17 @@ LineMetadata* GetLineMetaData(LevelGeometryAddresses* arg0, unk32 index)
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805ba7c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805bac0.s");
+
+unk32 sub_805BAC0(LevelGeometryAddresses* geometry, GeometryLine* line)
+{
+    unk32 index;
+
+    // TODO: figure out how to remove cast (line - geometry->unkC gives asr #5)
+    index = (unk32)((unk8*)line - (unk8*)geometry->unkC) >> 5;
+    if (index < geometry->unk0->lineCount)
+        return index;
+    return -1;
+}
 
 LineMetaObject* getLineMetaAtIndex(LevelGeometryAddresses* arg0, LineMetadata* metadata, s32 index)
 {
@@ -1167,7 +1177,18 @@ INCLUDE_ASM("asm/dump/8057b80-debug/805d400-call_rider_94_8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805d430.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805d488.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805d548.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805d610.s");
+
+void sub_805D610(Actor* actor)
+{
+    ActorSplineCallbacks* callbacks;
+
+    callbacks = actor->callbacks.unk0;
+    if (callbacks != NULL && callbacks->unk4 != NULL)
+        callbacks->unk4(actor, actor->unk80, actor->unk84);
+    actor->unk80 = NULL;
+    actor->unk84 = -1;
+    actor->unk88 = 0;
+}
 
 void sub_805D650(Actor* actor)
 {
@@ -1432,7 +1453,24 @@ s32* sub_805DFD4(LevelGeometryAddresses* addresses, unk32 splineIndex, s32* resu
     return result;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805e068.s");
+s32* sub_805E068(
+    LevelGeometryAddresses* geometry, unk32 splineIndex, s32* result, s32 pointIndex, s32 position)
+{
+    unk32* pointIndices;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+
+    pointIndices = GetSplineAtIndex(geometry, splineIndex)->pointIndices;
+    point0 = GetPointAtIndex(geometry, pointIndices[pointIndex]);
+    point1 = GetPointAtIndex(geometry, pointIndices[pointIndex + 1]);
+    result[0] = point0->x + ((point1->x - point0->x) * position >> 10);
+    result[1] = point0->y + ((point1->y - point0->y) * position >> 10);
+    result[2] = point0->z + ((point1->z - point0->z) * position >> 10);
+    result[3] = position;
+    result[4] = pointIndex;
+    return result;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805e0d8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e18c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e320.s");

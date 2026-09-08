@@ -19,6 +19,7 @@ QuadTreeNode* initQuadTreeNode(QuadTree*, QuadTreeNode*, s32, s32, s32, s32, Qua
 QuadTreeNode* GetQuadTreeNodeForPos(QuadTree*, s32, s32);
 void sub_805BDBC(QuadTree*, LevelGeometryAddresses*);
 LineMetadata* GetLineMetaData(LevelGeometryAddresses*, unk32);
+unk32 sub_805BAC0(LevelGeometryAddresses*, GeometryLine*);
 LineMetaObject* getLineMetaAtIndex(LevelGeometryAddresses*, LineMetadata*, s32);
 LineMetaObject* getLineMetaObjectBytype(LevelGeometryAddresses*, LineMetadata*, unk32);
 LineMetaObject* getLineMetaobjectByTypeAndId(LevelGeometryAddresses*, LineMetadata*, unk32, unk32);
@@ -38,7 +39,7 @@ s32* sub_805DFD4(LevelGeometryAddresses*, unk32, s32*, s32);
 unk32 actor_805C48C(Actor*, LevelGeometryAddresses*, unk32*, unk16);
 void sub_805D650(Actor*);
 unk8 sub_805DBF0(LevelGeometryAddresses*, SplineConnection*, GeometrySpline*, unk16, unk32);
-void sub_805E068(LevelGeometryAddresses*, unk32, s32*, s32, s32);
+s32* sub_805E068(LevelGeometryAddresses*, unk32, s32*, s32, s32);
 void sub_805D610(Actor*);
 
 unk32 sub_805CEB8(Actor*, LevelGeometryAddresses*, unk32*, unk16, unk32**);

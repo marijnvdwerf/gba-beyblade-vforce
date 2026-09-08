@@ -179,8 +179,6 @@ unk8 RiderHasFlag(CollisionRiderDraft*, unk32);
 void sub_8056EC0(void);
 void sub_804ABFC(unk32);
 void sub_8053E18(unk8);
-s32 sub_805BAC0(LevelGeometryAddresses*, CollisionLineDraft*);
-
 unk32 sub_80561EC(CollisionActorDraft* actor, LevelGeometryAddresses* geometry, CollisionLineDraft* line)
 {
     CollisionScratchDraft local;
