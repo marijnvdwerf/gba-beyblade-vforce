@@ -229,6 +229,11 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   unk19C s32 / unk1A8–1B4, Actor.unk3B; sub_805C9A4 prototype `unk32
   (Actor*, LevelGeometryAddresses*, unk32, unk32, QuadTreeNode*)` derived
   from the caller and passed to the sub_805C9A4 agent) — review running.
+- Geometry leaf branch review (verbal only, reviewer hit its stop): two of
+  three blockers were the ACCEPTED `(GeometrySplineLine*)&pointIndices[n]`
+  layout (overruled); real items = signedness citations, redundant
+  `Unk_874CC3C` extern, nine folds — fresh luna fix agent on the worktree
+  (original agent retired at 329 calls), 12-build cap.
 
 ## Session 9 (2026-09-07/08)
 
