@@ -817,7 +817,7 @@ typedef struct GeometrySplineLine {
 typedef struct LevelGeometryTable LevelGeometryTable;
 
 typedef struct SplineConnection {
-    unk8 pad0[4];
+    GeometrySpline* unk0;
     unk32 unk4;
     unk32 unk8;
     GeometrySplineLine* unkC;

@@ -4,6 +4,7 @@
 
 #include "debug.h"
 #include "include_asm.h"
+#include "packet.h"
 #include "ram.h"
 #include "system.h"
 #include "unsorted.h"
@@ -1388,7 +1389,20 @@ unk16 sub_805CEB8(Actor* rider, LevelGeometryAddresses* geometry, unk32* lineInd
     return 0;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805d400-call_rider_94_8.s");
+unk8 call_rider_94_8(Actor* rider, LevelGeometryAddresses* geometry, GeometryLine* line, unk16 mask)
+{
+    ActorCollisionFunctions* callbacks;
+    unk8 result;
+
+    result = 1;
+    callbacks = rider->callbacks.unk4;
+    if (callbacks != NULL) {
+        if (callbacks->unk8 != NULL)
+            result = callbacks->unk8(rider, geometry, line, mask);
+    }
+    return result;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805d430.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805d488.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805d548.s");
@@ -1410,9 +1424,9 @@ void sub_805D650(Actor* actor)
     s32 values[6];
     s32 index = actor->unk88 >> 18;
     s32 endPosition;
-    s32 remaining;
+    unk32 remaining;
     unk32* pointIndices;
-    s32 nextIndex;
+    unk32 nextIndex;
     s32 velocity;
     s32 nextPoint = 0;
     const unk32 capacity = 4;
@@ -1446,7 +1460,10 @@ void sub_805D650(Actor* actor)
         flags.unk0_1 = 1;
         remaining = 0x3FFFF - (actor->unk88 & 0x3FFFF);
         if (index + 1 >= spline->pointCount - 1) {
-            if (sub_805DBF0(actor->unk80, connections, spline, 4, pointIndices[index + 1]) != 0) {
+            unk8 found;
+
+            found = sub_805DBF0(actor->unk80, connections, spline, 4, pointIndices[index + 1]);
+            if (found != 0) {
                 flags.unk0_2 = 1;
                 nextLine = connections[0].unk10;
                 nextIndex = connections[0].unk4;
@@ -1462,7 +1479,10 @@ void sub_805D650(Actor* actor)
         flags.unk0_1 = 1;
         remaining = ((actor->unk88 & 0x3FFFF) + delta);
         if (index - 1 < 0) {
-            if (sub_805DBF0(actor->unk80, connections, spline, 4, pointIndices[index]) != 0) {
+            unk8 found;
+
+            found = sub_805DBF0(actor->unk80, connections, spline, 4, pointIndices[index]);
+            if (found != 0) {
                 flags.unk0_2 = 1;
                 nextLine = connections[0].unkC;
                 nextIndex = connections[0].unk4 - 1;
@@ -1619,7 +1639,62 @@ GeometryPoint* GetPointAtSplineIndex(LevelGeometryAddresses* arg0, s32 splineInd
     return NULL;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805dbf0.s");
+unk32 sub_805DBF0(LevelGeometryAddresses* geometry, SplineConnection* output,
+    GeometrySpline* target, unk16 capacity, unk32 pointIndex)
+{
+    GeometrySpline* spline;
+    GeometrySplineLine* lineStart;
+    GeometrySplineLine* lines;
+    unk32* pointIndexStart;
+    unk32* pointIndices;
+    GeometrySplineLine* previousLine;
+    unk16 count;
+    s32 splineIndex;
+    s32 index;
+
+    count = 0;
+    for (splineIndex = 0; splineIndex < geometry->unk0->count.splineCountWord; splineIndex++) {
+        spline = GetSplineAtIndex(geometry, splineIndex);
+        if (spline == NULL)
+            break;
+        if (spline == target)
+            continue;
+        lineStart = (GeometrySplineLine*)&spline->pointIndices[spline->pointCount];
+        pointIndexStart = spline->pointIndices;
+        index = 0;
+        if (index < spline->pointCount) {
+            GeometrySplineLine* nullLine;
+
+            nullLine = NULL;
+            lines = lineStart;
+            previousLine = lines - 1;
+            pointIndices = pointIndexStart;
+            for (; index < spline->pointCount; index++) {
+                if (pointIndex == *pointIndices) {
+                    output[count].unk0 = spline;
+                    output[count].unk4 = index;
+                    output[count].unk8 = splineIndex;
+                    if (index > 0)
+                        output[count].unkC = previousLine;
+                    else
+                        output[count].unkC = nullLine;
+                    if (index < spline->pointCount - 1)
+                        output[count].unk10 = lines;
+                    else
+                        output[count].unk10 = nullLine;
+                    count += 1;
+                    if (count >= capacity)
+                        return count;
+                }
+                lines += 1;
+                previousLine += 1;
+                pointIndices += 1;
+            }
+        }
+    }
+    return count;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805dcd4-GetSplineLineAtIndex.s");
 
 GeometrySplineLine* sub_805DCFC(LevelGeometryAddresses* arg0, GeometrySpline* spline, s32 index)
@@ -1638,6 +1713,81 @@ GeometrySplineLine* sub_805DCFC(LevelGeometryAddresses* arg0, GeometrySpline* sp
     return &lines[index];
 }
 
+#if 0
+typedef struct GeometrySplineLineDraft {
+    s8 unk0;
+    unk8 pad1[7];
+    s16 unk8;
+    unk16 unkA;
+    s32 unkC;
+} GeometrySplineLineDraft;
+
+s32* sub_805DD18(LevelGeometryAddresses* geometry, unk32 splineIndex, s32* result, s32 position)
+{
+    GeometrySpline* spline;
+    unk32* pointIndices;
+    GeometrySplineLineDraft* lines;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    s32 index;
+    unk32 fraction;
+    unk16 angle0;
+    unk16 angle1;
+    unk16 angle2;
+    s32 angle;
+    s32 midpointX;
+    s32 midpointY;
+    s32 firstX;
+    s32 firstY;
+    s32 secondX;
+    s32 secondY;
+
+    spline = GetSplineAtIndex(geometry, splineIndex);
+    pointIndices = spline->pointIndices;
+    lines = (GeometrySplineLineDraft*)&pointIndices[spline->pointCount];
+    if (position < 0)
+        position = 0;
+    if ((position >> 10) >= spline->pointCount)
+        position = ((spline->pointCount - 1) << 10) | (position & 0x3FF);
+    index = position >> 10;
+    point0 = GetPointAtIndex(geometry, pointIndices[index]);
+    point1 = GetPointAtIndex(geometry, pointIndices[index + 1]);
+    fraction = position & 0x3FF;
+    angle0 = lines[index].unkA;
+    if (index >= spline->pointCount - 2) {
+        angle1 = lines[index].unk8;
+        angle2 = angle1;
+    } else {
+        angle1 = lines[index + 1].unk8;
+        angle2 = lines[index + 1].unkA;
+    }
+    angle = (s16)angle1 - 128;
+    if (angle < 0)
+        angle += 256;
+    if ((s16)angle0 == (s16)angle1 || (s16)angle2 == (s16)angle1) {
+        result[0] = point0->x + ((point1->x - point0->x) * fraction >> 10);
+        result[1] = point0->y + ((point1->y - point0->y) * fraction >> 10);
+    } else {
+        midpointX = (point0->x + (Unk_874CC3C[(unk8)angle + 0x40] * 0x180 >> 8) + point1->x
+                        + (Unk_874CC3C[(unk8)angle1 + 0x40] * 0x180 >> 8))
+            >> 1;
+        midpointY = (point0->y + (Unk_874CC3C[(unk8)angle] * 0x180 >> 8) + point1->y
+                        + (Unk_874CC3C[(unk8)angle1] * 0x180 >> 8))
+            >> 1;
+        firstX = (midpointX * fraction) >> 10;
+        firstY = point0->y + ((midpointY - point0->y) * fraction >> 10);
+        secondX = midpointX + ((point1->x - midpointX) * fraction >> 10);
+        secondY = midpointY + ((point1->y - midpointY) * fraction >> 10);
+        result[0] = firstX + ((secondX - firstX) * fraction >> 10);
+        result[1] = firstY + ((secondY - firstY) * fraction >> 10);
+    }
+    result[2] = point0->z + ((point1->z - point0->z) * fraction >> 10);
+    result[3] = fraction;
+    result[4] = index;
+    return result;
+}
+
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/805dd18.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805df04.s");
 
