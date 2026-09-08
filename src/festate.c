@@ -1956,9 +1956,88 @@ void sub_8046CC4(FrontendState* state, u32 arg1)
 }
 
 INCLUDE_ASM("asm/dump/8040d18/8046f2c-initBBCollectionSprite.s");
+
+#if 0
+typedef struct FrontendBladeAssetDraft {
+    unk32 unk0; /* 0x00 */
+    unk32 unk4; /* 0x04 */
+    unk32 unk8; /* 0x08 */
+    unk16 unkC; /* 0x0C */
+    unk8 padE[2]; /* 0x0E */
+} FrontendBladeAssetDraft;
+
+extern const FrontendBladeAssetDraft _80699DC[][8];
+
+void sub_804703C(FrontendBladeState* state)
+{
+    const FrontendBladeAssetDraft* asset;
+    SpriteTextCleanup* text;
+    s32 i;
+
+    i = 0;
+    do {
+        text = sub_804A0E0(i);
+        asset = &_80699DC[state->unk35][i];
+        text->unkC = asset->unk8;
+        text->x = asset->unk0 << 8;
+        text->y = asset->unk4 << 8;
+        text->unk8 = asset->unkC;
+        i++;
+    } while (i <= 7);
+}
+#endif
 INCLUDE_ASM("asm/dump/8040d18/804703c.s");
-INCLUDE_ASM("asm/dump/8040d18/8047080.s");
-INCLUDE_ASM("asm/dump/8040d18/80470c8.s");
+
+void sub_8047080(FrontendBladeState* state, unk32 color)
+{
+    s32 i;
+
+    i = 0;
+    do {
+        sub_8061E58(sub_804A0E0(i), color);
+        i++;
+    } while (i <= 7);
+    if (state->unk8 != NULL) {
+        sub_8061130(state->unk8, color);
+    }
+    if (state->unkC != NULL) {
+        sub_8061130(state->unkC, color);
+    }
+    if (state->unk10 != NULL) {
+        sub_8061130(state->unk10, color);
+    }
+}
+
+void sub_80470C8(FrontendBladeState* state)
+{
+    s32 i;
+
+    i = 0;
+    do {
+        sub_8061228(sub_804A0E0(i));
+        i++;
+    } while (i <= 7);
+    if (state->unk0 != NULL) {
+        sub_8060A94(state->unk0);
+        state->unk0 = NULL;
+    }
+    if (state->unk4 != NULL) {
+        sub_8060A94(state->unk4);
+        state->unk4 = NULL;
+    }
+    if (state->unk8 != NULL) {
+        sub_8060A94(state->unk8);
+        state->unk8 = NULL;
+    }
+    if (state->unkC != NULL) {
+        sub_8060A94(state->unkC);
+        state->unkC = NULL;
+    }
+    if (state->unk10 != NULL) {
+        sub_8060A94(state->unk10);
+        state->unk10 = NULL;
+    }
+}
 
 void sub_804712C(FrontendBladeState* state)
 {
