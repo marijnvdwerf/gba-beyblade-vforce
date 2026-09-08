@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-08, session 10 (652 C / 355 asm / 65%, 18 TUs).
+Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
 
 ## Session 10 (2026-09-08)
 
@@ -115,8 +115,15 @@ Last updated: 2026-09-08, session 10 (652 C / 355 asm / 65%, 18 TUs).
   sub_804703C PARKED (0x0C `ldsb state->unk35` index; scratch
   `FrontendBladeAssetDraft` 16-byte record, `_80699DC[][8]` — interior label
   added in asm/data12.s at _80699B4+0x28). **669 C / 338 asm.**
-- sub_8056610 PARKED (b66fe3fc, review running): structure and size exact,
-  residue is an r6/r7 role swap at +0x02 after five lifetime probes.
+- sub_8056610 PARKED and merged (8ed25f8f): structure and size exact,
+  residue is an r6/r7 role swap at +0x02 after five lifetime probes; draft
+  hygiene fixed after review (scratch rider fields, unk32 defaults, no Actor
+  view, in-block prototypes).
+- **State now: main 8ed25f8f, 669 C / 338 asm / 66%, 18 TUs; baseline
+  refreshed; no agents running; keepalive monitor running; only the
+  `raw-decomp` worktree remains.** Yellows worth fresh agents: sub_80561EC
+  (+0x36), sub_8056610 (+0x02), actor_805C48C (0x346), sub_804703C (0x0C).
+  Session 10 net: +22 C functions (5 raw-decomp-5 giants + 17 agents').
 
 ## Session 9 (2026-09-07/08)
 
