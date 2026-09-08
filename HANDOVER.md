@@ -214,6 +214,10 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   has `ldrh`, so `(u16)_unk3000F14` stays with a TODO). **678 C / 329 asm /
   67%.** Remaining in flight: geometry review, display hygiene fixes;
   user's sub_804B8F0 worktree.
+- Launched (user: all remaining non-ARM reds, biggest first): sub_805C9A4
+  (geometry 1300, sibling of the matched actor_805C48C) and
+  s_rider_804C4B4 (riderphysics 956). After those, only ARM routines
+  (asm/arm1.s render_*, asm/arm2.s sub_8757*) and the yellows remain.
 
 ## Session 9 (2026-09-07/08)
 
