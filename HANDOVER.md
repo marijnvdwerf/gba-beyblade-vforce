@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
+Last updated: 2026-09-08, session 10 (683 C / 324 asm / 68%, 18 TUs).
 
 ## Session 10 (2026-09-08)
 
@@ -258,6 +258,15 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   long-lived values in r8/r9/r10 vs the draft's one — lead sent (two
   params + one record alias). Geometry leaf fix agent stalled with a red
   tree (nullLine fold) — revived to revert and commit.
+- Merged: geometry leaves (a8bc699d; call_rider_94_8 + sub_805DBF0 matched,
+  sub_805DD18 parked; the `nullLine` alias fold gave an identical function
+  diff but a different ROM SHA — literal-pool/padding effect — so it stays).
+  **683 C / 324 asm / 68%.** s_rider_804C4B4 is the LAST non-ARM red;
+  after it only asm/arm1.s render_* and asm/arm2.s sub_8757* remain red,
+  plus the yellows: sub_80561EC, sub_8056610, sub_80567E4, sub_8056910,
+  sub_8055F04 (collision), sub_805DD18 (geometry), sub_80508CC,
+  newLayerManagement (display), sub_804703C (festate), sub_8061684
+  (spritetext), sub_8062C24 (sound) and the older parks.
 
 ## Session 9 (2026-09-07/08)
 
