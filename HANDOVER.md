@@ -267,6 +267,12 @@ Last updated: 2026-09-08, session 10 (683 C / 324 asm / 68%, 18 TUs).
   sub_8055F04 (collision), sub_805DD18 (geometry), sub_80508CC,
   newLayerManagement (display), sub_804703C (festate), sub_8061684
   (spritetext), sub_8062C24 (sound) and the older parks.
+- s_rider_804C4B4 diagnosis: target holds −0x1A and `&rider->unkF4/F8/FC`
+  in r8–r10 across calls and computes `&unk108…118` ephemerally before
+  five stores → lead sent: chained assignment for the five (no aliases),
+  at most three record aliases (each used ≥2× across a call), literal
+  −0x1A at each store; eight aliases reproduce the prologue but spill
+  `actor`.
 
 ## Session 9 (2026-09-07/08)
 
