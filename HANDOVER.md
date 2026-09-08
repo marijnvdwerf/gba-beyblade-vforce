@@ -136,6 +136,11 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   FrontendBladeState.unk34). **672 C / 335 asm / 67%.** spritetext
   sub_8061880 + festate initBBCollectionSprite matched but sent back for
   cast choreography (sub_8061684's real 16-bit params; `(void*)OBJ_PLTT`).
+- USER worktrees (external agents, do not remove or merge unasked):
+  `.claude/worktrees/sub_8045CB4` (branch decomp/sub_8045CB4, festate giant
+  1316 B, parked draft at festate.c:1324) and `.claude/worktrees/actor_805C48C`
+  (branch decomp/actor_805C48C, geometry yellow). Both from main c27efdea,
+  built, baseline linked. Review + squash-merge when the user says so.
 
 ## Session 9 (2026-09-07/08)
 
