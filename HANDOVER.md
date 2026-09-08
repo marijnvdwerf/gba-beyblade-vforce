@@ -124,6 +124,13 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   `raw-decomp` worktree remains.** Yellows worth fresh agents: sub_80561EC
   (+0x36), sub_8056610 (+0x02), actor_805C48C (0x346), sub_804703C (0x0C).
   Session 10 net: +22 C functions (5 raw-decomp-5 giants + 17 agents').
+- Round 2 leaf batches launched (user; ≤3 per agent): collision A
+  (sub_8055F04, def_94_4, sub_8056B54), collision B (sub_80567E4,
+  sub_8056910), geometry (call_rider_94_8, sub_805DBF0, sub_805DD18),
+  display (sub_80508A4, sub_80508CC, newLayerManagement), singletons
+  (sub_805185C, sub_805747C, sub_804E124), spritetext sub_8061880 +
+  festate initBBCollectionSprite. Two collision agents share collision.c —
+  expect adjacent-hunk conflicts at merge.
 
 ## Session 9 (2026-09-07/08)
 
