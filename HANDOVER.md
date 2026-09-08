@@ -66,7 +66,14 @@ Last updated: 2026-09-08, session 10 (652 C / 355 asm / 65%, 18 TUs).
   sub_8055D64 → sub_8055F04 + sub_805BAC0; actor_805C48C / sub_805C9A4 →
   call_rider_94_8 (shared). (The luna rerun /tmp/unlock-analysis-2026-09-08b.md
   ran on a stale tree and mis-flagged matched spritetext functions as NEW.)
-- Running: actor_805C48C (geometry, 1304) luna agent, one function only.
+- sub_80561EC PARKED and merged (b12fa156): ~85 builds from the user's stash;
+  frame 132 exact, actor/geometry/line/point0/point1 in target registers;
+  first divergence +0x36 `lsl r3,r1,#5` vs `lsl r7` (scaled min-X temp) and
+  the result-buffer pointer r3 vs r7 — allocation only. Step table in
+  docs/learnings/collision-2026-09-08.md. Worth a fresh agent later.
+- Running: actor_805C48C (geometry, 1304) and sub_8055D64 (collision, 406 →
+  unlocks sub_8055F04 + sub_805BAC0), one function each.
+- Tooling: lint.py still SIGBUSes intermittently (exit 138); rerun.
 
 ## Session 9 (2026-09-07/08)
 
