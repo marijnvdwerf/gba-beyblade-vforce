@@ -141,6 +141,12 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   1316 B, parked draft at festate.c:1324) and `.claude/worktrees/actor_805C48C`
   (branch decomp/actor_805C48C, geometry yellow). Both from main c27efdea,
   built, baseline linked. Review + squash-merge when the user says so.
+- Round 2 interim (unmerged, in worktrees): matched def_94_4 (collision A),
+  call_rider_94_8 (geometry), sub_80508A4 (display); parked sub_8055F04
+  (two-call body, missing dead `lsl #16` at +0x16 after 20+ probes — the
+  s16 return of sub_804E358 is discarded). sub_805DBF0 lead from the dump:
+  the returned value is a `unk16 count` local (`lsl/lsr #16` after ++,
+  `bcs` vs the unk16 capacity), free truncation into the unk8 return.
 
 ## Session 9 (2026-09-07/08)
 
