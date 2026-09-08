@@ -206,6 +206,14 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   geometry-2026-09-08d.md; speculative union reverted). Display: 9 hygiene
   blockers on its two parks sent to the agent (draft-only ScreenLayout
   fields, casts in drafts, `void*` param, step tables).
+- Merged: user's sub_8045CB4 (df6b95b7; `_unk3000460` split into `u8` +
+  `pad_3000461[3]`; six s32 globals cited by asr offsets, 458/45C → unk32;
+  music.c sub_804AFD4/sub_804B00C widened to unk32 with `u16 volume` locals
+  — the `u16` prototypes break festate's callers, and the cast-free
+  sub_804AD28 call emits `ldrsh` for the s16 `_unk3000F14` where the target
+  has `ldrh`, so `(u16)_unk3000F14` stays with a TODO). **678 C / 329 asm /
+  67%.** Remaining in flight: geometry review, display hygiene fixes;
+  user's sub_804B8F0 worktree.
 
 ## Session 9 (2026-09-07/08)
 
