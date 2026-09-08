@@ -310,6 +310,11 @@ Last updated: 2026-09-08, session 10 (683 C / 324 asm / 68%, 18 TUs).
   asm/dump/8756a00-iwram/ (split done ONE-OFF, no tools/split-arm.py — user);
   no other tooling (diff.ts via objdiff-wasm v4t handles ARM). The user
   already has ARM_sub_87569F4 matching with agbcc_arm -O2 -mthumb-interwork.
+  Luna general-purpose agent executing it on MAIN (uncommitted; manager
+  reviews + commits) — the keepalive's dirty-main tick is expected while it
+  runs. After it lands: hand the 17 remaining ARM functions to decompiler
+  agents (ARM matching is a different game — agbcc_arm -O2, no Thumb
+  register classes; expect new SKILL material).
 
 ## Session 9 (2026-09-07/08)
 
