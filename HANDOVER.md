@@ -5,7 +5,37 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-08, session 9 close (647 C / 360 asm / 64%, 16 TUs).
+Last updated: 2026-09-08, session 10 (652 C / 355 asm / 65%, 18 TUs).
+
+## Session 10 (2026-09-08)
+
+- Merged the user's `raw-decomp-5` branch (cbf9d2ee, squash): five giants
+  matched — sub_80413FC (levelselect), collectionListFrontendHandler
+  (collection), sub_8052B24 (results), sub_805CEB8 + sub_805D650 (geometry).
+  **652 C / 355 asm / 65%, 18/66 TUs.** Two reviewers (luna + sonnet, user
+  lifted the ban ad hoc) then a luna fix-up agent; manager read the full diff.
+- Decisions (user): learnings from one agent stay ONE file
+  (`docs/learnings/raw-decomp-5-2026-09-08.md`); a placeholder that gets a
+  smaller real type is split, never wrapped (`ActorCollisionFunctions
+  _unk3000FC0` + `unk32 pad_3000FCC`); results.c ships `(s16)delta` with
+  `// TODO: figure out how to remove cast` rather than a 16-bit temp.
+- Byte-required shapes accepted at merge: `SplineMotionFlags` (local struct
+  of four 1-bit flags, plain locals → frame 88 vs 76), VLA
+  `SplineConnection connections[capacity]` with `const unk32 capacity = 4`
+  (first VLA in live code), `(unk8)((sub_8057C40() >> 7) * 0x20)` in
+  collection.c, nested `(collectionData = …)->unk0` assignment.
+- sub_8061824: header stays `s32, s32` although the definition is `s16, s16`
+  — sub_804A110 (levelrow) needs the wide prototype, sub_8052B24 the narrow
+  call; original levelrow TU had no prototype in scope.
+- Debt: `ActorCollisionCallbacks.unk0` is `void*` (geometry stores
+  `ActorSplineCallbacks*`, envactor stores a `unk32[4]`); MenuState shrank to
+  0x38 with the menu/objectItems/block/timer/cleanup/motion fields moved to
+  FrontendState (`menu*`).
+- Housekeeping: removed worktrees/branches agent-aa3bb15346941d4ce (idle since
+  09-03), raw-decomp-2/-3/-4 (luna audits: nothing unmerged except a
+  non-matching sub_8062C24 draft). `raw-decomp` kept (user: ignore for now).
+- Still open from session 9: skill-fold over the now-15 unfolded learnings;
+  unlock targets sub_804712C / sub_8056B54.
 
 ## Session 9 (2026-09-07/08)
 
