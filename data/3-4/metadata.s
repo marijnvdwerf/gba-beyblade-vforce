@@ -73,7 +73,7 @@ LineDataE03S04_27:
 LineDataE03S04_28:
     .2byte 8
     .align 2, 0
-    linedata_2 0xD679, 0x08233A18
+    linedata_2 0xD679, SpriteSheet_8233A18
     linedata_6 0xA23E
     linedata_18 0xA23E
     linedata_8 0x002D, 1, 0
@@ -83,7 +83,7 @@ LineDataE03S04_28:
 LineDataE03S04_29:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0x1997
     linedata_18 0x1997
     linedata_8 0x002D, 1, 2
@@ -94,7 +94,7 @@ LineDataE03S04_29:
 LineDataE03S04_30:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, 0x082325B0
+    linedata_2 0xD679, SpriteSheet_82325B0
     linedata_6 0xB9DE
     linedata_18 0xB9DE
     linedata_8 0x002D, 1, 2

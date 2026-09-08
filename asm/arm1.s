@@ -27,7 +27,7 @@ render_00:
 locret_80641EC:
     MOV	PC, LR
 off_80641F0:
-    .4byte 0x874D1C0
+    .4byte Unk_874D1C0
     arm_func_end render_00
 
 
@@ -449,7 +449,7 @@ loc_80647E4:
     LDMFD	SP!, {R5-R12,LR}
     MOV	PC, LR
 dword_8064828:
-    .4byte 0x874D1C0
+    .4byte Unk_874D1C0
     arm_func_end render_02
 
 
@@ -642,7 +642,7 @@ loc_8064A6C:
     LDMFD	SP!, {R4-R12,LR}
     BX	LR
 off_8064AD4:
-    .4byte 0x874CC3C
+    .4byte Unk_874CC3C
     arm_func_end render_04
 
 

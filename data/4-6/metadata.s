@@ -86,7 +86,7 @@ LineDataE04S06_21:
 LineDataE04S06_22:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, 0x0822D814
+    linedata_2 0xD679, SpriteSheet_822D814
     linedata_6 0xB9DE
     linedata_18 0xB9DE
     linedata_8 0x002D, 1, 2
@@ -99,7 +99,7 @@ LineDataE04S06_22:
 LineDataE04S06_23:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, 0x0822D814
+    linedata_2 0xD679, SpriteSheet_822D814
     linedata_6 0xDD47
     linedata_18 0xDD47
     linedata_8 0x002D, 1, 2

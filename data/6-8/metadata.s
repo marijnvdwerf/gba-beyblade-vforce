@@ -88,7 +88,7 @@ global LineDataE06S08
 LineDataE06S08_27:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, 0x082371A0
+    linedata_2 0xD679, SpriteSheet_82371A0
     linedata_6 0xDD48
     linedata_18 0xDD48
     linedata_8 0x002D, 1, 2
@@ -109,7 +109,7 @@ LineDataE06S08_32:
 LineDataE06S08_34:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0x1997
     linedata_18 0x1997
     linedata_8 0x002D, 1, 2
@@ -120,7 +120,7 @@ LineDataE06S08_34:
 LineDataE06S08_35:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0x1998
     linedata_18 0x1998
     linedata_8 0x002D, 1, 2
@@ -131,7 +131,7 @@ LineDataE06S08_35:
 LineDataE06S08_36:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0xEA77
     linedata_18 0xEA77
     linedata_8 0x002D, 1, 2
@@ -142,7 +142,7 @@ LineDataE06S08_36:
 LineDataE06S08_37:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0x1999
     linedata_18 0x1999
     linedata_8 0x002D, 1, 2
@@ -153,7 +153,7 @@ LineDataE06S08_37:
 LineDataE06S08_38:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0x199A
     linedata_18 0x199A
     linedata_8 0x002D, 1, 2
@@ -164,17 +164,17 @@ LineDataE06S08_38:
 LineDataE06S08_40:
     .2byte 1
     .align 2, 0
-    linedata_2 0xD679, 0x08238608
+    linedata_2 0xD679, SpriteSheet_8238608
 
 LineDataE06S08_41:
     .2byte 1
     .align 2, 0
-    linedata_2 0xD679, 0x08238608
+    linedata_2 0xD679, SpriteSheet_8238608
 
 LineDataE06S08_42:
     .2byte 6
     .align 2, 0
-    linedata_2 0xD679, 0x08230398
+    linedata_2 0xD679, SpriteSheet_8230398
     linedata_1 0xBF84, 60
     linedata_11 0xD679, 0x00, 0x00, 0x00, 0x00
     linedata_18 0x28E6
@@ -184,7 +184,7 @@ LineDataE06S08_42:
 LineDataE06S08_43:
     .2byte 6
     .align 2, 0
-    linedata_2 0xD679, 0x08230398
+    linedata_2 0xD679, SpriteSheet_8230398
     linedata_1 0xBF84, 60
     linedata_11 0xD679, 0x00, 0x00, 0x00, 0x00
     linedata_18 0x28E6
@@ -194,10 +194,10 @@ LineDataE06S08_43:
 LineDataE06S08_44:
     .2byte 1
     .align 2, 0
-    linedata_2 0xD679, 0x08230398
+    linedata_2 0xD679, SpriteSheet_8230398
 
 LineDataE06S08_45:
     .2byte 1
     .align 2, 0
-    linedata_2 0xD679, 0x08230398
+    linedata_2 0xD679, SpriteSheet_8230398
 

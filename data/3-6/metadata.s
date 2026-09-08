@@ -40,7 +40,7 @@ LineDataE03S06_14:
 LineDataE03S06_18:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0x1998
     linedata_18 0x1998
     linedata_8 0x002D, 1, 2
@@ -51,7 +51,7 @@ LineDataE03S06_18:
 LineDataE03S06_19:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0xB32A
     linedata_18 0xB32A
     linedata_8 0x002D, 1, 2

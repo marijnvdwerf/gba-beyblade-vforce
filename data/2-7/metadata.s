@@ -49,7 +49,7 @@ LineDataE02S07_12:
 LineDataE02S07_14:
     .2byte 8
     .align 2, 0
-    linedata_2 0xD679, 0x082355DC
+    linedata_2 0xD679, SpriteSheet_82355DC
     linedata_6 0x4710
     linedata_18 0x4710
     linedata_8 0x002D, 1, 0
@@ -72,7 +72,7 @@ LineDataE02S07_15:
 LineDataE02S07_16:
     .2byte 8
     .align 2, 0
-    linedata_2 0xD679, 0x0822BC50
+    linedata_2 0xD679, SpriteSheet_822BC50
     linedata_6 0xA23E
     linedata_18 0xA23E
     linedata_8 0x002D, 1, 0
@@ -82,7 +82,7 @@ LineDataE02S07_16:
 LineDataE02S07_17:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0x1997
     linedata_18 0x1997
     linedata_8 0x002D, 1, 2
@@ -106,7 +106,7 @@ LineDataE02S07_18:
 LineDataE02S07_19:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, 0x082371A0
+    linedata_2 0xD679, SpriteSheet_82371A0
     linedata_6 0xB9DE
     linedata_18 0xB9DE
     linedata_8 0x002D, 1, 2
@@ -119,7 +119,7 @@ LineDataE02S07_19:
 LineDataE02S07_20:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, 0x0822D814
+    linedata_2 0xD679, SpriteSheet_822D814
     linedata_6 0xDD47
     linedata_18 0xDD47
     linedata_8 0x002D, 1, 2
@@ -132,8 +132,8 @@ LineDataE02S07_20:
 LineDataE02S07_32:
     .2byte 8
     .align 2, 0
-    linedata_2 0xD679, 0x0822EC7C
-    linedata_2 0xFB93, 0x0822F00C
+    linedata_2 0xD679, SpriteSheet_822EC7C
+    linedata_2 0xFB93, SpriteSheet_822F00C
     linedata_4 0xFB93, 0, 16, 0
     linedata_1 0xBF84, 60
     linedata_11 0xD679, 0x00, 0x00, 0x00, 0x00
@@ -144,8 +144,8 @@ LineDataE02S07_32:
 LineDataE02S07_33:
     .2byte 8
     .align 2, 0
-    linedata_2 0xD679, 0x0822F4E0
-    linedata_2 0xFB93, 0x0822F830
+    linedata_2 0xD679, SpriteSheet_822F4E0
+    linedata_2 0xFB93, SpriteSheet_822F830
     linedata_4 0xFB93, 0, 16, 0
     linedata_1 0xBF84, 60
     linedata_11 0xD679, 0x00, 0x00, 0x00, 0x00
@@ -156,14 +156,14 @@ LineDataE02S07_33:
 LineDataE02S07_34:
     .2byte 3
     .align 2, 0
-    linedata_2 0xD679, 0x0822FEC4
-    linedata_2 0xFB93, 0x08230398
+    linedata_2 0xD679, SpriteSheet_822FEC4
+    linedata_2 0xFB93, SpriteSheet_8230398
     linedata_4 0xFB93, -64, 16, 0
 
 LineDataE02S07_35:
     .2byte 3
     .align 2, 0
-    linedata_2 0xD679, 0x0822FEC4
-    linedata_2 0xFB93, 0x08230398
+    linedata_2 0xD679, SpriteSheet_822FEC4
+    linedata_2 0xFB93, SpriteSheet_8230398
     linedata_4 0xFB93, -64, 16, 0
 

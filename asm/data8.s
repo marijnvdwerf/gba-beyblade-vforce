@@ -2024,7 +2024,9 @@ global __sub_8757FCC
 global word_807D90C
     .2byte  0x404,  0x808, 0x1010, 0x2020,  0x804, 0x1004
     .2byte 0x1008, 0x2010,  0x408,  0x410,  0x810, 0x1020
-    .2byte      0,      0,      0,      0, 0x7B41,  0x805
+    .2byte      0,      0,      0,      0
+
+    .4byte nullsub_9 + 1
 
 global off_807D930
     .4byte printf + 1

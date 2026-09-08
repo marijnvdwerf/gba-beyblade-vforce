@@ -108,7 +108,7 @@ global LineDataE06S04
 LineDataE06S04_46:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0x1999
     linedata_18 0x1999
     linedata_8 0x002D, 1, 2
@@ -119,7 +119,7 @@ LineDataE06S04_46:
 LineDataE06S04_47:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0x1998
     linedata_18 0x1998
     linedata_8 0x002D, 1, 2
@@ -130,7 +130,7 @@ LineDataE06S04_47:
 LineDataE06S04_48:
     .2byte 8
     .align 2, 0
-    linedata_2 0xD679, 0x082309EC
+    linedata_2 0xD679, SpriteSheet_82309EC
     linedata_6 0x0B42
     linedata_18 0x0B42
     linedata_8 0x002D, 1, 0
@@ -179,7 +179,7 @@ LineDataE06S04_51:
 LineDataE06S04_52:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, 0x0822D814
+    linedata_2 0xD679, SpriteSheet_822D814
     linedata_6 0xFB9B
     linedata_18 0xFB9B
     linedata_8 0x002D, 1, 2
@@ -192,7 +192,7 @@ LineDataE06S04_52:
 LineDataE06S04_53:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, 0x082371A0
+    linedata_2 0xD679, SpriteSheet_82371A0
     linedata_6 0xDD48
     linedata_18 0xDD48
     linedata_8 0x002D, 1, 2
@@ -205,7 +205,7 @@ LineDataE06S04_53:
 LineDataE06S04_54:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, 0x0822D814
+    linedata_2 0xD679, SpriteSheet_822D814
     linedata_6 0xDD47
     linedata_18 0xDD47
     linedata_8 0x002D, 1, 2
@@ -218,7 +218,7 @@ LineDataE06S04_54:
 LineDataE06S04_55:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, 0x082325B0
+    linedata_2 0xD679, SpriteSheet_82325B0
     linedata_6 0xB9DE
     linedata_18 0xB9DE
     linedata_8 0x002D, 1, 2
@@ -231,7 +231,7 @@ LineDataE06S04_55:
 LineDataE06S04_56:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0xB306
     linedata_18 0xB306
     linedata_8 0x002D, 1, 2
@@ -242,7 +242,7 @@ LineDataE06S04_56:
 LineDataE06S04_57:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0xB34F
     linedata_18 0xB34F
     linedata_8 0x002D, 1, 2

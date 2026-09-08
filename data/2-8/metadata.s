@@ -42,7 +42,7 @@ global LineDataE02S08
 LineDataE02S08_13:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, 0x082371A0
+    linedata_2 0xD679, SpriteSheet_82371A0
     linedata_6 0xDD47
     linedata_18 0xDD47
     linedata_8 0x002D, 1, 2
@@ -55,7 +55,7 @@ LineDataE02S08_13:
 LineDataE02S08_14:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, 0x082325B0
+    linedata_2 0xD679, SpriteSheet_82325B0
     linedata_6 0xDD46
     linedata_18 0xDD46
     linedata_8 0x002D, 1, 2

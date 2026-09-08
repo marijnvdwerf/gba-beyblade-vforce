@@ -126,7 +126,7 @@ global LineDataE05S08
 LineDataE05S08_53:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, 0x082371A0
+    linedata_2 0xD679, SpriteSheet_82371A0
     linedata_6 0xDD48
     linedata_18 0xDD48
     linedata_8 0x002D, 1, 2
@@ -139,7 +139,7 @@ LineDataE05S08_53:
 LineDataE05S08_54:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, 0x082325B0
+    linedata_2 0xD679, SpriteSheet_82325B0
     linedata_6 0x57F5
     linedata_18 0x57F5
     linedata_8 0x002D, 1, 2
@@ -152,7 +152,7 @@ LineDataE05S08_54:
 LineDataE05S08_55:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0x1997
     linedata_18 0x1997
     linedata_8 0x002D, 1, 2
@@ -163,7 +163,7 @@ LineDataE05S08_55:
 LineDataE05S08_56:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, 0x08227CEC
+    linedata_2 0xD679, SpriteSheet_8227CEC
     linedata_6 0xB304
     linedata_18 0xB304
     linedata_8 0x002D, 1, 2
