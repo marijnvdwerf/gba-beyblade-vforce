@@ -5,9 +5,61 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-07, session 8 close (600 C / 407 asm / 60%, 15 TUs).
+Last updated: 2026-09-08, session 9 close (647 C / 360 asm / 64%, 16 TUs).
 
-## Session 9 (2026-09-07)
+## Session 9 (2026-09-07/08)
+
+State at close: main green at 66969779, **647 C / 360 asm / 64%**, 16/66 TUs
+(dialogue.c completed); baseline refreshed; lint 0; callgraph ⚠ empty; no
+agents running; keepalive stopped. Worktrees: kept Opus one
+(`agent-aa3bb15346941d4ce`) + raw-decomp/-2/-3 (user's; now irrelevant —
+remove only when told). Net: **+47 C functions** incl. the two largest
+frontend handlers' worth of leaves and selectBladeFrontendHandler (2172 B).
+
+### Next session
+
+1. Skill-fold (sol) over the 12 unfolded learnings (beyblade, effects ×2,
+   small-reds, teletype, levelselect ×2, geometry, festate-select-blade,
+   results, math, layer, spritetext — all 2026-09-07/08); archive them.
+2. Unlock targets (user): sub_804712C (festate 872 → 8 new), sub_8056B54
+   (collision 180 → 2 new); then sub_80561EC / sub_805D650 (giants-tier).
+3. Parked with allocation-only diffs, worth fresh agents: sub_805CEB8
+   (0x0C), sub_8061684 (0x08), sub_8063D38, sub_80594FC (0x10),
+   turorial_804A488 (0x14), sub_8041344 (needs `(unk8)(arg1 + 0)` — user
+   said keep parked). sub_8052B24 (0x20A loop rotation, whole-body effect).
+4. Debt: FrontendBladeState sits in ram.h (festate.h↔ram.h cycle) with a
+   SizeCheck typedef; teletype.c:75 TODO comment wrapped by clang-format;
+   `_806EA5C/_806EA70` etc. externs in levelselect.c; older debt list below.
+
+### Decisions made this session (user)
+
+- raw-decomp worktrees are irrelevant; decompiler.md no longer mentions them.
+- The word "rulings" stays retired ("decisions").
+- One-off sanctioned comments: selectBladeFrontendHandler `unk8* p` alias
+  (`// TODO: fakematch? (…reason…)`), sub_8063BA8 `process`/`zero`. The
+  comment carries the measured reason, never a question or "(reason)".
+- sub_8041344 stays parked rather than shipping `(unk8)(arg1 + 0)`.
+- Small-red batches: one agent per multi-red TU.
+- Unlock analysis is the prioritisation tool: reds whose callees are not in
+  the callgraph come first.
+
+### Lessons for the manager
+
+- agbcc fuses `a == 0 && b == 0` on adjacent s8 fields into one `ldrh`
+  (measured by the user's agent; my "it won't" claim was wrong — measure).
+- Identical duplicated case tails let agbcc cross-jump (`b` into the shared
+  tail); no goto needed. Duplicated arms are often the source.
+- callgraph.py had two blind spots (callback-table children rendered as
+  leaves; local fn-pointer typedefs not named *Func/*Handler) — "reds
+  exhausted" claims must be re-checked after tooling fixes.
+- Reviewers: narrow read lists (one overflowed on a 1000-line festate
+  diff). Parking hygiene (draft-only header/RAM changes) was the #1 review
+  finding all session — say it in the prompt for giants.
+- Agents at 500+ tool calls loop; park and hand off. Two edited main
+  (results.c ×2, a dump delete) — the keepalive caught all three.
+- Merge chains: the `bash -o pipefail` chain can fail silently when a
+  python step asserts; check `git log -1` after every merge.
+
 
 - Skill fold over the eleven 2026-09-07 learnings merged (2262baff, 6 bullets,
   SKILL.md 200 lines); docs/learnings top level is empty again.
