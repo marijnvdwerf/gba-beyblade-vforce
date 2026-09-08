@@ -1,15 +1,49 @@
 #include "teletype.h"
 
+#include "debug.h"
 #include "include_asm.h"
 #include "memory.h"
 #include "sprite.h"
 #include "spritetext.h"
 
-void sub_8063AB4(TeletypeState*);
-extern const unk8 byte_807D980[];
+void sub_8063AB4(TeletypeState* state)
+{
+    SpriteEntry* sprite;
+    unk32 count;
+    unk32 temp;
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8063ab4.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8063ad8.s");
+    sprite = state->unkEC.prev;
+    count = state->unkEC.count;
+    for (;;) {
+        temp = count;
+        count--;
+        if (temp == 0) {
+            break;
+        }
+        sub_8060A60(sprite);
+        sprite = sprite->next;
+    }
+}
+
+extern const unk8 byte_807D980[];
+extern const unk8 Str_87567E8[];
+
+void sub_8063AD8(TeletypeState* state, unk32 palette)
+{
+    SpriteEntry* sprite;
+    const SpriteSheet* data;
+    unk32 x;
+    unk8 normalizedPalette;
+
+    normalizedPalette = palette;
+    sprite = state->unkC8;
+    sub_8060A60(sprite);
+    data = state->unk4;
+    x = state->unkAC + state->unk9C;
+    LoadSpriteSheet(sprite, data, x, state->unkB0 + state->unkA0, 0, 0, 0, normalizedPalette);
+    sub_8061168(sprite, state->unk14[state->unk13]);
+    state->unkC8 = sprite->next;
+}
 
 unk32 sub_8063B44(TeletypeState* state)
 {
@@ -31,7 +65,65 @@ unk32 sub_8063B44(TeletypeState* state)
     return result;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8063ba8.s");
+void sub_8063BA8(TeletypeState* state)
+{
+    unk32 process;
+    unk32 zero;
+    unk8* buffer;
+    unk8 character;
+
+    process = 1; // TODO: fakematch? (never cleared; for (;;) and a real flag both shift entry
+                 // allocation at 0x02)
+    state->unkB4 = 0;
+    state->unk12 = 0;
+    state->unkBF = 0;
+    buffer = state->unk1C;
+    zero = 0; // TODO: fakematch? (literal 0 shifts entry allocation at 0x02)
+    while (process != 0) {
+        character = *state->unk0;
+        switch (character) {
+        case 0:
+        case 9:
+        case 10:
+        case 12:
+        case 0x20:
+        case 0x7B:
+        case 0xFE:
+        case 0xFF:
+            buffer[state->unk12] = zero;
+            return;
+        case 0x21:
+        case 0x26:
+        case 0x2A:
+        case 0x2B:
+        case 0x2C:
+        case 0x2D:
+        case 0x2E:
+        case 0x2F:
+        case 0x3A:
+        case 0x3B:
+        case 0x3D:
+        case 0x3F:
+        case 0x5C:
+            state->unkB4 += (state->unkC1 - state->unk8[byte_807D980[character]] + state->unkD)
+                << 8;
+            buffer[state->unk12++] = character;
+            buffer[state->unk12] = zero;
+            state->unk0++;
+            return;
+        case 0x3C:
+        case 0x3E:
+            state->unk0++;
+            break;
+        default:
+            state->unkB4 += (state->unkC1 - state->unk8[byte_807D980[character]] + state->unkD)
+                << 8;
+            buffer[state->unk12++] = character;
+            state->unk0++;
+            break;
+        }
+    }
+}
 
 void sub_8063CD0(TeletypeState* state)
 {
@@ -53,6 +145,50 @@ void sub_8063CF4(TeletypeState* state)
     }
 }
 
+#if 0
+const unk8* sub_8063D38(const unk8* string, unk32* command)
+{
+    unk32 value;
+    unk32 sign;
+    unk32 code;
+    unk32 done;
+    const unk8* cursor;
+    unk8 character;
+
+    sign = 0;
+    code = 0;
+    value = 0;
+    done = 0;
+    cursor = string;
+    cursor++;
+    character = cursor[0];
+    if (character == '/') {
+        sign = 0x80000000;
+        cursor++;
+    }
+    character = cursor[0];
+    if ((unk8)(character - 0x30) > 9 && character != '}' && character != 0) {
+        code = character << 24;
+        cursor++;
+    }
+    if (done == 0) {
+        do {
+            character = cursor[0];
+            cursor++;
+            if (character == '}') {
+                break;
+            }
+            if ((unk8)(character - 0x30) <= 9) {
+                value = value * 10 - 0x30 + character;
+            } else if (character == '-') {
+                sign = 0x80000000;
+            }
+        } while (done == 0);
+    }
+    *command = sign | code | value;
+    return cursor;
+}
+#endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8063d38.s");
 
 void sub_8063DAC(TeletypeState* state, unk16 value)
@@ -337,9 +473,28 @@ void sub_8063F84(TeletypeStateUpdateDraft* state)
 
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8063f84.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/80640f8.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8064104-pushTeletypeStringPalette.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8064130.s");
+
+void sub_80640F8(TeletypeState* state)
+{
+    sub_8063CD0(state);
+}
+
+void pushTeletypeStringPalette(TeletypeState* state, unk8 palette)
+{
+    if (state->unk13 <= 7) {
+        state->unk13++;
+        state->unk14[state->unk13] = palette;
+    } else {
+        printf(Str_87567E8);
+    }
+}
+
+void sub_8064130(TeletypeState* state)
+{
+    if (state->unk13 != 0) {
+        state->unk13--;
+    }
+}
 
 void sub_8064140(TeletypeState* state)
 {
