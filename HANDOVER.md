@@ -34,8 +34,18 @@ Last updated: 2026-09-08, session 10 (652 C / 355 asm / 65%, 18 TUs).
 - Housekeeping: removed worktrees/branches agent-aa3bb15346941d4ce (idle since
   09-03), raw-decomp-2/-3/-4 (luna audits: nothing unmerged except a
   non-matching sub_8062C24 draft). `raw-decomp` kept (user: ignore for now).
-- Still open from session 9: skill-fold over the now-15 unfolded learnings;
-  unlock targets sub_804712C / sub_8056B54.
+- Skill fold merged (a9a5e5f9; 15 files archived, raw-decomp-5 file weighted as
+  primary input per user; SKILL.md 202 lines). docs/learnings top level is
+  empty again.
+- callgraph: sub_805CEB8's `callbacks.unk4->unk0/unk4` dispatch modelled
+  (bf80dbd8); ⚠ empty. TODO comments added for the four byte-required
+  raw-decomp-5 shapes (99caddbd; user sanctioned).
+- Unlock analysis rerun (/tmp/unlock-analysis-2026-09-08.md): sub_804712C
+  festate 872 → 8 (sub_804703C 66 + seven ~30 B beyblade leaves);
+  sub_80561EC collision 1060 → 4 (+1 transitive); def_94_0_8055CFC → 3;
+  sub_8056B54 → 2; sub_805C9A4/actor_805C48C share call_rider_94_8. All
+  other reds are dead ends. Proposed next: sub_804712C agent + collision
+  cluster (sub_8056B54 + def_94_0_8055CFC) agent; sub_80561EC after.
 
 ## Session 9 (2026-09-07/08)
 
