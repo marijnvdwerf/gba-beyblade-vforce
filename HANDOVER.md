@@ -273,6 +273,10 @@ Last updated: 2026-09-08, session 10 (683 C / 324 asm / 68%, 18 TUs).
   at most three record aliases (each used ≥2× across a call), literal
   −0x1A at each store; eight aliases reproduce the prologue but spill
   `actor`.
+  Parked at 323 calls (structure right, allocation only): target holds
+  actor r4, a hoisted zero in r6, −0x1A r10, &unkF4 r9, &unkF8 r8, &unkFC
+  ip, r4 reused for &unk108 later, frame 0; every draft form spills
+  `actor`. Park commit pending → hygiene review → merge.
 
 ## Session 9 (2026-09-07/08)
 
