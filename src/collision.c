@@ -1,5 +1,6 @@
 #include "collision.h"
 
+#include "debug.h"
 #include "effects.h"
 #include "geometry.h"
 #include "include_asm.h"
@@ -8,7 +9,8 @@
 #include "riderphysics.h"
 
 void sub_80561EC(unk32, unk32, unk32);
-extern void def_94_4_AddWithBoundingAreaMessage(Actor*, LevelGeometryAddresses*, GeometryLine*);
+extern const unk8 Str_87297D0[];
+extern unk8 def_94_4_AddWithBoundingAreaMessage(Actor*, LevelGeometryAddresses*, GeometryLine*);
 extern unk8 def_94_8_collision_8055F2C(Actor*, LevelGeometryAddresses*, GeometryLine*, unk16);
 
 void sub_8055CB8(void)
@@ -94,6 +96,13 @@ void sub_8055D64(Actor* actor, RiderBase* rider, LevelGeometryAddresses* geometr
     }
 }
 
+#if 0
+void sub_8055F04(Actor* actor, RiderBase* rider, GeometryLine* line, unk16 collisionMask, s16 angle)
+{
+    sub_804E358(angle, rider->unk10 >> 4);
+    sub_804E154(rider, 0, 0);
+}
+#endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055f04.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055f2c-def_94_8_collision_8055F2C.s");
 
@@ -102,7 +111,17 @@ void nullsub_6(void)
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056158.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/805616c-def_94_4_AddWithBoundingAreaMessage.s");
+
+unk8 def_94_4_AddWithBoundingAreaMessage(
+    Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line)
+{
+    if (withBoundingAreaCount > 0x1F) {
+        printf(Str_87297D0);
+    } else {
+        withBoundingAreas[withBoundingAreaCount] = (unk32)line;
+        withBoundingAreaCount++;
+    }
+}
 
 void sub_80561A0(unk32 arg0, unk32 arg1)
 {
@@ -134,16 +153,10 @@ typedef struct CollisionLineDraft {
     unk8 pad18[8];
 } CollisionLineDraft;
 
-typedef struct CollisionResultDraft {
-    unk8 pad0[8];
-    s32 unk8;
-    unk8 padC[0x1C];
-} CollisionResultDraft;
-
 typedef struct CollisionScratchDraft {
-    CollisionResultDraft scratch;
-    CollisionResultDraft result80;
-    CollisionResultDraft result92;
+    CollisionResult scratch;
+    CollisionResult result80;
+    CollisionResult result92;
     s32 maxX;
     s32 maxY;
     unk8 flags;
@@ -153,7 +166,7 @@ typedef struct CollisionRiderDraft {
     unk8 pad0[0x68];
     CollisionLineDraft* unk68;
     unk8 pad6C[0x88];
-    CollisionResultDraft unkF4;
+    CollisionResult unkF4;
     unk8 pad11C[0xA4];
     unk8 unk1C0;
     unk8 pad1C1[2];
@@ -171,9 +184,9 @@ typedef struct CollisionActorDraft {
     CollisionRiderDraft* unkB4;
 } CollisionActorDraft;
 
-void sub_80567E4(LevelGeometryAddresses*, CollisionLineDraft*, CollisionActorDraft*, CollisionResultDraft*);
-void sub_8056910(LevelGeometryAddresses*, CollisionLineDraft*, CollisionActorDraft*, CollisionResultDraft*);
-void sub_8056610(LevelGeometryAddresses*, CollisionLineDraft*, CollisionRiderDraft*, CollisionResultDraft*);
+void sub_80567E4(LevelGeometryAddresses*, CollisionLineDraft*, CollisionActorDraft*, CollisionResult*);
+void sub_8056910(LevelGeometryAddresses*, CollisionLineDraft*, CollisionActorDraft*, CollisionResult*);
+void sub_8056610(LevelGeometryAddresses*, CollisionLineDraft*, CollisionRiderDraft*, CollisionResult*);
 void SetRiderFlag(CollisionRiderDraft*, unk32);
 unk8 RiderHasFlag(CollisionRiderDraft*, unk32);
 void sub_8056EC0(void);
@@ -187,7 +200,7 @@ unk32 sub_80561EC(CollisionActorDraft* actor, LevelGeometryAddresses* geometry, 
     GeometryPoint* point1;
     s32 minX;
     s32 minY;
-    CollisionResultDraft* result;
+    CollisionResult* result;
     s32 difference;
     s32 minDifference;
     s32 maxDifference;
@@ -503,7 +516,39 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/8056610.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/80567e4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056910.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056adc.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8056b54.s");
+
+unk8 sub_8056B54(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line)
+{
+    EnvironmentObject* object;
+    CollisionResult result;
+
+    object = GetStruct4(actor->unkB4.lineIndex);
+    result.unk8 = 0;
+    switch (line->unkF) {
+    case 0x80:
+    case 0x82:
+    case 0x86:
+    case 0x87:
+    case 0x89:
+    case 0x8B:
+    case 0x8C:
+    case 0x8D:
+    case 0x8E:
+    case 0x90:
+    case 0x91:
+    case 0x92:
+        break;
+    default:
+        if (line->unk11_2 == 0)
+            sub_80567E4(geometry, line, actor, &result);
+        else
+            sub_8056910(geometry, line, actor, &result);
+        break;
+    }
+    if (object->unk12 < (result.unk8 >> 8))
+        object->unk12 = result.unk8 >> 8;
+}
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056c08-_return_false.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056c0c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056c80.s");

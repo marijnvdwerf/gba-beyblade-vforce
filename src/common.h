@@ -415,7 +415,7 @@ struct LevelGeometryAddresses;
 struct GeometryLine;
 typedef unk8 (*ActorCollisionResponse)(
     struct Actor*, struct LevelGeometryAddresses*, struct GeometryLine*, unk16);
-typedef void (*ActorCollisionOverlap)(
+typedef unk8 (*ActorCollisionOverlap)(
     struct Actor*, struct LevelGeometryAddresses*, struct GeometryLine*);
 typedef unk8 (*ActorCollisionFilter)(
     struct Actor*, struct LevelGeometryAddresses*, struct GeometryLine*, unk16);
