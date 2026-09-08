@@ -147,6 +147,14 @@ Last updated: 2026-09-08, session 10 (669 C / 338 asm / 66%, 18 TUs).
   s16 return of sub_804E358 is discarded). sub_805DBF0 lead from the dump:
   the returned value is a `unk16 count` local (`lsl/lsr #16` after ++,
   `bcs` vs the unk16 capacity), free truncation into the unk8 return.
+- Merged: sub_8061880 + initBBCollectionSprite (4f6183a1; sub_8061684's
+  prototype corrected to `(SpriteTextCleanup*, unk16, unk16)`; `BeybladeData
+  .palette/.spriteSheet`; byte-required in-argument `frame = category - 1`
+  with a sanctioned TODO — separate statement diverges at 0x5A).
+  **674 C / 333 asm / 67%.** User's sub_8045CB4 (decomp/sub_8045CB4,
+  2721a5e3) matched — reviewer running, luna fix agent next; music.c
+  widened sub_804AFD4/sub_804B00C to unk32 with u16 locals + a `(u16)` cast
+  at sub_804AD28 (flag for the fix agent).
 
 ## Session 9 (2026-09-07/08)
 
