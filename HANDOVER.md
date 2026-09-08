@@ -105,6 +105,10 @@ Last updated: 2026-09-08, session 10 (652 C / 355 asm / 65%, 18 TUs).
 - sub_8056610 agent's worktree build was reconfigured by the manager after
   it claimed the cache pointed at main (it did not); a worktree guard now
   blocks its main-path edits.
+- Merged: geometry ×3 (680ca9d7; `ActorSplineCallbacks.unk4` added with s32
+  index param; sub_805BAC0 keeps `(unk32)((unk8*)line - (unk8*)base) >> 5`
+  with a TODO — natural pointer subtraction lowers to `asr #5`, target `lsr`).
+  **667 C / 340 asm / 66%.** Running: festate ×3, sub_8056610.
 
 ## Session 9 (2026-09-07/08)
 
