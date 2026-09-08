@@ -259,7 +259,7 @@ SECTIONS {
      * copies LOADADDR(.iwram_code)..+SIZEOF into place at boot. */
     .iwram_code _iwram_code_start : AT(ADDR(.rodata) + SIZEOF(.rodata))
     {
-        asm/arm2.s.o(.text);
+        src/iwram.c.o(.text);
         fn_end = .;
     }
     __iwram_code_lma = LOADADDR(.iwram_code);

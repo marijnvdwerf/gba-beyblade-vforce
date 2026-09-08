@@ -13,7 +13,7 @@ target_include_directories(agb INTERFACE "${CMAKE_SOURCE_DIR}/lib/agb/include")
 
 add_executable(rom
     asm/arm1.s
-    asm/arm2.s
+    src/iwram.c
     asm/audio0.s
     asm/audio1.s
     asm/audio2.s

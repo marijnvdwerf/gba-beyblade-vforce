@@ -1,0 +1,112 @@
+.include "asm/common.inc"
+
+    arm_func_start sub_8757574
+sub_8757574:
+		MOV	R12, SP
+		STMFD	SP!, {R4-R12,LR,PC}
+		SUB	R11, R12, #4
+		MOV	R9, R1
+		MOV	R12, R2
+		MOV	R4, R3
+		SUB	R4, R4,	#1
+		CMP	R3, #0
+		MOV	R7, R0
+		BEQ	loc_87576D0
+		MOV	R6, #0x3FC
+		add	R6, R6,	#3
+
+loc_87575A4:
+		MOV	R5, #7
+		SUB	R10, R4, #1
+		add	R8, R12, #0x20
+		LDRH	LR, [R9],#2
+		add	R3, R12, #0x1C
+		AND	R2, LR,	R6
+		MOV	R2, R2,LSL#3
+		add	R1, R7,	R2
+		add	R1, R1,	#4
+		TST	LR, #0x800
+		MOVEQ	R0, R12
+		MOVNE	R0, R3
+		LDR	R12, [R7,R2]
+
+loc_87575D8:
+		TST	LR, #0x400
+		BEQ	loc_8757640
+		TST	R12, #1
+		MOVEQ	R2, #0
+		MOVNE	R2, #0x10000000
+		TST	R12, #2
+		ORR	R3, R2,	#0x1000000
+		MOVNE	R2, R3
+		TST	R12, #4
+		ORR	R3, R2,	#0x100000
+		MOVNE	R2, R3
+		TST	R12, #8
+		ORR	R3, R2,	#0x10000
+		MOVNE	R2, R3
+		TST	R12, #0x10
+		ORR	R3, R2,	#0x1000
+		MOVNE	R2, R3
+		TST	R12, #0x20
+		ORR	R3, R2,	#0x100
+		MOVNE	R2, R3
+		TST	R12, #0x40
+		ORR	R3, R2,	#0x10
+		MOVNE	R2, R3
+		TST	R12, #0x80
+		ORRNE	R2, R2,	#1
+		B	loc_8757698
+
+
+loc_8757640:
+		AND	R2, R12, #1
+		TST	R12, #2
+		ORR	R3, R2,	#0x10
+		MOVNE	R2, R3
+		TST	R12, #4
+		ORR	R3, R2,	#0x100
+		MOVNE	R2, R3
+		TST	R12, #8
+		ORR	R3, R2,	#0x1000
+		MOVNE	R2, R3
+		TST	R12, #0x10
+		ORR	R3, R2,	#0x10000
+		MOVNE	R2, R3
+		TST	R12, #0x20
+		ORR	R3, R2,	#0x100000
+		MOVNE	R2, R3
+		TST	R12, #0x40
+		ORR	R3, R2,	#0x1000000
+		MOVNE	R2, R3
+		TST	R12, #0x80
+		ORR	R3, R2,	#0x10000000
+		MOVNE	R2, R3
+
+loc_8757698:
+		TST	LR, #0x800
+		STRNE	R2, [R0],#-4
+		STREQ	R2, [R0],#4
+		CMP	R5, #4
+		LDREQ	R12, [R1],#4
+		MOVNE	R12, R12,LSR#8
+		SUB	R5, R5,	#1
+		cmn	R5, #1
+		BNE	loc_87575D8
+		MOV	R12, R8
+		MOV	R3, R4
+		MOV	R4, R10
+		CMP	R3, #0
+		BNE	loc_87575A4
+
+loc_87576D0:
+		LDMDB	R11, {R4-R11,SP,LR}
+		BX	LR
+    arm_func_end sub_8757574
+
+
+
+
+
+
+

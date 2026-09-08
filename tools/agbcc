@@ -5,6 +5,9 @@ set -eu
 cpp=${CC:-cc}
 iconv=iconv
 cc1=
+cc1_arm=
+arm_mode=false
+fhex_asm=false
 as=arm-none-eabi-as
 as_include=
 source_file=
@@ -35,6 +38,7 @@ while [ "$#" -gt 0 ]; do
         --cpp=*) cpp=${1#--cpp=} ;;
         --iconv=*) iconv=${1#--iconv=} ;;
         --cc1=*) cc1=${1#--cc1=} ;;
+        --cc1-arm=*) cc1_arm=${1#--cc1-arm=} ;;
         --as=*) as=${1#--as=} ;;
         --as-include=*) as_include=${1#--as-include=} ;;
         --reset-flags) cc1_args= ;;
@@ -45,6 +49,9 @@ while [ "$#" -gt 0 ]; do
             append_cpp_arg "$1"
             ;;
         -I*|-D*|-U*) append_cpp_arg "$1" ;;
+        -marm) cc1=${cc1_arm:-${AGBCC:-}/bin/agbcc_arm}; arm_mode=true ;;
+        -mthumb) arm_mode=false ;;
+        -fhex-asm) fhex_asm=true ;;
         -MD) want_deps=true ;;
         -MF)
             [ "$#" -ge 2 ] || { printf '%s\n' 'agbcc: missing argument for -MF' >&2; exit 2; }
@@ -78,6 +85,8 @@ while [ "$#" -gt 0 ]; do
     esac
     shift
 done
+
+[ "$arm_mode" = true ] || [ "$fhex_asm" = false ] || append_cc1_arg "-fhex-asm"
 
 [ -n "$source_file" ] || { printf '%s\n' 'agbcc: no input file' >&2; exit 2; }
 [ -n "$output_file" ] || { printf '%s\n' 'agbcc: no output file' >&2; exit 2; }

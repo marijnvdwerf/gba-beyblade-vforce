@@ -579,4 +579,7 @@ extern SpriteEntry* _unk3000468;
 extern s32 _unk300046C;
 extern s32 _unk3000470;
 
+extern unk32 _unk3005E6C;
+extern unk32 _unk3005E74;
+
 #endif

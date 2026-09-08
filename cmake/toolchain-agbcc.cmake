@@ -43,6 +43,9 @@ endif()
 if(NOT EXISTS "${AGBCC}/bin/old_agbcc")
     message(FATAL_ERROR "old_agbcc not found: ${AGBCC}/bin/old_agbcc")
 endif()
+if(NOT EXISTS "${AGBCC}/bin/agbcc_arm")
+    message(FATAL_ERROR "agbcc_arm not found: ${AGBCC}/bin/agbcc_arm")
+endif()
 if(NOT EXISTS "${AGBCC}/lib/libgcc.a")
     message(FATAL_ERROR "libgcc.a not found: ${AGBCC}/lib/libgcc.a")
 endif()
@@ -68,7 +71,7 @@ set(CMAKE_EXE_LINKER_FLAGS_MINSIZEREL "" CACHE STRING "" FORCE)
 set(CMAKE_C_STANDARD_LIBRARIES "" CACHE STRING "" FORCE)
 
 set(CMAKE_C_COMPILE_OBJECT
-    "<CMAKE_C_COMPILER> --cpp=${AGBCC_HOST_CC} --iconv=${AGBCC_ICONV} --cc1=${AGBCC}/bin/old_agbcc --as=${CMAKE_ASM_COMPILER} --as-include=${CMAKE_SOURCE_DIR} <DEFINES> <INCLUDES> <FLAGS> -o <OBJECT> -c <SOURCE>")
+    "<CMAKE_C_COMPILER> --cpp=${AGBCC_HOST_CC} --iconv=${AGBCC_ICONV} --cc1=${AGBCC}/bin/old_agbcc --cc1-arm=${AGBCC}/bin/agbcc_arm --as=${CMAKE_ASM_COMPILER} --as-include=${CMAKE_SOURCE_DIR} <DEFINES> <INCLUDES> <FLAGS> -o <OBJECT> -c <SOURCE>")
 set(CMAKE_C_DEPFILE_FORMAT gcc)
 set(CMAKE_C_DEPENDS_USE_COMPILER TRUE)
 
