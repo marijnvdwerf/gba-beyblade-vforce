@@ -64,6 +64,29 @@ Last updated: 2026-09-10, session 11 (691 C / 334 asm / 67%, 18 TUs).
   the user's sub_80508CC + newLayerManagement + sub_805DD18 commits).
 - Running: opus decompiler agent on sub_8055F04 (collision, 40 B, dead
   `lsl #16` residue), own worktree, 25-build cap — NO review yet (user).
+- Merged decomp/4-display (0695fb90, squash; user's sub_805DD18 geometry +
+  sub_80508CC + newLayerManagement display + the two type cleanups:
+  `ScreenLayout` absorbs LevelDesign, `FrontendState.bgLayers[4]` replaces
+  unkB8/140/1C8/250, DisplayRecord retired, FrontendSubobject shrunk to
+  ROM-config fields keeping `FrontendMenuObjectData* unk20`). Review's two
+  blockers pre-existed on main (same-TU prototype → moved to geometry.h;
+  stale parked sub_804967C draft in frontend.c reads `object->unk18.data`
+  — DEBT, needs a scratch struct when unparked). All 7 fold questions
+  byte-required. Debt (user): camera.h CameraSubState/CameraDisplayEntry
+  third 0x84 view (parked gameloop draft only); pre-existing `(BGLayer*)`
+  casts in sub_8050A50, camera.c, envactor.c.
+- Merged opus agent branch (89a55776): sub_8055F04 matched with sanctioned
+  `// TODO: fakematch?` on the unused `angleThreshold` (dead abs+shift pair
+  keeps the target's `lsl #16`); sub_80567E4 PARKED at 147/147 insns,
+  register permutation only. Its unpark needs a user decision: agent claims
+  `GeometryLine` 0x11 bitfields → plain `unk8 unk11` is byte-identical for
+  all 6 users (unmeasured) and the target wants `ldrb; and #2`; plus a dead
+  `if (a > b) swap` keeper (same class as sub_8055F04). Technique: scratch-TU
+  through tools/agbcc, 8 variants per compile (2 real builds for the match).
+  Opus was user-sanctioned for this one agent. **698 C / 327 asm / 68%.**
+- Running: review of decomp/5-sound (`.claude/worktrees/5-sound`, user's
+  sub_8062C24 560 B from decomp/manual-2). Worktrees: manual (stale, all
+  merged), manual-2 (user, active), 5-sound, raw-decomp.
 - Note: `<sym>.NON_MATCHING` aliases in nm output are a tooling artifact
   (present on main), not agent fake symbols; dotless `global` is the asm
   files' existing convention.
