@@ -12,6 +12,7 @@ void initRider(void*, void*, unk32, unk32, unk32, unk32, unk32);
 void processRiderMetadata(RiderBase*, LevelGeometryAddresses*, unk32);
 void sub_804B4A4(RiderBase*);
 void allocFXSprite(RiderBase*);
+void sub_804BF3C(RiderBase*);
 struct GameData;
 unk32 sub_804B7FC(struct GameData*);
 void sub_804B754(void);
