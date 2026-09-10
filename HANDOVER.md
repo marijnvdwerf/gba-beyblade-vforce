@@ -101,6 +101,19 @@ Last updated: 2026-09-10, session 11 (691 C / 334 asm / 67%, 18 TUs).
   decomp/7-rider seeded with e73f21b9; version B 93e5f789 on decomp/manual)
   — user had two agents match it (748 B); agent picks the most natural
   form per difference, one learnings file. Review after.
+- Merged decomp/7-rider (33865690): renderRider 748 B — the user had two
+  agents match it (e73f21b9 manual-2, 93e5f789 manual); luna reconciled
+  (3 differences, B's forms won, each rebuilt exact); review 0 blockers;
+  all 9 fold questions byte-required (an `unk8` index local was
+  instruction-identical but changed the ROM SHA — pool effect). Precedent
+  reused: `(unk8)((sub_8057C40() >> 4) * 4)` table index, like collection.c.
+  sub_804BF3C's parked draft prototype went to `(RiderBase*)` here.
+- Audit of the user branches (luna): unmerged = initRiders (746d2f96,
+  manual-2), sub_804BF3C (1b448278, manual), s_rider_804C4B4 park
+  refinement (0db5b86f, manual-2 — user: ignore "better parks"). Both now
+  cherry-picked onto `.claude/worktrees/8-riders` (decomp/8-riders, compare
+  green), reviewer running. After merge: delete manual-2 worktree + branch
+  (user); `manual` stays — work in progress there (uncommitted rider.c).
 - Note: `<sym>.NON_MATCHING` aliases in nm output are a tooling artifact
   (present on main), not agent fake symbols; dotless `global` is the asm
   files' existing convention.
