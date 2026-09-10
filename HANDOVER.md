@@ -114,6 +114,20 @@ Last updated: 2026-09-10, session 11 (691 C / 334 asm / 67%, 18 TUs).
   cherry-picked onto `.claude/worktrees/8-riders` (decomp/8-riders, compare
   green), reviewer running. After merge: delete manual-2 worktree + branch
   (user); `manual` stays — work in progress there (uncommitted rider.c).
+- Merged decomp/8-riders (ceedb98d): initRiders 704 B + sub_804BF3C 348 B.
+  Review 4 blockers: parked initRider draft retyped through `RiderTileState`
+  (scratch struct in-block for the pad write); dx/dy/newRows → unk32
+  (byte-identical), clearCount s32 by `ble` (+0xB6). Folds byte-required
+  (+0x10, +0x54). User's tile-row shape accepted and measured exact:
+  `typedef unk8 RiderTile[0x20]; typedef RiderTile RiderTileRow[4];
+  RiderBase.unk3D4` is `RiderTileRow*`, `&unk3D4[row]` and
+  `n * sizeof(RiderTileRow)` replace the `<< 7` arithmetic; sub_805EF18 and
+  `__sub_87576D8` take `RiderTile*` (iwram.h aligned). `GeometryLine.unk16`
+  unk16; `BGLayer.field_C` s32. **703 C / 322 asm / 69%; 66.20% bytes
+  (109,832/165,900); 1,321 B to 67.00%, 2,433 to 67.67%.**
+- manual-2 worktree + branch deleted (user: done). Worktrees: `manual`
+  (user, work in progress, uncommitted rider.c), raw-decomp.
+- Unfolded learnings: 17 files from 2026-09-10 — skill-fold is due (sol).
 - Note: `<sym>.NON_MATCHING` aliases in nm output are a tooling artifact
   (present on main), not agent fake symbols; dotless `global` is the asm
   files' existing convention.
