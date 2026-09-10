@@ -7,6 +7,27 @@ and change of plan.
 
 Last updated: 2026-09-08, session 10 (683 C / 324 asm / 68%, 18 TUs).
 
+## Session 11 (2026-09-10)
+
+- main 23e76361 (user's "Update pointers") + efa139b3 handover rewrite
+  (terse prompting TLDR + lifecycle section replace the old How-to-work).
+- User branch `decomp/1-festate` (744409fd, base 454610c5) in worktree
+  `.claude/worktrees/1-festate` (built, compare green, lint 0): FIVE festate
+  matches — sub_804444C, sub_80448F4, sub_8048310, sub_804868C, and the
+  formerly parked sub_804703C — plus "Separate scalar RAM globals": all
+  `FrontendScalarWithPad` → `s32` + `pad_*[4]`, 030001AC–200 / 030005C0–DC
+  typed, `_unk3000E40/_unk3005E78/_unk3000DA2` split to scalar + pad,
+  `CurrentGameStateTail.unk0` s32 (asr #8), data12.s `_80699DC` relabelled
+  to its true address (old label → `_80699D8`, `.size` added).
+- Review (luna): 3 of 5 blockers void — my prompt said sub_804703C was
+  parked; it matched. Real: `FrontendBladeAsset` == `LevelSelectSpriteData`
+  (user: unify as `SpriteTextPlacement` in spritetext.h); six `s32` locals in
+  sub_804444C uncited. Questions: fold total/count, `selection*2+1` for
+  the 1,3,5,7,9 switch (sub_804868C), dedupe RiderHasFlag/unk4[7] chain.
+  Luna fix agent running in the worktree (no isolation). Then squash-merge.
+- Lesson: state the branch's ACTUAL claims in the review prompt (read the
+  learnings headers first); a wrong "parked" premise cost 3 false blockers.
+
 ## Session 10 (2026-09-08)
 
 - Merged the user's `raw-decomp-5` branch (cbf9d2ee, squash): five giants
