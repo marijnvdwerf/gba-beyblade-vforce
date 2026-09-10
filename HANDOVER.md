@@ -855,56 +855,72 @@ Agent prompts), /tmp/learnings-prompts.md (72 fold/learnings prompts across
 
 ## How to work
 
-- You are a manager. All research/decomp goes through subagents
-  (`model: gpt-5.6-luna`, Agent tool only, every prompt says "Do not spawn
-  subagents"). Decomp agents: `subagent_type: decompiler`,
-  `isolation: worktree`, one TU (or one small cluster of leaves) per agent.
-  Prompts follow `~/.claude/skills/prompting-codex/SKILL.md`.
-- NO Anthropic-model subagents (opus/sonnet/fable) until the user says so
-  (standing order from 2026-08-21); use gpt-5.6-luna for reviews.
-- Lifecycle: match → **bulk review** (one reviewer per round — luna for now
-  over all current worktrees' C diffs; C only, no asm; shape + field types
-  only, no renames; any layout claim is a hypothesis the agent verifies
-  against asm) → agent simplifies → **my own read of the diff** → merge →
-  temp-reduction pass over the batch → sol skill pass → remove worktree.
-  Ask agents proactively (before they burn hours) whether they want a
-  natural-C draft; when one stalls, read the dump yourself and send concrete
-  C — this resolved most stalls this session.
-- Agents must commit in their worktree after every matched function (rule
-  is in `.claude/agents/decompiler.md`; older agents may still refuse — then
-  `git -C <wt> add -A src asm docs && git -C <wt> commit` yourself).
-  Learnings (`docs/learnings/<scope>.md`) are written inside the worktree and
-  arrive via the merge.
-- Reviewer on every DECOMPILATION branch, regardless of size (user,
-  2026-09-07) — the manager read comes after the review. Mechanical tooling/
-  docs branches (macro sweeps, callgraph entries, lint fixes) need only the
-  manager's read.
+- You are a manager. All research/decomp/review goes through subagents
+  (Agent tool only, never Workflow/fork). Decomp agents: `subagent_type:
+  decompiler`, `isolation: worktree`, one TU (or one small cluster of
+  leaves) per agent. NO Anthropic-model subagents (opus/sonnet/fable) until
+  the user says so (standing order 2026-08-21); reviews use gpt-5.6-luna,
+  skill folds gpt-5.6-sol. ≤7 concurrent luna sessions.
+
+### Prompting agents
+
+Agent defs (`.claude/agents/*.md`) already contain: model+effort, "no
+subagents" (repeat it anyway — user wants it explicit), worktree protocol
+(pwd, absolute paths, configure, expected symlink, compare-before-touch),
+full house rules, learnings format, commit-per-function, park format
+(`#if 0` + step table), report shape; review.md: read-only, rule checklist,
+`/tmp/review-<branch>.md`, BLOCKING/QUESTIONS/NITS; skill-fold.md: inputs,
+measured-only, git mv, commit.
+
+Prompt = only what defs cannot know (prompting-codex shape, prose, result
+first):
+- decompiler: function list (addr + TU, ≤3, "one function each / no
+  leaves" if so); derived prototypes/call-site facts; shared headers other
+  live agents edit; target-specific facts (ARM: `agbcc_arm -O2`, `__X`
+  pointer callers, no Thumb lore); build cap + "park with step table";
+  user decisions not to re-open; uncommitted main state to ignore.
+- review: branch name(s) + worktree path + base commit; what the branch
+  claims; specific attention points (RAM splits, header adds, parks).
+- skill-fold: INCLUDE/EXCLUDE file lists, weighting.
+Never restate rulebook items. Never "park if none match" without reading
+the asm first. Stalled (compaction) → one line "tool calls allowed,
+continue with X". >~450 calls → retire, fresh agent. Follow-ups:
+SendMessage, delta only.
+
+### Lifecycle
+
+- match → **review** (one `review` agent per finished branch — every
+  decompilation branch regardless of size; tooling/docs branches need only
+  the manager's read) → agent fixes from `/tmp/review-<branch>.md` → **my
+  own read of the whole C diff** → merge → skill fold when the top-level
+  learnings pile up → remove worktree. Ask agents proactively (before they
+  burn hours) whether they want a natural-C draft; when one stalls, read the
+  dump yourself and send concrete C.
+- Agents commit in their worktree after every matched function; if an old
+  agent refuses, `git -C <wt> add -A src asm docs && git -C <wt> commit`
+  yourself. Learnings arrive via the merge.
 - Merge style (user, 2026-09-07): ONE squash commit per agent branch —
   `git merge --squash <branch>` then `git commit -m "Decompile <funcs> (<tu>)"`;
   never fast-forward an agent's commit chain onto main.
 - Merge recipe, ALWAYS from the main checkout (`pwd` first; never from a
   shell cd'd into a worktree — that merges the branch into itself and then
-  `worktree remove` pulls the rug): `git merge <branch>`; resolve header
-  conflicts (common.h/ram.h accrue parallel typedefs — unify, keep sizeof);
+  `worktree remove` pulls the rug): merge; resolve header conflicts
+  (common.h/ram.h accrue parallel typedefs — unify, keep sizeof);
   `clang-format -i` touched src; `cmake --build build --target compare`;
   `tools/update-expected`; commit with explicit paths; `git worktree remove
-  --force <wt>`; `git branch -D <branch>`.
+  --force <wt>`; `git branch -D <branch>`. Chain with
+  `|| { echo COMPARE FAILED; false; }` and grep `tests passed` only.
 - NEVER `git commit -a`: it sweeps concurrent agents' in-progress edits on
-  main (tool files, skill) into unrelated commits. Stage paths explicitly.
+  main into unrelated commits. Stage paths explicitly.
 - Agents sometimes edit the main checkout instead of their worktree. On every
   keepalive tick: `git status --short | grep -v '^??'` on main; if dirty, save
   the diff to /tmp, `git checkout` the files, tell the agent to `pwd`.
 - Verify every agent claim yourself before merging: compare in its worktree,
-  read the C. "Matches" is not "done": house rules (typed fields, no
-  cast-and-offset, no casts on field reads, no m2c names, no raw ROM
-  addresses, full prototypes) are enforced at merge time.
+  read the C. "Matches" is not "done": house rules are enforced at merge time.
 - Skill maintenance is batched: do not hand-edit
-  `.claude/skills/agbcc/SKILL.md`. Periodically run a **gpt-5.6-sol** agent
-  that folds the top-level `docs/learnings/*.md` into the skill and `git mv`s
-  them to `docs/learnings/processed/` (the permission classifier may block
-  `git mv` for agents — do the move yourself then). Review its diff.
-- Temp-reduction pass after every merged batch (done: passes 1–5;
-  all notes archived; docs/learnings top level is empty except README).
+  `.claude/skills/agbcc/SKILL.md`; run the `skill-fold` agent over the
+  top-level `docs/learnings/*.md` (the permission classifier may block its
+  `git mv` — do the move yourself then) and review its diff.
 - Tool-building agents (`general-purpose`, luna) work on main and don't
   commit; review and commit their files explicitly.
 
