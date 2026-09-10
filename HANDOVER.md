@@ -87,6 +87,20 @@ Last updated: 2026-09-10, session 11 (691 C / 334 asm / 67%, 18 TUs).
 - Running: review of decomp/5-sound (`.claude/worktrees/5-sound`, user's
   sub_8062C24 560 B from decomp/manual-2). Worktrees: manual (stale, all
   merged), manual-2 (user, active), 5-sound, raw-decomp.
+- Merged decomp/5-sound (0199fc90; user's sub_8062C24 560 B; review's
+  blocker void — `SoundStructG.var00` u8 pre-existed; 3 folds byte-required)
+  and decomp/6-gameloop (702d0462; user's sub_80522D4 304 B camera-follow
+  callback, ~70 builds; prototype moved unsorted.h → gameloop.h; retest of 7
+  reviewer folds on the final shape: only the false-arm `top` folded; `void*`
+  memcpy destination, never-read `distance[]`, double abs, cursor bump all
+  byte-required; `nullsub_12` returns its CameraState* arg; `Actor.unkA2`
+  s16; `GameData.unkB50-52`; `LevelDesignLayer.unk14` unk32 read into s16 —
+  agbcc DOES narrow a truncating load of a wider field). **700 C / 325 asm,
+  65.12% bytes (108,032/165,900); 3,121 B to 67.00%.**
+- Running: renderRider reconciliation (luna, `.claude/worktrees/7-rider`,
+  decomp/7-rider seeded with e73f21b9; version B 93e5f789 on decomp/manual)
+  — user had two agents match it (748 B); agent picks the most natural
+  form per difference, one learnings file. Review after.
 - Note: `<sym>.NON_MATCHING` aliases in nm output are a tooling artifact
   (present on main), not agent fake symbols; dotless `global` is the asm
   files' existing convention.
