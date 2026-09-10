@@ -125,8 +125,9 @@ Last updated: 2026-09-10, session 11 (691 C / 334 asm / 67%, 18 TUs).
   `__sub_87576D8` take `RiderTile*` (iwram.h aligned). `GeometryLine.unk16`
   unk16; `BGLayer.field_C` s32. **703 C / 322 asm / 69%; 66.20% bytes
   (109,832/165,900); 1,321 B to 67.00%, 2,433 to 67.67%.**
-- manual-2 worktree + branch deleted (user: done). Worktrees: `manual`
-  (user, work in progress, uncommitted rider.c), raw-decomp.
+- manual-2 and manual worktrees + branches deleted (user); manual's
+  uncommitted rider.c edit saved to /tmp/manual-rider-uncommitted.diff.
+  Worktrees: raw-decomp only.
 - Unfolded learnings: 17 files from 2026-09-10 — skill-fold is due (sol).
 - Note: `<sym>.NON_MATCHING` aliases in nm output are a tooling artifact
   (present on main), not agent fake symbols; dotless `global` is the asm
