@@ -96,14 +96,18 @@ void sub_8055D64(Actor* actor, RiderBase* rider, LevelGeometryAddresses* geometr
     }
 }
 
-#if 0
 void sub_8055F04(Actor* actor, RiderBase* rider, GeometryLine* line, unk16 collisionMask, s16 angle)
 {
-    sub_804E358(angle, rider->unk10 >> 4);
+    s16 angleDelta;
+    s32 angleThreshold;
+
+    angleDelta = sub_804E358(angle, rider->unk10 >> 4);
+    if (angleDelta < 0)
+        angleDelta = -angleDelta;
+    angleThreshold = angleDelta * 0x10000; // TODO: fakematch?
     sub_804E154(rider, 0, 0);
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055f04.s");
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/8055f2c-def_94_8_collision_8055F2C.s");
 
 void nullsub_6(Actor* actor, RiderBase* rider)
@@ -515,19 +519,30 @@ void sub_8056610(LevelGeometryAddresses* geometry, CollisionLine6610Draft* line,
 INCLUDE_ASM("asm/dump/804a388-tutorial/8056610.s");
 
 #if 0
+typedef struct Line80567E4Draft {
+    s32 point0;
+    s32 point1;
+    unk8 pad8[9];
+    unk8 unk11; /* 0x11 */
+    s16 unk12; /* 0x12 */
+    unk8 pad14[4];
+    s8 unk18; /* 0x18 */
+    unk8 pad19[7];
+} Line80567E4Draft;
+
 typedef struct CollisionResult80567E4Draft {
     s32 unk0;
     s32 unk4;
     s32 unk8;
-    unk8 unkC;
+    s8 unkC;
     unk8 unkD;
     unk8 unkE;
     unk8 unkF;
     unk8 pad10[0x18];
 } CollisionResult80567E4Draft;
 
-void sub_80567E4(
-    LevelGeometryAddresses* geometry, GeometryLine* line, Actor* actor, CollisionResult80567E4Draft* result)
+void sub_80567E4(LevelGeometryAddresses* geometry, Line80567E4Draft* line, Actor* actor,
+    CollisionResult80567E4Draft* result)
 {
     GeometryPoint* point0;
     GeometryPoint* point1;
@@ -542,25 +557,21 @@ void sub_80567E4(
     s32 range;
     s32 relative;
     s32 temp;
-    unk8 flags;
 
     point0 = GetPointAtIndex(geometry, line->point0);
     point1 = GetPointAtIndex(geometry, line->point1);
     if (point0 == NULL || point1 == NULL)
         return;
-    direction = line->unk11_0 & 2;
+    direction = line->unk11 & 2;
     if (direction == 0) {
-        s32 mask;
         point0Coord = point0->y << 5;
         point1Coord = point1->y << 5;
         actorCoord = actor->y + (actor->unk9C << 8) + actor->unk44;
         point0Other = point0->x << 5;
         point1Other = point1->x << 5;
         result->unk4 = actorCoord - point0Coord;
-        mask = 2;
-        mask = -mask;
-        result->unkC &= mask;
-        result->unkD = direction;
+        result->unkC &= ~1;
+        result->unkD = 0;
         result->unkE = line->unk18;
     } else {
         point0Coord = point0->x << 5;
@@ -574,6 +585,11 @@ void sub_80567E4(
         result->unkE = 0;
     }
     result->unkF = line->unk18;
+    if (point0Other > point1Other) {
+        temp = point0Other;
+        point0Other = point1Other;
+        point1Other = temp;
+    }
     if (point0Coord < point1Coord) {
         point0Z = point0->z << 5;
         point1Z = point1->z << 5;
@@ -593,16 +609,10 @@ void sub_80567E4(
     else
         result->unk8 = point0Z + ((line->unk12 * relative) >> 8);
     if (relative >= 0 && relative <= range)
-        flags = 2 | result->unkC;
-    else {
-        s32 mask;
-        mask = 3;
-        mask = -mask;
-        flags = mask & result->unkC;
-    }
-    result->unkC = flags;
+        result->unkC |= 2;
+    else
+        result->unkC &= ~2;
 }
-
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/80567e4.s");
 
