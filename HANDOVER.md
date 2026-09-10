@@ -150,8 +150,10 @@ Last updated: 2026-09-11 (end of session 11): 705 C / 320 asm / 69% by count, 67
   (ScreenLayout, bgLayers[4], RiderTileState/RiderTileRow, SpriteTextPlacement).
   Worktrees: manual-2 (user, at main, empty) and raw-decomp. No agents
   running; keepalive stopped.**
-- NEXT: (1) skill-fold (sol) over the 23 unfolded docs/learnings files
-  (2026-09-09/10); (2) next exact byte target 67.67% needs matched
+- Skill fold DONE (sol; 23 files archived, 24 bullets touched, 2 corrections:
+  agbcc narrows a truncating load of a wider field; the `/256` copy is kept
+  by same-object in-place division). docs/learnings top level is empty.
+- NEXT: (1) next exact byte target 67.67% needs matched
   112,257–112,272 (+1,105..1,120 B) — no single non-collision function fits;
   pairs e.g. sub_8756FC0 (960, ARM) + sound_8757A64 (156, ARM) = 1,116; rerun
   the subset search (todo.py sizes + iwram map sizes) before choosing;
