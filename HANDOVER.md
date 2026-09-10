@@ -25,6 +25,25 @@ Last updated: 2026-09-08, session 10 (683 C / 324 asm / 68%, 18 TUs).
   sub_804444C uncited. Questions: fold total/count, `selection*2+1` for
   the 1,3,5,7,9 switch (sub_804868C), dedupe RiderHasFlag/unk4[7] chain.
   Luna fix agent running in the worktree (no isolation). Then squash-merge.
+- Merged decomp/1-festate (22142c27, squash): fix agent unified the record
+  as `SpriteTextPlacement` (spritetext.h), reverted `delta`/`count` to unk32
+  (byte-identical), cited s32 for difference/halfDifference/value (bgt) and
+  total (asr #1); all three reviewer folds byte-required (+0x64, +0x252,
+  +0x0A/0x0C). Fix agent slip removed by me: `SPRITETEXT_TYPES_ONLY`
+  conditional-prototype guard (levelselect.h→spritetext.h→ram.h cycle made
+  spritetext.c see the wide sub_8061824 prototype) — table externs now sit
+  in levelselect.c/festate.c, no header includes spritetext.h. Baseline
+  refreshed; worktree + branch deleted.
+- Worktrees now: `.claude/worktrees/manual` (branch decomp/manual from main
+  22142c27, built, expected linked) — USER's, for a manually driven agent;
+  `.claude/worktrees/2-luna` (decomp/2-luna rebased onto main, 2 commits:
+  sub_8059FA0 math `p /= 256` s32 local — retracts processed/leaves-k.md;
+  sub_8043370 menuobject with new `FrontendMenuObjectData` in common.h,
+  `MenuState.unkA` s16, `FrontendState.unk7D/7E`, data12.s `_8068840`
+  label) — compare green, reviewer running.
+- Note: `<sym>.NON_MATCHING` aliases in nm output are a tooling artifact
+  (present on main), not agent fake symbols; dotless `global` is the asm
+  files' existing convention.
 - Lesson: state the branch's ACTUAL claims in the review prompt (read the
   learnings headers first); a wrong "parked" premise cost 3 false blockers.
 
