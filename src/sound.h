@@ -5,11 +5,28 @@
 
 typedef struct SoundStructE SoundStructE;
 
+typedef struct {
+    u8 var00;
+    unk8 unk1;
+    unk8 pad2[2];
+    unk32 var04;
+} SoundStructG;
+
+typedef struct {
+    SoundStructE* var00;
+    SoundStructG var04[4];
+} SoundStructF;
+
+extern SoundStructF (*_unk3005E28)[16];
+extern unk8* _unk3005E00;
+extern s32 _unk3005E08;
+extern unk32 _unk3005E10;
+
 typedef struct SfxTable {
     u32 var00;
     u32 count;
     unk8* (*var08)[][2];
-    unk8* (*data)[];
+    SoundStructE* (*data)[];
 } SfxTable;
 
 extern unk8* _unk3005E20;

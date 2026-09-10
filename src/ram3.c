@@ -1,5 +1,6 @@
 #include "keystate.h"
 #include "ram.h"
+#include "sound.h"
 #include "sprite.h"
 
 void* _unk3005DC0 = NULL;
@@ -18,17 +19,17 @@ SpriteRotationScaleEntry* _rotationScale = NULL;
 unk32 _spritesFree = 0;
 void* _unk3005DF8 = NULL;
 void* _unk3005DFC = NULL;
-void* _unk3005E00 = NULL;
+unk8* _unk3005E00 = NULL;
 void* _unk3005E04 = NULL;
-void* _unk3005E08 = NULL;
+s32 _unk3005E08 = 0;
 void* _unk3005E0C = NULL;
-void* _unk3005E10 = NULL;
+unk32 _unk3005E10 = 0;
 void* _unk3005E14 = NULL;
 void* _unk3005E18 = NULL;
 void* _soundMixer = NULL;
 unk8* _unk3005E20 = NULL;
 void* _unk3005E24 = NULL;
-void* _unk3005E28 = NULL;
+SoundStructF (*_unk3005E28)[16] = NULL;
 void* _soundMixerBlock = NULL;
 void* _soundTableBlock = NULL;
 unk8 _pad[12] = { 0 };
