@@ -140,7 +140,7 @@ struct BGLayer {
     s32 columnCount;
     s32 rowCount;
     Struct3000CA0* var8;
-    unk32 field_C;
+    s32 field_C;
     s32 field_10;
     s32 field_14;
     s32 field_18;
@@ -673,6 +673,16 @@ typedef struct ParticleSystem {
     struct AllocatedBlock* unk30;
 } ParticleSystem;
 
+typedef struct RiderTileState {
+    s32 unk0;
+    s32 unk4;
+    unk8 pad8[4];
+    s32 unkC;
+} RiderTileState;
+
+typedef unk8 RiderTile[0x20];
+typedef RiderTile RiderTileRow[4];
+
 typedef struct RiderBase {
     Actor* unk0;
     struct RiderBase* unk4;
@@ -790,13 +800,14 @@ typedef struct RiderBase {
     SpriteEntry* unk3C0;
     SpriteEntry* unk3C4;
     unk16 unk3C8;
-    unk8 pad3CA[2];
+    unk16 unk3CA;
     unk16 unk3CC;
     unk8 unk3CE;
     unk8 unk3CF; /* 0x3CF */
     unk8 unk3D0; /* 0x3D0 */
-    unk8 pad3D1[0x13];
-    unk32 unk3E4;
+    unk8 pad3D1[3];
+    RiderTileRow* unk3D4;
+    RiderTileState unk3D8;
     u8 unk3E8;
     unk8 unk3E9[3];
     ParticleSystem unk3EC;
@@ -837,7 +848,8 @@ typedef struct GeometryLine {
     unk8 unk11_2 : 1;
     unk8 unk11_3 : 1;
     unk8 unk11_4 : 4;
-    unk8 pad12[6];
+    unk8 pad12[4];
+    unk16 unk16; /* 0x16 */
     s8 unk18;
     unk8 pad19[7];
 } GeometryLine; /* 0x20 */
