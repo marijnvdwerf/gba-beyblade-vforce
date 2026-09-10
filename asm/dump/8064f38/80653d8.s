@@ -75,7 +75,7 @@ sub_80653D8:
 .L8065460:
 	.align	2, 0
 
-	.4byte	0x807d9ac
+	.4byte	byte_807D980 + 0x2C
 .L8065464:
 	mov	r0, sl
 	lsl	r6, r0, #0x10
@@ -111,7 +111,7 @@ sub_80653D8:
 .L80654A4:
 	.align	2, 0
 
-	.4byte	0x807d9ad
+	.4byte	byte_807D980 + 0x2D
 .L80654A8:
 	mov	r0, #0x0
 	str	r0, [r4, #0x70]

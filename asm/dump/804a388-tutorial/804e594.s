@@ -140,7 +140,7 @@ sub_804E594:
 	.align	2, 0
 
 	.4byte	_unk3000E30
-	.4byte	0x8074d64
+	.4byte	word_8074D64
 	thumb_func_end sub_804E594
 
 .align 2, 0 @ Don't pad with nop.
