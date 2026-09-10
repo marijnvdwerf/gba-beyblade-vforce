@@ -3,6 +3,14 @@
 
 #include "common.h"
 
+typedef struct SpriteTextPlacement {
+    unk32 unk0;
+    unk32 unk4;
+    unk32 unk8;
+    unk16 unkC;
+    unk8 padE[2];
+} SpriteTextPlacement;
+
 u8 sub_8061660(SpriteTextCleanup*, const u8*, u8);
 void sub_8061684(SpriteTextCleanup*, unk16, unk16);
 void sub_8061844(SpriteTextCleanup*, s16, s16);

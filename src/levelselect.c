@@ -26,11 +26,12 @@ extern const unk8 SpriteSheet_823AA74[];
 extern const unk8 Pal_823B2BC[];
 extern const unk8 SpriteSheet_823B4BC[];
 extern const unk8 Pal_823BD04[];
+extern const SpriteTextPlacement _8068710[];
 
 void sub_8041078(LevelSelectState* state)
 {
     SpriteTextCleanup* sprite;
-    const LevelSelectSpriteData* data;
+    const SpriteTextPlacement* data;
     s32 i;
 
     for (i = 0; i <= 5; i++) {
@@ -171,7 +172,7 @@ void sub_8041364(LevelSelectState* state)
 INCLUDE_ASM("asm/dump/8040d18/8041390.s");
 
 extern s32 _300002C;
-extern FrontendScalarWithPad _3000030;
+extern s32 _3000030;
 extern unk8 _unk3000058;
 extern unk8 _unk3000059;
 extern u8 _unk300005A;
@@ -238,9 +239,9 @@ void sub_80413FC(FrontendState* state, unk32 arg1)
             }
         }
 
-        _3000030.value = 0x10000;
+        _3000030 = 0x10000;
         _300002C = 0;
-        sub_80596AC(&state->unk250, -_3000030.value, 0x2400);
+        sub_80596AC(&state->unk250, -_3000030, 0x2400);
 
         _3000038.rows[0] = sub_804A0E0(0);
         _3000038.rows[1] = sub_804A0E0(1);
@@ -349,9 +350,9 @@ void sub_80413FC(FrontendState* state, unk32 arg1)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) / 2] + _300002C;
         }
 
-        scrollDelta = (_300002C - _3000030.value) >> 2;
+        scrollDelta = (_300002C - _3000030) >> 2;
         sub_80596AC(&state->unk250, -scrollDelta, 0);
-        _3000030.value += scrollDelta;
+        _3000030 += scrollDelta;
         break;
     }
     case 2: {

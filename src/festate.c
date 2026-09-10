@@ -20,6 +20,7 @@
 #include "packet.h"
 #include "palette.h"
 #include "ram.h"
+#include "riderphysics.h"
 #include "spritetext.h"
 #include "tutorial.h"
 #include "unsorted.h"
@@ -45,6 +46,9 @@ extern const unk8 Str_86FD77C[];
 extern const unk8 Str_86FD7B8[];
 extern const unk8* _806E240[][5];
 extern const unk8* _806E31C[][5];
+extern const FrontendMenuData _8069D50;
+extern const FrontendMenuData _8069D9C;
+extern const SpriteTextPlacement _80699DC[6][8];
 
 void sub_8043A0C(FrontendState* state, u32 arg1, u32 arg2)
 {
@@ -287,7 +291,7 @@ void sub_8044054(FrontendState* state, unk32 arg1)
     switch (arg1) {
     case 0:
         _unk3000174 = 1;
-        _unk3000178.value = 0;
+        _unk3000178 = 0;
         _unk30001A8 = 0;
         _unk3000180[0] = sub_804A0E0(0);
         _unk3000180[1] = sub_804A0E0(1);
@@ -324,7 +328,7 @@ void sub_8044054(FrontendState* state, unk32 arg1)
                 _unk300016C = 0x10000;
             } else {
                 if (_unk3000174 <= 0x3F) {
-                    _unk3000178.value = 0x20;
+                    _unk3000178 = 0x20;
                     _unk3000174 = 0x3F;
                 }
                 sub_804ABFC(8);
@@ -332,12 +336,12 @@ void sub_8044054(FrontendState* state, unk32 arg1)
         }
         if (_unk30001A8 == 0) {
             sub_8043DB8(_unk3000180, levelState, &_currentGameState->unk6EC,
-                (_unk3000174 << 8) | _unk3000178.value);
+                (_unk3000174 << 8) | _unk3000178);
             if (_unk3000174 <= 0x3F) {
-                _unk3000178.value++;
-                progress = _unk3000178.value;
+                _unk3000178++;
+                progress = _unk3000178;
                 if (progress > 0x20) {
-                    _unk3000178.value = 0;
+                    _unk3000178 = 0;
                     _unk3000174 <<= 1;
                     if (_unk3000174 > 0x3F) {
                         _unk30001A8 = 1;
@@ -366,7 +370,7 @@ void sub_804423C(SpriteTextCleanup** arg0, s32 arg1)
     sub_806185C(arg0[9], ((((sub_8057C40() >> 4) + 4) & 8) != 0) ? 0xE : 0xF);
 }
 
-void sub_8044314(SpriteTextCleanup** sprites, unk32 unused, s32 value, unk32 mode)
+void sub_8044314(SpriteTextCleanup** sprites, Packet* unused, s32 value, unk32 mode)
 {
     unk32 language;
     s32 scale;
@@ -412,102 +416,87 @@ void sub_8044314(SpriteTextCleanup** sprites, unk32 unused, s32 value, unk32 mod
         }
     }
 }
-#if 0
-typedef struct FrontendPacketStateDraft {
-    unk8 unk0;
-    unk8 unk1;
-    unk8 unk2;
-    unk8 unk3;
-    s8 unk4;
-    unk8 unk5;
-    unk8 unk6;
-    unk8 unk7;
-    unk8 unk8;
-    s8 unk9;
-    s8 unkA;
-    s8 unkB;
-    unk8 padC[4];
-} FrontendPacketStateDraft;
-
-typedef union CurrentGameStatePacketWordDraft {
-    unk32 value;
-    struct {
-        unk8 pad0[2];
-        s16 value2;
-    } half;
-    struct {
-        unk8 pad0[3];
-        s8 value3;
-    } byte;
-} CurrentGameStatePacketWordDraft;
-
-typedef struct CurrentGameStatePacketDraft {
-    CurrentGameStatePacketWordDraft word;
-    unk32 unk4;
-} CurrentGameStatePacketDraft;
-
-extern s32 _unk30001AC;
-extern s32 _unk30001B0;
-extern s32 _unk30001B4;
-extern s32 _unk30001B8;
-extern s32 _unk30001BC;
-extern unk16 _unk30001C0;
-extern SpriteTextCleanup* _unk30001C8[10];
-void sub_804423C(SpriteTextCleanup**, s32);
-void sub_8044314(SpriteTextCleanup**, unk32, s32, unk32);
 
 void sub_804444C(FrontendState* state, unk32 arg1)
 {
-    CurrentGameState* gameState;
-    CurrentGameStatePacketDraft* packetData;
-    FrontendPacketStateDraft* packetState;
-    FrontendPacketStateDraft* record;
+    CurrentGameStateTail* packetData;
+    Packet* packetState;
+    Packet* record;
     GameData* data;
     unk32 delta;
-    unk32 difference;
-    unk32 halfDifference;
-    unk32 value;
-    unk32 otherValue;
-    unk32 flag;
-    unk32 progress;
+    s32 difference;
+    s32 halfDifference;
+    s32 value;
+    s32 total;
+    unk32 count;
 
+    record = &_gameData->unk15D4[1 - isMultiplayer()];
+    packetState = &_gameData->unk15C4;
+    packetData = &_currentGameState->unk6EC;
     data = _gameData;
-    gameState = _currentGameState;
-    packetData = (CurrentGameStatePacketDraft*)&gameState->unk6EC;
-    record = (FrontendPacketStateDraft*)data->unk15D4 + (1 - isMultiplayer());
-    packetState = (FrontendPacketStateDraft*)data->unk15C4;
     switch (arg1) {
+    case 0:
+        sub_8049168();
+        _currentGameState->unk6A6++;
+        _unk30001B0 = 0x10000;
+        _unk30001AC = 0;
+        _unk30001B4 = 0;
+        _unk30001BC = 0;
+        _unk30001C0 = 0;
+        sub_80596AC(&state->unk250, -_unk30001B0, 0);
+        state->unk80 |= 0x30;
+        _unk30001B8 = 0;
+        if (sub_805FFE4() != 0 && sub_8060070() != 0) {
+            packetState->packet.unk2_0 = 7;
+            packetState->packet.unk2_4 = 0;
+            packetState->packet.unk4[0] = packetData->unk4;
+            packetState->packet.unk4[1] = RiderHasFlag(&data->base, 0x8000000);
+            packetState->packet.unk4[2] = packetData->unk0;
+            packetState->packet.unk4[3] = packetData->unk0 >> 8;
+            packetState->packet.unk4[4] = packetData->unk0 >> 16;
+            packetState->packet.unk4[5] = packetData->unk0 >> 24;
+            packetState->packet.unk4[6] = 0;
+            packetState->packet.unk4[7] = RiderHasFlag(&data->base, 0x800) != 0;
+            sub_8043960(packetState);
+        }
+        _unk30001C8[0] = sub_804A0E0(0);
+        _unk30001C8[1] = sub_804A0E0(1);
+        _unk30001C8[2] = sub_804A0E0(2);
+        _unk30001C8[3] = sub_804A0E0(3);
+        _unk30001C8[4] = sub_804A0E0(4);
+        _unk30001C8[5] = sub_804A0E0(5);
+        _unk30001C8[6] = sub_804A0E0(6);
+        _unk30001C8[7] = sub_804A0E0(7);
+        _unk30001C8[8] = sub_804A0E0(8);
+        _unk30001C8[9] = sub_804A0E0(9);
+        break;
     case 1:
         sub_804423C(_unk30001C8, _unk30001B0);
         sub_80439A0(&state->unk140);
         if (_unk30001B8 == 0 && sub_805FFE4() != 0 && sub_8060070() != 0
             && sub_8043970(record, 7) != 0) {
-            flag = _unk30001B8;
             _unk30001B8 = 1;
-            if (data->unk161B != 0) {
-                _unk30001BC = flag;
-            } else if (gameState->unk6A4 == 1) {
-                if (RiderHasFlag(data, 0x800) != 0) {
-                    if (record->unkB == 0) {
-                        _unk30001BC = 1;
-                    } else {
-                        _unk30001BC = 0;
-                    }
-                } else {
+            if (_gameData->unk161B != 0) {
+                _unk30001BC = 0;
+            } else if (_currentGameState->unk6A4 == 1) {
+                if (RiderHasFlag(&data->base, 0x800) != 0 && record->packet.unk4[7] == 0) {
+                    _unk30001BC = 1;
+                } else if (RiderHasFlag(&data->base, 0x800) == 0 || record->packet.unk4[7] == 0) {
                     _unk30001BC = 2;
+                } else {
+                    _unk30001BC = 0;
                 }
-            } else if (RiderHasFlag(data, 0x8000000) == 0 && record->unkB != 0) {
+            } else if (RiderHasFlag(&data->base, 0x8000000) == 0 && record->packet.unk4[1] != 0) {
                 _unk30001BC = 1;
-            } else if (RiderHasFlag(data, 0x8000000) != 0 && record->unkB == 0) {
+            } else if (RiderHasFlag(&data->base, 0x8000000) != 0 && record->packet.unk4[1] == 0) {
                 _unk30001BC = 2;
             } else {
                 _unk30001BC = 0;
             }
-            value = _unk30001BC;
-            if (value == 0) {
-                gameState->unk6A8++;
-            } else if (value == 1) {
-                gameState->unk6A7++;
+            if (_unk30001BC == 0) {
+                _currentGameState->unk6A8++;
+            } else if (_unk30001BC == 1) {
+                _currentGameState->unk6A7++;
             }
         }
         delta = (_unk30001AC - _unk30001B0) >> 2;
@@ -518,10 +507,9 @@ void sub_804444C(FrontendState* state, unk32 arg1)
         if (_unk30001B8 != 0) {
             sub_8044314(_unk30001C8, record, _unk30001B4, _unk30001BC);
             if (_unk30001C0 != 0) {
-                progress = _unk30001B4 & 0x1F;
-                if (progress == 0x1F) {
+                if ((_unk30001B4 & 0x1F) == 0x1F) {
                     _unk30001B4++;
-                } else if (progress == 0) {
+                } else if ((_unk30001B4 & 0x1F) == 0) {
                     _unk30001B4 += 0x1F;
                 } else {
                     _unk30001B4 |= 0x1F;
@@ -538,30 +526,30 @@ void sub_804444C(FrontendState* state, unk32 arg1)
         }
         if (sub_8060040() != 0 && (_unk3005DA0 & 1) != 0) {
             if (_unk30001C0 != 0) {
-                packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
+                packetState->packet.unk2_4 = 1;
                 sub_8043960(packetState);
             } else {
-                packetState->unkA = 1;
+                packetState->packet.unk4[6] = 1;
                 sub_8043960(packetState);
                 _unk30001C0 = 1;
             }
         }
         if (sub_8043970(record, 7) != 0) {
-            value = gameState->unk6A7;
-            otherValue = gameState->unk6A8;
-            difference = (gameState->unk6A6 - otherValue) - value;
-            halfDifference = ((gameState->unk6A5 - otherValue) >> 1) + 1;
-            if (record->unkA != 0) {
+            total = _currentGameState->unk6A5;
+            count = _currentGameState->unk6A6;
+            value = _currentGameState->unk6A7;
+            difference = (count - _currentGameState->unk6A8) - value;
+            halfDifference = ((total - _currentGameState->unk6A8) >> 1) + 1;
+            if (record->packet.unk4[6] != 0) {
                 _unk30001C0 = 1;
             }
-            if ((record->unk2 & 0xF0) == 0x10) {
-                packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
+            if (record->packet.unk2_4 == 1) {
+                packetState->packet.unk2_4 = 1;
                 sub_8043960(packetState);
                 _unk30001AC = 0x10000;
-                if (gameState->unk6A5 == gameState->unk6A4
-                    && value == difference) {
+                if (_currentGameState->unk6A5 == _currentGameState->unk6A6 && value == difference) {
                     sub_80490F8(0x25);
-                } else if (halfDifference - otherValue <= 0) {
+                } else if (halfDifference - value <= 0) {
                     sub_80490F8(0x23);
                 } else if (halfDifference - difference <= 0) {
                     sub_80490F8(0x24);
@@ -572,56 +560,17 @@ void sub_804444C(FrontendState* state, unk32 arg1)
             }
         }
         break;
-    case 0:
-        sub_8049168();
-        gameState->unk6A6++;
-        _unk30001B0 = 0x10000;
-        _unk30001AC = 0;
-        _unk30001B4 = 0;
-        _unk30001BC = 0;
-        _unk30001C0 = 0;
-        sub_80596AC(&state->unk250, -0x10000, 0);
-        state->unk80 |= 0x30;
-        _unk30001B8 = 0;
-        if (sub_805FFE4() != 0 && sub_8060070() != 0) {
-            packetState->unk2 = 7;
-            packetState->unk4 = packetData->unk4;
-            packetState->unk5 = RiderHasFlag(data, 0x8000000);
-            packetState->unk6 = packetData->word.value;
-            packetState->unk7 = packetData->word.value >> 8;
-            packetState->unk8 = packetData->word.half.value2;
-            packetState->unk9 = packetData->word.byte.value3;
-            packetState->unkA = 0;
-            packetState->unkB = RiderHasFlag(data, 0x800) != 0;
-            sub_8043960(packetState);
-        }
-        _unk30001C8[0] = sub_804A0E0(0);
-        _unk30001C8[1] = sub_804A0E0(1);
-        _unk30001C8[2] = sub_804A0E0(2);
-        _unk30001C8[3] = sub_804A0E0(3);
-        _unk30001C8[4] = sub_804A0E0(4);
-        _unk30001C8[5] = sub_804A0E0(5);
-        _unk30001C8[6] = sub_804A0E0(6);
-        _unk30001C8[7] = sub_804A0E0(7);
-        _unk30001C8[8] = sub_804A0E0(8);
-        _unk30001C8[9] = sub_804A0E0(9);
-        break;
     default:
         break;
     }
 }
 
-#endif
-INCLUDE_ASM("asm/dump/8040d18/804444c.s");
-
-#if 0
 void sub_80448F4(FrontendState* state, unk32 arg1)
 {
-    unk32 mask;
     GameData* data;
     SpriteEntry* sprite;
-    FrontendPacketState* packetState;
-    FrontendPacketState* record;
+    Packet* packetState;
+    Packet* record;
 
     record = &_gameData->unk15D4[1 - isMultiplayer()];
     packetState = &_gameData->unk15C4;
@@ -645,9 +594,8 @@ void sub_80448F4(FrontendState* state, unk32 arg1)
         if (sub_805FFE4() == 0 || sub_8060070() == 0) {
             break;
         }
-        mask = 0x10;
-        mask = -mask;
-        packetState->unk2 = ((packetState->unk2 & mask) | 8) & 0xF;
+        packetState->packet.unk2_0 = 8;
+        packetState->packet.unk2_4 = 0;
         sub_8043960(packetState);
         break;
     case 7:
@@ -689,13 +637,13 @@ void sub_80448F4(FrontendState* state, unk32 arg1)
             if ((_unk3005DA0 & 0x10) != 0) {
                 sub_8050E80(&state->menu);
             }
-            packetState->unk4 = state->menu.selection;
+            packetState->packet.unk4[0] = state->menu.selection;
             sub_8043960(packetState);
             break;
         }
         if (sub_8043970(record, 8) != 0) {
-            if (record->unk4 != state->menu.selection) {
-                sub_8050DF8(&state->menu);
+            if (record->packet.unk4[0] != state->menu.selection) {
+                sub_8050DF8(&state->menu, record->packet.unk4[0]);
             }
         }
         break;
@@ -704,11 +652,11 @@ void sub_80448F4(FrontendState* state, unk32 arg1)
             break;
         }
         if (sub_8060040() != 0 && (_unk3005DA0 & 1) != 0) {
-            packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
+            packetState->packet.unk2_4 = 1;
             sub_8043960(packetState);
         }
-        if (sub_8043970(record, 8) != 0 && (record->unk2 & 0xF0) == 0x10) {
-            packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
+        if (sub_8043970(record, 8) != 0 && record->packet.unk2_4 == 1) {
+            packetState->packet.unk2_4 = 1;
             sub_8043960(packetState);
             _unk30001F8 = 0xFFFF0000;
             _unk30001FC = 0x1E000;
@@ -723,9 +671,6 @@ void sub_80448F4(FrontendState* state, unk32 arg1)
         break;
     }
 }
-
-#endif
-INCLUDE_ASM("asm/dump/8040d18/80448f4.s");
 
 void sub_8044C48(FrontendState* state, unk32 arg1)
 {
@@ -753,7 +698,7 @@ void sub_8044C48(FrontendState* state, unk32 arg1)
         _unk3000208 = 0x5800;
         _unk3000278 = 0;
         _unk300020C = 0;
-        _unk3000210.value = 0x10000;
+        _unk3000210 = 0x10000;
         initialScroll = 0x10000;
         sub_80596AC(&state->unk250, -initialScroll, 0);
         if (_unk3000204 != NULL) {
@@ -782,9 +727,9 @@ void sub_8044C48(FrontendState* state, unk32 arg1)
         textBValue += (_unk3000278 - textBValue) >> 2;
         sub_8061844(&_unk3000218, textAValue >> 8, 0x6E);
         sub_8061844(&_unk3000248, textBValue >> 8, 0x78);
-        scrollDelta = (_unk300020C - _unk3000210.value) >> 2;
+        scrollDelta = (_unk300020C - _unk3000210) >> 2;
         sub_80596AC(&state->unk250, -scrollDelta, 0);
-        _unk3000210.value += scrollDelta;
+        _unk3000210 += scrollDelta;
         if (((sub_8057C40() >> 4) & 3) == 0) {
             _unk3000204->frame.word++;
             if (_unk3000204->frame.word > 3) {
@@ -831,7 +776,7 @@ void sub_8044ED4(FrontendState* state, unk32 arg1)
         _unk3000280 = 0x5800;
         _unk30002F0 = 0;
         _unk3000284 = 0;
-        _unk3000288.value = 0x10000;
+        _unk3000288 = 0x10000;
         initialScroll = 0x10000;
         sub_80596AC(&state->unk250, -initialScroll, 0);
         if (_unk300027C != NULL) {
@@ -860,9 +805,9 @@ void sub_8044ED4(FrontendState* state, unk32 arg1)
         textBValue += (_unk30002F0 - textBValue) >> 2;
         sub_8061844(&_unk3000290, textAValue >> 8, 0x6E);
         sub_8061844(&_unk30002C0, textBValue >> 8, 0x78);
-        scrollDelta = (_unk3000284 - _unk3000288.value) >> 2;
+        scrollDelta = (_unk3000284 - _unk3000288) >> 2;
         sub_80596AC(&state->unk250, -scrollDelta, 0);
-        _unk3000288.value += scrollDelta;
+        _unk3000288 += scrollDelta;
         if (((sub_8057C40() >> 4) & 3) == 0) {
             _unk300027C->frame.word++;
             if (_unk300027C->frame.word > 3) {
@@ -907,7 +852,7 @@ void sub_8045160(FrontendState* state, unk32 arg1, unk32 arg2)
         _unk30002F8 = 0x5800;
         _unk3000368 = 0;
         _unk30002FC = 0;
-        _unk3000300.value = 0x10000;
+        _unk3000300 = 0x10000;
         initialScroll = 0x10000;
         sub_80596AC(&state->unk250, -initialScroll, 0);
         if (_unk30002F4 != NULL) {
@@ -936,9 +881,9 @@ void sub_8045160(FrontendState* state, unk32 arg1, unk32 arg2)
         textBValue += (_unk3000368 - textBValue) >> 2;
         sub_8061844(&_unk3000308, textAValue >> 8, 0x6E);
         sub_8061844(&_unk3000338, textBValue >> 8, 0x78);
-        scrollDelta = (_unk30002FC - _unk3000300.value) >> 2;
+        scrollDelta = (_unk30002FC - _unk3000300) >> 2;
         sub_80596AC(&state->unk250, -scrollDelta, 0);
-        _unk3000300.value += scrollDelta;
+        _unk3000300 += scrollDelta;
         if (((sub_8057C40() >> 4) & 3) == 0) {
             _unk30002F4->frame.word++;
             if (_unk30002F4->frame.word > 3) {
@@ -1368,7 +1313,7 @@ void sub_8045CB4(FrontendState* state, unk32 arg1, unk32 arg2)
         _unk30003E0 = 0x1900;
         _unk30003E4 = 0xC700;
         _unk30003EC = 0x7800;
-        _unk30003F0.value = 0x2900;
+        _unk30003F0 = 0x2900;
         _unk30003E8 = 0x3000;
         _unk3000458 = _currentGameState->unk6E4 >> 5;
         _unk300045C = _currentGameState->unk6E6 >> 5;
@@ -1403,8 +1348,8 @@ void sub_8045CB4(FrontendState* state, unk32 arg1, unk32 arg2)
         value = _unk30003F8.x;
         value2 = _unk3000428.x;
         sub_80439A0(&state->unk140);
-        value += (_unk30003F0.value - value) >> 2;
-        value2 += (_unk30003F0.value - value2) >> 2;
+        value += (_unk30003F0 - value) >> 2;
+        value2 += (_unk30003F0 - value2) >> 2;
         sub_8061844(&_unk30003F8, value >> 8, 0x38);
         sub_8061844(&_unk3000428, value2 >> 8, 0x68);
         scroll = (_unk30003C8 - _unk30003CC) >> 2;
@@ -1430,7 +1375,7 @@ void sub_8045CB4(FrontendState* state, unk32 arg1, unk32 arg2)
             _unk30003E0 = 0xFFFF0000;
             _unk30003E4 = 0x1E000;
             _unk30003EC = 0x12C00;
-            _unk30003F0.value = 0x11800;
+            _unk30003F0 = 0x11800;
             sub_804B00C(_unk3000458 << 5);
             sub_804AFD4(_unk300045C << 5);
             sub_8049178();
@@ -1442,7 +1387,7 @@ void sub_8045CB4(FrontendState* state, unk32 arg1, unk32 arg2)
             _unk30003E4 = 0x1E000;
             _unk30003EC = 0x12C00;
             _unk30003C8 = 0x10000;
-            _unk30003F0.value = 0x11800;
+            _unk30003F0 = 0x11800;
             sub_80490F8(0xC);
             sub_804ABFC(8);
             break;
@@ -1980,20 +1925,9 @@ void initBBCollectionSprite(FrontendBladeState* state)
     }
 }
 
-#if 0
-typedef struct FrontendBladeAssetDraft {
-    unk32 unk0; /* 0x00 */
-    unk32 unk4; /* 0x04 */
-    unk32 unk8; /* 0x08 */
-    unk16 unkC; /* 0x0C */
-    unk8 padE[2]; /* 0x0E */
-} FrontendBladeAssetDraft;
-
-extern const FrontendBladeAssetDraft _80699DC[][8];
-
 void sub_804703C(FrontendBladeState* state)
 {
-    const FrontendBladeAssetDraft* asset;
+    const SpriteTextPlacement* asset;
     SpriteTextCleanup* text;
     s32 i;
 
@@ -2008,8 +1942,6 @@ void sub_804703C(FrontendBladeState* state)
         i++;
     } while (i <= 7);
 }
-#endif
-INCLUDE_ASM("asm/dump/8040d18/804703c.s");
 
 void sub_8047080(FrontendBladeState* state, unk32 color)
 {
@@ -2235,9 +2167,9 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
         _unk3000554 = 0xDC00;
         _unk3000558 = 0x1A00;
         _unk300055C = 0x1B00;
-        _unk30004E8[0] = 0x10000;
+        _unk30004E8 = 0x10000;
         _unk30004E4 = 0;
-        sub_80596AC(&state->unk250, -_unk30004E8[0], 0x2400);
+        sub_80596AC(&state->unk250, -_unk30004E8, 0x2400);
         _unk30004F0.unk14 = sub_804A0E0(0);
         _unk30004F0.unk18 = sub_804A0E0(1);
         _unk30004F0.unk1C = sub_804A0E0(2);
@@ -2330,12 +2262,12 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
             sprite->y += (_unk300055C - sprite->y) >> 3;
             sprite->frame.word = (((sub_8057C40() >> 8) & 1) != 0) ? 2 : 3;
         }
-        if (_unk3000539 != 0 && ((_unk30004E8[0] >> 8) > 0xFE) && _unk30004E4 == 0x10000) {
+        if (_unk3000539 != 0 && ((_unk30004E8 >> 8) > 0xFE) && _unk30004E4 == 0x10000) {
             _unk30004E4 = 0;
         }
-        positionDelta = (_unk30004E4 - _unk30004E8[0]) >> 2;
+        positionDelta = (_unk30004E4 - _unk30004E8) >> 2;
         sub_80596AC(&state->unk250, -positionDelta, 0);
-        _unk30004E8[0] += positionDelta;
+        _unk30004E8 += positionDelta;
         return;
     case 2:
         if ((_unk3005DA0 & 2) != 0) {
@@ -2606,13 +2538,11 @@ void sub_80480EC(FrontendState* state, unk32 arg1)
     }
 }
 
-#if 0
 void sub_8048310(FrontendState* state, unk32 arg1)
 {
-    CurrentGameState* currentGameState;
     SpriteEntry* sprite;
-    FrontendPacketState* packetState;
-    FrontendPacketState* record;
+    Packet* packetState;
+    Packet* record;
 
     record = &_gameData->unk15D4[1 - isMultiplayer()];
     packetState = &_gameData->unk15C4;
@@ -2630,13 +2560,15 @@ void sub_8048310(FrontendState* state, unk32 arg1)
         }
         _unk30005C8 = 0x800;
         _unk30005CC = 0xD800;
-        newIconMenu(&state->menu, _8069D50, 0);
+        newIconMenu(&state->menu, &_8069D50, 0);
         sub_8050FEC(&state->menu, 0x9600);
         sub_8049168();
         if (sub_805FFE4() == 0 || sub_8060070() == 0) {
             return;
         }
-        packetState->unk2 = 5;
+        packetState->packet.unk2_0 = 5;
+        packetState->packet.unk2_4 = 0;
+        sub_8043960(packetState);
         break;
     case 7:
         sub_8051028(&state->menu);
@@ -2671,83 +2603,79 @@ void sub_8048310(FrontendState* state, unk32 arg1)
             return;
         }
         if (sub_8060040() != 0) {
-            packetState->unk4 = state->menu.selection;
+            packetState->packet.unk4[0] = state->menu.selection;
         }
+        sub_8043960(packetState);
         break;
     case 2:
-        if (sub_805FFE4() == 0 || sub_8060070() == 0) {
-            if (_unk3005DA0 == 1) {
+        if (sub_805FFE4() != 0 && sub_8060070() != 0) {
+            if (sub_8060040() != 0 && (_unk3005DA0 & 1) != 0) {
+                packetState->packet.unk2_4 = 1;
+            }
+            if (sub_8043970(record, 5) == 0) {
+                return;
+            }
+            if (sub_8060040() == 0 && record->packet.unk4[0] != state->menu.selection) {
+                sub_8050DF8(&state->menu, record->packet.unk4[0]);
+            }
+            if (record->packet.unk2_4 == 1) {
+                packetState->packet.unk2_4 = 1;
+                if (state->menu.selection == 0) {
+                    _currentGameState->unk6A4 = 1;
+                    _currentGameState->unk6A9 = 0;
+                } else {
+                    _currentGameState->unk6A4 = 2;
+                    _currentGameState->unk6A9 = 6;
+                }
+                _currentGameState->unk6A6 = 0;
+                _currentGameState->unk6A7 = 0;
+                _currentGameState->unk6A8 = 0;
+                _unk30005C8 = 0xFFFF0000;
+                _unk30005CC = 0x1E000;
+                sub_8050F98(&state->menu);
                 sub_80490F8(0x21);
             }
-            return;
-        }
-        if (sub_8060040() != 0 && (_unk3005DA0 & 1) != 0) {
-            packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
-        }
-        if (sub_8043970(record, 5) == 0) {
-            return;
-        }
-        if (sub_8060040() == 0
-            && record->unk4 != state->menu.selection) {
-            sub_8050DF8(&state->menu);
-        }
-        if ((record->unk2 & 0xF0) == 0x10) {
-            packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
-            currentGameState = _currentGameState;
-            if (state->menu.selection == 0) {
-                currentGameState->unk6A4 = 1;
-                currentGameState->unk6A9 = state->menu.selection;
-            } else {
-                currentGameState->unk6A4 = 2;
-                currentGameState->unk6A9 = 6;
-            }
-            currentGameState->unk6A6 = 0;
-            currentGameState->unk6A7 = 0;
-            currentGameState->unk6A8 = 0;
-            _unk30005C8 = 0xFFFF0000;
-            _unk30005CC = 0x1E000;
-            sub_8050F98(&state->menu);
+            sub_8043960(packetState);
+        } else if (_unk3005DA0 == 1) {
             sub_80490F8(0x21);
         }
-        break;
+        return;
     default:
         return;
     }
-    sub_8043960(packetState);
 }
 
-#endif
-INCLUDE_ASM("asm/dump/8040d18/8048310.s");
-
-#if 0
 void sub_804868C(FrontendState* state, unk32 arg1)
 {
-    FrontendMenu* menu;
-    FrontendPacketState* packetState;
-    FrontendPacketState* record;
+    SpriteEntry* sprite;
+    Packet* packetState;
+    Packet* record;
 
-    record = (FrontendPacketState*)_gameData->unk15D4 + (1 - isMultiplayer());
-    packetState = (FrontendPacketState*)_gameData->unk15C4;
+    record = &_gameData->unk15D4[1 - isMultiplayer()];
+    packetState = &_gameData->unk15C4;
     switch (arg1) {
     case 0:
-        _unk30005D0 = allocSprite(0);
-        if (_unk30005D0 != NULL) {
-            LoadSpriteSheet(_unk30005D0, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+        sprite = allocSprite(0);
+        _unk30005D0 = sprite;
+        if (sprite != NULL) {
+            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
-        _unk30005D4 = allocSprite(0);
-        if (_unk30005D4 != NULL) {
-            LoadSpriteSheet(_unk30005D4, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+        sprite = allocSprite(0);
+        _unk30005D4 = sprite;
+        if (sprite != NULL) {
+            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk30005D8 = 0x800;
         _unk30005DC = 0xD800;
-        menu = &state->menu;
-        newIconMenu(menu, _8069D9C, 0);
-        sub_8050FEC(menu, 0x9600);
+        newIconMenu(&state->menu, &_8069D9C, 0);
+        sub_8050FEC(&state->menu, 0x9600);
         sub_8049168();
         if (sub_805FFE4() == 0 || sub_8060070() == 0) {
             return;
         }
-        packetState->unk2 = 6;
+        packetState->packet.unk2_0 = 6;
+        packetState->packet.unk2_4 = 0;
+        sub_8043960(packetState);
         break;
     case 7:
         sub_8051028(&state->menu);
@@ -2769,84 +2697,79 @@ void sub_804868C(FrontendState* state, unk32 arg1)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->unk140);
-        menu = &state->menu;
-        sub_8050C18(menu);
+        sub_8050C18(&state->menu);
         if (sub_805FFE4() != 0 && sub_8060070() != 0 && sub_8060040() != 0
             && (_unk3005DA0 & 0x30) != 0) {
             if ((_unk3005DA0 & 0x20) != 0) {
-                sub_8050F0C(menu);
+                sub_8050F0C(&state->menu);
             } else {
-                sub_8050E80(menu);
+                sub_8050E80(&state->menu);
             }
         }
         if (sub_805FFE4() == 0 || sub_8060070() == 0) {
             return;
         }
         if (sub_8060040() != 0) {
-            packetState->unk4 = menu->selection;
+            packetState->packet.unk4[0] = state->menu.selection;
         }
+        sub_8043960(packetState);
         break;
     case 2:
-        if (sub_805FFE4() == 0 || sub_8060070() == 0) {
-            if (_unk3005DA0 == 1) {
+        if (sub_805FFE4() != 0 && sub_8060070() != 0) {
+            if (sub_8060040() != 0) {
+                if ((_unk3005DA0 & 1) != 0) {
+                    packetState->packet.unk2_4 = 1;
+                }
+                if ((_unk3005DA0 & 2) != 0) {
+                    packetState->packet.unk2_4 = 2;
+                }
+            }
+            if (sub_8043970(record, 6) == 0) {
+                return;
+            }
+            if (sub_8060040() == 0 && record->packet.unk4[0] != state->menu.selection) {
+                sub_8050DF8(&state->menu, record->packet.unk4[0]);
+            }
+            if (record->packet.unk2_4 == 1) {
+                packetState->packet.unk2_4 = 1;
+                switch (state->menu.selection) {
+                case 0:
+                    _currentGameState->unk6A5 = 1;
+                    break;
+                case 1:
+                    _currentGameState->unk6A5 = 3;
+                    break;
+                case 2:
+                    _currentGameState->unk6A5 = 5;
+                    break;
+                case 3:
+                    _currentGameState->unk6A5 = 7;
+                    break;
+                case 4:
+                    _currentGameState->unk6A5 = 9;
+                    break;
+                }
+                _unk30005D8 = 0xFFFF0000;
+                _unk30005DC = 0x1E000;
+                sub_8050F98(&state->menu);
                 sub_80490F8(0x1B);
             }
-            return;
-        }
-        if (sub_8060040() != 0) {
-            if ((_unk3005DA0 & 1) != 0) {
-                packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
+            if (record->packet.unk2_4 == 2) {
+                packetState->packet.unk2_4 = 2;
+                _unk30005D8 = 0xFFFF0000;
+                _unk30005DC = 0x1E000;
+                sub_8050FC8(&state->menu);
+                sub_80490F8(0x20);
             }
-            if ((_unk3005DA0 & 2) != 0) {
-                packetState->unk2 = (packetState->unk2 & 0xF) | 0x20;
-            }
-        }
-        if (sub_8043970(record, 6) == 0) {
-            return;
-        }
-        if (sub_8060040() == 0 && record->unk4 != state->menu.selection) {
-            sub_8050DF8(&state->menu);
-        }
-        if ((record->unk2 & 0xF0) == 0x10) {
-            packetState->unk2 = (packetState->unk2 & 0xF) | 0x10;
-            switch (state->menu.selection) {
-            case 0:
-                _currentGameState->unk6A5 = 1;
-                break;
-            case 1:
-                _currentGameState->unk6A5 = 3;
-                break;
-            case 2:
-                _currentGameState->unk6A5 = 5;
-                break;
-            case 3:
-                _currentGameState->unk6A5 = 7;
-                break;
-            case 4:
-                _currentGameState->unk6A5 = 9;
-                break;
-            }
-            _unk30005D8 = 0xFFFF0000;
-            _unk30005DC = 0x1E000;
-            sub_8050F98(&state->menu);
+            sub_8043960(packetState);
+        } else if (_unk3005DA0 == 1) {
             sub_80490F8(0x1B);
         }
-        if ((record->unk2 & 0xF0) == 0x20) {
-            packetState->unk2 = (packetState->unk2 & 0xF) | 0x20;
-            _unk30005D8 = 0xFFFF0000;
-            _unk30005DC = 0x1E000;
-            sub_8050FC8(&state->menu);
-            sub_80490F8(0x20);
-        }
-        break;
+        return;
     default:
         return;
     }
-    sub_8043960(packetState);
 }
-
-#endif
-INCLUDE_ASM("asm/dump/8040d18/804868c.s");
 
 void sub_8048A74(FrontendSpriteTriple* arg0, s32 arg1)
 {

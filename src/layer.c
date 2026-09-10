@@ -656,7 +656,7 @@ void sub_8059934(void)
     u8 zero;
 
     _unk3000DE0 = zero = 0;
-    _unk3000E40[0] = zero;
+    _unk3000E40 = zero;
     _unk3000E3C = 0x20;
     i = 0;
     do {
