@@ -48,6 +48,22 @@ Last updated: 2026-09-10, session 11 (691 C / 334 asm / 67%, 18 TUs).
   worktree + branch deleted. `.claude/worktrees/manual` (decomp/manual)
   advanced to main 034f05fa. Unfolded learnings: 7 files (5 festate,
   math-2026-09-09, sub_8043370) — fold when a few more land.
+- Merged decomp/3-teletype (8214e34c, squash; user's sub_8063D38/E18/F84
+  cherry-picked from decomp/manual): review 1 blocker (untested remark,
+  removed), 3 fold tests all byte-required (unkBA bitfield breaks 6 users;
+  hoisted clear and staged `value` flip +0x02). **694 C / 331 asm / 68%.**
+  User prefers the split `&= ~8; |= 4` flag style.
+- Byte measure (gen-report.py): 104,776/165,900 code bytes = 63.2% before
+  teletype; 67.00% needs +6,378 B, 67.67% +7,489 B. Residue-first set
+  = the 11 diagnosed yellows (5,556 B) + sub_8041344 + turorial_804A488.
+- Type cleanup research (sol, /tmp): ScreenLayout == LevelDesign (unify as
+  ScreenLayout, 0x74 bitfields, geometry at 0x80); FrontendState
+  unkB8/140/1C8/250 = `BGLayer bgLayers[4]` (dialogue indexes [1..3]);
+  FrontendSubobject stays. Prompt for the user's agent in
+  ~/Downloads/type-cleanup-prompt.md (targets decomp/manual, which holds
+  the user's sub_80508CC + newLayerManagement + sub_805DD18 commits).
+- Running: opus decompiler agent on sub_8055F04 (collision, 40 B, dead
+  `lsl #16` residue), own worktree, 25-build cap — NO review yet (user).
 - Note: `<sym>.NON_MATCHING` aliases in nm output are a tooling artifact
   (present on main), not agent fake symbols; dotless `global` is the asm
   files' existing convention.
