@@ -536,7 +536,7 @@ typedef struct Actor {
     s16 unk9C;
     s16 unk9E;
     unk16 unkA0;
-    unk16 unkA2;
+    s16 unkA2;
     unk8 unkA4;
     unk8 unkA5;
     unk8 padA6[2];
@@ -903,7 +903,8 @@ typedef struct LevelDesignLayer {
     s32 unk4;
     s32 unk8;
     unk32 unkC;
-    unk8 pad10[8];
+    unk8 pad10[4];
+    unk32 unk14;
 } LevelDesignLayer;
 
 struct ScreenLayout {

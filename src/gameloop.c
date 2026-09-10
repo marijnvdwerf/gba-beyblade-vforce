@@ -1,5 +1,8 @@
 #include <agb/memory_map.h>
 
+#include <string.h>
+
+#include "actor.h"
 #include "animevent.h"
 #include "beyblade.h"
 #include "bios.h"
@@ -291,100 +294,100 @@ void sub_8052140(Sub8052140Data* arg0, unk32 arg1)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052180.s");
 
-#if 0
 void sub_80522D4(Actor* actor, CameraState* camera)
 {
     s32 actorPosition[3];
-    s32 adjustedPosition[3];
-    s32 cameraOffset[3];
-    s32 absX;
-    s32 absY;
+    s32 delta[3];
+    s32 offset[3];
+    s32 distance[3];
+    s32 origin[3];
+    s32 source[3];
+    void* originPtr;
+    s32* cursor;
+    CameraState* state;
+    GameData* gameData;
     s32 x;
     s32 y;
-    s32 signedX;
-    s32 signedY;
-    s32 originSource[3];
-    s32 origin[3];
-    s32* originSourcePtr;
-    s32* originPtr;
-    s16 i;
     s16 scale;
-    CameraDisplayEntry* entry;
+    s16 i;
     BGLayer* record;
-    GameData* gameData;
-    CameraState* state;
 
     state = nullsub_12(camera);
     gameData = _gameData;
     originPtr = origin;
-    originSourcePtr = originSource;
-    memset(originSourcePtr, 0, 0xC);
-    originSourcePtr[0] = gameData->base.unk1A0;
-    originSourcePtr[1] = gameData->base.unk1A4;
-    memcpy(originPtr, originSourcePtr, 0xC);
-    sub_8058754(actor, (unk32*)actorPosition);
-    adjustedPosition[0] = originPtr[0] - originPtr[1];
-    adjustedPosition[1] = (originPtr[0] + originPtr[1]) >> 1;
-    cameraOffset[0] = 0x7800 - adjustedPosition[0] * 0x12;
-    cameraOffset[1]
-        = ((actor->unkA2 + 0x50 - (actor->unk11 >> 1)) << 8) - adjustedPosition[1] * 0x12;
-    adjustedPosition[0] = actorPosition[0] - (state->records[0].unk40 + cameraOffset[0]);
-    if (_gameData->unkB53 != 0)
-        y = state->records[0].unk44 + cameraOffset[1] - 0x8000;
-    else
-        y = state->records[0].unk44 + cameraOffset[1];
-    adjustedPosition[1] = actorPosition[1] - y;
-    if (gameData->unkB53 != 0 && adjustedPosition[0] + 0x1FF <= 0x3FE
-        && adjustedPosition[1] <= 0x1FF && adjustedPosition[1] > -0x200) {
+    memset(source, 0, 0xC);
+    cursor = source;
+    *cursor++ = gameData->base.unk1A0;
+    *cursor = gameData->base.unk1A4;
+    memcpy(originPtr, source, 0xC);
+    sub_8058754(actor, actorPosition);
+    delta[0] = origin[0] - origin[1];
+    delta[1] = (origin[0] + origin[1]) >> 1;
+    offset[0] = 0x7800 - delta[0] * 0x12;
+    offset[1] = ((actor->unkA2 + (0x50 - (actor->unk11 >> 1))) << 8) - delta[1] * 0x12;
+    delta[0] = actorPosition[0] - (state->records[0].field_40 + offset[0]);
+    if (_gameData->unkB53 != 0) {
+        s32 top;
+
+        top = state->records[0].field_44 + offset[1] - 0x8000;
+        delta[1] = actorPosition[1] - top;
+    } else {
+        delta[1] = actorPosition[1] - (state->records[0].field_44 + offset[1]);
+    }
+    if (_gameData->unkB53 != 0 && (unk32)(delta[0] + 0x1FF) <= 0x3FE && delta[1] <= 0x1FF
+        && delta[1] > -0x200) {
         _gameData->unkB53 = 0;
         camera->unk224 = NULL;
     }
-    absX = adjustedPosition[0];
-    if (absX < 0)
-        absX = -absX;
-    absY = adjustedPosition[1];
-    if (absY < 0)
-        absY = -absY;
-    signedX = adjustedPosition[0];
-    x = signedX;
-    if (signedX < 0)
-        signedX = -signedX;
-    signedY = adjustedPosition[1];
-    if (signedY < 0)
-        signedY = -signedY;
-    if (signedX > 0x4800)
-        signedX = 0x4800;
-    if (signedY > 0x4800)
-        signedY = 0x4800;
-    if (x < 0)
-        signedX = -signedX;
-    adjustedPosition[0] = signedX;
-    if (adjustedPosition[1] < 0)
-        signedY = -signedY;
-    adjustedPosition[1] = signedY;
-    if ((_gameData->unkB50 & 1) != 0)
-        state->records[0].unk14 = adjustedPosition[0] * _gameData->unkB51 >> 9;
-    else
-        state->records[0].unk14 = 1 & _gameData->unkB50;
-    if ((_gameData->unkB50 & 2) != 0)
-        state->records[0].unk18 = adjustedPosition[1] * _gameData->unkB52 >> 9;
-    else
-        state->records[0].unk18 = (_gameData->unkB50 & 2) << 24 >> 24;
-    i = 0;
-    do {
-        entry = &camera->unk220->entries[i];
-        record = &camera->records[i];
-        if (entry->display != NULL && (void*)record != (void*)state) {
-            scale = entry->unk14;
-            record->unk14 = state->records[0].unk14 + (state->records[0].unk14 * scale >> 5);
-            record->unk18 = state->records[0].unk18 + (state->records[0].unk18 * scale >> 5);
+    if (delta[0] < 0) {
+        distance[0] = -delta[0];
+    } else {
+        distance[0] = delta[0];
+    }
+    if (delta[1] < 0) {
+        distance[1] = -delta[1];
+    } else {
+        distance[1] = delta[1];
+    }
+    x = delta[0] < 0 ? -delta[0] : delta[0];
+    y = delta[1] < 0 ? -delta[1] : delta[1];
+    if (x > 0x4800) {
+        x = 0x4800;
+    }
+    if (y > 0x4800) {
+        y = 0x4800;
+    }
+    if (delta[0] < 0) {
+        x = -x;
+    }
+    delta[0] = x;
+    if (delta[1] < 0) {
+        y = -y;
+    }
+    delta[1] = y;
+    if (_gameData->unkB50 & 1) {
+        state->records[0].field_14 = delta[0] * _gameData->unkB51 >> 9;
+    } else {
+        state->records[0].field_14 = 0;
+    }
+    if (_gameData->unkB50 & 2) {
+        state->records[0].field_18 = delta[1] * _gameData->unkB52 >> 9;
+    } else {
+        state->records[0].field_18 = 0;
+    }
+    for (i = 0; i <= 3; i++) {
+        if (camera->unk220->layers[i].unk0 != NULL) {
+            scale = camera->unk220->layers[i].unk14;
+            record = &camera->records[i];
+            if (record != &state->records[0]) {
+                record->field_14
+                    = state->records[0].field_14 + (state->records[0].field_14 * scale >> 5);
+                record->field_18
+                    = state->records[0].field_18 + (state->records[0].field_18 * scale >> 5);
+            }
         }
-        i++;
-    } while (i <= 3);
+    }
 }
-
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/80522d4.s");
 
 void sub_8052514(void)
 {

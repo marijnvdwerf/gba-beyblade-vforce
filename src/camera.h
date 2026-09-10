@@ -4,18 +4,6 @@
 #include "common.h"
 #include "layer.h"
 
-typedef struct CameraDisplayEntry {
-    BGLayer* display;
-    unk8 pad4[0x14];
-} CameraDisplayEntry;
-
-typedef struct CameraSubState {
-    unk8 pad0[0x14];
-    CameraDisplayEntry entries[4];
-    unk8 pad74[0xC];
-    unk32 unk80;
-} CameraSubState;
-
 typedef struct CameraState {
     BGLayer records[4];
     const ScreenLayout* unk220;
@@ -38,7 +26,7 @@ typedef struct CameraState {
     const unk32** unk368;
 } CameraState;
 
-void nullsub_12(void*);
+CameraState* nullsub_12(CameraState*);
 void sub_805EADC(CameraState*);
 void sub_805EB00(CameraState*);
 void sub_805EBCC(CameraState*);

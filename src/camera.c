@@ -138,8 +138,9 @@ void sub_805EB00(CameraState* camera)
     }
 }
 
-void nullsub_12(void* arg0)
+CameraState* nullsub_12(CameraState* camera)
 {
+    return camera;
 }
 
 #if 0
