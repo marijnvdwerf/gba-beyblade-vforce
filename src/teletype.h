@@ -11,7 +11,9 @@ typedef void (*TeletypeCallback)(TeletypeState*, unk32);
 struct FontStyle {
     const SpriteSheet* unk0;
     const unk8* unk4;
-    unk8 pad8[4];
+    unk8 pad8[2];
+    unk8 unkA;
+    unk8 padB;
 };
 
 struct TeletypeState {
@@ -21,18 +23,20 @@ struct TeletypeState {
     unk8 unkC;
     unk8 unkD;
     unk8 unkE;
-    unk8 pad0F[3];
+    unk8 pad0F[2];
+    unk8 unk11;
     unk8 unk12;
     unk8 unk13;
     unk8 unk14[8];
     unk8 unk1C[0x80];
     unk32 unk9C;
     unk32 unkA0;
-    unk8 padA4[8];
-    unk32 unkAC;
+    s32 unkA4;
+    unk32 unkA8;
+    s32 unkAC;
     unk32 unkB0;
-    unk32 unkB4;
-    unk8 padB8[2];
+    s32 unkB4;
+    unk16 unkB8;
     unk16 unkBA;
     unk16 unkBC;
     unk8 unkBE;
@@ -45,7 +49,8 @@ struct TeletypeState {
     SpriteEntry* unkC8;
     unk8 padCC[0x10];
     TeletypeCallback unkDC;
-    unk8 padE0[8];
+    void (*unkE0)(TeletypeState*, const unk8*);
+    void (*unkE4)(TeletypeState*, unk8);
     void (*unkE8)(TeletypeState*, unk16);
     SpriteTextBlock unkEC;
 };
@@ -60,6 +65,7 @@ void sub_8063F84(TeletypeState*);
 void sub_80640F8(TeletypeState*);
 void pushTeletypeStringPalette(TeletypeState*, unk8);
 void sub_8064130(TeletypeState*);
+void sub_8064140(TeletypeState*);
 void sub_806415C(TeletypeState*);
 unk8 sub_806417C(TeletypeState*);
 unk8 sub_8064188(TeletypeState*);

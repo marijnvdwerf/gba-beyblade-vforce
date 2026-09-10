@@ -45,7 +45,7 @@ void sub_8063AD8(TeletypeState* state, unk32 palette)
     state->unkC8 = sprite->next;
 }
 
-unk32 sub_8063B44(TeletypeState* state)
+unk8 sub_8063B44(TeletypeState* state)
 {
     unk8 code;
     unk8 palette;
@@ -145,7 +145,6 @@ void sub_8063CF4(TeletypeState* state)
     }
 }
 
-#if 0
 const unk8* sub_8063D38(const unk8* string, unk32* command)
 {
     unk32 value;
@@ -161,35 +160,29 @@ const unk8* sub_8063D38(const unk8* string, unk32* command)
     done = 0;
     cursor = string;
     cursor++;
-    character = cursor[0];
-    if (character == '/') {
+    if (*cursor == '/') {
         sign = 0x80000000;
         cursor++;
     }
-    character = cursor[0];
-    if ((unk8)(character - 0x30) > 9 && character != '}' && character != 0) {
+    character = *cursor;
+    if ((character < '0' || character > '9') && character != '}' && character != '\0') {
         code = character << 24;
         cursor++;
     }
-    if (done == 0) {
-        do {
-            character = cursor[0];
-            cursor++;
-            if (character == '}') {
-                break;
-            }
-            if ((unk8)(character - 0x30) <= 9) {
-                value = value * 10 - 0x30 + character;
-            } else if (character == '-') {
-                sign = 0x80000000;
-            }
-        } while (done == 0);
+    while (done == 0) {
+        character = *cursor++;
+        if (character == '}') {
+            done = 1;
+        } else if (character >= '0' && character <= '9') {
+            value *= 10;
+            value += character - '0';
+        } else if (character == '-') {
+            sign = 0x80000000;
+        }
     }
     *command = sign | code | value;
     return cursor;
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/8063d38.s");
 
 void sub_8063DAC(TeletypeState* state, unk16 value)
 {
@@ -235,62 +228,12 @@ void sub_8063DF0(TeletypeState* state, const FontStyle* config)
     state->unkC1 = config->unk0->unk4;
     state->unkC2 = config->unk0->unk5;
 }
-#if 0
-typedef struct TeletypeStateDraft TeletypeStateDraft;
-typedef void (*TeletypeDraftCallback)(TeletypeStateDraft*, unk32);
-typedef void (*TeletypeDraftByteCallback)(TeletypeStateDraft*, unk8);
 
-struct TeletypeStateDraft {
-    const unk8* unk0;
-    const unk8* unk4;
-    unk8 pad08[9];
-    unk8 unk11;
-    unk8 pad12;
-    unk8 unk13;
-    unk8 unk14[8];
-    unk8 unk1C[0x80];
-    unk32 unk9C;
-    unk32 unkA0;
-    unk32 unkA4;
-    unk32 unkA8;
-    unk32 unkAC;
-    unk32 unkB0;
-    unk8 padB4[4];
-    unk16 unkB8;
-    unk16 unkBA;
-    unk16 unkBC;
-    unk8 unkBE;
-    unk8 padBF;
-    unk8 unkC0;
-    unk8 padC1[3];
-    AllocatedBlock* unkC4;
-    SpriteEntry* unkC8;
-    unk8 padCC[0x10];
-    TeletypeDraftCallback unkDC;
-    void (*unkE0)(TeletypeStateDraft*, const unk8*);
-    TeletypeDraftByteCallback unkE4;
-    void (*unkE8)(TeletypeStateDraft*, unk16);
-    SpriteTextBlock unkEC;
-};
-
-void sub_8063DF0(TeletypeStateDraft*, const unk8*);
-SpriteEntry* sub_8060C1C(SpriteTextBlock*, unk16, unk16);
-void nullsub_22(TeletypeStateDraft*, unk32);
-void nullsub_16(TeletypeStateDraft*, const unk8*);
-void nullsub_21(TeletypeStateDraft*, unk8);
-void sub_8063DAC(TeletypeStateDraft*, unk16);
-
-TeletypeStateDraft* sub_8063E18(
-    const unk8* arg0,
-    const unk8* arg1,
-    unk32 arg2,
-    unk32 arg3,
-    unk32 arg4,
-    unk32 arg5,
-    unk16 arg6)
+TeletypeState* sub_8063E18(const unk8* string, const FontStyle* config, unk32 count, unk32 arg3,
+    unk32 arg4, unk32 arg5, unk16 arg6)
 {
     AllocatedBlock* block;
-    TeletypeStateDraft* state;
+    TeletypeState* state;
     s32 i;
     SpriteEntry* sprite;
 
@@ -299,49 +242,43 @@ TeletypeStateDraft* sub_8063E18(
     if (block != NULL) {
         state = block->address;
         state->unkC4 = block;
-        state->unk0 = arg0;
-        state->unk11 = arg2;
+        state->unk0 = string;
+        state->unk11 = count;
         state->unkB8 = arg6;
         state->unk9C = arg3;
         state->unkA0 = arg4;
         state->unkA4 = arg5;
         state->unkA8 = 0;
-        state->unkB0 = 0;
-        state->unkAC = 0;
+        state->unkAC = state->unkB0 = 0;
         state->unkBE = 0;
         state->unkBC = 0;
         state->unkC0 = 0;
         state->unkBA = 0;
-        sub_8063DF0(state, arg1);
+        sub_8063DF0(state, config);
         state->unkEC.count = 0;
         state->unkEC.next = NULL;
         state->unkEC.prev = NULL;
-        state->unkC8 = sub_8060C1C(&state->unkEC, arg2, 0);
+        state->unkC8 = sub_8060C1C(&state->unkEC, count, 0);
         sprite = state->unkEC.prev;
-        i = 0;
-        while (i < arg2) {
+        for (i = 0; i < count; i++) {
             LoadSpriteSheet(sprite, state->unk4, 0xF000, 0xA000, 0, 0, 0, 0);
             sprite = sprite->next;
-            i++;
         }
         state->unkDC = nullsub_22;
         state->unkE0 = nullsub_16;
         state->unkE4 = nullsub_21;
         state->unkE8 = sub_8063DAC;
         state->unk13 = 0;
-        i = 0;
-        do {
-            state->unk14[i] = arg1[0xA];
-            i++;
-        } while (i <= 7);
-        for (i = 0x7F; i >= 0; i--) {
+        for (i = 0; i < 8; i++) {
+            state->unk14[i] = config->unkA;
+        }
+        for (i = 0; i < 0x80; i++) {
             state->unk1C[i] = 0;
         }
     }
     return state;
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/8063e18.s");
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8063f40.s");
 
 void sub_8063F5C(TeletypeState* state, TeletypeCallback callback)
@@ -356,51 +293,8 @@ void sub_8063F64(TeletypeState* state)
     deallocateBlock(state->unkC4);
 }
 
-#if 0
-typedef struct TeletypeStateUpdateDraft TeletypeStateUpdateDraft;
-typedef void (*TeletypeDraftUpdateCallback)(TeletypeStateUpdateDraft*, unk32);
-typedef void (*TeletypeDraftUpdateByteCallback)(TeletypeStateUpdateDraft*, unk8);
-
-struct TeletypeStateUpdateDraft {
-    const unk8* unk0;
-    unk8 pad04[8];
-    unk8 unkC;
-    unk8 pad0D[4];
-    unk8 unk11;
-    unk8 unk12;
-    unk8 pad13[9];
-    unk8 unk1C[0x80];
-    unk8 pad9C[8];
-    unk32 unkA4;
-    unk8 padA8[4];
-    unk32 unkAC;
-    unk8 padB0[4];
-    unk32 unkB4;
-    unk8 padB8[2];
-    unk16 unkBA;
-    unk16 unkBC;
-    unk8 unkBE;
-    unk8 padBF;
-    unk8 unkC0;
-    unk8 padC1[3];
-    unk8 padC4[8];
-    unk8 padCC[0x10];
-    TeletypeDraftUpdateCallback unkDC;
-    void (*unkE0)(TeletypeStateUpdateDraft*, const unk8*);
-    TeletypeDraftUpdateByteCallback unkE4;
-    unk8 padE8[4];
-    SpriteTextBlock unkEC;
-};
-
-unk32 sub_8063B44(TeletypeStateUpdateDraft*);
-void sub_8063BA8(TeletypeStateUpdateDraft*);
-void sub_8063CD0(TeletypeStateUpdateDraft*);
-const unk8* sub_8063D38(const unk8*, unk32*);
-void sub_8064140(TeletypeStateUpdateDraft*);
-
-void sub_8063F84(TeletypeStateUpdateDraft* state)
+void sub_8063F84(TeletypeState* state)
 {
-    unk16* loopFlags;
     unk32 process;
     const unk8* current;
     const unk8* cursor;
@@ -412,7 +306,6 @@ void sub_8063F84(TeletypeStateUpdateDraft* state)
     }
     if ((state->unkBA & 8) != 0) {
         process = 1;
-        loopFlags = &state->unkBA;
         do {
             current = state->unk0;
             code = current[0];
@@ -420,7 +313,7 @@ void sub_8063F84(TeletypeStateUpdateDraft* state)
             switch (code) {
             case 0:
                 process = 0;
-                *loopFlags |= 2;
+                state->unkBA |= 2;
                 break;
             case 0xA:
                 if (state->unkE4 != NULL) {
@@ -447,7 +340,8 @@ void sub_8063F84(TeletypeStateUpdateDraft* state)
                 sub_8063BA8(state);
                 process = 0;
                 if (state->unkC0 + state->unk12 > state->unk11) {
-                    *loopFlags = (*loopFlags & 0xFFF7) | 4;
+                    state->unkBA &= ~8;
+                    state->unkBA |= 4;
                 } else {
                     if (state->unkAC + state->unkB4 > state->unkA4) {
                         if (state->unkE4 != NULL) {
@@ -455,7 +349,8 @@ void sub_8063F84(TeletypeStateUpdateDraft* state)
                         }
                         sub_8063CD0(state);
                     }
-                    *loopFlags = (*loopFlags & 0xFFF7) | 0x10;
+                    state->unkBA &= ~8;
+                    state->unkBA |= 0x10;
                 }
                 break;
             }
@@ -465,14 +360,12 @@ void sub_8063F84(TeletypeStateUpdateDraft* state)
         if (state->unkE0 != NULL) {
             state->unkE0(state, state->unk1C);
         }
-        if ((sub_8063B44(state) << 24) != 0) {
-            state->unkBA = (state->unkBA & 0xFFEF) | 8;
+        if (sub_8063B44(state)) {
+            state->unkBA &= ~0x10;
+            state->unkBA |= 8;
         }
     }
 }
-
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/8063f84.s");
 
 void sub_80640F8(TeletypeState* state)
 {
@@ -498,14 +391,16 @@ void sub_8064130(TeletypeState* state)
 
 void sub_8064140(TeletypeState* state)
 {
-    state->unkBA = (state->unkBA & 0xFFE7) | 4;
+    state->unkBA &= ~0x18;
+    state->unkBA |= 4;
     state->unk0++;
 }
 
 void sub_806415C(TeletypeState* state)
 {
     sub_8063CF4(state);
-    state->unkBA = (state->unkBA & 0xFFFB) | 0x10;
+    state->unkBA &= ~4;
+    state->unkBA |= 0x10;
 }
 
 unk8 sub_806417C(TeletypeState* state)
