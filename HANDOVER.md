@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-10, session 11 (691 C / 334 asm / 67%, 18 TUs).
+Last updated: 2026-09-11 (end of session 11): 705 C / 320 asm / 69% by count, 67.00% by bytes, 18 TUs.
 
 ## Session 11 (2026-09-10)
 
@@ -142,6 +142,31 @@ Last updated: 2026-09-10, session 11 (691 C / 334 asm / 67%, 18 TUs).
   matched: +1,105..+1,120 B from here (recompute; ARM bank sizes from
   `uvx --from mapfile-parser mapfile_parser sym_info <sym>`, total 5,936).
 - manual-2 worktree reset to main (all its commits merged).
+- **State at close: main 1c758583, clean, baseline refreshed, lint 0; 705 C /
+  320 asm; 111,152/165,900 code bytes = 67.00% (exact target reached).
+  Session 11 net: +22 C functions (5 festate, 2 luna, 3 teletype, 3
+  display/geometry, sub_8062C24, sub_80522D4, renderRider, initRiders,
+  sub_804BF3C, sub_8055F04, sub_8055340, sub_806123C) + type cleanups
+  (ScreenLayout, bgLayers[4], RiderTileState/RiderTileRow, SpriteTextPlacement).
+  Worktrees: manual-2 (user, at main, empty) and raw-decomp. No agents
+  running; keepalive stopped.**
+- NEXT: (1) skill-fold (sol) over the 23 unfolded docs/learnings files
+  (2026-09-09/10); (2) next exact byte target 67.67% needs matched
+  112,257–112,272 (+1,105..1,120 B) — no single non-collision function fits;
+  pairs e.g. sub_8756FC0 (960, ARM) + sound_8757A64 (156, ARM) = 1,116; rerun
+  the subset search (todo.py sizes + iwram map sizes) before choosing;
+  (3) open user decisions: `GeometryLine` 0x11 bitfields → `unk8 unk11`
+  (gates sub_80567E4 unpark, 147/147 insns), the dead-comparison keeper
+  there; (4) debt: parked sub_804967C draft in frontend.c reads removed
+  fields; pre-existing `(BGLayer*)` casts in sub_8050A50/camera.c/envactor.c;
+  sound.c TU-local externs `_unk3000DA2`/`_unk3005E78`.
+- Manager lessons this session: state a branch's ACTUAL claims in review
+  prompts (a wrong "parked" premise made 3 false blockers); reviewers
+  routinely flag pre-existing issues as blockers — check `git show main:`
+  before acting; a fix agent will reach for a conditional-prototype macro
+  when a header cycle bites — say "no guards, move the extern" up front;
+  user-driven fold retests on the FINAL form found one real fold in ~40
+  (sub_80522D4 false-arm `top`), the rest byte-required.
 - Note: `<sym>.NON_MATCHING` aliases in nm output are a tooling artifact
   (present on main), not agent fake symbols; dotless `global` is the asm
   files' existing convention.
