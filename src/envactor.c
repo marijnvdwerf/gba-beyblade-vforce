@@ -483,8 +483,8 @@ void initProjectileSystem(void)
     system->unk28 = 0;
     system->unk2C = 0;
     system->unk30 = 0;
-    system->unk7C = 0x560;
-    system->unk7E = 0x560;
+    system->unk7C.parts.unk7C = 0x560;
+    system->unk7C.parts.unk7E = 0x560;
     system->unk80 = 0;
     system->unk84 = 0;
     system->unk88 = 0;
@@ -492,8 +492,8 @@ void initProjectileSystem(void)
     *(vu16*)(REG_WINOUT) = 0xFFFF;
     *(vu16*)REG_WIN0H = 0xF0;
     *(vu16*)(REG_WIN1H) = 0xF0;
-    *(vu16*)REG_WIN0V = ((system->unk7C << 16) >> 20);
-    *(vu16*)(REG_WIN1V) = (0xA0 - (((system->unk7C << 16) >> 20))) << 8 | 0xA0;
+    *(vu16*)REG_WIN0V = (system->unk7C.parts.unk7C >> 4);
+    *(vu16*)(REG_WIN1V) = (0xA0 - ((system->unk7C.parts.unk7C >> 4))) << 8 | 0xA0;
     *(vu16*)REG_DISPCNT |= 0x6000;
 }
 

@@ -154,17 +154,25 @@ typedef struct ProjectileSystem {
     Palette palette34;
     Palette palette48;
     Palette palette5C;
-    unk16 unk70;
-    unk16 unk72;
-    unk16 unk74;
-    unk16 unk76;
+    s16 unk70;
+    s16 unk72;
+    s16 unk74;
+    s16 unk76;
     unk16 unk78;
-    unk16 unk7A;
-    unk16 unk7C;
-    unk16 unk7E;
+    s16 unk7A;
+
+    union {
+        unk32 word;
+
+        struct {
+            s16 unk7C;
+            s16 unk7E;
+        } parts;
+    } unk7C;
+
     unk32 unk80;
     unk32 unk84;
-    unk32 unk88;
+    RiderBase* unk88;
 } ProjectileSystem;
 
 struct LevelHudData {

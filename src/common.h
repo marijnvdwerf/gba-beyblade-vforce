@@ -77,7 +77,7 @@ struct SpriteTextCleanup {
     const u8* unk24;
     u8 unk28;
     s8 unk29;
-    unk8 unk2A;
+    s8 unk2A;
     u8 unk2B;
     SpriteEntry* ptr2C;
 };

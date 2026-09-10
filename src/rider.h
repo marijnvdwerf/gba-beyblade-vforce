@@ -14,7 +14,7 @@ void sub_804B4A4(RiderBase*);
 void allocFXSprite(RiderBase*);
 void sub_804BF3C(RiderBase*);
 struct GameData;
-unk32 sub_804B7FC(struct GameData*);
+RiderBase* sub_804B7FC(struct GameData*);
 void sub_804B754(void);
 void sub_804C098(RiderBase*);
 void sub_804C0C0(RiderBase*);

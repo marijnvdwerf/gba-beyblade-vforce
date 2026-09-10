@@ -418,7 +418,7 @@ void sub_805185C(s8 value)
     _currentGameState->unk2 = value;
 }
 
-unk8 sub_8051868(void)
+s32 sub_8051868(void)
 {
     return sub_805749C(sub_8051820());
 }

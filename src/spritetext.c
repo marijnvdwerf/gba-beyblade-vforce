@@ -68,29 +68,25 @@ void sub_8061228(SpriteTextCleanup* arg0)
     arg0->unkA = 0;
 }
 
-#if 0
 void sub_806123C(SpriteTextCleanup* text)
 {
     const unk8* widths;
     unk8 char_width;
-    unk32 x;
-    unk32 y;
+    s32 x;
+    s32 y;
     unk32 font_width;
     unk32 offset;
-    unk32 count;
+    s32 count;
     SpriteEntry* current;
     SpriteEntry* cursor;
     SpriteEntry* marked;
-    unk16 mode;
-    unk32 scale;
+    s32 scale;
     SpriteEntry* child;
-    unk32 line_shift;
+    s32 line_shift;
     SpriteEntry* next_line;
-    unk32 delta;
     unk32 advance;
     unk32 position;
-    unk32 adjustment;
-    SpriteEntry* saved_first;
+    s32 adjustment;
 
     widths = text->unk20;
     char_width = text->unk24[4];
@@ -99,9 +95,9 @@ void sub_806123C(SpriteTextCleanup* text)
     font_width = text->unkC;
     offset = 0;
     count = text->unk14.count;
-    cursor = text->unk14.prev;
+    current = text->unk14.prev;
     marked = NULL;
-    current = cursor;
+    cursor = current;
     scale = 0x100;
     child = text->ptr2C;
     line_shift = 0;
@@ -112,8 +108,7 @@ void sub_806123C(SpriteTextCleanup* text)
     if (child != NULL) {
         scale = child->oam_attr_2;
     }
-    mode = text->unk8;
-    switch (mode & 3) {
+    switch (text->unk8 & 3) {
     case 1:
         x += font_width << 8;
         break;
@@ -121,94 +116,82 @@ void sub_806123C(SpriteTextCleanup* text)
         x += (-2 & font_width) << 7;
         break;
     }
-    saved_first = text->unk14.prev;
-    while (count != 0) {
+    while (count-- != 0) {
+        advance = current->unk1E & 0x7FFF;
         if ((current->unk1E & 0x8000) != 0) {
             marked = current;
         }
-        advance = (current->unk1E & 0x7FFF) - offset;
-        delta = text->unk29;
-        if (widths != NULL) {
-            advance += delta + char_width - widths[current->frame.b[0]];
-            if (advance <= font_width && count > 1) {
-                current = current->next;
-                count--;
-                continue;
-            }
-        } else if (advance + delta + char_width <= font_width && count > 1) {
-            current = current->next;
-            count--;
-            continue;
-        }
-        if (count > 1) {
-            if (marked != NULL) {
-                next_line = marked->prev;
+        if (((advance - offset)
+                + (text->unk29
+                    + (widths != NULL ? char_width - widths[current->frame.word] : char_width)))
+                > font_width
+            || count == 0) {
+            if (count != 0) {
+                if (marked != NULL) {
+                    next_line = marked->prev;
+                } else {
+                    next_line = current->prev;
+                }
             } else {
-                next_line = current->prev;
+                next_line = current;
             }
-        } else {
-            next_line = current;
-        }
-        adjustment = 0;
-        switch (mode & 3) {
-        case 1:
-            position = (next_line->unk1E & 0x7FFF) - offset;
-            delta = text->unk29;
-            if (widths != NULL) {
-                position += delta + char_width - widths[next_line->frame.b[0]];
+            adjustment = 0;
+            switch (text->unk8 & 3) {
+            case 0:
+                break;
+            case 1:
+                position = (next_line->unk1E & 0x7FFF) - offset;
+                position += text->unk29
+                    + (widths != NULL ? char_width - widths[next_line->frame.word] : char_width);
+                adjustment = -(position << 8);
+                break;
+            case 2:
+                position = (next_line->unk1E & 0x7FFF) - offset;
+                position += text->unk29
+                    + (widths != NULL ? char_width - widths[next_line->frame.word] : char_width);
+                adjustment = -((position & ~1) << 7);
+                break;
+            }
+            adjustment -= offset << 8;
+            adjustment = x + ((adjustment * scale) >> 8);
+            next_line = next_line->next;
+            while (cursor != next_line) {
+                cursor->x = adjustment + ((((cursor->unk1E & 0x7FFF) << 8) * scale) >> 8);
+                cursor->y = y;
+                cursor = cursor->next;
+            }
+            if (next_line != NULL) {
+                offset = next_line->unk1E & 0x7FFF;
             } else {
-                position += delta + char_width;
+                offset = 0;
             }
-            adjustment = -(position << 8);
-            break;
-        case 2:
-            position = (next_line->unk1E & 0x7FFF) - offset;
-            delta = text->unk29;
-            if (widths != NULL) {
-                position += delta + char_width - widths[next_line->frame.b[0]];
-            } else {
-                position += delta + char_width;
-            }
-            adjustment = -((position & ~1) << 7);
-            break;
+            marked = NULL;
+            y += text->unk2A << 8;
+            line_shift += text->unk2A << 8;
+            text->unkF++;
         }
-        next_line = next_line->next;
-        while (cursor != next_line) {
-            cursor->x = x + (((adjustment - (offset << 8)) * scale) >> 8)
-                + ((((cursor->unk1E & 0x7FFF) << 8) * scale) >> 8);
-            cursor->y = y;
-            cursor = cursor->next;
-        }
-        if (next_line != NULL) {
-            offset = next_line->unk1E & 0x7FFF;
-        } else {
-            offset = 0;
-        }
-        marked = NULL;
-        delta = text->unk2A;
-        y += delta << 8;
-        line_shift += delta << 8;
-        text->unkF++;
-        mode = text->unk8;
         current = current->next;
-        count--;
     }
     count = text->unk14.count;
-    current = saved_first;
-    if ((text->unk8 & 0x30) == 0) {
-        return;
-    }
-    if ((text->unk8 & 0x30) == 0x10) {
+    current = text->unk14.prev;
+    switch (text->unk8 & 0x30) {
+    case 0:
+        line_shift = 0;
+        break;
+    case 0x10:
         line_shift >>= 1;
+        break;
+    case 0x20:
+        break;
     }
-    while (line_shift != 0 && count != 0) {
-        current->y -= line_shift;
-        current = current->next;
-        count--;
+    if (line_shift != 0) {
+        while (count-- != 0) {
+            current->y -= line_shift;
+            current = current->next;
+        }
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/806123c.s");
+
 INCLUDE_ASM("asm/dump/8057b80-debug/80614b0.s");
 
 u8 showString(SpriteTextCleanup* arg0, const u8* text, u8 mode)
