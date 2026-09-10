@@ -5,7 +5,7 @@
 #include "layer.h"
 
 typedef struct CameraDisplayEntry {
-    DisplayRecord* display;
+    BGLayer* display;
     unk8 pad4[0x14];
 } CameraDisplayEntry;
 
@@ -17,8 +17,8 @@ typedef struct CameraSubState {
 } CameraSubState;
 
 typedef struct CameraState {
-    DisplayRecord records[4];
-    LevelDesign* unk220;
+    BGLayer records[4];
+    const ScreenLayout* unk220;
     void* unk224;
     LevelGeometryAddresses geometry;
     void (*callback)(void*, struct CameraState*);
@@ -43,8 +43,8 @@ void sub_805EADC(CameraState*);
 void sub_805EB00(CameraState*);
 void sub_805EBCC(CameraState*);
 LevelGeometryAddresses* sub_805EEE0(CameraState*);
-void sub_805E8D8(CameraState*, LevelDesign*, unk16, s32*);
-void sub_805E8A0(CameraState*, LevelDesign*, unk16, s32*);
+void sub_805E8D8(CameraState*, const ScreenLayout*, unk16, s32*);
+void sub_805E8A0(CameraState*, const ScreenLayout*, unk16, s32*);
 extern void (*__sub_87576D8)(const unk32*, unk32, unk32, unk32, unk32, const unk32*);
 void sub_805EEFC(CameraState*, const unk32**, const unk32**);
 void sub_805EF18(CameraState*, unk32, unk32, unk32, s32, unk32, unk32);

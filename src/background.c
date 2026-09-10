@@ -38,13 +38,13 @@ void Background_8049950(void)
 {
     UnkStruct_sub1* arg0;
     void* pInt;
-    unk32* arg1;
+    BGLayer* arg1;
 
     sub_8049344(0);
     *(vu16*)REG_BLDY = 0;
 
     arg0 = &_unk3000650.transition.unk590;
-    arg1 = &_unk3000650.unkB8.unk0;
+    arg1 = _unk3000650.bgLayers;
     pInt = &_unk3000650.unk0;
 
     newLayerManagement(arg0, arg1, &_806A828[_unk3000650.unkB4->unk0], 4160, 1);
@@ -58,14 +58,14 @@ void Background_80499BC(void)
 {
     UnkStruct_sub1* arg0;
     void* pInt;
-    unk32* arg1;
+    BGLayer* arg1;
 
     sub_8049344(0);
     *(vu16*)REG_BLDY = 0;
     *(vu16*)REG_DISPCNT = 0;
 
     arg0 = &_unk3000650.transition.unk590;
-    arg1 = &_unk3000650.unkB8.unk0;
+    arg1 = _unk3000650.bgLayers;
     pInt = &_unk3000650.unk0;
 
     newLayerManagement(arg0, arg1, &_806A828[_unk3000650.unkB4->unk0], 4160, 1);
@@ -92,10 +92,10 @@ void Background_8049A84(void)
 {
     UnkStruct_sub1* arg0;
     void* pInt;
-    unk32* arg1;
+    BGLayer* arg1;
 
     arg0 = &_unk3000650.transition.unk590;
-    arg1 = &_unk3000650.unkB8.unk0;
+    arg1 = _unk3000650.bgLayers;
     pInt = &_unk3000650.unk0;
 
     newLayerManagement(arg0, arg1, &_806A828[_unk3000650.unkB4->unk0], 4160, 0);
@@ -110,10 +110,10 @@ void Background_8049AF8(void)
 {
     UnkStruct_sub1* arg0;
     void* pInt;
-    unk32* arg1;
+    BGLayer* arg1;
 
     arg0 = &_unk3000650.transition.unk590;
-    arg1 = &_unk3000650.unkB8.unk0;
+    arg1 = _unk3000650.bgLayers;
     pInt = &_unk3000650.unk0;
 
     newLayerManagement(arg0, arg1, &_806A828[_unk3000650.unkB4->unk0], 4160, 0);
@@ -128,17 +128,17 @@ void Background_8049B68(void)
 {
     UnkStruct_sub1* arg0;
     void* pInt;
-    unk32* arg1;
+    BGLayer* arg1;
 
     *(vu16*)REG_BLDY = 0;
 
     arg0 = &_unk3000650.transition.unk590;
-    arg1 = &_unk3000650.unkB8.unk0;
+    arg1 = _unk3000650.bgLayers;
     pInt = &_unk3000650.unk0;
 
     newLayerManagement(arg0, arg1, &_806A828[_unk3000650.unkB4->unk0], 4160, 0);
     sub_8050894(arg0);
-    _unk3000650.unk140.unk7C |= 3;
+    _unk3000650.bgLayers[1].field_7C |= 3;
     __fastMemoryClearARM(0, (void*)0x5000000, 0x400);
     Background_80498D8();
     VBlankIntrWait();
@@ -157,7 +157,7 @@ void Background_8049BF8(void)
     pInt = &_unk3000650.unk0;
 
     sub_80508CC(&_unk3000650.transition.unk590, &_806A828[_unk3000650.unkB4->unk0], 1);
-    sub_80596AC(&_unk3000650.unk1C8, 0x800, 0x6000);
+    sub_80596AC(&_unk3000650.bgLayers[2], 0x800, 0x6000);
     Background_80498D8();
     VBlankIntrWait();
     sub_804A280(pInt);
@@ -175,7 +175,7 @@ void Background_8049C70(void)
     pInt = &_unk3000650.unk0;
 
     sub_80508CC(&_unk3000650.transition.unk590, &_806A828[_unk3000650.unkB4->unk0], 1);
-    sub_80596AC(&_unk3000650.unk1C8, -0x10000, 0);
+    sub_80596AC(&_unk3000650.bgLayers[2], -0x10000, 0);
     Background_80498D8();
     VBlankIntrWait();
     sub_804A280(pInt);

@@ -12,7 +12,7 @@ unk32 ARM_sub_87569F4(UnkStruct_87569F4*, unk32);
 void ARM_sub_8756A84(void);
 void oam_8756CC0(void);
 void sub_8756FC0(void);
-void sub_8757380(DisplayRecord*, unk32, unk32, unk32, unk32);
+void sub_8757380(BGLayer*, unk32, unk32, unk32, unk32);
 void sub_8757494(void);
 void sub_8757574(void);
 void sub_87576D8(const unk32*, unk32, unk32, unk32, unk32, const unk32*);

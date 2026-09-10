@@ -54,7 +54,7 @@ void initLevelEnvironmentActors(u16 level)
     unk32 allocationSize;
     unk32 actorType;
     s16 spriteLayer;
-    DisplayRecord* display;
+    BGLayer* display;
     unk32 xDelta;
     unk32 yDelta;
     unk32 x;
@@ -252,7 +252,7 @@ void renderEnvironmentActors(void)
     Actor* actor;
     ActorRenderState* actorState;
     EnvironmentNode* effect;
-    DisplayRecord* camera;
+    BGLayer* camera;
     s32 x;
     s32 y;
     s32 temp;
@@ -268,7 +268,7 @@ void renderEnvironmentActors(void)
     effectCount = _gameData->environmentActors.effectCount;
     actor = _gameData->environmentActors.actorContainer;
     effect = _gameData->environmentActors.effect;
-    camera = (DisplayRecord*)nullsub_12(&_gameData->unk434);
+    camera = (BGLayer*)nullsub_12(&_gameData->unk434);
     if (actorCount == 0)
         return;
     actorCount--;

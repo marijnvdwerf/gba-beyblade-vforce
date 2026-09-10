@@ -94,7 +94,7 @@ void teletypeDefaultUserCodeHandler(TeletypeState* state, unk32 command)
 
 void sub_80420C4(FrontendState* state, unk32 command)
 {
-    FrontendSubobject* base;
+    BGLayer* base;
     const unk8* const* languageStrings;
     unk32 count;
     s32 blend;
@@ -102,22 +102,22 @@ void sub_80420C4(FrontendState* state, unk32 command)
     LevelState* levelState;
     SpriteEntry* sprite;
 
-    base = &state->unkB8;
+    base = state->bgLayers;
     switch (command) {
     case 0:
         languageStrings = sub_804A364();
-        base->unk24 = 0;
-        base->unk7C |= 3;
-        base->unk14 = 0xA00;
-        base[1].unk24 = 0;
-        base[1].unk7C |= 3;
-        base[1].unk14 = 0x800;
-        base[2].unk24 = 0;
-        base[2].unk7C |= 3;
-        base[2].unk14 = -0x600;
-        base[3].unk24 = 0;
-        base[3].unk7C |= 3;
-        base[3].unk14 = -0xC00;
+        base->field_24 = 0;
+        base->field_7C |= 3;
+        base->field_14 = 0xA00;
+        base[1].field_24 = 0;
+        base[1].field_7C |= 3;
+        base[1].field_14 = 0x800;
+        base[2].field_24 = 0;
+        base[2].field_7C |= 3;
+        base[2].field_14 = -0x600;
+        base[3].field_24 = 0;
+        base[3].field_7C |= 3;
+        base[3].field_14 = -0xC00;
         languageStrings += getLanguage();
         _unk300007C
             = sub_8063E18(*languageStrings, &FontStyle_80688B8, 0x78, 0x800, 0x6400, 0xE000, 0);

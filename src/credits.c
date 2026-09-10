@@ -28,7 +28,7 @@ void creditsFrontendHandler(FrontendState* state, unk32 arg1)
     case 0:
         _3000004 = -0x10000;
         _3000000 = 0;
-        sub_80596AC(&state->unk250, -0x10000, 0);
+        sub_80596AC(&state->bgLayers[3], -0x10000, 0);
         _3000008 = 0;
         _3000020 = 0;
         _3000021 = 0;
@@ -120,12 +120,12 @@ void creditsFrontendHandler(FrontendState* state, unk32 arg1)
             _3000014 = 0x78;
             _3000020 = 0;
         }
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         if (_3000000 != _3000004) {
             s32 delta;
 
             delta = (_3000000 - _3000004) >> 2;
-            sub_80596AC(&state->unk250, delta, 0);
+            sub_80596AC(&state->bgLayers[3], delta, 0);
             _3000004 += delta;
         }
         break;

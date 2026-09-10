@@ -60,7 +60,7 @@ void sub_804924C(unk32);
 unk32 sub_8049258(void);
 void sub_8049344(u32);
 unk32 sub_80493C8(void);
-void sub_804903C(FrontendSubobject*, unk32, unk32);
+void sub_804903C(BGLayer*, unk32, unk32);
 unk8 sub_8048FFC(void);
 void sub_80495C4(void);
 void sub_804967C(void);

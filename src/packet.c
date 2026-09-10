@@ -35,17 +35,17 @@ u8 sub_8043970(Packet* arg0, unk8 arg1)
     return 0;
 }
 
-void sub_80439A0(FrontendSubobject* arg0)
+void sub_80439A0(BGLayer* arg0)
 {
     u8 index;
     const s16* table;
 
-    arg0->unk24 = 0;
+    arg0->field_24 = 0;
     table = Unk_874CC3C;
     index = _unk3000E30[0] >> 6;
-    arg0->unk14 = table[index] * 2 - 0x100;
-    arg0->unk18 = Unk_874CC3C[index + 0x40] * 2 + 0x200;
-    arg0->unk7C |= 3;
+    arg0->field_14 = table[index] * 2 - 0x100;
+    arg0->field_18 = Unk_874CC3C[index + 0x40] * 2 + 0x200;
+    arg0->field_7C |= 3;
 }
 
 INCLUDE_ASM("asm/dump/8040d18/80439f4.s");

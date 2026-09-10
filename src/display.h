@@ -4,17 +4,10 @@
 #include "common.h"
 #include "layer.h"
 
-typedef struct ScreenLayout {
-    unk8 pad0[0x78];
-    unk16* bgPalette;
-    unk16* spritePalette;
-    unk32 var80;
-} ScreenLayout;
-
 void sub_80508A4(UnkStruct_sub1*);
 void sub_8050894(UnkStruct_sub1*);
 void sub_80508CC(UnkStruct_sub1*, ScreenLayout*, unk8);
-void newLayerManagement(UnkStruct_sub1*, unk32*, ScreenLayout*, unk16, unk8);
+void newLayerManagement(UnkStruct_sub1*, BGLayer*, ScreenLayout*, unk16, unk8);
 
 typedef struct DisplayData {
     unk8 pad0[2];

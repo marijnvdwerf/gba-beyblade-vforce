@@ -42,6 +42,6 @@ typedef char PacketSizeCheck[(sizeof(Packet) == 0x10) ? 1 : -1];
 
 void sub_8043960(Packet*);
 u8 sub_8043970(Packet*, unk8);
-void sub_80439A0(FrontendSubobject* arg0);
+void sub_80439A0(BGLayer* arg0);
 
 #endif

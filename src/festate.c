@@ -125,7 +125,7 @@ void sub_8043AA0(FrontendState* state, u32 arg1)
             _unk300015C->x += ((_unk3000164 - _unk300015C->x) >> 3)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         menu = &state->menu;
         sub_8050C18(menu);
         if ((_unk3005DA0 & 0x30) != 0) {
@@ -178,7 +178,7 @@ void sub_8043CF8(FrontendState* state, u32 arg1)
         sub_8049168();
         break;
     case 1:
-        sub_80439A0(&state->unkB8);
+        sub_80439A0(&state->bgLayers[0]);
         break;
     case 2:
         if (_unk3005DA0 == 2) {
@@ -207,7 +207,7 @@ void sub_8043D84(FrontendState* state, u32 arg1)
         sub_8049168();
         break;
     case 1:
-        sub_80439A0(&state->unkB8);
+        sub_80439A0(&state->bgLayers[0]);
         break;
     case 2:
         if (_unk3005DA0 == 1) {
@@ -305,14 +305,14 @@ void sub_8044054(FrontendState* state, unk32 arg1)
         _unk3000180[9] = sub_804A0E0(9);
         _unk3000170 = 0x10000;
         _unk300016C = 0;
-        sub_80596AC(&state->unk250, -_unk3000170, 0);
+        sub_80596AC(&state->bgLayers[3], -_unk3000170, 0);
         state->unk80 |= 0x30;
         sub_8049168();
         break;
     case 1:
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         delta = (_unk300016C - _unk3000170) >> 2;
-        sub_80596AC(&state->unk250, -delta, 0);
+        sub_80596AC(&state->bgLayers[3], -delta, 0);
         _unk3000170 += delta;
         sub_8043F40(_unk3000180, &_currentGameState->unk6EC, _unk3000170);
         break;
@@ -443,7 +443,7 @@ void sub_804444C(FrontendState* state, unk32 arg1)
         _unk30001B4 = 0;
         _unk30001BC = 0;
         _unk30001C0 = 0;
-        sub_80596AC(&state->unk250, -_unk30001B0, 0);
+        sub_80596AC(&state->bgLayers[3], -_unk30001B0, 0);
         state->unk80 |= 0x30;
         _unk30001B8 = 0;
         if (sub_805FFE4() != 0 && sub_8060070() != 0) {
@@ -472,7 +472,7 @@ void sub_804444C(FrontendState* state, unk32 arg1)
         break;
     case 1:
         sub_804423C(_unk30001C8, _unk30001B0);
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         if (_unk30001B8 == 0 && sub_805FFE4() != 0 && sub_8060070() != 0
             && sub_8043970(record, 7) != 0) {
             _unk30001B8 = 1;
@@ -500,7 +500,7 @@ void sub_804444C(FrontendState* state, unk32 arg1)
             }
         }
         delta = (_unk30001AC - _unk30001B0) >> 2;
-        sub_80596AC(&state->unk250, -delta, 0);
+        sub_80596AC(&state->bgLayers[3], -delta, 0);
         _unk30001B0 += delta;
         break;
     case 2:
@@ -625,7 +625,7 @@ void sub_80448F4(FrontendState* state, unk32 arg1)
             _unk30001F4->x += ((_unk30001FC - _unk30001F4->x) >> 3)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         sub_8050C18(&state->menu);
         if (sub_805FFE4() == 0 || sub_8060070() == 0) {
             break;
@@ -700,7 +700,7 @@ void sub_8044C48(FrontendState* state, unk32 arg1)
         _unk300020C = 0;
         _unk3000210 = 0x10000;
         initialScroll = 0x10000;
-        sub_80596AC(&state->unk250, -initialScroll, 0);
+        sub_80596AC(&state->bgLayers[3], -initialScroll, 0);
         if (_unk3000204 != NULL) {
             LoadSpriteSheet(_unk3000204, SpriteSheet_823FF84, initialScroll, 0x2300, 0, 0, 0, 0);
         }
@@ -728,7 +728,7 @@ void sub_8044C48(FrontendState* state, unk32 arg1)
         sub_8061844(&_unk3000218, textAValue >> 8, 0x6E);
         sub_8061844(&_unk3000248, textBValue >> 8, 0x78);
         scrollDelta = (_unk300020C - _unk3000210) >> 2;
-        sub_80596AC(&state->unk250, -scrollDelta, 0);
+        sub_80596AC(&state->bgLayers[3], -scrollDelta, 0);
         _unk3000210 += scrollDelta;
         if (((sub_8057C40() >> 4) & 3) == 0) {
             _unk3000204->frame.word++;
@@ -778,7 +778,7 @@ void sub_8044ED4(FrontendState* state, unk32 arg1)
         _unk3000284 = 0;
         _unk3000288 = 0x10000;
         initialScroll = 0x10000;
-        sub_80596AC(&state->unk250, -initialScroll, 0);
+        sub_80596AC(&state->bgLayers[3], -initialScroll, 0);
         if (_unk300027C != NULL) {
             LoadSpriteSheet(_unk300027C, SpriteSheet_82411A0, initialScroll, 0x2300, 0, 0, 0, 0);
         }
@@ -806,7 +806,7 @@ void sub_8044ED4(FrontendState* state, unk32 arg1)
         sub_8061844(&_unk3000290, textAValue >> 8, 0x6E);
         sub_8061844(&_unk30002C0, textBValue >> 8, 0x78);
         scrollDelta = (_unk3000284 - _unk3000288) >> 2;
-        sub_80596AC(&state->unk250, -scrollDelta, 0);
+        sub_80596AC(&state->bgLayers[3], -scrollDelta, 0);
         _unk3000288 += scrollDelta;
         if (((sub_8057C40() >> 4) & 3) == 0) {
             _unk300027C->frame.word++;
@@ -854,7 +854,7 @@ void sub_8045160(FrontendState* state, unk32 arg1, unk32 arg2)
         _unk30002FC = 0;
         _unk3000300 = 0x10000;
         initialScroll = 0x10000;
-        sub_80596AC(&state->unk250, -initialScroll, 0);
+        sub_80596AC(&state->bgLayers[3], -initialScroll, 0);
         if (_unk30002F4 != NULL) {
             LoadSpriteSheet(_unk30002F4, SpriteSheet_8243874, initialScroll, 0x2300, 0, 0, 0, 0);
         }
@@ -882,7 +882,7 @@ void sub_8045160(FrontendState* state, unk32 arg1, unk32 arg2)
         sub_8061844(&_unk3000308, textAValue >> 8, 0x6E);
         sub_8061844(&_unk3000338, textBValue >> 8, 0x78);
         scrollDelta = (_unk30002FC - _unk3000300) >> 2;
-        sub_80596AC(&state->unk250, -scrollDelta, 0);
+        sub_80596AC(&state->bgLayers[3], -scrollDelta, 0);
         _unk3000300 += scrollDelta;
         if (((sub_8057C40() >> 4) & 3) == 0) {
             _unk30002F4->frame.word++;
@@ -911,7 +911,7 @@ void sub_80453D8(FrontendState* state, u32 arg1)
         sub_8049168();
         break;
     case 1:
-        sub_80439A0(&state->unkB8);
+        sub_80439A0(&state->bgLayers[0]);
         break;
     case 5:
         switch (sub_805B240(&state->menuState)) {
@@ -970,7 +970,7 @@ void sub_804541C(FrontendState* state, u32 arg1)
             _unk3000370->x += ((_unk3000378.value - _unk3000370->x) >> 3)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         menu = &state->menu;
         sub_8050C18(menu);
         if ((_unk3005DA0 & 0x30) != 0) {
@@ -1013,7 +1013,7 @@ void sub_8045638(FrontendState* state, u32 arg1, u32 arg2)
         sub_8049168();
         break;
     case 1:
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         break;
     case 8:
         if (arg2 == 0x24) {
@@ -1030,7 +1030,7 @@ void sub_804566C(FrontendState* state, unk32 arg1)
         sub_8048FE4();
         break;
     case 1:
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         break;
     }
 }
@@ -1146,7 +1146,7 @@ void sub_8045848(FrontendState* state, u32 arg1)
             _unk30003AC->x += ((_unk30003B4 - _unk30003AC->x) >> 3)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         menu = &state->menu;
         sub_8050C18(menu);
         if ((_unk3005DA0 & 0x30) != 0) {
@@ -1230,7 +1230,7 @@ void sub_8045A7C(FrontendState* state, u32 arg1)
             _unk30003BC->x += ((_unk30003C4 - _unk30003BC->x) >> 3)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         menu = &state->menu;
         sub_8050C18(menu);
         if ((_unk3005DA0 & 0x30) != 0) {
@@ -1288,7 +1288,7 @@ void sub_8045CB4(FrontendState* state, unk32 arg1, unk32 arg2)
         _unk30003C8 = 0;
         _unk30003CC = 0x10000;
         initialScroll = 0x10000;
-        sub_80596AC(&state->unk250, -initialScroll, 0);
+        sub_80596AC(&state->bgLayers[3], -initialScroll, 0);
         _unk3000460 = 0;
         sprite = allocSprite(0);
         _unk30003D0 = sprite;
@@ -1347,13 +1347,13 @@ void sub_8045CB4(FrontendState* state, unk32 arg1, unk32 arg2)
 
         value = _unk30003F8.x;
         value2 = _unk3000428.x;
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         value += (_unk30003F0 - value) >> 2;
         value2 += (_unk30003F0 - value2) >> 2;
         sub_8061844(&_unk30003F8, value >> 8, 0x38);
         sub_8061844(&_unk3000428, value2 >> 8, 0x68);
         scroll = (_unk30003C8 - _unk30003CC) >> 2;
-        sub_80596AC(&state->unk250, -scroll, 0);
+        sub_80596AC(&state->bgLayers[3], -scroll, 0);
         _unk30003CC += scroll;
         if (_unk30003D0 != NULL) {
             _unk30003D0->x += ((_unk30003E0 - _unk30003D0->x) >> 3)
@@ -1474,7 +1474,7 @@ void sub_80461D8(FrontendState* state, u32 arg1)
             _unk3000468->x += ((_unk3000470 - _unk3000468->x) >> 3)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         sub_8050C18(&state->menu);
         if ((_unk3005DA0 & 0x30) != 0) {
             if ((_unk3005DA0 & 0x20) != 0) {
@@ -1514,7 +1514,7 @@ void sub_8046424(FrontendState* arg0, u32 arg1)
         sub_8049168();
         break;
     case 1:
-        sub_80439A0(&arg0->unkB8);
+        sub_80439A0(&arg0->bgLayers[0]);
         break;
     case 2:
         if (_unk3005DA0 == 2) {
@@ -1575,7 +1575,7 @@ void sub_8046500(FrontendState* state, u32 arg1, u32 arg2)
         _unk30004A0 = 0xD800;
         _unk3000478.value = 0x10000;
         _unk3000474 = 0;
-        sub_80596AC(&state->unk250, -_unk3000478.value, 0x2400);
+        sub_80596AC(&state->bgLayers[3], -_unk3000478.value, 0x2400);
         _unk3000480.frame = 0;
         _unk3000480.unk4 = sub_804A0E0(0);
         _unk3000480.unk8 = sub_804A0E0(1);
@@ -1602,7 +1602,7 @@ void sub_8046500(FrontendState* state, u32 arg1, u32 arg2)
         }
         break;
     case 1:
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         if (_unk3000494 != NULL) {
             _unk3000494->x += ((_unk300049C - _unk3000494->x) >> 3)
                 + Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1] - _unk3000474;
@@ -1616,7 +1616,7 @@ void sub_8046500(FrontendState* state, u32 arg1, u32 arg2)
             _unk3000474 = 0;
         }
         scrollDelta = (_unk3000474 - _unk3000478.value) >> 2;
-        sub_80596AC(&state->unk250, -scrollDelta, 0);
+        sub_80596AC(&state->bgLayers[3], -scrollDelta, 0);
         _unk3000478.value += scrollDelta;
         sub_80464C0(&_unk3000480, _unk3000478.value);
         break;
@@ -1693,7 +1693,7 @@ void sub_8046814(FrontendState* state, u32 arg1)
             _unk30004A8->x += ((_unk30004B0 - _unk30004A8->x) >> 3)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         sub_8050C18(&state->menu);
         break;
     case 2:
@@ -1729,13 +1729,13 @@ void sub_8046A0C(FrontendState* state, unk32 arg1)
         sub_8049168();
         _unk30004B8 = 0xFFFF0000;
         _unk30004B4 = 0;
-        sub_80596AC(&state->unk250, -0x10000, 0);
+        sub_80596AC(&state->bgLayers[3], -0x10000, 0);
         _unk30004C0 = 0;
         _unk30004C1 = 0;
         _unk30004BC = 0;
         break;
     case 1:
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         sub_8061844(sub_804A0E0(0), -(_unk30004B8 >> 8) + 0x10, 0x4A);
         if (_unk30004C1 != 0 && _unk30004C0 == 0) {
             result = sub_80515A4();
@@ -1746,7 +1746,7 @@ void sub_8046A0C(FrontendState* state, unk32 arg1)
             sub_8061660(sub_804A0E0(0), _806E0DC[result != 0 ? 1 : 2][getLanguage()], 0xF);
         }
         delta = (_unk30004B4 - _unk30004B8) >> 2;
-        sub_80596AC(&state->unk250, delta, 0);
+        sub_80596AC(&state->bgLayers[3], delta, 0);
         _unk30004B8 += delta;
         if (delta == 0 && _unk30004C1 == 0) {
             sub_8061660(sub_804A0E0(0), _806E0DC[0][getLanguage()], 0xF);
@@ -1774,7 +1774,7 @@ void sub_8046B94(FrontendState* state, u32 arg1)
     case 0:
         _unk30004C8 = -0x10000;
         _unk30004C4 = 0;
-        sub_80596AC(&state->unk250, _unk30004C8, 0);
+        sub_80596AC(&state->bgLayers[3], _unk30004C8, 0);
         _unk30004CC = 0;
         if (sub_804915C() == 0xC) {
             _unk3000648 = 0xC;
@@ -1786,10 +1786,10 @@ void sub_8046B94(FrontendState* state, u32 arg1)
         if (_unk30004CC == 1) {
             sub_8061660(sub_804A0E0(0), _806E0DC[3][getLanguage()], 0xF);
         }
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         sub_8061844(sub_804A0E0(0), -(_unk30004C8 >> 8) + 0x10, 0x4A);
         scrollDelta = (_unk30004C4 - _unk30004C8) >> 2;
-        sub_80596AC(&state->unk250, scrollDelta, 0);
+        sub_80596AC(&state->bgLayers[3], scrollDelta, 0);
         _unk30004C8 += scrollDelta;
         _unk30004CC++;
         break;
@@ -1856,7 +1856,7 @@ void sub_8046CC4(FrontendState* state, u32 arg1)
             _unk30004D4->x += ((_unk30004DC - _unk30004D4->x) >> 3)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         sub_8050C18(&state->menu);
         break;
     }
@@ -2169,7 +2169,7 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
         _unk300055C = 0x1B00;
         _unk30004E8 = 0x10000;
         _unk30004E4 = 0;
-        sub_80596AC(&state->unk250, -_unk30004E8, 0x2400);
+        sub_80596AC(&state->bgLayers[3], -_unk30004E8, 0x2400);
         _unk30004F0.unk14 = sub_804A0E0(0);
         _unk30004F0.unk18 = sub_804A0E0(1);
         _unk30004F0.unk1C = sub_804A0E0(2);
@@ -2227,7 +2227,7 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
         }
         return;
     case 1:
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         if (state->transition.value == 0 && state->transition.unk585 == 0) {
             *(vu16*)REG_BLDCNT = 0xF40;
             *(vu16*)REG_BLDALPHA = ((0x10 - _unk3000560) << 8) | _unk3000560;
@@ -2266,7 +2266,7 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
             _unk30004E4 = 0;
         }
         positionDelta = (_unk30004E4 - _unk30004E8) >> 2;
-        sub_80596AC(&state->unk250, -positionDelta, 0);
+        sub_80596AC(&state->bgLayers[3], -positionDelta, 0);
         _unk30004E8 += positionDelta;
         return;
     case 2:
@@ -2412,20 +2412,20 @@ void sub_8047E5C(FrontendState* state, unk32 arg1)
         _unk3000578 = 0;
         initialScroll = 0x10000;
         _unk300057C = initialScroll;
-        sub_80596AC(&state->unk250, -initialScroll, 0);
+        sub_80596AC(&state->bgLayers[3], -initialScroll, 0);
         allocFont(&_unk3000580, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x69, 0xC8, 2);
         sub_8061660(&_unk3000580, _806E3B0[0][getLanguage()], 0xF);
         break;
     case 1:
         fontX = _unk3000580.x;
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         fontX += (_unk3000574 - fontX) >> 2;
         sub_8061844(&_unk3000580, fontX >> 8, 0x69);
         _unk3000568->x += (_unk3000574 - _unk3000568->x + (0x80 << 3)) >> 2;
         _unk300056C->x += (_unk3000574 - _unk300056C->x + (0x84 << 8)) >> 2;
         _unk3000570->x += (_unk3000574 - _unk3000570->x + (0x88 << 7)) >> 2;
         scrollDelta = (_unk3000578 - _unk300057C) >> 2;
-        sub_80596AC(&state->unk250, -scrollDelta, 0);
+        sub_80596AC(&state->bgLayers[3], -scrollDelta, 0);
         _unk300057C += scrollDelta;
         if (((sub_8057C40() >> 4) & 0xF) == 0) {
             _unk3000570->frame.word++;
@@ -2501,7 +2501,7 @@ void sub_80480EC(FrontendState* state, unk32 arg1)
             _unk30005B4->x += ((_unk30005BC - _unk30005B4->x) >> 3)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         menu = &state->menu;
         sub_8050C18(menu);
         if ((_unk3005DA0 & 0x30) != 0) {
@@ -2589,7 +2589,7 @@ void sub_8048310(FrontendState* state, unk32 arg1)
             _unk30005C4->x += ((_unk30005CC - _unk30005C4->x) >> 3)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         sub_8050C18(&state->menu);
         if (sub_805FFE4() != 0 && sub_8060070() != 0 && sub_8060040() != 0
             && (_unk3005DA0 & 0x30) != 0) {
@@ -2696,7 +2696,7 @@ void sub_804868C(FrontendState* state, unk32 arg1)
             _unk30005D4->x += ((_unk30005DC - _unk30005D4->x) >> 3)
                 - Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1];
         }
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         sub_8050C18(&state->menu);
         if (sub_805FFE4() != 0 && sub_8060070() != 0 && sub_8060040() != 0
             && (_unk3005DA0 & 0x30) != 0) {
@@ -2827,7 +2827,7 @@ void sub_8048AE8(FrontendState* state, unk32 arg1, unk32 arg2)
         _unk30005E8 = 0x10000;
         initialScroll = 0x10000;
         _unk30005E4 = 0;
-        sub_80596AC(&state->unk250, -initialScroll, 0);
+        sub_80596AC(&state->bgLayers[3], -initialScroll, 0);
         break;
     case 7:
         if (_unk30005F0.sprite0 != NULL) {
@@ -2841,10 +2841,10 @@ void sub_8048AE8(FrontendState* state, unk32 arg1, unk32 arg2)
         }
         break;
     case 1:
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         if (_unk30005E4 != _unk30005E8) {
             scrollDelta = (_unk30005E4 - _unk30005E8) >> 2;
-            sub_80596AC(&state->unk250, -scrollDelta, 0);
+            sub_80596AC(&state->bgLayers[3], -scrollDelta, 0);
             _unk30005E8 += scrollDelta;
         }
         sub_8048A74(&_unk30005F0, _unk30005E8);
@@ -2914,7 +2914,7 @@ void sub_8048D8C(FrontendState* state, u32 arg1)
         scrollPosition = &_unk300060C;
         initialScroll = 0x10000;
         *scrollPosition = initialScroll;
-        sub_80596AC(&state->unk250, -initialScroll, 0);
+        sub_80596AC(&state->bgLayers[3], -initialScroll, 0);
         if (_unk3000600 != NULL) {
             LoadSpriteSheet(_unk3000600, description->unkC0, initialScroll, 0x2300, 0, 0, 0, 0);
         }
@@ -2934,12 +2934,12 @@ void sub_8048D8C(FrontendState* state, u32 arg1)
         s32 scrollDelta;
 
         textX = _unk3000610.x;
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         _unk3000600->x += (_unk3000604 - _unk3000600->x) >> 2;
         textX += (_unk3000640 - textX) >> 2;
         sub_8061844(&_unk3000610, textX >> 8, 0x6E);
         scrollDelta = (_unk3000608 - _unk300060C) >> 2;
-        sub_80596AC(&state->unk250, -scrollDelta, 0);
+        sub_80596AC(&state->bgLayers[3], -scrollDelta, 0);
         _unk300060C += scrollDelta;
         break;
     }

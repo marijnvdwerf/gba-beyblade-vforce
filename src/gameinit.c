@@ -24,7 +24,7 @@
 #include "tutorial.h"
 #include "unsorted.h"
 
-extern LevelDesign LevelDesigns[];
+extern const ScreenLayout LevelDesigns[];
 extern const u8 Str_87294CC[];
 extern const u8 Str_8729504[];
 extern const u8 Str_8729564[];
@@ -323,7 +323,7 @@ void sub_80539E8(Actor* actor)
     output[5] = y >> 8;
     output[6] = 0;
     output[7] = 0;
-    sub_805E8A0((CameraState*)&(*gameData)->unk434, (unk32*)&LevelDesigns[levelNo], 0x1040, (unk32*)&values[3]);
+    sub_805E8A0((CameraState*)&(*gameData)->unk434, &LevelDesigns[levelNo], 0x1040, (unk32*)&values[3]);
     (*gameData)->unk7A0 = levelNo;
     *(vu16*)PLTT = 0;
     if (levelDescription->unk30 != 0)

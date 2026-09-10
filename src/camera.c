@@ -10,7 +10,7 @@
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805e878.s");
 
-void sub_805E8A0(CameraState* camera, LevelDesign* arg1, unk16 arg2, s32* arg3)
+void sub_805E8A0(CameraState* camera, const ScreenLayout* arg1, unk16 arg2, s32* arg3)
 {
     sub_805E8D8(camera, arg1, arg2, arg3);
 }
@@ -18,13 +18,12 @@ void sub_805E8A0(CameraState* camera, LevelDesign* arg1, unk16 arg2, s32* arg3)
 INCLUDE_ASM("asm/dump/8057b80-debug/805e8b0.s");
 
 #if 0
-void sub_805E8D8(CameraState* camera, LevelDesign* level, unk16 mode, s32* offsets)
+void sub_805E8D8(CameraState* camera, const ScreenLayout* level, unk16 mode, s32* offsets)
 {
     s8 flags;
     s8 index;
-    LevelDesignLayer* layerOrigin;
-    LevelDesignLayer* layerBase;
-    unk32 settings;
+    const LevelDesignLayer* layerOrigin;
+    const LevelDesignLayer* layerBase;
     s32 y;
     s32 x;
 
@@ -63,7 +62,7 @@ void sub_805E8D8(CameraState* camera, LevelDesign* level, unk16 mode, s32* offse
             y = *yBase;
         }
         {
-            LevelDesignLayer* layer;
+            const LevelDesignLayer* layer;
 
             layer = layerBase + index;
             if (layer->unk0 != NULL) {
@@ -82,14 +81,12 @@ void sub_805E8D8(CameraState* camera, LevelDesign* level, unk16 mode, s32* offse
         }
         index++;
     } while (index <= 3);
-    settings = level->unk74;
-    sub_8059C18(
-        (settings << 30) >> 30, (settings << 28) >> 30, (settings << 26) >> 30, settings >> 6);
-    if (level->unk78 != NULL) {
-        loadPalette(level->unk78);
+    sub_8059C18(level->unk74_0, level->unk74_2, level->unk74_4, level->unk74_6);
+    if (level->bgPalette != NULL) {
+        loadPalette(level->bgPalette);
     }
-    if (level->unk7C != NULL) {
-        loadPalette2(level->unk7C);
+    if (level->spritePalette != NULL) {
+        loadPalette2(level->spritePalette);
     }
     if (level->geometry != NULL) {
         getLevelGeometryAddresses(&camera->geometry, level->geometry);
@@ -151,7 +148,7 @@ void sub_805EBCC(CameraState* camera)
     s32 local[3];
     CameraState* state;
     Actor* actor;
-    DisplayRecord* record;
+    BGLayer* record;
     unk16 scale;
     s16 i;
     unk8 width;
@@ -182,7 +179,7 @@ void sub_805EBCC(CameraState* camera)
         if (camera->unk220->layers[i].unk0 != NULL) {
             scale = camera->unk220->layers[i].unkC;
             record = &camera->records[i];
-            if (record != (DisplayRecord*)state) {
+            if (record != (BGLayer*)state) {
                 record->unk14 = state->records[0].unk14 + ((state->records[0].unk14 * scale) >> 5);
                 record->unk18 = state->records[0].unk18 + ((state->records[0].unk18 * scale) >> 5);
                 if (record->unk40 + record->unk14 < camera->unk35C)

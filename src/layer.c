@@ -277,7 +277,7 @@ void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriorit
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8058e18.s");
 
-void sub_8058EF4(DisplayRecord* arg0)
+void sub_8058EF4(BGLayer* arg0)
 {
     s32 xDelta;
     s32 yDelta;
@@ -304,7 +304,7 @@ void sub_8058EF4(DisplayRecord* arg0)
     }
 }
 
-void sub_8058F60(DisplayRecord* layer)
+void sub_8058F60(BGLayer* layer)
 {
     u8 index;
     s32 a;

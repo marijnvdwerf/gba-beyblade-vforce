@@ -12,8 +12,11 @@ typedef unk16 bool16;
 typedef unk32 bool32;
 
 typedef struct AllocatedBlock AllocatedBlock;
+typedef struct ScreenLayout ScreenLayout;
 typedef struct ActorConfig ActorConfig;
-typedef struct BGLayer DisplayRecord;
+typedef struct BGLayer BGLayer;
+typedef struct Struct3000CA0 Struct3000CA0;
+typedef struct TileMapHeader TileMapHeader;
 typedef struct ActorTimerEntry ActorTimerEntry;
 struct Actor;
 struct RiderBase;
@@ -41,11 +44,6 @@ typedef struct Palette {
     AllocatedBlock* block; /* 0x10 */
 } Palette;
 
-typedef struct UnkFrontendTarget {
-    unk8 pad0[0xEC];
-    unk16 unkEC;
-} UnkFrontendTarget;
-
 typedef struct UnkStruct_sub1 {
     unk8 var00;
     unk8 var01;
@@ -53,8 +51,8 @@ typedef struct UnkStruct_sub1 {
     unk16 var04;
     unk16 var06;
     unk16 var08;
-    UnkFrontendTarget* var0C;
-    unk32 var10;
+    BGLayer* var0C;
+    ScreenLayout* var10;
     unk32 var14;
 } UnkStruct_sub1;
 
@@ -131,21 +129,55 @@ typedef struct FrontendMenuObjectData {
 } FrontendMenuObjectData;
 
 typedef struct FrontendSubobject {
-    unk32 unk0;
-    unk8 pad4[0xC];
+    unk8 pad0[0x10];
     FrontendSubobjectData* unk10;
     s32 unk14;
-    unk32 unk18;
-    unk8 pad1C[4];
+    unk8 pad18[8];
     FrontendMenuObjectData* unk20;
-    unk32 unk24;
-    unk8 pad28[0x20];
-    s16 unk48;
-    s16 unk4A;
-    unk8 pad4C[0x30];
-    unk8 unk7C;
-    unk8 pad7D[0xB];
 } FrontendSubobject;
+
+struct BGLayer {
+    s32 columnCount;
+    s32 rowCount;
+    Struct3000CA0* var8;
+    unk32 field_C;
+    s32 field_10;
+    s32 field_14;
+    s32 field_18;
+    s32 field_1C;
+    s32 field_20;
+    s32 field_24;
+    s32 field_28;
+    s32 field_2C;
+    s32 field_30;
+    s32 field_34;
+    s32 field_38;
+    s32 field_3C;
+    s32 field_40;
+    s32 field_44;
+    s16 field_48;
+    s16 field_4A;
+    s32 field_4C;
+    s32 field_50;
+    unk32 field_54;
+    unk32 field_58;
+    unk8 screenBaseBlock;
+    unk8 characterBaseBlock;
+    unk8 layerIndex;
+    unk8 field_5F;
+    unk8 field_60;
+    unk8 field_61;
+    unk8 pad62[2];
+    unk16 var64;
+    TileMapHeader* var68;
+    void* tileAddr;
+    void* mapAddr;
+    u32 tileBytes;
+    unk32 mapBytes;
+    unk8 field_7C;
+    unk32 field_80;
+    unk32 field_84;
+};
 
 typedef struct FrontendState FrontendState;
 typedef void (*FrontendStateCallback)(FrontendState*, unk32);
@@ -326,10 +358,7 @@ struct FrontendState {
     unk32 unk90;
     unk8 pad94[0x20];
     FrontendObject* unkB4;
-    FrontendSubobject unkB8;
-    FrontendSubobject unk140;
-    FrontendSubobject unk1C8; /* 0x1C8 */
-    FrontendSubobject unk250;
+    BGLayer bgLayers[4]; /* 0xB8 */
     unk8 pad2D8[0x14C];
     unk32 unk424;
     unk8 pad428[0x30];
@@ -479,7 +508,7 @@ typedef struct Actor {
     unk8 unk39;
     unk8 pad3A;
     unk8 unk3B; /* 0x3B */
-    DisplayRecord* unk3C;
+    BGLayer* unk3C;
     s32 unk40;
     s32 unk44;
     s32 unk48;
@@ -826,7 +855,7 @@ typedef struct GeometrySplineLine {
     s8 unk0;
     unk8 pad1[7];
     s16 unk8;
-    unk8 padA[2];
+    unk16 unkA;
     s32 unkC;
 } GeometrySplineLine;
 
@@ -854,7 +883,7 @@ typedef struct ActorSplineCallbacks {
     void (*unkC)(Actor*, struct LevelGeometryAddresses*, unk32);
 } ActorSplineCallbacks;
 
-typedef struct TileMapHeader {
+struct TileMapHeader {
     unk8 filler00[4];
     u32 tileOffset;
     u32 tileBytes;
@@ -867,7 +896,7 @@ typedef struct TileMapHeader {
     unk8 filler1A[2];
     u16 columnCount;
     u16 rowCount;
-} TileMapHeader;
+};
 
 typedef struct LevelDesignLayer {
     TileMapHeader* unk0;
@@ -877,15 +906,18 @@ typedef struct LevelDesignLayer {
     unk8 pad10[8];
 } LevelDesignLayer;
 
-typedef struct LevelDesign {
+struct ScreenLayout {
     unk8 pad0[0x14];
     LevelDesignLayer layers[4];
-    unk8 unk74;
+    unk8 unk74_0 : 2;
+    unk8 unk74_2 : 2;
+    unk8 unk74_4 : 2;
+    unk8 unk74_6 : 2;
     unk8 pad75[3];
-    void* unk78;
-    void* unk7C;
+    unk16* bgPalette;
+    unk16* spritePalette;
     LevelGeometryTable* geometry;
-} LevelDesign;
+};
 
 struct LevelGeometryTable {
     s32 pointCount;

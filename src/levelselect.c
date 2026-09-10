@@ -241,7 +241,7 @@ void sub_80413FC(FrontendState* state, unk32 arg1)
 
         _3000030 = 0x10000;
         _300002C = 0;
-        sub_80596AC(&state->unk250, -_3000030, 0x2400);
+        sub_80596AC(&state->bgLayers[3], -_3000030, 0x2400);
 
         _3000038.rows[0] = sub_804A0E0(0);
         _3000038.rows[1] = sub_804A0E0(1);
@@ -330,7 +330,7 @@ void sub_80413FC(FrontendState* state, unk32 arg1)
             _unk3000058 = 0;
         }
 
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
 
         if (sub_805FFE4() && sub_8060070()) {
             if (sub_8060040()) {
@@ -351,7 +351,7 @@ void sub_80413FC(FrontendState* state, unk32 arg1)
         }
 
         scrollDelta = (_300002C - _3000030) >> 2;
-        sub_80596AC(&state->unk250, -scrollDelta, 0);
+        sub_80596AC(&state->bgLayers[3], -scrollDelta, 0);
         _3000030 += scrollDelta;
         break;
     }

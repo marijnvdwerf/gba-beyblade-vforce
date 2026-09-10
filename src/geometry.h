@@ -40,6 +40,7 @@ unk32 actor_805C48C(Actor*, LevelGeometryAddresses*, GeometryLine**, unk16);
 unk32 sub_805C9A4(Actor*, LevelGeometryAddresses*, GeometryLine**, unk16, QuadTreeNode*);
 void sub_805D650(Actor*);
 unk32 sub_805DBF0(LevelGeometryAddresses*, SplineConnection*, GeometrySpline*, unk16, unk32);
+s32* sub_805DD18(LevelGeometryAddresses*, unk32, s32*, s32);
 s32* sub_805E068(LevelGeometryAddresses*, unk32, s32*, s32, s32);
 void sub_805D610(Actor*);
 

@@ -41,7 +41,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
         allocationSize = sizeof(CollectionListData);
         _unk30000FC = -0x10000;
         _unk30000F8 = 0;
-        sub_80596AC(&state->unk250, -0x10000, 0);
+        sub_80596AC(&state->bgLayers[3], -0x10000, 0);
         _collectionListFontBlock = slowAllocate(allocationSize);
         if (_collectionListFontBlock == NULL) {
             printf(Str_86FD214);
@@ -150,10 +150,10 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
                 _unk300011C = 0x10;
             }
         }
-        sub_80439A0(&state->unk140);
+        sub_80439A0(&state->bgLayers[1]);
         if (_unk30000F8 != _unk30000FC) {
             s32 scrollDelta = (_unk30000F8 - _unk30000FC) >> 2;
-            sub_80596AC(&state->unk250, scrollDelta, 0);
+            sub_80596AC(&state->bgLayers[3], scrollDelta, 0);
             _unk30000FC += scrollDelta;
         }
         if ((_unk3005DA0 & 0x40) != 0 && _unk3000114.word != 0) {

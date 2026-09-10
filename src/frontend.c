@@ -42,7 +42,7 @@ unk8 sub_8048FFC(void)
     UnkStruct_sub1* transition;
 
     transition = &_unk3000650.transition.unk590;
-    if ((transition->var0C->unkEC & 1) != 0) {
+    if ((transition->var0C[1].var64 & 1) != 0) {
         return 1;
     }
     return 0;
@@ -54,12 +54,12 @@ void sub_8049018(void)
     _unk3000650.unk8C = _unk3000650.unk90 = -65536;
 }
 
-void sub_804903C(FrontendSubobject* object, unk32 arg1, unk32 arg2)
+void sub_804903C(BGLayer* object, unk32 arg1, unk32 arg2)
 {
     _unk3000650.unk8C = arg1 << 8;
     _unk3000650.unk90 = arg2 << 8;
-    _unk3000650.unk84 = object->unk48 << 8;
-    _unk3000650.unk88 = object->unk4A << 8;
+    _unk3000650.unk84 = object->field_48 << 8;
+    _unk3000650.unk88 = object->field_4A << 8;
 }
 
 INCLUDE_ASM("asm/dump/8040d18/8049074.s");
@@ -334,7 +334,7 @@ void sub_80495C4(void)
     }
     sub_8043558(&_unk3000650);
     if (selected != NULL && selected->palette != NULL && sub_8048FFC() != 0) {
-        sub_804903C(&_unk3000650.unk140, selected->palette->unk0, selected->palette->unk4);
+        sub_804903C(&_unk3000650.bgLayers[1], selected->palette->unk0, selected->palette->unk4);
     }
 }
 

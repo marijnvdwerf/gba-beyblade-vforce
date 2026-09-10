@@ -310,7 +310,7 @@ void sub_80522D4(Actor* actor, CameraState* camera)
     s16 i;
     s16 scale;
     CameraDisplayEntry* entry;
-    DisplayRecord* record;
+    BGLayer* record;
     GameData* gameData;
     CameraState* state;
 

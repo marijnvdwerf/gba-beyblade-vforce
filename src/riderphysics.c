@@ -51,7 +51,7 @@ typedef struct ActorDraft {
     unk8 pad38;
     unk8 unk39;
     unk8 pad3A[2];
-    DisplayRecord* unk3C;
+    BGLayer* unk3C;
     s32 unk40;
     s32 unk44;
     s32 unk48;

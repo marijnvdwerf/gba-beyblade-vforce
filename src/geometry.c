@@ -696,8 +696,6 @@ QuadTreeNode* GetQuadTreeNodeForPos(QuadTree* quadTree, s32 x, s32 y)
     return node;
 }
 
-s32* sub_805DD18(LevelGeometryAddresses*, unk32, s32*, s32);
-
 void sub_805C3BC(LevelGeometryAddresses* geometry, Actor* actor, unk32 splineIndex, unk32 position)
 {
     s32 values[6];
@@ -1713,73 +1711,82 @@ GeometrySplineLine* sub_805DCFC(LevelGeometryAddresses* arg0, GeometrySpline* sp
     return &lines[index];
 }
 
-#if 0
-typedef struct GeometrySplineLineDraft {
-    s8 unk0;
-    unk8 pad1[7];
-    s16 unk8;
-    unk16 unkA;
-    s32 unkC;
-} GeometrySplineLineDraft;
-
 s32* sub_805DD18(LevelGeometryAddresses* geometry, unk32 splineIndex, s32* result, s32 position)
 {
     GeometrySpline* spline;
     unk32* pointIndices;
-    GeometrySplineLineDraft* lines;
+    GeometrySplineLine* lines;
     GeometryPoint* point0;
     GeometryPoint* point1;
     s32 index;
-    unk32 fraction;
-    unk16 angle0;
-    unk16 angle1;
-    unk16 angle2;
-    s32 angle;
-    s32 midpointX;
-    s32 midpointY;
+    s32 fraction;
+    s16 angle0;
+    s16 angle1;
+    s16 angle2;
+    s16 previous;
+    s32 x0;
+    s32 y0;
+    s32 x1;
+    s32 y1;
     s32 firstX;
     s32 firstY;
     s32 secondX;
     s32 secondY;
+    s32 radius;
 
+    radius = 0x180;
     spline = GetSplineAtIndex(geometry, splineIndex);
     pointIndices = spline->pointIndices;
-    lines = (GeometrySplineLineDraft*)&pointIndices[spline->pointCount];
-    if (position < 0)
+    lines = (GeometrySplineLine*)&spline->pointIndices[spline->pointCount];
+    if (position < 0) {
         position = 0;
-    if ((position >> 10) >= spline->pointCount)
+    }
+    if ((position >> 10) >= spline->pointCount) {
         position = ((spline->pointCount - 1) << 10) | (position & 0x3FF);
+    }
     index = position >> 10;
     point0 = GetPointAtIndex(geometry, pointIndices[index]);
     point1 = GetPointAtIndex(geometry, pointIndices[index + 1]);
     fraction = position & 0x3FF;
     angle0 = lines[index].unkA;
-    if (index >= spline->pointCount - 2) {
-        angle1 = lines[index].unk8;
-        angle2 = angle1;
-    } else {
+    if (index < spline->pointCount - 2) {
         angle1 = lines[index + 1].unk8;
         angle2 = lines[index + 1].unkA;
+    } else {
+        angle1 = lines[index].unk8;
+        angle2 = angle1;
     }
-    angle = (s16)angle1 - 128;
-    if (angle < 0)
-        angle += 256;
-    if ((s16)angle0 == (s16)angle1 || (s16)angle2 == (s16)angle1) {
+    angle1 -= 0x80;
+    if (angle1 < 0) {
+        angle1 += 0x100;
+    }
+    if (angle0 != lines[index].unk8 && angle2 != lines[index].unk8) {
+        if (index > 0) {
+            previous = lines[index - 1].unk8;
+        } else {
+            previous = lines[0].unk8;
+        }
+        x0 = Unk_874CC3C[(unk8)previous + 0x40] * radius >> 8;
+        y0 = Unk_874CC3C[(unk8)previous] * radius >> 8;
+        x0 += point0->x;
+        y0 += point0->y;
+        x1 = Unk_874CC3C[(unk8)angle1 + 0x40] * radius >> 8;
+        y1 = Unk_874CC3C[(unk8)angle1] * radius >> 8;
+        x1 += point1->x;
+        y1 += point1->y;
+        x0 = (x0 + x1) >> 1;
+        y0 = (y0 + y1) >> 1;
+        firstX = point0->x + ((x0 - point0->x) * fraction >> 10);
+        firstY = point0->y + ((y0 - point0->y) * fraction >> 10);
+        secondX = x0 + ((point1->x - x0) * fraction >> 10);
+        secondY = y0 + ((point1->y - y0) * fraction >> 10);
+        x0 = firstX + ((secondX - firstX) * fraction >> 10);
+        y0 = firstY + ((secondY - firstY) * fraction >> 10);
+        result[0] = x0;
+        result[1] = y0;
+    } else {
         result[0] = point0->x + ((point1->x - point0->x) * fraction >> 10);
         result[1] = point0->y + ((point1->y - point0->y) * fraction >> 10);
-    } else {
-        midpointX = (point0->x + (Unk_874CC3C[(unk8)angle + 0x40] * 0x180 >> 8) + point1->x
-                        + (Unk_874CC3C[(unk8)angle1 + 0x40] * 0x180 >> 8))
-            >> 1;
-        midpointY = (point0->y + (Unk_874CC3C[(unk8)angle] * 0x180 >> 8) + point1->y
-                        + (Unk_874CC3C[(unk8)angle1] * 0x180 >> 8))
-            >> 1;
-        firstX = (midpointX * fraction) >> 10;
-        firstY = point0->y + ((midpointY - point0->y) * fraction >> 10);
-        secondX = midpointX + ((point1->x - midpointX) * fraction >> 10);
-        secondY = midpointY + ((point1->y - midpointY) * fraction >> 10);
-        result[0] = firstX + ((secondX - firstX) * fraction >> 10);
-        result[1] = firstY + ((secondY - firstY) * fraction >> 10);
     }
     result[2] = point0->z + ((point1->z - point0->z) * fraction >> 10);
     result[3] = fraction;
@@ -1787,8 +1794,6 @@ s32* sub_805DD18(LevelGeometryAddresses* geometry, unk32 splineIndex, s32* resul
     return result;
 }
 
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/805dd18.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805df04.s");
 
 s32* sub_805DFD4(LevelGeometryAddresses* addresses, unk32 splineIndex, s32* result, s32 position)
