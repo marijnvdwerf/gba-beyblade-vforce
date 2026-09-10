@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-08, session 10 (683 C / 324 asm / 68%, 18 TUs).
+Last updated: 2026-09-10, session 11 (691 C / 334 asm / 67%, 18 TUs).
 
 ## Session 11 (2026-09-10)
 
@@ -41,6 +41,13 @@ Last updated: 2026-09-08, session 10 (683 C / 324 asm / 68%, 18 TUs).
   sub_8043370 menuobject with new `FrontendMenuObjectData` in common.h,
   `MenuState.unkA` s16, `FrontendState.unk7D/7E`, data12.s `_8068840`
   label) — compare green, reviewer running.
+- Merged decomp/2-luna (034f05fa, squash): review 1 blocker (signedness for
+  offset/i/sign — measured: offset → unk32 byte-identical; i s32 by
+  bge/blt vs bhs/blo; sign s32 by ble vs beq), 2 questions already answered
+  in the learnings. **691 C / 334 asm / 67%, 18 TUs.** Baseline refreshed;
+  worktree + branch deleted. `.claude/worktrees/manual` (decomp/manual)
+  advanced to main 034f05fa. Unfolded learnings: 7 files (5 festate,
+  math-2026-09-09, sub_8043370) — fold when a few more land.
 - Note: `<sym>.NON_MATCHING` aliases in nm output are a tooling artifact
   (present on main), not agent fake symbols; dotless `global` is the asm
   files' existing convention.
