@@ -129,6 +129,19 @@ Last updated: 2026-09-10, session 11 (691 C / 334 asm / 67%, 18 TUs).
   uncommitted rider.c edit saved to /tmp/manual-rider-uncommitted.diff.
   Worktrees: raw-decomp only.
 - Unfolded learnings: 17 files from 2026-09-10 — skill-fold is due (sol).
+- Merged decomp/9-effects-spritetext (1d87d6e2): user's sub_8055340 692 B
+  (ProjectileSystem s16 fields, `unk7C` word/halves union proven by ldr +
+  ldsh + strh, unk88 `RiderBase*`, sub_804B7FC returns `RiderBase*`;
+  sub_8051868 widened to s32 at definition + gamestate.h — its own
+  `lsl/lsr #24` stay because sub_805749C returns unk8; `(unk8*)PLTT`) and
+  sub_806123C 628 B (`SpriteTextCleanup.unk2A` s8 by ldsb; nested-ternary
+  line-break condition and `while (count-- != 0)` loops all byte-required
+  — 6 fold tests). Review 3 blockers were learnings evidence, added.
+  **705 C / 320 asm / 69%; 111,152/165,900 = 66.9994% → 67.00% EXACTLY
+  (user's target).** Next exact target 67.67% needs 112,257–112,272
+  matched: +1,105..+1,120 B from here (recompute; ARM bank sizes from
+  `uvx --from mapfile-parser mapfile_parser sym_info <sym>`, total 5,936).
+- manual-2 worktree reset to main (all its commits merged).
 - Note: `<sym>.NON_MATCHING` aliases in nm output are a tooling artifact
   (present on main), not agent fake symbols; dotless `global` is the asm
   files' existing convention.
