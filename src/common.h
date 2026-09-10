@@ -115,6 +115,21 @@ typedef struct FrontendSubobjectData {
     FrontendMotionData* unk28;
 } FrontendSubobjectData;
 
+typedef struct FrontendMenuObjectData {
+    s16 unk0;
+    s16 unk2;
+    unk8 pad4[2];
+    s16 unk6;
+    const unk8** unk8;
+    const struct MenuItemDescriptor* unkC;
+    unk16 unk10;
+    unk16 unk12;
+    unk8 unk14;
+    unk8 unk15;
+    unk8 unk16;
+    unk8 unk17;
+} FrontendMenuObjectData;
+
 typedef struct FrontendSubobject {
     unk32 unk0;
     unk8 pad4[0xC];
@@ -122,7 +137,7 @@ typedef struct FrontendSubobject {
     s32 unk14;
     unk32 unk18;
     unk8 pad1C[4];
-    unk32 unk20;
+    FrontendMenuObjectData* unk20;
     unk32 unk24;
     unk8 pad28[0x20];
     s16 unk48;
@@ -246,7 +261,7 @@ typedef struct MenuState {
     const unk8* unk4; /* 0x04 */
     u8 unk8;
     u8 unk9;
-    unk16 unkA; /* 0x0A */
+    s16 unkA; /* 0x0A */
     UnkMenuItem* items; /* 0x0C */
     AllocatedBlock* unk10; /* 0x10 */
     s32 itemCount; /* 0x14 */
@@ -299,7 +314,8 @@ struct FrontendState {
     Palette paletteA; /* 0x54 */
     Palette paletteB; /* 0x68 */
     unk8 unk7C;
-    unk8 pad7D[2];
+    unk8 unk7D;
+    unk8 unk7E;
     u8 unk7F;
     unk8 unk80;
     unk8 unk81;
