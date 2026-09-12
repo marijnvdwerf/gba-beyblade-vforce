@@ -127,6 +127,12 @@ typedef struct BeybladeActorData {
     unk8 pad5[3];
 } BeybladeActorData;
 
+typedef struct BeybladeActorCache {
+    BeybladeActorData records[0x3C];
+    unk16 unk1E0;
+    unk8 pad1E2[2];
+} BeybladeActorCache;
+
 typedef struct ProjectileEntry {
     s32 x;
     s32 y;
@@ -313,9 +319,7 @@ typedef struct GameData {
     unk8 padCAC[0x2A4]; /* 0xCAC */
     LevelHudData levelHud; /* 0xF50 */
     ProjectileSystem projectileSystem; /* 0x1084 */
-    BeybladeActorData actorData[0x3C]; /* 0x1110 */
-    unk16 unk12F0; /* 0x12F0 */
-    unk8 pad12F2[2]; /* 0x12F2 */
+    BeybladeActorCache actorData; /* 0x1110 */
     CollectableData collectables; /* 0x12F4 */
     TutorialData tutorial; /* 0x13FC */
     unk8 pad153C[0x84]; /* 0x153C */

@@ -145,16 +145,11 @@ void sub_8041324(unk32 arg0)
     }
 }
 
-#if 0
-void sub_8041344(LevelSelectState* state, unk32 arg1)
+void sub_8041344(LevelSelectState* state, unk16 arg1)
 {
-    u8 color = arg1;
-
-    sub_8061E58(state->rows[1], color);
-    sub_8061E58(state->rows[0], color);
+    sub_8061E58(state->rows[1], arg1);
+    sub_8061E58(state->rows[0], arg1);
 }
-#endif
-INCLUDE_ASM("asm/dump/8040d18/8041344.s");
 
 void sub_8041364(LevelSelectState* state)
 {

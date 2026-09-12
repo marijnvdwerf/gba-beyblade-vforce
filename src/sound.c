@@ -402,7 +402,6 @@ void Sound_80627A8(SoundStructA* arg0, unk32 arg1, unk32 arg2)
 #if 0
 void sub_80627F0(void)
 {
-    unk8* audioCursor;
     unk32 channelCount;
     unk32 firstChunkLength;
     unk32 mixLength;
@@ -412,7 +411,6 @@ void sub_80627F0(void)
     unk32 previousTimerPosition;
     SoundStructA* channel;
     SoundStructC* state;
-    unk32* position;
 
     channel = &(*_unk3005E24)[0];
     channelCount = _unk3005E04;
@@ -422,20 +420,19 @@ void sub_80627F0(void)
             return;
         }
         sub_8062C24();
-        position = &_unk3000D94;
-        previousTimerPosition = *position;
+        previousTimerPosition = _unk3000D94;
         alignedFrameCount = (state->var08 + 1) & -2;
         nextTimerPosition = (*(vu16*)REG_TM1CNT + 1) & ~1;
         if (nextTimerPosition == 0x10000) {
             nextTimerPosition = _unk3005E18;
         }
-        *position = nextTimerPosition;
+        _unk3000D94 = nextTimerPosition;
         if (nextTimerPosition > previousTimerPosition) {
             firstChunkLength = nextTimerPosition - previousTimerPosition;
             wrapDistance = 0;
         } else {
             firstChunkLength = 0x10000 - previousTimerPosition;
-            wrapDistance = _unk3005E4C + 0xFFFF0000 + nextTimerPosition;
+            wrapDistance = nextTimerPosition + _unk3005E4C + 0xFFFF0000;
         }
         mixLength = firstChunkLength + wrapDistance;
         _unk3005E78 = 0;
@@ -448,14 +445,11 @@ void sub_80627F0(void)
             } while (channelCount != -1);
         }
         __sound_8757A64((unk32)_unk3000D90, firstChunkLength, 0);
-        audioCursor = _unk3000D90 + firstChunkLength;
-        _unk3000D90 = audioCursor;
+        _unk3000D90 += firstChunkLength;
         if (wrapDistance != 0) {
-            audioCursor -= _unk3005E4C;
-            _unk3000D90 = audioCursor;
-            __sound_8757A64((unk32)audioCursor, wrapDistance, firstChunkLength);
-            audioCursor += wrapDistance;
-            _unk3000D90 = audioCursor;
+            _unk3000D90 -= _unk3005E4C;
+            __sound_8757A64((unk32)_unk3000D90, wrapDistance, firstChunkLength);
+            _unk3000D90 += wrapDistance;
         }
         if (_unk3000D90 == ((unk8*)_soundMixer + _unk3005E4C)) {
             _unk3000D90 -= _unk3005E4C;

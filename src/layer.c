@@ -1,6 +1,7 @@
 #include "layer.h"
 
 #include <agb/define.h>
+#include <agb/macro.h>
 #include <agb/memory_map.h>
 
 #include "include_asm.h"
@@ -11,7 +12,7 @@ extern u8 _unk3000DE0;
 extern const s16 Unk_874CC3C[];
 extern s16 Unk_872CC3C[];
 
-unk32 sub_8059284(BGLayer* r0, u16 r1, u16 r2);
+unk32 sub_8059284(BGLayer* r0, unk16 r1, unk16 r2);
 vu16* GetBGLayerHOffsetPtr(u8 layer);
 vu16* GetBGLayerVOffsetPtr(u8 layer);
 
@@ -19,13 +20,13 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
 
 void sub_8059310(BGLayer* r0, s32 r1, s32 r2, s32 r3, s32 sp0, s32 sp4, s32 sp8);
 
-typedef void (*LayerCopyFunc)(BGLayer*, unk32, unk32, unk32, unk32, unk32, unk32);
+typedef void (*LayerCopyFunc)(BGLayer*, unk32, unk32, unk32, unk32, s32, unk32);
 typedef void (*LayerClearFunc)(BGLayer*, unk32, unk32, unk32, unk32);
 
-extern void (*__sub_8756FC0)(BGLayer*, unk32, unk32, unk32, unk32, unk32, unk32);
+extern void (*__sub_8756FC0)(BGLayer*, unk32, unk32, unk32, unk32, s32, unk32);
 extern void (*__sub_8757380)(BGLayer*, unk32, unk32, unk32, unk32);
 
-void sub_80594FC(BGLayer*, unk32, unk32, unk32, unk32, unk32, unk32);
+void sub_80594FC(BGLayer*, unk32, unk32, unk32, unk32, s32, unk32);
 
 void sub_8058968(
     BGLayer* layer, u8 layerIndex, TileMapHeader* header, u16 bgPriority, u16 flags, s32 x, s32 y)
@@ -352,49 +353,44 @@ INCLUDE_ASM("asm/dump/8057b80-debug/8059058-allocateActorMotionModifiers.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059110.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059184-nullsub_24.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059188.s");
-#if 0
-unk32 sub_8059284(BGLayer* bgLayer, u16 bgPriority, u16 flags)
+
+unk32 sub_8059284(BGLayer* bgLayer, unk16 bgPriority, unk16 flags)
 {
-    BGLayer* layerReg = bgLayer;
-    s32 mode;
+    unk16 mode;
     unk32 size;
 
     mode = bgPriority >> 14;
-    size = mode;
     if ((flags & 1) != 0) {
         size = 1 << (mode * 2 + 8);
-        layerReg->field_5F = mode + 4;
-        layerReg->field_60 = mode + 4;
+        bgLayer->field_5F = mode + 4;
+        bgLayer->field_60 = mode + 4;
         return size;
     }
     switch (mode) {
     case 0:
         size = 0x800;
-        layerReg->field_5F = 5;
-        layerReg->field_60 = 5;
+        bgLayer->field_5F = 5;
+        bgLayer->field_60 = 5;
         break;
     case 1:
         size = 0x1000;
-        layerReg->field_5F = 6;
-        layerReg->field_60 = 5;
+        bgLayer->field_5F = 6;
+        bgLayer->field_60 = 5;
         break;
     case 2:
         size = 0x1000;
-        layerReg->field_5F = 5;
-        layerReg->field_60 = 6;
+        bgLayer->field_5F = 5;
+        bgLayer->field_60 = 6;
         break;
     case 3:
         size = 0x2000;
-        layerReg->field_5F = 6;
-        layerReg->field_60 = 6;
+        bgLayer->field_5F = 6;
+        bgLayer->field_60 = 6;
         break;
     }
     return size;
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/8059284.s");
 
-#if 0
 void sub_8059310(BGLayer* layer, s32 x, s32 y, s32 srcX, s32 srcY, s32 width, s32 height)
 {
     LayerCopyFunc copy;
@@ -402,25 +398,27 @@ void sub_8059310(BGLayer* layer, s32 x, s32 y, s32 srcX, s32 srcY, s32 width, s3
     s32 widthValue;
     s32 remainder;
     s32 sourceX;
+    s32 heightValue;
+    s32 srcYValue;
     s32 adjustedSrcX;
-    unk32 wrappedX;
-    s32 stackY;
     s32 stackHeight;
+    unk32 wrappedX;
     s32 stackSrcY;
 
-    stackY = y;
-    stackHeight = height;
-    stackSrcY = srcY;
     widthValue = width;
+    heightValue = height;
     remainder = 0;
-    sourceX = srcX;
+    stackHeight = heightValue;
+    srcYValue = srcY;
+    adjustedSrcX = srcX;
+    stackSrcY = srcYValue;
     if ((layer->var64 & 1) != 0) {
         copy = sub_80594FC;
     } else {
         copy = __sub_8756FC0;
     }
-    adjustedSrcX = sourceX;
-    endX = x + widthValue;
+    sourceX = srcX;
+    endX = x + width;
     if (endX > layer->columnCount) {
         widthValue = 0;
         if (x < layer->columnCount) {
@@ -441,84 +439,63 @@ void sub_8059310(BGLayer* layer, s32 x, s32 y, s32 srcX, s32 srcY, s32 width, s3
         sourceX += remainder;
     }
     if (widthValue > 0) {
-        copy(layer, x, stackY, sourceX, stackSrcY, widthValue, stackHeight);
+        copy(layer, x, y, sourceX, srcYValue, widthValue, heightValue);
     }
     if (remainder > 0) {
         if ((layer->field_7C & 8) != 0) {
-            copy(layer, wrappedX, stackY, adjustedSrcX, stackSrcY, remainder, stackHeight);
+            copy(layer, wrappedX, y, adjustedSrcX, stackSrcY, remainder, stackHeight);
         } else {
             (*__sub_8757380)(layer, adjustedSrcX, stackSrcY, remainder, stackHeight);
         }
     }
 }
-#else
-INCLUDE_ASM("asm/dump/8057b80-debug/8059310.s");
-#endif
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8059404.s");
 
-#if 0
-void sub_80594FC(
-    BGLayer* layer, unk32 x, unk32 y, unk32 srcX, unk32 srcY, unk32 width, unk32 height)
+void sub_80594FC(BGLayer* layer, unk32 x, unk32 y, unk32 srcX, unk32 srcY, s32 width, unk32 height)
 {
-    unk32 yValue;
+    unk32 alignmentMask;
     unk8* mapAddress;
     unk8* screenAddress;
     unk32 columnCount;
     unk32 rowMask;
-    vu32* dma;
     unk32 horizontalStride;
     unk32 horizontalMask;
     unk32 firstWidth;
-    unk32 firstCount;
-    unk32 secondCount;
-    unk32 fullCount;
     unk32 row;
 
-    yValue = y;
     mapAddress = layer->mapAddr;
     screenAddress = (unk8*)(VRAM + (layer->screenBaseBlock << 11));
+    alignmentMask = ~1;
     columnCount = layer->columnCount;
-    horizontalStride = 1 << layer->field_5F;
-    horizontalMask = horizontalStride - 1;
+    horizontalMask = (1 << layer->field_5F) - 1;
     rowMask = (1 << layer->field_60) - 1;
-    width &= ~1;
-    srcX &= ~1;
-    x &= ~1;
+    horizontalStride = 1 << layer->field_5F;
+    width &= alignmentMask;
+    srcX &= alignmentMask;
+    x &= alignmentMask;
     if (width == 0) {
         width = 2;
     }
-    mapAddress += yValue * columnCount + x;
+    mapAddress += y * columnCount + x;
     srcX &= horizontalMask;
-    firstWidth = horizontalStride - srcX;
-    firstCount = (firstWidth >> 1) | DMA_ENABLE;
-    secondCount = ((width - firstWidth) >> 1) | DMA_ENABLE;
-    fullCount = (s32)(width + (width >> 31)) >> 1 | DMA_ENABLE;
-    dma = (vu32*)REG_DMA3SAD;
     row = srcY;
     while (row < srcY + height) {
         unk32 rowOffset;
 
         rowOffset = (row & rowMask) << layer->field_5F;
         if (srcX + width > horizontalStride) {
-            dma[0] = (unk32)mapAddress;
-            dma[1] = (unk32)(screenAddress + rowOffset + srcX);
-            dma[2] = firstCount;
-            dma[0] = (unk32)(mapAddress + firstWidth);
-            dma[1] = (unk32)(screenAddress + rowOffset);
-            dma[2] = secondCount;
-            (void)dma[2];
+            DmaCopy(3, mapAddress, screenAddress + rowOffset + srcX,
+                (firstWidth = horizontalStride - srcX),
+                16); // TODO: fakematch? (separate assignment differs at +0x72)
+            DmaCopy(3, mapAddress + firstWidth, screenAddress + rowOffset, width - firstWidth, 16);
         } else {
-            dma[0] = (unk32)mapAddress;
-            dma[1] = (unk32)(screenAddress + rowOffset + srcX);
-            dma[2] = fullCount;
-            (void)dma[2];
+            DmaCopy(3, mapAddress, screenAddress + rowOffset + srcX, width, 16);
         }
         mapAddress += columnCount;
         row++;
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/80594fc.s");
 
 INCLUDE_ASM("asm/dump/8057b80-debug/80595fc.s");
 
@@ -782,43 +759,13 @@ void sub_8059B00(u8 layer, u8 angle, u16 xAngle, u16 yAngle)
     }
 }
 
-#if 0
-void sub_8059C18(u8 bg0, u8 bg1, u8 bg2, u8 bg3)
+void sub_8059C18(unk8 bg0, unk8 bg1, unk8 bg2, unk8 bg3)
 {
-    u8* ptr0;
-    u8* ptr1;
-    u8* ptr2;
-    u8* ptr3;
-    s32 mask;
-    s32 clear;
-    u8 result;
-
-    ptr0 = (u8*)GetBGLayerCntPtr(0);
-    mask = 3;
-    bg0 &= mask;
-    clear = 4;
-    clear = -clear;
-    result = *ptr0 & clear;
-    result |= bg0;
-    *ptr0 = result;
-    ptr1 = (u8*)GetBGLayerCntPtr(1);
-    bg1 &= mask;
-    result = *ptr1 & clear;
-    result |= bg1;
-    *ptr1 = result;
-    ptr2 = (u8*)GetBGLayerCntPtr(2);
-    bg2 &= mask;
-    result = *ptr2 & clear;
-    result |= bg2;
-    *ptr2 = result;
-    ptr3 = (u8*)GetBGLayerCntPtr(3);
-    bg3 &= mask;
-    result = *ptr3 & clear;
-    result |= bg3;
-    *ptr3 = result;
+    ((BGControl*)GetBGLayerCntPtr(0))->unk0_0 = bg0;
+    ((BGControl*)GetBGLayerCntPtr(1))->unk0_0 = bg1;
+    ((BGControl*)GetBGLayerCntPtr(2))->unk0_0 = bg2;
+    ((BGControl*)GetBGLayerCntPtr(3))->unk0_0 = bg3;
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/8059c18.s");
 
 unk8 sub_8059CB4(BGLayer* layer)
 {

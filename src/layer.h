@@ -47,6 +47,6 @@ vu16* GetBGLayerCntPtr(u8 layer);
 unk8 sub_8059CB4(BGLayer*);
 void SetBGOffset(u8 layer, s32 x, s32 y);
 void sub_8059B00(u8, u8, u16, u16);
-void sub_8059C18(u8, u8, u8, u8);
+void sub_8059C18(unk8, unk8, unk8, unk8);
 
 #endif

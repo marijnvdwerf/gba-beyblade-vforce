@@ -12,6 +12,7 @@ typedef struct TalkingHead {
     const unk16* unk24;
 } TalkingHead;
 
+void* getBeyBladeActorDataForIndex(s32);
 void emptyBeybladeActorData(void);
 void deallocBeybladeActorData(void);
 BeybladeActorData* getBeybladeActorData(unk32);
@@ -44,7 +45,9 @@ typedef struct BeybladeData {
     unk8 pad0[0x28];
     unk8* palette;
     unk8* spriteSheet;
-    unk8 pad30[4];
+    unk8 pad30;
+    unk8 unk31;
+    unk8 pad32[2];
 } BeybladeData;
 
 const BeybladeData* getBeybladeData0(unk32);

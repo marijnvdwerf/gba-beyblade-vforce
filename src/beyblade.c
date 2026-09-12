@@ -1,8 +1,11 @@
 #include "beyblade.h"
 
+#include <agb/bios.h>
 #include <agb/memory_map.h>
 
+#include "debug.h"
 #include "include_asm.h"
+#include "memory.h"
 #include "ram.h"
 #include "unsorted.h"
 
@@ -119,8 +122,8 @@ void emptyBeybladeActorData(void)
     BeybladeActorData* record;
     s32 i;
 
-    record = _gameData->actorData;
-    _gameData->unk12F0 = 0xE;
+    record = _gameData->actorData.records;
+    _gameData->actorData.unk1E0 = 0xE;
     for (i = 0; i < 0x3C; i++) {
         record->block = NULL;
         record->unk4 = 0;
@@ -133,7 +136,7 @@ void deallocBeybladeActorData(void)
     BeybladeActorData* record;
     s32 i;
 
-    record = _gameData->actorData;
+    record = _gameData->actorData.records;
     for (i = 0; i < 0x3C; i++) {
         if (record->block != NULL) {
             deallocateBlock(record->block);
@@ -143,62 +146,56 @@ void deallocBeybladeActorData(void)
     }
 }
 
-#if 0
+extern unk32* RiderSpriteSheets[];
+extern const unk8 Str_872AE20[];
+extern const unk8 Str_872AE64[];
+extern const unk8 Str_872AEC0[];
+
 void* getBeyBladeActorDataForIndex(s32 index)
 {
     GameData* gameData;
+    BeybladeActorCache* cache;
     BeybladeActorData* record;
     const BeybladeData* data;
-    AllocatedBlock* block;
-    void* spriteSheet;
-    unk8* result;
-    s32 flags;
+    unk32* spriteSheet;
+    void* result;
     s32 bit;
-    unk32 value;
 
     gameData = _gameData;
-    record = &gameData->actorData[index];
+    cache = &gameData->actorData;
+    record = &cache->records[index];
     data = getBeybladeData0(index);
     spriteSheet = RiderSpriteSheets[index];
     if (index > 0x3B) {
-        printf((const unk8*)Str_872AE20, index, 0x3C);
+        printf(Str_872AE20, index, 0x3C);
         return NULL;
     }
-    if (*(const unk8*)((const unk8*)data + 0x31) != 0) {
-        block = record->block;
-        if (block != NULL) {
-            result = block->address;
+    if (data->unk31 != 0) {
+        if (record->block != NULL) {
+            result = record->block->address;
         } else {
-            block = slowAllocate(data->compressedSize >> 8);
-            record->block = block;
-            if (block == NULL) {
-                printf((const unk8*)Str_872AE64);
+            record->block = slowAllocate(*spriteSheet >> 8);
+            if (record->block == NULL) {
+                printf(Str_872AE64);
             }
             result = record->block->address;
-        }
-        LZ77UnCompWram(spriteSheet, result);
-        bit = 0;
-        flags = *(unk16*)((unk8*)gameData + 0x12F0);
-        if ((flags & 1) != 0) {
-            value = 1;
-            do {
+            LZ77UnCompWram(spriteSheet, result);
+            bit = 0;
+            while (((gameData->actorData.unk1E0 >> bit) & 1) != 0 && bit <= 0xF) {
                 bit++;
-                value = (flags >> bit) & 1;
-            } while (value != 0 && bit <= 0xF);
-        }
-        if (bit <= 0xF) {
-            record->unk4 = bit;
-            *(unk16*)((unk8*)gameData + 0x12F0) |= 1 << bit;
-        } else {
-            printf((const unk8*)Str_872AEC0);
+            }
+            if (bit <= 0xF) {
+                record->unk4 = bit;
+                cache->unk1E0 |= 1 << bit;
+            } else {
+                printf(Str_872AEC0);
+            }
         }
     } else {
-        result = (unk8*)spriteSheet;
+        result = spriteSheet;
     }
     return result;
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8057258-getBeyBladeActorDataForIndex.s");
 
 const BeybladeData* getBeybladeData0(unk32 arg0)
 {
@@ -209,7 +206,7 @@ BeybladeActorData* getBeybladeActorData(unk32 arg0)
 {
     BeybladeActorData* data;
 
-    data = _gameData->actorData;
+    data = _gameData->actorData.records;
     return &data[arg0];
 }
 
@@ -233,7 +230,7 @@ void allocateBeybladeObjectPalettes(void)
     BeybladeActorData* records;
     s32 index;
 
-    records = _gameData->actorData;
+    records = _gameData->actorData.records;
     index = 0;
     do {
         if (records->block != NULL) {
