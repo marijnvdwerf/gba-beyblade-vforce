@@ -1014,7 +1014,8 @@ typedef struct LevelState {
     s32 unk4;
     unk32 unk8;
     struct LevelDescription* unkC;
-    unk32 unk10[2]; /* 0x10 */
+    unk32 unk10[1]; /* 0x10 */
+    unk32 unk14[1]; /* 0x14 */
 } LevelState;
 
 typedef struct CollectableEntry {
