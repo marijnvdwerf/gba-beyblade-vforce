@@ -214,6 +214,14 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   (ScreenLayout, bgLayers[4], RiderTileState/RiderTileRow, SpriteTextPlacement).
   Worktrees: manual-2 (user, at main, empty) and raw-decomp. No agents
   running; keepalive stopped.**
+- Batch of four smallest yellows (luna, one each, no park commits):
+  sub_804B754 (rider) MATCHED 2a4e2fb3 — `&_gameData->unk42C[i]` typed
+  indexing, no header change; review running. sub_804DFF4 (riderphysics)
+  FAILED again, discarded: target has a dead `ldr r0,[r5,#0x70]` at +0x4
+  that every natural form eliminates (would need signed unk198 +
+  unkD2/unk168 fields for the near-match) — same wall as session 7.
+  sub_80658A4 (backup), sub_805529C (effects; `ProjectileSystem.unk28`
+  → s16 by ldsh, audit approved) running.
 - Skill fold DONE (sol; 23 files archived, 24 bullets touched, 2 corrections:
   agbcc narrows a truncating load of a wider field; the `/256` copy is kept
   by same-object in-place division). docs/learnings top level is empty.
