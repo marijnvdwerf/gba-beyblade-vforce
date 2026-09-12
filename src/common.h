@@ -221,6 +221,7 @@ struct UnkMenuItem {
 
 typedef struct FrontendMenuData FrontendMenuData;
 typedef struct FrontendMenuItem FrontendMenuItem;
+typedef struct FrontendMenuBlockData FrontendMenuBlockData;
 
 struct FrontendMotionData {
     unk32 unk0;
@@ -242,7 +243,8 @@ typedef struct FrontendSelectionPalette {
 } FrontendSelectionPalette;
 
 struct FrontendMenuData {
-    unk8 pad0[0x24];
+    FrontendMenuBlockData* address;
+    unk8 pad4[0x20];
 };
 
 typedef struct FrontendMenuItemData {
@@ -253,14 +255,10 @@ typedef struct FrontendMenuItemData {
     unk32 previousPosition;
 } FrontendMenuItemData;
 
-typedef struct FrontendMenuBlockData {
+struct FrontendMenuBlockData {
     unk8 pad0[0xA];
     unk8 unkA;
-} FrontendMenuBlockData;
-
-typedef struct FrontendMenuConfig {
-    FrontendMenuBlockData* address;
-} FrontendMenuConfig;
+};
 
 struct FrontendMenuItem {
     FrontendMenuItemData* data;
@@ -282,7 +280,7 @@ typedef struct FrontendMenu {
     unk32 timer;
     unk32 timerTarget;
     FrontendMenuItem* items;
-    FrontendMenuConfig* config;
+    const FrontendMenuData* config;
     AllocatedBlock* block;
     unk8 pad34[8];
     unk16 flags;
@@ -1114,8 +1112,8 @@ typedef struct LevelDescription {
     unk8 pad38[8];
     const unk8* unk40[5];
     const unk8* unk54[5]; /* 0x54 */
-    const unk8* unk68[6];
-    unk8 pad80[0x10];
+    const unk8* unk68[5];
+    const unk8* unk7C[5];
     unk32 unk90;
     const unk8* unk94[5];
     const unk8* unkA8[5];

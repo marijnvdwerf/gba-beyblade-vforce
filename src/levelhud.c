@@ -13,50 +13,40 @@ extern const unk8* _806E724[];
 extern const unk8* _806E8C4[];
 extern const unk8 Str_8727048[];
 
-#if 0
 void sub_804F878(void)
 {
     GameData* state;
-    SpriteTextCleanup* hud;
+    LevelHudData* hud;
     LevelDescription* description;
-    const unk8* const* table;
     MotionGroup* motion;
-    unk32 language;
 
     state = _gameData;
-    hud = &state->levelHud.text0;
+    hud = &state->levelHud;
     description = getLevelDescription2();
     sub_804FD64();
     state->levelHud.flags |= 2;
     if (sub_8051780(4) != 0) {
         if (_currentGameState->unk6A4 == 2) {
-            table = description->unk94;
+            sub_8061660(&hud->text0, description->unk94[getLanguage()], 0xD);
         } else {
-            table = description->unkA8;
+            sub_8061660(&hud->text0, description->unkA8[getLanguage()], 0xD);
         }
-        language = getLanguage();
-        sub_8061660(hud, table[language], 0xD);
     } else {
-        language = getLanguage();
-        sub_8061660(hud, description->unk68[language], 0xD);
-        hud = &state->levelHud.text1;
-        language = getLanguage();
-        sub_8061660(hud, description->unk68[5 + language], 0xD);
+        sub_8061660(&hud->text0, description->unk68[getLanguage()], 0xD);
+        sub_8061660(&state->levelHud.text1, description->unk7C[getLanguage()], 0xD);
         motion = &state->levelHud.motion1;
         newMotionGroup(motion, &state->levelHud.text1.unk14, 2);
         sub_8050578(motion, 0x5800, 0x100);
         sub_80504E4(motion, 0, -0x34, 0, -10);
         state->levelHud.flags |= 4;
     }
-    motion = &state->levelHud.motion0;
-    newMotionGroup(motion, &state->levelHud.text0.unk14, 2);
+    motion = &hud->motion0;
+    newMotionGroup(motion, &hud->text0.unk14, 2);
     sub_8050578(motion, 0x4800, 0x100);
     sub_80504E4(motion, 0, 0x34, 0, 0x14);
-    state->levelHud.status = 0x80;
-    state->levelHud.state = 1;
+    hud->status = 0x80;
+    hud->state = 1;
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/804f878.s");
 
 void sub_804F9B4(void)
 {

@@ -37,7 +37,7 @@ void newIconMenu(FrontendMenu* menu, const FrontendMenuData* data, unk32 count)
     }
     menu->items = menu->block->address;
     menu->itemCount = data->itemCount;
-    menu->config = (FrontendMenuConfig*)data;
+    menu->config = data;
     menu->flags = 0;
     menu->unk34 = data->x;
     menu->unk38 = data->y;
