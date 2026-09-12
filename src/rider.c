@@ -305,12 +305,11 @@ void sub_804B624(void)
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/804b624.s");
-#if 0
+
 void sub_804B754(void)
 {
     GameData* state;
     s32 i;
-    s32 offset;
 
     state = _gameData;
     if (state->unk1638 <= 4) {
@@ -319,9 +318,8 @@ void sub_804B754(void)
     }
     i = 0;
     if (i < state->unk430) {
-        offset = 0;
         do {
-            if ((sub_804DA48((unk8*)state, (unk8*)_gameData->unk42C + offset, 0x80) << 24) != 0) {
+            if (sub_804DA48(&state->base, &_gameData->unk42C[i], 0x80) != 0) {
                 sub_804FE14();
                 if ((_unk3005DA0 & 0x200) != 0) {
                     _gameData->unk1638 = 0;
@@ -331,7 +329,6 @@ void sub_804B754(void)
                 return;
             }
             sub_804FE30();
-            offset += sizeof(RiderBase);
             i++;
             if (i >= _gameData->unk430) {
                 return;
@@ -339,8 +336,6 @@ void sub_804B754(void)
         } while (1);
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/804b754.s");
 
 #if 0
 RiderBase* sub_804B7FC(RiderBase* arg0)
