@@ -49,7 +49,10 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   into `FrontendMenuData` (`FrontendMenu.config` const FrontendMenuData*).
   Review CLEAN. Fold candidate: `x >> 8` into an s16 param ==
   `(x << 8) >> 16`.
-- Running: luna decompiler on DMA3Copy (backup, 128 B), own worktree.
+- DMA3Copy (backup, 128 B): luna attempt failed, discarded (user: no park
+  commits). First divergences 0x16 (wait-state register roles), 0x2A
+  (REG_DMA3CNT literal vs `add #8`), 0x34 (`add #2` vs indexed ldrh) —
+  the DMA register-write choreography; draft used REG_DMA3* + DMA_ENABLE.
 - Merged turorial_804A488 (14559bbc; tutorial, 124 B, old park unparked):
   `LevelState.unk10[2]` → `unk10[1]` (collectable bitset, sub_8056EC0's
   `[i >> 5]`) + `unk14[1]` (tutorial bitset) — the one-word bitset idiom
