@@ -5,7 +5,47 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-11 (end of session 11): 705 C / 320 asm / 69% by count, 67.00% by bytes, 18 TUs.
+Last updated: 2026-09-12 (session 12, mid): 709 C / 316 asm / 69% by count, 19 TUs (raw-decomp-7 merged; -8 pending).
+
+## Session 12 (2026-09-12)
+
+- Keepalive monitor: 55-min tick (main dirty check). Reviews now split per
+  file group with explicit read lists — a whole-branch reviewer overflowed
+  on raw-decomp-7 (dump deletions + 170-line iwram step table).
+- Merged user's `raw-decomp-7` (a3b9cb52, squash; base was main be952561):
+  sub_806014C (multiplayer; unk8 with measured value-less `return;`),
+  sub_804257C (new transition.c/h, TransitionImage; `_unk30000DC/DD` byte
+  flags + `pad_30000DE[2]`, E0–F0 s32, RAM externs in ram.h), sub_804967C
+  (frontend; clears the "stale parked draft" debt — FrontendObject/
+  FrontendSubobject unified, FrontendSelection* typedefs gone,
+  `FrontendObject.unkC` + `transition.unk58C` are `void (*)(void)` — settles
+  the old unk588/unkC signature question), sub_80596AC (layer;
+  Struct3000CA0 six s32 cited per field; `bounds[4]` array + `unk32 height/
+  width = 0x20` literal temps BYTE-REQUIRED +0x0A/+0xEE/+0x19A — shipped
+  without TODO, user to decide). Parked: sub_80526C8 (gameloop),
+  sub_8756FC0 (iwram ARM, typed scratch row table). Two reviews (A: 2
+  blockers, B: 3) + one luna fix agent (3 commits); all fold tests
+  byte-required except none. **709 C / 316 asm / 69%, 19 TUs.**
+- `raw-decomp-8` = linear extension of -7 (6 matched: layer sub_8059284/
+  8059310/80594FC/8059C18, levelselect sub_8041344 — old park resolved by a
+  measured `unk16` param (unk32/s32 diverge +0x4, unk16/s16/u16 exact,
+  sub_8061E58 takes u8), beyblade getBeyBladeActorDataForIndex with
+  `BeybladeActorCache` wrapping records+unk1E0; parked sound sub_80627F0).
+  Review 1 blocker (the width — measured, kept) + 5 folds (all
+  byte-required). Fix agent now rebasing the delta onto main and testing
+  the manager's items (sub_80594FC `alignmentMask = ~1` literal temp,
+  in-argument `firstWidth =`, sub_8059310 param snapshots). Then squash-
+  merge (the classifier blocks `git merge --squash` for the manager — the
+  user runs it, manager does format/compare/update-expected/commit).
+- Debt: `(BGControl*)GetBGLayerCntPtr()` casts (display.c ×2, layer.c ×2
+  now) — GetBGLayerCntPtr should return `BGControl*`.
+- Running: OPUS decompiler (user-sanctioned) in
+  `.claude/worktrees/agent-a2b2d9e175ccd2763` (branch
+  worktree-agent-a2b2d9e175ccd2763): sub_804F878 MATCHED (0b1a79d2, 316 B,
+  5 builds; plain `flags |= 2` reproduces the dead `mov r4,#0`; the parked
+  draft's `u16* flags` alias was the blocker; LevelDescription unk68[6]+pad
+  → unk68[5]+unk7C[5]) — now on sub_8050C18 then newIconMenu (iconmenu),
+  30 builds each. Review after; NOT yet reviewed.
 
 ## Session 11 (2026-09-10)
 
