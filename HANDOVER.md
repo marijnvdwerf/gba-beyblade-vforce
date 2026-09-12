@@ -217,9 +217,9 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   sub_805529C (effects; `ProjectileSystem.unk28` → s16 by ldsh) running.
   sub_804B4FC merged (22c99385; bare `*(vu16*)REG_VCOUNT;` reads kept).
   **719 C / 306 asm / 70%.** Queue keeps running, one yellow per agent,
-  distinct TUs. fails: sub_805529C. Running: LoadSpriteSheet (sprite),
+  distinct TUs. fails: sub_805529C, sub_804B7FC. Running: LoadSpriteSheet (sprite),
   allocateParticleSystem (particle; typing Particle 0x4..0x22 approved),
-  sub_805041C (motion), sub_80659F0 (backup), sub_804B7FC (rider).
+  sub_805041C (motion), sub_80659F0 (backup), handleEventListeners (event).
 - Skill fold DONE (sol; 23 files archived, 24 bullets touched, 2 corrections:
   agbcc narrows a truncating load of a wider field; the `/256` copy is kept
   by same-object in-place division). docs/learnings top level is empty.
