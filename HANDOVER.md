@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-12 (session 12, mid): 715 C / 310 asm / 70% by count, 20 TUs (raw-decomp-7/-8 merged).
+Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 TUs.
 
 ## Session 12 (2026-09-12)
 
@@ -50,9 +50,14 @@ Last updated: 2026-09-12 (session 12, mid): 715 C / 310 asm / 70% by count, 20 T
   Review CLEAN. Fold candidate: `x >> 8` into an s16 param ==
   `(x << 8) >> 16`.
 - Running: luna decompiler on DMA3Copy (backup, 128 B), own worktree.
-- Running: luna decompiler on turorial_804A488 (tutorial, 124 B — smallest
-  yellow; old park: only a byte-offset form matched), own worktree,
-  25-build cap.
+- Merged turorial_804A488 (14559bbc; tutorial, 124 B, old park unparked):
+  `LevelState.unk10[2]` → `unk10[1]` (collectable bitset, sub_8056EC0's
+  `[i >> 5]`) + `unk14[1]` (tutorial bitset) — the one-word bitset idiom
+  already accepted as `CollectableData.collectedBits[1]`; scalar unk14
+  diverges +0x0A. Reviewer called the 1-element array a lever — overruled
+  by that precedent. Manager slip: I first asked for `unk10` scalar, which
+  forced a `stateFlags += i >> 5` pointer alias in collectable.c —
+  reverted. **717 C / 308 asm / 70%.**
 - Debt: `(BGControl*)GetBGLayerCntPtr()` casts (display.c ×2, layer.c ×2
   now) — GetBGLayerCntPtr should return `BGControl*`.
 - Running: OPUS decompiler (user-sanctioned) in
