@@ -41,6 +41,15 @@ Last updated: 2026-09-12 (session 12, mid): 715 C / 310 asm / 70% by count, 20 T
   `git merge --squash <branch>` passes when run alone; long chains and a
   helper script get blocked — run the recipe as separate commands. A local
   `tools/merge-branch` exists but is git-excluded, not for the repo.)
+- Merged opus branch (42cf7e41): sub_804F878 matched (levelhud; `hud`
+  record alias byte-required, no `u16* flags` alias, LevelDescription
+  unk68[5]+unk7C[5]); user dropped the two opus parks (sub_8050C18 2 insns
+  short in the frame-toggle block, newIconMenu tail address computation) —
+  one line each in levelhud-2026-09-12.md; `FrontendMenuConfig` unified
+  into `FrontendMenuData` (`FrontendMenu.config` const FrontendMenuData*).
+  Review CLEAN. Fold candidate: `x >> 8` into an s16 param ==
+  `(x << 8) >> 16`.
+- Running: luna decompiler on DMA3Copy (backup, 128 B), own worktree.
 - Running: luna decompiler on turorial_804A488 (tutorial, 124 B — smallest
   yellow; old park: only a byte-offset form matched), own worktree,
   25-build cap.
