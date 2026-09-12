@@ -200,35 +200,30 @@ void sub_804B4A4(RiderBase* arg0)
     }
 }
 
-#if 0
 void sub_804B4FC(LevelGeometryAddresses* target, RiderState* item)
 {
     s32 i;
-    unk32 value;
 
     sub_804B8F0(&_gameData->base, target);
     *(vu16*)REG_VCOUNT;
     if (_gameData->unk1618 == 0) {
-        unk32 offset;
-        RiderBase* rider = &_gameData->base;
-
         i = 0;
         if (i < _gameData->unk430) {
-            for (offset = 0; i < _gameData->unk430; offset += sizeof(RiderBase), i++) {
-                rider = (RiderBase*)((unk8*)_gameData->unk42C + offset);
+            do {
+                RiderBase* rider = &_gameData->unk42C[i];
+
                 if ((rider->unk3C8 & 2) != 0 || rider->unk210 != 0 || RiderHasFlag(rider, 2) != 0)
                     sub_804B8F0(rider, target);
-            }
+                i++;
+            } while (i < _gameData->unk430);
         }
-        value = *(vu16*)REG_VCOUNT;
+        *(vu16*)REG_VCOUNT;
     } else {
-        value = sub_80501F8(item, _gameData->unk42C);
+        sub_80501F8(item, _gameData->unk42C);
     }
-    sub_804B754(value);
+    sub_804B754();
     sub_804B624();
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/804b4fc.s");
 
 void sub_804B5C0(void)
 {
