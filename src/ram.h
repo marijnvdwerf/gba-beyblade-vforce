@@ -16,6 +16,15 @@
 #include "render.h"
 #include "sprite.h"
 
+extern unk8 _unk30000DC;
+extern unk8 _unk30000DD;
+extern s32 _unk30000E0;
+extern s32 _unk30000E4;
+extern s32 _unk30000E8;
+extern s32 _unk30000EC;
+extern s32 _unk30000F0;
+extern unk32 _unk30000F4;
+
 extern MultiPlayerState* _unk3005DC4;
 extern s32 _3000000;
 extern s32 _3000004;

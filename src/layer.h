@@ -9,12 +9,12 @@ typedef union LayerTransformValue {
 } LayerTransformValue;
 
 struct Struct3000CA0 {
-    unk32 var00;
-    unk32 var04;
-    unk32 var08;
-    unk32 var0C;
-    unk32 var10;
-    unk32 var14;
+    s32 var00;
+    s32 var04;
+    s32 var08;
+    s32 var0C;
+    s32 var10;
+    s32 var14;
 };
 
 typedef struct LayerTransformRecord {
@@ -38,10 +38,11 @@ extern Struct3000CA0 _unk3000CA0[4];
 extern LayerTransformRecord _unk3000D00[2];
 
 void sub_8058968(BGLayer*, u8, TileMapHeader*, unk16, unk16, s32, s32);
+void sub_8058A28(BGLayer*, u8, TileMapHeader*, u16, u16);
 void sub_8058EF4(BGLayer*);
 void sub_8059934(void);
 void sub_8058F60(BGLayer*);
-void sub_80596AC(void*, unk32, unk32);
+void sub_80596AC(BGLayer*, s32, s32);
 vu16* GetBGLayerCntPtr(u8 layer);
 unk8 sub_8059CB4(BGLayer*);
 void SetBGOffset(u8 layer, s32 x, s32 y);

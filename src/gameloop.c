@@ -399,35 +399,45 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/805253c.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/8052588.s");
 
 #if 0
+unk32 sub_80610EC(SpriteEntry*);
+unk32 sub_8061110(SpriteEntry*);
+void sub_804E530(ParticleSystem*, unk32);
+
 void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
 {
+    unk32 actorCount;
+    s32 left;
+    s32 top;
+    s32 minX;
+    s32 minY;
+    s32 minZ;
+    Actor* mainActor;
+    SpriteEntry* targetSprite;
+    LevelGeometryAddresses* geometry;
+    void* callbackData;
     Actor* current;
     GeometryLine* line;
     GeometryPoint* point0;
     GeometryPoint* point1;
-    LevelGeometryAddresses* geometry;
     EnvironmentObject* object;
-    SpriteEntry* targetSprite;
     SpriteEntry* lineSprite;
-    Actor* mainActor;
-    unk32 actorCount;
-    void* callbackData;
-    unk32 frame;
+    s32 frame;
+    SpriteEntry* currentSprite;
+    s32 lineIndex;
     unk32 found;
-    s32 minX;
-    s32 minY;
-    s32 minZ;
+    unk32 overlap;
+    s32 coordinate0;
+    s32 coordinate1;
     s32 x;
     s32 y;
-    s32 otherY;
 
+    actorCount = _gameData->environmentActors.actorCount;
     frame = sprite->var22;
-    targetSprite = targetActor->unkB8;
-    geometry = &gameData->unk434.geometry;
+    current = _gameData->environmentActors.actorContainer;
     mainActor = gameData->base.unk0;
-    actorCount = gameData->environmentActors.actorCount;
-    current = gameData->environmentActors.actorContainer;
-    callbackData = nullsub_12(&gameData->unk434);
+    targetSprite = targetActor->unkB8;
+    geometry = &_gameData->unk434.geometry;
+    callbackData = nullsub_12(&_gameData->unk434);
     if (actorCount == 0) {
         return;
     }
@@ -436,67 +446,92 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
     actorCount--;
     do {
         if (current->unkB8 != NULL) {
-            object = NULL;
-            if (current->unkB4.lineIndex >= 0) {
-                line = &geometry->unkC[current->unkB4.lineIndex];
+            currentSprite = current->unkB8;
+            lineIndex = current->unkB4.lineIndex;
+            line = lineIndex >= 0 ? &geometry->unkC[lineIndex] : NULL;
+            if (line != NULL) {
                 point0 = &geometry->unk4[line->point0];
                 point1 = &geometry->unk4[line->point1];
-                minX = point1->x << 5;
-                if (point0->x < point1->x)
-                    minX = point0->x << 5;
-                minY = point1->y << 5;
-                if (point0->y < point1->y)
-                    minY = point0->y << 5;
-                minZ = point1->z << 5;
-                if (point0->z < point1->z)
-                    minZ = point0->z << 5;
-                object = GetStruct4(current->unkB4.lineIndex);
+                coordinate0 = point0->x;
+                coordinate1 = point1->x;
+                minX = coordinate1 << 5;
+                if (coordinate0 < coordinate1)
+                    minX = coordinate0 << 5;
+                coordinate0 = point0->y;
+                coordinate1 = point1->y;
+                minY = coordinate1 << 5;
+                if (coordinate0 < coordinate1)
+                    minY = coordinate0 << 5;
+                coordinate0 = point0->z;
+                coordinate1 = point1->z;
+                minZ = coordinate1 << 5;
+                if (coordinate0 < coordinate1)
+                    minZ = coordinate0 << 5;
+                object = GetStruct4(lineIndex);
             } else {
                 minX = current->x;
                 minY = current->y;
                 minZ = current->z;
+                object = NULL;
             }
+            left = currentSprite->x;
+            top = currentSprite->y;
+            x = currentSprite->x + (sub_80610EC(currentSprite) << 8);
+            y = currentSprite->y + (sub_8061110(currentSprite) << 8);
             lineSprite = NULL;
-            if (object != NULL)
+            if (object != NULL && object->sprite != NULL)
                 lineSprite = object->sprite;
-            x = current->unkB8->x + (sub_80610EC(current->unkB8) << 8);
-            y = current->unkB8->y + (sub_8061110(current->unkB8) << 8);
-            found = 0;
-            if (x >= sprite->x && x < sprite->x + 0x2000 && y >= sprite->y
-                && y < sprite->y + 0x2000)
-                found = 1;
+            overlap = 0;
+            if (x >= sprite->x && left < sprite->x + 0x2000 && y >= sprite->y
+                && top < sprite->y + 0x2000)
+                overlap = 1;
+            found = overlap;
             if (lineSprite != NULL && found == 0) {
-                x = lineSprite->x + (sub_80610EC(lineSprite) << 8);
+                s32 otherLeft;
+                s32 otherTop;
+                s32 otherX;
+                s32 otherY;
+                unk32 otherFound;
+
+                otherLeft = lineSprite->x;
+                otherTop = lineSprite->y;
+                otherX = lineSprite->x + (sub_80610EC(lineSprite) << 8);
                 otherY = lineSprite->y + (sub_8061110(lineSprite) << 8);
-                if (x >= sprite->x && x < sprite->x + 0x2000 && otherY >= sprite->y
-                    && otherY < sprite->y + 0x2000)
-                    found = 1;
+                otherFound = 0;
+                if (otherX >= sprite->x && otherLeft < sprite->x + 0x2000 && otherY >= sprite->y
+                    && otherTop < sprite->y + 0x2000)
+                    otherFound = 1;
+                found = otherFound;
             }
             if (found != 0) {
                 if (current->unk3C != callbackData) {
                     sprite->oam_attr_2 &= 0xF3FF;
-                    sprite->oam_attr_2 |= current->unkB8->oam_attr_2 & 0x0C00;
+                    sprite->oam_attr_2 |= currentSprite->oam_attr_2 & 0x0C00;
                     targetActor->unk3C = current->unk3C;
                 }
-                if (mainActor->x > minX && mainActor->y <= minY) {
-                    frame -= 3;
-                } else if ((mainActor->z >> 8) + 4 >= (minZ >> 8)) {
-                    frame -= 3;
+                if ((mainActor->x > minX && mainActor->y > minY)
+                    || (mainActor->z >> 8) + 4 >= (minZ >> 8)) {
+                    if (frame >= currentSprite->var22)
+                        frame = currentSprite->var22 - 3;
+                    if (lineSprite != NULL && frame >= lineSprite->var22)
+                        frame = lineSprite->var22 - 3;
                 } else {
-                    frame += 3;
+                    if (frame <= currentSprite->var22)
+                        frame = currentSprite->var22 + 3;
+                    if (lineSprite != NULL && frame <= lineSprite->var22)
+                        frame = lineSprite->var22 + 3;
                 }
             }
         }
         current++;
-        actorCount--;
-    } while (actorCount != 0);
+    } while (actorCount-- != 0);
     if (sprite->var22 != frame) {
         sub_8061078(sprite, frame);
         if (gameData->base.unk3E8 != 0)
             sub_804E530(&gameData->base.unk3EC, frame + 1);
+        if (targetSprite != NULL)
+            sub_8061078(targetSprite, frame + 2);
     }
-    if (targetSprite != NULL)
-        sub_8061078(targetSprite, frame + 2);
 }
 #endif
 

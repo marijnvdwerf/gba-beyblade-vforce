@@ -173,55 +173,79 @@ void sub_80600B4(void)
     *(vu16*)REG_SIOMULTI3 = 0;
 }
 
-#if 0
 extern void (*__sub_8757CD0)(void);
 extern void (*__sub_8757D24)(void);
 void sub_8060404(void);
 void onSerialCommunication(void);
 
-unk32 sub_806014C(Packet* arg0, Packet* arg1, unk8 arg2)
+unk8 sub_806014C(Packet* arg0, Packet* arg1, unk8 arg2)
 {
     unk8 player;
-    unk32 flags;
-    unk8 newCounter;
-    unk32 localFlag;
+    unk8 localFlag;
     unk16 matchCount;
 
     player = _unk3005DC4->unk3;
-    flags = _unk3005DC4->unk14;
-    if ((flags & 0x100) == 0) {
-        if ((flags & 0xC0) != 0) {
+    if ((_unk3005DC4->unk14 & 0x100) != 0) {
+        return 0;
+    } else {
+        if ((_unk3005DC4->unk14 & 0xC0) != 0) {
             localFlag = 0;
-            newCounter = _unk3005DC4->unk5 + 1;
-        } else if ((flags & 0x400) != 0) {
+            _unk3005DC4->unk5++;
+        } else if ((_unk3005DC4->unk14 & 0x400) == 0) {
             localFlag = 1;
-            newCounter = _unk3005DC4->unk5 + 1;
+            _unk3005DC4->unk5 = 0;
         } else {
             localFlag = 1;
-            newCounter = 0;
+            _unk3005DC4->unk5++;
         }
 
-        _unk3005DC4->unk5 = newCounter;
         if (_unk3005DC4->unk5 > 0x3B) {
             _unk3005DC4->unk14 |= 0x100;
             return 0;
         }
 
-        flags = _unk3005DC4->unk14 & 0xFFFFFBBF;
-        _unk3005DC4->unk14 = flags;
-        if ((flags & 0x80) != 0) {
+        _unk3005DC4->unk14 &= ~0x440;
+        if ((_unk3005DC4->unk14 & 0x80) != 0) {
             _unk3005DC4->unk1C++;
-            flags &= 0xFFFFFF7F;
-            _unk3005DC4->unk14 = flags;
+            _unk3005DC4->unk14 &= ~0x80;
             if (_unk3005DC4->unk1C >= _unk3005DC4->unk20) {
-                _unk3005DC4->unk14 = flags | 0x100;
+                _unk3005DC4->unk14 |= 0x100;
                 return 0;
             }
         } else {
             _unk3005DC4->unk1C = 0;
         }
 
-        if ((_unk3005DC4->unk14 & 2) == 0) {
+        if ((_unk3005DC4->unk14 & 2) != 0) {
+            if (sub_8060040() != 0) {
+                if ((_unk3005DC4->unk14 & 0x200) == 0) {
+                    return;
+                }
+                _unk3005DC4->unk14 &= ~0x200;
+                _unk3005DC4->unk0 = 0;
+                __fastMemoryCopyARM(arg1, _unk3005DC4->unk24, _unk3005DC4->unk18);
+                _unk3005DC4->unk3C = _unk3005DC4->unk24;
+                _unk3000DF0[6] = __sub_8757D24;
+                *(vu16*)REG_TM3CNT_L = _unk3005DC4->unk10;
+                *(vu16*)REG_TM3CNT_H = 0xC0;
+                EnableInterrupt(0x40);
+                (*__sub_8757CD0)();
+                if (localFlag != 0 || arg2 != 0) {
+                    __fastMemoryCopyARM(_unk3005DC4->unk38, arg0, player * _unk3005DC4->unk18);
+                }
+            } else {
+                if (localFlag != 0 || arg2 != 0) {
+                    __fastMemoryCopyARM(_unk3005DC4->unk38, arg0, player * _unk3005DC4->unk18);
+                }
+                __fastMemoryCopyARM(arg1, _unk3005DC4->unk40, _unk3005DC4->unk18);
+                if ((_unk3005DC4->unk14 & 0x20) != 0) {
+                    _unk3005DC4->unk1C = 0;
+                } else {
+                    _unk3005DC4->unk14 |= 0x80;
+                }
+                _unk3005DC4->unk14 &= ~0x20;
+            }
+        } else {
             matchCount = 0;
             *(vu16*)REG_SIOMLT_SEND = 0xDEAF;
             if (sub_8060040() != 0) {
@@ -239,7 +263,7 @@ unk32 sub_806014C(Packet* arg0, Packet* arg1, unk8 arg2)
                 }
                 if (matchCount >= _unk3005DC4->unk4) {
                     sub_8060404();
-                    return localFlag;
+                    return;
                 }
                 *(vu16*)REG_SIOCNT |= 0x80;
                 _unk3005DC4->unk14 |= 0x200;
@@ -248,45 +272,10 @@ unk32 sub_806014C(Packet* arg0, Packet* arg1, unk8 arg2)
                 _unk3000DF0[7] = onSerialCommunication;
                 EnableInterrupt(0x80);
             }
-            return localFlag;
         }
-
-        if (sub_8060040() != 0) {
-            if ((_unk3005DC4->unk14 & 0x200) == 0) {
-                return 0;
-            }
-            _unk3005DC4->unk14 &= 0xFFFFFDFF;
-            _unk3005DC4->unk0 = 0;
-            __fastMemoryCopyARM(arg1, _unk3005DC4->unk24, _unk3005DC4->unk18);
-            _unk3005DC4->unk3C = _unk3005DC4->unk24;
-            _unk3000DF0[6] = __sub_8757D24;
-            *(vu16*)REG_SIOCNT = _unk3005DC4->unk10;
-            *(vu16*)REG_RCNT = 0xC0;
-            EnableInterrupt(0x40);
-            (*__sub_8757CD0)();
-            if (localFlag != 0 || arg2 != 0) {
-                __fastMemoryCopyARM(_unk3005DC4->unk38, arg0, player * _unk3005DC4->unk18);
-            }
-            return localFlag;
-        }
-
-        if (localFlag != 0 || arg2 != 0) {
-            __fastMemoryCopyARM(_unk3005DC4->unk38, arg0, player * _unk3005DC4->unk18);
-        }
-        __fastMemoryCopyARM(arg1, _unk3005DC4->unk40, _unk3005DC4->unk18);
-        if ((_unk3005DC4->unk14 & 0x20) != 0) {
-            _unk3005DC4->unk1C = 0;
-        } else {
-            _unk3005DC4->unk14 |= 0x80;
-        }
-        _unk3005DC4->unk14 &= 0xFFFFFFDE;
-        return localFlag;
     }
-    return 0;
+    return localFlag;
 }
-#endif
-
-INCLUDE_ASM("asm/dump/8057b80-debug/806014c.s");
 
 void sub_80603E8(void)
 {

@@ -521,31 +521,25 @@ void sub_80594FC(
 INCLUDE_ASM("asm/dump/8057b80-debug/80594fc.s");
 
 INCLUDE_ASM("asm/dump/8057b80-debug/80595fc.s");
-#if 0
-void sub_80596AC(void* arg0, unk32 deltaX, unk32 deltaY)
+
+void sub_80596AC(BGLayer* bgLayer, s32 deltaX, s32 deltaY)
 {
-    BGLayer* bgLayer;
-    Struct3000CA0* map;
-    s32 x;
-    s32 y;
+    s32 bounds[4];
     s32 xBase;
     s32 yBase;
-    s32 xStart;
-    s32 yStart;
     s32 xOffset;
     s32 yOffset;
-    s32 xLimit;
-    s32 yLimit;
+    s32 xStart;
+    s32 yStart;
     s32 xDelta;
     s32 yDelta;
-    s32 horizontal;
     s32 xAdjust;
     s32 yAdjust;
-    u8 xShift;
-    u8 yShift;
-    u8* flags;
+    unk8 horizontal;
+    unk8* flags;
+    unk8 xShift;
+    unk8 yShift;
 
-    bgLayer = arg0;
     xDelta = 0;
     yDelta = 0;
     xAdjust = 0;
@@ -554,85 +548,83 @@ void sub_80596AC(void* arg0, unk32 deltaX, unk32 deltaY)
     flags = &bgLayer->field_5F;
     xShift = 1 << bgLayer->field_5F;
     yShift = 1 << bgLayer->field_60;
-    x = bgLayer->field_40 + deltaX;
-    bgLayer->field_40 = x;
-    y = bgLayer->field_44 + deltaY;
-    bgLayer->field_44 = y;
     bgLayer->field_C += deltaX;
     bgLayer->field_10 += deltaY;
+    bgLayer->field_40 += deltaX;
+    bgLayer->field_44 += deltaY;
     xBase = bgLayer->field_C >> 11;
     yBase = bgLayer->field_10 >> 11;
-    xLimit = xBase + 0x1E;
-    yLimit = yBase + 0x14;
-    xStart = xBase;
-    yStart = yBase;
-    map = bgLayer->var8;
+    bounds[0] = xBase;
+    bounds[1] = yBase;
+    bounds[2] = xBase + 0x1E;
+    bounds[3] = yBase + 0x14;
 
-    if (xLimit > map->var08) {
-        xDelta = xLimit - map->var08;
-        xOffset = map->var10 + xShift;
-        xStart = map->var08 + 1;
+    if (bounds[2] > bgLayer->var8->var08) {
+        xDelta = bounds[2] - bgLayer->var8->var08;
+        xOffset = bgLayer->var8->var10 + xShift;
+        xStart = bgLayer->var8->var08 + 1;
         xAdjust = xDelta;
     }
-    if (xStart < map->var00) {
-        xDelta = xStart - map->var00;
-        xOffset = map->var10 + xDelta;
-        xStart = map->var00 + xDelta;
+    if (bounds[0] < bgLayer->var8->var00) {
+        xDelta = bounds[0] - bgLayer->var8->var00;
+        xOffset = bgLayer->var8->var10 + xDelta;
+        xStart = bgLayer->var8->var00 + xDelta;
         xAdjust = -xDelta;
     }
-    if (yLimit > map->var0C) {
-        yDelta = yLimit - map->var0C;
-        yOffset = map->var14 + yShift;
-        yStart = map->var0C + 1;
+    if (bounds[3] > bgLayer->var8->var0C) {
+        yDelta = bounds[3] - bgLayer->var8->var0C;
+        yOffset = bgLayer->var8->var14 + yShift;
+        yStart = bgLayer->var8->var0C + 1;
         yAdjust = yDelta;
     }
-    if (yStart < map->var04) {
-        yDelta = yStart - map->var04;
-        yOffset = map->var14 + yDelta;
-        yStart = map->var04 + yDelta;
+    if (bounds[1] < bgLayer->var8->var04) {
+        yDelta = bounds[1] - bgLayer->var8->var04;
+        yOffset = bgLayer->var8->var14 + yDelta;
+        yStart = bgLayer->var8->var04 + yDelta;
         yAdjust = -yDelta;
     }
 
     if (xDelta != 0 && !(bgLayer->field_7C & 1)) {
-        sub_8059310(bgLayer, xStart, xBase, xOffset, map->var14, xAdjust, 0x20);
-        map = bgLayer->var8;
-        map->var10 += xDelta;
-        map->var00 += xDelta;
-        map->var08 += xDelta;
+        unk32 height = 0x20;
+        sub_8059310(
+            bgLayer, xStart, bgLayer->var8->var04, xOffset, bgLayer->var8->var14, xAdjust, height);
+        bgLayer->var8->var10 += xDelta;
+        bgLayer->var8->var00 += xDelta;
+        bgLayer->var8->var08 += xDelta;
         if (bgLayer->field_7C & 8) {
-            if (map->var08 >= bgLayer->columnCount && map->var00 >= bgLayer->columnCount) {
-                map->var00 = map->var00 - bgLayer->columnCount;
-                map->var08 = map->var08 - bgLayer->columnCount;
-                map->var10 &= (1 << *flags) - 1;
+            if (bgLayer->var8->var08 >= bgLayer->columnCount
+                && bgLayer->var8->var00 >= bgLayer->columnCount) {
+                bgLayer->var8->var00 = bgLayer->var8->var00 - bgLayer->columnCount;
+                bgLayer->var8->var08 = bgLayer->var8->var08 - bgLayer->columnCount;
+                bgLayer->var8->var10 &= (1 << *flags) - 1;
                 bgLayer->field_C = bgLayer->field_C - (bgLayer->columnCount << 11);
             } else {
-                map = bgLayer->var8;
-                if (map->var08 < 0 && map->var00 < 0) {
-                    map->var00 += bgLayer->columnCount;
-                    map->var08 += bgLayer->columnCount;
-                    map->var10 &= (1 << bgLayer->field_5F) - 1;
+                if (bgLayer->var8->var08 < 0 && bgLayer->var8->var00 < 0) {
+                    bgLayer->var8->var00 += bgLayer->columnCount;
+                    bgLayer->var8->var08 += bgLayer->columnCount;
+                    bgLayer->var8->var10 &= (1 << bgLayer->field_5F) - 1;
                     bgLayer->field_C += bgLayer->columnCount << 11;
                 }
             }
         }
     }
     if (yDelta != 0 && !(bgLayer->field_7C & 2)) {
-        map = bgLayer->var8;
-        sub_8059310(bgLayer, map->var00, yStart, map->var10, yOffset, 0x20, yAdjust);
-        map = bgLayer->var8;
-        map->var14 += yDelta;
-        map->var04 += yDelta;
-        map->var0C += yDelta;
+        unk32 width = 0x20;
+        sub_8059310(
+            bgLayer, bgLayer->var8->var00, yStart, bgLayer->var8->var10, yOffset, width, yAdjust);
+        bgLayer->var8->var14 += yDelta;
+        bgLayer->var8->var04 += yDelta;
+        bgLayer->var8->var0C += yDelta;
         if (bgLayer->field_7C & 4) {
-            if (map->var0C >= bgLayer->rowCount && map->var04 >= bgLayer->columnCount) {
-                map->var04 = map->var04 - bgLayer->rowCount;
-                map->var0C = map->var0C - bgLayer->rowCount;
+            if (bgLayer->var8->var0C >= bgLayer->rowCount
+                && bgLayer->var8->var04 >= bgLayer->columnCount) {
+                bgLayer->var8->var04 = bgLayer->var8->var04 - bgLayer->rowCount;
+                bgLayer->var8->var0C = bgLayer->var8->var0C - bgLayer->rowCount;
                 bgLayer->field_10 = bgLayer->field_10 - (bgLayer->rowCount << 11);
             } else {
-                map = bgLayer->var8;
-                if (map->var0C < 0 && map->var04 < 0) {
-                    map->var04 += bgLayer->rowCount;
-                    map->var0C += bgLayer->rowCount;
+                if (bgLayer->var8->var0C < 0 && bgLayer->var8->var04 < 0) {
+                    bgLayer->var8->var04 += bgLayer->rowCount;
+                    bgLayer->var8->var0C += bgLayer->rowCount;
                     bgLayer->field_10 += bgLayer->rowCount << 11;
                 }
             }
@@ -645,9 +637,7 @@ void sub_80596AC(void* arg0, unk32 deltaX, unk32 deltaY)
         SetBGOffset(bgLayer->layerIndex, bgLayer->field_40, bgLayer->field_44);
     }
 }
-#endif
 
-INCLUDE_ASM("asm/dump/8057b80-debug/80596ac.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059904.s");
 
 void sub_8059934(void)

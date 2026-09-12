@@ -108,8 +108,22 @@ typedef struct UnkMotion {
     s32 unk14;
 } UnkMotion;
 
+typedef struct FrontendFontData {
+    const unk8* unk0;
+    const unk8* unk4;
+    unk16 unk8;
+    unk8 unkA;
+} FrontendFontData;
+
 typedef struct FrontendSubobjectData {
-    unk8 pad0[0x28];
+    s16 unk0;
+    s16 unk2;
+    unk8 pad4[4];
+    FrontendFontData* unk8;
+    const unk8* unkC[5];
+    unk16 unk20;
+    unk8 pad22[2];
+    FrontendMotionData* unk24;
     FrontendMotionData* unk28;
 } FrontendSubobjectData;
 
@@ -129,11 +143,14 @@ typedef struct FrontendMenuObjectData {
 } FrontendMenuObjectData;
 
 typedef struct FrontendSubobject {
-    unk8 pad0[0x10];
+    unk32 unk0;
+    unk8 pad4[0xC];
     FrontendSubobjectData* unk10;
     s32 unk14;
-    unk8 pad18[8];
+    FrontendSubobjectData* unk18;
+    unk8 pad1C[4];
     FrontendMenuObjectData* unk20;
+    struct FrontendSelectionPalette* palette;
 } FrontendSubobject;
 
 struct BGLayer {
@@ -215,7 +232,7 @@ struct FrontendMotionData {
     unk32 unk18;
     unk32 unk1C;
     unk32 unk20;
-    unk8 pad24[2];
+    unk16 unk24;
     s16 unk26;
 };
 
@@ -223,18 +240,6 @@ typedef struct FrontendSelectionPalette {
     unk32 unk0;
     unk32 unk4;
 } FrontendSelectionPalette;
-
-typedef struct FrontendSelectionData {
-    unk32 unk0;
-    unk8 pad4[0x20];
-    FrontendSelectionPalette* palette;
-} FrontendSelectionData;
-
-typedef struct FrontendSelectionRecord {
-    unk8 pad0[4];
-    FrontendSelectionData* data;
-    unk8 pad8[0x10];
-} FrontendSelectionRecord;
 
 struct FrontendMenuData {
     unk8 pad0[0x24];
@@ -320,7 +325,7 @@ typedef struct FrontendObject {
     unk32 unk0;
     FrontendSubobject* unk4;
     void (*unk8)(FrontendState*, unk32, unk32);
-    void (*unkC)(FrontendState*, unk32);
+    void (*unkC)(void);
     void (*unk10)(FrontendState*, unk32);
     void (*unk14)(FrontendState*, unk32);
 } FrontendObject;
@@ -331,7 +336,7 @@ typedef struct FrontendTransition {
     s8 unk586;
     unk8 pad587[1];
     FrontendStateCallback unk588;
-    unk32 unk58C;
+    void (*unk58C)(void);
     UnkStruct_sub1 unk590; /* 0x590 */
     unk32 unk5A8; /* 0x5A8 */
 } FrontendTransition;
@@ -357,11 +362,11 @@ struct FrontendState {
     unk32 unk8C;
     unk32 unk90;
     unk8 pad94[0x20];
-    FrontendObject* unkB4;
+    const FrontendObject* unkB4;
     BGLayer bgLayers[4]; /* 0xB8 */
     unk8 pad2D8[0x14C];
-    unk32 unk424;
-    unk8 pad428[0x30];
+    AllocatedBlock* unk424;
+    SpriteTextCleanup unk428;
     UnkMotion motion;
     SpriteTextCleanup* unk470;
     unk16 unk474;
