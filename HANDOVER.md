@@ -215,9 +215,11 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   sub_804B754 (rider) MATCHED 2a4e2fb3 — `&_gameData->unk42C[i]` typed
   indexing; merged 11f1cb0d). fails: sub_804DFF4, sub_80658A4.
   sub_805529C (effects; `ProjectileSystem.unk28` → s16 by ldsh) running.
-  **718 C / 307 asm / 70%.** Queue keeps running: next yellows one per
-  agent, distinct TUs (LoadSpriteSheet, sub_804B4FC, allocateParticleSystem,
-  sub_805041C launched).
+  sub_804B4FC merged (22c99385; bare `*(vu16*)REG_VCOUNT;` reads kept).
+  **719 C / 306 asm / 70%.** Queue keeps running, one yellow per agent,
+  distinct TUs; running: sub_805529C (effects), LoadSpriteSheet (sprite),
+  allocateParticleSystem (particle; typing Particle 0x4..0x22 approved),
+  sub_805041C (motion), sub_80659F0 (backup), sub_804B7FC (rider).
 - Skill fold DONE (sol; 23 files archived, 24 bullets touched, 2 corrections:
   agbcc narrows a truncating load of a wider field; the `/256` copy is kept
   by same-object in-place division). docs/learnings top level is empty.
