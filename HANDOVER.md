@@ -49,10 +49,7 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   into `FrontendMenuData` (`FrontendMenu.config` const FrontendMenuData*).
   Review CLEAN. Fold candidate: `x >> 8` into an s16 param ==
   `(x << 8) >> 16`.
-- DMA3Copy (backup, 128 B): luna attempt failed, discarded (user: no park
-  commits). First divergences 0x16 (wait-state register roles), 0x2A
-  (REG_DMA3CNT literal vs `add #8`), 0x34 (`add #2` vs indexed ldrh) —
-  the DMA register-write choreography; draft used REG_DMA3* + DMA_ENABLE.
+- fails: DMA3Copy (backup). Failed attempts are discarded, not parked (user).
 - Merged turorial_804A488 (14559bbc; tutorial, 124 B, old park unparked):
   `LevelState.unk10[2]` → `unk10[1]` (collectable bitset, sub_8056EC0's
   `[i >> 5]`) + `unk14[1]` (tutorial bitset) — the one-word bitset idiom
@@ -216,17 +213,11 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   running; keepalive stopped.**
 - Batch of four smallest yellows (luna, one each, no park commits):
   sub_804B754 (rider) MATCHED 2a4e2fb3 — `&_gameData->unk42C[i]` typed
-  indexing, no header change; review running. sub_804DFF4 (riderphysics)
-  FAILED again, discarded: target has a dead `ldr r0,[r5,#0x70]` at +0x4
-  that every natural form eliminates (would need signed unk198 +
-  unkD2/unk168 fields for the near-match) — same wall as session 7.
-  sub_804B754 merged (11f1cb0d; `state` alias byte-required +0x2).
-  sub_80658A4 (backup) FAILED, discarded: allocation-only from 0x12 (r5/r6
-  zero init, timer pointer r4 vs r5, mask r1 vs r7); one real lead — the
-  config parameter is `const unk16*` (reproduces the `add r0,#2`), not
-  `const TimerConfig*` (backup.h). sub_805529C (effects;
-  `ProjectileSystem.unk28` → s16 by ldsh, audit approved) running.
-  **718 C / 307 asm / 70%.**
+  indexing; merged 11f1cb0d). fails: sub_804DFF4, sub_80658A4.
+  sub_805529C (effects; `ProjectileSystem.unk28` → s16 by ldsh) running.
+  **718 C / 307 asm / 70%.** Queue keeps running: next yellows one per
+  agent, distinct TUs (LoadSpriteSheet, sub_804B4FC, allocateParticleSystem,
+  sub_805041C launched).
 - Skill fold DONE (sol; 23 files archived, 24 bullets touched, 2 corrections:
   agbcc narrows a truncating load of a wider field; the `/256` copy is kept
   by same-object in-place division). docs/learnings top level is empty.
