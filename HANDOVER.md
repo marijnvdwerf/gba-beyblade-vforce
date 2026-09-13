@@ -244,9 +244,10 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   unresolved data pointer (model it). sub_8757CD0 MERGED (325ae5d7; second
   ARM match ever, first try: `MultiPlayerState`, SDK SIO regs, a `src`
   cursor local byte-required). fastMemoryCopy16ARM PARKED (c33e0eae; typed draft, prologue residual:
-  target saves r4 / `subs ip, r2, #0` / args moved to r4,lr). Running:
-  fastMemoryClear16ARM, fastMemoryCopyARM, fastMemoryClearARM (adjacent
-  INCLUDE_ASM lines — expect trivial conflicts at merge).
+  target saves r4 / `subs ip, r2, #0` / args moved to r4,lr). fastMemoryClear16ARM PARKED (8fbe654a; +0x08 `cmp` vs `subs`). Running:
+  fastMemoryCopyARM, fastMemoryClearARM, sound_8757A64 (adjacent
+  INCLUDE_ASM lines; the shared iwram-2026-09-13.md learnings file
+  conflicts on every merge — concatenate).
 - User worktree `.claude/worktrees/raw-decomp-9` (branch raw-decomp-9 from
   main 6ee40ac9, built, expected linked, compare green) — the user's own
   agent works there; review + squash-merge when told, never remove unasked.
