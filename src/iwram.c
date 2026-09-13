@@ -1,5 +1,7 @@
 #include "iwram.h"
 
+#include <agb/memory_map.h>
+
 #include "include_asm.h"
 #include "ram.h"
 
@@ -157,7 +159,20 @@ INCLUDE_ASM("asm/dump/8756a00-iwram/3006fac-fastmemorycleararm.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/3007034-fastmemorycopyarm.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/30070b8-fastmemoryclear16arm.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/300711c-fastmemorycopy16arm.s");
-INCLUDE_ASM("asm/dump/8756a00-iwram/8757cd0-sub_8757cd0.s");
+
+void sub_8757CD0(void)
+{
+    MultiPlayerState* state;
+    unk16* src;
+
+    state = _unk3005DC4;
+    src = state->unk3C;
+    *(vu16*)REG_SIOMLT_SEND = *src++;
+    *(vu16*)REG_SIOCNT |= 0x80;
+    state->unk3C = src;
+    state->unk0++;
+}
+
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757d24-sub_8757d24.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757e4c-sub_8757e4c.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757fcc-sub_8757fcc.s");
