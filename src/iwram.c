@@ -153,6 +153,168 @@ INCLUDE_ASM("asm/dump/8756a00-iwram/8757380-sub_8757380.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757494-sub_8757494.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757574-sub_8757574.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/87576d8-sub_87576d8.s");
+#if 0
+typedef struct SoundSample87577B4 SoundSample87577B4;
+typedef struct SoundChannel87577B4 SoundChannel87577B4;
+
+struct SoundSample87577B4 {
+    unk8 var00;
+    unk8 pad01[3];
+    unk32 var04;
+    unk32 var08;
+    unk8 pad0C[4];
+    s8 data[0];
+};
+
+struct SoundChannel87577B4 {
+    SoundSample87577B4* var00;
+    s8* var04;
+    unk32 var08;
+    unk32 var0C;
+    unk16 var10;
+    unk8 pad12[2];
+    s16 var14;
+    unk8 var16;
+    unk8 var17;
+    unk32 var18;
+    SoundSample87577B4** var1C;
+    s16* var20;
+    unk16 var24;
+    unk8 pad26[2];
+};
+
+extern s16* _soundMixerPlus;
+extern unk8 _unk3005E78;
+extern const s16 Unk_8755F00[][16];
+extern const unk8 Unk_8756520[][8];
+
+void sub_87577B4(SoundChannel87577B4* channel, unk32 arg1, unk32 arg2)
+{
+    SoundSample87577B4* sample;
+    s8* source;
+    s16* destination;
+    unk32 phase;
+    unk32 step;
+    unk32 scaled;
+    s32 mixed;
+    s16 orderIndex;
+    s32 endDistance;
+    unk32 index;
+    unk32 nextIndex;
+    s32 max;
+    s32 min;
+    s32 position;
+    unk8 predictor;
+    unk8 value;
+    s32 segmentIndex;
+    s32 count;
+
+    scaled = arg2 * channel->var10;
+    phase = channel->var0C;
+    destination = _soundMixerPlus;
+    source = channel->var04;
+    sample = channel->var00;
+    step = channel->var08;
+    scaled >>= 12;
+    endDistance = source + (arg1 >> 1) - (sample->data + sample->var04 + 0x10);
+    count = arg1;
+    if (sample->var00 != 0) {
+        if (endDistance > 0) {
+            count = arg1 - (endDistance << 1);
+        }
+    }
+
+    _unk3005E78++;
+    if (_unk3005E78 != 1) {
+        if (sample->var00 != 0) {
+            if (sample->var00 == 1) {
+                if (count != 0) {
+                    do {
+                        mixed = *source * scaled;
+                        mixed += *destination;
+                        *destination++ = mixed;
+                        phase += step << 4;
+                        source += step >> 28;
+                        count--;
+                    } while (count >= 0);
+                }
+            }
+        }
+    } else {
+        if (sample->var00 != 0) {
+            if (sample->var00 == 1) {
+                if (count != 0) {
+                    do {
+                        *destination++ = *source * scaled;
+                        phase += step << 4;
+                        source += step >> 28;
+                        count--;
+                    } while (count >= 0);
+                }
+            }
+        } else {
+            count >>= 1;
+            count--;
+            position = channel->var14;
+            predictor = channel->var17;
+            max = 0x7FF;
+            min = 0x80000000;
+            min >>= 20;
+            if (count != -1) {
+                do {
+                    value = *source++;
+                    value ^= 0xEC;
+                    index = value >> 4;
+                    position += Unk_8755F00[predictor][index];
+                    if (position >= max) {
+                        position = max;
+                    }
+                    if (position <= -0x801) {
+                        position = min;
+                    }
+                    *destination++ = scaled * (position >> 3);
+                    nextIndex = Unk_8756520[predictor][index & 7];
+                    position += Unk_8755F00[nextIndex][value & 0xF];
+                    if (position >= max) {
+                        position = max;
+                    }
+                    if (position <= -0x801) {
+                        position = min;
+                    }
+                    *destination++ = scaled * (position >> 3);
+                    predictor = Unk_8756520[nextIndex][value & 7];
+                    if (endDistance >= 0 && count == 0) {
+                        if (channel->var1C != NULL) {
+                            orderIndex = channel->var24++;
+                            segmentIndex = channel->var20[orderIndex];
+                            if (segmentIndex == -1) {
+                                channel->var24 = 1;
+                                segmentIndex = channel->var20[0];
+                            }
+                            sample = channel->var1C[segmentIndex];
+                            count = 0;
+                            if (segmentIndex != -1) {
+                                count = endDistance;
+                                source = sample->data;
+                                channel->var00 = sample;
+                            }
+                            endDistance = -1;
+                            position = 0;
+                            predictor = 0;
+                        }
+                    }
+                    count--;
+                } while (count != -1);
+            }
+            channel->var17 = predictor;
+            channel->var14 = position;
+        }
+    }
+
+    channel->var0C = phase;
+    channel->var04 = source;
+}
+#endif
 INCLUDE_ASM("asm/dump/8756a00-iwram/87577b4-sub_87577b4.s");
 
 #if 0
