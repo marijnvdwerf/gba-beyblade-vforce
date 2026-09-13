@@ -225,9 +225,9 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   Actor/ActorConfig fields typed, four literal temps folded, `|= -1` idiom
   kept by session-8 precedent; its agent also edited MAIN — reverted, diff
   in /tmp/stray-main-edit-actor-*.diff). updateKeyState MATCHED
-  (keystate, c996b0e2), fold pass running. fails: sub_804B624, sub_8060E8C.
-  **722 C / 303 asm / 70%.** Running: sub_804D8D8, sub_804D754
-  (riderphysics), sub_80510FC (gamestate), sub_8065AA0 (backup),
+  (keystate, c996b0e2), fold pass running. fails: sub_804B624, sub_8060E8C, sub_804D754.
+  **722 C / 303 asm / 70%.** Running: sub_804D8D8 (riderphysics),
+  sub_80510FC (gamestate), sub_8063220 (palette), sub_8065AA0 (backup),
   sub_8061684 (spritetext), allocateMenuItems (menu).
 - Skill fold DONE (sol; 23 files archived, 24 bullets touched, 2 corrections:
   agbcc narrows a truncating load of a wider field; the `/256` copy is kept
