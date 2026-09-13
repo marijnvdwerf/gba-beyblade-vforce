@@ -3,6 +3,7 @@
 
 #include "common.h"
 
+void allocateParticleSystem(ParticleSystem*, s32, const SpriteSheet*, unk32, unk32);
 void sub_804E530(ParticleSystem*, unk32);
 void sub_804E560(ParticleSystem*, unk32, unk32, unk32);
 void sub_804E584(ParticleSystem*, unk32, unk32, unk32);

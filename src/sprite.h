@@ -3,11 +3,11 @@
 
 #include "common.h"
 
-typedef struct SpriteSheet {
+struct SpriteSheet {
     unk8 pad0[4];
     unk8 unk4;
     unk8 unk5;
-} SpriteSheet;
+};
 
 struct SpriteEntry {
     SpriteEntry* prev;

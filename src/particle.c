@@ -1,23 +1,22 @@
 #include "particle.h"
 
 #include "common.h"
+#include "debug.h"
 #include "include_asm.h"
 #include "memory.h"
 #include "ram.h"
 #include "sprite.h"
 
 extern const s16 word_8074D64[];
+extern const unk8 Str_8727018[];
 
-#if 0
 void allocateParticleSystem(
-    ParticleSystem* arg0, unk32 arg1, const void* arg2, unk32 arg3, unk32 arg4)
+    ParticleSystem* arg0, s32 arg1, const SpriteSheet* arg2, unk32 arg3, unk32 arg4)
 {
     AllocatedBlock* block;
-    unk8* particle;
+    Particle* particle;
     unk32 bytes;
-    unk32 i;
-    unk32 zero;
-    SpriteEntry* sprite;
+    unk32 count;
 
     arg4 <<= 24;
     bytes = arg1 * 0x24;
@@ -27,17 +26,18 @@ void allocateParticleSystem(
         block = slowAllocate(bytes);
     }
     if (block == NULL) {
-        printf((const unk8*)Str_8727018, bytes);
+        printf(Str_8727018, bytes);
     }
     arg0->unk30 = block;
     arg0->unk6 = 0;
+    count = arg1;
     arg0->count = arg1;
-    arg0->unk0 = (unk32)arg2;
+    arg0->unk0 = arg2;
     particle = NULL;
     if (block != NULL) {
         particle = block->address;
     }
-    arg0->particles = (Particle*)particle;
+    arg0->particles = particle;
     arg0->unkC = arg3;
     arg0->unk20 = 0;
     arg0->unk1C = 0;
@@ -48,33 +48,29 @@ void allocateParticleSystem(
     arg0->unk14 = 0;
     arg0->unk10 = 0;
     if (particle != NULL) {
-        i = arg1 - 1;
-        if (arg1 != 0) {
+        arg1--;
+        if (count != 0) {
             do {
-                zero = 0;
-                sprite = allocSprite(0x80);
-                *(SpriteEntry**)particle = sprite;
-                *(unk16*)(particle + 0x22) = zero;
-                *(unk16*)(particle + 0x20) = zero;
-                *(unk16*)(particle + 0x1E) = zero;
-                *(unk16*)(particle + 0x1C) = zero;
-                *(unk16*)(particle + 0x1A) = zero;
-                *(unk16*)(particle + 0x14) = zero;
-                *(unk16*)(particle + 0x12) = zero;
-                *(unk16*)(particle + 0x10) = zero;
-                *(unk32*)(particle + 0xC) = zero;
-                *(unk32*)(particle + 0x8) = zero;
-                *(unk32*)(particle + 0x4) = zero;
-                if (sprite != NULL) {
-                    LoadSpriteSheet(sprite, arg2, 0, 0xA000, 0, 0, 0, 0);
+                particle->sprite = allocSprite(0x80);
+                particle->unk22 = 0;
+                particle->unk20 = 0;
+                particle->unk1E = 0;
+                particle->unk1C = 0;
+                particle->unk1A = 0;
+                particle->unk14 = 0;
+                particle->unk12 = 0;
+                particle->unk10 = 0;
+                particle->unkC = 0;
+                particle->unk8 = 0;
+                particle->unk4 = 0;
+                if (particle->sprite != NULL) {
+                    LoadSpriteSheet(particle->sprite, arg2, 0, 0xA000, 0, 0, 0, 0);
                 }
-                particle += 0x24;
-            } while (i-- != 0);
+                particle++;
+            } while (arg1-- != 0);
         }
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e468-allocateParticleSystem.s");
 
 void sub_804E530(ParticleSystem* arg0, unk32 arg1)
 {

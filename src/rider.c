@@ -92,7 +92,7 @@ void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4,
         enabled = 1;
     base->unk3E8 = enabled;
     if (enabled != 0) {
-        allocateParticleSystem(&base->unk3EC, 8, (void*)SpriteSheet_86FB40C, arg1);
+        allocateParticleSystem(&base->unk3EC, 8, SpriteSheet_86FB40C, arg1, 1);
         sub_804E584(&base->unk3EC, arg2, arg3, arg5);
     }
     base->unk3D0 = 0;

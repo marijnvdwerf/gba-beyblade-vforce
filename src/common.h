@@ -22,6 +22,7 @@ struct Actor;
 struct RiderBase;
 typedef void (*ActorPositionFunc)(struct Actor*, unk32*);
 typedef struct SpriteEntry SpriteEntry;
+typedef struct SpriteSheet SpriteSheet;
 typedef struct SpriteTextBlock SpriteTextBlock;
 typedef struct SpriteTextCleanup SpriteTextCleanup;
 typedef struct FrontendSelectionObject FrontendSelectionObject;
@@ -656,11 +657,22 @@ typedef struct ParticleFrameData {
 
 typedef struct Particle {
     SpriteEntry* sprite;
-    unk8 pad4[0x20];
+    unk32 unk4;
+    unk32 unk8;
+    unk32 unkC;
+    unk16 unk10;
+    unk16 unk12;
+    unk16 unk14;
+    unk8 pad16[4];
+    unk16 unk1A;
+    unk16 unk1C;
+    unk16 unk1E;
+    unk16 unk20;
+    unk16 unk22;
 } Particle;
 
 typedef struct ParticleSystem {
-    const ParticleFrameData* unk0;
+    const SpriteSheet* unk0;
     s16 count;
     unk16 unk6;
     Particle* particles;
