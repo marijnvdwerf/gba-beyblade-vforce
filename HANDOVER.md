@@ -219,7 +219,16 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   **719 C / 306 asm / 70%.** Queue keeps running, one yellow per agent,
   distinct TUs. fails: sub_805529C, sub_804B7FC, sub_805041C, handleEventListeners, sub_80659F0, initEventListeners, actor_8058638, sub_805EBCC, sub_80539E8 (matches only via `GameData** p = &_gameData` — the `&_spritesFree` alias class; user call if ever wanted), LoadSpriteSheet (×2; the first agent's "typed formal is exact" claim did not reproduce — verify such claims in the worktree before re-spending on them), sub_804E594 (its "green" compare was STALE — reviewers now check rom.gba mtime vs the newest object first). allocateParticleSystem merged (820b2d06; `while (arg1-- != 0)`, s32 count param by the post-decrement lowering, Particle typed, `const SpriteSheet*` through the API; `zero`/`sprite` temps folded, block/bytes/count byte-required). **720 C / 305 asm / 70%.** Running: LoadSpriteSheet (sprite),
   allocateParticleSystem (particle; typing Particle 0x4..0x22 approved),
-  actor_8058638 (actor), sub_804E594 (particle), sub_804D754 (riderphysics), updateKeyState (keystate), sub_80510FC (gamestate), sub_8060E8C (sprite). fails: sub_804B624. Matched, in review: actor_8057C58 (actor, 5203e7e4), updateEnvirenmentActors merged (345c38ee; EnvironmentObject unk2C/30/34/48 unk32, unk38/3C s16 by ldrsh; `s32 count` byte-required +0x104; sub_8054278 prototype → event.h). **721 C / 304 asm / 70%.** Also running: sub_805EBCC (camera), sub_804D8D8 (riderphysics).
+  updateEnvirenmentActors merged (345c38ee; EnvironmentObject unk2C/30/34/48
+  unk32, unk38/3C s16 by ldrsh; `s32 count` byte-required +0x104;
+  sub_8054278 prototype → event.h). actor_8057C58 merged (a3330af3;
+  Actor/ActorConfig fields typed, four literal temps folded, `|= -1` idiom
+  kept by session-8 precedent; its agent also edited MAIN — reverted, diff
+  in /tmp/stray-main-edit-actor-*.diff). updateKeyState MATCHED
+  (keystate, c996b0e2), review running. fails: sub_804B624.
+  **722 C / 303 asm / 70%.** Running: sub_804D8D8, sub_804D754
+  (riderphysics), sub_80510FC (gamestate), sub_8060E8C (sprite),
+  sub_8065AA0 (backup), sub_8061684 (spritetext).
 - Skill fold DONE (sol; 23 files archived, 24 bullets touched, 2 corrections:
   agbcc narrows a truncating load of a wider field; the `/256` copy is kept
   by same-object in-place division). docs/learnings top level is empty.
