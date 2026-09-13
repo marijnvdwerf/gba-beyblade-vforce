@@ -27,17 +27,20 @@ void sub_80631EC(Palette* arg0, unk8* arg1, s32 arg2)
     }
 }
 
-#if 0
-void sub_8063220(Palette* palette, s32 red, s32 green, s32 blue)
+void sub_8063220(Palette* palette, unk32 red, unk32 green, unk32 blue)
 {
     s32 redTarget;
     s32 greenTarget;
     s32 blueTarget;
     s32 step;
     s32 intensity;
-    s32 width;
-    s16 height;
-    s32 col;
+    unk32 width;
+    s32 height;
+    unk32 col;
+    unk32* source;
+    unk32* destination;
+    s32 nextIntensity;
+    s32 nextHeight;
     unk32 color;
     s32 redValue;
     s32 greenValue;
@@ -45,10 +48,6 @@ void sub_8063220(Palette* palette, s32 red, s32 green, s32 blue)
     s32 red2;
     s32 green2;
     s32 blue2;
-    s32 delta;
-    s32 output;
-    unk32* source;
-    unk32* destination;
     unk32* source4;
 
     redTarget = red;
@@ -66,8 +65,9 @@ void sub_8063220(Palette* palette, s32 red, s32 green, s32 blue)
             do {
                 source4 = source;
                 col = 0;
-                height--;
-                if (width > 0) {
+                nextHeight = --height;
+                nextIntensity = step + intensity;
+                if (col < width) {
                     do {
                         color = *source4++;
                         redValue = color & 0x1F;
@@ -82,13 +82,13 @@ void sub_8063220(Palette* palette, s32 red, s32 green, s32 blue)
                         red2 -= (intensity * red2) >> 0xA;
                         green2 -= (intensity * green2) >> 0xA;
                         blue2 -= (intensity * blue2) >> 0xA;
-                        output = redValue | (greenValue << 5) | (blueValue << 0xA) |
-                                 (red2 << 0x10) | (green2 << 0x15) | (blue2 << 0x1A);
-                        *destination++ = output;
+                        *destination++ = redValue | (greenValue << 5) | (blueValue << 0xA)
+                            | (red2 << 0x10) | (green2 << 0x15) | (blue2 << 0x1A);
                         col++;
                     } while (col < width);
                 }
-                intensity += step;
+                intensity = nextIntensity;
+                height = nextHeight;
             } while (height != -1);
         }
         __fastMemoryClearARM(0, destination, width * 4);
@@ -96,11 +96,12 @@ void sub_8063220(Palette* palette, s32 red, s32 green, s32 blue)
     }
     height--;
     while (height != -1) {
+
         source4 = source;
         col = 0;
-        height--;
-        step = step + intensity;
-        if (width > 0) {
+        nextHeight = --height;
+        nextIntensity = step + intensity;
+        if (col < width) {
             do {
                 color = *source4;
                 redValue = color & 0x1F;
@@ -109,41 +110,47 @@ void sub_8063220(Palette* palette, s32 red, s32 green, s32 blue)
                 red2 = (color >> 0x10) & 0x1F;
                 green2 = (color >> 0x15) & 0x1F;
                 blue2 = (color >> 0x1A) & 0x1F;
-                delta = redTarget - redValue;
-                redValue = redValue + ((intensity * delta) >> 0xA);
-                delta = greenTarget - greenValue;
-                greenValue = greenValue + ((intensity * delta) >> 0xA);
-                delta = blueTarget - blueValue;
-                blueValue = blueValue + ((intensity * delta) >> 0xA);
-                delta = redTarget - red2;
-                red2 = red2 + ((intensity * delta) >> 0xA);
-                delta = greenTarget - green2;
-                green2 = green2 + ((intensity * delta) >> 0xA);
-                delta = blueTarget - blue2;
-                blue2 = blue2 + ((intensity * delta) >> 0xA);
-                if (redValue > 0x1F) redValue = 0x1F;
-                if (greenValue > 0x1F) greenValue = 0x1F;
-                if (blueValue > 0x1F) blueValue = 0x1F;
-                if (red2 > 0x1F) red2 = 0x1F;
-                if (green2 > 0x1F) green2 = 0x1F;
-                if (blue2 > 0x1F) blue2 = 0x1F;
-                if (redValue < 0) redValue = 0;
-                if (greenValue < 0) greenValue = 0;
-                if (blueValue < 0) blueValue = 0;
-                if (red2 < 0) red2 = 0;
-                if (green2 < 0) green2 = 0;
-                if (blue2 < 0) blue2 = 0;
-                *destination++ = redValue | (greenValue << 5) | (blueValue << 0xA) |
-                                 (red2 << 0x10) | (green2 << 0x15) | (blue2 << 0x1A);
+                redValue += (intensity * (redTarget - redValue)) >> 0xA;
+                greenValue += (intensity * (greenTarget - greenValue)) >> 0xA;
+                blueValue += (intensity * (blueTarget - blueValue)) >> 0xA;
+                red2 += (intensity * (redTarget - red2)) >> 0xA;
+                green2 += (intensity * (greenTarget - green2)) >> 0xA;
+                blue2 += (intensity * (blueTarget - blue2)) >> 0xA;
+                if (redValue > 0x1F)
+                    redValue = 0x1F;
+                if (greenValue > 0x1F)
+                    greenValue = 0x1F;
+                if (blueValue > 0x1F)
+                    blueValue = 0x1F;
+                if (red2 > 0x1F)
+                    red2 = 0x1F;
+                if (green2 > 0x1F)
+                    green2 = 0x1F;
+                if (blue2 > 0x1F)
+                    blue2 = 0x1F;
+                if (redValue < 0)
+                    redValue = 0;
+                if (greenValue < 0)
+                    greenValue = 0;
+                if (blueValue < 0)
+                    blueValue = 0;
+                if (red2 < 0)
+                    red2 = 0;
+                if (green2 < 0)
+                    green2 = 0;
+                if (blue2 < 0)
+                    blue2 = 0;
+                *destination++ = redValue | (greenValue << 5) | (blueValue << 0xA) | (red2 << 0x10)
+                    | (green2 << 0x15) | (blue2 << 0x1A);
                 source4++;
                 col++;
             } while (col < width);
         }
-        intensity += step;
+        intensity = nextIntensity;
+        height = nextHeight;
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/8063220.s");
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8063454.s");
 
 void sub_8063544(
