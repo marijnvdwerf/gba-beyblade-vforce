@@ -1013,8 +1013,8 @@ typedef struct LineMetaOffset {
 } LineMetaOffset;
 
 typedef struct LineMetaSequence {
-    unk16 unk0;
-    unk16 unk2;
+    s16 unk0;
+    s16 unk2;
 } LineMetaSequence;
 
 typedef union LineMetaObjectValue {
