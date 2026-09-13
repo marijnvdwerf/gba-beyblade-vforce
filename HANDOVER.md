@@ -254,8 +254,12 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   INCLUDE_ASM lines; the shared iwram-2026-09-13.md learnings file
   conflicts on every merge — concatenate).
 - User worktree `.claude/worktrees/raw-decomp-9` (branch raw-decomp-9 from
-  main 6ee40ac9, built, expected linked, compare green) — the user's own
-  agent works there; review + squash-merge when told, never remove unasked.
+  main 6ee40ac9): the user's agent matched FOUR functions our agents failed
+  today — sub_8050C18, newIconMenu (iconmenu), allocateMenuItems (menu),
+  sub_804A908 (trail); common.h +64. Review running (levers + the
+  FrontendMenu layout). `.claude/worktrees/raw-decomp-10` (branch
+  raw-decomp-10 from main) prepped for the user's next batch — never remove
+  user worktrees unasked.
 - Bare-block audit (user: bare `{ … }` scopes are levers): active code has
   four — multiplayer.c sub_80600B4 (three, re-declaring `state`) and
   hud.c:259 sub_804F05C (`text2`). User: reshape without re-parking.
