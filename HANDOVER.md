@@ -236,8 +236,11 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   sub_8060C1C (sprite), freeSpriteVramLocation (sprite — after 8060C1C lands or fails, same TU).
 - Bare-block audit (user: bare `{ … }` scopes are levers): active code has
   four — multiplayer.c sub_80600B4 (three, re-declaring `state`) and
-  hud.c:259 sub_804F05C (`text2`). User: reshape without re-parking. Luna
-  agent on sub_80600B4 running; sub_804F05C queued for the next free slot.
+  hud.c:259 sub_804F05C (`text2`). User: reshape without re-parking.
+  sub_80600B4: the only block-free exact form is three named aliases
+  `state0/1/2` (direct global diverges +0x16, one re-assigned alias +0x04)
+  — same trick, not merged; stays as on main (debt). sub_804F05C agent
+  running.
 - Skill fold DONE (sol; 23 files archived, 24 bullets touched, 2 corrections:
   agbcc narrows a truncating load of a wider field; the `/256` copy is kept
   by same-object in-place division). docs/learnings top level is empty.
