@@ -221,6 +221,7 @@ struct UnkMenuItem {
 };
 
 typedef struct FrontendMenuData FrontendMenuData;
+typedef struct FrontendMenuItemData FrontendMenuItemData;
 typedef struct FrontendMenuItem FrontendMenuItem;
 typedef struct FrontendMenuBlockData FrontendMenuBlockData;
 
@@ -245,45 +246,62 @@ typedef struct FrontendSelectionPalette {
 
 struct FrontendMenuData {
     FrontendMenuBlockData* address;
-    unk8 pad4[0x20];
+    s32 itemCount;
+    s32 scale;
+    unk32 x;
+    unk32 y;
+    s32 unk14;
+    s32 unk18;
+    FrontendMenuItemData* items;
+    s32 unk20;
 };
 
-typedef struct FrontendMenuItemData {
-    unk8 pad0[4];
+struct FrontendMenuItemData {
+    const unk8* spriteSheet;
     const u8* labels[4];
-    unk8 pad14[0xC];
+    unk8 pad14[4];
+    unk32 unk18;
+    unk32 unk1C;
     unk32 nextPosition;
     unk32 previousPosition;
-} FrontendMenuItemData;
+    unk32 unk28;
+    unk32 unk2C;
+};
 
 struct FrontendMenuBlockData {
-    unk8 pad0[0xA];
+    const unk8* spriteSheet;
+    const unk8* font;
+    unk16 tileCount;
     unk8 unkA;
 };
 
 struct FrontendMenuItem {
     FrontendMenuItemData* data;
     SpriteEntry* sprite;
-    unk8 pad8[0xC];
-    unk32 position;
-    unk8 pad18[4];
+    s32 x;
+    s32 y;
+    s32 unk10;
+    s32 position;
+    unk16 unk18;
+    unk8 pad1A[2];
 };
 
 typedef struct FrontendMenu {
     s32 itemCount;
     unk32 selection;
-    unk8 pad8[4];
+    s32 unk8;
     unk32 step;
     unk32 velocity;
     unk32 position;
-    unk32 textPosition;
-    unk32 targetPosition;
-    unk32 timer;
-    unk32 timerTarget;
+    s32 textPosition;
+    s32 targetPosition;
+    s32 timer;
+    s32 timerTarget;
     FrontendMenuItem* items;
     const FrontendMenuData* config;
     AllocatedBlock* block;
-    unk8 pad34[8];
+    unk32 unk34;
+    unk32 unk38;
     unk16 flags;
     unk8 pad3E[2];
     SpriteTextCleanup text;
@@ -399,12 +417,14 @@ typedef struct SpriteTrailSheet {
 } SpriteTrailSheet;
 
 typedef struct SpriteTrailEntry {
-    unk8 pad0[0xC];
-    unk16 unkC;
-    unk16 unkE;
+    unk32 unk0;
+    unk32 unk4;
+    unk8 pad8[4];
+    s16 unkC;
+    s16 unkE;
     unk16 unk10;
-    unk16 unk12;
-    unk16 unk14;
+    s16 unk12;
+    s16 unk14;
     unk16 unk16;
     SpriteEntry* sprite;
 } SpriteTrailEntry;
@@ -421,9 +441,9 @@ typedef struct UnkTrail {
     unk32 unk18;
     unk32 unk1C;
     const SpriteTrailSheet* spriteSheet;
-    unk16 unk24;
+    s16 unk24;
     unk16 unk26;
-    void* unk28;
+    struct CameraState* unk28;
     unk16 unk2C;
 } UnkTrail;
 

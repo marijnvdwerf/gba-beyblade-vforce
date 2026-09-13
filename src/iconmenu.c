@@ -9,185 +9,163 @@
 #include "sprite.h"
 #include "spritetext.h"
 
-typedef struct FrontendMenuFontData {
-    const unk8* spriteSheet;
-    const unk8* font;
-    unk16 tileCount;
-    unk8 unkA;
-    unk8 padB[1];
-} FrontendMenuFontData;
-
-#if 0
 void newIconMenu(FrontendMenu* menu, const FrontendMenuData* data, unk32 count)
 {
     FrontendMenuItem* item;
     FrontendMenuItemData* itemData;
-    FrontendMenuFontData* fontData;
-    s32 size;
+    unk32 size;
     s32 i;
-    s32 offsets[2];
+    s32 offsetX;
+    s32 offsetY;
     s32 angle;
-    SpriteEntry* sprite;
+    unk32 angleIndex;
 
-    size = (data->itemCount * 7) << 2;
+    size = data->itemCount * sizeof(FrontendMenuItem);
     angle = 0x80;
     menu->block = slowAllocate(size);
     if (menu->block == NULL) {
         printf(Str_8729398, size);
     }
-    menu->items = menu->block->address;
+    item = menu->block->address;
+    menu->items = item;
     menu->itemCount = data->itemCount;
     menu->config = data;
     menu->flags = 0;
     menu->unk34 = data->x;
     menu->unk38 = data->y;
-    menu->step = 0x4000 / data->itemCount;
+    menu->step = 0x10000 / data->itemCount;
     menu->velocity = 0;
     menu->position = 0xFFFF - count * menu->step;
     menu->unk8 = menu->position;
     menu->selection = count;
     menu->timer = 0;
     menu->timerTarget = 0;
-    menu->textPosition = data->scale;
     menu->targetPosition = data->scale;
+    menu->textPosition = data->scale;
     itemData = data->items;
-    item = menu->items;
     i = 0;
     while (i < data->itemCount) {
-        offsets[0] = Unk_874CC3C[(angle >> 8) & 0xFF] * data->scale >> 8;
-        offsets[1] = Unk_874CC3C[((angle >> 8) & 0xFF) + 0x40] * data->scale >> 8;
+        angleIndex = (unk8)(angle >> 8);
+        offsetX = Unk_874CC3C[angleIndex] * data->scale >> 8;
+        angleIndex += 0x40;
+        offsetY = Unk_874CC3C[angleIndex] * data->scale >> 8;
         item->data = itemData;
+        item->unk10 = itemData->nextPosition;
+        item->position = i == count ? itemData->previousPosition : itemData->nextPosition;
         item->x = itemData->unk18;
         item->y = itemData->unk1C;
-        item->unk10 = itemData->nextPosition;
-        item->position = itemData->nextPosition;
-        if (i == count) {
-            item->position = itemData->previousPosition;
-        }
         item->sprite = allocSprite(i == count ? 1 : 2);
         item->unk18 = 0;
-        sprite = item->sprite;
-        if (sprite != NULL) {
-            LoadSpriteSheet(sprite, itemData->spriteSheet, data->x - item->x + offsets[0],
-                            data->y - item->y + offsets[1], 0, 2, 0, itemData->tileCount);
+        if (item->sprite != NULL) {
+            unk16 tileCount;
+            LoadSpriteSheet(item->sprite, itemData->spriteSheet, data->x - item->x + offsetX,
+                data->y - item->y + offsetY, 0, 2, 0, tileCount = itemData->unk28);
         }
         item++;
         itemData++;
         angle += menu->step;
         i++;
     }
-    fontData = *(FrontendMenuFontData**)data;
-    allocFont(&menu->text, fontData->spriteSheet, fontData->font,
-              (data->unk14 << 8) >> 16, (data->unk18 << 8) >> 16, 0xF0, fontData->tileCount);
-    itemData = data->items + count;
-    sub_8061660(&menu->text, itemData->labels[getLanguage()], fontData->unkA);
+    allocFont(&menu->text, data->address->spriteSheet, data->address->font, data->unk14 >> 8,
+        data->unk18 >> 8, 0xF0, data->address->tileCount);
+    sub_8061660(&menu->text, menu->config->items[menu->selection].labels[getLanguage()],
+        menu->config->address->unkA);
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050a7c-newIconMenu.s");
 
-#if 0
 void sub_8050C18(FrontendMenu* menu)
 {
     s32 scale;
     FrontendMenuItem* item;
     SpriteEntry* sprite;
     s32 angle;
-    s32 step;
+    unk32 step;
     s32 textPosition;
     s32 offsetX;
     s32 offsetY;
     s32 i;
-    s32 angleIndex;
-    s32 frameOffset;
-    unk16 position;
+    unk32 angleIndex;
+    unk8 frameOffset;
     s32 delta;
     s32 magnitude;
-    FrontendMenu* self;
-    unk32 frameWord;
+    s32 velocity;
 
-    self = menu;
-    angle = self->unk8 + 0x80;
-    step = self->step;
-    textPosition = self->textPosition;
+    angle = menu->unk8 + 0x80;
+    step = menu->step;
+    textPosition = menu->textPosition;
     frameOffset = 0;
-    item = self->items;
+    item = menu->items;
     i = 0;
-    if (i < self->itemCount) {
-        while (1) {
-            angleIndex = (unk8)(angle >> 8);
-            offsetX = (Unk_874CC3C[angleIndex] * textPosition) >> 8;
-            offsetX = (self->config->unk20 * offsetX) >> 8;
-            angleIndex += 0x40;
-            offsetY = (Unk_874CC3C[angleIndex] * textPosition) >> 8;
-            if (item->sprite != NULL) {
-                sprite = item->sprite;
-                scale = item->unk10;
-                if ((self->flags & 1) != 0 && i == self->selection) {
-                    if (scale > (0x80 << 1)) {
-                        sprite->x += ((0xF0 << 7) - sprite->x
-                                      - ((item->x * scale) >> 8))
-                            >> 3;
-                        sprite->y += ((0xA0 << 7) - sprite->y
-                                      - ((item->y * scale) >> 8))
-                            >> 3;
-                    } else {
-                        sprite->x += ((0xF0 << 7) - sprite->x - item->x) >> 3;
-                        sprite->y += ((0xA0 << 7) - sprite->y - item->y) >> 3;
-                    }
-                    if (self->timer - self->timerTarget > 0x10) {
-                        item->position = 4;
-                    }
-                    if ((self->timer & 3) == 0) {
-                        frameWord = item->data->unk2C.word;
-                        if (sprite->frame.word == item->data->unk2C.half) {
-                            sprite->frame.word = item->data->tileCount;
-                        } else {
-                            sprite->frame.word = frameWord;
-                        }
-                    }
+    while (i < menu->itemCount) {
+        angleIndex = (unk8)(angle >> 8);
+        offsetX = (Unk_874CC3C[angleIndex] * textPosition) >> 8;
+        angleIndex += 0x40;
+        offsetY = (Unk_874CC3C[angleIndex] * textPosition) >> 8;
+        offsetX = (menu->config->unk20 * offsetX) >> 8;
+        if (item->sprite != NULL) {
+            sprite = item->sprite;
+            scale = item->unk10;
+            if ((menu->flags & 1) != 0 && i == menu->selection) {
+                if (scale > 0x100) {
+                    s32 dx = 0x7800 - sprite->x;
+                    s32 dy;
+                    dx -= (item->x * scale) >> 8;
+                    sprite->x += dx >> 3;
+                    dy = 0x5000 - sprite->y;
+                    dy -= (item->y * scale) >> 8;
+                    sprite->y += dy >> 3;
                 } else {
-                    frameOffset = 0;
-                    if (i == self->selection) {
-                        angleIndex = (self->timer << 27) >> 24;
-                        scale += (s16)(unk16)Unk_874CC3C[angleIndex + 0x40] >> 4;
-                        frameOffset = (u8)((s16)(unk16)Unk_874CC3C[angleIndex] >> 6);
-                    }
-                    sprite->x = self->unk34 - ((item->x * scale) >> 8) + offsetX;
-                    sprite->y = self->unk38 - ((item->y * scale) >> 8) + offsetY;
+                    s32 dx = 0x7800 - sprite->x;
+                    s32 dy;
+                    dx -= item->x;
+                    sprite->x += dx >> 3;
+                    dy = 0x5000 - sprite->y;
+                    dy -= item->y;
+                    sprite->y += dy >> 3;
                 }
-                sub_8060F64(sprite, (u16)scale, (u16)scale, frameOffset);
+                if (menu->timer - menu->timerTarget > 0x10) {
+                    item->position = 4;
+                }
+                if ((menu->timer & 3) == 0) {
+                    sprite->frame.word = sprite->frame.word == item->data->unk2C
+                        ? item->data->unk28
+                        : item->data->unk2C;
+                }
+            } else {
+                frameOffset = 0;
+                if (i == menu->selection) {
+                    scale += Unk_874CC3C[(unk8)(menu->timer * 8) + 0x40] >> 4;
+                    frameOffset = Unk_874CC3C[(unk8)(menu->timer * 8)] >> 6;
+                }
+                sprite->x = menu->unk34 - ((item->x * scale) >> 8) + offsetX;
+                sprite->y = menu->unk38 - ((item->y * scale) >> 8) + offsetY;
             }
-            angle += step;
-            item->unk10 += (item->position - item->unk10) >> 3;
-            item++;
-            i++;
-            if (i >= self->itemCount) {
-                break;
-            }
+            sub_8060F64(sprite, scale, scale, frameOffset);
         }
+        angle += step;
+        item->unk10 += (item->position - item->unk10) >> 3;
+        item++;
+        i++;
     }
-    position = self->position;
-    self->position = position;
-    if ((self->flags & 2) == 0) {
-        delta = position - self->unk8;
+    menu->position &= 0xFFFF;
+    if ((menu->flags & 2) == 0) {
+        delta = menu->position - menu->unk8;
         magnitude = delta;
         if (delta < 0) {
             magnitude = -delta;
         }
-        if (magnitude > (0x80 << 8)) {
-            magnitude += 0xFFFF0100;
+        if (magnitude > 0x8000) {
+            magnitude -= 0xFF00;
         }
-        self->velocity = magnitude >> 3;
+        velocity = magnitude >> 3;
         if (delta < 0) {
-            self->velocity = -self->velocity;
+            velocity = -velocity;
         }
+        menu->velocity = velocity;
     }
-    self->unk8 = (self->unk8 + self->velocity) & 0xFFFF;
-    self->timer++;
-    self->textPosition += (self->targetPosition - self->textPosition) >> 3;
+    menu->unk8 = (menu->unk8 + menu->velocity) & 0xFFFF;
+    menu->timer++;
+    menu->textPosition += (menu->targetPosition - menu->textPosition) >> 3;
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050c18.s");
 
 void sub_8050DF8(FrontendMenu* menu, s32 index)
 {

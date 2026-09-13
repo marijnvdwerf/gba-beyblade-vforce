@@ -3,8 +3,11 @@
 #include <agb/types.h>
 
 #include "include_asm.h"
+#include "memory.h"
 #include "spritetext.h"
 #include "unsorted.h"
+
+extern const unk8 Str_8755370[];
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805ac28.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ac5c.s");
@@ -94,71 +97,51 @@ void sub_805AD9C(MenuState* state)
     state->unk9 = 0;
 }
 
-#if 0
-void allocateMenuItems(MenuState* state, const MenuItemDescriptor* descriptors, unk32 selected)
+void allocateMenuItems(MenuState* state, const MenuItemDescriptor* descriptor, unk32 selected)
 {
     UnkMenuItem* item;
     UnkMenuItem* nextItem;
-    UnkMenuItem* itemNext;
-    MenuItemDescriptor* base;
-    MenuItemDescriptor* descriptor;
-    MenuItemDescriptor* descriptorNext;
+    const MenuItemDescriptor* descriptors;
     const MenuOptionSet* descriptorTable;
-    const unk8* stateByte;
     unk32 itemCount;
-    unk32 language;
     unk32 enabledCount;
-    unk32 totalCount;
     unk32 index;
     unk32 secondaryCount;
-    unk32 size;
-    s32 difference;
     unk32 center;
-    unk32 currentCenter;
 
-    base = descriptors;
+    descriptors = descriptor;
     itemCount = 0;
     index = 0;
-    state->unk24 = selected;
     enabledCount = 0;
-    language = state->unk8;
-    if (base->labels[language] != NULL) {
-        do {
-            if ((descriptors->flags & 1) != 0)
-                enabledCount++;
-            descriptors++;
-            itemCount++;
-        } while (descriptors->labels[language] != NULL);
+    state->unk24 = selected;
+    while (descriptors->labels[state->unk8] != NULL) {
+        if ((descriptors->flags & 1) != 0)
+            enabledCount++;
+        descriptors++;
+        itemCount++;
     }
-    totalCount = itemCount + enabledCount;
-    state->unk9 = state->unkA * totalCount;
-    difference = 0xA0 - state->unk9;
-    center = (difference + (difference >> 31)) >> 1;
-    center += state->unk20;
+    state->unk9 = state->unkA * (itemCount + enabledCount);
+    center = (0xA0 - state->unk9) / 2 + state->unk20;
     state->itemCount = itemCount;
-    state->objectCount = totalCount;
-    size = totalCount * 0x4C;
-    state->menuBlock = slowAllocate(size);
-    if (state->menuBlock == NULL)
+    state->objectCount = itemCount + enabledCount;
+    state->unk10 = slowAllocate((itemCount + enabledCount) * sizeof(UnkMenuItem));
+    if (state->unk10 == NULL)
         printf(Str_8755370);
-    item = state->menuBlock->address;
-    state->items = item;
-    nextItem = item + itemCount;
-    descriptor = base;
+    state->items = state->unk10->address;
+    item = state->items;
+    nextItem = item + state->itemCount;
     while (descriptor->labels[state->unk8] != NULL) {
-        itemNext = item + 1;
-        descriptorNext = descriptor + 1;
         secondaryCount = 0;
-        descriptorTable = descriptor->subitems;
-        if (descriptorTable != NULL) {
+        if (descriptor->subitems != NULL) {
+            descriptorTable = descriptor->subitems;
             while (descriptorTable->values[state->unk8] != NULL) {
                 descriptorTable++;
                 secondaryCount++;
             }
         }
-        currentCenter = center + descriptor->y;
-        allocFont(&item->text, state->unk0, state->unk4, state->unk1C + descriptor->x,
-            currentCenter, state->unk28, 2);
+        center += descriptor->y;
+        allocFont(&item->text, state->unk0, state->unk4, state->unk1C + descriptor->x, center,
+            state->unk28, 2);
         item->unk30 = descriptor->labels[state->unk8];
         item->flags = descriptor->flags;
         item->options = descriptor->subitems;
@@ -168,9 +151,9 @@ void allocateMenuItems(MenuState* state, const MenuItemDescriptor* descriptors, 
         item->next = NULL;
         sub_805AC80(state, item);
         if (descriptor->subitems != NULL && (descriptor->flags & 1) != 0) {
-            currentCenter += state->unkA;
-            allocFont(&nextItem->text, state->unk0, state->unk4,
-                state->unk1C + descriptor->x, currentCenter, state->unk28, 2);
+            center += state->unkA;
+            allocFont(&nextItem->text, state->unk0, state->unk4, state->unk1C + descriptor->x,
+                center, state->unk28, 2);
             nextItem->unk30 = NULL;
             nextItem->flags = descriptor->flags;
             nextItem->options = descriptor->subitems;
@@ -184,20 +167,13 @@ void allocateMenuItems(MenuState* state, const MenuItemDescriptor* descriptors, 
             sub_805AC80(state, nextItem);
             nextItem++;
         }
-        if (index == selected)
-            stateByte = &state->unk2E;
-        else
-            stateByte = &state->unk2C;
-        sub_806185C(item, *stateByte);
-        index++;
-        item = itemNext;
-        center = currentCenter + state->unkA;
-        descriptor = descriptorNext;
+        sub_806185C(item, index++ == selected ? state->unk2E : state->unk2C);
+        item++;
+        center += state->unkA;
+        descriptor++;
     }
 }
 
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/805add4-allocateMenuItems.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805afb8-nullsub_48.s");
 
 unk32 sub_805AFBC(MenuState* state, u8 arg1)
