@@ -217,9 +217,9 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   sub_805529C (effects; `ProjectileSystem.unk28` → s16 by ldsh) running.
   sub_804B4FC merged (22c99385; bare `*(vu16*)REG_VCOUNT;` reads kept).
   **719 C / 306 asm / 70%.** Queue keeps running, one yellow per agent,
-  distinct TUs. fails: sub_805529C, sub_804B7FC, sub_805041C, handleEventListeners, sub_80659F0. allocateParticleSystem merged (820b2d06; `while (arg1-- != 0)`, s32 count param by the post-decrement lowering, Particle typed, `const SpriteSheet*` through the API; `zero`/`sprite` temps folded, block/bytes/count byte-required). **720 C / 305 asm / 70%.** Running: LoadSpriteSheet (sprite),
+  distinct TUs. fails: sub_805529C, sub_804B7FC, sub_805041C, handleEventListeners, sub_80659F0, initEventListeners. allocateParticleSystem merged (820b2d06; `while (arg1-- != 0)`, s32 count param by the post-decrement lowering, Particle typed, `const SpriteSheet*` through the API; `zero`/`sprite` temps folded, block/bytes/count byte-required). **720 C / 305 asm / 70%.** Running: LoadSpriteSheet (sprite),
   allocateParticleSystem (particle; typing Particle 0x4..0x22 approved),
-  actor_8058638 (actor), sub_80539E8 (gameinit), initEventListeners (event), updateEnvirenmentActors (envactor), sub_804E594 (particle).
+  actor_8058638 (actor), sub_804E594 (particle), sub_804B624 (rider), LoadSpriteSheet retry (typed `const SpriteSheet*` formal is instruction-exact; callers get typed, not cast). Matched, in review: sub_80539E8 (gameinit, c79bdfa6; LevelDescription.unk30/34, GameData.unkB54/55), updateEnvirenmentActors (envactor, 22cc8108; EnvironmentObject fields).
 - Skill fold DONE (sol; 23 files archived, 24 bullets touched, 2 corrections:
   agbcc narrows a truncating load of a wider field; the `/256` copy is kept
   by same-object in-place division). docs/learnings top level is empty.
