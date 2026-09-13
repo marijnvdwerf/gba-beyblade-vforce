@@ -229,6 +229,10 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   **724 C / 301 asm / 71%.** Running: sub_805E8D8 (camera, MATCHED c9af6538 after replacing a `(p - (i * -1))` lever with an in-argument record-alias assignment — sanctioned TODO to be added at merge; review running), renderActor (actor), sub_804EA88 (particle),
   sub_80510FC (gamestate), sub_8063220 (palette), sub_8065AA0 (backup),
   sub_8060C1C (sprite), freeSpriteVramLocation (sprite — after 8060C1C lands or fails, same TU).
+- Bare-block audit (user: bare `{ … }` scopes are levers): active code has
+  four — multiplayer.c sub_80600B4 (three, re-declaring `state`) and
+  hud.c:259 sub_804F05C (`text2`). User: reshape without re-parking. Luna
+  agent on sub_80600B4 running; sub_804F05C queued for the next free slot.
 - Skill fold DONE (sol; 23 files archived, 24 bullets touched, 2 corrections:
   agbcc narrows a truncating load of a wider field; the `/256` copy is kept
   by same-object in-place division). docs/learnings top level is empty.
