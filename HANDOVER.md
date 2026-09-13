@@ -243,9 +243,10 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   sub_8757D24 296, sub_8757E4C 384, sub_8757FCC 488); `_unk3000C0C` is an
   unresolved data pointer (model it). sub_8757CD0 MERGED (325ae5d7; second
   ARM match ever, first try: `MultiPlayerState`, SDK SIO regs, a `src`
-  cursor local byte-required). Running: fastMemoryCopy16ARM,
-  fastMemoryClear16ARM (adjacent INCLUDE_ASM lines — expect a trivial
-  conflict at the second merge).
+  cursor local byte-required). fastMemoryCopy16ARM PARKED (c33e0eae; typed draft, prologue residual:
+  target saves r4 / `subs ip, r2, #0` / args moved to r4,lr). Running:
+  fastMemoryClear16ARM, fastMemoryCopyARM, fastMemoryClearARM (adjacent
+  INCLUDE_ASM lines — expect trivial conflicts at merge).
 - User worktree `.claude/worktrees/raw-decomp-9` (branch raw-decomp-9 from
   main 6ee40ac9, built, expected linked, compare green) — the user's own
   agent works there; review + squash-merge when told, never remove unasked.
