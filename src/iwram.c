@@ -154,6 +154,46 @@ INCLUDE_ASM("asm/dump/8756a00-iwram/8757494-sub_8757494.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757574-sub_8757574.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/87576d8-sub_87576d8.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/87577b4-sub_87577b4.s");
+
+#if 0
+void sound_8757A64(void* destinationArg, s32 length, s32 offset)
+{
+    extern s16(*_soundMixerPlus)[];
+    extern unk8 _unk3005E78;
+    unk8* destination;
+    s16* source;
+    s16 sample16;
+    s32 sample;
+
+    source = &(*_soundMixerPlus)[offset];
+    destination = destinationArg;
+    if (destination != NULL && length != 0) {
+        if (_unk3005E78 != 0) {
+            do {
+                sample16 = *source++;
+                sample = sample16 >> 4;
+                if (sample < -128) {
+                    sample = ~0x7F;
+                }
+                if (sample > 127) {
+                    sample = 127;
+                }
+                *destination++ = sample;
+                length--;
+            } while (length >= 0);
+        } else {
+            length--;
+            if (length == -1) {
+                return;
+            }
+            do {
+                length--;
+                *destination++ = _unk3005E78;
+            } while (length != -1);
+        }
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757a64-sound_8757a64.s");
 #if 0
 void fastMemoryClearARM(unk32 value, void* destinationArg, unk32 byteCount)

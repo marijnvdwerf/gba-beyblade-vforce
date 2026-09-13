@@ -17,7 +17,7 @@ void sub_8757494(void);
 void sub_8757574(void);
 void sub_87576D8(const unk32*, unk32, unk32, unk32, RiderTile*, const unk32*);
 void sub_87577B4(void);
-void sound_8757A64(void);
+void sound_8757A64(void*, s32, s32);
 void fastMemoryClearARM(unk32, void*, unk32);
 void fastMemoryCopyARM(const void*, void*, unk32);
 void fastMemoryClear16ARM(unk32, void*, unk32);
