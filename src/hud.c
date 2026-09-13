@@ -256,7 +256,7 @@ void sub_804F05C(LevelHudData* arg0)
     if (state->unk11C != NULL) {
         state->unk11C->y = y;
     }
-    {
+    { // TODO: remove bare block (lifetime shaping)
         SpriteTextCleanup* text2;
 
         text2 = &state->text2;

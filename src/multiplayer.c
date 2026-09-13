@@ -133,7 +133,7 @@ void sub_80600B4(void)
     unk32 size;
     unk32 zero;
 
-    {
+    { // TODO: remove bare block (lifetime shaping)
         MultiPlayerState* state;
 
         state = _unk3005DC4;
@@ -141,7 +141,7 @@ void sub_80600B4(void)
         size = (size + state->unk4 * size) * 2;
     }
     DisableInterrupt(0xC0);
-    {
+    { // TODO: remove bare block (lifetime shaping)
         MultiPlayerState* state;
 
         state = _unk3005DC4;
@@ -155,7 +155,7 @@ void sub_80600B4(void)
     _unk3005DC4->unk14 = zero;
     _unk3005DC4->unk5 = zero;
     __fastMemoryClearARM(0, _unk3005DC4->unk24, size);
-    {
+    { // TODO: remove bare block (lifetime shaping)
         MultiPlayerState* state;
 
         state = _unk3005DC4;
