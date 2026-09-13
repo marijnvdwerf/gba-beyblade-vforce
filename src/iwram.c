@@ -155,6 +155,41 @@ INCLUDE_ASM("asm/dump/8756a00-iwram/8757574-sub_8757574.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/87576d8-sub_87576d8.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/87577b4-sub_87577b4.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757a64-sound_8757a64.s");
+#if 0
+void fastMemoryClearARM(unk32 value, void* destinationArg, unk32 byteCount)
+{
+    extern const unk8 Str_87566A8[];
+    extern void (*off_807D96C)(const unk8*);
+    unk32* destination;
+    unk32 count;
+
+    destination = destinationArg;
+    count = byteCount;
+    if (count == 0) {
+        return;
+    }
+    if (count & 3) {
+        off_807D96C(Str_87566A8);
+        return;
+    }
+    count >>= 2;
+    if (count & 1) {
+        *destination++ = value;
+    }
+    if (count & 2) {
+        *destination++ = value;
+        *destination++ = value;
+    }
+    count >>= 2;
+    while (count != 0) {
+        *destination++ = value;
+        *destination++ = value;
+        *destination++ = value;
+        *destination++ = value;
+        count--;
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/8756a00-iwram/3006fac-fastmemorycleararm.s");
 #if 0
 void fastMemoryCopyARM(const void* source, void* destination, unk32 bytes)
