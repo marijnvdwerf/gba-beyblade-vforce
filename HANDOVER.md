@@ -225,10 +225,10 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   Actor/ActorConfig fields typed, four literal temps folded, `|= -1` idiom
   kept by session-8 precedent; its agent also edited MAIN — reverted, diff
   in /tmp/stray-main-edit-actor-*.diff). updateKeyState merged
-  (16cc6e87; `count` folded, `timer` chained assignment byte-required +0xA8). fails: sub_804B624, sub_8060E8C, sub_804D754.
+  (16cc6e87; `count` folded, `timer` chained assignment byte-required +0xA8). fails: sub_804B624, sub_8060E8C, sub_804D754, allocateMenuItems. sub_8061684 MATCHED (spritetext, 7aec25d0), review running.
   **723 C / 302 asm / 70%.** Running: sub_804D8D8 (riderphysics), sub_804A908 (trail),
   sub_80510FC (gamestate), sub_8063220 (palette), sub_8065AA0 (backup),
-  sub_8061684 (spritetext), allocateMenuItems (menu).
+  renderEnvironmentActors (envactor).
 - Skill fold DONE (sol; 23 files archived, 24 bullets touched, 2 corrections:
   agbcc narrows a truncating load of a wider field; the `/256` copy is kept
   by same-object in-place division). docs/learnings top level is empty.
