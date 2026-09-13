@@ -246,6 +246,9 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   cursor local byte-required). Running: fastMemoryCopy16ARM,
   fastMemoryClear16ARM (adjacent INCLUDE_ASM lines — expect a trivial
   conflict at the second merge).
+- User worktree `.claude/worktrees/raw-decomp-9` (branch raw-decomp-9 from
+  main 6ee40ac9, built, expected linked, compare green) — the user's own
+  agent works there; review + squash-merge when told, never remove unasked.
 - Bare-block audit (user: bare `{ … }` scopes are levers): active code has
   four — multiplayer.c sub_80600B4 (three, re-declaring `state`) and
   hud.c:259 sub_804F05C (`text2`). User: reshape without re-parking.
