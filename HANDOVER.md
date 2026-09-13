@@ -263,6 +263,20 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   `.claude/worktrees/raw-decomp-10` (branch raw-decomp-10 from main) is the
   user's next batch — never remove user worktrees unasked; raw-decomp-9
   worktree/branch left for the user to delete.
+- sub_8047494 (festate, 0x08047494, no C caller — signature must be
+  inferred; user is looking at it in raw-decomp-10). From the m2c pass:
+  `void sub_8047494(FrontendBladeState* state, const BeybladeData* blade,
+  u8 uploadPalette)`. `blade`: `BeybladeData` — `palette` 0x28 (copied
+  0x20 B to OBJ_PLTT 0x05000200 when `uploadPalette`), `spriteSheet` 0x2C
+  (LoadSpriteSheet(state->unk0, blade->spriteSheet, state->unk0->x?, 0x3800,
+  0, 0, 0, 0)); the leading `pad0[0x28]` is two 5-entry language string
+  tables (`const unk8* name[5]` at 0x0, a second `const unk8* [5]` at
+  0x14). `state` (FrontendBladeState, ram.h): unk0 SpriteEntry* (blade),
+  unk8/unkC/unk10 SpriteEntry* (`frame.word = 0`, `y = 0xA000`),
+  unk14/unk18/unk1C/unk20 SpriteTextCleanup* (sub_8061660(..., 0xE) /
+  showString(..., 0xF)), unk28/unk2C → sub_8061228's parameter type,
+  unk36 unk8 flags (|= 1, |= 2 when uploadPalette). ROM tables `_806E240`,
+  `_806E31C` are `const unk8* [][5]` (rows +0x14/+0x28).
 - Bare-block audit (user: bare `{ … }` scopes are levers): active code has
   four — multiplayer.c sub_80600B4 (three, re-declaring `state`) and
   hud.c:259 sub_804F05C (`text2`). User: reshape without re-parking.
