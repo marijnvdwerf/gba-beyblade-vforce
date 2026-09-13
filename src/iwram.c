@@ -156,6 +156,52 @@ INCLUDE_ASM("asm/dump/8756a00-iwram/87576d8-sub_87576d8.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/87577b4-sub_87577b4.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757a64-sound_8757a64.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/3006fac-fastmemorycleararm.s");
+#if 0
+void fastMemoryCopyARM(const void* source, void* destination, unk32 bytes)
+{
+    typedef struct Copy2 {
+        unk32 a;
+        unk32 b;
+    } Copy2;
+    typedef struct Copy4 {
+        unk32 a;
+        unk32 b;
+        unk32 c;
+        unk32 d;
+    } Copy4;
+    const Copy4* src = (const Copy4*)source;
+    Copy4* dst = (Copy4*)destination;
+    const Copy2* src2;
+    Copy2* dst2;
+    extern const unk8 Str_87566F8[];
+    extern unk32 (*off_807D96C)(const unk8*, ...);
+
+    if (bytes == 0) {
+        return;
+    }
+    if (bytes & 3) {
+        off_807D96C(Str_87566F8, bytes);
+        return;
+    }
+    bytes >>= 2;
+    if (bytes & 1) {
+        dst->a = src->a;
+        src = (const Copy4*)((const unk32*)src + 1);
+        dst = (Copy4*)((unk32*)dst + 1);
+    }
+    if (bytes & 2) {
+        src2 = (const Copy2*)src;
+        dst2 = (Copy2*)dst;
+        *dst2 = *src2;
+        src = (const Copy4*)(src2 + 1);
+        dst = (Copy4*)(dst2 + 1);
+    }
+    bytes >>= 2;
+    for (; bytes != 0; bytes--, src++, dst++) {
+        *dst = *src;
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/8756a00-iwram/3007034-fastmemorycopyarm.s");
 #if 0
 void fastMemoryClear16ARM(unk32 fill, void* destination, unk32 byteCount)
