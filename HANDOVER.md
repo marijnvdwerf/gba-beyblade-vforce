@@ -231,9 +231,9 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   Merge chain broke once: update-expected self-check failed because the
   camera agent edited MAIN (src/camera.c) mid-merge — reverted, diff in
   /tmp/stray-main-edit-camera-*.diff; palette squash was swept into the
-  handover commit (amended). **726 C / 299 asm / 71%.** fails: renderActor, sub_805E8D8, sub_8060C1C, initRider, sub_80526C8, sub_804EA88, sub_8056610, sub_80627F0, freeSpriteVramLocation, sub_804DDF8, resizeSpriteBlock, sub_8056910. Skill fold merged (25 files archived; the fold first wrote bare scopes / duplicate aliases / pointer-comparison rewrites as PERMITTED levers — inverted, corrected before merge; the classifier blocks the fold agent's `git mv`, manager moves the files). Running: sub_804EA88 (particle),
+  handover commit (amended). **726 C / 299 asm / 71%.** fails: renderActor, sub_805E8D8, sub_8060C1C, initRider, sub_80526C8, sub_804EA88, sub_8056610, sub_80627F0, freeSpriteVramLocation, sub_804DDF8, resizeSpriteBlock, sub_8056910, s_rider_804C4B4. Skill fold merged (25 files archived; the fold first wrote bare scopes / duplicate aliases / pointer-comparison rewrites as PERMITTED levers — inverted, corrected before merge; the classifier blocks the fold agent's `git mv`, manager moves the files). Running: sub_804EA88 (particle),
   sub_80510FC (gamestate), sub_8063220 (palette), sub_8065AA0 (backup),
-  s_rider_804C4B4 (riderphysics), sub_80561EC (collision).
+  sub_80561EC (collision) — the last untried Thumb yellow.
 - ARM bank (src/iwram.c, agbcc_arm -O2; user: a non-matching draft is
   better than nothing — parks allowed here). Scope = functions reached
   from mainLoop: the `📦` data-pointer targets (fastMemoryCopy16ARM 96,
