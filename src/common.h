@@ -690,11 +690,12 @@ typedef struct Particle {
     unk32 unk4;
     unk32 unk8;
     unk32 unkC;
-    unk16 unk10;
-    unk16 unk12;
-    unk16 unk14;
-    unk8 pad16[4];
-    unk16 unk1A;
+    s16 unk10;
+    s16 unk12;
+    s16 unk14;
+    s16 unk16; /* 0x16 */
+    s16 unk18; /* 0x18 */
+    s16 unk1A; /* 0x1A */
     unk16 unk1C;
     unk16 unk1E;
     unk16 unk20;
@@ -706,7 +707,7 @@ typedef struct ParticleSystem {
     s16 count;
     unk16 unk6;
     Particle* particles;
-    unk32 unkC;
+    BGLayer* unkC;
     unk32 unk10;
     unk32 unk14;
     unk32 unk18;
