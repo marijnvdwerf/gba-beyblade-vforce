@@ -13,8 +13,6 @@ extern const s16 Unk_874CC3C[];
 extern s16 Unk_872CC3C[];
 
 unk32 sub_8059284(BGLayer* r0, unk16 r1, unk16 r2);
-vu16* GetBGLayerHOffsetPtr(u8 layer);
-vu16* GetBGLayerVOffsetPtr(u8 layer);
 
 void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgPriority, u16 sp0);
 

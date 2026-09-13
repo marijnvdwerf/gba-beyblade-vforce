@@ -162,7 +162,7 @@ typedef struct ProjectileSystem {
     unk32 unk1C;
     unk32 unk20;
     unk32 unk24;
-    unk16 unk28;
+    s16 unk28;
     unk8 pad2A[2];
     unk32 unk2C;
     unk32 unk30;
