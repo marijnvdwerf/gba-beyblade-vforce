@@ -177,6 +177,7 @@ void sub_804F05C(LevelHudData* arg0)
     s32 time;
     s32 y;
     unk8 finalMode;
+    SpriteTextCleanup* text2;
 
     state = arg0;
     state->unk128 = state->unk128 + ((state->unk12A - state->unk128) >> 4);
@@ -256,13 +257,9 @@ void sub_804F05C(LevelHudData* arg0)
     if (state->unk11C != NULL) {
         state->unk11C->y = y;
     }
-    { // TODO: remove bare block (lifetime shaping)
-        SpriteTextCleanup* text2;
-
-        text2 = &state->text2;
-        temp = y >> 8;
-        sub_8061844(text2, 0xA, temp + 0x14);
-    }
+    text2 = &state->text2;
+    temp = y >> 8;
+    sub_8061844(text2, 0xA, temp + 0x14);
     if (sub_8051780(4) == 0) {
         sub_8061844(&state->text3, 0xD0, temp + 4);
         state->unk124->y = y;
