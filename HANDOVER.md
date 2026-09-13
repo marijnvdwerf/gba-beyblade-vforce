@@ -217,7 +217,7 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   sub_805529C (effects; `ProjectileSystem.unk28` → s16 by ldsh) running.
   sub_804B4FC merged (22c99385; bare `*(vu16*)REG_VCOUNT;` reads kept).
   **719 C / 306 asm / 70%.** Queue keeps running, one yellow per agent,
-  distinct TUs. fails: sub_805529C, sub_804B7FC, sub_805041C, handleEventListeners, sub_80659F0, initEventListeners, actor_8058638, sub_805EBCC, sub_80539E8 (matches only via `GameData** p = &_gameData` — the `&_spritesFree` alias class; user call if ever wanted), LoadSpriteSheet (×2; the first agent's "typed formal is exact" claim did not reproduce — verify such claims in the worktree before re-spending on them), sub_804E594 (its "green" compare was STALE — reviewers now check rom.gba mtime vs the newest object first). allocateParticleSystem merged (820b2d06; `while (arg1-- != 0)`, s32 count param by the post-decrement lowering, Particle typed, `const SpriteSheet*` through the API; `zero`/`sprite` temps folded, block/bytes/count byte-required). **720 C / 305 asm / 70%.** Running: LoadSpriteSheet (sprite),
+  distinct TUs. fails: sub_805529C, sub_804B7FC, sub_805041C, handleEventListeners, sub_80659F0, initEventListeners, actor_8058638, sub_805EBCC, sub_80539E8, LoadSpriteSheet, sub_804E594. allocateParticleSystem merged (820b2d06; `while (arg1-- != 0)`, s32 count param by the post-decrement lowering, Particle typed, `const SpriteSheet*` through the API; `zero`/`sprite` temps folded, block/bytes/count byte-required). **720 C / 305 asm / 70%.** Running: LoadSpriteSheet (sprite),
   allocateParticleSystem (particle; typing Particle 0x4..0x22 approved),
   updateEnvirenmentActors merged (345c38ee; EnvironmentObject unk2C/30/34/48
   unk32, unk38/3C s16 by ldrsh; `s32 count` byte-required +0x104;
@@ -225,22 +225,20 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   Actor/ActorConfig fields typed, four literal temps folded, `|= -1` idiom
   kept by session-8 precedent; its agent also edited MAIN — reverted, diff
   in /tmp/stray-main-edit-actor-*.diff). updateKeyState merged
-  (16cc6e87; `count` folded, `timer` chained assignment byte-required +0xA8). fails: sub_804B624, sub_8060E8C, sub_804D754, allocateMenuItems, sub_804A908, renderEnvironmentActors, sub_805E8D8, sub_80510FC (matched, dropped by the user — it needed a bare `{ … }` block to shape a lifetime; bare blocks are a lever, discard on sight — manager missed it on the diff read), sub_8065AA0 (backup.c 0/4 today — every function there retains the config-global address in an extra callee-saved register; skip the TU), sub_804D8D8 (lead kept: `RiderBase.unk40/unk44` are s32 — target `lsl #8; bl __divsi3` + bge; seven matched users stay exact). sub_8061684 merged (ef004498; spritetext, the session-9 0x08 park — `child` staging +0x4E, duplicated child arm and full-word masks all byte-required).
+  (16cc6e87; `count` folded, `timer` chained assignment byte-required +0xA8). fails: sub_804B624, sub_8060E8C, sub_804D754, allocateMenuItems, sub_804A908, renderEnvironmentActors, sub_805E8D8, sub_80510FC (dropped by the user: bare block), sub_8065AA0, sub_804D8D8 (lead: `RiderBase.unk40/unk44` are s32 by __divsi3). sub_8061684 merged (ef004498; spritetext, the session-9 0x08 park — `child` staging +0x4E, duplicated child arm and full-word masks all byte-required).
   sub_8063220 merged (bb03afc2; palette; unk32 formals, all six delta temps
   folded, `nextHeight`/`nextIntensity` staged pair byte-required +0x14/+0x60).
   Merge chain broke once: update-expected self-check failed because the
   camera agent edited MAIN (src/camera.c) mid-merge — reverted, diff in
   /tmp/stray-main-edit-camera-*.diff; palette squash was swept into the
-  handover commit (amended). **726 C / 299 asm / 71%.** fails: renderActor (lead: `Actor.unk3B/unkA0/unkA2/unkA4/unkA5` are signed by ldrsh/ldsb, `ActorConfig.unk10/unk14` exist; the residue is a reload-vs-alias lifetime conflict that only block-scoping "solves"), sub_805E8D8 (its "match" was `index != 0` rewritten as a pointer comparison + staged cursor levers — discarded at the manager's diff read). Running: sub_80627F0 (sound), sub_804EA88 (particle),
+  handover commit (amended). **726 C / 299 asm / 71%.** fails: renderActor, sub_805E8D8. Running: sub_80627F0 (sound), sub_804EA88 (particle),
   sub_80510FC (gamestate), sub_8063220 (palette), sub_8065AA0 (backup),
-  sub_8060C1C (sprite), sub_8056610 (collision), sub_804F05C reshape (hud).
+  sub_8060C1C (sprite), sub_8056610 (collision), sub_80526C8 (gameloop).
 - Bare-block audit (user: bare `{ … }` scopes are levers): active code has
   four — multiplayer.c sub_80600B4 (three, re-declaring `state`) and
   hud.c:259 sub_804F05C (`text2`). User: reshape without re-parking.
-  sub_80600B4: the only block-free exact form is three named aliases
-  `state0/1/2` (direct global diverges +0x16, one re-assigned alias +0x04)
-  — same trick, not merged; stays as on main (debt). sub_804F05C agent
-  running.
+  sub_80600B4: no block-free form (debt, TODO comments on the three
+  blocks). sub_804F05C reshaped (4188dc39: function-scope `text2` alias).
 - Skill fold DONE (sol; 23 files archived, 24 bullets touched, 2 corrections:
   agbcc narrows a truncating load of a wider field; the `/256` copy is kept
   by same-object in-place division). docs/learnings top level is empty.
