@@ -657,6 +657,46 @@ void sub_8757CD0(void)
     state->unk0++;
 }
 
+#if 0
+typedef struct ReceivedWordDraft8757D24 {
+    unk16 value;
+} ReceivedWordDraft8757D24;
+
+void sub_8757D24(void)
+{
+    MultiPlayerState* state;
+    ReceivedWordDraft8757D24* destination;
+    unk32 count;
+    unk16 serialStatus;
+    unk16 index;
+    s16 value;
+    extern void (*__sub_8757E4C)(void);
+
+    state = _unk3005DC4;
+    serialStatus = *(vu16*)REG_SIOCNT;
+    count = state->unk3;
+    if ((serialStatus & 0x40) != 0) {
+        state->unk14 |= 0x80;
+    }
+    destination = _unk3005DC4->unk34;
+    destination += _unk3005DC4->unk1;
+    index = 0;
+    while (index < count) {
+        value = ((vu16*)REG_SIOMULTI0)[index];
+        if (value == -551 && index != 0) {
+            _unk3005DC4->unk14 |= 0x40;
+        }
+        destination->value = value;
+        destination += (_unk3005DC4->unk18 & ~1) >> 1;
+        index++;
+    }
+    _unk3005DC4->unk1++;
+    sub_8757CD0();
+    if (_unk3005DC4->unk0 == (_unk3005DC4->unk18 >> 1)) {
+        _unk3000DF0[6] = __sub_8757E4C;
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757d24-sub_8757d24.s");
 
 #if 0
