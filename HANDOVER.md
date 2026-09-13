@@ -254,13 +254,15 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   prototype `(void*, s32, s32)`). sub_87577B4 PARKED (7dc5c777; +0x14 frame-pointer/mul order, adds/adc cursor). oam_8756CC0 PARKED (3183570e; frame 8 vs 12, r10/r9/r8 roles, conditional-move clipping predicate, affine halfwords; `ARM_sub_8756A84(SpriteEntry*, unk16, s32)` prototype fixed). Running: sub_8757D24, sub_8757E4C, sub_8757FCC (adjacent
   INCLUDE_ASM lines; the shared iwram-2026-09-13.md learnings file
   conflicts on every merge — concatenate).
-- User worktree `.claude/worktrees/raw-decomp-9` (branch raw-decomp-9 from
-  main 6ee40ac9): the user's agent matched FOUR functions our agents failed
-  today — sub_8050C18, newIconMenu (iconmenu), allocateMenuItems (menu),
-  sub_804A908 (trail); common.h +64. Review running (levers + the
-  FrontendMenu layout). `.claude/worktrees/raw-decomp-10` (branch
-  raw-decomp-10 from main) prepped for the user's next batch — never remove
-  user worktrees unasked.
+- Merged user's raw-decomp-9 (3214f860, squash): sub_8050C18, newIconMenu
+  (iconmenu), allocateMenuItems (menu), sub_804A908 (trail) — four
+  functions our agents failed today; FrontendMenu records fully typed in
+  common.h (now backed by matched users). Review 0 blockers / 21 folds:
+  20 byte-required, 1 folded; trail `spacing = 0xD00` literal temp is
+  byte-required at three sites — shipped with the sanctioned TODO.
+  `.claude/worktrees/raw-decomp-10` (branch raw-decomp-10 from main) is the
+  user's next batch — never remove user worktrees unasked; raw-decomp-9
+  worktree/branch left for the user to delete.
 - Bare-block audit (user: bare `{ … }` scopes are levers): active code has
   four — multiplayer.c sub_80600B4 (three, re-declaring `state`) and
   hud.c:259 sub_804F05C (`text2`). User: reshape without re-parking.
