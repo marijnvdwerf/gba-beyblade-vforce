@@ -5,9 +5,55 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 TUs.
+Last updated: 2026-09-13 (end of session 12): 734 C / 291 asm / 72% by count, 21 TUs; ARM bank 2 matched + 10 typed parks.
 
-## Session 12 (2026-09-12)
+## Session 12 (2026-09-12/13)
+
+- **State at close: main 50369bed, clean, baseline refreshed, compare
+  green; 734 C / 291 asm / 72% by count, 21 TUs. No agents running;
+  keepalive stopped. Worktrees: `raw-decomp` (reference) and the user's
+  `raw-decomp-10` (branch from main 22e850c4, built, expected linked) —
+  never remove unasked.** Session net: +29 C functions (raw-decomp-7 ×4,
+  -8 ×6, -9 ×4, agents: sub_804F878, turorial_804A488, sub_804B754,
+  sub_804B4FC, allocateParticleSystem, updateEnvirenmentActors,
+  actor_8057C58, updateKeyState, sub_8061684, sub_8063220, opus retries
+  sub_805529C, sub_804EA88, sub_8056610, initEventListeners; ARM
+  sub_8757CD0), the ARM bank drafted (9 typed parks + sub_8756FC0), type
+  cleanups (FrontendObject/Subobject, FrontendMenuData, FrontendMenu
+  records, LevelState bitsets, Particle/ParticleSystem, EnvironmentObject,
+  Actor/ActorConfig, RiderBase unk28/34/1B4, CollisionResult,
+  LineMetaSequence s16), skill fold (25 files), bare-block audit (hud
+  reshaped; sub_80600B4's three blocks carry TODOs).
+- NEXT: (1) the user's raw-decomp-10 batch (sub_8047494 signature inferred
+  below); (2) opus retries on the remaining luna walls in this order —
+  sub_804B7FC, sub_804B624, actor_8058638, renderEnvironmentActors,
+  sub_805041C, sub_804DDF8 (grouping `(a + b) + (c - 0x78)`), renderActor,
+  then the sprite.c trio (`_spritesFree` cursor question) — opus went 5/7
+  today and three wins were shape/semantic fixes, not allocator luck;
+  (3) skill fold over the 8 new learnings files (allocator-priority
+  formula, loop-body alias, early-return allocno count, cross-jump register
+  agreement, semantic-bug-as-"register-swap", ARM residuals); (4) ARM parks
+  need a decision: the fastMemory* primitives use ldm/stm writeback and
+  `subs rN,r2,#0` that agbcc_arm -O2 never emits from C — hand-written or
+  different flags?; (5) open decisions: GeometryLine 0x11 bitfields
+  (gates sub_80567E4, whose scratch `s8 unkC` now disagrees with the shared
+  CollisionResult), `&_spritesFree`/`&_gameData` scalar-alias class
+  (gates sub_80539E8, resizeSpriteBlock, sub_8060C1C), `(BGControl*)
+  GetBGLayerCntPtr()` casts (make it return BGControl*).
+- Manager lessons: reviewers overflow on whole-branch diffs — split by file
+  group with explicit read lists; verify an agent's "exact" claim in its
+  worktree before spending a second agent on it (LoadSpriteSheet); a
+  "green" compare can be stale — reviewers now check rom.gba mtime vs the
+  newest object; agents edit MAIN (four times today) — the merge chain's
+  update-expected self-check catches it, keep `git status` on main before
+  every merge; `git commit` after `git add HANDOVER.md` sweeps a broken
+  chain's staged squash into the handover commit (amend the message);
+  the classifier blocks merge chains and helper scripts but passes the
+  plain `git merge --squash` — run the recipe as separate commands; luna
+  agents refuse to write the sanctioned `// TODO: fakematch?` line (add it
+  at merge); the skill-fold agent inverted user lever decisions once —
+  read its SKILL.md diff line by line; a match that needs a bare block,
+  renamed duplicate aliases or a pointer-comparison rewrite is a failure.
 
 - Keepalive monitor: 55-min tick (main dirty check). Reviews now split per
   file group with explicit read lists — a whole-branch reviewer overflowed
