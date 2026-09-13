@@ -225,8 +225,8 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   Actor/ActorConfig fields typed, four literal temps folded, `|= -1` idiom
   kept by session-8 precedent; its agent also edited MAIN — reverted, diff
   in /tmp/stray-main-edit-actor-*.diff). updateKeyState merged
-  (16cc6e87; `count` folded, `timer` chained assignment byte-required +0xA8). fails: sub_804B624, sub_8060E8C, sub_804D754, allocateMenuItems, sub_804D8D8 (lead kept: `RiderBase.unk40/unk44` are s32 — target `lsl #8; bl __divsi3` + bge; seven matched users stay exact). sub_8061684 MATCHED (spritetext, 7aec25d0), review running.
-  **723 C / 302 asm / 70%.** Running: sub_804A908 (trail), sub_805E8D8 (camera),
+  (16cc6e87; `count` folded, `timer` chained assignment byte-required +0xA8). fails: sub_804B624, sub_8060E8C, sub_804D754, allocateMenuItems, sub_804D8D8 (lead kept: `RiderBase.unk40/unk44` are s32 — target `lsl #8; bl __divsi3` + bge; seven matched users stay exact). sub_8061684 merged (ef004498; spritetext, the session-9 0x08 park — `child` staging +0x4E, duplicated child arm and full-word masks all byte-required).
+  **724 C / 301 asm / 71%.** Running: sub_804A908 (trail), sub_805E8D8 (camera), renderActor (actor),
   sub_80510FC (gamestate), sub_8063220 (palette), sub_8065AA0 (backup),
   renderEnvironmentActors (envactor).
 - Skill fold DONE (sol; 23 files archived, 24 bullets touched, 2 corrections:
