@@ -658,5 +658,42 @@ void sub_8757CD0(void)
 }
 
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757d24-sub_8757d24.s");
+
+#if 0
+void sub_8757E4C(void)
+{
+    unk8* destination;
+    unk8 count;
+    s16 value;
+    unk16 index;
+    extern void (*__fastMemoryCopyARM)(const void*, void*, unk32);
+
+    count = _unk3005DC4->unk3;
+    index = 0;
+    *(vu16*)REG_TM3CNT_H = 0;
+    *(vu16*)REG_IE &= ~0x40;
+    destination = _unk3005DC4->unk34 + _unk3005DC4->unk1 * 2;
+    while (index < count) {
+        value = ((const volatile s16*)REG_SIOMULTI0)[index];
+        if ((unk16)value == 0xFDD9 && index != 0) {
+            _unk3005DC4->unk14 |= 0x40;
+        }
+        index++;
+        *(s16*)destination = value;
+        destination += _unk3005DC4->unk18 & ~1;
+    }
+    if ((_unk3005DC4->unk14 & 0x40) == 0) {
+        __fastMemoryCopyARM(_unk3005DC4->unk34, _unk3005DC4->unk38, count * _unk3005DC4->unk18);
+    }
+    *(vu16*)REG_SIOMLT_SEND = -551;
+    *(vu16*)REG_SIOCNT |= 0x80;
+    if ((*(vu16*)REG_SIOCNT & 0x40) != 0) {
+        _unk3005DC4->unk14 |= 0x80;
+    }
+    _unk3005DC4->unk1 = 0;
+    _unk3005DC4->unk14 |= 0x200;
+}
+#endif
+
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757e4c-sub_8757e4c.s");
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757fcc-sub_8757fcc.s");
