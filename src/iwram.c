@@ -696,4 +696,61 @@ void sub_8757E4C(void)
 #endif
 
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757e4c-sub_8757e4c.s");
+#if 0
+void sub_8757FCC(void)
+{
+    unk8 special;
+    unk16 index;
+    s16 packetHalf;
+    unk8 value;
+    unk8* destination;
+    s16 serial;
+    unk16* source;
+    extern void (*__fastMemoryCopyARM)(const void*, void*, unk32);
+
+    packetHalf = _unk3005DC4->unk18 >> 1;
+    value = _unk3005DC4->unk0;
+    special = 0;
+    _unk3005DC4->unk14 |= 0x20;
+    if (value >= (unk16)packetHalf) {
+        _unk3005DC4->unk0 = special;
+    } else {
+        _unk3005DC4->unk0 = value + 1;
+    }
+    index = 0;
+    destination = _unk3005DC4->unk34;
+    destination += _unk3005DC4->unk1 * 2;
+    while (index < _unk3005DC4->unk3) {
+        serial = ((vu16*)REG_SIOMULTI0)[index];
+        if (index == 0 && (unk16)serial == 0xFDD9) {
+            special = 1;
+            break;
+        }
+        *(unk16*)destination = serial;
+        index++;
+        destination += _unk3005DC4->unk18 & ~1;
+    }
+    if (_unk3005DC4->unk0 < (unk16)packetHalf) {
+        *(vu16*)REG_SIODATA8 = _unk3005DC4->unk3C[_unk3005DC4->unk0];
+    } else {
+        *(vu16*)REG_SIODATA8 = 0xFDD9;
+    }
+    if (special == 0) {
+        _unk3005DC4->unk1++;
+    } else {
+        source = _unk3005DC4->unk3C;
+        if (_unk3005DC4->unk1 != (unk16)packetHalf) {
+            _unk3005DC4->unk14 |= 0x40;
+        }
+        _unk3005DC4->unk1 = 0;
+        _unk3005DC4->unk3C = _unk3005DC4->unk40;
+        _unk3005DC4->unk40 = source;
+        _unk3005DC4->unk0 = 0;
+        (*__fastMemoryCopyARM)(_unk3005DC4->unk34, _unk3005DC4->unk38, _unk3005DC4->unk3 * (packetHalf * 2));
+    }
+    if ((*(vu16*)REG_SIOCNT & 0x40) != 0) {
+        _unk3005DC4->unk14 |= 0x80;
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/8756a00-iwram/8757fcc-sub_8757fcc.s");
