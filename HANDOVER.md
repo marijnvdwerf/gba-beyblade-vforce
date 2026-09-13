@@ -250,7 +250,8 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   All four fastMemory* primitives are typed parks with one shared residual:
   the target uses ldm/stm writeback and `subs rN,r2,#0` — shapes agbcc_arm
   -O2 never emits from C; likely hand-written or a different compiler/flags
-  (user to judge). Running: sound_8757A64, sub_87577B4 (adjacent
+  (user to judge). sound_8757A64 PARKED (0af7ef0d; `MOV LR,R0` + clamp lowering residual;
+  prototype `(void*, s32, s32)`). Running: sub_87577B4, oam_8756CC0 (adjacent
   INCLUDE_ASM lines; the shared iwram-2026-09-13.md learnings file
   conflicts on every merge — concatenate).
 - User worktree `.claude/worktrees/raw-decomp-9` (branch raw-decomp-9 from
