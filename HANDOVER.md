@@ -241,8 +241,11 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   sound_8757A64 156, sub_87577B4 688, oam_8756CC0 768, sub_8756FC0 960
   parked) plus the ISR-table reds todo.py shows (sub_8757CD0 84,
   sub_8757D24 296, sub_8757E4C 384, sub_8757FCC 488); `_unk3000C0C` is an
-  unresolved data pointer (model it). Running: fastMemoryCopy16ARM,
-  sub_8757CD0 (adjacent INCLUDE_ASM lines — expect a trivial conflict).
+  unresolved data pointer (model it). sub_8757CD0 MERGED (325ae5d7; second
+  ARM match ever, first try: `MultiPlayerState`, SDK SIO regs, a `src`
+  cursor local byte-required). Running: fastMemoryCopy16ARM,
+  fastMemoryClear16ARM (adjacent INCLUDE_ASM lines — expect a trivial
+  conflict at the second merge).
 - Bare-block audit (user: bare `{ … }` scopes are levers): active code has
   four — multiplayer.c sub_80600B4 (three, re-declaring `state`) and
   hud.c:259 sub_804F05C (`text2`). User: reshape without re-parking.
