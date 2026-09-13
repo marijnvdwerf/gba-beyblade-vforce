@@ -234,6 +234,14 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   handover commit (amended). **726 C / 299 asm / 71%.** fails: renderActor, sub_805E8D8, sub_8060C1C, initRider, sub_80526C8, sub_804EA88, sub_8056610, sub_80627F0. Skill fold (sol) running over the 25 unfolded files. Running: sub_804EA88 (particle),
   sub_80510FC (gamestate), sub_8063220 (palette), sub_8065AA0 (backup),
   freeSpriteVramLocation (sprite), sub_8056910 (collision).
+- ARM bank (src/iwram.c, agbcc_arm -O2; user: a non-matching draft is
+  better than nothing — parks allowed here), size order from the map:
+  sub_8757CD0 84, fastMemoryCopy16ARM 96, fastMemoryClear16ARM 100,
+  fastMemoryCopyARM 132, fastMemoryClearARM 136, sound_8757A64 156,
+  sub_87576D8 220, sub_8757494 224, sub_8757380 276, sub_8757D24 296,
+  sub_8757574 356, sub_8757E4C 384, sub_8757FCC 488, ARM_sub_8756A84 572,
+  sub_87577B4 688, oam_8756CC0 768, sub_8756FC0 960 (parked draft). Luna
+  on sub_8757CD0 running; one iwram.c agent at a time (single TU).
 - Bare-block audit (user: bare `{ … }` scopes are levers): active code has
   four — multiplayer.c sub_80600B4 (three, re-declaring `state`) and
   hud.c:259 sub_804F05C (`text2`). User: reshape without re-parking.
