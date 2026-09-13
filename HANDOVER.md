@@ -231,9 +231,9 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   Merge chain broke once: update-expected self-check failed because the
   camera agent edited MAIN (src/camera.c) mid-merge — reverted, diff in
   /tmp/stray-main-edit-camera-*.diff; palette squash was swept into the
-  handover commit (amended). **726 C / 299 asm / 71%.** fails: renderActor, sub_805E8D8. Running: sub_80627F0 (sound), sub_804EA88 (particle),
+  handover commit (amended). **726 C / 299 asm / 71%.** fails: renderActor, sub_805E8D8, sub_8060C1C. Running: sub_80627F0 (sound), sub_804EA88 (particle),
   sub_80510FC (gamestate), sub_8063220 (palette), sub_8065AA0 (backup),
-  sub_8060C1C (sprite), sub_8056610 (collision), sub_80526C8 (gameloop).
+  sub_8056610 (collision), sub_80526C8 (gameloop), freeSpriteVramLocation (sprite).
 - Bare-block audit (user: bare `{ … }` scopes are levers): active code has
   four — multiplayer.c sub_80600B4 (three, re-declaring `state`) and
   hud.c:259 sub_804F05C (`text2`). User: reshape without re-parking.
