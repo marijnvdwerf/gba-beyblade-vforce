@@ -21,59 +21,56 @@ extern const unk8 Str_8729658[];
 extern const unk8 Str_87296A4[];
 extern const unk8 Str_87296D8[];
 extern const unk8 Str_87296E8[];
-#if 0
+
 void initEventListeners(unk32 levelId)
 {
     LevelGeometryAddresses geometry;
-    void* geometryData = loadLevelGeometry(levelId);
-    void* metadata = getLevelMetadata(levelId);
+    LevelGeometryTable* geometryData = loadLevelGeometry(levelId);
+    LineMetadata** metadata = getLevelMetadata(levelId);
     s32 listenerCount = 0;
     s32 maxListeners = 0x20;
     unk32 listenerIds[maxListeners];
-    unk32* listenerPtr;
     s32 i;
-    void* lineMetadata;
+    LineMetadata* lineMetadata;
     AllocatedBlock* block;
+    void* buffer;
     unk32 bytes;
 
     _gameData->unkCA4 = NULL;
     _gameData->unkCA0 = NULL;
     _gameData->unkCA8 = 0;
-    if (metadata != NULL && geometryData != NULL) {
-        getLevelGeometryAddresses(&geometry, geometryData);
-        StoreMetadataAddr(&geometry, metadata);
-        i = 0;
-        if (listenerCount < geometry.unk0->lineCount) {
-            listenerPtr = listenerIds;
-            do {
-                lineMetadata = GetLineMetaData(&geometry, i);
-                if (lineMetadata != NULL
-                    && getLineMetaObjectBytype(&geometry, lineMetadata, 7) != NULL) {
-                    *listenerPtr++ = i;
-                    listenerCount = listenerCount + 1;
-                    if (listenerCount > maxListeners) {
-                        printf((const unk8*)Str_8729658, maxListeners);
-                    }
-                }
-                i++;
-            } while (i < geometry.unk0->lineCount);
-        }
-        if (listenerCount != 0) {
-            bytes = listenerCount * sizeof(unk32);
-            block = slowAllocate(bytes);
-            if (block == NULL) {
-                printf((const unk8*)Str_87296A4, bytes);
+    if (metadata == NULL) {
+        return;
+    }
+    if (geometryData == NULL) {
+        return;
+    }
+    getLevelGeometryAddresses(&geometry, geometryData);
+    StoreMetadataAddr(&geometry, metadata);
+    for (i = 0; i < geometry.unk0->lineCount; i++) {
+        lineMetadata = GetLineMetaData(&geometry, i);
+        if (lineMetadata != NULL && getLineMetaObjectBytype(&geometry, lineMetadata, 7) != NULL) {
+            listenerIds[listenerCount++] = i;
+            if (listenerCount > maxListeners) {
+                printf(Str_8729658, maxListeners);
             }
-            __fastMemoryCopyARM(listenerIds, block->address, bytes);
-            _gameData->unkCA0 = block;
-            _gameData->unkCA4 = block->address;
-            _gameData->unkCA8 = listenerCount;
-            SetRiderGlobal(0);
         }
     }
+    if (listenerCount == 0) {
+        return;
+    }
+    bytes = listenerCount * sizeof(unk32);
+    block = slowAllocate(bytes);
+    if (block == NULL) {
+        printf(Str_87296A4, bytes);
+    }
+    buffer = block->address;
+    __fastMemoryCopyARM(listenerIds, buffer, bytes);
+    _gameData->unkCA0 = block;
+    _gameData->unkCA4 = buffer;
+    _gameData->unkCA8 = listenerCount;
+    SetRiderGlobal(0);
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/80540ec-initEventListeners.s");
 
 void deallocEventListeners(void)
 {
