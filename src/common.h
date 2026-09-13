@@ -742,10 +742,10 @@ typedef struct RiderBase {
     unk32 unk1C;
     unk32 unk20;
     unk32 unk24;
-    unk32 unk28;
+    s32 unk28;
     unk32 unk2C;
     unk32 unk30; /* 0x30 */
-    unk32 unk34;
+    s32 unk34;
     unk32 unk38;
     unk32 unk3C; /* 0x3C */
     unk32 unk40; /* 0x40 */
@@ -766,7 +766,7 @@ typedef struct RiderBase {
     unk32 unk88;
     unk8 pad8C[4];
     unk32 unk90;
-    unk8 pad94[4];
+    unk32 unk94;
     unk16 unk98;
     unk8 pad9A[2];
     unk32 flags;
@@ -780,11 +780,13 @@ typedef struct RiderBase {
     unk32 unkBC;
     unk8 padC0[0xC];
     unk32 unkCC; /* 0xCC */
-    unk8 padD0[0x14];
+    unk8 padD0[0x10];
+    struct GeometryLine* unkE0;
     struct GeometryLine* unkE4;
-    unk8 padE8[4];
+    struct GeometryLine* unkE8;
     struct GeometryLine* unkEC;
-    unk8 padF0[0x2C];
+    unk32 unkF0;
+    unk8 padF4[0x28];
     unk16 unk11C; /* 0x11C */
     unk8 pad11E[0x26];
     unk16 unk144; /* 0x144 */
@@ -797,7 +799,8 @@ typedef struct RiderBase {
     unk8 pad160[0xC];
     unk32 unk16C;
     s32 unk170;
-    unk8 pad174[0x24];
+    unk32 unk174;
+    unk8 pad178[0x20];
     unk32 unk198;
     s32 unk19C; /* 0x19C */
     unk32 unk1A0;
@@ -805,7 +808,7 @@ typedef struct RiderBase {
     unk32 unk1A8; /* 0x1A8 */
     unk32 unk1AC; /* 0x1AC */
     unk32 unk1B0; /* 0x1B0 */
-    unk32 unk1B4; /* 0x1B4 */
+    s32 unk1B4; /* 0x1B4 */
     unk16 unk1B8;
     unk8 pad1BA[2];
     s32 unk1BC;

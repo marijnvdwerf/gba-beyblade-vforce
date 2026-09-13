@@ -380,66 +380,12 @@ unk32 sub_80561EC(CollisionActorDraft* actor, LevelGeometryAddresses* geometry, 
 }
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/80561ec.s");
-#if 0
-typedef struct CollisionLine6610Draft {
-    unk8 pad0[0xD];
-    s8 unkD;
-    s8 unkE;
-    unk8 unkF;
-    unk8 pad10[0x10];
-} CollisionLine6610Draft;
 
-typedef struct CollisionResult6610Draft {
-    unk8 pad0[8];
-    s32 unk8;
-    unk8 unkC;
-    unk8 padD[7];
-    unk32 unk14;
-    unk32 unk18;
-    unk32 unk1C;
-    unk32 unk20;
-    unk32 unk24;
-} CollisionResult6610Draft;
-
-typedef struct CollisionRider6610Draft CollisionRider6610Draft;
-
-struct CollisionRider6610Draft {
-    Actor* unk0;
-    unk8 pad4[0x24];
-    s32 unk28;
-    unk8 pad2C[4];
-    unk32 unk30;
-    s32 unk34;
-    unk32 unk3C;
-    unk8 pad40[0x34];
-    unk32 unk74;
-    unk8 pad78[0x1C];
-    unk32 unk94;
-    unk8 pad98[0x48];
-    CollisionLine6610Draft* unkE0;
-    CollisionLine6610Draft* unkE4;
-    CollisionLine6610Draft* unkE8;
-    unk8 padEC[4];
-    unk32 unkF0;
-    unk8 padF4[0x78];
-    unk32 unk16C;
-    unk32 unk170;
-    unk32 unk174;
-    unk8 pad178[0x3C];
-    s32 unk1B4;
-};
-
-void sub_804ABFC(unk32);
-unk8 RiderHasFlag(CollisionRider6610Draft*, unk32);
-void UnsetRiderFlag(CollisionRider6610Draft*, unk32);
-void sub_80558B8(void);
-void sub_8056610(LevelGeometryAddresses* geometry, CollisionLine6610Draft* line,
-    CollisionRider6610Draft* rider, CollisionResult6610Draft* result)
+void sub_8056610(
+    LevelGeometryAddresses* geometry, GeometryLine* line, RiderBase* rider, CollisionResult* result)
 {
     Actor* actor;
-    unk32 value;
     s32 direction;
-    s32 lineValue;
 
     actor = rider->unk0;
     if (result->unk8 > rider->unk1B4)
@@ -463,8 +409,7 @@ void sub_8056610(LevelGeometryAddresses* geometry, CollisionLine6610Draft* line,
         rider->unk174 = result->unk1C;
         rider->unk16C = result->unk14;
         rider->unk30 = result->unk20;
-        value = result->unk24;
-        rider->unk3C = value;
+        rider->unk3C = result->unk24;
         break;
     case 0x85:
         rider->unk170 = result->unk18;
@@ -473,30 +418,29 @@ void sub_8056610(LevelGeometryAddresses* geometry, CollisionLine6610Draft* line,
         break;
     default:
         if ((result->unkC & 1) != 0) {
-            if (line->unkD >= 0) {
-                rider->unk170 = line->unkD;
+            if (result->unkD >= 0) {
+                rider->unk170 = result->unkD;
                 rider->unk174 = rider->unk28 >> 8;
                 rider->unk16C = 0;
             } else {
-                rider->unk170 = -line->unkD;
+                rider->unk170 = -result->unkD;
                 rider->unk174 = (-rider->unk28) >> 8;
                 rider->unk16C = 0x80;
             }
         } else {
-            lineValue = line->unkE;
-            direction = -lineValue;
+            direction = -result->unkE;
             if (direction >= 0) {
                 rider->unk170 = direction;
                 rider->unk174 = (-rider->unk34) >> 8;
                 rider->unk16C = 0x40;
             } else {
-                rider->unk170 = lineValue;
+                rider->unk170 = result->unkE;
                 rider->unk174 = rider->unk34 >> 8;
                 rider->unk16C = 0xC0;
             }
         }
-        rider->unk30 = line->unkD << 8;
-        rider->unk3C = line->unkE << 8;
+        rider->unk30 = result->unkD << 8;
+        rider->unk3C = result->unkE << 8;
         break;
     }
     rider->unk74 = 0;
@@ -515,8 +459,6 @@ void sub_8056610(LevelGeometryAddresses* geometry, CollisionLine6610Draft* line,
         sub_804E124(rider, line);
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8056610.s");
 
 #if 0
 typedef struct Line80567E4Draft {
