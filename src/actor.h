@@ -3,7 +3,7 @@
 
 #include "common.h"
 
-void actor_8057C58(Actor*, void*, void*, unk32, unk32, unk32, unk32);
+void actor_8057C58(Actor*, ActorConfig*, BGLayer*, unk32, unk32, unk32, unk32);
 void actor_80585F0(Actor*, unk8);
 void sub_80584B8(Actor*);
 void renderActor2(Actor*);

@@ -16,14 +16,9 @@ void sub_8058838(Actor*);
 void actor_8058638(Actor*);
 void renderActor(Actor*, unk32);
 
-#if 0
-void actor_8057C58(
-    Actor* actor, ActorConfig* config, void* arg2, unk32 arg3, unk32 arg4, unk32 arg5, unk32 arg6)
+void actor_8057C58(Actor* actor, ActorConfig* config, BGLayer* arg2, unk32 arg3, unk32 arg4,
+    unk32 arg5, unk32 arg6)
 {
-    unk16 zero;
-    unk8 zero8;
-    unk32 minusOne;
-    unk32 scale;
 
     actor->unk0 = config;
     actor->unk58 = _unk3000E30[0];
@@ -32,67 +27,62 @@ void actor_8057C58(
     actor->x = arg3 << 8;
     actor->y = arg4 << 8;
     actor->z = arg5 << 8;
-    zero8 = 0;
-    zero = 0;
-    actor->unk16 = zero;
-    scale = 0x100;
-    actor->unk12 = scale;
-    actor->unk14 = scale;
-    actor->unkA0 = zero;
-    actor->unkA2 = zero;
-    actor->unkA4 = zero8;
-    actor->unkA5 = zero8;
-    actor->unk40 = zero;
-    actor->unk44 = zero;
-    actor->unk48 = zero;
-    actor->unk4C = zero;
-    actor->unk50 = zero;
-    actor->unk54 = zero;
+    actor->unk16 = 0;
+    actor->unk12 = 0x100;
+    actor->unk14 = 0x100;
+    actor->unkA0 = 0;
+    actor->unkA2 = 0;
+    actor->unkA4 = 0;
+    actor->unkA5 = 0;
+    actor->unk40 = 0;
+    actor->unk44 = 0;
+    actor->unk48 = 0;
+    actor->unk4C = 0;
+    actor->unk50 = 0;
+    actor->unk54 = 0;
     actor->unk68 = 0x10;
-    actor->unk18 = zero;
-    actor->unk64 = zero;
-    actor->unk22 = zero;
-    actor->unk60 |= 0xFFFF;
-    actor->unk1A |= 0xFFFF;
-    actor->unk1C = zero;
-    actor->unk1E = zero;
-    actor->unk20 = zero;
-    actor->unk2C = zero;
-    actor->unk2E |= 0xFFFF;
+    actor->unk18 = 0;
+    actor->unk64 = 0;
+    actor->unk22 = 0;
+    actor->unk60 |= -1;
+    actor->unk1A |= -1;
+    actor->unk1C = 0;
+    actor->unk1E = 0;
+    actor->unk20 = 0;
+    actor->unk2C = 0;
+    actor->unk2E |= -1;
     actor->unk10 = config->unk4;
     actor->unk11 = config->unk5;
     actor->unk30 = config->unk6;
     actor->unk2A = config->unk8;
     actor->unk38 = config->unk7;
     actor->unk28 = config->unk14;
-    actor->unk31 = zero8;
-    actor->unk39 = zero8;
-    actor->unk3B = zero8;
+    actor->unk31 = 0;
+    actor->unk39 = 0;
+    actor->unk3B = 0;
     actor->unk3A = config->unkC;
-    actor->unk6C = zero;
-    minusOne = -1;
-    actor->unk74 = minusOne;
-    actor->unk78 = zero;
+    actor->unk6C = 0;
+    actor->unk74 = -1;
+    actor->unk78 = NULL;
     actor->unk7C = NULL;
-    actor->unk80 = zero;
-    actor->unk84 = minusOne;
-    actor->unk88 = zero;
-    actor->unk8C = zero8;
-    actor->unk8D = zero8;
-    actor->unk98 = zero8;
-    actor->unk90 = zero;
-    actor->unk94 = zero;
+    actor->unk80 = NULL;
+    actor->unk84 = -1;
+    actor->unk88 = 0;
+    actor->unk8C = 0;
+    actor->unk8D = 0;
+    actor->unk98 = 0;
+    actor->callbacks.unk0 = NULL;
+    actor->callbacks.unk4 = NULL;
     actor->unkB0 = NULL;
-    actor->unkB4.lineIndex = zero;
+    actor->unkB4.lineIndex = 0;
     rider_8058614(actor, actor->unk10 >> 1, actor->unk11, 0);
     actor_80585F8(actor, 0, 0, actor->unk10, actor->unk11);
     actor->unkB8 = NULL;
-    actor->unkBC = zero;
+    actor->unkBC = 0;
     ActorSetFrameSequence(actor, 0);
-    actor->unkC0 = zero;
+    actor->unkC0 = NULL;
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/8057c58-actor_8057C58.s");
+
 #if 0
 typedef struct RenderActorDraftConfig {
     unk8 pad0[0x10];

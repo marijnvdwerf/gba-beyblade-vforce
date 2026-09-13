@@ -451,10 +451,14 @@ typedef struct ActorFrameSequence {
 
 struct ActorConfig {
     unk32 unk0;
-    unk8 pad4[3];
+    unk8 unk4;
+    unk8 unk5;
+    unk8 unk6;
     unk8 unk7;
     unk32 unk8;
-    unk8 padC[0xC];
+    unk8 unkC;
+    unk8 padD[7];
+    unk32 unk14;
     unk32 unk18; /* 0x18 */
     unk8 pad1C[4];
     ActorFrameSequence sequences[1];
@@ -490,7 +494,7 @@ typedef struct Actor {
     unk16 unk12;
     unk16 unk14;
     unk16 unk16;
-    unk8 pad18[2];
+    unk16 unk18;
     s16 unk1A; /* 0x1A */
     unk16 unk1C;
     unk16 unk1E;
@@ -500,7 +504,8 @@ typedef struct Actor {
     unk8 unk25;
     unk16 unk26;
     unk16 unk28;
-    unk8 pad2A[4];
+    unk16 unk2A;
+    unk16 unk2C;
     s16 unk2E; /* 0x2E */
     unk8 unk30;
     unk8 unk31;
@@ -508,9 +513,9 @@ typedef struct Actor {
     unk8 unk33;
     unk16 unk34;
     unk16 unk36;
-    unk8 pad38;
+    unk8 unk38;
     unk8 unk39;
-    unk8 pad3A;
+    unk8 unk3A;
     unk8 unk3B; /* 0x3B */
     BGLayer* unk3C;
     s32 unk40;
@@ -520,7 +525,10 @@ typedef struct Actor {
     s32 unk50;
     s32 unk54;
     unk32 unk58;
-    unk8 pad5C[0xC];
+    unk8 pad5C[4];
+    unk16 unk60;
+    unk8 pad62[2];
+    unk32 unk64;
     s32 unk68;
     s32 unk6C;
     s32 unk70;
