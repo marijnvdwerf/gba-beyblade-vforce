@@ -251,7 +251,7 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   the target uses ldm/stm writeback and `subs rN,r2,#0` — shapes agbcc_arm
   -O2 never emits from C; likely hand-written or a different compiler/flags
   (user to judge). sound_8757A64 PARKED (0af7ef0d; `MOV LR,R0` + clamp lowering residual;
-  prototype `(void*, s32, s32)`). sub_87577B4 PARKED (7dc5c777; +0x14 frame-pointer/mul order, adds/adc cursor). oam_8756CC0 PARKED (3183570e; frame 8 vs 12, r10/r9/r8 roles, conditional-move clipping predicate, affine halfwords; `ARM_sub_8756A84(SpriteEntry*, unk16, s32)` prototype fixed). sub_8757E4C PARKED (1fa3e75f; prologue saves r10 extra; draft debt: a `*(s16*)destination` byte-cursor store). Running: sub_8757D24, sub_8757FCC (adjacent
+  prototype `(void*, s32, s32)`). sub_87577B4 PARKED (7dc5c777; +0x14 frame-pointer/mul order, adds/adc cursor). oam_8756CC0 PARKED (3183570e; frame 8 vs 12, r10/r9/r8 roles, conditional-move clipping predicate, affine halfwords; `ARM_sub_8756A84(SpriteEntry*, unk16, s32)` prototype fixed). sub_8757E4C PARKED (1fa3e75f; prologue saves r10 extra; draft debt: a `*(s16*)destination` byte-cursor store). sub_8757FCC PARKED (37f7c89c; prologue exact, body register/lifetime residual; draft keeps measured narrowing casts — draft debt). Running: sub_8757D24 (adjacent
   INCLUDE_ASM lines; the shared iwram-2026-09-13.md learnings file
   conflicts on every merge — concatenate).
 - Merged user's raw-decomp-9 (3214f860, squash): sub_8050C18, newIconMenu
