@@ -225,14 +225,14 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   Actor/ActorConfig fields typed, four literal temps folded, `|= -1` idiom
   kept by session-8 precedent; its agent also edited MAIN — reverted, diff
   in /tmp/stray-main-edit-actor-*.diff). updateKeyState merged
-  (16cc6e87; `count` folded, `timer` chained assignment byte-required +0xA8). fails: sub_804B624, sub_8060E8C, sub_804D754, allocateMenuItems, sub_804A908, sub_8065AA0 (backup.c 0/4 today — every function there retains the config-global address in an extra callee-saved register; skip the TU), sub_804D8D8 (lead kept: `RiderBase.unk40/unk44` are s32 — target `lsl #8; bl __divsi3` + bge; seven matched users stay exact). sub_8061684 merged (ef004498; spritetext, the session-9 0x08 park — `child` staging +0x4E, duplicated child arm and full-word masks all byte-required).
+  (16cc6e87; `count` folded, `timer` chained assignment byte-required +0xA8). fails: sub_804B624, sub_8060E8C, sub_804D754, allocateMenuItems, sub_804A908, renderEnvironmentActors, sub_8065AA0 (backup.c 0/4 today — every function there retains the config-global address in an extra callee-saved register; skip the TU), sub_804D8D8 (lead kept: `RiderBase.unk40/unk44` are s32 — target `lsl #8; bl __divsi3` + bge; seven matched users stay exact). sub_8061684 merged (ef004498; spritetext, the session-9 0x08 park — `child` staging +0x4E, duplicated child arm and full-word masks all byte-required).
   sub_80510FC merged (d0071f21; gamestate; `CurrentGameState.unk6E8` unk16 —
   sub_805176C reads it truncating (ldrb); `state` alias, dead `index < 0`
   arm and a `zero` literal temp byte-required — the last got the sanctioned
   `// TODO: fakematch?` added by the manager; the agent refused to write
   src comments). **725 C / 300 asm / 71%.** Running: sub_805E8D8 (camera, MATCHED c9af6538 after replacing a `(p - (i * -1))` lever with an in-argument record-alias assignment — sanctioned TODO to be added at merge; review running), renderActor (actor), sub_804EA88 (particle),
   sub_80510FC (gamestate), sub_8063220 (palette), sub_8065AA0 (backup),
-  renderEnvironmentActors (envactor).
+  sub_8060C1C (sprite), freeSpriteVramLocation (sprite — after 8060C1C lands or fails, same TU).
 - Skill fold DONE (sol; 23 files archived, 24 bullets touched, 2 corrections:
   agbcc narrows a truncating load of a wider field; the `/256` copy is kept
   by same-object in-place division). docs/learnings top level is empty.
