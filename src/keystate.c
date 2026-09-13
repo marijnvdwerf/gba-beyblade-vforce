@@ -38,33 +38,29 @@ void nullsub_35(void)
 {
 }
 
-#if 0
 void updateKeyState(void)
 {
     unk16 keyState;
     unk16 i;
     s32 mask;
-    unk16 count;
-    unk32 timer;
 
     if (_isKeyRecording == 2) {
-        if ((count = _unk3005DB4) != 0) {
+        if (_unk3005DB4 != 0) {
             keyState = *_keyRecordingData;
             _keyRecordingData++;
-            _unk3005DB4 = count - 1;
+            _unk3005DB4--;
         } else {
             _isKeyRecording = 0;
         }
-        _unk3005DA8 = (void*)_unk3000E30[0];
+        _unk3005DA8 = _unk3000E30[0];
     }
     if (_isKeyRecording != 2) {
         keyState = ~*(vu16*)REG_KEYINPUT;
         if ((keyState & 0x3FF) != 0) {
-            _unk3005DA8 = (void*)_unk3000E30[0];
+            _unk3005DA8 = _unk3000E30[0];
         }
         if (_isKeyRecording == 1 && _unk3005DB4 != 0) {
-            *_keyRecordingData = keyState;
-            _keyRecordingData++;
+            *_keyRecordingData++ = keyState;
             _unk3005DB4--;
         }
     }
@@ -75,30 +71,28 @@ void updateKeyState(void)
     i = 0;
     do {
         if (((1 << i) & _unk3005DA0) > 0) {
-            timer = _unk3000E30[0];
-            if (timer > _unk3005CB0[i].var04 + _unk3005CB0[i].var0C) {
+            if (_unk3000E30[0] > _unk3005CB0[i].var04 + _unk3005CB0[i].var0C) {
                 _unk3005CB0[i].var10 = 1;
             } else {
                 _unk3005CB0[i].var10++;
             }
             _unk3005CB0[i].var14 = _unk3005CB0[i].var00;
-            _unk3005CB0[i].var00 = timer;
+            _unk3005CB0[i].var00 = _unk3000E30[0];
         }
         mask = 1 << i;
         if ((mask & _keyInput) > 0) {
             _unk3005CB0[i].var08 = _unk3000E30[0] - _unk3005CB0[i].var00;
         }
         if (((_keyInput >> i) & 1) == 0 && (mask & _unk3005DA4) > 0) {
-            timer = _unk3000E30[0];
-            _unk3005CB0[i].var04 = timer;
+            unk32 timer;
+
+            _unk3005CB0[i].var04 = timer = _unk3000E30[0];
             _unk3005CB0[i].var08 = timer - _unk3005CB0[i].var00;
             _unk3005DAC |= mask;
         }
         i++;
     } while (i <= 9);
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/805a6b8-updateKeyState.s");
 
 void initKeyState(void)
 {
