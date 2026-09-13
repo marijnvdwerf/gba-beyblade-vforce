@@ -217,7 +217,7 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   sub_805529C (effects; `ProjectileSystem.unk28` → s16 by ldsh) running.
   sub_804B4FC merged (22c99385; bare `*(vu16*)REG_VCOUNT;` reads kept).
   **719 C / 306 asm / 70%.** Queue keeps running, one yellow per agent,
-  distinct TUs. fails: sub_805529C, sub_804B7FC, sub_805041C, handleEventListeners, sub_80659F0, initEventListeners, actor_8058638, sub_805EBCC, sub_80539E8, LoadSpriteSheet, sub_804E594. allocateParticleSystem merged (820b2d06; `while (arg1-- != 0)`, s32 count param by the post-decrement lowering, Particle typed, `const SpriteSheet*` through the API; `zero`/`sprite` temps folded, block/bytes/count byte-required). **720 C / 305 asm / 70%.** Running: LoadSpriteSheet (sprite),
+  distinct TUs. sub_805529C MATCHED by OPUS on retry (616016df; 8 builds — for-body-scoped `record`, `(unk8)` derived table index, `ProjectileSystem.unk28` s16; luna's "r8/r9 swap" did not reproduce — a loop-body scope is real control flow and fixed the allocation). fails: sub_804B7FC, sub_805041C, handleEventListeners, sub_80659F0, initEventListeners, actor_8058638, sub_805EBCC, sub_80539E8, LoadSpriteSheet, sub_804E594. allocateParticleSystem merged (820b2d06; `while (arg1-- != 0)`, s32 count param by the post-decrement lowering, Particle typed, `const SpriteSheet*` through the API; `zero`/`sprite` temps folded, block/bytes/count byte-required). **720 C / 305 asm / 70%.** Running: LoadSpriteSheet (sprite),
   allocateParticleSystem (particle; typing Particle 0x4..0x22 approved),
   updateEnvirenmentActors merged (345c38ee; EnvironmentObject unk2C/30/34/48
   unk32, unk38/3C s16 by ldrsh; `s32 count` byte-required +0x104;
