@@ -225,15 +225,15 @@ Last updated: 2026-09-12 (session 12, mid): 717 C / 308 asm / 70% by count, 21 T
   Actor/ActorConfig fields typed, four literal temps folded, `|= -1` idiom
   kept by session-8 precedent; its agent also edited MAIN — reverted, diff
   in /tmp/stray-main-edit-actor-*.diff). updateKeyState merged
-  (16cc6e87; `count` folded, `timer` chained assignment byte-required +0xA8). fails: sub_804B624, sub_8060E8C, sub_804D754, allocateMenuItems, sub_804A908, renderEnvironmentActors, sub_80510FC (matched, dropped by the user — it needed a bare `{ … }` block to shape a lifetime; bare blocks are a lever, discard on sight — manager missed it on the diff read), sub_8065AA0 (backup.c 0/4 today — every function there retains the config-global address in an extra callee-saved register; skip the TU), sub_804D8D8 (lead kept: `RiderBase.unk40/unk44` are s32 — target `lsl #8; bl __divsi3` + bge; seven matched users stay exact). sub_8061684 merged (ef004498; spritetext, the session-9 0x08 park — `child` staging +0x4E, duplicated child arm and full-word masks all byte-required).
+  (16cc6e87; `count` folded, `timer` chained assignment byte-required +0xA8). fails: sub_804B624, sub_8060E8C, sub_804D754, allocateMenuItems, sub_804A908, renderEnvironmentActors, sub_805E8D8, sub_80510FC (matched, dropped by the user — it needed a bare `{ … }` block to shape a lifetime; bare blocks are a lever, discard on sight — manager missed it on the diff read), sub_8065AA0 (backup.c 0/4 today — every function there retains the config-global address in an extra callee-saved register; skip the TU), sub_804D8D8 (lead kept: `RiderBase.unk40/unk44` are s32 — target `lsl #8; bl __divsi3` + bge; seven matched users stay exact). sub_8061684 merged (ef004498; spritetext, the session-9 0x08 park — `child` staging +0x4E, duplicated child arm and full-word masks all byte-required).
   sub_8063220 merged (bb03afc2; palette; unk32 formals, all six delta temps
   folded, `nextHeight`/`nextIntensity` staged pair byte-required +0x14/+0x60).
   Merge chain broke once: update-expected self-check failed because the
   camera agent edited MAIN (src/camera.c) mid-merge — reverted, diff in
   /tmp/stray-main-edit-camera-*.diff; palette squash was swept into the
-  handover commit (amended). **726 C / 299 asm / 71%.** Running: sub_805E8D8 (camera, MATCHED c9af6538 after replacing a `(p - (i * -1))` lever with an in-argument record-alias assignment — sanctioned TODO to be added at merge; review running), renderActor (actor), sub_804EA88 (particle),
+  handover commit (amended). **726 C / 299 asm / 71%.** fails: sub_805E8D8 (its "match" was `index != 0` rewritten as a pointer comparison + staged cursor levers — discarded at the manager's diff read). Running: renderActor (actor), sub_804EA88 (particle),
   sub_80510FC (gamestate), sub_8063220 (palette), sub_8065AA0 (backup),
-  sub_8060C1C (sprite), freeSpriteVramLocation (sprite — after 8060C1C lands or fails, same TU).
+  sub_8060C1C (sprite), sub_8056610 (collision), sub_804F05C reshape (hud).
 - Bare-block audit (user: bare `{ … }` scopes are levers): active code has
   four — multiplayer.c sub_80600B4 (three, re-declaring `state`) and
   hud.c:259 sub_804F05C (`text2`). User: reshape without re-parking.
