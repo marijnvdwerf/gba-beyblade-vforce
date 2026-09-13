@@ -21,6 +21,157 @@ unk32 ARM_sub_87569F4(UnkStruct_87569F4* arg0, unk32 arg1)
 }
 
 INCLUDE_ASM("asm/dump/8756a00-iwram/8756a84-arm_sub_8756a84.s");
+#if 0
+typedef struct OamEntryDraft8756CC0 {
+    unk32 attr0;
+    unk16 attr1;
+    unk16 attr2;
+} OamEntryDraft8756CC0;
+
+typedef struct SpriteRotationScaleEntryDraft8756CC0 {
+    struct SpriteRotationScaleEntryDraft8756CC0* prev;
+    struct SpriteRotationScaleEntryDraft8756CC0* next;
+    OamEntryDraft8756CC0* oamAddr;
+    unk16 matrix[8];
+} SpriteRotationScaleEntryDraft8756CC0;
+
+extern SpriteEntry* _unk3005DE4;
+extern SpriteRotationScaleEntryDraft8756CC0* _unk3005DF8;
+extern unk32 _spritesFree;
+extern unk16 word_807D90C[];
+extern void (*off_807D938)(s32, s32);
+extern unk32 (*off_807D934)(s32);
+extern s32 (*off_807D930)(const unk8*, ...);
+extern const unk8 Str_8755EAC[];
+extern const unk8 Str_8755EE0[];
+
+void oam_8756CC0(void)
+{
+    SpriteEntry* sprite;
+    SpriteEntry* rotationScale;
+    SpriteRotationScaleEntryDraft8756CC0* rotation;
+    unk32 count;
+    OamEntryDraft8756CC0* oam;
+    OamEntryDraft8756CC0* destination;
+    unk32 flags;
+    unk32 xMask;
+    unk32 attr;
+    unk32 size;
+    unk16 character;
+    unk16 frame;
+    unk16 oldFrame;
+    unk16 tableValue;
+    unk16 uploadSize;
+    unk8 uploaded;
+    s32 charName;
+    s32 x;
+    s32 y;
+    s32 high;
+    s32 low;
+    s32 adjustedHigh;
+    s32 adjustedLow;
+    s32 product;
+
+    sprite = _unk3005DE4;
+    rotation = _unk3005DF8;
+    count = _spritesFree;
+    oam = OAM;
+    if (sprite != NULL) {
+        xMask = 0x1FF00;
+        do {
+            x = sprite->x;
+            flags = sprite->unk10;
+            destination = oam;
+            y = sprite->y;
+            if ((flags & 0x200) != 0) {
+                tableValue = word_807D90C[(flags >> 30) | ((flags & 0xC000) >> 12)];
+                high = tableValue & 0xFF00;
+                low = (tableValue & 0xFF) << 8;
+                rotationScale = sprite->unk30;
+                if (rotationScale != NULL) {
+                    product = high * rotationScale->oam_attr_2;
+                    adjustedHigh = (product >> 8) - high;
+                    high -= adjustedHigh;
+                    product = low * rotationScale->var16;
+                    adjustedLow = (product >> 8) - low;
+                    low -= adjustedLow;
+                }
+                x -= high;
+                y -= low;
+            }
+            if (y < -0x5000 || x + 0x8000 > 0x17000u) {
+                y = 0xA000;
+            }
+            if (y > 0xA000) {
+                y = 0xA000;
+            }
+            attr = flags | ((y >> 8) & 0xFF);
+            attr |= (sprite->flip_h_v & 3) << 28;
+            attr |= (x & xMask) << 8;
+            destination->attr0 = attr;
+            character = sprite->var24;
+            destination->attr2 = sprite->oam_attr_2 | (character & 0x3FF);
+            oam++;
+            sprite = sprite->next;
+        } while (sprite != NULL);
+    }
+
+    sprite = _unk3005DE4;
+    oam = OAM;
+    count--;
+    while (sprite != NULL) {
+        uploaded = 0;
+        if ((sprite->var20 & 1) == 0) {
+            charName = sprite->var24;
+            frame = sprite->frame.word;
+            oldFrame = sprite->unk1A;
+            size = 1 << (sprite->var16 - 5);
+            if (frame != oldFrame) {
+                if (charName >= 0) {
+                    off_807D938(charName, size);
+                    charName = -1;
+                }
+                sprite->unk1A = frame;
+            }
+            if (charName < 0) {
+                charName = off_807D934(size);
+                uploaded = 1;
+            }
+            sprite->var24 = charName;
+            if (charName >= 0) {
+                character = charName;
+                oam->attr2 = sprite->oam_attr_2 | (character & 0x3FF);
+                if (uploaded != 0) {
+                    if (charName < _unk3005E6C) {
+                        off_807D930(Str_8755EE0, charName, sprite->unk2C);
+                    } else {
+                        uploadSize = 1 << sprite->var16;
+                        ARM_sub_8756A84(sprite, uploadSize, charName);
+                    }
+                }
+            } else {
+                off_807D930(Str_8755EAC, size);
+            }
+        }
+        oam++;
+        sprite = sprite->next;
+    }
+    if (count != -1) {
+        do {
+            count--;
+            oam->attr0 = 0xA0;
+            oam++;
+        } while (count != -1);
+    }
+    while (rotation != NULL) {
+        rotation->oamAddr[0].attr2 = rotation->matrix[0];
+        rotation->oamAddr[1].attr2 = rotation->matrix[1];
+        rotation->oamAddr[2].attr2 = rotation->matrix[2];
+        rotation->oamAddr[3].attr2 = rotation->matrix[3];
+        rotation = rotation->next;
+    }
+}
+#endif
 INCLUDE_ASM("asm/dump/8756a00-iwram/8756cc0-oam_8756cc0.s");
 #if 0
 #include <agb/memory_map.h>
