@@ -5,6 +5,7 @@
 #include "actor.h"
 #include "collision.h"
 #include "debug.h"
+#include "event.h"
 #include "geometry.h"
 #include "include_asm.h"
 #include "memory.h"
@@ -339,72 +340,64 @@ void renderEnvironmentActors(void)
 
 #endif
 INCLUDE_ASM("asm/dump/804a388-tutorial/8054c9c-renderEnvironmentActors.s");
-#if 0
-extern void sub_8054278(void*, unk16);
-extern void sub_80584B8(Actor*);
 
 void updateEnvirenmentActors(void)
 {
-    unk32 count;
-    unk8* actor;
-    unk8* metaBase;
-    unk8* record;
-    unk8* meta;
-    unk8* struct4;
-    unk8* p1;
-    unk8* p2;
-    unk32 remaining;
+    s32 count;
+    Actor* actor;
+    LevelGeometryAddresses* geometry;
+    EnvironmentObject* object;
+    GeometryLine* line;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    unk32 lineIndex;
     s32 oldX;
     s32 oldY;
     s32 oldZ;
 
     count = _gameData->environmentActors.actorCount;
-    record = (unk8*)_gameData->environmentActors.actorContainer;
-    metaBase = (unk8*)_gameData + 0x65C;
-    actor = record;
-    remaining = count;
-    if (remaining == 0)
+    actor = _gameData->environmentActors.actorContainer;
+    geometry = &_gameData->unk434.geometry;
+    if (count == 0)
         return;
     count--;
     do {
-            index = *(unk32*)(actor + 0xB4);
-        struct4 = (unk8*)GetStruct4(index);
-        meta = *(unk8**)(metaBase + 0xC) + (index << 5);
-        if (struct4 != NULL && (*(unk16*)(struct4 + 0x10) & 1) != 0) {
-            p1 = *(unk8**)(metaBase + 4) + *(unk32*)(meta + 0) * 0x10;
-            p2 = *(unk8**)(metaBase + 4) + *(unk32*)(meta + 4) * 0x10;
-            *(unk32*)(p1 + 0) = (*(s32*)(actor + 4) >> 5) + *(s32*)(struct4 + 0x14);
-            *(unk32*)(p1 + 4) = (*(s32*)(actor + 8) >> 5) + *(s32*)(struct4 + 0x18);
-            *(unk32*)(p1 + 8) = (*(s32*)(actor + 0xC) >> 5) + *(s32*)(struct4 + 0x1C);
-            *(unk32*)(p2 + 0) = (*(s32*)(actor + 4) >> 5) + *(s32*)(struct4 + 0x20);
-            *(unk32*)(p2 + 4) = (*(s32*)(actor + 8) >> 5) + *(s32*)(struct4 + 0x24);
-            *(unk32*)(p2 + 8) = (*(s32*)(actor + 0xC) >> 5) + *(s32*)(struct4 + 0x28);
+        lineIndex = actor->unkB4.lineIndex;
+        object = GetStruct4(lineIndex);
+        line = &geometry->unkC[lineIndex];
+        if (object != NULL && (object->unk10 & 1) != 0) {
+            point0 = &geometry->unk4[line->point0];
+            point1 = &geometry->unk4[line->point1];
+            point0->x = (actor->x >> 5) + object->unk14;
+            point0->y = (actor->y >> 5) + object->unk18;
+            point0->z = (actor->z >> 5) + object->unk1C;
+            point1->x = (actor->x >> 5) + object->unk20;
+            point1->y = (actor->y >> 5) + object->unk24;
+            point1->z = (actor->z >> 5) + object->unk28;
         }
-        if (*(s16*)(struct4 + 0x38) != 0) {
-            *(unk16*)(struct4 + 0x38) -= 1;
-            if (*(s16*)(struct4 + 0x38) == 0) {
-                *(unk32*)(actor + 0x40) = *(unk32*)(struct4 + 0x2C);
-                *(unk32*)(actor + 0x44) = *(unk32*)(struct4 + 0x30);
-                *(unk32*)(actor + 0x48) = *(unk32*)(struct4 + 0x34);
+        if (object->unk38 != 0) {
+            object->unk38--;
+            if (object->unk38 == 0) {
+                actor->unk40 = object->unk2C;
+                actor->unk44 = object->unk30;
+                actor->unk48 = object->unk34;
             }
         }
-        if (*(s16*)(struct4 + 0x3C) != 0) {
-            *(unk16*)(struct4 + 0x3C) -= 1;
-            if (*(s16*)(struct4 + 0x3C) == 0)
-                sub_8054278(metaBase, *(unk16*)(struct4 + 0x3E));
+        if (object->unk3C != 0) {
+            object->unk3C--;
+            if (object->unk3C == 0)
+                sub_8054278(geometry, object->unk3E);
         }
-        oldX = *(s32*)(actor + 4);
-        oldY = *(s32*)(actor + 8);
-        oldZ = *(s32*)(actor + 0xC);
-        sub_80584B8((Actor*)actor);
-        *(unk32*)(struct4 + 0x40) = *(s32*)(actor + 4) - oldX;
-        *(unk32*)(struct4 + 0x44) = *(s32*)(actor + 8) - oldY;
-        *(unk32*)(struct4 + 0x48) = *(s32*)(actor + 0xC) - oldZ;
-        actor += 0xC4;
+        oldX = actor->x;
+        oldY = actor->y;
+        oldZ = actor->z;
+        sub_80584B8(actor);
+        object->unk40 = actor->x - oldX;
+        object->unk44 = actor->y - oldY;
+        object->unk48 = actor->z - oldZ;
+        actor++;
     } while (count-- != 0);
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8054eb4-updateEnvirenmentActors.s");
 
 void sub_8054FE0(void)
 {

@@ -6,5 +6,6 @@
 void initEventListeners(unk32);
 void deallocEventListeners(void);
 void handleEventListeners(LevelGeometryAddresses*, unk16);
+void sub_8054278(LevelGeometryAddresses*, unk16);
 
 #endif
