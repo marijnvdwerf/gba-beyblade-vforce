@@ -26,8 +26,30 @@ Last updated: 2026-09-15 (session 13 in progress; previous close 2026-09-13): 73
 - User: all `// TODO: fakematch?` comments on these branches were added at
   the user's request — keep them. Bitfield-or-not is evidence, not a decision.
   backup.c byte-stepping casts: user "not a fan" — fix agent to retest typed forms.
-- Running fix agents (luna, existing worktrees): riderphysics (25 builds),
-  sprite (12), motion (10), misc A+B (60).
+- MERGED: sprite (75731913, 5 fn; prototypes moved to sprite.h; `&_spritesFree`
+  question closed — direct global), rider+particle+motion as ONE squash
+  (af33ddcf, 5 fn; initRider takes CameraState*; sub_804B624's two dead
+  stores carry the sanctioned TODO), riderphysics (f2d7345c, 5 fn incl.
+  s_rider_804C4B4 live; RiderBase ~40 pad slots typed; two dead ops TODO'd).
+  Merged worktrees/branches removed. **747 C so far this session.**
+- Fix results: actor+backup done (0a495105; backup EEPROM cursor now tmc's
+  lvalue-cast form `(unk8*)ptr += …; ((unk8*)ptr)++` — every typed form
+  diverges under the new flags; user undecided on spelling), misc done
+  (9fc58d5e typing + 4b63fe84 folds: 39/39 byte-required — I spot-checked
+  `overlap→found`, real: target copies the predicate r3→r0).
+- Collision: rebased onto main by an agent (518ab822); RiderBase.unkF4 is
+  `CollisionResult` (riderphysics' scalar run unkF4…unk118 maps 1:1 onto
+  it; CollisionResult gained unk10/unk12). FINDING: `CollisionResult.unkC`
+  bitfields are PROVEN by the writes in sub_80567E4 (`mov #2; neg; and` =
+  SImode preserve mask; a plain `unk8 &= ~1` folds to `#254`), while
+  s_rider_804C4B4's target does a whole-byte `strb #0` there — the union
+  case; an agent is finding an attribute-free spelling (a `packed` union
+  matched but is a lever). Macro `DISPATCH_COLLISION_RESULT` expanded back
+  to duplicated arms.
+- Stray main edits this session: misc fold agent (camera.c/gameinit.c
+  drafts) — reverted, diff in /tmp/stray-main-edit-misc-*.diff.
+- Remaining order: collision → actor (rebase onto collision) → backup →
+  misc (rebase each delta: `git rebase --onto main <old-prev-tip> <branch>`).
 
 ## Session 12 (2026-09-12/13)
 
