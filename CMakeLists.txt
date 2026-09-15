@@ -9,9 +9,10 @@ endif()
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 set(BVV_VERSION_TABLE
-    "us|cd527c8c24e20e33913fc45199e64b3e6138a6e5|TRUE|BEYE|0x92|REGION_US"
-    "eu|6d20a586e7bb52b4a9352bbeaec9d7be65e93369|TRUE|BEYP|0x87|REGION_EU"
-    "debug|9210a12ce01fefbf7994af2a8d51351ed82d7253|FALSE|AGBJ|0xE8|REGION_EU")
+    # name|sha1|validated|version id|region id  (ids match src/version.h)
+    "us|cd527c8c24e20e33913fc45199e64b3e6138a6e5|TRUE|0|0"
+    "eu|6d20a586e7bb52b4a9352bbeaec9d7be65e93369|TRUE|1|1"
+    "debug|9210a12ce01fefbf7994af2a8d51351ed82d7253|FALSE|2|1")
 
 set(GAME_VERSION "" CACHE STRING "ROM version to build")
 set_property(CACHE GAME_VERSION PROPERTY STRINGS us eu debug)
@@ -23,11 +24,15 @@ foreach(_version_row IN LISTS BVV_VERSION_TABLE)
     if(GAME_VERSION STREQUAL _version_name)
         list(GET _version_fields 1 GAME_SHA1)
         list(GET _version_fields 2 GAME_VERSION_VALIDATED)
-        list(GET _version_fields 3 GAME_CODE)
-        list(GET _version_fields 4 GAME_COMPLEMENT_CHECK)
-        list(GET _version_fields 5 GAME_REGION_DEFINE)
+        list(GET _version_fields 3 GAME_VERSION_ID)
+        list(GET _version_fields 4 GAME_REGION_ID)
         string(TOUPPER "${_version_name}" _game_version_upper)
         set(GAME_VERSION_DEFINE "VERSION_${_game_version_upper}")
+        if(GAME_REGION_ID EQUAL 0)
+            set(GAME_REGION_DEFINE "REGION_US")
+        else()
+            set(GAME_REGION_DEFINE "REGION_EU")
+        endif()
         set(_game_version_found TRUE)
         break()
     endif()

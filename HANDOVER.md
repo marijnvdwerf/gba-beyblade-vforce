@@ -72,8 +72,8 @@ Last updated: 2026-09-15 (session 13): 767 C / 258 asm / 75% by count, 26 TUs; a
 - MULTI-VERSION BUILDS (ea57b28d): presets `us`/`eu`/`debug` (+`default`=us)
   → `build/<ver>/`; `GAME_VERSION` (VERSION_US/EU/DEBUG) and orthogonal
   `GAME_REGION` (REGION_US/EU; debug is REGION_EU) in src/version.h;
-  `ld_script.ld` is a cpp template; crt0.s takes game code/complement from
-  generated `build/<ver>/version.inc`; `rom-<ver>-matches` hard-fails for
+  `ld_script.ld` is a cpp template; crt0.s selects game code/complement with `.if GAME_VERSION == …` (ids reach
+  `as` via `--defsym`, no cpp for .s); `rom-<ver>-matches` hard-fails for
   validated versions, SKIPs (77) for unvalidated; `expected/build/<ver>/`
   mirror; `tools/update-expected <ver>`, `diff.ts --version`, objdiff units
   `<ver>/src/…`; decomp.yaml three versions (asmlift block removed);
