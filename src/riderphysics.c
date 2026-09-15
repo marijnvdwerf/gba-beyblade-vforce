@@ -2,6 +2,7 @@
 
 #include <agb/bios.h>
 
+#include "actor.h"
 #include "ai.h"
 #include "collectable.h"
 #include "debug.h"
@@ -17,285 +18,11 @@
 #include "packet.h"
 #include "rider.h"
 #include "tutorial.h"
+#include "unsorted.h"
 
-#if 0
-
-typedef struct ActorDraft {
-    ActorConfig* unk0;
-    s32 x;
-    s32 y;
-    s32 z;
-    u8 unk10;
-    unk8 unk11;
-    unk16 unk12;
-    unk16 unk14;
-    unk16 unk16;
-    unk8 pad18[2];
-    s16 unk1A; /* 0x1A */
-    unk16 unk1C;
-    unk16 unk1E;
-    unk16 unk20;
-    unk16 unk22;
-    unk8 unk24;
-    unk8 unk25;
-    unk16 unk26;
-    unk16 unk28;
-    unk8 pad2A[4];
-    s16 unk2E; /* 0x2E */
-    unk8 unk30;
-    unk8 unk31;
-    unk8 unk32;
-    unk8 unk33;
-    unk16 unk34;
-    unk16 unk36;
-    unk8 pad38;
-    unk8 unk39;
-    unk8 pad3A[2];
-    BGLayer* unk3C;
-    s32 unk40;
-    s32 unk44;
-    s32 unk48;
-    s32 unk4C;
-    s32 unk50;
-    s32 unk54;
-    unk32 unk58;
-    unk8 pad5C[0xC];
-    s32 unk68;
-    s32 unk6C;
-    s32 unk70;
-    s32 unk74;
-    ActorTimerEntry* unk78;
-    struct AllocatedBlock* unk7C;
-    struct LevelGeometryAddresses* unk80;
-    s32 unk84;
-    s32 unk88;
-    unk8 unk8C;
-    unk8 unk8D; /* 0x8D */
-    unk8 pad8E[2];
-    ActorCollisionCallbacks callbacks;
-    unk8 unk98;
-    unk8 pad99[1];
-    s16 unk9A;
-    s16 unk9C;
-    s16 unk9E;
-    unk16 unkA0;
-    unk16 unkA2;
-    unk8 unkA4;
-    unk8 unkA5;
-    unk8 padA6[2];
-    s16 unkA8;
-    s16 unkAA;
-    s16 unkAC;
-    s16 unkAE;
-    ActorPositionFunc unkB0;
-
-    union {
-        struct RiderBaseDraft* rider;
-        s32 lineIndex;
-    } unkB4;
-
-    SpriteEntry* unkB8;
-    unk16 unkBC;
-    unk8 padBE[2];
-    void (*unkC0)(struct ActorDraft*, s32); /* 0xC0 */
-} ActorDraft;
-
-typedef struct RiderBaseDraft {
-    ActorDraft* unk0;
-    struct RiderBaseDraft* unk4;
-    unk8 unk8;
-    unk8 unk9;
-    unk8 padA[2];
-    unk32 unkC;
-    s32 unk10;
-    unk32 unk14;
-    unk32 unk18;
-    unk32 unk1C;
-    unk32 unk20;
-    unk32 unk24;
-    unk32 unk28;
-    unk32 unk2C;
-    unk32 unk30; /* 0x30 */
-    unk32 unk34;
-    unk32 unk38;
-    unk32 unk3C; /* 0x3C */
-    unk32 unk40; /* 0x40 */
-    unk32 unk44; /* 0x44 */
-    unk32 unk48;
-    unk32 unk4C;
-    unk16 unk50; /* 0x50 */
-    unk16 unk52; /* 0x52 */
-    unk16 unk54;
-    unk16 unk56;
-    unk16 unk58;
-    unk16 unk5A;
-    unk16 unk5C;
-    unk16 unk5E;
-    unk16 unk60;
-    s16 unk62;
-    unk32 unk64;
-    unk32 unk68;
-    unk32 unk6C; /* 0x6C */
-    unk32 unk70; /* 0x70 */
-    unk32 unk74; /* 0x74 */
-    unk32 unk78;
-    unk32 unk7C;
-    s32 unk80;
-    unk32 unk84;
-    unk32 unk88;
-    unk32 unk8C;
-    unk32 unk90;
-    unk32 unk94;
-    unk16 unk98;
-    unk8 pad9A[2];
-    unk32 flags;
-    unk32 unkA0; /* 0xA0 */
-    unk32 unkA4;
-    unk32 unkA8;
-    unk32 unkAC;
-    unk32 unkB0;
-    unk32 unkB4;
-    SpriteEntry* unkB8;
-    unk32 unkBC;
-    unk8 padC0[8];
-    unk32 unkC8;
-    unk32 unkCC; /* 0xCC */
-    unk8 padD0[3];
-    unk8 unkD3;
-    unk8 padD4[4];
-    unk32 unkD8;
-    unk32 unkDC;
-    unk32 unkE0;
-    struct GeometryLine* unkE4;
-    unk32 unkE8;
-    struct GeometryLine* unkEC;
-    unk8 padF0[4];
-    unk32 unkF4;
-    unk32 unkF8;
-    unk32 unkFC;
-    unk8 unk100;
-    unk8 unk101;
-    unk8 unk102;
-    unk8 unk103;
-    unk16 unk104;
-    unk16 unk106;
-    unk32 unk108;
-    unk32 unk10C;
-    unk32 unk110;
-    unk32 unk114;
-    unk32 unk118;
-    unk16 unk11C;
-    unk8 pad11E[0xA];
-    unk16 unk128;
-    unk8 pad12A[0x16];
-    unk16 unk140;
-    unk16 unk142;
-    unk16 unk144; /* 0x144 */
-    unk8 pad146[2];
-    unk16 unk148;
-    unk8 pad14A[2];
-    unk16 unk14C;
-    unk16 unk14E;
-    unk16 unk150; /* 0x150 */
-    unk8 pad152[2];
-    unk32 unk154;
-    unk32 unk158;
-    unk32 unk15C;
-    unk32 unk160;
-    unk32 unk164;
-    unk32 unk168;
-    unk32 unk16C;
-    s32 unk170;
-    unk32 unk174;
-    unk8 pad178[8];
-    unk32 unk180;
-    unk8 pad184[4];
-    unk32 unk188;
-    unk32 unk18C;
-    unk32 unk190;
-    unk8 pad194[4];
-    unk32 unk198;
-    unk32 unk19C; /* 0x19C */
-    unk32 unk1A0;
-    unk32 unk1A4;
-    unk32 unk1A8;
-    unk32 unk1AC;
-    unk32 unk1B0;
-    unk32 unk1B4;
-    unk16 unk1B8;
-    unk8 pad1BA[2];
-    s32 unk1BC;
-    unk8 unk1C0;
-    unk8 unk1C1;
-    unk8 unk1C2;
-    unk8 unk1C3; /* 0x1C3 */
-    unk16 unk1C4;
-    unk16 unk1C6;
-    unk16 unk1C8;
-    unk16 unk1CA;
-    unk16 unk1CC;
-    unk8 unk1CE;
-    unk8 unk1CF;
-    unk8 pad1D0[4];
-    unk32 unk1D4;
-    unk32 unk1D8;
-    unk32 unk1DC;
-    unk32 unk1E0;
-    unk32 unk1E4;
-    unk8 pad1E8[4];
-    unk16 unk1EC;
-    s16 unk1EE; /* 0x1EE */
-    unk16 unk1F0;
-    s16 unk1F2; /* 0x1F2 */
-    unk16 unk1F4;
-    unk16 unk1F6;
-    unk16 unk1F8;
-    unk8 pad1FA[2];
-    s32 unk1FC; /* 0x1FC */
-    struct GeometryLine* unk200; /* 0x200 */
-    unk16 unk204;
-    unk16 unk206;
-    s32 unk208; /* 0x208 */
-    struct RiderBaseDraft* unk20C;
-    s32 unk210; /* 0x210 */
-    struct GeometrySpline* unk214;
-    s16 unk218; /* 0x218 */
-    s16 unk21A; /* 0x21A */
-    unk16 unk21C; /* 0x21C */
-    unk16 unk21E; /* 0x21E */
-    s16 unk220; /* 0x220 */
-    s16 unk222; /* 0x222 */
-    s32 unk224;
-    unk16 unk228; /* 0x228 */
-    unk16 unk22A; /* 0x22A */
-    unk16 unk22C; /* 0x22C */
-    unk16 unk22E;
-    unk16 unk230;
-    unk8 pad232[2];
-    unk32 unk234;
-    ActorDraft unk238;
-    ActorDraft unk2FC;
-    SpriteEntry* unk3C0;
-    SpriteEntry* unk3C4;
-    unk16 unk3C8;
-    unk8 pad3CA[2];
-    unk16 unk3CC;
-    unk8 unk3CE;
-    unk8 pad3CF[1];
-    unk8 unk3D0; /* 0x3D0 */
-    unk8 pad3D1[0x13];
-    unk32 unk3E4;
-    u8 unk3E8;
-    unk8 unk3E9[3];
-    ParticleSystem unk3EC;
-    struct AllocatedBlock* unk420;
-    s16 unk424; /* 0x424 */
-    unk8 pad426[2];
-} RiderBaseDraft;
-
-void s_rider_804C4B4(RiderBaseDraft* rider, ActorDraft* actor)
+void s_rider_804C4B4(RiderBase* rider, Actor* actor)
 {
-    unk16 mode;
+    unk32 unused;
 
     __fastMemoryClearARM(0, rider, 0x238);
     actor->unk54 = -0x1A;
@@ -341,9 +68,9 @@ void s_rider_804C4B4(RiderBaseDraft* rider, ActorDraft* actor)
     rider->unk8 = 0;
     rider->unk9 = 0;
     rider->unkCC = 0;
-    rider->unkE0 = 0;
+    rider->unkE0 = NULL;
     rider->unkE4 = NULL;
-    rider->unkE8 = 0;
+    rider->unkE8 = NULL;
     rider->unkEC = NULL;
     rider->unk11C = 0;
     rider->unk19C = 0x40;
@@ -367,20 +94,19 @@ void s_rider_804C4B4(RiderBaseDraft* rider, ActorDraft* actor)
     rider->unk150 = 0;
     rider->unk1A0 = 0;
     rider->unk1A4 = 0;
-    rider->unk1B0 = 0;
-    rider->unk1AC = 0;
-    rider->unk1A8 = 0;
+    rider->unk1A8 = rider->unk1AC = rider->unk1B0 = 0;
     rider->unk1B4 = 0;
     rider->unk1B8 = 0;
     rider->unk1BC = 0;
     rider->unk1C0 = 0;
-    rider->unkF4 = rider->unkF8 = rider->unkFC = rider->unk108 = rider->unk10C = rider->unk110 = rider->unk114 = rider->unk118 = 0;
-    rider->unk106 = 0;
-    rider->unk104 = 0;
-    rider->unk103 = 0;
-    rider->unk102 = 0;
-    rider->unk101 = 0;
-    rider->unk100 = 0;
+    unused = rider->unkF4 + rider->unkF8
+        + rider
+              ->unkFC; // TODO: fakematch? (dead read, byte-required: s_rider_804C4B4-2026-09-14.md)
+    rider->unk101 = rider->unk102 = rider->unk103 = rider->unk104 = rider->unk106 = rider->unk108
+        = rider->unk10C = rider->unk110 = rider->unk114 = rider->unk118 = 0;
+    rider->unk100
+        >>= 8; // TODO: fakematch? (dead self-shift, byte-required: s_rider_804C4B4-2026-09-14.md)
+    rider->unkF4 = rider->unkF8 = rider->unkFC = 0;
     rider->unk1C2 = 0;
     rider->unk1C3 = 0;
     rider->unk1C4 = 0;
@@ -430,22 +156,17 @@ void s_rider_804C4B4(RiderBaseDraft* rider, ActorDraft* actor)
     rider->unk220 = 0;
     rider->unk214 = NULL;
     rider->unk218 = -1;
+    rider->unk224 = 0;
     rider->unk21A = 0x100;
     rider->unk222 = 0x1E0;
     rider->unk22C = 2;
     rider->unk228 = 0x100;
-    mode = 0x10;
-    if ((_currentGameState->unkC64 & 2) != 0)
-        mode = 0x30;
-    rider->unk22A = mode;
+    rider->unk22A = (_currentGameState->unkC64 & 2) != 0 ? 0x30 : 0x10;
     rider->unk234 = 0;
     rider->unk22E = 0;
     rider->unk230 = 0;
     SetRiderFlag(rider, 0x102);
 }
-
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c4b4-s_rider_804C4B4.s");
 
 void sub_804C870(RiderBase* rider, s32 arg1)
 {
@@ -568,8 +289,8 @@ void sub_804CB08(RiderBase* rider, Actor* actor)
     s32 angle;
     unk16 heldInput;
     unk16 pressedInput;
-    unk16* timer0;
-    unk16* timer1;
+    s16* timer0;
+    s16* timer1;
     unk8 moving;
 
     (void)actor;
@@ -938,22 +659,7 @@ void sub_804D710(RiderBase* rider)
         sub_804ABFC(0x11);
 }
 
-#if 0
-typedef struct RiderD754Draft {
-    Actor* unk0; /* 0x00 */
-    unk8 pad4[0x44]; /* 0x04 */
-    s32 unk48; /* 0x48 */
-    s32 unk4C; /* 0x4C */
-    unk8 pad50[0x1B4]; /* 0x50 */
-    s16 unk204; /* 0x204 */
-    s16 unk206; /* 0x206 */
-    s32 unk208; /* 0x208 */
-} RiderD754Draft;
-
-void actor_80580C0(Actor*, unk16, unk16);
-void sub_8058390(Actor*, unk16, unk16, unk16);
-
-void sub_804D754(RiderD754Draft* rider)
+void sub_804D754(RiderBase* rider)
 {
     Actor* actor;
     s32 current;
@@ -961,7 +667,7 @@ void sub_804D754(RiderD754Draft* rider)
     unk32 direction;
     unk32 category;
     s32 motion;
-    s32 value;
+    s32 callbackSequence;
 
     actor = rider->unk0;
     current = rider->unk204;
@@ -1003,18 +709,23 @@ void sub_804D754(RiderD754Draft* rider)
         break;
     }
     category = 0;
-    value = rider->unk208;
-    if (value <= 0x8FF)
+    if (rider->unk208 <= 0x8FF)
         category = 1;
-    if (value <= 0x3FF)
+    if (rider->unk208 <= 0x3FF)
         category = 2;
-    if (value <= 0x1FF)
+    if (rider->unk208 <= 0x1FF)
         category = 3;
-    if (value <= 0xFF) {
-        actor->unk36 = (0x100 - value) >> 1;
+    if (rider->unk208 <= 0xFF) {
+        actor->unk36 = (0x100 - rider->unk208) >> 1;
         category = 4;
     }
     if (category != current) {
+        // TODO: fakematch
+        if (category <= 1 || category == 0x400) {
+            callbackSequence = -1;
+            if (callbackSequence != category)
+                callbackSequence = category;
+        }
         actor->unk31 = 0;
         actor_80580C0(actor, category, category);
         rider->unk204 = category;
@@ -1033,61 +744,37 @@ void sub_804D754(RiderD754Draft* rider)
         }
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/804d754.s");
-
-#if 0
-typedef struct RiderBaseDraft {
-    unk8 pad0[0x40];
-    s32 unk40;
-    s32 unk44;
-    s32 unk48;
-    s32 unk4C;
-    s16 unk50;
-    s16 unk52;
-    s16 unk54;
-    s16 unk56;
-    s16 unk58;
-    s16 unk5A;
-    s16 unk5C;
-    s16 unk5E;
-    s16 unk60;
-    s16 unk62;
-    s32 unk64;
-    s32 unk68;
-    unk8 pad6C[0x20];
-    s32 unk8C;
-} RiderBaseDraft;
 
 void sub_804D8D8(RiderBase* rider)
 {
     s32 x;
     s32 y;
     s32 maxX;
+    s32 defaultMaxX;
     s32 maxY;
+    s32 alternateMaxX;
     s32 dirX;
     s32 dirY;
-    s32 length;
-    s16 angle;
+    unk16 length;
     s32 speedX;
     s32 speedY;
-    RiderBaseDraft* draft;
 
-    draft = (RiderBaseDraft*)rider;
-    speedX = draft->unk50;
-    speedY = draft->unk52;
-    maxX = draft->unk54;
-    maxY = draft->unk58;
-    x = draft->unk40;
-    y = draft->unk44;
+    speedX = rider->unk50;
+    speedY = rider->unk52;
+    defaultMaxX = rider->unk54;
+    alternateMaxX = rider->unk58;
+    x = rider->unk40;
+    y = rider->unk44;
     dirX = (x * speedX) >> 8;
     dirY = (y * speedY) >> 8;
     if (RiderHasFlag(rider, 0x100000) != 0)
-        maxX = maxY;
-    if (RiderHasFlag(rider, 0x400000) == 0)
-        maxY = draft->unk56;
+        maxX = alternateMaxX;
     else
-        maxY = draft->unk5A;
+        maxX = defaultMaxX;
+    if (RiderHasFlag(rider, 0x400000) != 0)
+        maxY = rider->unk5A;
+    else
+        maxY = rider->unk56;
     if (maxX > (x < 0 ? -x : x)) {
         dirX = x;
         UnsetRiderFlag(rider, 0x100000);
@@ -1112,24 +799,19 @@ void sub_804D8D8(RiderBase* rider)
     }
     x -= dirX;
     y -= dirY;
-    draft->unk8C = y;
-    draft->unk60 = x;
-    draft->unk40 = x;
-    draft->unk44 = y;
-    draft->unk48 -= x;
-    draft->unk4C -= y;
+    rider->unk8C = y;
+    rider->unk60 = x;
+    rider->unk40 = x;
+    rider->unk44 = y;
+    rider->unk48 -= x;
+    rider->unk4C -= y;
     length = Sqrt(x * x + y * y);
-    length = (unk16)length;
-    draft->unk5C = (x << 8) / length;
-    draft->unk5E = (y << 8) / length;
-    angle = sub_8057878(draft->unk5C, draft->unk5E);
-    draft->unk62 = angle;
-    draft->unk64 = length;
-    draft->unk68 = 0;
+    rider->unk5C = (rider->unk40 << 8) / length;
+    rider->unk5E = (rider->unk44 << 8) / length;
+    rider->unk62 = sub_8057878(rider->unk5C, rider->unk5E);
+    rider->unk64 = length;
+    rider->unk68 = 0;
 }
-
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/804d8d8.s");
 
 void nullsub_5(RiderBase* rider)
 {
@@ -1292,62 +974,41 @@ unk32 rider_vs_rider_collision_804DB94(RiderBase* rider0, RiderBase* rider1)
     return 0;
 }
 
-#if 0
-typedef struct RiderDDF8Draft {
-    unk8 pad0[0x40];
-    unk32 unk40; /* 0x40 */
-    unk32 unk44; /* 0x44 */
-    unk8 pad48[0x30];
-    unk32 unk78; /* 0x78 */
-    unk32 unk7C; /* 0x7C */
-    s32 unk80; /* 0x80 */
-    unk8 pad84[4];
-    unk32 unk88; /* 0x88 */
-    unk8 pad8C[0xE0];
-    unk32 unk16C; /* 0x16C */
-    s32 unk170; /* 0x170 */
-    unk8 pad174[4];
-    unk32 unk178[4]; /* 0x178 */
-    unk8 pad188[0x14];
-} RiderDDF8Draft;
-
 void sub_804DDF8(RiderBase* rider, Actor* other)
 {
     s32 matrix[9];
-    unk32 vec0[4];
-    unk32 vec1[4];
-    unk32 vec2[4];
-    unk32 vec3[4];
+    s32 vec0[4];
+    s32 vec1[4];
+    s32 vec2[4];
+    s32 vec3[4];
     unk32 angle0;
-    s32 angle1;
-    s32 angle2;
-    s32 q0;
-    s32 q1;
-    s32 q2;
-    s32 q3;
-    s32 q4;
-    s32 q5;
+    unk32 angle1;
+    unk32 angle2;
+    unk32 q0;
+    unk32 q1;
+    unk32 q2;
+    unk32 q3;
+    unk32 q4;
+    unk32 q5;
     unk32 mask;
     const s16* table;
     s32 x;
     s32 y;
-    RiderDDF8Draft* draft;
+    unk32 z;
+    unk32 offset;
 
-    draft = (RiderDDF8Draft*)rider;
     mask = 0xFF;
     table = Unk_874CC3C;
-    angle0 = (0 - draft->unk16C) & mask;
+    angle0 = (0 - rider->unk16C) & mask;
     angle0 >>= 1;
     q0 = table[angle0];
     angle0 += 0x40;
     q1 = table[angle0];
-    angle1 = draft->unk170 >> 1;
-    angle1 = (unk8)angle1;
+    angle1 = (unk8)(rider->unk170 >> 1);
     q2 = table[angle1];
     angle1 += 0x40;
     q3 = table[angle1];
-    angle2 = draft->unk16C >> 1;
-    angle2 = (unk8)angle2;
+    angle2 = (unk8)(rider->unk16C >> 1);
     q4 = table[angle2];
     angle2 += 0x40;
     q5 = table[angle2];
@@ -1355,77 +1016,57 @@ void sub_804DDF8(RiderBase* rider, Actor* other)
     sub_8059FF8(vec1, 0, 0, q2, q3);
     sub_8059FF8(vec2, 0, q4, 0, q5);
     sub_805A148(vec0, vec1, vec3);
-    sub_805A148(vec3, vec2, draft->unk178);
-    sub_805A1DC(draft->unk178, matrix);
+    sub_805A148(vec3, vec2, rider->unk178);
+    sub_805A1DC(rider->unk178, matrix);
 
     if (sub_804E440(rider, 2) != 0 && RiderHasFlag(rider, 2) == 0) {
-        draft->unk40 = other->unk40;
-        draft->unk44 = -other->unk44;
+        rider->unk40 = other->unk40;
+        rider->unk44 = -other->unk44;
     }
     if (RiderHasFlag(rider, 2) == 0) {
-        x = draft->unk40 << 8;
-        y = draft->unk44 << 8;
-        draft->unk78 = (matrix[0] * x + matrix[6] * y) >> 16;
-        draft->unk80 = (-(matrix[1] * x + matrix[7] * y)) >> 16;
-        draft->unk7C = (-(matrix[2] * x + matrix[8] * y)) >> 16;
+        x = rider->unk40 << 8;
+        y = rider->unk44 << 8;
+        rider->unk78 = (matrix[0] * x + matrix[6] * y) >> 16;
+        rider->unk80 = (-(matrix[1] * x + matrix[7] * y)) >> 16;
+        rider->unk7C = (-(matrix[2] * x + matrix[8] * y)) >> 16;
     }
     if (RiderHasFlag(rider, 2) == 0) {
-        other->unk40 = draft->unk78;
-        other->unk44 = draft->unk7C;
-        other->unk48 = draft->unk80 + other->unk54 + draft->unk88 - 0x78;
-    } else if (draft->unk88 != 0) {
-        other->unk48 += draft->unk88;
+        other->unk40 = rider->unk78;
+        other->unk44 = rider->unk7C;
+        z = rider->unk80 + other->unk54;
+        offset = rider->unk88 - 0x78;
+        other->unk48 = z + offset;
+    } else if (rider->unk88 != 0) {
+        other->unk48 += rider->unk88;
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ddf8.s");
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804df88.s");
 
-#if 0
-typedef struct RiderDFF4Draft {
-    unk8 pad0[0x10];
-    s32 unk10;
-    unk32 unk14;
-    unk8 pad18[4];
-    unk32 unk1C;
-    unk8 pad20[0x98];
-    SpriteEntry* unkB8;
-    unk8 padBC[0x16];
-    unk8 unkD2;
-    unk8 padD3[0x71];
-    unk16 unk144;
-    unk8 pad146[0x22];
-    unk32 unk168;
-    unk8 pad16C[0x2C];
-    s32 unk198;
-    unk32 unk19C;
-    unk8 pad1A0[0x1C];
-    unk32 unk1BC;
-} RiderDFF4Draft;
-
 void sub_804DFF4(RiderBase* rider)
 {
-    RiderDFF4Draft* r;
+    s32 speed;
 
-    r = (RiderDFF4Draft*)rider;
-    r->unk19C = 0;
-    r->unk1BC = 0;
+    // TODO: fakematch?
+    speed = rider->unk70;
+    if (speed < 0)
+        speed = -speed;
+
+    rider->unk19C = 0;
+    rider->unk1BC = 0;
     UnsetRiderFlag(rider, 0x8000);
-    r->unk1C = r->unk10;
-    r->unk14 = 0;
-    r->unk144 = 0;
-    r->unk168 = 0;
-    if (r->unkB8 != NULL && RiderHasFlag(rider, 0x4000000) == 0)
+    rider->unk1C = rider->unk10;
+    rider->unk14 = 0;
+    rider->unk144 = 0;
+    rider->unk168 = 0;
+    if (rider->unkB8 != NULL && RiderHasFlag(rider, 0x4000000) == 0)
         sub_804E154(rider, 0, 0);
     UnsetRiderFlag(rider, 0x20);
-    r->unkD2 = 0;
-    if (RiderHasFlag(rider, 0x4000000) == 0 && r->unk198 > 8)
+    rider->unkD2 = 0;
+    if (RiderHasFlag(rider, 0x4000000) == 0 && rider->unk198 > 8)
         sub_80558B8();
     UnsetRiderFlag(rider, 0x4010);
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/804dff4.s");
 
 void sub_804E090(RiderBase* rider)
 {
