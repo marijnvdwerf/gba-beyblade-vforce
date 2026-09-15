@@ -14,7 +14,7 @@ extern ClearFn* __fastMemoryClearARM;
 void initGame(void);
 void InitCurrentGameState(void);
 void sub_8055CB8(void);
-void sub_80561A0(unk32, unk32);
+void sub_80561A0(Actor*, LevelGeometryAddresses*);
 void nullsub_11(void);
 void sub_8052514(void);
 void sub_8049264(void);

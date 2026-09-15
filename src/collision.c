@@ -1,14 +1,16 @@
 #include "collision.h"
 
+#include "collectable.h"
 #include "debug.h"
 #include "effects.h"
+#include "gameinit.h"
 #include "geometry.h"
 #include "include_asm.h"
 #include "music.h"
 #include "ram.h"
 #include "riderphysics.h"
 
-void sub_80561EC(unk32, unk32, unk32);
+unk32 sub_80561EC(Actor*, LevelGeometryAddresses*, GeometryLine*);
 extern const unk8 Str_87297D0[];
 extern unk8 def_94_4_AddWithBoundingAreaMessage(Actor*, LevelGeometryAddresses*, GeometryLine*);
 extern unk8 def_94_8_collision_8055F2C(Actor*, LevelGeometryAddresses*, GeometryLine*, unk16);
@@ -51,7 +53,7 @@ void sub_8055D64(Actor* actor, RiderBase* rider, LevelGeometryAddresses* geometr
     angleDelta = sub_804E358(angle, rider->unk8 << 4);
     direction = 0x10;
     savedAngle = angle;
-    if (line->unk11_3 != 0)
+    if ((line->unk11 & 8) != 0)
         object = GetStruct4(sub_805BAC0(geometry, line));
     SetRiderFlag(rider, 0x200000);
     rider->unk1B8 = 8;
@@ -61,12 +63,12 @@ void sub_8055D64(Actor* actor, RiderBase* rider, LevelGeometryAddresses* geometr
     }
     angleThreshold = angleDelta * 0x10000;
     if ((collisionMask & 0x90) != 0) {
-        if (line->unk11_3 == 0)
+        if ((line->unk11 & 8) == 0)
             rider->unk40 = -rider->unk40;
         else
             rider->unk40 = object->unk40 * 2 - rider->unk40;
     } else if ((collisionMask & 9) != 0) {
-        if (line->unk11_3 == 0)
+        if ((line->unk11 & 8) == 0)
             rider->unk44 = -rider->unk44;
         else
             rider->unk44 = -(rider->unk44 + object->unk44 * 2);
@@ -122,86 +124,41 @@ unk8 def_94_4_AddWithBoundingAreaMessage(
     if (withBoundingAreaCount > 0x1F) {
         printf(Str_87297D0);
     } else {
-        withBoundingAreas[withBoundingAreaCount] = (unk32)line;
+        withBoundingAreas[withBoundingAreaCount] = line;
         withBoundingAreaCount++;
     }
 }
 
-void sub_80561A0(unk32 arg0, unk32 arg1)
+void sub_80561A0(Actor* actor, LevelGeometryAddresses* geometry)
 {
     s32 i;
 
     i = 0;
     if (i < withBoundingAreaCount) {
         do {
-            sub_80561EC(arg0, arg1, withBoundingAreas[i]);
+            sub_80561EC(actor, geometry, withBoundingAreas[i]);
             i++;
         } while (i < withBoundingAreaCount);
     }
     withBoundingAreaCount = 0;
 }
 
-#if 0
-typedef struct CollisionLineDraft {
-    s32 point0;
-    s32 point1;
-    unk16 unk8;
-    unk8 padA[3];
-    unk8 unkD;
-    unk8 padE;
-    unk8 unkF;
-    unk8 unk10;
-    unk8 unk11;
-    unk8 pad12[4];
-    s16 unk16;
-    unk8 pad18[8];
-} CollisionLineDraft;
-
-typedef struct CollisionScratchDraft {
+unk32 sub_80561EC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line)
+{
     CollisionResult scratch;
     CollisionResult result80;
     CollisionResult result92;
     s32 maxX;
     s32 maxY;
-    unk8 flags;
-} CollisionScratchDraft;
-
-typedef struct CollisionRiderDraft {
-    unk8 pad0[0x68];
-    CollisionLineDraft* unk68;
-    unk8 pad6C[0x88];
-    CollisionResult unkF4;
-    unk8 pad11C[0xA4];
-    unk8 unk1C0;
-    unk8 pad1C1[2];
-    unk8 unk1C3;
-} CollisionRiderDraft;
-
-typedef struct CollisionActorDraft {
-    unk8 pad0[4];
-    s32 x;
-    s32 y;
-    s32 z;
-    unk8 pad10[0x38];
-    s32 unk48;
-    unk8 pad4C[0x68];
-    CollisionRiderDraft* unkB4;
-} CollisionActorDraft;
-
-void sub_80567E4(LevelGeometryAddresses*, CollisionLineDraft*, CollisionActorDraft*, CollisionResult*);
-void sub_8056910(LevelGeometryAddresses*, CollisionLineDraft*, CollisionActorDraft*, CollisionResult*);
-void sub_8056610(LevelGeometryAddresses*, CollisionLineDraft*, CollisionRiderDraft*, CollisionResult*);
-void SetRiderFlag(CollisionRiderDraft*, unk32);
-unk8 RiderHasFlag(CollisionRiderDraft*, unk32);
-void sub_8056EC0(void);
-void sub_804ABFC(unk32);
-void sub_8053E18(unk8);
-unk32 sub_80561EC(CollisionActorDraft* actor, LevelGeometryAddresses* geometry, CollisionLineDraft* line)
-{
-    CollisionScratchDraft local;
-    CollisionRiderDraft* rider;
+    RiderBase* rider;
     GeometryPoint* point0;
     GeometryPoint* point1;
+    GeometryPoint* lowerC;
+    GeometryPoint* lowerD;
+    GeometryPoint* firstC;
+    GeometryPoint* secondC;
+    GeometryPoint* firstD;
+    GeometryPoint* secondD;
     s32 minX;
     s32 minY;
     CollisionResult* result;
@@ -209,50 +166,43 @@ unk32 sub_80561EC(CollisionActorDraft* actor, LevelGeometryAddresses* geometry, 
     s32 minDifference;
     s32 maxDifference;
     s32 swap;
-    GeometryPoint* lowerB;
-    GeometryPoint* firstC;
-    GeometryPoint* secondC;
-    GeometryPoint* lowerC;
-    GeometryPoint* lowerD;
     s32 lowerZC;
-    s32 lowerZD;
     s32 upperZ;
-    unk8 active;
+    s32 lowerZD;
     s32 lineIndex;
     LineMetadata* metadata;
     unk16 height;
 
-    rider = actor->unkB4;
+    rider = actor->unkB4.rider;
     point0 = &geometry->unk4[line->point0];
     point1 = &geometry->unk4[line->point1];
     if (point0->x < point1->x) {
         minX = point0->x << 5;
-        local.maxX = point1->x << 5;
+        maxX = point1->x << 5;
     } else {
         minX = point1->x << 5;
-        local.maxX = point0->x << 5;
+        maxX = point0->x << 5;
     }
     if (point0->y < point1->y) {
         minY = point0->y << 5;
-        local.maxY = point1->y << 5;
+        maxY = point1->y << 5;
     } else {
         minY = point1->y << 5;
-        local.maxY = point0->y << 5;
+        maxY = point0->y << 5;
     }
-    local.flags = line->unk11;
-    if ((local.flags & 8)) {
-        if (actor->x <= minX || actor->x >= local.maxX || actor->y <= minY || actor->y >= local.maxY)
+    if (line->unk11 & 8) {
+        if (actor->x <= minX || actor->x >= maxX || actor->y <= minY || actor->y >= maxY)
             return;
     }
-    result = &local.scratch;
+    result = &scratch;
     if (rider != NULL)
         result = &rider->unkF4;
     switch (line->unkF) {
     case 0x80:
-        sub_80567E4(geometry, line, actor, &local.result80);
-        if (actor->x > local.maxX || actor->y > local.maxY)
+        sub_80567E4(geometry, line, actor, &result80);
+        if (actor->x > maxX || actor->y > maxY)
             break;
-        if (actor->z > local.result80.unk8 && (point0->z != 0 || point1->z != 0))
+        if (actor->z > result80.unk8 && (point0->z != 0 || point1->z != 0))
             break;
         if (line->unkD > rider->unk1C0) {
             rider->unk1C0 = line->unkD;
@@ -263,10 +213,10 @@ unk32 sub_80561EC(CollisionActorDraft* actor, LevelGeometryAddresses* geometry, 
         }
         break;
     case 0x92:
-        sub_80567E4(geometry, line, actor, &local.result92);
-        if (actor->x > local.maxX || actor->y > local.maxY)
+        sub_80567E4(geometry, line, actor, &result92);
+        if (actor->x > maxX || actor->y > maxY)
             break;
-        if (actor->z > local.result92.unk8 && (point0->z != 0 || point1->z != 0))
+        if (actor->z > result92.unk8 && (point0->z != 0 || point1->z != 0))
             break;
         difference = actor->x - actor->y;
         minDifference = (point0->x - point0->y) << 5;
@@ -278,45 +228,47 @@ unk32 sub_80561EC(CollisionActorDraft* actor, LevelGeometryAddresses* geometry, 
         }
         minDifference -= 0x1000;
         maxDifference += 0x1000;
-        if (line->unkD > rider->unk1C0 && difference >= minDifference && difference < maxDifference) {
+        if (line->unkD > rider->unk1C0 && difference >= minDifference
+            && difference < maxDifference) {
             rider->unk1C0 = line->unkD;
             SetRiderFlag(rider, 4);
         }
         break;
     case 0x8A:
-        if ((local.flags & 4) == 0)
+        if ((line->unk11 & 4) == 0) {
             sub_80567E4(geometry, line, actor, result);
-        else
+        } else {
             sub_8056910(geometry, line, actor, result);
+        }
         sub_8056610(geometry, line, rider, result);
         break;
     case 0x8B:
-        lowerB = point0->z < point1->z ? point0 : point1;
-        if (actor->z > (lowerB->z << 5))
+        if (actor->z > (((point0->z < point1->z) ? point0 : point1)->z << 5))
             break;
         if (RiderHasFlag(rider, 0x4000000))
             break;
-        active = RiderHasFlag(rider, 0x400);
-        if (active != 0)
+        if (RiderHasFlag(rider, 0x400))
             break;
         sub_8056EC0();
         sub_804ABFC(10);
         if (_gameData->unkC6C == -1)
             SetRiderFlag(rider, 0x800);
-        actor->unk48 = active;
+        actor->unk48 = 0;
         SetRiderFlag(rider, 0x20000);
         sub_8053E18(0);
         break;
     case 0x8C:
         firstC = &geometry->unk4[line->point0];
         secondC = &geometry->unk4[line->point1];
-        lowerC = secondC;
         if (firstC->z < secondC->z)
             lowerC = firstC;
+        else
+            lowerC = secondC;
         lowerZC = (lowerC->z - (line->unk16 << 3)) << 5;
         upperZ = lowerC->z << 5;
         if (!RiderHasFlag(rider, 0x4000000)) {
-            if (line->unk16 == 0 || line->unk10 == 0)
+            height = line->unk16;
+            if (height == 0 || line->unk10 == 0)
                 break;
             if ((actor->z < lowerZC && actor->z + actor->unk48 > lowerZC)
                 || (actor->z > upperZ && actor->z + actor->unk48 < upperZ)) {
@@ -332,11 +284,12 @@ unk32 sub_80561EC(CollisionActorDraft* actor, LevelGeometryAddresses* geometry, 
         }
         return 0;
     case 0x8D:
-        point0 = &geometry->unk4[line->point0];
-        point1 = &geometry->unk4[line->point1];
-        lowerD = point1;
-        if (point0->z < point1->z)
-            lowerD = point0;
+        firstD = &geometry->unk4[line->point0];
+        secondD = &geometry->unk4[line->point1];
+        if (firstD->z < secondD->z)
+            lowerD = firstD;
+        else
+            lowerD = secondD;
         height = line->unk16;
         lowerZD = (lowerD->z - (height << 3)) << 5;
         if (actor->z <= lowerZD) {
@@ -346,10 +299,11 @@ unk32 sub_80561EC(CollisionActorDraft* actor, LevelGeometryAddresses* geometry, 
             }
             break;
         }
-        if ((local.flags & 4) == 0)
+        if ((line->unk11 & 4) == 0) {
             sub_80567E4(geometry, line, actor, result);
-        else
+        } else {
             sub_8056910(geometry, line, actor, result);
+        }
         sub_8056610(geometry, line, rider, result);
         break;
     case 0x97:
@@ -370,16 +324,15 @@ unk32 sub_80561EC(CollisionActorDraft* actor, LevelGeometryAddresses* geometry, 
     case 0x98:
         break;
     default:
-        if ((local.flags & 4) == 0)
+        if ((line->unk11 & 4) == 0) {
             sub_80567E4(geometry, line, actor, result);
-        else
+        } else {
             sub_8056910(geometry, line, actor, result);
+        }
         sub_8056610(geometry, line, rider, result);
         break;
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/80561ec.s");
 
 void sub_8056610(
     LevelGeometryAddresses* geometry, GeometryLine* line, RiderBase* rider, CollisionResult* result)
@@ -390,7 +343,7 @@ void sub_8056610(
     actor = rider->unk0;
     if (result->unk8 > rider->unk1B4)
         rider->unk1B4 = result->unk8;
-    if ((result->unkC & 2) == 0) {
+    if (result->unkC_1 == 0) {
         rider->unkE4 = NULL;
         return;
     }
@@ -417,7 +370,7 @@ void sub_8056610(
         rider->unk16C = result->unk14;
         break;
     default:
-        if ((result->unkC & 1) != 0) {
+        if (result->unkC_0 != 0) {
             if (result->unkD >= 0) {
                 rider->unk170 = result->unkD;
                 rider->unk174 = rider->unk28 >> 8;
@@ -460,232 +413,215 @@ void sub_8056610(
     }
 }
 
-#if 0
-typedef struct Line80567E4Draft {
-    s32 point0;
-    s32 point1;
-    unk8 pad8[9];
-    unk8 unk11; /* 0x11 */
-    s16 unk12; /* 0x12 */
-    unk8 pad14[4];
-    s8 unk18; /* 0x18 */
-    unk8 pad19[7];
-} Line80567E4Draft;
-
-typedef struct CollisionResult80567E4Draft {
-    s32 unk0;
-    s32 unk4;
-    s32 unk8;
-    s8 unkC;
-    unk8 unkD;
-    unk8 unkE;
-    unk8 unkF;
-    unk8 pad10[0x18];
-} CollisionResult80567E4Draft;
-
-void sub_80567E4(LevelGeometryAddresses* geometry, Line80567E4Draft* line, Actor* actor,
-    CollisionResult80567E4Draft* result)
+void sub_80567E4(
+    LevelGeometryAddresses* geometry, GeometryLine* line, Actor* actor, CollisionResult* result)
 {
     GeometryPoint* point0;
     GeometryPoint* point1;
-    unk8 direction;
-    s32 point0Coord;
-    s32 point1Coord;
-    s32 actorCoord;
-    s32 point0Other;
-    s32 point1Other;
-    s32 point0Z;
-    s32 point1Z;
+    s32 start;
+    s32 end;
+    s32 position;
+    s32 other0;
+    s32 other1;
+    s32 z0;
+    s32 z1;
     s32 range;
     s32 relative;
     s32 temp;
 
     point0 = GetPointAtIndex(geometry, line->point0);
     point1 = GetPointAtIndex(geometry, line->point1);
-    if (point0 == NULL || point1 == NULL)
+    if (point0 == NULL || point1 == NULL) {
         return;
-    direction = line->unk11 & 2;
-    if (direction == 0) {
-        point0Coord = point0->y << 5;
-        point1Coord = point1->y << 5;
-        actorCoord = actor->y + (actor->unk9C << 8) + actor->unk44;
-        point0Other = point0->x << 5;
-        point1Other = point1->x << 5;
-        result->unk4 = actorCoord - point0Coord;
-        result->unkC &= ~1;
+    }
+    if ((line->unk11 & 2) == 0) {
+        start = point0->y << 5;
+        end = point1->y << 5;
+        position = actor->y + (actor->unk9C << 8) + actor->unk44;
+        other0 = point0->x << 5;
+        other1 = point1->x << 5;
+        result->unk4 = position - start;
+        result->unkC_0 = 0;
         result->unkD = 0;
         result->unkE = line->unk18;
     } else {
-        point0Coord = point0->x << 5;
-        point1Coord = point1->x << 5;
-        actorCoord = actor->x + (actor->unk9A << 8) + actor->unk40;
-        point0Other = point0->y << 5;
-        point1Other = point1->y << 5;
-        result->unk0 = actorCoord - point0Coord;
-        result->unkC |= 1;
+        start = point0->x << 5;
+        end = point1->x << 5;
+        position = actor->x + (actor->unk9A << 8) + actor->unk40;
+        other0 = point0->y << 5;
+        other1 = point1->y << 5;
+        result->unk0 = position - start;
+        result->unkC_0 = 1;
         result->unkD = line->unk18;
         result->unkE = 0;
     }
     result->unkF = line->unk18;
-    if (point0Other > point1Other) {
-        temp = point0Other;
-        point0Other = point1Other;
-        point1Other = temp;
-    }
-    if (point0Coord < point1Coord) {
-        point0Z = point0->z << 5;
-        point1Z = point1->z << 5;
+    if (start < end) {
+        z0 = point0->z << 5;
+        z1 = point1->z << 5;
     } else {
-        point0Z = point1->z << 5;
-        point1Z = point0->z << 5;
-        temp = point0Coord;
-        point0Coord = point1Coord;
-        point1Coord = temp;
+        z1 = point0->z << 5;
+        z0 = point1->z << 5;
+        temp = start;
+        start = end;
+        end = temp;
     }
-    range = point1Coord - point0Coord;
-    relative = actorCoord - point0Coord;
-    if (relative < 0)
-        result->unk8 = point0Z;
-    else if (relative >= range)
-        result->unk8 = point1Z;
-    else
-        result->unk8 = point0Z + ((line->unk12 * relative) >> 8);
-    if (relative >= 0 && relative <= range)
-        result->unkC |= 2;
-    else
-        result->unkC &= ~2;
+    if (other0 > other1) {
+        temp = other0;
+        other0 = other1;
+        other1 = temp;
+    }
+    range = end - start;
+    relative = position - start;
+    if (relative < 0) {
+        result->unk8 = z0;
+    } else if (relative >= range) {
+        result->unk8 = z1;
+    } else {
+        result->unk8 = z0 + ((line->unk12 * relative) >> 8);
+    }
+    if (relative >= 0 && relative <= range) {
+        result->unkC_1 = 1;
+    } else {
+        result->unkC_1 = 0;
+    }
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/80567e4.s");
-
-#if 0
-typedef struct CollisionResult8056910Draft {
-    s32 unk0;
-    s32 unk4;
-    s32 unk8;
-    unk8 unkC;
-    unk8 unkD;
-    unk8 unkE;
-    unk8 unkF;
-    unk8 pad10[0x18];
-} CollisionResult8056910Draft;
 
 void sub_8056910(
-    LevelGeometryAddresses* geometry, GeometryLine* line, Actor* actor, CollisionResult8056910Draft* result)
+    LevelGeometryAddresses* geometry, GeometryLine* line, Actor* actor, CollisionResult* result)
 {
     GeometryPoint* point0;
     GeometryPoint* point1;
-    GeometryPoint* lowerPoint;
-    GeometryPoint* upperPoint;
-    unk8 direction;
-    s32 point0Coord;
-    s32 point1Coord;
-    s32 point0Other;
-    s32 point1Other;
-    s32 actorCoordinate;
-    s32 originalDifference;
-    s32 originalRelative;
-    s32 sortedDifference;
-    s32 sortedRelative;
-    s32 point0Z;
-    s32 point1Z;
-    s32 interpolation;
+    GeometryPoint* lower;
+    GeometryPoint* upper;
+    s32 y0;
+    s32 y1;
+    s32 x0;
+    s32 x1;
+    s32 difference;
+    s32 relative;
+    s32 min;
+    s32 max;
+    s32 range;
+    s32 position;
+    s32 t;
+    s16 value;
     s32 p0;
     s32 p1;
     s32 p2;
     s32 p3;
-    s32 temp;
-    unk16 value;
-    unk8 flags;
+    s32 d1;
+    s32 d2;
+    s32 q0;
+    s32 q1;
+    s32 q2;
+    s32 r0;
 
     point0 = GetPointAtIndex(geometry, line->point0);
     point1 = GetPointAtIndex(geometry, line->point1);
-    direction = line->unk11_0 & 2;
-    if (direction == 0) {
-        point0Coord = point0->y << 5;
-        point1Coord = point1->y << 5;
-        actorCoordinate = actor->y + (actor->unk9C << 8) + actor->unk44;
-        point0Other = point0->x << 5;
-        point1Other = point1->x << 5;
-    } else {
-        point0Coord = point0->x << 5;
-        point1Coord = point1->x << 5;
-        actorCoordinate = actor->x + (actor->unk9A << 8) + actor->unk40;
-        point0Other = point0->y << 5;
-        point1Other = point1->y << 5;
-    }
-    originalDifference = point1Coord - point0Coord;
-    originalRelative = actorCoordinate - point0Coord;
-    if (direction == 0) {
+    if ((line->unk11 & 2) == 0) {
+        y1 = point1->y << 5;
+        y0 = point0->y << 5;
+        difference = y1 - y0;
+        relative = actor->y + (actor->unk9C << 8) + actor->unk44 - (point0->y << 5);
         if (point0->y < point1->y) {
-            lowerPoint = point0;
-            upperPoint = point1;
-            point0Z = point0Coord;
-            point1Z = point1Coord;
+            min = y0;
+            max = y1;
+            lower = point0;
+            upper = point1;
         } else {
-            lowerPoint = point1;
-            upperPoint = point0;
-            point0Z = point1Coord;
-            point1Z = point0Coord;
+            min = y1;
+            max = y0;
+            lower = point1;
+            upper = point0;
         }
-    } else if (point0->x < point1->x) {
-        lowerPoint = point0;
-        upperPoint = point1;
-        point0Z = point0Coord;
-        point1Z = point1Coord;
+        position = actor->y + (actor->unk9C << 8) + actor->unk44 - min;
     } else {
-        lowerPoint = point1;
-        upperPoint = point0;
-        point0Z = point1Coord;
-        point1Z = point0Coord;
+        x1 = point1->x << 5;
+        x0 = point0->x << 5;
+        difference = x1 - x0;
+        relative = actor->x + (actor->unk9A << 8) + actor->unk40 - (point0->x << 5);
+        if (point0->x < point1->x) {
+            min = x0;
+            max = x1;
+            lower = point0;
+            upper = point1;
+        } else {
+            min = x1;
+            max = x0;
+            lower = point1;
+            upper = point0;
+        }
+        position = actor->x + (actor->unk9A << 8) + actor->unk40 - min;
     }
-    sortedDifference = point1Z - point0Z;
-    sortedRelative = actorCoordinate - point0Z;
-    point0Z = lowerPoint->z << 5;
-    point1Z = upperPoint->z << 5;
-    interpolation = (originalRelative * line->unk1A) >> 16;
-    if (originalDifference < 0)
-        interpolation = -interpolation;
-    value
-        = line->unk18 + (((line->unk19 - line->unk18) * interpolation) >> 10);
-    if (originalDifference < 0)
+    range = max - min;
+    p0 = point0->z << 5;
+    p3 = point1->z << 5;
+    t = (relative * line->unk1A) >> 16;
+    if (difference < 0) {
+        t = -t;
+    }
+    value = line->unk18 + (((line->unk19 - line->unk18) * t) >> 10);
+    if (difference < 0) {
         value = -value;
-    if (direction == 0) {
-        result->unkD = direction;
+    }
+    if ((line->unk11 & 2) == 0) {
+        result->unkD = 0;
         result->unkE = value;
-        flags = -2 & result->unkC;
+        result->unkC_0 = 0;
     } else {
         result->unkD = value;
         result->unkE = 0;
-        flags = 1 | result->unkC;
+        result->unkC_0 = 1;
     }
-    result->unkC = flags;
     result->unkF = value;
-    if (sortedRelative < 0) {
-        result->unk8 = point0Z;
-        result->unkC &= -3;
-    } else if (sortedRelative >= sortedDifference) {
-        result->unk8 = point1Z;
-        result->unkC &= -3;
+    if (position < 0) {
+        result->unk8 = lower->z << 5;
+        result->unkC_1 = 0;
+    } else if (position >= range) {
+        result->unk8 = upper->z << 5;
+        result->unkC_1 = 0;
     } else {
-        p0 = point0Z;
-        p1 = p0 + (line->unk1C << 5);
-        p2 = point1Z + (line->unk12 << 5);
-        p3 = point1Z;
-        temp = p1 + (((p2 - p1) * interpolation) >> 10);
-        p0 = p0 + (((p1 - p0) * interpolation) >> 10);
-        p2 = p2 + (((p3 - p2) * interpolation) >> 10);
-        p1 = p0 + (((temp - p0) * interpolation) >> 10);
-        p2 = temp + (((p2 - temp) * interpolation) >> 10);
-        result->unk8 = p1 + (((p2 - p1) * interpolation) >> 10);
-        result->unkC |= 2;
+        d1 = line->unk1C << 5;
+        p1 = p0 + d1;
+        d2 = line->unk12 << 5;
+        p2 = p3 + d2;
+        q0 = p0 + ((d1 * t) >> 10);
+        q1 = p1 + (((p2 - p1) * t) >> 10);
+        q2 = p2 + ((-d2 * t) >> 10);
+        r0 = q0 + (((q1 - q0) * t) >> 10);
+        result->unk8 = r0 + ((((q1 + (((q2 - q1) * t) >> 10)) - r0) * t) >> 10);
+        result->unkC_1 = 1;
     }
 }
 
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8056910.s");
+unk32 sub_8056ADC(LevelGeometryAddresses* geometry, GeometryLine* line, s32 t)
+{
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    s32 z0;
+    s32 z3;
+    s32 a;
+    s32 b;
+    s32 c;
+    s32 d1;
+    s32 d2;
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8056adc.s");
+    point0 = GetPointAtIndex(geometry, line->point0);
+    point1 = GetPointAtIndex(geometry, line->point1);
+    z0 = point0->z << 5;
+    z3 = point1->z << 5;
+    d1 = line->unk1C << 5;
+    b = z0 + d1;
+    d2 = line->unk12 << 5;
+    c = z3 + d2;
+    a = z0 + ((d1 * t) >> 10);
+    b = b + (((c - b) * t) >> 10);
+    c = c + ((-d2 * t) >> 10);
+    a = a + (((b - a) * t) >> 10);
+    b = b + (((c - b) * t) >> 10);
+    return a + (((b - a) * t) >> 10);
+}
 
 unk8 sub_8056B54(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line)
 {
@@ -709,7 +645,7 @@ unk8 sub_8056B54(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* l
     case 0x92:
         break;
     default:
-        if (line->unk11_2 == 0)
+        if ((line->unk11 & 4) == 0)
             sub_80567E4(geometry, line, actor, &result);
         else
             sub_8056910(geometry, line, actor, &result);

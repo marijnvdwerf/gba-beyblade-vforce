@@ -477,7 +477,7 @@ void allocateDynamicBoundingAreas(QuadTree* quadTree, LevelGeometryAddresses* ge
     record = geometry->unkC;
     output = quadTree->unk4C;
     while (remaining-- != 0) {
-        if (record->unk11_3 != 0) {
+        if ((record->unk11 & 8) != 0) {
             *output++ = index;
             count += 1;
             if (count > max) {
@@ -531,7 +531,7 @@ QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX,
         do {
             point0 = &points[line->point0];
             point1 = &points[line->point1];
-            if (line->unk11_3 == 0 && (callback == NULL || callback(geometry, line) != 0)
+            if ((line->unk11 & 8) == 0 && (callback == NULL || callback(geometry, line) != 0)
                 && line->point0 >= 0 && line->point1 >= 0) {
                 left = point0->x;
                 top = point0->y;

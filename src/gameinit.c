@@ -140,7 +140,7 @@ void initRiders(void)
     GeometryLine* multiplayerLine;
     GeometryPoint* point;
     unk32 initialized;
-    unk32 lineType;
+    unk16 lineType;
     s32 lineIndex;
     s32 multiplayerLineIndex;
     s32 x;
@@ -185,8 +185,8 @@ void initRiders(void)
                             y = point->y >> 3;
                             z = point->z >> 3;
                         } else {
-                            x += (Unk_874CC3C[line->unk8] * 0x20) >> 8;
-                            y += -(Unk_874CC3C[line->unk8 + 0x40] * 0x20) >> 8;
+                            x += (Unk_874CC3C[line->unk8 & 0xFF] * 0x20) >> 8;
+                            y += -(Unk_874CC3C[(line->unk8 & 0xFF) + 0x40] * 0x20) >> 8;
                             printf(Str_8729598, rider->unk3CE);
                         }
                     }
@@ -218,7 +218,8 @@ void initRiders(void)
                     printf(Str_8729610);
                     break;
                 }
-                initRider(rider, &_gameData->unk434, x, y, z, riderIndex + 1, line->unk16 - 1);
+                initRider(
+                    rider, &_gameData->unk434, x, y, z, riderIndex + 1, (line->unk16 & 0xFFFF) - 1);
                 processRiderMetadata(rider, &geometry, lineIndex);
                 SetRiderFlag(rider, 0x04000000);
                 riderIndex++;

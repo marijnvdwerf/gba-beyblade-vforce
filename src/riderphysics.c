@@ -99,14 +99,12 @@ void s_rider_804C4B4(RiderBase* rider, Actor* actor)
     rider->unk1B8 = 0;
     rider->unk1BC = 0;
     rider->unk1C0 = 0;
-    unused = rider->unkF4 + rider->unkF8
-        + rider
-              ->unkFC; // TODO: fakematch? (dead read, byte-required: s_rider_804C4B4-2026-09-14.md)
-    rider->unk101 = rider->unk102 = rider->unk103 = rider->unk104 = rider->unk106 = rider->unk108
-        = rider->unk10C = rider->unk110 = rider->unk114 = rider->unk118 = 0;
-    rider->unk100
-        >>= 8; // TODO: fakematch? (dead self-shift, byte-required: s_rider_804C4B4-2026-09-14.md)
-    rider->unkF4 = rider->unkF8 = rider->unkFC = 0;
+    unused = rider->unkF4.unk0 + rider->unkF4.unk4 + rider->unkF4.unk8;
+    rider->unkF4.unkD = rider->unkF4.unkE = rider->unkF4.unkF = rider->unkF4.unk10
+        = rider->unkF4.unk12 = rider->unkF4.unk14 = rider->unkF4.unk18 = rider->unkF4.unk1C
+        = rider->unkF4.unk20 = rider->unkF4.unk24 = 0;
+    rider->unkF4.unkC_2 = rider->unkF4.unkC_1 = rider->unkF4.unkC_0 = 0;
+    rider->unkF4.unk0 = rider->unkF4.unk4 = rider->unkF4.unk8 = 0;
     rider->unk1C2 = 0;
     rider->unk1C3 = 0;
     rider->unk1C4 = 0;
@@ -122,7 +120,7 @@ void s_rider_804C4B4(RiderBase* rider, Actor* actor)
     rider->unk56 = 0;
     rider->unk58 = 0;
     rider->unk5A = 0;
-    rider->unk68 = 0;
+    rider->unk68 = NULL;
     rider->unk5C = 0;
     rider->unk5E = 0;
     rider->unk62 = 0;
@@ -810,7 +808,7 @@ void sub_804D8D8(RiderBase* rider)
     rider->unk5E = (rider->unk44 << 8) / length;
     rider->unk62 = sub_8057878(rider->unk5C, rider->unk5E);
     rider->unk64 = length;
-    rider->unk68 = 0;
+    rider->unk68 = NULL;
 }
 
 void nullsub_5(RiderBase* rider)
@@ -1098,7 +1096,7 @@ void sub_804E090(RiderBase* rider)
 
 void sub_804E124(RiderBase* rider, GeometryLine* line)
 {
-    if (line->unk11_1 != 0) {
+    if ((line->unk11 & 2) != 0) {
         rider->unk40 -= (line->unk18 * 5) >> 3;
     } else {
         rider->unk44 += (line->unk18 * 5) >> 3;

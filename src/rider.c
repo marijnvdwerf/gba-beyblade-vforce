@@ -377,7 +377,7 @@ void sub_804B8F0(RiderBase* rider, LevelGeometryAddresses* target)
             rider->unk11C
                 += sub_805CEB8(&rider->unk238, target, quadTree->unk4C, quadTree->unk48, entries);
         }
-        sub_80561A0((unk32)actor, (unk32)target);
+        sub_80561A0(actor, target);
         (void)*(vu16*)REG_VCOUNT;
     }
     nullsub_6(actor, riderBase);

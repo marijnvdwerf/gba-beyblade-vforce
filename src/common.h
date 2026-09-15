@@ -734,6 +734,27 @@ typedef struct RiderTileState {
 typedef unk8 RiderTile[0x20];
 typedef RiderTile RiderTileRow[4];
 
+typedef struct CollisionResult {
+    unk32 unk0;
+    unk32 unk4;
+    s32 unk8;
+    unk8 unkC_0 : 1;
+    unk8 unkC_1 : 1;
+    unk8 unkC_2 : 6;
+    s8 unkD;
+    s8 unkE;
+    unk8 unkF;
+    unk16 unk10;
+    unk16 unk12;
+    unk32 unk14;
+    unk32 unk18;
+    unk32 unk1C;
+    unk32 unk20;
+    unk32 unk24;
+} CollisionResult;
+
+typedef char CollisionResultSizeCheck[(sizeof(CollisionResult) == 0x28) ? 1 : -1];
+
 typedef struct RiderBase {
     Actor* unk0;
     struct RiderBase* unk4;
@@ -768,7 +789,7 @@ typedef struct RiderBase {
     unk16 unk60; /* 0x60 */
     s16 unk62; /* 0x62 */
     unk32 unk64; /* 0x64 */
-    unk32 unk68; /* 0x68 */
+    struct GeometryLine* unk68; /* 0x68 */
     unk32 unk6C; /* 0x6C */
     unk32 unk70; /* 0x70 */
     unk32 unk74; /* 0x74 */
@@ -805,20 +826,7 @@ typedef struct RiderBase {
     struct GeometryLine* unkE8;
     struct GeometryLine* unkEC;
     unk32 unkF0;
-    unk32 unkF4;
-    unk32 unkF8;
-    unk32 unkFC;
-    unk8 unk100;
-    unk8 unk101;
-    unk8 unk102;
-    unk8 unk103;
-    unk16 unk104;
-    unk16 unk106;
-    unk32 unk108;
-    unk32 unk10C;
-    unk32 unk110;
-    unk32 unk114;
-    unk32 unk118;
+    CollisionResult unkF4;
     unk16 unk11C; /* 0x11C */
     unk8 pad11E[0x22];
     unk16 unk140;
@@ -942,21 +950,21 @@ typedef struct GeometryPoint {
 typedef struct GeometryLine {
     s32 point0;
     s32 point1;
-    unk8 unk8;
-    unk8 pad9[4];
+    unk16 unk8;
+    unk8 padA[3];
     unk8 unkD;
     unk8 padE;
     unk8 unkF;
     unk8 unk10;
-    unk8 unk11_0 : 1;
-    unk8 unk11_1 : 1;
-    unk8 unk11_2 : 1;
-    unk8 unk11_3 : 1;
-    unk8 unk11_4 : 4;
-    unk8 pad12[4];
-    unk16 unk16; /* 0x16 */
+    unk8 unk11;
+    s16 unk12;
+    unk8 pad14[2];
+    s16 unk16; /* 0x16 */
     s8 unk18;
-    unk8 pad19[7];
+    s8 unk19;
+    unk16 unk1A;
+    s16 unk1C;
+    unk8 pad1E[2];
 } GeometryLine; /* 0x20 */
 
 typedef struct GeometrySpline {
@@ -1020,7 +1028,8 @@ typedef struct LevelDesignLayer {
     s32 unk4;
     s32 unk8;
     unk32 unkC;
-    unk8 pad10[4];
+    unk16 unk10;
+    unk16 unk12;
     unk32 unk14;
 } LevelDesignLayer;
 
