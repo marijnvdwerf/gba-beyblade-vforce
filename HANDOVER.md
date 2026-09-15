@@ -5,7 +5,29 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-13 (end of session 12): 734 C / 291 asm / 72% by count, 21 TUs; ARM bank 2 matched + 10 typed parks.
+Last updated: 2026-09-15 (session 13 in progress; previous close 2026-09-13): 734 C / 291 asm / 72% by count, 21 TUs; ARM bank 2 matched + 10 typed parks.
+
+## Session 13 (2026-09-15)
+
+- User's raw-decomp-<topic> branches are ONE linear stack on main c93ed1d2:
+  sprite (5 fn) → rider (3) → particle (1) → motion (1) → collision (4 +
+  GeometryLine rework) → actor (2 + ActorConfig→SpriteSheet) → backup
+  (all of backup.c via per-TU `agbcc -O1 -fprologue-bugfix` — USER OK) →
+  misc (8). `raw-decomp-riderphysics` (5, incl. live s_rider_804C4B4) is
+  independent. Each has a worktree `.claude/worktrees/raw-decomp-<topic>`;
+  misc + riderphysics tips compare green. Plan: review per delta → fix agent
+  in each branch's worktree → my read → squash-merge in stack order,
+  rebasing each next delta onto the fixed predecessor (`git rebase --onto`).
+- Reviews done: motion (initRider `void* layer` → CameraState*), misc-A
+  (CameraState.unk224 → Actor*; 29 folds), misc-B (4 signedness cites; 10
+  folds), riderphysics (stale "Parked" learnings; 8 folds), sprite (3
+  "blockers" all pre-existing on main; prototypes moved to sprite.h anyway).
+  Pending: collision, actor+backup.
+- User: all `// TODO: fakematch?` comments on these branches were added at
+  the user's request — keep them. Bitfield-or-not is evidence, not a decision.
+  backup.c byte-stepping casts: user "not a fan" — fix agent to retest typed forms.
+- Running fix agents (luna, existing worktrees): riderphysics (25 builds),
+  sprite (12), motion (10), misc A+B (60).
 
 ## Session 12 (2026-09-12/13)
 
