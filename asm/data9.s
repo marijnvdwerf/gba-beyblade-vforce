@@ -137,7 +137,7 @@ global LevelDescriptions
     .4byte 4294967295
     .4byte 0
     .4byte 0
-    .4byte 0x800FA28
+    .4byte LineDataE01S01
     .4byte 0
     .4byte 0
     .4byte 0
@@ -164,7 +164,7 @@ global LevelDescriptions
     .4byte 0
     .4byte 0
     .4byte 0
-    .4byte 0x800F534
+    .4byte LineDataE01S02
     .4byte 0
     .4byte 0
     .4byte 0
@@ -191,7 +191,7 @@ global LevelDescriptions
     .4byte 1
     .4byte 0
     .4byte 0
-    .4byte 0x800F258
+    .4byte LineDataE01S03
     .4byte 0
     .4byte 0
     .4byte 0
@@ -218,7 +218,7 @@ global LevelDescriptions
     .4byte 2
     .4byte 0
     .4byte 0
-    .4byte 0x800ED58
+    .4byte LineDataE01S04
     .4byte 0
     .4byte 0
     .4byte 0
@@ -245,7 +245,7 @@ global LevelDescriptions
     .4byte 3
     .4byte 0
     .4byte 0
-    .4byte 0x800EB14
+    .4byte LineDataE01S05
     .4byte 0
     .4byte 0
     .4byte 0
@@ -272,7 +272,7 @@ global LevelDescriptions
     .4byte 4
     .4byte 0
     .4byte 0
-    .4byte 0x800E7DC
+    .4byte LineDataE01S06
     .4byte 0
     .4byte 0
     .4byte 0
@@ -299,7 +299,7 @@ global LevelDescriptions
     .4byte 5
     .4byte 0
     .4byte 0
-    .4byte 0x800E4EC
+    .4byte LineDataE01S07
     .4byte 0
     .4byte 0
     .4byte 0
@@ -326,7 +326,7 @@ global LevelDescriptions
     .4byte 0
     .4byte 0
     .4byte 6
-    .4byte 0x800FB58
+    .4byte LineDataE01S08
     .4byte 0
     .4byte 0
     .4byte 0
@@ -353,7 +353,7 @@ global LevelDescriptions
     .4byte 6
     .4byte 0
     .4byte 0
-    .4byte 0x800DE5C
+    .4byte LineDataE02S01
     .4byte 0
     .4byte 0
     .4byte 0
@@ -380,7 +380,7 @@ global LevelDescriptions
     .4byte 8
     .4byte 0
     .4byte 0
-    .4byte 0x800DCC8
+    .4byte LineDataE02S02
     .4byte 0
     .4byte 0
     .4byte 0
@@ -407,7 +407,7 @@ global LevelDescriptions
     .4byte 9
     .4byte 0
     .4byte 0
-    .4byte 0x800DA9C
+    .4byte LineDataE02S03
     .4byte 0
     .4byte 0
     .4byte 0
@@ -434,7 +434,7 @@ global LevelDescriptions
     .4byte 10
     .4byte 0
     .4byte 0
-    .4byte 0x800D5F0
+    .4byte LineDataE02S04
     .4byte 0
     .4byte 0
     .4byte 0
@@ -461,7 +461,7 @@ global LevelDescriptions
     .4byte 11
     .4byte 0
     .4byte 0
-    .4byte 0x800D21C
+    .4byte LineDataE02S05
     .4byte 0
     .4byte 0
     .4byte 0
@@ -488,7 +488,7 @@ global LevelDescriptions
     .4byte 12
     .4byte 0
     .4byte 0
-    .4byte 0x800CC2C
+    .4byte LineDataE02S06
     .4byte 0
     .4byte 0
     .4byte 0
@@ -515,7 +515,7 @@ global LevelDescriptions
     .4byte 13
     .4byte 0
     .4byte 0
-    .4byte 0x800C780
+    .4byte LineDataE02S07
     .4byte 0
     .4byte 0
     .4byte 0
@@ -542,7 +542,7 @@ global LevelDescriptions
     .4byte 0
     .4byte 8
     .4byte 14
-    .4byte 0x800E184
+    .4byte LineDataE02S08
     .4byte 0
     .4byte 0
     .4byte 0
@@ -569,7 +569,7 @@ global LevelDescriptions
     .4byte 14
     .4byte 0
     .4byte 0
-    .4byte 0x800BC34
+    .4byte LineDataE03S01
     .4byte 0
     .4byte 0
     .4byte 0
@@ -596,7 +596,7 @@ global LevelDescriptions
     .4byte 16
     .4byte 0
     .4byte 0
-    .4byte 0x800B970
+    .4byte LineDataE03S02
     .4byte 0
     .4byte 0
     .4byte 0
@@ -623,7 +623,7 @@ global LevelDescriptions
     .4byte 17
     .4byte 0
     .4byte 0
-    .4byte 0x800B7A8
+    .4byte LineDataE03S03
     .4byte 0
     .4byte 0
     .4byte 0
@@ -650,7 +650,7 @@ global LevelDescriptions
     .4byte 18
     .4byte 0
     .4byte 0
-    .4byte 0x800B54C
+    .4byte LineDataE03S04
     .4byte 0
     .4byte 0
     .4byte 0
@@ -677,7 +677,7 @@ global LevelDescriptions
     .4byte 19
     .4byte 0
     .4byte 0
-    .4byte 0x800B24C
+    .4byte LineDataE03S05
     .4byte 0
     .4byte 0
     .4byte 0
@@ -704,7 +704,7 @@ global LevelDescriptions
     .4byte 20
     .4byte 0
     .4byte 0
-    .4byte 0x800B0CC
+    .4byte LineDataE03S06
     .4byte 0
     .4byte 0
     .4byte 0
@@ -731,7 +731,7 @@ global LevelDescriptions
     .4byte 21
     .4byte 0
     .4byte 0
-    .4byte 0x800ACA4
+    .4byte LineDataE03S07
     .4byte 0
     .4byte 0
     .4byte 0
@@ -758,7 +758,7 @@ global LevelDescriptions
     .4byte 0
     .4byte 16
     .4byte 22
-    .4byte 0x800C220
+    .4byte LineDataE03S08
     .4byte 0
     .4byte 0
     .4byte 0
@@ -785,7 +785,7 @@ global LevelDescriptions
     .4byte 22
     .4byte 0
     .4byte 0
-    .4byte 0x800A638
+    .4byte LineDataE04S01
     .4byte 0
     .4byte 0
     .4byte 0
@@ -812,7 +812,7 @@ global LevelDescriptions
     .4byte 24
     .4byte 0
     .4byte 0
-    .4byte 0x800A158
+    .4byte LineDataE04S02
     .4byte 0
     .4byte 0
     .4byte 0
@@ -839,7 +839,7 @@ global LevelDescriptions
     .4byte 25
     .4byte 0
     .4byte 0
-    .4byte 0x8009F90
+    .4byte LineDataE04S03
     .4byte 0
     .4byte 0
     .4byte 0
@@ -866,7 +866,7 @@ global LevelDescriptions
     .4byte 26
     .4byte 0
     .4byte 0
-    .4byte 0x80097D4
+    .4byte LineDataE04S04
     .4byte 0
     .4byte 0
     .4byte 0
@@ -893,7 +893,7 @@ global LevelDescriptions
     .4byte 27
     .4byte 0
     .4byte 0
-    .4byte 0x8009248
+    .4byte LineDataE04S05
     .4byte 0
     .4byte 0
     .4byte 0
@@ -920,7 +920,7 @@ global LevelDescriptions
     .4byte 28
     .4byte 0
     .4byte 0
-    .4byte 0x8008F30
+    .4byte LineDataE04S06
     .4byte 0
     .4byte 0
     .4byte 0
@@ -947,7 +947,7 @@ global LevelDescriptions
     .4byte 29
     .4byte 0
     .4byte 0
-    .4byte 0x8008E48
+    .4byte LineDataE04S07
     .4byte 0
     .4byte 0
     .4byte 0
@@ -974,7 +974,7 @@ global LevelDescriptions
     .4byte 0
     .4byte 24
     .4byte 30
-    .4byte 0x800AADC
+    .4byte LineDataE04S08
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1001,7 +1001,7 @@ global LevelDescriptions
     .4byte 30
     .4byte 0
     .4byte 0
-    .4byte 0x8008644
+    .4byte LineDataE05S01
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1028,7 +1028,7 @@ global LevelDescriptions
     .4byte 32
     .4byte 0
     .4byte 0
-    .4byte 0x8007FD4
+    .4byte LineDataE05S02
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1055,7 +1055,7 @@ global LevelDescriptions
     .4byte 33
     .4byte 0
     .4byte 0
-    .4byte 0x8007824
+    .4byte LineDataE05S03
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1082,7 +1082,7 @@ global LevelDescriptions
     .4byte 34
     .4byte 0
     .4byte 0
-    .4byte 0x800749C
+    .4byte LineDataE05S04
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1109,7 +1109,7 @@ global LevelDescriptions
     .4byte 35
     .4byte 0
     .4byte 0
-    .4byte 0x8006BA0
+    .4byte LineDataE05S05
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1136,7 +1136,7 @@ global LevelDescriptions
     .4byte 36
     .4byte 0
     .4byte 0
-    .4byte 0x8006714
+    .4byte LineDataE05S06
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1163,7 +1163,7 @@ global LevelDescriptions
     .4byte 37
     .4byte 0
     .4byte 0
-    .4byte 0x8005D28
+    .4byte LineDataE05S07
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1190,7 +1190,7 @@ global LevelDescriptions
     .4byte 0
     .4byte 32
     .4byte 38
-    .4byte 0x8008ADC
+    .4byte LineDataE05S08
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1217,7 +1217,7 @@ global LevelDescriptions
     .4byte 38
     .4byte 0
     .4byte 0
-    .4byte 0x80051C4
+    .4byte LineDataE06S01
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1244,7 +1244,7 @@ global LevelDescriptions
     .4byte 40
     .4byte 0
     .4byte 0
-    .4byte 0x8004898
+    .4byte LineDataE06S02
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1271,7 +1271,7 @@ global LevelDescriptions
     .4byte 41
     .4byte 0
     .4byte 0
-    .4byte 0x80045C4
+    .4byte LineDataE06S03
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1298,7 +1298,7 @@ global LevelDescriptions
     .4byte 42
     .4byte 0
     .4byte 0
-    .4byte 0x8003F7C
+    .4byte LineDataE06S04
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1325,7 +1325,7 @@ global LevelDescriptions
     .4byte 43
     .4byte 0
     .4byte 0
-    .4byte 0x80039F8
+    .4byte LineDataE06S05
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1352,7 +1352,7 @@ global LevelDescriptions
     .4byte 44
     .4byte 0
     .4byte 0
-    .4byte 0x8003368
+    .4byte LineDataE06S06
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1379,7 +1379,7 @@ global LevelDescriptions
     .4byte 45
     .4byte 0
     .4byte 0
-    .4byte 0x800312C
+    .4byte LineDataE06S07
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1406,7 +1406,7 @@ global LevelDescriptions
     .4byte 0
     .4byte 40
     .4byte 46
-    .4byte 0x80058B8
+    .4byte LineDataE06S08
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1433,7 +1433,7 @@ global LevelDescriptions
     .4byte 46
     .4byte 0
     .4byte 0
-    .4byte 0x80024B0
+    .4byte LineDataE07S01
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1460,7 +1460,7 @@ global LevelDescriptions
     .4byte 48
     .4byte 0
     .4byte 0
-    .4byte 0x8001DF8
+    .4byte LineDataE07S02
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1487,7 +1487,7 @@ global LevelDescriptions
     .4byte 49
     .4byte 0
     .4byte 0
-    .4byte 0x80018E4
+    .4byte LineDataE07S03
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1514,7 +1514,7 @@ global LevelDescriptions
     .4byte 50
     .4byte 0
     .4byte 0
-    .4byte 0x8001404
+    .4byte LineDataE07S04
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1541,7 +1541,7 @@ global LevelDescriptions
     .4byte 51
     .4byte 0
     .4byte 0
-    .4byte 0x8000B58
+    .4byte LineDataE07S05
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1568,7 +1568,7 @@ global LevelDescriptions
     .4byte 52
     .4byte 0
     .4byte 0
-    .4byte 0x800048C
+    .4byte LineDataE07S06
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1595,7 +1595,7 @@ global LevelDescriptions
     .4byte 53
     .4byte 0
     .4byte 0
-    .4byte 0x8000284
+    .4byte LineDataE07S07
     .4byte 0
     .4byte 0
     .4byte 0
@@ -1622,7 +1622,7 @@ global LevelDescriptions
     .4byte 0
     .4byte 48
     .4byte 54
-    .4byte 0x8002B9C
+    .4byte LineDataE07S08
     .4byte 0
     .4byte 0
     .4byte 0
