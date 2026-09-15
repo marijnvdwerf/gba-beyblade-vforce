@@ -4,6 +4,7 @@
 
 #include "actor.h"
 #include "beyblade.h"
+#include "camera.h"
 #include "collision.h"
 #include "geometry.h"
 #include "include_asm.h"
@@ -14,92 +15,69 @@
 #include "sprite.h"
 #include "unsorted.h"
 
-extern const unk8 SpriteSheet_86FAEAC[];
+extern ActorConfig SpriteSheet_86FAEAC;
 extern const SpriteSheet SpriteSheet_86FAF34;
 extern const SpriteSheet SpriteSheet_86FB40C;
 extern const SpriteSheet SpriteSheet_86FBA14;
 
-#if 0
-void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 arg5, unk32 arg6)
+void initRider(
+    RiderBase* rider, CameraState* layer, unk32 x, unk32 y, unk32 z, unk32 arg5, unk32 arg6)
 {
-    ActorConfig* actorConfig;
-    RiderBase* base;
     Actor* actor;
-    Actor* actor2;
-    Actor* environmentActor;
-    unk32 value;
-    unk16 spriteOffset;
-    unk8 enabled;
-    typedef struct RiderTileStateDraft {
-        unk32 unk0; /* 0x0 */
-        unk32 unk4; /* 0x4 */
-        unk32 unk8; /* 0x8 */
-        unk32 unkC; /* 0xC */
-    } RiderTileStateDraft;
-    RiderTileStateDraft* tileStateDraft;
+    Actor* shadow;
+    ActorConfig* config;
 
-    base = rider;
-    tileStateDraft = (RiderTileStateDraft*)&base->unk3D8;
-    actor = &base->unk238;
-    environmentActor = actor;
+    actor = &rider->unk238;
+    shadow = &rider->unk2FC;
     getBeybladeData0(arg6);
     __fastMemoryClearARM(0, actor, sizeof(Actor));
-    __fastMemoryClearARM(0, &environmentActor->unkA8, 8);
-    actorConfig = getBeyBladeActorDataForIndex(arg6);
-    base->unk2FC.unk39 = getBeybladeActorData(arg6)->unk4;
-    actor_8057C58(actor, actorConfig, arg1, arg2, arg3, arg4, -1);
+    __fastMemoryClearARM(0, &actor->unkA8, 8);
+    config = getBeyBladeActorDataForIndex(arg6);
+    rider->unk3CF = getBeybladeActorData(arg6)->unk4;
+    actor_8057C58(actor, config, layer->records, x, y, z, -1);
     ActorSetSpriteOffset(actor, 0xF, 0x14);
     rider_8058614(actor, 0, 0, 4);
     actor_80585F0(actor, 7);
     actor_80585F8(actor, -1, -1, 1, 1);
-    actor->unk90 = (unk32)_unk3000FD0;
-    actor->unk94 = (unk32)_unk3000FC0;
+    actor->callbacks.unk4 = &_unk3000FC0;
+    actor->callbacks.unk0 = _unk3000FD0;
     actor->unkB0 = convert3DCoordsto2DCoords;
     actor->unkB4.rider = rider;
-    spriteOffset = 0x10;
-    if (arg5 != 0)
-        spriteOffset = 0x20;
-    actor->unkBC = spriteOffset;
-    s_rider_804C4B4(base, actor);
-    base->unk4 = base;
-    actor2 = &base->unk2FC;
-    actor_8057C58(actor2, (ActorConfig*)SpriteSheet_86FAEAC, arg1, 0xFFFF8300, 0xFFFF8300, 0x7D00, -1);
-    sub_80585C8(actor2, 1);
-    ActorSetSpriteOffset(actor2, 8, 4);
-    actor2->unk39 = 0;
-    actor2->unkB0 = convert3DCoordsto2DCoords;
-    actor2->unkBC = 0x100;
-    base->unk3D4 = (((arg5 * 0x10) + 0x100) << 5) + 0x06010000;
-    base->unk3C8 = 0;
-    base->unk3CC = 0;
-    base->unk3CA = 0;
-    base->unk3C0 = 0;
-    base->unk3CE = arg5;
-    base->unk3D8.unk0 = 0;
-    base->unk3D8.unk4 = 0;
-    base->unk3D8.unkC = 0;
-    tileStateDraft->unk8 = 0;
+    actor->unkBC = arg5 != 0 ? 0x20 : 0x10;
+    s_rider_804C4B4(rider, actor);
+    rider->unk4 = rider;
+    actor_8057C58(shadow, &SpriteSheet_86FAEAC, layer->records, -0x7D00, -0x7D00, 0x7D00, -1);
+    sub_80585C8(shadow, 1);
+    ActorSetSpriteOffset(shadow, 8, 4);
+    shadow->unk39 = 0;
+    shadow->unkB0 = convert3DCoordsto2DCoords;
+    shadow->unkBC = 0x100;
+    rider->unk3D4 = (RiderTileRow*)(VRAM + 0x10000 + ((arg5 * 0x10 + 0x100) << 5));
+    rider->unk3C8 = 0;
+    rider->unk3CC = 0;
+    rider->unk3CA = 0;
+    rider->unk3C0 = NULL;
+    rider->unk3CE = arg5;
+    rider->unk3D8.unk0 = 0;
+    rider->unk3D8.unk4 = 0;
+    rider->unk3D8.unkC = 0;
+    rider->unk3D8.unk8 = 0;
     if (arg5 != 0) {
-        value = (unk32)allocSprite(1);
-        base->unk3C4 = (SpriteEntry*)value;
-        if (value != 0)
-            LoadSpriteSheet((SpriteEntry*)value, &SpriteSheet_86FAF34, 0, 0, 0, 0, 0, 0);
+        rider->unk3C4 = allocSprite(1);
+        if (rider->unk3C4 != NULL) {
+            LoadSpriteSheet(rider->unk3C4, &SpriteSheet_86FAF34, 0, 0, 0, 0, 0, 0);
+        }
     } else {
-        base->unk3C4 = (SpriteEntry*)arg5;
+        rider->unk3C4 = NULL;
     }
-    enabled = 0;
-    if (arg5 == 0)
-        enabled = 1;
-    base->unk3E8 = enabled;
-    if (enabled != 0) {
-        allocateParticleSystem(&base->unk3EC, 8, &SpriteSheet_86FB40C, arg1, 1);
-        sub_804E584(&base->unk3EC, arg2, arg3, arg5);
+    rider->unk3E8 = arg5 == 0;
+    if (rider->unk3E8 != 0) {
+        allocateParticleSystem(&rider->unk3EC, 8, &SpriteSheet_86FB40C, layer->records, 1);
+        sub_804E584(&rider->unk3EC, x, y, z);
     }
-    base->unk3D0 = 0;
-    base->unk424 = 0xFFFF;
+    rider->unk3D0 = 0;
+    rider->unk424 = 0xFFFF;
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/804b07c-initRider.s");
 
 void processRiderMetadata(RiderBase* rider, LevelGeometryAddresses* geometry, unk32 lineIndex)
 {
@@ -243,63 +221,38 @@ void nullsub_1(void)
 {
 }
 
-#if 0
 void sub_804B624(void)
 {
-    s32 i;
+    s32 i = 1;
+    RiderBase* riders[_gameData->unk430 + 1];
+    RiderBase* rider;
+    RiderBase* other;
+    RiderBase* candidate;
     s32 j;
     s32 k;
+    s32 count;
 
-    i = 1;
-    {
-        RiderBase* riders[_gameData->unk430 + 1];
-        RiderBase* rider;
-        RiderBase* other;
-        RiderBase* value;
-        RiderBase** riderList;
-        RiderBase** otherList;
-
-        j = 0;
-        if (j < _gameData->unk430 + 1) {
-            riderList = riders;
-            do {
-                if (j != 0)
-                    rider = &_gameData->unk42C[j - 1];
-                else
-                    rider = &_gameData->base;
-                value = 0;
-                if ((rider->unk3CC & 4) == 0)
-                    value = rider;
-                *riderList = value;
-                riderList++;
-                j++;
-            } while (j < _gameData->unk430 + 1);
-        }
-        j = 0;
-        while (j < _gameData->unk430) {
-            rider = riders[j];
-            j++;
-            if (rider != NULL) {
-                k = i;
-                if (k < _gameData->unk430 + 1) {
-                    otherList = &riders[k];
-                    do {
-                        other = *otherList;
-                        if (other != NULL) {
-                            rider_vs_rider_collision_804DB94(rider, other);
-                            sub_804DAA0(rider, other);
-                        }
-                        otherList++;
-                        k++;
-                    } while (k < _gameData->unk430 + 1);
+    for (j = 0; j < _gameData->unk430 + 1; j++) {
+        candidate = j != 0 ? &_gameData->unk42C[j - 1] : &_gameData->base;
+        rider = candidate; // TODO: fakematch? (dead store, byte-required: rider-2026-09-14.md)
+        riders[j] = (candidate->unk3CC & 4) == 0 ? candidate : NULL;
+    }
+    count
+        = _gameData->unk430 + 1; // TODO: fakematch? (dead load, byte-required: rider-2026-09-14.md)
+    for (j = 0; j < _gameData->unk430; j++) {
+        rider = riders[j];
+        if (rider != NULL) {
+            for (k = i; k < _gameData->unk430 + 1; k++) {
+                other = riders[k];
+                if (other != NULL) {
+                    rider_vs_rider_collision_804DB94(rider, other);
+                    sub_804DAA0(rider, other);
                 }
-                i++;
             }
+            i++;
         }
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/804b624.s");
 
 void sub_804B754(void)
 {
@@ -332,8 +285,7 @@ void sub_804B754(void)
     }
 }
 
-#if 0
-RiderBase* sub_804B7FC(RiderBase* arg0)
+RiderBase* sub_804B7FC(RiderBase* rider)
 {
     s32 x;
     s32 y;
@@ -346,40 +298,32 @@ RiderBase* sub_804B7FC(RiderBase* arg0)
     s32 i;
     RiderBase* candidate;
     RiderBase* best;
-    Actor* coord;
 
-    best = 0;
+    best = NULL;
+    x = rider->unk0->x >> 8;
+    y = rider->unk0->y >> 8;
+    z = rider->unk0->z >> 8;
     bestDistance = 0x07FFFFFF;
-    coord = arg0->unk0;
-    x = coord->x >> 8;
-    y = coord->y >> 8;
-    z = coord->z >> 8;
-    i = 0;
-    if (i < _gameData->unk430 + 1) {
-        do {
-            if (i != 0)
-                candidate = &_gameData->unk42C[i - 1];
-            else
-                candidate = &_gameData->base;
-            if (candidate != arg0 && (candidate->unk3CC & 0xC) == 0
-                && (RiderHasFlag(candidate, 2) << 24) == 0) {
-                coord = candidate->unk0;
-                dx = (coord->x >> 8) - x;
-                dy = (coord->y >> 8) - y;
-                dz = (coord->z >> 8) - z;
-                distance = dx * dx + dy * dy + dz * dz;
-                if (distance < bestDistance) {
-                    bestDistance = distance;
-                    best = candidate;
-                }
+    for (i = 0; i < _gameData->unk430 + 1; i++) {
+        if (i != 0) {
+            candidate = &_gameData->unk42C[i - 1];
+        } else {
+            candidate = &_gameData->base;
+        }
+        if (candidate != rider && (candidate->unk3CC & 0xC) == 0
+            && RiderHasFlag(candidate, 2) == 0) {
+            dx = (candidate->unk0->x >> 8) - x;
+            dy = (candidate->unk0->y >> 8) - y;
+            dz = (candidate->unk0->z >> 8) - z;
+            distance = dx * dx + dy * dy + dz * dz;
+            if (distance < bestDistance) {
+                bestDistance = distance;
+                best = candidate;
             }
-            i++;
-        } while (i < _gameData->unk430 + 1);
+        }
     }
     return best;
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/804b7fc.s");
 
 void sub_804B8F0(RiderBase* rider, LevelGeometryAddresses* target)
 {

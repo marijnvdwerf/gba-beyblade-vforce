@@ -690,12 +690,6 @@ struct SpriteString {
     unk32 timer;
 };
 
-typedef struct ParticleFrameData {
-    unk16 frame0;
-    unk16 frame1;
-    unk8 pad4[4];
-} ParticleFrameData;
-
 typedef struct Particle {
     SpriteEntry* sprite;
     unk32 unk4;
@@ -716,24 +710,24 @@ typedef struct Particle {
 typedef struct ParticleSystem {
     const SpriteSheet* unk0;
     s16 count;
-    unk16 unk6;
+    s16 unk6;
     Particle* particles;
     BGLayer* unkC;
-    unk32 unk10;
-    unk32 unk14;
-    unk32 unk18;
+    s32 unk10;
+    s32 unk14;
+    s32 unk18;
     unk32 unk1C;
     unk32 unk20;
-    unk32 unk24;
-    unk32 unk28;
-    unk32 unk2C;
+    s32 unk24;
+    s32 unk28;
+    s32 unk2C;
     struct AllocatedBlock* unk30;
 } ParticleSystem;
 
 typedef struct RiderTileState {
     s32 unk0;
     s32 unk4;
-    unk8 pad8[4];
+    unk32 unk8;
     s32 unkC;
 } RiderTileState;
 

@@ -449,7 +449,7 @@ void actor_80585F0(Actor* arg0, unk8 arg1)
     arg0->unk8D = arg1;
 }
 
-void actor_80585F8(Actor* actor, unk16 arg1, unk16 arg2, unk16 arg3, unk16 arg4)
+void actor_80585F8(Actor* actor, s16 arg1, s16 arg2, s16 arg3, s16 arg4)
 {
     actor->unkA8 = arg1;
     actor->unkAA = arg2;

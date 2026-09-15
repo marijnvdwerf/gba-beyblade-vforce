@@ -111,66 +111,44 @@ void sub_804E584(ParticleSystem* arg0, unk32 arg1, unk32 arg2, unk32 arg3)
     arg0->unk18 = arg3;
 }
 
-#if 0
-void sub_804E594(ParticleSystem* arg0, unk32 arg1, unk32 arg2, unk16 arg3, unk16 arg6, s16 arg7)
+void sub_804E594(ParticleSystem* system, s16 arg1, s16 arg2, unk16 arg3, unk16 arg4, s16 arg5)
 {
     Particle* particle;
-    SpriteEntry* previous;
+    SpriteEntry* sprite;
+    const SpriteTrailFrame* frame;
     s32 tableIndex;
-    s32 scale;
     s32 x;
     s32 y;
     s32 z;
-    unk16 spriteFrame;
-    s16 arg1s;
-    s16 arg2s;
-    const s16* table;
-    const s16* tableBase;
-    const ParticleFrameData* frameData;
-    s16 index;
-    unk16 count;
 
-    index = arg0->unk6;
-    particle = &arg0->particles[index];
-    table = word_8074D64;
-    tableBase = table;
-    tableIndex = (_unk3000E30[0] >> 3) + index;
-    tableIndex &= 0x1F;
-    arg1s = arg1;
-    arg2s = arg2;
-    scale = ((s32)tableBase[tableIndex] * arg2s) >> 8;
-    x = scale;
-    scale = ((s32)tableBase[tableIndex + 1] * arg2s) >> 8;
-    y = scale;
-    scale = ((s32)tableBase[tableIndex + 2] * arg2s) >> 8;
-    z = scale;
-    previous = particle->sprite;
-    frameData = &arg0->unk0[arg7 + 4];
+    particle = &system->particles[system->unk6];
+    tableIndex = ((_unk3000E30[0] >> 3) + system->unk6) & 0x1F;
+    x = (word_8074D64[tableIndex] * arg2) >> 8;
+    y = (word_8074D64[tableIndex + 1] * arg2) >> 8;
+    z = (word_8074D64[tableIndex + 2] * arg2) >> 8;
+    sprite = particle->sprite;
+    frame = &system->unk0->frames[arg5];
     particle->unk1A = arg3;
     particle->unkC = 0;
     particle->unk8 = 0;
     particle->unk4 = 0;
-    particle->unk16 = arg0->unk1C;
-    particle->unk18 = arg0->unk20;
-    particle->x = x + (((arg0->unk10 - arg0->unk24) * arg1s) >> 8);
-    particle->y = y + (((arg0->unk14 - arg0->unk28) * arg1s) >> 8);
-    particle->z = z + (((arg0->unk18 - arg0->unk2C) * arg1s) >> 8);
-    particle->unk22 = arg6;
-    particle->unk20 = arg6;
-    spriteFrame = frameData->frame0;
-    particle->unk1C = spriteFrame;
-    particle->unk1E = frameData->frame1;
-    if (previous != NULL) {
-        previous->frame.word = spriteFrame;
+    particle->unk16 = system->unk1C;
+    particle->unk18 = system->unk20;
+    particle->unk10 = x + (((system->unk10 - system->unk24) * arg1) >> 8);
+    particle->unk12 = y + (((system->unk14 - system->unk28) * arg1) >> 8);
+    particle->unk14 = z + (((system->unk18 - system->unk2C) * arg1) >> 8);
+    particle->unk22 = arg4;
+    particle->unk20 = arg4;
+    particle->unk1C = frame->unk0;
+    particle->unk1E = frame->unk2;
+    if (sprite != NULL) {
+        sprite->frame.word = particle->unk1C;
     }
-    arg0->unk6++;
-    count = arg0->count;
-    if (arg0->unk6 >= count) {
-        arg0->unk6 = 0;
+    if (++system->unk6 >= system->count) {
+        system->unk6 = 0;
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e594.s");
+
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e6a4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e7d4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e910.s");

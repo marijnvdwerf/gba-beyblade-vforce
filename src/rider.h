@@ -1,6 +1,7 @@
 #ifndef _RIDER_H
 #define _RIDER_H
 
+#include "camera.h"
 #include "common.h"
 #include "hud.h"
 #include "packet.h"
@@ -8,13 +9,12 @@
 
 void nullsub_2(void);
 void nullsub_4(void);
-void initRider(void*, void*, unk32, unk32, unk32, unk32, unk32);
+void initRider(RiderBase*, CameraState*, unk32, unk32, unk32, unk32, unk32);
 void processRiderMetadata(RiderBase*, LevelGeometryAddresses*, unk32);
 void sub_804B4A4(RiderBase*);
 void allocFXSprite(RiderBase*);
 void sub_804BF3C(RiderBase*);
-struct GameData;
-RiderBase* sub_804B7FC(struct GameData*);
+RiderBase* sub_804B7FC(RiderBase*);
 void sub_804B754(void);
 void sub_804C098(RiderBase*);
 void sub_804C0C0(RiderBase*);

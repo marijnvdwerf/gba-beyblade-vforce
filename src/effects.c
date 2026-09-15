@@ -168,7 +168,7 @@ void sub_805568C(void)
     gameData = _gameData;
     gameData->projectileSystem.unk84 = 0;
     gameData->projectileSystem.unk7A = 0xA1;
-    gameData->projectileSystem.unk88 = sub_804B7FC(gameData);
+    gameData->projectileSystem.unk88 = sub_804B7FC(&gameData->base);
 }
 
 void sub_80556C4(void)

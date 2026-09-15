@@ -120,29 +120,26 @@ void newMotionGroup(MotionGroup* arg0, SpriteTextBlock* arg1, unk16 arg2)
     }
 }
 
-#if 0
 void sub_805041C(UnkMotion* group)
 {
     MotionEntry* motion;
     SpriteEntry* sprite;
     unk16 mode;
     s32 i;
-    unk32 mode3;
-    unk32 axisFlag;
-    unk32 reflect;
-    s32 horizontal;
-    s32 vertical;
-    s32 boundary;
-    s32 delta;
+    unk32 axisMask;
+    unk32 horizontalAxis;
+    s32 position;
+    s32 velocity;
+    s32 before;
+    s32 after;
 
     motion = group->motions;
     sprite = group->sourceBlock->prev;
     mode = group->mode;
     i = 0;
     if (i < group->count) {
-        mode3 = mode & 3;
-        axisFlag = mode & 1;
-        reflect = mode & 4;
+        axisMask = mode & 3;
+        horizontalAxis = mode & 1;
         do {
             motion->x += motion->unk8;
             motion->y += motion->unkC;
@@ -150,27 +147,30 @@ void sub_805041C(UnkMotion* group)
             motion->unkC += motion->unk14;
             sprite->x = motion->x;
             sprite->y = motion->y;
-            if (mode3 != 0) {
-                if (axisFlag != 0) {
-                    horizontal = motion->x;
-                    vertical = motion->unk8;
+            if (axisMask != 0) {
+                if (horizontalAxis != 0) {
+                    position = motion->x;
+                    velocity = motion->unk8;
                 } else {
-                    horizontal = motion->y;
-                    vertical = motion->unkC;
+                    position = motion->y;
+                    velocity = motion->unkC;
                 }
-                boundary = horizontal - group->unk10;
-                delta = horizontal + vertical - group->unk10;
-                if ((boundary <= 0 || delta < 0) && (boundary >= 0 || delta > 0)) {
-                    if (reflect != 0)
-                        vertical = -(group->unk14 * vertical) >> 8;
-                    else
-                        vertical = 0;
-                    if (axisFlag != 0) {
-                        motion->x = group->unk10;
-                        motion->unk8 = vertical;
+                before = position - group->unk10;
+                after = position + velocity - group->unk10;
+                if ((before <= 0 && after > 0) || (before >= 0 && after < 0)) {
+                    if ((mode & 4) != 0) {
+                        velocity = -(group->unk14 * velocity) >> 8;
+                        position = group->unk10;
                     } else {
-                        motion->y = group->unk10;
-                        motion->unkC = vertical;
+                        velocity = 0;
+                        position = group->unk10;
+                    }
+                    if (horizontalAxis != 0) {
+                        motion->x = position;
+                        motion->unk8 = velocity;
+                    } else {
+                        motion->y = position;
+                        motion->unkC = velocity;
                     }
                 }
             }
@@ -180,8 +180,6 @@ void sub_805041C(UnkMotion* group)
         } while (i < group->count);
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/805041c.s");
 
 void sub_80504E4(MotionGroup* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
