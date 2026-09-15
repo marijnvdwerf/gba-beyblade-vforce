@@ -13,7 +13,6 @@ typedef unk32 bool32;
 
 typedef struct AllocatedBlock AllocatedBlock;
 typedef struct ScreenLayout ScreenLayout;
-typedef struct ActorConfig ActorConfig;
 typedef struct BGLayer BGLayer;
 typedef struct Struct3000CA0 Struct3000CA0;
 typedef struct TileMapHeader TileMapHeader;
@@ -405,26 +404,29 @@ struct FrontendState {
     FrontendTransition transition;
 };
 
-typedef struct SpriteTrailFrame {
+typedef struct ActorFrameSequence {
     unk16 unk0;
     unk16 unk2;
     unk16 unk4;
-    unk8 pad6[2];
-} SpriteTrailFrame;
+    unk8 unk6;
+    unk8 unk7;
+} ActorFrameSequence;
 
 struct SpriteSheet {
-    unk8 pad0[4];
+    unk32 unk0;
     unk8 unk4;
     unk8 unk5;
     unk8 unk6;
     unk8 unk7;
-    unk8 pad8[4];
+    unk32 unk8;
     unk8 unkC;
     unk8 padD[3];
     unk32 unk10; /* 0x10 */
-    unk8 pad14[8];
+    unk32 unk14;
+    unk32 unk18; /* 0x18 */
     unk32 unk1C; /* 0x1C */
-    SpriteTrailFrame frames[1]; /* 0x20 */
+    /* variable length: unk8 sequences, then frame data; unk18 is an offset into this blob */
+    ActorFrameSequence sequences[1]; /* 0x20 */
 };
 
 typedef struct SpriteTrailEntry {
@@ -472,29 +474,6 @@ typedef struct ActorSequenceEntry {
     unk16 frames[1];
 } ActorSequenceEntry;
 
-typedef struct ActorFrameSequence {
-    unk16 unk0;
-    unk16 unk2;
-    unk16 unk4;
-    unk8 unk6;
-    unk8 unk7;
-} ActorFrameSequence;
-
-struct ActorConfig {
-    unk32 unk0;
-    unk8 unk4;
-    unk8 unk5;
-    unk8 unk6;
-    unk8 unk7;
-    unk32 unk8;
-    unk8 unkC;
-    unk8 padD[7];
-    unk32 unk14;
-    unk32 unk18; /* 0x18 */
-    unk8 pad1C[4];
-    ActorFrameSequence sequences[1];
-};
-
 struct LevelGeometryAddresses;
 struct GeometryLine;
 typedef unk8 (*ActorCollisionResponse)(
@@ -516,7 +495,7 @@ typedef struct ActorCollisionCallbacks {
 } ActorCollisionCallbacks;
 
 typedef struct Actor {
-    ActorConfig* unk0;
+    const SpriteSheet* unk0;
     s32 x;
     s32 y;
     s32 z;
@@ -530,7 +509,7 @@ typedef struct Actor {
     unk16 unk1C;
     unk16 unk1E;
     unk16 unk20;
-    unk16 unk22;
+    s16 unk22;
     unk8 unk24;
     unk8 unk25;
     unk16 unk26;
@@ -543,11 +522,11 @@ typedef struct Actor {
     unk8 unk32;
     unk8 unk33;
     unk16 unk34;
-    unk16 unk36;
+    s16 unk36;
     unk8 unk38;
     unk8 unk39;
     unk8 unk3A;
-    unk8 unk3B; /* 0x3B */
+    s8 unk3B; /* 0x3B */
     BGLayer* unk3C;
     s32 unk40;
     s32 unk44;
@@ -578,10 +557,10 @@ typedef struct Actor {
     s16 unk9A;
     s16 unk9C;
     s16 unk9E;
-    unk16 unkA0;
+    s16 unkA0;
     s16 unkA2;
-    unk8 unkA4;
-    unk8 unkA5;
+    s8 unkA4;
+    s8 unkA5;
     unk8 padA6[2];
     s16 unkA8;
     s16 unkAA;
@@ -1083,7 +1062,6 @@ typedef struct LineMetaSequence {
 } LineMetaSequence;
 
 typedef union LineMetaObjectValue {
-    ActorConfig* config;
     const SpriteSheet* spriteSheet;
     unk32 word;
     unk16 half;

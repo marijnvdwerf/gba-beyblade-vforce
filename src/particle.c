@@ -115,7 +115,7 @@ void sub_804E594(ParticleSystem* system, s16 arg1, s16 arg2, unk16 arg3, unk16 a
 {
     Particle* particle;
     SpriteEntry* sprite;
-    const SpriteTrailFrame* frame;
+    const ActorFrameSequence* frame;
     s32 tableIndex;
     s32 x;
     s32 y;
@@ -127,7 +127,7 @@ void sub_804E594(ParticleSystem* system, s16 arg1, s16 arg2, unk16 arg3, unk16 a
     y = (word_8074D64[tableIndex + 1] * arg2) >> 8;
     z = (word_8074D64[tableIndex + 2] * arg2) >> 8;
     sprite = particle->sprite;
-    frame = &system->unk0->frames[arg5];
+    frame = &system->unk0->sequences[arg5];
     particle->unk1A = arg3;
     particle->unkC = 0;
     particle->unk8 = 0;

@@ -9,6 +9,8 @@ target_compile_options(rom PRIVATE
     "$<$<COMPILE_LANGUAGE:ASM>:-mcpu=arm7tdmi;-I${CMAKE_SOURCE_DIR}>")
 set_source_files_properties(src/libc.c PROPERTIES
     COMPILE_OPTIONS "--reset-flags;-O2")
+set_source_files_properties(src/backup.c PROPERTIES
+    COMPILE_OPTIONS "--cc1=${AGBCC}/bin/agbcc;-O1;-fprologue-bugfix")
 set_source_files_properties(src/iwram.c PROPERTIES
     COMPILE_OPTIONS "-marm")
 

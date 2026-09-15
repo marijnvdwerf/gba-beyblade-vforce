@@ -26,8 +26,8 @@ void initLevelEnvironmentActors(u16 level)
     GameData* gameData;
     unk32 actorSize;
     EnvironmentActorAllocation* allocationField;
-    ActorConfig* actorConfigs[0x20];
-    ActorConfig* actorConfig;
+    const SpriteSheet* actorConfigs[0x20];
+    const SpriteSheet* actorConfig;
     unk32 selectedLines[0x20];
     LevelGeometryAddresses geometry;
     ActorCollisionFunctions callbackData;
@@ -84,7 +84,7 @@ void initLevelEnvironmentActors(u16 level)
             if (metadata != NULL) {
                 metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 2, 0xD679);
                 if (metaobject != NULL) {
-                    actorConfig = metaobject->unk8.config;
+                    actorConfig = metaobject->unk8.spriteSheet;
                     actorConfigs[selectedCount] = actorConfig;
                     selectedLines[selectedCount++] = lineIndex;
                     metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xF4FA);

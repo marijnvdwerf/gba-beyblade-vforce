@@ -196,10 +196,10 @@ INCLUDE_ASM("asm/dump/804a388-tutorial/804ab60-nullsub_39.s");
 
 void sub_804AB64(UnkTrail* trail, SpriteTrailEntry* entry, unk32 index)
 {
-    const SpriteTrailFrame* frame;
+    const ActorFrameSequence* frame;
     SpriteEntry* sprite;
 
-    frame = trail->spriteSheet->frames;
+    frame = trail->spriteSheet->sequences;
     frame += index;
     entry->unk16 = index;
     sprite = entry->sprite;

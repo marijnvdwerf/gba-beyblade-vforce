@@ -23,12 +23,8 @@ unk16 initBatteryBackup(u16 arg0)
 
 void onTimer2Overflow(void)
 {
-    unk32 value;
-
     if (_unk_3000DAA != 0) {
-        value = _unk_3000DAA - 1;
-        _unk_3000DAA = value;
-        if ((value << 16) == 0) {
+        if (--_unk_3000DAA == 0) {
             _unk_3000DAC = 1;
         }
     }
@@ -40,181 +36,133 @@ unk32 sub_806586C(u8 timerIndex, void (**isrOut)(void))
         return 1;
     }
     _batteryBackupTimer = timerIndex;
-    _batteryBackupTimer_REG = (volatile unk16*)(REG_TM0CNT + _batteryBackupTimer * 4);
+    _batteryBackupTimer_REG = (unk16*)(REG_TM0CNT + _batteryBackupTimer * 4);
     *isrOut = onTimer2Overflow;
     return 0;
 }
 
-#if 0
-void sub_80658A4(const TimerConfig* config)
+void sub_80658A4(const unk16* config)
 {
-    unk32 mask;
-    vu16* irq;
-    unk16* timer;
-
     _unk_3000DB4 = *(vu16*)REG_IME;
     *(vu16*)REG_IME = 0;
-    timer = (unk16*)_batteryBackupTimer_REG;
-    timer[1] = 0;
-    irq = (vu16*)REG_IF;
-    mask = 8 << _batteryBackupTimer;
-    *irq = mask;
-    *(vu16*)REG_IE |= 8 << _batteryBackupTimer;
+    _batteryBackupTimer_REG[1] = 0;
+    *(vu16*)REG_IF = TIMER0_INTR_FLAG << _batteryBackupTimer;
+    *(vu16*)REG_IE |= TIMER0_INTR_FLAG << _batteryBackupTimer;
     _unk_3000DAC = 0;
-    _unk_3000DAA = config[0];
-    config++;
-    timer[0] = config[0];
-    _batteryBackupTimer_REG = timer + 1;
-    timer[1] = config[1];
-    _batteryBackupTimer_REG = timer;
+    _unk_3000DAA = *config++;
+    *_batteryBackupTimer_REG++ = *config++;
+    *_batteryBackupTimer_REG-- = *config++;
     *(vu16*)REG_IME = 1;
 }
-#endif
-INCLUDE_ASM("asm/dump/8064f38/80658a4.s");
 
 void sub_806592C(void)
 {
-    void* ptr;
-
     *(vu16*)REG_IME = 0;
-    ptr = (void*)_batteryBackupTimer_REG;
-    *(vu16*)ptr = 0;
-    ptr += 2;
-    _batteryBackupTimer_REG = ptr;
-    *(vu16*)ptr = 0;
-    ptr -= 2;
-    _batteryBackupTimer_REG = ptr;
-    *(vu16*)REG_IE &= ~(8 << *(vu8*)&_batteryBackupTimer);
+    *_batteryBackupTimer_REG++ = 0;
+    *_batteryBackupTimer_REG-- = 0;
+    *(vu16*)REG_IE &= ~(TIMER0_INTR_FLAG << _batteryBackupTimer);
     *(vu16*)REG_IME = _unk_3000DB4;
 }
 
-#if 0
-void DMA3Copy(unk32 src, unk32 dst, unk16 count)
+void DMA3Copy(const void* src, void* dst, unk16 count)
 {
-    unk16 waitcnt;
     unk16 ime;
-    const BatteryBackupConfig* config;
-    count = count;
+
     ime = *(vu16*)REG_IME;
     *(vu16*)REG_IME = 0;
-    waitcnt = *(vu16*)REG_WAITCNT & 0xF8FF;
-    config = _unk_3005E9C;
-    waitcnt = config->unk6 | waitcnt;
-    *(vu16*)REG_WAITCNT = waitcnt;
-    *(vu32*)REG_DMA3SAD = src;
-    *(vu32*)REG_DMA3DAD = dst;
-    *(vu32*)REG_DMA3CNT = count | 0x80000000;
-    if ((*(vu16*)REG_DMA3CNT_H & 0x8000) != 0) {
-        do {
-        } while ((*(vu16*)REG_DMA3CNT_H & 0x8000) != 0);
-    }
+    *(vu16*)REG_WAITCNT = (*(vu16*)REG_WAITCNT & 0xF8FF) | _unk_3005E9C->unk6;
+    *(vu32*)REG_DMA3SAD = (u32)src;
+    *(vu32*)REG_DMA3DAD = (u32)dst;
+    *(vu32*)REG_DMA3CNT = count | DMA_ENABLE;
+    while (*(vu16*)REG_DMA3CNT_H & (DMA_ENABLE >> 16)) { }
     *(vu16*)REG_IME = ime;
 }
-#endif
-INCLUDE_ASM("asm/dump/8064f38/8065970-DMA3Copy.s");
 
-#if 0
-unk32 sub_80659F0(u16 sector, void* buffer)
+unk32 sub_80659F0(u16 sector, unk16* data)
 {
-    unk16* temp;
-    unk16* tempPtr;
-    unk32 i;
-    unk32 value;
-    const BatteryBackupConfig* config;
-
-    config = _unk3005E9C;
-    if (sector >= config->unk4) {
-        return 0x80FF;
-    }
-    temp = (unk16*)buffer;
-    tempPtr = temp + config->unk8 + 2;
-    i = 0;
-    while (i < config->unk8) {
-        *tempPtr = sector;
-        tempPtr--;
-        sector >>= 1;
-        i++;
-    }
-    *tempPtr = 1;
-    tempPtr--;
-    *tempPtr = 1;
-    DMA3Copy(buffer, (void*)0x0D000000, config->unk8 + 3);
-    DMA3Copy((void*)0x0D000000, buffer, 0x44);
-    for (i = 0; i < 0x40; i++) {
-        ((unk16*)buffer)[i] = ((unk16*)buffer)[i];
-    }
-    value = 0;
-    for (i = 0; i < 4; i++) {
-        value |= (((unk16*)buffer)[i + 4] & 1) << i;
-    }
-    ((unk16*)buffer)[0] = value;
-    return 0;
-}
-#else
-INCLUDE_ASM("asm/dump/8064f38/80659f0.s");
-#endif
-#if 0
-unk16 sub_8065AA0(u16 sector, unk16* data)
-{
-    unk16 buffer[0x52];
-    unk16 value;
-    unk16* bufferPtr;
-    u8 j;
+    unk16 buffer[0x44];
+    unk16* ptr;
     u8 i;
+    u8 j;
+    unk16 value;
 
     if (sector >= _unk_3005E9C->unk4) {
         return 0x80FF;
     }
-    {
-        const BatteryBackupConfig* config;
-
-        config = (const BatteryBackupConfig*)_unk_3005E9C;
-        bufferPtr = buffer + config->unk8 + 0x42;
+    ptr = buffer;
+    (unk8*)ptr += ((_unk_3005E9C->unk8 << 1) + 1);
+    ((unk8*)ptr)++;
+    for (i = 0; i < _unk_3005E9C->unk8; i++) {
+        *ptr-- = sector;
+        sector >>= 1;
     }
-    *bufferPtr = 0;
-    bufferPtr--;
-    for (i = 0; i <= 3; i++) {
-        value = *data;
-        data++;
-        for (j = 0; j <= 0xF; j++) {
-            *bufferPtr = value;
-            bufferPtr--;
+    *ptr-- = 1;
+    *ptr = 1;
+    DMA3Copy(buffer, (void*)0x0D000000, _unk_3005E9C->unk8 + 3);
+    DMA3Copy((void*)0x0D000000, buffer, 0x44);
+    ptr = buffer + 4;
+    data += 3;
+    for (i = 0; i < 4; i++) {
+        value = 0;
+        for (j = 0; j < 16; j++) {
+            value <<= 1;
+            value |= *ptr++ & 1;
+        }
+        *data-- = value;
+    }
+    return 0;
+}
+
+u16 sub_8065AA0(u16 sector, unk16* data)
+{
+    unk16 buffer[0x52];
+    u16 result;
+    unk16* ptr;
+    unk16 value;
+    u8 i;
+    u8 j;
+
+    if (sector >= _unk_3005E9C->unk4) {
+        return 0x80FF;
+    }
+    ptr = buffer;
+    (unk8*)ptr += ((_unk_3005E9C->unk8 << 1) + 0x83);
+    ((unk8*)ptr)++;
+    *ptr-- = 0;
+    for (i = 0; i < 4; i++) {
+        value = *data++;
+        for (j = 0; j < 16; j++) {
+            *ptr-- = value;
             value >>= 1;
         }
     }
-    i = 0;
-    while (i < _unk_3005E9C->unk8) {
-        *bufferPtr = sector;
-        bufferPtr--;
+    for (i = 0; i < _unk_3005E9C->unk8; i++) {
+        *ptr-- = sector;
         sector >>= 1;
-        i++;
     }
-    *bufferPtr = 0;
-    bufferPtr--;
-    *bufferPtr = 1;
-    DMA3Copy((unk32)buffer, 0x0D000000, _unk_3005E9C->unk8 + 0x43);
-    sub_80658A4(&Unk_8756894);
-    sector = 0;
+    *ptr-- = 0;
+    *ptr = 1;
+    DMA3Copy(buffer, (void*)0x0D000000, _unk_3005E9C->unk8 + 0x43);
+    sub_80658A4(Unk_8756894);
+    result = 0;
     while ((*(vu16*)0x0D000000 & 1) == 0) {
         if (_unk_3000DAC != 0) {
-            if ((*(vu16*)0x0D000000 & 1) == 0) {
-                sector = 0xC001;
+            if ((*(vu16*)0x0D000000 % 2) == 0) {
+                result = 0xC001;
             }
             break;
         }
     }
     sub_806592C();
-    return sector;
+    return result;
 }
-#endif
-INCLUDE_ASM("asm/dump/8064f38/8065aa0.s");
 
 unk32 writeToBatteryBackup(u16 sector, unk16* data)
 {
-    unk16 buffer[4];
-    u8 i;
-    unk16* bufferPtr;
     unk32 result;
+    unk16 buffer[4];
+    unk16* bufferPtr;
+    u8 i;
 
     result = 0;
     if (sector >= _unk_3005E9C->unk4) {
@@ -222,15 +170,8 @@ unk32 writeToBatteryBackup(u16 sector, unk16* data)
     }
     sub_80659F0(sector, buffer);
     bufferPtr = buffer;
-    for (i = 0; i <= 3; i++) {
-        unk16 dataValue;
-        unk16 bufferValue;
-
-        dataValue = *data;
-        bufferValue = *bufferPtr;
-        bufferPtr++;
-        data++;
-        if (dataValue != bufferValue) {
+    for (i = 0; i < 4; i++) {
+        if (*data++ != *bufferPtr++) {
             result = 0x8000;
             break;
         }

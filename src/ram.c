@@ -277,5 +277,5 @@ u8 pad_3000DA4[4] = { 0 };
 unk16 _batteryBackupTimer = 0;
 unk16 _unk_3000DAA = 0;
 void* _unk_3000DAC = NULL;
-void* _batteryBackupTimer_REG = NULL;
+unk16* _batteryBackupTimer_REG = NULL;
 void* _unk_3000DB4 = NULL;

@@ -15,7 +15,7 @@
 #include "sprite.h"
 #include "unsorted.h"
 
-extern ActorConfig SpriteSheet_86FAEAC;
+extern const SpriteSheet SpriteSheet_86FAEAC;
 extern const SpriteSheet SpriteSheet_86FAF34;
 extern const SpriteSheet SpriteSheet_86FB40C;
 extern const SpriteSheet SpriteSheet_86FBA14;
@@ -25,7 +25,7 @@ void initRider(
 {
     Actor* actor;
     Actor* shadow;
-    ActorConfig* config;
+    const SpriteSheet* config;
 
     actor = &rider->unk238;
     shadow = &rider->unk2FC;

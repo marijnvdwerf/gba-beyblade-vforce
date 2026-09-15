@@ -218,8 +218,8 @@ void processMetadata_2(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
             if (actor->unkB8 != NULL) {
                 sub_8060A94(actor->unkB8);
             }
-            actor_8057C58(actor, event->unk8.config, actor->unk3C, actor->x >> 8, actor->y >> 8,
-                actor->z >> 8, actor->unk70);
+            actor_8057C58(actor, event->unk8.spriteSheet, actor->unk3C, actor->x >> 8,
+                actor->y >> 8, actor->z >> 8, actor->unk70);
             actor->unkB0 = convert3DCoordsto2DCoords;
             actor->unk68 = 0;
             actor->unkBC = 0x10;

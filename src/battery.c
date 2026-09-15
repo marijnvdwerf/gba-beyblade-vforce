@@ -59,7 +59,7 @@ u32 sub_8057568(u16 index, BackupBlock* data, s32 size)
     blockCount = (size + 7) >> 3;
     for (blockCount--; blockCount != -1; blockCount--) {
         for (retry = 7; retry != 0xFFFF; retry--) {
-            readResult = sub_80659F0(index, data);
+            readResult = sub_80659F0(index, (unk16*)data);
             if (readResult == 0) {
                 retry = 0;
             }
