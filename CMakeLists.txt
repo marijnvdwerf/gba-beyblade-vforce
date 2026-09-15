@@ -257,4 +257,37 @@ add_executable(rom
 
 target_link_libraries(rom PRIVATE agb)
 
+# Compiler flags of the original build (agbcc via tools/agbcc).
+target_compile_definitions(rom PRIVATE
+    "$<$<COMPILE_LANGUAGE:C>:GAME_VERSION=${GAME_VERSION_DEFINE}>"
+    "$<$<COMPILE_LANGUAGE:C>:GAME_REGION=${GAME_REGION_DEFINE}>")
+target_compile_options(rom PRIVATE
+    "$<$<COMPILE_LANGUAGE:C>:-I${AGBCC}/include;-mthumb-interwork;-Wimplicit;-Wparentheses;-Wunused;-Werror;-O2;-fhex-asm;-g>"
+    "$<$<COMPILE_LANGUAGE:ASM>:-mcpu=arm7tdmi;-I${CMAKE_SOURCE_DIR}>"
+    # as has no preprocessor: the version/region ids reach .s files as symbols
+    # (usable in .if), mirroring src/version.h. Single tokens: CMake would
+    # de-duplicate repeated "--defsym" entries.
+    "$<$<COMPILE_LANGUAGE:ASM>:--defsym=VERSION_US=0;--defsym=VERSION_EU=1;--defsym=VERSION_DEBUG=2>"
+    "$<$<COMPILE_LANGUAGE:ASM>:--defsym=REGION_US=0;--defsym=REGION_EU=1>"
+    "$<$<COMPILE_LANGUAGE:ASM>:--defsym=GAME_VERSION=${GAME_VERSION_ID};--defsym=GAME_REGION=${GAME_REGION_ID}>")
+set_source_files_properties(src/libc.c PROPERTIES
+    COMPILE_OPTIONS "--reset-flags;-O2")
+# Nintendo's prebuilt EEPROM_V122 library: matches only with pret agbcc -O1.
+set_source_files_properties(src/backup.c PROPERTIES
+    COMPILE_OPTIONS "--cc1=${AGBCC}/bin/agbcc;-O1;-fprologue-bugfix")
+set_source_files_properties(src/iwram.c PROPERTIES
+    COMPILE_OPTIONS "-marm")
+
+# Inputs for the generic GBA rom module (cmake/gba.cmake).
+set(ROM_LINKER_SCRIPT "${CMAKE_SOURCE_DIR}/ld_script.ld")
+set(ROM_LINKER_SCRIPT_DEFINES
+    "-I${CMAKE_SOURCE_DIR}/src"
+    "-DGAME_VERSION=${GAME_VERSION_DEFINE}"
+    "-DGAME_REGION=${GAME_REGION_DEFINE}")
+set(ROM_LINKER_SCRIPT_DEPENDS "${CMAKE_SOURCE_DIR}/src/version.h")
+set(ROM_VERSION "${GAME_VERSION}")
+set(ROM_SHA1 "${GAME_SHA1}")
+set(ROM_VALIDATED "${GAME_VERSION_VALIDATED}")
+set(ROM_VERSIONS us eu debug)
+
 include(cmake/gba.cmake OPTIONAL)

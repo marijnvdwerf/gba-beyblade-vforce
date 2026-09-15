@@ -1,34 +1,22 @@
+# Generic GBA rom target support for the agbcc toolchain. Game-specific
+# settings (compiler flags, per-file options, version defines) belong in the
+# project's CMakeLists.txt; this module only consumes:
+#   ROM_LINKER_SCRIPT          linker-script template (run through cpp -P)
+#   ROM_LINKER_SCRIPT_DEFINES  extra cpp arguments for the template
+#   ROM_LINKER_SCRIPT_DEPENDS  extra files the template depends on
+#   ROM_VERSION / ROM_SHA1 / ROM_VALIDATED   the version being built
+#   ROM_VERSIONS               every version, for objdiff.json units
 if(NOT AGBCC_TOOLCHAIN)
     return()
 endif()
 
 set_target_properties(rom PROPERTIES SUFFIX ".elf")
 
-target_compile_definitions(rom PRIVATE
-    "$<$<COMPILE_LANGUAGE:C>:GAME_VERSION=${GAME_VERSION_DEFINE}>"
-    "$<$<COMPILE_LANGUAGE:C>:GAME_REGION=${GAME_REGION_DEFINE}>")
-target_compile_options(rom PRIVATE
-    "$<$<COMPILE_LANGUAGE:C>:-I${AGBCC}/include;-mthumb-interwork;-Wimplicit;-Wparentheses;-Wunused;-Werror;-O2;-fhex-asm;-g>"
-    "$<$<COMPILE_LANGUAGE:ASM>:-mcpu=arm7tdmi;-I${CMAKE_SOURCE_DIR}>"
-    # as has no preprocessor: the version/region ids reach .s files as symbols
-    # (usable in .if), mirroring src/version.h.
-    "$<$<COMPILE_LANGUAGE:ASM>:--defsym=VERSION_US=0;--defsym=VERSION_EU=1;--defsym=VERSION_DEBUG=2>"
-    "$<$<COMPILE_LANGUAGE:ASM>:--defsym=REGION_US=0;--defsym=REGION_EU=1>"
-    "$<$<COMPILE_LANGUAGE:ASM>:--defsym=GAME_VERSION=${GAME_VERSION_ID};--defsym=GAME_REGION=${GAME_REGION_ID}>")
-set_source_files_properties(src/libc.c PROPERTIES
-    COMPILE_OPTIONS "--reset-flags;-O2")
-set_source_files_properties(src/backup.c PROPERTIES
-    COMPILE_OPTIONS "--cc1=${AGBCC}/bin/agbcc;-O1;-fprologue-bugfix")
-set_source_files_properties(src/iwram.c PROPERTIES
-    COMPILE_OPTIONS "-marm")
-
 set(_generated_linker_script "${CMAKE_BINARY_DIR}/ld_script.ld")
 set(_linker_cpp_args
     -E -P -x c
-    "-I${CMAKE_SOURCE_DIR}/src"
-    "-DGAME_VERSION=${GAME_VERSION_DEFINE}"
-    "-DGAME_REGION=${GAME_REGION_DEFINE}"
-    "${CMAKE_SOURCE_DIR}/ld_script.ld"
+    ${ROM_LINKER_SCRIPT_DEFINES}
+    "${ROM_LINKER_SCRIPT}"
     -o "${_generated_linker_script}")
 execute_process(
     COMMAND "${AGBCC_HOST_CC}" ${_linker_cpp_args}
@@ -39,9 +27,7 @@ endif()
 add_custom_command(
     OUTPUT "${_generated_linker_script}"
     COMMAND "${AGBCC_HOST_CC}" ${_linker_cpp_args}
-    DEPENDS
-        "${CMAKE_SOURCE_DIR}/ld_script.ld"
-        "${CMAKE_SOURCE_DIR}/src/version.h"
+    DEPENDS "${ROM_LINKER_SCRIPT}" ${ROM_LINKER_SCRIPT_DEPENDS}
     VERBATIM)
 add_custom_target(linker_script DEPENDS "${_generated_linker_script}")
 add_dependencies(rom linker_script)
@@ -72,12 +58,12 @@ add_custom_command(
 add_custom_target(rom_gba ALL DEPENDS "${CMAKE_BINARY_DIR}/rom.gba")
 
 enable_testing()
-set(_rom_test_name "rom-${GAME_VERSION}-matches")
+set(_rom_test_name "rom-${ROM_VERSION}-matches")
 add_test(NAME "${_rom_test_name}"
     COMMAND "${CMAKE_SOURCE_DIR}/tools/check-rom"
-        "${GAME_VERSION}"
-        "${GAME_SHA1}"
-        "${GAME_VERSION_VALIDATED}"
+        "${ROM_VERSION}"
+        "${ROM_SHA1}"
+        "${ROM_VALIDATED}"
         "${CMAKE_BINARY_DIR}/rom.gba")
 set_tests_properties("${_rom_test_name}" PROPERTIES SKIP_RETURN_CODE 77)
 add_custom_target(compare
@@ -88,10 +74,9 @@ add_custom_target(compare
 
 set(_objdiff_units "")
 set(_objdiff_first_unit TRUE)
-foreach(_objdiff_version us eu debug)
-    # The US baseline is generated from the validated matching build.
-    # The EU baseline is created only after that version is validated.
-    # The debug baseline is created only after that version is validated.
+# One unit set per version; a version's baseline (expected/build/<ver>) only
+# exists once tools/update-expected has snapshotted a matching build.
+foreach(_objdiff_version IN LISTS ROM_VERSIONS)
     foreach(_source IN LISTS _rom_sources)
         if(NOT _source MATCHES "^src/.+\\.c$")
             continue()
