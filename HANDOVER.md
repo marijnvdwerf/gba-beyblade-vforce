@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-15 (session 13 in progress; previous close 2026-09-13): 734 C / 291 asm / 72% by count, 21 TUs; ARM bank 2 matched + 10 typed parks.
+Last updated: 2026-09-15 (session 13): 767 C / 258 asm / 75% by count, 26 TUs; all raw-decomp-* topic branches merged.: 734 C / 291 asm / 72% by count, 21 TUs; ARM bank 2 matched + 10 typed parks.
 
 ## Session 13 (2026-09-15)
 
@@ -48,8 +48,34 @@ Last updated: 2026-09-15 (session 13 in progress; previous close 2026-09-13): 73
   to duplicated arms.
 - Stray main edits this session: misc fold agent (camera.c/gameinit.c
   drafts) — reverted, diff in /tmp/stray-main-edit-misc-*.diff.
-- Remaining order: collision → actor (rebase onto collision) → backup →
-  misc (rebase each delta: `git rebase --onto main <old-prev-tip> <branch>`).
+- ALL MERGED. collision (37c11dc8): the unkC outcome REVERSED the bitfield
+  note above — an opus agent ran a scripted 3816-combination matrix (compile
+  collision.c alone, byte-compare the symbol vs expected/): NO plain-integer
+  spelling matches sub_80567E4. Mechanism (RTL-traced): a full-byte RMW
+  store goes through store_bit_field with insert mask const 0 and CSE
+  donates that zero to the neighbouring `unkE = 0` store; 1-bit bitfields
+  have masks −2/−3, nothing to donate. FIRST CASE where a bitfield is not
+  reproducible with a plain integer (user: "if the assembly says
+  bitfield, it's a bitfield"). s_rider_804C4B4 zeroes the three with one
+  chained assignment → agbcc emits the target's single `strb #0`; its
+  `>>= 8` fakematch is gone. Nested `struct { bitfields }` is 4 bytes under
+  agbcc even with u8 base (measured) — cannot sit at +0xC. Probe harness
+  idea (template TU → compile → objdump symbol bytes; Thumb st_value has
+  bit 0 set) is worth a tool. actor+backup merged as ONE squash (599c215d;
+  reviewed as one delta), misc (1c04510f + 3b4ae65b TODOs).
+  **State: main 3b4ae65b, clean, baseline refreshed, compare green; 767 C /
+  258 asm / 75%, 26 TUs. Session 13 net: +33 C functions.** Worktrees:
+  raw-decomp, raw-decomp-10 (user's; iwram.c uncommitted edit) only.
+- Stray main edits this session: 3 (misc fold agent ×1, dead luna agents
+  ×2 on old drafts) — all reverted, diffs in /tmp/stray-main-edit-*.diff.
+- NEXT: (1) skill fold — ~28 unfolded learnings at docs/learnings top
+  level (2026-09-13/14/15) incl. the CSE-donated-zero mechanism, the
+  backup.c per-TU compiler, the SImode-mask narrowing table, 39/39 misc
+  folds; (2) raw-decomp-10 (user, sub_8047494 festate); (3) opus + scripted
+  probe matrices are the tool for allocation walls — luna agents stalled
+  at compaction 4× today on collision; (4) open: backup.c lvalue-cast
+  byte-stepping spelling (user "not a fan", tmc-identical, every typed form
+  diverges under -O1).
 
 ## Session 12 (2026-09-12/13)
 
