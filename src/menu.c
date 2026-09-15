@@ -51,7 +51,7 @@ void sub_805AC80(MenuState* arg0, UnkMenuItem* arg1)
     }
 }
 
-void sub_805AD24(MenuState* arg0, const unk8* arg1, const unk8* arg2, unk32 arg3, unk32 arg4,
+void sub_805AD24(MenuState* arg0, const SpriteSheet* arg1, const unk8* arg2, unk32 arg3, unk32 arg4,
     unk32 arg5, unk32 arg6, unk8 arg7, unk8 arg8, unk8 arg9, unk8 argA, MenuStateCallback argB,
     MenuStateValueCallback argC, unk8 argD)
 {

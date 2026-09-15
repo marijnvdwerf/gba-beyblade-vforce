@@ -3,12 +3,6 @@
 
 #include "common.h"
 
-struct SpriteSheet {
-    unk8 pad0[4];
-    unk8 unk4;
-    unk8 unk5;
-};
-
 struct SpriteEntry {
     SpriteEntry* prev;
     SpriteEntry* next;
@@ -30,17 +24,20 @@ struct SpriteEntry {
     u16 var22;
     s32 var24;
     const unk8* unk28;
-    const unk8* unk2C;
-    SpriteEntry* unk30;
+    const SpriteSheet* unk2C;
+    SpriteRotationScaleEntry* unk30;
 };
-
-typedef struct SpriteRotationScaleEntry SpriteRotationScaleEntry;
 
 struct SpriteRotationScaleEntry {
     SpriteRotationScaleEntry* prev;
     SpriteRotationScaleEntry* next;
     unk32 oamAddr;
-    unk8 unkC[0x10];
+    unk16 unkC[4];
+    u16 unk14;
+    u16 unk16;
+    u8 unk18;
+    u8 unk19;
+    unk8 pad1A[2];
 };
 
 void SpriteVRamFree(u32, u32);
@@ -51,10 +48,14 @@ void sub_8061078(SpriteEntry*, unk16);
 void sub_8060F64(SpriteEntry*, u16, u16, u8);
 void sub_8060CDC(SpriteTextBlock*);
 SpriteEntry* resizeSpriteBlock(SpriteTextBlock*, u16, u16);
-void LoadSpriteSheet(SpriteEntry*, const void*, unk32, unk32, unk32, unk32, unk32, unk32);
-void sub_8060B38(SpriteEntry*);
+void LoadSpriteSheet(SpriteEntry*, const SpriteSheet*, unk32, unk32, unk8, unk8, unk8, unk16);
+void sub_8060B38(SpriteRotationScaleEntry*);
+SpriteEntry* sub_8060C1C(SpriteTextBlock*, unk16, unk16);
+SpriteRotationScaleEntry* sub_8060E8C(SpriteRotationScaleEntry*, u16, u16, u8);
+void sub_806100C(SpriteEntry*, unk16, unk16);
+void sub_8061158(SpriteRotationScaleEntry*);
 void sub_8061130(SpriteEntry*, u8);
-void sub_8061160(SpriteEntry*);
+void sub_8061160(SpriteRotationScaleEntry*);
 void sub_8061168(SpriteEntry*, u8);
 
 #endif

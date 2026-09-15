@@ -22,9 +22,9 @@ extern const unk8 Str_86FCF24[];
 extern const unk8 Str_86FCF54[];
 extern const unk8* _806EA5C[];
 extern const unk8* _806EA70[];
-extern const unk8 SpriteSheet_823AA74[];
+extern const SpriteSheet SpriteSheet_823AA74;
 extern const unk8 Pal_823B2BC[];
-extern const unk8 SpriteSheet_823B4BC[];
+extern const SpriteSheet SpriteSheet_823B4BC;
 extern const unk8 Pal_823BD04[];
 extern const SpriteTextPlacement _8068710[];
 
@@ -49,7 +49,7 @@ void displayFrontendLevel(
     LevelSelectState* state, LevelDescription* description, LevelState* levelState)
 {
     const unk8* palette;
-    const unk8* spriteSheet;
+    const SpriteSheet* spriteSheet;
 
     getLanguage();
     if (state->sprite == NULL) {
@@ -60,10 +60,10 @@ void displayFrontendLevel(
     if ((levelState->unk0 & 2) != 0 || sub_8051780(4) != 0) {
         if (sub_8051780(4) != 0) {
             if (_currentGameState->unk6A4 == 2) {
-                spriteSheet = SpriteSheet_823AA74;
+                spriteSheet = &SpriteSheet_823AA74;
                 palette = Pal_823B2BC;
             } else {
-                spriteSheet = SpriteSheet_823B4BC;
+                spriteSheet = &SpriteSheet_823B4BC;
                 palette = Pal_823BD04;
             }
         } else {
@@ -214,13 +214,13 @@ void sub_80413FC(FrontendState* state, unk32 arg1)
         firstSprite = allocSprite(0);
         _unk300005C = firstSprite;
         if (firstSprite != NULL) {
-            LoadSpriteSheet(firstSprite, SpriteSheet_823BF04, -0x10000, 0x5400, 0, 0, 0, 0);
+            LoadSpriteSheet(firstSprite, &SpriteSheet_823BF04, -0x10000, 0x5400, 0, 0, 0, 0);
         }
 
         secondSprite = allocSprite(0);
         _unk3000060 = secondSprite;
         if (secondSprite != NULL) {
-            LoadSpriteSheet(secondSprite, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+            LoadSpriteSheet(secondSprite, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
 
         _unk3000064 = 0x800;

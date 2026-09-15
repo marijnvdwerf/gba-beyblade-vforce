@@ -13,20 +13,20 @@
 #include "spritetext.h"
 #include "unsorted.h"
 
-extern const unk8 SpriteSheet_82B1A84[];
+extern const SpriteSheet SpriteSheet_82B1A84;
 extern const unk8 LargeFontMeta[];
-extern const unk8 SpriteSheet_82B05EC[];
+extern const SpriteSheet SpriteSheet_82B05EC;
 extern const unk8 ShadowFontMeta[];
-extern const unk8 SpriteSheet_821CF10[];
-extern const unk8 SpriteSheet_821DB5C[];
-extern const unk8 SpriteSheet_821DEA8[];
-extern const unk8 SpriteSheet_8224DC4[];
-extern const unk8 SpriteSheet_8225414[];
-extern const unk8 SpriteSheet_82266B4[];
-extern const unk8 SpriteSheet_8227954[];
-extern const unk8 SpriteSheet_8227C24[];
-extern const unk8 SpriteSheet_821DFF0[];
-extern const unk8 SpriteSheet_8224868[];
+extern const SpriteSheet SpriteSheet_821CF10;
+extern const SpriteSheet SpriteSheet_821DB5C;
+extern const SpriteSheet SpriteSheet_821DEA8;
+extern const SpriteSheet SpriteSheet_8224DC4;
+extern const SpriteSheet SpriteSheet_8225414;
+extern const SpriteSheet SpriteSheet_82266B4;
+extern const SpriteSheet SpriteSheet_8227954;
+extern const SpriteSheet SpriteSheet_8227C24;
+extern const SpriteSheet SpriteSheet_821DFF0;
+extern const SpriteSheet SpriteSheet_8224868;
 extern const unk8 Str_8727048[];
 
 void sub_804F37C(LevelHudData*);
@@ -37,12 +37,12 @@ void LoadHUD(void)
     GameData* gameData;
 
     gameData = _gameData;
-    allocFont(&gameData->levelHud.text0, SpriteSheet_82B1A84, LargeFontMeta, 0, -0x10, 0xF0, 2);
-    allocFont(&gameData->levelHud.text1, SpriteSheet_82B1A84, LargeFontMeta, 0, 0xA0, 0xF0, 2);
+    allocFont(&gameData->levelHud.text0, &SpriteSheet_82B1A84, LargeFontMeta, 0, -0x10, 0xF0, 2);
+    allocFont(&gameData->levelHud.text1, &SpriteSheet_82B1A84, LargeFontMeta, 0, 0xA0, 0xF0, 2);
     sub_80611FC(&gameData->levelHud.text0, 4);
     sub_80611FC(&gameData->levelHud.text1, 4);
     sub_80611EC(&gameData->levelHud.text1, 0xE);
-    allocFont(&gameData->levelHud.text2, SpriteSheet_82B05EC, ShadowFontMeta, 0, -0x20, 0xEE, 0);
+    allocFont(&gameData->levelHud.text2, &SpriteSheet_82B05EC, ShadowFontMeta, 0, -0x20, 0xEE, 0);
     gameData->levelHud.unkF4 = 0;
     gameData->levelHud.unkF8 = 0;
     gameData->levelHud.unkFC = 0;
@@ -58,10 +58,10 @@ void LoadHUD(void)
     gameData->levelHud.unk124 = allocSprite(0);
     gameData->levelHud.unk118 = 0;
     gameData->levelHud.unk11C = 0;
-    LoadSpriteSheet(gameData->levelHud.unk110, SpriteSheet_821CF10, 0x200, -0x2000, 0, 0, 0, 0);
-    LoadSpriteSheet(gameData->levelHud.unk114, SpriteSheet_821DB5C, 0x4200, -0x2000, 0, 0, 0, 0);
-    LoadSpriteSheet(gameData->levelHud.unk124, SpriteSheet_821DEA8, 0xCE00, -0x2000, 0, 0, 0, 0);
-    allocFont(&gameData->levelHud.text3, SpriteSheet_82B05EC, ShadowFontMeta, 0, -0x20, 0x1C, 2);
+    LoadSpriteSheet(gameData->levelHud.unk110, &SpriteSheet_821CF10, 0x200, -0x2000, 0, 0, 0, 0);
+    LoadSpriteSheet(gameData->levelHud.unk114, &SpriteSheet_821DB5C, 0x4200, -0x2000, 0, 0, 0, 0);
+    LoadSpriteSheet(gameData->levelHud.unk124, &SpriteSheet_821DEA8, 0xCE00, -0x2000, 0, 0, 0, 0);
+    allocFont(&gameData->levelHud.text3, &SpriteSheet_82B05EC, ShadowFontMeta, 0, -0x20, 0x1C, 2);
     gameData->levelHud.unk12D = sub_80518F0();
     showNumber_2(&gameData->levelHud.text3, gameData->levelHud.unk12D, 0xF);
     showString(&gameData->levelHud.text3, Str_8727048, 0xF);
@@ -195,14 +195,14 @@ void sub_804F05C(LevelHudData* arg0)
         if (state->unk118 == NULL) {
             state->unk118 = allocSprite(0);
             if (state->unk118 != NULL) {
-                LoadSpriteSheet(state->unk118, SpriteSheet_821DFF0, 0x200, 0x200, 0, 0, 0, 0);
+                LoadSpriteSheet(state->unk118, &SpriteSheet_821DFF0, 0x200, 0x200, 0, 0, 0, 0);
             }
         }
         if (state->unk11C == NULL) {
             if (temp > 0x19) {
                 state->unk11C = allocSprite(0);
                 if (state->unk11C != NULL) {
-                    LoadSpriteSheet(state->unk11C, SpriteSheet_8224868, 0x4200, 0x200, 0, 0, 0, 0);
+                    LoadSpriteSheet(state->unk11C, &SpriteSheet_8224868, 0x4200, 0x200, 0, 0, 0, 0);
                 }
             }
         }
@@ -292,7 +292,7 @@ void sub_804F2A0(LevelHudData* arg0)
         if (state->unk120 == NULL) {
             state->unk120 = allocSprite(0);
             if (state->unk120 != NULL) {
-                LoadSpriteSheet(state->unk120, SpriteSheet_8224DC4, 0xD00, 0, 0, 0, 0, 0);
+                LoadSpriteSheet(state->unk120, &SpriteSheet_8224DC4, 0xD00, 0, 0, 0, 0, 0);
             }
         }
     }
@@ -324,16 +324,16 @@ void sub_804F37C(LevelHudData* arg0)
         arg0->unk100 = allocSprite(0);
     }
     if (arg0->unkF4 != NULL) {
-        LoadSpriteSheet(arg0->unkF4, SpriteSheet_8225414, 0x4A00, -0x2000, 0, 0, 0, 0);
+        LoadSpriteSheet(arg0->unkF4, &SpriteSheet_8225414, 0x4A00, -0x2000, 0, 0, 0, 0);
     }
     if (arg0->unkF8 != NULL) {
-        LoadSpriteSheet(arg0->unkF8, SpriteSheet_82266B4, 0x8A00, -0x2000, 0, 0, 0, 0);
+        LoadSpriteSheet(arg0->unkF8, &SpriteSheet_82266B4, 0x8A00, -0x2000, 0, 0, 0, 0);
     }
     if (arg0->unkFC != NULL) {
-        LoadSpriteSheet(arg0->unkFC, SpriteSheet_8227954, 0xA00, -0x2000, 0, 0, 0, 0);
+        LoadSpriteSheet(arg0->unkFC, &SpriteSheet_8227954, 0xA00, -0x2000, 0, 0, 0, 0);
     }
     if (arg0->unk100 != NULL) {
-        LoadSpriteSheet(arg0->unk100, SpriteSheet_8227C24, 0x4200, -0x2000, 0, 0, 0, 0);
+        LoadSpriteSheet(arg0->unk100, &SpriteSheet_8227C24, 0x4200, -0x2000, 0, 0, 0, 0);
     }
     arg0->flags |= 8;
 }

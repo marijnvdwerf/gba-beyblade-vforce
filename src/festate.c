@@ -25,17 +25,17 @@
 #include "tutorial.h"
 #include "unsorted.h"
 
-extern const unk8 SpriteSheet_8247028[];
-extern const unk8 SpriteSheet_824B01C[];
-extern const unk8 SpriteSheet_82B1A84[];
+extern const SpriteSheet SpriteSheet_8247028;
+extern const SpriteSheet SpriteSheet_824B01C;
+extern const SpriteSheet SpriteSheet_82B1A84;
 extern const unk8 LargeFontMeta[];
 extern const unk8* _806DFD0[][5];
 
-extern const unk8 SpriteSheet_825125C[];
-extern const unk8 SpriteSheet_82516A8[];
-extern const unk8 SpriteSheet_8251AF4[];
-extern const unk8 SpriteSheet_823C2C8[];
-extern const unk8 SpriteSheet_824F010[];
+extern const SpriteSheet SpriteSheet_825125C;
+extern const SpriteSheet SpriteSheet_82516A8;
+extern const SpriteSheet SpriteSheet_8251AF4;
+extern const SpriteSheet SpriteSheet_823C2C8;
+extern const SpriteSheet SpriteSheet_824F010;
 extern const unk8 Pal_825105C[];
 extern const unk8 Str_86FD640[];
 extern const unk8 Str_86FD68C[];
@@ -92,12 +92,12 @@ void sub_8043AA0(FrontendState* state, u32 arg1)
         sprite1 = allocSprite(0);
         _unk3000158 = sprite1;
         if (sprite1 != NULL) {
-            LoadSpriteSheet(sprite1, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite1, &SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
         sprite2 = allocSprite(0);
         _unk300015C = sprite2;
         if (sprite2 != NULL) {
-            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+            LoadSpriteSheet(sprite2, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk3000160 = 0x800;
         _unk3000164 = 0xD800;
@@ -579,12 +579,12 @@ void sub_80448F4(FrontendState* state, unk32 arg1)
         sprite = allocSprite(0);
         _unk30001F0 = sprite;
         if (sprite != NULL) {
-            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite, &SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
         sprite = allocSprite(0);
         _unk30001F4 = sprite;
         if (sprite != NULL) {
-            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+            LoadSpriteSheet(sprite, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk30001F8 = 0x800;
         _unk30001FC = 0xD800;
@@ -702,11 +702,11 @@ void sub_8044C48(FrontendState* state, unk32 arg1)
         initialScroll = 0x10000;
         sub_80596AC(&state->bgLayers[3], -initialScroll, 0);
         if (_unk3000204 != NULL) {
-            LoadSpriteSheet(_unk3000204, SpriteSheet_823FF84, initialScroll, 0x2300, 0, 0, 0, 0);
+            LoadSpriteSheet(_unk3000204, &SpriteSheet_823FF84, initialScroll, 0x2300, 0, 0, 0, 0);
         }
-        allocFont(&_unk3000218, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xF0, 2);
+        allocFont(&_unk3000218, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xF0, 2);
         sub_8061660(&_unk3000218, _806DB8C[1][getLanguage()], 0xF);
-        allocFont(&_unk3000248, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x78, 0xF0, 2);
+        allocFont(&_unk3000248, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x78, 0xF0, 2);
         sub_8061660(&_unk3000248, _806DB8C[0][getLanguage()], 0xF);
         showNumber(&_unk3000248, value, 0xF);
         showString(&_unk3000248, Str_86FD470, 0xF);
@@ -780,11 +780,11 @@ void sub_8044ED4(FrontendState* state, unk32 arg1)
         initialScroll = 0x10000;
         sub_80596AC(&state->bgLayers[3], -initialScroll, 0);
         if (_unk300027C != NULL) {
-            LoadSpriteSheet(_unk300027C, SpriteSheet_82411A0, initialScroll, 0x2300, 0, 0, 0, 0);
+            LoadSpriteSheet(_unk300027C, &SpriteSheet_82411A0, initialScroll, 0x2300, 0, 0, 0, 0);
         }
-        allocFont(&_unk3000290, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xF0, 2);
+        allocFont(&_unk3000290, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xF0, 2);
         sub_8061660(&_unk3000290, _806DB8C[2][getLanguage()], 0xF);
-        allocFont(&_unk30002C0, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x78, 0xF0, 2);
+        allocFont(&_unk30002C0, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x78, 0xF0, 2);
         sub_8061660(&_unk30002C0, _806DB8C[0][getLanguage()], 0xF);
         showNumber(&_unk30002C0, value, 0xF);
         showString(&_unk30002C0, Str_86FD470, 0xF);
@@ -856,11 +856,11 @@ void sub_8045160(FrontendState* state, unk32 arg1, unk32 arg2)
         initialScroll = 0x10000;
         sub_80596AC(&state->bgLayers[3], -initialScroll, 0);
         if (_unk30002F4 != NULL) {
-            LoadSpriteSheet(_unk30002F4, SpriteSheet_8243874, initialScroll, 0x2300, 0, 0, 0, 0);
+            LoadSpriteSheet(_unk30002F4, &SpriteSheet_8243874, initialScroll, 0x2300, 0, 0, 0, 0);
         }
-        allocFont(&_unk3000308, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xF0, 2);
+        allocFont(&_unk3000308, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xF0, 2);
         sub_8061660(&_unk3000308, _806DB8C[3][getLanguage()], 0xF);
-        allocFont(&_unk3000338, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x78, 0xF0, 2);
+        allocFont(&_unk3000338, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x78, 0xF0, 2);
         sub_8061660(&_unk3000338, _806DB8C[0][getLanguage()], 0xF);
         showNumber(&_unk3000338, value, 0xF);
         showString(&_unk3000338, Str_86FD470, 0xF);
@@ -938,12 +938,12 @@ void sub_804541C(FrontendState* state, u32 arg1)
         sprite1 = allocSprite(0);
         _unk300036C = sprite1;
         if (sprite1 != NULL) {
-            LoadSpriteSheet(sprite1, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite1, &SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
         sprite2 = allocSprite(0);
         _unk3000370 = sprite2;
         if (sprite2 != NULL) {
-            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+            LoadSpriteSheet(sprite2, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk3000374 = 0x800;
         _unk3000378.value = 0xD800;
@@ -1114,12 +1114,12 @@ void sub_8045848(FrontendState* state, u32 arg1)
         sprite1 = allocSprite(0);
         _unk30003A8 = sprite1;
         if (sprite1 != NULL) {
-            LoadSpriteSheet(sprite1, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite1, &SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
         sprite2 = allocSprite(0);
         _unk30003AC = sprite2;
         if (sprite2 != NULL) {
-            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+            LoadSpriteSheet(sprite2, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk30003B0 = 0x800;
         _unk30003B4 = 0xD800;
@@ -1197,12 +1197,12 @@ void sub_8045A7C(FrontendState* state, u32 arg1)
         sprite1 = allocSprite(0);
         _unk30003B8 = sprite1;
         if (sprite1 != NULL) {
-            LoadSpriteSheet(sprite1, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite1, &SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
         sprite2 = allocSprite(0);
         _unk30003BC = sprite2;
         if (sprite2 != NULL) {
-            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+            LoadSpriteSheet(sprite2, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk30003C0 = 0x800;
         _unk30003C4 = 0xD800;
@@ -1293,22 +1293,22 @@ void sub_8045CB4(FrontendState* state, unk32 arg1, unk32 arg2)
         sprite = allocSprite(0);
         _unk30003D0 = sprite;
         if (sprite != NULL) {
-            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0xFFFF0000, 0x3000, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite, &SpriteSheet_823BF04, 0xFFFF0000, 0x3000, 0, 0, 0, 0);
         }
         sprite2 = allocSprite(0);
         _unk30003D4 = sprite2;
         if (sprite2 != NULL) {
-            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x3000, 0, 0, 1, 0);
+            LoadSpriteSheet(sprite2, &SpriteSheet_823BF04, 0x18000, 0x3000, 0, 0, 1, 0);
         }
         sprite3 = allocSprite(0);
         _unk30003D8 = sprite3;
         if (sprite3 != NULL) {
-            LoadSpriteSheet(sprite3, SpriteSheet_8247028, 0x18000, 0x2800, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite3, &SpriteSheet_8247028, 0x18000, 0x2800, 0, 0, 0, 0);
         }
         sprite4 = allocSprite(0);
         _unk30003DC = sprite4;
         if (_unk30003D8 != NULL) {
-            LoadSpriteSheet(sprite4, SpriteSheet_824B01C, 0x18000, 0x5800, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite4, &SpriteSheet_824B01C, 0x18000, 0x5800, 0, 0, 0, 0);
         }
         _unk30003E0 = 0x1900;
         _unk30003E4 = 0xC700;
@@ -1319,9 +1319,9 @@ void sub_8045CB4(FrontendState* state, unk32 arg1, unk32 arg2)
         _unk300045C = _currentGameState->unk6E6 >> 5;
         _unk30003DC->frame.word = _unk300045C;
         _unk30003D8->frame.word = _currentGameState->unk6E4 >> 5;
-        allocFont(&_unk30003F8, SpriteSheet_82B1A84, LargeFontMeta, 0x100, 0x38, 0xF0, 0);
+        allocFont(&_unk30003F8, &SpriteSheet_82B1A84, LargeFontMeta, 0x100, 0x38, 0xF0, 0);
         sub_8061660(&_unk30003F8, _806DFD0[0][getLanguage()], 0xE);
-        allocFont(&_unk3000428, SpriteSheet_82B1A84, LargeFontMeta, 0x100, 0x68, 0xF0, 0);
+        allocFont(&_unk3000428, &SpriteSheet_82B1A84, LargeFontMeta, 0x100, 0x68, 0xF0, 0);
         sub_8061660(&_unk3000428, _806DFD0[1][getLanguage()], 0xE);
         break;
     case 7:
@@ -1444,12 +1444,12 @@ void sub_80461D8(FrontendState* state, u32 arg1)
         sprite1 = allocSprite(0);
         _unk3000464 = sprite1;
         if (sprite1 != NULL) {
-            LoadSpriteSheet(sprite1, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite1, &SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
         sprite2 = allocSprite(0);
         _unk3000468 = sprite2;
         if (sprite2 != NULL) {
-            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+            LoadSpriteSheet(sprite2, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk300046C = 0x800;
         _unk3000470 = 0xD800;
@@ -1564,12 +1564,12 @@ void sub_8046500(FrontendState* state, u32 arg1, u32 arg2)
         leftSprite = allocSprite(0);
         _unk3000494 = leftSprite;
         if (leftSprite != NULL) {
-            LoadSpriteSheet(leftSprite, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+            LoadSpriteSheet(leftSprite, &SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
         rightSprite = allocSprite(0);
         _unk3000498 = rightSprite;
         if (rightSprite != NULL) {
-            LoadSpriteSheet(rightSprite, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+            LoadSpriteSheet(rightSprite, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk300049C = 0x800;
         _unk30004A0 = 0xD800;
@@ -1662,12 +1662,12 @@ void sub_8046814(FrontendState* state, u32 arg1)
         leftSprite = allocSprite(0);
         _unk30004A4 = leftSprite;
         if (leftSprite != NULL) {
-            LoadSpriteSheet(leftSprite, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+            LoadSpriteSheet(leftSprite, &SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
         rightSprite = allocSprite(0);
         _unk30004A8 = rightSprite;
         if (rightSprite != NULL) {
-            LoadSpriteSheet(rightSprite, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+            LoadSpriteSheet(rightSprite, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk30004AC = 0x800;
         _unk30004B0 = 0xD800;
@@ -1817,12 +1817,12 @@ void sub_8046CC4(FrontendState* state, u32 arg1)
         sprite1 = allocSprite(0);
         _unk30004D0 = sprite1;
         if (sprite1 != NULL) {
-            LoadSpriteSheet(sprite1, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite1, &SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
         sprite2 = allocSprite(0);
         _unk30004D4 = sprite2;
         if (sprite2 != NULL) {
-            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+            LoadSpriteSheet(sprite2, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk30004D8 = 0x800;
         _unk30004DC = 0xD800;
@@ -1893,7 +1893,6 @@ void initBBCollectionSprite(FrontendBladeState* state)
 {
     const BeybladeData* data;
     s32 category;
-    unk16 frame;
 
     data = getBeybladeData0(state->unk34);
     category = state->unk35;
@@ -1904,7 +1903,7 @@ void initBBCollectionSprite(FrontendBladeState* state)
     }
     if (state->unk4 == NULL) {
         state->unk4 = allocSprite(1);
-        LoadSpriteSheet(state->unk4, SpriteSheet_823C2C8, 0x3F00, 0x6B00, 1, 0, 0, 0);
+        LoadSpriteSheet(state->unk4, &SpriteSheet_823C2C8, 0x3F00, 0x6B00, 1, 0, 0, 0);
     }
     if (state->unk0 != NULL) {
         if (category == 0) {
@@ -1915,8 +1914,8 @@ void initBBCollectionSprite(FrontendBladeState* state)
                 __fastMemoryCopyARM(data->palette, (void*)OBJ_PLTT, 0x20);
             }
         } else {
-            LoadSpriteSheet(state->unk0, SpriteSheet_824F010, 0x1000, 0x3C00, 1, 0, 0,
-                frame = category - 1); // TODO: fakematch? in-argument assignment
+            LoadSpriteSheet(
+                state->unk0, &SpriteSheet_824F010, 0x1000, 0x3C00, 1, 0, 0, category - 1);
             __fastMemoryCopyARM(Pal_825105C, (void*)OBJ_PLTT, 0x20);
         }
     }
@@ -2122,42 +2121,42 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
         sprite = allocSprite(0);
         _unk300053C = sprite;
         if (sprite != NULL) {
-            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite, &SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         } else {
             printf(Str_86FD68C);
         }
         sprite2 = allocSprite(0);
         _unk3000540 = sprite2;
         if (sprite2 != NULL) {
-            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+            LoadSpriteSheet(sprite2, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         } else {
             printf(Str_86FD6C8);
         }
         sprite3 = allocSprite(0);
         _unk3000544 = sprite3;
         if (sprite3 != NULL) {
-            LoadSpriteSheet(sprite3, SpriteSheet_823BF04, 0x18000, 0x1B00, 0, 0, 2, 2);
+            LoadSpriteSheet(sprite3, &SpriteSheet_823BF04, 0x18000, 0x1B00, 0, 0, 2, 2);
         } else {
             printf(Str_86FD704);
         }
         sprite4 = allocSprite(0);
         _unk30004F0.unk8 = sprite4;
         if (sprite4 != NULL) {
-            LoadSpriteSheet(sprite4, SpriteSheet_825125C, 0xAC00, 0xA000, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite4, &SpriteSheet_825125C, 0xAC00, 0xA000, 0, 0, 0, 0);
         } else {
             printf(Str_86FD740);
         }
         sprite5 = allocSprite(0);
         _unk30004F0.unkC = sprite5;
         if (sprite5 != NULL) {
-            LoadSpriteSheet(sprite5, SpriteSheet_82516A8, 0xAC00, 0xA000, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite5, &SpriteSheet_82516A8, 0xAC00, 0xA000, 0, 0, 0, 0);
         } else {
             printf(Str_86FD77C);
         }
         sprite6 = allocSprite(0);
         _unk30004F0.unk10 = sprite6;
         if (sprite6 != NULL) {
-            LoadSpriteSheet(sprite6, SpriteSheet_8251AF4, 0xAC00, 0xA000, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite6, &SpriteSheet_8251AF4, 0xAC00, 0xA000, 0, 0, 0, 0);
         } else {
             printf(Str_86FD7B8);
         }
@@ -2405,15 +2404,15 @@ void sub_8047E5C(FrontendState* state, unk32 arg1)
         sprite3 = allocSprite(0);
         _unk3000570 = sprite3;
         _unk3000574 = (0xA0 << 5);
-        LoadSpriteSheet(_unk3000568, SpriteSheet_8251F40, 0x10000, 0x3600, 0, 0, 0, 0);
-        LoadSpriteSheet(_unk300056C, SpriteSheet_8251F40, 0x18000, 0x3600, 0, 0, 0, 0);
-        LoadSpriteSheet(_unk3000570, SpriteSheet_8252994, 0x14000, 0x4000, 0, 0, 0, 0);
+        LoadSpriteSheet(_unk3000568, &SpriteSheet_8251F40, 0x10000, 0x3600, 0, 0, 0, 0);
+        LoadSpriteSheet(_unk300056C, &SpriteSheet_8251F40, 0x18000, 0x3600, 0, 0, 0, 0);
+        LoadSpriteSheet(_unk3000570, &SpriteSheet_8252994, 0x14000, 0x4000, 0, 0, 0, 0);
         _unk3000570->frame.word = 8;
         _unk3000578 = 0;
         initialScroll = 0x10000;
         _unk300057C = initialScroll;
         sub_80596AC(&state->bgLayers[3], -initialScroll, 0);
-        allocFont(&_unk3000580, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x69, 0xC8, 2);
+        allocFont(&_unk3000580, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x69, 0xC8, 2);
         sub_8061660(&_unk3000580, _806E3B0[0][getLanguage()], 0xF);
         break;
     case 1:
@@ -2469,12 +2468,12 @@ void sub_80480EC(FrontendState* state, unk32 arg1)
         sprite1 = allocSprite(0);
         _unk30005B0 = sprite1;
         if (sprite1 != NULL) {
-            LoadSpriteSheet(sprite1, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite1, &SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
         sprite2 = allocSprite(0);
         _unk30005B4 = sprite2;
         if (sprite2 != NULL) {
-            LoadSpriteSheet(sprite2, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+            LoadSpriteSheet(sprite2, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk30005B8 = 0x800;
         _unk30005BC = 0xD800;
@@ -2551,12 +2550,12 @@ void sub_8048310(FrontendState* state, unk32 arg1)
         sprite = allocSprite(0);
         _unk30005C0 = sprite;
         if (sprite != NULL) {
-            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite, &SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
         sprite = allocSprite(0);
         _unk30005C4 = sprite;
         if (sprite != NULL) {
-            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+            LoadSpriteSheet(sprite, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk30005C8 = 0x800;
         _unk30005CC = 0xD800;
@@ -2658,12 +2657,12 @@ void sub_804868C(FrontendState* state, unk32 arg1)
         sprite = allocSprite(0);
         _unk30005D0 = sprite;
         if (sprite != NULL) {
-            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
+            LoadSpriteSheet(sprite, &SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         }
         sprite = allocSprite(0);
         _unk30005D4 = sprite;
         if (sprite != NULL) {
-            LoadSpriteSheet(sprite, SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
+            LoadSpriteSheet(sprite, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         }
         _unk30005D8 = 0x800;
         _unk30005DC = 0xD800;
@@ -2806,13 +2805,13 @@ void sub_8048AE8(FrontendState* state, unk32 arg1, unk32 arg2)
         _unk30005F0.sprite1 = allocSprite(0);
         _unk30005F0.sprite2 = allocSprite(0);
         if (_unk30005F0.sprite0 != NULL) {
-            LoadSpriteSheet(_unk30005F0.sprite0, SpriteSheet_8251F40, 0x10000, 0x4000, 0, 0, 0, 0);
+            LoadSpriteSheet(_unk30005F0.sprite0, &SpriteSheet_8251F40, 0x10000, 0x4000, 0, 0, 0, 0);
         }
         if (_unk30005F0.sprite1 != NULL) {
-            LoadSpriteSheet(_unk30005F0.sprite1, SpriteSheet_8251F40, 0x18000, 0x4000, 0, 0, 0, 0);
+            LoadSpriteSheet(_unk30005F0.sprite1, &SpriteSheet_8251F40, 0x18000, 0x4000, 0, 0, 0, 0);
         }
         if (_unk30005F0.sprite2 != NULL) {
-            LoadSpriteSheet(_unk30005F0.sprite2, SpriteSheet_8252994, 0x14000, 0x4A00, 0, 0, 0, 0);
+            LoadSpriteSheet(_unk30005F0.sprite2, &SpriteSheet_8252994, 0x14000, 0x4A00, 0, 0, 0, 0);
         }
         _unk30005F0.state = 1;
         _unk30005F0.timer = 0;
@@ -2918,7 +2917,7 @@ void sub_8048D8C(FrontendState* state, u32 arg1)
         if (_unk3000600 != NULL) {
             LoadSpriteSheet(_unk3000600, description->unkC0, initialScroll, 0x2300, 0, 0, 0, 0);
         }
-        allocFont(&_unk3000610, SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xD0, 2);
+        allocFont(&_unk3000610, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xD0, 2);
         sub_8061660(&_unk3000610, _806E650[getLanguage()], 0xF);
         showString(&_unk3000610, description->unk68[getLanguage()], 0xF);
         break;

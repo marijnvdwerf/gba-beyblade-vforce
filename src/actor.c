@@ -200,7 +200,7 @@ void renderActor(Actor* actor, unk32 arg1)
     sub_8060F64(self->unkB8, self->unk12, self->unk14, self->unk16);
     sprite = self->unkB8;
     if (sprite->unk30 != NULL)
-        sprite->unk10 = (sprite->unk10 & 0xC1FFFFFF) | ((sprite->unk30->x & 0x3E0) << 20) | 0x100;
+        sprite->unk10 = (sprite->unk10 & 0xC1FFFFFF) | ((sprite->unk30->oamAddr & 0x3E0) << 20) | 0x100;
 }
 #endif
 INCLUDE_ASM("asm/dump/8057b80-debug/8057d88-renderActor.s");

@@ -14,7 +14,7 @@
 
 extern CreditsEntry Credits[];
 
-extern const unk8 SpriteSheet_82B05EC[];
+extern const SpriteSheet SpriteSheet_82B05EC;
 extern const unk8 ShadowFontMeta[];
 extern const unk8 Str_86FCED8[];
 
@@ -111,7 +111,7 @@ void creditsFrontendHandler(FrontendState* state, unk32 arg1)
             _fontPtr = _3000024->address;
             x = 0x50 - (totalWidth >> 1);
             for (i = 0; i < _3000008; i++) {
-                allocFont(&_fontPtr[i], SpriteSheet_82B05EC, ShadowFontMeta, 0, x, 0xF0, 2);
+                allocFont(&_fontPtr[i], &SpriteSheet_82B05EC, ShadowFontMeta, 0, x, 0xF0, 2);
                 sub_8061660(&_fontPtr[i], _currentCreditsPtr[i].text, _currentCreditsPtr[i].color);
                 sub_8061E58(&_fontPtr[i], 1);
                 x += _currentCreditsPtr[i].width;

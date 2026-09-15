@@ -48,7 +48,7 @@ extern const unk8 Str_8755EE0[];
 void oam_8756CC0(void)
 {
     SpriteEntry* sprite;
-    SpriteEntry* rotationScale;
+    SpriteRotationScaleEntry* rotationScale;
     SpriteRotationScaleEntryDraft8756CC0* rotation;
     unk32 count;
     OamEntryDraft8756CC0* oam;
@@ -89,10 +89,10 @@ void oam_8756CC0(void)
                 low = (tableValue & 0xFF) << 8;
                 rotationScale = sprite->unk30;
                 if (rotationScale != NULL) {
-                    product = high * rotationScale->oam_attr_2;
+                    product = high * rotationScale->unk14;
                     adjustedHigh = (product >> 8) - high;
                     high -= adjustedHigh;
-                    product = low * rotationScale->var16;
+                    product = low * rotationScale->unk16;
                     adjustedLow = (product >> 8) - low;
                     low -= adjustedLow;
                 }

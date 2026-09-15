@@ -43,10 +43,10 @@ const unk8* const* sub_804A378(unk32 arg0)
 }
 
 extern const unk8 Str_87233E8[];
-extern const unk8 SpriteSheet_82B05EC[];
+extern const SpriteSheet SpriteSheet_82B05EC;
 extern const unk8 ShadowFontMeta[];
-extern const unk8 SpriteSheet_821CCC8[];
-extern const unk8 SpriteSheet_821CB80[];
+extern const SpriteSheet SpriteSheet_821CCC8;
+extern const SpriteSheet SpriteSheet_821CB80;
 extern TutorialPage TutorialPages[];
 extern void (*__oam_8756CC0)(void);
 
@@ -92,7 +92,7 @@ void initTutorialManagement(u16 levelId)
         }
         data->unk104 = 0;
         data->count = count;
-        allocFont(&data->fontData, SpriteSheet_82B05EC, ShadowFontMeta, 0x24, 0x73, 0xBA, 0);
+        allocFont(&data->fontData, &SpriteSheet_82B05EC, ShadowFontMeta, 0x24, 0x73, 0xBA, 0);
         data->unk138 = 0;
         data->unk13C = 0;
     }
@@ -169,7 +169,7 @@ void sub_804A550(TutorialEntry* arg0)
     if (tutorial->unk13C == NULL) {
         tutorial->unk13C = allocSprite(0);
         if (tutorial->unk13C != NULL) {
-            LoadSpriteSheet(tutorial->unk13C, SpriteSheet_821CCC8, 0x200, 0x6600, 0, 0, 0, 0);
+            LoadSpriteSheet(tutorial->unk13C, &SpriteSheet_821CCC8, 0x200, 0x6600, 0, 0, 0, 0);
         }
     }
     while (done == 0) {
@@ -182,7 +182,7 @@ void sub_804A550(TutorialEntry* arg0)
                 tutorial->unk138 = allocSprite(0);
                 if (tutorial->unk138 != NULL) {
                     LoadSpriteSheet(
-                        tutorial->unk138, SpriteSheet_821CB80, 0xDE00, 0x6E00, 0, 0, 0, 0);
+                        tutorial->unk138, &SpriteSheet_821CB80, 0xDE00, 0x6E00, 0, 0, 0, 0);
                 }
             }
             if ((_unk3005DA0 & 1) != 0 || timer < -200) {

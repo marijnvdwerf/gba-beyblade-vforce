@@ -14,7 +14,7 @@ typedef struct SpriteTextPlacement {
 u8 sub_8061660(SpriteTextCleanup*, const u8*, u8);
 void sub_8061684(SpriteTextCleanup*, unk16, unk16);
 void sub_8061844(SpriteTextCleanup*, s16, s16);
-void allocFont(SpriteTextCleanup*, const unk8*, const unk8*, s16, s16, unk16, unk16);
+void allocFont(SpriteTextCleanup*, const SpriteSheet*, const unk8*, s16, s16, unk16, unk16);
 void sub_80611EC(SpriteTextCleanup*, unk8);
 void sub_80611FC(SpriteTextCleanup*, unk8);
 void sub_8062318(SpriteTextCleanup*, unk8);
@@ -33,6 +33,5 @@ void sub_8061E58(SpriteTextCleanup*, u8);
 void sub_80622E8(UnkMenuItem*, SpriteTextCleanup*);
 void sub_806185C(void*, unk8);
 u8 sub_8061C48(SpriteTextCleanup*, unk32, unk8);
-SpriteEntry* sub_8060C1C(SpriteTextBlock*, unk16, unk16);
 
 #endif

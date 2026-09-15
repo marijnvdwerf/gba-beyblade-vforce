@@ -16,7 +16,7 @@
 #include "sprite.h"
 #include "unsorted.h"
 
-extern const SpriteTrailSheet SpriteSheet_86FBF94[];
+extern const SpriteSheet SpriteSheet_86FBF94;
 
 extern const unk8 SpriteSheet_86FAEAC[];
 extern const unk8 Str_8729738[];
@@ -192,7 +192,7 @@ void initLevelEnvironmentActors(u16 level)
         metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 2, 0xFB93);
         if (metaobject != NULL) {
             sprite = allocSprite(lineIndex * 8 + 0x200);
-            LoadSpriteSheet(sprite, metaobject->unk8.data, 0, 0, 0, spriteLayer, 0, 0);
+            LoadSpriteSheet(sprite, metaobject->unk8.spriteSheet, 0, 0, 0, spriteLayer, 0, 0);
             lineObject->sprite = sprite;
             lineObject->unk8 = 0;
             lineObject->unkC = 0;
@@ -457,7 +457,7 @@ void initProjectileSystem(void)
 
     gameData = _gameData;
     system = &gameData->projectileSystem;
-    newProjectileSystem(system, 3, SpriteSheet_86FBF94, 6, &gameData->unk434);
+    newProjectileSystem(system, 3, &SpriteSheet_86FBF94, 6, &gameData->unk434);
     palette1 = &system->palette34;
     sub_80631B0(palette1, (void*)PLTT, 0, 0x180, 8);
     sub_8063640(palette1, 0x100);

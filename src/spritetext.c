@@ -16,8 +16,8 @@ extern const unk8 Str_8755B84[];
 extern const unk8 Str_8755B88[];
 extern const unk8 Str_8755B8C[];
 
-void allocFont(SpriteTextCleanup* arg0, const unk8* arg1, const unk8* arg2, s16 arg3, s16 arg4,
-    unk16 arg5, unk16 arg6)
+void allocFont(SpriteTextCleanup* arg0, const SpriteSheet* arg1, const unk8* arg2, s16 arg3,
+    s16 arg4, unk16 arg5, unk16 arg6)
 {
     arg0->x = arg3 << 8;
     arg0->y = arg4 << 8;
@@ -37,7 +37,7 @@ void allocFont(SpriteTextCleanup* arg0, const unk8* arg1, const unk8* arg2, s16 
     arg0->unk2B = 0;
     arg0->unk28 = 5;
     arg0->unk29 = 0;
-    arg0->unk2A = arg1[5] + 4;
+    arg0->unk2A = arg1->unk5 + 4;
 }
 
 void sub_80611EC(SpriteTextCleanup* arg0, unk8 arg1)
@@ -81,7 +81,7 @@ void sub_806123C(SpriteTextCleanup* text)
     SpriteEntry* cursor;
     SpriteEntry* marked;
     s32 scale;
-    SpriteEntry* child;
+    SpriteRotationScaleEntry* child;
     s32 line_shift;
     SpriteEntry* next_line;
     unk32 advance;
@@ -89,7 +89,7 @@ void sub_806123C(SpriteTextCleanup* text)
     s32 adjustment;
 
     widths = text->unk20;
-    char_width = text->unk24[4];
+    char_width = text->unk24->unk4;
     x = text->x;
     y = text->y;
     font_width = text->unkC;
@@ -106,7 +106,7 @@ void sub_806123C(SpriteTextCleanup* text)
         return;
     }
     if (child != NULL) {
-        scale = child->oam_attr_2;
+        scale = child->unk14;
     }
     switch (text->unk8 & 3) {
     case 1:
@@ -197,14 +197,14 @@ INCLUDE_ASM("asm/dump/8057b80-debug/80614b0.s");
 u8 showString(SpriteTextCleanup* arg0, const u8* text, u8 mode)
 {
     SpriteEntry* sprite;
-    SpriteEntry* child;
+    SpriteRotationScaleEntry* child;
     SpriteEntry* result;
     u32 char_width;
     const u8* width;
     u32 x;
     u32 extra;
     u32 flags;
-    u32 load_flags;
+    unk8 load_flags;
     u32 text_width;
     u32 count;
     u32 advance;
@@ -212,7 +212,7 @@ u8 showString(SpriteTextCleanup* arg0, const u8* text, u8 mode)
     u8 ch;
 
     text_width = sub_8064F38(text);
-    char_width = arg0->unk24[4];
+    char_width = arg0->unk24->unk4;
     width = arg0->unk20;
     count = arg0->unk14.count;
     x = arg0->unkA;
@@ -236,14 +236,14 @@ u8 showString(SpriteTextCleanup* arg0, const u8* text, u8 mode)
     sprite = result;
     child = arg0->ptr2C;
     if (child != NULL) {
-        flags = (child->x & 0x3E0) << 20;
+        flags = (child->oamAddr & 0x3E0) << 20;
         flags |= 0x100;
         if ((arg0->unk8 & 8) == 0) {
-            if (child->frame.b[0] != 0) {
-                if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
+            if (child->unk18 != 0) {
+                if (child->unk14 > 0xB0 || child->unk16 > 0xB0) {
                     flags |= 0x200;
                 }
-            } else if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
+            } else if (child->unk14 > 0xB0 || child->unk16 > 0xB0) {
                 flags |= 0x200;
             }
         }
@@ -284,10 +284,6 @@ u8 sub_8061660(SpriteTextCleanup* arg0, const u8* arg1, u8 arg2)
     return showString(arg0, arg1, arg2);
 }
 
-SpriteEntry* sub_8060E8C(SpriteEntry*, unk16, unk16, unk8);
-void sub_806100C(SpriteEntry*, unk16, unk16);
-void sub_8061158(SpriteEntry*);
-
 void sub_8061684(SpriteTextCleanup* text, unk16 arg1, unk16 arg2)
 {
     if (text->unk14.count == 0) {
@@ -307,14 +303,14 @@ void sub_8061684(SpriteTextCleanup* text, unk16 arg1, unk16 arg2)
         }
     } else {
         SpriteEntry* sprite;
-        SpriteEntry* child;
+        SpriteRotationScaleEntry* child;
         unk32 count;
         unk32 flags;
 
         child = text->ptr2C;
         if (child != NULL) {
             sub_8061160(child);
-            child = text->ptr2C = sub_8060E8C(child, arg1, arg2, child->frame.b[0]);
+            child = text->ptr2C = sub_8060E8C(child, arg1, arg2, child->unk18);
             if (child == NULL) {
                 sprite = text->unk14.prev;
                 count = text->unk14.count;
@@ -326,16 +322,16 @@ void sub_8061684(SpriteTextCleanup* text, unk16 arg1, unk16 arg2)
                     count--;
                 }
             } else {
-                flags = ((child->x & 0x3E0) << 20) | 0x100;
+                flags = ((child->oamAddr & 0x3E0) << 20) | 0x100;
                 sprite = text->unk14.prev;
                 count = text->unk14.count;
                 if ((text->unk8 & 8) == 0) {
-                    if (child->frame.b[0] != 0) {
-                        if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
+                    if (child->unk18 != 0) {
+                        if (child->unk14 > 0xB0 || child->unk16 > 0xB0) {
                             flags |= 0x200;
                         }
                     } else {
-                        if (child->oam_attr_2 > 0x100 || child->var16 > 0x100) {
+                        if (child->unk14 > 0x100 || child->unk16 > 0x100) {
                             flags |= 0x200;
                         }
                     }
@@ -352,16 +348,16 @@ void sub_8061684(SpriteTextCleanup* text, unk16 arg1, unk16 arg2)
         } else {
             child = text->ptr2C = sub_8060E8C(NULL, arg1, arg2, 0);
             if (child != NULL) {
-                flags = ((child->x & 0x3E0) << 20) | 0x100;
+                flags = ((child->oamAddr & 0x3E0) << 20) | 0x100;
                 sprite = text->unk14.prev;
                 count = text->unk14.count;
                 if ((text->unk8 & 8) == 0) {
-                    if (child->frame.b[0] != 0) {
-                        if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
+                    if (child->unk18 != 0) {
+                        if (child->unk14 > 0xB0 || child->unk16 > 0xB0) {
                             flags |= 0x200;
                         }
                     } else {
-                        if (child->oam_attr_2 > 0x100 || child->var16 > 0x100) {
+                        if (child->unk14 > 0x100 || child->unk16 > 0x100) {
                             flags |= 0x200;
                         }
                     }
@@ -409,11 +405,11 @@ void sub_806185C(SpriteTextCleanup* cleanup, unk8 mode)
 
 void sub_8061880(SpriteTextCleanup* arg0, s16 arg1, s16 arg2)
 {
-    SpriteEntry* ptr;
+    SpriteRotationScaleEntry* ptr;
 
     ptr = arg0->ptr2C;
     if (ptr != NULL) {
-        sub_8061684(arg0, ptr->oam_attr_2 + arg1, ptr->var16 + arg2);
+        sub_8061684(arg0, ptr->unk14 + arg1, ptr->unk16 + arg2);
         return;
     }
     sub_8061684(arg0, arg1 + 0x100, arg2 + 0x100);
@@ -540,7 +536,7 @@ unk32 sub_8061E08(SpriteTextCleanup* text)
     sprite = text->unk14.next;
     x = sprite->x;
     if (text->unk20 != NULL) {
-        x += (text->unk24[4] - text->unk20[sprite->frame.word]) << 8;
+        x += (text->unk24->unk4 - text->unk20[sprite->frame.word]) << 8;
     }
     x += text->unk29;
     return x;

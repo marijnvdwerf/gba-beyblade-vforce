@@ -16,9 +16,9 @@ typedef struct EffectSprites {
     s32 unk24;
     unk16 unk28;
     unk16 unk2A;
-    const unk8* unk2C;
+    const SpriteSheet* unk2C;
     const unk16* unk30;
-    const unk8* unk34;
+    const SpriteSheet* unk34;
     const unk16* unk38;
 } EffectSprites;
 
@@ -45,18 +45,18 @@ void sub_80558B8(void);
 void sub_80558D0(void);
 void sub_80558E8(unk32);
 
-void sub_8055914(EffectSprites*, const unk8*, const unk8*, unk32, unk32);
+void sub_8055914(EffectSprites*, const SpriteSheet*, const SpriteSheet*, unk32, unk32);
 void sub_8055B64(EffectSprites*, unk8);
 void sub_8055B7C(EffectSprites*, unk8);
 void sub_8055BA0(EffectSprites*, unk8, unk32);
 void sub_8055BC0(EffectSprites*, unk8, unk8);
-void sub_8055C04(EffectSprites*, unk8, const unk8*, const unk16*);
+void sub_8055C04(EffectSprites*, unk8, const SpriteSheet*, const unk16*);
 unk8 sub_8055C18(EffectSprites*, unk8);
 
 void sub_805599C(EffectSprites*);
 
 void sub_8055C4C(DecompressorState*);
-unk8* getDecompressorData(DecompressorState*, unk8*);
+void* getDecompressorData(DecompressorState*, unk8*);
 void sub_8055CA0(DecompressorState*);
 
 void sub_8055C30(EffectSprites*);

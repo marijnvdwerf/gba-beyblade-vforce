@@ -14,13 +14,13 @@ extern const u8 Str_8726F84[];
 extern const u8 Str_8726FB4[];
 extern const u8 Unk_874CEBC[];
 
-void newSpriteTrail(UnkTrail* arg0, const SpriteTrailSheet* arg1, void* arg2, s32 arg3, unk32 arg4,
-    u8 arg5, unk32 arg6)
+void newSpriteTrail(
+    UnkTrail* arg0, const SpriteSheet* arg1, void* arg2, s32 arg3, unk32 arg4, u8 arg5, unk32 arg6)
 {
     AllocatedBlock* allocated;
     SpriteTrailEntry* sprites;
     unk32 size;
-    unk32 remaining;
+    s32 i;
     unk32 zero;
     SpriteEntry* sprite;
 
@@ -53,21 +53,16 @@ void newSpriteTrail(UnkTrail* arg0, const SpriteTrailSheet* arg1, void* arg2, s3
     arg0->sprites = sprites;
     arg0->unk0 = arg3;
     arg0->block = allocated;
-    if (arg3 > 0) {
-        arg0 = NULL;
-        remaining = arg3;
-        do {
-            sprite = allocSprite(1);
-            sprites->sprite = sprite;
-            sprites->unkC = (unk32)arg0;
-            if (sprite != NULL) {
-                LoadSpriteSheet(sprite, arg1, 0, 0xA000, 1, (unk32)arg0, (unk32)arg0, (unk32)arg0);
-            } else {
-                printf(Str_8726FB4);
-            }
-            sprites++;
-            remaining--;
-        } while (remaining != 0);
+    for (i = 0; i < arg3; i++) {
+        sprite = allocSprite(1);
+        sprites->sprite = sprite;
+        sprites->unkC = 0;
+        if (sprite != NULL) {
+            LoadSpriteSheet(sprite, arg1, 0, 0xA000, 1, 0, 0, 0);
+        } else {
+            printf(Str_8726FB4);
+        }
+        sprites++;
     }
 }
 

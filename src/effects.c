@@ -317,7 +317,8 @@ void sub_80558E8(unk32 arg0)
     }
 }
 
-void sub_8055914(EffectSprites* effect, const unk8* sheet0, const unk8* sheet1, unk32 y0, unk32 y1)
+void sub_8055914(
+    EffectSprites* effect, const SpriteSheet* sheet0, const SpriteSheet* sheet1, unk32 y0, unk32 y1)
 {
     effect->unk28 = 0;
     effect->unk2A = 0;
@@ -455,7 +456,7 @@ void sub_8055BC0(EffectSprites* effect, unk8 side, unk8 enabled)
     }
 }
 
-void sub_8055C04(EffectSprites* effect, unk8 side, const unk8* sheet, const unk16* palette)
+void sub_8055C04(EffectSprites* effect, unk8 side, const SpriteSheet* sheet, const unk16* palette)
 {
     if (side != 0) {
         effect->unk34 = sheet;
@@ -490,7 +491,7 @@ void sub_8055C4C(DecompressorState* state)
     state->size = 0;
 }
 
-unk8* getDecompressorData(DecompressorState* state, unk8* source)
+void* getDecompressorData(DecompressorState* state, unk8* source)
 {
     unk8* data;
 

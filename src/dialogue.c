@@ -15,7 +15,7 @@
 #include "teletype.h"
 #include "tutorial.h"
 
-extern const unk8 SpriteSheet_821CB80[];
+extern const SpriteSheet SpriteSheet_821CB80;
 extern const unk8 Str_86FCF58[];
 
 void teletypeDefaultUserCodeHandler(TeletypeState* state, unk32 command)
@@ -141,7 +141,7 @@ void sub_80420C4(FrontendState* state, unk32 command)
         *(vu16*)REG_WIN1V = 0x60A0;
         sprite = allocSprite(0);
         _unk30000D8 = sprite;
-        LoadSpriteSheet(_unk30000D8, SpriteSheet_821CB80, 0xDC00, 0x8C00, 0, 0, 0, 0);
+        LoadSpriteSheet(_unk30000D8, &SpriteSheet_821CB80, 0xDC00, 0x8C00, 0, 0, 0, 0);
         sub_8061168(_unk30000D8, 0xB);
         _unk30000CC = 0x10;
         _unk30000D0 = 0;

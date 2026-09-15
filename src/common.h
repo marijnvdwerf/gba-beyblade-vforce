@@ -22,6 +22,7 @@ struct Actor;
 struct RiderBase;
 typedef void (*ActorPositionFunc)(struct Actor*, unk32*);
 typedef struct SpriteEntry SpriteEntry;
+typedef struct SpriteRotationScaleEntry SpriteRotationScaleEntry;
 typedef struct SpriteSheet SpriteSheet;
 typedef struct SpriteTextBlock SpriteTextBlock;
 typedef struct SpriteTextCleanup SpriteTextCleanup;
@@ -75,12 +76,12 @@ struct SpriteTextCleanup {
     unk16 unk12;
     SpriteTextBlock unk14;
     const unk8* unk20;
-    const u8* unk24;
+    const SpriteSheet* unk24;
     u8 unk28;
     s8 unk29;
     s8 unk2A;
     u8 unk2B;
-    SpriteEntry* ptr2C;
+    SpriteRotationScaleEntry* ptr2C;
 };
 
 struct AllocatedBlock {
@@ -110,7 +111,7 @@ typedef struct UnkMotion {
 } UnkMotion;
 
 typedef struct FrontendFontData {
-    const unk8* unk0;
+    const SpriteSheet* unk0;
     const unk8* unk4;
     unk16 unk8;
     unk8 unkA;
@@ -133,7 +134,7 @@ typedef struct FrontendMenuObjectData {
     s16 unk2;
     unk8 pad4[2];
     s16 unk6;
-    const unk8** unk8;
+    const FrontendFontData* unk8;
     const struct MenuItemDescriptor* unkC;
     unk16 unk10;
     unk16 unk12;
@@ -257,7 +258,7 @@ struct FrontendMenuData {
 };
 
 struct FrontendMenuItemData {
-    const unk8* spriteSheet;
+    const SpriteSheet* spriteSheet;
     const u8* labels[4];
     unk8 pad14[4];
     unk32 unk18;
@@ -269,7 +270,7 @@ struct FrontendMenuItemData {
 };
 
 struct FrontendMenuBlockData {
-    const unk8* spriteSheet;
+    const SpriteSheet* spriteSheet;
     const unk8* font;
     unk16 tileCount;
     unk8 unkA;
@@ -311,7 +312,7 @@ typedef void (*MenuStateCallback)(UnkMenuItem*, s32, UnkMenuItem*, s32);
 typedef void (*MenuStateValueCallback)(UnkMenuItem*, s32);
 
 typedef struct MenuState {
-    const unk8* unk0; /* 0x00 */
+    const SpriteSheet* unk0; /* 0x00 */
     const unk8* unk4; /* 0x04 */
     u8 unk8;
     u8 unk9;
@@ -411,10 +412,20 @@ typedef struct SpriteTrailFrame {
     unk8 pad6[2];
 } SpriteTrailFrame;
 
-typedef struct SpriteTrailSheet {
-    unk8 pad0[0x20];
-    SpriteTrailFrame frames[1];
-} SpriteTrailSheet;
+struct SpriteSheet {
+    unk8 pad0[4];
+    unk8 unk4;
+    unk8 unk5;
+    unk8 unk6;
+    unk8 unk7;
+    unk8 pad8[4];
+    unk8 unkC;
+    unk8 padD[3];
+    unk32 unk10; /* 0x10 */
+    unk8 pad14[8];
+    unk32 unk1C; /* 0x1C */
+    SpriteTrailFrame frames[1]; /* 0x20 */
+};
 
 typedef struct SpriteTrailEntry {
     unk32 unk0;
@@ -440,7 +451,7 @@ typedef struct UnkTrail {
     unk32 unk14;
     unk32 unk18;
     unk32 unk1C;
-    const SpriteTrailSheet* spriteSheet;
+    const SpriteSheet* spriteSheet;
     s16 unk24;
     unk16 unk26;
     struct CameraState* unk28;
@@ -1019,7 +1030,7 @@ typedef struct LineMetaSequence {
 
 typedef union LineMetaObjectValue {
     ActorConfig* config;
-    const unk8* data;
+    const SpriteSheet* spriteSheet;
     unk32 word;
     unk16 half;
     unk8 unk0;
@@ -1166,9 +1177,9 @@ typedef struct LevelDescription {
     const unk8* unkA8[5];
     unk8 unkBC;
     unk8 padBD[3];
-    const unk8* unkC0;
+    const SpriteSheet* unkC0;
     const unk8* unkC4;
-    const unk8* unkC8;
+    const SpriteSheet* unkC8;
     const unk8* unkCC;
 } LevelDescription;
 

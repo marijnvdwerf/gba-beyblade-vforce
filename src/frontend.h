@@ -3,12 +3,12 @@
 
 #include "common.h"
 
-extern const unk8 SpriteSheet_823BF04[];
-extern const unk8 SpriteSheet_823FF84[];
-extern const unk8 SpriteSheet_82411A0[];
-extern const unk8 SpriteSheet_8243874[];
-extern const unk8 SpriteSheet_8251F40[];
-extern const unk8 SpriteSheet_8252994[];
+extern const SpriteSheet SpriteSheet_823BF04;
+extern const SpriteSheet SpriteSheet_823FF84;
+extern const SpriteSheet SpriteSheet_82411A0;
+extern const SpriteSheet SpriteSheet_8243874;
+extern const SpriteSheet SpriteSheet_8251F40;
+extern const SpriteSheet SpriteSheet_8252994;
 extern const unk8* _806DB8C[][5];
 extern const unk8* _806E3B0[][5];
 extern const unk8* _806E8D8[][5];
@@ -34,7 +34,7 @@ extern const FrontendMenuData _806980C[];
 extern const FrontendMenuData _8069830[];
 extern const FrontendMenuData _8069D04[];
 extern const FrontendObject _8069FC8[];
-extern const unk8 SpriteSheet_82B05EC[];
+extern const SpriteSheet SpriteSheet_82B05EC;
 extern const unk8 ShadowFontMeta[];
 extern const unk8* _806E650[];
 extern const FrontendMotionData _8068840;

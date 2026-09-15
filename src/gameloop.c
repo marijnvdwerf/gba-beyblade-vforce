@@ -41,7 +41,7 @@ void sub_8052140(Sub8052140Data*, unk32);
 void sub_80526C8(GameData*, SpriteEntry*, Actor*);
 void sub_805295C(void);
 
-extern const unk8 SpriteSheet_86FBC4C[];
+extern const SpriteSheet SpriteSheet_86FBC4C;
 
 void gameLoop(void)
 {
@@ -69,7 +69,7 @@ void gameLoop(void)
     sub_8052140(&_unk3000F50, 0x12C);
     if (sub_8051780(2) != 0 && sub_8051780(8) == 0) {
         sprite = allocSprite(0);
-        LoadSpriteSheet(sprite, SpriteSheet_86FBC4C, 0x400, 0x8C00, 1, 0, 0, 0);
+        LoadSpriteSheet(sprite, &SpriteSheet_86FBC4C, 0x400, 0x8C00, 1, 0, 0, 0);
         if (sub_8051780(0x20) != 0) {
             sprite->frame.word = 2;
         }

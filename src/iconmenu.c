@@ -57,9 +57,8 @@ void newIconMenu(FrontendMenu* menu, const FrontendMenuData* data, unk32 count)
         item->sprite = allocSprite(i == count ? 1 : 2);
         item->unk18 = 0;
         if (item->sprite != NULL) {
-            unk16 tileCount;
             LoadSpriteSheet(item->sprite, itemData->spriteSheet, data->x - item->x + offsetX,
-                data->y - item->y + offsetY, 0, 2, 0, tileCount = itemData->unk28);
+                data->y - item->y + offsetY, 0, 2, 0, itemData->unk28);
         }
         item++;
         itemData++;

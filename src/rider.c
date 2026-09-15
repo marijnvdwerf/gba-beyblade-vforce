@@ -15,9 +15,9 @@
 #include "unsorted.h"
 
 extern const unk8 SpriteSheet_86FAEAC[];
-extern const unk8 SpriteSheet_86FAF34[];
-extern const unk8 SpriteSheet_86FB40C[];
-extern const unk8 SpriteSheet_86FBA14[];
+extern const SpriteSheet SpriteSheet_86FAF34;
+extern const SpriteSheet SpriteSheet_86FB40C;
+extern const SpriteSheet SpriteSheet_86FBA14;
 
 #if 0
 void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 arg5, unk32 arg6)
@@ -83,7 +83,7 @@ void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4,
         value = (unk32)allocSprite(1);
         base->unk3C4 = (SpriteEntry*)value;
         if (value != 0)
-            LoadSpriteSheet((SpriteEntry*)value, SpriteSheet_86FAF34, 0, 0, 0, 0, 0, 0);
+            LoadSpriteSheet((SpriteEntry*)value, &SpriteSheet_86FAF34, 0, 0, 0, 0, 0, 0);
     } else {
         base->unk3C4 = (SpriteEntry*)arg5;
     }
@@ -92,7 +92,7 @@ void initRider(RiderBase* rider, void* arg1, unk32 arg2, unk32 arg3, unk32 arg4,
         enabled = 1;
     base->unk3E8 = enabled;
     if (enabled != 0) {
-        allocateParticleSystem(&base->unk3EC, 8, SpriteSheet_86FB40C, arg1, 1);
+        allocateParticleSystem(&base->unk3EC, 8, &SpriteSheet_86FB40C, arg1, 1);
         sub_804E584(&base->unk3EC, arg2, arg3, arg5);
     }
     base->unk3D0 = 0;
@@ -568,7 +568,7 @@ void allocFXSprite(RiderBase* rider)
     if (rider->unk3C0 == NULL) {
         sprite = allocSprite(0xFF);
         if (sprite != NULL) {
-            LoadSpriteSheet(sprite, SpriteSheet_86FBA14, 0, 0, 2, 0, 0, 0);
+            LoadSpriteSheet(sprite, &SpriteSheet_86FBA14, 0, 0, 2, 0, 0, 0);
             sprite->var20 |= 1;
             sprite->var24 = (rider->unk3CE << 4) + 0x100;
         }

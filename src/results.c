@@ -28,9 +28,9 @@ extern const InputSequence _8078954[];
 extern const InputSequence _8078968[];
 extern const InputSequence _807897c[];
 extern const unk16 _807894c[];
-extern const unk8 SpriteSheet_82B1A84[];
+extern const SpriteSheet SpriteSheet_82B1A84;
 extern const unk8 LargeFontMeta[];
-extern const unk8 SpriteSheet_82B05EC[];
+extern const SpriteSheet SpriteSheet_82B05EC;
 extern const unk8 ShadowFontMeta[];
 extern void (*__oam_8756CC0)(void);
 
@@ -83,7 +83,7 @@ void sub_8052B24(void)
     sub_8061228(&_gameData->unk8A8);
     sub_8061228(&_gameData->unk870);
     _gameData->unk8A0 = 0;
-    allocFont(&font, SpriteSheet_82B1A84, LargeFontMeta, -0xF0, 0, 0xF0, 2);
+    allocFont(&font, &SpriteSheet_82B1A84, LargeFontMeta, -0xF0, 0, 0xF0, 2);
     if (_gameData->unk1640 != 0) {
         table = &_806E724[0x1E];
         sub_8061660(&font, table[getLanguage()], 0xE);
@@ -93,7 +93,7 @@ void sub_8052B24(void)
     }
 
     language = getLanguage();
-    sub_805AD24(&menuData, SpriteSheet_82B05EC, ShadowFontMeta, -0xC8, 0, 0xF0, 0xA, 0xD, 0xF, 0xA,
+    sub_805AD24(&menuData, &SpriteSheet_82B05EC, ShadowFontMeta, -0xC8, 0, 0xF0, 0xA, 0xD, 0xF, 0xA,
         0xA, sub_8052B08, NULL, language);
     state = &menuData;
     if (mode == 2) {
@@ -108,8 +108,8 @@ void sub_8052B24(void)
     if (mode != 2) {
         sprite0 = allocSprite(0);
         sprite1 = allocSprite(0);
-        LoadSpriteSheet(sprite0, SpriteSheet_82B1A84, 0xFFFED400, 0x3C00, 0, 0, 1, 0x62);
-        LoadSpriteSheet(sprite1, SpriteSheet_82B1A84, 0xFFFF3800, 0x3C00, 0, 0, 0, 0x62);
+        LoadSpriteSheet(sprite0, &SpriteSheet_82B1A84, 0xFFFED400, 0x3C00, 0, 0, 1, 0x62);
+        LoadSpriteSheet(sprite1, &SpriteSheet_82B1A84, 0xFFFF3800, 0x3C00, 0, 0, 0, 0x62);
     }
     if (_gameData->unk1640 == 0) {
         sub_804AF9C();

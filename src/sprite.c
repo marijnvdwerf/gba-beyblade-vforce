@@ -27,7 +27,7 @@ extern AllocatedBlock* _rotationScaleBlock;
 extern AllocatedBlock* _SpriteVramFreeList_block;
 extern SpriteStruct2* _SpriteVramFreeList;
 extern SpriteRotationScaleEntry* _rotationScale;
-extern void* _unk3005DF8;
+extern SpriteRotationScaleEntry* _unk3005DF8;
 extern SpriteRotationScaleEntry* _rotationScale_end;
 extern SpriteEntry* _spritesLeft;
 extern unk32 _spritesFree;
@@ -42,8 +42,6 @@ extern const unk8 Str_8755B28[];
 extern const unk8 Str_8755A08[];
 
 void freeSpriteVramLocation(s32, s32);
-void sub_8060B38(SpriteEntry*);
-SpriteEntry* sub_8060E8C(SpriteEntry*, u16, u16, u8);
 
 void sub_80604D4(SpriteEntry* current)
 {
@@ -246,21 +244,16 @@ s32 sub_8060790(s32 arg0)
     return start;
 }
 
-#if 0
 void freeSpriteVramLocation(s32 start, s32 size)
 {
     SpriteStruct2* current;
-    SpriteStruct2* head;
+    SpriteStruct2* freeEntry;
     SpriteStruct2* previous;
-    SpriteStruct2** list;
-    SpriteStruct2** freeList;
     SpriteStruct2* next;
     s32 end;
 
-    freeList = &_unk3005DD8;
-    list = &_unk3005DC8;
-    head = *list;
-    current = head;
+    current = _unk3005DC8;
+    freeEntry = _unk3005DD8;
     previous = NULL;
     end = start + size;
     while (current != NULL) {
@@ -274,37 +267,34 @@ void freeSpriteVramLocation(s32 start, s32 size)
             break;
         }
         if (current->var00 > start) {
-            if (*freeList == NULL) {
+            if (freeEntry == NULL) {
                 printf(Str_8755A08);
-            } else {
-                SpriteStruct2* freeEntry;
-
-                freeEntry = *freeList;
-                *freeList = freeEntry->next;
-                if (previous != NULL) {
-                    previous->next = freeEntry;
-                } else {
-                    *list = freeEntry;
-                }
-                freeEntry->next = current;
-                freeEntry->var00 = start;
-                freeEntry->var02 = size;
+                return;
             }
+            _unk3005DD8 = freeEntry->next;
+            if (previous != NULL) {
+                previous->next = freeEntry;
+            } else {
+                _unk3005DC8 = freeEntry;
+            }
+            freeEntry->next = current;
+            freeEntry->var00 = start;
+            freeEntry->var02 = size;
             break;
         }
         previous = current;
         current = current->next;
     }
 
-    previous = *list;
-    current = previous->next;
+    current = _unk3005DC8->next;
+    previous = _unk3005DC8;
     while (current != NULL) {
         if (current->var00 == previous->var00 + previous->var02) {
             next = current->next;
             previous->var02 += current->var02;
             previous->next = next;
-            current->next = *freeList;
-            *freeList = current;
+            current->next = _unk3005DD8;
+            _unk3005DD8 = current;
             current = next;
         } else {
             previous = current;
@@ -312,8 +302,6 @@ void freeSpriteVramLocation(s32 start, s32 size)
         }
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/8060808-freeSpriteVramLocation.s");
 
 const unk8 Str_8755A08[]
     = "There are no free SpriteVramFree entries remaining on a call to freeSpriteVramLocation()\n";
@@ -477,18 +465,18 @@ void sub_8060A94(SpriteEntry* spriteEntry)
     sub_80604D4(_unk3005DE4);
 }
 
-SpriteEntry* sub_8060B0C(void)
+SpriteRotationScaleEntry* sub_8060B0C(void)
 {
-    SpriteEntry* first;
-    SpriteEntry* last;
-    SpriteEntry* volatile* head;
-    SpriteEntry* volatile* tail;
+    SpriteRotationScaleEntry* first;
+    SpriteRotationScaleEntry* last;
+    SpriteRotationScaleEntry* volatile* head;
+    SpriteRotationScaleEntry* volatile* tail;
 
-    head = (SpriteEntry* volatile*)&_rotationScale_end;
+    head = (SpriteRotationScaleEntry* volatile*)&_rotationScale_end;
     first = *head;
     if (first != NULL) {
         *head = first->next;
-        tail = (SpriteEntry* volatile*)&_unk3005DF8;
+        tail = (SpriteRotationScaleEntry* volatile*)&_unk3005DF8;
         last = *tail;
         if (last != NULL) {
             last->prev = first;
@@ -500,12 +488,12 @@ SpriteEntry* sub_8060B0C(void)
     return first;
 }
 
-void sub_8060B38(SpriteEntry* spriteEntry)
+void sub_8060B38(SpriteRotationScaleEntry* spriteEntry)
 {
-    SpriteEntry* prev;
-    SpriteEntry* next;
+    SpriteRotationScaleEntry* prev;
+    SpriteRotationScaleEntry* next;
 
-    if (spriteEntry->frame.b[1] == 0) {
+    if (spriteEntry->unk19 == 0) {
         prev = spriteEntry->prev;
         next = spriteEntry->next;
         if (prev != NULL) {
@@ -516,121 +504,84 @@ void sub_8060B38(SpriteEntry* spriteEntry)
         if (next != NULL) {
             next->prev = prev;
         }
-        spriteEntry->next = (SpriteEntry*)_rotationScale_end;
-        _rotationScale_end = (SpriteRotationScaleEntry*)spriteEntry;
+        spriteEntry->next = _rotationScale_end;
+        _rotationScale_end = spriteEntry;
     }
 }
 
-#if 0
-typedef struct SpriteSheet {
-    unk8 pad0[6];
-    unk8 unk6;
-    unk8 unk7;
-    unk8 pad8[4];
-    unk8 unkC;
-    unk8 padD[3];
-    unk32 unk10;
-    unk8 pad14[8];
-    unk32 unk1C;
-} SpriteSheet;
-
-void LoadSpriteSheet(SpriteEntry* dst, const SpriteSheet* source, unk32 x, unk32 y,
-    unk32 arg4, unk32 arg5, unk32 arg6, unk32 arg7)
+void LoadSpriteSheet(SpriteEntry* dst, const SpriteSheet* source, unk32 x, unk32 y, unk8 objMode,
+    unk8 priority, unk8 flip, unk16 frame)
 {
-    unk16 normalizedArg5;
-    unk8 normalizedArg4;
     s8 sourceFlags;
     unk8 sourceByteC;
-    unk32 value;
 
-    normalizedArg5 = arg7;
-    normalizedArg4 = arg6;
     sourceFlags = source->unk7;
     sourceByteC = source->unkC;
-    dst->unk2C = (const unk8*)source;
-    dst->flip_h_v = normalizedArg4;
+    dst->unk2C = source;
+    dst->flip_h_v = flip;
     dst->x = x;
     dst->y = y;
     dst->unk10 = (sourceFlags & 3) << 14;
     dst->unk10 |= (~sourceByteC & 1) << 13;
-    dst->unk10 |= ((arg4 & 3) << 10) | 0x1000;
+    dst->unk10 |= (((objMode & 3) << 10) | 0x1000) & 0xFFFF;
     dst->unk10 |= (sourceFlags & 0xC) << 28;
-    dst->unk10 |= (normalizedArg4 & 3) << 28;
+    dst->unk10 |= (flip & 3) << 28;
     dst->oam_attr_2 = ((sourceByteC >> 1) & 0xF) << 12;
-    dst->oam_attr_2 |= (arg5 & 3) << 10;
-    value = source->unk1C;
-    if (value == 0) {
-        value = source->unk10;
-    }
-    dst->unk28 = (const unk8*)source + value;
+    dst->oam_attr_2 |= (priority & 3) << 10;
+    dst->unk28 = (const unk8*)source + (source->unk1C != 0 ? source->unk1C : source->unk10);
     dst->var16 = source->unk6;
-    dst->frame.word = normalizedArg5;
+    dst->frame.word = frame;
     dst->unk1A = 0xFFFF;
     dst->flip_h_v = 0;
     dst->var20 = 0;
     dst->var24 = -1;
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/8060b68-LoadSpriteSheet.s");
 
-#if 0
-SpriteEntry* sub_8060C1C(SpriteTextBlock* block, u16 size, u16 var22)
+SpriteEntry* sub_8060C1C(SpriteTextBlock* block, unk16 size, unk16 var22)
 {
-    unk32* free_ptr;
-    unk32 sprites_free;
     SpriteEntry* first;
-    SpriteEntry* last;
-    SpriteEntry* previous;
+    SpriteEntry* cur;
+    SpriteEntry* prev;
     SpriteEntry* insertion;
-    SpriteEntry* next;
-    u16 count;
 
-    free_ptr = &_spritesFree;
-    sprites_free = *free_ptr;
-    if (sprites_free < size) {
-        printf(Str_8755AC8, size);
+    if (_spritesFree < size) {
+        printf(Str_8755AC8, _spritesFree, size);
         return NULL;
     }
-    *free_ptr = sprites_free - size;
+    _spritesFree -= size;
     first = _spritesLeft;
-    previous = first;
+    cur = first;
     insertion = sub_80609C4(_unk3005DE4, var22);
+    prev = first;
     block->count = size;
     block->prev = first;
     first->var22 = var22;
-    count = size - 1;
-    while (count != 0) {
-        first = first->next;
-        first->var22 = var22;
-        first->prev = previous;
-        previous = first;
-        count--;
+    while (--size != 0) {
+        cur = cur->next;
+        cur->var22 = var22;
+        cur->prev = prev;
+        prev = cur;
     }
-    last = first;
-    block->next = last;
-    _spritesLeft = last->next;
+    block->next = cur;
+    _spritesLeft = cur->next;
     if (insertion == NULL) {
-        next = _unk3005DE4;
-        if (next != NULL) {
-            next->prev = last;
+        if (_unk3005DE4 != NULL) {
+            _unk3005DE4->prev = cur;
         }
-        last->next = next;
-        first->prev = insertion;
+        cur->next = _unk3005DE4;
+        first->prev = NULL;
         _unk3005DE4 = first;
     } else {
-        next = insertion->next;
-        if (next != NULL) {
-            next->prev = last;
+        if (insertion->next != NULL) {
+            insertion->next->prev = cur;
         }
-        last->next = next;
+        cur->next = insertion->next;
         first->prev = insertion;
         insertion->next = first;
     }
     sub_80604D4(_unk3005DE4);
     return first;
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/8060c1c.s");
 
 void sub_8060CDC(SpriteTextBlock* block)
 {
@@ -679,195 +630,113 @@ void sub_8060CDC(SpriteTextBlock* block)
     sub_80604D4(_unk3005DE4);
 }
 
-#if 0
-SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 new_size, u16 arg2)
+SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 size, u16 var22)
 {
-    unk16 extra;
-    unk32* freePtr;
-    SpriteEntry* first;
+    SpriteEntry* newFirst;
+    SpriteEntry* cur;
     SpriteEntry* last;
-    SpriteEntry* free_head;
-    SpriteEntry* new_last;
-    SpriteEntry* previous;
-    SpriteEntry* successor;
+    SpriteEntry* prev;
 
-    freePtr = &_spritesFree;
-    if (block->count == new_size) {
+    if (block->count == size) {
         return block->prev;
     }
-    if (block->count < new_size) {
+    if (block->count < size) {
         if (block->count != 0) {
-            extra = new_size - block->count;
-            if (*freePtr < extra) {
+            size -= block->count;
+            if (_spritesFree < size) {
                 nullsub_8(Str_8755B0C);
                 return NULL;
             }
-            free_head = _spritesLeft;
-            new_first = free_head;
+            cur = _spritesLeft;
+            newFirst = cur;
             last = block->next;
-            first = block->prev;
-            *freePtr -= extra;
-            block->count += extra;
-            free_head->var22 = var22;
-            previous = free_head;
-            extra--;
-            while (extra != 0) {
-                free_head = free_head->next;
-                free_head->var22 = var22;
-                free_head->prev = previous;
-                previous = free_head;
-                extra--;
+            prev = cur;
+            var22 = block->prev->var22;
+            _spritesFree -= size;
+            block->count += size;
+            cur->var22 = var22;
+            size--;
+            while (size != 0) {
+                cur = cur->next;
+                cur->var22 = var22;
+                cur->prev = prev;
+                prev = cur;
+                size--;
             }
-            new_last = free_head;
-            _spritesLeft = new_last->next;
-            successor = last->next;
-            if (successor != NULL) {
-                successor->prev = new_last;
+            _spritesLeft = cur->next;
+            if (last->next != NULL) {
+                last->next->prev = cur;
             }
-            new_last->next = last->next;
-            last->next = new_first;
-            new_first->prev = last;
-            block->next = new_last;
+            cur->next = last->next;
+            last->next = newFirst;
+            newFirst->prev = last;
+            block->next = cur;
             sub_80604D4(_unk3005DE4);
             return block->prev;
         }
-        sub_8060C1C(block, new_size, arg2);
+        sub_8060C1C(block, size, var22);
         return block->prev;
     }
     nullsub_8(Str_8755B28);
     sub_8060CDC(block);
-    return sub_8060C1C(block, new_size, arg2);
+    return sub_8060C1C(block, size, var22);
 }
-#endif
-#if 0
-SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 new_size, u16 arg2)
+
+SpriteRotationScaleEntry* sub_8060E8C(
+    SpriteRotationScaleEntry* entry, u16 scaleX, u16 scaleY, u8 angle)
 {
-    unk16 extra;
-    unk32 sprites_free;
-    SpriteEntry* first;
-    SpriteEntry* last;
-    SpriteEntry* free_head;
-    SpriteEntry* new_first;
-    SpriteEntry* new_last;
-    SpriteEntry* previous;
-    SpriteEntry* successor;
-    unk16 var22;
+    unk32 identity;
+    s32 cosAngle;
+    s32 factorX;
+    s32 sinAngle;
+    s32 factorY;
 
-    if (block->count == new_size) {
-        return block->prev;
+    identity = 0;
+    if (angle == 0 && scaleX == 0x100 && scaleY == scaleX) {
+        identity = 1;
     }
-    if (block->count < new_size) {
-        if (block->count != 0) {
-            extra = new_size - block->count;
-            sprites_free = _spritesFree;
-            if (sprites_free < extra) {
-                nullsub_8(Str_8755B0C);
-                return NULL;
-            }
-            free_head = _spritesLeft;
-            new_first = free_head;
-            last = block->next;
-            first = block->prev;
-            var22 = first->var22;
-            _spritesFree = sprites_free - extra;
-            block->count += extra;
-            free_head->var22 = var22;
-            previous = free_head;
-            extra--;
-            while (extra != 0) {
-                free_head = free_head->next;
-                free_head->var22 = var22;
-                free_head->prev = previous;
-                previous = free_head;
-                extra--;
-            }
-            new_last = free_head;
-            _spritesLeft = new_last->next;
-            successor = last->next;
-            if (successor != NULL) {
-                successor->prev = new_last;
-            }
-            new_last->next = successor;
-            last->next = new_first;
-            new_first->prev = last;
-            block->next = new_last;
-            sub_80604D4(_unk3005DE4);
-            return block->prev;
+    if (entry != NULL) {
+        if (entry->unk19 != 0) {
+            return;
         }
-        sub_8060C1C(block, new_size, arg2);
-        return block->prev;
-    }
-    nullsub_8(Str_8755B28);
-    sub_8060CDC(block);
-    return sub_8060C1C(block, new_size, arg2);
-}
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/8060d98-resizeSpriteBlock.s");
-
-#if 0
-SpriteEntry* sub_8060E8C(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 frame)
-{
-    unk32 special;
-    s16* sin_table;
-    s16* cos_table;
-    s16 sin_frame;
-    s16 cos_arg1;
-    s16 sin_arg1;
-    s16 cos_arg2;
-    unk32 frame_offset;
-    unk32 scale_x = arg1;
-
-    special = 0;
-    if (frame == 0 && scale_x == 0x100 && arg2 == scale_x) {
-        special = 1;
-    }
-    if (sprite != NULL) {
-        if (sprite->frame.b[1] != 0) {
-            return sprite;
-        }
-        if (special != 0) {
-            sub_8060B38(sprite);
+        if (identity != 0) {
+            sub_8060B38(entry);
             return NULL;
         }
     } else {
-        if (special != 0) {
+        if (identity != 0) {
             return NULL;
         }
-        sprite = sub_8060B0C();
-        if (sprite == NULL) {
+        entry = sub_8060B0C();
+        if (entry == NULL) {
             return NULL;
         }
     }
-    sprite->oam_attr_2 = scale_x;
-    sprite->var16 = arg2;
-    sprite->frame.b[0] = frame;
-    if (frame != 0) {
-        sin_table = Unk_874CC3C;
-        frame_offset = frame + 0x40;
-        sin_frame = sin_table[frame_offset];
-        cos_table = Unk_872CC3C;
-        cos_arg1 = cos_table[scale_x];
-        sprite->y.halves.first = (sin_frame * cos_arg1) >> 8;
-        sin_arg1 = sin_table[frame];
-        sprite->y.halves.second = (sin_arg1 * cos_arg1) >> 8;
-        cos_arg2 = cos_table[arg2];
-        sprite->unk10.halves.first = (-sin_arg1 * cos_arg2) >> 8;
-        sprite->unk10.halves.second = (sin_frame * cos_arg2) >> 8;
+    entry->unk14 = scaleX;
+    entry->unk16 = scaleY;
+    entry->unk18 = angle;
+    if (angle != 0) {
+        cosAngle = Unk_874CC3C[angle + 0x40];
+        factorX = Unk_872CC3C[scaleX];
+        entry->unkC[0] = (cosAngle * factorX) >> 8;
+        sinAngle = Unk_874CC3C[angle];
+        entry->unkC[1] = (sinAngle * factorX) >> 8;
+        sinAngle = -sinAngle;
+        factorY = Unk_872CC3C[scaleY];
+        entry->unkC[2] = (sinAngle * factorY) >> 8;
+        entry->unkC[3] = (cosAngle * factorY) >> 8;
     } else {
-        cos_table = Unk_872CC3C;
-        sprite->y.halves.first = cos_table[scale_x];
-        sprite->y.halves.second = 0;
-        sprite->unk10.halves.first = 0;
-        sprite->unk10.halves.second = cos_table[arg2];
+        entry->unkC[0] = Unk_872CC3C[scaleX];
+        entry->unkC[1] = 0;
+        entry->unkC[2] = 0;
+        entry->unkC[3] = Unk_872CC3C[scaleY];
     }
-    return sprite;
+    return entry;
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/8060e8c.s");
 
 void sub_8060F64(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 arg3)
 {
-    SpriteEntry* child = sprite->unk30;
+    SpriteRotationScaleEntry* child = sprite->unk30;
     u32 flags = sprite->unk10;
     u32 child_flags;
     u32 size_mask;
@@ -882,7 +751,7 @@ void sub_8060F64(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 arg3)
         child = sprite->unk30 = sub_8060E8C(NULL, arg1, arg2, arg3);
         if (child != NULL) {
             flags &= ~0x3E000200;
-            child_flags = child->x;
+            child_flags = child->oamAddr;
             size_mask = 0xF8;
             size_mask <<= 2;
             child_flags &= size_mask;
@@ -892,14 +761,14 @@ void sub_8060F64(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 arg3)
         }
     }
     if (child != NULL) {
-        if (child->frame.b[0] != 0) {
-            if (child->oam_attr_2 > 0xB0 || child->var16 > 0xB0) {
+        if (child->unk18 != 0) {
+            if (child->unk14 > 0xB0 || child->unk16 > 0xB0) {
                 flags |= 0x200;
             } else {
                 flags &= ~0x200;
             }
         } else {
-            if (child->oam_attr_2 > 0x100 || child->var16 > 0x100) {
+            if (child->unk14 > 0x100 || child->unk16 > 0x100) {
                 flags |= 0x200;
             } else {
                 flags &= ~0x200;
@@ -911,10 +780,10 @@ void sub_8060F64(SpriteEntry* sprite, u16 arg1, u16 arg2, u8 arg3)
 
 void sub_806100C(SpriteEntry* spriteEntry, u16 arg1, u16 arg2)
 {
-    SpriteEntry* child = spriteEntry->unk30;
+    SpriteRotationScaleEntry* child = spriteEntry->unk30;
 
     if (child != NULL) {
-        sub_8060F64(spriteEntry, arg1, arg2, child->frame.b[0]);
+        sub_8060F64(spriteEntry, arg1, arg2, child->unk18);
     } else {
         sub_8060F64(spriteEntry, arg1, arg2, 0);
     }
@@ -922,10 +791,10 @@ void sub_806100C(SpriteEntry* spriteEntry, u16 arg1, u16 arg2)
 
 void sub_8061030(SpriteEntry* spriteEntry, u16 arg1, u16 arg2)
 {
-    SpriteEntry* child = spriteEntry->unk30;
+    SpriteRotationScaleEntry* child = spriteEntry->unk30;
 
     if (child != NULL) {
-        sub_8060F64(spriteEntry, child->oam_attr_2 + arg1, child->var16 + arg2, child->frame.b[0]);
+        sub_8060F64(spriteEntry, child->unk14 + arg1, child->unk16 + arg2, child->unk18);
     } else {
         sub_8060F64(spriteEntry, arg1 + 0x100, arg2 + 0x100, 0);
     }
@@ -990,14 +859,14 @@ unk32 sub_806114C(SpriteEntry* spriteEntry)
     return (spriteEntry->unk10 >> 10) & 3;
 }
 
-void sub_8061158(SpriteEntry* spriteEntry)
+void sub_8061158(SpriteRotationScaleEntry* spriteEntry)
 {
-    spriteEntry->frame.b[1] = 1;
+    spriteEntry->unk19 = 1;
 }
 
-void sub_8061160(SpriteEntry* spriteEntry)
+void sub_8061160(SpriteRotationScaleEntry* spriteEntry)
 {
-    spriteEntry->frame.b[1] = 0;
+    spriteEntry->unk19 = 0;
 }
 
 void sub_8061168(SpriteEntry* spriteEntry, u8 arg1)

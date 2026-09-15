@@ -8,7 +8,7 @@
 extern const unk8 Str_8726FE4[];
 
 void newProjectileSystem(
-    ProjectileSystem* arg0, s32 arg1, const SpriteTrailSheet* arg2, unk32 arg3, void* arg4)
+    ProjectileSystem* arg0, s32 arg1, const SpriteSheet* arg2, unk32 arg3, void* arg4)
 {
     AllocatedBlock* block;
     ProjectileEntry* entry;
