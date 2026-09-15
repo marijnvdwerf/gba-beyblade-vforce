@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-15 (session 13): 767 C / 258 asm / 75% by count, 26 TUs; all raw-decomp-* topic branches merged; multi-version builds, EU validated.: 734 C / 291 asm / 72% by count, 21 TUs; ARM bank 2 matched + 10 typed parks.
+Last updated: 2026-09-15 (session 13): 767 C / 258 asm / 75% by count, 26 TUs; all raw-decomp-* branches merged; us/eu/debug builds (EU validated), debug `#if DEBUG` sweep in progress (uncommitted).: 734 C / 291 asm / 72% by count, 21 TUs; ARM bank 2 matched + 10 typed parks.
 
 ## Session 13 (2026-09-15)
 
@@ -86,6 +86,45 @@ Last updated: 2026-09-15 (session 13): 767 C / 258 asm / 75% by count, 26 TUs; a
   similar-function tool. Debt: tools/update-expected duplicates the SHA
   table (read decomp.yaml instead); `baserom/` exists only for decomp.yaml
   `target`.
+- Later same session (main at 6aa99d64 + user's uncommitted debug work):
+  CI is a us/eu/debug matrix (fae62eb5; reports only for validated
+  versions); gba.cmake is game-agnostic (62c46e97 — consumes ROM_*
+  variables; all flags/per-file options/version table in CMakeLists.txt);
+  version model reduced to `REGION` (REGION_US/EU) + `DEBUG` (0/1)
+  (1413d67b; the us/eu/debug NAME is only preset/build-dir/SHA — as
+  `--defsym` takes integers only, region is passed as its numeric id);
+  data9.s `LevelDescriptions[].metadata` words are now `LineDataE*S*`
+  symbols (6aa99d64; they were raw ROM addresses that only worked because
+  ld_script pins data/7-7,7-6 metadata first). LineData tables have NO
+  length: they are line-indexed pointer arrays with NULL holes, sized by
+  the sibling geometry's `lineCount`; `GetLineMetaData` does no bounds
+  check (/tmp/LineDataE07S06-refs.md).
+- DEBUG ROM work (user, UNCOMMITTED on main): `undefined.txt` (repo root)
+  is a debug-only extra `-T` linker fragment defining not-yet-ported
+  symbols as absolute addresses (`sym = 0x08xxxxxx;`); the toolchain link
+  rule now has `<LINK_FLAGS>`. Convention (user's, dialogue.c/levelselect.c):
+  a function that differs in the beta keeps its US body in `#else` and gets
+  `INCLUDE_ASM("asm/debug/debug_sub_XXXXXXXX.s")` in `#if DEBUG` (+ a
+  prototype in the DEBUG arm when the TU still references it); functions
+  absent from the beta are `#if !DEBUG`. An opus agent applied it across
+  26 TUs from the fullfat report /Users/marijn/Projects/202609-fullfat/
+  build/beyblade-usa-debug.html (1081 fns: 936 matched untouched, 130
+  wrapped, 15 omitted; 43 undefined.txt entries; main.c/results.c gained
+  `#include "include_asm.h"`). Debug links (unvalidated). OPEN: (a) three
+  of the user's own undefined.txt lines use US addresses (sub_8041188,
+  sub_80413FC, displayFrontendLevel — debug is 0x080404E8/0x08040740/
+  0x08040454); (b) the user's truncation of data/3-5|7-5|7-7/metadata.s
+  has no `.if DEBUG` guard, so US/EU `compare` are RED on the working
+  tree (agents used "US SHA unchanged" as the invariant); (c) Thumb bit:
+  linker-script symbols are untyped, so `.4byte sym` data references (20+
+  of them: handler tables, mainLoop) lack bit 0 — MEASURED fix is
+  `sym = 0xADDR | 1;` (ld masks bit 0 for `bl`; `.thumb_set` on an
+  absolute value does NOT set the bit); not yet applied.
+- Lessons: as `--defsym` silently evaluates a symbol name to 0 (integers
+  only); CMake de-duplicates repeated `--defsym` tokens (use
+  `--defsym=X=Y`); an opus agent with a scripted probe matrix (template
+  TU → compile → byte-compare) settled in one pass what 3 luna agents
+  stalled on — use that for allocation walls.
 - NEXT: (1) raw-decomp-10 (user; its worktree predates the layout change —
   `cmake --preset default` there now builds build/us, `expected` symlink
   still valid); (2) debug ROM: function-level diff → per-version asm/data
