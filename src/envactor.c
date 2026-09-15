@@ -18,7 +18,7 @@
 
 extern const SpriteSheet SpriteSheet_86FBF94;
 
-extern const unk8 SpriteSheet_86FAEAC[];
+extern const SpriteSheet SpriteSheet_86FAEAC;
 extern const unk8 Str_8729738[];
 
 void initLevelEnvironmentActors(u16 level)
@@ -204,12 +204,12 @@ void initLevelEnvironmentActors(u16 level)
         }
         metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xF4FA);
         if (metaobject != NULL) {
-            effect->unk4 = (point0->x + point1->x) << 4;
-            effect->unk8 = (point0->y + point1->y) << 4;
-            effect->unkC = lineObject->unk12 << 8;
+            effect->x = (point0->x + point1->x) << 4;
+            effect->y = (point0->y + point1->y) << 4;
+            effect->z = lineObject->unk12 << 8;
             effect->unk12 = 0;
             effect->unk10 = 0;
-            effect->unk14 = SpriteSheet_86FAEAC;
+            effect->spriteSheet = &SpriteSheet_86FAEAC;
             effect->actor = actorBase;
             effect++;
         }
@@ -245,101 +245,111 @@ void initLevelEnvironmentActors(u16 level)
     }
 }
 
-#if 0
 void renderEnvironmentActors(void)
 {
-    unk32 actorCount;
-    unk32 effectCount;
+    s32 actorCount;
+    s32 effectCount;
     Actor* actor;
-    ActorRenderState* actorState;
     EnvironmentNode* effect;
-    BGLayer* camera;
+    unk32 scrollX;
+    unk32 scrollY;
+    CameraState* camera;
+    EnvironmentObject* object;
+    SpriteEntry* sprite;
     s32 x;
     s32 y;
-    s32 temp;
-    unk32 xDelta;
-    unk32 yDelta;
-    s16 xOffset;
-    s16 yOffset;
-    EnvironmentObject* lineObject;
-    SpriteEntry* lineSprite;
-    SpriteEntry* sprite;
+    unk32 savedX;
+    unk32 savedY;
 
     actorCount = _gameData->environmentActors.actorCount;
     effectCount = _gameData->environmentActors.effectCount;
     actor = _gameData->environmentActors.actorContainer;
     effect = _gameData->environmentActors.effect;
-    camera = (BGLayer*)nullsub_12(&_gameData->unk434);
-    if (actorCount == 0)
+    camera = nullsub_12(&_gameData->unk434);
+    if (actorCount == 0) {
         return;
+    }
     actorCount--;
-    actorState = &actor->stateA0;
     do {
-        x = ((actor->x - actor->y) >> 8) - (xOffset = actorState->unk0);
-        y = ((((actor->x + actor->y) >> 1) - actor->z) >> 8) - (yOffset = actorState->unk2);
-        xDelta = sub_8055274();
-        yDelta = sub_8055288();
-        actorState->unk0 += xDelta;
-        actorState->unk2 += yDelta;
+        x = ((actor->x - actor->y) >> 8) - actor->unkA0;
+        y = ((((actor->x + actor->y) >> 1) - actor->z) >> 8) - actor->unkA2;
+        savedX = actor->unkA0;
+        savedY = actor->unkA2;
+        scrollX = sub_8055274();
+        scrollY = sub_8055288();
+        actor->unkA0 += scrollX;
+        actor->unkA2 += scrollY;
         renderActor2(actor);
-        actorState->unk0 = xOffset;
-        actorState->unk2 = yOffset;
-        lineObject = GetStruct4(actorState->unk14);
-        if (lineObject != NULL) {
-            lineSprite = lineObject->sprite;
-            if (lineSprite != NULL) {
-                sprite = actorState->unk18;
-                if (sprite != NULL)
-                    lineSprite->frame.word = sprite->frame.word;
-                if (actor->unk3C != NULL) {
-                    x -= actor->unk3C->unk40 >> 8;
-                    y -= actor->unk3C->unk44 >> 8;
-                }
-                temp = ((lineObject->y + y) - yDelta) << 8;
-                if ((unk32)(temp + 0x4000) > 0xE000)
-                    temp = 0xA000;
-                lineSprite->x = ((lineObject->x + x) - xDelta) << 8;
-                lineSprite->y = temp;
-            }
+        actor->unkA0 = savedX;
+        actor->unkA2 = savedY;
+        object = GetStruct4(actor->unkB4.lineIndex);
+        if (object == NULL) {
+            actor++;
+            continue;
         }
-        actorState = (ActorRenderState*)((unk8*)actorState + 0xC4);
-        actor = (Actor*)((unk8*)actor + 0xC4);
-        actorCount--;
-    } while (actorCount != 0);
-    if (effectCount == 0 || effect == NULL)
+        if (object->sprite == NULL) {
+            actor++;
+            continue;
+        }
+        if (actor->unkB8 != NULL) {
+            object->sprite->frame.word = actor->unkB8->frame.word;
+        }
+        if (actor->unk3C != NULL) {
+            x -= actor->unk3C->field_40 >> 8;
+            y -= actor->unk3C->field_44 >> 8;
+        }
+        x = (object->unk8 + x - scrollX) << 8;
+        y = (object->unkC + y - scrollY) << 8;
+        if ((unk32)(y + 0x4000) > 0xE000) {
+            y = 0xA000;
+        }
+        object->sprite->x = x;
+        object->sprite->y = y;
+        actor++;
+    } while (actorCount-- != 0);
+    if (effectCount == 0 || effect == NULL) {
         return;
+    }
     effectCount--;
     do {
-        y = (((effect->x + effect->y) >> 1) - effect->z) - camera->unk44;
-        x = (effect->x - effect->y - camera->unk40) + 0xFFFFFC00;
+        x = effect->x - effect->y;
+        y = ((effect->x + effect->y) >> 1) - effect->z;
+        x -= camera->records[0].field_40;
+        y -= camera->records[0].field_44;
+        x -= 0x400;
         if (x < -0x2000 || y < -0x2000 || x > 0xEFFF || y > 0x9FFF) {
-            if (effect->sprite != NULL)
+            if (effect->sprite != NULL) {
                 sub_8060A94(effect->sprite);
+            }
             effect->sprite = NULL;
-        } else if (effect->sprite != NULL) {
+            effect++;
+            continue;
+        }
+        if (effect->sprite != NULL && effect->actor->unk70 == 0) {
+            if (effect->sprite != NULL) {
+                sub_8060A94(effect->sprite);
+            }
+            effect->sprite = NULL;
+            effect++;
+            continue;
+        }
+        if (effect->sprite == NULL) {
+            if (effect->actor->unk70 != 0) {
+                sprite = allocSprite(0x80);
+                if (sprite != NULL) {
+                    LoadSpriteSheet(
+                        sprite, effect->spriteSheet, x, y, effect->unk12 & 3, 0, 0, effect->unk10);
+                }
+                effect->sprite = sprite;
+            }
+        } else {
             sprite = effect->sprite;
-            if (effect->actor->unk70 == 0) {
-                sub_8060A94(sprite);
-                effect->sprite = NULL;
-            } else {
-                sprite->x = x;
-                sprite->y = y;
-            }
-        } else if (effect->actor->unk70 != 0) {
-            sprite = allocSprite(0x80);
-            if (sprite != NULL) {
-                LoadSpriteSheet(sprite, effect->spriteSheet, x, y, 3 & effect->unk12, 0, 0,
-                    effect->unk10);
-            }
-            effect->sprite = sprite;
+            sprite->x = x;
+            sprite->y = y;
         }
         effect++;
-        effectCount--;
-    } while (effectCount != 0);
+    } while (effectCount-- != 0);
 }
-
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/8054c9c-renderEnvironmentActors.s");
 
 void updateEnvirenmentActors(void)
 {

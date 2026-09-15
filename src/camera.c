@@ -2,6 +2,7 @@
 
 #include <agb/memory_map.h>
 
+#include "actor.h"
 #include "common.h"
 #include "geometry.h"
 #include "include_asm.h"
@@ -10,22 +11,23 @@
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805e878.s");
 
-void sub_805E8A0(CameraState* camera, const ScreenLayout* arg1, unk16 arg2, s32* arg3)
+void sub_805E8A0(
+    CameraState* camera, const ScreenLayout* arg1, unk16 arg2, CameraLayerOffsets* arg3)
 {
     sub_805E8D8(camera, arg1, arg2, arg3);
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805e8b0.s");
 
-#if 0
-void sub_805E8D8(CameraState* camera, const ScreenLayout* level, unk16 mode, s32* offsets)
+void sub_805E8D8(
+    CameraState* camera, const ScreenLayout* level, unk16 mode, CameraLayerOffsets* offsets)
 {
     s8 flags;
     s8 index;
-    const LevelDesignLayer* layerOrigin;
-    const LevelDesignLayer* layerBase;
-    s32 y;
+    BGLayer* first;
+    const LevelDesignLayer* origin;
     s32 x;
+    s32 y;
 
     flags = 0;
     camera->unk220 = level;
@@ -43,44 +45,24 @@ void sub_805E8D8(CameraState* camera, const ScreenLayout* level, unk16 mode, s32
     camera->unk368 = 0;
     *(vu16*)REG_BLDCNT = 0x3FFF;
     sub_8059934();
-    layerOrigin = &level->layers[0];
-    index = 0;
-    layerBase = &level->layers[0];
-    do {
-        {
-            s32* xBase;
-
-            xBase = offsets;
-            xBase += index * 2;
-            x = *xBase;
-        }
-        {
-            s32* yBase;
-
-            yBase = offsets + 1;
-            yBase += index * 2;
-            y = *yBase;
-        }
-        {
-            const LevelDesignLayer* layer;
-
-            layer = layerBase + index;
-            if (layer->unk0 != NULL) {
-                flags |= 1 << index;
-                if (index != 0
-                    && (level->layers[index].unk4 != 0 || level->layers[index].unk8 != 0)) {
-                    sub_8058968(&camera->records[index], index, layerBase[index].unk0, 0x40,
-                        level->layers[index].unkC | 1,
-                        (layerOrigin->unk4 - level->layers[index].unk4) >> 8,
-                        (layerOrigin->unk8 - level->layers[index].unk8) >> 8);
-                } else {
-                    sub_8058968(&camera->records[index], index, layerBase[index].unk0,
-                        0x40, level->layers[index].unkC | 1, x, y);
-                }
+    first = &camera->records[0];
+    origin = &level->layers[0];
+    for (index = 0; index <= 3; index++) {
+        x = offsets->layers[index].x;
+        y = offsets->layers[index].y;
+        if (level->layers[index].unk0 != NULL) {
+            flags |= 1 << index;
+            if (&camera->records[index] != first
+                && (level->layers[index].unk4 != 0 || level->layers[index].unk8 != 0)) {
+                sub_8058968(&camera->records[index], index, level->layers[index].unk0, 0x40,
+                    level->layers[index].unkC | 1, (origin->unk4 - level->layers[index].unk4) >> 8,
+                    (origin->unk8 - level->layers[index].unk8) >> 8);
+            } else {
+                sub_8058968(&camera->records[index], index, level->layers[index].unk0, 0x40,
+                    level->layers[index].unkC | 1, x, y);
             }
         }
-        index++;
-    } while (index <= 3);
+    }
     sub_8059C18(level->unk74_0, level->unk74_2, level->unk74_4, level->unk74_6);
     if (level->bgPalette != NULL) {
         loadPalette(level->bgPalette);
@@ -93,9 +75,6 @@ void sub_805E8D8(CameraState* camera, const ScreenLayout* level, unk16 mode, s32
     }
     camera->unk358 = (flags << 8) | mode;
 }
-
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/805e8d8.s");
 
 void sub_805EADC(CameraState* camera)
 {
@@ -143,61 +122,72 @@ CameraState* nullsub_12(CameraState* camera)
     return camera;
 }
 
-#if 0
 void sub_805EBCC(CameraState* camera)
 {
-    s32 local[3];
+    s32 actorPosition[3];
     CameraState* state;
     Actor* actor;
-    BGLayer* record;
-    unk16 scale;
+    s16 scale;
     s16 i;
-    unk8 width;
+    BGLayer* record;
+    s32 right;
+    s32 bottom;
 
     state = nullsub_12(camera);
-    actor = (Actor*)camera->unk224;
-    sub_8058754(actor, local);
-    width = actor->unk10;
-    state->records[0].unk14
-        = (local[0] - (state->records[0].unk40 + ((0xA0 - (width >> 1)) << 8))) >> 2;
-    state->records[0].unk18
-        = (local[1]
-              - (state->records[0].unk44 + ((actor->unkA2 + (0x50 - (actor->unk11 >> 1))) << 8)))
+    actor = camera->unk224;
+    sub_8058754(actor, actorPosition);
+    state->records[0].field_14
+        = (actorPosition[0] - (state->records[0].field_40 + ((0xA0 - (actor->unk10 >> 1)) << 8)))
         >> 2;
-    if (state->records[0].unk40 + state->records[0].unk14 < camera->unk35C)
-        state->records[0].unk14 = -state->records[0].unk40;
-    if (state->records[0].unk44 + state->records[0].unk18 < 0)
-        state->records[0].unk18 = -state->records[0].unk44;
-    if (state->records[0].unk40 + state->records[0].unk14
-        > (state->records[0].unk0 << 11) - (camera->unk360 << 8))
-        state->records[0].unk14
-            = (state->records[0].unk0 << 11) - (state->records[0].unk40 + (0xF0 << 8));
-    if (state->records[0].unk44 + state->records[0].unk18 > (state->records[0].unk4 << 11) - 0xA000)
-        state->records[0].unk18
-            = (state->records[0].unk4 << 11) - (state->records[0].unk44 + (0xA0 << 8));
-    i = 0;
-    do {
+    state->records[0].field_18
+        = (actorPosition[1]
+              - (state->records[0].field_44 + ((actor->unkA2 + (0x50 - (actor->unk11 >> 1))) << 8)))
+        >> 2;
+    if (state->records[0].field_40 + state->records[0].field_14 < camera->unk35C) {
+        state->records[0].field_14 = -state->records[0].field_40;
+    }
+    if (state->records[0].field_44 + state->records[0].field_18 < 0) {
+        state->records[0].field_18 = -state->records[0].field_44;
+    }
+    if (state->records[0].field_40 + state->records[0].field_14
+        > (state->records[0].columnCount << 11) - (camera->unk360 << 8)) {
+        right = state->records[0].field_40 + 0xF000;
+        state->records[0].field_14 = (state->records[0].columnCount << 11) - right;
+    }
+    if (state->records[0].field_44 + state->records[0].field_18
+        > (state->records[0].rowCount << 11) - 0xA000) {
+        bottom = state->records[0].field_44 + 0xA000;
+        state->records[0].field_18 = (state->records[0].rowCount << 11) - bottom;
+    }
+    for (i = 0; i <= 3; i++) {
         if (camera->unk220->layers[i].unk0 != NULL) {
-            scale = camera->unk220->layers[i].unkC;
+            scale = camera->unk220->layers[i].unk14;
             record = &camera->records[i];
-            if (record != (BGLayer*)state) {
-                record->unk14 = state->records[0].unk14 + ((state->records[0].unk14 * scale) >> 5);
-                record->unk18 = state->records[0].unk18 + ((state->records[0].unk18 * scale) >> 5);
-                if (record->unk40 + record->unk14 < camera->unk35C)
-                    record->unk14 = -record->unk40;
-                if (record->unk44 + record->unk18 < 0)
-                    record->unk18 = -record->unk44;
-                if (record->unk40 + record->unk14 > (record->unk0 << 11) - (camera->unk360 << 8))
-                    record->unk14 = (record->unk0 << 11) - (record->unk40 + (0xF0 << 8));
-                if (record->unk44 + record->unk18 > (record->unk4 << 11) - 0xA000)
-                    record->unk18 = (record->unk4 << 11) - (record->unk44 + (0xA0 << 8));
+            if (record != &state->records[0]) {
+                record->field_14
+                    = state->records[0].field_14 + (state->records[0].field_14 * scale >> 5);
+                record->field_18
+                    = state->records[0].field_18 + (state->records[0].field_18 * scale >> 5);
+                if (record->field_40 + record->field_14 < camera->unk35C) {
+                    record->field_14 = -record->field_40;
+                }
+                if (record->field_44 + record->field_18 < 0) {
+                    record->field_18 = -record->field_44;
+                }
+                if (record->field_40 + record->field_14
+                    > (record->columnCount << 11) - (camera->unk360 << 8)) {
+                    right = record->field_40 + 0xF000;
+                    record->field_14 = (record->columnCount << 11) - right;
+                }
+                if (record->field_44 + record->field_18 > (record->rowCount << 11) - 0xA000) {
+                    bottom = record->field_44 + 0xA000;
+                    record->field_18 = (record->rowCount << 11) - bottom;
+                }
             }
         }
-        i++;
-    } while (i <= 3);
+    }
 }
-#endif
-INCLUDE_ASM("asm/dump/8057b80-debug/805ebcc.s");
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805ed60.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805ee78.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805eea4.s");

@@ -72,7 +72,7 @@ extern unk8 _unk3005E78;
 extern const unk8 Str_8755E14[];
 
 void (*__sub_87577B4)(SoundStructA*, unk32, unk32);
-void (*__sound_8757A64)(unk32, unk32, unk32);
+void (*__sound_8757A64)(unk8*, unk32, unk32);
 
 #define FIXED_16_16(hz) ((hz) * 65536.0)
 
@@ -399,7 +399,6 @@ void Sound_80627A8(SoundStructA* arg0, unk32 arg1, unk32 arg2)
     }
 }
 
-#if 0
 void sub_80627F0(void)
 {
     unk32 channelCount;
@@ -410,18 +409,19 @@ void sub_80627F0(void)
     unk32 nextTimerPosition;
     unk32 previousTimerPosition;
     SoundStructA* channel;
-    SoundStructC* state;
 
-    channel = &(*_unk3005E24)[0];
+    channel = *_unk3005E24;
     channelCount = _unk3005E04;
-    if (_soundMixer != 0) {
-        state = &_unk3005E40;
-        if (state->var04 == 0) {
+    if (_soundMixer != NULL) {
+        if (_unk3005E40.var04 == 0) {
             return;
         }
         sub_8062C24();
         previousTimerPosition = _unk3000D94;
-        alignedFrameCount = (state->var08 + 1) & -2;
+        alignedFrameCount = (_unk3005E40.var08 + 1) & -2;
+        if (alignedFrameCount > 0x10000) {
+            alignedFrameCount = 0x10000;
+        }
         nextTimerPosition = (*(vu16*)REG_TM1CNT + 1) & ~1;
         if (nextTimerPosition == 0x10000) {
             nextTimerPosition = _unk3005E18;
@@ -432,32 +432,26 @@ void sub_80627F0(void)
             wrapDistance = 0;
         } else {
             firstChunkLength = 0x10000 - previousTimerPosition;
-            wrapDistance = nextTimerPosition + _unk3005E4C + 0xFFFF0000;
+            wrapDistance = _unk3005E4C - (0x10000 - nextTimerPosition);
         }
         mixLength = firstChunkLength + wrapDistance;
         _unk3005E78 = 0;
-        channelCount -= 1;
-        if (channelCount != -1) {
-            do {
-                Sound_80627A8(channel, mixLength, _unk3000DA0);
-                channel++;
-                channelCount -= 1;
-            } while (channelCount != -1);
+        while (channelCount-- != 0) {
+            Sound_80627A8(channel, mixLength, _unk3000DA0);
+            channel++;
         }
-        __sound_8757A64((unk32)_unk3000D90, firstChunkLength, 0);
+        __sound_8757A64(_unk3000D90, firstChunkLength, 0);
         _unk3000D90 += firstChunkLength;
         if (wrapDistance != 0) {
             _unk3000D90 -= _unk3005E4C;
-            __sound_8757A64((unk32)_unk3000D90, wrapDistance, firstChunkLength);
+            __sound_8757A64(_unk3000D90, wrapDistance, firstChunkLength);
             _unk3000D90 += wrapDistance;
         }
-        if (_unk3000D90 == ((unk8*)_soundMixer + _unk3005E4C)) {
+        if (_unk3000D90 == &(*_soundMixer)[_unk3005E4C]) {
             _unk3000D90 -= _unk3005E4C;
         }
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/sound/80627f0.s");
 
 static void Sound_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
 {

@@ -101,70 +101,56 @@ void sub_8054278(LevelGeometryAddresses* arg0, unk16 arg1)
         sub_804FF88(arg1);
 }
 
-#if 0
-typedef void (*EventMetadataHandler)(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*);
+typedef void (*EventHandler)(
+    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
 
-extern EventMetadataHandler _8078990[];
+extern const EventHandler _8078990[];
 
-void handleEventListeners(unk32 geometry, unk16 eventId)
+void handleEventListeners(LevelGeometryAddresses* geometry, unk16 eventId)
 {
-    unk32* lineIndexPtr;
+    unk32* listeners;
+    s32 count;
+    unk32 lineIndex;
     LineMetadata* metadata;
-    LineMetaObject* object;
+    LineMetaObject* listener;
     LineMetaObject* event;
     GeometryLine* line;
-    unk32 lineIndex;
-    unk32 objectIndex;
-    unk32 objectCount;
-    unk32 oldObjectCount;
-    unk32 remainingLines;
-    unk32* nextLinePtr;
-    EventMetadataHandler handler;
+    unk32 eventIndex;
+    s32 eventCount;
 
-    lineIndexPtr = (unk32*)_gameData->unkCA4;
-    remainingLines = _gameData->unkCA8;
-    if (remainingLines != 0) {
-        remainingLines--;
-        do {
-            lineIndex = *lineIndexPtr;
-            metadata = GetLineMetaData((LevelGeometryAddresses*)geometry, lineIndex);
-            if (metadata != NULL) {
-                object = getLineMetaobjectByTypeAndId(
-                    (LevelGeometryAddresses*)geometry, metadata, 7, eventId);
-                if (object != NULL) {
-                    line = ((LevelGeometryAddresses*)geometry)->unkC + lineIndex;
-                    objectIndex = *(s16*)((unk8*)object + 8);
-                    objectCount = *(s16*)((unk8*)object + 0xA);
-                    event = getLineMetaAtIndex(
-                        (LevelGeometryAddresses*)geometry, metadata, objectIndex);
-                    if (event != NULL) {
-                        objectCount--;
-                        nextLinePtr = lineIndexPtr + 1;
-                        oldObjectCount = objectCount;
-                        objectCount--;
-                        if (oldObjectCount != 0) {
-                            do {
-                                handler = _8078990[event->type];
-                                handler((LevelGeometryAddresses*)geometry, line, lineIndex, metadata);
-                                event = (LineMetaObject*)((unk8*)event + event->size);
-                            } while (objectCount-- != 0);
-                        }
-                        lineIndexPtr = nextLinePtr;
-                    } else {
-                        lineIndexPtr++;
-                    }
-                } else {
-                    lineIndexPtr++;
-                }
-            } else {
-                lineIndexPtr++;
-            }
-            remainingLines--;
-        } while (remainingLines != 0);
+    listeners = _gameData->unkCA4;
+    count = _gameData->unkCA8;
+    if (count == 0) {
+        return;
     }
+    count--;
+    do {
+        lineIndex = *listeners;
+        metadata = GetLineMetaData(geometry, lineIndex);
+        if (metadata == NULL) {
+            listeners++;
+            continue;
+        }
+        listener = getLineMetaobjectByTypeAndId(geometry, metadata, 7, eventId);
+        if (listener == NULL) {
+            listeners++;
+            continue;
+        }
+        line = &geometry->unkC[lineIndex];
+        eventIndex = listener->unk8.sequence.unk0;
+        eventCount = listener->unk8.sequence.unk2;
+        event = getLineMetaAtIndex(geometry, metadata, eventIndex);
+        if (event == NULL) {
+            listeners++;
+            continue;
+        }
+        while (eventCount-- != 0) {
+            _8078990[event->type](geometry, line, lineIndex, metadata, event);
+            event = (LineMetaObject*)((unk8*)event + event->size);
+        }
+        listeners++;
+    } while (count-- != 0);
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/80542a8-handleEventListeners.s");
 
 void processMetadata_default(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
     LineMetadata* arg3, LineMetaObject* event)

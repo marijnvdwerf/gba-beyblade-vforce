@@ -4,12 +4,21 @@
 #include "common.h"
 #include "layer.h"
 
+typedef struct CameraLayerOffset {
+    s32 x;
+    s32 y;
+} CameraLayerOffset;
+
+typedef struct CameraLayerOffsets {
+    CameraLayerOffset layers[4];
+} CameraLayerOffsets;
+
 typedef struct CameraState {
     BGLayer records[4];
     const ScreenLayout* unk220;
-    void* unk224;
+    Actor* unk224;
     LevelGeometryAddresses geometry;
-    void (*callback)(void*, struct CameraState*);
+    void (*callback)(Actor*, struct CameraState*);
     unk32 unk348;
     unk8 pad34C[8];
     s8 unk354;
@@ -31,8 +40,8 @@ void sub_805EADC(CameraState*);
 void sub_805EB00(CameraState*);
 void sub_805EBCC(CameraState*);
 LevelGeometryAddresses* sub_805EEE0(CameraState*);
-void sub_805E8D8(CameraState*, const ScreenLayout*, unk16, s32*);
-void sub_805E8A0(CameraState*, const ScreenLayout*, unk16, s32*);
+void sub_805E8D8(CameraState*, const ScreenLayout*, unk16, CameraLayerOffsets*);
+void sub_805E8A0(CameraState*, const ScreenLayout*, unk16, CameraLayerOffsets*);
 extern void (*__sub_87576D8)(const unk32*, unk32, unk32, unk32, RiderTile*, const unk32*);
 void sub_805EEFC(CameraState*, const unk32**, const unk32**);
 void sub_805EF18(CameraState*, unk32, unk32, unk32, s32, unk32, RiderTile*);

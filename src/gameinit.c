@@ -10,6 +10,7 @@
 #include "envactor.h"
 #include "event.h"
 #include "frontend.h"
+#include "gameloop.h"
 #include "gamestate.h"
 #include "geometry.h"
 #include "hud.h"
@@ -277,59 +278,55 @@ EnvironmentObject* GetStruct4(unk32 arg0)
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80539c4.s");
 
-#if 0
 void sub_80539E8(Actor* actor)
 {
-    s32 values[11];
-    s32 x;
-    s32 y;
+    s32 position[3];
+    CameraLayerOffsets offsets;
     s16 levelNo;
     unk16 levelId;
-    LevelDescription* levelDescription;
-    GameData** gameData;
-    unk32* output;
+    LevelDescription* description;
+    GameData* gameData;
+    s32 x;
+    s32 y;
+    s32 top;
 
-    levelNo = (s16)GetLevelDescriptionNo();
-    levelId = (unk16)getSomeLevelID();
-    levelDescription = getLevelDescription2();
-    gameData = &_gameData;
+    levelNo = GetLevelDescriptionNo();
+    levelId = getSomeLevelID();
+    description = getLevelDescription2();
+    gameData = _gameData;
     getLevelMetadata(levelId);
-    sub_8058754(actor, values);
-    x = values[0];
-    x -= 0x7800;
-    y = actor->unkA2 + 0x50;
-    y -= actor->unk11 / 2;
-    y <<= 8;
-    y -= 0x8000;
-    y = values[1] - y;
-    if (x < 0)
+    sub_8058754(actor, position);
+    x = position[0] - 0x7800;
+    top = ((actor->unkA2 + (0x50 - (actor->unk11 >> 1))) << 8) - 0x8000;
+    y = position[1] - top;
+    if (x < 0) {
         x = 0;
-    if (y < 0)
+    }
+    if (y < 0) {
         y = 0;
-    output = &values[3];
-    output[0] = x >> 8;
-    output[1] = y >> 8;
-    output[2] = x >> 8;
-    output[3] = y >> 8;
-    output[4] = x >> 8;
-    output[5] = y >> 8;
-    output[6] = 0;
-    output[7] = 0;
-    sub_805E8A0((CameraState*)&(*gameData)->unk434, &LevelDesigns[levelNo], 0x1040, (unk32*)&values[3]);
-    (*gameData)->unk7A0 = levelNo;
+    }
+    offsets.layers[0].x = x >> 8;
+    offsets.layers[0].y = y >> 8;
+    offsets.layers[1].x = x >> 8;
+    offsets.layers[1].y = y >> 8;
+    offsets.layers[2].x = x >> 8;
+    offsets.layers[2].y = y >> 8;
+    offsets.layers[3].x = 0;
+    offsets.layers[3].y = 0;
+    sub_805E8A0(&_gameData->unk434, &LevelDesigns[levelNo], 0x1040, &offsets);
+    _gameData->unk7A0 = levelNo;
     *(vu16*)PLTT = 0;
-    if (levelDescription->unk30 != 0)
-        sub_805EEFC((CameraState*)&(*gameData)->unk434, levelDescription->unk30, levelDescription->unk34);
+    if (description->unk30 != 0) {
+        sub_805EEFC(&_gameData->unk434, description->unk30, description->unk34);
+    }
     initCollisionData();
-    (*gameData)->unk778 = (void*)sub_80522D4;
-    (*gameData)->unkB50 = 3;
-    (*gameData)->unkB51 = 0x40;
-    (*gameData)->unkB52 = 0x40;
-    (*gameData)->unkB54 = 0x40;
-    (*gameData)->unkB55 = 0x40;
+    _gameData->unk434.callback = sub_80522D4;
+    _gameData->unkB50 = 3;
+    _gameData->unkB51 = 0x40;
+    _gameData->unkB52 = 0x40;
+    _gameData->unkB54 = 0x40;
+    _gameData->unkB55 = 0x40;
 }
-#endif
-INCLUDE_ASM("asm/dump/804a388-tutorial/80539e8.s");
 
 void initCollisionData(void)
 {

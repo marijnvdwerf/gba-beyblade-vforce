@@ -588,12 +588,12 @@ struct ActorTimerEntry {
 
 typedef struct EnvironmentNode {
     SpriteEntry* sprite;
-    unk32 unk4;
-    unk32 unk8;
-    unk32 unkC;
+    s32 x;
+    s32 y;
+    s32 z;
     unk16 unk10;
     unk16 unk12;
-    const unk8* unk14;
+    const SpriteSheet* spriteSheet;
     Actor* actor;
 } EnvironmentNode;
 
@@ -1197,8 +1197,8 @@ typedef struct LevelDescription {
     unk32 unk24;
     s32 unk28;
     LineMetadata** metadata;
-    unk32 unk30;
-    unk32 unk34;
+    const unk32** unk30;
+    const unk32** unk34;
     unk8 pad38[8];
     const unk8* unk40[5];
     const unk8* unk54[5]; /* 0x54 */

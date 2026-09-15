@@ -297,7 +297,8 @@ typedef struct GameData {
     unk8 unkB51; /* 0xB51 */
     unk8 unkB52; /* 0xB52 */
     unk8 unkB53; /* 0xB53 */
-    unk8 padB54[2]; /* 0xB54 */
+    unk8 unkB54; /* 0xB54 */
+    unk8 unkB55; /* 0xB55 */
     unk8 unkB56; /* 0xB56 */
     unk8 padB57[1]; /* 0xB57 */
     unk32 unkB58; /* 0xB58 */
@@ -397,8 +398,7 @@ typedef struct CurrentGameState {
     unk8 unk6C8[0x1C];
     u16 unk6E4;
     u16 unk6E6;
-    u8 unk6E8;
-    unk8 unk6E9;
+    unk16 unk6E8;
     s16 unk6EA;
     CurrentGameStateTail unk6EC;
     CurrentGameSave unk6FC;

@@ -9,5 +9,7 @@ void renderEnvironmentActors(void);
 void updateEnvirenmentActors(void);
 void initProjectileSystem(void);
 void sub_8054FE0(void);
+unk32 sub_8055274(void);
+unk32 sub_8055288(void);
 
 #endif
