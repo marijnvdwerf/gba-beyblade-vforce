@@ -418,7 +418,8 @@ void sub_80627F0(void)
         }
         sub_8062C24();
         previousTimerPosition = _unk3000D94;
-        alignedFrameCount = (_unk3005E40.var08 + 1) & -2;
+        alignedFrameCount = (_unk3005E40.var08 + 1)
+            & -2; // TODO: fakematch? (dead value, byte-required: sub_80627F0-2026-09-15.md)
         if (alignedFrameCount > 0x10000) {
             alignedFrameCount = 0x10000;
         }

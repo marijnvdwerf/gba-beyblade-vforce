@@ -293,7 +293,7 @@ void sub_80539E8(Actor* actor)
     levelNo = GetLevelDescriptionNo();
     levelId = getSomeLevelID();
     description = getLevelDescription2();
-    gameData = _gameData;
+    gameData = _gameData; // TODO: fakematch? (dead load, byte-required: sub_80539E8-2026-09-15.md)
     getLevelMetadata(levelId);
     sub_8058754(actor, position);
     x = position[0] - 0x7800;
