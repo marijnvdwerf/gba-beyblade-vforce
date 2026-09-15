@@ -32,12 +32,12 @@ Start:
 	    .byte 0xd6,0x25,0xe4,0x8b,0x38,0x0a,0xac,0x72
 	    .byte 0x21,0xd4,0xf8,0x07       @ Nintendo Logo Character Data (8000004h)
         .ascii  "BEYBLADE: UL"          @ Game Title
-    .if GAME_VERSION == VERSION_US
-        .ascii  "BEYE"                  @ Game Code
-    .elseif GAME_VERSION == VERSION_EU
+    .if DEBUG
+        .ascii  "AGBJ"                  @ Game Code
+    .elseif REGION == REGION_EU
         .ascii  "BEYP"
-    .elseif GAME_VERSION == VERSION_DEBUG
-        .ascii  "AGBJ"
+    .else
+        .ascii  "BEYE"
     .endif
         .byte   0x37,0x30               @ Maker Code (80000B0h)
         .byte   0x96                    @ Fixed Value (80000B2h)
@@ -45,12 +45,12 @@ Start:
         .byte   0x00                    @ Device Type (80000B4h)
         .fill   7,1,0                   @ unused
         .byte   0x00                    @ Software Version No (80000BCh)
-    .if GAME_VERSION == VERSION_US
-        .byte   0x92                    @ Complement Check (80000BDh)
-    .elseif GAME_VERSION == VERSION_EU
+    .if DEBUG
+        .byte   0xE8                    @ Complement Check (80000BDh)
+    .elseif REGION == REGION_EU
         .byte   0x87
-    .elseif GAME_VERSION == VERSION_DEBUG
-        .byte   0xE8
+    .else
+        .byte   0x92
     .endif
         .byte   0x00,0x00               @ Checksum (80000BEh)
 

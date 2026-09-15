@@ -75,7 +75,7 @@ void sub_8043A58(FrontendState* state, u32 arg1, u32 arg2)
     case 8:
         if (state->transition.value == 0
             && (((_unk3005DA0 & 9) != 0 && arg2 > 0x7C) || arg2 == 0xF0)) {
-#if GAME_REGION == REGION_EU
+#if REGION == REGION_EU
             sub_804924C(6);
             sub_80490F8(8);
 #else

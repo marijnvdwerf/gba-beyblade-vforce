@@ -70,10 +70,11 @@ Last updated: 2026-09-15 (session 13): 767 C / 258 asm / 75% by count, 26 TUs; a
   ×2 on old drafts) — all reverted, diffs in /tmp/stray-main-edit-*.diff.
 - Skill fold merged (b0b4796c; 31 files archived, top level empty).
 - MULTI-VERSION BUILDS (ea57b28d): presets `us`/`eu`/`debug` (+`default`=us)
-  → `build/<ver>/`; `GAME_VERSION` (VERSION_US/EU/DEBUG) and orthogonal
-  `GAME_REGION` (REGION_US/EU; debug is REGION_EU) in src/version.h;
-  `ld_script.ld` is a cpp template; crt0.s selects game code/complement with `.if GAME_VERSION == …` (ids reach
-  `as` via `--defsym`, no cpp for .s); `rom-<ver>-matches` hard-fails for
+  → `build/<ver>/`; source sees two axes only: `REGION` (== REGION_US/REGION_EU, src/version.h)
+  and `DEBUG` (0/1; debug = EU + DEBUG) — same in C (`-D`), in `.s`
+  (`--defsym`, integers only) and in the cpp'd ld script; the us/eu/debug
+  NAME exists only at preset/build-dir/SHA level;
+  `ld_script.ld` is a cpp template; crt0.s selects game code/complement with `.if DEBUG` / `.elseif REGION == REGION_EU`; `rom-<ver>-matches` hard-fails for
   validated versions, SKIPs (77) for unvalidated; `expected/build/<ver>/`
   mirror; `tools/update-expected <ver>`, `diff.ts --version`, objdiff units
   `<ver>/src/…`; decomp.yaml three versions (asmlift block removed);

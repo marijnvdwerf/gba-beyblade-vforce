@@ -33,7 +33,7 @@ void mainLoop(void)
     initKeyState();
     initBattery();
     sub_8063A50();
-#if GAME_REGION == REGION_EU
+#if REGION == REGION_EU
     sub_8063A68(0, 0);
     sub_8063A68(3, 1);
     sub_8063A68(4, 2);

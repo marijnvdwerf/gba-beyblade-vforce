@@ -8,13 +8,15 @@ endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# The three ROMs are two properties: region (src/version.h REGION_*) and
+# whether it is the debug build. The name only selects the build tree + SHA.
 set(BVV_VERSION_TABLE
-    # name|sha1|validated|version id|region id  (ids match src/version.h)
-    "us|cd527c8c24e20e33913fc45199e64b3e6138a6e5|TRUE|0|0"
-    "eu|6d20a586e7bb52b4a9352bbeaec9d7be65e93369|TRUE|1|1"
-    "debug|9210a12ce01fefbf7994af2a8d51351ed82d7253|FALSE|2|1")
+    # name|sha1|validated|region|debug
+    "us|cd527c8c24e20e33913fc45199e64b3e6138a6e5|TRUE|US|0"
+    "eu|6d20a586e7bb52b4a9352bbeaec9d7be65e93369|TRUE|EU|0"
+    "debug|9210a12ce01fefbf7994af2a8d51351ed82d7253|FALSE|EU|1")
 
-set(GAME_VERSION "" CACHE STRING "ROM version to build")
+set(GAME_VERSION "" CACHE STRING "ROM to build (us, eu, debug)")
 set_property(CACHE GAME_VERSION PROPERTY STRINGS us eu debug)
 
 set(_game_version_found FALSE)
@@ -24,14 +26,15 @@ foreach(_version_row IN LISTS BVV_VERSION_TABLE)
     if(GAME_VERSION STREQUAL _version_name)
         list(GET _version_fields 1 GAME_SHA1)
         list(GET _version_fields 2 GAME_VERSION_VALIDATED)
-        list(GET _version_fields 3 GAME_VERSION_ID)
-        list(GET _version_fields 4 GAME_REGION_ID)
-        string(TOUPPER "${_version_name}" _game_version_upper)
-        set(GAME_VERSION_DEFINE "VERSION_${_game_version_upper}")
-        if(GAME_REGION_ID EQUAL 0)
-            set(GAME_REGION_DEFINE "REGION_US")
+        list(GET _version_fields 3 GAME_REGION)
+        list(GET _version_fields 4 GAME_DEBUG)
+        # as --defsym takes integers only; keep in sync with src/version.h.
+        if(GAME_REGION STREQUAL "US")
+            set(GAME_REGION_ID 0)
+        elseif(GAME_REGION STREQUAL "EU")
+            set(GAME_REGION_ID 1)
         else()
-            set(GAME_REGION_DEFINE "REGION_EU")
+            message(FATAL_ERROR "Unknown region '${GAME_REGION}' in BVV_VERSION_TABLE")
         endif()
         set(_game_version_found TRUE)
         break()
@@ -259,17 +262,16 @@ target_link_libraries(rom PRIVATE agb)
 
 # Compiler flags of the original build (agbcc via tools/agbcc).
 target_compile_definitions(rom PRIVATE
-    "$<$<COMPILE_LANGUAGE:C>:GAME_VERSION=${GAME_VERSION_DEFINE}>"
-    "$<$<COMPILE_LANGUAGE:C>:GAME_REGION=${GAME_REGION_DEFINE}>")
+    "$<$<COMPILE_LANGUAGE:C>:REGION=REGION_${GAME_REGION}>"
+    "$<$<COMPILE_LANGUAGE:C>:DEBUG=${GAME_DEBUG}>")
 target_compile_options(rom PRIVATE
     "$<$<COMPILE_LANGUAGE:C>:-I${AGBCC}/include;-mthumb-interwork;-Wimplicit;-Wparentheses;-Wunused;-Werror;-O2;-fhex-asm;-g>"
     "$<$<COMPILE_LANGUAGE:ASM>:-mcpu=arm7tdmi;-I${CMAKE_SOURCE_DIR}>"
-    # as has no preprocessor: the version/region ids reach .s files as symbols
-    # (usable in .if), mirroring src/version.h. Single tokens: CMake would
+    # as has no preprocessor: REGION/DEBUG reach .s files as symbols (usable
+    # in .if), mirroring src/version.h. Single tokens: CMake would
     # de-duplicate repeated "--defsym" entries.
-    "$<$<COMPILE_LANGUAGE:ASM>:--defsym=VERSION_US=0;--defsym=VERSION_EU=1;--defsym=VERSION_DEBUG=2>"
     "$<$<COMPILE_LANGUAGE:ASM>:--defsym=REGION_US=0;--defsym=REGION_EU=1>"
-    "$<$<COMPILE_LANGUAGE:ASM>:--defsym=GAME_VERSION=${GAME_VERSION_ID};--defsym=GAME_REGION=${GAME_REGION_ID}>")
+    "$<$<COMPILE_LANGUAGE:ASM>:--defsym=REGION=${GAME_REGION_ID};--defsym=DEBUG=${GAME_DEBUG}>")
 set_source_files_properties(src/libc.c PROPERTIES
     COMPILE_OPTIONS "--reset-flags;-O2")
 # Nintendo's prebuilt EEPROM_V122 library: matches only with pret agbcc -O1.
@@ -282,8 +284,8 @@ set_source_files_properties(src/iwram.c PROPERTIES
 set(ROM_LINKER_SCRIPT "${CMAKE_SOURCE_DIR}/ld_script.ld")
 set(ROM_LINKER_SCRIPT_DEFINES
     "-I${CMAKE_SOURCE_DIR}/src"
-    "-DGAME_VERSION=${GAME_VERSION_DEFINE}"
-    "-DGAME_REGION=${GAME_REGION_DEFINE}")
+    "-DREGION=REGION_${GAME_REGION}"
+    "-DDEBUG=${GAME_DEBUG}")
 set(ROM_LINKER_SCRIPT_DEPENDS "${CMAKE_SOURCE_DIR}/src/version.h")
 set(ROM_VERSION "${GAME_VERSION}")
 set(ROM_SHA1 "${GAME_SHA1}")
