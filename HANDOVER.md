@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-15 (session 13): 767 C / 258 asm / 75% by count, 26 TUs; all raw-decomp-* topic branches merged.: 734 C / 291 asm / 72% by count, 21 TUs; ARM bank 2 matched + 10 typed parks.
+Last updated: 2026-09-15 (session 13): 767 C / 258 asm / 75% by count, 26 TUs; all raw-decomp-* topic branches merged; multi-version builds, EU validated.: 734 C / 291 asm / 72% by count, 21 TUs; ARM bank 2 matched + 10 typed parks.
 
 ## Session 13 (2026-09-15)
 
@@ -68,15 +68,29 @@ Last updated: 2026-09-15 (session 13): 767 C / 258 asm / 75% by count, 26 TUs; a
   raw-decomp, raw-decomp-10 (user's; iwram.c uncommitted edit) only.
 - Stray main edits this session: 3 (misc fold agent ×1, dead luna agents
   ×2 on old drafts) — all reverted, diffs in /tmp/stray-main-edit-*.diff.
-- NEXT: (1) skill fold — ~28 unfolded learnings at docs/learnings top
-  level (2026-09-13/14/15) incl. the CSE-donated-zero mechanism, the
-  backup.c per-TU compiler, the SImode-mask narrowing table, 39/39 misc
-  folds; (2) raw-decomp-10 (user, sub_8047494 festate); (3) opus + scripted
-  probe matrices are the tool for allocation walls — luna agents stalled
-  at compaction 4× today on collision; (4) open: backup.c lvalue-cast
-  byte-stepping spelling (user "not a fan", tmc-identical, every typed form
-  diverges under -O1).
-
+- Skill fold merged (b0b4796c; 31 files archived, top level empty).
+- MULTI-VERSION BUILDS (ea57b28d): presets `us`/`eu`/`debug` (+`default`=us)
+  → `build/<ver>/`; `GAME_VERSION` (VERSION_US/EU/DEBUG) and orthogonal
+  `GAME_REGION` (REGION_US/EU; debug is REGION_EU) in src/version.h;
+  `ld_script.ld` is a cpp template; crt0.s takes game code/complement from
+  generated `build/<ver>/version.inc`; `rom-<ver>-matches` hard-fails for
+  validated versions, SKIPs (77) for unvalidated; `expected/build/<ver>/`
+  mirror; `tools/update-expected <ver>`, `diff.ts --version`, objdiff units
+  `<ver>/src/…`; decomp.yaml three versions (asmlift block removed);
+  `baserom/<ver>.gba` ignored symlinks to the fullfat ROMs. **EU MATCHES
+  (6d20a586…) and is validated**: the survey (/tmp/us-eu-diff-survey.md)
+  proved EU = US + the 9a556032 stash arms (region) + 3 credit spellings in
+  strings0.c + header — no data split at all. Debug (9210a12c…) builds and
+  links, unvalidated; user does its rough diffing with the fullfat
+  similar-function tool. Debt: tools/update-expected duplicates the SHA
+  table (read decomp.yaml instead); `baserom/` exists only for decomp.yaml
+  `target`.
+- NEXT: (1) raw-decomp-10 (user; its worktree predates the layout change —
+  `cmake --preset default` there now builds build/us, `expected` symlink
+  still valid); (2) debug ROM: function-level diff → per-version asm/data
+  selection (whole-file selection pattern, cpp'd ld script already in
+  place); (3) opus + scripted probe matrices for allocation walls; (4)
+  backup.c lvalue-cast spelling (open).
 ## Session 12 (2026-09-12/13)
 
 - **State at close: main 50369bed, clean, baseline refreshed, compare
