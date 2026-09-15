@@ -12,6 +12,11 @@ env:
 
 jobs:
   build:
+    strategy:
+      fail-fast: false
+      matrix:
+        version: [us, eu, debug]
+    name: build (${{ matrix.version }})
     runs-on: ubuntu-24.04
     container:
       # Digest-pinned: this also pins the host compiler that builds agbcc.
@@ -56,23 +61,28 @@ jobs:
           test -x "$AGBCC/bin/old_agbcc" && test -f "$AGBCC/lib/libgcc.a"
 
       - name: Configure
-        run: cmake --preset default
+        run: cmake --preset ${{ matrix.version }}
 
       - name: Build
-        run: cmake --build build
+        run: cmake --build --preset ${{ matrix.version }}
 
       - name: Test matching ROM
-        run: ctest --test-dir build --output-on-failure
+        # Validated versions (us, eu) fail on a SHA1 mismatch; unvalidated ones
+        # (debug) print both hashes and skip.
+        run: ctest --test-dir build/${{ matrix.version }} --output-on-failure --verbose
 
       - name: Generate decomp.dev report
+        # Only meaningful for versions that actually match.
+        if: matrix.version != 'debug'
         run: |
           curl -LsSf https://astral.sh/uv/install.sh | sh
-          "$HOME/.local/bin/uv" run tools/gen-report.py build/report.json
+          "$HOME/.local/bin/uv" run tools/gen-report.py --version ${{ matrix.version }} build/${{ matrix.version }}/report.json
 
       - name: Upload decomp.dev report
+        if: matrix.version != 'debug'
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
-          name: us_report
-          path: build/report.json
+          name: ${{ matrix.version }}_report
+          path: build/${{ matrix.version }}/report.json
           if-no-files-found: error
           retention-days: 14

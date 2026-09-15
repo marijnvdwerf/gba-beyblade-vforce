@@ -3,7 +3,7 @@
 # requires-python = ">=3.10"
 # dependencies = ["mapfile_parser"]
 # ///
-"""Build a truthful decomp.dev report from build/us/rom.map."""
+"""Build a truthful decomp.dev report from build/<version>/rom.map (default us)."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "build" / "us" / "report.json"
+VERSIONS = ("us", "eu", "debug")
 RAM_LO, ROM_LO = 0x02000000, 0x08000000
 
 
@@ -134,12 +134,19 @@ def check(report):
 
 
 def main():
-    out = Path(sys.argv[1]) if len(sys.argv) > 1 else OUT
+    args = sys.argv[1:]
+    version = "us"
+    if args and args[0] in ("-v", "--version"):
+        if len(args) < 2 or args[1] not in VERSIONS:
+            sys.exit(f"usage: gen-report.py [--version {'|'.join(VERSIONS)}] [output.json]")
+        version = args[1]
+        args = args[2:]
+    out = Path(args[0]) if args else ROOT / "build" / version / "report.json"
     if not out.is_absolute():
         out = ROOT / out
     out.parent.mkdir(parents=True, exist_ok=True)
     subprocess.run(
-        [sys.executable, "-m", "mapfile_parser", "objdiff_report", "--quiet", str(out)],
+        [sys.executable, "-m", "mapfile_parser", "objdiff_report", "--quiet", "-v", version, str(out)],
         cwd=ROOT,
         check=True,
     )
