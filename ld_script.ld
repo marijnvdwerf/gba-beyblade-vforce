@@ -1,3 +1,5 @@
+#include "version.h"
+
 ENTRY(Start)
 
 SECTIONS {

@@ -82,11 +82,11 @@ def compile_databases(source: Path) -> list[Path]:
     roots: list[Path] = []
     for start in (source.parent, project_root(), Path.cwd()):
         current = start.resolve()
-        for candidate in (current / "build" / "compile_commands.json", current / "compile_commands.json"):
+        for candidate in (current / "build" / "us" / "compile_commands.json", current / "compile_commands.json"):
             if candidate not in roots and candidate.is_file():
                 roots.append(candidate)
         for parent in current.parents:
-            candidate = parent / "build" / "compile_commands.json"
+            candidate = parent / "build" / "us" / "compile_commands.json"
             if candidate.is_file() and candidate not in roots:
                 roots.append(candidate)
     return roots
@@ -113,7 +113,7 @@ def load_entries(source: Path) -> list[CompileEntry]:
             return entries
     raise ToolError(
         "could not find a usable compile_commands.json; run CMake first or put "
-        "the source under a project with a build/compile_commands.json"
+        "the source under a project with a build/us/compile_commands.json"
     )
 
 

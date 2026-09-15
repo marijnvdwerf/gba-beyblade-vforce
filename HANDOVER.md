@@ -1322,8 +1322,8 @@ SendMessage, delta only.
   shell cd'd into a worktree — that merges the branch into itself and then
   `worktree remove` pulls the rug): merge; resolve header conflicts
   (common.h/ram.h accrue parallel typedefs — unify, keep sizeof);
-  `clang-format -i` touched src; `cmake --build build --target compare`;
-  `tools/update-expected`; commit with explicit paths; `git worktree remove
+  `clang-format -i` touched src; `cmake --build --preset us --target compare`;
+  `tools/update-expected us`; commit with explicit paths; `git worktree remove
   --force <wt>`; `git branch -D <branch>`. Chain with
   `|| { echo COMPARE FAILED; false; }` and grep `tests passed` only.
 - NEVER `git commit -a`: it sweeps concurrent agents' in-progress edits on
@@ -1342,8 +1342,8 @@ SendMessage, delta only.
 
 ## Tooling (all on main)
 
-- `cmake --build build --target compare` — SHA1 is the only truth. C is built
-  with `-g` (byte-neutral).
+- `cmake --build --preset us --target compare` — the validated US SHA1 is the
+  only truth. C is built with `-g` (byte-neutral).
 - `bun run tools/diff/diff.ts <sym>` — instruction diff with C line numbers.
   `.word` rows differing only in symbol display are relocation noise. The
   hook forbids piping its output through grep/head.
@@ -1364,7 +1364,8 @@ SendMessage, delta only.
   fix callers by typing their variables/fields, never by casting. Side-fixes
   found: sub_8060CDC/resizeSpriteBlock take `SpriteTextBlock*`; RiderBase has
   `Actor unk238/unk2FC`, `SpriteEntry* unk3C4`, `ParticleSystem unk3EC`.
-- `expected/` is a flat copy of `build/` (`tools/update-expected`).
+- `expected/` mirrors versioned build paths; the US baseline is
+  `expected/build/us/` (`tools/update-expected us`).
 - `raw-decomp` worktree (`.claude/worktrees/raw-decomp`, ~700 C functions) is
   a read-only reference with different headers; never merge it wholesale.
 

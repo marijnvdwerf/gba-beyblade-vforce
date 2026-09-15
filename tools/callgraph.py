@@ -399,8 +399,8 @@ def index_c_sources(functions: Functions) -> None:
                 )
 
 
-ELF_PATH = ROOT / "build" / "rom.elf"
-MAP_PATH = ROOT / "build" / "rom.map"
+ELF_PATH = ROOT / "build" / "us" / "rom.elf"
+MAP_PATH = ROOT / "build" / "us" / "rom.map"
 
 # These are compiler-provided entry points rather than game functions.  The
 # map-file based discovery below covers the rest of libgcc, while this list
@@ -643,7 +643,7 @@ def build_handler_tables() -> tuple[dict[str, list[str]], dict[str, list[str]]]:
     if not ELF_PATH.is_file():
         raise SystemExit(
             f"{ELF_PATH} is missing; build the project first "
-            "(for example, cmake --build build)"
+            "(for example, cmake --build --preset us)"
         )
     nodes: dict[str, list[str]] = {}
     slots_by_name: dict[str, list[str]] = {}

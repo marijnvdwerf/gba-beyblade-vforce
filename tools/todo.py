@@ -33,7 +33,13 @@ def main() -> int:
             if match:
                 functions.setdefault(match.group(1), match.group(2) or "")
                 break
-    mapped = subprocess.run(["uvx", "--from", "mapfile-parser", "mapfile_parser", "jsonify", "-m"], cwd=ROOT, capture_output=True, text=True, check=True)
+    mapped = subprocess.run(
+        ["uvx", "--from", "mapfile-parser", "mapfile_parser", "jsonify", "-m", "-v", "us"],
+        cwd=ROOT,
+        capture_output=True,
+        text=True,
+        check=True,
+    )
     sizes = {}
     for segment in json.loads(mapped.stdout)["segments"]:
         for file in segment.get("files", []):

@@ -1,34 +1,68 @@
 {
   "version": 6,
-  "cmakeMinimumRequired": {
-    "major": 3,
-    "minor": 21,
-    "patch": 0
-  },
+  "cmakeMinimumRequired": { "major": 3, "minor": 21, "patch": 0 },
   "configurePresets": [
     {
-      "name": "default",
-      "displayName": "Matching GBA build",
+      "name": "common",
+      "hidden": true,
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/build",
       "cacheVariables": {
         "CMAKE_TOOLCHAIN_FILE": "${sourceDir}/cmake/toolchain-agbcc.cmake"
       }
+    },
+    {
+      "name": "us",
+      "displayName": "US retail ROM",
+      "inherits": "common",
+      "binaryDir": "${sourceDir}/build/us",
+      "cacheVariables": { "GAME_VERSION": "us" }
+    },
+    {
+      "name": "eu",
+      "displayName": "European retail ROM",
+      "inherits": "common",
+      "binaryDir": "${sourceDir}/build/eu",
+      "cacheVariables": { "GAME_VERSION": "eu" }
+    },
+    {
+      "name": "debug",
+      "displayName": "European beta ROM",
+      "inherits": "common",
+      "binaryDir": "${sourceDir}/build/debug",
+      "cacheVariables": { "GAME_VERSION": "debug" }
+    },
+    {
+      "name": "default",
+      "displayName": "US retail ROM (default)",
+      "inherits": "us"
     }
   ],
   "buildPresets": [
-    {
-      "name": "default",
-      "configurePreset": "default"
-    }
+    { "name": "us", "configurePreset": "us" },
+    { "name": "eu", "configurePreset": "eu" },
+    { "name": "debug", "configurePreset": "debug" },
+    { "name": "default", "configurePreset": "default" }
   ],
   "testPresets": [
     {
+      "name": "us",
+      "configurePreset": "us",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "eu",
+      "configurePreset": "eu",
+      "output": { "outputOnFailure": true }
+    },
+    {
+      "name": "debug",
+      "configurePreset": "debug",
+      "output": { "outputOnFailure": true }
+    },
+    {
       "name": "default",
       "configurePreset": "default",
-      "output": {
-        "outputOnFailure": true
-      }
+      "output": { "outputOnFailure": true }
     }
   ]
 }

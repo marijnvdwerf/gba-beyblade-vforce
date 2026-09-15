@@ -8,6 +8,36 @@ endif()
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+set(BVV_VERSION_TABLE
+    "us|cd527c8c24e20e33913fc45199e64b3e6138a6e5|TRUE|BEYE|0x92|REGION_US"
+    "eu|6d20a586e7bb52b4a9352bbeaec9d7be65e93369|TRUE|BEYP|0x87|REGION_EU"
+    "debug|9210a12ce01fefbf7994af2a8d51351ed82d7253|FALSE|AGBJ|0xE8|REGION_EU")
+
+set(GAME_VERSION "" CACHE STRING "ROM version to build")
+set_property(CACHE GAME_VERSION PROPERTY STRINGS us eu debug)
+
+set(_game_version_found FALSE)
+foreach(_version_row IN LISTS BVV_VERSION_TABLE)
+    string(REPLACE "|" ";" _version_fields "${_version_row}")
+    list(GET _version_fields 0 _version_name)
+    if(GAME_VERSION STREQUAL _version_name)
+        list(GET _version_fields 1 GAME_SHA1)
+        list(GET _version_fields 2 GAME_VERSION_VALIDATED)
+        list(GET _version_fields 3 GAME_CODE)
+        list(GET _version_fields 4 GAME_COMPLEMENT_CHECK)
+        list(GET _version_fields 5 GAME_REGION_DEFINE)
+        string(TOUPPER "${_version_name}" _game_version_upper)
+        set(GAME_VERSION_DEFINE "VERSION_${_game_version_upper}")
+        set(_game_version_found TRUE)
+        break()
+    endif()
+endforeach()
+
+if(NOT _game_version_found)
+    message(FATAL_ERROR
+        "GAME_VERSION must be one of: us, eu, debug (got '${GAME_VERSION}')")
+endif()
+
 add_library(agb INTERFACE)
 target_include_directories(agb INTERFACE "${CMAKE_SOURCE_DIR}/lib/agb/include")
 

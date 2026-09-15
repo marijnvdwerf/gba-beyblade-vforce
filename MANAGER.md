@@ -26,7 +26,8 @@ description: Session rules for orchestrating decompilation subagents
   happens anyway, recreating the worktree at the same path revives it.
 - Merging: commit in the worktree, `git merge` into main, take the delete
   on dump-file modify/delete conflicts, `clang-format -i` the touched src
-  files, run `compare`, `tools/update-expected`.
+  files, run `cmake --build --preset us --target compare`,
+  `tools/update-expected us`.
 - Review in bulk: when agents say they are done (or are stuck — ask
   proactively, before they sink hours), spawn ONE **opus-4.8** reviewer per
   round over ALL current worktrees' C diffs together, so style/types stay

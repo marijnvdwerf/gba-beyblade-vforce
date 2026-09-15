@@ -1,0 +1,24 @@
+#!/bin/sh
+set -eu
+
+version=$1
+expected=$2
+validated=$3
+rom=$4
+
+actual=$(shasum -a 1 "$rom" | awk '{print $1}')
+printf 'ROM version:  %s\n' "$version"
+printf 'Expected SHA1: %s\n' "$expected"
+printf 'Actual SHA1:   %s\n' "$actual"
+
+if [ "$validated" = "TRUE" ]; then
+    if [ "$actual" != "$expected" ]; then
+        echo "Validated ROM hash mismatch." >&2
+        exit 1
+    fi
+    echo "Validated ROM hash matches."
+    exit 0
+fi
+
+echo "SKIP: ROM version '$version' is marked unvalidated; hash mismatch is not enforced yet."
+exit 77

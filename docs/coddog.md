@@ -42,8 +42,8 @@ The additions are outside this repository; no coddog source is vendored here.
 The root `decomp.yaml` contains the standard fields that coddog reads:
 
 - `platform: gba` selects the ARMv4T Thumb decoder.
-- `versions[].paths.elf` points to `build/rom.elf`.
-- `versions[].paths.map` and `compiled_target` provide the map/ROM fallback.
+- `versions[].paths.elf` points to each version's `build/<ver>/rom.elf`.
+- `versions[].paths.map` and `compiled_target` provide each version's map/ROM fallback.
 - `versions[].paths.asm` points to `asm/dump`.
 
 coddog walks `asm` recursively and treats a symbol as undecompiled when a
@@ -72,7 +72,7 @@ Build this project first so that the configured ELF exists:
 
 ```sh
 cmake --preset default
-cmake --build build
+cmake --build --preset us
 ```
 
 ## Examples for this project

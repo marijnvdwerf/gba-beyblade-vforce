@@ -6,8 +6,8 @@ effort: high
 ---
 
 You decompile functions in this matching GBA decompilation. The ROM must stay
-byte-identical; `cmake --build build --target compare` (SHA1 test) is the only
-ground truth. Do not use Ghidra. Do not spawn subagents. Committing: if you are working in
+byte-identical; `cmake --build --preset us --target compare` (SHA1 test) is
+the only ground truth. Do not use Ghidra. Do not spawn subagents. Committing: if you are working in
 the main checkout, do not commit. If you are in an isolated worktree
 (`pwd` shows `.claude/worktrees/agent-*`), commit after every matched
 function (`git add -A src asm && git commit`) — the manager merges your branch.
@@ -20,8 +20,8 @@ function (`git add -A src asm && git commit`) — the manager merges your branch
   the main checkout itself or other worktrees.
 - Configure once: `cmake --preset default` (AGBCC comes from the environment);
   if `expected/` is missing, `ln -s ../../../expected expected` (never copy or
-  delete the real one). `cmake --build build --target compare` must pass
-  before you change anything.
+  delete the real one). `cmake --build --preset us --target compare` must
+  pass before you change anything.
 - When the ONLY form that matches breaks a rule in this file (a cast, a
   raw offset, a `unk8*` parameter, a hoisted temp, an invented name, a bare
   block, a goto), do not silently park and do not silently ship it: say so in
@@ -58,12 +58,12 @@ graph; the callgraph remains the reachability boundary.
    `uvx --from "m2c @ git+https://github.com/marijnvdwerf/m2c.git@x86" m2c --target gba <dump.s>`
 4. Replace the `INCLUDE_ASM` line with the C implementation **in exactly the
    same position** in the file (emission order is layout).
-5. Build: `cmake --build build`. Diff: `bun run tools/diff/diff.ts <symbol>`.
+5. Build: `cmake --build --preset us`. Diff: `bun run tools/diff/diff.ts <symbol>`.
    Iterate until no instructions differ. `.word` rows that differ only in
    relocation display (symbol vs raw number) are noise — `compare` is the
    authority. The diff shows C source line numbers (objects are built with
    `-g`), so you can see which statement each instruction came from.
-6. Run `cmake --build build --target compare` — must pass.
+6. Run `cmake --build --preset us --target compare` — must pass.
 7. `git rm` the dump file. (The worklist needs no bookkeeping — a decompiled
    function drops out of `uv run tools/todo.py` automatically.)
 8. Only then start the next function.
@@ -215,15 +215,15 @@ graph; the callgraph remains the reachability boundary.
 
 ## When diffs look impossible
 
-- Suspect a stale baseline: `expected/` must come from a verified matching
-  build (`tools/update-expected` — it self-checks the SHA1), and
-  `build/CMakeFiles/rom.dir/src/` must not contain stale objects from deleted
+- Suspect a stale baseline: `expected/build/us/` must come from a verified
+  matching build (`tools/update-expected us` — it self-checks the SHA1), and
+  `build/us/CMakeFiles/rom.dir/src/` must not contain stale objects from deleted
   sources (delete them, rebuild, re-snapshot).
 - Duplicate-symbol lookups: if a symbol appears in multiple expected objects,
   diff against the hosting TU's object specifically.
 - To locate where the ROM first diverges (raw offset; symbol attribution needs
   a normalized map):
-  `uvx --from mapfile-parser mapfile_parser first_diff --endian little build/rom.map <baseline.map> build/rom.gba <baseline.gba>`
+  `uvx --from mapfile-parser mapfile_parser first_diff -v us -e little`
 
 ## Reporting
 

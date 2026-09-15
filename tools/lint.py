@@ -22,7 +22,7 @@ from mapfile_parser import MapFile
 from tree_sitter import Language, Parser
 
 ROOT = Path(__file__).resolve().parents[1]
-DEFAULT_MAP = ROOT / "build" / "rom.map"
+DEFAULT_MAP = ROOT / "build" / "us" / "rom.map"
 C_LANGUAGE = Language(tree_sitter_c.language())
 # Keep parsed trees alive while Node wrappers are consumed.
 _TREE_LIFETIME: list[tuple[object, bytes]] = []

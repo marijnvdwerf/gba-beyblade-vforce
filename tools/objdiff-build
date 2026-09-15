@@ -1,6 +1,18 @@
 #!/bin/sh
-# objdiff rebuild hook: objdiff passes a repo-relative object path; ninja wants
-# it relative to build/.
-set -e
+# objdiff rebuild hook: objdiff passes a versioned repo-relative object path.
+set -eu
+
+path=${1:-}
+case "$path" in
+    build/us/*) version=us ;;
+    build/eu/*) version=eu ;;
+    build/debug/*) version=debug ;;
+    *)
+        echo "Expected an object path below build/us, build/eu, or build/debug." >&2
+        exit 2
+        ;;
+esac
+
 cd "$(dirname "$0")/.."
-exec ninja -C build "${1#build/}"
+object=${path#build/$version/}
+exec ninja -C "build/$version" "$object"

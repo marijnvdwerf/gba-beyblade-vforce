@@ -19,32 +19,45 @@ Build and install agbcc, then export the directory containing its `bin/`, `inclu
 export AGBCC=/path/to/agbcc-install/tools/agbcc
 ```
 
-You can instead pass `-DAGBCC=/path/to/agbcc-install/tools/agbcc` to the configure command. The canonical build is:
+You can instead pass `-DAGBCC=/path/to/agbcc-install/tools/agbcc` to the configure command. The canonical US build is:
 
 ```sh
 cmake --preset default
-cmake --build build
-ctest --test-dir build
+cmake --build --preset us
+ctest --preset us
 ```
 
-`cmake --build build --target compare` reruns the ROM SHA1 check. For a decomp.dev progress report, run `uv run tools/gen-report.py` after a matching build.
+`default` is an alias of `us`, and both configure into `build/us`. The other versions use independent trees:
+
+```sh
+cmake --preset eu && cmake --build --preset eu
+cmake --preset debug && cmake --build --preset debug
+```
+
+`cmake --build --preset us --target compare` and `cmake --build --preset eu --target compare` enforce the validated US and EU ROM SHA1 checks. The `debug` comparison test prints expected and actual hashes, then skips until that build is validated. For a decomp.dev progress report, run `uv run tools/gen-report.py` after a matching US build.
 
 ## Decompiling and diffing
 
 Undecompiled functions are included from `asm/dump/` with `INCLUDE_ASM`. To decompile one, replace its `INCLUDE_ASM` line with the C implementation and diff against the baseline while iterating. Delete the dump once the function matches.
 
-Diffs compare freshly built objects in `build/` against the gitignored baseline snapshot in `expected/`, which mirrors the build directory layout. After any matching build, refresh the baseline with:
+Diffs compare freshly built objects in `build/<version>/` against the corresponding gitignored baseline snapshot in `expected/build/<version>/`. After a matching validated build, refresh only that version with:
 
 ```sh
-tools/update-expected
+tools/update-expected us
+tools/update-expected eu
 ```
+
+Unvalidated versions are refused unless `--force` is supplied; their objdiff baselines should normally wait until validation.
 
 Two ways to diff:
 
-- **objdiff (GUI):** launch [objdiff](https://github.com/encounter/objdiff) from the repository root; it picks up `objdiff.json` and rebuilds objects on save.
+- **objdiff (GUI):** launch [objdiff](https://github.com/encounter/objdiff) from the repository root; it picks up `objdiff.json` and rebuilds objects on save. Units are prefixed with their ROM version.
 - **`tools/diff` (CLI):** print the instruction diff for a single function; iterate until no instructions differ:
 
   ```sh
   bun install --cwd tools/diff   # once
   bun run tools/diff/diff.ts <symbolName>
+  bun run tools/diff/diff.ts --version us <symbolName>
   ```
+
+  The default version is `us`; set `BVV_VERSION` or pass `--version` explicitly.

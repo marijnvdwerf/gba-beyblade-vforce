@@ -20,7 +20,7 @@ CTestTestfile.cmake
 build/
 expected/
 objdiff.json
-baserom.gba
+baserom/
 
 
 .claude/

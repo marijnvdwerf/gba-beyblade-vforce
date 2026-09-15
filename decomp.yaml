@@ -4,14 +4,36 @@ build_system: cmake
 
 versions:
   - name: us
-    fullname: US
+    fullname: US retail
     sha1: cd527c8c24e20e33913fc45199e64b3e6138a6e5
     paths:
-      target: build/rom.gba
-      build_dir: build
-      map: build/rom.map
-      compiled_target: build/rom.gba
-      elf: build/rom.elf
+      target: baserom/us.gba
+      build_dir: build/us
+      map: build/us/rom.map
+      compiled_target: build/us/rom.gba
+      elf: build/us/rom.elf
+      expected_dir: expected
+      asm: asm/dump
+  - name: eu
+    fullname: Europe retail
+    sha1: 6d20a586e7bb52b4a9352bbeaec9d7be65e93369
+    paths:
+      target: baserom/eu.gba
+      build_dir: build/eu
+      map: build/eu/rom.map
+      compiled_target: build/eu/rom.gba
+      elf: build/eu/rom.elf
+      expected_dir: expected
+      asm: asm/dump
+  - name: debug
+    fullname: Europe beta
+    sha1: 9210a12ce01fefbf7994af2a8d51351ed82d7253
+    paths:
+      target: baserom/debug.gba
+      build_dir: build/debug
+      map: build/debug/rom.map
+      compiled_target: build/debug/rom.gba
+      elf: build/debug/rom.elf
       expected_dir: expected
       asm: asm/dump
 
@@ -22,29 +44,3 @@ tools:
       check_asm_paths: False
       report_data: True
       path_index: 1
-  asmlift:
-    target: agbcc
-    # asmlift reads .symtab names and DWARF declarations/signatures from this unstripped ELF.
-    # Keep this relative to decomp.yaml so the CLI resolves it from the project root.
-    elf: build/rom.elf
-    compiler: >-
-      ASMLIFT_DIR="${ASMLIFT_DIR:?set ASMLIFT_DIR to your asmlift checkout}";
-      AGBCC_ROOT="${AGBCC:-$HOME/agbcc/tools/agbcc}";
-      tools/agbcc
-      --cpp=cc
-      --iconv=iconv
-      --cc1="$AGBCC_ROOT/bin/old_agbcc"
-      --as=arm-none-eabi-as
-      --as-include=.
-      -Ilib/agb/include
-      -I"$AGBCC_ROOT/include"
-      -mthumb-interwork
-      -Wimplicit
-      -Wparentheses
-      -Wunused
-      -Werror
-      -O2
-      -fhex-asm
-      -g
-      -o {{outputPath}}
-      -c {{inputPath}}

@@ -1,14 +1,71 @@
 #!/bin/sh
-# Snapshot the current (matching) build's objects as the objdiff baseline.
-set -e
+# Snapshot one build tree as the objdiff/mapfile_parser baseline.
+set -eu
+
+usage() {
+    echo "Usage: tools/update-expected [--force] [us|eu|debug]" >&2
+    exit 2
+}
+
+version=
+force=false
+for arg in "$@"; do
+    case "$arg" in
+        --force) force=true ;;
+        us|eu|debug)
+            [ -z "$version" ] || usage
+            version=$arg
+            ;;
+        -h|--help) usage ;;
+        *) usage ;;
+    esac
+done
+version=${version:-us}
+
+case "$version" in
+    us)
+        expected_sha=cd527c8c24e20e33913fc45199e64b3e6138a6e5
+        validated=true
+        ;;
+    eu)
+        expected_sha=6d20a586e7bb52b4a9352bbeaec9d7be65e93369
+        validated=true
+        ;;
+    debug)
+        expected_sha=9210a12ce01fefbf7994af2a8d51351ed82d7253
+        validated=false
+        ;;
+    *) usage ;;
+esac
+
 cd "$(dirname "$0")/.."
 if [ -L expected ]; then
     echo "expected/ is a symlink to the main checkout's baseline (agent worktree);"
     echo "the manager refreshes it after merging. Nothing to do here."
     exit 0
 fi
-echo "cd527c8c24e20e33913fc45199e64b3e6138a6e5  build/rom.gba" | shasum -c
-rm -rf expected
-mkdir expected
-cp -R build/. expected/
-echo "expected/ updated"
+
+rom="build/$version/rom.gba"
+[ -f "$rom" ] || { echo "Missing $rom; build version '$version' first." >&2; exit 1; }
+actual_sha=$(shasum -a 1 "$rom" | awk '{print $1}')
+printf 'ROM version:  %s\n' "$version"
+printf 'Expected SHA1: %s\n' "$expected_sha"
+printf 'Actual SHA1:   %s\n' "$actual_sha"
+
+if [ "$validated" = true ]; then
+    if [ "$actual_sha" != "$expected_sha" ]; then
+        echo "Refusing to update a validated baseline from a mismatching ROM." >&2
+        exit 1
+    fi
+elif [ "$force" != true ]; then
+    echo "Version '$version' is unvalidated; rerun with --force to snapshot it." >&2
+    exit 1
+else
+    echo "WARNING: snapshotting unvalidated version '$version' because --force was supplied." >&2
+fi
+
+target="expected/build/$version"
+mkdir -p expected/build
+rm -rf "$target"
+cp -R "build/$version" "$target"
+echo "$target updated"

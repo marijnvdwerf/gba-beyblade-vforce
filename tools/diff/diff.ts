@@ -2,14 +2,38 @@ import { resolve, relative } from "node:path";
 import { init, diff, display } from "objdiff-wasm";
 
 const repoRoot = resolve(import.meta.dir, "../..");
-const expectedRoot = resolve(repoRoot, "expected");
-const baseRoot = resolve(repoRoot, "build");
-const symbolName = Bun.argv[2];
+const validVersions = new Set(["us", "eu", "debug"]);
+const args = Bun.argv.slice(2);
+let version = Bun.env.BVV_VERSION ?? "us";
+let symbolName: string | undefined;
 
-if (!symbolName || Bun.argv.length !== 3) {
-  console.error("Usage: bun run tools/diff/diff.ts <symbolName>");
+for (let index = 0; index < args.length; index++) {
+  const arg = args[index];
+  if (arg === "--version") {
+    version = args[++index] ?? "";
+  } else if (arg.startsWith("--version=")) {
+    version = arg.slice("--version=".length);
+  } else if (arg.startsWith("-")) {
+    console.error(`Unknown option: ${arg}`);
+    process.exit(2);
+  } else if (symbolName) {
+    console.error("Only one symbol name may be supplied.");
+    process.exit(2);
+  } else {
+    symbolName = arg;
+  }
+}
+
+if (!symbolName || !validVersions.has(version)) {
+  console.error(
+    "Usage: bun run tools/diff/diff.ts [--version us|eu|debug] <symbolName>",
+  );
+  if (!validVersions.has(version)) console.error(`Unknown version: ${version}`);
   process.exit(2);
 }
+
+const expectedRoot = resolve(repoRoot, "expected", "build", version);
+const baseRoot = resolve(repoRoot, "build", version);
 
 // The repository's objdiff.json uses this exact architecture setting.
 init("warn");
@@ -44,8 +68,8 @@ function listSymbols(objectDiff: diff.ObjectDiff): display.SymbolDisplay[] {
 
 async function findExpectedObjects(): Promise<ObjectMatch[]> {
   const matches: ObjectMatch[] = [];
-  // Scan from inside expected/: in agent worktrees it is a symlink, which
-  // Bun.Glob does not descend into from a parent cwd.
+  // Scan inside the selected snapshot: in agent worktrees expected/ may be a
+  // symlink, which Bun.Glob does not descend into from a parent cwd.
   const expectedGlob = new Bun.Glob("CMakeFiles/rom.dir/src/*.c.o");
 
   for await (const relativeExpectedPath of expectedGlob.scan({ cwd: expectedRoot })) {
@@ -133,7 +157,9 @@ function colorStatus(status: string): string {
 
 const matches = await findExpectedObjects();
 if (matches.length === 0) {
-  console.error(`Could not find function ${JSON.stringify(symbolName)} in expected/CMakeFiles/rom.dir/src/*.c.o`);
+  console.error(
+    `Could not find function ${JSON.stringify(symbolName)} in expected/build/${version}/CMakeFiles/rom.dir/src/*.c.o`,
+  );
   process.exit(1);
 }
 if (matches.length > 1) {

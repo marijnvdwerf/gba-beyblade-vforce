@@ -83,7 +83,7 @@ set(CMAKE_ASM_DEPENDS_USE_COMPILER TRUE)
 # The linker script references objects as src/foo.c.o etc., so ld must run
 # from the object directory, which mirrors the source tree.
 set(CMAKE_C_LINK_EXECUTABLE
-    "cd CMakeFiles/rom.dir && ${CMAKE_LINKER} -T ${CMAKE_SOURCE_DIR}/ld_script.ld -Map ../../rom.map -o ../../<TARGET> ${AGBCC}/lib/libgcc.a")
+    "cd CMakeFiles/rom.dir && ${CMAKE_LINKER} -T ${CMAKE_BINARY_DIR}/ld_script.ld -Map ../../rom.map -o ../../<TARGET> ${AGBCC}/lib/libgcc.a")
 
 set(AGBCC_TOOLCHAIN TRUE CACHE INTERNAL "Using the agbcc GBA toolchain")
 set(AGBCC_DRIVER "${_AGBCC_DRIVER}" CACHE INTERNAL "agbcc compiler driver")

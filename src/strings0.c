@@ -1,4 +1,5 @@
 #include "common.h"
+#include "version.h"
 
 const unk8 Str_86FC594[] = "Michael MacConnell";
 
@@ -56,7 +57,11 @@ const unk8 Str_86FC768[] = "Translation";
 
 const unk8 Str_86FC774[] = "Babel Media Ltd.";
 
+#if GAME_REGION == REGION_EU
+const unk8 Str_86FC788[] = "Localisation Testing";
+#else
 const unk8 Str_86FC788[] = "Localization Testing";
+#endif
 
 const unk8 Str_86FC7A0[] = "Monica Steinhauer";
 
@@ -66,7 +71,11 @@ const unk8 Str_86FC7C4[] = "Maud Favier";
 
 const unk8 Str_86FC7D0[] = "David Chomard";
 
+#if GAME_REGION == REGION_EU
+const unk8 Str_86FC7E0[] = "Localisation Support Group";
+#else
 const unk8 Str_86FC7E0[] = "Localization Support Group";
+#endif
 
 const unk8 Str_86FC7FC[] = "Emeric Polin";
 
@@ -194,7 +203,11 @@ const unk8 Str_86FCC98[] = "Presentation";
 
 const unk8 Str_86FCCA8[] = "Niall Russell";
 
+#if GAME_REGION == REGION_EU
+const unk8 Str_86FCCB8[] = "Modelling";
+#else
 const unk8 Str_86FCCB8[] = "Modeling";
+#endif
 
 const unk8 Str_86FCCC4[] = "James Barnard";
 

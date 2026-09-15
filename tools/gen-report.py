@@ -3,7 +3,7 @@
 # requires-python = ">=3.10"
 # dependencies = ["mapfile_parser"]
 # ///
-"""Build a truthful decomp.dev report from build/rom.map."""
+"""Build a truthful decomp.dev report from build/us/rom.map."""
 
 from __future__ import annotations
 
@@ -13,7 +13,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "build" / "report.json"
+OUT = ROOT / "build" / "us" / "report.json"
 RAM_LO, ROM_LO = 0x02000000, 0x08000000
 
 
