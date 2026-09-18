@@ -1,5 +1,6 @@
 #include "tutorial.h"
 
+#include <agb/memory_map.h>
 #include <agb/types.h>
 
 #include "effects.h"
@@ -7,25 +8,54 @@
 #include "geometry.h"
 #include "include_asm.h"
 #include "keystate.h"
+#include "layer.h"
 #include "music.h"
 #include "sprite.h"
 #include "spritetext.h"
+#include "text.h"
 #include "unsorted.h"
 
 extern const unk8* const* _806A77C[];
 
-INCLUDE_ASM("asm/dump/8040d18/804a2f0.s");
-INCLUDE_ASM("asm/dump/8040d18/804a300.s");
+typedef struct BackgroundAsset {
+    BGLayer layer;
+    TilemapTextRenderer renderer;
+} BackgroundAsset;
+
+void sub_804A2F0(void)
+{
+    sub_804AE34(0, 0x3C);
+}
+
+void sub_804A300(void)
+{
+    sub_804AE34(0, 0x3C);
+}
 
 void sub_804A310(void)
 {
     sub_804AE34(0, 0x3C);
 }
 
-INCLUDE_ASM("asm/dump/8040d18/804a320.s");
-INCLUDE_ASM("asm/dump/8040d18/804a330.s");
-INCLUDE_ASM("asm/dump/8040d18/804a33c.s");
-INCLUDE_ASM("asm/dump/8040d18/804a348.s");
+void sub_804A320(void)
+{
+    sub_804AE34(0, 0x3C);
+}
+
+void sub_804A330(unk32 arg0)
+{
+    _unk3000650.unk81 = arg0;
+}
+
+unk8 sub_804A33C(void)
+{
+    return _unk3000650.unk81;
+}
+
+void sub_804A348(void)
+{
+    sub_804AE34(0, 0x3C);
+}
 
 void StoreLevelVar14(unk32 arg0)
 {
@@ -231,9 +261,49 @@ void sub_804A72C(void)
     _gameData->tutorial.count = 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804a744.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804a7e8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804a7f8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804a820-nullsub_32.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804a824.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804a830.s");
+unk32 unref_804A744(BackgroundAsset* arg0, unk8 arg1, unk8 arg2, FrontendFontData* arg3)
+{
+    unk16* dest;
+    unk16 value;
+    s32 i;
+
+    value = arg3->unkA << 12;
+    unref_8058C74(&arg0->layer, arg1, 0x400, 0);
+    sub_805B244(&arg0->renderer, &arg0->layer, arg3->unk0, arg3->unk4, arg3->unkA);
+    dest = (unk16*)(VRAM + (arg0->layer.screenBaseBlock << 11));
+    for (i = 0; i <= 0x3FF; i++) {
+        *dest = (i & 0x3FF) | value;
+        dest++;
+    }
+    __fastMemoryClearARM(
+        0, (void*)(VRAM + (arg0->renderer.layer->characterBaseBlock << 14)), 0x8000);
+    sub_8059CC8(arg1, arg2);
+    ToggleLayerVisibility(arg1, 1);
+}
+
+void sub_804A7E8(BGLayer* arg0)
+{
+    ToggleLayerVisibility(arg0->layerIndex, 0);
+}
+
+void sub_804A7F8(BackgroundAsset* arg0)
+{
+    __fastMemoryClearARM(
+        0, (void*)(VRAM + (arg0->renderer.layer->characterBaseBlock << 14)), 0x8000);
+}
+
+void nullsub_32(void)
+{
+}
+
+void sub_804A824(FrontendState* arg0, unk32 arg1, unk32 arg2)
+{
+    arg0->unk9C += arg2;
+}
+
+void sub_804A830(FrontendState* arg0, unk32 arg1, unk32 arg2)
+{
+    arg0->unk9C = arg2;
+}
+
+ASM_ZEROPAD

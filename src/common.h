@@ -387,7 +387,9 @@ struct FrontendState {
     s32 unk88;
     s32 unk8C;
     s32 unk90;
-    unk8 pad94[0x20];
+    unk8 pad94[8];
+    unk32 unk9C;
+    unk8 padA0[0x14];
     const FrontendObject* unkB4;
     BGLayer bgLayers[4]; /* 0xB8 */
     unk8 pad2D8[0x14C];
