@@ -1,15 +1,63 @@
+#include <agb/define.h>
+#include <agb/memory_map.h>
 #include <agb/types.h>
 
 #include "include_asm.h"
+#include "keystate.h"
 #include "unsorted.h"
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8057b80-assert.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8057c1c-nullsub_17.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8057c20-nullsub_46.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8057c24-nullsub_18.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8057c28-nullsub_19.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8057c2c-nullsub_20.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8057c30-printf_2.s");
+extern const unk8 Str_872CB38[];
+extern const unk8 Str_872CB74[];
+extern const unk8 Str_872CB88[];
+extern const unk8 Str_872CB8C[];
+extern const unk8 Str_872CB9C[];
+extern const unk8 Str_872CBAC[];
+extern const unk8 Str_872CBBC[];
+
+void assert(
+    unk8 condition, const unk8* message, const unk8* expression, const unk8* file, unk32 line)
+{
+    if (condition == 0) {
+        printf(Str_872CB38);
+        printf(Str_872CB74);
+        printf(Str_872CB88);
+        printf(Str_872CB8C, message);
+        printf(Str_872CB88);
+        printf(Str_872CB9C, expression);
+        printf(Str_872CB88);
+        printf(Str_872CBAC, file);
+        printf(Str_872CBBC, line);
+        printf(Str_872CB88);
+        printf(Str_872CB38);
+        do {
+            updateKeyState();
+        } while ((_keyInput & A_BUTTON) == 0);
+    }
+}
+
+void nullsub_17(void)
+{
+}
+
+void nullsub_46(void)
+{
+}
+
+void nullsub_18(void)
+{
+}
+
+void nullsub_19(void)
+{
+}
+
+void nullsub_20(void)
+{
+}
+
+unk32 printf_2(const unk8* format, ...)
+{
+}
 
 unk32 printf(const unk8* format, ...)
 {
@@ -20,4 +68,7 @@ s32 sub_8057C40(void)
     return _unk3000E30[0];
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8057c4c-GetVCount.s");
+unk16 GetVCount(void)
+{
+    return *(vu16*)REG_VCOUNT;
+}
