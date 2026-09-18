@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-18 (session 15, late): 968 C / 57 asm / 94% by count; main clean, US+EU compare green, baseline refreshed; no agents running.
+Last updated: 2026-09-18 (session 15, close): 971 C / 54 asm / 95% by count, 49/67 TUs; main clean, US+EU compare green, baseline refreshed; no agents running.
 
 ## Session 15 (2026-09-18) — session 14 re-landed per TU
 
@@ -137,7 +137,35 @@ Last updated: 2026-09-18 (session 15, late): 968 C / 57 asm / 94% by count; main
   blocking functions matched); strings_872cbcc.c, strings4.c's text piece
   and strings7.c were deleted as they emptied (gen2.py now removes an
   emptied strings file and its CMake/ld entries).
-- NEXT: (1) the 11 open 101–170-insn functions (profile, spritestring
+- LATE CODEX LANDINGS (all cherry-picked from raw-decomp-11, which is
+  reset to main after each round; user: Codex is NOT sent fix requests —
+  the manager fixes on main or sends a luna fold-check agent): spritestring
+  sub_8065108 (0x36-byte actor counter — the old "251-insn" dump was two
+  functions; the second was mis-split at 0x0806513E, whose first
+  "instruction" `lsl r0,r0,#0` is alignment padding — now `sub_8065140`
+  with a normal thumb_func_start, dump `8065140.s`, functions.csv fixed,
+  ~245 insns, "UpdateSpriteString" in functions.csv, still asm; nothing
+  uses `non_word_aligned_thumb_func_start` any more); spritetext
+  sub_8061F3C (printf: %c %d %i %o %u %x %X %s %%, flags # + 0, width;
+  spritetext.c is DONE) — luna fold-check then hoisted its three
+  case-scoped locals (free), named `SPRITE_TEXT_BUFFER_SIZE`, and settled
+  sub_8061E9C as 7 params with WIDE `unk32 zeroPad/uppercase` (unk8 params
+  make the callers emit lsl/lsr #24) plus byte-required `unk8 …Value`
+  narrowing locals; `void` is proven for sub_8061F3C (`pop {r0}`), not for
+  sub_80622D0; collision def_94_8_collision_8055F2C (collision.c is DONE)
+  — luna fold-check: ALL four suspicious shapes are byte-required (the two
+  `case … { s16 height; }` scopes: hoisting diverges at +0xCA — FIRST
+  measured case where a bare case scope is required; the duplicated
+  0x8C/0x9A arms and the dead inner collisionMask tests: frame 0x2C vs
+  0x30; `unk16 distance` in 0x8D proven by ldrh).
+- Fold-check pattern that worked: a luna `decompiler` agent in a worktree,
+  prompt = "already matches on main, make it conform, stay byte-identical",
+  numbered suspicious shapes, "keep only if every alternative measurably
+  diverges and record the first divergence", "do not change anything else".
+  ~8 minutes each, clean results both times.
+- NEXT: (0) big open Thumb left: spritestring sub_8065140 (~245),
+  geometry sub_805E18C (202), particle sub_804E910 (185) — Codex-sized;
+  (1) the open 101–170-insn functions (profile, spritestring
   sub_80655C0/80653D8, text sub_805B280 — last asm in text.c, camera
   sub_805ED60, anim sub_805F0B4, geometry sub_805E528/805E648/805E320,
   particle sub_804E7D4, gameloop sub_8052180) plus the smallest "walls"
@@ -146,8 +174,8 @@ Last updated: 2026-09-18 (session 15, late): 968 C / 57 asm / 94% by count; main
   brief; (2) skill fold — docs/learnings has ~40 unfolded files; (3)
   `TileMapHeader.filler1A` is very likely a u16 tile-index base (0 for
   layer 1, shared by layers 2/3 of a level) — check for readers and type
-  it; (4) spritestring `806513e.s` is an empty alignment-only dump still
-  counted as a function.
+  it; (4) `non_word_aligned_thumb_func_start` in asm/common.inc is now unused
+  and can go.
 - Not inlinable yet: festate (needs its data12.s tables in C, defined at
   the right point in the file), animevent (one mid-run string still used by
   an asm function), sprite/spritetext/iwram strings shared with asm
