@@ -179,7 +179,24 @@ void sub_80650FC(SpriteString* string, unk32 x)
     string->x = x;
 }
 
-INCLUDE_ASM("asm/dump/8064f38/8065108.s");
+unk8 sub_8065108(SpriteString* string)
+{
+    unk16 count;
+    unk16 index;
+    Actor* actor;
+
+    count = 0;
+    index = 0;
+    while (index < string->count) {
+        actor = &string->actors[index];
+        if (actor->unk70 != 0) {
+            count++;
+        }
+        index++;
+    }
+    return count;
+}
+
 INCLUDE_ASM("asm/dump/8064f38/806513e.s");
 
 void sub_806530C(SpriteString* string)
