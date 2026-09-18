@@ -196,14 +196,14 @@ void sub_805F47C(AnimFrameState* arg0)
         return;
     }
     arg0->unk3E = arg0->unk3C;
-    if (arg0->unk3C == 0 && !(arg0->unk32 & 8) && arg0->unk28 >= 0) {
+    if (arg0->unk3C == 0 && (arg0->unk32 & 8) == 0 && arg0->unk28 >= 0) {
         sub_805F784(arg0, arg0->unk42, arg0->unk42);
         return;
     }
     if (speed > 0) {
         arg0->unk40 += speed >> 1;
     }
-    if (arg0->unk32 & 0x10) {
+    if ((arg0->unk32 & 0x10) != 0) {
         arg0->unk32 &= ~0x20;
         if (arg0->unk38 < 0) {
             arg0->unk40 = -arg0->unk38 & 0x3FF;
@@ -226,24 +226,24 @@ void sub_805F47C(AnimFrameState* arg0)
     }
     arg0->unk40 -= 0x400;
     arg0->unk2E = arg0->unk2C;
-    if (arg0->unk32 & 4) {
+    if ((arg0->unk32 & 4) != 0) {
         arg0->unk3A = 0;
         arg0->unk38 = 0;
         arg0->unk58 = 0;
         arg0->unk40 = 0;
         arg0->unk32 |= 0x10;
     }
-    if (arg0->unk32 & 2) {
+    if ((arg0->unk32 & 2) != 0) {
         arg0->unk2C--;
     } else {
         arg0->unk2C++;
     }
     if (arg0->unk2C - arg0->unk2A >= entry->unk2) {
-        if (arg0->unk32 & 8) {
+        if ((arg0->unk32 & 8) != 0) {
             arg0->unk3A = 0;
             arg0->unk2C = arg0->unk2A + entry->unk2 - 1;
             sub_805F3A8(arg0, arg0->unk2C);
-        } else if (arg0->unk32 & 1) {
+        } else if ((arg0->unk32 & 1) != 0) {
             arg0->unk32 ^= 2;
             arg0->unk2C = arg0->unk2A + entry->unk2 - 2;
         } else {
@@ -258,7 +258,7 @@ void sub_805F47C(AnimFrameState* arg0)
                 arg0->unk6C(arg0, arg0->unk70, arg0->unk28, 2);
             }
         }
-        if (arg0->unk3C == 0 && !(arg0->unk32 & 8)) {
+        if (arg0->unk3C == 0 && (arg0->unk32 & 8) == 0) {
             advance = 1;
             if (arg0->unk6C != NULL) {
                 advance = arg0->unk6C(arg0, arg0->unk70, arg0->unk28, 1);
@@ -269,11 +269,11 @@ void sub_805F47C(AnimFrameState* arg0)
         }
     }
     if (arg0->unk2C < arg0->unk2A) {
-        if (arg0->unk32 & 8) {
+        if ((arg0->unk32 & 8) != 0) {
             arg0->unk3A = 0;
             sub_805F3A8(arg0, arg0->unk2C);
             arg0->unk2C = arg0->unk2A + entry->unk2 - 1;
-        } else if (arg0->unk32 & 1) {
+        } else if ((arg0->unk32 & 1) != 0) {
             arg0->unk32 ^= 2;
             arg0->unk2C = arg0->unk2A + 1;
         } else {
@@ -285,7 +285,7 @@ void sub_805F47C(AnimFrameState* arg0)
                 arg0->unk3C |= -1;
             }
         }
-        if (arg0->unk3C == 0 && !(arg0->unk32 & 8)) {
+        if (arg0->unk3C == 0 && (arg0->unk32 & 8) == 0) {
             advance = 1;
             if (arg0->unk6C != NULL) {
                 advance = arg0->unk6C(arg0, arg0->unk70, arg0->unk28, 1);
