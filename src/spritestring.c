@@ -108,7 +108,7 @@ SpriteStringActorBlock* SpriteString_8064FE8(SpriteString* string, const u8* arg
 
     state = sub_8062EFC(count);
     if (state == NULL) {
-        nullsub_8((const unk8*)"Error allocating actors for SpriteString");
+        nullsub_8("Error allocating actors for SpriteString");
     }
     i = 0;
     if (i < count) {
