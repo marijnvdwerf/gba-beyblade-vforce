@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-18 (session 15): 951 C / 74 asm / 93% by count, 47/67 TUs; main clean, US+EU compare green, baseline refreshed.
+Last updated: 2026-09-18 (session 15): 951 C / 74 asm / 93% by count; main 3c8f2d85+ clean, US+EU compare green, baseline refreshed.
 
 ## Session 15 (2026-09-18) — session 14 re-landed per TU
 
@@ -39,6 +39,44 @@ Last updated: 2026-09-18 (session 15): 951 C / 74 asm / 93% by count, 47/67 TUs;
 - Dropped: packet/particle/tutorial-review learnings (no measurements).
   Some landed learnings files still describe the pre-fold loop shapes.
 - Unused session-14 header edits NOT landed: `LevelDescription.unk38/unk3C`.
+- text sub_805B800: opus probe made `done` a genuine flag (`done = 1; break;`
+  instead of `return;`, byte-identical). `zero` keeps its TODO: writing
+  `*ptr = '\0'` builds the same zero pseudo but hoists it AFTER
+  `ptr = buffer` (move_movables inserts before LOOP_BEG) — 18 variants, all
+  the same two-instruction swap.
+- BBMAP RE-DUMP (00c162bf): `TileMapHeader` word 0 is the total size
+  (`totalBytes`, header included); the u32 at 0x14 is the offset of a
+  byte-per-tile table that runs to `totalBytes` (180/198 files; the 18
+  logo/frontend maps have 0 there and no table, though word 0 still counts
+  one). The 180 unreferenced `Unk_XXXXXXXX` .byte blocks after the level
+  maps were that table — now part of the .bbmap files. The game only ever
+  does `ldrb [hdr,#0x14]` (layer sub_8058AA8 → never-read `field_61`); a
+  u32 member gives `ldr` (measured), so the struct keeps `u8 var14` +
+  filler with a comment. agbcc does NOT narrow that load (the session-11
+  "narrows a truncating load" note was a field → s16 local case).
+- STRING INLINING (0b107b6a…3c8f2d85): ROM string order follows TU link
+  order — strings are per-TU `.rodata` literals. 38 TUs now use literals;
+  every one matched first try (literal order == use order in the C file).
+  Mechanism: split the strings file at the TU's run (`src/strings_<addr>.c`
+  holds the remainder), link `src/<tu>.c.o(.rodata)` between the pieces in
+  ld_script.ld, add the piece to CMakeLists.txt, replace `Str_X` with the
+  literal. `/tmp/strinl/gen2.py <stringsfile> <tu>…` did it (not in repo).
+  strings3.c is gone: its IRQ handler table + irq string moved into irq.c.
+  Strings and printf/printf_2/assert/nullsub_8/9/10 are typed `char`
+  (text-rendering functions keep u8 — they index glyph tables).
+- POOLING EVIDENCE: 82 string contents are duplicated across the ROM, never
+  twice inside one strings piece → each piece between two inlined TUs is
+  ONE original TU's pooled .rodata. So festate's two runs (3 strings used
+  by sub_8043DB8…sub_8045160, then 35 table strings, then 7 used by
+  selectBladeFrontendHandler) are one file with its tables defined between
+  those functions; the whole `strings_86fd2e0.c` piece (304 strings) is
+  festate's. Same reading for the other big pieces: they belong to the TU
+  whose tables (data8/9/12.s) reference them.
+- Not inlinable yet: festate (needs its data12.s tables in C, defined at
+  the right point in the file), animevent (one mid-run string still used by
+  an asm function), sprite/spritetext/iwram strings shared with asm
+  functions, `Str_8727048` (one copy shared by hud.c AND levelhud.c — they
+  may be one TU).
 
 ## Session 14 (2026-09-16/17)
 
