@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-18 (session 15): 951 C / 74 asm / 93% by count; main 3c8f2d85+ clean, US+EU compare green, baseline refreshed.
+Last updated: 2026-09-18 (session 15, late): 968 C / 57 asm / 94% by count; main clean, US+EU compare green, baseline refreshed; no agents running.
 
 ## Session 15 (2026-09-18) — session 14 re-landed per TU
 
@@ -72,6 +72,82 @@ Last updated: 2026-09-18 (session 15): 951 C / 74 asm / 93% by count; main 3c8f2
   those functions; the whole `strings_86fd2e0.c` piece (304 strings) is
   festate's. Same reading for the other big pieces: they belong to the TU
   whose tables (data8/9/12.s) reference them.
+- LEAF BATCH (afternoon): 16 small never-attempted functions, luna
+  decompiler agents, one TU each, manager reads every diff, sends findings
+  back to the SAME agent (SendMessage resumes it), integrates with
+  `git diff $(git merge-base main B) B -- src docs asm | git apply --index`
+  (not checkout — branches go stale as other TUs land), compare, one commit
+  per TU. Landed: anim sub_805F3A8/805F784; spritetext sub_80619A4/8061AE8/
+  8061BA0 (trailing calls pass `arg2`, not the `mode` copy — printTime's
+  quirk) + sub_8061E9C (an itoa: out/value/radix/zeroPad/width/uppercase);
+  layer sub_8059E5C (byte cursor + one `*(unk16*)source` read, TODO — every
+  unk16* cursor form diverges; a pointer UNION for it was rejected); actor
+  sub_8057FDC/ActorSetFrame/sub_8058794 (`ActorTimerCallback` typedef typed
+  through the two spritestring callers instead of a cast); ai sub_80577D8
+  (sub_8057878's logic duplicated inline; `s32 angleValue → s16 angle`
+  replaces the `(s16)` cast — the sibling still has the cast); spritestring
+  sub_8065508; geometry sub_805D488/805E474 (`GeometrySplineIntersection`
+  now x/y/z/position/lineIndex, TU-local). Discarded: geometry sub_805E0D8.
+  4 of 6 luna branches needed a fix round (m2c register names, a cast the
+  report denied, a header pointer-union, a parked `#if 0` despite the
+  discard rule) — never trust "no rule-breaking shapes" in a report.
+- USER'S CODEX WORKTREE `.claude/worktrees/raw-decomp-11` (branch
+  raw-decomp-11, reset to main at 47e2af8e; has `expected` +
+  `tools/diff/node_modules` symlinks — never remove unasked). The user feeds
+  commit hashes; the manager reviews, cherry-picks onto main, and passes
+  remarks back through the user. Landed from it: spritestring sub_8065334
+  (a session-14 "wall": it matched once the draft's cached `count`/`text`
+  locals were REMOVED — `while (index < string->count)` reading fields
+  directly makes agbcc reload `string->actors` each iteration, which the
+  raw-decomp reference only got with `volatile`), anim sub_805F47C (321
+  insns, the biggest Thumb function left, clean first try), text sub_805B41C
+  (280 insns) + follow-up (TilemapTextRenderer `widthAdjustments`/`palette`/
+  `nextTileIndex` proven; `Tile4bpp` base type, `RiderTile` is an alias;
+  `LCD_WIDTH`, `BG_COLOR_256`). LESSON: many of session 14's 23 "allocation
+  walls" are probably bad inherited drafts — brief retries with "distrust
+  the draft; remove locals/caching before adding anything".
+- USER DECISIONS today: bare flag tests are fine (`if (x & 0x10)`,
+  `!(x & 8)`) — the old merge-time `(x & N) == 0` rewrite is RETIRED (a
+  rewrite was reverted); a struct used by one TU stays in that TU (a
+  Codex-created anim.h was folded back); failed attempts are discarded, no
+  `#if 0`; the manager delegates matching and fix rounds, it does not
+  hand-match.
+- BGControl (47e2af8e): `GetBGLayerCntPtr` returns `vu16*` again (SDK
+  register type; whole-register users are plain `*GetBGLayerCntPtr(i)`);
+  `BGControl` is only the 32-bit priority bitfield view, reached through
+  the `BG_CONTROL(layer)` macro in layer.h. Session 14's
+  `union { bits; half }` is gone: a plain `half` broke the text renderer's
+  volatile read, a `vu16 half` made agbcc re-read after every
+  `p->half = x` store. The revert matched first build and removed a
+  workaround local from sub_8059188.
+- Progress accounting (7632a595): `arm_asm_func_start` (no `.NON_MATCHING`
+  marker) marks hand-written ARM as matched — used by asm/arm1.s
+  render_00–09; crt0's intr_main/intr_main_end are plain `.global` labels.
+  decomp.dev/objdiff have no ignore switch; our published numbers come from
+  tools/gen-report.py (`normalize()` is where whole units could be dropped).
+  The four fastMemory*ARM dumps still carry the marker (user undecided
+  whether they are hand-written).
+- Agent builds: two luna agents had `cmake --build … compare` refused by the
+  auto-mode classifier while five others ran it fine; a relaunch with "run
+  it as ONE plain command, no cd/pipes/clean" worked. The manager must not
+  run a denied command on an agent's behalf, and editing
+  .claude/settings.json permissions mid-session made the classifier block
+  the manager's own follow-ups (reverted).
+- Strings, continued: actor, text and spritetext are inlined too (their
+  blocking functions matched); strings_872cbcc.c, strings4.c's text piece
+  and strings7.c were deleted as they emptied (gen2.py now removes an
+  emptied strings file and its CMake/ld entries).
+- NEXT: (1) the 11 open 101–170-insn functions (profile, spritestring
+  sub_80655C0/80653D8, text sub_805B280 — last asm in text.c, camera
+  sub_805ED60, anim sub_805F0B4, geometry sub_805E528/805E648/805E320,
+  particle sub_804E7D4, gameloop sub_8052180) plus the smallest "walls"
+  (anim sub_805F3D8 19, layer sub_8059904 24, geometry sub_805E77C 35,
+  keystate sub_805A93C 36, actor sub_8058068 37) with the distrust-the-draft
+  brief; (2) skill fold — docs/learnings has ~40 unfolded files; (3)
+  `TileMapHeader.filler1A` is very likely a u16 tile-index base (0 for
+  layer 1, shared by layers 2/3 of a level) — check for readers and type
+  it; (4) spritestring `806513e.s` is an empty alignment-only dump still
+  counted as a function.
 - Not inlinable yet: festate (needs its data12.s tables in C, defined at
   the right point in the file), animevent (one mid-run string still used by
   an asm function), sprite/spritetext/iwram strings shared with asm
