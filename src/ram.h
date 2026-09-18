@@ -245,6 +245,16 @@ typedef struct FrontendBladeState {
 
 typedef char FrontendBladeStateSizeCheck[(sizeof(FrontendBladeState) == 0x48) ? 1 : -1];
 
+typedef struct AiState {
+    LevelGeometryTable* table; /* 0x00 */
+    LevelGeometryAddresses geometry; /* 0x04 */
+    QuadTree quadTree; /* 0x120 */
+    GeometryLine* lines[0x20]; /* 0x178 */
+    ActorCollisionFunctions callbacks; /* 0x1F8 */
+} AiState;
+
+typedef char AiStateSizeCheck[(sizeof(AiState) == 0x204) ? 1 : -1];
+
 typedef struct GameData {
     RiderBase base; /* 0x000 */
     AllocatedBlock* unk428; /* 0x428 */
@@ -317,7 +327,9 @@ typedef struct GameData {
     AllocatedBlock* unkCA0; /* 0xCA0 */
     void* unkCA4; /* 0xCA4 */
     unk32 unkCA8; /* 0xCA8 */
-    unk8 padCAC[0x2A4]; /* 0xCAC */
+    unk8 padCAC[0x10]; /* 0xCAC */
+    AiState ai; /* 0xCBC */
+    unk8 padEC0[0x90]; /* 0xEC0 */
     LevelHudData levelHud; /* 0xF50 */
     ProjectileSystem projectileSystem; /* 0x1084 */
     BeybladeActorCache actorData; /* 0x1110 */
