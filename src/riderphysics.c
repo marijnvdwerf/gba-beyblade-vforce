@@ -183,7 +183,11 @@ void sub_804C888(RiderBase* rider, unk8 arg1)
     sub_804C0EC(rider->unk4, 0);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c8c0.s");
+void sub_804C8C0(RiderBase* rider, s32 arg1, s32 arg2)
+{
+    rider->unk1CA = (arg1 << 8) / 100;
+    rider->unk1CC = (arg2 << 8) / 100;
+}
 
 void RiderAI_804C8F0(RiderBase* rider)
 {
@@ -1039,7 +1043,33 @@ void sub_804DDF8(RiderBase* rider, Actor* other)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804df88.s");
+void sub_804DF88(RiderBase* rider, Actor* actor)
+{
+    rider->unk1A0 = actor->unk40;
+    rider->unk1A4 = actor->unk44;
+    if ((rider->unk150 & 1) != 0) {
+        switch (rider->unk14C) {
+        case 1000:
+            actor->unk68 = 0x10;
+            break;
+        case 1001:
+            actor->unk68 = 0x10;
+            break;
+        case 1002:
+            actor->unk68 = 0x10;
+            break;
+        case 1003:
+            actor->unk68 = 0x10;
+            break;
+        case 1004:
+            actor->unk68 = 0x10;
+            break;
+        case 1005:
+            actor->unk68 = 0x10;
+            break;
+        }
+    }
+}
 
 void sub_804DFF4(RiderBase* rider)
 {
@@ -1146,7 +1176,18 @@ void sub_804E1FC(RiderBase* rider, u8 arg1)
     rider->unk14 = 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e20c.s");
+void sub_804E20C(RiderBase* rider, unk32 arg1, unk32 arg2)
+{
+    s16 value1;
+    s16 value2;
+
+    rider->unk2C = 0;
+    value1 = arg1 << 8;
+    rider->unk28 = rider->unk30 = value1;
+    rider->unk38 = 0;
+    value2 = arg2 << 8;
+    rider->unk34 = rider->unk3C = value2;
+}
 
 s32 sub_804E224(s32 arg0, s32 arg1, unk8 arg2, s32 limit)
 {
@@ -1197,7 +1238,19 @@ s32 sub_804E258(s32 arg0, s32 arg1, s32 period, unk8 scale, unk32 unused, s32 li
 }
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e2a4.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e328.s");
+
+s16 sub_804E328(unk8 arg0, unk8 arg1)
+{
+    s16 delta;
+    unk16 result;
+
+    delta = sub_804E358(arg0, arg1);
+    if (delta > 0x3F)
+        result = -((delta - 0x40) << 1);
+    else
+        result = (0x40 - delta) << 1;
+    return result;
+}
 
 s16 sub_804E358(unk8 arg0, unk8 arg1)
 {
@@ -1219,7 +1272,32 @@ s16 sub_804E358(unk8 arg0, unk8 arg1)
     return result;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e3b0.s");
+unk32 sub_804E3B0(unk32 arg0, unk32 arg1, unk32 arg2)
+{
+    s32 delta;
+    unk32 magnitude;
+    unk32 result;
+    unk32 difference;
+    unk32 half;
+    unk32 threshold;
+    unk32 threshold_copy;
+
+    magnitude = arg1 - arg0;
+    delta = magnitude;
+    if (delta < 0)
+        magnitude = -magnitude;
+    threshold = arg2 + 1;
+    half = threshold >> 1;
+    threshold_copy = threshold; // TODO: fakematch?
+    if (magnitude > half) {
+        difference = magnitude - 1;
+        result = arg2 - difference;
+    } else
+        result = magnitude;
+    if (delta < 0 || magnitude > (threshold_copy >> 1))
+        result = -result;
+    return result;
+}
 
 void convert3DCoordsto2DCoords(Actor* actor, unk32* output)
 {
@@ -1250,7 +1328,12 @@ unk8 RiderHasFlag(RiderBase* rider, unk32 flags)
     return 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e42c-RiderHasSomeFlags.s");
+unk8 RiderHasSomeFlags(RiderBase* rider, unk32 flags)
+{
+    if ((rider->flags & flags) != 0)
+        return 1;
+    return 0;
+}
 
 unk8 sub_804E440(RiderBase* rider, unk32 flags)
 {
