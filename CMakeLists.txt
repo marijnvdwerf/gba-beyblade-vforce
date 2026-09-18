@@ -266,7 +266,6 @@ add_executable(rom
     src/strings5.c
     src/strings6.c
     src/strings_8756870.c
-    src/strings7.c
 )
 
 target_link_libraries(rom PRIVATE agb)

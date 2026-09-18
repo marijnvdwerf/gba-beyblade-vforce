@@ -17,9 +17,6 @@ extern unk32 sub_8061F3C(SpriteTextCleanup*, unk8, const unk8*, unk32*);
 
 extern void sub_806123C(SpriteTextCleanup*);
 extern const u8 byte_807D980[];
-extern const char Str_8755B84[];
-extern const char Str_8755B88[];
-extern const char Str_8755B8C[];
 
 void allocFont(SpriteTextCleanup* arg0, const SpriteSheet* arg1, const unk8* arg2, s16 arg3,
     s16 arg4, unk16 arg5, unk16 arg6)
@@ -492,7 +489,7 @@ u8 sub_80619A4(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
     result = 1;
     remainder = DivRem(arg1, 60);
     result &= showNumber(arg0, Div(arg1, 60), mode);
-    result &= showString(arg0, Str_8755B84, mode);
+    result &= showString(arg0, ":", mode);
     if (remainder <= 9) {
         result &= showNumber(arg0, 0, mode);
     }
@@ -516,14 +513,14 @@ u8 printTime(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
     fraction = DivRem(arg1, divisor) / 10;
     remainder = DivRem(seconds, 60);
     result &= showNumber(arg0, Div(seconds, 60), mode);
-    result &= showString(arg0, Str_8755B84, mode);
+    result &= showString(arg0, ":", mode);
     if (remainder <= 9) {
-        result &= showString(arg0, Str_8755B88, mode);
+        result &= showString(arg0, "0", mode);
     }
     result &= showNumber(arg0, remainder, mode);
-    result &= showString(arg0, Str_8755B8C, mode);
+    result &= showString(arg0, ".", mode);
     if (fraction <= 9) {
-        result &= showString(arg0, Str_8755B88, mode);
+        result &= showString(arg0, "0", mode);
     }
     result &= showNumber(arg0, fraction, arg2);
     return result;
@@ -545,12 +542,12 @@ u8 sub_8061AE8(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
     fraction = DivRem(arg1, divisor) / 100;
     remainder = DivRem(seconds, 60);
     result &= showNumber(arg0, Div(seconds, 60), mode);
-    result &= showString(arg0, Str_8755B84, mode);
+    result &= showString(arg0, ":", mode);
     if (remainder <= 9) {
-        result &= showString(arg0, Str_8755B88, mode);
+        result &= showString(arg0, "0", mode);
     }
     result &= showNumber(arg0, remainder, arg2);
-    result &= showString(arg0, Str_8755B8C, arg2);
+    result &= showString(arg0, ".", arg2);
     result &= showNumber(arg0, fraction, arg2);
     return result;
 }
@@ -572,7 +569,7 @@ u8 sub_8061BA0(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
     remainder = DivRem(seconds, 60);
     Div(seconds, 60);
     result &= showNumber(arg0, remainder, mode);
-    result &= showString(arg0, Str_8755B8C, mode);
+    result &= showString(arg0, ".", mode);
     result &= showNumber(arg0, fraction, mode);
     return result;
 }
