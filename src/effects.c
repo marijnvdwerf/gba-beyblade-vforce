@@ -437,7 +437,14 @@ void sub_8055BA0(EffectSprites* effect, unk8 side, unk32 value)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055bb0.s");
+void sub_8055BB0(EffectSprites* effect, unk8 side, unk32 value)
+{
+    if (side != 0) {
+        effect->unk20 = value;
+    } else {
+        effect->unk18 = value;
+    }
+}
 
 void sub_8055BC0(EffectSprites* effect, unk8 side, unk8 enabled)
 {
