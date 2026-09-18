@@ -36,9 +36,6 @@ extern SpriteEntry* _sprites;
 SpriteEntry* _unk3005DE4;
 
 extern u16 word_807D90C[];
-extern const unk8 Str_8755AC8[];
-extern const unk8 Str_8755B0C[];
-extern const unk8 Str_8755B28[];
 extern const unk8 Str_8755A08[];
 
 void freeSpriteVramLocation(s32, s32);
@@ -545,7 +542,8 @@ SpriteEntry* sub_8060C1C(SpriteTextBlock* block, unk16 size, unk16 var22)
     SpriteEntry* insertion;
 
     if (_spritesFree < size) {
-        printf(Str_8755AC8, _spritesFree, size);
+        printf("No sprites left for block, sprites left: %i, sprites requested: %i\n", _spritesFree,
+            size);
         return NULL;
     }
     _spritesFree -= size;
@@ -644,7 +642,7 @@ SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 size, u16 var22)
         if (block->count != 0) {
             size -= block->count;
             if (_spritesFree < size) {
-                nullsub_8(Str_8755B0C);
+                nullsub_8("No sprites left for resize!");
                 return NULL;
             }
             cur = _spritesLeft;
@@ -677,7 +675,7 @@ SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 size, u16 var22)
         sub_8060C1C(block, size, var22);
         return block->prev;
     }
-    nullsub_8(Str_8755B28);
+    nullsub_8("resizeSpriteBlock: Reduce. Code needs writing.");
     sub_8060CDC(block);
     return sub_8060C1C(block, size, var22);
 }

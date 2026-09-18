@@ -289,6 +289,7 @@ SECTIONS {
 		src/strings_875566c.c.o(.rodata);
 		src/multiplayer.c.o(.rodata);
 		src/sprite.c.o(.rodata);
+		src/spritetext.c.o(.rodata);
 		src/strings7.c.o(.rodata);
 		src/sound.c.o(.rodata);
 		src/actorheap.c.o(.rodata);

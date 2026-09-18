@@ -16,7 +16,6 @@ extern unk8 sub_8061BA0(SpriteTextCleanup*, unk32, unk8);
 extern unk32 sub_8061F3C(SpriteTextCleanup*, unk8, const unk8*, unk32*);
 
 extern void sub_806123C(SpriteTextCleanup*);
-extern const unk8 Str_8755B58[];
 extern const u8 byte_807D980[];
 extern const unk8 Str_8755B84[];
 extern const unk8 Str_8755B88[];
@@ -240,7 +239,7 @@ u8 showString(SpriteTextCleanup* arg0, const u8* text, u8 mode)
     sprite = arg0->unk14.next;
     result = resizeSpriteBlock(&arg0->unk14, text_width + count, arg0->unk2B);
     if (result == NULL) {
-        printf(Str_8755B58, text);
+        printf("ERROR: Not enough sprites for string '%s'\n", text);
         return 0;
     }
     if (sprite != NULL) {
