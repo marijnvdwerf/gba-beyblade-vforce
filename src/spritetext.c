@@ -10,6 +10,8 @@
 #include "spritestring.h"
 #include "unsorted.h"
 
+enum { SPRITE_TEXT_BUFFER_SIZE = 0x800 };
+
 extern void sub_8061684(SpriteTextCleanup*, unk16, unk16);
 extern unk8 sub_80619A4(SpriteTextCleanup*, unk32, unk8);
 extern unk8 sub_8061AE8(SpriteTextCleanup*, unk32, unk8);
@@ -731,17 +733,17 @@ unk8* sub_8061E94(unk8* ptr, unk8 value)
     return ptr + 1;
 }
 
-unk8* sub_8061E9C(unk8* out, unk32 value, unk32 radix, unk32 zeroPadArg, s32 width,
-    unk32 uppercaseArg, unk32 arg6)
+unk8* sub_8061E9C(
+    unk8* out, unk32 value, unk32 radix, unk32 zeroPad, s32 width, unk32 uppercase, unk32 arg6)
 {
     unk8 buffer[16];
-    unk8 zeroPad;
-    unk8 uppercase;
+    unk8 zeroPadValue;
+    unk8 uppercaseValue;
     unk8* ptr;
     s32 digit;
 
-    zeroPad = zeroPadArg;
-    uppercase = uppercaseArg;
+    zeroPadValue = zeroPad;
+    uppercaseValue = uppercase;
     ptr = buffer;
     if (width > 0x10) {
         width = 0x10;
@@ -751,7 +753,7 @@ unk8* sub_8061E9C(unk8* out, unk32 value, unk32 radix, unk32 zeroPadArg, s32 wid
         value /= radix;
         if (digit <= 9) {
             digit += '0';
-        } else if (uppercase != 0) {
+        } else if (uppercaseValue != 0) {
             digit += 'A' - 10;
         } else {
             digit += 'a' - 10;
@@ -761,7 +763,7 @@ unk8* sub_8061E9C(unk8* out, unk32 value, unk32 radix, unk32 zeroPadArg, s32 wid
             width--;
         }
     } while (value != 0 && width != 0);
-    if (zeroPad != 0) {
+    if (zeroPadValue != 0) {
         while (width-- > 0) {
             *ptr++ = '0';
         }
@@ -783,19 +785,20 @@ void sub_8061F3C(SpriteTextCleanup* text, unk8 mode, const unk8* format, va_list
     s32 width;
     unk32 plus;
     unk32 alternate;
+    s32 value;
+    const unk8* string;
+    unk8 character;
 
-    block = slowAllocate(0x800);
+    block = slowAllocate(SPRITE_TEXT_BUFFER_SIZE);
     if (block == NULL) {
         return;
     }
     out = block->address;
     plainText = 1;
     cursor = format;
-    __fastMemoryClearARM(0, out, 0x800);
+    __fastMemoryClearARM(0, out, SPRITE_TEXT_BUFFER_SIZE);
     while (*cursor != 0) {
         if (plainText != 0) {
-            unk8 character;
-
             character = *cursor;
             if (character == '%') {
                 alternate = 0;
@@ -814,9 +817,7 @@ void sub_8061F3C(SpriteTextCleanup* text, unk8 mode, const unk8* format, va_list
                 out = sub_8061E94(out, va_arg(args, unk32));
                 break;
             case 'd':
-            case 'i': {
-                s32 value;
-
+            case 'i':
                 value = va_arg(args, s32);
                 if (value < 0) {
                     out = sub_8061E94(out, '-');
@@ -826,7 +827,6 @@ void sub_8061F3C(SpriteTextCleanup* text, unk8 mode, const unk8* format, va_list
                 }
                 out = sub_8061E9C(out, value, 10, zeroPad, width, 0, 4);
                 break;
-            }
             case 'o':
                 if (alternate != 0) {
                     out = sub_8061E94(out, '0');
@@ -845,15 +845,12 @@ void sub_8061F3C(SpriteTextCleanup* text, unk8 mode, const unk8* format, va_list
                 out = sub_8061E9C(out, va_arg(args, unk32), 16, zeroPad, width, *cursor == 'X', 0);
                 break;
             case 'S':
-            case 's': {
-                const unk8* string;
-
+            case 's':
                 string = va_arg(args, const unk8*);
                 while (*string != 0) {
                     out = sub_8061E94(out, *string++);
                 }
                 break;
-            }
             case '%':
                 out = sub_8061E94(out, *cursor);
                 break;
