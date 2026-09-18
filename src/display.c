@@ -163,4 +163,8 @@ void sub_8050A50(DisplayData* display)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050a78-nullsub_41.s");
+void nullsub_41(void)
+{
+}
+
+ASM_ZEROPAD
