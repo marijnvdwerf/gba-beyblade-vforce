@@ -99,7 +99,11 @@ void sub_804E560(ParticleSystem* arg0, unk32 arg1, unk32 arg2, unk32 arg3)
     arg0->unk18 = arg3;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e57c.s");
+void sub_804E57C(ParticleSystem* arg0, unk32 arg1, unk32 arg2)
+{
+    arg0->unk1C = arg1;
+    arg0->unk20 = arg2;
+}
 
 void sub_804E584(ParticleSystem* arg0, unk32 arg1, unk32 arg2, unk32 arg3)
 {
