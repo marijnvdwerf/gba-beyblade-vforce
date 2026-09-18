@@ -59,8 +59,17 @@ typedef struct Sub8052140Data {
     unk32 unk0;
     unk32 unk4;
     unk32 unk8;
-    unk8 padC[2];
-    unk16 unkE;
+
+    /* str at 0xC (sub_8052534), strh at 0xE (sub_8052140) */
+    union {
+        unk32 word;
+
+        struct {
+            unk8 padC[2];
+            unk16 unkE;
+        } parts;
+    } unkC;
+
     unk8 pad10[4];
     unk16 unk14;
     unk16 unk16;
@@ -338,7 +347,8 @@ typedef struct GameData {
     BeybladeActorCache actorData; /* 0x1110 */
     CollectableData collectables; /* 0x12F4 */
     TutorialData tutorial; /* 0x13FC */
-    unk8 pad153C[0x84]; /* 0x153C */
+    RiderTileState tileState; /* 0x153C */
+    unk8 pad154C[0x74]; /* 0x154C */
     s16 unk15C0; /* 0x15C0 */
     unk8 pad15C2[2]; /* 0x15C2 */
     Packet unk15C4; /* 0x15C4 */

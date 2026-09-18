@@ -39,6 +39,7 @@ extern Sub8052140Data _unk3000F50;
 extern void (*__oam_8756CC0)(void);
 void sub_8052978(unk32, void (*)(void));
 void sub_8052140(Sub8052140Data*, unk32);
+void sub_805FA68(PolyTable*);
 void sub_80526C8(GameData*, SpriteEntry*, Actor*);
 void sub_805295C(void);
 
@@ -274,7 +275,32 @@ void gameLoop(void)
     sub_80556F4();
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80520f4.s");
+typedef struct ActorEffectState ActorEffectState;
+
+struct ActorEffectState {
+    unk8 pad0[0x18];
+    unk32 unk18; /* 0x18 */
+    unk8 pad1C[0x24];
+    unk16 unk40; /* 0x40 */
+};
+
+typedef struct ActorEffectCallbacks {
+    unk8 pad0[0x34];
+    void (*unk34)(ActorEffectState*, unk32, Actor*, unk32); /* 0x34 */
+    unk8 pad38[0x40];
+    void (*unk78)(ActorEffectState*, Actor*, unk32); /* 0x78 */
+} ActorEffectCallbacks;
+
+void sub_8052180(ActorEffectState*, Actor*, unk32);
+
+void sub_80520F4(ActorEffectState* arg0, ActorEffectCallbacks* arg1, PolyTable* arg2, Actor* arg3)
+{
+    arg3->unk1A = arg0->unk40;
+    sub_805FA68(arg2);
+    sub_8052180(arg0, arg3, 0);
+    arg1->unk34(arg0, 0, arg3, arg0->unk18);
+    arg1->unk78(arg0, arg3, 1);
+}
 
 void sub_8052140(Sub8052140Data* arg0, unk32 arg1)
 {
@@ -284,7 +310,7 @@ void sub_8052140(Sub8052140Data* arg0, unk32 arg1)
     arg0->unk14 = 6;
     arg0->unk16 = 6;
     arg0->unk18 = 6;
-    arg0->unkE = 0;
+    arg0->unkC.parts.unkE = 0;
     arg0->unk1A = 0;
     arg0->unk24 = 0x81;
     arg0->unk25 = 0;
@@ -395,9 +421,66 @@ void sub_8052514(void)
     newPolyTable(&_gameData->unkB88, 0xA0, 0x20);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8052534.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/805253c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8052588.s");
+void sub_8052534(Sub8052140Data* arg0)
+{
+    arg0->unkC.word = 0xA000;
+}
+
+void sub_805253C(void)
+{
+    _gameData->tileState.unk0 = 0;
+    _gameData->tileState.unk4 = 0;
+    _gameData->tileState.unk8 = 0;
+    _gameData->tileState.unkC = 0;
+    __fastMemoryClearARM(0, (void*)(VRAM + 0x12000), 0x800);
+}
+
+void sub_8052588(
+    Sub8052140Data* arg0, SpriteEntry* sprite, BGLayer* layer, RiderBase* rider, s32 rows)
+{
+    s32 x;
+    s32 y;
+    s32 dx;
+    s32 dy;
+    s32 fxX;
+    s32 fxY;
+    s32 clearCount;
+    s32 newRows;
+    unk32 index;
+    RiderTileState* tileState;
+
+    x = (sprite->x + layer->field_C) >> 11;
+    y = (sprite->y + layer->field_10) >> 11;
+    dx = x - (layer->field_C >> 11);
+    dy = y - (layer->field_10 >> 11);
+    index = rider->unk1C0;
+    tileState = &_gameData->tileState;
+    fxX = (dx << 11) - (layer->field_C & 0x700);
+    fxY = (dy << 11) - (layer->field_10 & 0x700);
+    rows = (rows + 8 + ((sprite->y - fxY) >> 8)) >> 3;
+    arg0->unk8 = fxX;
+    arg0->unkC.word = fxY;
+    if (x != tileState->unk0 || y != tileState->unk4) {
+        clearCount = tileState->unkC - rows;
+        tileState->unk0 = x;
+        tileState->unk4 = y;
+        tileState->unkC = rows;
+        sub_805EF18(&_gameData->unk434, x, y, 8, rows, index - 1, (RiderTile*)(VRAM + 0x12000));
+        if (clearCount > 0) {
+            __fastMemoryClearARM(0, (void*)(VRAM + 0x12000 + (rows << 8)), clearCount << 8);
+        }
+    } else {
+        if (rows > tileState->unkC) {
+            newRows = rows - tileState->unkC;
+            sub_805EF18(&_gameData->unk434, x, tileState->unkC + y, 8, newRows, index - 1,
+                (RiderTile*)(VRAM + 0x12000 + (tileState->unkC << 8)));
+            tileState->unkC = rows;
+        } else if (rows < tileState->unkC) {
+            __fastMemoryClearARM(
+                0, (void*)(VRAM + 0x12000 + (rows << 8)), (tileState->unkC - rows) << 8);
+        }
+    }
+}
 
 void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
 {
@@ -574,11 +657,60 @@ void sub_8052978(unk32 arg0, void (*arg1)(void))
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8052a74.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8052ab8.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8052afc-nullsub_43.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8052b00-nullsub_44.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8052b04-nullsub_45.s");
+extern const unk8 Str_8729440[];
+extern const unk8 Str_8729458[];
+extern const unk8 Str_8729478[];
+extern const unk8 Str_872948C[];
+
+void sub_8052A74(void)
+{
+    unk32* ptr;
+    s32 count;
+
+    ptr = (unk32*)(CPU_WRAM_END - 0x60);
+    count = 0;
+    printf(Str_8729440);
+    do {
+        if (*ptr != 0) {
+            count = 0;
+        } else {
+            count++;
+        }
+        ptr--;
+    } while (count <= 0xF);
+    printf(Str_8729458, (unk32*)(CPU_WRAM_END - 0x60), ptr + 0x10);
+}
+
+void sub_8052AB8(void)
+{
+    unk32* ptr;
+    s32 count;
+
+    ptr = (unk32*)(CPU_WRAM_END - 0x140);
+    count = 0;
+    printf(Str_8729478);
+    do {
+        if (*ptr != 0) {
+            count = 0;
+        } else {
+            count++;
+        }
+        ptr--;
+    } while (count <= 0xF);
+    printf(Str_872948C, (unk32*)(CPU_WRAM_END - 0x140), ptr + 0x10);
+}
+
+void nullsub_43(void)
+{
+}
+
+void nullsub_44(void)
+{
+}
+
+void nullsub_45(void)
+{
+}
 
 void sub_8052B08(UnkMenuItem* oldItem, s32 old, UnkMenuItem* item, s32 current)
 {
