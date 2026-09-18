@@ -3,6 +3,18 @@
 
 #include "common.h"
 
+typedef struct MenuCallbackRecord MenuCallbackRecord;
+
+struct MenuCallbackRecord {
+    void (*unk0)(MenuCallbackRecord*);
+    unk32 unk4;
+    unk16 unk8;
+    unk8 padA[2];
+    unk32 unkC;
+};
+
+MenuCallbackRecord* sub_805AC28(void (*)(MenuCallbackRecord*), unk32, unk32, unk16);
+
 typedef struct MenuItemDescriptor {
     const u8* labels[5];
     unk32 flags; /* 0x14 */

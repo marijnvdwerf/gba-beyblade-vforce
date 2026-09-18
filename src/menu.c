@@ -5,13 +5,39 @@
 #include "include_asm.h"
 #include "memory.h"
 #include "spritetext.h"
+#include "system.h"
 #include "unsorted.h"
 
 extern const unk8 Str_8755370[];
+extern const unk8 Str_8755348[];
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805ac28.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805ac5c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805ac68.s");
+MenuCallbackRecord* sub_805AC28(
+    void (*arg0)(MenuCallbackRecord*), unk32 arg1, unk32 arg2, unk16 arg3)
+{
+    MenuCallbackRecord* data;
+
+    data = slowAllocate(sizeof(MenuCallbackRecord))->address;
+    if (data == NULL) {
+        nullsub_8(Str_8755348);
+        return NULL;
+    }
+    data->unkC = arg1;
+    data->unk0 = arg0;
+    data->unk4 = arg2;
+    data->unk8 = arg3;
+    return data;
+}
+
+void sub_805AC5C(MenuCallbackRecord* arg0)
+{
+    _unk3005DC0 = arg0;
+}
+
+void sub_805AC68(void)
+{
+    if (_unk3005DC0 != NULL)
+        _unk3005DC0->unk0(_unk3005DC0);
+}
 
 void sub_805AC80(MenuState* arg0, UnkMenuItem* arg1)
 {
@@ -174,7 +200,9 @@ void allocateMenuItems(MenuState* state, const MenuItemDescriptor* descriptor, u
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805afb8-nullsub_48.s");
+void nullsub_48(void)
+{
+}
 
 unk32 sub_805AFBC(MenuState* state, u8 arg1)
 {
@@ -251,11 +279,87 @@ s32 sub_805B050(MenuState* arg0, unk8 arg1)
     return value;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805b0bc.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805b0f0.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805b13c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805b1a0.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805b1e0.s");
+unk32 sub_805B0BC(MenuState* state)
+{
+    unk32 index;
+    UnkMenuItem* item;
+
+    index = state->unk24;
+    item = state->items + index;
+    if (state->unk34 != NULL)
+        state->unk34(item, index);
+    if (item->next != NULL)
+        item = item->next;
+    return state->unk24 | (item->value << 16);
+}
+
+void sub_805B0F0(MenuState* arg0, s32 arg1, unk8 arg2)
+{
+    UnkMenuItem* item;
+
+    item = arg0->items + arg1;
+    if (arg1 < 0 || arg1 >= arg0->itemCount)
+        return;
+    item->unk44 = arg2 == 0;
+    sub_806185C(item, arg2 != 0 ? arg0->unk2C : arg0->unk2D);
+}
+
+void sub_805B13C(MenuState* state, s32 selected)
+{
+    UnkMenuItem* item;
+    unk8 value;
+
+    if (selected == state->unk24) {
+        return;
+    }
+    item = state->items + selected;
+    if (selected < 0 || selected >= state->itemCount) {
+        return;
+    }
+    if (item->unk44 != 0) {
+        return;
+    }
+    sub_806185C(item, state->unk2E);
+    item = state->items + state->unk24;
+    if (item->unk44 != 0) {
+        value = state->unk2D;
+    } else {
+        value = state->unk2C;
+    }
+    sub_806185C(item, value);
+    state->unk24 = selected;
+}
+
+void sub_805B1A0(MenuState* arg0, s32 arg1, s32 arg2)
+{
+    UnkMenuItem* item;
+
+    item = arg0->items + arg1;
+    if (arg1 < 0 || arg1 >= arg0->itemCount)
+        return;
+    if (item->next != NULL)
+        item = item->next;
+    if (item->options == NULL)
+        return;
+    if (arg2 < 0 || arg2 >= item->count)
+        return;
+    item->value = arg2;
+    sub_805AC80(arg0, item);
+}
+
+s32 sub_805B1E0(MenuState* arg0, s32 arg1)
+{
+    UnkMenuItem* item;
+
+    item = arg0->items + arg1;
+    if (arg1 < 0 || arg1 >= arg0->itemCount)
+        return -1;
+    if (item->next != NULL)
+        item = item->next;
+    if (item->options == NULL)
+        return -1;
+    return item->value;
+}
 
 s32 sub_805B210(MenuState* arg0)
 {

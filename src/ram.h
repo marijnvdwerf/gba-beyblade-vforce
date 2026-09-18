@@ -25,6 +25,8 @@ extern s32 _unk30000EC;
 extern s32 _unk30000F0;
 extern unk32 _unk30000F4;
 
+struct MenuCallbackRecord;
+extern struct MenuCallbackRecord* _unk3005DC0;
 extern MultiPlayerState* _unk3005DC4;
 extern s32 _3000000;
 extern s32 _3000004;

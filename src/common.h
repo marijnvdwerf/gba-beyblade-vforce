@@ -212,7 +212,7 @@ struct UnkMenuItem {
 
     const u8* unk30;
     unk32 value;
-    unk32 count;
+    s32 count;
     unk32 flags;
     const MenuOptionSet* options;
     unk8 unk44; /* 0x44 */

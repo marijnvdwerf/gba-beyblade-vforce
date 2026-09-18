@@ -30,6 +30,4 @@ unk32 sub_8051780(unk32);
 
 extern FrontendState _unk3000650;
 
-void sub_805AC28(unk32, unk32, unk32, unk16);
-
 #endif

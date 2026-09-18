@@ -6,6 +6,7 @@
 #include "battery.h"
 #include "common.h"
 #include "keystate.h"
+#include "menu.h"
 #include "multiplayer.h"
 #include "sound.h"
 #include "sprite.h"

@@ -3,7 +3,7 @@
 #include "sound.h"
 #include "sprite.h"
 
-void* _unk3005DC0 = NULL;
+struct MenuCallbackRecord* _unk3005DC0 = NULL;
 MultiPlayerState* _unk3005DC4 = NULL;
 void* _unk3005DC8 = NULL;
 void* _SpriteVramFreeList = NULL;
