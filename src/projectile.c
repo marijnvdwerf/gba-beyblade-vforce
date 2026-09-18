@@ -134,7 +134,24 @@ void sub_804C354(ProjectileSystem* arg0, unk32 arg1, unk32 arg2, unk32 arg3)
     arg0->unk24 = arg3;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804c35c.s");
+void sub_804C35C(ProjectileSystem* system, s32 x, s32 y, unk32 z)
+{
+    ProjectileEntry* entry;
+    s32 count;
+
+    count = system->count;
+    entry = system->entries;
+    while (count-- != 0) {
+        entry->x = x;
+        entry->y = y;
+        entry->z = z + (count << 11);
+        entry->velocityX = 0x400;
+        entry->velocityY = 0;
+        entry->velocityZ = 0;
+        sub_804ABD8(entry->trail, x - y, ((x + y) >> 1) - entry->z);
+        entry++;
+    }
+}
 
 void sub_804C3D4(ProjectileSystem* system, unk32 xOffset, unk32 yOffset, unk32 zOffset,
     const ProjectileTemplate* source)
