@@ -9,7 +9,20 @@
 #include "layer.h"
 #include "system.h"
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805e878.s");
+void sub_805E878(CameraState* camera, const ScreenLayout* level, unk16 mode)
+{
+    CameraLayerOffsets offsets;
+
+    offsets.layers[0].x = 0;
+    offsets.layers[0].y = 0;
+    offsets.layers[1].x = 0;
+    offsets.layers[1].y = 0;
+    offsets.layers[2].x = 0;
+    offsets.layers[2].y = 0;
+    offsets.layers[3].x = 0;
+    offsets.layers[3].y = 0;
+    sub_805E8D8(camera, level, mode, &offsets);
+}
 
 void sub_805E8A0(
     CameraState* camera, const ScreenLayout* arg1, unk16 arg2, CameraLayerOffsets* arg3)
@@ -17,7 +30,20 @@ void sub_805E8A0(
     sub_805E8D8(camera, arg1, arg2, arg3);
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805e8b0.s");
+void sub_805E8B0(CameraState* camera, const ScreenLayout* level, unk16 mode, unk32 x, unk32 y)
+{
+    CameraLayerOffsets offsets;
+
+    offsets.layers[0].x = x;
+    offsets.layers[0].y = y;
+    offsets.layers[1].x = x;
+    offsets.layers[1].y = y;
+    offsets.layers[2].x = x;
+    offsets.layers[2].y = y;
+    offsets.layers[3].x = x;
+    offsets.layers[3].y = y;
+    sub_805E8D8(camera, level, mode, &offsets);
+}
 
 void sub_805E8D8(
     CameraState* camera, const ScreenLayout* level, unk16 mode, CameraLayerOffsets* offsets)
@@ -189,8 +215,29 @@ void sub_805EBCC(CameraState* camera)
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805ed60.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805ee78.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805eea4.s");
+
+void sub_805EE78(CameraState* camera, Actor* actor)
+{
+    camera->unk224 = actor;
+    if (camera->unk348 == NULL) {
+        sub_805ED60(camera, actor);
+    } else {
+        camera->unk348(actor, camera);
+    }
+}
+
+s16 sub_805EEA4(const ScreenLayout* layouts, unk16 value, s16 count)
+{
+    s16 i;
+
+    for (i = 0; i < count; i++) {
+        if (value == layouts->unk0) {
+            return i;
+        }
+        layouts++;
+    }
+    return -1;
+}
 
 LevelGeometryAddresses* sub_805EEE0(CameraState* arg0)
 {

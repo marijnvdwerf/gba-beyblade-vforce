@@ -1013,7 +1013,8 @@ typedef struct LevelDesignLayer {
 } LevelDesignLayer;
 
 struct ScreenLayout {
-    unk8 pad0[0x14];
+    unk32 unk0;
+    unk8 pad4[0x10];
     LevelDesignLayer layers[4];
     unk8 unk74_0 : 2;
     unk8 unk74_2 : 2;

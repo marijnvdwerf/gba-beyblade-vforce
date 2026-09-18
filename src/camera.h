@@ -19,7 +19,7 @@ typedef struct CameraState {
     Actor* unk224;
     LevelGeometryAddresses geometry;
     void (*callback)(Actor*, struct CameraState*);
-    unk32 unk348;
+    void (*unk348)(Actor*, struct CameraState*);
     unk8 pad34C[8];
     s8 unk354;
     s8 unk355;
@@ -39,6 +39,8 @@ CameraState* nullsub_12(CameraState*);
 void sub_805EADC(CameraState*);
 void sub_805EB00(CameraState*);
 void sub_805EBCC(CameraState*);
+void sub_805ED60(CameraState*, Actor*);
+s16 sub_805EEA4(const ScreenLayout*, unk16, s16);
 LevelGeometryAddresses* sub_805EEE0(CameraState*);
 void sub_805E8D8(CameraState*, const ScreenLayout*, unk16, CameraLayerOffsets*);
 void sub_805E8A0(CameraState*, const ScreenLayout*, unk16, CameraLayerOffsets*);
