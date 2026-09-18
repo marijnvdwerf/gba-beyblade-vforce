@@ -115,30 +115,42 @@ void sub_8063220(Palette* palette, unk32 red, unk32 green, unk32 blue)
                 red2 += (intensity * (redTarget - red2)) >> 0xA;
                 green2 += (intensity * (greenTarget - green2)) >> 0xA;
                 blue2 += (intensity * (blueTarget - blue2)) >> 0xA;
-                if (redValue > 0x1F)
+                if (redValue > 0x1F) {
                     redValue = 0x1F;
-                if (greenValue > 0x1F)
+                }
+                if (greenValue > 0x1F) {
                     greenValue = 0x1F;
-                if (blueValue > 0x1F)
+                }
+                if (blueValue > 0x1F) {
                     blueValue = 0x1F;
-                if (red2 > 0x1F)
+                }
+                if (red2 > 0x1F) {
                     red2 = 0x1F;
-                if (green2 > 0x1F)
+                }
+                if (green2 > 0x1F) {
                     green2 = 0x1F;
-                if (blue2 > 0x1F)
+                }
+                if (blue2 > 0x1F) {
                     blue2 = 0x1F;
-                if (redValue < 0)
+                }
+                if (redValue < 0) {
                     redValue = 0;
-                if (greenValue < 0)
+                }
+                if (greenValue < 0) {
                     greenValue = 0;
-                if (blueValue < 0)
+                }
+                if (blueValue < 0) {
                     blueValue = 0;
-                if (red2 < 0)
+                }
+                if (red2 < 0) {
                     red2 = 0;
-                if (green2 < 0)
+                }
+                if (green2 < 0) {
                     green2 = 0;
-                if (blue2 < 0)
+                }
+                if (blue2 < 0) {
                     blue2 = 0;
+                }
                 *destination++ = redValue | (greenValue << 5) | (blueValue << 0xA) | (red2 << 0x10)
                     | (green2 << 0x15) | (blue2 << 0x1A);
                 source4++;

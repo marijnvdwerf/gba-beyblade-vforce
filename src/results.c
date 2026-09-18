@@ -72,10 +72,11 @@ void sub_8052B24(void)
     sub_8057158(&record2, _807897c);
 
     if (sub_8051780(4) != 0 && _gameData->unk1618 != 0) {
-        if (sub_8060040() != 0)
+        if (sub_8060040() != 0) {
             mode = 1;
-        else
+        } else {
             mode = 2;
+        }
     } else {
         mode = 0;
     }
@@ -126,8 +127,9 @@ void sub_8052B24(void)
             riderPacket = &_gameData->unk15D4[1 - isMultiplayer()];
             packetSelection = sub_806014C(&_gameData->unk15D4[0], &_gameData->unk15C4, 1);
             sub_805000C(packet, &_gameData->base);
-            if (sub_8050114(riderPacket) == 0)
+            if (sub_8050114(riderPacket) == 0) {
                 sub_80603E8();
+            }
             if (packetSelection == 0 && sub_806008C() != 0) {
                 _gameData->unk1618 = packetSelection;
                 _gameData->unk1619 = 1;
@@ -158,14 +160,16 @@ void sub_8052B24(void)
             }
         }
 
-        if (mode == 2)
+        if (mode == 2) {
             _unk3005DA0 = 0;
-        else
+        } else {
             updateKeyState();
+        }
 
         fade += fadeStep;
-        if (fade < 0)
+        if (fade < 0) {
             fade = 0;
+        }
         if (fade >> 3 > 0xF) {
             fade = 0x78;
             fadeStep = 0;
@@ -200,8 +204,9 @@ void sub_8052B24(void)
             sub_8057164(&record1);
             if (sub_80571D0(&record1) != 0) {
                 s32 i;
-                for (i = 0; i < _gameData->unk430; i++)
+                for (i = 0; i < _gameData->unk430; i++) {
                     sub_804C0C0(&_gameData->unk42C[i]);
+                }
             }
             sub_8057164(&record2);
             if (sub_80571D0(&record2) != 0) {
@@ -238,8 +243,9 @@ void sub_8052B24(void)
             item = menu->items;
             sub_8061844(&font, item->text.x >> 8, (item->text.y >> 8) - 0x14);
             while (count--) {
-                if (item->text.ptr2C != NULL)
+                if (item->text.ptr2C != NULL) {
                     sub_8061880(&item->text, -0x10, -8);
+                }
                 item++;
             }
 
@@ -260,23 +266,27 @@ void sub_8052B24(void)
                 leftX = sub_8061D54(&item->text);
                 current = sprite0->x + 0x1400;
                 delta = leftX - current;
-                if (delta != 0)
+                if (delta != 0) {
                     sprite0->x += sub_80491E0(delta, 0x1C) << 8;
+                }
                 leftY = sub_8061E44(&item->text);
                 current = sprite0->y + 0x400;
                 delta = leftY - current;
-                if (delta != 0)
+                if (delta != 0) {
                     sprite0->y += sub_80491E0(delta, 4) << 8;
+                }
                 rightX = sub_8061E08(&item->text);
                 current = sprite1->x - 0x400;
                 delta = rightX - current;
-                if (delta != 0)
+                if (delta != 0) {
                     sprite1->x += sub_80491E0(delta, 0x1C) << 8;
+                }
                 rightY = sub_8061E44(&item->text);
                 current = sprite1->y + 0x400;
                 delta = rightY - current;
-                if (delta != 0)
+                if (delta != 0) {
                     sprite1->y += sub_80491E0(delta, 4) << 8;
+                }
                 offset = Unk_874CC3C[animationOffset];
                 offset *= 2;
                 offset &= 0xFFFFFF00;
@@ -289,24 +299,29 @@ void sub_8052B24(void)
         if (done == 0 && state->items->text.x == target) {
             if (_gameData->unk1618 == 0 || (_gameData->unk161A != 0 && sub_8060040() != 0)) {
                 s16 selection = sub_805B240(state);
-                if ((_unk3005DA0 & 0x40) != 0)
+                if ((_unk3005DA0 & 0x40) != 0) {
                     sub_805AFBC(state, 0);
-                if ((_unk3005DA0 & 0x80) != 0)
+                }
+                if ((_unk3005DA0 & 0x80) != 0) {
                     sub_805AFBC(state, 1);
+                }
                 if ((_unk3005DA0 & 1) != 0) {
-                    if (selection == 0)
+                    if (selection == 0) {
                         done = 1;
+                    }
                     if (selection == 1) {
                         done = 1;
                         sub_804AF5C();
                         sub_804AE8C();
                         sub_8053E18(1);
-                        if (_gameData->unk1618 != 0)
+                        if (_gameData->unk1618 != 0) {
                             sub_8050184(packet, 4);
+                        }
                     }
                 }
-                if ((_unk3005DA0 & 8) != 0)
+                if ((_unk3005DA0 & 8) != 0) {
                     done = 1;
+                }
             }
             if (done != 0) {
                 if (_gameData->unk1618 != 0) {

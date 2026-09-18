@@ -492,8 +492,9 @@ void sub_804F84C(u8 arg0)
     GameData* base;
 
     base = _gameData;
-    if (arg0 != 0)
+    if (arg0 != 0) {
         base->levelHud.unk130 = 0x280;
-    else
+    } else {
         base->levelHud.unk130 = -0x3000;
+    }
 }

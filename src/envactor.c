@@ -368,8 +368,9 @@ void updateEnvirenmentActors(void)
     count = _gameData->environmentActors.actorCount;
     actor = _gameData->environmentActors.actorContainer;
     geometry = &_gameData->unk434.geometry;
-    if (count == 0)
+    if (count == 0) {
         return;
+    }
     count--;
     do {
         lineIndex = actor->unkB4.lineIndex;
@@ -395,8 +396,9 @@ void updateEnvirenmentActors(void)
         }
         if (object->unk3C != 0) {
             object->unk3C--;
-            if (object->unk3C == 0)
+            if (object->unk3C == 0) {
                 sub_8054278(geometry, object->unk3E);
+            }
         }
         oldX = actor->x;
         oldY = actor->y;

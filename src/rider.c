@@ -190,8 +190,9 @@ void sub_804B4FC(LevelGeometryAddresses* target, RiderState* item)
             do {
                 RiderBase* rider = &_gameData->unk42C[i];
 
-                if ((rider->unk3C8 & 2) != 0 || rider->unk210 != 0 || RiderHasFlag(rider, 2) != 0)
+                if ((rider->unk3C8 & 2) != 0 || rider->unk210 != 0 || RiderHasFlag(rider, 2) != 0) {
                     sub_804B8F0(rider, target);
+                }
                 i++;
             } while (i < _gameData->unk430);
         }
@@ -209,10 +210,11 @@ void sub_804B5C0(void)
     s32 i;
 
     for (i = 0; i < _gameData->unk430 + 1; i++) {
-        if (i != 0)
+        if (i != 0) {
             rider = &_gameData->unk42C[i - 1];
-        else
+        } else {
             rider = &_gameData->base;
+        }
         sub_804C098(rider);
     }
 }
@@ -343,14 +345,16 @@ void sub_804B8F0(RiderBase* rider, LevelGeometryAddresses* target)
 
     actor = &rider->unk238;
     quadTree = &_gameData->unk7A4;
-    if ((rider->unk3CC & 4) != 0)
+    if ((rider->unk3CC & 4) != 0) {
         return;
+    }
     actor->unk3B = 0;
     rider->unk2FC.unk3B = 0;
     rider->unk1B4 = -0x40000;
     sub_804D104(rider);
-    if (RiderHasFlag(rider, 0x400) == 0 && RiderHasFlag(rider, 0x200) == 0)
+    if (RiderHasFlag(rider, 0x400) == 0 && RiderHasFlag(rider, 0x200) == 0) {
         sub_804CB08(rider, actor);
+    }
     sub_804D110(rider, &rider->unk238);
     x = actor->x >> 5;
     y = actor->y >> 5;
@@ -361,18 +365,20 @@ void sub_804B8F0(RiderBase* rider, LevelGeometryAddresses* target)
         (void)*(vu16*)REG_VCOUNT;
         if (node != NULL) {
             rider->unk11C = sub_805C9A4(&rider->unk238, target, 0, 0, node);
-            if (node2 != NULL && node2 != node)
+            if (node2 != NULL && node2 != node) {
                 rider->unk11C = sub_805C9A4(&rider->unk238, target, 0, 0, node2);
+            }
         }
         if (quadTree->unk48 != 0) {
             unk32* entries[quadTree->unk48];
 
             for (i = 0; i < quadTree->unk48; i++) {
                 object = GetStruct4(quadTree->unk4C[i]);
-                if (object == NULL || object->actor == NULL)
+                if (object == NULL || object->actor == NULL) {
                     entries[i] = 0;
-                else
+                } else {
                     entries[i] = &object->unk40;
+                }
             }
             rider->unk11C
                 += sub_805CEB8(&rider->unk238, target, quadTree->unk4C, quadTree->unk48, entries);
@@ -391,20 +397,24 @@ void sub_804B8F0(RiderBase* rider, LevelGeometryAddresses* target)
     sub_80584B8(actor);
     rider->unk2FC.x = rider->unk238.x;
     rider->unk2FC.y = rider->unk238.y;
-    if (actor->unk84 == -1)
+    if (actor->unk84 == -1) {
         rider->unk2FC.z = riderBase->unk1B4;
-    else
+    } else {
         rider->unk2FC.z = -0x10000;
+    }
     sub_80584B8(&rider->unk2FC);
     if (RiderHasFlag(riderBase, 2) == 0) {
         angle = 0x80 - riderBase->unk62;
-        if (angle < 0)
+        if (angle < 0) {
             angle = -angle;
+        }
         if (rider->unk3E8 != 0 && rider->unk208 > 0x100 && (rider->unk3CC & 8) == 0) {
-            if (((_unk3000E30[0] >> 4) & 3) == 0)
+            if (((_unk3000E30[0] >> 4) & 3) == 0) {
                 sub_804E594(&rider->unk3EC, -0x40, 0x12C, 0x46, 0x78, 2);
-            if (riderBase->unk19C <= 3 && ((_unk3000E30[0] >> 4) & 3) == 1)
+            }
+            if (riderBase->unk19C <= 3 && ((_unk3000E30[0] >> 4) & 3) == 1) {
                 sub_804E594(&rider->unk3EC, 0x40, 0x200, 0x46, 0x78, 2);
+            }
         }
     }
 }
@@ -433,8 +443,9 @@ void renderRider(RiderBase* rider)
             sub_8060A94(rider->unk2FC.unkB8);
             rider->unk2FC.unkB8 = NULL;
         }
-        if (rider->unk3E8 == 0)
+        if (rider->unk3E8 == 0) {
             return;
+        }
         sub_804EA88(&rider->unk3EC);
         return;
     }
@@ -457,8 +468,9 @@ void renderRider(RiderBase* rider)
         layer = 0;
         if (RiderHasFlag(rider, 8) != 0) {
             layer = Unk_874CC3C[(unk8)((sub_8057C40() >> 4) * 4)] * 0x10;
-            if (layer > 0)
+            if (layer > 0) {
                 layer = -layer;
+            }
         }
         rider->unk3C4->x = (screenX << 8) - 0x700;
         rider->unk3C4->y = (screenY << 8) - 0x1C00 + layer;
@@ -480,24 +492,29 @@ void renderRider(RiderBase* rider)
     } else if (rider->unk3C0 != NULL) {
         sub_804C098(rider);
     }
-    if (rider->unk3C0 != NULL)
+    if (rider->unk3C0 != NULL) {
         sub_804BF3C(rider);
+    }
     renderActor2(&rider->unk238);
     if (actor->unkB8 != NULL) {
         actor->unkB8->oam_attr_2 = (actor->unkB8->oam_attr_2 & 0xFFF) | (rider->unk3CF << 12);
-        if (actor->unkB8 != NULL)
+        if (actor->unkB8 != NULL) {
             rider->unk2FC.unkBC = actor->unkB8->var22 + 2;
+        }
     }
     renderActor2(&rider->unk2FC);
     if (RiderHasFlag(rider, 4) != 0 || actor->z < 0) {
-        if (actor->z >= 0)
+        if (actor->z >= 0) {
             mode = rider->unk1C0;
-        else
+        } else {
             mode = 3;
-        if (actor->unkB8 != NULL)
+        }
+        if (actor->unkB8 != NULL) {
             actor->unkB8->oam_attr_2 = (actor->unkB8->oam_attr_2 & 0xF3FF) | ((mode & 3) << 10);
-        if (actor2->unkB8 != NULL)
+        }
+        if (actor2->unkB8 != NULL) {
             actor2->unkB8->oam_attr_2 = (actor2->unkB8->oam_attr_2 & 0xF3FF) | ((mode & 3) << 10);
+        }
     }
     if (rider->unk3E8 != 0) {
         sub_804E560(&rider->unk3EC, actor->x, actor->y, actor->z);
@@ -586,8 +603,9 @@ void sub_804C098(RiderBase* rider)
 void sub_804C0C0(RiderBase* rider)
 {
     rider->unk3CC |= 4;
-    if (rider->unk3C4 != NULL)
+    if (rider->unk3C4 != NULL) {
         sub_8060A94(rider->unk3C4);
+    }
     rider->unk3C4 = NULL;
 }
 

@@ -62,8 +62,9 @@ unk32 sub_8057878(s32 arg0, s32 arg1)
     s32 value;
 
     absArg1 = arg1;
-    if (absArg1 < 0)
+    if (absArg1 < 0) {
         absArg1 = -absArg1;
+    }
     if (absArg1 <= 0x80) {
         angle = -(arg1 >> 1);
     } else {
@@ -71,12 +72,14 @@ unk32 sub_8057878(s32 arg0, s32 arg1)
         arg0 = arg1;
     }
     value = Unk_874CEBC[(s16)angle + 0x80];
-    if (arg0 < 0)
+    if (arg0 < 0) {
         value = 0xFF - value;
+    }
     if (absArg1 > 0x80) {
         value += 0x40;
-        if (value > 0xFF)
+        if (value > 0xFF) {
             value -= 0x100;
+        }
     }
     return value;
 }

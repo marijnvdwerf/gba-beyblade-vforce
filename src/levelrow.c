@@ -110,19 +110,24 @@ void sub_804A280(FrontendState* arg0)
     unk32 index;
     const FrontendObject* entry;
 
-    if (arg0->unk0 == arg0->unk4)
+    if (arg0->unk0 == arg0->unk4) {
         return;
+    }
 
     index = arg0->unk4;
     entry = &_8069FC8[index];
 
-    if (entry->unk4->unk0 == _gameData->unkC26)
+    if (entry->unk4->unk0 == _gameData->unkC26) {
         return;
-    if (arg0->transition.unk586 != arg0->transition.value)
+    }
+    if (arg0->transition.unk586 != arg0->transition.value) {
         return;
+    }
 
-    if (_gameData->unkC26 != -1)
+    if (_gameData->unkC26 != -1) {
         sub_804AF5C();
-    if (index != -1 && entry->unk4->unk0 != -1)
+    }
+    if (index != -1 && entry->unk4->unk0 != -1) {
         sub_804AF04(entry->unk4->unk0);
+    }
 }

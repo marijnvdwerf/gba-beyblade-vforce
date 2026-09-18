@@ -806,27 +806,31 @@ void sub_8061078(SpriteEntry* sprite, unk16 frame)
     SpriteEntry* previous;
 
     value = frame;
-    if (sprite->var22 == value)
+    if (sprite->var22 == value) {
         return;
+    }
     previous = sprite->prev;
     if (previous != NULL) {
         previous->next = sprite->next;
     } else {
         _unk3005DE4 = sprite->next;
     }
-    if (sprite->next != NULL)
+    if (sprite->next != NULL) {
         sprite->next->prev = sprite->prev;
+    }
     sprite->var22 = value;
     previous = sub_80609C4(_unk3005DE4, value);
     if (previous == NULL) {
-        if (_unk3005DE4 != NULL)
+        if (_unk3005DE4 != NULL) {
             _unk3005DE4->prev = sprite;
+        }
         sprite->next = _unk3005DE4;
         sprite->prev = previous;
         _unk3005DE4 = sprite;
     } else {
-        if (previous->next != NULL)
+        if (previous->next != NULL) {
             previous->next->prev = sprite;
+        }
         sprite->next = previous->next;
         sprite->prev = previous;
         previous->next = sprite;

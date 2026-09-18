@@ -152,8 +152,9 @@ unk32 sub_805BAC0(LevelGeometryAddresses* geometry, GeometryLine* line)
 
     // TODO: figure out how to remove cast (line - geometry->unkC gives asr #5)
     index = (unk32)((unk8*)line - (unk8*)geometry->unkC) >> 5;
-    if (index < geometry->unk0->lineCount)
+    if (index < geometry->unk0->lineCount) {
         return index;
+    }
     return -1;
 }
 
@@ -190,12 +191,14 @@ LineMetaObject* sub_805BAFC(LevelGeometryAddresses* arg0, LineMetadata* metadata
 
     index = 0;
     object = metadata->objects;
-    if (metadata == NULL)
+    if (metadata == NULL) {
         return NULL;
+    }
     count = metadata->count;
     for (; index < count; index++) {
-        if (object->id == id)
+        if (object->id == id) {
             return object;
+        }
         object = (LineMetaObject*)((unk8*)object + object->size);
     }
     return NULL;
@@ -291,14 +294,18 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
     count = geometry->unk0->pointCount;
     if (count > 0) {
         do {
-            if (point->x < minX)
+            if (point->x < minX) {
                 minX = point->x;
-            if (point->y < minY)
+            }
+            if (point->y < minY) {
                 minY = point->y;
-            if (point->x > maxX)
+            }
+            if (point->x > maxX) {
                 maxX = point->x;
-            if (point->y > maxY)
+            }
+            if (point->y > maxY) {
                 maxY = point->y;
+            }
             point++;
             count--;
         } while (count != 0);
@@ -340,10 +347,12 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
                 quadTree, quadTree->unk14[2], minX, centerY, centerX, maxY, arg6);
             quadTree->unk14[3] = initQuadTreeNode(
                 quadTree, quadTree->unk14[3], centerX, centerY, maxX, maxY, arg6);
-            if (quadTree->unk3A >= quadTree->unk40)
+            if (quadTree->unk3A >= quadTree->unk40) {
                 nullsub_10(Str_87554B4, quadTree->unk40, Str_87554F0, quadTree->unk3A);
-            if (quadTree->unk38 >= quadTree->unk3E)
+            }
+            if (quadTree->unk38 >= quadTree->unk3E) {
                 nullsub_9(Str_87554F4, quadTree->unk38);
+            }
             allocateDynamicBoundingAreas(quadTree, geometry);
             quadTree->unk42 = (quadTree->unk40 - quadTree->unk3A) >> 1;
             sub_805BDBC(quadTree, geometry);
@@ -682,10 +691,12 @@ QuadTreeNode* GetQuadTreeNodeForPos(QuadTree* quadTree, s32 x, s32 y)
     maxY = quadTree->unkC;
     midX = minX + ((maxX - minX) >> 1);
     midY = minY + ((maxY - minY) >> 1);
-    if (x > midX)
+    if (x > midX) {
         quadrant = 1;
-    if (y > midY)
+    }
+    if (y > midY) {
         quadrant |= 2;
+    }
     switch (quadrant) {
     case 0:
         node = quadTree->unk14[0];
@@ -702,8 +713,9 @@ QuadTreeNode* GetQuadTreeNodeForPos(QuadTree* quadTree, s32 x, s32 y)
     }
     while (node != NULL) {
         current = node;
-        if (node->unk28 != 0)
+        if (node->unk28 != 0) {
             break;
+        }
         minX = node->unk18;
         maxX = node->unk20;
         minY = node->unk1C;
@@ -711,10 +723,12 @@ QuadTreeNode* GetQuadTreeNodeForPos(QuadTree* quadTree, s32 x, s32 y)
         midX = minX + ((maxX - minX) >> 1);
         midY = minY + ((maxY - minY) >> 1);
         quadrant = 0;
-        if (x > midX)
+        if (x > midX) {
             quadrant = 1;
-        if (y > midY)
+        }
+        if (y > midY) {
             quadrant |= 2;
+        }
         switch (quadrant) {
         case 0:
             node = current->unk0;
@@ -858,19 +872,22 @@ unk32 actor_805C48C(
         rectMinX = actor->x + (actor->unkA8 << 8);
         initialMaxX = actor->x + (actor->unkAC << 8);
         if (initialMaxX < lineMinX || lineMaxX < rectMinX) {
-            if (broadY0 < lineMinY || lineMaxY < broadY1)
+            if (broadY0 < lineMinY || lineMaxY < broadY1) {
                 continue;
+            }
         }
         if (initialMaxX > lineMinX && lineMaxX > rectMinX) {
             overlapMask |= 1;
             if (rectMinY <= lineMinY && rectMaxY >= lineMinY && (lineFlags & 3) != 0) {
                 if (callbackDone == 0) {
-                    if (actor->unk44 > 0)
+                    if (actor->unk44 > 0) {
                         callbackMask |= 1;
-                    else
+                    } else {
                         callbackMask |= 2;
-                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0)
+                    }
+                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0) {
                         lineFlags = 0;
+                    }
                     callbackDone = 1;
                 }
                 if (actor->unk44 > 0) {
@@ -889,12 +906,14 @@ unk32 actor_805C48C(
             }
             if (rectMinY <= lineMaxY && rectMaxY >= lineMaxY && (lineFlags & 0xC) != 0) {
                 if (callbackDone == 0) {
-                    if (actor->unk44 > 0)
+                    if (actor->unk44 > 0) {
                         callbackMask |= 4;
-                    else
+                    } else {
                         callbackMask |= 8;
-                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0)
+                    }
+                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0) {
                         lineFlags = 0;
+                    }
                     callbackDone = 1;
                 }
                 if (actor->unk44 > 0) {
@@ -923,12 +942,14 @@ unk32 actor_805C48C(
             overlapMask |= 2;
             if (rectMinX <= lineMinX && rectMaxX >= lineMinX && (lineFlags & 0x30) != 0) {
                 if (callbackDone == 0) {
-                    if (actor->unk40 > 0)
+                    if (actor->unk40 > 0) {
                         callbackMask |= 0x10;
-                    else
+                    } else {
                         callbackMask |= 0x20;
-                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0)
+                    }
+                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0) {
                         lineFlags = 0;
+                    }
                     callbackDone = 1;
                 }
                 if (actor->unk40 > 0) {
@@ -945,12 +966,14 @@ unk32 actor_805C48C(
             }
             if (rectMinX <= lineMaxX && rectMaxX >= lineMaxX && (lineFlags & 0xC0) != 0) {
                 if (callbackDone == 0) {
-                    if (actor->unk40 > 0)
+                    if (actor->unk40 > 0) {
                         callbackMask |= 0x40;
-                    else
+                    } else {
                         callbackMask |= 0x80;
-                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0)
+                    }
+                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0) {
                         lineFlags = 0;
+                    }
                     callbackDone = 1;
                 }
                 if (actor->unk40 > 0) {
@@ -972,25 +995,29 @@ unk32 actor_805C48C(
                 count++;
             }
             if (actor->callbacks.unk4 != NULL) {
-                if (actor->callbacks.unk4->unk4 != NULL)
+                if (actor->callbacks.unk4->unk4 != NULL) {
                     actor->callbacks.unk4->unk4(actor, geometry, line);
+                }
             }
         }
         if ((responseFlags & 1) != 0) {
             temp = (line->unkD * actor->unk44) >> 7;
-            if ((temp < 0 ? -temp : temp) <= 0xFF)
+            if ((temp < 0 ? -temp : temp) <= 0xFF) {
                 temp = 0;
+            }
             actor->unk44 = -temp;
         }
         if ((responseFlags & 2) != 0) {
             temp = (line->unkD * actor->unk40) >> 7;
-            if ((temp < 0 ? -temp : temp) <= 0xFF)
+            if ((temp < 0 ? -temp : temp) <= 0xFF) {
                 temp = 0;
+            }
             actor->unk40 = -temp;
         }
         if (responseFlags != 0 && actor->callbacks.unk4 != NULL) {
-            if (actor->callbacks.unk4->unk0 != NULL)
+            if (actor->callbacks.unk4->unk0 != NULL) {
                 actor->callbacks.unk4->unk0(actor, geometry, line, collisionMask);
+            }
         }
     }
     return count;
@@ -1078,19 +1105,22 @@ unk32 sub_805C9A4(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine**
         rectMinX = actor->x + (actor->unkA8 << 8);
         initialMaxX = actor->x + (actor->unkAC << 8);
         if (initialMaxX < lineMinX || lineMaxX < rectMinX) {
-            if (broadY0 < lineMinY || lineMaxY < broadY1)
+            if (broadY0 < lineMinY || lineMaxY < broadY1) {
                 continue;
+            }
         }
         if (initialMaxX > lineMinX && lineMaxX > rectMinX) {
             overlapMask |= 1;
             if (rectMinY <= lineMinY && rectMaxY >= lineMinY && (lineFlags & 3) != 0) {
                 if (callbackDone == 0) {
-                    if (actor->unk44 > 0)
+                    if (actor->unk44 > 0) {
                         callbackMask |= 1;
-                    else
+                    } else {
                         callbackMask |= 2;
-                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0)
+                    }
+                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0) {
                         lineFlags = 0;
+                    }
                     callbackDone = 1;
                 }
                 if (actor->unk44 > 0) {
@@ -1109,12 +1139,14 @@ unk32 sub_805C9A4(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine**
             }
             if (rectMinY <= lineMaxY && rectMaxY >= lineMaxY && (lineFlags & 0xC) != 0) {
                 if (callbackDone == 0) {
-                    if (actor->unk44 > 0)
+                    if (actor->unk44 > 0) {
                         callbackMask |= 4;
-                    else
+                    } else {
                         callbackMask |= 8;
-                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0)
+                    }
+                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0) {
                         lineFlags = 0;
+                    }
                     callbackDone = 1;
                 }
                 if (actor->unk44 > 0) {
@@ -1143,12 +1175,14 @@ unk32 sub_805C9A4(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine**
             overlapMask |= 2;
             if (rectMinX <= lineMinX && rectMaxX >= lineMinX && (lineFlags & 0x30) != 0) {
                 if (callbackDone == 0) {
-                    if (actor->unk40 > 0)
+                    if (actor->unk40 > 0) {
                         callbackMask |= 0x10;
-                    else
+                    } else {
                         callbackMask |= 0x20;
-                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0)
+                    }
+                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0) {
                         lineFlags = 0;
+                    }
                     callbackDone = 1;
                 }
                 if (actor->unk40 > 0) {
@@ -1165,12 +1199,14 @@ unk32 sub_805C9A4(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine**
             }
             if (rectMinX <= lineMaxX && rectMaxX >= lineMaxX && (lineFlags & 0xC0) != 0) {
                 if (callbackDone == 0) {
-                    if (actor->unk40 > 0)
+                    if (actor->unk40 > 0) {
                         callbackMask |= 0x40;
-                    else
+                    } else {
                         callbackMask |= 0x80;
-                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0)
+                    }
+                    if (call_rider_94_8(actor, geometry, line, callbackMask) == 0) {
                         lineFlags = 0;
+                    }
                     callbackDone = 1;
                 }
                 if (actor->unk40 > 0) {
@@ -1192,25 +1228,29 @@ unk32 sub_805C9A4(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine**
                 count++;
             }
             if (actor->callbacks.unk4 != NULL) {
-                if (actor->callbacks.unk4->unk4 != NULL)
+                if (actor->callbacks.unk4->unk4 != NULL) {
                     actor->callbacks.unk4->unk4(actor, geometry, line);
+                }
             }
         }
         if ((responseFlags & 1) != 0) {
             temp = (line->unkD * actor->unk44) >> 7;
-            if ((temp < 0 ? -temp : temp) <= 0xFF)
+            if ((temp < 0 ? -temp : temp) <= 0xFF) {
                 temp = 0;
+            }
             actor->unk44 = -temp;
         }
         if ((responseFlags & 2) != 0) {
             temp = (line->unkD * actor->unk40) >> 7;
-            if ((temp < 0 ? -temp : temp) <= 0xFF)
+            if ((temp < 0 ? -temp : temp) <= 0xFF) {
                 temp = 0;
+            }
             actor->unk40 = -temp;
         }
         if (responseFlags != 0 && actor->callbacks.unk4 != NULL) {
-            if (actor->callbacks.unk4->unk0 != NULL)
+            if (actor->callbacks.unk4->unk0 != NULL) {
                 actor->callbacks.unk4->unk0(actor, geometry, line, collisionMask);
+            }
         }
     }
     return count;
@@ -1313,19 +1353,22 @@ unk16 sub_805CEB8(Actor* rider, LevelGeometryAddresses* geometry, unk32* lineInd
         initialMinX = xStart + (rider->unkA8 << 8);
         initialMaxX = xStart + (rider->unkAC << 8);
         if (initialMaxX < lineMinX || lineMaxX < initialMinX) {
-            if (broadY0 < lineMinY || lineMaxY < broadY1)
+            if (broadY0 < lineMinY || lineMaxY < broadY1) {
                 continue;
+            }
         }
         if (initialMaxX > lineMinX && lineMaxX > initialMinX) {
             overlapMask |= 1;
             if (rectMinY <= lineMinY && rectMaxY >= lineMinY && (lineFlags & 3) != 0) {
                 if (callbackDone == 0) {
-                    if (yExtent > 0)
+                    if (yExtent > 0) {
                         callbackMask |= 1;
-                    else
+                    } else {
                         callbackMask |= 2;
-                    if (call_rider_94_8(rider, geometry, line, callbackMask) == 0)
+                    }
+                    if (call_rider_94_8(rider, geometry, line, callbackMask) == 0) {
                         lineFlags = 0;
+                    }
                     callbackDone = 1;
                 }
                 if (yExtent > 0) {
@@ -1344,12 +1387,14 @@ unk16 sub_805CEB8(Actor* rider, LevelGeometryAddresses* geometry, unk32* lineInd
             }
             if (rectMinY <= lineMaxY && rectMaxY >= lineMaxY && (lineFlags & 0xC) != 0) {
                 if (callbackDone == 0) {
-                    if (yExtent > 0)
+                    if (yExtent > 0) {
                         callbackMask |= 4;
-                    else
+                    } else {
                         callbackMask |= 8;
-                    if (call_rider_94_8(rider, geometry, line, callbackMask) == 0)
+                    }
+                    if (call_rider_94_8(rider, geometry, line, callbackMask) == 0) {
                         lineFlags = 0;
+                    }
                     callbackDone = 1;
                 }
                 if (yExtent > 0) {
@@ -1378,12 +1423,14 @@ unk16 sub_805CEB8(Actor* rider, LevelGeometryAddresses* geometry, unk32* lineInd
             overlapMask |= 2;
             if (rectMinX <= lineMinX && rectMaxX >= lineMinX && (lineFlags & 0x30) != 0) {
                 if (callbackDone == 0) {
-                    if (xExtent > 0)
+                    if (xExtent > 0) {
                         callbackMask |= 0x10;
-                    else
+                    } else {
                         callbackMask |= 0x20;
-                    if (call_rider_94_8(rider, geometry, line, callbackMask) == 0)
+                    }
+                    if (call_rider_94_8(rider, geometry, line, callbackMask) == 0) {
                         lineFlags = 0;
+                    }
                     callbackDone = 1;
                 }
                 if (xExtent > 0) {
@@ -1400,12 +1447,14 @@ unk16 sub_805CEB8(Actor* rider, LevelGeometryAddresses* geometry, unk32* lineInd
             }
             if (rectMinX <= lineMaxX && rectMaxX >= lineMaxX && (lineFlags & 0xC0) != 0) {
                 if (callbackDone == 0) {
-                    if (xExtent > 0)
+                    if (xExtent > 0) {
                         callbackMask |= 0x40;
-                    else
+                    } else {
                         callbackMask |= 0x80;
-                    if (call_rider_94_8(rider, geometry, line, callbackMask) == 0)
+                    }
+                    if (call_rider_94_8(rider, geometry, line, callbackMask) == 0) {
                         lineFlags = 0;
+                    }
                 }
                 if (xExtent > 0) {
                     if ((lineFlags & 0x40) != 0) {
@@ -1421,24 +1470,28 @@ unk16 sub_805CEB8(Actor* rider, LevelGeometryAddresses* geometry, unk32* lineInd
             }
         }
         if (overlapMask == 3 && rider->callbacks.unk4 != NULL) {
-            if (rider->callbacks.unk4->unk4 != NULL)
+            if (rider->callbacks.unk4->unk4 != NULL) {
                 rider->callbacks.unk4->unk4(rider, geometry, line);
+            }
         }
         if ((responseFlags & 1) != 0) {
             temp = (line->unkD * yExtent) >> 7;
-            if ((temp < 0 ? -temp : temp) <= 0xFF)
+            if ((temp < 0 ? -temp : temp) <= 0xFF) {
                 temp = 0;
+            }
             rider->unk44 = -temp;
         }
         if ((responseFlags & 2) != 0) {
             temp = (line->unkD * xExtent) >> 7;
-            if ((temp < 0 ? -temp : temp) <= 0xFF)
+            if ((temp < 0 ? -temp : temp) <= 0xFF) {
                 temp = 0;
+            }
             rider->unk40 = -temp;
         }
         if (responseFlags != 0 && rider->callbacks.unk4 != NULL) {
-            if (rider->callbacks.unk4->unk0 != NULL)
+            if (rider->callbacks.unk4->unk0 != NULL) {
                 rider->callbacks.unk4->unk0(rider, geometry, line, collisionMask);
+            }
         }
     }
     return 0;
@@ -1452,8 +1505,9 @@ unk8 call_rider_94_8(Actor* rider, LevelGeometryAddresses* geometry, GeometryLin
     result = 1;
     callbacks = rider->callbacks.unk4;
     if (callbacks != NULL) {
-        if (callbacks->unk8 != NULL)
+        if (callbacks->unk8 != NULL) {
             result = callbacks->unk8(rider, geometry, line, mask);
+        }
     }
     return result;
 }
@@ -1525,8 +1579,9 @@ void sub_805D610(Actor* actor)
     ActorSplineCallbacks* callbacks;
 
     callbacks = actor->callbacks.unk0;
-    if (callbacks != NULL && callbacks->unk4 != NULL)
+    if (callbacks != NULL && callbacks->unk4 != NULL) {
         callbacks->unk4(actor, actor->unk80, actor->unk84);
+    }
     actor->unk80 = NULL;
     actor->unk84 = -1;
     actor->unk88 = 0;
@@ -1564,10 +1619,11 @@ void sub_805D650(Actor* actor)
     spline = GetSplineAtIndex(actor->unk80, actor->unk84);
     pointIndices = spline->pointIndices;
     lines = (GeometrySplineLine*)&spline->pointIndices[spline->pointCount];
-    if (lines[index].unk0 >= 0 || (actor->unk8D & 2) != 0)
+    if (lines[index].unk0 >= 0 || (actor->unk8D & 2) != 0) {
         velocity = actor->unk40;
-    else
+    } else {
         velocity = -actor->unk40;
+    }
     delta = (lines[index].unkC * velocity) >> 8;
     if (((actor->unk88 & 0x3FFFF) + delta) > 0x3FFFF) {
         flags.unk0_1 = 1;
@@ -1609,35 +1665,41 @@ void sub_805D650(Actor* actor)
         }
     }
     if (!flags.unk0_0 && flags.unk0_1) {
-        if (delta >= 0)
+        if (delta >= 0) {
             sub_805DBF0(actor->unk80, connections, spline, 4, pointIndices[index + 1]);
-        else
+        } else {
             sub_805DBF0(actor->unk80, connections, spline, 4, pointIndices[index]);
+        }
         angle = (nextLine->unk8) - (lines[index].unk8);
-        if (angle > 0x80)
+        if (angle > 0x80) {
             angle -= 0xFF;
+        }
         if (lines[index].unk0 >= 0) {
             if (nextLine->unk0 < 0) {
                 flags.unk0_3 = 1;
-                if (delta >= 0)
+                if (delta >= 0) {
                     angle = -angle;
+                }
             }
         } else if (nextLine->unk0 >= 0) {
             flags.unk0_3 = 1;
-            if (delta < 0)
+            if (delta < 0) {
                 angle = -angle;
+            }
         }
         if (flags.unk0_3 && (actor->unk8D & 2) == 0) {
             if ((angle >= 0 && actor->unk8C == 1) || (angle < 0 && actor->unk8C == 2)) {
-                if (velocity > 0)
+                if (velocity > 0) {
                     delta = 0x40100 - (actor->unk88 & 0x3FFFF);
-                else
+                } else {
                     delta = -0x100 - (actor->unk88 & 0x3FFFF);
+                }
             } else {
-                if (velocity > 0)
+                if (velocity > 0) {
                     delta = 0x3FFFF & ~actor->unk88;
-                else
+                } else {
                     delta = -(actor->unk88 & 0x3FFFF);
+                }
             }
             actor->unk40 = 0;
         } else {
@@ -1649,8 +1711,9 @@ void sub_805D650(Actor* actor)
     actor->unk88 = delta + previousPosition;
     if (!flags.unk0_0 && flags.unk0_1 && !flags.unk0_2) {
         callbacks = actor->callbacks.unk0;
-        if (callbacks != NULL && callbacks->unk8 != NULL)
+        if (callbacks != NULL && callbacks->unk8 != NULL) {
             callbacks->unk8(actor, actor->unk80, spline, actor->unk84, nextPoint);
+        }
     }
     if (flags.unk0_0 && !flags.unk0_2) {
         if ((actor->unk8D & 8) != 0) {
@@ -1663,8 +1726,9 @@ void sub_805D650(Actor* actor)
             }
             actor->unk40 = -actor->unk40;
             callbacks = actor->callbacks.unk0;
-            if (callbacks != NULL && callbacks->unk8 != NULL)
+            if (callbacks != NULL && callbacks->unk8 != NULL) {
                 callbacks->unk8(actor, actor->unk80, spline, actor->unk84, callbackPoint);
+            }
         } else {
             endPosition += delta;
             sub_805E068(actor->unk80, actor->unk84, values, index, endPosition >> 8);
@@ -1676,20 +1740,24 @@ void sub_805D650(Actor* actor)
     } else if (flags.unk0_2) {
         newPosition = actor->unk88 & 0x3FFFF;
         previousPosition &= 0x3FFFF;
-        if (flags.unk0_3)
+        if (flags.unk0_3) {
             newPosition = 0x3FFFF - newPosition;
-        if (delta < 0 && newPosition - previousPosition < 0)
+        }
+        if (delta < 0 && newPosition - previousPosition < 0) {
             newPosition = 0x3FFFF - newPosition;
+        }
         sub_805C3BC(
             actor->unk80, actor, connections[0].unk8, (newPosition >> 8) | (nextIndex << 10));
         transitionCallbacks = actor->callbacks.unk0;
-        if (transitionCallbacks != NULL && transitionCallbacks->unkC != NULL)
+        if (transitionCallbacks != NULL && transitionCallbacks->unkC != NULL) {
             transitionCallbacks->unkC(actor, actor->unk80, connections[0].unk8);
+        }
     } else {
-        if ((actor->unk8D & 4) != 0)
+        if ((actor->unk8D & 4) != 0) {
             result = sub_805DD18(actor->unk80, actor->unk84, values, actor->unk88 >> 8);
-        else
+        } else {
             result = sub_805DFD4(actor->unk80, actor->unk84, values, actor->unk88 >> 8);
+        }
         if (result != NULL) {
             actor->unk44 = (values[1] << 5) - (actor->y + (actor->unk9C << 8));
             actor->unk48 = (values[2] << 5) - (actor->z + (actor->unk9E << 8));
@@ -1705,8 +1773,9 @@ GeometryLine* sub_805DB6C(LevelGeometryAddresses* arg0, s32 arg1)
     GeometryLine* lines;
 
     lines = arg0->unkC;
-    if (arg1 < arg0->unk0->lineCount)
+    if (arg1 < arg0->unk0->lineCount) {
         return &lines[arg1];
+    }
     return NULL;
 }
 
@@ -1776,10 +1845,12 @@ unk32 sub_805DBF0(LevelGeometryAddresses* geometry, SplineConnection* output,
     count = 0;
     for (splineIndex = 0; splineIndex < geometry->unk0->count.splineCountWord; splineIndex++) {
         spline = GetSplineAtIndex(geometry, splineIndex);
-        if (spline == NULL)
+        if (spline == NULL) {
             break;
-        if (spline == target)
+        }
+        if (spline == target) {
             continue;
+        }
         lineStart = (GeometrySplineLine*)&spline->pointIndices[spline->pointCount];
         pointIndexStart = spline->pointIndices;
         index = 0;
@@ -1795,17 +1866,20 @@ unk32 sub_805DBF0(LevelGeometryAddresses* geometry, SplineConnection* output,
                     output[count].unk0 = spline;
                     output[count].unk4 = index;
                     output[count].unk8 = splineIndex;
-                    if (index > 0)
+                    if (index > 0) {
                         output[count].unkC = previousLine;
-                    else
+                    } else {
                         output[count].unkC = nullLine;
-                    if (index < spline->pointCount - 1)
+                    }
+                    if (index < spline->pointCount - 1) {
                         output[count].unk10 = lines;
-                    else
+                    } else {
                         output[count].unk10 = nullLine;
+                    }
                     count += 1;
-                    if (count >= capacity)
+                    if (count >= capacity) {
                         return count;
+                    }
                 }
                 lines += 1;
                 previousLine += 1;
@@ -1824,12 +1898,14 @@ GeometrySplineLine* GetSplineLineAtIndex(
     s32 count;
 
     spline = GetSplineAtIndex(arg0, splineIndex);
-    if (spline == NULL)
+    if (spline == NULL) {
         return NULL;
+    }
     count = spline->pointCount;
     lines = (GeometrySplineLine*)&spline->pointIndices[count];
-    if (lineIndex >= count)
+    if (lineIndex >= count) {
         return NULL;
+    }
     return &lines[lineIndex];
 }
 

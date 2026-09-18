@@ -193,10 +193,11 @@ void initRiders(void)
                     }
                     initRider(rider, &_gameData->unk434, x, y, z + 0x80, lineType, sub_8051820());
                     processRiderMetadata(rider, &geometry, lineIndex);
-                    if (multiplayerLine != NULL)
+                    if (multiplayerLine != NULL) {
                         rider->unk200 = multiplayerLine;
-                    else
+                    } else {
                         rider->unk200 = line;
+                    }
                     sub_804E1FC(rider, line->unk8);
                     sub_804C888(rider, 1);
                     initialized |= 1;
@@ -237,10 +238,11 @@ void sub_80538C0(void)
     void* rider;
 
     for (i = 0; i < (_gameData->unk430 + 1); i++) {
-        if (i != 0)
+        if (i != 0) {
             rider = &_gameData->unk42C[i - 1];
-        else
+        } else {
             rider = _gameData;
+        }
         sub_804B4A4(rider);
     }
 }
@@ -248,8 +250,9 @@ void sub_80538C0(void)
 void sub_8053920(void)
 {
     _gameData->unk1638++;
-    if (_gameData->unk1638 > 5)
+    if (_gameData->unk1638 > 5) {
         _gameData->unk1638 = 5;
+    }
     sub_804F800(_gameData->unk1638);
 }
 
@@ -271,8 +274,9 @@ LineMetadata** getLevelMetadata(u16 arg0)
 
 EnvironmentObject* GetStruct4(unk32 arg0)
 {
-    if (_gameData->environmentActors.lineObjects == NULL)
+    if (_gameData->environmentActors.lineObjects == NULL) {
         return NULL;
+    }
     return &_gameData->environmentActors.lineObjects[arg0];
 }
 
@@ -442,8 +446,9 @@ void initGameloop2(void)
     gameData->unkB53 = 1;
     _gameData->unkC6E = 0x3C;
     _gameData->unk163C++;
-    if (_gameData->unk1638 != 0)
+    if (_gameData->unk1638 != 0) {
         _gameData->unk1638--;
+    }
     sub_804F800(_gameData->unk1638);
     sub_804FE9C();
     sub_80538C0();
@@ -458,8 +463,9 @@ void initGameloop2(void)
 
 void sub_8053E18(u8 arg0)
 {
-    if (_gameData->base.unkB8 == 0)
+    if (_gameData->base.unkB8 == 0) {
         SetRiderFlag(&_gameData->base, 0x400);
+    }
     if (arg0 != 0) {
         _gameData->unkC6C = 0x20;
         _gameData->unk161B = 1;
@@ -467,8 +473,9 @@ void sub_8053E18(u8 arg0)
         _gameData->unkC6C = 0x118;
         if (_gameData->unk1618 != 0) {
             if (_currentGameState->unk6A4 == 2) {
-                if (RiderHasFlag(&_gameData->base, 0x08000000) == 0)
+                if (RiderHasFlag(&_gameData->base, 0x08000000) == 0) {
                     sub_804FA40();
+                }
             } else if (RiderHasFlag(&_gameData->base, 0x800) == 0) {
                 sub_804FAD4();
             } else {
@@ -545,13 +552,16 @@ s32 sub_80540C8(s32 arg0, s32 arg1, s32 arg2)
     s32 result;
 
     result = arg0;
-    if (result < 0)
+    if (result < 0) {
         result = -result;
+    }
     result >>= 3;
-    if (result > arg2)
+    if (result > arg2) {
         result = arg2;
-    if (arg0 < 0)
+    }
+    if (arg0 < 0) {
         result = -result;
+    }
     return result;
 }
 

@@ -59,8 +59,9 @@ void sub_8050050(RiderState* state, RiderState* other)
             _unk3000F40--;
             if (_unk3000F40 != 0) {
                 _unk3000F44++;
-                if (_unk3000F44 > 0xF)
+                if (_unk3000F44 > 0xF) {
                     _unk3000F44 = 0;
+                }
                 value = _unk3000F20[_unk3000F44];
             } else {
                 value = 0;

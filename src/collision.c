@@ -33,13 +33,16 @@ unk8 def_94_0_8055CFC(
     RiderBase* rider;
 
     rider = actor->unkB4.rider;
-    if (rider == NULL)
+    if (rider == NULL) {
         return 0;
+    }
     if ((collisionMask & 0x99) != 0) {
-        if ((collisionMask & 0x90) != 0)
+        if ((collisionMask & 0x90) != 0) {
             sub_8055D64(actor, rider, geometry, line, collisionMask & 0x90, 0x40);
-        if ((collisionMask & 9) != 0)
+        }
+        if ((collisionMask & 9) != 0) {
             sub_8055D64(actor, rider, geometry, line, collisionMask & 9, 0);
+        }
     }
 }
 
@@ -57,8 +60,9 @@ void sub_8055D64(Actor* actor, RiderBase* rider, LevelGeometryAddresses* geometr
     angleDelta = sub_804E358(angle, rider->unk8 << 4);
     direction = 0x10;
     savedAngle = angle;
-    if ((line->unk11 & 8) != 0)
+    if ((line->unk11 & 8) != 0) {
         object = GetStruct4(sub_805BAC0(geometry, line));
+    }
     SetRiderFlag(rider, 0x200000);
     rider->unk1B8 = 8;
     if (angleDelta < 0) {
@@ -67,15 +71,17 @@ void sub_8055D64(Actor* actor, RiderBase* rider, LevelGeometryAddresses* geometr
     }
     angleThreshold = angleDelta * 0x10000;
     if ((collisionMask & 0x90) != 0) {
-        if ((line->unk11 & 8) == 0)
+        if ((line->unk11 & 8) == 0) {
             rider->unk40 = -rider->unk40;
-        else
+        } else {
             rider->unk40 = object->unk40 * 2 - rider->unk40;
+        }
     } else if ((collisionMask & 9) != 0) {
-        if ((line->unk11 & 8) == 0)
+        if ((line->unk11 & 8) == 0) {
             rider->unk44 = -rider->unk44;
-        else
+        } else {
             rider->unk44 = -(rider->unk44 + object->unk44 * 2);
+        }
     }
     if (angleThreshold - 0x400000 >= 0) {
         signedAngle = angle;
@@ -96,8 +102,9 @@ void sub_8055D64(Actor* actor, RiderBase* rider, LevelGeometryAddresses* geometr
         sub_80558B8();
         sub_804ABFC(0);
         if ((_currentGameState->unkC64 & 1) == 0) {
-            if (rider->unk208 > 0x100)
+            if (rider->unk208 > 0x100) {
                 rider->unk208 -= 0x100;
+            }
         }
     }
 }
@@ -108,8 +115,9 @@ void sub_8055F04(Actor* actor, RiderBase* rider, GeometryLine* line, unk16 colli
     s32 angleThreshold;
 
     angleDelta = sub_804E358(angle, rider->unk10 >> 4);
-    if (angleDelta < 0)
+    if (angleDelta < 0) {
         angleDelta = -angleDelta;
+    }
     angleThreshold = angleDelta * 0x10000; // TODO: fakematch?
     sub_804E154(rider, 0, 0);
 }
@@ -202,19 +210,23 @@ unk32 sub_80561EC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* 
         maxY = point0->y << 5;
     }
     if (line->unk11 & 8) {
-        if (actor->x <= minX || actor->x >= maxX || actor->y <= minY || actor->y >= maxY)
+        if (actor->x <= minX || actor->x >= maxX || actor->y <= minY || actor->y >= maxY) {
             return;
+        }
     }
     result = &scratch;
-    if (rider != NULL)
+    if (rider != NULL) {
         result = &rider->unkF4;
+    }
     switch (line->unkF) {
     case 0x80:
         sub_80567E4(geometry, line, actor, &result80);
-        if (actor->x > maxX || actor->y > maxY)
+        if (actor->x > maxX || actor->y > maxY) {
             break;
-        if (actor->z > result80.unk8 && (point0->z != 0 || point1->z != 0))
+        }
+        if (actor->z > result80.unk8 && (point0->z != 0 || point1->z != 0)) {
             break;
+        }
         if (line->unkD > rider->unk1C0) {
             rider->unk1C0 = line->unkD;
             SetRiderFlag(rider, 4);
@@ -225,10 +237,12 @@ unk32 sub_80561EC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* 
         break;
     case 0x92:
         sub_80567E4(geometry, line, actor, &result92);
-        if (actor->x > maxX || actor->y > maxY)
+        if (actor->x > maxX || actor->y > maxY) {
             break;
-        if (actor->z > result92.unk8 && (point0->z != 0 || point1->z != 0))
+        }
+        if (actor->z > result92.unk8 && (point0->z != 0 || point1->z != 0)) {
             break;
+        }
         difference = actor->x - actor->y;
         minDifference = (point0->x - point0->y) << 5;
         maxDifference = (point1->x - point1->y) << 5;
@@ -254,16 +268,20 @@ unk32 sub_80561EC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* 
         sub_8056610(geometry, line, rider, result);
         break;
     case 0x8B:
-        if (actor->z > (((point0->z < point1->z) ? point0 : point1)->z << 5))
+        if (actor->z > (((point0->z < point1->z) ? point0 : point1)->z << 5)) {
             break;
-        if (RiderHasFlag(rider, 0x4000000))
+        }
+        if (RiderHasFlag(rider, 0x4000000)) {
             break;
-        if (RiderHasFlag(rider, 0x400))
+        }
+        if (RiderHasFlag(rider, 0x400)) {
             break;
+        }
         sub_8056EC0();
         sub_804ABFC(10);
-        if (_gameData->unkC6C == -1)
+        if (_gameData->unkC6C == -1) {
             SetRiderFlag(rider, 0x800);
+        }
         actor->unk48 = 0;
         SetRiderFlag(rider, 0x20000);
         sub_8053E18(0);
@@ -271,23 +289,27 @@ unk32 sub_80561EC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* 
     case 0x8C:
         firstC = &geometry->unk4[line->point0];
         secondC = &geometry->unk4[line->point1];
-        if (firstC->z < secondC->z)
+        if (firstC->z < secondC->z) {
             lowerC = firstC;
-        else
+        } else {
             lowerC = secondC;
+        }
         lowerZC = (lowerC->z - (line->unk16 << 3)) << 5;
         upperZ = lowerC->z << 5;
         if (!RiderHasFlag(rider, 0x4000000)) {
             height = line->unk16;
-            if (height == 0 || line->unk10 == 0)
+            if (height == 0 || line->unk10 == 0) {
                 break;
+            }
             if ((actor->z < lowerZC && actor->z + actor->unk48 > lowerZC)
                 || (actor->z > upperZ && actor->z + actor->unk48 < upperZ)) {
                 lineIndex = sub_805BAC0(geometry, line);
                 if (lineIndex != -1) {
                     metadata = GetLineMetaData(geometry, lineIndex);
-                    if (metadata != NULL && getLineMetaObjectBytype(geometry, metadata, 6) != NULL)
+                    if (metadata != NULL
+                        && getLineMetaObjectBytype(geometry, metadata, 6) != NULL) {
                         break;
+                    }
                 }
             } else {
                 break;
@@ -297,10 +319,11 @@ unk32 sub_80561EC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* 
     case 0x8D:
         firstD = &geometry->unk4[line->point0];
         secondD = &geometry->unk4[line->point1];
-        if (firstD->z < secondD->z)
+        if (firstD->z < secondD->z) {
             lowerD = firstD;
-        else
+        } else {
             lowerD = secondD;
+        }
         height = line->unk16;
         lowerZD = (lowerD->z - (height << 3)) << 5;
         if (actor->z <= lowerZD) {
@@ -352,8 +375,9 @@ void sub_8056610(
     s32 direction;
 
     actor = rider->unk0;
-    if (result->unk8 > rider->unk1B4)
+    if (result->unk8 > rider->unk1B4) {
         rider->unk1B4 = result->unk8;
+    }
     if (result->unkC_1 == 0) {
         rider->unkE4 = NULL;
         return;
@@ -362,8 +386,9 @@ void sub_8056610(
         rider->unkE4 = NULL;
         return;
     }
-    if (line != rider->unkE8)
+    if (line != rider->unkE8) {
         rider->unkE8 = rider->unkE4;
+    }
     rider->unkE4 = line;
     rider->unkF0 = _unk3000E30[0];
     rider->unk94 = actor->unk48;
@@ -412,8 +437,9 @@ void sub_8056610(
     if (actor->unk48 < -0x300) {
         actor->unk48 = -((0x56 * actor->unk48) >> 8);
         sub_804ABFC(3);
-        if (RiderHasFlag(rider, 0x04000000) == 0)
+        if (RiderHasFlag(rider, 0x04000000) == 0) {
             sub_80558B8();
+        }
     } else {
         UnsetRiderFlag(rider, 2);
     }
@@ -656,14 +682,16 @@ unk8 sub_8056B54(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* l
     case 0x92:
         break;
     default:
-        if ((line->unk11 & 4) == 0)
+        if ((line->unk11 & 4) == 0) {
             sub_80567E4(geometry, line, actor, &result);
-        else
+        } else {
             sub_8056910(geometry, line, actor, &result);
+        }
         break;
     }
-    if (object->unk12 < (result.unk8 >> 8))
+    if (object->unk12 < (result.unk8 >> 8)) {
         object->unk12 = result.unk8 >> 8;
+    }
 }
 
 unk8 _return_false(
@@ -685,8 +713,9 @@ GeometryLine* sub_8056C0C(GeometryPoint* point)
     line = NULL;
     levelNo = GetLevelDescriptionNo();
     geometry = LevelDesigns[levelNo].geometry;
-    if (geometry != NULL)
+    if (geometry != NULL) {
         getLevelGeometryAddresses(&addresses, geometry);
+    }
     cursor = addresses.unkC;
     for (i = 0; i < addresses.unk0->lineCount; i++) {
         if (cursor->unkF == 0x86) {
@@ -717,8 +746,9 @@ GeometryLine* sub_8056C80(GeometryPoint* point, unk16 id)
     line = NULL;
     levelNo = GetLevelDescriptionNo();
     geometry = LevelDesigns[levelNo].geometry;
-    if (geometry != NULL)
+    if (geometry != NULL) {
         getLevelGeometryAddresses(&addresses, geometry);
+    }
     cursor = addresses.unkC;
     for (i = 0; i < addresses.unk0->lineCount; i++) {
         if (cursor->unkF == 0x86 && cursor->unk14 == id) {

@@ -239,31 +239,36 @@ void RiderAI_804C8F0(RiderBase* rider)
             dx = -dx;
             dy = -dy;
         }
-        if (dx > 0)
+        if (dx > 0) {
             direction = 0x10;
-        else if (dx < 0)
+        } else if (dx < 0) {
             direction = 0x20;
-        if (dy > 0)
+        }
+        if (dy > 0) {
             direction |= 0x80;
-        else if (dy < 0)
+        } else if (dy < 0) {
             direction |= 0x40;
+        }
         rider->unk21E--;
-        if (rider->unk21E == 0)
+        if (rider->unk21E == 0) {
             UnsetRiderFlag(rider, 0x41);
+        }
     } else {
         geometry = &_gameData->unk434.geometry;
         if (rider->unk214 != NULL) {
             sub_805DFD4(geometry, rider->unk218, result, rider->unk224 >> 8);
             targetX = ((result[0] << 5) - rider->unk0->x) >> 2;
             targetY = ((result[1] << 5) - rider->unk0->y) >> 2;
-            if (targetX > 0x100)
+            if (targetX > 0x100) {
                 direction |= 0x10;
-            else if (targetX < -0x100)
+            } else if (targetX < -0x100) {
                 direction |= 0x20;
-            if (targetY > 0x100)
+            }
+            if (targetY > 0x100) {
                 direction |= 0x80;
-            else if (targetY < -0x100)
+            } else if (targetY < -0x100) {
                 direction |= 0x40;
+            }
         }
     }
     if (RiderHasFlag(rider, 0x40) != 0 && RiderHasFlag(rider, 0x2000000) != 0) {
@@ -300,14 +305,17 @@ void sub_804CB08(RiderBase* rider, Actor* actor)
     limit = 0x100;
     if (rider->unk208 <= 0x1FF) {
         limit = rider->unk208 - 0x100;
-        if (limit < 0)
+        if (limit < 0) {
             limit = 0;
-        if (limit > 0x100)
+        }
+        if (limit > 0x100) {
             limit = 0x100;
+        }
         inputMagnitude = (inputMagnitude * limit) >> 8;
     }
-    if (RiderHasFlag(rider, 0x100) != 0 || RiderHasFlag(rider, 0x2000) != 0)
+    if (RiderHasFlag(rider, 0x100) != 0 || RiderHasFlag(rider, 0x2000) != 0) {
         return;
+    }
     if (RiderHasFlag(rider, 0x4000000) == 0) {
         heldInput = _keyInput;
         pressedInput = _unk3005DA0;
@@ -322,8 +330,9 @@ void sub_804CB08(RiderBase* rider, Actor* actor)
         moveY = 0;
         steerX = 0;
         steerY = 0;
-        if ((pressedInput & 1) != 0 && rider->unk22E == 0 && rider->unk208 > 0x1FF)
+        if ((pressedInput & 1) != 0 && rider->unk22E == 0 && rider->unk208 > 0x1FF) {
             moving = 1;
+        }
         if ((heldInput & 0x20) != 0) {
             if (moving != 0) {
                 steerX -= 0x1CC;
@@ -375,16 +384,19 @@ void sub_804CB08(RiderBase* rider, Actor* actor)
         }
         if (moving != 0 && rider->unk22E != 0) {
             sub_805582C(0, 0, moveX * 4, -moveY * 4, 0);
-            if ((_currentGameState->unkC64 & 1) == 0)
+            if ((_currentGameState->unkC64 & 1) == 0) {
                 rider->unk208 -= 0xF0;
+            }
             sub_804ABFC(0x13);
         }
-        if ((pressedInput & 2) != 0 && rider->unk230 == 0)
+        if ((pressedInput & 2) != 0 && rider->unk230 == 0) {
             rider->unk230 = 0x10;
+        }
         if (((heldInput & 2) != 0 || rider->unk230 != 0) && rider->unk208 > 0x1FF) {
             SetRiderFlag(rider, 0x80000);
-            if (rider->unk230 != 0)
+            if (rider->unk230 != 0) {
                 rider->unk230--;
+            }
             rider->unk52 = 0x16;
             rider->unk50 = 0x16;
             timer1 = &rider->unk52;
@@ -397,10 +409,11 @@ void sub_804CB08(RiderBase* rider, Actor* actor)
             timer0 = &rider->unk50;
         }
         if (sub_804E440(rider, 0x80000) != 0) {
-            if (RiderHasFlag(rider, 0x80000) != 0)
+            if (RiderHasFlag(rider, 0x80000) != 0) {
                 sub_8055734(7, NULL, NULL);
-            else
+            } else {
                 sub_805589C();
+            }
         }
         if (sub_804A504() != 0) {
             *timer1 = 0x24;
@@ -431,15 +444,17 @@ void sub_804CEF4(RiderBase* rider, unk32 action)
     if (action <= 4) {
         switch (action) {
         case 0:
-            if (RiderHasFlag(rider, 8) == 0)
+            if (RiderHasFlag(rider, 8) == 0) {
                 rider->unk208 = 0x208 - 8;
-            else
+            } else {
                 rider->unk208 >>= 1;
+            }
             break;
         case 1:
             rider->unk208 += -0x600;
-            if (rider->unk208 <= 0x1FF)
+            if (rider->unk208 <= 0x1FF) {
                 rider->unk208 = 0x200;
+            }
             rider->unk0->unk40 = (((sub_8057C40() >> 4) & 0xF) - 8) << 6;
             rider->unk0->unk44 = ((((sub_8057C40() >> 4) + 0xC8) & 0xF) - 8) << 6;
             rider->unk0->unk48 = 0x500;
@@ -448,8 +463,9 @@ void sub_804CEF4(RiderBase* rider, unk32 action)
             break;
         case 2:
             rider->unk208 += -0x600;
-            if (rider->unk208 <= 0x1FF)
+            if (rider->unk208 <= 0x1FF) {
                 rider->unk208 = 0x200;
+            }
             rider->unk21E = 0x258;
             SetRiderFlag(rider, 0x40);
             break;
@@ -457,8 +473,9 @@ void sub_804CEF4(RiderBase* rider, unk32 action)
             break;
         case 4:
             rider->unk208 += -0x600;
-            if (rider->unk208 <= 0x1FF)
+            if (rider->unk208 <= 0x1FF) {
                 rider->unk208 = 0x200;
+            }
             rider->unk22C = 0;
             break;
         }
@@ -524,28 +541,33 @@ void sub_804D110(RiderBase* rider, Actor* other)
     rider->unk1C += delta;
     rider->unkC = (rider->unkC + (delta >> 4)) & 0xFF;
     rider->unk24 = rider->unk20;
-    if (other->z > rider->unk1BC)
+    if (other->z > rider->unk1BC) {
         rider->unk1BC = other->z;
+    }
     rider->unk1C &= 0xFFF;
     rider->unk74 &= 0xFFF;
-    if (RiderHasFlag(rider, 0x12) == 0)
+    if (RiderHasFlag(rider, 0x12) == 0) {
         rider->unk14 = sub_804E258(rider->unk10, rider->unk1C, 0xFFF, 0x40, 0x10, 0x50);
+    }
     rider->unk98 = 0;
-    if (rider->unk22E != 0)
+    if (rider->unk22E != 0) {
         rider->unk22E--;
+    }
     if (RiderHasFlag(rider, 0x4000000) == 0) {
         if ((_currentGameState->unkC64 & 1) == 0) {
-            if (RiderHasFlag(rider, 0x80000) != 0 && RiderHasFlag(rider, 2) == 0)
+            if (RiderHasFlag(rider, 0x80000) != 0 && RiderHasFlag(rider, 2) == 0) {
                 rider->unk208 -= 8;
-            else
+            } else {
                 rider->unk208--;
+            }
         }
         if (rider->unk208 <= 0x100) {
             sub_804C0EC(rider->unk4, (sub_8057C40() >> 6) & 1);
         }
         sub_804F824(rider->unk208 * 21);
-        if (rider->unk208 <= 0xFF && sub_804AD60() == 0)
+        if (rider->unk208 <= 0xFF && sub_804AD60() == 0) {
             sub_804ABFC(0xF);
+        }
         if (RiderHasFlag(rider, 0x20000) == 0 && (rider->unk208 <= 0 || other->z < -0x10000)) {
             sub_804FAD4();
             sub_80556C4();
@@ -553,8 +575,9 @@ void sub_804D110(RiderBase* rider, Actor* other)
             sub_804D048(rider);
         }
     } else if (RiderHasFlag(rider, 0x4000000) != 0) {
-        if (rider->unk208 > 0x200 && rider->unk208 <= 0xBFF)
+        if (rider->unk208 > 0x200 && rider->unk208 <= 0xBFF) {
             rider->unk208 += rider->unk22C;
+        }
         if (rider->unk208 <= 0x200) {
             rider->unk208 -= 3;
             SetRiderFlag(rider, 0x2000);
@@ -562,10 +585,12 @@ void sub_804D110(RiderBase* rider, Actor* other)
                 sub_804C0EC(rider->unk4, (sub_8057C40() >> 6) & 1);
             }
         }
-        if (rider->unk208 < 0)
+        if (rider->unk208 < 0) {
             rider->unk208 = 0;
-        if (rider->unk208 == 0)
+        }
+        if (rider->unk208 == 0) {
             sub_804C0C0(rider->unk4);
+        }
         if (other->z < -0x10000 || rider->unk208 == 0) {
             if (RiderHasFlag(rider, 8) != 0) {
                 SetRiderFlag(&_gameData->base, 0x20000);
@@ -585,10 +610,12 @@ void sub_804D110(RiderBase* rider, Actor* other)
         rider->unk52 = 0x28;
         rider->unk50 = 0x28;
     }
-    if (RiderHasFlag(rider, 0x100) != 0 && RiderHasFlag(rider, 2) == 0)
+    if (RiderHasFlag(rider, 0x100) != 0 && RiderHasFlag(rider, 2) == 0) {
         UnsetRiderFlag(rider, 0x100);
-    if (RiderHasFlag(rider, 0x100) == 0 && RiderHasFlag(rider, 0x400) == 0)
+    }
+    if (RiderHasFlag(rider, 0x100) == 0 && RiderHasFlag(rider, 0x400) == 0) {
         rider->unk234++;
+    }
     rider->unk14 += rider->unk18;
     value = rider->unk10 + rider->unk14;
     rider->unk6C = (rider->unk6C + rider->unk70) & 0xFFF;
@@ -599,46 +626,58 @@ void sub_804D110(RiderBase* rider, Actor* other)
     rider->unk34 += rider->unk38;
     direction = ((rider->unk10 + 0x7F) & 0xFFF) >> 8;
     rider->unk8 = direction;
-    if (direction != oldDirection)
+    if (direction != oldDirection) {
         rider->unk98 |= 1;
-    if (RiderHasFlag(rider, 0x4000000) != 0 && rider->unk220 != 0)
+    }
+    if (RiderHasFlag(rider, 0x4000000) != 0 && rider->unk220 != 0) {
         rider->unk220--;
-    if (rider->unk218 >= 0 && rider->unk214 == NULL)
+    }
+    if (rider->unk218 >= 0 && rider->unk214 == NULL) {
         rider->unk214 = _gameData->unk434.geometry.unk14[rider->unk218];
+    }
     if (RiderHasFlag(rider, 0x4000000) != 0 && rider->unk214 != NULL) {
         line = sub_805DCFC(&_gameData->unk434.geometry, rider->unk214, rider->unk224 >> 18);
         angularVelocity = rider->unk21A;
         rider->unk224 += ((line->unkC >> 2) * angularVelocity) >> 8;
-        if ((rider->unk224 >> 18) >= rider->unk214->pointCount - 1)
+        if ((rider->unk224 >> 18) >= rider->unk214->pointCount - 1) {
             rider->unk224 = 0;
+        }
     }
-    if (RiderHasFlag(rider, 2) == 0)
+    if (RiderHasFlag(rider, 2) == 0) {
         sub_804D8D8(rider);
+    }
     rider->unk1FC++;
-    if (RiderHasFlag(rider, 0x4000000) == 0)
+    if (RiderHasFlag(rider, 0x4000000) == 0) {
         sub_804D710(rider);
-    if (RiderHasFlag(rider, 0x200000) != 0)
+    }
+    if (RiderHasFlag(rider, 0x200000) != 0) {
         rider->unk1B8--;
-    if (rider->unk1B8 == 0)
+    }
+    if (rider->unk1B8 == 0) {
         UnsetRiderFlag(rider, 0x200000);
-    if (RiderHasFlag(rider, 2) != 0)
+    }
+    if (RiderHasFlag(rider, 2) != 0) {
         rider->unk198++;
-    else
+    } else {
         rider->unk19C++;
+    }
     if (RiderHasFlag(rider, 2) == 0 && sub_804E454(rider, 2) != 0) {
         rider->unk98 |= 8;
         sub_804DFF4(rider);
     }
-    if (RiderHasFlag(rider, 2) == 0)
+    if (RiderHasFlag(rider, 2) == 0) {
         rider->unkEC = rider->unkE4;
-    if (RiderHasFlag(rider, 2) == 0)
+    }
+    if (RiderHasFlag(rider, 2) == 0) {
         rider->unk9 = rider->unk8;
+    }
     if (RiderHasFlag(rider, 2) != 0 && sub_804E454(rider, 2) == 0) {
         rider->unk98 |= 0x10;
         sub_804E090(rider);
     }
-    if (RiderHasFlag(rider, 0x200) != 0 && rider->unkCC == 0)
+    if (RiderHasFlag(rider, 0x200) != 0 && rider->unkCC == 0) {
         sub_804E1DC(rider);
+    }
     sub_804DDF8(rider, other);
     sub_804D754(rider);
     rider->unk1A0 = other->unk40;
@@ -655,10 +694,12 @@ void sub_804D110(RiderBase* rider, Actor* other)
 
 void sub_804D710(RiderBase* rider)
 {
-    if (rider->unk19C == 4)
+    if (rider->unk19C == 4) {
         sub_804ABFC(2);
-    if (sub_804E440(rider, 0x80000) != 0 && RiderHasFlag(rider, 0x80000) != 0)
+    }
+    if (sub_804E440(rider, 0x80000) != 0 && RiderHasFlag(rider, 0x80000) != 0) {
         sub_804ABFC(0x11);
+    }
 }
 
 void sub_804D754(RiderBase* rider)
@@ -676,14 +717,16 @@ void sub_804D754(RiderBase* rider)
     target = rider->unk206;
     direction = 0;
     motion = -1;
-    if (rider->unk48 > 0xC)
+    if (rider->unk48 > 0xC) {
         direction = 1;
-    else if (rider->unk48 < -0xC)
+    } else if (rider->unk48 < -0xC) {
         direction = 2;
-    if (rider->unk4C > 0xC)
+    }
+    if (rider->unk4C > 0xC) {
         direction |= 4;
-    else if (rider->unk4C < -0xC)
+    } else if (rider->unk4C < -0xC) {
         direction |= 8;
+    }
     switch (direction) {
     case 1:
         motion = 2;
@@ -711,12 +754,15 @@ void sub_804D754(RiderBase* rider)
         break;
     }
     category = 0;
-    if (rider->unk208 <= 0x8FF)
+    if (rider->unk208 <= 0x8FF) {
         category = 1;
-    if (rider->unk208 <= 0x3FF)
+    }
+    if (rider->unk208 <= 0x3FF) {
         category = 2;
-    if (rider->unk208 <= 0x1FF)
+    }
+    if (rider->unk208 <= 0x1FF) {
         category = 3;
+    }
     if (rider->unk208 <= 0xFF) {
         actor->unk36 = (0x100 - rider->unk208) >> 1;
         category = 4;
@@ -725,8 +771,9 @@ void sub_804D754(RiderBase* rider)
         // TODO: fakematch
         if (category <= 1 || category == 0x400) {
             callbackSequence = -1;
-            if (callbackSequence != category)
+            if (callbackSequence != category) {
                 callbackSequence = category;
+            }
         }
         actor->unk31 = 0;
         actor_80580C0(actor, category, category);
@@ -769,14 +816,16 @@ void sub_804D8D8(RiderBase* rider)
     y = rider->unk44;
     dirX = (x * speedX) >> 8;
     dirY = (y * speedY) >> 8;
-    if (RiderHasFlag(rider, 0x100000) != 0)
+    if (RiderHasFlag(rider, 0x100000) != 0) {
         maxX = alternateMaxX;
-    else
+    } else {
         maxX = defaultMaxX;
-    if (RiderHasFlag(rider, 0x400000) != 0)
+    }
+    if (RiderHasFlag(rider, 0x400000) != 0) {
         maxY = rider->unk5A;
-    else
+    } else {
         maxY = rider->unk56;
+    }
     if (maxX > (x < 0 ? -x : x)) {
         dirX = x;
         UnsetRiderFlag(rider, 0x100000);
@@ -791,13 +840,15 @@ void sub_804D8D8(RiderBase* rider)
     }
     if (dirX == 0 && x != 0) {
         dirX = 1;
-        if (x < 0)
+        if (x < 0) {
             dirX = -1;
+        }
     }
     if (dirY == 0 && y != 0) {
         dirY = 1;
-        if (y < 0)
+        if (y < 0) {
             dirY = -1;
+        }
     }
     x -= dirX;
     y -= dirY;
@@ -835,8 +886,9 @@ unk8 sub_804DA48(RiderBase* rider, RiderBase* otherRider, s32 radius)
 
     pos0 = rider->unk0;
     pos1 = otherRider->unk0;
-    if (RiderHasFlag(otherRider, 2))
+    if (RiderHasFlag(otherRider, 2)) {
         return 0;
+    }
     x0 = pos0->x;
     y0 = pos0->y;
     z0 = pos0->z;
@@ -846,8 +898,9 @@ unk8 sub_804DA48(RiderBase* rider, RiderBase* otherRider, s32 radius)
     x = (x1 - x0) >> 8;
     y = (y1 - y0) >> 8;
     z = (z1 - z0) >> 8;
-    if (x * x + y * y + z * z < radius * radius)
+    if (x * x + y * y + z * z < radius * radius) {
         return 1;
+    }
     return 0;
 }
 
@@ -960,15 +1013,17 @@ unk32 rider_vs_rider_collision_804DB94(RiderBase* rider0, RiderBase* rider1)
             sub_804ABFC(1);
         }
         if (RiderHasFlag(rider0, 0x4000000) != 0 && RiderHasFlag(rider1, 0x4000000) == 0) {
-            if (rider1->unk208 > 0x1FF)
+            if (rider1->unk208 > 0x1FF) {
                 rider0->unk208 += -0x200;
+            }
             rider0->unk220 += 0xF0;
         }
         if (RiderHasFlag(rider1, 0x4000000) != 0 && RiderHasFlag(rider0, 0x4000000) == 0) {
             if (rider1->unk208 > 0x1FF) {
                 rider1->unk208 += -0x200;
-                if (rider1->unk208 <= 0x1FF)
+                if (rider1->unk208 <= 0x1FF) {
                     rider1->unk208 = 0x200;
+                }
             }
             rider1->unk220 += 0xF0;
         }
@@ -1077,8 +1132,9 @@ void sub_804DFF4(RiderBase* rider)
 
     // TODO: fakematch?
     speed = rider->unk70;
-    if (speed < 0)
+    if (speed < 0) {
         speed = -speed;
+    }
 
     rider->unk19C = 0;
     rider->unk1BC = 0;
@@ -1087,12 +1143,14 @@ void sub_804DFF4(RiderBase* rider)
     rider->unk14 = 0;
     rider->unk144 = 0;
     rider->unk168 = 0;
-    if (rider->unkB8 != NULL && RiderHasFlag(rider, 0x4000000) == 0)
+    if (rider->unkB8 != NULL && RiderHasFlag(rider, 0x4000000) == 0) {
         sub_804E154(rider, 0, 0);
+    }
     UnsetRiderFlag(rider, 0x20);
     rider->unkD2 = 0;
-    if (RiderHasFlag(rider, 0x4000000) == 0 && rider->unk198 > 8)
+    if (RiderHasFlag(rider, 0x4000000) == 0 && rider->unk198 > 8) {
         sub_80558B8();
+    }
     UnsetRiderFlag(rider, 0x4010);
 }
 
@@ -1141,11 +1199,13 @@ void sub_804E154(RiderBase* rider, unk32 arg1, unk32 arg2)
     UnsetRiderFlag(rider, 0x40000);
     if (RiderHasFlag(rider, 0x4000000) == 0) {
         rider->unk1EE -= 0x400;
-        if (rider->unk1EE < 0)
+        if (rider->unk1EE < 0) {
             rider->unk1EE = 0;
+        }
         rider->unk1F2 -= 0x200;
-        if (rider->unk1F2 < 0)
+        if (rider->unk1F2 < 0) {
             rider->unk1F2 = 0;
+        }
     }
     rider->unk144 = 0;
     SetRiderFlag(rider, 0x200);
@@ -1197,15 +1257,19 @@ s32 sub_804E224(s32 arg0, s32 arg1, unk8 arg2, s32 limit)
 
     delta = arg1 - arg0;
     magnitude = delta;
-    if (delta < 0)
+    if (delta < 0) {
         magnitude = -delta;
+    }
     result = (magnitude * arg2) >> 8;
-    if (result == 0 && magnitude != 0)
+    if (result == 0 && magnitude != 0) {
         result = magnitude;
-    if (result > limit)
+    }
+    if (result > limit) {
         result = limit;
-    if (delta < 0)
+    }
+    if (delta < 0) {
         result = -result;
+    }
     return result;
 }
 
@@ -1218,22 +1282,29 @@ s32 sub_804E258(s32 arg0, s32 arg1, s32 period, unk8 scale, unk32 unused, s32 li
 
     delta = arg1 - arg0;
     magnitude = delta;
-    if (delta < 0)
+    if (delta < 0) {
         magnitude = -delta;
-    if (magnitude > (period >> 1))
+    }
+    if (magnitude > (period >> 1)) {
         magnitude -= period;
+    }
     result = (magnitude * scale) >> 8;
     scaled = result;
-    if (result < 0)
+    if (result < 0) {
         result = -result;
-    if (scaled == 0 && magnitude != 0)
+    }
+    if (scaled == 0 && magnitude != 0) {
         result = magnitude;
-    if (result > limit)
+    }
+    if (result > limit) {
         result = limit;
-    if (scaled < 0)
+    }
+    if (scaled < 0) {
         result = -result;
-    if (delta < 0)
+    }
+    if (delta < 0) {
         result = -result;
+    }
     return result;
 }
 
@@ -1245,10 +1316,11 @@ s16 sub_804E328(unk8 arg0, unk8 arg1)
     unk16 result;
 
     delta = sub_804E358(arg0, arg1);
-    if (delta > 0x3F)
+    if (delta > 0x3F) {
         result = -((delta - 0x40) << 1);
-    else
+    } else {
         result = (0x40 - delta) << 1;
+    }
     return result;
 }
 
@@ -1259,16 +1331,19 @@ s16 sub_804E358(unk8 arg0, unk8 arg1)
     s16 result;
 
     delta = arg1 - arg0;
-    if (delta < 0)
+    if (delta < 0) {
         magnitude = -delta;
-    else
+    } else {
         magnitude = delta;
-    if (magnitude > 0x80)
+    }
+    if (magnitude > 0x80) {
         result = 0x100 - magnitude;
-    else
+    } else {
         result = magnitude;
-    if (delta < 0 || magnitude > 0x80)
+    }
+    if (delta < 0 || magnitude > 0x80) {
         result = -result;
+    }
     return result;
 }
 
@@ -1284,18 +1359,21 @@ unk32 sub_804E3B0(unk32 arg0, unk32 arg1, unk32 arg2)
 
     magnitude = arg1 - arg0;
     delta = magnitude;
-    if (delta < 0)
+    if (delta < 0) {
         magnitude = -magnitude;
+    }
     threshold = arg2 + 1;
     half = threshold >> 1;
     threshold_copy = threshold; // TODO: fakematch?
     if (magnitude > half) {
         difference = magnitude - 1;
         result = arg2 - difference;
-    } else
+    } else {
         result = magnitude;
-    if (delta < 0 || magnitude > (threshold_copy >> 1))
+    }
+    if (delta < 0 || magnitude > (threshold_copy >> 1)) {
         result = -result;
+    }
     return result;
 }
 
@@ -1323,29 +1401,33 @@ void UnsetRiderFlag(RiderBase* rider, unk32 flags)
 
 unk8 RiderHasFlag(RiderBase* rider, unk32 flags)
 {
-    if ((rider->flags & flags) == flags)
+    if ((rider->flags & flags) == flags) {
         return 1;
+    }
     return 0;
 }
 
 unk8 RiderHasSomeFlags(RiderBase* rider, unk32 flags)
 {
-    if ((rider->flags & flags) != 0)
+    if ((rider->flags & flags) != 0) {
         return 1;
+    }
     return 0;
 }
 
 unk8 sub_804E440(RiderBase* rider, unk32 flags)
 {
-    if ((rider->unkA4 & flags) != 0)
+    if ((rider->unkA4 & flags) != 0) {
         return 1;
+    }
     return 0;
 }
 
 unk8 sub_804E454(RiderBase* rider, unk32 flags)
 {
-    if ((rider->unkA0 & flags) == flags)
+    if ((rider->unkA0 & flags) == flags) {
         return 1;
+    }
     return 0;
 }
 

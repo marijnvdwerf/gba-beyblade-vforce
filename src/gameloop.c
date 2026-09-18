@@ -134,8 +134,9 @@ void gameLoop(void)
                 current = &_gameData->base;
             }
             renderRider(current);
-            if (current->unk3C8 & 2)
+            if (current->unk3C8 & 2) {
                 current++;
+            }
         }
         __oam_8756CC0();
         updateKeyState();
@@ -552,12 +553,14 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
         x = currentSprite->x + (sub_80610EC(currentSprite) << 8);
         y = currentSprite->y + (sub_8061110(currentSprite) << 8);
         lineSprite = NULL;
-        if (object != NULL && object->sprite != NULL)
+        if (object != NULL && object->sprite != NULL) {
             lineSprite = object->sprite;
+        }
         overlap = 0;
         if (x >= sprite->x && left < sprite->x + 0x2000 && y >= sprite->y
-            && top < sprite->y + 0x2000)
+            && top < sprite->y + 0x2000) {
             overlap = 1;
+        }
         found = overlap;
         if (lineSprite != NULL && found == 0) {
             otherLeft = lineSprite->x;
@@ -566,8 +569,9 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
             otherY = lineSprite->y + (sub_8061110(lineSprite) << 8);
             otherFound = 0;
             if (otherX >= sprite->x && otherLeft < sprite->x + 0x2000 && otherY >= sprite->y
-                && otherTop < sprite->y + 0x2000)
+                && otherTop < sprite->y + 0x2000) {
                 otherFound = 1;
+            }
             found = otherFound;
         }
         if (found != 0) {
@@ -578,25 +582,31 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
             }
             if ((mainActor->x > minX && mainActor->y > minY)
                 || (mainActor->z >> 8) + 4 >= (minZ >> 8)) {
-                if (frame >= currentSprite->var22)
+                if (frame >= currentSprite->var22) {
                     frame = currentSprite->var22 - 3;
-                if (lineSprite != NULL && frame >= lineSprite->var22)
+                }
+                if (lineSprite != NULL && frame >= lineSprite->var22) {
                     frame = lineSprite->var22 - 3;
+                }
             } else {
-                if (frame <= currentSprite->var22)
+                if (frame <= currentSprite->var22) {
                     frame = currentSprite->var22 + 3;
-                if (lineSprite != NULL && frame <= lineSprite->var22)
+                }
+                if (lineSprite != NULL && frame <= lineSprite->var22) {
                     frame = lineSprite->var22 + 3;
+                }
             }
         }
         current++;
     } while (actorCount-- != 0);
     if (sprite->var22 != frame) {
         sub_8061078(sprite, frame);
-        if (gameData->base.unk3E8 != 0)
+        if (gameData->base.unk3E8 != 0) {
             sub_804E530(&gameData->base.unk3EC, frame + 1);
-        if (targetSprite != NULL)
+        }
+        if (targetSprite != NULL) {
             sub_8061078(targetSprite, frame + 2);
+        }
     }
 }
 
@@ -641,8 +651,9 @@ void sub_8052978(unk32 arg0, void (*arg1)(void))
         if (_unk3000C04 > 0x40) {
             _unk3000C04 = 0x40;
             _unk3000C08 = 0;
-            if (_unk3000C0C != NULL)
+            if (_unk3000C0C != NULL) {
                 _unk3000C0C();
+            }
             _unk3000C0C = NULL;
         }
         break;

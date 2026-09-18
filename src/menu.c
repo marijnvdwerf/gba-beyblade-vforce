@@ -35,8 +35,9 @@ void sub_805AC5C(MenuCallbackRecord* arg0)
 
 void sub_805AC68(void)
 {
-    if (_unk3005DC0 != NULL)
+    if (_unk3005DC0 != NULL) {
         _unk3005DC0->unk0(_unk3005DC0);
+    }
 }
 
 void sub_805AC80(MenuState* arg0, UnkMenuItem* arg1)
@@ -57,8 +58,9 @@ void sub_805AC80(MenuState* arg0, UnkMenuItem* arg1)
             }
         }
         if ((arg1->flags & 5) == 0) {
-            if (arg0->items + arg0->unk24 == arg1)
+            if (arg0->items + arg0->unk24 == arg1) {
                 state = arg0->unk2E;
+            }
             *destination = 0x3A;
             destination++;
             *destination = 0x20;
@@ -141,8 +143,9 @@ void allocateMenuItems(MenuState* state, const MenuItemDescriptor* descriptor, u
     enabledCount = 0;
     state->unk24 = selected;
     while (descriptors->labels[state->unk8] != NULL) {
-        if ((descriptors->flags & 1) != 0)
+        if ((descriptors->flags & 1) != 0) {
             enabledCount++;
+        }
         descriptors++;
         itemCount++;
     }
@@ -151,8 +154,9 @@ void allocateMenuItems(MenuState* state, const MenuItemDescriptor* descriptor, u
     state->itemCount = itemCount;
     state->objectCount = itemCount + enabledCount;
     state->unk10 = slowAllocate((itemCount + enabledCount) * sizeof(UnkMenuItem));
-    if (state->unk10 == NULL)
+    if (state->unk10 == NULL) {
         printf(Str_8755370);
+    }
     state->items = state->unk10->address;
     item = state->items;
     nextItem = item + state->itemCount;
@@ -216,26 +220,31 @@ unk32 sub_805AFBC(MenuState* state, u8 arg1)
     current = state->unk24;
     count = state->itemCount;
     step = -1;
-    if (arg1 != 0)
+    if (arg1 != 0) {
         step = 1;
+    }
 
     while (count-- != 0) {
         current += step;
-        if (current < 0)
+        if (current < 0) {
             current += state->itemCount;
-        if (current >= state->itemCount)
+        }
+        if (current >= state->itemCount) {
             current = 0;
+        }
         item = state->items + current;
-        if (item->unk44 != 0)
+        if (item->unk44 != 0) {
             continue;
+        }
         old = state->unk24;
         if (old != current) {
             oldItem = state->items + old;
             state->unk24 = current;
             sub_806185C(oldItem, state->unk2C);
             sub_806185C(item, state->unk2E);
-            if (state->callback != NULL)
+            if (state->callback != NULL) {
                 state->callback(oldItem, old, item, current);
+            }
         }
         break;
     }
@@ -251,28 +260,33 @@ s32 sub_805B050(MenuState* arg0, unk8 arg1)
     unk32 flags;
 
     item = arg0->items + arg0->unk24;
-    if (item->next != NULL)
+    if (item->next != NULL) {
         item = item->next;
+    }
     count = item->count;
-    if (count == 0)
+    if (count == 0) {
         return -1;
+    }
     original = item->value;
     value = original;
-    if (arg1 != 0)
+    if (arg1 != 0) {
         value++;
-    else
+    } else {
         value--;
+    }
     if (value < 0) {
-        if ((item->flags & 2) != 0)
+        if ((item->flags & 2) != 0) {
             value = 0;
-        else
+        } else {
             value += count;
+        }
     }
     if (value >= count) {
         flags = item->flags & 2;
         value = 0;
-        if (flags != 0)
+        if (flags != 0) {
             value = original;
+        }
     }
     item->value = value;
     sub_805AC80(arg0, item);
@@ -286,10 +300,12 @@ unk32 sub_805B0BC(MenuState* state)
 
     index = state->unk24;
     item = state->items + index;
-    if (state->unk34 != NULL)
+    if (state->unk34 != NULL) {
         state->unk34(item, index);
-    if (item->next != NULL)
+    }
+    if (item->next != NULL) {
         item = item->next;
+    }
     return state->unk24 | (item->value << 16);
 }
 
@@ -298,8 +314,9 @@ void sub_805B0F0(MenuState* arg0, s32 arg1, unk8 arg2)
     UnkMenuItem* item;
 
     item = arg0->items + arg1;
-    if (arg1 < 0 || arg1 >= arg0->itemCount)
+    if (arg1 < 0 || arg1 >= arg0->itemCount) {
         return;
+    }
     item->unk44 = arg2 == 0;
     sub_806185C(item, arg2 != 0 ? arg0->unk2C : arg0->unk2D);
 }
@@ -335,14 +352,18 @@ void sub_805B1A0(MenuState* arg0, s32 arg1, s32 arg2)
     UnkMenuItem* item;
 
     item = arg0->items + arg1;
-    if (arg1 < 0 || arg1 >= arg0->itemCount)
+    if (arg1 < 0 || arg1 >= arg0->itemCount) {
         return;
-    if (item->next != NULL)
+    }
+    if (item->next != NULL) {
         item = item->next;
-    if (item->options == NULL)
+    }
+    if (item->options == NULL) {
         return;
-    if (arg2 < 0 || arg2 >= item->count)
+    }
+    if (arg2 < 0 || arg2 >= item->count) {
         return;
+    }
     item->value = arg2;
     sub_805AC80(arg0, item);
 }
@@ -352,12 +373,15 @@ s32 sub_805B1E0(MenuState* arg0, s32 arg1)
     UnkMenuItem* item;
 
     item = arg0->items + arg1;
-    if (arg1 < 0 || arg1 >= arg0->itemCount)
+    if (arg1 < 0 || arg1 >= arg0->itemCount) {
         return -1;
-    if (item->next != NULL)
+    }
+    if (item->next != NULL) {
         item = item->next;
-    if (item->options == NULL)
+    }
+    if (item->options == NULL) {
         return -1;
+    }
     return item->value;
 }
 
@@ -368,12 +392,15 @@ s32 sub_805B210(MenuState* arg0)
 
     index = arg0->unk24;
     item = arg0->items + index;
-    if (index < 0 || index >= arg0->itemCount)
+    if (index < 0 || index >= arg0->itemCount) {
         return -1;
-    if (item->next != NULL)
+    }
+    if (item->next != NULL) {
         item = item->next;
-    if (item->options == NULL)
+    }
+    if (item->options == NULL) {
         return -1;
+    }
     return item->value;
 }
 

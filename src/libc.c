@@ -37,8 +37,9 @@ void* memcpy(void* dst0, const void* src0, size_t len0)
         src = (unk8*)aligned_src;
     }
 
-    while (len--)
+    while (len--) {
         *dst++ = *src++;
+    }
 
     return dst0;
 }
@@ -61,8 +62,9 @@ void* memset(void* m, s32 c, size_t n)
             buffer |= (buffer << 16);
         } else {
             buffer = 0;
-            for (i = 0; i < LBLOCKSIZE; i++)
+            for (i = 0; i < LBLOCKSIZE; i++) {
                 buffer = (buffer << 8) | c;
+            }
         }
 
         while (n >= LBLOCKSIZE * 4) {
@@ -80,8 +82,9 @@ void* memset(void* m, s32 c, size_t n)
         s = (unk8*)aligned_addr;
     }
 
-    while (n--)
+    while (n--) {
         *s++ = c;
+    }
 
     return m;
 }

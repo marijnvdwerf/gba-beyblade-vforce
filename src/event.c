@@ -97,8 +97,9 @@ void processMetadata_6(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
 void sub_8054278(LevelGeometryAddresses* arg0, unk16 arg1)
 {
     handleEventListeners(arg0, arg1);
-    if (_gameData->unk1618 != 0)
+    if (_gameData->unk1618 != 0) {
         sub_804FF88(arg1);
+    }
 }
 
 typedef void (*EventHandler)(
@@ -184,8 +185,9 @@ void processMetadata_1(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
             break;
         case 0x8CEC:
             if (RiderHasFlag(rider, 0x4000000) == 0 && sub_8051780(4) == 0
-                && _gameData->unk161B == 0)
+                && _gameData->unk161B == 0) {
                 turorial_804A488(lineIndex);
+            }
             break;
         }
     }
@@ -259,13 +261,15 @@ void processMetadata_4(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
                 y = 0;
                 if (metadata->unk8.transform.x != 0) {
                     x = -0x1CC;
-                    if (metadata->unk8.transform.x > 0)
+                    if (metadata->unk8.transform.x > 0) {
                         x = 0x1CC;
+                    }
                 }
                 if (metadata->unk8.transform.y != 0) {
                     y = -0x1CC;
-                    if (metadata->unk8.transform.y > 0)
+                    if (metadata->unk8.transform.y > 0) {
                         y = 0x1CC;
+                    }
                 }
                 sub_804ABFC(0xE);
                 sub_805582C(0, NULL, x * 4, -y * 4, 0);
