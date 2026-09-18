@@ -5,6 +5,7 @@
 
 #include "bios.h"
 #include "include_asm.h"
+#include "memory.h"
 #include "sprite.h"
 #include "spritestring.h"
 #include "unsorted.h"
@@ -13,7 +14,6 @@ extern void sub_8061684(SpriteTextCleanup*, unk16, unk16);
 extern unk8 sub_80619A4(SpriteTextCleanup*, unk32, unk8);
 extern unk8 sub_8061AE8(SpriteTextCleanup*, unk32, unk8);
 extern unk8 sub_8061BA0(SpriteTextCleanup*, unk32, unk8);
-extern unk32 sub_8061F3C(SpriteTextCleanup*, unk8, const unk8*, unk32*);
 
 extern void sub_806123C(SpriteTextCleanup*);
 extern const u8 byte_807D980[];
@@ -734,12 +734,17 @@ unk8* sub_8061E94(unk8* ptr, unk8 value)
     return ptr + 1;
 }
 
-unk8* sub_8061E9C(unk8* out, unk32 value, unk32 radix, unk8 zeroPad, s32 width, unk8 uppercase)
+unk8* sub_8061E9C(unk8* out, unk32 value, unk32 radix, unk32 zeroPadArg, s32 width,
+    unk32 uppercaseArg, unk32 arg6)
 {
     unk8 buffer[16];
+    unk8 zeroPad;
+    unk8 uppercase;
     unk8* ptr;
     s32 digit;
 
+    zeroPad = zeroPadArg;
+    uppercase = uppercaseArg;
     ptr = buffer;
     if (width > 0x10) {
         width = 0x10;
@@ -771,14 +776,136 @@ unk8* sub_8061E9C(unk8* out, unk32 value, unk32 radix, unk8 zeroPad, s32 width, 
     return out;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8061f3c.s");
+void sub_8061F3C(SpriteTextCleanup* text, unk8 mode, const unk8* format, va_list args)
+{
+    AllocatedBlock* block;
+    unk8* out;
+    const unk8* cursor;
+    unk32 plainText;
+    unk32 zeroPad;
+    s32 width;
+    unk32 plus;
+    unk32 alternate;
 
-unk32 sub_80622D0(SpriteTextCleanup* arg0, unk8 arg1, const unk8* arg2, ...)
+    block = slowAllocate(0x800);
+    if (block == NULL) {
+        return;
+    }
+    out = block->address;
+    plainText = 1;
+    cursor = format;
+    __fastMemoryClearARM(0, out, 0x800);
+    while (*cursor != 0) {
+        if (plainText != 0) {
+            unk8 character;
+
+            character = *cursor;
+            if (character == '%') {
+                alternate = 0;
+                zeroPad = 0;
+                width = 0;
+                plus = 0;
+                plainText = 0;
+            } else {
+                out = sub_8061E94(out, character);
+            }
+            cursor++;
+        } else {
+            switch (*cursor) {
+            case 'C':
+            case 'c':
+                out = sub_8061E94(out, va_arg(args, unk32));
+                break;
+            case 'd':
+            case 'i': {
+                s32 value;
+
+                value = va_arg(args, s32);
+                if (value < 0) {
+                    out = sub_8061E94(out, '-');
+                    value = -value;
+                } else if (plus != 0) {
+                    out = sub_8061E94(out, '+');
+                }
+                out = sub_8061E9C(out, value, 10, zeroPad, width, 0, 4);
+                break;
+            }
+            case 'o':
+                if (alternate != 0) {
+                    out = sub_8061E94(out, '0');
+                }
+                out = sub_8061E9C(out, va_arg(args, unk32), 8, zeroPad, width, 0, 0);
+                break;
+            case 'u':
+                out = sub_8061E9C(out, va_arg(args, unk32), 10, zeroPad, width, 0, 0);
+                break;
+            case 'X':
+            case 'x':
+                if (alternate != 0) {
+                    out = sub_8061E94(out, '0');
+                    out = sub_8061E94(out, *cursor);
+                }
+                out = sub_8061E9C(out, va_arg(args, unk32), 16, zeroPad, width, *cursor == 'X', 0);
+                break;
+            case 'S':
+            case 's': {
+                const unk8* string;
+
+                string = va_arg(args, const unk8*);
+                while (*string != 0) {
+                    out = sub_8061E94(out, *string++);
+                }
+                break;
+            }
+            case '%':
+                out = sub_8061E94(out, *cursor);
+                break;
+            default:
+                switch (*cursor) {
+                case '#':
+                    alternate = 1;
+                    cursor++;
+                    continue;
+                case '+':
+                    plus = 1;
+                    cursor++;
+                    continue;
+                case '0':
+                    zeroPad = 1;
+                case '1':
+                case '2':
+                case '3':
+                case '4':
+                case '5':
+                case '6':
+                case '7':
+                case '8':
+                case '9':
+                    width *= 10;
+                    width += *cursor - '0';
+                    cursor++;
+                    continue;
+                default:
+                    cursor++;
+                    break;
+                }
+                break;
+            }
+            cursor++;
+            plainText = 1;
+        }
+    }
+    sub_8061660(text, block->address, mode);
+    deallocateBlock(block);
+}
+
+void sub_80622D0(SpriteTextCleanup* arg0, unk8 arg1, const unk8* arg2, ...)
 {
     va_list args;
 
     va_start(args, arg2);
-    return sub_8061F3C(arg0, arg1, arg2, args);
+    sub_8061F3C(arg0, arg1, arg2, args);
+    va_end(args);
 }
 
 void sub_80622E8(UnkMenuItem* item, SpriteTextCleanup* cleanup)
