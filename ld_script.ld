@@ -277,7 +277,7 @@ SECTIONS {
 		src/ai.c.o(.rodata);
 		src/irq.c.o(.rodata);
 		src/debug.c.o(.rodata);
-		src/strings_872cbcc.c.o(.rodata);
+		src/actor.c.o(.rodata);
 		src/layer.c.o(.rodata);
 		asm/data1.s.o(.rodata);
 		src/memory.c.o(.rodata);

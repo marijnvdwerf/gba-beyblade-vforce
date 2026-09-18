@@ -18,7 +18,6 @@ void ActorSetFrameSequence(Actor*, unk32);
 void sub_8058838(Actor*);
 void actor_8058638(Actor*);
 void renderActor(Actor*, unk32);
-extern const char Str_872CBCC[];
 
 void actor_8057C58(Actor* actor, const SpriteSheet* config, BGLayer* arg2, unk32 arg3, unk32 arg4,
     unk32 arg5, unk32 arg6)
@@ -717,7 +716,7 @@ void sub_8058794(Actor* actor, ActorTimerCallback callback, unk32 arg2, unk32 ar
         actor->unk74 = 0;
         block = slowAllocate(sizeof(ActorTimerEntry) * 4);
         if (block == NULL) {
-            nullsub_8(Str_872CBCC);
+            nullsub_8("Error allocating memory for actor motion modifiers\n");
             return;
         }
         actor->unk7C = block;
