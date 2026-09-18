@@ -276,7 +276,13 @@ EnvironmentObject* GetStruct4(unk32 arg0)
     return &_gameData->environmentActors.lineObjects[arg0];
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80539c4.s");
+EnvironmentPointEntry* sub_80539C4(unk32 arg0)
+{
+    if (_gameData->environmentActors.points == NULL) {
+        return NULL;
+    }
+    return &_gameData->environmentActors.points[arg0];
+}
 
 void sub_80539E8(Actor* actor)
 {
@@ -479,7 +485,10 @@ void sub_8053E18(u8 arg0)
     }
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8053ef8.s");
+void sub_8053EF8(Actor* actor)
+{
+    _gameData->unk434.unk224 = actor;
+}
 
 void sub_8053F0C(unk32 arg0)
 {
