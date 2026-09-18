@@ -27,7 +27,7 @@ extern const SpriteSheet SpriteSheet_8227954;
 extern const SpriteSheet SpriteSheet_8227C24;
 extern const SpriteSheet SpriteSheet_821DFF0;
 extern const SpriteSheet SpriteSheet_8224868;
-extern const unk8 Str_8727048[];
+extern const char Str_8727048[];
 
 void sub_804F37C(LevelHudData*);
 void sub_804F794(LevelHudData*);

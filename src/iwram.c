@@ -42,8 +42,8 @@ extern unk16 word_807D90C[];
 extern void (*off_807D938)(s32, s32);
 extern unk32 (*off_807D934)(s32);
 extern s32 (*off_807D930)(const unk8*, ...);
-extern const unk8 Str_8755EAC[];
-extern const unk8 Str_8755EE0[];
+extern const char Str_8755EAC[];
+extern const char Str_8755EE0[];
 
 void oam_8756CC0(void)
 {
@@ -618,7 +618,7 @@ void fastMemoryClear16ARM(unk32 fill, void* destination, unk32 byteCount)
 #endif
 INCLUDE_ASM("asm/dump/8756a00-iwram/30070b8-fastmemoryclear16arm.s");
 #if 0
-extern const unk8 Str_8756798[];
+extern const char Str_8756798[];
 extern void (*off_807D96C)(const unk8*);
 
 void fastMemoryCopy16ARM(const void* sourceArg, void* destinationArg, unk32 byteCount)

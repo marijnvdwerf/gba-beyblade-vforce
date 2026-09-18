@@ -17,9 +17,9 @@ extern unk32 sub_8061F3C(SpriteTextCleanup*, unk8, const unk8*, unk32*);
 
 extern void sub_806123C(SpriteTextCleanup*);
 extern const u8 byte_807D980[];
-extern const unk8 Str_8755B84[];
-extern const unk8 Str_8755B88[];
-extern const unk8 Str_8755B8C[];
+extern const char Str_8755B84[];
+extern const char Str_8755B88[];
+extern const char Str_8755B8C[];
 
 void allocFont(SpriteTextCleanup* arg0, const SpriteSheet* arg1, const unk8* arg2, s16 arg3,
     s16 arg4, unk16 arg5, unk16 arg6)

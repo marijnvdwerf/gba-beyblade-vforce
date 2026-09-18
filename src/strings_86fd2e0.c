@@ -1,214 +1,214 @@
 #include "common.h"
 #include "version.h"
 
-const unk8 Str_86FD2E0[] = "locked (ita)";
+const char Str_86FD2E0[] = "locked (ita)";
 
-const unk8 Str_86FD2F0[] = "locked (fre)";
+const char Str_86FD2F0[] = "locked (fre)";
 
-const unk8 Str_86FD300[] = "locked (deu)";
+const char Str_86FD300[] = "locked (deu)";
 
-const unk8 Str_86FD310[] = "locked (spa)";
+const char Str_86FD310[] = "locked (spa)";
 
-const unk8 Str_86FD320[] = "locked";
+const char Str_86FD320[] = "locked";
 
-const unk8 Str_86FD328[] = "available (ita)";
+const char Str_86FD328[] = "available (ita)";
 
-const unk8 Str_86FD338[] = "available (fre)";
+const char Str_86FD338[] = "available (fre)";
 
-const unk8 Str_86FD348[] = "available (deu)";
+const char Str_86FD348[] = "available (deu)";
 
-const unk8 Str_86FD358[] = "available (spa)";
+const char Str_86FD358[] = "available (spa)";
 
-const unk8 Str_86FD368[] = "available";
+const char Str_86FD368[] = "available";
 
-const unk8 Str_86FD374[] = "5.5";
+const char Str_86FD374[] = "5.5";
 
-const unk8 Str_86FD378[] = "5.4";
+const char Str_86FD378[] = "5.4";
 
-const unk8 Str_86FD37C[] = "5.3";
+const char Str_86FD37C[] = "5.3";
 
-const unk8 Str_86FD380[] = "5.2";
+const char Str_86FD380[] = "5.2";
 
-const unk8 Str_86FD384[] = "5.1";
+const char Str_86FD384[] = "5.1";
 
-const unk8 Str_86FD388[] = "4.5";
+const char Str_86FD388[] = "4.5";
 
-const unk8 Str_86FD38C[] = "4.4";
+const char Str_86FD38C[] = "4.4";
 
-const unk8 Str_86FD390[] = "4.3";
+const char Str_86FD390[] = "4.3";
 
-const unk8 Str_86FD394[] = "4.2";
+const char Str_86FD394[] = "4.2";
 
-const unk8 Str_86FD398[] = "4.1";
+const char Str_86FD398[] = "4.1";
 
-const unk8 Str_86FD39C[] = "3.5";
+const char Str_86FD39C[] = "3.5";
 
-const unk8 Str_86FD3A0[] = "3.4";
+const char Str_86FD3A0[] = "3.4";
 
-const unk8 Str_86FD3A4[] = "3.3";
+const char Str_86FD3A4[] = "3.3";
 
-const unk8 Str_86FD3A8[] = "3.2";
+const char Str_86FD3A8[] = "3.2";
 
-const unk8 Str_86FD3AC[] = "3.1";
+const char Str_86FD3AC[] = "3.1";
 
-const unk8 Str_86FD3B0[] = "2.5";
+const char Str_86FD3B0[] = "2.5";
 
-const unk8 Str_86FD3B4[] = "2.4";
+const char Str_86FD3B4[] = "2.4";
 
-const unk8 Str_86FD3B8[] = "2.3";
+const char Str_86FD3B8[] = "2.3";
 
-const unk8 Str_86FD3BC[] = "2.2";
+const char Str_86FD3BC[] = "2.2";
 
-const unk8 Str_86FD3C0[] = "2.1";
+const char Str_86FD3C0[] = "2.1";
 
-const unk8 Str_86FD3C4[] = "1.5";
+const char Str_86FD3C4[] = "1.5";
 
-const unk8 Str_86FD3C8[] = "1.4";
+const char Str_86FD3C8[] = "1.4";
 
-const unk8 Str_86FD3CC[] = "1.3";
+const char Str_86FD3CC[] = "1.3";
 
-const unk8 Str_86FD3D0[] = "1.2";
+const char Str_86FD3D0[] = "1.2";
 
-const unk8 Str_86FD3D4[] = "";
+const char Str_86FD3D4[] = "";
 
-const unk8 Str_86FD3D8[] = "1.1";
+const char Str_86FD3D8[] = "1.1";
 
-const unk8 Str_86FD3DC[] = "level";
+const char Str_86FD3DC[] = "level";
 
-const unk8 Str_86FD3E4[] = "Level (ita)";
+const char Str_86FD3E4[] = "Level (ita)";
 
-const unk8 Str_86FD3F0[] = "Level (fre)";
+const char Str_86FD3F0[] = "Level (fre)";
 
-const unk8 Str_86FD3FC[] = "Level (deu)";
+const char Str_86FD3FC[] = "Level (deu)";
 
-const unk8 Str_86FD408[] = "Level (spa)";
+const char Str_86FD408[] = "Level (spa)";
 
-const unk8 Str_86FD414[] = "Level";
+const char Str_86FD414[] = "Level";
 
-const unk8 Str_86FD41C[] = "Results (ita)";
+const char Str_86FD41C[] = "Results (ita)";
 
-const unk8 Str_86FD42C[] = "Results (fre)";
+const char Str_86FD42C[] = "Results (fre)";
 
-const unk8 Str_86FD43C[] = "Results (deu)";
+const char Str_86FD43C[] = "Results (deu)";
 
-const unk8 Str_86FD44C[] = "Results (spa)";
+const char Str_86FD44C[] = "Results (spa)";
 
-const unk8 Str_86FD45C[] = "Results";
+const char Str_86FD45C[] = "Results";
 
-const unk8 Str_86FD464[] = "\x8F";
+const char Str_86FD464[] = "\x8F";
 
-const unk8 Str_86FD468[] = "...";
+const char Str_86FD468[] = "...";
 
-const unk8 Str_86FD46C[] = " / ";
+const char Str_86FD46C[] = " / ";
 
-const unk8 Str_86FD470[] = " - ";
+const char Str_86FD470[] = " - ";
 
-const unk8 Str_86FD474[] = "no (ita)";
+const char Str_86FD474[] = "no (ita)";
 
-const unk8 Str_86FD480[] = "no (fre)";
+const char Str_86FD480[] = "no (fre)";
 
-const unk8 Str_86FD48C[] = "no (deu)";
+const char Str_86FD48C[] = "no (deu)";
 
-const unk8 Str_86FD498[] = "no (spa)";
+const char Str_86FD498[] = "no (spa)";
 
-const unk8 Str_86FD4A4[] = "no";
+const char Str_86FD4A4[] = "no";
 
-const unk8 Str_86FD4A8[] = "yes (ita)";
+const char Str_86FD4A8[] = "yes (ita)";
 
-const unk8 Str_86FD4B4[] = "yes (fre)";
+const char Str_86FD4B4[] = "yes (fre)";
 
-const unk8 Str_86FD4C0[] = "yes (deu)";
+const char Str_86FD4C0[] = "yes (deu)";
 
-const unk8 Str_86FD4CC[] = "yes (spa)";
+const char Str_86FD4CC[] = "yes (spa)";
 
-const unk8 Str_86FD4D8[] = "yes";
+const char Str_86FD4D8[] = "yes";
 
-const unk8 Str_86FD4DC[] = "sfx volume (ita)";
+const char Str_86FD4DC[] = "sfx volume (ita)";
 
-const unk8 Str_86FD4F0[] = "sfx volume (fre)";
+const char Str_86FD4F0[] = "sfx volume (fre)";
 
-const unk8 Str_86FD504[] = "sfx volume (ger)";
+const char Str_86FD504[] = "sfx volume (ger)";
 
-const unk8 Str_86FD518[] = "sfx volume (spa)";
+const char Str_86FD518[] = "sfx volume (spa)";
 
-const unk8 Str_86FD52C[] = "sfx volume";
+const char Str_86FD52C[] = "sfx volume";
 
-const unk8 Str_86FD538[] = "music volume (ita)";
+const char Str_86FD538[] = "music volume (ita)";
 
-const unk8 Str_86FD54C[] = "music volume (fre)";
+const char Str_86FD54C[] = "music volume (fre)";
 
-const unk8 Str_86FD560[] = "music volume (ger)";
+const char Str_86FD560[] = "music volume (ger)";
 
-const unk8 Str_86FD574[] = "music volume (spa)";
+const char Str_86FD574[] = "music volume (spa)";
 
-const unk8 Str_86FD588[] = "music volume";
+const char Str_86FD588[] = "music volume";
 
-const unk8 Str_86FD598[] = "team 4";
+const char Str_86FD598[] = "team 4";
 
-const unk8 Str_86FD5A0[] = "team 3";
+const char Str_86FD5A0[] = "team 3";
 
-const unk8 Str_86FD5A8[] = "team 2";
+const char Str_86FD5A8[] = "team 2";
 
-const unk8 Str_86FD5B0[] = "team 1";
+const char Str_86FD5B0[] = "team 1";
 
-const unk8 Str_86FD5B8[] = "team (ita) :";
+const char Str_86FD5B8[] = "team (ita) :";
 
-const unk8 Str_86FD5C8[] = "team (fre) :";
+const char Str_86FD5C8[] = "team (fre) :";
 
-const unk8 Str_86FD5D8[] = "team (ger) :";
+const char Str_86FD5D8[] = "team (ger) :";
 
-const unk8 Str_86FD5E8[] = "team (spa) :";
+const char Str_86FD5E8[] = "team (spa) :";
 
-const unk8 Str_86FD5F8[] = "team :";
+const char Str_86FD5F8[] = "team :";
 
-const unk8 Str_86FD600[] = "Team (ita)";
+const char Str_86FD600[] = "Team (ita)";
 
-const unk8 Str_86FD60C[] = "Team (fre)";
+const char Str_86FD60C[] = "Team (fre)";
 
-const unk8 Str_86FD618[] = "Team (deu)";
+const char Str_86FD618[] = "Team (deu)";
 
-const unk8 Str_86FD624[] = "Team (spa)";
+const char Str_86FD624[] = "Team (spa)";
 
-const unk8 Str_86FD630[] = "Team";
+const char Str_86FD630[] = "Team";
 
-const unk8 Str_86FD638[] = "TITLE";
+const char Str_86FD638[] = "TITLE";
 
-const unk8 Str_86FD640[]
+const char Str_86FD640[]
     = "Error, no Beyblades available for display in selectBladeFrontendHandler()\n";
 
-const unk8 Str_86FD68C[] = "cannot allocate sprite 1 in selectBladeFrontendHandler()\n";
+const char Str_86FD68C[] = "cannot allocate sprite 1 in selectBladeFrontendHandler()\n";
 
-const unk8 Str_86FD6C8[] = "cannot allocate sprite 2 in selectBladeFrontendHandler()\n";
+const char Str_86FD6C8[] = "cannot allocate sprite 2 in selectBladeFrontendHandler()\n";
 
-const unk8 Str_86FD704[] = "cannot allocate sprite 4 in selectBladeFrontendHandler()\n";
+const char Str_86FD704[] = "cannot allocate sprite 4 in selectBladeFrontendHandler()\n";
 
-const unk8 Str_86FD740[] = "cannot allocate sprite 5 in selectBladeFrontendHandler()\n";
+const char Str_86FD740[] = "cannot allocate sprite 5 in selectBladeFrontendHandler()\n";
 
-const unk8 Str_86FD77C[] = "cannot allocate sprite 6 in selectBladeFrontendHandler()\n";
+const char Str_86FD77C[] = "cannot allocate sprite 6 in selectBladeFrontendHandler()\n";
 
-const unk8 Str_86FD7B8[] = "cannot allocate sprite 7 in selectBladeFrontendHandler()\n";
+const char Str_86FD7B8[] = "cannot allocate sprite 7 in selectBladeFrontendHandler()\n";
 
-const unk8 Str_86FD7F4[] = "BITS AND BOBS (ita)";
+const char Str_86FD7F4[] = "BITS AND BOBS (ita)";
 
-const unk8 Str_86FD808[] = "BITS AND BOBS (fre)";
+const char Str_86FD808[] = "BITS AND BOBS (fre)";
 
-const unk8 Str_86FD81C[] = "BITS AND BOBS (deu)";
+const char Str_86FD81C[] = "BITS AND BOBS (deu)";
 
-const unk8 Str_86FD830[] = "BITS AND BOBS (spa)";
+const char Str_86FD830[] = "BITS AND BOBS (spa)";
 
-const unk8 Str_86FD844[] = "MAIN";
+const char Str_86FD844[] = "MAIN";
 
-const unk8 Str_86FD84C[] = "TEXT (ita)";
+const char Str_86FD84C[] = "TEXT (ita)";
 
-const unk8 Str_86FD858[] = "TEXT (fre)";
+const char Str_86FD858[] = "TEXT (fre)";
 
-const unk8 Str_86FD864[] = "TEXT (deu)";
+const char Str_86FD864[] = "TEXT (deu)";
 
-const unk8 Str_86FD870[] = "TEXT (spa)";
+const char Str_86FD870[] = "TEXT (spa)";
 
-const unk8 Str_86FD87C[] = "TEXT";
+const char Str_86FD87C[] = "TEXT";
 
-const unk8 Str_86FD884[]
+const char Str_86FD884[]
     = "This text is a placeholder for level entry dialog sections. {C14}Bring on the {C13}left{c} "
       "head{c}{A2}, and then the right head{a3}<\f>Now do{T} a transition<\f>And now do a single "
       "flash {f}<\f>And {t1}now change to a different screen{t2}<\f>And now change to yet a "
@@ -218,7 +218,7 @@ const unk8 Str_86FD884[]
       "replace the left head{A4}...<\f>And the start to move it slowly{V16}...<\f>And then the "
       "right{a5}{v-32}<\f>Animate them both now!{Q}{q}<\f>And then stop the left one{U}";
 
-const unk8 Str_86FDB3C[]
+const char Str_86FDB3C[]
     = "{f}{A10}... {C14}Takao{c} è tornato a casa presso {C14}Nonno Jei{c} dopo aver vinto il "
       "Torneo Mondiale di Beyblade. Oggi, dopo la scuola, {C14}Takao{c} è diventato la stella "
       "della sfida locale di Beyblade che si tiene sul tetto del supermercato di Zody.<\f>Quando "
@@ -231,7 +231,7 @@ const unk8 Str_86FDB3C[]
       "grosso.\"{c}<\f>{u}{b}{B}Nonostante gli sforzi di {C14}Takao{c}, {C14}Mister X{c} lo "
       "sconfigge facilmente...<\f>{f}{A5}{Q}{C12}\"Ma come è potuto accadere?\"{c}";
 
-const unk8 Str_86FDEB4[]
+const char Str_86FDEB4[]
     = "{f}{A10}... {C14}Tyson{c} est rentré chez son {C14}grand-père{c} après avoir remporté le "
       "championnat du monde de Beyblade. Aujourd'hui, après l'école, {C14}Tyson{c} a été "
       "l'attraction vedette d'un tournoi local de Beyblade organisé sur le toit du supermarché de "
@@ -244,7 +244,7 @@ const unk8 Str_86FDEB4[]
       "{C14}Tyson{c} est facilement battu par {C14}M. X{c}...<\f>{f}{A5}{Q}{C12}\"Mais comment "
       "cela a-t-il pu arriver?\"{c}";
 
-const unk8 Str_86FE234[]
+const char Str_86FE234[]
     = "{f}{A10}... {C14}Tyson{c} ist gerade wieder zuhause bei seinem {C14}Großvater{c} "
       "angekommen, nachdem er die Beyblade-Weltmeisterschaft gewonnen hat. Heute soll "
       "{C14}Tyson{c} nach der Schule als der Star bei einem kleinen Beyblade-Wettbewerb auf dem "
@@ -258,7 +258,7 @@ const unk8 Str_86FE234[]
       "{C14}Tyson{c} sein Bestes gibt, wird er von {C14}Mister X{c} deutlich "
       "geschlagen...<\f>{f}{A5}{Q}{C12}\"Aber wie ist das möglich!?\"{c}";
 
-const unk8 Str_86FE610[]
+const char Str_86FE610[]
     = "{f}{A10}... {C14}Tyson{c} ha vuelto a casa de su {C14}abuelo{c} de ganar el Torneo Mundial "
       "de Peonzas. Hoy, después de la escuela, {C14}Tyson{c} ha participado como atracción estelar "
       "en una final local de peonzas celebrada en el tejado del supermercado de Zody.<\f>Cuando "
@@ -271,7 +271,7 @@ const unk8 Str_86FE610[]
       "enormes esfuerzos de {C14}Tyson{c}, {C14}Señor X{c} le derrota con "
       "facilidad...<\f>{f}{A5}{Q}{C12}\"¿¡Pero cómo ha podido ocurrir esto!?\"{c}";
 
-const unk8 Str_86FE9B8[]
+const char Str_86FE9B8[]
     = "{f}{A10}... {C14}Tyson{c} has returned home to his {C14}Grandpa's{c} house after winning "
       "the Beyblade World Tournament.<\f>Today after school, {C14}Tyson{c} is entered as the star "
       "attraction in a local Beyblade playoff held on the roof of Zody's supermarket.<\f>When "
@@ -284,7 +284,7 @@ const unk8 Str_86FE9B8[]
       "mistaken.\"{c}<\f>{u}{b}{B}Despite {C14}Tyson's{c} best efforts, {C14}Mister X{c} easily "
       "defeats him...<\f>{f}{A5}{Q}{C12}\"But how could this happen!?\"{c}";
 
-const unk8 Str_86FED24[]
+const char Str_86FED24[]
     = "{f}{A6}{C14}Max{c} sta passeggiando quando viene affrontato da una straniera di nome "
       "{C14}Mao{c}, che lo sfida...<\f>{q}{C13}\"Io sono pronta, e "
       "tu?\"{c}<\f>{u}{t2}{Q}{C12}\"OK! Ma ti avverto: non ci andrò piano solo perché tu non hai "
@@ -297,7 +297,7 @@ const unk8 Str_86FED24[]
       "succede?<\f>Sembra che ci sia un misterioso gruppo di persone decise a battere i campioni "
       "del mondo: i Bladebreakers!";
 
-const unk8 Str_86FF068[]
+const char Str_86FF068[]
     = "{f}{A6}{C14}Max{c} se promène lorsqu'une personne inconnue appelée {f}{C14}Mariam{c}{a7} "
       "l'aborde et lui lance un défi...<\f>{q}{C13}\"Quand tu "
       "veux!\"{c}<\f>{u}{t2}{Q}{C12}\"D'accord! Mais attention: j'irai à fond, même si c'est la "
@@ -310,7 +310,7 @@ const unk8 Str_86FF068[]
       "passe-t-il?<\f>Il semble qu'un mystérieux groupe ait décidé de battre les champions du "
       "monde, les Bladebreakers!";
 
-const unk8 Str_86FF3C0[]
+const char Str_86FF3C0[]
     = "{f}{A6}{C14}Max{c} geht gerade spazieren, als eine Fremde mit dem Namen "
       "{f}{C14}Mariam{c}{a7} ihn anspricht und zu einem Kampf "
       "herausfordert...<\f>{q}{C13}\"Bereit, wenn du es bist!\"{c}<\f>{u}{t2}{Q}{C12}\"OK! Aber "
@@ -324,7 +324,7 @@ const unk8 Str_86FF3C0[]
       "mysteriöse Gruppe zusammen gefunden zu haben, um die Weltmeister, die Bladebreakers, zu "
       "besiegen!";
 
-const unk8 Str_86FF75C[]
+const char Str_86FF75C[]
     = "{f}{A6}{C14}Max{c} ha salido a pasear cuando, de repente, una extraña llamada "
       "{f}{C14}Mariam{c}{a7} se enfrenta a él y le reta a una batalla...<\f>{q}{C13}\"¡Estoy "
       "preparada en cuanto tú lo estés!\"{c}<\f>{u}{t2}{Q}{C12}\"¡De acuerdo! Pero déjame "
@@ -337,7 +337,7 @@ const unk8 Str_86FF75C[]
       "que la de {C14}Max{c} y {C14}Tyson{c}... ¿Qué está pasando?<\f>Parece que hay un misterioso "
       "grupo de personas decididas a derrotar a los campeones del mundo, ¡los Bladebreakers!";
 
-const unk8 Str_86FFAF4[]
+const char Str_86FFAF4[]
     = "{f}{A6}{C14}Max{c} is out walking when suddenly he is confronted by a stranger called "
       "{f}{C14}Mariam{c}{a7} and challenged to a battle...<\f>{q}{C13}\"I'm ready when you "
       "are!\"{c}<\f>{u}{t2}{Q}{C12}\"OK! But let me warn you - I won't hold back because you're "
@@ -349,7 +349,7 @@ const unk8 Str_86FFAF4[]
       "{C14}Max's{c} and {C14}Tyson's{c}... What is going on?<\f>It seems there are a mysterious "
       "group of people determined to beat the world champions, the Bladebreakers!";
 
-const unk8 Str_86FFE50[]
+const char Str_86FFE50[]
     = "Il {C14}Prof. Kappa{c}{A5}, l'assistente dei Bladebreakers, incontra "
       "{f}{C14}Hilary{c}{a0} mentre torna da scuola per incontrare "
       "{C14}Takao{c}. Ha delle importanti notizie su {C14}Mister X{c}: ha "
@@ -358,7 +358,7 @@ const unk8 Str_86FFE50[]
       "alla loro destinazione, il {C14}Prof. Kappa{c} e {C14}Hilary{c} vengono "
       "rapiti da due {C14}uomini vestiti di nero{c}{f}{A23}{f}{a24}...";
 
-const unk8 Str_8700028[]
+const char Str_8700028[]
     = "{C14}Kenny{c}{A5}, l'assistant des Bladebreakers, tombe sur "
       "{f}{C14}Hilary{c}{a0}, une fille de l'école alors qu'il va rejoindre "
       "{C14}Tyson{c}. {C14}Kenny{c} a des nouvelles importantes sur {C14}Mister "
@@ -367,7 +367,7 @@ const unk8 Str_8700028[]
       "{C14}Tyson{c}.<\f>{b}{B}Mais, en chemin, {C14}Kenny{c} et {C14}Hilary{c} "
       "sont enlevés par deux {C14}hommes en noir{c}{f}{A23}{f}{a24}...";
 
-const unk8 Str_87001F4[]
+const char Str_87001F4[]
     = "{C14}Kenny{c}{A5}, der technische Kopf der Bladebreakers, trifft "
       "{f}{C14}Hilary{c}{a0}, ein Mädchen aus der Schule, als er gerade "
       "unterwegs zu {C14}Tyson{c} ist. {C14}Kenny{c} hat erfahren, dass hinter "
@@ -377,7 +377,7 @@ const unk8 Str_87001F4[]
       "und {C14}Hilary{c} dort ankommen, werden sie von zwei {C14}schwarz "
       "gekleideten Männern{c} entführt{f}{A23}{f}{a24}...";
 
-const unk8 Str_8700404[]
+const char Str_8700404[]
     = "{C14}Kenny{c}{A5}, el asistente de los Bladebreakers, se encuentra con "
       "{f}{C14}Hilary{c}{a0}, una chica de la escuela, mientras va de camino a "
       "encontrarse con {C14}Tyson.{c} {C14}Kenny{c} tiene noticias importantes "
@@ -387,7 +387,7 @@ const unk8 Str_8700404[]
       "puedan llegar allí, son secuestrados por dos {C14}Hombres de "
       "Negro{c}{f}{A23}{f}{a24}...";
 
-const unk8 Str_870060C[]
+const char Str_870060C[]
     = "{C14}Kenny{c}{A5}, the Bladebreakers' assistant, runs into {f}{C14}Hilary{c}{a0}, a girl "
       "from school, while walking to meet with {C14}Tyson{c}.<\f>{C14}Kenny{c} has some important "
       "news about {C14}Mister\x8FX...{c}<\f>... who, Kenny has learned, is actually called "
@@ -395,7 +395,7 @@ const unk8 Str_870060C[]
       "{C14}Tyson{c}.<\f>{b}{B}Before {C14}Kenny{c} and {C14}Hilary{c} can get there, they are "
       "kidnapped by two {C14}Men in Black{c}{f}{A23}{f}{a24}...";
 
-const unk8 Str_87007EC[]
+const char Str_87007EC[]
     = "{C14}Takao{c} {A10}si sta dirigendo al parco per la rivincita con {C14}Ozuma{c} e vede un "
       "furgone che gli si avvicina velocemente. Lo guarda e vede gli {C14}uomini vestiti di "
       "nero{c}{a24} seduti all'interno.<\f>{C14}Takao{c} sente delle confuse invocazioni di aiuto "
@@ -405,7 +405,7 @@ const unk8 Str_87007EC[]
       "RESISTETE!\"{c}<\f>{U}{B}{C14}Takao{c} segue gli {C14}uomini vestiti di nero{c}. Le loro "
       "tracce lo portano a una grossa nave arrugginita...";
 
-const unk8 Str_8700A30[]
+const char Str_8700A30[]
     = "{C14}Tyson{c} {A10}se dirige vers le parc pour une revanche avec {C14}Ozuma{c} lorsqu'il "
       "voit une camionnette foncer vers lui ; il lève le nez et voit les {C14}hommes en "
       "noir{c}{a24} au volant.<\f>{C14}Tyson{c} entend des cris étouffés en provenance de la "
@@ -414,7 +414,7 @@ const unk8 Str_8700A30[]
       "BON!\"{c}<\f>{U}{B}{C14}Tyson{c} suit les {C14}hommes en noir{c} et leur piste le mène à un "
       "énorme bateau rouillé...";
 
-const unk8 Str_8700C44[]
+const char Str_8700C44[]
     = "{C14}Tyson{c} {A10}ist auf dem Weg zu einem Rückkampf mit {C14}Ozuma{c}, als ein "
       "Lieferwagen mit hoher Geschwindigkeit an ihm vorbeifährt. Er sieht hoch und bemerkt zwei "
       "{C14}schwarz gekleidete Männer{c}{a24} in der Fahrerkabine.<\f>{C14}Tyson{c} hört gedämpfte "
@@ -424,7 +424,7 @@ const unk8 Str_8700C44[]
       "DURCH!\"{c}<\f>{U}{B}{C14}Tyson{c} folgt den {C14}schwarz gekleideten Männern{c}. Die Spur "
       "führt zu einem gigantischen, verrosteten Schiff...";
 
-const unk8 Str_8700EA0[]
+const char Str_8700EA0[]
     = "{C14}Tyson{c} {A10}se dirige al parquet para tener otro encuentro con "
       "{C14}Ozuma{c}, cuando ve una furgoneta que se acerca a él a toda "
       "velocidad, mira hacia ella y ve a los {C14}Hombres de Negro{c}{a24} al "
@@ -435,7 +435,7 @@ const unk8 Str_8700EA0[]
       "voy, chicos, ¡AGUANTAD!\"{c}<\f>{U}{B}{C14}Tyson{c} sigue a los "
       "{C14}Hombres de Negro{c} y su pista le lleva a un gran barco oxidado...";
 
-const unk8 Str_87010D0[]
+const char Str_87010D0[]
     = "{C14}Tyson{c} {A10}is heading to the park to have a rematch with "
       "{C14}Ozuma{c} when he sees a van speeding towards him.<\f>He looks up at "
       "it and sees the {C14}Men in black{c}{a24} behind the "
@@ -445,7 +445,7 @@ const unk8 Str_87010D0[]
       "them!? I'm coming guys - HOLD ON!\"{c}<\f>{U}{B}{C14}Tyson{c} follows "
       "the {C14}Men in black{c}. Their trail leads to a giant rusty boat...";
 
-const unk8 Str_87012DC[]
+const char Str_87012DC[]
     = "{C14}Takao{c} esplora la nave, apparentemente vuota, alla ricerca del {C14}Prof. Kappa{c} e "
       "di {C14}Hilary{c}. Alla fine, li trova rinchiusi in una gabbia di "
       "vetro.<\f>{A5}{C12}{Q}\"{C14}Takao{c}! Sapevo che ce l'avresti fatta!\" "
@@ -457,7 +457,7 @@ const unk8 Str_87012DC[]
       "condizione: che loro siano liberati.\"{c}<\f>{U}{A23}{a24}{Q}{q}{C13}\"Molto bene. "
       "Libereremo i tuoi amici, ma solo se vincerai.{f4}\"{c}";
 
-const unk8 Str_87015D0[]
+const char Str_87015D0[]
     = "{C14}Tyson{c} explore le bateau apparemment vide à la recherche de {C14}Kenny{c} et "
       "{C14}Hilary{c} et finit par les retrouver prisonniers dans une cage de verre. "
       "<\f>{A5}{C12}{Q}\"{C14}Tyson{c}! Je savais que tu nous retrouverais!\" "
@@ -470,7 +470,7 @@ const unk8 Str_87015D0[]
       "partir.\"{c}<\f>{U}{A23}{a24}{Q}{q}{C13}\"Très bien. Nous allons libérer tes amis. Mais "
       "seulement si tu gagnes.{f4}\"{c}";
 
-const unk8 Str_8701904[]
+const char Str_8701904[]
     = "{C14}Tyson{c} erkundet das offensichtlich verlassene Schiff auf der Suche nach "
       "{C14}Kenny{c} und {C14}Hilary{c}. Schließlich entdeckt er sie, gefangen in einem gläsernen "
       "Käfig.<\f>{A5}{C12}{Q}\"{C14}Tyson{c}! Ich wusste, dass du kommen würdest!\" "
@@ -483,7 +483,7 @@ const unk8 Str_8701904[]
       "gehen!\"{c}<\f>{U}{A23}{a24}{Q}{q}{C13}\"So soll es sein. Wir werden deine Freunde frei "
       "lassen. Aber nur, wenn du gewinnst!{f4}\"{c}";
 
-const unk8 Str_8701C60[]
+const char Str_8701C60[]
     = "{C14}Tyson{c} explora el barco, aparentemente vacío, en busca de {C14}Kenny{c} y "
       "{C14}Hilary{c} ; Finalmente, les encuentra atrapados en una jaula de cristal. "
       "<\f>{A5}{C12}{Q}\"¡{C14}Tyson{c}! ¡Sabía que lo conseguirías!\" {c}<\f>{U}{a0}{C12}{q}\"Sí, "
@@ -495,7 +495,7 @@ const unk8 Str_8701C60[]
       "dejadles marchar\"{c}<\f>{U}{A23}{a24}{Q}{q}{C13}\"Muy bien. Liberaremos a tus amigos, pero "
       "solo si ganas{f4}\"{c}";
 
-const unk8 Str_8701F7C[]
+const char Str_8701F7C[]
     = "{C14}Tyson{c} explores the seemingly empty ship searching for {C14}Kenny{c} and "
       "{C14}Hilary{c}. Eventually he discovers them trapped in a glass cage. "
       "<\f>{A5}{C12}{Q}\"{C14}Tyson{c}! I knew you'd make it!\" {c}<\f>{U}{a0}{C12}{q}\"Yes, and "
@@ -507,7 +507,7 @@ const unk8 Str_8701F7C[]
       "let them go!\"{c}<\f>{U}{A23}{a24}{Q}{q}{C13}\"Very well. We will set your friends free - "
       "but only if you win.{f4}\"{c}";
 
-const unk8 Str_870228C[]
+const char Str_870228C[]
     = "Il Dragoon di {A10}{C14}Takao{c} lotta contro il suo avversario "
       "{f}{C14}Robot{c}{a26}.<\f>{A5}{a0}{Q}{C12}\"Qualcuno sta comunicando gli schemi di attacco "
       "di {C14}Takao{c} al chip strategico del {C14}Robot{c}!\"{c}<\f> {U}{q}{C12}\"Ma allora... "
@@ -523,7 +523,7 @@ const unk8 Str_870228C[]
       "raggiungere la riva.<\f>{t1}A bordo della nave, {C14}Gideon{c}{A19} ride fra sé. "
       "<\f>{Q}{C13}\"Ora conosco il segreto. Il segreto del Bit Beast.\" {c} ";
 
-const unk8 Str_87026E0[]
+const char Str_87026E0[]
     = "Le Dragoon de {A10}{C14}Tyson{c} attaque son adversaire "
       "{f}{C14}Robot{c}{a26}.<\f>{A5}{a0}{Q}{C12}\"Quelqu'un insère les schémas d'attaque de "
       "{C14}Tyson{c} dans la puce de stratégie du {C14}Robot{c}!\"{c}<\f> {U}{q}{C12}\"Mais "
@@ -539,7 +539,7 @@ const unk8 Str_87026E0[]
       "côte.<\f>{t1}Sur le bateau, {C14}Gideon{c}{A19} rit néanmoins...<\f>{Q}{C13}\"Maintenant, "
       "je connais le secret. Le secret du Bit Beast.\" {c} ";
 
-const unk8 Str_8702B1C[]
+const char Str_8702B1C[]
     = "{A10}{C14}Tyson{c}s Dragoon rammt das Blade seines "
       "{f}{C14}Roboter{c}{a26}-Gegners.<\f>{A5}{a0}{Q}{C12}\"Irgendjemand transferiert "
       "{C14}Tysons{c} Angriffsmuster in den Strategie-Chip des {C14}Roboters{c}!\"{c}<\f> "
@@ -557,7 +557,7 @@ const unk8 Str_8702B1C[]
       "Fäustchen...<\f>{Q}{C13}\"Jetzt kenne ich das Geheimnis. Das Geheimnis des Bit Beasts!\" "
       "{c} ";
 
-const unk8 Str_8702FDC[]
+const char Str_8702FDC[]
     = "{A10}El dragón de {C14}Tyson{c} sale disparado contra su adversario "
       "{f}{C14}Robot{c}{a26}<\f>{A5}{a0}{Q}{C12}\"¡Alguien está introduciendo los patrones de "
       "ataque de {C14}Tyson{c} en el chip de estrategia del {C14}Robot{c}!\"{c}<\f> "
@@ -573,7 +573,7 @@ const unk8 Str_8702FDC[]
       "{C14}Tyson{c} a la costa.<\f>{t1}De Nuevo en el barco, {C14}Gideon{c}{A19} se ríe para sí "
       "mismo...<\f>{Q}{C13}\"Ahora sé el secreto. El secreto del Bit Beast.\" {c} ";
 
-const unk8 Str_8703450[]
+const char Str_8703450[]
     = "{A10}{C14}Tyson's{c} Dragoon rips into his {f}{C14}Robot{c}{a26} "
       "opponent.<\f>{A5}{a0}{Q}{C12}\"Someone's inputting {C14}Tyson's{c} attack patterns into the "
       "{C14}Robot's{c} strategy chip!\"{c}<\f>{U}{q}{C12}\"But then... he doesn't stand a "
@@ -589,14 +589,14 @@ const unk8 Str_8703450[]
       "{C14}Gideon{c}{A19} is laughing to himself...<\f>{Q}{C13}\"Now I know the secret - the "
       "secret of the Bit Beast.\" {c}";
 
-const unk8 Str_8703874[]
+const char Str_8703874[]
     = "{A5}Il {C14}Prof. Kappa{c} e {a10}{C14}Takao{c} stanno cercando di capire che cosa stia "
       "succedendo. La loro ipotesi più verosimile è che esistano due fazioni decise a rubare i Bit "
       "Beast dei Bladebreakers.<\f>{Q}{C12}\"Un momento! Mi è venuta un'idea angosciante! E se "
       "quel verme di {C14}Ozuma{c} fosse deciso a rubare tutti i Bit Beast dei Bladebreakers? Ciò "
       "significa che dopo sfiderà {C14}Kay{c} per rubare il suo!\"{c}";
 
-const unk8 Str_8703A18[]
+const char Str_8703A18[]
     = "{A5}{C14}Kenny{c} et {a10}{C14}Tyson{c} tentent de comprendre ce qui se "
       "passe... Ils ne parviennent qu'à déduire que deux factions essaient de "
       "voler les Bit Beasts des Bladebreakers.<\f>{Q}{C12}\"Une minute! Je "
@@ -604,7 +604,7 @@ const unk8 Str_8703A18[]
       "aux Bit Beasts de tous les Bladebreakers? Cela voudrait dire que "
       "{C14}Kai{c} est la prochaine cible!\"{c}";
 
-const unk8 Str_8703B9C[]
+const char Str_8703B9C[]
     = "{A5}{C14}Kenny{c} und {a10}{C14}Tyson{c} versuchen zu verstehen, was vor "
       "sich geht... sie kommen zu dem Schluss, dass es zwei Fraktionen geben "
       "muss, die versuchen, die Bit Beasts der Bladebreakers zu "
@@ -613,7 +613,7 @@ const unk8 Str_8703B9C[]
       "Bladebreakers stehlen will? Das würde bedeuten, dass er als nächstes "
       "{C14}Kai{c} aufsuchen wird, um ihm seins abzunehmen!\"{c}";
 
-const unk8 Str_8703D70[]
+const char Str_8703D70[]
     = "{A5}{C14}Kenny{c} y {a10}{C14}Tyson{c} están intentando comprender lo "
       "que está ocurriendo... lo máximo que han podido deducir es que dos "
       "facciones están intentando robar los Bit Beast de los "
@@ -622,7 +622,7 @@ const unk8 Str_8703D70[]
       "Bit Beast de todos los Bladebreakers? ¡¡Eso significa que tendría que ir "
       "a por Kai para conseguir el siguiente!!\"{c}";
 
-const unk8 Str_8703F2C[]
+const char Str_8703F2C[]
     = "{A5}{C14}Kenny{c} and {a10}{C14}Tyson{c} are trying to understand what "
       "is going on...<\f>The best they can deduce is that two factions are "
       "trying to steal the Bladebreakers' Bit Beasts.<\f>{Q}{C12}\"Wait a "
@@ -630,7 +630,7 @@ const unk8 Str_8703F2C[]
       "is after all the Bit Beasts from everyone in the Bladebreakers?<\f>That "
       "means they'll be going after {C14}Kai{c} to get his next!!\"{c}";
 
-const unk8 Str_87040C8[]
+const char Str_87040C8[]
     = "{f}{A3}{C14}Kay{c} è tornato a scuola e viene sfidato da {f}{C14}Dunga{c}{f4}{a1}.<\f>La "
       "partita si conclude con un sorprendente pareggio, così {C14}Kay{c} decide di parlare con "
       "{C14}Takao{c} per riunire i Bladebreakers. Intanto...<\f>{b}{B}{t1}Nel centro di "
@@ -641,7 +641,7 @@ const unk8 Str_87040C8[]
       "{C14}Takao{c} {A10} e i loro Beyblade si urtano "
       "violentemente.<\f>{Q}{C12}\"NO!\"{c}<\f>{U}{q}{C13}\"Sì!\" {c}";
 
-const unk8 Str_8704370[]
+const char Str_8704370[]
     = "{f}{A3}{C14}Kai{c}, de retour à l'école, est défié par {f}{C14}Dunga{c}{f4}{a1}.<\f>Le "
       "combat s'achève par un match nul et {C14}Kai{c} décide d'aller retrouver {C14}Tyson{c} afin "
       "que les Bladebreakers soient de nouveau réunis...<\f>{b}{B}{t1}Pendant ce temps, au centre "
@@ -651,7 +651,7 @@ const unk8 Str_8704370[]
       "magnétique qui lui donnera l'avantage. {C14}Snakey{c} rencontre finalement {C14}Tyson{c} "
       "{A10}et leurs Beyblades s'affrontent.<\f>{Q}{C12}\"NON!\"{c}<\f>{U}{q}{C13}\"Si.\" {c}";
 
-const unk8 Str_8704620[]
+const char Str_8704620[]
     = "{f}{A3}{C14}Kai{c} ist zurück in der Schule und wird von {f}{C14}Dunga{c}{f4} "
       "herausgefordert. {a1} <\f>Der Kampf endet erstaunlicherweise unentschieden, so dass "
       "{C14}Kai{c} sich entschließt, {C14}Tyson{c} zu suchen und die Bladebreakers wieder zusammen "
@@ -662,7 +662,7 @@ const unk8 Str_8704620[]
       "und {C14}Tyson{c} {A10} treffen sich schließlich... und schon bald krachen ihre Blades "
       "aufeinander.<\f>{Q}{C12}\"NEIN!!!\"{c}<\f>{U}{q}{C13}\"Yeah!\" {c}";
 
-const unk8 Str_8704910[]
+const char Str_8704910[]
     = "{f}{A3}{C14}Kai{c} ha vuelto a la escuela, y ha sido retado por {f}{C14}Dunga{c}{f4}{a1} "
       "<\f>La batalla termina, de manera excepcional, así que {C14}Kai{c} decide que necesita "
       "encontrar a {C14}Tyson{c} para reunir de Nuevo a los Bladebreakers... mientras tanto "
@@ -672,7 +672,7 @@ const unk8 Str_8704910[]
       "de campo magnético que le dará ventaja. {C14}Snakey{c} se encuentra por fin con "
       "{C14}Tyson{c} {A10} y sus peonzas chocan.<\f>{Q}{C12}\"NO\"{c}<\f>{U}{q}{C13}\"Sí\" {c}";
 
-const unk8 Str_8704BBC[]
+const char Str_8704BBC[]
     = "{f}{A3}{C14}Kai{c} is back at school, and is challenged by {f}{C14}Dunga{c}.{f4}{a1}<\f>The "
       "battle remarkably ends in a draw, so {C14}Kai{c} decides he needs to go and find "
       "{C14}Tyson{c} to get the Bladebreakers back together. Meanwhile... <\f>{b}{B}{t1}In "
@@ -682,40 +682,40 @@ const unk8 Str_8704BBC[]
       "advantage.<\f>{C14}Snakey{c} eventually meets up with {C14}Tyson{c} {A10}and their blades "
       "crash.<\f>{Q}{C12}\"NO!\"{c}<\f>{U}{q}{C13}\"Yeah!\" {c}";
 
-const unk8 Str_8704E4C[]
+const char Str_8704E4C[]
     = "Non appena {C14}Takao{c}{A10} inizia a perdere, appare {C14}Kay{c}{a3} a "
       "fornirgli sostegno morale.<\f>{t3}{q}{C12}\"Avanti, {C14}Takao{c}, puoi "
       "farcela!\" {c}<\f>{u}{C14}Takao{c}, con rinnovata determinazione, riesce "
       "a capovolgere le sorti della battaglia...";
 
-const unk8 Str_8704F4C[]
+const char Str_8704F4C[]
     = "Juste au moment où {C14}Tyson{c}{A10} commence à perdre, {C14}Kai{c}{a3} "
       "arrive et vient le soutenir "
       "moralement.<\f>{t3}{q}{C12}\"Allez,{C14}Tyson{c}, tu peux y arriver!\" "
       "{c}<\f>{u}{C14}Tyson{c}, plus déterminé que jamais, parvient à retourner "
       "le combat en sa faveur...";
 
-const unk8 Str_8705058[]
+const char Str_8705058[]
     = "Gerade als {C14}Tyson{c}{A10} drauf und dran ist zu verlieren, erscheint "
       "{C14}Kai{c}{a3} und versucht, seinem Freund Mut zu "
       "machen.<\f>{t3}{q}{C12}\"Komm schon, {C14}Tyson{c}! Du kannst es "
       "schaffen!\" {c}<\f>{u}{C14}Tyson{c} hat neuen Mut geschöpft und schafft "
       "es, das Ruder herumzureißen...";
 
-const unk8 Str_8705178[]
+const char Str_8705178[]
     = "Justo cuando {C14}Tyson{c}{A10} comienza a perder, aparece "
       "{C14}Kai{c}{a3} para ofrecer un apoyo moral muy "
       "necesario.<\f>{t3}{q}{C12}\"¡Vamos, {C14}Tyson{c}, tú puedes hacerlo!\" "
       "{c}<\f>{u}{C14}Tyson{c}, ahora con una nueva determinación, consigue dar "
       "la vuelta a la tortilla...";
 
-const unk8 Str_870528C[]
+const char Str_870528C[]
     = "Just as {C14}Tyson{c}{A10} begins to lose, {C14}Kai{c}{a3} turns up and "
       "gives some much needed moral support.<\f>{t3}{q}{C12}\"Come on, "
       "{C14}Tyson{c}, you can do this!\" {c}<\f>{u}{C14}Tyson{c}, now with a "
       "new level of determination, manages to turn the battle around...";
 
-const unk8 Str_8705398[]
+const char Str_8705398[]
     = "Presso il centro di addestramento di {C14}Gideon{c}...<\f>{t1}{Q}{C13}\"Il mio piano "
       "riguarda tutti i Bladebreakers, non solo {C14}Takao{c}. Riunite tutti i quattro "
       "Bladebreakers, e subito!\" {c}<\f>{U}{a23}{q}{C13}\"Ma come potremo farcela, signor "
@@ -727,7 +727,7 @@ const unk8 Str_8705398[]
       "{c}<\f>{U}{q}{C13}\"Precisamente.\" {c}<\f>{u}Sembra che la squadra Psykicks del "
       "{C14}Dottor B{c} si occuperà di riunire i Bladebreakers.";
 
-const unk8 Str_8705670[]
+const char Str_8705670[]
     = "Au centre d'entraînement de {C14}Gideon{c}{A19}...<\f>{t1}{Q}{C13}\"Mon plan concerne tous "
       "les Bladebreakers, pas seulement {C14}Tyson{c}. Rassemblez les quatre Bladebreakers et "
       "agissez sur-le-champ.\" {c}<\f>{U}{a23}{q}{C13}\"Mais comment faire, M. {C14}Gideon{c}?\" "
@@ -738,7 +738,7 @@ const unk8 Str_8705670[]
       "{c}<\f>{U}{q}{C13}\"Précisément.\" {c}<\f>{u}On dirait que l'équipe Psykick du {C14}docteur "
       "B{c} va entraîner la réunification des Bladebreakers.";
 
-const unk8 Str_8705964[]
+const char Str_8705964[]
     = "In {C14}Gideons{c}{A19} Trainingszentrum...<\f>{t1}{Q}{C13}\"Mein Plan schließt alle "
       "Bladebreakers mit ein, nicht nur {C14}Tyson{c}. Bringt alle vier Bladebreakers zusammen, "
       "und zwar sofort.\" {c}<\f>{U}{a23}{q}{C13}\"Aber wie sollen wir das anstellen, Mr. "
@@ -750,7 +750,7 @@ const unk8 Str_8705964[]
       "{c}<\f>{u}Es scheint, als wäre {C14}Doctor B's{c} Team Psykick verantwortlich für die "
       "erneute Zusammenkunft der Bladebreakers.";
 
-const unk8 Str_8705C78[]
+const char Str_8705C78[]
     = "En las instalaciones de entrenamiento de {C14}Gideon{c}{A19}...<\f>{t1}{Q}{C13}\"Mi plan "
       "implica a todos los Bladebreakers, no solo a {C14}Tyson{c}; reunid a los cuatro "
       "Bladebreakers y hacedlo ahora\" {c}<\f>{U}{a23}{q}{C13}\"¿Pero cómo lo hacemos, Sr. "
@@ -762,7 +762,7 @@ const unk8 Str_8705C78[]
       "{c}<\f>{U}{q}{C13}\"Precisamente\" {c}<\f>{u}Parece que el equipo del {C14}Doctor B{c}, los "
       "Psyckick, se encargarán de reunir a los Bladebreakers.";
 
-const unk8 Str_8705F7C[]
+const char Str_8705F7C[]
     = "At {C14}Gideon{c}{A19}'s training facility...<\f>{t1}{Q}{C13}\"My plan involves all the "
       "Bladebreakers, not just {C14}Tyson{c}. Get all four Bladebreakers together and do it now!\" "
       "{c}<\f>{U}{a23}{q}{C13}\"But how do we do that, Mr. {C14}Gideon{c}?\" {c}<\f>{u}{b}{B}One "
@@ -773,7 +773,7 @@ const unk8 Str_8705F7C[]
       "{c}<\f>{u}It seems {C14}Doctor B's{c} team, Psykick, will be responsible for reuniting the "
       "Bladebreakers.";
 
-const unk8 Str_8706244[]
+const char Str_8706244[]
     = "{C14}Mr. Dickenson{c}{A25} ha organizzato la riunione dei Bladebreakers per la futura "
       "sfida.<\f>{t3}{Q}{C12}\"Grazie per essere venuti tutti fin "
       "qui.\"{c}<\f>{U}{a6}{q}{C12}\"Nessun problema, signore. Sono veramente entusiasta di essere "
@@ -783,7 +783,7 @@ const unk8 Str_8706244[]
       "tutti i Beyblade della squadra. Il loro comportamento è così diverso che {C14}Takao{c} e "
       "gli altri devono praticamente ricominciare da zero.";
 
-const unk8 Str_87064C8[]
+const char Str_87064C8[]
     = "{C14}M. Dickenson{c}{A25} a arrangé la réunification des Bladebreakers pour le défi à "
       "venir. <\f>{t3}{Q}{C12}\"Merci d'avoir tous accepté.\"{c}<\f>{U}{a6}{q}{C12}\"Pas de "
       "problème. C'est vraiment super de se retrouver avec toute l'équipe!\" {c}<\f>{u}{b}{B}Les "
@@ -793,7 +793,7 @@ const unk8 Str_87064C8[]
       "Le comportement des Beyblades est tellement modifié que {C14}Tyson{c} et les autres ont "
       "presque l'impression de devoir tout réapprendre.";
 
-const unk8 Str_870675C[]
+const char Str_870675C[]
     = "{C14}Mr. Dickenson{c}{A25} hat die Bladebreakers für die bevorstehende Herausforderung "
       "zusammengerufen. <\f>{t3}{Q}{C12}\"Danke, dass ihr alle gekommen "
       "seid.\"{c}<\f>{U}{a6}{q}{C12}\"Kein Problem, Sir. Gibt nichts Aufregenderes, als wieder im "
@@ -804,7 +804,7 @@ const unk8 Str_870675C[]
       "zu handhaben, dass es {C14}Tyson{c} und den anderen vorkommt, als müssten sie alles noch "
       "einmal lernen.";
 
-const unk8 Str_8706A18[]
+const char Str_8706A18[]
     = "El {C14}Sr. Dickenson{c}{A25} ha concertado una reunión de los Bladebreakers para el "
       "próximo encuentro <\f>{t3}{Q}{C12}\"Gracias por venir desde tan "
       "lejos.\"{c}<\f>{U}{a6}{q}{C12}\"No es problema, señor. ¡Estoy realmente encantado de volver "
@@ -814,7 +814,7 @@ const unk8 Str_8706A18[]
       "en todas las peonzas del equipo. Las peonzas son tan distintas en su manejo que, para "
       "{C14}Tyson{c} y los demás, es casi como aprender otra vez desde cero.";
 
-const unk8 Str_8706CA4[]
+const char Str_8706CA4[]
     = "{C14}Mr. Dickenson{c}{A25} has arranged for the Bladebreakers to reunite for the upcoming "
       "challenge. <\f>{t3}{Q}{C12}\"Thank you for coming all this "
       "way.\"{c}<\f>{U}{a6}{q}{C12}\"It's no problem, sir. I'm really psyched to be back with the "
@@ -824,7 +824,7 @@ const unk8 Str_8706CA4[]
       "of the team's blades. The blades are so different to handle for {C14}Tyson{c} and the "
       "others that it's almost like having to learn again from scratch.";
 
-const unk8 Str_8706F30[]
+const char Str_8706F30[]
     = "{A6}{Q}{C12}\"Avanti, ragazzi, l'autobus è arrivato!\"{c}<\f>{U}{B}È prima mattina e "
       "l'autobus è in attesa dei Bladebreakers, per condurli sul luogo della "
       "sfida.<\f>{A10}{Q}{C12}\"Va bene, andiamo! I Bladebreakers sono "
@@ -839,7 +839,7 @@ const unk8 Str_8706F30[]
       "{C14}Chameleon{c}.\"{c}<\f> {u}{f}{a13}{B}{t2}{q}{C13}\"Va bene! Iniziamo.\" "
       "{c}<\f>{u}{A6}{Q}{C12}\"3, 2, 1, pronti... lancio!{f4}!\"{c}";
 
-const unk8 Str_8707340[]
+const char Str_8707340[]
     = "{A6}{Q}{C12}\"Allez, le bus est là!\"{c}<\f>{U}{B}Il est très tôt et le bus attend les "
       "Bladebreakers pour les amener au match. <\f>{A10}{Q}{C12}\"Très bien, en route! Les "
       "Bladebreakers sont de retour!\"{c}<\f>{U}{B}Tandis que le bus s'éloigne, son "
@@ -854,7 +854,7 @@ const unk8 Str_8707340[]
       "{u}{f}{a13}{B}{t2}{q}{C13}\"Très bien! Commencons.\" {c}<\f>{u}{A6}{Q}{C12}\"Hyper vitesse "
       "{f4}!\"{c}";
 
-const unk8 Str_8707730[]
+const char Str_8707730[]
     = "{A6}{Q}{C12}\"Kommt schon, Leute. Der Bus ist da!\"{c}<\f>{U}{B}Es ist früh am Morgen und "
       "der Bus wartet draußen, um die Bladebreakers zum Match zu bringen. <\f>{A10}{Q}{C12}\"OK, "
       "lasst uns aufbrechen! Die Bladebreakers sind zurück!\"{c}<\f>{U}{B}Als der Bus losfährt, "
@@ -870,7 +870,7 @@ const unk8 Str_8707730[]
       "{C14}Chamäleon{c}!\"{c}<\f> {u}{f}{a13}{B}{t2}{q}{C13}\"OK! Der Kampf kann beginnen.\" "
       "{c}<\f>{u}{A6}{Q}{C12}\"Let it rip{f4}!\"{c}";
 
-const unk8 Str_8707B8C[]
+const char Str_8707B8C[]
     = "{A6}{Q}{C12}\"¡Vamos, chicos, el autobús está aquí!\"{c}<\f>{U}{B}Es temprano, y el autobús "
       "está esperando fuera para llevar a los Bladebreakers al encuentro. <\f>{A10}{Q}{C12}\"¡De "
       "acuerdo, vamos! ¡Los Bladebreakers han vuelto!\"{c}<\f>{U}{B}Mientras el autobús se aleja, "
@@ -885,7 +885,7 @@ const unk8 Str_8707B8C[]
       "{u}{f}{a13}{B}{t2}{q}{C13}\"¡De acuerdo! A jugar\" "
       "{c}<\f>{u}{A6}{Q}{C12}\"¡¡Lanza{f4}!!\"{c}";
 
-const unk8 Str_8707F84[]
+const char Str_8707F84[]
     = "{A6}{Q}{C12}\"Come on, guys! The bus is here!\"{c}<\f>{U}{B}It's early in the morning and "
       "the bus is waiting outside to take the Bladebreakers to the match. <\f>{A10}{Q}{C12}\"All "
       "right, let's go! The Bladebreakers are back!\"{c}<\f>{U}{B}As the bus pulls away, the "
@@ -900,39 +900,39 @@ const unk8 Str_8707F84[]
       "{C14}Chameleon{c}.\"{c}<\f>{u}{f}{a13}{B}{t2}{q}{C13}\"Alright! Game on!\" "
       "{c}<\f>{u}{A6}{Q}{C12}\"Let it Rip{f4}!!\"{c}";
 
-const unk8 Str_8708368[]
+const char Str_8708368[]
     = "Dopo uno scontro feroce, {C14}Max{c}{a6} riesce a vincere sfruttando la "
       "potenza del suo nucleo magnetico...<\f>{t3}{A10}{Q}{C12}\"Fantastico, "
       "{C14}Max{c}, bella vittoria! Hai mostrato a quel serpente chi comanda "
       "qui!\" {c}<\f>{U}{A0}{Q}{C12}\"Restiamo coi piedi per terra: siamo "
       "ancora intrappolati su quest'isola.\"{c}";
 
-const unk8 Str_87084A4[]
+const char Str_87084A4[]
     = "Après une lutte acharnée, {C14}Max{c}{a6} a réussi à emporter la victoire grâce à la "
       "puissance de son MG Core...<\f>{t3}{A10}{Q}{C12}\"Eh, cela a été super, {C14}Max{c}! Tu as "
       "montré à ce lézard qui était le patron!\" {c}<\f>{U}{A0}{Q}{C12}\"Revenez sur terre: nous "
       "sommes toujours coincés sur cette île!\"{c}";
 
-const unk8 Str_87085D4[] = "Nach einem harten Kampf konnte {C14}Max{c}{a6} dank der Kraft seines "
+const char Str_87085D4[] = "Nach einem harten Kampf konnte {C14}Max{c}{a6} dank der Kraft seines "
                            "MG-Kerns gewinnen...<\f>{t3}{A10}{Q}{C12}\"Oh, Mann! Gut gemacht, "
                            "{C14}Max{c}! Du hast es der Echsenfresse ganz schön gezeigt!\" "
                            "{c}<\f>{U}{A0}{Q}{C12}\"Hallo? Falls du's vergessen hast: Wir stecken "
                            "immer noch auf dieser Insel fest.\"{c}";
 
-const unk8 Str_8708704[]
+const char Str_8708704[]
     = "Tras una feroz batalla, {C14}Max{c}{a6} se las ingenió para ganar usando "
       "el poder de su núcleo EM...<\f>{t3}{A10}{Q}{C12}\"Ah, tío,¡has estado "
       "fantástico, {C14}Max{c}! ¡¡Has enseñado al Chico Lagarto quién manda "
       "aquí!!\" {c}<\f>{U}{A0}{Q}{C12}\" Volved a la realidad, ¡seguimos "
       "atrapados en esta isla!\"{c}";
 
-const unk8 Str_8708834[] = "After a ferocious battle, {C14}Max{c}{a6} managed to win by using the "
+const char Str_8708834[] = "After a ferocious battle, {C14}Max{c}{a6} managed to win by using the "
                            "power of his MG Core...<\f>{t3}{A10}{Q}{C12}\"Ah man, that was sweet, "
                            "{C14}Max{c}! You sure showed Lizard Boy who's boss around here!!\" "
                            "{c}<\f>{U}{A0}{Q}{C12}\"Reality check, we're still trapped on this "
                            "island.\"{c}{U}";
 
-const unk8 Str_8708950[]
+const char Str_8708950[]
     = "I Bladebreakers, sempre intrappolati sull'isola, stanno decidendo il da "
       "farsi...<\f>{A5}{Q}{C12}\"Ehi, guarda lì!\" {c}<\f>{U}{a9}{q}{C12}\"Vuoi dire il "
       "faro?\"{c}<\f>{u}{Q}{C12}\"Di solito, i fari sono dotati di impianti radio, per le "
@@ -946,7 +946,7 @@ const unk8 Str_8708950[]
       "battiti!\" {c}<\f>{U}{t2}Il {C14}pipistrello{c} scende e si prepara a "
       "battersi...{C14}Rey{c}{A9} si fa avanti...<\f>{Q}{C12}\"3, 2, 1, pronti... lancio{f4}!\"{c}";
 
-const unk8 Str_8708D30[]
+const char Str_8708D30[]
     = "Toujours coincés sur l'île, les Bladebreakers essaient de trouver une "
       "solution...<\f>{A5}{Q}{C12}\"Eh, regardez cela!\" {c}<\f>{U}{a9}{q}{C12}\"Tu veux parler du "
       "phare?\"{c}<\f>{u}{Q}{C12}\"Les phares sont souvent équipés d'une radio pour les cas "
@@ -961,7 +961,7 @@ const unk8 Str_8708D30[]
       "rejoint et se prépare au combat... {C14}Ray{c}{A9} s'avance. <\f>{Q}{C12}\"Hyper vitesse "
       "{f4}!\"{c}";
 
-const unk8 Str_8709118[]
+const char Str_8709118[]
     = "Die Bladebreakers sind immer noch auf der Insel gefangen und beraten, was sie tun "
       "sollen...<\f>{A5}{Q}{C12}\"Schaut mal!\" {c}<\f>{U}{a9}{q}{C12}\"Du meinst den "
       "Leuchtturm?\"{c}<\f>{u}{Q}{C12}\"Leuchttürme sind normalerweise mit Funkstationen "
@@ -976,7 +976,7 @@ const unk8 Str_8709118[]
       "runter und kämpfe!\" {c}<\f>{U}{t2}Die {C14}Fledermaus{c} springt herab und macht sich "
       "bereit für den Kampf...{C14}Ray{c}{A9} tritt vor. <\f>{Q}{C12}\"Let it rip{f4}!\"{c}";
 
-const unk8 Str_870953C[]
+const char Str_870953C[]
     = "Aún bloqueados en la isla, los Bladebreakers intentan decidir qué hacer "
       "ahora...<\f>{A5}{Q}{C12}\"Ey, ¡mira eso!\" {c}<\f>{U}{a9}{q}{C12}\"¿Te refieres al "
       "faro?\"{c}<\f>{u}{Q}{C12}\" Los faros suelen disponer de radios, para las "
@@ -991,7 +991,7 @@ const unk8 Str_870953C[]
       "deja caer y se prepara para la batalla...{C14}Ray{c}{A9} se adelanta... "
       "<\f>{Q}{C12}\"¡¡Lanza{f4}!!\"{c}";
 
-const unk8 Str_8709934[]
+const char Str_8709934[]
     = "Still stuck on the island, the Bladebreakers are trying to decide what to do "
       "next...<\f>{A5}{Q}{C12}\"Hey, look at that!\" {c}<\f>{U}{a9}{q}{C12}\"You mean the "
       "lighthouse?\"{c}<\f>{u}{Q}{C12}\"Lighthouses usually come equipped with radios, like in "
@@ -1005,7 +1005,7 @@ const unk8 Str_8709934[]
       "him...<\f>{A10}{Q}{C12}\"Come down and fight!\" {c}<\f>{U}{t2}{C14}Bat{c} jumps down, and "
       "prepares for battle... {C14}Ray{c}{A9} steps forward...<\f>{Q}{C12}\"let it Rip{f4}!!\"{c}";
 
-const unk8 Str_8709D18[]
+const char Str_8709D18[]
     = "{C14}Rey{c}{A9} usa molto efficacemente il suo Driger, seguendo il suono "
       "del Beyblade del {C14}pipistrello{c}{a11} nelle tenebre. Alla fine, la "
       "vittoria è sua.<\f>{t3}{q}{C13}\"Oh, no! Hai sconfitto il mio "
@@ -1014,7 +1014,7 @@ const unk8 Str_8709D18[]
       "crollare...<\f>{A6}{Q}{C12}\"Ecco l'uscita!\"{c}<\f>{U}I tre fuggono "
       "appena in tempo mentre la caverna crolla alle loro spalle...";
 
-const unk8 Str_8709EE4[]
+const char Str_8709EE4[]
     = "{C14}Ray{c}{A9} utilise son Driger avec brio en suivant les bruits du "
       "Beyblade de {C14}Bat{c}{a11} dans l'obscurité. {C14}Ray{c} finit par "
       "remporter la victoire.<\f>{t3}{q}{C13}\"Oh non! Tu as vaincu mon "
@@ -1023,7 +1023,7 @@ const unk8 Str_8709EE4[]
       "s'effondrer...<\f>{A6}{Q}{C12}\"Voilà la sortie!\"{c}<\f>{U}Tous trois "
       "s'échappent de justesse alors que la grotte s'écroule...";
 
-const unk8 Str_870A0A4[]
+const char Str_870A0A4[]
     = "{C14}Ray{c}{A9} benutzt seinen Driger und orientiert sich in der Dunkelheit an den "
       "Geräuschen, um das Beyblade der {C14}Fledermaus{c}{a11} zu orten. Schließlich geht "
       "{C14}Ray{c} als Sieger aus dem Kampf hervor. <\f>{t3}{q}{C13}\"Oh, nein! Du hast meinen "
@@ -1031,7 +1031,7 @@ const unk8 Str_870A0A4[]
       "Boden zu beben - die Höhle stürzt ein...<\f>{A6}{Q}{C12}\"Da geht's nach "
       "draußen!\"{c}<\f>{U}Die drei entkommen gerade noch, bevor die Höhle endgültig kollabiert...";
 
-const unk8 Str_870A29C[]
+const char Str_870A29C[]
     = "{C14}Ray{c}{A9} usa su Driger con gran acierto, siguiendo los sonidos de "
       "la peonza del {C14}murciélago{c}{a11} en la oscuridad. Finalmente, "
       "{C14}Ray{c} sale victorioso<\f>{t3}{q}{C13}\"¡Oh, no! ¡Derrotaste a mi "
@@ -1040,14 +1040,14 @@ const unk8 Str_870A29C[]
       "derrumbarse...<\f>{A6}{Q}{C12}\"Ahí está la salida\"{c}<\f>{U}Los tres "
       "escapan justo antes de que la cueva se desplome...";
 
-const unk8 Str_870A458[]
+const char Str_870A458[]
     = "{C14}Ray{c}{A9} uses his Driger to great effect, following the sounds of {C14}Bat{c}{a11}'s "
       "Beyblade in the darkness. Eventually {C14}Ray{c} emerges victorious.<\f>{t3}{q}{C13}\"Oh "
       "no! You defeated my Batranzer!\" {c}<\f>{u}{b}{B}As {C14}Ray{c} retrieves Driger, the "
       "ground begins to shake and the cave starts to collapse...<\f>{A6}{Q}{C12}\"There's the way "
       "out!\"{c}<\f>{U}The three escape just in time as the cave collapses...";
 
-const unk8 Str_870A600[]
+const char Str_870A600[]
     = "Mentre si dirigono al faro, nei paraggi di un ponte {C14}Kay{c}, il {C14}Prof. Kappa{c} e "
       "{C14}Hilary{c} sono sorpresi di vedere uno stadio Beyblade...<\f>{t1}{f}{a17}{q}{C13}\"Ti "
       "stavo aspettando, {C14}Kay{c}.\" {c}<\f>{u}{A5}{Q}{C12}\"Questo ponte è l'unica via "
@@ -1055,7 +1055,7 @@ const unk8 Str_870A600[]
       "{c}<\f>{U}{t2}{A3}{Q}{C12}\"Il capo ha ragione. Io sono il prossimo nel loro elenco, è il "
       "mio turno di battermi.\"{c}<\f>{U}{q}{C13}\"Avanti!{f4}\" {c}<\f>{u}{Q}{C12}\"Grrr!\"{c}";
 
-const unk8 Str_870A7F4[]
+const char Str_870A7F4[]
     = "{C14}Kai{c}, {C14}Kenny{c} et {C14}Hilary{c} se dirigent vers le phare. En arrivant près "
       "d'un pont, ils sont surpris de découvrir un stade...<\f>{t1}{f}{a17}{q}{C13}\"Je "
       "t'attendais, {C14}Kai{c}.\" {c}<\f>{u}{A5}{Q}{C12}\"Ce pont est le seul chemin menant au "
@@ -1063,7 +1063,7 @@ const unk8 Str_870A7F4[]
       "chef a raison, je suis le prochain sur leur liste. C'est à mon tour de les "
       "affronter.\"{c}<\f>{U}{q}{C13}\"Allons-y!{f4}\" {c}<\f>{u}{Q}{C12}\"Grrr!\"{c}";
 
-const unk8 Str_870A9DC[]
+const char Str_870A9DC[]
     = "{C14}Kai{c}, {C14}Kenny{c} und {C14}Hilary{c} sind auf dem Weg zum Leuchtturm, als sie an "
       "einer Brücke überraschenderweise eine Bey-Arena vorfinden...<\f>{t1}{f}{a17}{q}{C13}\"Ich "
       "habe auf dich gewartet, {C14}Kai{c}!\" {c}<\f>{u}{A5}{Q}{C12}\"Diese Brücke ist der einzige "
@@ -1072,7 +1072,7 @@ const unk8 Str_870A9DC[]
       "werde kämpfen müssen.\"{c}<\f>{U}{q}{C13}\"Lass uns beginnen!{f4}\" "
       "{c}<\f>{u}{Q}{C12}\"Grrr!\"{c}";
 
-const unk8 Str_870ABF0[]
+const char Str_870ABF0[]
     = "{C14}Kai{c}, {C14}Kenny{c} y {C14}Hilary{c} se dirigen hacia el faro; al llegar a un "
       "puente, se sorprenden de encontrar un Estadio de Peonzas...<\f>{t1}{f}{a17}{q}{C13}\"Estaba "
       "esperándote, {C14}Kai{c}\" {c}<\f>{u}{A5}{Q}{C12}\"Este es el único camino hacia el faro, y "
@@ -1080,7 +1080,7 @@ const unk8 Str_870ABF0[]
       "razón; estoy en su lista. Es el momento de que luche contra "
       "ellos\"{c}<\f>{U}{q}{C13}\"¡Hagámoslo!{f4}\" {c}<\f>{u}{Q}{C12}\"¡Grrr!\"{c}";
 
-const unk8 Str_870ADD0[]
+const char Str_870ADD0[]
     = "{C14}Kai{c}, {C14}Kenny{c} and {C14}Hilary{c} are heading for the lighthouse. As they come "
       "to a bridge, they are surprised to see a BeyStadium...<\f>{t1}{f}{a17}{q}{C13}\"I have been "
       "waiting for you, {C14}Kai{c}!\" {c}<\f>{u}{A5}{Q}{C12}\"This bridge is the only way to the "
@@ -1088,7 +1088,7 @@ const unk8 Str_870ADD0[]
       "{c}<\f>{U}{t2}{A3}{Q}{C12}\"Chief's right, I'm next on their list. It's my turn to battle "
       "them!\"{c}<\f>{U}{q}{C13}\"Let's do this!{f4}\" {c}<\f>{u}{Q}{C12}\"Grrr!\"{c}";
 
-const unk8 Str_870AFB8[]
+const char Str_870AFB8[]
     = "Durante la battaglia, il {C14}Prof. Kappa{c} capisce che il {C14}Dottor "
       "B{c} sta usando un programma di qualche tipo per catturare i Bit "
       "Beast.<\f>{t3}Mentre {C14}Kay{c}{A3} scatena l'attacco Energia di fuoco "
@@ -1097,7 +1097,7 @@ const unk8 Str_870AFB8[]
       "{C14}Dizzi{c}{a15} riescono a entrare nel sistema di computer dell'isola "
       "per bloccarlo, impedendo la cattura del Bit Beast di {C14}Kay{c}.";
 
-const unk8 Str_870B180[]
+const char Str_870B180[]
     = "Durant le combat, {C14}Kenny{c} réalise que le {C14}docteur B{c} doit "
       "être en train de faire fonctionner un programme pour capturer les Bit "
       "Beasts.<\f>{t3}Pendant que {C14}Kai{c}{A3} lance l'attaque Sabre de feu "
@@ -1106,7 +1106,7 @@ const unk8 Str_870B180[]
       "réseau informatique de l'île et à le faire planter, évitant ainsi la "
       "capture du Bit Beast de {C14}Kai{c}.";
 
-const unk8 Str_870B34C[]
+const char Str_870B34C[]
     = "Während des Kampfes wird {C14}Kenny{c} plötzlich klar, dass {C14}Doctor "
       "B{c} eine Art Programm ablaufen lässt, um die Bit Beasts zu fangen, "
       "<\f>{t3}{C14}Kai{c}{A3} entfesselt schließlich die Flame Saber-Attacke "
@@ -1115,7 +1115,7 @@ const unk8 Str_870B34C[]
       "das Computersystem der Insel einzudringen und es auszuschalten, so dass "
       "{C14}Kais{c} Bit Beast nicht gefangen wird.";
 
-const unk8 Str_870B520[]
+const char Str_870B520[]
     = "Durante la batalla, {C14}Kenny{c} se da cuenta de que el {C14}Doctor "
       "B{c} debe estar ejecutando algún tipo de programa para capturar a los "
       "Bit Beast,<\f>{t3}Mientras {C14}Kai{c}{A3} libera el ataque Lanzallamas "
@@ -1124,14 +1124,14 @@ const unk8 Str_870B520[]
       "piratear el sistema informático de la isla y hacen que se bloquee, "
       "logrando proteger a la Bit Beast de {C14}Kai{c} de la captura.";
 
-const unk8 Str_870B6F8[]
+const char Str_870B6F8[]
     = "During the battle, {C14}Kenny{c} realizes that {C14}Doctor B{c} must be running some sort "
       "of program to capture the Bit Beasts. <\f>{t3}As {C14}Kai{c}{A3} unleashes Dranzer's Flame "
       "Saber Attack as the final devastating blow against {C14}Figel{c}{a17}'s "
       "blade...<\f>{C14}Kenny{c}{A5} and {C14}Dizzi{c}{a15} manage to hack in to the island's "
       "computer system and cause it to crash, keeping {C14}Kai's{c} Bit Beast safe from capture.";
 
-const unk8 Str_870B8A4[]
+const char Str_870B8A4[]
     = "{C14}Takao{c}, {C14}Max{c} e {C14}Rey{c} sono arrivati a una cascata e "
       "non sanno come procedere.<\f>{t1}{f}{a14}{q}{C13}\"Ah ah ah "
       "ah!\"{c}<\f>{u}{A9}{Q}{C12}\"Ehi, ragazzi, lassù!\" "
@@ -1139,7 +1139,7 @@ const unk8 Str_870B8A4[]
       "cascata.<\f>{t2}{q}{C13}\"Fatevi sotto!\"{c}<\f> {u}{A10}{Q}{C12}\"3, 2, "
       "1, pronti... lancio{f4}!\" {c}";
 
-const unk8 Str_870B9EC[]
+const char Str_870B9EC[]
     = "{C14}Tyson{c}, {C14}Max{c} et {C14}Ray{c} sont arrivés à une cascade et "
       "se demandent où aller ensuite. <\f>{t1}{f}{a14}{q}{C13}\"Ha ha ha "
       "ha!\"{c}<\f>{u}{A9}{Q}{C12}\"Eh, là-haut, les mecs!\" {c}<\f>{U}A "
@@ -1147,7 +1147,7 @@ const unk8 Str_870B9EC[]
       "s'avance.<\f>{t2}{q}{C13}\"Allez, viens!\"{c}<\f> "
       "{u}{A10}{Q}{C12}\"Hyper vitesse {f4}!\" {c}";
 
-const unk8 Str_870BB3C[]
+const char Str_870BB3C[]
     = "{C14}Tyson{c}, {C14}Max{c} und {C14}Ray{c} haben einen Wasserfall "
       "erreicht und wissen nicht, wohin sie jetzt gehen sollen. "
       "<\f>{t1}{f}{a14}{q}{C13}\"Ha ha ha ha!\"{c}<\f>{u}{A9}{Q}{C12}\"Hey, "
@@ -1155,19 +1155,19 @@ const unk8 Str_870BB3C[]
       "des Wasserfalls. <\f>{t2}{q}{C13}\"Und los!\"{c}<\f> "
       "{u}{A10}{Q}{C12}\"Let it rip{f4}!\" {c}";
 
-const unk8 Str_870BC98[]
+const char Str_870BC98[]
     = "{C14}Tyson{c}, {C14}Max{c} y {C14}Ray{c} han llegado a la cascada y no están seguros de por "
       "dónde continuar<\f>{t1}{f}{a14}{q}{C13}\"JA, ja, ja, ja\"{c}<\f>{u}{A9}{Q}{C12}\"Eh, "
       "chicos,¡aquí arriba!\" {c}<\f>{U}A través de la neblina de la cascada, avanza "
       "{C14}Daryl{c}<\f>{t2}{q}{C13}\"¡¡Adelante!!\"{c}<\f> {u}{A10}{Q}{C12}\" ¡¡Lanza{f4}!!\" {c}";
 
-const unk8 Str_870BDE8[]
+const char Str_870BDE8[]
     = "{C14}Tyson{c}, {C14}Max{c} and {C14}Ray{c} have arrived at a waterfall and are not sure "
       "where to go next. <\f>{t1}{f}{a14}{q}{C13}\"Ha ha ha ha!\"{c}<\f>{u}{A9}{Q}{C12}\"Hey guys, "
       "up there!!\" {c}<\f>{U}Through the mist of the waterfall {C14}Daryl{c} walks "
       "forward.<\f>{t2}{q}{C13}\"Bring it!!\"{c}<\f>{u}{A10}{Q}{C12}\"Let it Rip{f4}!!\" {c}";
 
-const unk8 Str_870BF34[]
+const char Str_870BF34[]
     = "{C14}Takao{c} usa il suo Dragoon per neutralizzare il Darylanzer di {C14}Daryl{c}. Mentre "
       "{C14}Takao{c} fa entrare in azione il suo Bit Beast...<\f>il {C14}Dottor B{c}{a16} fa "
       "partire nuovamente il suo programma di cattura.<\f>{q}{C13}\"Dopo tutte le mie ricerche, "
@@ -1179,7 +1179,7 @@ const unk8 Str_870BF34[]
       "Bladebreakers scomparsi.<\f>{q}{C12}\"Atterriamo laggiù!\" {c}<\f>{u}{b}{B}Finalmente, i "
       "Bladebreakers e {C14}Hilary{c} vengono portati via dall'isola.";
 
-const unk8 Str_870C268[]
+const char Str_870C268[]
     = "{C14}Tyson{c} utilise Dragoon pour éliminer le Darylanzer de {C14}Daryl{c}. Lorsque "
       "{C14}Tyson{c} libère son Bit Beast, <\f>le {C14}docteur B{c}{a16} attend, son programme de "
       "capture réactivé.<\f>{q}{C13}\"Après toutes mes recherches, Dragoon va enfin être à moi "
@@ -1191,7 +1191,7 @@ const unk8 Str_870C268[]
       "Bladebreakers disparus. <\f>{q}{C12}\"Il faut se poser ici!\" {c}<\f>{u}{b}{B}Les "
       "Bladebreakers et {C14}Hilary{c} sont enfin évacués de l'ile.";
 
-const unk8 Str_870C574[]
+const char Str_870C574[]
     = "{C14}Tyson{c} kämpft mit Dragoon gegen {C14}Daryls{c} Darylanzer, doch als {C14}Tyson{c} "
       "sein Bit Beast einsetzt,<\f>lässt {C14}Doctor B{c}{a16} wieder sein Bit Beast-Fang-Programm "
       "laufen. <\f>{q}{C13}\"Nach all den Jahren der Forschung... wird Dragoon heute endlich mir "
@@ -1203,7 +1203,7 @@ const unk8 Str_870C574[]
       "<\f>{q}{C12}\"Wir gehen hier runter!\" {c}<\f>{u}{b}{B}Schließlich werden die Bladebreakers "
       "und {C14}Hilary{c} von der Insel gerettet.";
 
-const unk8 Str_870C8AC[]
+const char Str_870C8AC[]
     = "{C14}Tyson{c} usa a Dragón para derribar el Darylanzer de {C14}Daryl{c}, mientras "
       "{C14}Tyson{c} libera su Bit Beast <\f>El {C14}Doctor B{c}{a16} está a la espera, con su "
       "programa de captura de Bit Beast de nuevo en funcionamiento<\f>{q}{C13}\"Después de todas "
@@ -1216,7 +1216,7 @@ const unk8 Str_870C8AC[]
       "mismo!\" {c}<\f>{u}{b}{B}Finalmente, los Bladebreakers y {C14}Hilary{c} son rescatados de "
       "la isla.";
 
-const unk8 Str_870CC14[]
+const char Str_870CC14[]
     = "{C14}Tyson{c} uses Dragoon to take down {C14}Daryl's{c} Darylanzer.<\f>As {C14}Tyson{c} "
       "releases his Bit Beast {C14}Doctor B{c}{a16} is waiting with his Bit Beast capture program "
       "running again. <\f>{q}{C13}\"After all my research, today is the day Dragoon will be "
@@ -1228,7 +1228,7 @@ const unk8 Str_870CC14[]
       "Bladebreakers.<\f>{q}{C12}\"Set her down right here!\" {c}<\f>{u}{b}{B}At last, the "
       "Bladebreakers and {C14}Hilary{c} have been rescued from the island.";
 
-const unk8 Str_870CF4C[]
+const char Str_870CF4C[]
     = "{A16}{Q}{C13}\"{C14}Gideon{c}!{a19}\" {c}<\f>{U}{t1}{q}{C13}\"Il tuo piano è stato un "
       "fallimento completo. Non sei riuscito a catturare tutti i quattro Bit Beast, vero, "
       "dottore?\" {c}<\f>{u}{Q}{C13}\"È vero, ma prometto di non deluderti più!\" "
@@ -1242,7 +1242,7 @@ const unk8 Str_870CF4C[]
       "{C14}Joseph{c} sfida {C14}Kay{c}, ma gli {C14}uomini in nero{c} gli concedono poco tempo "
       "perché devono raccogliere i dati per il nuovo Cyber Bit Beast.";
 
-const unk8 Str_870D30C[]
+const char Str_870D30C[]
     = "{A16}{Q}{C13}\"{C14}Gideon{c}!{a19}\" {c}<\f>{U}{t1}{q}{C13}\"Votre plan a été un fiasco. "
       "Vous n'avez pas récupéré les quatre Bit Beasts, n'est-ce pas, docteur?\" "
       "{c}<\f>{u}{Q}{C13}\"C'est vrai, mais je vous promets que je ne vous décevrai plus!\" "
@@ -1257,7 +1257,7 @@ const unk8 Str_870D30C[]
       "par les {C14}hommes en noir{c} qui recueillent des données pour leurs nouveaux Cyber Bit "
       "Beasts.";
 
-const unk8 Str_870D700[]
+const char Str_870D700[]
     = "{A16}{Q}{C13}\"{C14}Gideon{c}!{a19}\" {c}<\f>{U}{t1}{q}{C13}\"Dieser Plan war ein totaler "
       "Reinfall. Sie konnten die vier Bit Beasts nicht fangen. Nicht wahr, Doctor?\" "
       "{c}<\f>{u}{Q}{C13}\"Ja, aber ich verspreche, dass wir nicht noch einmal versagen werden!\" "
@@ -1272,7 +1272,7 @@ const unk8 Str_870D700[]
       "Aber sie werden durch die {C14}schwarz gekleideten Männer{c} gestört, die Daten für die "
       "neuen Cyber-Bit Beasts sammeln.";
 
-const unk8 Str_870DB20[]
+const char Str_870DB20[]
     = "{A16}{Q}{C13}\"¡{C14}Gideon{c}!{a19}\" {c}<\f>{U}{t1}{q}{C13}\"Tu plan ha sido un completo "
       "fracaso. No pudiste conseguir los cuatro Bit Beast, ¿verdad, Doctor?\" "
       "{c}<\f>{u}{Q}{C13}\"Sí, ¡pero prometo que no volveré a fallarte!\" "
@@ -1286,7 +1286,7 @@ const unk8 Str_870DB20[]
       "Un poco más tarde, {C14}Joseph{c} reta a {C14}Kai{c} a una pelea, pero se ven interrumpidos "
       "por los {C14}Hombres de Negro{c}, que recogen datos para sus nuevas Ciber Bit Beasts.";
 
-const unk8 Str_870DF00[]
+const char Str_870DF00[]
     = "{A16}{Q}{C13}\"{C14}Gideon{c}!{a19}\" {c}<\f>{U}{t1}{q}{C13}\"Your plan was a complete "
       "failure. You couldn't get all four Bit Beasts. Isn't that right, Doctor?\" "
       "{c}<\f>{u}{Q}{C13}\"Yes, but I promise we will not fail you again!\" "
@@ -1300,7 +1300,7 @@ const unk8 Str_870DF00[]
       "Some time later, {C14}Joseph{c} challenges {C14}Kai{c} to a fight, but it is cut short by "
       "the {C14}Men in Black{c} as they gather data for their new Cyber Bit Beasts.";
 
-const unk8 Str_870E2C0[]
+const char Str_870E2C0[]
     = "Per capire meglio chi dovranno affrontare i Saint Seals nella loro sfida contro i "
       "Bladebreakers...<\f>...{C14}Joseph{c} spia il {C14}Dottor B{c} e scopre il piano di creare "
       "un...<\f>{a2}{q}{C13}\"...Cyber Bit Beast?!\"{c}<\f>{u}{b}Più tardi, dopo aver rivelato ai "
@@ -1311,7 +1311,7 @@ const unk8 Str_870E2C0[]
       "di squadra.<\f>{A9}{Q}{C12}\"Oh, nooooo...!\" {c}<\f>{U}{a1}{q}{C13}\"Ha! Ingoiate questo "
       "rospo, ragazzi!\" {c}";
 
-const unk8 Str_870E598[]
+const char Str_870E598[]
     = "Pour tenter de mieux comprendre à qui les Saint Shields ont affaire dans leur combat contre "
       "les Bladebreakers, <\f>{C14}Joseph{c} espionne le {C14}docteur B{c} et découvre le plan "
       "visant à créer un... <\f>{a2}{q}{C13}\"Cyber Bit Beast??"
@@ -1323,7 +1323,7 @@ const unk8 Str_870E598[]
       "humiliante. <\f>{A9}{Q}{C12}\"Oooohhh, non...\" {c}<\f>{U}{a1}{q}{C13}\"Ha! Dans les dents, "
       "les mecs!\" {c}";
 
-const unk8 Str_870E89C[]
+const char Str_870E89C[]
     = "Um mehr darüber zu erfahren, was die Saint Shields im Falle eines Kampfes gegen die "
       "Bladebreakers erwartet, <\f>spioniert {C14}Joseph{c} {C14}Doctor B{c} aus. Er erfährt von "
       "dem Projekt zur Erschaffung eines... <\f>{a2}{q}{C13}\"Cyber-Bit Beast?!\"{c}<\f>{u}{b}Als "
@@ -1334,7 +1334,7 @@ const unk8 Str_870E89C[]
       "wegen ihrer mangelnden Teamarbeit eine demütigende Niederlage. <\f>{A9}{Q}{C12}\"Ooooh, "
       "Mann...\" {c}<\f>{U}{a1}{q}{C13}\"Ha! Geschieht euch recht, Jungs. \" {c}";
 
-const unk8 Str_870EB90[]
+const char Str_870EB90[]
     = "En un intento de aclarar contra quiénes están los Saint Shield en esta batalla contra los "
       "Bladebreakers,<\f>{C14}Joseph{c} espía al {C14}Doctor B{c} y se entera del plan para crear "
       "un... <\f>{a2}{q}{C13}\"¡¿Ciber Bit Beast?!\"{c}<\f>{u}{b}Más tarde, mientras cuenta a los "
@@ -1346,7 +1346,7 @@ const unk8 Str_870EB90[]
       "<\f>{A9}{Q}{C12}\"Ooooooh, tío...\" {c}<\f>{U}{a1}{q}{C13}\"¡Ja!.. Aún os queda mucho "
       "camino, chicos\" {c}";
 
-const unk8 Str_870EEA4[]
+const char Str_870EEA4[]
     = "In an attempt to get a clearer understanding of who the Saint Shields are up against in the "
       "battle against the Bladebreakers, <\f>{C14}Joseph{c} spies on {C14}Doctor B{c} and learns "
       "of the plan to create a... <\f>{a2}{q}{C13}\"Cyber Bit Beast??"
@@ -1357,7 +1357,7 @@ const unk8 Str_870EEA4[]
       "lack of teamwork leads to a humiliating defeat. <\f>{A9}{Q}{C12}\"Awwwww, man...\" "
       "{c}<\f>{U}{a1}{q}{C13}\"Ha! Way to choke there, boys\" {c}";
 
-const unk8 Str_870F17C[]
+const char Str_870F17C[]
     = "{C14}Takao{c} arriva proprio quando la battaglia di {C14}Max{c} e "
       "{C14}Rey{c} contro {C14}Joseph{c} e {C14}Mao{c} sta per finire. In quel "
       "momento...<\f>{t1}{C14}Ozuma{c} esce dall'ombra. Non appena "
@@ -1365,7 +1365,7 @@ const unk8 Str_870F17C[]
       "{C14}Ozuma{c}, ci battiamo? O sei troppo codardo?\" "
       "{c}<\f>{U}{q}{C13}\"Fatti sotto{f4}!\"{c}";
 
-const unk8 Str_870F2D8[]
+const char Str_870F2D8[]
     = "{C14}Tyson{c} arrive au moment où le match opposant {C14}Joseph{c} et "
       "{C14}Ray{c} à {C14}Joseph{c} et {C14}Mariam{c} touche à sa fin. Au même "
       "instant, <\f>{t1}{C14}Ozuma{c}{a8} sort de l'ombre... A la seconde où "
@@ -1373,7 +1373,7 @@ const unk8 Str_870F2D8[]
       "{C14}Ozuma{c}? Ou alors tu as la trouille?\" {c}<\f>{U}{q}{C13}\"Je "
       "t'attends{f4}!\"{c}";
 
-const unk8 Str_870F448[]
+const char Str_870F448[]
     = "{C14}Tyson{c} kommt gerade an, als der Kampf von {C14}Max{c} und "
       "{C14}Ray{c} gegen {C14}Joseph{c} und {C14}Mariam{c} zu Ende geht, "
       "während gleichzeitig <\f>{t1}{C14}Ozuma{c}{a8} aus dem Schatten tritt... "
@@ -1381,7 +1381,7 @@ const unk8 Str_870F448[]
       "<\f>{t2}{Q}{C12}\"Wie wär's mit einem Kampf, {C14}Ozuma{c}, oder hast du "
       "zu viel Angst!?\" {c}<\f>{U}{q}{C13}\"Na los, zeig's mir{f4}!\"{c}";
 
-const unk8 Str_870F5D4[]
+const char Str_870F5D4[]
     = "{C14}Tyson{c} llega justo cuando la batalla de {C14}Max{c} y {C14}Ray{c} "
       "contra {C14}Joseph{c} y {C14}Mariam{c} termina; <\f>Al mismo tiempo, "
       "{t1}{C14}Ozuma{c}{a8} sale de entre las sombras... En el mismo instante "
@@ -1389,46 +1389,46 @@ const unk8 Str_870F5D4[]
       "{C14}Ozuma{c}, o eres un gallina?!\" {c}<\f>{U}{q}{C13}\"¡Prepárate para "
       "lanzar{f4}!\"{c}";
 
-const unk8 Str_870F73C[] = "{C14}Tyson{c} arrives just as {C14}Max{c} and {C14}Ray's{c} battle "
+const char Str_870F73C[] = "{C14}Tyson{c} arrives just as {C14}Max{c} and {C14}Ray's{c} battle "
                            "against {C14}Joseph{c} and {C14}Mariam{c} comes to an end.<\f>At the "
                            "same time {t1}{C14}Ozuma{c}{a8} steps out of the shadows... The second "
                            "that {C14}Tyson{c}{A10} sees him... <\f>{t2}{Q}{C12}\"So how about it, "
                            "{C14}Ozuma{c}, or are you too chicken!?\" {c}<\f>{U}{q}{C13}\"Bring it "
                            "on{f4}!\"{c}";
 
-const unk8 Str_870F8A0[] = "Dopo una battaglia disperata, {C14}Takao{c}{A10} riesce a sconfiggere "
+const char Str_870F8A0[] = "Dopo una battaglia disperata, {C14}Takao{c}{A10} riesce a sconfiggere "
                            "{C14}Ozuma{c}{a8}.<\f>{t3}{Q}{C12}\"Evviva, ce l'ho fatta!\" "
                            "{c}<\f>{U}{C14}Ozuma{c} sembra divertito.<\f>{q}{C13}\"Mi hai appena "
                            "mostrato quali sono i tuoi punti di forza quando ti batti. Forse un "
                            "giorno riceverai una lezione, {C14}Takao{c}.\" {c}";
 
-const unk8 Str_870F9D8[] = "Après un combat acharné, {C14}Tyson{c}{A10} parvient à vaincre "
+const char Str_870F9D8[] = "Après un combat acharné, {C14}Tyson{c}{A10} parvient à vaincre "
                            "{C14}Ozuma{c}{a8}.<\f>{t3}{Q}{C12}\"Parfait, j'ai réussi!\" "
                            "{c}<\f>{U}{C14}Ozuma{c} a l'air amusé...<\f>{q}{C13}\"Tu viens de me "
                            "montrer tes points forts au combat! Tu comprendras peut-être un jour, "
                            "{C14}Tyson{c}.\" {c}";
 
-const unk8 Str_870FAEC[]
+const char Str_870FAEC[]
     = "Nach einem harten Kampf kann {C14}Tyson{c}{A10} {C14}Ozuma{c}{a8} besiegen. "
       "<\f>{t3}{Q}{C12}\"OK, ich habe gesiegt!\" {c}<\f>{U}{C14}Ozuma{c} scheint sich über etwas "
       "zu amüsieren...<\f>{q}{C13}\"Du hast mir eben deine Stärken im Kampf demonstriert! "
       "Vielleicht wirst du eines Tages mehr verstehen, {C14}Tyson{c}.\" {c}";
 
-const unk8 Str_870FC24[]
+const char Str_870FC24[]
     = "Tras una batalla desesperada, {C14}Tyson{c}{A10} consigue derrotar a "
       "{C14}Ozuma{c}{a8} <\f>{t3}{Q}{C12}\"Muy bien, ¡lo conseguí!\" "
       "{c}<\f>{U}{C14}Ozuma{c} parece divertido...<\f>{q}{C13}\"Acabas de "
       "mostrarme tu fortaleza en la batalla! Quizá un día te encuentres con la "
       "horma de tu zapato, {C14}Tyson{c}.\" {c}";
 
-const unk8 Str_870FD54[]
+const char Str_870FD54[]
     = "After a desperate battle, {C14}Tyson{c}{A10} manages to defeat "
       "{C14}Ozuma{c}{a8}. <\f>{t3}{Q}{C12}\"Alright, I did it!\" "
       "{c}<\f>{U}{C14}Ozuma{c} seems amused...<\f>{q}{C13}\"You just showed me "
       "your strengths in battle! Maybe one day you'll get it, "
       "{C14}Tyson{c}.\"{c}";
 
-const unk8 Str_870FE5C[]
+const char Str_870FE5C[]
     = "Il {C14}Dottor B{c} iscrive {f}{C14}Gerry{c}{a18}, un membro della squadra Psykicks, a un "
       "torneo locale. Il Beyblade di {C14}Gerry{c} è equipaggiato con uno dei nuovi Cyber Bit "
       "Beast. Per tutto il torneo, {C14}Gerry{c} sembra inarrestabile.<\f>{q}{C13}\"Assaggiate la "
@@ -1440,7 +1440,7 @@ const unk8 Str_870FE5C[]
       "Bit Beast dei Bladebreakers. Sarà necessario molto allenamento per avere qualche "
       "probabilità di vincere contro la squadra Psykicks!";
 
-const unk8 Str_871019C[]
+const char Str_871019C[]
     = "Le {C14}docteur B{c} fait participer {f}{C14}Gerry{c}{a18}, un membre de l'équipe Psykick, "
       "à un tournoi local. Le Blade de {C14}Gerry{c} a été équipé d'un des Cyber Bit Beasts. Au "
       "cours du tournoi, {C14}Gerry{c} semble invincible. <\f>{q}{C13}\"Découvrez le pouvoir de la "
@@ -1452,7 +1452,7 @@ const unk8 Str_871019C[]
       "Bladebreakers. Les Bladebreakers feraient mieux de s'entraîner s'ils veulent avoir une "
       "chance de battre l'équipe Psykick!";
 
-const unk8 Str_87104D8[]
+const char Str_87104D8[]
     = "{C14}Doctor B{c} schickt {f}{C14}Gerry{c}{a18}, ein Mitglied des Teams Psykick, in einen "
       "kleineren Wettbewerb. {C14}Gerrys{c} Blade wurde mit einem der Cyber-Bit Beasts "
       "ausgestattet. Im Laufe des Wettbewerbs erweist sich {C14}Gerry{c} als unaufhaltsam. "
@@ -1465,7 +1465,7 @@ const unk8 Str_87104D8[]
       "Beasts der Bladebreakers kopierten Informationen. Die Bladebreakers müssen sich jetzt etwas "
       "einfallen lassen, wenn sie gegen das Team der Psykicks eine Chance haben wollen!";
 
-const unk8 Str_8710874[]
+const char Str_8710874[]
     = "El {C14}Doctor B{c} inscribe a {f}{C14}Gerry{c}{a18}, un miembro del equipo Psykick, en un "
       "torneo local; la peonza de {C14}Gerry{c} ha sido modificada con uno de los Ciber Bit "
       "Beasts. Durante el torneo, {C14}Gerry{c} parece imparable. <\f>{q}{C13}\"¡¡Sentid el poder "
@@ -1477,7 +1477,7 @@ const unk8 Str_8710874[]
       "¡¡Será mejor que los Bladebreakers empiecen a practicar si quieren tener alguna oportunidad "
       "de derrotar al equipo Psykick!!";
 
-const unk8 Str_8710BA8[]
+const char Str_8710BA8[]
     = "{C14}Doctor B{c} enters {f}{C14}Gerry{c}{a18}, a member of Team Psykick, into a local "
       "tournament. {C14}Gerry's{c} blade has been fitted with one of the Cyber Bit Beasts. "
       "<\f>During the tournament, {C14}Gerry{c} is seemingly unstoppable. <\f>{q}{C13}\"Feel the "
@@ -1489,7 +1489,7 @@ const unk8 Str_8710BA8[]
       "own Bit Beasts.<\f>The Bladebreakers better get practicing if they are going to stand any "
       "chance at all of taking down Team Psykick!!";
 
-const unk8 Str_8710ED4[]
+const char Str_8710ED4[]
     = "Nel laboratorio del {C14}Dottor B{c}{a16}, sono in corso le ultime prove del Cyber Bit "
       "Beast.<\f>{q}{C13}\"Procediamo con il collaudo del Bit Beast. Grazie alle informazioni che "
       "abbiamo raccolto, il nostro Cyber Bit Beast è stato finalmente perfezionato.\" "
@@ -1498,7 +1498,7 @@ const unk8 Str_8710ED4[]
       "{C14}Gideon{c}.\"{c}<\f>{u}{Q}{C13}\"Hai qualcuno in mente, Dottore?\" "
       "{c}<\f>{U}{q}{C13}\"Sì, {C14}Gideon{c}. Lo incontrerai presto.\" {c}";
 
-const unk8 Str_8711100[]
+const char Str_8711100[]
     = "Dans le labo du {C14}docteur B{c}{a16}, on effectue les derniers tests des Cyber Bit "
       "Beasts.<\f>{q}{C13}\"Lancez le programme de test. Grâce aux informations obtenues, nous "
       "avons enfin pu perfectionner notre Cyber Bit Beast.\" {c}<\f>{u}{t1}{A19}{Q}{C13}\"J'espère "
@@ -1507,7 +1507,7 @@ const unk8 Str_8711100[]
       "{C14}Gideon{c}.\"{c}<\f>{u}{Q}{C13}\"Vous pensez à quelqu'un en particulier, docteur?\" "
       "{c}<\f>{U}{q}{C13}\"Oui, vous le rencontrerez bientôt, {C14}Gideon{c}\" {c}";
 
-const unk8 Str_8711334[]
+const char Str_8711334[]
     = "In {C14}Doctor B{c}{a16}'s Labor finden die letzten Tests mit den Cyber-Bit Beasts "
       "statt.<\f>{q}{C13}\"Bit Beast-Testlauf wird gestartet. Dank der gesammelten Informationen "
       "konnten wir unser Cyber-Bit Beast perfektionieren.\" {c}<\f>{u}{t1}{A19}{Q}{C13}\"Ich hoffe "
@@ -1516,7 +1516,7 @@ const unk8 Str_8711334[]
       "{C14}Gideon{c}.\"{c}<\f>{u}{Q}{C13}\"Denken Sie an jemand bestimmtes, Doctor?\" "
       "{c}<\f>{U}{q}{C13}\"Ja, Sie werden ihn schon bald treffen, {C14}Gideon{c}.\" {c}";
 
-const unk8 Str_8711560[]
+const char Str_8711560[]
     = "En el laboratorio del {C14}Doctor B{c}{a16} se están realizando las pruebas definitivas de "
       "los Ciber Bit Beasts.<\f>{q}{C13}\"Iniciar prueba de Bit Beast. Gracias a la información "
       "que hemos recogido, nuestros Cíber Bit Beasts han sido perfeccionados al fin.\" "
@@ -1525,7 +1525,7 @@ const unk8 Str_8711560[]
       "manejar esta tecnología, {C14}Gideon{c}.\"{c}<\f>{u}{Q}{C13}\"Tiene a alguien en mente, "
       "Doctor?\" {c}<\f>{U}{q}{C13}\"Sí, pronto podrás conocerle, {C14}Gideon{c}\" {c}";
 
-const unk8 Str_87117A8[]
+const char Str_87117A8[]
     = "In {C14}Doctor B{c}{a16}'s laboratory, the final tests are being carried out on the Cyber "
       "Bit Beasts.<\f>{q}{C13}\"Initiate Bit Beast trial run. Thanks to the information we've "
       "gathered, our Cyber Bit Beast has finally been perfected.\" {c}<\f>{u}{t1}{A19}{Q}{C13}\"I "
@@ -1534,7 +1534,7 @@ const unk8 Str_87117A8[]
       "anyone in mind, Doctor?\" {c}<\f>{U}{q}{C13}\"Yes, you will be able to meet him soon, "
       "{C14}Gideon{c}.\" {c}{u}";
 
-const unk8 Str_87119C8[]
+const char Str_87119C8[]
     = "{f}{C14}Nonno Jei{c}{a21} sta pescando nel fiume. Ha appena abboccato un grosso pesce e sta "
       "lottando per portarlo a riva.<\f>{q}{C12}\"Ehi, aiutatemi tutti!\" {c}<\f>{u}Mentre lotta "
       "con la sua preda, perde l'equilibrio e viene risucchiato nella "
@@ -1551,7 +1551,7 @@ const unk8 Str_87119C8[]
       "pareggio! Dopo la sfida ognuno si allontana per la propria strada, sapendo di essersi fatto "
       "dei nuovi amici.";
 
-const unk8 Str_8711E54[]
+const char Str_8711E54[]
     = "Le {f}{C14}grand-père{c}{a21} de {C14}Tyson{c}{A10} pêche le long de la rivière. Un énorme "
       "poisson a mordu et il essaie de le sortir de l'eau.<\f>{q}{C12}\"Allez, du nerf!\" "
       "{c}<\f>{u}Alors qu'il y met toute sa force, il perd l'équilibre et est entraîné dans l'eau! "
@@ -1568,7 +1568,7 @@ const unk8 Str_8711E54[]
       "proches que le combat s'achève par un match nul! Après le combat, alors qu'ils repartent "
       "chacun de leur côté, tous se rendent compte qu'ils ont rencontré de vrais amis aujourd'hui.";
 
-const unk8 Str_8712328[]
+const char Str_8712328[]
     = "{C14}Tysons{c}{A10} {f}{C14}Großvater{c}{a21} ist unten am Fluss beim Angeln. Ein großer "
       "Fisch hat gerade angebissen, und er bemüht sich, ihn aus dem Wasser zu "
       "ziehen.<\f>{q}{C12}\"Na los, komm schon raus!\" {c}<\f>{u}Als er mit all seiner Kraft an "
@@ -1585,7 +1585,7 @@ const unk8 Str_8712328[]
       "ebenbürtig, dass der Kampf unentschieden endet. Als sie nach dem Kampf auseinander gehen, "
       "wird allen klar, dass sie heute großartige neue Freunde kennen gelernt haben.";
 
-const unk8 Str_8712808[]
+const char Str_8712808[]
     = "{C14}El abuelo{c}{A10}{f}{C14} de Tyson{c}{a21} está pescando en el río. Un enorme pez ha "
       "mordido el anzuelo y el abuelo se esfuerza para pescarlo.<\f>{q}{C12}\"Venga, ¡¡levanta!!\" "
       "{c}<\f>{u}Al tirar con fuerza, pierde el equilibrio ¡y cae a la "
@@ -1602,7 +1602,7 @@ const unk8 Str_8712808[]
       "batalla termina en un empate! Después de la batalla, mientras cada uno se marcha por su "
       "camino, todos se dan cuenta de que hoy han hecho unos nuevos amigos.";
 
-const unk8 Str_8712C9C[]
+const char Str_8712C9C[]
     = "{C14}Tyson's{c}{A10} {f}{C14}Grandpa{c}{a21} is fishing down by the river. A huge fish has "
       "bitten his line and he is struggling to reel it in.<\f>{q}{C12}\"Yo, push it up, y'all!!\" "
       "{c}<\f>{u}As he strains and tugs, he loses his balance and is pulled in to the stream! "
@@ -1619,7 +1619,7 @@ const unk8 Str_8712C9C[]
       "tie!<\f>After the battle, as they go their separate ways, they all realize that they have "
       "made some great new friends today.";
 
-const unk8 Str_871311C[]
+const char Str_871311C[]
     = "{A19}{Q}{C13}\"Grazie per essere venuto. Ah, la mia squadra di Beyblader preferita, gli "
       "Psykicks!\"{c}<\f>{U}{C14}Kane{c}{A4}...{C14}Jim{c}{a22}...<\f>{f}{C14}Goki{c}{A20}... e "
       "l'adorabile {f}{C14}Salima{c}{a27}...<\f>{b}{B}{C14}Gideon{c} e il {C14}Dottor B{c} "
@@ -1640,7 +1640,7 @@ const unk8 Str_871311C[]
       "scoperto che i suoi nuovi amici, {C14}Kane{c}, {C14}Jim{c}, {C14}Goki{c} e {C14}Salima{c}, "
       "si sono uniti alla squadra Psykicks.";
 
-const unk8 Str_8713748[]
+const char Str_8713748[]
     = "{A19}{Q}{C13}\"Merci d'être venus... Ah, voilà mon équipe préférée, les "
       "Psykicks!\"{c}<\f>{U}{C14}Kane{c}{A4}... {C14}Jim{c}{a22}...<\f>{f}{C14}Goki{c}{A20}... et "
       "la jolie {f}{C14}Salima{c}{a27}...<\f>{b}{B}{C14}Gideon{c} et le {C14}docteur B{c} montrent "
@@ -1660,7 +1660,7 @@ const unk8 Str_8713748[]
       "tard, {C14}Tyson{c} est déçu d'apprendre que ses nouveaux amis {C14}Kane{c}, {C14}Jim{c}, "
       "{C14}Goki{c} et {C14}Salima{c} ont rejoint les rangs de l'équipe Psykick.";
 
-const unk8 Str_8713D38[]
+const char Str_8713D38[]
     = "{A19}{Q}{C13}\"Danke, dass ihr gekommen seid... Ah, mein Lieblings-Blading Team, die "
       "Psykicks!\"{c}<\f>{U}{C14}Kane{c}{A4}... {C14}Jim{c}{a22}... <\f>{f}{C14}Goki{c}{A20}... "
       "und die reizende {f}{C14}Salima{c}{a27}...<\f>{b}{B}{C14}Gideon{c} und {C14}Doctor B{c} "
@@ -1681,7 +1681,7 @@ const unk8 Str_8713D38[]
       "seiner Enttäuschung erfahren, dass seine neuen Freunde {C14}Kane{c}, {C14}Jim{c}, "
       "{C14}Goki{c} und {C14}Salima{c} dem Team Psykick beigetreten sind.";
 
-const unk8 Str_871435C[]
+const char Str_871435C[]
     = "{A19}{Q}{C13}\"Gracias por venir... Ah, mi equipo de peonzas favorito, ¡los "
       "Psykicks!!...\"{c}<\f>{U}{C14}Kane{c}{A4}...{C14}Jim{c}{a22}...<\f>{f}{C14}Goki{c}{A20}... "
       "y la encantadora {f}{C14}Salima{c}{a27}...<\f>{b}{B}{C14}Gideon{c} y el {C14}Doctor B{c} "
@@ -1703,7 +1703,7 @@ const unk8 Str_871435C[]
       "sus nuevos amigos, {C14}Kane{c}, {C14}Jim{c}, {C14}Goki{c} y {C14}Salima{c} se han unido al "
       "equipo Psykick.";
 
-const unk8 Str_87149A4[]
+const char Str_87149A4[]
     = "{A19}{Q}{C13}\"Thank you for coming... Ah, my favorite blading team, the "
       "Psykicks!!\"{c}<\f>{U}{C14}Kane{c}{A4}... {C14}Jim{c}{a22}...<\f>{f}{C14}Goki{c}{A20}... "
       "and the lovely {f}{C14}Salima{c}{a27}...<\f>{b}{B}{C14}Gideon{c} and {C14}Doctor B{c} show "
@@ -1723,7 +1723,7 @@ const unk8 Str_87149A4[]
       "friends {C14}Kane{c}, {C14}Jim{c}, {C14}Goki{c} and {C14}Salima{c} have joined with Team "
       "Psykick.";
 
-const unk8 Str_8714F4C[]
+const char Str_8714F4C[]
     = "{C14}Takao{c} {A10}è preoccupato della battaglia contro la squadra Psykicks e i loro "
       "potentissimi Cyber Bit Beast...<\f>{Q}{C12}\" {C14}Prof. Kappa{c}{a5}, credi di poter dare "
       "una revisione generale al mio Beyblade prima che io debba combattere?\" "
@@ -1734,7 +1734,7 @@ const unk8 Str_8714F4C[]
       "regole!\" {c}<\f>{u}{Q}{C12}\"Va bene. Allora non ho speranze contro la squadra Psykicks e "
       "i suoi Cyber Bit Beast.\" {c}";
 
-const unk8 Str_8715218[]
+const char Str_8715218[]
     = "{C14}Tyson{c} {A10}s'inquiète au sujet du prochain match avec l'équipe Psykick et ses "
       "incroyablement puissants Cyber Bit Beasts...<\f>{Q}{C12}\" {C14}Kenny{c}{a5}, tu penses que "
       "tu pourrais améliorer les réglages de mon Beyblade avant mon match?\" "
@@ -1746,7 +1746,7 @@ const unk8 Str_8715218[]
       "{c}<\f>{u}{Q}{C12}\"Ouais, eh ben alors je n'ai aucune chance contre l'équipe Psykick et "
       "ses Cyber Bit Beasts.\" {c}";
 
-const unk8 Str_8715508[]
+const char Str_8715508[]
     = "{C14}Tyson{c} {A10} ist besorgt über den anstehenden Kampf mit dem Team Psykick und ihre "
       "unglaublich mächtigen Cyber-Bit Beasts...<\f>{Q}{C12}\"{C14}Kenny{c}{a5}, glaubst du, du "
       "kannst mein Beyblade vor dem Match ein wenig auffrisieren?\" {c}<\f>{U}{q}{C12}\"Willst du "
@@ -1757,7 +1757,7 @@ const unk8 Str_8715508[]
       "weißt das auch!\" {c}<\f>{u}{Q}{C12}\"Tja, dann habe ich wohl keine Chance gegen das Team "
       "Psykick und ihre Cyber-Bit Beasts.\" {c}";
 
-const unk8 Str_87157E4[]
+const char Str_87157E4[]
     = "{C14}Tyson{c} {A10}está preocupado por la batalla que se aproxima con el equipo Psykick y "
       "los increíblemente poderosos Ciber Bit Beasts...<\f>{Q}{C12}\"{C14}Kenny{c}{a5}, ¿crees que "
       "podrías hacer una puesta a punto radical a mi Peonza antes de mi encuentro?\" "
@@ -1768,7 +1768,7 @@ const unk8 Str_87157E4[]
       "ilegalmente tu Peonza. ¡Sabes que va contra las reglas!\" {c}<\f>{u}{Q}{C12}\"Ya, vale; no "
       "tengo ninguna oportunidad contra el equipo Psykick y sus Cíber Bit Beasts.\" {c}";
 
-const unk8 Str_8715AE4[]
+const char Str_8715AE4[]
     = "{C14}Tyson{c} {A10}is worried about the forthcoming battle with Team Psykick and their "
       "incredibly powerful Cyber Bit Beasts...<\f>{Q}{C12}\"{C14}Kenny{c}{a5}, do you think you "
       "could give my BeyBlade a radical tune-up before my match?\" {c}<\f>{U}{q}{C12}\"It needs a "
@@ -1779,7 +1779,7 @@ const unk8 Str_8715AE4[]
       "BeyBlade. You know that's against the rules!\" {c}<\f>{u}{Q}{C12}\"Yeah, well I don't stand "
       "a chance against Team Psykick and their Cyber Bit Beasts.\"{c}";
 
-const unk8 Str_8715D98[]
+const char Str_8715D98[]
     = "{C14}Takao{c} convince il {C14}Prof. Kappa{c} ad adattare il suo Beyblade in modo che abbia "
       "un enorme potenza d'attacco, rendendo però illegale il suo Dragoon secondo le regole della "
       "BBA. L'altro problema è che {C14}Takao{c} non riesce a controllare il Beyblade: è troppo "
@@ -1795,7 +1795,7 @@ const unk8 Str_8715D98[]
       "credere di essere stato tanto idiota! Ehi, capo, credi di poterlo far tornare come "
       "prima?\"{c}";
 
-const unk8 Str_87161D4[]
+const char Str_87161D4[]
     = "{C14}Tyson{c} parvient à décider {C14}Kenny{c} de modifier son Beyblade afin de lui donner "
       "la puissance d'attaque maximale, ce qui rend son Dragoon illégal selon le règlement. Mais "
       "il y a un autre problème: {C14}Tyson{c} ne parvient pas à contrôler son Beyblade qui est "
@@ -1811,7 +1811,7 @@ const unk8 Str_87161D4[]
       "j'ai été aussi stupide! Eh, chef... tu penses que tu peux remettre mon Beyblade comme il "
       "était avant?\"{c}";
 
-const unk8 Str_8716640[]
+const char Str_8716640[]
     = "{C14}Tyson{c} bringt {C14}Kenny{c} dazu, sein Beyblade so zu verändern, dass es maximale "
       "Angriffskraft hat. Dies verstößt klar gegen die Regeln der BBA. Das andere Problem ist, "
       "dass {C14}Tyson{c} sein neues, mächtigeres Beyblade kaum beherrscht und es immer wieder das "
@@ -1826,7 +1826,7 @@ const unk8 Str_8716640[]
       "Geltung! Kaum zu glauben, wie dämlich ich war! Hey, Chef, kriegst du mein Blade wieder so "
       "hin, wie es vorher war?\"{c}";
 
-const unk8 Str_8716A80[]
+const char Str_8716A80[]
     = "{C14}Tyson{c} consigue que {C14}Kenny{c} adapte su peonza para que tenga poder de ataque "
       "máximo, lo cual hace que su Dragón sea ilegal, según las reglas de la ABP. El otro problema "
       "es que {C14}Tyson{c} no puede controlar la peonza ;es demasiado potente y pierde el "
@@ -1841,7 +1841,7 @@ const unk8 Str_8716A80[]
       "¡Por eso Dragón nunca salió! ¡No puedo creer que haya sido tan tonto!, Eh, jefe, ¿crees que "
       "puedes hacer que sea como antes?\"{c}";
 
-const unk8 Str_8716E84[]
+const char Str_8716E84[]
     = "{C14}Tyson{c} gets {C14}Kenny{c} to adapt his blade so that it has maximum attack power. "
       "This makes his Dragoon illegal under BBA rules.<\f>The other problem is that {C14}Tyson{c} "
       "can't handle the blade. It's too powerful and keeps on losing balance. "
@@ -1855,7 +1855,7 @@ const unk8 Str_8716E84[]
       "Dragoon never came out!<\f>I can't believe I was such a goofball!! Hey Chief... you think "
       "you can make the way it used to be?\"{c}";
 
-const unk8 Str_871723C[]
+const char Str_871723C[]
     = "È arrivato il momento della grande sfida dei Bladebreakers contro la squadra Psykicks. La "
       "posta in palio è alta: rischiano di farsi prendere i loro Bit Beast dalla squadra di "
       "{C14}Gideon{c}, che usa i suoi potentissimi Cyber Bit Beast.<\f>Mr. Dickenson ha inviato un "
@@ -1871,7 +1871,7 @@ const unk8 Str_871723C[]
       "tuoi amici non potranno aiutarti. Mi dovrai affrontare da solo!\" {c}<\f>{u}{Q}{C12}\"E da "
       "solo perderai{f4}!\"{c}";
 
-const unk8 Str_87176C0[]
+const char Str_87176C0[]
     = "L'heure du grand match entre les Bladebreakers et l'équipe Psykick est arrivée. Les enjeux "
       "sont énormes: l'équipe de {C14}Gideon{c}, avec ses Cyber Bit Beasts surpuissants, pourrait "
       "bien leur ravir leurs Bit Beasts. <\f>M. Dickenson a fait en sorte qu'un hélicoptère amène "
@@ -1886,7 +1886,7 @@ const unk8 Str_87176C0[]
       "amis ne pourront pas t'aider. Tu vas devoir m'affronter tout seul!\" {c}<\f>{u}{Q}{C12}\"Et "
       "tu vas perdre... tout seul {f4}!\"{c}";
 
-const unk8 Str_8717B14[]
+const char Str_8717B14[]
     = "Jetzt ist die Zeit gekommen für den großen Kampf der Bladebreakers gegen das Team Psykick. "
       "Das Risiko für das Team der Bladebreakers ist hoch. Sie könnten ihre Bit Beasts an "
       "{C14}Gideons{c} Team mit den mächtigen Cyber-Bit Beasts verlieren. <\f>Mr. Dickenson hat "
@@ -1902,7 +1902,7 @@ const unk8 Str_8717B14[]
       "helfen. Du musst es schon allein mit meiner Wenigkeit aufnehmen!\" "
       "{c}<\f>{u}{Q}{C12}\"Deine Wenigkeit... wird verlieren {f4}!\"{c}";
 
-const unk8 Str_8717F8C[]
+const char Str_8717F8C[]
     = " Es la hora del gran encuentro de los Bladebreakers contra el equipo Psykick, el riesgo es "
       "elevado; podrían perder fácilmente sus Bit Beasts frente al equipo de {C14}Gideon{c} con "
       "sus Cíber Bit Beast superpoderosas. <\f>El Sr. Dickenson ha conseguido que un helicóptero "
@@ -1919,7 +1919,7 @@ const unk8 Str_8717F8C[]
       "enfrentarte a mí tú solito!\" {c}<\f>{u}{Q}{C12}\"¡Pues tú solito eres el que va a "
       "perder{f4}!\"{c}";
 
-const unk8 Str_8718438[]
+const char Str_8718438[]
     = "It's time for the Bladebreakers' big match against Team Psykick. The stakes are "
       "high.<\f>They could easily lose their Bit Beasts to {C14}Gideon's{c} team and their super "
       "powered Cyber Bit Beasts. <\f>Mr. Dickenson has arranged for a helicopter to take the "
@@ -1934,7 +1934,7 @@ const unk8 Str_8718438[]
       "can't help you. You'll have to face little ol' me all by your lonesome!\" "
       "{c}<\f>{u}{Q}{C12}\"Little ol' you...is gonna lose{f4}!\"{c}";
 
-const unk8 Str_871887C[]
+const char Str_871887C[]
     = "{A6}{a22}{Q}{C12}\"Non mi deludere proprio adesso, ragazzo. Nulla ti sta alla pari. Quel "
       "Cyber Bit Beast è soltanto una pallida imitazione. So che possiamo batterlo! "
       "Dracieeeeeeel!... All'attaccoooooooooo!\" {c}<\f>{U}{q}{C13}\"Oh, no!\" "
@@ -1945,7 +1945,7 @@ const unk8 Str_871887C[]
       "{c}<\f>{u}{Q}{C12}\"Il Draciel è molto resistente, ma neppure lui può battersi all'infinito "
       "contro un nemico capace di ripararsi da solo! Siamo fritti!\"{c}";
 
-const unk8 Str_8718B58[]
+const char Str_8718B58[]
     = "{A6}{a22}{Q}{C12}\"Ne laisse pas tomber, mon vieux. Personne ne peut te battre. Ce Cyber "
       "Bit Beast n'est qu'une pâle imitation. Je sais qu'on peut l'avoir! Dracieeeeeeel! A "
       "l'attaaaaaque!\" {c}<\f>{U}{q}{C13}\"Oh non!\" {c}<\f>{u}{t3}{Q}{C12}\"Draciel! Tu as "
@@ -1956,7 +1956,7 @@ const unk8 Str_8718B58[]
       "est un dur à cuire... Mais même lui est incapable de gagner un combat si son adversaire se "
       "répare! Nous sommes finis!\"{c}";
 
-const unk8 Str_8718E0C[]
+const char Str_8718E0C[]
     = "{A6}{a22}{Q}{C12}\"Lass mich jetzt nicht hängen, Kumpel. Du bist die Nummer Eins. Dieses "
       "Cyber-Bit Beast ist nur ein schwacher Abklatsch. Wir können es besiegen! Dracieeeeeeel! "
       "Attaaaaaaaacke!!\" {c}<\f>{U}{q}{C13}\"Oh nein!\" {c}<\f>{u}{t3}{Q}{C12}\"Draciel! Du hast "
@@ -1967,7 +1967,7 @@ const unk8 Str_8718E0C[]
       "{c}<\f>{u}{Q}{C12}\"Draciel ist unglaublich zäh... Aber nicht mal er kann ewig weiter "
       "kämpfen, wenn sein Feind ständig repariert wird! Wir sind erledigt!\"{c}";
 
-const unk8 Str_87190DC[]
+const char Str_87190DC[]
     = "{A6}{a22}{Q}{C12}\"No me falles ahora, colega. Nada se puede comparar a ti. Ese Cíber Bit "
       "Beast no es más que una mala imitación. ¡Sé que podemos derribarle!, ¡Dracieeeeeeel!... "
       "¡Ataaaaaaaaca!\" {c}<\f>{U}{q}{C13}\"¡Oh, no!\" {c}<\f>{u}{t3}{Q}{C12}\"¡Draciel!.. ¡Lo "
@@ -1979,7 +1979,7 @@ const unk8 Str_87190DC[]
       "batalla que dura eternamente, ¡mientras su enemigo se repara a sí mismo! ¡Estamos "
       "hundidos!\"{c}";
 
-const unk8 Str_87193D0[]
+const char Str_87193D0[]
     = "{A6}{a22}{Q}{C12}\"Don't give up on me now, buddy. Nothing compares to you. That Cyber Bit "
       "Beast is just a pale imitation. I know we can take him down! "
       "Dracieeeeeeel!...Attaaaaaaaack!\" {c}<\f>{U}{q}{C13}\"Oh no!\" "
@@ -1990,7 +1990,7 @@ const unk8 Str_87193D0[]
       "{c}<\f>{u}{Q}{C12}\"Draciel's a tough cookie... but even he can't fight a battle that goes "
       "on forever while his enemy keeps fixing himself! We're sunk!\"{c}{U}";
 
-const unk8 Str_8719688[]
+const char Str_8719688[]
     = "{C14}Jim{c}{a22}, con il suo Beyblade capace di ripararsi continuamente, affronta "
       "{C14}Max{c}{A6}.<\f>{q}{C13}\"Avanti, Cyber Draciel! È il momento di farla finita. Fallo a "
       "pezzi!\" {c}<\f>{u}{Q}{C12}\"Come può essere? Draciel!\" {c}<\f>{U}{b}{B}Il sistema di "
@@ -2004,7 +2004,7 @@ const unk8 Str_8719688[]
       "posso.\" {c}<\f>{u}{Q}{C13}\"Inaccettabile! Ma le battaglie procederanno come previsto. Non "
       "c'è problema, ho un piano di riserva.\"{c}";
 
-const unk8 Str_8719A50[]
+const char Str_8719A50[]
     = "Avec son Beyblade qui se répare en permanence, {C14}Jim{c}{a22} tient tête à "
       "{C14}Max{c}{A6}...<\f>{q}{C13}\"Allez, Cyber Draciel, c'est le moment d'en finir! Vas-y! "
       "Mets-le en pièces!\" {c}<\f>{u}{Q}{C12}\"Comment est-ce possible? Draciel!\" "
@@ -2018,7 +2018,7 @@ const unk8 Str_8719A50[]
       "{c}<\f>{U}{q}{C13}\"Je ne peux pas.\" {c}<\f>{u}{Q}{C13}\"C'est intolérable! Les combats "
       "doivent se dérouler comme prévu. Ne vous en faites pas. J'ai un plan de rechange.\"{c}";
 
-const unk8 Str_8719E48[]
+const char Str_8719E48[]
     = "Indem er immer wieder sein Beyblade repariert, bringt {C14}Jim{c}{a22} {C14}Max{c}{A6} in "
       "Bedrängnis...<\f>{q}{C13}\"Komm schon, Cyber-Draciel! Zeit, dies ein für alle Male zu "
       "beenden! Genau so! Reiß es in Stücke!\" {c}<\f>{u}{Q}{C12}\"Wie kann das sein? Draciel!\" "
@@ -2032,7 +2032,7 @@ const unk8 Str_8719E48[]
       "{c}<\f>{U}{q}{C13}\"Das kann ich nicht.\" {c}<\f>{u}{Q}{C13}\"Das ist nicht akzeptabel! Der "
       "Kampf geht weiter wie geplant. Aber keine Sorge, ich habe noch einen zweiten Plan.\"{c}";
 
-const unk8 Str_871A21C[]
+const char Str_871A21C[]
     = "Con su Peonza autorregenerante {C14}Jim{c}{a22} se enfrenta a "
       "{C14}Max{c}{A6}...<\f>{q}{C13}\"¡Vamos, Cíber Draciel! ¡Es hora de acabar con esto de una "
       "vez por todas! ¡Eso es! ¡Hazlo pedazos!\" {c}<\f>{u}{Q}{C12}\"¿Cómo puede ser? ¡Draciel!\" "
@@ -2046,7 +2046,7 @@ const unk8 Str_871A21C[]
       "arréglalo.\" {c}<\f>{U}{q}{C13}\"No puedo.\" {c}<\f>{u}{Q}{C13}\"¡Inaceptable!... Las "
       "batallas seguirán según el plan. No os preocupéis; tengo un plan de reserva preparado.\"{c}";
 
-const unk8 Str_871A5DC[]
+const char Str_871A5DC[]
     = "With his continuously repairing BeyBlade, {C14}Jim{c}{a22} faces off against "
       "{C14}Max{c}{A6}...<\f>{q}{C13}\"Come on, Cyber Draciel! Time to end this once and for all! "
       "That's it! Tear it to shreds!\" {c}<\f>{u}{Q}{C12}\"How can that be? Draciel!\" "
@@ -2059,7 +2059,7 @@ const unk8 Str_871A5DC[]
       "{c}<\f>{U}{q}{C13}\"I can't.\" {c}<\f>{u}{Q}{C13}\"Unacceptable!... The battles will go on "
       "as scheduled. Do not worry - I have a backup plan in place.\"{c}";
 
-const unk8 Str_871A96C[]
+const char Str_871A96C[]
     = "I Bladebreakers hanno capito che i Cyber Bit Beast in realtà controllano "
       "la squadra Psykicks!<\f>{t2}{C14}Salima{c}{a27} si trova al piano "
       "superiore della Torre delle battaglie di {C14}Gideon{c} e ha scelto di "
@@ -2068,7 +2068,7 @@ const unk8 Str_871A96C[]
       "Driger esercita su di lei. <\f>{q}{C13}\"Vincerò questa battaglia, ma "
       "non voglio batterti usando dei volgari trucchi!{f4}\"{c}";
 
-const unk8 Str_871AB48[]
+const char Str_871AB48[]
     = "Les Bladebreakers ont compris que les Cyber Bit Beasts possédaient les "
       "membres de l'équipe Psykick! <\f>{t2}{C14}Salima{c}{a27} se trouve au "
       "niveau suivant de la tour de combat et a choisi d'affronter... "
@@ -2077,7 +2077,7 @@ const unk8 Str_871AB48[]
       "exerce sur elle. <\f>{q}{C13}\"Je vais gagner ce match... Mais je ne "
       "veux pas te battre en trichant!{f4}\"{c}";
 
-const unk8 Str_871AD0C[]
+const char Str_871AD0C[]
     = "Die Bladebreakers haben herausgefunden, dass das Team Psykick unter der mentalen Kontrolle "
       "der Cyber-Bit Beasts steht! <\f>{t2}{C14}Salima{c}{a27} wartet auf dem nächsten Level von "
       "{C14}Gideons{c} Battle Tower, und sie will gegen {C14}Ray{c}{A9} kämpfen... Während des "
@@ -2085,7 +2085,7 @@ const unk8 Str_871AD0C[]
       "Kontrolle des Cyber-Driger zu entziehen. <\f>{q}{C13}\"Ich werde diesen Kampf gewinnen... "
       "Aber, um dich zu schlagen, brauche ich diese billigen Tricks nicht!{f4}\"{c}";
 
-const unk8 Str_871AF14[]
+const char Str_871AF14[]
     = "Los Bladebreakers se han dado cuenta de que los Cíber Bit Beasts ¡están poseyendo al equipo "
       "Psykick! <\f>{t2}{C14}Salima{c}{a27} está en el nivel siguiente de la Torre de batalla de "
       "{C14}Gideon{c}, y ha elegido pelear contra {C14}Ray{c}{A9}... La batalla surge con furia y "
@@ -2093,7 +2093,7 @@ const unk8 Str_871AF14[]
       "Driger ejerce sobre ella. <\f>{q}{C13}\"Voy a ganar este encuentro... ¡Pero no quiero "
       "derrotarte usando un montón de trucos baratos!{f4}\"{c}";
 
-const unk8 Str_871B108[]
+const char Str_871B108[]
     = "The Bladebreakers have realized that the Cyber Bit Beasts are actually "
       "possessing Team Psykick! <\f>{t2}{C14}Salima{c}{a27} is on the next "
       "level of {C14}Gideon's{c} Battle Tower, and she has chosen to fight "
@@ -2102,7 +2102,7 @@ const unk8 Str_871B108[]
       "Driger has over her. <\f>{q}{C13}\"I'm gonna win this match... but I "
       "don't wanna beat you by using a bunch of cheap tricks!{f4}\"{c}";
 
-const unk8 Str_871B2E8[]
+const char Str_871B2E8[]
     = "{A9}{a27}{Q}{C12}\"Svegliati, {C14}Salima{c}!\" {c}<\f>{U}{q}{C13}\"Svegliarmi? Sono "
       "sveglia eccome! Sei tu che stai avendo incubi!\"{c}<\f>{u}{C14}Salima{c} sta resistendo al "
       "controllo del suo Cyber Bit Beast!<\f>{q}{C13}\"Non riesco... a fermarlo...!\" "
@@ -2112,7 +2112,7 @@ const unk8 Str_871B2E8[]
       "stata colpa della squadra Psykicks!\" {c}<\f>{U}{q}{C13}\"{C14}Rey{c}... grazie... per il "
       "tuo aiuto...\"{c}";
 
-const unk8 Str_871B548[]
+const char Str_871B548[]
     = "{A9}{a27}{Q}{C12}\"{C14}Salima{c}, réveille-toi!\" {c}<\f>{U}{q}{C13}\"Me réveiller! Je "
       "suis parfaitement réveillée! C'est toi qui es en plein cauchemar!\"{c}<\f>{u}{C14}Salima{c} "
       "résiste au contrôle de son Cyber Bit Beast!<\f>{q}{C13}\"Je ne... peux pas... résister!\" "
@@ -2121,7 +2121,7 @@ const unk8 Str_871B548[]
       "{C14}Ray{c}\"{c}<\f>{u}{Q}{C12}\"{C14}Salima{c}! Tu sais que c'était la faute des "
       "Psykicks!\" {c}<\f>{U}{q}{C13}\"{C14}Ray{c}... Merci... de toute ton aide...\"{c}";
 
-const unk8 Str_871B798[]
+const char Str_871B798[]
     = "{A9}{a27}{Q}{C12}\"Wach auf, {C14}Salima{c}!\" {c}<\f>{U}{q}{C13}\"Aufwachen?! Ich bin "
       "wach! Du bist derjenige, der gerade einen Alptraum erlebt!\"{c}<\f>{u}{C14}Salima{c} "
       "widersetzt sich der Kontrolle ihres Cyber-Bit Beasts!<\f>{q}{C13}\"Ich kann nicht... "
@@ -2131,7 +2131,7 @@ const unk8 Str_871B798[]
       "{C14}Ray{c}.\"{c}<\f>{u}{Q}{C12}\"{C14}Salima{c}! Das ist alles nur die Schuld der "
       "Psykicks!\" {c}<\f>{U}{q}{C13}\"{C14}Ray{c}... Ich danke dir... für all deine Hilfe...\"{c}";
 
-const unk8 Str_871BA10[]
+const char Str_871BA10[]
     = "{A9}{a27}{Q}{C12}\"¡Despierta, {C14}Salima{c}!\" {c}<\f>{U}{q}{C13}\"¡¿Que despierte?! "
       "¡Estoy bien despierta! ¿Eres tú el que está teniendo una "
       "pesadilla!\"{c}<\f>{u}¡{C14}Salima{c} se resiste al control de su Cíber Bit "
@@ -2141,7 +2141,7 @@ const unk8 Str_871BA10[]
       "{C14}Ray{c}\"{c}<\f>{u}{Q}{C12}\"¡{C14}Salima{c}! ¡Sabes que todo esto ha sido culpa de los "
       "Psykicks!\" {c}<\f>{U}{q}{C13}\"{C14}Ray{c}... Gracias... por toda tu ayuda...\"{c}";
 
-const unk8 Str_871BC6C[]
+const char Str_871BC6C[]
     = "{A9}{a27}{Q}{C12}\"Wake up, {C14}Salima{c}!\" {c}<\f>{U}{q}{C13}\"Wake up?! I'm wide awake! "
       "It's you who's having the nightmare!!\"{c}<\f>{u}{C14}Salima{c} is resisting the control of "
       "her Cyber Bit Beast!<\f>{q}{C13}\"I can't... stop it...!\" {c}<\f>{u}{Q}{C12}\"You've got "
@@ -2150,7 +2150,7 @@ const unk8 Str_871BC6C[]
       "{C14}Ray{c}.\"{c}<\f>{u}{Q}{C12}\"{C14}Salima{c}! You know that this was all the Psykicks' "
       "fault!\" {c}<\f>{U}{q}{C13}\"{C14}Ray{c}... Thank you... for all of your help...\"{c}";
 
-const unk8 Str_871BEAC[]
+const char Str_871BEAC[]
     = "Al piano seguente, {C14}Kay{c}{A3} deve affrontare {C14}Goki{c}{a20}, ma c'è qualcosa di "
       "strano...<\f>{Q}{C12}\"È {C14}Goki{c}... ma sembra... sembra Wyatt...\"{c}<\f>{U}Wyatt una "
       "volta aveva chiesto a {C14}Kay{c} di insegnargli a usare i Beyblade, ma {C14}Kay{c} aveva "
@@ -2161,7 +2161,7 @@ const unk8 Str_871BEAC[]
       "{C14}Goki{c} come il fantasma di {C14}Wyatt{c}. Per fortuna, però, il senso di colpa di "
       "{C14}Kay{c} non influenza la battaglia.";
 
-const unk8 Str_871C198[]
+const char Str_871C198[]
     = "Au niveau suivant du bâtiment, {C14}Kai{c}{A3} doit affronter {C14}Goki{c}{a20}, mais "
       "quelque chose est bizarre... <\f>{Q}{C12}\"C'est {C14}Goki{c}... Il ressemble... à "
       "Wyatt.\"{c}<\f>{U}Wyatt avait demandé à {C14}Kai{c} de lui apprendre les secrets du blade, "
@@ -2172,7 +2172,7 @@ const unk8 Str_871C198[]
       "faire ressembler {C14}Goki{c} au fantôme de {C14}Wyatt{c}... Espérons que le sentiment de "
       "culpabilité de {C14}Kai{c} ne va pas le gêner durant le combat.";
 
-const unk8 Str_871C494[]
+const char Str_871C494[]
     = "Auf dem nächsten Level wird {C14}Kai{c}{A3} mit {C14}Goki{c}{a20} konfrontiert, aber "
       "irgendetwas stimmt nicht... <\f>{Q}{C12}\"Es ist {C14}Goki{c}... Aber er sieht aus... wie "
       "Wyatt!\"{c}<\f>{U}Wyatt hatte {C14}Kai{c} früher einmal gebeten, ihm das Bladen "
@@ -2184,7 +2184,7 @@ const unk8 Str_871C494[]
       "lässt wie {C14}Wyatt{c}... Aber {C14}Kai{c} wird sich hoffentlich nicht durch seine "
       "Schuldgefühle ablenken lassen.";
 
-const unk8 Str_871C7AC[]
+const char Str_871C7AC[]
     = "En la siguiente planta del edificio, {C14}Kai{c}{A3} debe enfrentarse a {C14}Goki{c}{a20}, "
       "pero algo no va bien... <\f>{Q}{C12}\"Es {C14}Goki{c}... Se parece a... es igual que "
       "Wyatt.\"{c}<\f>{U}Wyatt pidió una vez a {C14}Kai{c} que le enseñase a manejar la peonza, "
@@ -2195,7 +2195,7 @@ const unk8 Str_871C7AC[]
       "su mente, haciendo que {C14}Goki{c} se le parezca al fantasma de {C14}Wyatt{c}... pero "
       "esperemos que la culpa de {C14}Kai{c} no se interponga en la batalla.";
 
-const unk8 Str_871CAA8[]
+const char Str_871CAA8[]
     = "On the next floor of the building {C14}Kai{c}{A3} must face {C14}Goki{c}{a20}, but "
       "something isn't right... <\f>{Q}{C12}\"It's {C14}Goki{c}... He looks like... just like "
       "Wyatt.\"{c}<\f>{U}Wyatt once asked {C14}Kai{c} to teach him how to blade but {C14}Kai{c} "
@@ -2206,7 +2206,7 @@ const unk8 Str_871CAA8[]
       "ghost of {C14}Wyatt{c}...<\f>but hopefully {C14}Kai's{c} guilt will not get in the way of "
       "the battle.";
 
-const unk8 Str_871CD70[]
+const char Str_871CD70[]
     = "{A3}{a20}{C14}Kay{c} non riesce a togliersi dalla mente l'idea di battersi contro Wyatt, "
       "così decide di sfruttare il rispetto che nutre nei suoi confronti per vincere contro "
       "{C14}Goki{c}.<\f>{t2}{Q}{C12}\"Guardami, Wyatt... Guardami mentre mi batto per te col "
@@ -2215,7 +2215,7 @@ const unk8 Str_871CD70[]
       "Dranzer... All'attaccooo!{f4}\" {c}<\f>{U}{a10}{C12}\"Bravissimo, {C14}Kay{c}! Passiamo al "
       "piano seguente!\"{c}";
 
-const unk8 Str_871CF88[]
+const char Str_871CF88[]
     = "{A3}{a20}{C14}Kai{c} ne peut s'empêcher de penser qu'il affronte Wyatt. "
       "Il finit par décider d'utiliser le respect qu'il éprouve pour Wyatt afin "
       "de gagner contre {C14}Goki{c}.<\f>{t2}{Q}{C12}\"Regarde-moi, Wyatt... "
@@ -2225,7 +2225,7 @@ const unk8 Str_871CF88[]
       "Dranzer... A l'attaque!{f4}\" {c}<\f>{U}{a10}{C12}\"Bravo, "
       "{C14}Kai{c}... On passe au niveau suivant!\"{c}";
 
-const unk8 Str_871D190[]
+const char Str_871D190[]
     = "{A3}{a20}{C14}Kai{c} ist immer noch irritiert von der Vorstellung, gegen Wyatt zu kämpfen. "
       "Aber dann beschließt er, seinen Respekt für Wyatt zu nutzen, um {C14}Goki{c} zu "
       "schlagen.<\f>{t2}{Q}{C12}\"Schau her, Wyatt... Dieser Beyblade-Kampf ist für dich... Dies "
@@ -2233,7 +2233,7 @@ const unk8 Str_871D190[]
       "ein...<\f>{t3}{Q}{C12}\"Wyatt war ein stolzer Blader... Dranzer... Attaaacke!!!{f4}\" "
       "{c}<\f>{U}{a10}{C12}\"Gut gemacht, {C14}Kai{c}... Auf zum nächsten Level!\"{c}";
 
-const unk8 Str_871D388[]
+const char Str_871D388[]
     = "{A3}{a20}{C14}Kai{c} no puede quitarse de la cabeza que está peleando con Wyatt; finalmente "
       "decide usar su respeto por Wyatt para vencer a {C14}Goki{c}.<\f>{t2}{Q}{C12}\"Mírame, "
       "Wyatt... Mírame manejar la Peonza para ti... Esta es tu batalla\"{c}<\f>{U}En el decisivo "
@@ -2241,7 +2241,7 @@ const unk8 Str_871D388[]
       "era un Blader valiente... Dranzer... ¡¡¡Ataaaca!!!{f4}\" {c}<\f>{U}{a10}{C12}\"Bien hecho, "
       "Kai... {C14}Kai{c}... ¡A por el siguiente nivel!\"{c}";
 
-const unk8 Str_871D578[]
+const char Str_871D578[]
     = "{A3}{a20}{C14}Kai{c} can't shake it from his mind that he is fighting Wyatt. Eventually he "
       "decides to use his respect for Wyatt to win against {C14}Goki{c}.<\f>{t2}{Q}{C12}\"Watch "
       "me, Wyatt. Watch me Beyblade for you... This is your battle. \"{c}<\f>{U}In the final "
@@ -2249,7 +2249,7 @@ const unk8 Str_871D578[]
       "a brave blader... Dranzer... Attaaack!!!{f4}\" {c}<\f>{U}{a10}{C12}\"Way to go, "
       "{C14}Kai{c}... Bring on the next level!\"{c}";
 
-const unk8 Str_871D750[]
+const char Str_871D750[]
     = "I Saint Seals hanno deciso di entrare di soppiatto nell'edifico di "
       "{C14}Gideon{c} per aiutare i Bladebreakers. {C14}Ozuma{c} e gli altri "
       "hanno capito che, se {C14}Gideon{c} e il {C14}Dottor B{c} sconfiggeranno "
@@ -2259,7 +2259,7 @@ const unk8 Str_871D750[]
       "{C14}Gideon{c} alla ricerca di {C14}Takao{c} e degli altri, ma è "
       "difficile trovarli in quel labirinto di corridoi!";
 
-const unk8 Str_871D968[]
+const char Str_871D968[]
     = "Les Saint Shields ont décidé de s'infiltrer dans le bâtiment de {C14}Gideon{c} pour tenter "
       "d'aider les Bladebreakers. {C14}Ozuma{c} et les autres ont compris que si les Bladebreakers "
       "sont vaincus par {C14}Gideon{c} et le {C14}docteur B{c}, les 4 Bit Beasts seront plus "
@@ -2268,7 +2268,7 @@ const unk8 Str_871D968[]
       "recherche de {C14}Tyson{c} et des autres, mais ils sont difficiles à localiser dans ce "
       "dédale de couloirs...";
 
-const unk8 Str_871DB98[]
+const char Str_871DB98[]
     = "Die Saint Shields haben sich entschlossen, in {C14}Gideons{c} Gebäude einzudringen und den "
       "Bladebreakers zu helfen. {C14}Ozuma{c} und die anderen wissen, dass im Falle einer "
       "Niederlage der Bladebreakers gegen {C14}Gideon{c} und {C14}Doctor B{c} die 4 Bit Beasts "
@@ -2276,7 +2276,7 @@ const unk8 Str_871DB98[]
       "mal ungewöhnliche Wege gehen! In {C14}Gideons{c} Battle Tower suchen sie verzweifelt nach "
       "{C14}Tyson{c} und den anderen, aber das Gewirr der Gänge scheint unüberschaubar!";
 
-const unk8 Str_871DDA4[]
+const char Str_871DDA4[]
     = "Los Saint Shields han decidido colarse en el edificio de {C14}Gideon{c} "
       "para intentar ayudar a los Bladebreakers, {C14}Ozuma{c} y el resto se "
       "han dado cuenta de que si los Bladebreakers son derrotados por "
@@ -2286,7 +2286,7 @@ const unk8 Str_871DDA4[]
       "de batalla de {C14}Gideon{c}, buscando a {C14}Tyson{c} y a los demás, "
       "pero en este laberinto de pasillos ¡no resulta nada fácil!";
 
-const unk8 Str_871DFC8[]
+const char Str_871DFC8[]
     = "The Saint Shields have decided to sneak into {C14}Gideon's{c} building to try and help the "
       "Bladebreakers.<\f>{C14}Ozuma{c} and the others have realized that if the Bladebreakers are "
       "defeated by {C14}Gideon{c} and {C14}Doctor B{c}, the 4 Bit Beasts will be harder to "
@@ -2294,7 +2294,7 @@ const unk8 Str_871DFC8[]
       "closer!<\f>They search through {C14}Gideon's{c} Battle Tower looking for {C14}Tyson{c} and "
       "the others but they are proving difficult to find in this maze of corridors!";
 
-const unk8 Str_871E1C8[]
+const char Str_871E1C8[]
     = "{A4}{Q}{C13}\"La squadra Pyskicks perde ancora...\" {c}<\f>{U}{a16}{q}{C13}\"{C14}Kane{c}! "
       "Ascoltami! Se rimarrai concentrato sul tuo Cyber Dragoon, la prossima battaglia sarà tutta "
       "tua! {C14}Gideon{c}, dimentica la nostra ultima sconfitta marginale. Il Dragoon è il Bit "
@@ -2304,7 +2304,7 @@ const unk8 Str_871E1C8[]
       "prezioso Dragoon.\"{c}<\f>{u}{A10}{Q}{C12}\"Finalmente è il mio turno! Sarà una bella "
       "battaglia!\"{c}";
 
-const unk8 Str_871E438[]
+const char Str_871E438[]
     = "{A4}{Q}{C13}\"Les Pyskicks perdent de nouveau...\" {c}<\f>{U}{a16}{q}{C13}\"{C14}Kane{c}! "
       "Ecoute-moi... Si tu restes concentré sur ton Cyber Dragoon, tu remporteras le prochain "
       "combat! {C14}Gideon{c}, oubliez cet incident de parcours! Dragoon est le plus important de "
@@ -2314,7 +2314,7 @@ const unk8 Str_871E438[]
       "votre précieux Dragoon...\"{c}<\f>{u}{A10}{Q}{C12}\"Mon tour est enfin arrivé! Ca va être "
       "super!\"{c}";
 
-const unk8 Str_871E6A8[]
+const char Str_871E6A8[]
     = "{A4}{Q}{C13}\"Team Psykick verliert erneut...\" {c}<\f>{U}{a16}{q}{C13}\"{C14}Kane{c}! Hör "
       "mir zu... Konzentrier dich auf den Cyber-Dragoon... und du kannst den nächsten Kampf nicht "
       "verlieren! {C14}Gideon{c}, vergessen Sie bitte unseren kleinen Rückschlag! Dragoon ist das "
@@ -2324,7 +2324,7 @@ const unk8 Str_871E6A8[]
       "{C14}Gideon{c}. Ich werde Ihnen Dragoon ausliefern...\"{c}<\f>{u}{A10}{Q}{C12}\"Endlich bin "
       "ich dran! Das wird toll!\"{c}";
 
-const unk8 Str_871E924[]
+const char Str_871E924[]
     = "{A4}{Q}{C13}\"Lo Pyskicks vuelven a perder...\" {c}<\f>{U}{a16}{q}{C13}\"¡{C14}Kane{c}!... "
       "Escúchame... Si sigues concentrado en tu Cíber Dragón... ¡la próxima batalla será tuya con "
       "facilidad! ¡{C14}Gideon{c}, por favor, olvida nuestra última pequeña derrota! ¡Dragón es el "
@@ -2334,7 +2334,7 @@ const unk8 Str_871E924[]
       "su preciado Dragón...\"{c}<\f>{u}{A10}{Q}{C12}\"Por fin, ¡es mi turno! ¡Esto va a ser pan "
       "comido!...\"{c}";
 
-const unk8 Str_871EB9C[]
+const char Str_871EB9C[]
     = "{A4}{Q}{C13}\"Psykicks lose again...\" {c}<\f>{U}{a16}{q}{C13}\"{C14}Kane{c}!... Listen to "
       "me... If you remain focused on your Cyber Dragoon... then the next battle is all yours just "
       "for the taking!<\f>{C14}Gideon{c}, please forget our last minor setback! Dragoon is the "
@@ -2344,7 +2344,7 @@ const unk8 Str_871EB9C[]
       "precious Dragoon...\"{c}<\f>{u}{A10}{Q}{C12}\"Finally, it's my turn! This is gonna be "
       "sweet!\"{c}";
 
-const unk8 Str_871EE0C[]
+const char Str_871EE0C[]
     = "{A16}{Q}{C13}\"Pronti ad attivare la griglia energetica! Ora "
       "{C14}Kane{c}{a4} non rimarrà mai a corto di energia!\" "
       "{c}<\f>{U}{t2}{A10}{Q}{C12}\"3, 2, 1, pronti... "
@@ -2352,21 +2352,21 @@ const unk8 Str_871EE0C[]
       "una copia del Dragoon di {C14}Takao{c}, oltre a saper eseguire tutte le "
       "mosse che conosce, ne può imparare di nuove...";
 
-const unk8 Str_871EF68[] = "{A16}{Q}{C13}\"Préparez-vous à activer la... grille de puissance! "
+const char Str_871EF68[] = "{A16}{Q}{C13}\"Préparez-vous à activer la... grille de puissance! "
                            "Désormais, {C14}Kane{c}{a4} ne manquera plus jamais d'énergie!\" "
                            "{c}<\f>{U}{t2}{A10}{Q}{C12}\"Hyper vitesse {f4}!\"{c}<\f>{U}Le Cyber "
                            "Dragoon de {C14}Kane{c}, copie du Dragoon de {C14}Tyson{c}, peut "
                            "reproduire tous les mouvements que connaît {C14}Tyson{c}. Capable en "
                            "outre d'apprendre de nouveaux mouvements, il semble invincible...";
 
-const unk8 Str_871F0F4[] = "{A16}{Q}{C13}\"Fertig für den Einsatz des... Energienetzes! Jetzt hat "
+const char Str_871F0F4[] = "{A16}{Q}{C13}\"Fertig für den Einsatz des... Energienetzes! Jetzt hat "
                            "{C14}Kane{c}{a4} unendlich viel Energie!\" "
                            "{c}<\f>{U}{t2}{A10}{Q}{C12}\"Let it rip{f4}!\"{c}<\f>{U}{C14}Kanes{c} "
                            "Cyber-Dragoon, eine Kopie von {C14}Tysons{c} Dragoon, beherrscht alle "
                            "Bewegungen, die auch {C14}Tyson{c} kennt. Und durch seine erstaunliche "
                            "Lernfähigkeit scheint es unaufhaltsam...";
 
-const unk8 Str_871F25C[]
+const char Str_871F25C[]
     = "{A16}{Q}{C13}\"Preparado para iniciar la... ¡Parrilla de alimentación! "
       "¡Ahora {C14}Kane{c}{a4} nunca se quedará sin energía!\" "
       "{c}<\f>{U}{t2}{A10}{Q}{C12}\"¡¡Lanza{f4}!!\"{c}<\f>{U}El Cíber Dragón de "
@@ -2374,13 +2374,13 @@ const unk8 Str_871F25C[]
       "ejecutar todos los movimientos que {C14}Tyson{c} conoce; además, con su "
       "habilidad de aprender nuevos movimientos, parece imparable...";
 
-const unk8 Str_871F3E8[]
+const char Str_871F3E8[]
     = "{A16}{Q}{C13}\"Prepare to initiate the Power Grid! Now {C14}Kane{c}{a4} will never run out "
       "of power!\" {c}<\f>{U}{t2}{A10}{Q}{C12}\"Let it Rip{f4}!!\"{c}<\f>{U}{C14}Kane's{c} Cyber "
       "Dragoon, being a copy of {C14}Tyson's{c} Dragoon, can perform every move that {C14}Tyson{c} "
       "knows...<\f>...and with the ability to learn new moves it seems unstoppable...";
 
-const unk8 Str_871F544[]
+const char Str_871F544[]
     = "{a4}{q}{C13}\"Non è sotto il mio controllo?\" {c}<\f>{u}{A5}{Q}{C12}\"Che succede?\" "
       "{c}<\f>{U}{a15}{q}{C12}\"Pessime notizie, capo! Quel Cyber Bit Beast ora ha una volontà "
       "propria!\" {c}<\f>{u}{A16}{a23}{Q}{C13}\"Non mi pare che facesse parte del suo programma! "
@@ -2401,7 +2401,7 @@ const unk8 Str_871F544[]
       "{C14}Takao{c}! Sapevo che avresti potuto farcela se ti fossi concentrato! Hai fatto a pezzi "
       "quel Cyber Bit Beast!\"{c}";
 
-const unk8 Str_871FB4C[]
+const char Str_871FB4C[]
     = "{a4}{q}{C13}\"Il n'est pas sous mon contrôle?!\" {c}<\f>{u}{A5}{Q}{C12}\"Qu'est-ce qui se "
       "passe?\" {c}<\f>{U}{a15}{q}{C12}\"Mauvaise nouvelle, chef! Ce Cyber Bit Beast possède "
       "maintenant son propre esprit!\" {c}<\f>{u}{A16}{a23}{Q}{C13}\"Je n'ai pas souvenir que cela "
@@ -2423,7 +2423,7 @@ const unk8 Str_871FB4C[]
       "{C14}Tyson{c}! J'ai toujours su que tu pouvais y arriver si tu restais concentré! Tu as "
       "réduit en miettes ce Cyber Bit Beast!\"{c}";
 
-const unk8 Str_8720188[]
+const char Str_8720188[]
     = "{a4}{q}{C13}\"Ich habe keine Kontrolle?!\" {c}<\f>{u}{A5}{Q}{C12}\"Was geht hier vor?\" "
       "{c}<\f>{U}{a15}{q}{C12}\"Schlechte Neuigkeiten, Boss! Das Cyber-Bit Beast hat jetzt einen "
       "eigenständigen Willen!\" {c}<\f>{u}{A16}{a23}{Q}{C13}\"Das ist doch nicht Teil des "
@@ -2445,7 +2445,7 @@ const unk8 Str_8720188[]
       "schaffen, wenn du dich nur konzentrierst! Du hast dieses Cyber-Bit Beast in Stücke "
       "zerfetzt!\"{c}";
 
-const unk8 Str_87207D4[]
+const char Str_87207D4[]
     = "{a4}{q}{C13}\"¡No me responde!\" {c}<\f>{u}{A5}{Q}{C12}\"¿Qué está pasando?\" "
       "{c}<\f>{U}{a15}{q}{C12}\"¡Malas noticias, jefe! ¡Ahora ese Cíber Bit Beast está pensando "
       "por su cuenta!\" {c}<\f>{u}{A16}{a23}{Q}{C13}\"No recuerdo que esto fuera parte de la "
@@ -2467,7 +2467,7 @@ const unk8 Str_87207D4[]
       "{C14}Tyson{c}!.. ¡Sabía desde el principio que lo conseguirías si te concentrabas!... "
       "¡Hiciste añicos a ese Cíber Bit Beast!\"{c}";
 
-const unk8 Str_8720E04[]
+const char Str_8720E04[]
     = "{a4}{q}{C13}\"It's not under my control?!\" {c}<\f>{u}{A5}{Q}{C12}\"What's going on?\" "
       "{c}<\f>{U}{a15}{q}{C12}\"Bad news, Chief! That Cyber Bit Beast has got a mind of its own "
       "now!\" {c}<\f>{u}{A16}{a23}{Q}{C13}\"I don't remember this being part of the Cyber Bit "
@@ -2487,7 +2487,7 @@ const unk8 Str_8720E04[]
       "buddy!!\" {c}<\f>{u}{a5}{q}{C12}\"Yeah {C14}Tyson{c}!.. I knew you could do it all along if "
       "you just concentrated!... You blew that Cyber Bit Beast to smithereens!!\"{c}";
 
-const unk8 Str_87213E4[]
+const char Str_87213E4[]
     = "{A16}{Q}{C13}\"Ha appena distrutto il mio prezioso Cyber "
       "Dragoon...\"{c}<\f>{U}{t1}{a19}{q}{C13}\"Ma come?!...\" {c}<\f>{u}{b}{B}Il pavimento della "
       "Torre delle battaglie sta iniziando a tremare violentemente.<\f>{t3}{A10}{Q}{C12}\"Ma che "
@@ -2496,7 +2496,7 @@ const unk8 Str_87213E4[]
       "l'integrità di questa struttura!\" {c}<\f>{U}{A10}{a5}{Q}{C12}\"In altre "
       "parole?\"{c}<\f>{U}{q}{C12}\"Secondo me vuol dire che sta per crollare tutto!\" {c}";
 
-const unk8 Str_8721604[]
+const char Str_8721604[]
     = "{A16}{Q}{C13}\"Il vient de détruire mon précieux Cyber "
       "Dragoon...\"{c}<\f>{U}{t1}{a19}{q}{C13}\"Mais comment?\" {c}<\f>{u}{b}{B}Le sol de la tour "
       "de combat se met à trembler violemment...<\f>{t3}{A10}{Q}{C12}\"Qu'est-ce qui se passe "
@@ -2506,7 +2506,7 @@ const unk8 Str_8721604[]
       "répéter cela en clair?\"{c}<\f>{U}{q}{C12}\"Je pense qu'elle veut dire que le bâtiment va "
       "s'écrouler!\" {c}";
 
-const unk8 Str_872184C[]
+const char Str_872184C[]
     = "{A16}{Q}{C13}\"Er hat meinen wertvollen Cyber-Dragoon zerstört... "
       "\"{c}<\f>{U}{t1}{a19}{q}{C13}\"Aber wie?!...\" {c}<\f>{u}{b}{B}Der Boden des Battle Tower "
       "beginnt stark zu beben...<\f>{t3}{A10}{Q}{C12}\"Was geht hier vor!?\" "
@@ -2516,7 +2516,7 @@ const unk8 Str_872184C[]
       "ausdrücken!?\"{c}<\f>{U}{q}{C12}\"Ich denke, sie meint, dass das ganze Gebäude gleich "
       "einstürzt!\" {c}";
 
-const unk8 Str_8721A84[]
+const char Str_8721A84[]
     = "{A16}{Q}{C13}\"Acaba de destruir mi preciado Cíber Dragón... "
       "\"{c}<\f>{U}{t1}{a19}{q}{C13}\"¡¿Pero cómo?!...\" {c}<\f>{u}{b}{B}El suelo de la torre de "
       "batalla está empezando a temblar violentamente...<\f>{t3}{A10}{Q}{C12}\"¡¿Qué está pasando "
@@ -2526,7 +2526,7 @@ const unk8 Str_8721A84[]
       "hablar en cristiano?\"{c}<\f>{U}{q}{C12}\"¡Creo que quiere decir que todo el edificio está "
       "a punto de derrumbarse!\" {c}";
 
-const unk8 Str_8721CEC[]
+const char Str_8721CEC[]
     = "{A16}{Q}{C13}\"He just destroyed my precious Cyber Dragoon... "
       "\"{c}<\f>{U}{t1}{a19}{q}{C13}\"But how?!...\" {c}<\f>{u}{b}{B}The floor of the Battle Tower "
       "is starting to shake violently...<\f>{t3}{A10}{Q}{C12}\"What's goin' on here!?...\" "
@@ -2536,7 +2536,7 @@ const unk8 Str_8721CEC[]
       "English!?\"{c}<\f>{U}{q}{C12}\"I think she means this whole building's about to collapse!\" "
       "{c}";
 
-const unk8 Str_8721F14[]
+const char Str_8721F14[]
     = "{A16}{Q}{C13}\"Ha appena distrutto il mio prezioso Cyber "
       "Dragoon...\"{c}<\f>{U}{t1}{a19}{q}{C13}\"Ma come?!...\" {c}<\f>{u}{b}{B}Il pavimento della "
       "Torre delle battaglie sta iniziando a tremare violentemente.<\f>{t3}{A10}{Q}{C12}\"Ma che "
@@ -2552,7 +2552,7 @@ const unk8 Str_8721F14[]
       "strada.<\f>{t3}{a4}{q}{C13}\"Ehi, {C14}Takao{c}, grazie! Ricorderò sempre questa "
       "avventura.\"{c}";
 
-const unk8 Str_8722330[]
+const char Str_8722330[]
     = "{A16}{Q}{C13}\"Il vient de détruire mon précieux Cyber "
       "Dragoon...\"{c}<\f>{U}{t1}{a19}{q}{C13}\"Mais comment?\" {c}<\f>{u}{b}{B}Le sol de la tour "
       "de combat se met à trembler violemment...<\f>{t3}{A10}{Q}{C12}\"Qu'est-ce qui se passe "
@@ -2567,7 +2567,7 @@ const unk8 Str_8722330[]
       "soleil, l'équipe Psykick et les Bladebreakers se séparent. <\f>{t3}{a4}{q}{C13}\"Eh, "
       "{C14}Tyson{c}! Merci... je n'oublierai jamais ce que tu as fait...\"{c}";
 
-const unk8 Str_8722764[]
+const char Str_8722764[]
     = "{A16}{Q}{C13}\"Er hat meinen wertvollen Cyber-Dragoon zerstört... "
       "\"{c}<\f>{U}{t1}{a19}{q}{C13}\"Aber wie?!...\" {c}<\f>{u}{b}{B}Der Boden des Battle Tower "
       "beginnt stark zu beben...<\f>{t3}{A10}{Q}{C12}\"Was geht hier vor!?\" "
@@ -2582,7 +2582,7 @@ const unk8 Str_8722764[]
       "Team Psykick und die Bladebreakers und gehen ihrer Wege. <\f>{t3}{a4}{q}{C13}\"Hey, "
       "{C14}Tyson{c}. Danke... Das werde ich nicht vergessen...\"{c}";
 
-const unk8 Str_8722B80[]
+const char Str_8722B80[]
     = "{A16}{Q}{C13}\"Acaba de destruir mi preciado Cíber Dragón... "
       "\"{c}<\f>{U}{t1}{a19}{q}{C13}\"¡¿Pero cómo?!...\" {c}<\f>{u}{b}{B}El suelo de la torre de "
       "batalla está empezando a temblar violentamente...<\f>{t3}{A10}{Q}{C12}\"¡¿Qué está pasando "
@@ -2597,7 +2597,7 @@ const unk8 Str_8722B80[]
       "derrumba. Tras un bello amanecer, el equipo Psykick y los Bladebreakers se van cada uno por "
       "su camino.<\f>{t3}{a4}{q}{C13}\"Ey {C14}Tyson{c}, gracias... Siempre lo recordaré...\"{c}";
 
-const unk8 Str_8722FDC[]
+const char Str_8722FDC[]
     = "{A16}{Q}{C13}\"He just destroyed my precious Cyber "
       "Dragoon!\"{c}<\f>{U}{t1}{a19}{q}{C13}\"But how?!...\" {c}<\f>{u}{b}{B}The floor of the "
       "Battle Tower is starting to shake violently...<\f>{t3}{A10}{Q}{C12}\"What's goin' on "

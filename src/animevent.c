@@ -54,16 +54,16 @@ typedef struct UnkAnimEventData {
 void sub_805FCC8(UnkAnimEventData* arg0);
 void sub_805FA4C(PolyTable* arg0);
 void sub_805FA68(PolyTable* arg0);
-extern const unk8 Str_87556B0[];
-extern const unk8 Str_87556F4[];
-extern const unk8 Str_8755730[];
-extern const unk8 Str_8755738[];
-extern const unk8 Str_8755748[];
-extern const unk8 Str_8755754[];
-extern const unk8 Str_875575C[];
-extern const unk8 Str_8755764[];
-extern const unk8 Str_8755794[];
-extern const unk8 Str_87557C8[];
+extern const char Str_87556B0[];
+extern const char Str_87556F4[];
+extern const char Str_8755730[];
+extern const char Str_8755738[];
+extern const char Str_8755748[];
+extern const char Str_8755754[];
+extern const char Str_875575C[];
+extern const char Str_8755764[];
+extern const char Str_8755794[];
+extern const char Str_87557C8[];
 
 void newPolyTable(PolyTable* arg0, u16 arg1, u16 arg2)
 {

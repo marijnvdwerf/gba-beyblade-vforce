@@ -1,7 +1,7 @@
 #include "common.h"
 #include "version.h"
 
-const unk8 Str_86FCF98[]
+const char Str_86FCF98[]
     = "{C14}Bring on the {C13}left{c} head{c}{A2}, and then the right head{a3}<\f>Now do{T} a "
       "transition<\f>And now do a single flash {f}<\f>And {t1}now change to a different "
       "screen{t2}<\f>And now change to yet a another screen{t3}<\f>And now start some repeated "

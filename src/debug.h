@@ -3,7 +3,7 @@
 
 #include "common.h"
 
-unk32 printf(const unk8* format, ...);
+unk32 printf(const char* format, ...);
 s32 sub_8057C40(void);
 
 #endif

@@ -11,7 +11,7 @@
 
 extern const unk8* _806E724[];
 extern const unk8* _806E8C4[];
-extern const unk8 Str_8727048[];
+extern const char Str_8727048[];
 
 void sub_804F878(void)
 {

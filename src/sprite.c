@@ -36,7 +36,7 @@ extern SpriteEntry* _sprites;
 SpriteEntry* _unk3005DE4;
 
 extern u16 word_807D90C[];
-extern const unk8 Str_8755A08[];
+extern const char Str_8755A08[];
 
 void freeSpriteVramLocation(s32, s32);
 
@@ -300,7 +300,7 @@ void freeSpriteVramLocation(s32 start, s32 size)
     }
 }
 
-const unk8 Str_8755A08[]
+const char Str_8755A08[]
     = "There are no free SpriteVramFree entries remaining on a call to freeSpriteVramLocation()\n";
 
 void sub_80608CC(void)

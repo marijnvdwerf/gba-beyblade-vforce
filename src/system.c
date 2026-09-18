@@ -91,15 +91,15 @@ void nullsub_31(void)
 {
 }
 
-void nullsub_8(const unk8* arg0)
+void nullsub_8(const char* arg0)
 {
 }
 
-void nullsub_9(const unk8* arg0, s32 arg1)
+void nullsub_9(const char* arg0, s32 arg1)
 {
 }
 
-void nullsub_10(const unk8* arg0, s32 arg1, const unk8* arg2, s32 arg3)
+void nullsub_10(const char* arg0, s32 arg1, const char* arg2, s32 arg3)
 {
 }
 

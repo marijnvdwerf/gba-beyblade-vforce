@@ -7,7 +7,7 @@
 #include "unsorted.h"
 
 void assert(
-    unk8 condition, const unk8* message, const unk8* expression, const unk8* file, unk32 line)
+    unk8 condition, const char* message, const char* expression, const char* file, unk32 line)
 {
     if (condition == 0) {
         printf("________________________________________________________\n");
@@ -47,11 +47,11 @@ void nullsub_20(void)
 {
 }
 
-unk32 printf_2(const unk8* format, ...)
+unk32 printf_2(const char* format, ...)
 {
 }
 
-unk32 printf(const unk8* format, ...)
+unk32 printf(const char* format, ...)
 {
 }
 
