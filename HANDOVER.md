@@ -5,7 +5,126 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-15 (session 13): 767 C / 258 asm / 75% by count, 26 TUs; all raw-decomp-* branches merged; us/eu/debug builds (EU validated), debug `#if DEBUG` sweep in progress (uncommitted).: 734 C / 291 asm / 72% by count, 21 TUs; ARM bank 2 matched + 10 typed parks.
+Last updated: 2026-09-18 (session 15): 951 C / 74 asm / 93% by count, 47/67 TUs; main clean, US+EU compare green, baseline refreshed.
+
+## Session 15 (2026-09-18) — session 14 re-landed per TU
+
+- Session 14's 126 commits were moved to branch `session-14-raw` (kept, do
+  not delete unasked); main was reset to c87d887f and the work re-landed as
+  ONE commit per TU, smallest TU first, each commit compare-green. Same
+  function set as session 14 (the "Session 14" section below describes the
+  raw branch; commit hashes there are on `session-14-raw`).
+- Style fixes applied while landing (all byte-identical): transcribed
+  `i = 0; if (i < n) do … while` / `while` loops folded to `for` where it
+  still matches (iconmenu ×2, collision ×2, layer ×3, geometry sub_805D548,
+  actor ×5, anim ×2 — session 14's review had NOT retested these; forms that
+  diverge were kept: geometry sub_805BA7C/sub_805E7C0, actor sub_8058038,
+  layer sub_80595FC outer loop); structs used by one TU are TU-local
+  (animevent list types, gameloop ActorEffectState/Callbacks, geometry
+  GeometrySplineIntersection, anim AnimFrame*, tutorial BackgroundAsset);
+  animevent is a bucketed doubly linked list — `PolyBucket{head,tail}`,
+  `PolyNode{value,next}`, `UnkAnimEventRow{next,prev}`, sizes written as
+  `count * sizeof(T)` (one `<< 2` inside a DmaClear size is byte-required);
+  `TilemapTextRenderer`: `layer`, `unk4`, `font`, `unkC`, `lineHeight`
+  (session 14's `destination`/`flags`/`palette` names were wrong guesses);
+  `LZ77UnCompWram` takes `const void*` (kills a `(void*)` cast);
+  `sizeof(Actor)` / `sizeof(MenuCallbackRecord)` for raw sizes.
+- system sub_8057A7C: opus probe found the lever-free form — drop `offset`,
+  `maskGreen`, `maskBlue` together and use the s16 param directly (agbcc
+  hoists the masks itself; the temps only fixed preheader order).
+- riderphysics sub_804E3B0 keeps `threshold_copy` with `// TODO: fakematch?`
+  (the temp-free form diverges). ai sub_80576EC's four aliases are
+  byte-required (single `ai` alias diverges).
+- `.clang-format` now has `InsertBraces: true`; whole tree reformatted once.
+- Dropped: packet/particle/tutorial-review learnings (no measurements).
+  Some landed learnings files still describe the pre-fold loop shapes.
+- Unused session-14 header edits NOT landed: `LevelDescription.unk38/unk3C`.
+
+## Session 14 (2026-09-16/17)
+
+- Goal (user): the remaining **caller-less** asm functions, types inferred
+  from field accesses, highest-% TUs first. One function per agent, ≤7
+  concurrent, gpt-5.6-luna decompiler agents in isolated worktrees; manager
+  only reads diffs and merges (user: "why are you not delegating" — never
+  run fold tests yourself). Register-allocation failures are DISCARDED
+  (worktree removed, no park commit) — user rule.
+- **Net: ~182 functions merged (≈110 commits since 4810bc9f).** Size bands
+  worked through: ≤40, 41–70, 71–100, 101–150 lines, plus the first of
+  151–250 (gameloop sub_8052588). Also 88b180e1: deleted the 25 asm/dump
+  files no INCLUDE_ASM referenced (user request).
+- Type work landed along the way: `AiState` = the whole 0x204 AI block in
+  GameData (table/geometry/quadTree/lines[0x20]/callbacks; replaces
+  unkCBC/unkDDC/unkE34/unkEB4), `LevelDescription.unk38/unk3C` typed,
+  `fn_aiStubFunc` 3 params; `BackgroundAsset { BGLayer layer;
+  TilemapTextRenderer renderer; }`; `BGLayerCallbackData` + typed
+  `BGLayer.field_80/84`; `AnimFrameState`/`AnimFrameData`/`AnimFrameEntry`
+  fields (render.h; unk2E/unk32 s16); `UnkAnimEventData`/`UnkAnimEventRow`
+  (animevent.h); `PolyScanline`/`PolyEntry`; `GeometrySplineIntersection`
+  + typed `ActorSplineCallbacks.unk0`, `QuadTreeSplineEntry.unk4/6` s16;
+  `GeometryLine.unk14`; `GameData.tileState` (RiderTileState at 0x153C);
+  `nullsub_9/10` take s32 values (unk16 gave ldrh, variadic diverged).
+- Shipped with `// TODO: fakematch?`: geometry sub_805C444
+  (`sub_805DBF0(...) << 16`), text sub_805B800 (`zero` / `done` literal
+  temps — clean retest proved both byte-required). tutorial unref_804A744
+  returns `unk32` with no return statement (void changes the epilogue pop).
+- Discarded (allocation walls or only lever-matches — do not retry blindly):
+  actorheap sub_8062EFC; keystate sub_805A93C, sub_805ABC0, sub_805A984;
+  motion sub_80502A4; riderphysics sub_804E2A4; actor sub_8058068 (only a
+  byte-stepped entry cursor matched); layer sub_8059904 (merged then
+  reverted by user: literal temps), sub_8059DDC, sub_8059F20, sub_8059404;
+  geometry sub_805E77C (packed union), sub_805DF04; animevent sub_805FE68,
+  sub_805FAE8, sub_805FCEC; anim sub_805F3D8 (object 4 B larger),
+  sub_805F910, sub_805F27C (stack-arg store before destination); math
+  sub_805A2DC, sub_805A00C (only a duplicate `UnkTrigTable` struct view
+  matches — natural array form diverges +0x0A on table-base load order);
+  particle sub_804E6A4; ai initAiManagement (only a `GeometryLine**`
+  alias fixes the line-table base materialization, even with the AiState
+  block).
+- Not attempted (queue dropped when the user stopped dispatching): particle
+  sub_804E7D4 (168 lines), sub_804E910 (198); geometry sub_805E528 (166),
+  sub_805E648 (176); anim sub_805F0B4 (168). Remaining asm by TU: iwram 16
+  (ARM), geometry 9, anim 7, spritestring 6, layer 5, spritetext 5, actor 4,
+  animevent/keystate/particle 3, ai/math/text 2, actorheap/camera/collision/
+  gameloop/motion/profile/riderphysics 1.
+- Merge-time conventions applied (byte-neutral): `(x & N) == 0` not
+  `!(x & N)`, braces on every if, `sizeof(T)` for raw struct sizes, `NULL`
+  for pointer checks, `unk16` not `u16` params, SDK key names (`A_BUTTON`),
+  blank line after declarations, externs grouped at file top, block-scoped
+  locals hoisted; `ASM_ZEROPAD` at file end when the last function becomes
+  C (anim.c). The spline tail cast
+  `(GeometrySplineLine*)&spline->pointIndices[spline->pointCount]` and the
+  `(T*)(VRAM + N)` form are accepted precedents.
+- Rejected at review (sent back, all fixed or discarded): cross-TU type pun
+  (`_unk3000D90` redeclared as array — use `&_unk3000D80[16]`), writing
+  below a RAM symbol (`*--ptr` from `_unk3000D80`; the real buffer is
+  `_unk3000D30[80]`), local unprototyped `void f();` declarations,
+  `(T*)(ai + 1)` pointer-step cast (→ struct), stack-bundle arrays for call
+  args (→ plain locals), staged `old = x; x--; if (old == 0)` (→ `x-- == 0`),
+  reversed operand order (`3 & x`), a trailing pad that grew a struct
+  (0x38 → 0x3C) — check sizes when an agent appends pads.
+- Manager lessons: (1) a SendMessage queued to an agent that has just
+  stopped RESUMES it later — if you also start a fresh agent in that
+  worktree you get two concurrent editors (happened 3×: text sub_805B668,
+  sub_805B800, ai initAiManagement). Either resend to the same agent, or
+  TaskStop it explicitly before starting a replacement, and tell fresh
+  agents to stop if files change under them. (2) Agents at ~150k context
+  die with "Prompt is too long" — start a fresh agent in the same worktree
+  with "keep context VERY small". (3) Luna agents refuse to write the
+  sanctioned TODO comment ("no comments rule") — add it at merge. (4) Squash
+  merges conflict on the shared per-TU learnings file — strip markers by
+  concatenation, and grep for leftover `<<<<<<<` before committing (one
+  slipped into a commit once; amended). (5) `cd` into a worktree in the
+  manager shell moves the session's working dir — use `git -C` instead.
+  (6) A "match" against a stale build is not a match — require a clean
+  full compare before commit (anim sub_805F3D8).
+- Unfolded learnings: 28 files in docs/learnings/ — skill-fold is due.
+- Worktrees left: raw-decomp, raw-decomp-10 (user's), agent-a00d909e4872fe76a
+  (branch dump-metadata — not from this session; left alone). Keepalive
+  cron deleted.
+- NEXT: (1) skill fold of the 28 learnings; (2) the five unattempted
+  151–250-line caller-less functions above; (3) opus + scripted probe
+  matrices for the discarded walls if the user wants retries (user's rule
+  is discard, so ask first).
 
 ## Session 13 (2026-09-15)
 
