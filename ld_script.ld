@@ -276,6 +276,9 @@ SECTIONS {
 		src/strings_872c99c.c.o(.rodata);
 		src/ai.c.o(.rodata);
 		src/strings3.c.o(.rodata);
+		src/debug.c.o(.rodata);
+		src/strings_872cbcc.c.o(.rodata);
+		src/layer.c.o(.rodata);
 		asm/data1.s.o(.rodata);
 		src/memory.c.o(.rodata);
 		src/keystate.c.o(.rodata);

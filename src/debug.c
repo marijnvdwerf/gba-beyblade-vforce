@@ -6,29 +6,21 @@
 #include "keystate.h"
 #include "unsorted.h"
 
-extern const unk8 Str_872CB38[];
-extern const unk8 Str_872CB74[];
-extern const unk8 Str_872CB88[];
-extern const unk8 Str_872CB8C[];
-extern const unk8 Str_872CB9C[];
-extern const unk8 Str_872CBAC[];
-extern const unk8 Str_872CBBC[];
-
 void assert(
     unk8 condition, const unk8* message, const unk8* expression, const unk8* file, unk32 line)
 {
     if (condition == 0) {
-        printf(Str_872CB38);
-        printf(Str_872CB74);
-        printf(Str_872CB88);
-        printf(Str_872CB8C, message);
-        printf(Str_872CB88);
-        printf(Str_872CB9C, expression);
-        printf(Str_872CB88);
-        printf(Str_872CBAC, file);
-        printf(Str_872CBBC, line);
-        printf(Str_872CB88);
-        printf(Str_872CB38);
+        printf("________________________________________________________\n");
+        printf("Assertion failed: \n");
+        printf("\n");
+        printf("Message:    %s\n", message);
+        printf("\n");
+        printf("Expression: %s\n", expression);
+        printf("\n");
+        printf("In file:    %s\n", file);
+        printf("On line:    %d\n", line);
+        printf("\n");
+        printf("________________________________________________________\n");
         do {
             updateKeyState();
         } while ((_keyInput & A_BUTTON) == 0);

@@ -12,7 +12,6 @@
 #include "system.h"
 #include "unsorted.h"
 
-extern const unk8 Str_872CC00[];
 extern u8 _unk3000DE0;
 extern const s16 Unk_874CC3C[];
 extern s16 Unk_872CC3C[];
@@ -400,7 +399,7 @@ void allocateActorMotionModifiers(
         layer->field_80 = 0;
         block = fastAllocate(sizeof(BGLayerCallbackData));
         if (block == NULL) {
-            nullsub_8(Str_872CC00);
+            nullsub_8("Error allocating memory for background motion modifiers\n");
             return;
         }
         layer->field_84 = block->address;
