@@ -26,12 +26,6 @@
 #include "unsorted.h"
 
 extern const ScreenLayout LevelDesigns[];
-extern const u8 Str_87294CC[];
-extern const u8 Str_8729504[];
-extern const u8 Str_8729564[];
-extern const u8 Str_8729598[];
-extern const u8 Str_87295D0[];
-extern const u8 Str_8729610[];
 
 void initGame(void)
 {
@@ -94,7 +88,7 @@ void initGameLoop(void)
     _gameData->unk91C = 0;
     ridersBlock = slowAllocate(0x2990);
     if (ridersBlock == NULL) {
-        printf(Str_87294CC, 0x2990);
+        printf("Error allocating %i bytes for riders in initGameLoop()\n", 0x2990);
     }
     _gameData->unk428 = ridersBlock;
     _gameData->unk42C = ridersBlock->address;
@@ -157,14 +151,15 @@ void initRiders(void)
     riderIndex = 0;
     geometryData = loadLevelGeometry(getSomeLevelID());
     if (geometryData == NULL) {
-        printf(Str_8729504);
+        printf("Warning; unable to locate start points for level, no supplied collision "
+               "data, in initRiders()\n");
         return;
     }
     getLevelGeometryAddresses(&geometry, geometryData);
     StoreMetadataAddr(&geometry, levelDescription->metadata);
     lineIndex = GetLineIndexOfType(&geometry, 0x86, 0);
     if (lineIndex == -1) {
-        printf(Str_8729564);
+        printf("Warning; no starting point located in initRiders()\n");
     } else {
         while (lineIndex >= 0) {
             line = &geometry.unkC[lineIndex];
@@ -188,7 +183,8 @@ void initRiders(void)
                         } else {
                             x += (Unk_874CC3C[line->unk8 & 0xFF] * 0x20) >> 8;
                             y += -(Unk_874CC3C[(line->unk8 & 0xFF) + 0x40] * 0x20) >> 8;
-                            printf(Str_8729598, rider->unk3CE);
+                            printf("unable to find multiplayer starting point for rider %i\n",
+                                rider->unk3CE);
                         }
                     }
                     initRider(rider, &_gameData->unk434, x, y, z + 0x80, lineType, sub_8051820());
@@ -202,12 +198,13 @@ void initRiders(void)
                     sub_804C888(rider, 1);
                     initialized |= 1;
                 } else {
-                    printf(Str_87295D0);
+                    printf("attempting to reinitialise the primary rider in initRiders()\n");
                 }
                 if (_gameData->unk1618 != 0) {
                     rider = &_gameData->unk42C[riderIndex];
                     if (riderIndex > 9) {
-                        printf(Str_8729610);
+                        printf("Warning, no more slots available to allocate Riders in "
+                               "initRiders()\n");
                         break;
                     }
                     initRider(rider, &_gameData->unk434, 0, 0, 0, riderIndex, _gameData->unk15C0);
@@ -217,7 +214,7 @@ void initRiders(void)
             } else if (_gameData->unk1618 == 0) {
                 rider = &_gameData->unk42C[riderIndex];
                 if (riderIndex > 9) {
-                    printf(Str_8729610);
+                    printf("Warning, no more slots available to allocate Riders in initRiders()\n");
                     break;
                 }
                 initRider(

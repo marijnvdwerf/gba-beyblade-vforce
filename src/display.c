@@ -8,7 +8,6 @@
 
 extern unk8 _unk3000DE0;
 extern unk8 _unk3000E3C;
-extern const unk8 Str_872934C[];
 
 void newLayerManagement(UnkStruct_sub1* data, BGLayer* records, ScreenLayout* layout,
     unk16 initialDisplayControl, unk8 loadPalettes)
@@ -35,7 +34,8 @@ void newLayerManagement(UnkStruct_sub1* data, BGLayer* records, ScreenLayout* la
                 layerIndex++;
             }
             if (layerIndex > 3) {
-                printf(Str_872934C);
+                printf(
+                    "Unable to locate a suitable hardware background, in newLayerManagement()\n");
             } else {
                 displayControl |= 1 << layerIndex;
                 sub_8058968(record, layerIndex, layer->unk0, colorMode != 0 ? 0x4040 : 0x40,
@@ -116,7 +116,8 @@ void sub_80508CC(UnkStruct_sub1* data, ScreenLayout* layout, unk8 loadPalettes)
                 layerIndex++;
             }
             if (layerIndex > 3) {
-                printf(Str_872934C);
+                printf(
+                    "Unable to locate a suitable hardware background, in newLayerManagement()\n");
             } else {
                 displayControl |= 1 << layerIndex;
                 sub_8058968(record, layerIndex, layer->unk0, colorMode != 0 ? 0x4040 : 0x40,

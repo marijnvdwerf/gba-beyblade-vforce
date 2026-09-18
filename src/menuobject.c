@@ -10,9 +10,6 @@
 #include "sprite.h"
 #include "spritetext.h"
 
-extern const unk8 Str_86FD2C0[];
-extern const unk8 Str_86FD2D0[];
-
 void sub_8043370(FrontendState* object)
 {
     FrontendMenuObjectData* data;
@@ -225,13 +222,13 @@ void sub_804385C(SpriteTextCleanup* object)
         y = object->y;
         y -= 0x100;
         sub_8061844(object, object->x >> 8, y >> 8);
-        printf(Str_86FD2C0, y >> 8);
+        printf("String Y : %d\n", y >> 8);
     }
     if ((_unk3005DA0 & 0x100) != 0) {
         y = object->y;
         y += 0x100;
         sub_8061844(object, object->x >> 8, y >> 8);
-        printf(Str_86FD2C0, y >> 8);
+        printf("String Y : %d\n", y >> 8);
     }
 }
 
@@ -243,12 +240,12 @@ void sub_80438CC(SpriteTextCleanup* object)
         x = object->x;
         x -= 0x100;
         sub_8061844(object, x >> 8, object->y >> 8);
-        printf(Str_86FD2D0, x >> 8);
+        printf("String X : %d\n", x >> 8);
     }
     if ((_unk3005DA0 & 0x100) != 0) {
         x = object->x;
         x += 0x100;
         sub_8061844(object, x >> 8, object->y >> 8);
-        printf(Str_86FD2D0, x >> 8);
+        printf("String X : %d\n", x >> 8);
     }
 }

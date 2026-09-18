@@ -8,7 +8,6 @@
 #include "sprite.h"
 
 extern const s16 word_8074D64[];
-extern const unk8 Str_8727018[];
 
 void allocateParticleSystem(
     ParticleSystem* arg0, s32 arg1, const SpriteSheet* arg2, BGLayer* arg3, unk32 arg4)
@@ -26,7 +25,7 @@ void allocateParticleSystem(
         block = slowAllocate(bytes);
     }
     if (block == NULL) {
-        printf(Str_8727018, bytes);
+        printf("Error allocating %i bytes for particle System\n", bytes);
     }
     arg0->unk30 = block;
     arg0->unk6 = 0;

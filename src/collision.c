@@ -14,7 +14,6 @@
 #include "riderphysics.h"
 
 unk32 sub_80561EC(Actor*, LevelGeometryAddresses*, GeometryLine*);
-extern const unk8 Str_87297D0[];
 extern const ScreenLayout LevelDesigns[];
 extern unk8 def_94_4_AddWithBoundingAreaMessage(Actor*, LevelGeometryAddresses*, GeometryLine*);
 extern unk8 def_94_8_collision_8055F2C(Actor*, LevelGeometryAddresses*, GeometryLine*, unk16);
@@ -141,7 +140,7 @@ unk8 def_94_4_AddWithBoundingAreaMessage(
     Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line)
 {
     if (withBoundingAreaCount > 0x1F) {
-        printf(Str_87297D0);
+        printf("Error adding withinBoundingArea message to list\n");
     } else {
         withBoundingAreas[withBoundingAreaCount] = line;
         withBoundingAreaCount++;

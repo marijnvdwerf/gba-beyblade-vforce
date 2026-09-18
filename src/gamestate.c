@@ -8,8 +8,6 @@
 #include "sound.h"
 #include "unsorted.h"
 
-extern const unk8 Str_87293C0[];
-extern const unk8 Str_87293F0[];
 extern LevelDescription LevelDescriptions[];
 extern unk8 _807572c[];
 extern unk8 _807576c[];
@@ -27,7 +25,7 @@ void InitCurrentGameState(void)
 
     block = slowAllocate(0xC6C);
     if (block == NULL) {
-        printf(Str_87293C0, 0xC6C);
+        printf("Error allocating %i bytes for CurrentGameState\n", 0xC6C);
     }
     _currentGameState = block->address;
     _currentGameState->unk6B0 = block;
@@ -193,7 +191,7 @@ void sub_8051488(void)
 
     save = &_currentGameState->unk6FC;
     if (sub_8051558() == 0) {
-        printf(Str_87293F0);
+        printf("Error: checksum failed in restoreFromSavedGameState() - no saved game restored\n");
     } else {
         _currentGameState->unk0 = save->block0.unk4;
         _currentGameState->unk1 = save->block0.unk5;

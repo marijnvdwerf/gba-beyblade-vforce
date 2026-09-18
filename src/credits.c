@@ -16,7 +16,6 @@ extern CreditsEntry Credits[];
 
 extern const SpriteSheet SpriteSheet_82B05EC;
 extern const unk8 ShadowFontMeta[];
-extern const unk8 Str_86FCED8[];
 
 void creditsFrontendHandler(FrontendState* state, unk32 arg1)
 {
@@ -106,7 +105,7 @@ void creditsFrontendHandler(FrontendState* state, unk32 arg1)
             _creditsPtr++;
             _3000024 = slowAllocate(_3000008 * sizeof(SpriteTextCleanup));
             if (_3000024 == NULL) {
-                printf(Str_86FCED8);
+                printf("error allocating space for DisplayStrings in creditsFrontendHandler()\n");
             }
             _fontPtr = _3000024->address;
             x = 0x50 - (totalWidth >> 1);

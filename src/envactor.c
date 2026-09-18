@@ -19,7 +19,6 @@
 extern const SpriteSheet SpriteSheet_86FBF94;
 
 extern const SpriteSheet SpriteSheet_86FAEAC;
-extern const unk8 Str_8729738[];
 
 void initLevelEnvironmentActors(u16 level)
 {
@@ -109,7 +108,8 @@ void initLevelEnvironmentActors(u16 level)
     allocationField->block = block;
     allocationField->actorCount = selectedCount;
     if (block == NULL) {
-        printf(Str_8729738, allocationSize);
+        printf("Error allocating %i bytes for buffer in initLevelEnvironmentActors()\n",
+            allocationSize);
     }
     actorBase = block->address;
     allocationField->actorContainer = actorBase;

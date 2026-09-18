@@ -13,8 +13,6 @@
 #include "riderphysics.h"
 #include "unsorted.h"
 
-extern const unk8 Str_8729780[];
-
 void sub_805529C(void)
 {
     ProjectileSystem* effect;
@@ -514,7 +512,8 @@ void* getDecompressorData(DecompressorState* state, const void* source)
         data = state->block->address;
         LZ77UnCompWram(source, data);
     } else {
-        printf(Str_8729780, state->size);
+        printf("Error allocating %i bytes for decompression buffer in getDecompressorData()\n",
+            state->size);
     }
     state->data = data;
     return data;

@@ -5,14 +5,10 @@
 #include "debug.h"
 #include "ram.h"
 
-extern const unk8 Str_872C8E4[];
-extern const unk8 Str_872C928[];
-extern const unk8 Str_872C960[];
-
 void initBattery(void)
 {
     if (initBatteryBackup(0x40)) {
-        printf(Str_872C8E4);
+        printf("An error occured in initBatteryBackup(), calling IdentifyEeprom()\n");
     }
     sub_806586C(2, &_unk3000DF0[5]);
 }
@@ -38,7 +34,7 @@ u32 sub_80574D0(BackupBlock* data, u32 index, s32 size)
             }
         }
         if (writeResult != 0) {
-            printf(Str_872C928, batteryIndex);
+            printf("Error occured in writeToBatteryBackup() - failed at %i\n", batteryIndex);
             result = 0;
             blockCount = 0;
         }
@@ -65,7 +61,7 @@ u32 sub_8057568(u16 index, BackupBlock* data, s32 size)
             }
         }
         if (readResult != 0) {
-            printf(Str_872C960, index);
+            printf("Error occured in readFromBatteryBackup() - failed at %i\n", index);
             result = 0;
             blockCount = 0;
         }

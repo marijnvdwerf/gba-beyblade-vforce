@@ -147,9 +147,6 @@ void deallocBeybladeActorData(void)
 }
 
 extern unk32* RiderSpriteSheets[];
-extern const unk8 Str_872AE20[];
-extern const unk8 Str_872AE64[];
-extern const unk8 Str_872AEC0[];
 
 void* getBeyBladeActorDataForIndex(s32 index)
 {
@@ -167,7 +164,7 @@ void* getBeyBladeActorDataForIndex(s32 index)
     data = getBeybladeData0(index);
     spriteSheet = RiderSpriteSheets[index];
     if (index > 0x3B) {
-        printf(Str_872AE20, index, 0x3C);
+        printf("request out of range in getBeyBladeActorDataForIndex() %i >= %i\n", index, 0x3C);
         return NULL;
     }
     if (data->unk31 != 0) {
@@ -176,7 +173,8 @@ void* getBeyBladeActorDataForIndex(s32 index)
         } else {
             record->block = slowAllocate(*spriteSheet >> 8);
             if (record->block == NULL) {
-                printf(Str_872AE64);
+                printf("Unable to the allocate memory for decompression buffer in "
+                       "getBeyBladeActorDataForIndex()\n");
             }
             result = record->block->address;
             LZ77UnCompWram(spriteSheet, result);
@@ -188,7 +186,7 @@ void* getBeyBladeActorDataForIndex(s32 index)
                 record->unk4 = bit;
                 cache->unk1E0 |= 1 << bit;
             } else {
-                printf(Str_872AEC0);
+                printf("unable to allocate a suitable palette in getBeyBladeActorDataForIndex()\n");
             }
         }
     } else {

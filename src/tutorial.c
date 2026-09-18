@@ -72,7 +72,6 @@ const unk8* const* sub_804A378(unk32 arg0)
     return _806A77C[arg0];
 }
 
-extern const unk8 Str_87233E8[];
 extern const SpriteSheet SpriteSheet_82B05EC;
 extern const unk8 ShadowFontMeta[];
 extern const SpriteSheet SpriteSheet_821CCC8;
@@ -106,7 +105,7 @@ void initTutorialManagement(u16 levelId)
         while (line < geometry.unk0->lineCount) {
             lineMetadata = GetLineMetaData(&geometry, line);
             if (count > 0x1F) {
-                printf(Str_87233E8);
+                printf("unable to add Tutorial Triggers in initTutorialManagement()\n");
                 break;
             }
             line++;

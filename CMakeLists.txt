@@ -251,6 +251,17 @@ add_executable(rom
     src/transition.c
     src/tutorial.c
     src/strings0.c
+    src/strings_86fcf20.c
+    src/strings_86fcf98.c
+    src/strings_86fd2a4.c
+    src/strings_86fd2e0.c
+    src/strings_8723428.c
+    src/strings_8727048.c
+    src/strings_87270f8.c
+    src/strings_87294ac.c
+    src/strings_8729894.c
+    src/strings_872af0c.c
+    src/strings_872c99c.c
     src/strings3.c
     src/strings4.c
     src/strings5.c

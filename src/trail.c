@@ -10,8 +10,6 @@
 #include "sprite.h"
 #include "unsorted.h"
 
-extern const u8 Str_8726F84[];
-extern const u8 Str_8726FB4[];
 extern const u8 Unk_874CEBC[];
 
 void newSpriteTrail(
@@ -32,7 +30,7 @@ void newSpriteTrail(
         allocated = slowAllocate(size);
     }
     if (allocated == NULL) {
-        printf(Str_8726F84, size);
+        printf("Error allocating %i bytes in newSpriteTrail\n", size);
         arg0->block = allocated;
         return;
     }
@@ -60,7 +58,7 @@ void newSpriteTrail(
         if (sprite != NULL) {
             LoadSpriteSheet(sprite, arg1, 0, 0xA000, 1, 0, 0, 0);
         } else {
-            printf(Str_8726FB4);
+            printf("unable to allocate sprites in newSpriteTrail()\n");
         }
         sprites++;
     }

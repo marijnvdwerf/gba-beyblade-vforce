@@ -17,11 +17,6 @@
 #include "tutorial.h"
 #include "unsorted.h"
 
-extern const unk8 Str_8729658[];
-extern const unk8 Str_87296A4[];
-extern const unk8 Str_87296D8[];
-extern const unk8 Str_87296E8[];
-
 void initEventListeners(unk32 levelId)
 {
     LevelGeometryAddresses geometry;
@@ -52,7 +47,8 @@ void initEventListeners(unk32 levelId)
         if (lineMetadata != NULL && getLineMetaObjectBytype(&geometry, lineMetadata, 7) != NULL) {
             listenerIds[listenerCount++] = i;
             if (listenerCount > maxListeners) {
-                printf(Str_8729658, maxListeners);
+                printf("Error creating list of event listeners, local array size of %i too small\n",
+                    maxListeners);
             }
         }
     }
@@ -62,7 +58,7 @@ void initEventListeners(unk32 levelId)
     bytes = listenerCount * sizeof(unk32);
     block = slowAllocate(bytes);
     if (block == NULL) {
-        printf(Str_87296A4, bytes);
+        printf("Error allocating %i bytes in initEventListeners()\n", bytes);
     }
     buffer = block->address;
     __fastMemoryCopyARM(listenerIds, buffer, bytes);
@@ -157,7 +153,7 @@ void processMetadata_default(LevelGeometryAddresses* arg0, GeometryLine* arg1, u
     LineMetadata* arg3, LineMetaObject* event)
 {
     GetStruct4(lineIndex);
-    printf(Str_87296D8, lineIndex);
+    printf("instruction %i\n", lineIndex);
 }
 
 void nullsub_42(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
@@ -302,7 +298,8 @@ void processMetadata_5(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
             }
         }
         if (found == NULL) {
-            printf(Str_87296E8);
+            printf(
+                "Error; unable to attach actor to Spline: Spline with matching name not found\n");
         } else {
             pointIndex = event->unk8.transform.z;
             point = GetPointAtSplineIndex(arg0, splineIndex, pointIndex);

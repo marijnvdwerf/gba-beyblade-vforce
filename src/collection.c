@@ -22,9 +22,6 @@ extern const SpriteSheet SpriteSheet_823C150;
 extern const SpriteSheet SpriteSheet_823C260;
 extern const SpriteSheet SpriteSheet_823C2C8;
 extern const SpriteSheet SpriteSheet_82B1A84;
-extern const unk8 Str_86FD214[];
-extern const unk8 Str_86FD25C[];
-extern const unk8 Str_86FD264[];
 
 void collectionListFrontendHandler(FrontendState* state, unk32 command)
 {
@@ -44,7 +41,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
         sub_80596AC(&state->bgLayers[3], -0x10000, 0);
         _collectionListFontBlock = slowAllocate(allocationSize);
         if (_collectionListFontBlock == NULL) {
-            printf(Str_86FD214);
+            printf("error allocating memory for strings in collectionListFrontendHandler()\n");
         }
         // TODO: fakematch? nested assignment
         _collectionListFont = (collectionData = _collectionListFontBlock->address)->unk0;
@@ -65,7 +62,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
             if (sub_80570D4(i) != 0) {
                 sub_8061660(&_collectionListFont[i], sub_8057048(i), 0xF);
             } else {
-                sub_8061660(&_collectionListFont[i], Str_86FD25C, 0xC);
+                sub_8061660(&_collectionListFont[i], "No. ", 0xC);
                 showNumber(&_collectionListFont[i], i + 1, 0xC);
             }
             _unk300012C[i] = allocSprite(0);
@@ -74,7 +71,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
                 LoadSpriteSheet(
                     _unk300012C[i], &SpriteSheet_823C150, 0, (i << 10) + 0x5600, 0, 0, 0, frame);
             } else {
-                printf(Str_86FD264);
+                printf("out of sprites for icons in collectionListFrontendHandler()\n");
             }
         }
         allocFont(_unk3000128, &SpriteSheet_82B05EC, ShadowFontMeta, 0x70, 0x28, 0x70, 0x10);
@@ -196,7 +193,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
                 if (sub_80570D4(_unk3000110) != 0) {
                     sub_8061660(&_collectionListFont[_unk300010C], sub_8057048(_unk3000110), 0xF);
                 } else {
-                    sub_8061660(&_collectionListFont[_unk300010C], Str_86FD25C, 0xC);
+                    sub_8061660(&_collectionListFont[_unk300010C], "No. ", 0xC);
                     showNumber(&_collectionListFont[_unk300010C], _unk3000110 + 1, 0xC);
                 }
 
@@ -214,7 +211,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
                     sub_8061660(
                         &_collectionListFont[_unk300010C], sub_8057048(_unk3000110 + 5), 0xF);
                 } else {
-                    sub_8061660(&_collectionListFont[_unk300010C], Str_86FD25C, 0xC);
+                    sub_8061660(&_collectionListFont[_unk300010C], "No. ", 0xC);
                     showNumber(&_collectionListFont[_unk300010C], _unk3000110 + 6, 0xC);
                 }
 

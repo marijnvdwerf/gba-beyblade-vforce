@@ -7,7 +7,6 @@
 #include "unsorted.h"
 
 extern const unk8 Unk_874CEBC[];
-extern const unk8 Str_872CA94[];
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/80575f4-initAiManagement.s");
 
@@ -43,7 +42,8 @@ void sub_80576EC(RiderBase* rider)
 void deallocateAiManagement(void)
 {
     if (_gameData->ai.table == NULL) {
-        printf(Str_872CA94);
+        printf("Unable to deallocate AI collision in deallocateAIManagement, no "
+               "collision data was initialised\n");
     } else {
         deallocateQuadTree(&_gameData->ai.quadTree);
     }

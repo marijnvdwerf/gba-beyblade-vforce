@@ -18,8 +18,6 @@
 #include "tutorial.h"
 #include "unsorted.h"
 
-extern const unk8 Str_86FCF24[];
-extern const unk8 Str_86FCF54[];
 extern const unk8* _806EA5C[];
 extern const unk8* _806EA70[];
 extern const SpriteSheet SpriteSheet_823AA74;
@@ -77,7 +75,7 @@ void displayFrontendLevel(
     if (spriteSheet != NULL) {
         LoadSpriteSheet(state->sprite, spriteSheet, 0x1000, 0x3C00, 1, 0, 0, 0);
     } else {
-        printf(Str_86FCF24);
+        printf("no sprite allocated in displayFrontendLevel()\n");
     }
     if (palette != NULL) {
         __fastMemoryCopyARM(palette, (void*)OBJ_PLTT, 0x20);
@@ -112,7 +110,7 @@ void sub_8041188(LevelSelectState* state, LevelDescription* description, LevelSt
             printTime(state->rows[4], laterLevelState->unk8, 0xF);
             sub_8061660(state->rows[5], _806E97C[8][language], 0xE);
             showNumber(state->rows[5], sub_80518C8(laterIndex), 0xF);
-            showString(state->rows[5], Str_86FCF54, 0xF);
+            showString(state->rows[5], " / ", 0xF);
             showNumber(state->rows[5], description->unk1, 0xF);
         }
     }

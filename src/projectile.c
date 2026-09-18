@@ -5,8 +5,6 @@
 #include "memory.h"
 #include "trail.h"
 
-extern const unk8 Str_8726FE4[];
-
 void newProjectileSystem(
     ProjectileSystem* arg0, s32 arg1, const SpriteSheet* arg2, unk32 arg3, void* arg4)
 {
@@ -19,7 +17,7 @@ void newProjectileSystem(
 
     block = slowAllocate(0x64 * arg1);
     if (block == NULL) {
-        printf(Str_8726FE4);
+        printf("Error allocating memory for newProjectileSystem()\n");
         return;
     }
     entry = block->address;

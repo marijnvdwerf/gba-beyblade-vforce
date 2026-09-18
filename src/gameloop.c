@@ -668,11 +668,6 @@ void sub_8052978(unk32 arg0, void (*arg1)(void))
     }
 }
 
-extern const unk8 Str_8729440[];
-extern const unk8 Str_8729458[];
-extern const unk8 Str_8729478[];
-extern const unk8 Str_872948C[];
-
 void sub_8052A74(void)
 {
     unk32* ptr;
@@ -680,7 +675,7 @@ void sub_8052A74(void)
 
     ptr = (unk32*)(CPU_WRAM_END - 0x60);
     count = 0;
-    printf(Str_8729440);
+    printf("Trace Interrupt Stack\n");
     do {
         if (*ptr != 0) {
             count = 0;
@@ -689,7 +684,7 @@ void sub_8052A74(void)
         }
         ptr--;
     } while (count <= 0xF);
-    printf(Str_8729458, (unk32*)(CPU_WRAM_END - 0x60), ptr + 0x10);
+    printf("intr stack start %x end %x\n\n", (unk32*)(CPU_WRAM_END - 0x60), ptr + 0x10);
 }
 
 void sub_8052AB8(void)
@@ -699,7 +694,7 @@ void sub_8052AB8(void)
 
     ptr = (unk32*)(CPU_WRAM_END - 0x140);
     count = 0;
-    printf(Str_8729478);
+    printf("Trace User Stack\n");
     do {
         if (*ptr != 0) {
             count = 0;
@@ -708,7 +703,7 @@ void sub_8052AB8(void)
         }
         ptr--;
     } while (count <= 0xF);
-    printf(Str_872948C, (unk32*)(CPU_WRAM_END - 0x140), ptr + 0x10);
+    printf("user stack start %x end %x\n\n", (unk32*)(CPU_WRAM_END - 0x140), ptr + 0x10);
 }
 
 void nullsub_43(void)

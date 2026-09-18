@@ -24,7 +24,7 @@ void newIconMenu(FrontendMenu* menu, const FrontendMenuData* data, unk32 count)
     angle = 0x80;
     menu->block = slowAllocate(size);
     if (menu->block == NULL) {
-        printf(Str_8729398, size);
+        printf("Error allocating %i in newIconMenu()\n", size);
     }
     item = menu->block->address;
     menu->items = item;

@@ -16,7 +16,6 @@
 #include "tutorial.h"
 
 extern const SpriteSheet SpriteSheet_821CB80;
-extern const unk8 Str_86FCF58[];
 
 void teletypeDefaultUserCodeHandler(TeletypeState* state, unk32 command)
 {
@@ -87,7 +86,7 @@ void teletypeDefaultUserCodeHandler(TeletypeState* state, unk32 command)
         sub_80640F8(state);
         break;
     default:
-        printf(Str_86FCF58, code);
+        printf("undefined user code in teletypeDefaultUserCodeHandler( %X )\n", code);
         break;
     }
 }

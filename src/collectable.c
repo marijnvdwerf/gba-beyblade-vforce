@@ -6,9 +6,6 @@
 #include "ram.h"
 #include "unsorted.h"
 
-extern const unk8 Str_8729804[];
-extern const unk8 Str_8729838[];
-
 void initCollectables(u16 levelId)
 {
     LevelGeometryAddresses geometry;
@@ -37,7 +34,7 @@ void initCollectables(u16 levelId)
             line = &geometry.unkC[i];
             lineMeta = GetLineMetaData(&geometry, i);
             if (count > 0x1F) {
-                printf(Str_8729804);
+                printf("unable to add collectables in initCollectables()\n");
                 break;
             }
             if (lineMeta != NULL
@@ -112,7 +109,8 @@ void sub_8056EC0(void)
             if (object != NULL) {
                 sub_8057104(object->unk8.word, 1);
             } else {
-                printf(Str_8729838);
+                printf("Error, attempting to unlock collection a item, no Collectable index "
+                       "instruction in script\n");
             }
         }
         cursor++;
