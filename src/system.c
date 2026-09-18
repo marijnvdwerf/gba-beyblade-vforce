@@ -39,7 +39,47 @@ void loadPalette2(void* src)
     __fastMemoryCopyARM(src, (void*)OBJ_PLTT, 0x200);
 }
 
-INCLUDE_ASM("asm/dump/80578e0/8057a7c.s");
+void sub_8057A7C(unk16* src, unk8 paletteIndex, s16 offset)
+{
+    unk16* dst;
+    unk16 i;
+    unk16 color;
+    s16 red;
+    s16 green;
+    s16 blue;
+
+    dst = (unk16*)(BG_PLTT + (paletteIndex << 9));
+    for (i = 0; i < 8; i++) {
+        color = *src;
+        red = color & 0x1F;
+        green = (color & 0x3E0) >> 5;
+        blue = (color & 0x7C00) >> 10;
+        red += offset;
+        green += offset;
+        blue += offset;
+        if (red > 0x1F) {
+            red = 0x1F;
+        }
+        if (green > 0x1F) {
+            green = 0x1F;
+        }
+        if (blue > 0x1F) {
+            blue = 0x1F;
+        }
+        if (red < 0) {
+            red = 0;
+        }
+        if (green < 0) {
+            green = 0;
+        }
+        if (blue < 0) {
+            blue = 0;
+        }
+        *dst = red + (green << 5) + (blue << 10);
+        src++;
+        dst++;
+    }
+}
 
 void sub_8057B30(unk32* ptr, unk32 value0, unk32 value1)
 {
