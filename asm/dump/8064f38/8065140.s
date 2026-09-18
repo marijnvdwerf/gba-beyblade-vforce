@@ -1,8 +1,7 @@
 	.include "asm/common.inc"
 
-	non_word_aligned_thumb_func_start sub_806513E
-sub_806513E:
-	lsl	r0, r0, #0x0
+	thumb_func_start sub_8065140
+sub_8065140:
 	push	{r4, r5, r6, r7, lr}
 	mov	r7, sl
 	mov	r6, r9
@@ -247,6 +246,6 @@ sub_806513E:
 	pop	{r4, r5, r6, r7}
 	pop	{r0}
 	bx	r0
-	thumb_func_end sub_806513E
+	thumb_func_end sub_8065140
 
 .align 2, 0 @ Don't pad with nop.

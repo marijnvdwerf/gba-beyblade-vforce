@@ -197,7 +197,7 @@ unk8 sub_8065108(SpriteString* string)
     return count;
 }
 
-INCLUDE_ASM("asm/dump/8064f38/806513e.s");
+INCLUDE_ASM("asm/dump/8064f38/8065140.s");
 
 void sub_806530C(SpriteString* string)
 {

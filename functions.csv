@@ -1003,7 +1003,7 @@ vram,name
 0x080650f8,GPT::SetSpriteStringUpdateCallback
 0x080650fc,GPT::SetSpriteStringSource
 0x08065108,GPT::CountVisibleSpriteGlyphs
-0x0806513e,GPT::UpdateSpriteString
+0x08065140,GPT::UpdateSpriteString
 0x0806530c,GPT::UpdateSpriteStringGlyphActors
 0x08065334,GPT::MeasureSpriteStringWidth
 0x080653b0,GPT::RenderSpriteStringGlyphs
