@@ -4,9 +4,15 @@
 
 #include "bios.h"
 #include "include_asm.h"
+#include "layer.h"
+#include "system.h"
 #include "unsorted.h"
 
 extern const unk8 byte_807D980[];
+extern const char Str_875539C[];
+
+void sub_805B280(unk16*, void*, const RiderTile*, s32, s32);
+const RiderTile* sub_805B7F0(const SpriteSheet*, unk32);
 
 void sub_805B244(
     TilemapTextRenderer* arg0, BGLayer* arg1, const SpriteSheet* arg2, const unk8* arg3, unk32 arg4)
@@ -74,7 +80,104 @@ unk32 sub_805B3DC(const unk8* string, const unk8* arg1, unk32 arg2)
     return total;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805b41c.s");
+unk32 sub_805B41C(TilemapTextRenderer* renderer, s32 x, s32 y, unk8* string, unk8 flags)
+{
+    BGLayer* layer;
+    const SpriteSheet* font;
+    unk16* map;
+    void* tiles;
+    unk32 tileWidth;
+    unk32 tileHeight;
+    unk32 fontWidth;
+    s32 width;
+    s32 rows;
+    s32 columns;
+    s32 column;
+    s32 drawColumn;
+    unk16 firstTile;
+    unk32 allocated;
+    unk8 character;
+    unk32 advance;
+    s32 drawY;
+    s32 drawX;
+    s32 row;
+    const RiderTile* data;
+
+    layer = renderer->layer;
+    font = renderer->font;
+    map = (unk16*)(VRAM + (layer->screenBaseBlock << 11));
+    tiles = (void*)(VRAM + (layer->characterBaseBlock << 14));
+    tileWidth = font->unk4 >> 3;
+    tileHeight = font->unk5 >> 3;
+    fontWidth = font->unk4;
+    if ((*(vu16*)GetBGLayerCntPtr(layer->layerIndex) & 0x80) != 0 || !(font->unkC & 1)) {
+        nullsub_8(Str_875539C);
+        return x;
+    }
+    width = sub_805B3DC(string, renderer->unk4, fontWidth);
+    switch (flags & 3) {
+    case 1:
+        x -= width;
+        break;
+    case 2:
+        x -= width >> 1;
+        break;
+    }
+    map += (y & ~7) * 4 + (x >> 3);
+    rows = tileHeight;
+    if (y & 7) {
+        rows++;
+    }
+    columns = (width + (x & 7) + 8) >> 3;
+    firstTile = renderer->unkE;
+    while (rows-- != 0) {
+        column = columns;
+        while (column-- != 0) {
+            if (*map == 0) {
+                *map = renderer->unkE;
+                renderer->unkE++;
+            }
+            *map = (*map & 0xFFF) | (renderer->unkC << 12);
+            map++;
+        }
+        map += 32 - columns;
+    }
+    allocated = renderer->unkE - firstTile;
+    if (allocated != 0) {
+        __fastMemoryClearARM(0,
+            (RiderTile*)(VRAM + (renderer->layer->characterBaseBlock << 14)) + firstTile,
+            allocated << 5);
+    }
+    map = (unk16*)(VRAM + (layer->screenBaseBlock << 11));
+    while ((character = *string++) != 0) {
+        advance = 5;
+        if (character > ' ') {
+            drawY = y;
+            row = tileHeight;
+            character = byte_807D980[character];
+            data = sub_805B7F0(renderer->font, character);
+            advance = fontWidth;
+            if (renderer->unk4 != NULL) {
+                advance -= renderer->unk4[character];
+            }
+            while (row-- != 0) {
+                drawX = x;
+                drawColumn = tileWidth;
+                while (drawColumn-- != 0) {
+                    sub_805B280(map + (drawY & ~7) * 4 + (drawX >> 3), tiles, data, drawX, drawY);
+                    drawX += 8;
+                    data++;
+                }
+                drawY += 8;
+            }
+        }
+        x += advance;
+        if (x > 239) {
+            break;
+        }
+    }
+    return x;
+}
 
 void sub_805B668(TilemapTextRenderer* arg0, unk32 arg1, unk32 arg2, unk32 arg3, unk8 arg4)
 {
@@ -158,9 +261,9 @@ void sub_805B700(TilemapTextRenderer* arg0, unk32 arg1, unk32 arg2, unk32 arg3, 
     sub_805B41C(arg0, arg1, arg2, ptr, arg4);
 }
 
-unk8* sub_805B7F0(SpriteSheet* arg0, unk32 arg1)
+const RiderTile* sub_805B7F0(const SpriteSheet* arg0, unk32 arg1)
 {
-    return (unk8*)arg0 + (arg1 << arg0->unk6) + arg0->unk10;
+    return (const RiderTile*)((const unk8*)arg0 + (arg1 << arg0->unk6) + arg0->unk10);
 }
 
 void sub_805B800(TilemapTextRenderer* arg0, s16 arg1, s16 arg2, const unk8* arg3, unk32 arg4)
