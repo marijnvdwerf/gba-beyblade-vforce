@@ -216,7 +216,12 @@ void nullsub_22(TeletypeState* state, unk32 value)
 {
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8063de8.s");
+void sub_8063DE8(TeletypeState* state, unk8 arg1, unk8 arg2, unk8 arg3)
+{
+    state->unkC = arg1;
+    state->unkD = arg2;
+    state->unkE = arg3;
+}
 
 void sub_8063DF0(TeletypeState* state, const FontStyle* config)
 {
@@ -279,7 +284,15 @@ TeletypeState* sub_8063E18(const unk8* string, const FontStyle* config, unk32 co
     return state;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8063f40.s");
+void sub_8063F40(TeletypeState* state, TeletypeCallback callback1,
+    void (*callback2)(TeletypeState*, unk8), void (*callback3)(TeletypeState*, const unk8*),
+    void (*callback4)(TeletypeState*, unk16))
+{
+    state->unkDC = callback1;
+    state->unkE4 = callback2;
+    state->unkE0 = callback3;
+    state->unkE8 = callback4;
+}
 
 void sub_8063F5C(TeletypeState* state, TeletypeCallback callback)
 {
