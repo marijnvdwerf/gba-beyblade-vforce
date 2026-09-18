@@ -2,20 +2,33 @@
 
 #include "common.h"
 #include "debug.h"
+#include "main.h"
 #include "ram.h"
 #include "system.h"
 #include "unsorted.h"
 
-extern unk8 const Str_872CB2C[];
-
-extern const void* const Unk_872CAF4[];
+const void* const Unk_872CAF4[] = {
+    onVBlank,
+    nullsub_37,
+    nullsub_31,
+    nullsub_31,
+    onTimer1Overflow,
+    nullsub_31,
+    nullsub_31,
+    nullsub_31,
+    nullsub_31,
+    nullsub_31,
+    nullsub_31,
+    nullsub_31,
+    nullsub_31,
+    nullsub_31,
+};
 
 void sub_8057984(void)
 {
     s32 i;
     for (i = 0; i < 14; i++) {
-
-        printf(Str_872CB2C, i, _unk3001110[i]);
+        printf("irq %i:\t%i\n", i, _unk3001110[i]);
     }
 }
 
