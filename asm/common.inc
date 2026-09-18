@@ -82,6 +82,15 @@
 	.type \name, function
 	.endm
 
+	@ Hand-written ARM: the assembly is the source, so no .NON_MATCHING marker
+	@ (progress reports count these as matched).
+	.macro arm_asm_func_start name
+	.align 2, 0
+	.global \name
+	.arm
+	.type \name, function
+	.endm
+
 	.macro arm_func_end name
 	.size \name, .-\name
 	.endm

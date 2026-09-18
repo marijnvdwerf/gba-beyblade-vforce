@@ -1,6 +1,6 @@
     .include "asm/common.inc"
 
-    arm_func_start render_00
+    arm_asm_func_start render_00
 render_00:
     AND	R4, R1, #0xFF00
     SUB	R3, R3, R2
@@ -31,7 +31,7 @@ off_80641F0:
     arm_func_end render_00
 
 
-    arm_func_start render_01
+    arm_asm_func_start render_01
 render_01:
     STMFD	SP!, {R5,R6}
     AND	R4, R1, #0xFF00
@@ -124,7 +124,7 @@ loc_8064328:
     arm_func_end render_01
 
 
-    arm_func_start render_02
+    arm_asm_func_start render_02
 render_02:
     STMFD	SP!, {R5-R12,LR}
     LDRH	R3, [R2]
@@ -453,7 +453,7 @@ dword_8064828:
     arm_func_end render_02
 
 
-    arm_func_start render_03
+    arm_asm_func_start render_03
 render_03:
     STMFD	SP!, {R5-R12,LR}
     LDRB	R12, [R0,#0x17]
@@ -581,7 +581,7 @@ loc_80649E8:
     arm_func_end render_03
 
 
-    arm_func_start render_04
+    arm_asm_func_start render_04
 render_04:
     STMFD	SP!, {R4-R12,LR}
     MOV	R12, R1
@@ -646,7 +646,7 @@ off_8064AD4:
     arm_func_end render_04
 
 
-    arm_func_start render_05
+    arm_asm_func_start render_05
 render_05:
     STMFD	SP!, {R4-R12,LR}
     LDR	R1, [R0,#0x10]
@@ -733,7 +733,7 @@ loc_8064BE0:
     arm_func_end render_05
 
 
-    arm_func_start render_06
+    arm_asm_func_start render_06
 render_06:
     STMFD	SP!, {R0-R6}
     LDR	R3, [R0,#8]
@@ -759,7 +759,7 @@ render_06:
     arm_func_end render_06
 
 
-    arm_func_start render_07
+    arm_asm_func_start render_07
 render_07:
     STMFD	SP!, {R4-R11,LR}
     LDR	R10, [R0]
@@ -854,7 +854,7 @@ loc_8064D70:
     arm_func_end render_07
 
 
-    arm_func_start render_08
+    arm_asm_func_start render_08
 render_08:
     STMFD	SP!, {R4-R12,LR}
     LDRH	R12, [R0]
@@ -891,7 +891,7 @@ loc_8064E1C:
 
     .4byte 0
 
-    arm_func_start render_09
+    arm_asm_func_start render_09
 render_09:
     STMFD	SP!, {R4,R5}
 loc_8064E34:
