@@ -7,6 +7,8 @@
 extern const unk8 Str_8727080[];
 extern const unk8 Str_87270B8[];
 
+void sub_80502A4(FrontendMotionData*);
+
 typedef UnkMotion MotionGroup;
 
 void newMotionGroup(MotionGroup*, SpriteTextBlock*, unk16);

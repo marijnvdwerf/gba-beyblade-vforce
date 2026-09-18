@@ -1,6 +1,7 @@
 #include "packet.h"
 
 #include "include_asm.h"
+#include "motion.h"
 #include "multiplayer.h"
 #include "ram.h"
 
@@ -48,4 +49,8 @@ void sub_80439A0(BGLayer* arg0)
     arg0->field_7C |= 3;
 }
 
-INCLUDE_ASM("asm/dump/8040d18/80439f4.s");
+void sub_80439F4(BGLayer* layer, FrontendMotionData* motionData)
+{
+    sub_80502A4(motionData);
+    layer->field_18 = -motionData->unkC;
+}
