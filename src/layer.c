@@ -1006,7 +1006,30 @@ void sub_8059DB8(BGLayer* layer, unk32 column, unk32 row, unk16 data)
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8059ddc.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8059e5c.s");
+
+void sub_8059E5C(BGLayer* layer, unk32 width, unk8 height, unk32 column, unk32 row, s32 glyph)
+{
+    unk8* source;
+    unk8* sourceAddress;
+    unk16* destination;
+    s32 columnCount;
+    s32 sourceRow;
+
+    sourceAddress = layer->mapAddr + ((glyph & 0x1F) * 2);
+    sourceRow = glyph >> 5;
+    columnCount = layer->columnCount;
+    source = sourceAddress + sourceRow * (columnCount << 2);
+    destination = (unk16*)(VRAM + (layer->screenBaseBlock << 11));
+    destination += (row << layer->field_5F) + column;
+    if (height != 0) {
+        do {
+            *destination = *(unk16*)source; // TODO: fakematch? (unk16* cursor forms diverge)
+            source += columnCount * 2;
+            destination += 1 << layer->field_5F;
+            height--;
+        } while (height != 0);
+    }
+}
 
 void sub_8059EBC(BGLayer* layer, unk8* string, unk32 column, unk32 row)
 {
