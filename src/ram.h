@@ -455,6 +455,7 @@ extern SpriteTextCleanup _unk3000308;
 extern SpriteTextCleanup _unk3000338;
 extern s32 _unk3000368;
 
+extern unk8 _unk3000150[8];
 extern SpriteEntry* _unk3000158;
 extern SpriteEntry* _unk300015C;
 extern s32 _unk3000160;
