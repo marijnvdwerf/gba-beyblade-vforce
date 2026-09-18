@@ -1,74 +1,7 @@
-#include "common.h"
+#include "anim.h"
+
 #include "include_asm.h"
 #include "memory.h"
-
-typedef struct AnimFrameState AnimFrameState;
-
-typedef struct AnimFrameData {
-    unk8 pad0[4];
-    unk16 unk4;
-    unk16 unk6;
-    unk8 pad8[0x10];
-    unk16 unk18;
-    unk16 unk1A;
-} AnimFrameData;
-
-typedef struct AnimFrameRecord {
-    unk32 unk0;
-    unk32 unk4;
-    unk32 unk8;
-    unk8 padC[4];
-} AnimFrameRecord;
-
-typedef struct AnimFrameEntry {
-    unk16 unk0;
-    unk16 unk2;
-    unk16 unk4;
-    s8 unk6;
-    s8 unk7;
-} AnimFrameEntry;
-
-typedef void (*AnimFrameCallback)(AnimFrameState*, void*, unk32, unk32);
-
-struct AnimFrameState {
-    AnimFrameData* unk0;
-    unk8* unk4;
-    unk8* unk8;
-    AllocatedBlock* unkC;
-    AnimFrameRecord* unk10;
-    unk8* unk14;
-    unk8* unk18;
-    unk8 pad1C[4];
-    unk8* unk20;
-    AnimFrameEntry* unk24;
-    s16 unk28;
-    unk16 unk2A;
-    unk16 unk2C;
-    s16 unk2E;
-    unk16 unk30;
-    s16 unk32;
-    unk8 pad34[6];
-    unk16 unk3A;
-    unk16 unk3C;
-    unk16 unk3E;
-    unk16 unk40;
-    unk16 unk42;
-    unk16 unk44;
-    unk8 pad46[6];
-    unk8 unk4C;
-    unk8 unk4D;
-    unk16 unk4E;
-    unk16 unk50;
-    unk16 unk52;
-    unk8 pad54[8];
-    AllocatedBlock* unk5C;
-    unk32 unk60;
-    unk8 pad64[4];
-    unk16 unk68;
-    unk8 pad6A[2];
-    AnimFrameCallback unk6C;
-    void* unk70;
-};
 
 void sub_805F784(AnimFrameState*, unk16, unk16);
 void sub_805F3A8(AnimFrameState*, s16);
@@ -180,17 +113,130 @@ void sub_805F400(AnimFrameState* arg0)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805f47c.s");
+void sub_805F47C(AnimFrameState* arg0)
+{
+    AnimFrameEntry* entry;
+    s32 speed;
+    unk8 advance;
+
+    entry = &arg0->unk24[arg0->unk28];
+    speed = arg0->unk3A + arg0->unk44;
+    if (arg0->unk0->unk1A == 0 || arg0->unk0->unk18 == 0) {
+        return;
+    }
+    arg0->unk3E = arg0->unk3C;
+    if (arg0->unk3C == 0 && !(arg0->unk32 & 8) && arg0->unk28 >= 0) {
+        sub_805F784(arg0, arg0->unk42, arg0->unk42);
+        return;
+    }
+    if (speed > 0) {
+        arg0->unk40 += speed >> 1;
+    }
+    if (arg0->unk32 & 0x10) {
+        arg0->unk32 &= ~0x20;
+        if (arg0->unk38 < 0) {
+            arg0->unk40 = -arg0->unk38 & 0x3FF;
+        } else {
+            arg0->unk40 = arg0->unk38 & 0x3FF;
+        }
+        if ((arg0->unk58 >= 0 && arg0->unk38 < 0) || (arg0->unk58 < 0 && arg0->unk38 >= 0)) {
+            if (arg0->unk38 < 0) {
+                arg0->unk2E = arg0->unk2A;
+                arg0->unk2C = arg0->unk2A + 2;
+            } else {
+                arg0->unk2E = arg0->unk2A;
+                arg0->unk2C = arg0->unk2A + 1;
+            }
+        }
+        arg0->unk58 = arg0->unk38;
+    }
+    if (arg0->unk40 <= 0x3FF) {
+        return;
+    }
+    arg0->unk40 -= 0x400;
+    arg0->unk2E = arg0->unk2C;
+    if (arg0->unk32 & 4) {
+        arg0->unk3A = 0;
+        arg0->unk38 = 0;
+        arg0->unk58 = 0;
+        arg0->unk40 = 0;
+        arg0->unk32 |= 0x10;
+    }
+    if (arg0->unk32 & 2) {
+        arg0->unk2C--;
+    } else {
+        arg0->unk2C++;
+    }
+    if (arg0->unk2C - arg0->unk2A >= entry->unk2) {
+        if (arg0->unk32 & 8) {
+            arg0->unk3A = 0;
+            arg0->unk2C = arg0->unk2A + entry->unk2 - 1;
+            sub_805F3A8(arg0, arg0->unk2C);
+        } else if (arg0->unk32 & 1) {
+            arg0->unk32 ^= 2;
+            arg0->unk2C = arg0->unk2A + entry->unk2 - 2;
+        } else {
+            arg0->unk2C = arg0->unk2A;
+        }
+        if (arg0->unk3C != 0) {
+            arg0->unk3C--;
+            if (arg0->unk3C < -3000) {
+                arg0->unk3C |= -1;
+            }
+            if (arg0->unk3C != 0 && arg0->unk6C != NULL) {
+                arg0->unk6C(arg0, arg0->unk70, arg0->unk28, 2);
+            }
+        }
+        if (arg0->unk3C == 0 && !(arg0->unk32 & 8)) {
+            advance = 1;
+            if (arg0->unk6C != NULL) {
+                advance = arg0->unk6C(arg0, arg0->unk70, arg0->unk28, 1);
+            }
+            if (advance != 0) {
+                sub_805F784(arg0, arg0->unk42, arg0->unk42);
+            }
+        }
+    }
+    if (arg0->unk2C < arg0->unk2A) {
+        if (arg0->unk32 & 8) {
+            arg0->unk3A = 0;
+            sub_805F3A8(arg0, arg0->unk2C);
+            arg0->unk2C = arg0->unk2A + entry->unk2 - 1;
+        } else if (arg0->unk32 & 1) {
+            arg0->unk32 ^= 2;
+            arg0->unk2C = arg0->unk2A + 1;
+        } else {
+            arg0->unk2C = arg0->unk2A + entry->unk2 - 1;
+        }
+        if (arg0->unk3C != 0) {
+            arg0->unk3C--;
+            if (arg0->unk3C < -3000) {
+                arg0->unk3C |= -1;
+            }
+        }
+        if (arg0->unk3C == 0 && !(arg0->unk32 & 8)) {
+            advance = 1;
+            if (arg0->unk6C != NULL) {
+                advance = arg0->unk6C(arg0, arg0->unk70, arg0->unk28, 1);
+            }
+            if (advance != 0) {
+                sub_805F784(arg0, arg0->unk42, arg0->unk42);
+            }
+        }
+    }
+}
 
 void sub_805F730(AnimFrameState* arg0)
 {
     AnimFrameData* data;
     unk16 frame;
+    unk16 current;
 
     data = arg0->unk0;
     if (data->unk1A != 0 && data->unk18 != 0) {
         frame = arg0->unk2E;
-        if (frame != arg0->unk2C || arg0->unk30 != arg0->unk28 || arg0->unk3E != arg0->unk3C) {
+        current = arg0->unk2C;
+        if (frame != current || arg0->unk30 != arg0->unk28 || arg0->unk3E != arg0->unk3C) {
             arg0->unk68 = frame;
             sub_805F3A8(arg0, arg0->unk2E);
             sub_805F378(arg0, arg0->unk2C);
