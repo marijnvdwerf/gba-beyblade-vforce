@@ -551,7 +551,7 @@ typedef struct Actor {
     unk8 pad62[2];
     unk32 unk64;
     s32 unk68;
-    s32 unk6C;
+    const struct Actor* unk6C;
     s32 unk70;
     s32 unk74;
     ActorTimerEntry* unk78;

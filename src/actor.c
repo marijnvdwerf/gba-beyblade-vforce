@@ -148,11 +148,47 @@ void renderActor(Actor* actor, unk32 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8057fac.s");
+void sub_8057FAC(Actor* actor, const Actor* source, unk32 x, unk32 y, unk32 z)
+{
+    memcpy(actor, source, sizeof(Actor));
+    actor->x = x << 8;
+    actor->y = y << 8;
+    actor->z = z;
+    actor->unk6C = source;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8057fdc.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8058038.s");
+
+ActorSequenceEntry* sub_8058038(Actor* actor, unk16 sequence)
+{
+    ActorSequenceEntry* entry;
+    unk32 index;
+    unk16 count;
+
+    entry = (ActorSequenceEntry*)((unk8*)actor->unk0 + actor->unk0->unk18);
+    index = 0;
+    count = actor->unk28;
+    if (index < count) {
+        do {
+            if (entry->unk0 == sequence) {
+                return entry;
+            }
+            entry = (ActorSequenceEntry*)((unk8*)entry + entry->size);
+            index++;
+        } while (index < count);
+    }
+    return NULL;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8058068.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/80580b4-GetSpriteSheetStructA.s");
+
+const ActorFrameSequence* GetSpriteSheetStructA(Actor* actor, unk32 index)
+{
+    const ActorFrameSequence* sequences;
+
+    sequences = actor->unk0->sequences;
+    return sequences + index;
+}
 
 // TODO: reduce casts
 void actor_80580C0(Actor* actor, unk16 sequence, unk16 callbackSequence)
@@ -164,28 +200,70 @@ void actor_80580C0(Actor* actor, unk16 sequence, unk16 callbackSequence)
 
     offset = 0;
     entry = (const ActorSequenceEntry*)((const unk8*)actor->unk0 + actor->unk0->unk18);
-    index = 0;
-    if (index < actor->unk28) {
-        do {
-            if (entry->unk0 == sequence) {
-                actor->unk1C = offset;
-                actor->unk1E = 0;
-                actor->unk1A = sequence;
-                actor->unk2E = callbackSequence;
-                ActorSetFrameSequence(actor, entry->frames[0]);
-                return;
-            }
-            size = entry->size;
-            entry = (const ActorSequenceEntry*)((const unk8*)entry + size);
-            offset += size;
-            index++;
-        } while (index < actor->unk28);
+    for (index = 0; index < actor->unk28; index++) {
+        if (entry->unk0 == sequence) {
+            actor->unk1C = offset;
+            actor->unk1E = 0;
+            actor->unk1A = sequence;
+            actor->unk2E = callbackSequence;
+            ActorSetFrameSequence(actor, entry->frames[0]);
+            return;
+        }
+        size = entry->size;
+        entry = (const ActorSequenceEntry*)((const unk8*)entry + size);
+        offset += size;
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8058110.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8058144.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805816c.s");
+const ActorFrameSequence* sub_8058110(Actor* actor, unk32 sequence)
+{
+    const ActorSequenceEntry* entry;
+    unk32 index;
+
+    entry = (const ActorSequenceEntry*)((const unk8*)actor->unk0 + actor->unk0->unk18);
+    index = 0;
+    while (index < actor->unk28) {
+        if (entry->unk0 == sequence) {
+            return GetSpriteSheetStructA(actor, entry->frames[0]);
+        }
+        entry = (const ActorSequenceEntry*)((const unk8*)entry + entry->size);
+        index++;
+    }
+    return NULL;
+}
+
+s32 sub_8058144(Actor* actor)
+{
+    const ActorSequenceEntry* frameTable;
+
+    frameTable
+        = (const ActorSequenceEntry*)((const unk8*)actor->unk0 + actor->unk0->unk18 + actor->unk1C);
+    return actor->unk22 - GetSpriteSheetStructA(actor, frameTable->frames[0])->unk0;
+}
+
+void sub_805816C(Actor* actor, unk16 sequence)
+{
+    const ActorSequenceEntry* entry;
+    unk32 index;
+    unk16 offset;
+    unk16 size;
+
+    offset = 0;
+    entry = (const ActorSequenceEntry*)((const unk8*)actor->unk0 + actor->unk0->unk18);
+    for (index = 0; index < actor->unk28; index++) {
+        if (entry->unk0 == sequence) {
+            actor->unk1C = offset;
+            actor->unk1E = 0;
+            actor->unk1A = sequence;
+            actor->unk2E = -1;
+            ActorSetFrameSequence(actor, entry->frames[0]);
+            return;
+        }
+        size = entry->size;
+        entry = (const ActorSequenceEntry*)((const unk8*)entry + size);
+        offset += size;
+    }
+}
 
 void sub_80581B8(Actor* actor)
 {
@@ -258,8 +336,58 @@ void ActorSetFrameSequence(Actor* actor, unk32 sequence)
     actor->unk31 ^= (flags & 0xC) >> 2;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/80582d0.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805832c.s");
+void sub_80582D0(Actor* actor, unk16 sequence, unk16 frame, unk16 callbackSequence)
+{
+    const ActorSequenceEntry* entry;
+    unk32 index;
+    unk16 offset;
+    unk16 size;
+    const unk16* frames;
+
+    offset = 0;
+    entry = (const ActorSequenceEntry*)((const unk8*)actor->unk0 + actor->unk0->unk18);
+    for (index = 0; index < actor->unk28; index++) {
+        if (entry->unk0 == sequence && frame < entry->unk4) {
+            actor->unk1C = offset;
+            actor->unk1E = frame;
+            actor->unk1A = sequence;
+            actor->unk2E = callbackSequence;
+            frames = entry->frames;
+            ActorSetFrameSequence(actor, frames[frame]);
+            return;
+        }
+        size = entry->size;
+        entry = (const ActorSequenceEntry*)((const unk8*)entry + size);
+        offset += size;
+    }
+}
+
+void sub_805832C(
+    Actor* actor, unk16 sequence, unk16 frame, unk16 callbackSequence, unk16 frameSequence)
+{
+    const ActorSequenceEntry* entry;
+    unk32 index;
+    unk16 offset;
+    unk16 size;
+    const unk16* frames;
+
+    offset = 0;
+    entry = (const ActorSequenceEntry*)((const unk8*)actor->unk0 + actor->unk0->unk18);
+    for (index = 0; index < actor->unk28; index++) {
+        if (entry->unk0 == sequence && frame < entry->unk4) {
+            actor->unk1C = offset;
+            actor->unk1E = 0;
+            actor->unk1A = sequence;
+            actor->unk2E = callbackSequence;
+            frames = entry->frames;
+            ActorSetFrame(actor, frames[frame], frameSequence);
+            return;
+        }
+        size = entry->size;
+        entry = (const ActorSequenceEntry*)((const unk8*)entry + size);
+        offset += size;
+    }
+}
 
 void sub_8058390(Actor* actor, unk16 sequence, unk16 frame, unk16 callbackSequence)
 {
@@ -283,7 +411,22 @@ void sub_8058390(Actor* actor, unk16 sequence, unk16 frame, unk16 callbackSequen
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/80583dc-ActorSetFrame.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8058478.s");
+
+void sub_8058478(Actor* actor, unk32 sequence)
+{
+    const ActorFrameSequence* currentSequence;
+    const ActorFrameSequence* sequenceData;
+    s32 frame;
+
+    currentSequence = GetSpriteSheetStructA(actor, actor->unk20);
+    sequenceData = GetSpriteSheetStructA(actor, sequence);
+    frame = actor->unk22 - currentSequence->unk0;
+    if (frame < sequenceData->unk2) {
+        ActorSetFrame(actor, sequence, frame);
+    } else {
+        ActorSetFrameSequence(actor, sequence);
+    }
+}
 
 void sub_80584B8(Actor* actor)
 {
@@ -372,7 +515,10 @@ void sub_80585C8(Actor* actor, unk32 arg1)
     actor->unk98 = value;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/80585e8.s");
+void sub_80585E8(Actor* actor, unk8 arg1)
+{
+    actor->unk8C = arg1;
+}
 
 void actor_80585F0(Actor* arg0, unk8 arg1)
 {
@@ -400,7 +546,10 @@ void ActorSetSpriteOffset(Actor* actor, s32 arg1, s32 arg2)
     actor->unkA2 = arg2;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8058630.s");
+void sub_8058630(Actor* actor, void (*callback)(Actor*, s32))
+{
+    actor->unkC0 = callback;
+}
 
 void actor_8058638(Actor* actor)
 {
@@ -476,7 +625,11 @@ void renderActor2(Actor* actor)
     renderActor(actor, 0);
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8058784.s");
+void sub_8058784(Actor* actor, unk8 arg1)
+{
+    actor->unk31 ^= arg1;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8058794.s");
 
 void sub_8058838(Actor* actor)
@@ -530,14 +683,63 @@ void sub_80588A8(Actor* arg0)
     arg0->unk7C = NULL;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/80588dc.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8058914-nullsub_49.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8058918-nullsub_50.s");
+void sub_80588DC(Actor* actor)
+{
+    s32 count;
+    s16 index;
+    ActorTimerEntry* entry;
+
+    count = actor->unk74;
+    if (count != -1) {
+        for (index = 0; index < count; index++) {
+            entry = &actor->unk78[index];
+            entry->unk0 = 0;
+        }
+        actor->unk74 = 0;
+    }
+}
+
+void nullsub_49(void)
+{
+}
+
+void nullsub_50(void)
+{
+}
 
 void nullsub_11(void)
 {
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8058920-nullsub_51.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8058924.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805893c.s");
+void nullsub_51(void)
+{
+}
+
+const unk16* sub_8058924(const SpriteSheet* spriteSheet)
+{
+    const unk16* frameTable;
+
+    frameTable = &spriteSheet->sequences[spriteSheet->unk8].unk0;
+    if (frameTable == (const unk16*)((const unk8*)spriteSheet + spriteSheet->unk18)) {
+        return NULL;
+    }
+    return frameTable;
+}
+
+const unk8* sub_805893C(Actor* actor)
+{
+    const SpriteSheet* config;
+    unk32 value;
+
+    config = actor->unk0;
+    value = config->unk0 << 1;
+    if ((value & 2) != 0) {
+        value += 2;
+    }
+    if ((config->unk7 & 0x10) == 0) {
+        return NULL;
+    }
+    return (const unk8*)&config->sequences[config->unk8] + value;
+}
+
+ASM_ZEROPAD
