@@ -283,8 +283,29 @@ void sub_8050FEC(FrontendMenu* menu, unk32 value)
     menu->textPosition = value;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8050ff0.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/805100c.s");
+void sub_8050FF0(FrontendMenu* menu, unk32 value)
+{
+    FrontendMenuItem* item;
+    s32 i;
+
+    item = menu->items;
+    for (i = 0; i < menu->itemCount; i++) {
+        item->unk10 = value;
+        item++;
+    }
+}
+
+void sub_805100C(FrontendMenu* menu, unk32 value)
+{
+    FrontendMenuItem* item;
+    s32 i;
+
+    item = menu->items;
+    for (i = 0; i < menu->itemCount; i++) {
+        item->position = value;
+        item++;
+    }
+}
 
 void sub_8051028(FrontendMenu* menu)
 {
