@@ -6,8 +6,6 @@
 
 #include "system.h"
 
-extern const unk8 Str_8755644[];
-
 extern unk8 render_00[];
 extern unk8 _renderFunctionsEnd[];
 extern unk32 _renderFunctionOffsets[];
@@ -57,7 +55,7 @@ RenderCode* allocateRenderCode(RenderCode* arg0, AllocatedBlock** arg1)
         block = fastAllocate(_renderFunctionsEnd - render_00);
         arg0->block = block;
         if (block == NULL) {
-            nullsub_8(Str_8755644);
+            nullsub_8("Error allocating memory for render code");
             return NULL;
         }
         DmaSet(3, render_00, block->address, (block->size >> 2) | DMA_ENABLE | DMA_32BIT_BUS);

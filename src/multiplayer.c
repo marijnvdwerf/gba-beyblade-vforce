@@ -7,9 +7,6 @@
 #include "system.h"
 #include "unsorted.h"
 
-extern const unk8 Str_8755834[];
-extern const unk8 Str_8755884[];
-extern const unk8 Str_87558B4[];
 extern void (*__sub_8757FCC)(void);
 
 void initMultiPlayer(unk32 numPlayers, s32 packetSize, unk16 serialMode)
@@ -29,11 +26,11 @@ void initMultiPlayer(unk32 numPlayers, s32 packetSize, unk16 serialMode)
     headerSize = packetSize * 2;
     allocSize = totalSize + 0x44;
     if ((packetSize & 3) != 0) {
-        printf(Str_8755834);
+        printf("Error: maxPacketSize supplied to initMultiPlayer() needs to be a multiple of 2\n");
     }
     block = slowAllocate(allocSize);
     if (block == NULL) {
-        printf(Str_8755884, allocSize);
+        printf("Error allocating %i bytes for multiplayer data\n", allocSize);
     }
     _unk3005DC4 = block->address;
     _unk3005DC4->unkC = block;
@@ -104,7 +101,7 @@ unk8 sub_8060040(void)
         return 1;
     }
     if ((flags & 0x10) == 0) {
-        printf(Str_87558B4);
+        printf("Error: The status of this multiplayer unit has not been resolved\n");
     }
     return 0;
 }

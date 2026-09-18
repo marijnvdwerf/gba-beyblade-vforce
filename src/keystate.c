@@ -7,9 +7,6 @@
 #include "memory.h"
 #include "unsorted.h"
 
-extern const unk8 Str_875533C[];
-extern const unk8 Str_8755344[];
-
 typedef struct UnkKeyInput {
     unk32 unk0; /* 0x00 */
     unk32 unk4; /* 0x04 */
@@ -209,10 +206,10 @@ void sub_805AB6C(void)
     lineCount = 0;
     data = _keyRecordingBlock->address;
     while (count-- != 0) {
-        printf(Str_875533C, *data);
+        printf("0x%x, ", *data);
         if (++lineCount == 30) {
             lineCount = 0;
-            printf(Str_8755344);
+            printf("\n");
         }
         data++;
     }

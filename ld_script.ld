@@ -282,7 +282,12 @@ SECTIONS {
 		asm/data1.s.o(.rodata);
 		src/memory.c.o(.rodata);
 		src/keystate.c.o(.rodata);
+		src/menu.c.o(.rodata);
 		src/strings4.c.o(.rodata);
+		src/geometry.c.o(.rodata);
+		src/render.c.o(.rodata);
+		src/strings_875566c.c.o(.rodata);
+		src/multiplayer.c.o(.rodata);
 		src/sprite.c.o(.rodata);
 		src/strings7.c.o(.rodata);
 		src/sound.c.o(.rodata);

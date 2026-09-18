@@ -9,18 +9,6 @@
 #include "system.h"
 #include "unsorted.h"
 
-extern const unk8 Str_87553D0[];
-extern const unk8 Str_875540C[];
-extern const unk8 Str_8755440[];
-extern const unk8 Str_8755474[];
-extern const unk8 Str_87554B4[];
-extern const unk8 Str_87554F0[];
-extern const unk8 Str_87554F4[];
-extern const unk8 Str_8755530[];
-extern const unk8 Str_875557C[];
-extern const unk8 Str_87555A8[];
-extern const unk8 Str_87555F0[];
-
 void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable* geometry)
 {
     s16 count;
@@ -33,7 +21,7 @@ void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable*
     count = geometry->count.splineCount;
     if (geometry->count.splineCount > 0x40) {
         count = 0x40;
-        nullsub_8(Str_87553D0);
+        nullsub_8("Spline count for collision data exceeds maximum available");
     }
     for (i = 0; i < count; i++) {
         arg0->unk14[i] = GetSplineAtIndex(arg0, i);
@@ -76,7 +64,7 @@ void newCollisionDataRam(
         addresses->block = NULL;
     }
     if (addresses->block == NULL) {
-        printf(Str_875540C, bytes);
+        printf("Error allocating %i bytes in newCollisionDataRam\n", bytes);
     } else {
         cursor = addresses->block->address;
         if ((normalizedFlags & 1) != 0) {
@@ -92,7 +80,7 @@ void newCollisionDataRam(
     count = addresses->unk0->count.splineCount;
     if (addresses->unk0->count.splineCount > 0x40) {
         count = 0x40;
-        nullsub_8(Str_87553D0);
+        nullsub_8("Spline count for collision data exceeds maximum available");
     }
     for (i = 0; i < (s16)count; i++) {
         addresses->unk14[i] = GetSplineAtIndex(addresses, i);
@@ -318,13 +306,14 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
     block = slowAllocate(allocationSize);
     quadTree->block24 = block;
     if (block == NULL) {
-        printf(Str_8755440, allocationSize);
+        printf("Error allocating %i bytes for CollisionQuadtree\n", allocationSize);
     } else {
         __fastMemoryClearARM(0, block->address, block->size);
         allocationSize = arg5 << 2;
         quadTree->block28 = slowAllocate(allocationSize);
         if (quadTree->block28 == NULL) {
-            printf(Str_8755474, allocationSize);
+            printf(
+                "Error allocating %i bytes for CollisionQuadtree dynamic areas\n", allocationSize);
         } else {
             quadTree->unk4C = quadTree->block28->address;
             nodes = quadTree->block24->address;
@@ -348,10 +337,12 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
             quadTree->unk14[3] = initQuadTreeNode(
                 quadTree, quadTree->unk14[3], centerX, centerY, maxX, maxY, arg6);
             if (quadTree->unk3A >= quadTree->unk40) {
-                nullsub_10(Str_87554B4, quadTree->unk40, Str_87554F0, quadTree->unk3A);
+                nullsub_10("Not enough space allocated for Quad-tree entries; required ",
+                    quadTree->unk40, ", ", quadTree->unk3A);
             }
             if (quadTree->unk38 >= quadTree->unk3E) {
-                nullsub_9(Str_87554F4, quadTree->unk38);
+                nullsub_9(
+                    "Not enough space allocated for Quad-tree nodes; required ", quadTree->unk38);
             }
             allocateDynamicBoundingAreas(quadTree, geometry);
             quadTree->unk42 = (quadTree->unk40 - quadTree->unk3A) >> 1;
@@ -527,7 +518,9 @@ void allocateDynamicBoundingAreas(QuadTree* quadTree, LevelGeometryAddresses* ge
             *output++ = index;
             count += 1;
             if (count > max) {
-                printf(Str_8755530, max);
+                printf(
+                    "Error adding dynamic BoundingAreas to quadtree, exceeded the allocated %i\n",
+                    max);
                 break;
             }
             index++;
@@ -625,7 +618,7 @@ QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX,
                         quadTree->unk30[dynamicIndex] = line;
                         dynamicIndex += 1;
                     } else {
-                        printf(Str_875557C);
+                        printf("Warning: quadtree BoundingArea overflow\n");
                     }
                     selectedCount += 1;
                 }
@@ -646,7 +639,7 @@ QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX,
         node->unk28 = 0;
         node->unk2A = 0;
         if (quadTree->unk38 + 4 >= quadTree->unk3E) {
-            printf(Str_87555A8);
+            printf("Warning: not enough nodes available to subdivide the quadtree further\n");
         }
         node->unk0 = &quadTree->unk2C[quadTree->unk38++];
         node->unk4 = &quadTree->unk2C[quadTree->unk38++];
@@ -664,7 +657,9 @@ QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX,
     node->unk10 = quadTree->unk30 + quadTree->unk3A;
     quadTree->unk3A = dynamicIndex;
     if (selectedCount > 0x20) {
-        printf(Str_87555F0, selectedCount, 0x20);
+        printf(
+            "Warning: %i areas added to quadtree node; this exceeds the warning threshold (%i)\n",
+            selectedCount, 0x20);
     }
     if (selectedCount == 0) {
         return NULL;

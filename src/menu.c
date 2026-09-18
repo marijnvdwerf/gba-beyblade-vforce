@@ -8,9 +8,6 @@
 #include "system.h"
 #include "unsorted.h"
 
-extern const unk8 Str_8755370[];
-extern const unk8 Str_8755348[];
-
 MenuCallbackRecord* sub_805AC28(
     void (*arg0)(MenuCallbackRecord*), unk32 arg1, unk32 arg2, unk16 arg3)
 {
@@ -18,7 +15,7 @@ MenuCallbackRecord* sub_805AC28(
 
     data = slowAllocate(sizeof(MenuCallbackRecord))->address;
     if (data == NULL) {
-        nullsub_8(Str_8755348);
+        nullsub_8("Error Allocating memory for a Process\n");
         return NULL;
     }
     data->unkC = arg1;
@@ -155,7 +152,7 @@ void allocateMenuItems(MenuState* state, const MenuItemDescriptor* descriptor, u
     state->objectCount = itemCount + enabledCount;
     state->unk10 = slowAllocate((itemCount + enabledCount) * sizeof(UnkMenuItem));
     if (state->unk10 == NULL) {
-        printf(Str_8755370);
+        printf("allocateMenuItems : slowAllocate failed\n");
     }
     state->items = state->unk10->address;
     item = state->items;
