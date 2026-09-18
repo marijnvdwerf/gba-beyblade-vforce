@@ -164,7 +164,24 @@ void sub_8041364(LevelSelectState* state)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8041390.s");
+void sub_8041390(LevelSelectState* state, s32 x)
+{
+    SpriteTextCleanup* row;
+
+    if (state->sprite != NULL) {
+        state->sprite->x = x + 0x1000;
+    }
+    row = state->rows[0];
+    sub_8061844(row, (x >> 8) + 8, row->y >> 8);
+    row = state->rows[1];
+    sub_8061844(row, (x >> 8) + 0x58, row->y >> 8);
+    row = state->rows[2];
+    sub_8061844(row, (x >> 8) + 0x58, row->y >> 8);
+    row = state->rows[3];
+    sub_8061844(row, (x >> 8) + 0x58, row->y >> 8);
+    row = state->rows[4];
+    sub_8061844(row, (x >> 8) + 0x58, row->y >> 8);
+}
 
 extern s32 _300002C;
 extern s32 _3000030;
