@@ -994,10 +994,13 @@ typedef struct SplineMotionFlags {
     unk8 unk0_3 : 1;
 } SplineMotionFlags;
 
+struct GeometrySplineIntersection;
+
 typedef struct ActorSplineCallbacks {
-    unk8 pad0[4];
+    unk8 (*unk0)(Actor*, struct LevelGeometryAddresses*, GeometrySpline*, s32, GeometrySplineLine*,
+        struct GeometrySplineIntersection*);
     void (*unk4)(Actor*, struct LevelGeometryAddresses*, s32);
-    void (*unk8)(Actor*, struct LevelGeometryAddresses*, GeometrySpline*, s32, s32);
+    unk8 (*unk8)(Actor*, struct LevelGeometryAddresses*, GeometrySpline*, s32, s32);
     void (*unkC)(Actor*, struct LevelGeometryAddresses*, unk32);
 } ActorSplineCallbacks;
 

@@ -87,8 +87,8 @@ typedef struct Sub8052140Data {
 
 typedef struct QuadTreeSplineEntry {
     GeometrySpline* unk0;
-    unk16 unk4;
-    unk16 unk6;
+    s16 unk4;
+    s16 unk6;
 } QuadTreeSplineEntry;
 
 typedef struct QuadTreeNode {

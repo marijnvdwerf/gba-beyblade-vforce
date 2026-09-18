@@ -124,7 +124,27 @@ LineMetadata* GetLineMetaData(LevelGeometryAddresses* arg0, unk32 index)
     return metadata[index];
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805ba7c.s");
+LineMetadata* sub_805BA7C(LevelGeometryAddresses* addresses, GeometryLine* line)
+{
+    s32 i;
+    s32 count;
+    GeometryLine* current;
+
+    current = addresses->unkC;
+    if (addresses->unk114 == NULL) {
+        return NULL;
+    }
+    i = 0;
+    count = addresses->unk0->lineCount;
+    while (i < count) {
+        if (current == line) {
+            return addresses->unk114[i];
+        }
+        current++;
+        i++;
+    }
+    return NULL;
+}
 
 unk32 sub_805BAC0(LevelGeometryAddresses* geometry, GeometryLine* line)
 {
@@ -162,7 +182,24 @@ LineMetaObject* getLineMetaAtIndex(LevelGeometryAddresses* arg0, LineMetadata* m
     return object;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805bafc.s");
+LineMetaObject* sub_805BAFC(LevelGeometryAddresses* arg0, LineMetadata* metadata, unk32 id)
+{
+    LineMetaObject* object;
+    s32 count;
+    s32 index;
+
+    index = 0;
+    object = metadata->objects;
+    if (metadata == NULL)
+        return NULL;
+    count = metadata->count;
+    for (; index < count; index++) {
+        if (object->id == id)
+            return object;
+        object = (LineMetaObject*)((unk8*)object + object->size);
+    }
+    return NULL;
+}
 
 LineMetaObject* getLineMetaObjectBytype(
     LevelGeometryAddresses* arg0, LineMetadata* metadata, unk32 type)
@@ -717,7 +754,27 @@ void sub_805C3BC(LevelGeometryAddresses* geometry, Actor* actor, unk32 splineInd
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805c444.s");
+unk32 sub_805C444(LevelGeometryAddresses* geometry, Actor* actor, unk32 pointIndex)
+{
+    SplineConnection connection;
+    unk32 result;
+    unk32 position;
+
+    result = sub_805DBF0(geometry, &connection, NULL, 1, pointIndex) << 16; // TODO: fakematch?
+    if (result != 0) {
+        if (connection.unk0->pointCount <= 1) {
+            result = 0;
+        } else {
+            position = connection.unk4 << 10;
+            if (connection.unk4 == connection.unk0->pointCount - 1) {
+                position -= 0x10;
+            }
+            sub_805C3BC(geometry, actor, connection.unk8, position);
+            result = 1;
+        }
+    }
+    return result;
+}
 
 unk32 actor_805C48C(
     Actor* actor, LevelGeometryAddresses* geometry, GeometryLine** output, unk16 capacity)
@@ -1401,9 +1458,67 @@ unk8 call_rider_94_8(Actor* rider, LevelGeometryAddresses* geometry, GeometryLin
     return result;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805d430.s");
+void sub_805D488(Actor*, LevelGeometryAddresses*, s32, s32, s32, s32);
+
+void sub_805D430(Actor* actor, LevelGeometryAddresses* geometry)
+{
+    s32 x;
+    s32 y;
+    s32 endpointX;
+    s32 endpointY;
+
+    if (actor->unk84 == -1) {
+        x = actor->x + (actor->unk9A << 8);
+        y = actor->y + (actor->unk9C << 8);
+        endpointX = x + actor->unk40 + actor->unk4C;
+        endpointY = y + actor->unk44 + actor->unk50;
+        sub_805D488(actor, geometry, x, y, endpointX, endpointY);
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805d488.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805d548.s");
+
+typedef struct GeometrySplineIntersection {
+    unk8 pad0[0xC];
+    unk32 unkC;
+    unk32 unk10;
+    unk8 pad14[4];
+} GeometrySplineIntersection;
+
+unk8 sub_805E320(
+    LevelGeometryAddresses*, GeometrySplineIntersection*, s32, s32, s32, s32, GeometrySpline*, s16);
+
+void sub_805D548(Actor* actor, LevelGeometryAddresses* geometry, QuadTreeNode* node, s32 x0, s32 y0,
+    s32 x1, s32 y1)
+{
+    QuadTreeSplineEntry* entry;
+    GeometrySplineIntersection result;
+    s32 i;
+    GeometrySpline* spline;
+    GeometrySplineLine* lines;
+    ActorSplineCallbacks* callbacks;
+
+    entry = node->unk14;
+    if (actor->unk84 == -1) {
+        for (i = 0; i < node->unk2A; i++) {
+            spline = entry->unk0;
+            if (sub_805E320(
+                    geometry, &result, x0 >> 5, y0 >> 5, x1 >> 5, y1 >> 5, spline, entry->unk4)
+                == 1) {
+                lines = (GeometrySplineLine*)&spline->pointIndices[spline->pointCount];
+                if ((actor->unk8D & 1) == 0) {
+                    sub_805C3BC(geometry, actor, i, (result.unk10 << 10) + result.unkC);
+                }
+                if (actor->callbacks.unk0 != NULL) {
+                    callbacks = actor->callbacks.unk0;
+                    callbacks->unk0(
+                        actor, geometry, spline, entry->unk6, &lines[result.unk10], &result);
+                }
+            }
+            entry++;
+        }
+    }
+}
 
 void sub_805D610(Actor* actor)
 {
@@ -1585,7 +1700,15 @@ void sub_805D650(Actor* actor)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805db6c.s");
+GeometryLine* sub_805DB6C(LevelGeometryAddresses* arg0, s32 arg1)
+{
+    GeometryLine* lines;
+
+    lines = arg0->unkC;
+    if (arg1 < arg0->unk0->lineCount)
+        return &lines[arg1];
+    return NULL;
+}
 
 GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses* arg0, s32 arg1)
 {
@@ -1693,7 +1816,22 @@ unk32 sub_805DBF0(LevelGeometryAddresses* geometry, SplineConnection* output,
     return count;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805dcd4-GetSplineLineAtIndex.s");
+GeometrySplineLine* GetSplineLineAtIndex(
+    LevelGeometryAddresses* arg0, s32 splineIndex, s32 lineIndex)
+{
+    GeometrySpline* spline;
+    GeometrySplineLine* lines;
+    s32 count;
+
+    spline = GetSplineAtIndex(arg0, splineIndex);
+    if (spline == NULL)
+        return NULL;
+    count = spline->pointCount;
+    lines = (GeometrySplineLine*)&spline->pointIndices[count];
+    if (lineIndex >= count)
+        return NULL;
+    return &lines[lineIndex];
+}
 
 GeometrySplineLine* sub_805DCFC(LevelGeometryAddresses* arg0, GeometrySpline* spline, s32 index)
 {
@@ -1866,8 +2004,47 @@ unk32* sub_805E514(unk32* arg0, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4)
 INCLUDE_ASM("asm/dump/8057b80-debug/805e528.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e648.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e77c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805e7c0.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805e804.s");
+
+GeometryLine* sub_805E7C0(LevelGeometryAddresses* addresses, unk8 type, unk16 id)
+{
+    unk16 index;
+    GeometryLine* line;
+
+    line = addresses->unkC;
+    index = 0;
+    if (index < addresses->unk0->lineCount) {
+        do {
+            if (line->unkF != type || line->unk14 != id) {
+                line++;
+                index++;
+            } else {
+                return line;
+            }
+        } while (index < addresses->unk0->lineCount);
+    }
+    return NULL;
+}
+
+GeometryLine* sub_805E804(LevelGeometryAddresses* addresses, unk8 type, unk16 startIndex)
+{
+    unk16 index;
+    s32 count;
+    GeometryLine* line;
+
+    line = addresses->unkC + startIndex;
+    index = startIndex;
+    if (index < addresses->unk0->lineCount) {
+        count = addresses->unk0->lineCount;
+        do {
+            if (line->unkF == type) {
+                return line;
+            }
+            line++;
+            index++;
+        } while (index < count);
+    }
+    return NULL;
+}
 
 s32 GetLineIndexOfType(LevelGeometryAddresses* addresses, unk8 type, unk16 startIndex)
 {
