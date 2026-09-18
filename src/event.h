@@ -3,6 +3,8 @@
 
 #include "common.h"
 
+void processMetadata_6(
+    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
 void initEventListeners(unk32);
 void deallocEventListeners(void);
 void handleEventListeners(LevelGeometryAddresses*, unk16);

@@ -5,6 +5,7 @@
 #include "collectable.h"
 #include "debug.h"
 #include "effects.h"
+#include "event.h"
 #include "gameinit.h"
 #include "gamestate.h"
 #include "geometry.h"
@@ -121,7 +122,135 @@ void sub_8055F04(Actor* actor, RiderBase* rider, GeometryLine* line, unk16 colli
     sub_804E154(rider, 0, 0);
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8055f2c-def_94_8_collision_8055F2C.s");
+unk8 def_94_8_collision_8055F2C(
+    Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line, unk16 collisionMask)
+{
+    CollisionResult result;
+    RiderBase* rider;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    GeometryPoint* lower;
+    GeometryPoint* upper;
+    unk16 distance;
+    unk32 lineIndex;
+    LineMetadata* metadata;
+    LineMetaObject* event;
+
+    rider = actor->unkB4.rider;
+    point0 = &geometry->unk4[line->point0];
+    point1 = &geometry->unk4[line->point1];
+    lower = point0->z < point1->z ? point0 : point1;
+    upper = point0->z > point1->z ? point0 : point1;
+    if (rider == NULL || (collisionMask & line->unk10) == 0) {
+        return 1;
+    }
+    switch (line->unkF) {
+    case 0x8C: {
+        s16 height;
+
+        height = line->unk16;
+        if (RiderHasFlag(rider, 0x4000000)) {
+            return 0;
+        }
+        if ((collisionMask & line->unk10) == 0) {
+            return 0;
+        }
+        if (height == 0 && upper->z != 0 && actor->z > (upper->z << 5)) {
+            return 0;
+        }
+        if (height > 0) {
+            if (actor->z < ((lower->z - (height << 3)) << 5)) {
+                return 0;
+            }
+            if (actor->z > ((lower->z + (height << 3)) << 5)) {
+                return 0;
+            }
+        }
+        if (height < 0 && actor->z > ((lower->z - (height << 3)) << 5)) {
+            return 0;
+        }
+        lineIndex = sub_805BAC0(geometry, line);
+        if (lineIndex == -1) {
+            return 0;
+        }
+        metadata = GetLineMetaData(geometry, lineIndex);
+        if (metadata == NULL) {
+            return 0;
+        }
+        event = getLineMetaObjectBytype(geometry, metadata, 6);
+        if (event == NULL) {
+            return 0;
+        }
+        SetRiderGlobal(rider);
+        processMetadata_6(geometry, line, lineIndex, metadata, event);
+        return 0;
+    }
+    case 0x9A: {
+        s16 height;
+
+        height = line->unk16;
+        if ((collisionMask & line->unk10) == 0) {
+            return 0;
+        }
+        if (height == 0 && upper->z != 0 && actor->z > (upper->z << 5)) {
+            return 0;
+        }
+        if (height > 0) {
+            if (actor->z < ((lower->z - (height << 3)) << 5)) {
+                return 0;
+            }
+            if (actor->z > ((lower->z + (height << 3)) << 5)) {
+                return 0;
+            }
+        }
+        if (height < 0 && actor->z > ((lower->z - (height << 3)) << 5)) {
+            return 0;
+        }
+        lineIndex = sub_805BAC0(geometry, line);
+        if (lineIndex == -1) {
+            return 0;
+        }
+        metadata = GetLineMetaData(geometry, lineIndex);
+        if (metadata == NULL) {
+            return 0;
+        }
+        event = getLineMetaObjectBytype(geometry, metadata, 6);
+        if (event == NULL) {
+            return 0;
+        }
+        SetRiderGlobal(rider);
+        processMetadata_6(geometry, line, lineIndex, metadata, event);
+        return 0;
+    }
+    case 0x8D:
+        distance = line->unk16;
+        if (actor->z < ((lower->z - (distance << 3)) << 5)) {
+            return 0;
+        }
+    default:
+        if ((collisionMask & 0x66) != 0) {
+            if ((upper->z << 5) - actor->z > -0x300) {
+                rider->unk88 = 0xDC;
+                actor->z = upper->z << 5;
+            }
+            return 0;
+        }
+        if (point0->z != 0 || point1->z != 0) {
+            if ((line->unk11 & 4) == 0) {
+                sub_80567E4(geometry, line, actor, &result);
+            } else {
+                sub_8056910(geometry, line, actor, &result);
+            }
+            if (result.unk8 - 0xC00 < actor->z) {
+                return 0;
+            }
+        }
+        return 1;
+    case 0x8E:
+    case 0x90:
+        return 0;
+    }
+}
 
 void nullsub_6(Actor* actor, RiderBase* rider)
 {
