@@ -482,7 +482,23 @@ u8 showNumber_2(SpriteTextCleanup* arg0, unk32 arg1, u8 arg2)
     return showNumber(arg0, arg1, arg2);
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/80619a4.s");
+u8 sub_80619A4(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
+{
+    unk32 remainder;
+    unk8 result;
+    unk8 mode;
+
+    mode = arg2;
+    result = 1;
+    remainder = DivRem(arg1, 60);
+    result &= showNumber(arg0, Div(arg1, 60), mode);
+    result &= showString(arg0, Str_8755B84, mode);
+    if (remainder <= 9) {
+        result &= showNumber(arg0, 0, mode);
+    }
+    result &= showNumber(arg0, remainder, arg2);
+    return result;
+}
 
 u8 printTime(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
 {
@@ -513,8 +529,53 @@ u8 printTime(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
     return result;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8061ae8.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8061ba0.s");
+u8 sub_8061AE8(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
+{
+    unk32 seconds;
+    unk32 fraction;
+    unk32 remainder;
+    unk8 result;
+    unk8 mode;
+    unk32 divisor;
+
+    mode = arg2;
+    result = 1;
+    divisor = 1000;
+    seconds = Div(arg1, divisor);
+    fraction = DivRem(arg1, divisor) / 100;
+    remainder = DivRem(seconds, 60);
+    result &= showNumber(arg0, Div(seconds, 60), mode);
+    result &= showString(arg0, Str_8755B84, mode);
+    if (remainder <= 9) {
+        result &= showString(arg0, Str_8755B88, mode);
+    }
+    result &= showNumber(arg0, remainder, arg2);
+    result &= showString(arg0, Str_8755B8C, arg2);
+    result &= showNumber(arg0, fraction, arg2);
+    return result;
+}
+
+u8 sub_8061BA0(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
+{
+    unk32 seconds;
+    unk32 fraction;
+    unk32 remainder;
+    unk8 result;
+    unk8 mode;
+    unk32 divisor;
+
+    mode = arg2;
+    result = 1;
+    divisor = 1000;
+    seconds = Div(arg1, divisor);
+    fraction = DivRem(arg1, divisor) / 100;
+    remainder = DivRem(seconds, 60);
+    Div(seconds, 60);
+    result &= showNumber(arg0, remainder, mode);
+    result &= showString(arg0, Str_8755B8C, mode);
+    result &= showNumber(arg0, fraction, mode);
+    return result;
+}
 
 u8 sub_8061C24(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
 {
