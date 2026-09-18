@@ -245,7 +245,38 @@ void sub_80653B0(SpriteString* string)
 
 INCLUDE_ASM("asm/dump/8064f38/80653d8.s");
 
-INCLUDE_ASM("asm/dump/8064f38/8065508.s");
+void sub_8065508(SpriteString* string)
+{
+    s32 value;
+    u16 i;
+    unk32 remainder;
+    unk32 index;
+    Actor* actor;
+
+    value = string->x;
+    i = 0;
+    while (i < string->count) {
+        actor = &string->actors[i];
+        actor->unk70 = 0;
+        i++;
+    }
+    if (value < 0) {
+        value = -value;
+    }
+    remainder = DivRem(value, 60);
+    sub_80655C0(string, remainder, string->count - 1, 2, 1);
+    value = Div(value, 60);
+    index = string->count;
+    ActorSetFrame(&string->actors[index - 3], 0, byte_807D980[':']);
+    string->actors[string->count - 3].unk70 = -1;
+    if (value != 0) {
+        remainder = DivRem(value, 60);
+    } else {
+        remainder = 0;
+    }
+    sub_80655C0(string, remainder, string->count - 4, 2, 0);
+}
+
 INCLUDE_ASM("asm/dump/8064f38/80655c0.s");
 
 void sub_80656B8(SpriteString* string)
