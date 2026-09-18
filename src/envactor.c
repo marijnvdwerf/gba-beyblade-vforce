@@ -455,7 +455,22 @@ void sub_8054FE0(void)
     _gameData->environmentActors.points = NULL;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80550b8.s");
+unk8 sub_80550B8(Actor* actor, LevelGeometryAddresses* geometry, GeometrySpline* spline,
+    s32 lineIndex, s32 pointIndex)
+{
+    EnvironmentObject* object;
+
+    object = GetStruct4(actor->unkB4.lineIndex);
+    if (pointIndex == 0 || pointIndex == spline->pointCount - 1) {
+        object->unk2C = actor->unk40;
+        object->unk30 = actor->unk44;
+        object->unk34 = actor->unk48;
+        object->unk38 = object->unk3A;
+        actor->unk40 = 0;
+        actor->unk44 = 0;
+        actor->unk48 = 0;
+    }
+}
 
 void initProjectileSystem(void)
 {

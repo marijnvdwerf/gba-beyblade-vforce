@@ -4,7 +4,7 @@
 #include "common.h"
 
 void initLevelEnvironmentActors(u16);
-void sub_80550B8(void);
+unk8 sub_80550B8(Actor*, LevelGeometryAddresses*, GeometrySpline*, s32, s32);
 void renderEnvironmentActors(void);
 void updateEnvirenmentActors(void);
 void initProjectileSystem(void);
