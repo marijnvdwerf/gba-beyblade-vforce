@@ -192,7 +192,9 @@ void sub_804AB50(UnkTrail* arg0, unk16 arg1)
     arg0->unk2C = value & 0xF;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804ab60-nullsub_39.s");
+void nullsub_39(void)
+{
+}
 
 void sub_804AB64(UnkTrail* trail, SpriteTrailEntry* entry, unk32 index)
 {
