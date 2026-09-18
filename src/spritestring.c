@@ -193,44 +193,34 @@ void sub_806530C(SpriteString* string)
     }
 }
 
-#if 0
-unk32 sub_8065334(SpriteString* string)
+s32 sub_8065334(SpriteString* string)
 {
     unk16 textOffset;
-    unk32 total;
+    s32 total;
     unk16 index;
-    unk8 count;
-    const unk8* text;
     Actor* actor;
 
     textOffset = 0;
     total = 0;
     index = 0;
-    count = string->count;
-    if ((unk32)total < count) {
-        text = string->text;
-        do {
-            actor = &string->actors[index];
-            if (text != NULL && text[index + textOffset] == ' ') {
-                total += 5;
-                textOffset++;
+    while (index < string->count) {
+        actor = &string->actors[index];
+        if (string->text != NULL && string->text[index + textOffset] == ' ') {
+            total += 5;
+            textOffset++;
+        }
+        if (actor->unk70 != 0) {
+            if (string->widthTable != NULL) {
+                total += actor->unk10 - string->widthTable[actor->unk22];
+            } else {
+                total += actor->unk10;
             }
-            if (actor->unk70 != 0) {
-                if (string->widthTable != NULL) {
-                    total += actor->unk10 - string->widthTable[actor->unk22];
-                } else {
-                    total += actor->unk10;
-                }
-            }
-            index++;
-        } while (index < count);
+        }
+        index++;
     }
     total = (string->scaleX * total) >> 8;
     return total;
 }
-#else
-INCLUDE_ASM("asm/dump/8064f38/8065334.s");
-#endif
 
 void sub_80653B0(SpriteString* string)
 {

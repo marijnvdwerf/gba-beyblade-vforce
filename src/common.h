@@ -676,7 +676,7 @@ struct SpriteString {
     unk32 unk18;
     unk8 pad1C[4];
     unk32 width;
-    unk16 scaleX;
+    s16 scaleX;
     unk16 scaleY;
     const u8* widthTable;
     unk32 timer;
