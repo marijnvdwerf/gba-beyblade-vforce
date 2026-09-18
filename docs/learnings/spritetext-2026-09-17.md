@@ -31,3 +31,10 @@
 - Only `s32 result` and `s32 base` locals are needed; direct `arg0->unk8 & 3`, `arg0->unkC & ~1`, and direct case-local `next`/width accesses reproduce the target's register allocation and all instructions. Folding the mode, width, and sprite-pointer aliases and inlining the case-two mask were byte-neutral; combining the case-one adjustment was not.
 - The signed `s8` `unk29` field is proven by the target `ldrb; lsl #24; asr #24` sequence. The signed `s32` result and arithmetic right shift reproduce the target midpoint calculation. An explicit `default: break` is also byte-neutral.
 - `bun run tools/diff/diff.ts sub_8061CB4` reports every instruction equal; the final US ROM SHA1 comparison passes with `cd527c8c24e20e33913fc45199e64b3e6138a6e5`.
+
+## sub_8061E9C (0x08061E9C)
+
+- The formatter calls this helper as `unk8* sub_8061E9C(unk8*, unk32, unk32, unk8, s32, unk8)`. The fourth and sixth arguments are byte-normalized at entry; the fifth argument is a signed width/limit because the target uses `ble`, `bgt`, and `ble` around its clamp and zero-padding loops.
+- A 16-byte local buffer and a moving byte cursor are required. The helper emits radix digits least-significant first, optionally zero-pads to the remaining signed width, then walks the cursor backward and forwards each byte through `sub_8061E94`.
+- `s32 digit` is required for the signed `bgt` comparison against 9; the unsigned trial emitted `bhi`. `while (arg4-- > 0)` reproduces the target's pre-decrement signed padding loop exactly.
+- `bun run tools/diff/diff.ts sub_8061E9C` reports every instruction equal; the final US ROM SHA1 comparison passes with `cd527c8c24e20e33913fc45199e64b3e6138a6e5`.

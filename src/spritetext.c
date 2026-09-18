@@ -734,7 +734,43 @@ unk8* sub_8061E94(unk8* ptr, unk8 value)
     return ptr + 1;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8061e9c.s");
+unk8* sub_8061E9C(unk8* out, unk32 value, unk32 radix, unk8 zeroPad, s32 width, unk8 uppercase)
+{
+    unk8 buffer[16];
+    unk8* ptr;
+    s32 digit;
+
+    ptr = buffer;
+    if (width > 0x10) {
+        width = 0x10;
+    }
+    do {
+        digit = value % radix;
+        value /= radix;
+        if (digit <= 9) {
+            digit += '0';
+        } else if (uppercase != 0) {
+            digit += 'A' - 10;
+        } else {
+            digit += 'a' - 10;
+        }
+        *ptr++ = digit;
+        if (value != 0) {
+            width--;
+        }
+    } while (value != 0 && width != 0);
+    if (zeroPad != 0) {
+        while (width-- > 0) {
+            *ptr++ = '0';
+        }
+    }
+    while (ptr > buffer) {
+        ptr--;
+        out = sub_8061E94(out, *ptr);
+    }
+    return out;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8061f3c.s");
 
 unk32 sub_80622D0(SpriteTextCleanup* arg0, unk8 arg1, const unk8* arg2, ...)
