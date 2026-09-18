@@ -272,7 +272,8 @@ void sub_80656B8(SpriteString* string)
     }
 }
 
-void sub_806570C(SpriteString* string, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 step)
+void sub_806570C(
+    SpriteString* string, ActorTimerCallback arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 step)
 {
     u16 i;
     unk32 offset;
@@ -286,8 +287,8 @@ void sub_806570C(SpriteString* string, unk32 arg1, unk32 arg2, unk32 arg3, unk32
     }
 }
 
-void sub_8065760(SpriteString* string, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 step,
-    unk32 maxCount)
+void sub_8065760(SpriteString* string, ActorTimerCallback arg1, unk32 arg2, unk32 arg3, unk32 arg4,
+    unk32 step, unk32 maxCount)
 {
     u16 i;
     u16 count;

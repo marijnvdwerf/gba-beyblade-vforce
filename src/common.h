@@ -590,10 +590,12 @@ typedef struct Actor {
     void (*unkC0)(struct Actor*, s32); /* 0xC0 */
 } Actor;
 
+typedef void (*ActorTimerCallback)(void*, void*);
+
 struct ActorTimerEntry {
     s32 unk0;
     s32 unk4;
-    void (*unk8)(void*, void*);
+    ActorTimerCallback unk8;
     unk32 unkC;
 };
 

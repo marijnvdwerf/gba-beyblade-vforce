@@ -7,14 +7,18 @@
 #include "layer.h"
 #include "memory.h"
 #include "sprite.h"
+#include "system.h"
 #include "unsorted.h"
 
 void sub_80581B8(Actor*);
+const ActorFrameSequence* GetSpriteSheetStructA(Actor*, unk32);
+const unk16* sub_8058924(const SpriteSheet*);
 void actor_80580C0(Actor*, unk16, unk16);
 void ActorSetFrameSequence(Actor*, unk32);
 void sub_8058838(Actor*);
 void actor_8058638(Actor*);
 void renderActor(Actor*, unk32);
+extern const char Str_872CBCC[];
 
 void actor_8057C58(Actor* actor, const SpriteSheet* config, BGLayer* arg2, unk32 arg3, unk32 arg4,
     unk32 arg5, unk32 arg6)
@@ -157,7 +161,38 @@ void sub_8057FAC(Actor* actor, const Actor* source, unk32 x, unk32 y, unk32 z)
     actor->unk6C = source;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8057fdc.s");
+s32 sub_8057FDC(Actor* actor, s32 sequenceIndex)
+{
+    const ActorFrameSequence* sequence;
+    const SpriteSheet* sheet;
+    const unk16* extras;
+    unk32 frameCount;
+    unk32 total;
+    unk32 remaining;
+    unk16 frameOffset;
+    s32 sheetCount;
+    const unk16* cursor;
+
+    sheet = actor->unk0;
+    sequence = GetSpriteSheetStructA(actor, sequenceIndex);
+    extras = sub_8058924(sheet);
+    frameCount = sequence->unk2;
+    total = sequence->unk4 * frameCount;
+    frameOffset = sequence->unk0;
+    sheetCount = sheet->unk8;
+    if (sequenceIndex >= sheetCount) {
+        return 0;
+    }
+    if (extras != NULL && (actor->unk98 & 4) == 0 && frameCount != 0) {
+        cursor = extras + frameOffset;
+        remaining = frameCount;
+        do {
+            total += *cursor++;
+            remaining--;
+        } while (remaining != 0);
+    }
+    return total;
+}
 
 ActorSequenceEntry* sub_8058038(Actor* actor, unk16 sequence)
 {
@@ -410,7 +445,45 @@ void sub_8058390(Actor* actor, unk16 sequence, unk16 frame, unk16 callbackSequen
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/80583dc-ActorSetFrame.s");
+void ActorSetFrame(Actor* actor, unk32 sequence, unk16 frameIndex)
+{
+    const SpriteSheet* config;
+    const ActorFrameSequence* sequenceData;
+    const ActorFrame* frameData;
+    unk32 value;
+    unk8 flags;
+    unk16 frameOffset;
+    unk16 frameCount;
+
+    sequenceData = GetSpriteSheetStructA(actor, sequence);
+    config = actor->unk0;
+    value = config->unk0 << 1;
+    if ((value & 2) != 0) {
+        value += 2;
+    }
+    if ((config->unk7 & 0x10) != 0) {
+        frameData = (const ActorFrame*)((const unk8*)&config->sequences[config->unk8] + value);
+        if (frameData != NULL) {
+            frameData += sequence;
+            actor->unkA4 = frameData->unk0;
+            actor->unkA5 = frameData->unk1;
+        }
+    }
+    frameOffset = sequenceData->unk0;
+    frameCount = sequenceData->unk2;
+    if (frameIndex < frameCount) {
+        flags = sequenceData->unk7;
+        actor->unk32 = sequenceData->unk6;
+        actor->unk33 = flags;
+        actor->unk34 = sequenceData->unk4;
+        actor->unk36 = 0;
+        actor->unk26 = frameCount;
+        actor->unk20 = sequence;
+        actor->unk24 = 0;
+        actor->unk22 = frameOffset + frameIndex;
+        actor->unk31 = (flags & 0xC) >> 2;
+    }
+}
 
 void sub_8058478(Actor* actor, unk32 sequence)
 {
@@ -630,7 +703,60 @@ void sub_8058784(Actor* actor, unk8 arg1)
     actor->unk31 ^= arg1;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8058794.s");
+void sub_8058794(Actor* actor, ActorTimerCallback callback, unk32 arg2, unk32 arg3, unk32 arg4)
+{
+    AllocatedBlock* block;
+    ActorTimerEntry* entries;
+    ActorTimerEntry* cursor;
+    ActorTimerEntry* entry;
+    s32 firstFree;
+    s32 freeCount;
+    s32 index;
+
+    if (actor->unk74 == -1) {
+        actor->unk74 = 0;
+        block = slowAllocate(sizeof(ActorTimerEntry) * 4);
+        if (block == NULL) {
+            nullsub_8(Str_872CBCC);
+            return;
+        }
+        actor->unk7C = block;
+        actor->unk78 = block->address;
+    }
+    if (actor->unk74 > 3) {
+        firstFree = -1;
+        freeCount = 0;
+        index = 0;
+        entries = actor->unk78;
+        cursor = entries;
+        while (index <= 3) {
+            if (cursor->unk0 == 0) {
+                if (firstFree < 0) {
+                    firstFree = index;
+                }
+                freeCount++;
+            }
+            cursor++;
+            index++;
+        }
+        if (firstFree == -1) {
+            entry = entries;
+        } else {
+            entry = &entries[firstFree];
+        }
+        if (freeCount == 4) {
+            actor->unk74 = 0;
+            entry = entries;
+        }
+    } else {
+        entry = &actor->unk78[actor->unk74];
+    }
+    entry->unk8 = callback;
+    entry->unk0 = arg3;
+    entry->unk4 = arg4;
+    entry->unkC = arg2;
+    actor->unk74++;
+}
 
 void sub_8058838(Actor* actor)
 {
