@@ -4,10 +4,15 @@
 #include <agb/macro.h>
 #include <agb/memory_map.h>
 
+#include <string.h>
+
 #include "include_asm.h"
 #include "math.h"
+#include "memory.h"
+#include "system.h"
 #include "unsorted.h"
 
+extern const unk8 Str_872CC00[];
 extern u8 _unk3000DE0;
 extern const s16 Unk_874CC3C[];
 extern s16 Unk_872CC3C[];
@@ -25,6 +30,9 @@ extern void (*__sub_8756FC0)(BGLayer*, unk32, unk32, unk32, unk32, s32, unk32);
 extern void (*__sub_8757380)(BGLayer*, unk32, unk32, unk32, unk32);
 
 void sub_80594FC(BGLayer*, unk32, unk32, unk32, unk32, s32, unk32);
+void sub_8059E5C(BGLayer*, unk32, unk8, unk32, unk32, s32);
+
+extern const unk8 GlyphIndexes[];
 
 void sub_8058968(
     BGLayer* layer, u8 layerIndex, TileMapHeader* header, u16 bgPriority, u16 flags, s32 x, s32 y)
@@ -89,7 +97,7 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
     u32 var0;
     u8 colorMode;
     unk32 tileBlocks;
-    vu16* layerCnt;
+    BGControl* layerCnt;
 
     bgLayer->var68 = header;
     bgLayer->var64 = header->var18;
@@ -171,7 +179,7 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
     }
 
     layerCnt = GetBGLayerCntPtr(layerIndex);
-    *layerCnt = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
+    layerCnt->half = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
         | ((bgPriority) << BG_PRIORITY_SHIFT)
         | ((bgLayer->characterBaseBlock) << BG_CHAR_BASE_SHIFT) | (((colorMode & 1) ^ 0x1) << 7);
 }
@@ -181,7 +189,7 @@ void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriorit
     u32 var0;
 
     unk32 tileBlocks;
-    vu16* layerCnt;
+    BGControl* layerCnt;
     void* dest;
 
     bgLayer->var68 = NULL;
@@ -269,12 +277,44 @@ void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriorit
     __fastMemoryClearARM(0, dest, var0);
 
     layerCnt = GetBGLayerCntPtr(layerIndex);
-    *layerCnt = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
+    layerCnt->half = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
         | ((bgPriority) << BG_PRIORITY_SHIFT)
         | ((bgLayer->characterBaseBlock) << BG_CHAR_BASE_SHIFT);
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8058e18.s");
+void sub_8058E18(BGLayer* layer, TileMapHeader* header)
+{
+    s32 width;
+    s32 height;
+    Struct3000CA0* object;
+
+    layer->var68 = header;
+    layer->tileAddr = (unk8*)header + header->tileOffset;
+    layer->tileBytes = header->tileBytes;
+    layer->mapAddr = (unk8*)header + header->mapOffset;
+    layer->mapBytes = header->mapBytes;
+    object = &_unk3000CA0[layer->layerIndex];
+    layer->var8 = object;
+    object->var10 = 0;
+    object->var14 = 0;
+    object->var00 = 0;
+    object->var08 = (1 << layer->field_5F) - 1;
+    object->var04 = 0;
+    object->var0C = (1 << layer->field_60) - 1;
+    DmaCopy(3, layer->tileAddr, VRAM + (layer->characterBaseBlock << 14), layer->tileBytes, 32);
+    width = 1 << layer->field_5F;
+    height = 1 << layer->field_60;
+    if (layer->columnCount < width) {
+        width = layer->columnCount;
+    }
+    if (layer->rowCount < height) {
+        height = layer->rowCount;
+    }
+    if ((layer->var64 & 2) == 0) {
+        sub_8059310(
+            layer, object->var00, object->var04, object->var10, object->var14, width, height);
+    }
+}
 
 void sub_8058EF4(BGLayer* arg0)
 {
@@ -347,10 +387,116 @@ void sub_8058F60(BGLayer* layer)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8059058-allocateActorMotionModifiers.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8059110.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8059184-nullsub_24.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8059188.s");
+void allocateActorMotionModifiers(
+    BGLayer* layer, BGLayerCallback callback, unk32 value, unk32 duration, unk32 callbackValue)
+{
+    BGLayerCallbackData* target;
+    AllocatedBlock* block;
+    s32 index;
+    s32 used;
+    s32 i;
+
+    if (layer->field_80 == -1) {
+        layer->field_80 = 0;
+        block = fastAllocate(sizeof(BGLayerCallbackData));
+        if (block == NULL) {
+            nullsub_8(Str_872CC00);
+            return;
+        }
+        layer->field_84 = block->address;
+    }
+    if (layer->field_80 > 0) {
+        index = -1;
+        used = 0;
+        for (i = 0; i < 1; i++) {
+            if (layer->field_84[i].unk0 == 0) {
+                if (index < 0) {
+                    index = i;
+                }
+                used++;
+            }
+        }
+        if (index == -1) {
+            target = layer->field_84;
+        } else {
+            target = layer->field_84 + index;
+        }
+        if (used == 1) {
+            layer->field_80 = 0;
+            target = layer->field_84;
+        }
+    } else {
+        target = layer->field_84 + layer->field_80;
+    }
+    target->callback = callback;
+    target->unk0 = value;
+    target->unk4 = duration;
+    target->unkC = callbackValue;
+    layer->field_80++;
+}
+
+void sub_8059110(BGLayer* layer)
+{
+    s32 i;
+    s32 count;
+    s32 delta;
+    BGLayerCallbackData* data;
+
+    count = layer->field_80;
+    if (count == -1) {
+        return;
+    }
+    for (i = 0; i < count; i++) {
+        data = layer->field_84 + i;
+        if (data->callback != NULL) {
+            if (data->unk0 != 0) {
+                if (data->unk4 <= 0) {
+                    data->callback(layer, data->unkC);
+                }
+            }
+        }
+        if (data->unk0 > 0) {
+            delta = _unk3000E30[0] - _unk3000E30[1];
+            if (data->unk4 > 0) {
+                data->unk4 -= delta;
+            } else {
+                data->unk0 -= delta;
+            }
+            if (data->unk0 < 0) {
+                data->unk0 = 0;
+            }
+        }
+    }
+}
+
+void nullsub_24(void)
+{
+}
+
+void sub_8059188(BGLayer* layer, BGLayer* source, unk8 layerIndex, unk16 bgPriority)
+{
+    Struct3000CA0* object;
+    unk32 count;
+
+    memcpy(layer, source, sizeof(*layer));
+    layer->layerIndex = layerIndex;
+    object = &_unk3000CA0[layerIndex];
+    layer->var8 = object;
+    memcpy(object, source->var8, sizeof(*object));
+    count = sub_8059284(layer, bgPriority, layer->var64) >> 11;
+    if (count == 0) {
+        count = 1;
+    }
+    _unk3000E3C -= count;
+    layer->screenBaseBlock = _unk3000E3C;
+    if ((layer->var64 & 1) == 0) {
+        __sub_8756FC0(layer, 0, 0, 0, 0, 1 << layer->field_5F, 1 << layer->field_60);
+    } else {
+        sub_80594FC(layer, 0, 0, 0, 0, 1 << layer->field_5F, 1 << layer->field_60);
+    }
+    GetBGLayerCntPtr(layerIndex)->half
+        = (layer->screenBaseBlock << 8) | bgPriority | (layer->characterBaseBlock << 2);
+}
 
 unk32 sub_8059284(BGLayer* bgLayer, unk16 bgPriority, unk16 flags)
 {
@@ -495,7 +641,30 @@ void sub_80594FC(BGLayer* layer, unk32 x, unk32 y, unk32 srcX, unk32 srcY, s32 w
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/80595fc.s");
+void sub_80595FC(BGLayer* layer, unk32 x, unk32 y, unk32 width, unk32 height, unk8 attr)
+{
+    unk16* address;
+    unk16 rowStride;
+    unk16 row;
+    unk16 col;
+    unk32 rowEnd;
+    unk32 colEnd;
+
+    address = (unk16*)(VRAM + (layer->screenBaseBlock << 11) + ((y << layer->field_5F) << 1));
+    rowStride = 1 << layer->field_5F;
+    if ((layer->var64 & 1) == 0) {
+        row = y;
+        rowEnd = y + height;
+        while (row < rowEnd) {
+            colEnd = x + width;
+            for (col = x; col < colEnd; col++) {
+                address[col] = (address[col] & 0xFFF) | (attr << 12);
+            }
+            address += rowStride;
+            row++;
+        }
+    }
+}
 
 void sub_80596AC(BGLayer* bgLayer, s32 deltaX, s32 deltaY)
 {
@@ -633,7 +802,14 @@ void sub_8059934(void)
     sub_8059B00(3, 0, 0x100, 0x100);
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8059994.s");
+unk8 sub_8059994(BGLayer* layer, unk16 mask)
+{
+    if ((mask & layer->var64) != 0) {
+        return 1;
+    } else {
+        return 0;
+    }
+}
 
 vu16* GetBGLayerHOffsetPtr(u8 layer)
 {
@@ -669,20 +845,20 @@ vu16* GetBGLayerVOffsetPtr(u8 layer)
     }
 }
 
-vu16* GetBGLayerCntPtr(u8 layer)
+BGControl* GetBGLayerCntPtr(u8 layer)
 {
     switch (layer) {
     case 0:
-        return (vu16*)REG_BG0CNT;
+        return (BGControl*)REG_BG0CNT;
 
     case 1:
-        return (vu16*)REG_BG1CNT;
+        return (BGControl*)REG_BG1CNT;
 
     case 2:
-        return (vu16*)REG_BG2CNT;
+        return (BGControl*)REG_BG2CNT;
 
     case 3:
-        return (vu16*)REG_BG3CNT;
+        return (BGControl*)REG_BG3CNT;
     }
 }
 
@@ -759,19 +935,26 @@ void sub_8059B00(u8 layer, u8 angle, u16 xAngle, u16 yAngle)
 
 void sub_8059C18(unk8 bg0, unk8 bg1, unk8 bg2, unk8 bg3)
 {
-    ((BGControl*)GetBGLayerCntPtr(0))->unk0_0 = bg0;
-    ((BGControl*)GetBGLayerCntPtr(1))->unk0_0 = bg1;
-    ((BGControl*)GetBGLayerCntPtr(2))->unk0_0 = bg2;
-    ((BGControl*)GetBGLayerCntPtr(3))->unk0_0 = bg3;
+    GetBGLayerCntPtr(0)->bits.unk0_0 = bg0;
+    GetBGLayerCntPtr(1)->bits.unk0_0 = bg1;
+    GetBGLayerCntPtr(2)->bits.unk0_0 = bg2;
+    GetBGLayerCntPtr(3)->bits.unk0_0 = bg3;
 }
 
 unk8 sub_8059CB4(BGLayer* layer)
 {
-    return ((BGControl*)GetBGLayerCntPtr(layer->layerIndex))->unk0_0;
+    return GetBGLayerCntPtr(layer->layerIndex)->bits.unk0_0;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8059cc8.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8059cf0.s");
+void sub_8059CC8(u8 layer, u8 mode)
+{
+    GetBGLayerCntPtr(layer)->bits.unk0_0 = mode;
+}
+
+unk8 sub_8059CF0(u8 layer)
+{
+    return GetBGLayerCntPtr(layer)->bits.unk0_0;
+}
 
 void ToggleLayerVisibility(u8 layer, bool8 enabled)
 {
@@ -814,8 +997,40 @@ void ToggleLayerVisibility(u8 layer, bool8 enabled)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8059db8.s");
+void sub_8059DB8(BGLayer* layer, unk32 column, unk32 row, unk16 data)
+{
+    unk16* address;
+
+    address = (unk16*)(VRAM + (layer->screenBaseBlock << 11));
+    address += (row << layer->field_5F) + column;
+    *address = data;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8059ddc.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8059e5c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8059ebc.s");
+
+void sub_8059EBC(BGLayer* layer, unk8* string, unk32 column, unk32 row)
+{
+    unk32 index;
+    unk32 currentColumn;
+    unk8 character;
+
+    currentColumn = column;
+    character = string[0];
+    index = 1;
+    while (character != 0) {
+        if (character == '\n') {
+            row += 2;
+            currentColumn = column;
+        } else {
+            if (character != ' ') {
+                sub_8059E5C(layer, 1, 2, currentColumn, row, GlyphIndexes[character]);
+            }
+            currentColumn++;
+        }
+        character = string[index];
+        index++;
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8059f20.s");

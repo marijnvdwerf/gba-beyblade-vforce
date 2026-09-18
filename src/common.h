@@ -154,6 +154,15 @@ typedef struct FrontendSubobject {
     struct FrontendSelectionPalette* palette;
 } FrontendSubobject;
 
+typedef void (*BGLayerCallback)(BGLayer*, unk32);
+
+typedef struct BGLayerCallbackData {
+    s32 unk0;
+    s32 unk4;
+    BGLayerCallback callback;
+    unk32 unkC;
+} BGLayerCallbackData;
+
 struct BGLayer {
     s32 columnCount;
     s32 rowCount;
@@ -193,8 +202,8 @@ struct BGLayer {
     u32 tileBytes;
     unk32 mapBytes;
     unk8 field_7C;
-    unk32 field_80;
-    unk32 field_84;
+    s32 field_80;
+    BGLayerCallbackData* field_84;
 };
 
 typedef struct FrontendState FrontendState;

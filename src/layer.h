@@ -29,9 +29,13 @@ typedef struct LayerTransformRecord {
     LayerTransformValue unk14;
 } LayerTransformRecord;
 
-typedef struct BGControl {
-    unk32 unk0_0 : 2;
-    unk32 unk0_2 : 30;
+typedef union BGControl {
+    struct {
+        unk32 unk0_0 : 2;
+        unk32 unk0_2 : 30;
+    } bits;
+
+    unk16 half;
 } BGControl;
 
 extern Struct3000CA0 _unk3000CA0[4];
@@ -41,13 +45,16 @@ void sub_8058968(BGLayer*, u8, TileMapHeader*, unk16, unk16, s32, s32);
 void sub_8058A28(BGLayer*, u8, TileMapHeader*, u16, u16);
 void sub_8058EF4(BGLayer*);
 void sub_8059934(void);
+void unref_8058C74(BGLayer*, u8, u16, u16);
 void sub_8058F60(BGLayer*);
 void sub_80596AC(BGLayer*, s32, s32);
-vu16* GetBGLayerCntPtr(u8 layer);
+BGControl* GetBGLayerCntPtr(u8 layer);
 vu16* GetBGLayerHOffsetPtr(u8 layer);
 vu16* GetBGLayerVOffsetPtr(u8 layer);
 unk8 sub_8059CB4(BGLayer*);
+void sub_8059CC8(u8, u8);
 void SetBGOffset(u8 layer, s32 x, s32 y);
+void ToggleLayerVisibility(u8 layer, bool8 enabled);
 void sub_8059B00(u8, u8, u16, u16);
 void sub_8059C18(unk8, unk8, unk8, unk8);
 
