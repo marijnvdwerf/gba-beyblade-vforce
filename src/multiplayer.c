@@ -91,7 +91,9 @@ unk8 sub_805FFE4(void)
     return 1;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/806003c-nullsub_47.s");
+void nullsub_47(void)
+{
+}
 
 unk8 sub_8060040(void)
 {
@@ -293,7 +295,16 @@ void sub_8060404(void)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8060434.s");
+void sub_8060434(void)
+{
+    AllocatedBlock* block;
+
+    block = _unk3005DC4->unkC;
+    _unk3005DC4 = NULL;
+    if (block != NULL) {
+        deallocateBlock(block);
+    }
+}
 
 void onSerialCommunication(void)
 {
