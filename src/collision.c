@@ -1,9 +1,12 @@
 #include "collision.h"
 
+#include <agb/bios.h>
+
 #include "collectable.h"
 #include "debug.h"
 #include "effects.h"
 #include "gameinit.h"
+#include "gamestate.h"
 #include "geometry.h"
 #include "include_asm.h"
 #include "music.h"
@@ -12,6 +15,7 @@
 
 unk32 sub_80561EC(Actor*, LevelGeometryAddresses*, GeometryLine*);
 extern const unk8 Str_87297D0[];
+extern const ScreenLayout LevelDesigns[];
 extern unk8 def_94_4_AddWithBoundingAreaMessage(Actor*, LevelGeometryAddresses*, GeometryLine*);
 extern unk8 def_94_8_collision_8055F2C(Actor*, LevelGeometryAddresses*, GeometryLine*, unk16);
 
@@ -116,7 +120,14 @@ void nullsub_6(Actor* actor, RiderBase* rider)
 {
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8056158.s");
+unk8 sub_8056158(
+    Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line, unk16 collisionMask)
+{
+    if (actor->z + actor->unk48 <= 0) {
+        actor->z = 0;
+        actor->unk48 = 0;
+    }
+}
 
 unk8 def_94_4_AddWithBoundingAreaMessage(
     Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line)
@@ -655,7 +666,92 @@ unk8 sub_8056B54(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* l
         object->unk12 = result.unk8 >> 8;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8056c08-_return_false.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8056c0c.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8056c80.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/8056cfc.s");
+unk8 _return_false(
+    Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line, unk16 collisionMask)
+{
+    return 0;
+}
+
+GeometryLine* sub_8056C0C(GeometryPoint* point)
+{
+    LevelGeometryAddresses addresses;
+    GeometryLine* line;
+    GeometryLine* cursor;
+    GeometryPoint* point0;
+    LevelGeometryTable* geometry;
+    s32 levelNo;
+    s32 i;
+
+    line = NULL;
+    levelNo = GetLevelDescriptionNo();
+    geometry = LevelDesigns[levelNo].geometry;
+    if (geometry != NULL)
+        getLevelGeometryAddresses(&addresses, geometry);
+    cursor = addresses.unkC;
+    for (i = 0; i < addresses.unk0->lineCount; i++) {
+        if (cursor->unkF == 0x86) {
+            line = cursor;
+            break;
+        }
+        cursor++;
+    }
+    if (line != NULL) {
+        point0 = &addresses.unk4[line->point0];
+        point->x = point0->x >> 3;
+        point->y = point0->y >> 3;
+        point->z = point0->z >> 3;
+    }
+    return line;
+}
+
+GeometryLine* sub_8056C80(GeometryPoint* point, unk16 id)
+{
+    LevelGeometryAddresses addresses;
+    GeometryLine* line;
+    GeometryLine* cursor;
+    GeometryPoint* point0;
+    LevelGeometryTable* geometry;
+    s32 levelNo;
+    s32 i;
+
+    line = NULL;
+    levelNo = GetLevelDescriptionNo();
+    geometry = LevelDesigns[levelNo].geometry;
+    if (geometry != NULL)
+        getLevelGeometryAddresses(&addresses, geometry);
+    cursor = addresses.unkC;
+    for (i = 0; i < addresses.unk0->lineCount; i++) {
+        if (cursor->unkF == 0x86 && cursor->unk14 == id) {
+            line = cursor;
+            break;
+        }
+        cursor++;
+    }
+    if (line != NULL) {
+        point0 = &addresses.unk4[line->point0];
+        point->x = point0->x >> 3;
+        point->y = point0->y >> 3;
+        point->z = point0->z >> 3;
+    }
+    return line;
+}
+
+unk16 sub_8056CFC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line)
+{
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    s32 x;
+    s32 y;
+
+    point0 = &geometry->unk4[line->point0];
+    point1 = &geometry->unk4[line->point1];
+    x = (point0->x + point1->x) << 4;
+    y = (point0->y + point1->y) << 4;
+    x -= actor->x;
+    x >>= 8;
+    y -= actor->y;
+    y >>= 8;
+    return Sqrt(x * x + y * y);
+}
+
+ASM_ZEROPAD

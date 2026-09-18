@@ -12,5 +12,8 @@ void sub_80567E4(LevelGeometryAddresses*, GeometryLine*, Actor*, CollisionResult
 void sub_8056910(LevelGeometryAddresses*, GeometryLine*, Actor*, CollisionResult*);
 void sub_8056610(LevelGeometryAddresses*, GeometryLine*, RiderBase*, CollisionResult*);
 unk8 _return_false(Actor*, LevelGeometryAddresses*, GeometryLine*, unk16);
+GeometryLine* sub_8056C0C(GeometryPoint*);
+GeometryLine* sub_8056C80(GeometryPoint*, unk16);
+unk16 sub_8056CFC(Actor*, LevelGeometryAddresses*, GeometryLine*);
 
 #endif
