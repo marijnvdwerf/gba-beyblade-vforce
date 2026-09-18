@@ -1,6 +1,8 @@
 
 #include <agb/types.h>
 
+#include <stdarg.h>
+
 #include "bios.h"
 #include "include_asm.h"
 #include "sprite.h"
@@ -8,6 +10,10 @@
 #include "unsorted.h"
 
 extern void sub_8061684(SpriteTextCleanup*, unk16, unk16);
+extern unk8 sub_80619A4(SpriteTextCleanup*, unk32, unk8);
+extern unk8 sub_8061AE8(SpriteTextCleanup*, unk32, unk8);
+extern unk8 sub_8061BA0(SpriteTextCleanup*, unk32, unk8);
+extern unk32 sub_8061F3C(SpriteTextCleanup*, unk8, const unk8*, unk32*);
 
 extern void sub_806123C(SpriteTextCleanup*);
 extern const unk8 Str_8755B58[];
@@ -45,7 +51,10 @@ void sub_80611EC(SpriteTextCleanup* arg0, unk8 arg1)
     arg0->unk2A = arg1;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/80611f4.s");
+void sub_80611F4(SpriteTextCleanup* arg0, unk8 arg1)
+{
+    arg0->unk29 = arg1;
+}
 
 void sub_80611FC(SpriteTextCleanup* arg0, unk8 arg1)
 {
@@ -192,7 +201,11 @@ void sub_806123C(SpriteTextCleanup* text)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/80614b0.s");
+void sub_80614B0(SpriteTextCleanup* arg0, unk16 arg1)
+{
+    arg0->unk8 = arg1;
+    sub_806123C(arg0);
+}
 
 u8 showString(SpriteTextCleanup* arg0, const u8* text, u8 mode)
 {
@@ -503,7 +516,12 @@ u8 printTime(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
 
 INCLUDE_ASM("asm/dump/8057b80-debug/8061ae8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061ba0.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8061c24.s");
+
+u8 sub_8061C24(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
+{
+    sub_8061228(arg0);
+    return sub_80619A4(arg0, arg1, arg2);
+}
 
 u8 sub_8061C48(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
 {
@@ -511,9 +529,54 @@ u8 sub_8061C48(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
     return printTime(arg0, arg1, arg2);
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8061c6c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8061c90.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8061cb4.s");
+u8 sub_8061C6C(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
+{
+    sub_8061228(arg0);
+    return sub_8061AE8(arg0, arg1, arg2);
+}
+
+u8 sub_8061C90(SpriteTextCleanup* arg0, unk32 arg1, unk8 arg2)
+{
+    sub_8061228(arg0);
+    return sub_8061BA0(arg0, arg1, arg2);
+}
+
+s32 sub_8061CB4(SpriteTextCleanup* arg0)
+{
+    s32 result;
+    s32 base;
+
+    if (arg0->unk14.count == 0) {
+        return 0;
+    }
+    switch (arg0->unk8 & 3) {
+    case 0:
+        result = arg0->unk14.prev->x;
+        break;
+    case 1:
+        result = arg0->unk14.next->x;
+        if (arg0->unk20 != NULL) {
+            result += (arg0->unk24->unk4 - arg0->unk20[arg0->unk14.next->frame.word]) << 8;
+        }
+        result += arg0->unk29;
+        result -= arg0->unkC << 8;
+        break;
+    case 2:
+        result = arg0->unk14.next->x;
+        if (arg0->unk20 != NULL) {
+            result += (arg0->unk24->unk4 - arg0->unk20[arg0->unk14.next->frame.word]) << 8;
+        }
+        result += arg0->unk29;
+        base = arg0->unk14.prev->x;
+        result -= base;
+        base -= (arg0->unkC & ~1) << 7;
+        result = base + (result >> 1);
+        break;
+    default:
+        break;
+    }
+    return result;
+}
 
 unk32 sub_8061D54(SpriteTextCleanup* text)
 {
@@ -523,7 +586,41 @@ unk32 sub_8061D54(SpriteTextCleanup* text)
     return text->unk14.prev->x;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8061d68.s");
+s32 sub_8061D68(SpriteTextCleanup* text)
+{
+    s32 result;
+    s32 base;
+
+    if (text->unk14.count == 0) {
+        return 0;
+    }
+    switch (text->unk8 & 3) {
+    case 0:
+        result = text->unk14.prev->x + (text->unkC << 8);
+        break;
+    case 1:
+        result = text->unk14.next->x;
+        if (text->unk20 != NULL) {
+            result += (text->unk24->unk4 - text->unk20[text->unk14.next->frame.word]) << 8;
+        }
+        result += text->unk29;
+        break;
+    case 2:
+        result = text->unk14.next->x;
+        if (text->unk20 != NULL) {
+            result += (text->unk24->unk4 - text->unk20[text->unk14.next->frame.word]) << 8;
+        }
+        result += text->unk29;
+        base = text->unk14.prev->x;
+        result -= base;
+        base += (text->unkC & ~1) << 7;
+        result = base + (result >> 1);
+        break;
+    default:
+        break;
+    }
+    return result;
+}
 
 unk32 sub_8061E08(SpriteTextCleanup* text)
 {
@@ -566,11 +663,27 @@ void sub_8061E58(SpriteTextCleanup* text, u8 color)
     text->unkE = color;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8061e90.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8061e94.s");
+unk8 sub_8061E90(SpriteTextCleanup* text)
+{
+    return text->unkF;
+}
+
+unk8* sub_8061E94(unk8* ptr, unk8 value)
+{
+    *ptr = value;
+    return ptr + 1;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/8061e9c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/8061f3c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/80622d0.s");
+
+unk32 sub_80622D0(SpriteTextCleanup* arg0, unk8 arg1, const unk8* arg2, ...)
+{
+    va_list args;
+
+    va_start(args, arg2);
+    return sub_8061F3C(arg0, arg1, arg2, args);
+}
 
 void sub_80622E8(UnkMenuItem* item, SpriteTextCleanup* cleanup)
 {
