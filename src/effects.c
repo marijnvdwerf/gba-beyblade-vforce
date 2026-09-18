@@ -101,7 +101,7 @@ void sub_8055340(void)
     }
     if (((_unk3000E30[0] >> 4) & 3) == 0) {
         if (effect->unk74 != 0) {
-            sub_80631EC(&effect->palette34, (unk8*)PLTT, (effect->unk74 & 1) ? 0 : 7);
+            sub_80631EC(&effect->palette34, (unk16*)PLTT, (effect->unk74 & 1) ? 0 : 7);
             effect->unk74--;
         } else if (effect->unk76 != 0) {
             effect->unk76 += effect->unk78;
@@ -110,14 +110,14 @@ void sub_8055340(void)
                 effect->unk78 = 0;
                 effect->unk80 |= 1;
             }
-            sub_80631EC(&effect->palette5C, (unk8*)PLTT, effect->unk76);
+            sub_80631EC(&effect->palette5C, (unk16*)PLTT, effect->unk76);
         } else if (effect->unk70 != 0) {
             effect->unk70--;
-            sub_80631EC(&effect->palette34, (unk8*)PLTT, effect->unk70);
+            sub_80631EC(&effect->palette34, (unk16*)PLTT, effect->unk70);
             effect->unk72 = 0;
         } else if (effect->unk72 != 0) {
             effect->unk72--;
-            sub_80631EC(&effect->palette48, (unk8*)PLTT, effect->unk72);
+            sub_80631EC(&effect->palette48, (unk16*)PLTT, effect->unk72);
         }
         *(vu16*)PLTT = 0;
     }

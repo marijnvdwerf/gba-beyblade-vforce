@@ -36,7 +36,7 @@ typedef union PaletteBuffer {
 } PaletteBuffer;
 
 typedef struct Palette {
-    unk8* source; /* 0x00 */
+    unk16* source; /* 0x00 */
     u16 unk4; /* 0x04 */
     u16 unk6; /* 0x06 */
     s16 unk8; /* 0x08 */
