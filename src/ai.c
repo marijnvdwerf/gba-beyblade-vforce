@@ -1,5 +1,7 @@
 #include "ai.h"
 
+#include <agb/bios.h>
+
 #include "debug.h"
 #include "geometry.h"
 #include "include_asm.h"
@@ -53,7 +55,54 @@ unk8 fn_aiStubFunc(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine*
 {
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80577d8.s");
+unk32 sub_80577D8(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line)
+{
+    s32 midX;
+    s32 midY;
+    s32 x;
+    s32 y;
+    unk16 length;
+    s32 absY;
+    s32 angleValue;
+    s16 angle;
+    s32 value;
+    s32 sign;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+
+    point0 = &geometry->unk4[line->point0];
+    point1 = &geometry->unk4[line->point1];
+    midX = (point0->x + point1->x) << 4;
+    midY = (point0->y + point1->y) << 4;
+    x = (midX - actor->x) >> 8;
+    y = (midY - actor->y) >> 8;
+    length = Sqrt(x * x + y * y);
+    x = (x << 8) / length;
+    y = (y << 8) / length;
+    absY = y;
+    if (absY < 0) {
+        absY = -absY;
+    }
+    if (absY <= 0x80) {
+        angleValue = -(y >> 1);
+        sign = x;
+    } else {
+        angleValue = x >> 1;
+        sign = y;
+    }
+    angle = angleValue;
+    value = Unk_874CEBC[angle + 0x80];
+    if (sign < 0) {
+        value = 0xFF - value;
+    }
+    if (absY > 0x80) {
+        value += 0x40;
+        if (value > 0xFF) {
+            value -= 0x100;
+        }
+    }
+    return value;
+}
 
 unk32 sub_8057878(s32 arg0, s32 arg1)
 {
