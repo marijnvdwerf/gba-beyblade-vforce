@@ -69,7 +69,6 @@ extern u16 _unk3005E4C;
 extern unk16 (*_soundMixerPlus)[];
 
 extern unk8 _unk3005E78;
-extern const unk8 Str_8755E14[];
 
 void (*__sub_87577B4)(SoundStructA*, unk32, unk32);
 void (*__sound_8757A64)(unk8*, unk32, unk32);
@@ -758,7 +757,7 @@ void sub_8062C24(void)
                     _unk3005E00++;
                     break;
                 case 3:
-                    printf(Str_8755E14);
+                    printf("End Track Here\n");
                     break;
                 }
                 break;

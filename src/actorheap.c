@@ -16,10 +16,6 @@ struct ActorBlock {
     ActorBlock* next;
 };
 
-extern const unk8 Str_8755E24[];
-extern const unk8 Str_8755E54[];
-extern const unk8 Str_8755E8C[];
-
 extern ActorBlock* _actorBlocksHeapPtr;
 extern ActorBlock* _unk3005E58;
 extern unk32 _unk3005E5C;
@@ -43,10 +39,10 @@ void allocateActorHeaps(void)
     actorsBlock = slowAllocate(0xC400);
     actorBlocksBlock = slowAllocate(0x1400);
     if (actorsBlock == NULL) {
-        nullsub_8(Str_8755E24);
+        nullsub_8("Error allocating space in exram for actors heap");
     }
     if (actorBlocksBlock == NULL) {
-        nullsub_8(Str_8755E54);
+        nullsub_8("Error allocating space in exram for actorBlocks heap");
     }
     _actorsHeapPtr = actorsBlock->address;
     _actorBlocksHeapPtr = actorBlocksBlock->address;
@@ -113,7 +109,7 @@ void* sub_8062FA8(void)
     slot = _actorBlocksHeapPtr;
     while (slot->actor != NULL) {
         if (i > 0xFF) {
-            nullsub_8(Str_8755E8C);
+            nullsub_8("No Free AllocatedActorBlocks");
             return NULL;
         }
         i++;
