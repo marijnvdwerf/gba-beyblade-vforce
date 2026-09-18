@@ -2092,7 +2092,52 @@ void sub_804712C(FrontendBladeState* state)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8047494.s");
+void sub_8047494(FrontendBladeState* state, const BeybladeData* blade, unk8 uploadPalette)
+{
+    unk32 language;
+
+    language = getLanguage();
+    if ((state->unk36 & 1) != 0) {
+        sub_8060A60(state->unk0);
+    }
+    if (state->unk8 != NULL) {
+        state->unk8->frame.word = 0;
+    }
+    if (state->unkC != NULL) {
+        state->unkC->frame.word = 0;
+    }
+    if (state->unk10 != NULL) {
+        state->unk10->frame.word = 0;
+    }
+    state->unk36 |= 1;
+    if (uploadPalette != 0) {
+        state->unk36 |= 2;
+    }
+    if (state->unk0 != NULL) {
+        LoadSpriteSheet(state->unk0, blade->spriteSheet, state->unk0->x, 0x3800, 0, 0, 0, 0);
+    }
+    if (blade->palette != NULL && uploadPalette != 0) {
+        __fastMemoryCopyARM(blade->palette, (void*)OBJ_PLTT, 0x20);
+    }
+    sub_8061660(state->unk14, _806E240[0][language], 0xE);
+    sub_8061660(state->unk18, _806E31C[0][language], 0xE);
+    showString(state->unk18, blade->unk0[language], 0xF);
+    sub_8061660(state->unk1C, _806E31C[1][language], 0xE);
+    showString(state->unk1C, blade->unk14[language], 0xF);
+    sub_8061660(state->unk20, _806E31C[2][language], 0xE);
+    showString(state->unk20, blade->unk14[language], 0xF);
+    sub_8061228(state->unk28);
+    sub_8061228(state->unk2C);
+    if (state->unk8 != NULL) {
+        state->unk8->y = 0xA000;
+    }
+    if (state->unkC != NULL) {
+        state->unkC->y = 0xA000;
+    }
+    if (state->unk10 != NULL) {
+        state->unk10->y = 0xA000;
+    }
+}
 
 void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
 {

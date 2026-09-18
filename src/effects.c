@@ -498,7 +498,7 @@ void sub_8055C4C(DecompressorState* state)
     state->size = 0;
 }
 
-void* getDecompressorData(DecompressorState* state, unk8* source)
+void* getDecompressorData(DecompressorState* state, const void* source)
 {
     unk8* data;
 

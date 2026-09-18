@@ -87,7 +87,7 @@ void CpuFastSet(void* Srcp, void* Destp, u32 DmaCntData);
 
 /* Decompression/unfiltering */
 
-void LZ77UnCompWram(void* Srcp, void* Destp);
+void LZ77UnCompWram(const void* Srcp, void* Destp);
 void LZ77UnCompVram(void* Srcp, void* Destp);
 void HuffUnComp(void* Srcp, void* Destp);
 void RLUnCompWram(void* Srcp, void* Destp);

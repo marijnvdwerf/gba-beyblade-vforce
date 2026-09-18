@@ -33,9 +33,9 @@ s32 DivRem(s32 Number, s32 Denom)
     return p2;
 }
 
-void LZ77UnCompWram(void* Srcp, void* Destp)
+void LZ77UnCompWram(const void* Srcp, void* Destp)
 {
-    register void* p1 asm("r0") = Srcp;
+    register const void* p1 asm("r0") = Srcp;
     register void* p2 asm("r1") = Destp;
 
     asm("swi 0x11;" ::"r"(p1), "r"(p2));
