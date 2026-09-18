@@ -168,7 +168,7 @@ void sub_805B800(TilemapTextRenderer* arg0, s16 arg1, s16 arg2, const unk8* arg3
     unk8 buffer[64];
     unk8* ptr;
     unk8 zero; // TODO: fakematch?
-    unk32 done; // TODO: fakematch?
+    unk32 done;
     unk32 x;
     unk32 y;
     unk8 flags;
@@ -188,7 +188,8 @@ void sub_805B800(TilemapTextRenderer* arg0, s16 arg1, s16 arg2, const unk8* arg3
             case 0xFF:
                 *ptr = zero;
                 sub_805B41C(arg0, x, y, buffer, flags);
-                return;
+                done = 1;
+                break;
             case '\n':
                 *ptr = zero;
                 sub_805B41C(arg0, x, y, buffer, flags);
