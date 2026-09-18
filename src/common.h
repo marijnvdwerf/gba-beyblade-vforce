@@ -908,13 +908,16 @@ typedef struct RiderBase {
     unk8 pad426[2];
 } RiderBase; /* 0x428 */
 
+struct PolyBucket;
+struct PolyNode;
+
 typedef struct PolyTable {
     unk16 unk0;
     unk16 unk2;
-    unk16 unk4;
+    s16 unk4;
     unk16 unk6;
-    void* unk8;
-    void* unkC;
+    struct PolyBucket* unk8;
+    struct PolyNode* unkC;
     struct AllocatedBlock* unk10;
     struct AllocatedBlock* unk14;
 } PolyTable;
