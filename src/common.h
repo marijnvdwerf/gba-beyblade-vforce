@@ -149,7 +149,7 @@ typedef struct FrontendSubobject {
     FrontendSubobjectData* unk10;
     s32 unk14;
     FrontendSubobjectData* unk18;
-    unk8 pad1C[4];
+    unk32 unk1C;
     FrontendMenuObjectData* unk20;
     struct FrontendSelectionPalette* palette;
 } FrontendSubobject;
@@ -374,10 +374,10 @@ struct FrontendState {
     unk8 unk80;
     unk8 unk81;
     unk8 pad82[2];
-    unk32 unk84;
-    unk32 unk88;
-    unk32 unk8C;
-    unk32 unk90;
+    s32 unk84;
+    s32 unk88;
+    s32 unk8C;
+    s32 unk90;
     unk8 pad94[0x20];
     const FrontendObject* unkB4;
     BGLayer bgLayers[4]; /* 0xB8 */
@@ -937,7 +937,7 @@ typedef struct GeometryLine {
     unk8 unk10;
     unk8 unk11;
     s16 unk12;
-    unk8 pad14[2];
+    unk16 unk14;
     s16 unk16; /* 0x16 */
     s8 unk18;
     s8 unk19;

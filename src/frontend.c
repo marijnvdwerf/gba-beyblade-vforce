@@ -17,9 +17,36 @@
 #include "spritetext.h"
 #include "unsorted.h"
 
-INCLUDE_ASM("asm/dump/8040d18/8048f80.s");
-INCLUDE_ASM("asm/dump/8040d18/8048fb4.s");
-INCLUDE_ASM("asm/dump/8040d18/8048fc4-nullsub_38.s");
+unk32 sub_8048F80(unk8* string)
+{
+    unk32 result;
+    unk8 digit;
+
+    result = -1;
+    digit = *string - '0';
+    if (digit <= 9) {
+        result = 0;
+        do {
+            result *= 10;
+            result += *string - '0';
+            string++;
+            digit = *string - '0';
+        } while (digit <= 9);
+    }
+    return result;
+}
+
+unk8* sub_8048FB4(unk8* string)
+{
+    while (*string != '}') {
+        string++;
+    }
+    return string + 1;
+}
+
+void nullsub_38(void)
+{
+}
 
 void nullsub_33(FrontendState* state, unk32 arg1)
 {
@@ -30,7 +57,10 @@ FrontendState* sub_8048FCC(void)
     return &_unk3000650;
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8048fd4.s");
+void sub_8048FD4(unk32 arg0)
+{
+    _unk3000650.transition.unk5A8 = arg0;
+}
 
 void sub_8048FE4(void)
 {
@@ -64,7 +94,13 @@ void sub_804903C(BGLayer* object, unk32 arg1, unk32 arg2)
     _unk3000650.unk88 = object->field_4A << 8;
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8049074.s");
+void sub_8049074(BGLayer* object)
+{
+    _unk3000650.unk84 += sub_80491E0(_unk3000650.unk8C - _unk3000650.unk84, 0x80) << 5;
+    _unk3000650.unk88 += sub_80491E0(_unk3000650.unk90 - _unk3000650.unk88, 0x80) << 5;
+    object->field_48 = _unk3000650.unk84 >> 8;
+    object->field_4A = _unk3000650.unk88 >> 8;
+}
 
 void sub_80490CC(unk32 arg0, unk32 arg1)
 {
@@ -111,7 +147,11 @@ void sub_8049178(void)
     sub_80495C4();
 }
 
-INCLUDE_ASM("asm/dump/8040d18/80491c4.s");
+void sub_80491C4(unk32 arg0, unk32 arg1, SpriteTextCleanup* text)
+{
+    text->unk8 |= 8;
+    sub_8061684(text, 0x140, 0x120);
+}
 
 s32 sub_80491E0(unk32 arg0, s32 arg1)
 {
@@ -138,14 +178,22 @@ s32 sub_80491E0(unk32 arg0, s32 arg1)
     return value;
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8049210.s");
+void sub_8049210(unk32 arg0)
+{
+    if (arg0 >= _unk3000650.unkB4->unk4->unk1C)
+        arg0 = _unk3000650.unkB4->unk4->unk1C - 1;
+    _unk3000650.unk7D = arg0 + 1;
+}
 
 void sub_8049234(unk32 arg0)
 {
     _unk3000650.unkC = arg0;
 }
 
-INCLUDE_ASM("asm/dump/8040d18/8049240.s");
+unk32 sub_8049240(void)
+{
+    return _unk3000650.unkC;
+}
 
 void sub_804924C(unk32 arg0)
 {
