@@ -22,17 +22,17 @@ typedef struct AnimFrameRecord {
 
 typedef struct AnimFrameEntry {
     unk16 unk0;
-    unk8 pad2[2];
+    unk16 unk2;
     unk16 unk4;
     s8 unk6;
-    unk8 pad7;
+    s8 unk7;
 } AnimFrameEntry;
 
 typedef void (*AnimFrameCallback)(AnimFrameState*, void*, unk32, unk32);
 
 struct AnimFrameState {
     AnimFrameData* unk0;
-    unk8 pad4[4];
+    unk8* unk4;
     unk8* unk8;
     AllocatedBlock* unkC;
     AnimFrameRecord* unk10;
@@ -142,7 +142,22 @@ void sub_805F378(AnimFrameState* arg0, s16 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805f3a8.s");
+void sub_805F3A8(AnimFrameState* arg0, s16 arg1)
+{
+    AnimFrameData* data;
+    unk32 stride;
+
+    data = arg0->unk0;
+    stride = data->unk4 * 10;
+    if (arg1 < data->unk18) {
+        if (arg1 >= 0) {
+            arg0->unk4 = arg0->unk14 + arg1 * stride;
+        } else {
+            arg0->unk4 = arg0->unk20;
+        }
+    }
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805f3d8.s");
 
 void sub_805F400(AnimFrameState* arg0)
@@ -185,7 +200,33 @@ void sub_805F730(AnimFrameState* arg0)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805f784.s");
+void sub_805F784(AnimFrameState* arg0, unk16 arg1, unk16 arg2)
+{
+    AnimFrameEntry* current;
+    AnimFrameEntry* entry;
+    s8 value;
+
+    current = &arg0->unk24[arg0->unk28];
+    entry = &arg0->unk24[arg1];
+    if ((arg0->unk32 & 4) != 0) {
+        arg0->unk2E = current->unk0;
+    }
+    arg0->unk2A = entry->unk0;
+    arg0->unk28 = arg1;
+    arg0->unk40 = 0;
+    arg0->unk3C = entry->unk6;
+    arg0->unk3E = entry->unk6;
+    arg0->unk3A = entry->unk4;
+    value = entry->unk7;
+    arg0->unk32 = value;
+    if ((value & 2) != 0) {
+        arg0->unk2C = arg0->unk2A + entry->unk2 - 1;
+    } else {
+        arg0->unk2C = arg0->unk2A;
+    }
+    arg0->unk42 = arg2;
+    arg0->unk44 = 0;
+}
 
 void sub_805F7FC(AnimFrameState* arg0, unk16 arg1, unk16 arg2)
 {
