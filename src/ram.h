@@ -407,7 +407,9 @@ typedef struct CurrentGameState {
     u32 unk6C0;
     u16 unk6C4;
     unk16 unk6C6;
-    unk8 unk6C8[0x1C];
+    unk16 unk6C8;
+    unk16 unk6CA;
+    unk8 pad6CC[0x18];
     u16 unk6E4;
     u16 unk6E6;
     unk16 unk6E8;

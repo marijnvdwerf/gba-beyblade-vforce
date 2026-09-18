@@ -3,6 +3,16 @@
 
 #include "common.h"
 
+typedef struct LevelEffectDescriptor {
+    void* unk0;
+    unk32 unk4;
+    unk16 unk8;
+    unk16 unkA;
+    unk16 unkC;
+    unk16 unkE;
+} LevelEffectDescriptor;
+
+unk32 sub_80516B0(void);
 s32 getSomeLevelID(void);
 LevelDescription* getLevelDescription(s32);
 LevelDescription* getLevelDescription2(void);
@@ -27,6 +37,7 @@ unk32 sub_80518C8(s32);
 unk32 sub_80518F0(void);
 unk32 sub_8051820(void);
 s32 sub_8051868(void);
+void sub_805187C(LevelEffectDescriptor*);
 unk8 sub_80517E8(unk32);
 
 #endif

@@ -15,7 +15,7 @@ extern unk8 _807572c[];
 extern unk8 _807576c[];
 extern unk8 _80757ac[];
 extern unk8 _80757ec[];
-extern unk8 _807582c[];
+extern unk8 _807582c[][0x50];
 extern s32 _80788cc[];
 
 void sub_80510FC(void);
@@ -72,7 +72,7 @@ void sub_80510FC(void)
     }
     for (index = 0; index <= 9; index++) {
         slot = sub_80516E0(index);
-        slot->unk4 = &_807582c[index * 0x50];
+        slot->unk4 = _807582c[index];
         slot->unk0 = 0;
         slot->unk2 = 0;
     }
@@ -289,10 +289,28 @@ void sub_8051688(unk32 value)
     _currentGameState->unk0 = value;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8051694.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80516b0.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80516c0.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/80516d4.s");
+unk8* sub_8051694(void)
+{
+    return _807582c[sub_80516B0()];
+}
+
+unk32 sub_80516B0(void)
+{
+    s8 value;
+
+    value = _currentGameState->unk1;
+    return value;
+}
+
+unk8* sub_80516C0(unk32 index)
+{
+    return _807582c[index];
+}
+
+void sub_80516D4(unk8 value)
+{
+    _currentGameState->unk1 = value;
+}
 
 LevelSlot* sub_80516E0(unk32 index)
 {
@@ -368,7 +386,13 @@ unk8 sub_80517E8(unk32 index)
     return 0;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8051804.s");
+unk32 sub_8051804(unk32 index)
+{
+    if ((sub_8051720(index)->unk0 & 4) != 0) {
+        return 1;
+    }
+    return 0;
+}
 
 unk32 sub_8051820(void)
 {
@@ -388,7 +412,15 @@ s32 sub_8051868(void)
     return sub_805749C(sub_8051820());
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/805187c.s");
+void sub_805187C(LevelEffectDescriptor* data)
+{
+    _currentGameState->unk6C0 = data->unk4;
+    _currentGameState->unk6BC = data->unk0;
+    _currentGameState->unk6C4 = data->unk8;
+    _currentGameState->unk6C6 = data->unkA;
+    _currentGameState->unk6C8 = data->unkC;
+    _currentGameState->unk6CA = data->unkE;
+}
 
 unk32 sub_80518C8(s32 index)
 {
