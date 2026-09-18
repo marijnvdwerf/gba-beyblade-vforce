@@ -295,6 +295,9 @@ SECTIONS {
 		src/strings5.c.o(.rodata);
 		asm/data5.s.o(.rodata);
 		src/strings6.c.o(.rodata);
+		src/teletype.c.o(.rodata);
+		src/spritestring.c.o(.rodata);
+		src/strings_8756870.c.o(.rodata);
 		asm/data3.s.o(.rodata);
 
         *libgcc.a:_divdi3.o(.rodata);

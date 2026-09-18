@@ -26,7 +26,6 @@ void sub_8063AB4(TeletypeState* state)
 }
 
 extern const unk8 byte_807D980[];
-extern const unk8 Str_87567E8[];
 
 void sub_8063AD8(TeletypeState* state, unk32 palette)
 {
@@ -391,7 +390,8 @@ void pushTeletypeStringPalette(TeletypeState* state, unk8 palette)
         state->unk13++;
         state->unk14[state->unk13] = palette;
     } else {
-        printf(Str_87567E8);
+        printf("Error occured in pushTeletypeStringPalette(), unable to add new palette number to "
+               "stack\n");
     }
 }
 

@@ -11,10 +11,3 @@ const unk8 Str_8756748[]
 
 const unk8 Str_8756798[]
     = "Attempt to copy data in fastMemoryCopy16ARM() with non-multiple of 2 length\n";
-
-const unk8 Str_87567E8[]
-    = "Error occured in pushTeletypeStringPalette(), unable to add new palette number to stack\n";
-
-const unk8 Str_8756844[] = "Error allocating actors for SpriteString";
-
-const unk8 Str_8756870[] = "EEPROM_V122";
