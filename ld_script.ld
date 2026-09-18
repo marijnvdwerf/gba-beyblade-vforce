@@ -283,7 +283,7 @@ SECTIONS {
 		src/memory.c.o(.rodata);
 		src/keystate.c.o(.rodata);
 		src/menu.c.o(.rodata);
-		src/strings4.c.o(.rodata);
+		src/text.c.o(.rodata);
 		src/geometry.c.o(.rodata);
 		src/render.c.o(.rodata);
 		src/strings_875566c.c.o(.rodata);

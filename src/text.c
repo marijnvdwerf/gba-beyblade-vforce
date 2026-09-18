@@ -12,7 +12,6 @@
 enum { TEXT_MAP_WIDTH_TILES = 32 };
 
 extern const unk8 byte_807D980[];
-extern const char Str_875539C[];
 
 void sub_805B280(unk16*, void*, const Tile4bpp*, s32, s32);
 const Tile4bpp* sub_805B7F0(const SpriteSheet*, unk32);
@@ -114,7 +113,7 @@ unk32 sub_805B41C(TilemapTextRenderer* renderer, s32 x, s32 y, unk8* string, unk
     tileHeight = font->unk5 >> 3;
     fontWidth = font->unk4;
     if ((*GetBGLayerCntPtr(layer->layerIndex) & BG_COLOR_256) != 0 || !(font->unkC & 1)) {
-        nullsub_8(Str_875539C);
+        nullsub_8("textLayer error: font or background 256 colours.");
         return x;
     }
     width = sub_805B3DC(string, renderer->widthAdjustments, fontWidth);
