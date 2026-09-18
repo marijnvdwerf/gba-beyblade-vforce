@@ -1005,11 +1005,13 @@ typedef struct ActorSplineCallbacks {
 } ActorSplineCallbacks;
 
 struct TileMapHeader {
-    unk8 filler00[4];
+    u32 totalBytes; /* header + tiles + map + per-tile bytes */
     u32 tileOffset;
     u32 tileBytes;
     u32 mapOffset;
     u32 mapBytes;
+    /* u32 in the data: offset of a byte-per-tile table running to totalBytes (0 when absent);
+       the game only reads its low byte (ldrb in sub_8058AA8) */
     u8 var14;
     unk8 filler15[3];
     u8 var18;
