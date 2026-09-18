@@ -1507,6 +1507,17 @@ unk8 call_rider_94_8(Actor* rider, LevelGeometryAddresses* geometry, GeometryLin
     return result;
 }
 
+typedef struct GeometrySplineIntersection {
+    unk32 unk0;
+    unk32 unk4;
+    unk32 unk8;
+    unk32 unkC;
+    unk32 unk10;
+    unk8 pad14[4];
+} GeometrySplineIntersection;
+
+unk8 sub_805E18C(LevelGeometryAddresses*, s32, GeometrySplineIntersection*, s32, s32, s32, s32);
+
 void sub_805D488(Actor*, LevelGeometryAddresses*, s32, s32, s32, s32);
 
 void sub_805D430(Actor* actor, LevelGeometryAddresses* geometry)
@@ -1525,14 +1536,31 @@ void sub_805D430(Actor* actor, LevelGeometryAddresses* geometry)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805d488.s");
+void sub_805D488(Actor* actor, LevelGeometryAddresses* geometry, s32 x0, s32 y0, s32 x1, s32 y1)
+{
+    GeometrySpline* spline;
+    GeometrySplineLine* lines;
+    GeometrySplineIntersection result;
+    ActorSplineCallbacks* callbacks;
+    s32 i;
 
-typedef struct GeometrySplineIntersection {
-    unk8 pad0[0xC];
-    unk32 unkC;
-    unk32 unk10;
-    unk8 pad14[4];
-} GeometrySplineIntersection;
+    if (actor->unk84 == -1) {
+        for (i = 0; i < geometry->unk0->count.splineCountWord; i++) {
+            spline = geometry->unk14[i];
+            if (sub_805E18C(geometry, i, &result, x0 >> 5, y0 >> 5, x1 >> 5, y1 >> 5) == 1) {
+                lines = (GeometrySplineLine*)&spline->pointIndices[spline->pointCount];
+                if ((actor->unk8D & 1) == 0) {
+                    sub_805C3BC(geometry, actor, i, (result.unk10 << 10) + result.unkC);
+                }
+                callbacks = actor->callbacks.unk0;
+                if (callbacks != NULL) {
+                    callbacks->unk0(actor, geometry, spline, i, &lines[result.unk10], &result);
+                }
+                return;
+            }
+        }
+    }
+}
 
 unk8 sub_805E320(
     LevelGeometryAddresses*, GeometrySplineIntersection*, s32, s32, s32, s32, GeometrySpline*, s16);
@@ -2053,7 +2081,33 @@ s32* sub_805E068(
 INCLUDE_ASM("asm/dump/8057b80-debug/805e0d8.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e18c.s");
 INCLUDE_ASM("asm/dump/8057b80-debug/805e320.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805e474.s");
+
+unk32 sub_805E474(s32 x0, s32 y0, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3, s32 y3)
+{
+    s32 cross0;
+    s32 cross2;
+    s32 cross1;
+    s32 dx1;
+    s32 dy1;
+    s32 dx2;
+    s32 dy2;
+
+    dx1 = x0 - x1;
+    dy1 = y0 - y1;
+    cross0 = dx1 * (y2 - y1) - (x2 - x1) * dy1;
+    cross1 = dx1 * (y3 - y1) - (x3 - x1) * dy1;
+    if ((cross0 <= 0 && cross1 < 0) || (cross0 >= 0 && cross1 > 0)) {
+        return 0;
+    }
+    dx2 = x2 - x3;
+    dy2 = y2 - y3;
+    cross2 = dx2 * (y0 - y3) - (x0 - x3) * dy2;
+    cross1 = dx2 * (y1 - y3) - (x1 - x3) * dy2;
+    if ((cross2 <= 0 && cross1 < 0) || (cross2 >= 0 && cross1 > 0)) {
+        return 0;
+    }
+    return cross0 >= 0 ? 1 : 2;
+}
 
 void sub_805E50C(ActorCollisionFunctions* arg0, ActorCollisionResponse arg1,
     ActorCollisionOverlap arg2, ActorCollisionFilter arg3)
