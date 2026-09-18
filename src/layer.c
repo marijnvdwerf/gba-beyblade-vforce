@@ -96,7 +96,7 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
     u32 var0;
     u8 colorMode;
     unk32 tileBlocks;
-    BGControl* layerCnt;
+    vu16* layerCnt;
 
     bgLayer->var68 = header;
     bgLayer->var64 = header->var18;
@@ -177,8 +177,8 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
         bgLayer->screenBaseBlock = _unk3000E3C;
     }
 
-    layerCnt = GetBGLayerCntPtr(layerIndex);
-    layerCnt->half = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
+    layerCnt = &GetBGLayerCntPtr(layerIndex)->half;
+    *layerCnt = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
         | ((bgPriority) << BG_PRIORITY_SHIFT)
         | ((bgLayer->characterBaseBlock) << BG_CHAR_BASE_SHIFT) | (((colorMode & 1) ^ 0x1) << 7);
 }
@@ -188,7 +188,7 @@ void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriorit
     u32 var0;
 
     unk32 tileBlocks;
-    BGControl* layerCnt;
+    vu16* layerCnt;
     void* dest;
 
     bgLayer->var68 = NULL;
@@ -275,8 +275,8 @@ void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriorit
     dest = (void*)(0x6000000 + bgLayer->screenBaseBlock * 0x800);
     __fastMemoryClearARM(0, dest, var0);
 
-    layerCnt = GetBGLayerCntPtr(layerIndex);
-    layerCnt->half = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
+    layerCnt = &GetBGLayerCntPtr(layerIndex)->half;
+    *layerCnt = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
         | ((bgPriority) << BG_PRIORITY_SHIFT)
         | ((bgLayer->characterBaseBlock) << BG_CHAR_BASE_SHIFT);
 }
@@ -476,6 +476,7 @@ void sub_8059188(BGLayer* layer, BGLayer* source, unk8 layerIndex, unk16 bgPrior
 {
     Struct3000CA0* object;
     unk32 count;
+    vu16* layerCnt;
 
     memcpy(layer, source, sizeof(*layer));
     layer->layerIndex = layerIndex;
@@ -493,8 +494,8 @@ void sub_8059188(BGLayer* layer, BGLayer* source, unk8 layerIndex, unk16 bgPrior
     } else {
         sub_80594FC(layer, 0, 0, 0, 0, 1 << layer->field_5F, 1 << layer->field_60);
     }
-    GetBGLayerCntPtr(layerIndex)->half
-        = (layer->screenBaseBlock << 8) | bgPriority | (layer->characterBaseBlock << 2);
+    layerCnt = &GetBGLayerCntPtr(layerIndex)->half;
+    *layerCnt = (layer->screenBaseBlock << 8) | bgPriority | (layer->characterBaseBlock << 2);
 }
 
 unk32 sub_8059284(BGLayer* bgLayer, unk16 bgPriority, unk16 flags)

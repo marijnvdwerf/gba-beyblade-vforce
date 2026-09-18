@@ -1,5 +1,6 @@
 #include "text.h"
 
+#include <agb/define.h>
 #include <agb/memory_map.h>
 
 #include "bios.h"
@@ -8,28 +9,30 @@
 #include "system.h"
 #include "unsorted.h"
 
+enum { TEXT_MAP_WIDTH_TILES = 32 };
+
 extern const unk8 byte_807D980[];
 extern const char Str_875539C[];
 
-void sub_805B280(unk16*, void*, const RiderTile*, s32, s32);
-const RiderTile* sub_805B7F0(const SpriteSheet*, unk32);
+void sub_805B280(unk16*, void*, const Tile4bpp*, s32, s32);
+const Tile4bpp* sub_805B7F0(const SpriteSheet*, unk32);
 
 void sub_805B244(
     TilemapTextRenderer* arg0, BGLayer* arg1, const SpriteSheet* arg2, const unk8* arg3, unk32 arg4)
 {
     arg0->font = arg2;
     arg0->layer = arg1;
-    arg0->unkC = arg4;
-    arg0->unk4 = arg3;
-    arg0->unkE = 1;
+    arg0->palette = arg4;
+    arg0->widthAdjustments = arg3;
+    arg0->nextTileIndex = 1;
     arg0->lineHeight = arg2->unk5;
 }
 
 void sub_805B260(TilemapTextRenderer* arg0, const SpriteSheet* arg1, const unk8* arg2, unk32 arg3)
 {
     arg0->font = arg1;
-    arg0->unkC = arg3;
-    arg0->unk4 = arg2;
+    arg0->palette = arg3;
+    arg0->widthAdjustments = arg2;
 }
 
 void sub_805B268(TilemapTextRenderer* arg0, unk32 arg1)
@@ -39,10 +42,10 @@ void sub_805B268(TilemapTextRenderer* arg0, unk32 arg1)
 
 void sub_805B26C(TilemapTextRenderer* arg0, unk32 arg1)
 {
-    arg0->unkC = arg1;
+    arg0->palette = arg1;
 }
 
-RiderTile* sub_805B270(RiderTile* arg0, unk32 arg1)
+Tile4bpp* sub_805B270(Tile4bpp* arg0, unk32 arg1)
 {
     return &arg0[arg1 & 0x3FF];
 }
@@ -55,7 +58,7 @@ void sub_805B394(TilemapTextRenderer* arg0)
         __fastMemoryClearARM(
             0, (void*)(VRAM + (arg0->layer->characterBaseBlock << 14)), arg0->layer->tileBytes);
         __fastMemoryClearARM(0, (void*)(VRAM + (arg0->layer->screenBaseBlock << 11)), 0x800);
-        arg0->unkE = 1;
+        arg0->nextTileIndex = 1;
     }
 }
 
@@ -101,7 +104,7 @@ unk32 sub_805B41C(TilemapTextRenderer* renderer, s32 x, s32 y, unk8* string, unk
     s32 drawY;
     s32 drawX;
     s32 row;
-    const RiderTile* data;
+    const Tile4bpp* data;
 
     layer = renderer->layer;
     font = renderer->font;
@@ -110,11 +113,11 @@ unk32 sub_805B41C(TilemapTextRenderer* renderer, s32 x, s32 y, unk8* string, unk
     tileWidth = font->unk4 >> 3;
     tileHeight = font->unk5 >> 3;
     fontWidth = font->unk4;
-    if ((*(vu16*)GetBGLayerCntPtr(layer->layerIndex) & 0x80) != 0 || !(font->unkC & 1)) {
+    if ((GetBGLayerCntPtr(layer->layerIndex)->half & BG_COLOR_256) != 0 || !(font->unkC & 1)) {
         nullsub_8(Str_875539C);
         return x;
     }
-    width = sub_805B3DC(string, renderer->unk4, fontWidth);
+    width = sub_805B3DC(string, renderer->widthAdjustments, fontWidth);
     switch (flags & 3) {
     case 1:
         x -= width;
@@ -129,24 +132,24 @@ unk32 sub_805B41C(TilemapTextRenderer* renderer, s32 x, s32 y, unk8* string, unk
         rows++;
     }
     columns = (width + (x & 7) + 8) >> 3;
-    firstTile = renderer->unkE;
+    firstTile = renderer->nextTileIndex;
     while (rows-- != 0) {
         column = columns;
         while (column-- != 0) {
             if (*map == 0) {
-                *map = renderer->unkE;
-                renderer->unkE++;
+                *map = renderer->nextTileIndex;
+                renderer->nextTileIndex++;
             }
-            *map = (*map & 0xFFF) | (renderer->unkC << 12);
+            *map = (*map & 0xFFF) | (renderer->palette << 12);
             map++;
         }
-        map += 32 - columns;
+        map += TEXT_MAP_WIDTH_TILES - columns;
     }
-    allocated = renderer->unkE - firstTile;
+    allocated = renderer->nextTileIndex - firstTile;
     if (allocated != 0) {
         __fastMemoryClearARM(0,
-            (RiderTile*)(VRAM + (renderer->layer->characterBaseBlock << 14)) + firstTile,
-            allocated << 5);
+            (Tile4bpp*)(VRAM + (renderer->layer->characterBaseBlock << 14)) + firstTile,
+            allocated * sizeof(Tile4bpp));
     }
     map = (unk16*)(VRAM + (layer->screenBaseBlock << 11));
     while ((character = *string++) != 0) {
@@ -157,8 +160,8 @@ unk32 sub_805B41C(TilemapTextRenderer* renderer, s32 x, s32 y, unk8* string, unk
             character = byte_807D980[character];
             data = sub_805B7F0(renderer->font, character);
             advance = fontWidth;
-            if (renderer->unk4 != NULL) {
-                advance -= renderer->unk4[character];
+            if (renderer->widthAdjustments != NULL) {
+                advance -= renderer->widthAdjustments[character];
             }
             while (row-- != 0) {
                 drawX = x;
@@ -172,7 +175,7 @@ unk32 sub_805B41C(TilemapTextRenderer* renderer, s32 x, s32 y, unk8* string, unk
             }
         }
         x += advance;
-        if (x > 239) {
+        if (x >= LCD_WIDTH) {
             break;
         }
     }
@@ -261,9 +264,9 @@ void sub_805B700(TilemapTextRenderer* arg0, unk32 arg1, unk32 arg2, unk32 arg3, 
     sub_805B41C(arg0, arg1, arg2, ptr, arg4);
 }
 
-const RiderTile* sub_805B7F0(const SpriteSheet* arg0, unk32 arg1)
+const Tile4bpp* sub_805B7F0(const SpriteSheet* arg0, unk32 arg1)
 {
-    return (const RiderTile*)((const unk8*)arg0 + (arg1 << arg0->unk6) + arg0->unk10);
+    return (const Tile4bpp*)((const unk8*)arg0 + (arg1 << arg0->unk6) + arg0->unk10);
 }
 
 void sub_805B800(TilemapTextRenderer* arg0, s16 arg1, s16 arg2, const unk8* arg3, unk32 arg4)
@@ -303,7 +306,7 @@ void sub_805B800(TilemapTextRenderer* arg0, s16 arg1, s16 arg2, const unk8* arg3
             case 0xFC:
                 *ptr = zero;
                 x = sub_805B41C(arg0, x, y, buffer, flags);
-                arg0->unkC = *arg3++;
+                arg0->palette = *arg3++;
                 ptr = buffer;
                 break;
             case 0xFB:

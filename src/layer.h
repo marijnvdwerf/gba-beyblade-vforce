@@ -35,7 +35,7 @@ typedef union BGControl {
         unk32 unk0_2 : 30;
     } bits;
 
-    unk16 half;
+    vu16 half;
 } BGControl;
 
 extern Struct3000CA0 _unk3000CA0[4];

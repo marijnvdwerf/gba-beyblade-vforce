@@ -5,11 +5,11 @@
 
 typedef struct TilemapTextRenderer {
     BGLayer* layer;
-    const unk8* unk4;
+    const unk8* widthAdjustments;
     const SpriteSheet* font;
-    unk8 unkC;
+    unk8 palette;
     unk8 lineHeight;
-    unk16 unkE;
+    unk16 nextTileIndex;
 } TilemapTextRenderer;
 
 void sub_805B244(TilemapTextRenderer*, BGLayer*, const SpriteSheet*, const unk8*, unk32);
