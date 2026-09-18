@@ -1,5 +1,8 @@
 #include "levelrow.h"
 
+#include <agb/define.h>
+#include <agb/memory_map.h>
+
 #include "frontend.h"
 #include "include_asm.h"
 #include "music.h"
@@ -69,9 +72,38 @@ void sub_804A110(void)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/804a1e4.s");
-INCLUDE_ASM("asm/dump/8040d18/804a234.s");
-INCLUDE_ASM("asm/dump/8040d18/804a26c.s");
+void sub_804A1E4(SpriteTextCleanup* text)
+{
+    s32 top;
+    s32 bottom;
+    s32 left;
+    s32 right;
+
+    top = sub_8061E44(text);
+    top >>= 8;
+    bottom = top + 8;
+    left = sub_8061D54(text);
+    left >>= 8;
+    right = sub_8061E08(text);
+    right >>= 8;
+    *(vu16*)REG_WIN0H = (left << 8) + (right + 1);
+    *(vu16*)REG_WIN0V = (top << 8) | bottom;
+}
+
+void sub_804A234(void)
+{
+    *(vu16*)REG_BLDCNT = BLD_UP_MODE | BLD_OBJ;
+    *(vu16*)REG_WININ = WIN_ALL_ON;
+    *(vu16*)REG_WINOUT = WIN_BG0_ON | WIN_BG1_ON | WIN_BG2_ON | WIN_BG3_ON | WIN_OBJ_ON;
+    *(vu16*)REG_WIN0H = 0;
+    *(vu16*)REG_WIN0V = 0;
+    *(vu16*)REG_DISPCNT |= DISP_WIN0_ON;
+}
+
+void sub_804A26C(void)
+{
+    *(vu16*)REG_DISPCNT &= ~DISP_WIN0_ON;
+}
 
 void sub_804A280(FrontendState* arg0)
 {
