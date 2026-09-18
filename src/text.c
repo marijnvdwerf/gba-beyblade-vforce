@@ -113,7 +113,7 @@ unk32 sub_805B41C(TilemapTextRenderer* renderer, s32 x, s32 y, unk8* string, unk
     tileWidth = font->unk4 >> 3;
     tileHeight = font->unk5 >> 3;
     fontWidth = font->unk4;
-    if ((GetBGLayerCntPtr(layer->layerIndex)->half & BG_COLOR_256) != 0 || !(font->unkC & 1)) {
+    if ((*GetBGLayerCntPtr(layer->layerIndex) & BG_COLOR_256) != 0 || !(font->unkC & 1)) {
         nullsub_8(Str_875539C);
         return x;
     }

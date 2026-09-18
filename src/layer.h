@@ -29,14 +29,13 @@ typedef struct LayerTransformRecord {
     LayerTransformValue unk14;
 } LayerTransformRecord;
 
-typedef union BGControl {
-    struct {
-        unk32 unk0_0 : 2;
-        unk32 unk0_2 : 30;
-    } bits;
-
-    vu16 half;
+typedef struct BGControl {
+    unk32 unk0_0 : 2;
+    unk32 unk0_2 : 30;
 } BGControl;
+
+/* The priority accessors address the BGxCNT register through this 32-bit bitfield view. */
+#define BG_CONTROL(layer) ((BGControl*)GetBGLayerCntPtr(layer))
 
 extern Struct3000CA0 _unk3000CA0[4];
 extern LayerTransformRecord _unk3000D00[2];
@@ -48,7 +47,7 @@ void sub_8059934(void);
 void unref_8058C74(BGLayer*, u8, u16, u16);
 void sub_8058F60(BGLayer*);
 void sub_80596AC(BGLayer*, s32, s32);
-BGControl* GetBGLayerCntPtr(u8 layer);
+vu16* GetBGLayerCntPtr(u8 layer);
 vu16* GetBGLayerHOffsetPtr(u8 layer);
 vu16* GetBGLayerVOffsetPtr(u8 layer);
 unk8 sub_8059CB4(BGLayer*);

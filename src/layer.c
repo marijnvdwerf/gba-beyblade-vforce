@@ -177,7 +177,7 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
         bgLayer->screenBaseBlock = _unk3000E3C;
     }
 
-    layerCnt = &GetBGLayerCntPtr(layerIndex)->half;
+    layerCnt = GetBGLayerCntPtr(layerIndex);
     *layerCnt = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
         | ((bgPriority) << BG_PRIORITY_SHIFT)
         | ((bgLayer->characterBaseBlock) << BG_CHAR_BASE_SHIFT) | (((colorMode & 1) ^ 0x1) << 7);
@@ -275,7 +275,7 @@ void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriorit
     dest = (void*)(0x6000000 + bgLayer->screenBaseBlock * 0x800);
     __fastMemoryClearARM(0, dest, var0);
 
-    layerCnt = &GetBGLayerCntPtr(layerIndex)->half;
+    layerCnt = GetBGLayerCntPtr(layerIndex);
     *layerCnt = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
         | ((bgPriority) << BG_PRIORITY_SHIFT)
         | ((bgLayer->characterBaseBlock) << BG_CHAR_BASE_SHIFT);
@@ -476,7 +476,6 @@ void sub_8059188(BGLayer* layer, BGLayer* source, unk8 layerIndex, unk16 bgPrior
 {
     Struct3000CA0* object;
     unk32 count;
-    vu16* layerCnt;
 
     memcpy(layer, source, sizeof(*layer));
     layer->layerIndex = layerIndex;
@@ -494,8 +493,8 @@ void sub_8059188(BGLayer* layer, BGLayer* source, unk8 layerIndex, unk16 bgPrior
     } else {
         sub_80594FC(layer, 0, 0, 0, 0, 1 << layer->field_5F, 1 << layer->field_60);
     }
-    layerCnt = &GetBGLayerCntPtr(layerIndex)->half;
-    *layerCnt = (layer->screenBaseBlock << 8) | bgPriority | (layer->characterBaseBlock << 2);
+    *GetBGLayerCntPtr(layerIndex)
+        = (layer->screenBaseBlock << 8) | bgPriority | (layer->characterBaseBlock << 2);
 }
 
 unk32 sub_8059284(BGLayer* bgLayer, unk16 bgPriority, unk16 flags)
@@ -845,20 +844,20 @@ vu16* GetBGLayerVOffsetPtr(u8 layer)
     }
 }
 
-BGControl* GetBGLayerCntPtr(u8 layer)
+vu16* GetBGLayerCntPtr(u8 layer)
 {
     switch (layer) {
     case 0:
-        return (BGControl*)REG_BG0CNT;
+        return (vu16*)REG_BG0CNT;
 
     case 1:
-        return (BGControl*)REG_BG1CNT;
+        return (vu16*)REG_BG1CNT;
 
     case 2:
-        return (BGControl*)REG_BG2CNT;
+        return (vu16*)REG_BG2CNT;
 
     case 3:
-        return (BGControl*)REG_BG3CNT;
+        return (vu16*)REG_BG3CNT;
     }
 }
 
@@ -935,25 +934,25 @@ void sub_8059B00(u8 layer, u8 angle, u16 xAngle, u16 yAngle)
 
 void sub_8059C18(unk8 bg0, unk8 bg1, unk8 bg2, unk8 bg3)
 {
-    GetBGLayerCntPtr(0)->bits.unk0_0 = bg0;
-    GetBGLayerCntPtr(1)->bits.unk0_0 = bg1;
-    GetBGLayerCntPtr(2)->bits.unk0_0 = bg2;
-    GetBGLayerCntPtr(3)->bits.unk0_0 = bg3;
+    BG_CONTROL(0)->unk0_0 = bg0;
+    BG_CONTROL(1)->unk0_0 = bg1;
+    BG_CONTROL(2)->unk0_0 = bg2;
+    BG_CONTROL(3)->unk0_0 = bg3;
 }
 
 unk8 sub_8059CB4(BGLayer* layer)
 {
-    return GetBGLayerCntPtr(layer->layerIndex)->bits.unk0_0;
+    return BG_CONTROL(layer->layerIndex)->unk0_0;
 }
 
 void sub_8059CC8(u8 layer, u8 mode)
 {
-    GetBGLayerCntPtr(layer)->bits.unk0_0 = mode;
+    BG_CONTROL(layer)->unk0_0 = mode;
 }
 
 unk8 sub_8059CF0(u8 layer)
 {
-    return GetBGLayerCntPtr(layer)->bits.unk0_0;
+    return BG_CONTROL(layer)->unk0_0;
 }
 
 void ToggleLayerVisibility(u8 layer, bool8 enabled)

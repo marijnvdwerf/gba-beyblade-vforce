@@ -54,7 +54,7 @@ void newLayerManagement(UnkStruct_sub1* data, BGLayer* records, ScreenLayout* la
                     layerMode = layout->unk74_6;
                     break;
                 }
-                GetBGLayerCntPtr(layerIndex)->bits.unk0_0 = layerMode;
+                BG_CONTROL(layerIndex)->unk0_0 = layerMode;
                 count++;
             }
         }
@@ -136,7 +136,7 @@ void sub_80508CC(UnkStruct_sub1* data, ScreenLayout* layout, unk8 loadPalettes)
                     layerMode = layout->unk74_6;
                     break;
                 }
-                GetBGLayerCntPtr(layerIndex)->bits.unk0_0 = layerMode;
+                BG_CONTROL(layerIndex)->unk0_0 = layerMode;
                 count++;
             }
         }
