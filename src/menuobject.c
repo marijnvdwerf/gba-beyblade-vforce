@@ -1,5 +1,6 @@
 #include "menuobject.h"
 
+#include "debug.h"
 #include "frontend.h"
 #include "include_asm.h"
 #include "keystate.h"
@@ -8,6 +9,9 @@
 #include "ram.h"
 #include "sprite.h"
 #include "spritetext.h"
+
+extern const unk8 Str_86FD2C0[];
+extern const unk8 Str_86FD2D0[];
 
 void sub_8043370(FrontendState* object)
 {
@@ -213,6 +217,38 @@ void sub_804374C(FrontendState* object)
     }
 }
 
-INCLUDE_ASM("asm/dump/8040d18/804385c.s");
+void sub_804385C(SpriteTextCleanup* object)
+{
+    s32 y;
 
-INCLUDE_ASM("asm/dump/8040d18/80438cc.s");
+    if ((_unk3005DA0 & 0x200) != 0) {
+        y = object->y;
+        y -= 0x100;
+        sub_8061844(object, object->x >> 8, y >> 8);
+        printf(Str_86FD2C0, y >> 8);
+    }
+    if ((_unk3005DA0 & 0x100) != 0) {
+        y = object->y;
+        y += 0x100;
+        sub_8061844(object, object->x >> 8, y >> 8);
+        printf(Str_86FD2C0, y >> 8);
+    }
+}
+
+void sub_80438CC(SpriteTextCleanup* object)
+{
+    s32 x;
+
+    if ((_unk3005DA0 & 0x200) != 0) {
+        x = object->x;
+        x -= 0x100;
+        sub_8061844(object, x >> 8, object->y >> 8);
+        printf(Str_86FD2D0, x >> 8);
+    }
+    if ((_unk3005DA0 & 0x100) != 0) {
+        x = object->x;
+        x += 0x100;
+        sub_8061844(object, x >> 8, object->y >> 8);
+        printf(Str_86FD2D0, x >> 8);
+    }
+}
