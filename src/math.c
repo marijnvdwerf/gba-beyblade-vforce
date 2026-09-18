@@ -1,6 +1,10 @@
 #include "math.h"
 
+#include <agb/bios.h>
+
 #include "include_asm.h"
+
+extern const unk16 Unk_874D1C0[];
 
 s16 sub_8059FA0(s16 a, s16 b)
 {
@@ -10,8 +14,26 @@ s16 sub_8059FA0(s16 a, s16 b)
     return p;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8059fb8.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/8059fd0.s");
+s16 sub_8059FB8(s16 a, s16 b)
+{
+    return (a << 8) / b;
+}
+
+s32 sub_8059FD0(s32 a, s32 b)
+{
+    s32 shift;
+
+    if (b < 0) {
+        b = -b;
+        a = -a;
+    }
+    if ((b >> 4) != 0) {
+        shift = 16;
+    } else {
+        shift = 12;
+    }
+    return (Unk_874D1C0[b] * a) >> shift;
+}
 
 void sub_8059FF8(s32* arg0, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4)
 {
@@ -22,7 +44,17 @@ void sub_8059FF8(s32* arg0, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4)
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805a00c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805a0dc.s");
+
+void sub_805A0DC(s32* q)
+{
+    u16 length;
+
+    length = Sqrt(q[0] * q[0] + q[1] * q[1] + q[2] * q[2] + q[3] * q[3]);
+    q[0] = (q[0] << 8) / length;
+    q[1] = (q[1] << 8) / length;
+    q[2] = (q[2] << 8) / length;
+    q[3] = (q[3] << 8) / length;
+}
 
 s32* sub_805A148(s32* a, s32* b, s32* out)
 {
@@ -93,5 +125,11 @@ void sub_805A1DC(s32* arg0, s32* arg1)
     arg1[8] = 0x100 - (xx + yy);
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805a290.s");
+void sub_805A290(s32* vector, s32* matrix, s32* out)
+{
+    out[0] = (vector[0] * matrix[0] + vector[1] * matrix[3] + vector[2] * matrix[6]) >> 8;
+    out[1] = (vector[0] * matrix[1] + vector[1] * matrix[4] + vector[2] * matrix[7]) >> 8;
+    out[2] = (vector[0] * matrix[2] + vector[1] * matrix[5] + vector[2] * matrix[8]) >> 8;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805a2dc.s");
