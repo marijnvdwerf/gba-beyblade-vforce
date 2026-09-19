@@ -1554,7 +1554,7 @@ void sub_805D488(Actor* actor, LevelGeometryAddresses* geometry, s32 x0, s32 y0,
 }
 
 unk8 sub_805E320(
-    LevelGeometryAddresses*, GeometrySplineIntersection*, s32, s32, s32, s32, GeometrySpline*, s16);
+    LevelGeometryAddresses*, GeometrySplineIntersection*, s32, s32, s32, s32, GeometrySpline*, s32);
 
 void sub_805D548(Actor* actor, LevelGeometryAddresses* geometry, QuadTreeNode* node, s32 x0, s32 y0,
     s32 x1, s32 y1)
@@ -2161,7 +2161,78 @@ unk8 sub_805E18C(LevelGeometryAddresses* geometry, s32 splineIndex,
     return found;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805e320.s");
+unk8 sub_805E320(LevelGeometryAddresses* geometry, GeometrySplineIntersection* result, s32 x0,
+    s32 y0, s32 x1, s32 y1, GeometrySpline* spline, s32 index)
+{
+    unk32* pointIndices;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    s32 minX, maxX, minY, maxY;
+    unk8 flags0, flags1;
+    unk32 overlap;
+    unk32 found = 0;
+
+    pointIndices = spline->pointIndices;
+    if (x1 > x0) {
+        minX = x0;
+        maxX = x1;
+    } else {
+        minX = x1;
+        maxX = x0;
+    }
+    if (y1 > y0) {
+        minY = y0;
+        maxY = y1;
+    } else {
+        minY = y1;
+        maxY = y0;
+    }
+    point0 = &geometry->unk4[pointIndices[index]];
+    point1 = &geometry->unk4[pointIndices[index + 1]];
+    flags0 = 0;
+    if (point0->x < minX) {
+        flags0 = 1;
+    } else if (point0->x > maxX) {
+        flags0 = 2;
+    }
+    if (point0->y < minY) {
+        flags0 |= 4;
+    } else if (point0->y > maxY) {
+        flags0 |= 8;
+    }
+    flags1 = 0;
+    if (point1->x < minX) {
+        flags1 = 1;
+    } else if (point1->x > maxX) {
+        flags1 = 2;
+    }
+    if (point1->y < minY) {
+        flags1 |= 4;
+    } else if (point1->y > maxY) {
+        flags1 |= 8;
+    }
+    overlap = 0;
+    if ((flags0 & 3) != (flags1 & 3) || (flags0 & 3) == 0) {
+        overlap = 1;
+    }
+    if ((flags0 & 12) != (flags1 & 12) || (flags0 & 12) == 0) {
+        overlap |= 2;
+    }
+    if (overlap == 3) {
+        flags0 = sub_805E474(x0, y0, x1, y1, point0->x, point0->y, point1->x, point1->y);
+        if (flags0 != 0) {
+            found = 1;
+        }
+        if (found != 0) {
+            if (sub_805E0D8(geometry, spline, result, index, x0, y0, x1, y1) == 0) {
+                return 0;
+            }
+            result->unk10 = index;
+            result->unk14 = flags0;
+        }
+    }
+    return found;
+}
 
 unk32 sub_805E474(s32 x0, s32 y0, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3, s32 y3)
 {
