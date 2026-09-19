@@ -1507,15 +1507,6 @@ unk8 call_rider_94_8(Actor* rider, LevelGeometryAddresses* geometry, GeometryLin
     return result;
 }
 
-typedef struct GeometrySplineIntersection {
-    unk32 unk0;
-    unk32 unk4;
-    unk32 unk8;
-    unk32 unkC;
-    unk32 unk10;
-    unk8 pad14[4];
-} GeometrySplineIntersection;
-
 unk8 sub_805E18C(LevelGeometryAddresses*, s32, GeometrySplineIntersection*, s32, s32, s32, s32);
 
 void sub_805D488(Actor*, LevelGeometryAddresses*, s32, s32, s32, s32);
@@ -2079,7 +2070,97 @@ s32* sub_805E068(
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805e0d8.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805e18c.s");
+unk8 sub_805E0D8(
+    LevelGeometryAddresses*, GeometrySpline*, GeometrySplineIntersection*, s32, s32, s32, s32, s32);
+unk32 sub_805E474(s32, s32, s32, s32, s32, s32, s32, s32);
+
+unk8 sub_805E18C(LevelGeometryAddresses* geometry, s32 splineIndex,
+    GeometrySplineIntersection* result, s32 x0, s32 y0, s32 x1, s32 y1)
+{
+    GeometrySpline* spline;
+    unk32* pointIndices;
+    GeometryPoint* previous;
+    GeometryPoint* current;
+    s32 minX, maxX, minY, maxY;
+    s32 i;
+    unk8 previousFlags;
+    unk8 currentFlags;
+    unk32 overlap;
+    unk32 found = 0;
+    unk8 intersection;
+
+    spline = geometry->unk14[splineIndex];
+    if (spline == NULL) {
+        return 0;
+    }
+    pointIndices = spline->pointIndices;
+    if (x1 > x0) {
+        minX = x0;
+        maxX = x1;
+    } else {
+        minX = x1;
+        maxX = x0;
+    }
+    if (y1 > y0) {
+        minY = y0;
+        maxY = y1;
+    } else {
+        minY = y1;
+        maxY = y0;
+    }
+    previous = &geometry->unk4[pointIndices[0]];
+    previousFlags = 0;
+    if (previous->x < minX) {
+        previousFlags = 1;
+    } else if (previous->x > maxX) {
+        previousFlags = 2;
+    }
+    if (previous->y < minY) {
+        previousFlags |= 4;
+    } else if (previous->y > maxY) {
+        previousFlags |= 8;
+    }
+    for (i = 1; i < spline->pointCount; i++) {
+        current = &geometry->unk4[pointIndices[i]];
+        currentFlags = 0;
+        if (current->x < minX) {
+            currentFlags = 1;
+        } else if (current->x > maxX) {
+            currentFlags = 2;
+        }
+        if (current->y < minY) {
+            currentFlags |= 4;
+        } else if (current->y > maxY) {
+            currentFlags |= 8;
+        }
+        overlap = 0;
+        if ((previousFlags & 3) != (currentFlags & 3) || (previousFlags & 3) == 0) {
+            overlap = 1;
+        }
+        if ((previousFlags & 12) != (currentFlags & 12) || (previousFlags & 12) == 0) {
+            overlap |= 2;
+        }
+        if (overlap == 3) {
+            intersection
+                = sub_805E474(x0, y0, x1, y1, previous->x, previous->y, current->x, current->y);
+            if (intersection != 0) {
+                found = 1;
+            }
+            if (found == 1) {
+                if (sub_805E0D8(geometry, spline, result, i - 1, x0, y0, x1, y1) == 0) {
+                    return 0;
+                }
+                result->unk10 = i - 1;
+                result->unk14 = intersection;
+                break;
+            }
+        }
+        previous = current;
+        previousFlags = currentFlags;
+    }
+    return found;
+}
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805e320.s");
 
 unk32 sub_805E474(s32 x0, s32 y0, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3, s32 y3)

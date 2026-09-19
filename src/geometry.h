@@ -4,6 +4,16 @@
 #include "common.h"
 #include "ram.h"
 
+typedef struct GeometrySplineIntersection {
+    unk32 unk0;
+    unk32 unk4;
+    unk32 unk8;
+    unk32 unkC;
+    unk32 unk10;
+    unk8 unk14;
+    unk8 pad15[3];
+} GeometrySplineIntersection;
+
 typedef unk8 (*QuadTreeLineFilter)(LevelGeometryAddresses*, GeometryLine*);
 
 LevelGeometryTable* loadLevelGeometry(u16);
