@@ -154,7 +154,50 @@ void sub_804E594(ParticleSystem* system, s16 arg1, s16 arg2, unk16 arg3, unk16 a
 
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e6a4.s");
 INCLUDE_ASM("asm/dump/804a388-tutorial/804e7d4.s");
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e910.s");
+
+void sub_804E910(ParticleSystem* system, s16 scale, unk16 velocity, unk16 spread, unk16 lifetime,
+    unk16 timer, s16 sequence)
+{
+    s32 count;
+    Particle* particle;
+    s32 index;
+    s32 dx, dy, dz;
+    const ActorFrameSequence* frame;
+    SpriteEntry* sprite;
+    s32 x, y, z;
+    s32 lifetimeValue;
+
+    count = system->count;
+    particle = system->particles;
+    index = (_unk3000E30[0] >> 3) & 0x1F;
+    dx = ((system->unk10 - system->unk24) * scale) >> 8;
+    dy = ((system->unk14 - system->unk28) * scale) >> 8;
+    dz = ((system->unk18 - system->unk2C) * scale) >> 8;
+    frame = &system->unk0->sequences[sequence];
+    while (count-- != 0) {
+        sprite = particle->sprite;
+        x = (word_8074D64[index++] * (s16)velocity) >> 8;
+        y = (word_8074D64[index++] * (s16)velocity) >> 8;
+        z = (word_8074D64[index++] * (s16)velocity) >> 8;
+        index &= 0x1F;
+        lifetimeValue = (unk16)word_8074D64[index] + (s16)lifetime;
+        particle->unk1A = lifetimeValue;
+        particle->unk4 = ((s16)spread * word_8074D64[index++]) >> 8;
+        particle->unk8 = ((s16)spread * word_8074D64[index++]) >> 8;
+        particle->unkC = ((s16)spread * word_8074D64[index++]) >> 8;
+        index &= 0x1F;
+        particle->unk10 = x + dx;
+        particle->unk12 = y + dy;
+        particle->unk14 = z + dz;
+        particle->unk20 = particle->unk22 = timer;
+        particle->unk1C = frame->unk0;
+        particle->unk1E = frame->unk2;
+        if (sprite != NULL) {
+            sprite->frame.word = particle->unk1C;
+        }
+        particle++;
+    }
+}
 
 void sub_804EA88(ParticleSystem* arg0)
 {
