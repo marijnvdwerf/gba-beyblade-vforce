@@ -2022,7 +2022,61 @@ s32* sub_805DD18(LevelGeometryAddresses* geometry, unk32 splineIndex, s32* resul
     return result;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805df04.s");
+s16 sub_805DF04(LevelGeometryAddresses* geometry, GeometrySpline* spline, s32 position)
+{
+    GeometrySplineLine* lines;
+    s32 count;
+    s32 index;
+    s16 fraction;
+    s16 previous;
+    s16 currentEnd;
+    s16 next;
+    s16 nextEnd;
+    s16 delta;
+    s16 amount;
+
+    lines = (GeometrySplineLine*)&spline->pointIndices[spline->pointCount];
+    if (position < 0) {
+        position = 0;
+    }
+    if ((position >> 10) >= (count = spline->pointCount)) {
+        position = ((count - 1) << 10) | (position & 0x3FF);
+    }
+    index = position >> 10;
+    fraction = position & 0x3FF;
+    if (index > 0) {
+        previous = lines[index - 1].unk8;
+    } else {
+        previous = lines[0].unk8;
+    }
+    currentEnd = lines[index].unkA;
+    if (index < count - 2) {
+        next = lines[index + 1].unk8;
+        nextEnd = lines[index + 1].unkA;
+    } else {
+        next = lines[index].unk8;
+        nextEnd = next;
+    }
+    if (currentEnd != previous && nextEnd != next) {
+        delta = next - previous;
+        if (delta < 0) {
+            amount = -delta;
+        } else {
+            amount = delta;
+        }
+        if (amount > 0x80) {
+            amount -= 0xFF;
+        }
+        amount = (fraction * amount) >> 10;
+        if (delta < 0) {
+            amount = -amount;
+        }
+        amount = (previous + amount) & 0xFF;
+    } else {
+        amount = lines[index].unk8;
+    }
+    return amount;
+}
 
 s32* sub_805DFD4(LevelGeometryAddresses* addresses, unk32 splineIndex, s32* result, s32 position)
 {
