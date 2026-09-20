@@ -1,25 +1,42 @@
 
+#include <agb/macro.h>
+#include <agb/memory_map.h>
+
 #include "common.h"
+#include "debug.h"
 #include "include_asm.h"
 #include "memory.h"
+
+extern const char Str_875566C[];
 
 typedef struct AnimFrameState AnimFrameState;
 
 typedef struct AnimFrameData {
-    unk8 pad0[4];
+    unk32 unk0;
     unk16 unk4;
     unk16 unk6;
-    unk8 pad8[0x10];
+    unk32 unk8;
+    unk32 unkC;
+    unk8 pad10[4];
+    unk32 unk14;
     unk16 unk18;
     unk16 unk1A;
+    unk32 unk1C;
 } AnimFrameData;
 
 typedef struct AnimFrameRecord {
     unk32 unk0;
-    unk32 unk4;
+    s32 unk4;
     unk32 unk8;
     unk8 padC[4];
 } AnimFrameRecord;
+
+typedef struct AnimFrameCommand {
+    unk16 unk0;
+    unk16 unk2;
+    unk16 unk4;
+    unk8 pad6[2];
+} AnimFrameCommand;
 
 typedef struct AnimFrameEntry {
     unk16 unk0;
@@ -34,12 +51,12 @@ typedef unk8 (*AnimFrameCallback)(AnimFrameState*, void*, unk32, unk32);
 struct AnimFrameState {
     AnimFrameData* unk0;
     unk8* unk4;
-    unk8* unk8;
+    AnimFrameCommand* unk8;
     AllocatedBlock* unkC;
     AnimFrameRecord* unk10;
     unk8* unk14;
     unk8* unk18;
-    unk8 pad1C[4];
+    unk8* unk1C;
     unk8* unk20;
     AnimFrameEntry* unk24;
     s16 unk28;
@@ -67,7 +84,7 @@ struct AnimFrameState {
     unk8 pad5A[2];
     AllocatedBlock* unk5C;
     unk32 unk60;
-    unk8 pad64[4];
+    unk8* unk64;
     unk16 unk68;
     unk8 pad6A[2];
     AnimFrameCallback unk6C;
@@ -75,10 +92,75 @@ struct AnimFrameState {
 };
 
 void sub_805F784(AnimFrameState*, unk16, unk16);
+void sub_805F1F4(AnimFrameState*);
+void sub_805F378(AnimFrameState*, s16);
 void sub_805F3A8(AnimFrameState*, s16);
 void sub_805F47C(AnimFrameState*);
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805f0b4.s");
+void sub_805F0B4(AnimFrameState* state, AnimFrameData* data, AnimFrameData* sharedData, unk32 arg3,
+    unk8 useSlowHeap)
+{
+    state->unk0 = data;
+    state->unk4 = (unk8*)data + data->unk8;
+    state->unk8 = (AnimFrameCommand*)((unk8*)data + data->unkC);
+    state->unk24 = (AnimFrameEntry*)((unk8*)data + data->unk14);
+    state->unk64 = data->unk1C != 0 ? (unk8*)data + data->unk1C : NULL;
+    if (state->unkC != NULL) {
+        sub_805F1F4(state);
+    }
+    if (sharedData != NULL) {
+        state->unk1C = (unk8*)sharedData;
+        state->unk20 = (unk8*)sharedData + sharedData->unk8;
+    } else {
+        state->unk1C = (unk8*)data;
+        state->unk20 = state->unk4;
+    }
+    if (sharedData != NULL) {
+        state->unk14 = (unk8*)sharedData + state->unk0->unk0;
+    } else {
+        state->unk14 = (unk8*)data + state->unk0->unk0;
+    }
+    if (sharedData == NULL) {
+        if (useSlowHeap == 0) {
+            state->unkC = fastAllocate(state->unk0->unk4 << 4);
+        } else {
+            state->unkC = slowAllocate(state->unk0->unk4 << 4);
+        }
+        state->unk4 = (unk8*)state->unkC->address + (state->unk0->unk4 << 5);
+        sub_805F3A8(state, -1);
+    } else {
+        if (useSlowHeap == 0) {
+            state->unkC = fastAllocate(state->unk0->unk4 << 4);
+        } else {
+            state->unkC = slowAllocate(state->unk0->unk4 << 4);
+        }
+    }
+    if (state->unkC == NULL) {
+        printf(Str_875566C, state->unk0->unk4 << 5);
+        state->unk10 = NULL;
+    } else {
+        state->unk10 = state->unkC->address;
+        state->unk18 = (unk8*)state->unkC->address + (state->unk0->unk4 << 4);
+    }
+    state->unk2A = 0;
+    state->unk28 |= -1;
+    state->unk30 |= -1;
+    state->unk2C = 0;
+    state->unk2E = 0;
+    state->unk44 = 0;
+    state->unk32 = 0;
+    state->unk3C = 0;
+    state->unk3E = 0;
+    state->unk40 = 0;
+    state->unk68 = 0;
+    state->unk38 = 0;
+    state->unk58 = 0;
+    state->unk3A = 0;
+    state->unk52 = 0;
+    state->unk6C = NULL;
+    state->unk70 = NULL;
+    sub_805F378(state, state->unk2C);
+}
 
 void sub_805F1E4(AnimFrameState* arg0, AnimFrameCallback arg1, void* arg2)
 {
@@ -86,9 +168,9 @@ void sub_805F1E4(AnimFrameState* arg0, AnimFrameCallback arg1, void* arg2)
     arg0->unk70 = arg2;
 }
 
-void sub_805F1EC(AnimFrameState* arg0, unk32* arg1)
+void sub_805F1EC(AnimFrameState* arg0, AnimFrameData* arg1)
 {
-    arg0->unk8 = (unk8*)arg1 + arg1[3];
+    arg0->unk8 = (AnimFrameCommand*)((unk8*)arg1 + arg1->unkC);
 }
 
 void sub_805F1F4(AnimFrameState* arg0)
@@ -415,7 +497,38 @@ void sub_805F8F8(AnimFrameState* arg0)
     for (i = 0; i < arg0->unk0->unk6; i++) { }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805f910.s");
+typedef void (*AnimFrameVisitCallback)(s16*, s32, unk32);
+
+typedef struct AnimFrameVisitor {
+    unk8 pad0[0x10];
+    AnimFrameVisitCallback callback;
+} AnimFrameVisitor;
+
+void sub_805F910(AnimFrameState* state, s16* limit, AnimFrameVisitor* visitor)
+{
+    AnimFrameCommand* command;
+    AnimFrameRecord* first;
+    AnimFrameRecord* second;
+    AnimFrameRecord* third;
+    AnimFrameRecord* selected;
+    unk16 i;
+    s32 value;
+
+    for (i = 0; i < state->unk0->unk6; i++) {
+        command = &state->unk8[i];
+        first = &state->unk10[command->unk0];
+        second = &state->unk10[command->unk2];
+        third = &state->unk10[command->unk4];
+        selected = first->unk4 <= second->unk4 ? first : second;
+        if (selected->unk4 > third->unk4) {
+            selected = third;
+        }
+        value = (selected->unk4 << 10) >> 16;
+        if (value >= 0 && value < *limit) {
+            visitor->callback(limit, value, i);
+        }
+    }
+}
 
 void sub_805F98C(AnimFrameState* arg0)
 {
