@@ -781,7 +781,21 @@ void sub_80596AC(BGLayer* bgLayer, s32 deltaX, s32 deltaY)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8059904.s");
+void sub_8059904(BGLayer* layer, MotionEntry* entry)
+{
+    s32 x;
+    s32 y;
+    s32 centerX;
+    s32 centerY;
+
+    x = entry->y + (entry->unkC << 7);
+    centerX = layer->field_C + 0x5800;
+    x -= centerX;
+    y = entry->unk8 + (entry->unkC << 7);
+    centerY = layer->field_10 + 0x2C00;
+    y -= centerY;
+    sub_80596AC(layer, x, y);
+}
 
 void sub_8059934(void)
 {
@@ -1005,7 +1019,24 @@ void sub_8059DB8(BGLayer* layer, unk32 column, unk32 row, unk16 data)
     *address = data;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8059ddc.s");
+void sub_8059DDC(BGLayer* layer, unk32 column, unk32 row, unk32 width, unk32 height, unk16 data)
+{
+    unk16* address;
+    unk32 currentRow;
+    unk32 currentColumn;
+    unk16 rowStride;
+
+    address = (unk16*)(VRAM + (layer->screenBaseBlock << 11));
+    rowStride = (1 << layer->field_5F) - width;
+    address += (row << layer->field_5F) + column;
+    for (currentRow = row; currentRow < row + height; currentRow++) {
+        for (currentColumn = column; currentColumn < column + width; currentColumn++) {
+            *address = data & 0x3FF;
+            address++;
+        }
+        address += rowStride;
+    }
+}
 
 void sub_8059E5C(BGLayer* layer, unk32 width, unk8 height, unk32 column, unk32 row, s32 glyph)
 {
@@ -1055,4 +1086,32 @@ void sub_8059EBC(BGLayer* layer, unk8* string, unk32 column, unk32 row)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8059f20.s");
+void sub_8059F20(BGLayer* layer, unk8* string, unk32 column, unk32 row, unk16 start, unk16 length)
+{
+    s32 index;
+    unk32 currentColumn;
+    s32 end;
+    unk8 character;
+
+    index = start;
+    currentColumn = column;
+    character = string[index++];
+    if (character != 0) {
+        end = start + length;
+        if (index <= end) {
+            do {
+                if (character == '\n') {
+                    row += 2;
+                    currentColumn = column;
+                } else if (character == ' ') {
+                    currentColumn++;
+                } else {
+                    sub_8059E5C(layer, 1, 2, currentColumn, row, GlyphIndexes[character]);
+                    currentColumn++;
+                }
+                character = string[index];
+                index++;
+            } while (character != 0 && index <= end);
+        }
+    }
+}
