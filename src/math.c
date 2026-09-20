@@ -132,4 +132,16 @@ void sub_805A290(s32* vector, s32* matrix, s32* out)
     out[2] = (vector[0] * matrix[2] + vector[1] * matrix[5] + vector[2] * matrix[8]) >> 8;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805a2dc.s");
+void sub_805A2DC(s32 (*a)[3], s32 (*b)[3], s32 (*out)[3])
+{
+    unk16 i;
+    unk16 j;
+
+    for (i = 0; i < 3; i++) {
+        for (j = 0; j < 3; j++) {
+            out[i][j] = (a[i][0] * b[0][j] + a[i][1] * b[1][j] + a[i][2] * b[2][j]) >> 8;
+        }
+    }
+}
+
+ASM_ZEROPAD
