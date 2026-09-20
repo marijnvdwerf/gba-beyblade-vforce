@@ -1308,7 +1308,47 @@ s32 sub_804E258(s32 arg0, s32 arg1, s32 period, unk8 scale, unk32 unused, s32 li
     return result;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/804e2a4.s");
+unk32 sub_804E3B0(unk32 arg0, unk32 arg1, unk32 arg2);
+
+s32 sub_804E2A4(s32 arg0, s32 arg1, s32 period, s16 scale, unk32 unused, s32 limit)
+{
+    s32 delta;
+    s32 adjusted;
+    s32 magnitude;
+    s16 scaleValue;
+    s32 result;
+
+    if (scale == 0) {
+        return sub_804E258(arg0, arg1, period, scale, unused, limit);
+    }
+    delta = sub_804E3B0(arg0, arg1, period);
+    if (scale > 0 && delta < 0) {
+        adjusted = delta + 1;
+        delta = period + adjusted;
+    }
+    if (scale < 0 && delta > 0) {
+        adjusted = delta - 1;
+        delta = adjusted - period;
+    }
+    if (delta < 0) {
+        magnitude = -delta;
+        scaleValue = -scale;
+    } else {
+        magnitude = delta;
+        scaleValue = scale;
+    }
+    result = (scaleValue * magnitude) >> 8;
+    if (magnitude == 0 && delta != 0) {
+        result = 0;
+    }
+    if (result > limit) {
+        result = limit;
+    }
+    if (delta < 0) {
+        result = -result;
+    }
+    return result;
+}
 
 s16 sub_804E328(unk8 arg0, unk8 arg1)
 {
