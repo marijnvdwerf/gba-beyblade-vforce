@@ -20,7 +20,45 @@ void sub_8050284(unk32* arg0, unk32 arg1, unk32 arg2, unk16 arg3)
     *(unk16*)&arg0[8] = arg3;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/80502a4.s");
+void sub_80502A4(Motion* arg0)
+{
+    s32 position;
+    s32 velocity;
+    s32 before;
+    s32 after;
+
+    arg0->unk0 += arg0->unk8;
+    arg0->unk8 += arg0->unk10;
+    arg0->unk4 += arg0->unkC;
+    arg0->unkC += arg0->unk14;
+    if ((arg0->unk20 & 3) != 0) {
+        if ((arg0->unk20 & 1) != 0) {
+            position = arg0->unk0;
+            velocity = arg0->unk8;
+        } else {
+            position = arg0->unk4;
+            velocity = arg0->unkC;
+        }
+        before = position - arg0->unk18;
+        after = position + velocity - arg0->unk18;
+        if ((before <= 0 && after > 0) || (before >= 0 && after < 0)) {
+            if ((arg0->unk20 & 4) != 0) {
+                velocity = -(arg0->unk1C * velocity) >> 8;
+                position = arg0->unk18;
+            } else {
+                velocity = 0;
+                position = arg0->unk18;
+            }
+            if ((arg0->unk20 & 1) != 0) {
+                arg0->unk0 = position;
+                arg0->unk8 = velocity;
+            } else {
+                arg0->unk4 = position;
+                arg0->unkC = velocity;
+            }
+        }
+    }
+}
 
 void sub_805032C(unk32* arg0, unk32 arg1, unk32 arg2)
 {

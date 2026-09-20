@@ -49,7 +49,7 @@ void sub_80439A0(BGLayer* arg0)
     arg0->field_7C |= 3;
 }
 
-void sub_80439F4(BGLayer* layer, FrontendMotionData* motionData)
+void sub_80439F4(BGLayer* layer, Motion* motionData)
 {
     sub_80502A4(motionData);
     layer->field_18 = -motionData->unkC;

@@ -4,7 +4,19 @@
 #include "common.h"
 #include "memory.h"
 
-void sub_80502A4(FrontendMotionData*);
+typedef struct Motion {
+    unk32 unk0; /* 0x00 */
+    unk32 unk4; /* 0x04 */
+    unk32 unk8; /* 0x08 */
+    unk32 unkC; /* 0x0C */
+    unk32 unk10; /* 0x10 */
+    unk32 unk14; /* 0x14 */
+    unk32 unk18; /* 0x18 */
+    s32 unk1C; /* 0x1C */
+    unk16 unk20; /* 0x20 */
+} Motion;
+
+void sub_80502A4(Motion*);
 
 typedef UnkMotion MotionGroup;
 
