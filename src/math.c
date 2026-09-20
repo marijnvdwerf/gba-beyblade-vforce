@@ -5,6 +5,7 @@
 #include "include_asm.h"
 
 extern const unk16 Unk_874D1C0[];
+extern const s16 Unk_874CC3C[];
 
 s16 sub_8059FA0(s16 a, s16 b)
 {
@@ -43,7 +44,31 @@ void sub_8059FF8(s32* arg0, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4)
     arg0[3] = arg4;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805a00c.s");
+s32* sub_805A00C(s32 a, s32 b, s32 c, s32* out)
+{
+    s32 cosA;
+    s32 cosB;
+    s32 cosC;
+    s32 sinA;
+    s32 sinB;
+    s32 sinC;
+    s32 cosBcosC;
+    s32 sinBsinC;
+
+    cosA = Unk_874CC3C[(unk8)(a >> 1) + 0x40];
+    cosB = Unk_874CC3C[(unk8)(b >> 1) + 0x40];
+    cosC = Unk_874CC3C[(unk8)(c >> 1) + 0x40];
+    sinA = Unk_874CC3C[(unk8)(a >> 1)];
+    sinB = Unk_874CC3C[(unk8)(b >> 1)];
+    sinC = Unk_874CC3C[(unk8)(c >> 1)];
+    cosBcosC = (cosB * cosC) >> 8;
+    sinBsinC = (sinB * sinC) >> 8;
+    out[3] = (cosA * cosBcosC + sinA * sinBsinC) >> 8;
+    out[0] = (sinA * cosBcosC - cosA * sinBsinC) >> 8;
+    out[1] = (cosA * sinB * cosC + cosB * sinA * sinC) >> 16;
+    out[2] = (cosA * cosB * sinC - sinB * sinA * cosC) >> 16;
+    return out;
+}
 
 void sub_805A0DC(s32* q)
 {
