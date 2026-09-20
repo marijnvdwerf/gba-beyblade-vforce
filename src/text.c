@@ -13,7 +13,7 @@ enum { TEXT_MAP_WIDTH_TILES = 32 };
 
 extern const unk8 byte_807D980[];
 
-void sub_805B280(unk16*, void*, const Tile4bpp*, s32, s32);
+void sub_805B280(unk16* map, Tile4bpp* tiles, const unk32* data, s32 x, unk32 y);
 const Tile4bpp* sub_805B7F0(const SpriteSheet*, unk32);
 
 void sub_805B244(
@@ -49,7 +49,62 @@ Tile4bpp* sub_805B270(Tile4bpp* arg0, unk32 arg1)
     return &arg0[arg1 & 0x3FF];
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805b280.s");
+void sub_805B280(unk16* map, Tile4bpp* tiles, const unk32* data, s32 x, unk32 y)
+{
+    unk32* topLeft;
+    unk32* topRight;
+    unk32* bottomLeft;
+    unk32* bottomRight;
+    s32 xTile;
+    unk32 invShift;
+    unk32 topCount;
+    unk32 bottomCount;
+    unk32 pixels;
+    unk32 left;
+
+    xTile = x >> 3;
+    if (y > 0x98 || (unk32)(x + 7) > 0xF6) {
+        return;
+    }
+    topLeft = *sub_805B270(tiles, map[0]);
+    topRight = *sub_805B270(tiles, map[1]);
+    bottomLeft = *sub_805B270(tiles, map[0x20]);
+    bottomRight = *sub_805B270(tiles, map[0x21]);
+    x &= 7;
+    y &= 7;
+    topLeft += y;
+    topRight += y;
+    x <<= 2;
+    invShift = 0x20 - x;
+    topCount = 8 - y;
+    bottomCount = y;
+    while (topCount--) {
+        pixels = *data++;
+        left = pixels << x;
+        pixels >>= invShift;
+        if (xTile >= 0) {
+            *topLeft |= left;
+        }
+        if (xTile <= 0x1C) {
+            *topRight |= pixels;
+        }
+        topLeft++;
+        topRight++;
+    }
+    while (bottomCount--) {
+        pixels = *data++;
+        left = pixels << x;
+        pixels >>= invShift;
+        if (xTile >= 0) {
+            *bottomLeft |= left;
+        }
+        if (xTile <= 0x1C) {
+            *bottomRight |= pixels;
+        }
+        bottomLeft++;
+        bottomRight++;
+    }
+}
 
 void sub_805B394(TilemapTextRenderer* arg0)
 {
@@ -166,7 +221,7 @@ unk32 sub_805B41C(TilemapTextRenderer* renderer, s32 x, s32 y, unk8* string, unk
                 drawX = x;
                 drawColumn = tileWidth;
                 while (drawColumn-- != 0) {
-                    sub_805B280(map + (drawY & ~7) * 4 + (drawX >> 3), tiles, data, drawX, drawY);
+                    sub_805B280(map + (drawY & ~7) * 4 + (drawX >> 3), tiles, *data, drawX, drawY);
                     drawX += 8;
                     data++;
                 }

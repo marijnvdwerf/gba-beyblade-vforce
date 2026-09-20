@@ -723,7 +723,7 @@ typedef struct RiderTileState {
     s32 unkC;
 } RiderTileState;
 
-typedef unk8 Tile4bpp[0x20];
+typedef unk32 Tile4bpp[8];
 typedef Tile4bpp RiderTile;
 typedef RiderTile RiderTileRow[4];
 
