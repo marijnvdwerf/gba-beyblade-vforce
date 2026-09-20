@@ -99,10 +99,10 @@ void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthT
     sub_8065088(string);
 }
 
-SpriteStringActorBlock* SpriteString_8064FE8(SpriteString* string, const u8* arg1, unk32 arg2,
-    u16 count, void* argA, const u8* argB, unk32 argC, unk32 argD, u8 argE)
+ActorBlock* SpriteString_8064FE8(SpriteString* string, const u8* arg1, unk32 arg2, u16 count,
+    void* argA, const u8* argB, unk32 argC, unk32 argD, u8 argE)
 {
-    SpriteStringActorBlock* state;
+    ActorBlock* state;
     u16 i;
     Actor* actor;
 
@@ -113,13 +113,13 @@ SpriteStringActorBlock* SpriteString_8064FE8(SpriteString* string, const u8* arg
     i = 0;
     if (i < count) {
         do {
-            actor = state->actors + i;
+            actor = state->actor + i;
             actor_8057C58(actor, argA, 0, 0, 0, 0, 0);
             sub_80585C8(actor, 1);
             i++;
         } while (i < count);
     }
-    sub_8064F9C(string, arg1, arg2, argB, state->actors, state->count, argC, argD);
+    sub_8064F9C(string, arg1, arg2, argB, state->actor, state->size, argC, argD);
     string->mode = argE;
     return state;
 }

@@ -652,16 +652,6 @@ typedef struct EnvironmentActorAllocation {
     unk32 callbacks[4];
 } EnvironmentActorAllocation;
 
-typedef struct SpriteStringActorBlock SpriteStringActorBlock;
-
-struct SpriteStringActorBlock {
-    unk32 offset;
-    unk32 count;
-    struct Actor* actors;
-    SpriteStringActorBlock* previous;
-    SpriteStringActorBlock* next;
-};
-
 typedef struct SpriteString SpriteString;
 
 struct SpriteString {

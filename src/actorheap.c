@@ -1,31 +1,17 @@
+#include "actorheap.h"
+
 #include <agb/macro.h>
 
 #include "actor.h"
 #include "common.h"
 #include "include_asm.h"
 #include "memory.h"
+#include "ram.h"
 #include "system.h"
-
-typedef struct ActorBlock ActorBlock;
-
-struct ActorBlock {
-    s32 offset;
-    s32 size;
-    Actor* actor;
-    ActorBlock* prev;
-    ActorBlock* next;
-};
-
-extern ActorBlock* _actorBlocksHeapPtr;
-extern ActorBlock* _unk3005E58;
-extern unk32 _unk3005E5C;
-extern ActorBlock* _unk3005E60;
-extern unk32 _unk3005E64;
-extern Actor* _actorsHeapPtr;
 
 void allocateActorHeaps(void);
 s32 sub_806306C(s32, ActorBlock*);
-void* sub_8062FA8(void);
+ActorBlock* sub_8062FA8(void);
 Actor* sub_8063190(ActorBlock*, s32);
 
 void allocateActorHeaps(void)
@@ -50,17 +36,13 @@ void allocateActorHeaps(void)
     DmaClear(3, 0, _actorBlocksHeapPtr, 0x1400, 32);
 }
 
-#if 0
-void* sub_8062EFC(s32 arg0)
+ActorBlock* sub_8062EFC(s32 count)
 {
     ActorBlock* block;
-    ActorBlock* previous;
-    ActorBlock* newBlock;
-    s32 count;
     s32 startIndex;
+    unk32 inserted;
 
-    count = arg0;
-    newBlock = NULL;
+    inserted = 0;
     if (_unk3005E60 == NULL) {
         _unk3005E60 = _actorBlocksHeapPtr;
         _unk3005E64 = 0;
@@ -71,36 +53,33 @@ void* sub_8062EFC(s32 arg0)
     }
     block = sub_8062FA8();
     if (_unk3005E64 + count > 0x100) {
-        newBlock = (ActorBlock*)1;
+        inserted = 1;
         startIndex = sub_806306C(count, block);
         if (startIndex < 0) {
             return NULL;
         }
     } else {
         startIndex = _unk3005E64;
-        previous = _unk3005E58;
-        if (previous != NULL) {
-            previous->next = block;
-            block->prev = previous;
+        if (_unk3005E58 != NULL) {
+            _unk3005E58->next = block;
+            block->prev = _unk3005E58;
+            block->next = NULL;
         } else {
-            block->prev = (ActorBlock*)newBlock;
+            block->prev = NULL;
+            block->next = NULL;
         }
-        block->next = (ActorBlock*)newBlock;
     }
     block->actor = &_actorsHeapPtr[startIndex];
     block->size = count;
     block->offset = startIndex;
     _unk3005E58 = block;
-    if (newBlock == 0) {
+    if (inserted == 0) {
         _unk3005E64 += count;
     }
     return block;
 }
-#else
-INCLUDE_ASM("asm/dump/8057b80-debug/8062efc.s");
-#endif
 
-void* sub_8062FA8(void)
+ActorBlock* sub_8062FA8(void)
 {
     u16 i;
     ActorBlock* slot;

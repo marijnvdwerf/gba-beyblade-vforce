@@ -646,6 +646,13 @@ extern SpriteEntry* _unk3000468;
 extern s32 _unk300046C;
 extern s32 _unk3000470;
 
+struct ActorBlock;
+extern struct ActorBlock* _actorBlocksHeapPtr;
+extern struct ActorBlock* _unk3005E58;
+extern s32 _unk3005E5C;
+extern struct ActorBlock* _unk3005E60;
+extern s32 _unk3005E64;
+extern Actor* _actorsHeapPtr;
 extern unk32 _unk3005E6C;
 extern unk32 _unk3005E74;
 
