@@ -165,6 +165,7 @@ void sub_804E910(ParticleSystem* system, s16 scale, unk16 velocity, unk16 spread
     const ActorFrameSequence* frame;
     SpriteEntry* sprite;
     s32 x, y, z;
+    unk16 tableValue;
     s32 lifetimeValue;
 
     count = system->count;
@@ -180,7 +181,8 @@ void sub_804E910(ParticleSystem* system, s16 scale, unk16 velocity, unk16 spread
         y = (word_8074D64[index++] * (s16)velocity) >> 8;
         z = (word_8074D64[index++] * (s16)velocity) >> 8;
         index &= 0x1F;
-        lifetimeValue = (unk16)word_8074D64[index] + (s16)lifetime;
+        tableValue = word_8074D64[index];
+        lifetimeValue = tableValue + (s16)lifetime;
         particle->unk1A = lifetimeValue;
         particle->unk4 = ((s16)spread * word_8074D64[index++]) >> 8;
         particle->unk8 = ((s16)spread * word_8074D64[index++]) >> 8;
