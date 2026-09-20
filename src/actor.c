@@ -214,7 +214,22 @@ ActorSequenceEntry* sub_8058038(Actor* actor, unk16 sequence)
     return NULL;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8058068.s");
+s32 sub_8058068(Actor* actor, unk16 sequence)
+{
+    ActorSequenceEntry* entry;
+    unk32 total;
+    unk32 index;
+
+    total = 0;
+    entry = sub_8058038(actor, sequence);
+    if (entry == NULL) {
+        return 0;
+    }
+    for (index = 0; index < entry->unk4; index++) {
+        total += sub_8057FDC(actor, *(entry->frames + index));
+    }
+    return total;
+}
 
 const ActorFrameSequence* GetSpriteSheetStructA(Actor* actor, unk32 index)
 {
