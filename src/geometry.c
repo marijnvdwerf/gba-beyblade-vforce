@@ -2133,9 +2133,46 @@ s32* sub_805E068(
     return result;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805e0d8.s");
-unk8 sub_805E0D8(
-    LevelGeometryAddresses*, GeometrySpline*, GeometrySplineIntersection*, s32, s32, s32, s32, s32);
+unk8 sub_805E0D8(LevelGeometryAddresses* geometry, GeometrySpline* spline,
+    GeometrySplineIntersection* result, s32 segment, s32 x0, s32 y0, s32 x1, s32 y1)
+{
+    unk32* pointIndices;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    s32 yDelta;
+    s32 xDelta;
+    s32 lineXDelta;
+    s32 lineYDelta;
+    s32 denominator;
+    s32 fraction;
+    s32 intersectionX;
+    s32 intersectionY;
+
+    if (spline == NULL) {
+        return 0;
+    }
+    pointIndices = spline->pointIndices;
+    point0 = &geometry->unk4[pointIndices[segment]];
+    point1 = &geometry->unk4[pointIndices[segment + 1]];
+    xDelta = x1 - x0;
+    yDelta = y1 - y0;
+    lineXDelta = point1->x - point0->x;
+    lineYDelta = point1->y - point0->y;
+    denominator = lineXDelta * yDelta - lineYDelta * xDelta;
+    if (denominator == 0) {
+        return 0;
+    }
+    fraction
+        = Div((((point0->y - y0) * xDelta + yDelta * x0 - point0->x * yDelta) << 10), denominator);
+    intersectionX = point0->x + ((lineXDelta * fraction) >> 10);
+    intersectionY = point0->y + ((lineYDelta * fraction) >> 10);
+    result->unk0 = intersectionX;
+    result->unk4 = intersectionY;
+    result->unk8 = point0->z + (((point1->z - point0->z) * fraction) >> 10);
+    result->unkC = fraction;
+    return 1;
+}
+
 unk32 sub_805E474(s32, s32, s32, s32, s32, s32, s32, s32);
 
 unk8 sub_805E18C(LevelGeometryAddresses* geometry, s32 splineIndex,
@@ -2343,8 +2380,29 @@ unk32* sub_805E514(unk32* arg0, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4)
 }
 
 INCLUDE_ASM("asm/dump/8057b80-debug/805e528.s");
+
 INCLUDE_ASM("asm/dump/8057b80-debug/805e648.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805e77c.s");
+
+GeometryLine* sub_805E77C(LevelGeometryAddresses* addresses, unk8 type, unk16 id)
+{
+    unk16 index;
+    unk16 identifier;
+    GeometryLine* line;
+
+    line = addresses->unkC;
+    index = 0;
+    if (index < addresses->unk0->lineCount) {
+        do {
+            if (line->unkF != type || (identifier = line->unk16) != id) {
+                line++;
+                index++;
+            } else {
+                return line;
+            }
+        } while (index < addresses->unk0->lineCount);
+    }
+    return NULL;
+}
 
 GeometryLine* sub_805E7C0(LevelGeometryAddresses* addresses, unk8 type, unk16 id)
 {
