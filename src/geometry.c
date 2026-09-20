@@ -2414,8 +2414,7 @@ GeometryLine* sub_805E528(
         minY = maxY;
         maxY = temp;
     }
-    index = 0;
-    while (index < addresses->unk0->lineCount) {
+    for (index = 0; index < addresses->unk0->lineCount; index++) {
         if (current->unkF == type) {
             endpointFlags = 0;
             currentPoint0 = &points[current->point0];
@@ -2447,7 +2446,6 @@ GeometryLine* sub_805E528(
             }
         }
         current++;
-        index++;
     }
     return NULL;
 }
@@ -2487,8 +2485,7 @@ GeometryLine* sub_805E648(
         minY = maxY;
         maxY = temp;
     }
-    index = 0;
-    while (index < addresses->unk0->lineCount) {
+    for (index = 0; index < addresses->unk0->lineCount; index++) {
         if (current->unkF == type && sideFlag == current->unk11_1) {
             endpointFlags = 0;
             currentPoint0 = &points[current->point0];
@@ -2520,7 +2517,6 @@ GeometryLine* sub_805E648(
             }
         }
         current++;
-        index++;
     }
     return NULL;
 }
