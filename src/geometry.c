@@ -1507,6 +1507,16 @@ unk8 call_rider_94_8(Actor* rider, LevelGeometryAddresses* geometry, GeometryLin
     return result;
 }
 
+typedef struct GeometrySplineIntersection {
+    unk32 unk0;
+    unk32 unk4;
+    unk32 unk8;
+    unk32 unkC;
+    unk32 unk10;
+    unk8 unk14;
+    unk8 pad15[3];
+} GeometrySplineIntersection;
+
 unk8 sub_805E18C(LevelGeometryAddresses*, s32, GeometrySplineIntersection*, s32, s32, s32, s32);
 
 void sub_805D488(Actor*, LevelGeometryAddresses*, s32, s32, s32, s32);
