@@ -1,8 +1,11 @@
 #include <agb/define.h>
 #include <agb/memory_map.h>
 
+#include "debug.h"
 #include "include_asm.h"
 #include "ram.h"
+
+extern const char Str_86FD2A4[];
 
 void sub_80431E8(unk8 arg0)
 {
@@ -26,4 +29,46 @@ void sub_80431E8(unk8 arg0)
     _unk3000150[0] = arg0;
 }
 
-INCLUDE_ASM("asm/dump/8040d18/804323c-profile.s");
+void profile(const char* name)
+{
+    s32 timer;
+    float elapsed;
+    float frameRate;
+    unk32 scale;
+    unk16 milliseconds;
+    unk16 fraction;
+    unk16 hundreds;
+    unk16 tenths;
+    unk16 ones;
+
+    scale = 0;
+    timer = (unk16) * (vu32*)REG_TM2CNT_L;
+    *(vu32*)REG_TM2CNT_L = 0;
+    switch (_unk3000150[0]) {
+    case 1:
+        frameRate = 3.814f;
+        scale = 1000;
+        break;
+    case 2:
+        frameRate = 15.256f;
+        scale = 1000;
+        break;
+    case 3:
+        frameRate = 61.025f;
+        scale = 1000;
+        break;
+    case 0:
+    default:
+        frameRate = 59.595f;
+        scale = 1000000;
+        break;
+    }
+    elapsed = (float)timer * frameRate;
+    elapsed /= scale;
+    milliseconds = elapsed;
+    fraction = (elapsed - milliseconds) * scale;
+    hundreds = fraction / 100;
+    tenths = (fraction / 10) % 10;
+    ones = fraction % 10;
+    printf(Str_86FD2A4, name, milliseconds, hundreds + '0', tenths + '0', ones + '0');
+}
