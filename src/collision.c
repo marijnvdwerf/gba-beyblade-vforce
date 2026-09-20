@@ -60,7 +60,7 @@ void sub_8055D64(Actor* actor, RiderBase* rider, LevelGeometryAddresses* geometr
     angleDelta = sub_804E358(angle, rider->unk8 << 4);
     direction = 0x10;
     savedAngle = angle;
-    if ((line->unk11 & 8) != 0) {
+    if (line->unk11_3 != 0) {
         object = GetStruct4(sub_805BAC0(geometry, line));
     }
     SetRiderFlag(rider, 0x200000);
@@ -71,13 +71,13 @@ void sub_8055D64(Actor* actor, RiderBase* rider, LevelGeometryAddresses* geometr
     }
     angleThreshold = angleDelta * 0x10000;
     if ((collisionMask & 0x90) != 0) {
-        if ((line->unk11 & 8) == 0) {
+        if (line->unk11_3 == 0) {
             rider->unk40 = -rider->unk40;
         } else {
             rider->unk40 = object->unk40 * 2 - rider->unk40;
         }
     } else if ((collisionMask & 9) != 0) {
-        if ((line->unk11 & 8) == 0) {
+        if (line->unk11_3 == 0) {
             rider->unk44 = -rider->unk44;
         } else {
             rider->unk44 = -(rider->unk44 + object->unk44 * 2);
@@ -236,7 +236,7 @@ unk8 def_94_8_collision_8055F2C(
             return 0;
         }
         if (point0->z != 0 || point1->z != 0) {
-            if ((line->unk11 & 4) == 0) {
+            if (line->unk11_2 == 0) {
                 sub_80567E4(geometry, line, actor, &result);
             } else {
                 sub_8056910(geometry, line, actor, &result);
@@ -337,7 +337,7 @@ unk32 sub_80561EC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* 
         minY = point1->y << 5;
         maxY = point0->y << 5;
     }
-    if (line->unk11 & 8) {
+    if (line->unk11_3) {
         if (actor->x <= minX || actor->x >= maxX || actor->y <= minY || actor->y >= maxY) {
             return;
         }
@@ -388,7 +388,7 @@ unk32 sub_80561EC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* 
         }
         break;
     case 0x8A:
-        if ((line->unk11 & 4) == 0) {
+        if (line->unk11_2 == 0) {
             sub_80567E4(geometry, line, actor, result);
         } else {
             sub_8056910(geometry, line, actor, result);
@@ -461,7 +461,7 @@ unk32 sub_80561EC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* 
             }
             break;
         }
-        if ((line->unk11 & 4) == 0) {
+        if (line->unk11_2 == 0) {
             sub_80567E4(geometry, line, actor, result);
         } else {
             sub_8056910(geometry, line, actor, result);
@@ -486,7 +486,7 @@ unk32 sub_80561EC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* 
     case 0x98:
         break;
     default:
-        if ((line->unk11 & 4) == 0) {
+        if (line->unk11_2 == 0) {
             sub_80567E4(geometry, line, actor, result);
         } else {
             sub_8056910(geometry, line, actor, result);
@@ -599,7 +599,7 @@ void sub_80567E4(
     if (point0 == NULL || point1 == NULL) {
         return;
     }
-    if ((line->unk11 & 2) == 0) {
+    if (line->unk11_1 == 0) {
         start = point0->y << 5;
         end = point1->y << 5;
         position = actor->y + (actor->unk9C << 8) + actor->unk44;
@@ -684,7 +684,7 @@ void sub_8056910(
 
     point0 = GetPointAtIndex(geometry, line->point0);
     point1 = GetPointAtIndex(geometry, line->point1);
-    if ((line->unk11 & 2) == 0) {
+    if (line->unk11_1 == 0) {
         y1 = point1->y << 5;
         y0 = point0->y << 5;
         difference = y1 - y0;
@@ -730,7 +730,7 @@ void sub_8056910(
     if (difference < 0) {
         value = -value;
     }
-    if ((line->unk11 & 2) == 0) {
+    if (line->unk11_1 == 0) {
         result->unkD = 0;
         result->unkE = value;
         result->unkC_0 = 0;
@@ -810,7 +810,7 @@ unk8 sub_8056B54(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* l
     case 0x92:
         break;
     default:
-        if ((line->unk11 & 4) == 0) {
+        if (line->unk11_2 == 0) {
             sub_80567E4(geometry, line, actor, &result);
         } else {
             sub_8056910(geometry, line, actor, &result);

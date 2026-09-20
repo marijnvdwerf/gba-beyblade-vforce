@@ -952,7 +952,11 @@ typedef struct GeometryLine {
     unk8 padE;
     unk8 unkF;
     unk8 unk10;
-    unk8 unk11;
+    unk8 unk11_0 : 1;
+    unk8 unk11_1 : 1;
+    unk8 unk11_2 : 1;
+    unk8 unk11_3 : 1;
+    unk8 unk11_4 : 4;
     s16 unk12;
     unk16 unk14;
     s16 unk16; /* 0x16 */

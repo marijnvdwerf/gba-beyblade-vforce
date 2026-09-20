@@ -514,7 +514,7 @@ void allocateDynamicBoundingAreas(QuadTree* quadTree, LevelGeometryAddresses* ge
     record = geometry->unkC;
     output = quadTree->unk4C;
     while (remaining-- != 0) {
-        if ((record->unk11 & 8) != 0) {
+        if (record->unk11_3 != 0) {
             *output++ = index;
             count += 1;
             if (count > max) {
@@ -570,7 +570,7 @@ QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX,
         do {
             point0 = &points[line->point0];
             point1 = &points[line->point1];
-            if ((line->unk11 & 8) == 0 && (callback == NULL || callback(geometry, line) != 0)
+            if (line->unk11_3 == 0 && (callback == NULL || callback(geometry, line) != 0)
                 && line->point0 >= 0 && line->point1 >= 0) {
                 left = point0->x;
                 top = point0->y;
@@ -2379,9 +2379,151 @@ unk32* sub_805E514(unk32* arg0, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4)
     return arg0;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805e528.s");
+GeometryLine* sub_805E528(
+    LevelGeometryAddresses* addresses, GeometryLine* line, unk16 type, unk16 flags)
+{
+    GeometryPoint* points;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    GeometryPoint* currentPoint0;
+    GeometryPoint* currentPoint1;
+    GeometryLine* current;
+    unk16 endpointFlags;
+    unk16 index;
+    s32 minX;
+    s32 maxX;
+    s32 minY;
+    s32 maxY;
+    s32 temp;
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805e648.s");
+    points = addresses->unk4;
+    point0 = &points[line->point0];
+    point1 = &points[line->point1];
+    minX = point0->x;
+    maxX = point1->x;
+    minY = point0->y;
+    maxY = point1->y;
+    current = addresses->unkC;
+    if (minX > maxX) {
+        temp = minX;
+        minX = maxX;
+        maxX = temp;
+    }
+    if (minY > maxY) {
+        temp = minY;
+        minY = maxY;
+        maxY = temp;
+    }
+    index = 0;
+    while (index < addresses->unk0->lineCount) {
+        if (current->unkF == type) {
+            endpointFlags = 0;
+            currentPoint0 = &points[current->point0];
+            currentPoint1 = &points[current->point1];
+            if (currentPoint0->y == minY || currentPoint1->y == minY) {
+                endpointFlags = 1;
+            }
+            if (currentPoint0->y == maxY || currentPoint1->y == maxY) {
+                endpointFlags |= 2;
+            }
+            if (currentPoint0->x == minX || currentPoint1->x == minX) {
+                endpointFlags |= 4;
+            }
+            if (currentPoint0->x == maxX || currentPoint1->x == maxX) {
+                endpointFlags |= 8;
+            }
+            if ((flags & 3) != 0) {
+                if ((endpointFlags & 0xC) != 0) {
+                    endpointFlags &= 3;
+                    if ((endpointFlags & flags) == (flags & 3)) {
+                        return current;
+                    }
+                }
+            } else if ((endpointFlags & 3) != 0) {
+                endpointFlags &= 0xC;
+                if ((endpointFlags & flags) == (flags & 0xC)) {
+                    return current;
+                }
+            }
+        }
+        current++;
+        index++;
+    }
+    return NULL;
+}
+
+GeometryLine* sub_805E648(
+    LevelGeometryAddresses* addresses, GeometryLine* line, unk16 type, unk16 flags, unk8 sideFlag)
+{
+    GeometryPoint* points;
+    GeometryPoint* point0;
+    GeometryPoint* point1;
+    GeometryPoint* currentPoint0;
+    GeometryPoint* currentPoint1;
+    GeometryLine* current;
+    unk16 endpointFlags;
+    unk16 index;
+    s32 minX;
+    s32 maxX;
+    s32 minY;
+    s32 maxY;
+    s32 temp;
+
+    points = addresses->unk4;
+    point0 = &points[line->point0];
+    point1 = &points[line->point1];
+    minX = point0->x;
+    maxX = point1->x;
+    minY = point0->y;
+    maxY = point1->y;
+    current = addresses->unkC;
+    if (minX > maxX) {
+        temp = minX;
+        minX = maxX;
+        maxX = temp;
+    }
+    if (minY > maxY) {
+        temp = minY;
+        minY = maxY;
+        maxY = temp;
+    }
+    index = 0;
+    while (index < addresses->unk0->lineCount) {
+        if (current->unkF == type && sideFlag == current->unk11_1) {
+            endpointFlags = 0;
+            currentPoint0 = &points[current->point0];
+            currentPoint1 = &points[current->point1];
+            if (currentPoint0->y == minY || currentPoint1->y == minY) {
+                endpointFlags = 1;
+            }
+            if (currentPoint0->y == maxY || currentPoint1->y == maxY) {
+                endpointFlags |= 2;
+            }
+            if (currentPoint0->x == minX || currentPoint1->x == minX) {
+                endpointFlags |= 4;
+            }
+            if (currentPoint0->x == maxX || currentPoint1->x == maxX) {
+                endpointFlags |= 8;
+            }
+            if ((flags & 3) != 0) {
+                if ((endpointFlags & 0xC) != 0) {
+                    endpointFlags &= 3;
+                    if ((endpointFlags & flags) == (flags & 3)) {
+                        return current;
+                    }
+                }
+            } else if ((endpointFlags & 3) != 0) {
+                endpointFlags &= 0xC;
+                if ((endpointFlags & flags) == (flags & 0xC)) {
+                    return current;
+                }
+            }
+        }
+        current++;
+        index++;
+    }
+    return NULL;
+}
 
 GeometryLine* sub_805E77C(LevelGeometryAddresses* addresses, unk8 type, unk16 id)
 {

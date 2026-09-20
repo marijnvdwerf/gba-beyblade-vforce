@@ -1184,7 +1184,7 @@ void sub_804E090(RiderBase* rider)
 
 void sub_804E124(RiderBase* rider, GeometryLine* line)
 {
-    if ((line->unk11 & 2) != 0) {
+    if (line->unk11_1 != 0) {
         rider->unk40 -= (line->unk18 * 5) >> 3;
     } else {
         rider->unk44 += (line->unk18 * 5) >> 3;
