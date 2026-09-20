@@ -210,7 +210,57 @@ void sub_805F258(AnimFrameState* arg0, unk16 arg1, unk16 arg2)
     arg0->unk52 |= 3;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805f27c.s");
+typedef struct AnimFrameDrawInput AnimFrameDrawInput;
+
+typedef void (*AnimFrameDrawCallback)(
+    AnimFrameState*, unk32, unk32, AnimFrameDrawInput*, unk32, unk32, unk32, unk32);
+
+typedef struct AnimFrameDrawer {
+    unk8 pad0[0x30];
+    AnimFrameDrawCallback callback;
+} AnimFrameDrawer;
+
+struct AnimFrameDrawInput {
+    unk8 pad0[0x30];
+    s16 unk30;
+};
+
+void sub_805F27C(
+    AnimFrameState* arg0, AnimFrameDrawer* arg1, unk32 arg2, unk32 arg3, AnimFrameDrawInput* arg4)
+{
+    s16 offset;
+    s16 block;
+    unk32 rows;
+
+    if ((arg0->unk52 & 2) == 0) {
+        arg1->callback(
+            arg0, arg2, arg3, arg4, arg0->unk60, 0, 0x40, VRAM + 0x10000 + (arg0->unk4E << 5));
+        return;
+    }
+
+    offset = arg4->unk30 >> 6;
+    block = offset >> 1;
+    if ((block & 7) > 3) {
+        block += 8 - (block & 7);
+    } else {
+        block &= ~3;
+    }
+    offset -= block;
+    rows = offset; // TODO: fakematch? (staging temp + duplicated else store)
+    if ((rows & 7) != 0) {
+        rows += 8 - (rows & 7);
+        offset = rows;
+    } else {
+        offset = rows;
+    }
+    if (arg0->unk4D == 0) {
+        arg1->callback(
+            arg0, arg2, arg3, arg4, arg0->unk60, 0, block, VRAM + 0x10000 + (arg0->unk4E << 5));
+    } else {
+        arg1->callback(arg0, arg2, arg3, arg4, arg0->unk60, block, offset,
+            VRAM + 0x10000 + (arg0->unk4E << 5) + ((block >> 3) << 9));
+    }
+}
 
 void sub_805F378(AnimFrameState* arg0, s16 arg1)
 {
@@ -244,7 +294,17 @@ void sub_805F3A8(AnimFrameState* arg0, s16 arg1)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805f3d8.s");
+void sub_805F3D8(AnimFrameState* arg0)
+{
+    s32 stride;
+    unk8* dest;
+    AnimFrameRecord* src;
+
+    stride = arg0->unk0->unk4 * 10;
+    dest = arg0->unk4;
+    src = arg0->unk10;
+    DmaCopy(3, src, dest, stride, 32);
+}
 
 void sub_805F400(AnimFrameState* arg0)
 {
