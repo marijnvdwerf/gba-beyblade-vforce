@@ -214,7 +214,54 @@ void sub_805EBCC(CameraState* camera)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805ed60.s");
+void sub_805ED60(CameraState* camera, Actor* actor)
+{
+    CameraState* state;
+    s32 actorPosition[3];
+    s16 i;
+    s16 scale;
+    BGLayer* record;
+    s32 right;
+    s32 bottom;
+    s32 actorY;
+
+    state = nullsub_12(camera);
+    sub_8058754(actor, actorPosition);
+    camera->unk354 |= 1;
+    state->records[0].field_14
+        = actorPosition[0] - (state->records[0].field_40 + ((0xA0 - (actor->unk10 >> 1)) << 8));
+    actorY = actor->unkA2 + 0x50;
+    state->records[0].field_18
+        = actorPosition[1] - (state->records[0].field_44 + ((actorY - (actor->unk11 >> 1)) << 8));
+    if (state->records[0].field_40 + state->records[0].field_14 < 0) {
+        state->records[0].field_14 = -state->records[0].field_40;
+    }
+    if (state->records[0].field_44 + state->records[0].field_18 < 0) {
+        state->records[0].field_18 = -state->records[0].field_44;
+    }
+    if (state->records[0].field_40 + state->records[0].field_14
+        > (state->records[0].columnCount << 11) - 0xF000) {
+        right = state->records[0].field_40 + 0xF000;
+        state->records[0].field_14 = (state->records[0].columnCount << 11) - right;
+    }
+    if (state->records[0].field_44 + state->records[0].field_18
+        > (state->records[0].rowCount << 11) - 0xA000) {
+        bottom = state->records[0].field_44 + 0xA000;
+        state->records[0].field_18 = (state->records[0].rowCount << 11) - bottom;
+    }
+    for (i = 0; i < 4; i++) {
+        if (camera->unk220->layers[i].unk0 != NULL) {
+            scale = camera->unk220->layers[i].unk14;
+            record = &camera->records[i];
+            if (record != &state->records[0]) {
+                record->field_14
+                    = state->records[0].field_14 + (state->records[0].field_14 * scale >> 5);
+                record->field_18
+                    = state->records[0].field_18 + (state->records[0].field_18 * scale >> 5);
+            }
+        }
+    }
+}
 
 void sub_805EE78(CameraState* camera, Actor* actor)
 {
