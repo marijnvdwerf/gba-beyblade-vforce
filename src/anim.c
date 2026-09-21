@@ -225,7 +225,7 @@ struct AnimFrameDrawInput {
     s16 unk30;
 };
 
-void sub_805F27C(AnimFrameState* state, AnimFrameDrawer* drawer, unk32 drawX, unk32 drawY,
+void sub_805F27C(AnimFrameState* state, AnimFrameDrawer* drawer, unk32 arg2, unk32 arg3,
     AnimFrameDrawInput* input)
 {
     s16 offset;
@@ -233,8 +233,8 @@ void sub_805F27C(AnimFrameState* state, AnimFrameDrawer* drawer, unk32 drawX, un
     unk32 rows;
 
     if ((state->unk52 & 2) == 0) {
-        drawer->callback(state, drawX, drawY, input, state->unk60, 0, 0x40,
-            OBJ_MODE0_VRAM + (state->unk4E << 5));
+        drawer->callback(
+            state, arg2, arg3, input, state->unk60, 0, 0x40, OBJ_MODE0_VRAM + (state->unk4E << 5));
         return;
     }
 
@@ -254,10 +254,10 @@ void sub_805F27C(AnimFrameState* state, AnimFrameDrawer* drawer, unk32 drawX, un
         offset = rows;
     }
     if (state->unk4D == 0) {
-        drawer->callback(state, drawX, drawY, input, state->unk60, 0, block,
-            OBJ_MODE0_VRAM + (state->unk4E << 5));
+        drawer->callback(
+            state, arg2, arg3, input, state->unk60, 0, block, OBJ_MODE0_VRAM + (state->unk4E << 5));
     } else {
-        drawer->callback(state, drawX, drawY, input, state->unk60, block, offset,
+        drawer->callback(state, arg2, arg3, input, state->unk60, block, offset,
             OBJ_MODE0_VRAM + (state->unk4E << 5) + ((block >> 3) << 9));
     }
 }

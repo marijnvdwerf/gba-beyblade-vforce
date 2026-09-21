@@ -287,14 +287,15 @@ struct ActorEffectState {
 
 typedef struct ActorEffectCallbacks {
     unk8 pad0[0x34];
-    void (*unk34)(ActorEffectState*, unk32, Actor*, unk32); /* 0x34 */
+    void (*unk34)(ActorEffectState*, unk32, Sub8052140Data*, unk32); /* 0x34 */
     unk8 pad38[0x40];
-    void (*unk78)(ActorEffectState*, Actor*, unk32); /* 0x78 */
+    void (*unk78)(ActorEffectState*, Sub8052140Data*, unk32); /* 0x78 */
 } ActorEffectCallbacks;
 
-void sub_8052180(ActorEffectState*, Actor*, unk32);
+void sub_8052180(ActorEffectState*, Sub8052140Data*, unk32);
 
-void sub_80520F4(ActorEffectState* arg0, ActorEffectCallbacks* arg1, PolyTable* arg2, Actor* arg3)
+void sub_80520F4(
+    ActorEffectState* arg0, ActorEffectCallbacks* arg1, PolyTable* arg2, Sub8052140Data* arg3)
 {
     arg3->unk1A = arg0->unk40;
     sub_805FA68(arg2);

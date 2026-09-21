@@ -226,7 +226,7 @@ s32 sub_8058068(Actor* actor, unk16 sequence)
         return 0;
     }
     for (index = 0; index < entry->unk4; index++) {
-        total += sub_8057FDC(actor, *(entry->frames + index));
+        total += sub_8057FDC(actor, *(entry->frames + index)); // TODO: fakematch?
     }
     return total;
 }
