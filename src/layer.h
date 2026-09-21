@@ -47,6 +47,7 @@ void sub_8059934(void);
 void unref_8058C74(BGLayer*, u8, u16, u16);
 void sub_8058F60(BGLayer*);
 void sub_80596AC(BGLayer*, s32, s32);
+void sub_8059404(BGLayer*, unk32, unk32, unk32, unk32, s32, unk32);
 vu16* GetBGLayerCntPtr(u8 layer);
 vu16* GetBGLayerHOffsetPtr(u8 layer);
 vu16* GetBGLayerVOffsetPtr(u8 layer);

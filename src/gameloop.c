@@ -18,6 +18,7 @@
 #include "include_asm.h"
 #include "keystate.h"
 #include "levelhud.h"
+#include "math.h"
 #include "multiplayer.h"
 #include "music.h"
 #include "packet.h"
@@ -321,7 +322,76 @@ void sub_8052140(Sub8052140Data* arg0, unk32 arg1)
     arg0->unk58 = arg1;
 }
 
-INCLUDE_ASM("asm/dump/804a388-tutorial/8052180.s");
+// TODO: fakematch?
+void sub_8052180(ActorEffectState* arg0, Sub8052140Data* arg1, unk32 arg2)
+{
+    s32 tmp0[4];
+    s32 tmp1[4];
+    s32 tmp2[4];
+    s32 q0[4];
+    s32 q1[4];
+    s32 q2[4];
+    const s16* table;
+    unk32 phase;
+    unk32 angle;
+    unk32 index0;
+    unk32 index2;
+    unk32 index1;
+    unk32 index;
+    s32 sin0;
+    s32 cos0;
+    s32 sin1;
+    s32 cos1;
+    s32 sin2;
+    s32 cos2;
+    s32 sin3;
+    s32 cos3;
+
+    angle = ~((_gameData->base.unk10 >> 4) + 0x40) & 0xFF;
+    table = Unk_874CC3C;
+    phase = _gameData->base.unk16C;
+    index = phase - 1;
+    index0 = ((angle - index) & 0xFF) >> 1;
+    sin0 = table[index0];
+    index0 += 0x40;
+    cos0 = table[index0];
+    index2 = (_gameData->base.unk174 & 0xFF) >> 1;
+    sin2 = table[index2];
+    index2 += 0x40;
+    cos2 = table[index2];
+    index1 = ~(_gameData->base.unk6C >> 4) & 0xFF;
+    index1 >>= 1;
+    sin1 = table[index1];
+    index1 += 0x40;
+    cos1 = table[index1];
+    phase &= 0xFF;
+    phase >>= 1;
+    sin3 = table[phase];
+    phase += 0x40;
+    cos3 = table[phase];
+    index = (unk8)~angle + 0x40;
+    arg1->unk24 = table[index] * 0x7F >> 8;
+    arg1->unk26 = table[(unk8)~angle] * 0x7F >> 8;
+    q0[0] = 0;
+    q0[1] = sin0;
+    q0[2] = 0;
+    q0[3] = cos0;
+    q1[0] = 0;
+    q1[1] = 0;
+    q1[2] = -sin1;
+    q1[3] = cos1;
+    q2[0] = 0;
+    q2[1] = 0;
+    q2[2] = sin2;
+    q2[3] = cos2;
+    {
+        s32 q3[4] = { 0, sin3, 0, cos3 };
+        sub_805A148(q1, q0, tmp0);
+        sub_805A148(tmp0, q2, tmp1);
+        sub_805A148(tmp1, q3, tmp2);
+        sub_805A1DC(tmp2, arg1->unk34);
+    }
+}
 
 void sub_80522D4(Actor* actor, CameraState* camera)
 {

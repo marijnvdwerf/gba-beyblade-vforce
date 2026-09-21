@@ -81,7 +81,7 @@ typedef struct Sub8052140Data {
     unk8 unk26;
     unk8 pad27[0xB];
     unk16 unk32;
-    unk8 pad34[0x24];
+    s32 unk34[9];
     unk32 unk58;
 } Sub8052140Data;
 

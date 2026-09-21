@@ -243,6 +243,7 @@ add_executable(rom
     src/sound.c
     src/sprite.c
     src/spritestring.c
+    src/spritestring_number.c
     src/spritetext.c
     src/system.c
     src/teletype.c

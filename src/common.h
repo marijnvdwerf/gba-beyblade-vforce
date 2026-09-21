@@ -659,7 +659,7 @@ struct SpriteString {
     u8 count;
     u8 flags;
     unk16 mode;
-    unk32 x;
+    s32 x;
     unk32 previousX;
     const u8* text;
     unk32 y;
@@ -773,7 +773,7 @@ typedef struct RiderBase {
     s16 unk62; /* 0x62 */
     unk32 unk64; /* 0x64 */
     struct GeometryLine* unk68; /* 0x68 */
-    unk32 unk6C; /* 0x6C */
+    s32 unk6C; /* 0x6C */
     unk32 unk70; /* 0x70 */
     unk32 unk74; /* 0x74 */
     unk32 unk78; /* 0x78 */
@@ -1216,7 +1216,8 @@ typedef struct LevelDescription {
     LineMetadata** metadata;
     const unk32** unk30;
     const unk32** unk34;
-    unk8 pad38[8];
+    LevelGeometryTable* unk38;
+    LineMetadata** unk3C;
     const unk8* unk40[5];
     const unk8* unk54[5]; /* 0x54 */
     const unk8* unk68[5];

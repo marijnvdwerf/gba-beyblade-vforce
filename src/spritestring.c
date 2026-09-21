@@ -250,7 +250,57 @@ void sub_80653B0(SpriteString* string)
     }
 }
 
-INCLUDE_ASM("asm/dump/8064f38/80653d8.s");
+void sub_80653D8(SpriteString* string)
+{
+    s32 value;
+    s32 remaining;
+    s16 index;
+    s16 count;
+    s16 spacing;
+    unk32 flag;
+    unk32 remainder;
+    Actor* actor;
+
+    count = 0;
+    spacing = 0;
+    flag = 0;
+    value = string->x;
+    if (value < 0) {
+        value = -value;
+    }
+    remaining = value;
+    index = string->count - 1;
+    while (index >= 0) {
+        actor = &string->actors[index];
+        remainder = remaining > 0 ? DivRem(remaining, 10) : 0;
+        if (spacing > 2 && remaining > 0) {
+            spacing = spacing - 3;
+            actor->unk70 = -1;
+            ActorSetFrame(actor, 0, byte_807D980[0x2C]);
+            count++;
+        } else {
+            if (remainder == 0 && remaining == 0 && count != 0) {
+                if (string->x < 0 && flag == 0) {
+                    actor->unk70 = -1;
+                    ActorSetFrame(actor, 0, byte_807D980[0x2D]);
+                    flag = 1;
+                    count = count + 1;
+                } else {
+                    actor->unk70 = 0;
+                }
+            } else {
+                actor->unk70 = -1;
+                ActorSetFrame(actor, 0, remainder + 0x34);
+                count++;
+                spacing++;
+            }
+            if (remaining > 0) {
+                remaining = Div(remaining, 10);
+            }
+        }
+        index--;
+    }
+}
 
 void sub_8065508(SpriteString* string)
 {
@@ -284,90 +334,4 @@ void sub_8065508(SpriteString* string)
     sub_80655C0(string, remainder, string->count - 4, 2, 0);
 }
 
-INCLUDE_ASM("asm/dump/8064f38/80655c0.s");
-
-void sub_80656B8(SpriteString* string)
-{
-    s32 count;
-    s32 character;
-    const u8* text;
-    Actor* actor;
-
-    count = string->count;
-    text = string->text;
-    actor = string->actors;
-    while (count != 0 && (character = *text++) != 0) {
-        if (character != ' ') {
-            ActorSetFrame(actor, 0, byte_807D980[character]);
-            actor->unk70 = -1;
-            actor++;
-            count--;
-        }
-    }
-    while (count-- != 0) {
-        actor->unk70 = 0;
-        actor++;
-    }
-}
-
-void sub_806570C(
-    SpriteString* string, ActorTimerCallback arg1, unk32 arg2, unk32 arg3, unk32 arg4, unk32 step)
-{
-    u16 i;
-    unk32 offset;
-
-    offset = 0;
-    i = 0;
-    while (i < string->count) {
-        sub_8058794(&string->actors[i], arg1, arg2, arg3, arg4 + offset);
-        offset += step;
-        i++;
-    }
-}
-
-void sub_8065760(SpriteString* string, ActorTimerCallback arg1, unk32 arg2, unk32 arg3, unk32 arg4,
-    unk32 step, unk32 maxCount)
-{
-    u16 i;
-    u16 count;
-    unk32 offset;
-
-    count = maxCount;
-    offset = 0;
-    if (count > string->count) {
-        count = string->count;
-    }
-    i = 0;
-    while (i < count) {
-        sub_8058794(&string->actors[i], arg1, arg2, arg3, arg4 + offset);
-        offset += step;
-        i++;
-    }
-}
-
-void sub_80657C4(SpriteString* string)
-{
-    u16 i;
-
-    i = 0;
-    while (i < string->count) {
-        sub_80588DC(&string->actors[i]);
-        i++;
-    }
-}
-
-void sub_80657EC(SpriteString* string, u8 value)
-{
-    unk32 flags;
-    unk32 mask;
-    unk32 low;
-
-    flags = 0x10;
-    flags |= string->flags;
-    mask = 0xF;
-    low = value & mask;
-    mask -= 0x1F;
-    flags &= mask;
-    flags |= low;
-    string->flags = flags;
-}
+ASM_ZEROPAD;

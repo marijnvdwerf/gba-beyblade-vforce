@@ -9,6 +9,7 @@ void sub_804E560(ParticleSystem*, unk32, unk32, unk32);
 void sub_804E57C(ParticleSystem*, unk32, unk32);
 void sub_804E584(ParticleSystem*, unk32, unk32, unk32);
 void sub_804E594(ParticleSystem*, s16, s16, unk16, unk16, s16);
+void sub_804E6A4(ParticleSystem*, s16, s16, unk16, unk16, s16, s16);
 void sub_804EA88(ParticleSystem*);
 void sub_804EBE8(ParticleSystem*);
 

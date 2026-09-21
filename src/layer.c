@@ -593,7 +593,45 @@ void sub_8059310(BGLayer* layer, s32 x, s32 y, s32 srcX, s32 srcY, s32 width, s3
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/8059404.s");
+// TODO: fakematch?
+void sub_8059404(BGLayer* layer, unk32 x, unk32 y, unk32 srcX, unk32 srcY, s32 width, unk32 height)
+{
+    unk8* screenAddress;
+    unk8* mapAddress;
+    unk32 columnCount;
+    unk32 mapOffset;
+    unk32 rowMask;
+    unk32 horizontalStride;
+    unk32 horizontalMask;
+    unk32 firstBytes;
+    unk32 secondBytes;
+    unk32 fullBytes;
+    unk32 row;
+    unk32 rowOffset;
+
+    mapAddress = layer->mapAddr;
+    screenAddress = (unk8*)(VRAM + (layer->screenBaseBlock << 11));
+    mapOffset = y * layer->columnCount + x;
+    columnCount = layer->columnCount;
+    horizontalMask = (1 << layer->field_5F) - 1;
+    rowMask = (1 << layer->field_60) - 1;
+    horizontalStride = 1 << layer->field_5F;
+    mapAddress += mapOffset * 2;
+    srcX &= horizontalMask;
+    for (row = srcY; row < srcY + height; row++) {
+        rowOffset = (row & rowMask) << layer->field_5F;
+        if (srcX + width > horizontalStride) {
+            DmaCopy(3, mapAddress, screenAddress + rowOffset * 2 + srcX * 2,
+                (firstBytes = (horizontalStride - srcX) * 2), 16);
+            secondBytes = (width - (horizontalStride - srcX)) * 2;
+            DmaCopy(3, mapAddress + firstBytes, screenAddress + rowOffset * 2, secondBytes, 16);
+        } else {
+            fullBytes = width * 2;
+            DmaCopy(3, mapAddress, screenAddress + rowOffset * 2 + srcX * 2, fullBytes, 16);
+        }
+        mapAddress += columnCount * 2;
+    }
+}
 
 void sub_80594FC(BGLayer* layer, unk32 x, unk32 y, unk32 srcX, unk32 srcY, s32 width, unk32 height)
 {
