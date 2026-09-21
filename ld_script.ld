@@ -152,7 +152,7 @@ SECTIONS {
         src/teletype.c.o(.text);
         asm/arm1.s.o(.text);
         src/spritestring.c.o(.text);
-        src/spritestring_number.c.o(.text);
+        src/spritestringactors.c.o(.text);
         src/backup.c.o(.text);
         *libgcc.a:_call_via_rX.o(.text);
         *libgcc.a:_divdi3.o(.text);
@@ -298,7 +298,7 @@ SECTIONS {
 		src/strings6.c.o(.rodata);
 		src/teletype.c.o(.rodata);
 		src/spritestring.c.o(.rodata);
-		src/spritestring_number.c.o(.rodata);
+		src/spritestringactors.c.o(.rodata);
 		src/strings_8756870.c.o(.rodata);
 		asm/data3.s.o(.rodata);
 

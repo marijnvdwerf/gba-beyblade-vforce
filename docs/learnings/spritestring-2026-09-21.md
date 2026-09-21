@@ -20,7 +20,7 @@ leading-zero stop uses break, allowing the common unsigned-count return.
 The definition uses unk16 index and step. The existing compiled caller
 sub_8065508 requires the wide unk32 declaration: sharing the narrow prototype
 adds lsl/lsr #16 pairs at caller +0x3E and +0xA6. The definition and following
-functions now live in spritestring_number.c, preserving text and rodata order
+functions now live in spritestringactors.c, preserving text and rodata order
 in CMakeLists.txt and ld_script.ld. The public declaration keeps the measured
 wide caller view; its value parameter is now s32. This is an intentional legacy
 cross-translation-unit declaration mismatch, not a claim of portable C typing.
@@ -153,3 +153,11 @@ the target's lack of an x assignment; no default behavior was invented.
 
 Removed the assembly dump and added the needed public prototypes. Final
 formatted sources pass both enforced US and EU ROM SHA1 comparisons.
+
+### Follow-up: savedScale declaration placement
+
+Moved `savedScale` to function scope, removed the `case 1` braces, and tested
+declaration positions immediately after `scaleX` and immediately after
+`scaleY`. Both forms are byte-identical to the target; the retained source
+places it immediately after `scaleX`. No failing alternative remained to
+record.

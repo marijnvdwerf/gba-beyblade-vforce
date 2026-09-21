@@ -195,6 +195,7 @@ unk8 sub_8065108(SpriteString* string)
 void sub_8065140(SpriteString* string)
 {
     s16 scaleX;
+    s16 savedScale;
     unk16 scaleY;
     unk8 textOffset;
     unk16 i;
@@ -234,13 +235,12 @@ void sub_8065140(SpriteString* string)
     case 0:
         x = string->y << 8;
         break;
-    case 1: {
-        s16 savedScale = string->scaleX;
+    case 1:
+        savedScale = string->scaleX;
         string->scaleX = 0x100;
         x = (string->y - sub_8065334(string)) << 8;
         string->scaleX = savedScale;
         break;
-    }
     case 2:
         string->width = sub_8065334(string);
         x = (string->y - (string->width >> 1)) << 8;
