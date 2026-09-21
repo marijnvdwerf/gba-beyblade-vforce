@@ -5,7 +5,11 @@
 
 unk32 sub_8064F38(const u8*);
 void sub_8065088(SpriteString*);
+void sub_8065140(SpriteString*);
 void sub_80653D8(SpriteString*);
+void sub_8065508(SpriteString*);
+void sub_80656B8(SpriteString*);
+s32 sub_8065334(SpriteString*);
 unk32 sub_80655C0(SpriteString*, s32, unk32, unk32, unk8);
 void sub_806570C(SpriteString*, ActorTimerCallback, unk32, unk32, unk32, unk32);
 void sub_8065760(SpriteString*, ActorTimerCallback, unk32, unk32, unk32, unk32, unk32);

@@ -116,16 +116,6 @@ void sub_80657C4(SpriteString* string)
 
 void sub_80657EC(SpriteString* string, u8 value)
 {
-    unk32 flags;
-    unk32 mask;
-    unk32 low;
-
-    flags = 0x10;
-    flags |= string->flags;
-    mask = 0xF;
-    low = value & mask;
-    mask -= 0x1F;
-    flags &= mask;
-    flags |= low;
-    string->flags = flags;
+    string->unk5_4 = 1;
+    string->unk5_0 = value;
 }

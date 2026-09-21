@@ -657,7 +657,9 @@ typedef struct SpriteString SpriteString;
 struct SpriteString {
     struct Actor* actors;
     u8 count;
-    u8 flags;
+    unk8 unk5_0 : 4;
+    unk8 unk5_4 : 1;
+    unk8 : 3;
     unk16 mode;
     s32 x;
     unk32 previousX;
@@ -665,12 +667,14 @@ struct SpriteString {
     unk32 y;
     unk32 unk18;
     unk8 pad1C[4];
-    unk32 width;
+    s32 width;
     s16 scaleX;
     unk16 scaleY;
     const u8* widthTable;
-    unk32 timer;
+    s32 timer;
 };
+
+typedef char SpriteStringSizeCheck[(sizeof(SpriteString) == 0x30) ? 1 : -1];
 
 typedef struct Particle {
     SpriteEntry* sprite;

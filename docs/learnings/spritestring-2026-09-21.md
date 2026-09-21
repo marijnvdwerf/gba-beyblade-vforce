@@ -93,3 +93,63 @@ sub_8065140 draft is still assembly-backed and is the assembly caller of this
 function. Added the void(SpriteString*) prototype to spritestring.h and removed
 the original dump after matching. Final formatted sources pass both enforced
 US and EU ROM SHA1 comparisons. No layout or linker changes were required.
+
+## sub_8065140 (0x08065140): matched
+
+Activated the parked draft after regenerating the m2c semantic draft and
+checking its calls. Its timer must be s32: the target uses signed ble/bge for
+the active-timer and clamp tests. The centered-width operation is asr #1,
+represented by a signed width field and `width >> 1`, not division by two.
+The right-alignment arm snapshots scaleX again immediately before temporarily
+setting it to 0x100; folding this arm-local snapshot into the entry snapshot
+changes the reload and restore instructions.
+
+### Flag layout recovered
+
+The crucial change was representing the byte at SpriteString +5 as bitfields:
+unk5_0:4 and unk5_4:1, with the remaining three bits unnamed. The target shifts
+by 28 then 27 when forwarding the low nibble into actor flags. Scalar masks
+produced either extra instructions or persistent allocation differences; the
+bitfield access reproduces both extraction and register allocation exactly.
+The byte's old name, flags, is replaced in its three consumers.
+
+This also simplifies sub_8064F9C to two bitfield clears and sub_80657EC to two
+bitfield assignments, preserving the exact original instructions in both. The
+latter still coalesces to one byte store. SpriteString retains size 0x30,
+checked with a compile-time size assertion. Its mode, scale, width-table and
+timer offsets are unchanged. Timer's other users sub_8064F9C and sub_80650E0
+were independently diffed and remain exact. Width is written by the initializer
+and this function; the read's arithmetic shift establishes its signed view.
+
+### Measured steps
+
+- Signed timer, arm-local saved scale, arithmetic half-width, no invented
+  default-position assignment, and shared final spacing addition recovered the
+  target operations but left 49 instruction differences beginning at +0x10.
+- Loop forms, local-width sweeps, and explicit scale constants did not fix this.
+- A scalar flag-readback temporary reduced differences to 22, first at +0x130,
+  but added a byte reload and changed extraction. It was not retained.
+- The proven flag bitfields remove the residual and pass the full ROM check.
+
+### Fold checks
+
+All candidates used the full US SHA1 test; size deltas below use ELF symbol
+sizes against the matching 0x1CC-byte function.
+
+| Trial | Result |
+| --- | --- |
+| Fold width temporary into its stored field | Exact; removed, then retyped the field to s32 to remove the read cast |
+| Reuse loop index for visibleCount | -2 bytes; first difference +0x40 branch displacement; retained byte temporary |
+| Fold actor pointer into indexed accesses | +56 bytes; first difference +0x14: mov sl,r1 replaces scaleY stack store; retained |
+| Reload scaleY from string in loop | -6 bytes; first difference +0x0A: four-byte rather than eight-byte frame; retained snapshot |
+| Reload scaleX from string | -14 bytes; first difference +0x02: saved-register set changes; retained snapshot |
+| Restore entry scaleX instead of arm-local savedScale | Same size; first difference +0xBE: scale reload disappears; retained |
+| Fold advance into separate x updates | +12 bytes; first difference +0x0A: frame changes; retained shared advance |
+
+The accepted implementation has no fake-match scopes, register pinning,
+volatile tricks, hand-written instructions, or new field-read casts. The
+case-local block belongs to the actual switch arm. Alignment mode 3 retains
+the target's lack of an x assignment; no default behavior was invented.
+
+Removed the assembly dump and added the needed public prototypes. Final
+formatted sources pass both enforced US and EU ROM SHA1 comparisons.

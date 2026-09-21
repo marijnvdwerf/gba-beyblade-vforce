@@ -4,7 +4,7 @@
 #include "actorheap.h"
 #include "bios.h"
 #include "common.h"
-#include "include_asm.h"
+#include "ram.h"
 #include "sprite.h"
 #include "system.h"
 
@@ -72,7 +72,6 @@ unk32 sub_8064F84(const u8* str)
 void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthTable, Actor* actors,
     u8 count, unk32 y, unk32 unk18)
 {
-    unk32 mask;
     unk32 scale;
 
     string->actors = actors;
@@ -82,12 +81,8 @@ void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthT
     string->text = text;
     string->x = x;
     string->previousX = x - 1;
-    mask = 0x10;
-    mask = -mask;
-    string->flags &= mask;
-    mask = 0x11;
-    mask = -mask;
-    string->flags &= mask;
+    string->unk5_0 = 0;
+    string->unk5_4 = 0;
     string->widthTable = widthTable;
     string->timer = -1;
     string->mode = 0;
@@ -197,7 +192,99 @@ unk8 sub_8065108(SpriteString* string)
     return count;
 }
 
-INCLUDE_ASM("asm/dump/8064f38/8065140.s");
+void sub_8065140(SpriteString* string)
+{
+    s16 scaleX;
+    unk16 scaleY;
+    unk8 textOffset;
+    unk16 i;
+    unk8 visibleCount;
+    unk32 x;
+    s32 advance;
+    Actor* actor;
+
+    scaleX = string->scaleX;
+    scaleY = string->scaleY;
+    textOffset = 0;
+    if (string->timer > 0) {
+        string->timer -= _unk3000E30[0] - _unk3000E30[1];
+        if (string->timer < 0) {
+            string->timer = 0;
+        }
+    }
+    if (string->text == NULL) {
+        if (string->x != string->previousX) {
+            if ((string->mode & 8) != 0) {
+                sub_8065508(string);
+            } else {
+                sub_80653D8(string);
+            }
+        }
+    } else if ((string->mode & 4) != 0) {
+        sub_80656B8(string);
+        visibleCount = sub_8065108(string);
+        if (visibleCount < string->count) {
+            sub_80655C0(string, string->x, string->count - 1, string->count - visibleCount, 0);
+        }
+    } else {
+        sub_80656B8(string);
+    }
+    string->previousX = string->x;
+    switch (string->mode & 3) {
+    case 0:
+        x = string->y << 8;
+        break;
+    case 1: {
+        s16 savedScale = string->scaleX;
+        string->scaleX = 0x100;
+        x = (string->y - sub_8065334(string)) << 8;
+        string->scaleX = savedScale;
+        break;
+    }
+    case 2:
+        string->width = sub_8065334(string);
+        x = (string->y - (string->width >> 1)) << 8;
+        break;
+    }
+    i = 0;
+    while (i < string->count) {
+        if (string->text != NULL && string->text[i + textOffset] == ' ') {
+            x += 0x500;
+            textOffset++;
+        }
+        actor = &string->actors[i];
+        if (string->unk5_4 != 0) {
+            actor->unk3A &= 0xE1;
+            actor->unk3A |= string->unk5_0 << 1;
+        }
+        if ((string->mode & 0x20) == 0) {
+            actor->x = x;
+        }
+        if ((string->mode & 0x10) != 0) {
+            actor->y = string->unk18 << 8;
+        }
+        if ((string->mode & 0x40) == 0) {
+            actor->unk12 = scaleX;
+            actor->unk14 = scaleY;
+        }
+        if (string->timer == 0) {
+            actor->unk70 = 0;
+        }
+        sub_80584B8(actor);
+        if (actor->unk70 != 0) {
+            if (string->widthTable != NULL) {
+                advance = (actor->unk10 - string->widthTable[actor->unk22]) << 8;
+                if (scaleX != 0x100) {
+                    advance = (scaleX * advance) >> 8;
+                }
+            } else {
+                advance = actor->unk10 << 8;
+            }
+            x += advance;
+        }
+        i++;
+    }
+}
 
 void sub_806530C(SpriteString* string)
 {
