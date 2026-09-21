@@ -3,7 +3,6 @@
 #include <agb/memory_map.h>
 
 #include "debug.h"
-#include "include_asm.h"
 #include "memory.h"
 #include "unsorted.h"
 
@@ -13,6 +12,22 @@ typedef struct UnkKeyInput {
     unk16 unk8; /* 0x08 */
     unk16 unkA; /* 0x0A */
 } UnkKeyInput;
+
+typedef struct UnkKeySource {
+    unk16 unk0; /* 0x00 */
+    unk8 pad2[2]; /* 0x02 */
+} UnkKeySource;
+
+typedef struct UnkKeyConfig {
+    void (*unk0)(unk32); /* 0x00 */
+    unk16 unk4; /* 0x04 */
+    unk16 unk6; /* 0x06 */
+    unk16 unk8; /* 0x08 */
+    unk8 padA[2]; /* 0x0A */
+    unk32 unkC; /* 0x0C */
+    unk16* unk10; /* 0x10 */
+    UnkKeyInput* unk14; /* 0x14 */
+} UnkKeyConfig;
 
 unk16 _keyInput = 0;
 unk8 _pad2[2] = { 0 };
@@ -132,8 +147,83 @@ void sub_805A930(UnkKeyInput* arg0, unk16* arg1)
     arg0->unkA = 0;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805a93c.s");
-INCLUDE_ASM("asm/dump/8057b80-debug/805a984.s");
+// TODO: fakematch?
+void sub_805A93C(UnkKeyConfig* arg0, UnkKeySource* arg1, UnkKeyInput* arg2, unk32 arg3, unk16 arg4,
+    void (*arg5)(unk32), unk32 arg6)
+{
+    UnkKeyInput* input;
+    unk16 count;
+    unk16 i;
+
+    arg0->unkC = arg6;
+    count = arg3;
+    arg0->unk4 = 0;
+    arg0->unk6 = count;
+    arg0->unk10 = &arg1[0].unk0;
+    arg0->unk14 = arg2;
+    arg0->unk8 = arg4;
+    arg0->unk0 = arg5;
+    for (i = 0; i < count; i++) {
+        input = &arg2[i];
+        arg1 = (arg1 + i) - i;
+        sub_805A930(input, &arg1[i].unk0);
+    }
+}
+
+static inline unk8 checkKeyInput(UnkKeyInput* arg0)
+{
+    if ((_unk3005DA0 & arg0->unk8) != 0) {
+        if (arg0->unkA == 0) {
+            arg0->unk0 = _unk3000E30[0];
+        }
+        if (_unk3000E30[0] - arg0->unk0 > 100) {
+            arg0->unk0 = _unk3000E30[0];
+            arg0->unkA = 0;
+        }
+        arg0->unkA |= arg0->unk8 & _unk3005DA0;
+        if ((arg0->unkA & arg0->unk8) == arg0->unk8 && _unk3000E30[0] - arg0->unk0 <= 65) {
+            arg0->unk4 = _unk3000E30[0];
+            arg0->unkA = 0;
+            return 1;
+        }
+    }
+    return 0;
+}
+
+unk8 sub_805A984(UnkKeyConfig* arg0)
+{
+    s32 index;
+    UnkKeyInput* current;
+    UnkKeyInput* previous;
+
+    previous = NULL;
+    index = arg0->unk4;
+    current = &arg0->unk14[index];
+    if (index != 0) {
+        previous = &arg0->unk14[index - 1];
+    }
+    if (checkKeyInput(current) != 0) {
+        if (previous != NULL) {
+            if (arg0->unk8 + previous->unk4 >= current->unk4) {
+                index++;
+            } else {
+                index = 0;
+            }
+        } else {
+            index++;
+        }
+    }
+    if (index >= arg0->unk6) {
+        index = 0;
+        if (arg0->unk0 != 0) {
+            arg0->unk0(arg0->unkC);
+        }
+        arg0->unk4 = index;
+        return 1;
+    }
+    arg0->unk4 = index;
+    return 0;
+}
 
 void initKeyRecording(u16 arg0)
 {
@@ -220,4 +310,7 @@ u16 sub_805ABB4(void)
     return _unk3005DB8;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805abc0.s");
+unk8 sub_805ABC0(UnkKeyInput* arg0)
+{
+    return checkKeyInput(arg0);
+}
