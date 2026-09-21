@@ -8,6 +8,22 @@
 #include "system.h"
 #include "unsorted.h"
 
+typedef struct PolyRecord {
+    unk8 pad0[8];
+} PolyRecord;
+
+typedef struct PolyDispatchData {
+    unk8 pad0[8];
+    PolyRecord* unk8;
+    unk8 padC[4];
+    unk32 unk10;
+} PolyDispatchData;
+
+typedef struct PolyDispatchCallbacks {
+    unk8 pad0[0x28];
+    void (*unk28)(unk32, unk32, PolyRecord*, unk32);
+} PolyDispatchCallbacks;
+
 typedef struct PolyBucket {
     s16 head;
     s16 tail;
@@ -19,7 +35,7 @@ typedef struct PolyNode {
 } PolyNode;
 
 typedef struct UnkAnimEventRow {
-    unk8 pad0[2];
+    unk16 value;
     s16 next;
     s16 prev;
     unk8 pad6[2];
@@ -64,6 +80,10 @@ extern const char Str_875575C[];
 extern const char Str_8755764[];
 extern const char Str_8755794[];
 extern const char Str_87557C8[];
+extern const char Str_87557FC[];
+extern const char Str_8755810[];
+extern const char Str_875581C[];
+extern const char Str_8755828[];
 
 void newPolyTable(PolyTable* arg0, u16 arg1, u16 arg2)
 {
@@ -123,7 +143,32 @@ void sub_805FA8C(PolyTable* arg0, unk16 arg1, unk16 arg2)
     }
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805fae8.s");
+unk16 sub_805FAE8(PolyTable* arg0, unk32 arg1, PolyDispatchData* arg2, PolyDispatchCallbacks* arg3,
+    unk32 arg4, unk16 arg5)
+{
+    PolyBucket* bucket;
+    PolyNode* node;
+    PolyRecord* record;
+    unk16 count;
+
+    count = 0;
+    bucket = &arg0->unk8[arg5];
+    node = NULL;
+    if (bucket->head != -1) {
+        node = &arg0->unkC[bucket->head];
+    }
+    while (node != NULL) {
+        record = &arg2->unk8[node->value];
+        count++;
+        arg3->unk28(arg1, arg2->unk10, record, arg4);
+        if (node->next != -1) {
+            node = &arg0->unkC[node->next];
+        } else {
+            break;
+        }
+    }
+    return count;
+}
 
 void sub_805FB60(PolyTable* arg0, unk16 arg1)
 {
@@ -197,7 +242,41 @@ void sub_805FCC8(UnkAnimEventData* arg0)
     arg0->unk1C = NULL;
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805fcec.s");
+// TODO: fakematch?
+s16 sub_805FCEC(UnkAnimEventData* arg0, unk16 arg1, unk16 arg2)
+{
+    unk16 index;
+    s16 rowIndex;
+    s32 bucketIndex;
+    unk16 prev;
+    s32 next;
+    UnkAnimEventRow* row;
+    UnkAnimEventRow* tail;
+    UnkAnimEventBucket* bucket;
+
+    rowIndex = arg0->unk2++;
+    index = rowIndex;
+    row = &arg0->unk8[rowIndex];
+    bucketIndex = (s16)arg1;
+    bucket = &arg0->unkC[bucketIndex];
+    if (bucket->head < 0) {
+        bucket->head = index;
+        bucket->tail = index;
+        prev = ~bucketIndex;
+        row->prev = prev;
+        arg0->unk10[bucketIndex >> 5] |= 1 << (bucketIndex & 0x1F);
+    } else {
+        tail = &arg0->unk8[bucket->tail];
+        tail->next = index;
+        row->prev = bucket->tail;
+        bucket->tail = index;
+    }
+    next = ~(s16)arg1;
+    row->next = next;
+    row->value = arg2;
+    arg0->unk0++;
+    return index;
+}
 
 void sub_805FD80(UnkAnimEventData* arg0, s16 arg1, s16 arg2)
 {
@@ -239,4 +318,21 @@ void sub_805FE04(UnkAnimEventData* arg0)
     DmaClear(3, 0, arg0->unk10, (arg0->unk6 >> 5) << 2, 32);
 }
 
-INCLUDE_ASM("asm/dump/8057b80-debug/805fe68.s");
+void sub_805FE68(UnkAnimEventData* arg0, unk16 arg1)
+{
+    unk32 index;
+    UnkAnimEventBucket* bucket;
+    UnkAnimEventRow* row;
+
+    bucket = &arg0->unkC[arg1];
+    index = (unk16)bucket->head;
+    nullsub_9(Str_87557FC, arg1);
+    nullsub_10(Str_8755810, bucket->head, Str_875581C, bucket->tail);
+    if ((s16)index >= 0) {
+        do {
+            row = &arg0->unk8[(s16)index];
+            nullsub_10(Str_8755828, row->prev, Str_875575C, row->next);
+            index = (unk16)row->next;
+        } while (row->next >= 0);
+    }
+}
