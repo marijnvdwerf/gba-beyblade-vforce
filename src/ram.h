@@ -654,6 +654,10 @@ extern struct ActorBlock* _unk3005E60;
 extern s32 _unk3005E64;
 extern Actor* _actorsHeapPtr;
 extern unk32 _unk3005E6C;
+extern unk32 _unk3005E70;
 extern unk32 _unk3005E74;
+extern SpriteEntry* _unk3005DE4;
+extern SpriteRotationScaleEntry* _unk3005DF8;
+extern unk32 _spritesFree;
 
 #endif

@@ -431,7 +431,8 @@ struct SpriteSheet {
     unk8 unk7;
     unk32 unk8;
     unk8 unkC;
-    unk8 padD[3];
+    unk8 unkD;
+    unk16 unkE;
     unk32 unk10; /* 0x10 */
     unk32 unk14;
     unk32 unk18; /* 0x18 */

@@ -1,5 +1,7 @@
 #include "sprite.h"
 
+#include <agb/memory_map.h>
+
 #include "common.h"
 #include "include_asm.h"
 #include "memory.h"
@@ -32,8 +34,6 @@ extern SpriteRotationScaleEntry* _rotationScale_end;
 extern SpriteEntry* _spritesLeft;
 extern unk32 _spritesFree;
 extern SpriteEntry* _sprites;
-
-SpriteEntry* _unk3005DE4;
 
 extern u16 word_807D90C[];
 extern const char Str_8755A08[];
@@ -163,7 +163,7 @@ void SpriteVRamFree(u32 max_sprites, u32 max_rotation_scale)
 
     if (max_rotation_scale != 0) {
         prev = NULL;
-        rotation_address = 0x07000000;
+        rotation_address = OAM;
         n = max_rotation_scale - 1;
         while (n--) {
             rotation->prev = prev;

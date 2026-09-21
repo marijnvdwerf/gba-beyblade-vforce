@@ -9,12 +9,12 @@ typedef struct UnkStruct_87569F4 {
 } UnkStruct_87569F4;
 
 unk32 ARM_sub_87569F4(UnkStruct_87569F4*, unk32);
-void ARM_sub_8756A84(SpriteEntry*, unk16, s32);
+s32 ARM_sub_8756A84(SpriteEntry*, unk16, s32);
 void oam_8756CC0(void);
 void sub_8756FC0(void);
 void sub_8757380(BGLayer*, unk32, unk32, unk32, unk32);
-void sub_8757494(void);
-void sub_8757574(void);
+void sub_8757494(const s16*, s32, s32, s32, unk16*, s16);
+void sub_8757574(const unk32*, const unk16*, RiderTile*, unk32);
 void sub_87576D8(const unk32*, unk32, unk32, unk32, RiderTile*, const unk32*);
 void sub_87577B4(void);
 void sound_8757A64(void*, s32, s32);
