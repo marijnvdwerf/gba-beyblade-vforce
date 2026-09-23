@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-23 (session 17, close): main 24c698ae — ALL FUNCTIONS MATCHED (no INCLUDE_ASM left in any C file; asm/dump/ has no referenced dumps), US+EU compare green, baseline refreshed. Branch `drafts` is DELETED (nothing left to park); this file's session-16 section was recovered from its last commit a740ca3a. The main checkout is on `main`. The user's `raw-decomp-11` worktree is rebased onto main and holds only the three loop-flattening commits (b6d41277, df7ed2a8, 5f07738e; both compares green) — NOT yet reviewed or landed. No agents, no cron, no monitor running.
+Last updated: 2026-09-24 (session 17, cont.): main aca6d8bd — all functions matched; loops flattened + folded; profile/ai/anim/animevent strings inlined; Credits table + 127 strings in credits.c (data12a.s split off); iwram.c split into iwram_sprite/tilemap/sound/fastmem/serial.c with the ADPCM tables and six diagnostics in C. US+EU green, baseline refreshed. drafts deleted. raw-decomp-11 (user's worktree) = main's flattening commits, nothing pending there. NO SOL TODAY (user: "Sol is illegal today") — opus for everything, luna only for the review comparison. One agent may still be running: the data-table ownership survey (opus, read-only).
 
 ## Session 17 (2026-09-23) — the last 11 iwram ARM functions
 
@@ -72,6 +72,42 @@ Last updated: 2026-09-23 (session 17, close): main 24c698ae — ALL FUNCTIONS MA
   decision); (c) follow-ups unchanged from session 16 (motion.c helpers,
   profile.c/text.c include_asm.h, sprite.c local `_spritesFree` extern,
   `.claude/agents/decompiler.md` learnings instruction).
+
+- 2026-09-24 additions (all landed, compares green, baseline refreshed):
+  5faf8bda the three Codex flattening commits squashed (opus review: 6 fix /
+  29 question); b197e3b3 luna fold pass — 14 kept (frontend sub_8048F80
+  guard, sprite/actor/envactor/packet/particle/spritestring/geometry loops,
+  palette `row`/`intensity` names were swapped, sprite sub_8060934 terminal
+  cursor); measured byte-required: actor's duplicated `frameCount != 0`
+  guard (+0x14), geometry getLineMetaAtIndex dead `i = 0` (+0x10), frontend
+  sub_804967C staged `count--` (+0x0C), display sub_8050A50's guard (+0x02)
+  and every indexed form of its loop (the byte `offset` is the original —
+  down-counting `&ptrC[total-count]` is 2 insns off in init order), plus
+  ~25 more (first diffs recorded in the agent transcript only — no
+  learnings by decision). A commit stripping two layer.c fakematch markers
+  was NOT landed.
+  7562bf9a profile/ai/anim+animevent literals inlined (3 strings files gone).
+  cc239d41 CREDITS: `.data` MODEL PROVEN — the asm/data*.s files at the head
+  of `.rodata` are the original TUs' `.data` in link order (= .text = .rodata
+  order); `CreditsEntry Credits[]` NON-const in credits.c, `src/credits.c.o(.data)`
+  inserted where the table was (data12.s split → data12a.s head blob
+  `_8067D3C`), strings0.c replaced by credits.c(.rodata). agbcc emits an
+  initializer's literals LAST-FIRST and pools duplicates per object.
+  aca6d8bd IWRAM SPLIT (five files, user choice): rodata evidence = strings5
+  (oam) | data5 tables (sound) | strings6 (fastMemory); `.iwram_code` lists
+  five .text; `. = ALIGN(4)` before iwram_sound rodata (agbcc 2-aligns s16
+  arrays; the asm had .align 2) — commented in ld_script.ld.
+  LESSONS: a message queued to a FINISHED agent revives it, and if its
+  worktree is gone it works in another agent's worktree (happened: luna fold
+  agent built in iwram-split) — TaskStop finished agents before removing
+  their worktree; `git cherry-pick A..B C` is a rev-list UNION (pulled a
+  dropped commit back in) — pass explicit SHAs; luna agents edit the main
+  checkout by relative path (twice) — brief with absolute paths + "main is
+  off limits" and check `git status` on main before every landing.
+  NEXT: table-owned string pools via the .data model — survey (opus) maps
+  data12/data9/data8 table ownership per TU; then festate's tables
+  (_806DB8C/_806E240/_806E31C/_806E8D8/_806E914/_806E97C…), TutorialPages,
+  data9 LevelDescriptions etc.; hud/levelhud share "/" (likely one TU).
 
 ## Session 16 (2026-09-20) — Codex landings + the `drafts` branch
 
