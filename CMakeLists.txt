@@ -71,6 +71,7 @@ add_executable(rom
     asm/data7.s
     asm/data8.s
     asm/data9.s
+    asm/data9b.s
     asm/dataA.s
     asm/dataB.s
     asm/dataC.s
@@ -259,7 +260,6 @@ add_executable(rom
     src/strings_86fd2e0.c
     src/strings_87254d4.c
     src/strings_87270f8.c
-    src/strings_87294ac.c
     src/strings_8756870.c
 )
 

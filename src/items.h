@@ -19,7 +19,7 @@ struct ItemDescriptionEntry {
 
 struct InputSequence {
     unk32 count;
-    u16 keys[1];
+    u16 keys[8];
 };
 
 unk8 sub_805703C(unk32);

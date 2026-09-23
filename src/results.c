@@ -24,15 +24,29 @@ extern const unk8* _806E724[];
 extern const MenuItemDescriptor _806E7B0[];
 extern const MenuItemDescriptor _806E810[];
 extern const MenuItemDescriptor _806E870[];
-extern const InputSequence _8078954[];
-extern const InputSequence _8078968[];
-extern const InputSequence _807897c[];
-extern const unk16 _807894c[];
 extern const SpriteSheet SpriteSheet_82B1A84;
 extern const unk8 LargeFontMeta[];
 extern const SpriteSheet SpriteSheet_82B05EC;
 extern const unk8 ShadowFontMeta[];
 extern void (*__oam_8756CC0)(void);
+
+UnkStruct_80788E0 _80788E0 = {
+    { "TRACK 1" },
+    { "TRACK 2" },
+    { 0 },
+    { 0, 1, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 0 },
+    { 1, 0, 2, 3, 4, 5, 6, 7, 8, 9 },
+};
+
+const unk8* _8078938[] = { "PAUSE", "PAUSA", "PAUSE", "PAUSE", "PAUSA" };
+
+unk16 _807894c[] = { 0x10, 0x20, 0x20, 0x40 };
+
+InputSequence _8078954 = { 4, { 0x10, 0x20, 0x10, 0x20 } };
+
+InputSequence _8078968 = { 5, { 0x40, 0x40, 0x10, 0x20, 0x200 } };
+
+InputSequence _807897c = { 5, { 0x200, 0x100, 0x100, 0x200, 2 } };
 
 void sub_8052B24(void)
 {
@@ -67,9 +81,9 @@ void sub_8052B24(void)
     fade = 0;
     fadeStep = 1;
     packet = &_gameData->unk15C4;
-    sub_8057158(&record0, _8078954);
-    sub_8057158(&record1, _8078968);
-    sub_8057158(&record2, _807897c);
+    sub_8057158(&record0, &_8078954);
+    sub_8057158(&record1, &_8078968);
+    sub_8057158(&record2, &_807897c);
 
     if (sub_8051780(4) != 0 && _gameData->unk1618 != 0) {
         if (sub_8060040() != 0) {
