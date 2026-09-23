@@ -155,8 +155,15 @@ Last updated: 2026-09-24 (session 17, close): main 6e41c223 — all functions ma
   (music `_807561C`), data9.s (`_80788cc` int list — gamestate), data9b.s
   (event `_8078990`, effects `_8078a08…`), data8.s (layer `GlyphIndexes`,
   IWRAM pointer table, `byte_807D980`, `Pal_807DA80`), dataB/7/C incbins.
-  NEXT: (a) skill fold (docs/learnings ~50 files + the .data/emission
-  rules above belong in .claude/skills/agbcc/SKILL.md) — opus; (b) optional
+  DONE LATER THE SAME DAY: 2e700fff RiderSpriteSheets / getBeyBladeActorDataForIndex
+  typed `const SpriteSheet*`; sub_804FC00's arg0 proven 0..3 (byte_807D7C0);
+  the EEPROM_V122 marker CANNOT move into backup.c — backup.c.o's -O1 build
+  emits 0x58 bytes of unreferenced .LC address words into .rodata that the
+  script currently discards; giving backup.c a .rodata line would place them.
+  FINAL SKILL FOLD landed: docs/learnings/ (57 + 245 processed) DELETED, the
+  skill-fold agent removed, decompiler/review/MANAGER.md now say measurements
+  go in the agent's final REPORT and generic ones into SKILL.md by the manager.
+  NEXT: (a) (done) skill fold; (b) optional
   no-string table moves by .text order; (c) session-16 follow-ups
   (motion.c helpers, include_asm.h leftovers, decompiler.md learnings
   instruction); (d) tools/gen-report.py / objdiff units for the new TUs
