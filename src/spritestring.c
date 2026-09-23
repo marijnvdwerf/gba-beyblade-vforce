@@ -340,8 +340,7 @@ void sub_80653D8(SpriteString* string)
         value = -value;
     }
     remaining = value;
-    index = string->count - 1;
-    while (index >= 0) {
+    for (index = string->count - 1; index >= 0; index--) {
         actor = &string->actors[index];
         remainder = remaining > 0 ? DivRem(remaining, 10) : 0;
         if (spacing > 2 && remaining > 0) {
@@ -369,7 +368,6 @@ void sub_80653D8(SpriteString* string)
                 remaining = Div(remaining, 10);
             }
         }
-        index--;
     }
 }
 
