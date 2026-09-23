@@ -44,7 +44,7 @@ unk8 sub_805749C(unk32);
 typedef struct BeybladeData {
     const unk8* unk0[5];
     const unk8* unk14[5];
-    unk8* palette;
+    const unk8* palette;
     const SpriteSheet* spriteSheet;
     unk8 pad30;
     unk8 unk31;
@@ -59,8 +59,8 @@ const unk8* sub_805741C(unk32);
 const unk8* sub_805743C(unk32);
 const unk8* sub_805745C(unk32);
 const unk8* sub_805747C(unk32);
-extern void* RiderPalettes[];
-extern const BeybladeData _807ac28[];
+extern const unk8* RiderPalettes[];
+extern BeybladeData _807ac28[];
 
 void allocateBeybladeObjectPalettes(void);
 
