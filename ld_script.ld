@@ -274,7 +274,6 @@ SECTIONS {
 		src/beyblade.c.o(.rodata);
 		src/strings_872af0c.c.o(.rodata);
 		src/battery.c.o(.rodata);
-		src/strings_872c99c.c.o(.rodata);
 		src/ai.c.o(.rodata);
 		src/irq.c.o(.rodata);
 		src/debug.c.o(.rodata);

@@ -11,9 +11,6 @@
 extern const unk8 Unk_874CEBC[];
 
 extern LevelDescription LevelDescriptions[];
-extern const char Str_872C99C[];
-extern const char Str_872C9E4[];
-extern const char Str_872CA48[];
 
 unk8 fn_aiStubFunc(Actor*, LevelGeometryAddresses*, GeometryLine*);
 
@@ -32,7 +29,7 @@ void initAiManagement(void)
     level = &LevelDescriptions[getSomeLevelID()];
     ai->table = level->unk38;
     if (ai->table == NULL) {
-        printf(Str_872C99C);
+        printf("No AI collision data was provided for this level in initAIManagement()\n");
         return;
     }
     getLevelGeometryAddresses(&gameData->ai.geometry, ai->table);
@@ -47,9 +44,13 @@ void initAiManagement(void)
     for (i = 0; i < management->geometry.unk0->lineCount; i++) {
         if (line->unkF == 0x93) {
             if ((unk16)line->unk16 > 0x1F) {
-                printf(Str_872C9E4, (unk16)line->unk16, 0x20);
+                printf("Warning: cannot store an AI Target BoundingArea with the index %i, the "
+                       "maximum allowed index is %i\n",
+                    (unk16)line->unk16, 0x20);
             } else if (management->lines[(unk16)line->unk16] != NULL) {
-                printf(Str_872CA48, (unk16)line->unk16);
+                printf(
+                    "Warning: there are more than one AI target BoundingArea with the index %i\n",
+                    (unk16)line->unk16);
             } else {
                 management->lines[(unk16)line->unk16] = line;
             }
