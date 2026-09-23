@@ -295,7 +295,8 @@ SECTIONS {
 		src/sound.c.o(.rodata);
 		src/actorheap.c.o(.rodata);
 		src/strings5.c.o(.rodata);
-		asm/data5.s.o(.rodata);
+		. = ALIGN(4);
+		src/iwram_sound.c.o(.rodata);
 		src/strings6.c.o(.rodata);
 		src/teletype.c.o(.rodata);
 		src/spritestring.c.o(.rodata);

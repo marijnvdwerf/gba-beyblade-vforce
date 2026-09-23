@@ -66,7 +66,6 @@ add_executable(rom
     asm/data12.s
     asm/data12a.s
     asm/data3.s
-    asm/data5.s
     asm/data6.s
     asm/data7.s
     asm/data8.s
