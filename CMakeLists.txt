@@ -258,7 +258,6 @@ add_executable(rom
     src/trail.c
     src/transition.c
     src/tutorial.c
-    src/strings_86fd884.c
     src/strings_8756870.c
 )
 

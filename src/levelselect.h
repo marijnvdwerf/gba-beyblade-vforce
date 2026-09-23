@@ -21,4 +21,6 @@ void sub_8041324(unk32);
 void sub_8041344(LevelSelectState*, unk16);
 void sub_8041364(LevelSelectState*);
 
+extern FrontendSubobject _80686E8;
+
 #endif

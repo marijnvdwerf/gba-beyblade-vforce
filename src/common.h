@@ -342,7 +342,7 @@ typedef struct FrontendResource {
 typedef struct FrontendObject {
     unk32 unk0;
     FrontendSubobject* unk4;
-    void (*unk8)(FrontendState*, unk32, unk32);
+    void (*unk8)();
     void (*unkC)(void);
     void (*unk10)(FrontendState*, unk32);
     void (*unk14)(FrontendState*, unk32);

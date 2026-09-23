@@ -10,4 +10,6 @@ typedef struct TransitionImage {
 
 void sub_804257C(FrontendState*, unk32);
 
+extern FrontendSubobject _80687C8;
+
 #endif

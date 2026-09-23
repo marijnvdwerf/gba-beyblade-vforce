@@ -13,4 +13,6 @@ typedef struct CreditsEntry {
 
 void creditsFrontendHandler(FrontendState*, unk32);
 
+extern FrontendSubobject _8067D3C;
+
 #endif

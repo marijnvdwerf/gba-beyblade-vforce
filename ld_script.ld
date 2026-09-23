@@ -181,6 +181,7 @@ SECTIONS {
 		src/menuobject.c.o(.data);
 		asm/data12.s.o(.rodata);
 		src/festate.c.o(.data);
+		src/frontend.c.o(.data);
 		asm/data12c.s.o(.rodata);
 		src/tutorial.c.o(.data);
 		asm/data12b.s.o(.rodata);
@@ -262,7 +263,7 @@ SECTIONS {
 		src/profile.c.o(.rodata);
 		src/menuobject.c.o(.rodata);
 		src/festate.c.o(.rodata);
-		src/strings_86fd884.c.o(.rodata);
+		src/frontend.c.o(.rodata);
 		src/tutorial.c.o(.rodata);
 		src/trail.c.o(.rodata);
 		src/projectile.c.o(.rodata);

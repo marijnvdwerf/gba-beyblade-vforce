@@ -4,6 +4,7 @@
 #include <agb/types.h>
 
 #include "effects.h"
+#include "frontend.h"
 #include "gamestate.h"
 #include "geometry.h"
 #include "include_asm.h"
@@ -17,7 +18,6 @@
 #include "text.h"
 #include "unsorted.h"
 
-extern const unk8* const* _806A77C[];
 extern const SpriteSheet SpriteSheet_8282D3C;
 extern const SpriteSheet SpriteSheet_82875D4;
 extern FrontendMotionData _8068954;

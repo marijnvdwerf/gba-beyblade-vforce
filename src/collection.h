@@ -36,4 +36,6 @@ extern SpriteEntry* _unk300013C;
 
 void collectionListFrontendHandler(FrontendState*, unk32);
 
+extern FrontendSubobject _8068818;
+
 #endif

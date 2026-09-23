@@ -25,4 +25,8 @@ extern unk8 _unk30000D5;
 extern unk8 _unk30000D6;
 extern SpriteEntry* _unk30000D8;
 
+extern FrontendSubobject _806879C;
+
+void sub_80420C4(FrontendState*, unk32);
+
 #endif

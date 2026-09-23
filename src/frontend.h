@@ -15,7 +15,8 @@ extern const unk8* _806E8D8[][5];
 extern const unk8* _806E914[][5];
 extern const unk8* _806E97C[][5];
 
-extern const FrontendObject _8069FC8[];
+extern FrontendObject _8069FC8[];
+extern const unk8** _806A77C[];
 extern const SpriteSheet SpriteSheet_82B05EC;
 extern const unk8 ShadowFontMeta[];
 extern const unk8* _806E650[];
@@ -51,5 +52,17 @@ void sub_804903C(BGLayer*, unk32, unk32);
 unk8 sub_8048FFC(void);
 void sub_80495C4(void);
 void sub_804967C(void);
+
+void Background_80498F8(void);
+void Background_80499BC(void);
+void Background_8049A24(void);
+void Background_8049A84(void);
+void Background_8049AF8(void);
+void Background_8049B68(void);
+void nullsub_33(FrontendState*, unk32);
+void sub_8049CE8(FrontendState*, u32);
+void sub_8049F58(FrontendState*, u32);
+void sub_8049F9C(FrontendState*, unk32);
+void sub_8049FF8(FrontendState*, unk32);
 
 #endif
