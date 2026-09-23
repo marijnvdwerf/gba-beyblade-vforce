@@ -60,7 +60,6 @@ add_executable(rom
     asm/audio1.s
     asm/audio2.s
     asm/crt0.s
-    asm/data1.s
     asm/data10.s
     asm/data11.s
     asm/data12.s

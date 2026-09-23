@@ -6,10 +6,9 @@
 #include "gamestate.h"
 #include "geometry.h"
 #include "leveldata.h"
+#include "math.h"
 #include "riderphysics.h"
 #include "unsorted.h"
-
-extern const unk8 Unk_874CEBC[];
 
 unk8 fn_aiStubFunc(Actor*, LevelGeometryAddresses*, GeometryLine*);
 

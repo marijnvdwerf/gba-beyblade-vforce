@@ -291,7 +291,11 @@ SECTIONS {
 		src/debug.c.o(.rodata);
 		src/actor.c.o(.rodata);
 		src/layer.c.o(.rodata);
-		asm/data1.s.o(.rodata);
+		/* Unk_872CC3C (s16[]) sits at a word boundary in the ROM; agbcc only
+		 * 2-aligns an s16 array, so the alignment the old asm/data1.s carried
+		 * (.align 2) lives here. */
+		. = ALIGN(4);
+		src/math.c.o(.rodata);
 		src/memory.c.o(.rodata);
 		src/keystate.c.o(.rodata);
 		src/menu.c.o(.rodata);

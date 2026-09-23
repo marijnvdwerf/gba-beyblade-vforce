@@ -8,6 +8,7 @@
 #include "gamestate.h"
 #include "items.h"
 #include "keystate.h"
+#include "math.h"
 #include "menu.h"
 #include "menuobject.h"
 #include "multiplayer.h"

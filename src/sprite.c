@@ -4,6 +4,7 @@
 
 #include "common.h"
 #include "include_asm.h"
+#include "math.h"
 #include "memory.h"
 #include "packet.h"
 #include "spritetext.h"
@@ -17,8 +18,6 @@ struct SpriteStruct2 {
     u16 var02;
     SpriteStruct2* next;
 };
-
-extern s16 Unk_872CC3C[];
 
 extern SpriteStruct2* _unk3005DC8;
 extern SpriteStruct2* _unk3005DD8;

@@ -6,6 +6,7 @@
 #include "gamestate.h"
 #include "include_asm.h"
 #include "levelhud.h"
+#include "math.h"
 #include "music.h"
 #include "projectile.h"
 #include "ram.h"

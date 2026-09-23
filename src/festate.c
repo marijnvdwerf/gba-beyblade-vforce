@@ -14,6 +14,7 @@
 #include "keystate.h"
 #include "language.h"
 #include "layer.h"
+#include "math.h"
 #include "menu.h"
 #include "menuobject.h"
 #include "multiplayer.h"

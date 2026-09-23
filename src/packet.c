@@ -1,6 +1,7 @@
 #include "packet.h"
 
 #include "include_asm.h"
+#include "math.h"
 #include "motion.h"
 #include "multiplayer.h"
 #include "ram.h"

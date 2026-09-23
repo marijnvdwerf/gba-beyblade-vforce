@@ -4,6 +4,7 @@
 
 #include "debug.h"
 #include "include_asm.h"
+#include "math.h"
 #include "packet.h"
 #include "ram.h"
 #include "system.h"

@@ -3,6 +3,7 @@
 #include "debug.h"
 #include "include_asm.h"
 #include "language.h"
+#include "math.h"
 #include "memory.h"
 #include "music.h"
 #include "packet.h"

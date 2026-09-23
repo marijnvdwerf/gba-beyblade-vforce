@@ -10,6 +10,7 @@
 #include "include_asm.h"
 #include "items.h"
 #include "levelhud.h"
+#include "math.h"
 #include "memory.h"
 #include "particle.h"
 #include "riderphysics.h"

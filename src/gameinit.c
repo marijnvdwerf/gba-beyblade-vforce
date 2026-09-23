@@ -17,6 +17,7 @@
 #include "include_asm.h"
 #include "keystate.h"
 #include "levelhud.h"
+#include "math.h"
 #include "multiplayer.h"
 #include "music.h"
 #include "rider.h"

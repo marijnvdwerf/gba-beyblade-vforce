@@ -9,6 +9,7 @@
 #include "items.h"
 #include "keystate.h"
 #include "layer.h"
+#include "math.h"
 #include "memory.h"
 #include "music.h"
 #include "packet.h"

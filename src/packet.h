@@ -3,8 +3,6 @@
 
 #include "common.h"
 
-extern const s16 Unk_874CC3C[];
-
 typedef struct PacketTransport {
     unk8 unk0;
     unk8 unk1;
