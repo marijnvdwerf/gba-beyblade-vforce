@@ -51,7 +51,11 @@ target_include_directories(agb INTERFACE "${CMAKE_SOURCE_DIR}/lib/agb/include")
 
 add_executable(rom
     asm/arm1.s
-    src/iwram.c
+    src/iwram_sprite.c
+    src/iwram_tilemap.c
+    src/iwram_sound.c
+    src/iwram_fastmem.c
+    src/iwram_serial.c
     asm/audio0.s
     asm/audio1.s
     asm/audio2.s
@@ -285,7 +289,13 @@ set_source_files_properties(src/libc.c PROPERTIES
 # Nintendo's prebuilt EEPROM_V122 library: matches only with pret agbcc -O1.
 set_source_files_properties(src/backup.c PROPERTIES
     COMPILE_OPTIONS "--cc1=${AGBCC}/bin/agbcc;-O1;-fprologue-bugfix")
-set_source_files_properties(src/iwram.c PROPERTIES
+set_source_files_properties(
+    src/iwram_sprite.c
+    src/iwram_tilemap.c
+    src/iwram_sound.c
+    src/iwram_fastmem.c
+    src/iwram_serial.c
+    PROPERTIES
     COMPILE_OPTIONS "-marm")
 
 # Inputs for the generic GBA rom module (cmake/gba.cmake).

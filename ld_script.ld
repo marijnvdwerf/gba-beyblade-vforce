@@ -311,7 +311,11 @@ SECTIONS {
      * copies LOADADDR(.iwram_code)..+SIZEOF into place at boot. */
     .iwram_code _iwram_code_start : AT(ADDR(.rodata) + SIZEOF(.rodata))
     {
-        src/iwram.c.o(.text);
+        src/iwram_sprite.c.o(.text);
+        src/iwram_tilemap.c.o(.text);
+        src/iwram_sound.c.o(.text);
+        src/iwram_fastmem.c.o(.text);
+        src/iwram_serial.c.o(.text);
         fn_end = .;
     }
     __iwram_code_lma = LOADADDR(.iwram_code);
