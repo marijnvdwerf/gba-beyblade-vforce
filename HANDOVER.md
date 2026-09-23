@@ -5,7 +5,338 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-18 (session 15, close): 971 C / 54 asm / 95% by count, 49/67 TUs; main clean, US+EU compare green, baseline refreshed; no agents running.
+Last updated: 2026-09-23 (session 17, close): main 24c698ae — ALL FUNCTIONS MATCHED (no INCLUDE_ASM left in any C file; asm/dump/ has no referenced dumps), US+EU compare green, baseline refreshed. Branch `drafts` is DELETED (nothing left to park); this file's session-16 section was recovered from its last commit a740ca3a. The main checkout is on `main`. The user's `raw-decomp-11` worktree is rebased onto main and holds only the three loop-flattening commits (b6d41277, df7ed2a8, 5f07738e; both compares green) — NOT yet reviewed or landed. No agents, no cron, no monitor running.
+
+## Session 17 (2026-09-23) — the last 11 iwram ARM functions
+
+- LANDED 24c698ae from raw-decomp-11 901054d4..07602cca as ONE squash
+  (range diff into a temp worktree `land-iwram` on main, `git apply --index
+  --3way`, two conflicts: main's stripped `#if 0`/INCLUDE_ASM side of iwram.c
+  vs the branch's C — took the C; a stale keystate learnings addendum —
+  dropped). sub_8756FC0, sub_8757380, sub_8757494, sub_8757574, sub_87576D8,
+  sub_87577B4, sound_8757A64, fastMemoryClearARM, sub_8757D24, sub_8757E4C,
+  sub_8757FCC. No rebase of the branch itself: it still carried the earlier
+  Codex commits that main has in luna-cleaned form.
+- USER DECISIONS: sub_87577B4's two whole-loop PCM `__asm__` kernels ship
+  with `// TODO: fakematch?` (`adc rX, rX, rY, lsr #28` is unreachable from
+  C — no arm.md pattern takes a shifted carry-in operand; carry-only C loops
+  ended at 22–34 register-only diffs); sound_8757A64's `sample = 0; sample =
+  (s32)cursor;` + s32 return (caller is `void (*)`) ships with the marker;
+  fastMemoryClearARM asm body accepted like its siblings; the agbcc
+  diagnostic patches (`tools/agbcc-*.patch`, `trace-87577b4.py`) deleted;
+  ALL ARM/iwram learnings deleted ("we can throw away all ARM learnings").
+- Review round: opus `review` agent (256k tok / 34 calls / 10 min) vs luna
+  `review` agent (123k tok / 71 calls / 23 min), same prompt. Both found the
+  duplicate sound structs, TileMapRow in common.h, callback-pointer type
+  drift, stale learnings. Opus alone found `_soundMixerPlus` typed three ways,
+  duplicate block-scope externs, REG_SIODATA8 vs REG_SIOMLT_SEND, the tools
+  patches' out-of-tree dependency, and gave ~10 reasoned fold probes; luna
+  called the accepted fakematch shapes "blocking" and reviewed the landing
+  commit instead of git objects. Opus was the more useful read (user wants
+  to keep comparing the two).
+- Fix round (luna decompiler agent in land-iwram, one commit per item):
+  `SoundStructA`/`SoundStructE` are the one sound layout, now in sound.h
+  (`unk8 var00` sample mode, `s8* var04`, `unk32 var08`, `s16 var14`,
+  `SoundStructE** var1C`, `s16* var20`; Sound_8062950 kept byte-identical
+  with two locals); `_soundMixerPlus` is `s16*` (ram3.c) with one extern in
+  ram.h, same for `_unk3005E78`; every `__sub_*`/`__sound_*`/`__fastMemory*`
+  callback pointer + `CopyFn`/`ClearFn` live in iwram.h (unsorted.h now
+  includes iwram.h); `LayerCopyFunc`/`sub_80594FC`/`__sub_8756FC0` retyped to
+  `(BGLayer*, s32, s32, unk32, s32, s32, s32)`; `TileMapRow` iwram.c-local;
+  `TileMapHeader.unk1A` is the fill halfword; `MultiPlayerState.unk34` is
+  `unk16*`; 0xFDD9 everywhere; `__fastMemoryCopyARM(...)` without `(*…)`;
+  silence loop `while (--length != -1)`. Measured and DIVERGING (do not
+  retry): `unk16* screenAddress` in sub_8757380 (lsl #1→#2), a shared row
+  helper for FC0/6D8 (+0x220), `const unk32 (*tiles)[2]` / Tile1bpp (ten
+  diffs in sub_8757574), fused `sample = *source++ >> 4` (four), `"+r"` on
+  the kernels' arg1/destination (35), tied dummy asm output (agbcc rejects
+  the constraint). The agent first REVERTED three probes it had measured
+  identical — instruct agents that byte-identical natural forms are kept.
+- MISHAPS: the fix agent edited main's checkout by relative path at one
+  point (partial sound.h/sound.c/iwram.h edits, saved to
+  /tmp/stray-main-edit-iwram-fix.diff, discarded) — always give agents the
+  absolute worktree path AND say the main checkout is off limits; its
+  `git rm` of learnings was denied by the sandbox (manager did it — a
+  direct user instruction, not laundering). `cd` into a worktree in the
+  manager shell moves the session cwd (use `git -C`).
+- `drafts` deleted; `land-iwram` worktree+branch removed. raw-decomp-11
+  rebased with `git rebase --onto main 07602cca raw-decomp-11` in the user's
+  worktree; two iwram.c conflicts resolved mechanically (silence loop →
+  main's form; `decrease indentation` → Codex's structure with the
+  `unkNN→varNN` renames re-applied inside sub_87577B4 only). The user's
+  `stash@{0}` (WIP on raw-decomp-11) is untouched.
+- NEXT: (a) review + land the three flattening commits on raw-decomp-11
+  (do-while → for/while across 14 TUs, `else if` + `&&` merges in iwram.c;
+  compares green, unreviewed); (b) the skill fold is still overdue
+  (docs/learnings has ~50 unfolded files; the ARM ones are gone by
+  decision); (c) follow-ups unchanged from session 16 (motion.c helpers,
+  profile.c/text.c include_asm.h, sprite.c local `_spritesFree` extern,
+  `.claude/agents/decompiler.md` learnings instruction).
+
+## Session 16 (2026-09-20) — Codex landings + the `drafts` branch
+
+- BRANCH MODEL (user): main keeps the discard rule (no `#if 0`). Branch
+  `drafts` (checked out in the main worktree) = main + parked drafts: luna
+  decompiler agents try every remaining Thumb function, one TU per agent;
+  a match goes to MAIN (then `git merge main` into drafts), a failure is
+  parked on `drafts` as a best-attempt `#if 0` above the INCLUDE_ASM (the
+  user runs external decompilations from these seeds — agents are not told).
+  Parks: honest natural typed C, no register/volatile/asm/attributes/goto/
+  raw offsets/OOB pointer stepping/literal temps/second struct views; a park
+  never changes shared headers or live code (assumed layouts go in scratch
+  typedefs inside the block). Agents must NOT read learnings that mention
+  their function nor other branches — fresh from the asm. Reviews: luna
+  `review` agent + the manager's own read (small sibling-mirroring matches
+  were landed on the manager's read alone: math, particle).
+- Landing recipe that worked: matches — `git switch main`, `git checkout
+  <agent-commit> -- <files>`, `git rm` the dump, strip `#if 0` blocks with a
+  regex, clang-format, US+EU compare, commit, update-expected, `git switch
+  drafts`, `git merge main`, then `git checkout <agent-branch> -- <file>` to
+  bring the parks, compare, commit. NEVER diff an agent branch against
+  main's merge-base (agent branches are based on drafts — that staged four
+  parks onto main once; caught before commit). Parks only — `git diff
+  $(git merge-base drafts B) B -- src docs asm | git apply --index`.
+- MAIN, 13 functions: Codex raw-decomp-11 ×4 (geometry sub_805E18C,
+  sub_805E320, sub_805DF04; particle sub_804E910 — `GeometrySplineIntersection`
+  kept TU-local, gained `unk8 unk14`; fold-check: every suspicious shape
+  byte-required, only the `(unk16)` table-read cast became a `unk16` local);
+  riderphysics sub_804E2A4 (s16 scaleValue, `adjusted` temp byte-required,
+  the dead `magnitude == 0 && delta != 0` test is in the target — TU DONE);
+  camera sub_805ED60 (TU DONE; `s32 actorPosition[3]` measured, unk32
+  changes the ROM); math sub_805A2DC (`s32 (*a)[3]` matrix parameters — the
+  session-14 wall was the flat `s32*` typing; ASM_ZEROPAD); profile()
+  (TU DONE; soft-float, `(unk16)*(vu32*)REG_TM2CNT_L` measured against vu16
+  and `& 0xFFFF`); anim sub_805F0B4 + sub_805F910 (F910 was a wall because
+  the draft's min-selection was INVERTED — luna review found it; matches as
+  `selected = a <= b ? a : b`; `AnimFrameRecord.unk4` s32,
+  `AnimFrameState.unk8` AnimFrameCommand*); particle sub_804E7D4; geometry
+  sub_805E0D8 + sub_805E77C (`(identifier = line->unk16) != id` with an
+  unk16 local gives the target ldrh on the s16 field — NO union).
+- DRAFTS, 25 parks (first divergence in docs/learnings/<tu>-2026-09-20.md):
+  actor sub_8058068 (only an OOB cursor from `&entry->unk0` matches — target
+  walks the record as a flat halfword stream, `ActorSequenceEntry.frames`
+  may be the wrong layout); text sub_805B280; motion sub_80502A4
+  (`FrontendMotionData.unk20` read as halfword here, word elsewhere);
+  actorheap sub_8062EFC; keystate ×3 (sub_805A984 contains sub_805ABC0's
+  test inlined); ai initAiManagement (r6/r7 swap only); gameloop
+  sub_8052180; spritestring ×3 (drafts assume `SpriteString.timer` s32);
+  math sub_805A00C; layer ×4 (sub_8059904: only the `offset = 0xB0` literal
+  temp matches); animevent ×3 (`UnkAnimEventRow.pad0` → `unk16 value` is
+  live on drafts only for a park — revert if it never matches); anim
+  sub_805F27C, sub_805F3D8; particle sub_804E6A4; geometry sub_805E528,
+  sub_805E648 (both semantically corrected after review; E648 target
+  extracts `GeometryLine.unk11` bit 1 with `lsl #30; lsr #31` = 1-bit
+  bitfield read).
+- Rejected this session (all reverted by the agents): OOB cursor (actor),
+  shift/cast choreography (riderphysics), second `Actor` view + live
+  signature edits (gameloop), `__attribute__((packed))` sign union on
+  `GeometryLine.unk16` spread over common.h/collision.c/gameinit.c
+  (geometry), literal temp (layer), `250 << 2` (profile), register-step
+  transcriptions (math, gameloop).
+- LESSONS: (1) a luna review that is told "check branch senses in the parked
+  drafts against the asm" found three semantic bugs; one turned a wall into
+  a match — always ask for it. (2) First-pass luna output is rarely
+  conformant: nearly every branch needed one send-back; put the draft-quality
+  rules in the first prompt (the later prompts in this session have them).
+  (3) Luna stops at compaction mid-task; "Tool calls are allowed — continue
+  with X" revives it; a message sent to a stopped agent resumes it.
+  (4) A keepalive is a CronCreate `*/30` job (session-only), not a Monitor.
+  (5) `git reset --hard` in the user's raw-decomp-11 worktree is blocked by
+  the classifier — the user resets it (it still points at b74c4cb8; all four
+  commits are on main).
+- OPUS RETRY ROUND (2026-09-21; user: "for the failures, have decomp agents
+  with model opus retry"). One TU per agent on top of `drafts`, brief in
+  /tmp/opus-retry-prompt.txt (start from the park but DISTRUST it, no
+  learnings, scripted probe matrices + `.greg` priorities, full house rules).
+  USER RULES set during the round: opus does ONLY the initial match — every
+  fix round, conformance pass, type cleanup and review is luna; NO NEW OPUS
+  AGENTS (spritestring + keystate retries were killed at the user's request
+  seconds after launch; ai, animevent never started); EVERY landing needs a
+  luna review AND the manager's full read of the diff BEFORE it goes to main
+  (the manager landed five opus matches on its own read / one on the report
+  alone and was called on it — post-landing luna reviews were then run over
+  all of them: no semantic errors, one valid finding `VRAM + 0x10000` →
+  `OBJ_MODE0_VRAM`).
+- Opus results, 9 of 11 functions matched, all on main: motion sub_80502A4
+  (the parameter is a new `Motion` struct in motion.h, not
+  FrontendMotionData — no union; packet.c sub_80439F4 retyped; TU DONE);
+  actor sub_8058068 (`*(entry->frames + index)` — agbcc expands variable-index
+  `a[i]` as `*(&a[0]+i)` so base+8 is hoisted, while source pointer arithmetic
+  is reassociated by fold into the load displacement; STRUCTURE_SIZE_BOUNDARY
+  is 32 so no 2-byte struct exists; TU DONE); text sub_805B280 (parameters
+  reused as working variables, `xTile` before the bounds check, both loop
+  counters set before loop 1; `Tile4bpp` is now `unk32[8]`; TU DONE); anim
+  sub_805F3D8 (s32 size local, dest-before-src locals) + sub_805F27C (park had
+  a semantic bug: `(s16)block >> 3`, base `OBJ_MODE0_VRAM`; ships a
+  `// TODO: fakematch?` on the `rows` staging temp + duplicated else-store —
+  three ordinary round-up spellings measured, all diverge at 0x02; TU DONE);
+  geometry sub_805E528 + sub_805E648 (masking in its own statement because
+  fold reassociates `(ef & K) & flags`; loop bound read from the member;
+  separate `currentPoint0/1`; `GeometryLine.unk11` is now bitfields
+  `unk11_0..3 : 1, unk11_4 : 4` with 15 mask tests rewritten in geometry.c /
+  collision.c / riderphysics.c, all byte-identical; TU DONE); math sub_805A00C
+  (s32 trig locals, index expression repeated inline at each subscript, array
+  subscript not a table pointer; TU DONE); actorheap sub_8062EFC
+  (`block->next = NULL` in both arms raises the flag's ref count past a
+  floor_log2 step; luna then made `ActorBlock` (actorheap.h) the one block
+  type — `SpriteStringActorBlock` deleted — typed sub_8062EFC/sub_8062FA8
+  returns and the six ram3.c heap globals; TU DONE).
+- Opus improved parks (drafts only): gameloop sub_8052180 (~550 probes;
+  frame 128 vs 132; FINDING: its 2nd parameter is `Sub8052140Data*`, not
+  `Actor*` — a 3×3 matrix at +0x34 would destroy live Actor fields while
+  Sub8052140Data has `pad34[0x24]` there; so live `sub_80520F4` and the
+  `ActorEffectCallbacks` typedefs are mistyped as `Actor*` — byte-neutral
+  retype NOT applied, user decision; `RiderBase.unk6C` is s32 by `asr`);
+  particle sub_804E6A4 (38 differing insns, was 122, after `unk16 lifetime`;
+  residue: CSE shares one zero between the three-field zeroing and the tail
+  `unk6 = 0`, target materialises it twice — only a `zero` temp/volatile
+  fixes it, so parked).
+- Luna fold-check on the opus landings (6cb20aae): OBJ_MODE0_VRAM; sub_805F27C
+  parameters named (drawX/drawY are a GUESS — only forwarded to a callback);
+  both geometry loops are `for` with `current++` in the body; particle
+  sub_804E7D4 x/y/z byte-required.
+- LAYER (opus, landed 7adbdc52 after luna review + manager read + luna fold pass; USER DECISION: sub_8059404 stays PARKED on drafts although its draft is byte-matching — see its park note in docs/learnings/layer-2026-09-21.md): sub_8059DDC (separate
+  `currentRow`, bounds inline in the conditions), sub_8059F20 (park bug:
+  `index` is s32 by bgt/ble; `currentColumn++` in both the space and glyph
+  arms), sub_8059904 (NO literal temp: `centerX = layer->field_C + 0x5800;
+  x -= centerX;` — fold reassociates `A - (B + K)` into a pool constant),
+  sub_8059404 (three in-argument assignments `(firstSize = …)`,
+  `(secondSize = …)`, `(fullSize = …)`, two never read, keep DmaCopy's
+  `(size)/2` from folding — same idiom as the sibling sub_80594FC's TODO'd
+  `(firstWidth = …)`; block-scoped `rowOffset` should be hoisted). Manager
+  The other three are on main.
+- Remaining parks on drafts (13): spritestring ×3, keystate ×3, animevent ×3,
+  ai initAiManagement, gameloop sub_8052180, particle sub_804E6A4, layer
+  sub_8059404 (matching form, rejected shape).
+- Landing mechanics that worked for opus branches (based on an older drafts
+  commit): `git switch main`; files main has not touched since the agent's
+  base → `git checkout <branch> -- <file>`; files that moved on main
+  (common.h!) → `git diff <agent-base> <branch> -- <files> | git apply
+  --index --3way`; then on drafts the merge conflicts on the TU (park vs
+  match) — resolve with `git checkout main -- <file>` and delete the
+  obsolete `<tu>-2026-09-20.md` park learnings.
+- IWRAM DRAFT ROUND (2026-09-21, user: "have luna agents work on the iwram
+  functions, so those also get drafts"). 11 of the 16 iwram asm functions
+  already had session-12 `#if 0` drafts (also on main): oam_8756CC0,
+  sub_8756FC0, sub_87577B4, sound_8757A64, fastMemory* ×4, sub_8757D24,
+  sub_8757E4C, sub_8757FCC — untouched. The five draft-less ones went to
+  three luna agents (brief /tmp/iwram-prompt.txt: `agbcc_arm -O2
+  -mthumb-interwork`, may be hand-written ARM so a typed draft is a fine
+  outcome, no learnings, per-agent learnings file names because all edit
+  src/iwram.c). Parked on drafts: sub_8757574 (expands two-word tile entries
+  into eight 4bpp rows, 0x400 mirror / 0x800 vertical flip; prototype fixed to
+  `(const unk32*, const unk16*, RiderTile*, unk32)`), sub_87576D8 (signed
+  16-bit run records: negative → fastMemoryClear16ARM, positive →
+  sub_8757574; UNVERIFIED: `source += x - position` may need ×2),
+  sub_8757494 (the 16-bit twin: positive → fastMemoryCopy16ARM, negative →
+  Clear16 with a fill; prototype fixed to `(const s16*, s32, s32, s32,
+  unk16*, s16)`), sub_8757380 (clears a wrapped tilemap rectangle with the
+  fill halfword at TileMapHeader +0x1A — supports the open item that
+  `filler1A` is a real u16). So sub_8757574, fastMemoryClear16ARM and
+  fastMemoryCopy16ARM DO have callers (the session-10 note said none).
+  ARM_sub_8756A84 (sprite image upload to OBJ VRAM, direct or mask-compressed;
+  increments a word at 0x03005E70, which ram3.c still calls `pad_3005E70`):
+  second-round draft parked (50f82448): returns s32 (prototype fixed), its
+  caller is oam_8756CC0 (`BL` in that dump); mask reloads only when the
+  remaining tile count is 0x20; new SpriteSheet facts: +0x0D byte selector,
+  +0x0E halfword tile count (scratch typedef in the block); first divergence
+  0x14 register choice.
+- MANAGER DISCIPLINE (user, twice this session: "remember to act as a
+  manager"): the manager reads, decides, lands and resolves merge mechanics;
+  it does NOT edit function bodies or drafts itself — not even "trivial"
+  ones (this session it hand-replaced `__builtin_abs`, added a blank line,
+  wrote a TODO, moved a struct, stripped park blocks by regex). Send those to
+  a luna agent in the branch's worktree instead; opus only for an initial
+  match and only when the user asks. Also: a landing chain must STOP on a
+  red compare — a `;`-joined chain committed a conflict marker in iwram.h
+  once (caught in the output, amended, never reached main); use
+  `|| { echo COMPARE FAILED; false; }` and `&&`, and grep for `<<<<<<<`
+  before every commit after a 3-way apply.
+- USER DECISIONS after the opus round (6fe831d1): `// TODO: fakematch?` on
+  actor sub_8058068's `*(entry->frames + index)`; anim sub_805F27C keeps its
+  TODO; effect callbacks/sub_80520F4/sub_8052180 take `Sub8052140Data*`
+  (luna applied, byte-neutral); `Tile4bpp` stays `unk32[8]`; sub_805F27C's
+  guessed `drawX/drawY` went back to `arg2/arg3`. STANDING (user, 2026-09-21):
+  match-forcing constructs are FINE when they are the only way to match —
+  ship them with `// TODO: fakematch?`; stop calling them "levers" and stop
+  raising them as blockers. Reviews still check whether natural alternatives
+  were measured, and luna fold passes test the untried ones.
+- CODEX ROUNDS FROM `raw-decomp-11` (the user reset that branch to `drafts`
+  and Codex works on top of it; the user says "more commits", the manager
+  reviews + lands). Landed: 224fcd01 particle sub_804E6A4 (`zero` local set
+  twice), layer sub_8059404 (one in-argument assignment left), gameloop
+  sub_8052180 (bare block with `q3` initializer; `Sub8052140Data.unk34`
+  s32[9], `RiderBase.unk6C` s32), ai initAiManagement (`management` alias +
+  five `(unk16)line->unk16` casts; `LevelDescription.unk38/unk3C` typed),
+  spritestring sub_80655C0 + sub_80653D8 with a TU SPLIT: sub_80655C0 onward
+  lives in a second file because its definition takes `unk16 index, step`
+  while the same-file callers only match against the wide `unk32` header
+  prototype (deliberate header/definition mismatch; no independent rodata
+  evidence for the boundary; the five moved functions are byte-for-byte the
+  same text) — renamed by luna to `src/spritestringactors.c` (e6e0ca5b);
+  6a169292 spritestring sub_8065140 (`SpriteString` +5 is bitfields
+  `unk5_0 : 4, unk5_4 : 1` — this turned the old register-step sub_80657EC
+  into two assignments; width/timer s32; the `mode & 3 == 3` path leaves x
+  unset in the target too, so NO default case); cd8c7695 animevent
+  sub_805FAE8/FCEC/FE68 (luna moved the `Poly*` dispatch types back into the
+  TU); 1e31ac47 keystate ×3 via a shared `static inline checkKeyInput`
+  (sub_805ABC0 is the out-of-line copy, sub_805A984 has it inlined; `>=`
+  timing compare; sub_805A93C keeps `arg1 = (arg1 + i) - i;` — four natural
+  loop forms measured by luna, all diverge); 1221bd30 iwram
+  fastMemoryCopyARM / Clear16 / Copy16 (C prologue + `__asm__ volatile` copy
+  loop — the user knows and accepts the asm blocks; the pointer operands are
+  declared input-only although post-incremented: read/write operands diverge
+  at +0x0C, measured), ARM_sub_8756A84 and oam_8756CC0 in C (the direct BL
+  to fastMemoryCopyARM at the zero-run site is in the dump). Luna cleanup on
+  that round: `SpriteRotationScaleEntry.oamAddr` STAYS `unk32` (Codex's
+  `OamAffine*` forced five casts into matched code; oam_8756CC0 converts
+  once locally), OamEntry/OamAffine/SpriteImageHeader + accessors are
+  TU-local in iwram.c, `_unk3005DE4/_unk3005DF8/_spritesFree` declared once
+  in ram.h, `_unk3005E70` is a real counter, `SpriteSheet.unkD/unkE` typed.
+- Luna fold passes on the Codex matches, all measured and recorded: ai `unk16
+  id` local and dropping `management` diverge (+0xAA, +0x06); gameloop
+  function-scope `q3` assignments and a separate `index3` diverge (+0xF8 /
+  +0xC2 / frame 132→128); spritestring `savedScale` hoisted to function
+  scope (folded).
+- PROCESS THAT HELD UP (use it again): for every batch — manager reads the
+  whole diff; luna `review` agents split per TU, told to use git objects only
+  (the user's worktree has uncommitted edits — never touch it) and to write
+  refs in double quotes (`"<sha>:path"` — zsh mangles `$VAR:src`); semantic
+  check against the old dump is the valuable part; valid findings (one-TU
+  structs in headers, unaccessed named fields, stale includes, casts forced
+  into matched code) go to ONE luna agent that cherry-picks the Codex commits
+  into a fresh worktree on `drafts` and fixes on top, one commit per item;
+  manager lands with a `&&` chain that stops on a red compare and greps for
+  conflict markers. Patches from an agent branch are taken as
+  `<branch>~N..<branch>` or `git checkout <branch> -- <file>`, NEVER from a
+  merge-base with main (that mistake was made twice). On main, strip `#if 0`
+  blocks that are newer than main's own; merge main into drafts and resolve
+  the TU conflict by taking the matched file.
+- Keepalive: the user wanted a 30-minute tick to keep the cache warm, was
+  badly annoyed by a cron that kept firing into an idle session ("KILL THAT
+  CRON"), then asked for a re-armed Monitor (`sleep 1700; echo tick`,
+  re-armed on each fire) and finally released it. Do not start one unasked,
+  and stop it as soon as the reason is gone.
+- NEXT: (a) the 11 iwram ARM functions: sub_8756FC0, sub_8757380,
+  sub_8757494, sub_8757574, sub_87576D8, sub_87577B4, sound_8757A64,
+  fastMemoryClearARM, sub_8757D24, sub_8757E4C, sub_8757FCC — Codex is
+  working through them on `raw-decomp-11` (branch at 901054d4 plus
+  uncommitted edits to common.h/iwram.c/iwram.h/layer.h — leave alone); the
+  user feeds "more commits", review + land as above; (b) the skill fold is
+  overdue — 65 files in docs/learnings; this session's opus and Codex files
+  carry the most reusable mechanisms (fold reassociation, `a[i]` vs
+  `*(a + i)`, allocator priority floor_log2(refs)*refs/live_length and
+  ref-count steps, cross-jumped duplicate stores, static-inline sharing,
+  bitfield insert/extract shapes, TU split for prototype width); run it on
+  sol and read its SKILL.md diff line by line; (c) follow-ups noted, not
+  urgent: the other motion.c helpers still take `unk32*` with
+  `*(unk16*)&arg0[8]` and could use the new `Motion` struct;
+  `TileMapHeader.filler1A` is a real fill halfword (sub_8757380 draft);
+  profile.c/text.c still include include_asm.h; sprite.c keeps a local
+  `extern unk32 _spritesFree` that ram.h now also declares;
+  `.claude/agents/decompiler.md` still tells agents to read learnings naming
+  their function (the user has not answered whether to remove it);
+  asm/arm1.s render_00–09 and crt0 are hand-written and out of scope.
 
 ## Session 15 (2026-09-18) — session 14 re-landed per TU
 
