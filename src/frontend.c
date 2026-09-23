@@ -24,14 +24,15 @@ unk32 sub_8048F80(unk8* string)
 
     result = -1;
     digit = *string - '0';
-    if (digit <= 9) {
-        result = 0;
-        while (digit <= 9) {
-            result *= 10;
-            result += *string - '0';
-            string++;
-            digit = *string - '0';
-        }
+    if (digit > 9) {
+        return result;
+    }
+    result = 0;
+    while (digit <= 9) {
+        result *= 10;
+        result += *string - '0';
+        string++;
+        digit = *string - '0';
     }
     return result;
 }
