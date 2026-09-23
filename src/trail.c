@@ -229,7 +229,7 @@ unk32 sub_804AB88(s32 arg0, s32 arg1)
         value = arg1;
     }
     index = indexValue;
-    tableValue = Unk_874CEBC[index + 0x80];
+    tableValue = AcosTable[index + 0x80];
     if (value < 0) {
         tableValue = 0xFF - tableValue;
     }

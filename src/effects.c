@@ -22,7 +22,7 @@ void sub_805529C(void)
 
     effect = &_gameData->projectileSystem;
     if (effect->unk28 != 0) {
-        angle = Unk_874CC3C[(unk8)((_unk3000E30[0] >> 4) * 32)] >> 7;
+        angle = SinTable[(unk8)((_unk3000E30[0] >> 4) * 32)] >> 7;
         effect->unk2C = angle;
         effect->unk30 = -angle;
         for (i = 0; i < 3; i++) {

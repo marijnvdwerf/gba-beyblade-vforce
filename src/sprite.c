@@ -706,20 +706,20 @@ SpriteRotationScaleEntry* sub_8060E8C(
     entry->unk16 = scaleY;
     entry->unk18 = angle;
     if (angle != 0) {
-        cosAngle = Unk_874CC3C[angle + 0x40];
-        factorX = Unk_872CC3C[scaleX];
+        cosAngle = SinTable[angle + 0x40];
+        factorX = ScaleReciprocalTable[scaleX];
         entry->unkC[0] = (cosAngle * factorX) >> 8;
-        sinAngle = Unk_874CC3C[angle];
+        sinAngle = SinTable[angle];
         entry->unkC[1] = (sinAngle * factorX) >> 8;
         sinAngle = -sinAngle;
-        factorY = Unk_872CC3C[scaleY];
+        factorY = ScaleReciprocalTable[scaleY];
         entry->unkC[2] = (sinAngle * factorY) >> 8;
         entry->unkC[3] = (cosAngle * factorY) >> 8;
     } else {
-        entry->unkC[0] = Unk_872CC3C[scaleX];
+        entry->unkC[0] = ScaleReciprocalTable[scaleX];
         entry->unkC[1] = 0;
         entry->unkC[2] = 0;
-        entry->unkC[3] = Unk_872CC3C[scaleY];
+        entry->unkC[3] = ScaleReciprocalTable[scaleY];
     }
     return entry;
 }

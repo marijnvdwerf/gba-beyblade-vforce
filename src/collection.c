@@ -257,7 +257,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
             s32 rowY;
             // TODO: figure out how to remove cast
             _unk3000134->x
-                = -_unk30000FC + 0x2600 + Unk_874CC3C[0x40 + (unk8)((sub_8057C40() >> 7) * 0x20)];
+                = -_unk30000FC + 0x2600 + SinTable[0x40 + (unk8)((sub_8057C40() >> 7) * 0x20)];
             rowY = _unk3000114.word * 0xF00;
             _unk3000134->y = _unk3000104 + rowY + 0x5200;
         }

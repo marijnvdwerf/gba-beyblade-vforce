@@ -962,15 +962,16 @@ void sub_8059B00(u8 layer, u8 angle, u16 xAngle, u16 yAngle)
         transform->unk4 = yAngle;
         transform->unk0 = angle;
         _unk3000D00[index].unk8.word
-            = sub_8059FA0(Unk_874CC3C[transform->unk0 + 0x40], Unk_872CC3C[transform->unk2]);
+            = sub_8059FA0(SinTable[transform->unk0 + 0x40], ScaleReciprocalTable[transform->unk2]);
         matrixA = &_unk3000D00[index].unk8;
         _unk3000D00[index].unkC.word
-            = sub_8059FA0(Unk_874CC3C[transform->unk0], Unk_872CC3C[transform->unk2]);
+            = sub_8059FA0(SinTable[transform->unk0], ScaleReciprocalTable[transform->unk2]);
         matrixB = &_unk3000D00[index].unkC;
         _unk3000D00[index].unk10.word
-            = sub_8059FA0(-Unk_874CC3C[transform->unk0], Unk_872CC3C[transform->unk4]);
+            = sub_8059FA0(-SinTable[transform->unk0], ScaleReciprocalTable[transform->unk4]);
         matrixC = &_unk3000D00[index].unk10;
-        matrixD = sub_8059FA0(Unk_874CC3C[transform->unk0 + 0x40], Unk_872CC3C[transform->unk4]);
+        matrixD
+            = sub_8059FA0(SinTable[transform->unk0 + 0x40], ScaleReciprocalTable[transform->unk4]);
         _unk3000D00[index].unk14.word = matrixD;
         SetLayerTransform(layer, matrixA->half, matrixB->half, matrixC->half, matrixD);
     }

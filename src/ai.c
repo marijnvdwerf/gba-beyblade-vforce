@@ -136,7 +136,7 @@ unk32 sub_80577D8(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* 
         sign = y;
     }
     angle = angleValue;
-    value = Unk_874CEBC[angle + 0x80];
+    value = AcosTable[angle + 0x80];
     if (sign < 0) {
         value = 0xFF - value;
     }
@@ -165,7 +165,7 @@ unk32 sub_8057878(s32 arg0, s32 arg1)
         angle = arg0 >> 1;
         arg0 = arg1;
     }
-    value = Unk_874CEBC[(s16)angle + 0x80];
+    value = AcosTable[(s16)angle + 0x80];
     if (arg0 < 0) {
         value = 0xFF - value;
     }

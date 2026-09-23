@@ -375,12 +375,12 @@ void sub_80413FC(FrontendState* state, unk32 arg1)
 
         if (_unk300005C != NULL) {
             _unk300005C->x += ((_unk3000064 - _unk300005C->x) >> 2)
-                + Unk_874CC3C[(sub_8057C40() & 0x1FE) / 2] - _300002C;
+                + SinTable[(sub_8057C40() & 0x1FE) / 2] - _300002C;
         }
 
         if (_unk3000060 != NULL) {
             _unk3000060->x += ((_unk3000068 - _unk3000060->x) >> 2)
-                - Unk_874CC3C[(sub_8057C40() & 0x1FE) / 2] + _300002C;
+                - SinTable[(sub_8057C40() & 0x1FE) / 2] + _300002C;
         }
 
         scrollDelta = (_300002C - _3000030) >> 2;

@@ -47,9 +47,9 @@ void newIconMenu(FrontendMenu* menu, const FrontendMenuData* data, unk32 count)
     i = 0;
     while (i < data->itemCount) {
         angleIndex = (unk8)(angle >> 8);
-        offsetX = Unk_874CC3C[angleIndex] * data->scale >> 8;
+        offsetX = SinTable[angleIndex] * data->scale >> 8;
         angleIndex += 0x40;
-        offsetY = Unk_874CC3C[angleIndex] * data->scale >> 8;
+        offsetY = SinTable[angleIndex] * data->scale >> 8;
         item->data = itemData;
         item->unk10 = itemData->nextPosition;
         item->position = i == count ? itemData->previousPosition : itemData->nextPosition;
@@ -97,9 +97,9 @@ void sub_8050C18(FrontendMenu* menu)
     i = 0;
     while (i < menu->itemCount) {
         angleIndex = (unk8)(angle >> 8);
-        offsetX = (Unk_874CC3C[angleIndex] * textPosition) >> 8;
+        offsetX = (SinTable[angleIndex] * textPosition) >> 8;
         angleIndex += 0x40;
-        offsetY = (Unk_874CC3C[angleIndex] * textPosition) >> 8;
+        offsetY = (SinTable[angleIndex] * textPosition) >> 8;
         offsetX = (menu->config->unk20 * offsetX) >> 8;
         if (item->sprite != NULL) {
             sprite = item->sprite;
@@ -133,8 +133,8 @@ void sub_8050C18(FrontendMenu* menu)
             } else {
                 frameOffset = 0;
                 if (i == menu->selection) {
-                    scale += Unk_874CC3C[(unk8)(menu->timer * 8) + 0x40] >> 4;
-                    frameOffset = Unk_874CC3C[(unk8)(menu->timer * 8)] >> 6;
+                    scale += SinTable[(unk8)(menu->timer * 8) + 0x40] >> 4;
+                    frameOffset = SinTable[(unk8)(menu->timer * 8)] >> 6;
                 }
                 sprite->x = menu->unk34 - ((item->x * scale) >> 8) + offsetX;
                 sprite->y = menu->unk38 - ((item->y * scale) >> 8) + offsetY;

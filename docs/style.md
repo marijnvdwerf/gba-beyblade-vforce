@@ -368,7 +368,7 @@ sub_8061844(arg0->unk4, (value >> 8) + 0x54, arg0->unk4->y >> 8);
 The canonical sine table idiom is always spelled:
 
 ```c
-Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1]
+SinTable[(sub_8057C40() & 0x1FE) >> 1]
 ```
 
 or equivalently with a stored timer value. The `& 0x1FE` masks to 512 entries,
@@ -434,7 +434,7 @@ levelselect.c (sub_80413FC), menuobject.c, dialogue.c, language.c
 - `menu = &state->menuState.menu` alias in every handler
 - Sprite-pair alloc-and-check pattern with `sprite1`/`sprite2` locals
 - Case order 0/7/1/2 with `sub_80439A0` in case 1, input masks in case 2
-- `Unk_874CC3C[(sub_8057C40() & 0x1FE) >> 1]` sprite bobbing
+- `SinTable[(sub_8057C40() & 0x1FE) >> 1]` sprite bobbing
 - `_unk3005DA0 & 0x30` / `& 0x20` / `& 0x10` button mask cascade
 - `sub_80490F8` for state transitions, `sub_8049178` for back-navigation
 - Uses `FrontendState*` parameter aliases extensively; never caches

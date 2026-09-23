@@ -291,7 +291,7 @@ SECTIONS {
 		src/debug.c.o(.rodata);
 		src/actor.c.o(.rodata);
 		src/layer.c.o(.rodata);
-		/* Unk_872CC3C (s16[]) sits at a word boundary in the ROM; agbcc only
+		/* ScaleReciprocalTable (s16[]) sits at a word boundary in the ROM; agbcc only
 		 * 2-aligns an s16 array, so the alignment the old asm/data1.s carried
 		 * (.align 2) lives here. */
 		. = ALIGN(4);

@@ -370,8 +370,8 @@ void sub_804CB08(RiderBase* rider, Actor* actor)
             }
         }
         if (_currentGameState->unkC68 != 0 && RiderHasFlag(rider, 0x4000000) == 0) {
-            cosine = Unk_874CC3C[0x60];
-            sine = Unk_874CC3C[0x20];
+            cosine = SinTable[0x60];
+            sine = SinTable[0x20];
             rider->unk40 += (steerX * cosine - steerY * sine) >> 8;
             rider->unk44 += (steerX * sine + steerY * cosine) >> 8;
             rotateX = moveX * cosine - moveY * sine;
@@ -422,10 +422,9 @@ void sub_804CB08(RiderBase* rider, Actor* actor)
         angle = (rider->unk208 >> 2) + 0x154;
         if (rider->unk208 <= 0x8FF) {
             rider->unk40
-                -= (((Unk_874CC3C[(unk8)((rider->unk1FC * angle) >> 8)] + 0x1F) >> 6) * limit) >> 8;
+                -= (((SinTable[(unk8)((rider->unk1FC * angle) >> 8)] + 0x1F) >> 6) * limit) >> 8;
             rider->unk44
-                += (((Unk_874CC3C[(unk8)((rider->unk1FC * angle) >> 8) + 0x40] + 0x1F) >> 6)
-                       * limit)
+                += (((SinTable[(unk8)((rider->unk1FC * angle) >> 8) + 0x40] + 0x1F) >> 6) * limit)
                 >> 8;
         }
     } else if (RiderHasFlag(rider, 0x4000000) == 0) {
@@ -1055,7 +1054,7 @@ void sub_804DDF8(RiderBase* rider, Actor* other)
     unk32 offset;
 
     mask = 0xFF;
-    table = Unk_874CC3C;
+    table = SinTable;
     angle0 = (0 - rider->unk16C) & mask;
     angle0 >>= 1;
     q0 = table[angle0];

@@ -1999,12 +1999,12 @@ s32* sub_805DD18(LevelGeometryAddresses* geometry, unk32 splineIndex, s32* resul
         } else {
             previous = lines[0].unk8;
         }
-        x0 = Unk_874CC3C[(unk8)previous + 0x40] * radius >> 8;
-        y0 = Unk_874CC3C[(unk8)previous] * radius >> 8;
+        x0 = SinTable[(unk8)previous + 0x40] * radius >> 8;
+        y0 = SinTable[(unk8)previous] * radius >> 8;
         x0 += point0->x;
         y0 += point0->y;
-        x1 = Unk_874CC3C[(unk8)angle1 + 0x40] * radius >> 8;
-        y1 = Unk_874CC3C[(unk8)angle1] * radius >> 8;
+        x1 = SinTable[(unk8)angle1 + 0x40] * radius >> 8;
+        y1 = SinTable[(unk8)angle1] * radius >> 8;
         x1 += point1->x;
         y1 += point1->y;
         x0 = (x0 + x1) >> 1;

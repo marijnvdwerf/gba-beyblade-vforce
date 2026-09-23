@@ -182,8 +182,8 @@ void initRiders(void)
                             y = point->y >> 3;
                             z = point->z >> 3;
                         } else {
-                            x += (Unk_874CC3C[line->unk8 & 0xFF] * 0x20) >> 8;
-                            y += -(Unk_874CC3C[(line->unk8 & 0xFF) + 0x40] * 0x20) >> 8;
+                            x += (SinTable[line->unk8 & 0xFF] * 0x20) >> 8;
+                            y += -(SinTable[(line->unk8 & 0xFF) + 0x40] * 0x20) >> 8;
                             printf("unable to find multiplayer starting point for rider %i\n",
                                 rider->unk3CE);
                         }

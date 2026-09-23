@@ -42,10 +42,10 @@ void sub_80439A0(BGLayer* arg0)
     const s16* table;
 
     arg0->field_24 = 0;
-    table = Unk_874CC3C;
+    table = SinTable;
     index = _unk3000E30[0] >> 6;
     arg0->field_14 = table[index] * 2 - 0x100;
-    arg0->field_18 = Unk_874CC3C[index + 0x40] * 2 + 0x200;
+    arg0->field_18 = SinTable[index + 0x40] * 2 + 0x200;
     arg0->field_7C |= 3;
 }
 

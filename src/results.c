@@ -268,7 +268,7 @@ void sub_8052B24(void)
                 s32 leftY;
                 s32 rightX;
                 s32 rightY;
-                offset = Unk_874CC3C[animationOffset];
+                offset = SinTable[animationOffset];
                 offset *= 2;
                 offset &= 0xFFFFFF00;
                 sprite0->x -= offset;
@@ -299,7 +299,7 @@ void sub_8052B24(void)
                 if (delta != 0) {
                     sprite1->y += sub_80491E0(delta, 4) << 8;
                 }
-                offset = Unk_874CC3C[animationOffset];
+                offset = SinTable[animationOffset];
                 offset *= 2;
                 offset &= 0xFFFFFF00;
                 sprite0->x += offset;

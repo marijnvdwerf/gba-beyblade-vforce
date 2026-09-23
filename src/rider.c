@@ -463,7 +463,7 @@ void renderRider(RiderBase* rider)
         shift = 8 - ((0xAA * rider->unk208 + 0x8000) >> 16);
         layer = 0;
         if (RiderHasFlag(rider, 8) != 0) {
-            layer = Unk_874CC3C[(unk8)((sub_8057C40() >> 4) * 4)] * 0x10;
+            layer = SinTable[(unk8)((sub_8057C40() >> 4) * 4)] * 0x10;
             if (layer > 0) {
                 layer = -layer;
             }

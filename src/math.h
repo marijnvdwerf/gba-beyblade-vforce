@@ -3,11 +3,11 @@
 
 #include "common.h"
 
-extern const s16 Unk_872CC3C[];
-extern const s16 Unk_874CC3C[];
-extern const unk8 Unk_874CEBC[];
-extern const unk16 Unk_874CFBC[];
-extern const unk16 Unk_874D1C0[];
+extern const s16 ScaleReciprocalTable[];
+extern const s16 SinTable[];
+extern const unk8 AcosTable[];
+extern const unk16 AcosTableHiRes[];
+extern const unk16 ReciprocalTable[];
 
 s16 sub_8059FA0(s16, s16);
 void sub_8059FF8(s32*, unk32, unk32, unk32, unk32);

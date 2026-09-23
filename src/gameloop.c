@@ -348,7 +348,7 @@ void sub_8052180(ActorEffectState* arg0, Sub8052140Data* arg1, unk32 arg2)
     s32 cos3;
 
     angle = ~((_gameData->base.unk10 >> 4) + 0x40) & 0xFF;
-    table = Unk_874CC3C;
+    table = SinTable;
     phase = _gameData->base.unk16C;
     index = phase - 1;
     index0 = ((angle - index) & 0xFF) >> 1;
