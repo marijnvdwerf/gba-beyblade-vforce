@@ -4,7 +4,8 @@
 #include "common.h"
 
 typedef struct TalkingHead {
-    unk8 pad0[0x18];
+    unk32 unk0;
+    const unk8* unk4[5];
     const SpriteSheet* unk18;
     const unk16* unk1C;
     const SpriteSheet* unk20;
@@ -12,7 +13,8 @@ typedef struct TalkingHead {
 } TalkingHead;
 
 struct ItemDescriptionEntry {
-    unk8 data[24];
+    const unk8* unk0[5];
+    unk32 unk14;
 };
 
 struct InputSequence {
@@ -32,7 +34,7 @@ void sub_8057164(FrontendResource*);
 unk8 sub_80571D0(FrontendResource*);
 TalkingHead* GetTalkingHead(s32);
 
-extern const ItemDescriptionEntry ItemDescription[];
+extern ItemDescriptionEntry ItemDescription[];
 extern TalkingHead TalkingHeads[];
 
 #endif

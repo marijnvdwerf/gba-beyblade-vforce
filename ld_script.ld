@@ -184,6 +184,7 @@ SECTIONS {
 		asm/data11.s.o(.rodata);
 		asm/audio1.s.o(.rodata);
 		asm/data9.s.o(.rodata);
+		src/items.c.o(.data);
 		src/beyblade.c.o(.data);
 		asm/data8.s.o(.rodata);
 		asm/audio2.s.o(.rodata);
@@ -275,7 +276,7 @@ SECTIONS {
 		src/effects.c.o(.rodata);
 		src/collision.c.o(.rodata);
 		src/collectable.c.o(.rodata);
-		src/strings_8729894.c.o(.rodata);
+		src/items.c.o(.rodata);
 		src/beyblade.c.o(.rodata);
 		src/battery.c.o(.rodata);
 		src/ai.c.o(.rodata);
