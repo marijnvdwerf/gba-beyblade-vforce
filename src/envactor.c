@@ -76,24 +76,20 @@ void initLevelEnvironmentActors(u16 level)
     StoreMetadataAddr(&geometry, metadataData);
     sub_805E514(gameData->environmentActors.callbacks, 0, 0, (unk32)sub_80550B8, selectedCount);
     sub_805E50C(&callbackData, 0, sub_8056B54, _return_false);
-    lineIndex = 0;
-    if (selectedCount < geometry.unk0->lineCount) {
-        do {
-            metadata = GetLineMetaData(&geometry, lineIndex);
-            if (metadata != NULL) {
-                metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 2, 0xD679);
+    for (lineIndex = 0; lineIndex < geometry.unk0->lineCount; lineIndex++) {
+        metadata = GetLineMetaData(&geometry, lineIndex);
+        if (metadata != NULL) {
+            metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 2, 0xD679);
+            if (metaobject != NULL) {
+                actorConfig = metaobject->unk8.spriteSheet;
+                actorConfigs[selectedCount] = actorConfig;
+                selectedLines[selectedCount++] = lineIndex;
+                metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xF4FA);
                 if (metaobject != NULL) {
-                    actorConfig = metaobject->unk8.spriteSheet;
-                    actorConfigs[selectedCount] = actorConfig;
-                    selectedLines[selectedCount++] = lineIndex;
-                    metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xF4FA);
-                    if (metaobject != NULL) {
-                        effectCount++;
-                    }
+                    effectCount++;
                 }
             }
-            lineIndex++;
-        } while (lineIndex < geometry.unk0->lineCount);
+        }
     }
     block = allocationField->block;
     if (block != NULL) {
