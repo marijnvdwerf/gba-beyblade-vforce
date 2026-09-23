@@ -26,12 +26,12 @@ unk32 sub_8048F80(unk8* string)
     digit = *string - '0';
     if (digit <= 9) {
         result = 0;
-        do {
+        while (digit <= 9) {
             result *= 10;
             result += *string - '0';
             string++;
             digit = *string - '0';
-        } while (digit <= 9);
+        }
     }
     return result;
 }
@@ -417,12 +417,10 @@ void sub_804967C(void)
                 cleanup = _unk3000650.unk470;
                 count = _unk3000650.unkB4->unk4->unk14;
                 count--;
-                if (count != -1) {
-                    do {
-                        sub_8061204(cleanup);
-                        cleanup++;
-                        count--;
-                    } while (count != -1);
+                while (count != -1) {
+                    sub_8061204(cleanup);
+                    cleanup++;
+                    count--;
                 }
                 _unk3000650.unk470 = NULL;
             }

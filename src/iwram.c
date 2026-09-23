@@ -177,31 +177,29 @@ void oam_8756CC0(void)
     rotation = _unk3005DF8;
     count = _spritesFree;
     oam = (OamEntry*)OAM;
-    if (sprite != NULL) {
-        do {
-            x = sprite->x;
-            flags = sprite->unk10;
-            destination = &oam->attr01;
-            y = sprite->y;
-            if ((flags & 0x200) != 0) {
-                high = word_807D90C[((flags & 0xC000) >> 12) | (flags >> 30)] & 0xFF00;
-                low = (word_807D90C[((flags & 0xC000) >> 12) | (flags >> 30)] & 0xFF) << 8;
-                if (sprite->unk30 != NULL) {
-                    high -= ((sprite->unk30->unk14 * high) >> 8) - high;
-                    low -= ((sprite->unk30->unk16 * low) >> 8) - low;
-                }
-                x -= high;
-                y -= low;
+    while (sprite != NULL) {
+        x = sprite->x;
+        flags = sprite->unk10;
+        destination = &oam->attr01;
+        y = sprite->y;
+        if ((flags & 0x200) != 0) {
+            high = word_807D90C[((flags & 0xC000) >> 12) | (flags >> 30)] & 0xFF00;
+            low = (word_807D90C[((flags & 0xC000) >> 12) | (flags >> 30)] & 0xFF) << 8;
+            if (sprite->unk30 != NULL) {
+                high -= ((sprite->unk30->unk14 * high) >> 8) - high;
+                low -= ((sprite->unk30->unk16 * low) >> 8) - low;
             }
-            if (((x + 0x8000 > 0x17000u) | (y < -0x5000)) || y > 0xA000) {
-                y = 0xA000;
-            }
-            *destination++ = (flags | ((y >> 8) & 0xFF))
-                | (((x & 0x1FF00) << 8) | ((sprite->flip_h_v & 3) << 28));
-            *(unk16*)destination = sprite->oam_attr_2 | (sprite->var24 & 0x3FF);
-            oam++;
-            sprite = sprite->next;
-        } while (sprite != NULL);
+            x -= high;
+            y -= low;
+        }
+        if (((x + 0x8000 > 0x17000u) | (y < -0x5000)) || y > 0xA000) {
+            y = 0xA000;
+        }
+        *destination++
+            = (flags | ((y >> 8) & 0xFF)) | (((x & 0x1FF00) << 8) | ((sprite->flip_h_v & 3) << 28));
+        *(unk16*)destination = sprite->oam_attr_2 | (sprite->var24 & 0x3FF);
+        oam++;
+        sprite = sprite->next;
     }
 
     sprite = _unk3005DE4;
@@ -611,78 +609,74 @@ void sub_87577B4(SoundStructA* channel, unk32 arg1, unk32 arg2)
                 }
             }
         }
-    } else {
-        if (sample->var00 != 0) {
-            if (sample->var00 == 1) {
-                if (arg1 != 0) {
-                    __asm__ volatile("1:\tldrsb r0, [%1]\n"
-                                     "\tadds %0, %0, %4, lsl #4\n"
-                                     "\tadc %1, %1, %4, lsr #28\n"
-                                     "\tmul r0, %5, r0\n"
-                                     "\tstrh r0, [%3], #2\n"
-                                     "\tsubs %2, %2, #1\n"
-                                     "\tbpl 1b"
-                        : "+r"(phase), "+r"(source)
-                        : "r"(arg1), "r"(destination), "r"(step), "r"(scaled)
-                        : "r0", "cc", "memory");
-                }
+    } else if (sample->var00 != 0) {
+        if (sample->var00 == 1) {
+            if (arg1 != 0) {
+                __asm__ volatile("1:\tldrsb r0, [%1]\n"
+                                 "\tadds %0, %0, %4, lsl #4\n"
+                                 "\tadc %1, %1, %4, lsr #28\n"
+                                 "\tmul r0, %5, r0\n"
+                                 "\tstrh r0, [%3], #2\n"
+                                 "\tsubs %2, %2, #1\n"
+                                 "\tbpl 1b"
+                    : "+r"(phase), "+r"(source)
+                    : "r"(arg1), "r"(destination), "r"(step), "r"(scaled)
+                    : "r0", "cc", "memory");
             }
-        } else {
-            arg1 >>= 1;
-            position = channel->var14;
-            predictor = channel->var17;
-            while (--arg1 != (unk32)-1) {
-                max = 0x7FF;
-                value = *source++;
-                value ^= 0xEC;
-                index = value >> 4;
-                position += Unk_8755F00[predictor][index];
-                if (position > max) {
-                    position = max;
-                }
-                if (position < -0x800) {
-                    position = -0x800;
-                }
-                mixed = position >> 3;
-                mixed *= scaled;
-                predictor = Unk_8756520[predictor][index & 7];
-                position += Unk_8755F00[predictor][value & 0xF];
-                if (position > max) {
-                    position = max;
-                }
-                *destination++ = mixed;
-                if (position < -0x800) {
-                    position = -0x800;
-                }
-                mixed = position >> 3;
-                mixed *= scaled;
-                predictor = Unk_8756520[predictor][value & 7];
-                *destination++ = mixed;
-                if (endDistance >= 0 && arg1 == 0) {
-                    if (channel->var1C != 0) {
-                        orderIndex = channel->var24++;
-                        segmentIndex = channel->var20[orderIndex];
-                        if (segmentIndex == -1) {
-                            channel->var24 = 1;
-                            segmentIndex = channel->var20[0];
-                        }
-                        next = channel->var1C[segmentIndex];
-                        if (segmentIndex == -1) {
-                            arg1 = 0;
-                        } else {
-                            arg1 = endDistance;
-                            source = next->data;
-                            channel->var00 = next;
-                        }
-                        endDistance = -1;
-                        position = 0;
-                        predictor = 0;
-                    }
-                }
-            }
-            channel->var17 = predictor;
-            channel->var14 = position;
         }
+    } else {
+        arg1 >>= 1;
+        position = channel->var14;
+        predictor = channel->var17;
+        while (--arg1 != (unk32)-1) {
+            max = 0x7FF;
+            value = *source++;
+            value ^= 0xEC;
+            index = value >> 4;
+            position += Unk_8755F00[predictor][index];
+            if (position > max) {
+                position = max;
+            }
+            if (position < -0x800) {
+                position = -0x800;
+            }
+            mixed = position >> 3;
+            mixed *= scaled;
+            predictor = Unk_8756520[predictor][index & 7];
+            position += Unk_8755F00[predictor][value & 0xF];
+            if (position > max) {
+                position = max;
+            }
+            *destination++ = mixed;
+            if (position < -0x800) {
+                position = -0x800;
+            }
+            mixed = position >> 3;
+            mixed *= scaled;
+            predictor = Unk_8756520[predictor][value & 7];
+            *destination++ = mixed;
+            if (endDistance >= 0 && arg1 == 0 && channel->var1C != 0) {
+                orderIndex = channel->var24++;
+                segmentIndex = channel->var20[orderIndex];
+                if (segmentIndex == -1) {
+                    channel->var24 = 1;
+                    segmentIndex = channel->var20[0];
+                }
+                next = channel->var1C[segmentIndex];
+                if (segmentIndex == -1) {
+                    arg1 = 0;
+                } else {
+                    arg1 = endDistance;
+                    source = next->data;
+                    channel->var00 = next;
+                }
+                endDistance = -1;
+                position = 0;
+                predictor = 0;
+            }
+        }
+        channel->var17 = predictor;
+        channel->var14 = position;
     }
 
     channel->var0C = phase;
@@ -853,15 +847,13 @@ void sub_8757D24(void)
         _unk3005DC4->unk14 |= 0x80;
     }
     destination = _unk3005DC4->unk34 + _unk3005DC4->unk1;
-    index = 0;
-    while (index < count) {
+    for (index = 0; index < count; index++) {
         value = ((vu16*)REG_SIOMULTI0)[index];
         if (value == 0xFDD9 && index != 0) {
             _unk3005DC4->unk14 |= 0x40;
         }
         *destination = value;
         destination += _unk3005DC4->unk18 >> 1;
-        index++;
     }
     _unk3005DC4->unk1++;
     sub_8757CD0();
@@ -881,15 +873,13 @@ void sub_8757E4C(void)
     *(vu16*)REG_TM3CNT_H = 0;
     *(vu16*)REG_IE &= ~0x40;
     destination = _unk3005DC4->unk34 + _unk3005DC4->unk1;
-    index = 0;
-    while (index < count) {
+    for (index = 0; index < count; index++) {
         value = ((vu16*)REG_SIOMULTI0)[index];
         if (value == 0xFDD9 && index != 0) {
             _unk3005DC4->unk14 |= 0x40;
         }
         *destination = value;
         destination += _unk3005DC4->unk18 >> 1;
-        index++;
     }
     if ((_unk3005DC4->unk14 & 0x40) == 0) {
         __fastMemoryCopyARM(_unk3005DC4->unk34, _unk3005DC4->unk38, _unk3005DC4->unk18 * count);
@@ -922,8 +912,7 @@ void sub_8757FCC(void)
         _unk3005DC4->unk0++;
     }
     destination = _unk3005DC4->unk34 + _unk3005DC4->unk1;
-    index = 0;
-    while (index < count) {
+    for (index = 0; index < count; index++) {
         serial = ((vu16*)REG_SIOMULTI0)[index];
         if (index == 0 && serial == 0xFDD9) {
             special = 1;
@@ -931,7 +920,6 @@ void sub_8757FCC(void)
         }
         *destination = serial;
         destination += _unk3005DC4->unk18 >> 1;
-        index++;
     }
     *(vu16*)REG_SIOMLT_SEND
         = _unk3005DC4->unk0 < packetHalf ? _unk3005DC4->unk3C[_unk3005DC4->unk0] : 0xFDD9;

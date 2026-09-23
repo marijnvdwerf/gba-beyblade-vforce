@@ -35,8 +35,7 @@ void newProjectileSystem(
     arg0->unk10 = initialZero;
     if (arg1 > 0) {
         value = 0;
-        remaining = arg1;
-        do {
+        for (remaining = arg1; remaining != 0; remaining--) {
             initialZero = entry->trailDelay;
             entry->accelerationZ = initialZero;
             entry->accelerationY = initialZero;
@@ -53,8 +52,7 @@ void newProjectileSystem(
             newSpriteTrail(trail, arg2, arg4, arg3, 0x28, 0xF, value);
             trail++;
             entry++;
-            remaining--;
-        } while (remaining != 0);
+        }
     }
 }
 

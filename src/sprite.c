@@ -355,12 +355,12 @@ void sub_8060934(u16 arg0)
         head->var00 = arg0;
         head->var02 = 0x400 - arg0;
         head->next = NULL;
-        count = 0x1D;
-        do {
+        count = 0x1E;
+        while (count-- != 0) {
             next = entry + 1;
             entry->next = next;
             entry = next;
-        } while (count-- != 0);
+        }
         next->next = NULL;
     }
 }

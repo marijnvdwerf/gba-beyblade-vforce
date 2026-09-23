@@ -126,13 +126,11 @@ void sub_805EB00(CameraState* camera)
             camera->unk354 &= -2;
         }
     }
-    i = 0;
-    do {
+    for (i = 0; i <= 3; i++) {
         if (camera->unk220->layers[i].unk0 != NULL) {
             sub_8058EF4(&camera->records[i]);
         }
-        i++;
-    } while (i <= 3);
+    }
     camera->unk355 += camera->unk356;
     if (camera->unk355 < 0) {
         camera->unk355 = 0;

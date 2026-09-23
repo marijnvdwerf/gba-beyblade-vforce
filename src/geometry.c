@@ -161,12 +161,8 @@ LineMetaObject* getLineMetaAtIndex(LevelGeometryAddresses* arg0, LineMetadata* m
     if (index >= count) {
         return NULL;
     }
-    if (i < index) {
-        i = index;
-        do {
-            object = (LineMetaObject*)((unk8*)object + object->size);
-            i--;
-        } while (i != 0);
+    for (i = 0; i < index; i++) {
+        object = (LineMetaObject*)((unk8*)object + object->size);
     }
     return object;
 }
@@ -379,67 +375,65 @@ void sub_805BDBC(QuadTree* quadTree, LevelGeometryAddresses* geometry)
     quadTree->unk34 = (QuadTreeSplineEntry*)(quadTree->unk30 + quadTree->unk3A);
     output = quadTree->unk34;
     outerIndex = 0;
-    if (outerIndex < quadTree->unk38) {
-        do {
-            if (node->unk28 == 0) {
-                node->unk14 = NULL;
-                node->unk2A = 0;
-                node++;
-                nodeIndex = outerIndex + 1;
-            } else {
-                node->unk14 = output;
-                entryCount = 0;
-                splineIndex = 0;
-                splineCount = geometry->unk0->count.splineCountWord;
-                nextNode = node + 1;
-                nodeIndex = outerIndex + 1;
-                if (entryCount < splineCount) {
-                    do {
-                        spline = geometry->unk14[splineIndex];
-                        previous = geometry->unk4 + spline->pointIndices[0];
-                        pointIndex = 1;
-                        pointCount = spline->pointCount;
-                        nextSplineIndex = splineIndex + 1;
-                        if (pointIndex < pointCount) {
-                            pointIndices = spline->pointIndices + 1;
-                            do {
-                                point = geometry->unk4 + *pointIndices;
-                                if (previous->x < point->x) {
-                                    minX = previous->x - 0x10;
-                                    maxX = point->x + 0x10;
-                                } else {
-                                    minX = point->x - 0x10;
-                                    maxX = previous->x + 0x10;
-                                }
-                                if (previous->y < point->y) {
-                                    minY = previous->y - 0x10;
-                                    maxY = point->y + 0x10;
-                                } else {
-                                    minY = point->y - 0x10;
-                                    maxY = previous->y + 0x10;
-                                }
-                                if (sub_805BF18(node->unk18, node->unk1C, node->unk20, node->unk24,
-                                        minX, minY, maxX, maxY)
-                                    != 0) {
-                                    output->unk0 = spline;
-                                    output->unk4 = pointIndex - 1;
-                                    output->unk6 = splineIndex;
-                                    output += 1;
-                                    entryCount += 1;
-                                }
-                                previous = point;
-                                pointIndices += 1;
-                                pointIndex += 1;
-                            } while (pointIndex < spline->pointCount);
-                        }
-                        splineIndex = nextSplineIndex;
-                    } while (splineIndex < geometry->unk0->count.splineCountWord);
-                }
-                node->unk2A = entryCount;
-                node = nextNode;
+    while (outerIndex < quadTree->unk38) {
+        if (node->unk28 == 0) {
+            node->unk14 = NULL;
+            node->unk2A = 0;
+            node++;
+            nodeIndex = outerIndex + 1;
+        } else {
+            node->unk14 = output;
+            entryCount = 0;
+            splineIndex = 0;
+            splineCount = geometry->unk0->count.splineCountWord;
+            nextNode = node + 1;
+            nodeIndex = outerIndex + 1;
+            if (entryCount < splineCount) {
+                do {
+                    spline = geometry->unk14[splineIndex];
+                    previous = geometry->unk4 + spline->pointIndices[0];
+                    pointIndex = 1;
+                    pointCount = spline->pointCount;
+                    nextSplineIndex = splineIndex + 1;
+                    if (pointIndex < pointCount) {
+                        pointIndices = spline->pointIndices + 1;
+                        do {
+                            point = geometry->unk4 + *pointIndices;
+                            if (previous->x < point->x) {
+                                minX = previous->x - 0x10;
+                                maxX = point->x + 0x10;
+                            } else {
+                                minX = point->x - 0x10;
+                                maxX = previous->x + 0x10;
+                            }
+                            if (previous->y < point->y) {
+                                minY = previous->y - 0x10;
+                                maxY = point->y + 0x10;
+                            } else {
+                                minY = point->y - 0x10;
+                                maxY = previous->y + 0x10;
+                            }
+                            if (sub_805BF18(node->unk18, node->unk1C, node->unk20, node->unk24,
+                                    minX, minY, maxX, maxY)
+                                != 0) {
+                                output->unk0 = spline;
+                                output->unk4 = pointIndex - 1;
+                                output->unk6 = splineIndex;
+                                output += 1;
+                                entryCount += 1;
+                            }
+                            previous = point;
+                            pointIndices += 1;
+                            pointIndex += 1;
+                        } while (pointIndex < spline->pointCount);
+                    }
+                    splineIndex = nextSplineIndex;
+                } while (splineIndex < geometry->unk0->count.splineCountWord);
             }
-            outerIndex = nodeIndex;
-        } while (outerIndex < quadTree->unk38);
+            node->unk2A = entryCount;
+            node = nextNode;
+        }
+        outerIndex = nodeIndex;
     }
 }
 
@@ -2529,15 +2523,13 @@ GeometryLine* sub_805E77C(LevelGeometryAddresses* addresses, unk8 type, unk16 id
 
     line = addresses->unkC;
     index = 0;
-    if (index < addresses->unk0->lineCount) {
-        do {
-            if (line->unkF != type || (identifier = line->unk16) != id) {
-                line++;
-                index++;
-            } else {
-                return line;
-            }
-        } while (index < addresses->unk0->lineCount);
+    while (index < addresses->unk0->lineCount) {
+        if (line->unkF != type || (identifier = line->unk16) != id) {
+            line++;
+            index++;
+        } else {
+            return line;
+        }
     }
     return NULL;
 }
@@ -2549,15 +2541,13 @@ GeometryLine* sub_805E7C0(LevelGeometryAddresses* addresses, unk8 type, unk16 id
 
     line = addresses->unkC;
     index = 0;
-    if (index < addresses->unk0->lineCount) {
-        do {
-            if (line->unkF != type || line->unk14 != id) {
-                line++;
-                index++;
-            } else {
-                return line;
-            }
-        } while (index < addresses->unk0->lineCount);
+    while (index < addresses->unk0->lineCount) {
+        if (line->unkF != type || line->unk14 != id) {
+            line++;
+            index++;
+        } else {
+            return line;
+        }
     }
     return NULL;
 }

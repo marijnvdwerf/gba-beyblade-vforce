@@ -280,12 +280,8 @@ void sub_80561A0(Actor* actor, LevelGeometryAddresses* geometry)
 {
     s32 i;
 
-    i = 0;
-    if (i < withBoundingAreaCount) {
-        do {
-            sub_80561EC(actor, geometry, withBoundingAreas[i]);
-            i++;
-        } while (i < withBoundingAreaCount);
+    for (i = 0; i < withBoundingAreaCount; i++) {
+        sub_80561EC(actor, geometry, withBoundingAreas[i]);
     }
     withBoundingAreaCount = 0;
 }

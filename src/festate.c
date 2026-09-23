@@ -1936,27 +1936,23 @@ void sub_804703C(FrontendBladeState* state)
     SpriteTextCleanup* text;
     s32 i;
 
-    i = 0;
-    do {
+    for (i = 0; i <= 7; i++) {
         text = sub_804A0E0(i);
         asset = &_80699DC[state->unk35][i];
         text->unkC = asset->unk8;
         text->x = asset->unk0 << 8;
         text->y = asset->unk4 << 8;
         text->unk8 = asset->unkC;
-        i++;
-    } while (i <= 7);
+    }
 }
 
 void sub_8047080(FrontendBladeState* state, unk32 color)
 {
     s32 i;
 
-    i = 0;
-    do {
+    for (i = 0; i <= 7; i++) {
         sub_8061E58(sub_804A0E0(i), color);
-        i++;
-    } while (i <= 7);
+    }
     if (state->unk8 != NULL) {
         sub_8061130(state->unk8, color);
     }
@@ -1972,11 +1968,9 @@ void sub_80470C8(FrontendBladeState* state)
 {
     s32 i;
 
-    i = 0;
-    do {
+    for (i = 0; i <= 7; i++) {
         sub_8061228(sub_804A0E0(i));
-        i++;
-    } while (i <= 7);
+    }
     if (state->unk0 != NULL) {
         sub_8060A94(state->unk0);
         state->unk0 = NULL;

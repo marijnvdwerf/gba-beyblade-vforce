@@ -184,11 +184,9 @@ s32 sub_8057FDC(Actor* actor, s32 sequenceIndex)
     }
     if (extras != NULL && (actor->unk98 & 4) == 0 && frameCount != 0) {
         cursor = extras + frameOffset;
-        remaining = frameCount;
-        do {
+        for (remaining = frameCount; remaining != 0; remaining--) {
             total += *cursor++;
-            remaining--;
-        } while (remaining != 0);
+        }
     }
     return total;
 }
@@ -202,14 +200,12 @@ ActorSequenceEntry* sub_8058038(Actor* actor, unk16 sequence)
     entry = (ActorSequenceEntry*)((unk8*)actor->unk0 + actor->unk0->unk18);
     index = 0;
     count = actor->unk28;
-    if (index < count) {
-        do {
-            if (entry->unk0 == sequence) {
-                return entry;
-            }
-            entry = (ActorSequenceEntry*)((unk8*)entry + entry->size);
-            index++;
-        } while (index < count);
+    while (index < count) {
+        if (entry->unk0 == sequence) {
+            return entry;
+        }
+        entry = (ActorSequenceEntry*)((unk8*)entry + entry->size);
+        index++;
     }
     return NULL;
 }
@@ -270,13 +266,11 @@ const ActorFrameSequence* sub_8058110(Actor* actor, unk32 sequence)
     unk32 index;
 
     entry = (const ActorSequenceEntry*)((const unk8*)actor->unk0 + actor->unk0->unk18);
-    index = 0;
-    while (index < actor->unk28) {
+    for (index = 0; index < actor->unk28; index++) {
         if (entry->unk0 == sequence) {
             return GetSpriteSheetStructA(actor, entry->frames[0]);
         }
         entry = (const ActorSequenceEntry*)((const unk8*)entry + entry->size);
-        index++;
     }
     return NULL;
 }
@@ -445,8 +439,7 @@ void sub_8058390(Actor* actor, unk16 sequence, unk16 frame, unk16 callbackSequen
     unk32 index;
 
     cursor = (const unk8*)actor->unk0 + actor->unk0->unk18;
-    index = 0;
-    while (index < actor->unk28) {
+    for (index = 0; index < actor->unk28; index++) {
         if (((const ActorSequenceEntry*)cursor)->unk0 == sequence
             && frame < ((const ActorSequenceEntry*)cursor)->unk4) {
             actor->unk2E = callbackSequence;
@@ -455,7 +448,6 @@ void sub_8058390(Actor* actor, unk16 sequence, unk16 frame, unk16 callbackSequen
             return;
         }
         cursor += ((const ActorSequenceEntry*)cursor)->size;
-        index++;
     }
 }
 

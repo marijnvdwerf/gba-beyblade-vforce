@@ -155,12 +155,10 @@ void sub_8050A50(DisplayData* display)
 
     if (display->unk4 + display->unk2) {
         offset = 0;
-        count = display->unk4 + display->unk2;
-        do {
+        for (count = display->unk4 + display->unk2; count != 0; count--) {
             sub_8058EF4((BGLayer*)(display->ptrC + offset));
             offset += sizeof(BGLayer);
-            count--;
-        } while (count != 0);
+        }
     }
 }
 

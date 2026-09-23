@@ -60,35 +60,31 @@ void sub_8063220(Palette* palette, unk32 red, unk32 green, unk32 blue)
     destination = palette->unkC.word;
     if (redTarget + greenTarget + blueTarget == 0) {
         height -= 2;
-        if (height != -1) {
-            do {
-                source4 = source;
-                col = 0;
-                nextHeight = --height;
-                nextIntensity = step + intensity;
-                if (col < width) {
-                    do {
-                        color = *source4++;
-                        redValue = color & 0x1F;
-                        greenValue = (color >> 5) & 0x1F;
-                        blueValue = (color >> 0xA) & 0x1F;
-                        red2 = (color >> 0x10) & 0x1F;
-                        green2 = (color >> 0x15) & 0x1F;
-                        blue2 = (color >> 0x1A) & 0x1F;
-                        redValue -= (intensity * redValue) >> 0xA;
-                        greenValue -= (intensity * greenValue) >> 0xA;
-                        blueValue -= (intensity * blueValue) >> 0xA;
-                        red2 -= (intensity * red2) >> 0xA;
-                        green2 -= (intensity * green2) >> 0xA;
-                        blue2 -= (intensity * blue2) >> 0xA;
-                        *destination++ = redValue | (greenValue << 5) | (blueValue << 0xA)
-                            | (red2 << 0x10) | (green2 << 0x15) | (blue2 << 0x1A);
-                        col++;
-                    } while (col < width);
-                }
-                intensity = nextIntensity;
-                height = nextHeight;
-            } while (height != -1);
+        while (height != -1) {
+            source4 = source;
+            col = 0;
+            nextHeight = --height;
+            nextIntensity = step + intensity;
+            while (col < width) {
+                color = *source4++;
+                redValue = color & 0x1F;
+                greenValue = (color >> 5) & 0x1F;
+                blueValue = (color >> 0xA) & 0x1F;
+                red2 = (color >> 0x10) & 0x1F;
+                green2 = (color >> 0x15) & 0x1F;
+                blue2 = (color >> 0x1A) & 0x1F;
+                redValue -= (intensity * redValue) >> 0xA;
+                greenValue -= (intensity * greenValue) >> 0xA;
+                blueValue -= (intensity * blueValue) >> 0xA;
+                red2 -= (intensity * red2) >> 0xA;
+                green2 -= (intensity * green2) >> 0xA;
+                blue2 -= (intensity * blue2) >> 0xA;
+                *destination++ = redValue | (greenValue << 5) | (blueValue << 0xA) | (red2 << 0x10)
+                    | (green2 << 0x15) | (blue2 << 0x1A);
+                col++;
+            }
+            intensity = nextIntensity;
+            height = nextHeight;
         }
         __fastMemoryClearARM(0, destination, width * 4);
         return;
@@ -100,62 +96,60 @@ void sub_8063220(Palette* palette, unk32 red, unk32 green, unk32 blue)
         col = 0;
         nextHeight = --height;
         nextIntensity = step + intensity;
-        if (col < width) {
-            do {
-                color = *source4;
-                redValue = color & 0x1F;
-                greenValue = (color >> 5) & 0x1F;
-                blueValue = (color >> 0xA) & 0x1F;
-                red2 = (color >> 0x10) & 0x1F;
-                green2 = (color >> 0x15) & 0x1F;
-                blue2 = (color >> 0x1A) & 0x1F;
-                redValue += (intensity * (redTarget - redValue)) >> 0xA;
-                greenValue += (intensity * (greenTarget - greenValue)) >> 0xA;
-                blueValue += (intensity * (blueTarget - blueValue)) >> 0xA;
-                red2 += (intensity * (redTarget - red2)) >> 0xA;
-                green2 += (intensity * (greenTarget - green2)) >> 0xA;
-                blue2 += (intensity * (blueTarget - blue2)) >> 0xA;
-                if (redValue > 0x1F) {
-                    redValue = 0x1F;
-                }
-                if (greenValue > 0x1F) {
-                    greenValue = 0x1F;
-                }
-                if (blueValue > 0x1F) {
-                    blueValue = 0x1F;
-                }
-                if (red2 > 0x1F) {
-                    red2 = 0x1F;
-                }
-                if (green2 > 0x1F) {
-                    green2 = 0x1F;
-                }
-                if (blue2 > 0x1F) {
-                    blue2 = 0x1F;
-                }
-                if (redValue < 0) {
-                    redValue = 0;
-                }
-                if (greenValue < 0) {
-                    greenValue = 0;
-                }
-                if (blueValue < 0) {
-                    blueValue = 0;
-                }
-                if (red2 < 0) {
-                    red2 = 0;
-                }
-                if (green2 < 0) {
-                    green2 = 0;
-                }
-                if (blue2 < 0) {
-                    blue2 = 0;
-                }
-                *destination++ = redValue | (greenValue << 5) | (blueValue << 0xA) | (red2 << 0x10)
-                    | (green2 << 0x15) | (blue2 << 0x1A);
-                source4++;
-                col++;
-            } while (col < width);
+        while (col < width) {
+            color = *source4;
+            redValue = color & 0x1F;
+            greenValue = (color >> 5) & 0x1F;
+            blueValue = (color >> 0xA) & 0x1F;
+            red2 = (color >> 0x10) & 0x1F;
+            green2 = (color >> 0x15) & 0x1F;
+            blue2 = (color >> 0x1A) & 0x1F;
+            redValue += (intensity * (redTarget - redValue)) >> 0xA;
+            greenValue += (intensity * (greenTarget - greenValue)) >> 0xA;
+            blueValue += (intensity * (blueTarget - blueValue)) >> 0xA;
+            red2 += (intensity * (redTarget - red2)) >> 0xA;
+            green2 += (intensity * (greenTarget - green2)) >> 0xA;
+            blue2 += (intensity * (blueTarget - blue2)) >> 0xA;
+            if (redValue > 0x1F) {
+                redValue = 0x1F;
+            }
+            if (greenValue > 0x1F) {
+                greenValue = 0x1F;
+            }
+            if (blueValue > 0x1F) {
+                blueValue = 0x1F;
+            }
+            if (red2 > 0x1F) {
+                red2 = 0x1F;
+            }
+            if (green2 > 0x1F) {
+                green2 = 0x1F;
+            }
+            if (blue2 > 0x1F) {
+                blue2 = 0x1F;
+            }
+            if (redValue < 0) {
+                redValue = 0;
+            }
+            if (greenValue < 0) {
+                greenValue = 0;
+            }
+            if (blueValue < 0) {
+                blueValue = 0;
+            }
+            if (red2 < 0) {
+                red2 = 0;
+            }
+            if (green2 < 0) {
+                green2 = 0;
+            }
+            if (blue2 < 0) {
+                blue2 = 0;
+            }
+            *destination++ = redValue | (greenValue << 5) | (blueValue << 0xA) | (red2 << 0x10)
+                | (green2 << 0x15) | (blue2 << 0x1A);
+            source4++;
+            col++;
         }
         intensity = nextIntensity;
         height = nextHeight;
@@ -186,43 +180,39 @@ void sub_8063454(Palette* palette, unk16* targetPalette)
     intensity = 0;
     row = 0;
     destination = palette->unkC.half;
-    if (row < palette->unk8) {
-        do {
-            source = palette->source;
-            target = targetPalette + palette->unk4;
-            col = 0;
-            nextIntensity = step + intensity;
-            nextRow = row + 1;
-            if (col < palette->unk6) {
-                do {
-                    color = *source;
-                    targetColor = *target;
-                    red = color & 0x1F;
-                    green = (color & 0x3E0) >> 5;
-                    blue = (color & 0x7C00) >> 0xA;
-                    red2 = targetColor & 0x1F;
-                    green2 = (targetColor & 0x3E0) >> 5;
-                    blue2 = (targetColor & 0x7C00) >> 0xA;
-                    red = ((red2 - red) * intensity) >> 0xA;
-                    green = ((green2 - green) * intensity) >> 0xA;
-                    blue = ((blue2 - blue) * intensity) >> 0xA;
-                    if (red > 0x1F) {
-                        red = 0x1F;
-                    }
-                    if (green > 0x1F) {
-                        green = 0x1F;
-                    }
-                    if (blue > 0x1F) {
-                        blue = 0x1F;
-                    }
-                    *destination++ = red + (green << 5) + (blue << 0xA);
-                    source++;
-                    col++;
-                } while (col < palette->unk6);
+    while (row < palette->unk8) {
+        source = palette->source;
+        target = targetPalette + palette->unk4;
+        col = 0;
+        nextIntensity = step + intensity;
+        nextRow = row + 1;
+        while (col < palette->unk6) {
+            color = *source;
+            targetColor = *target;
+            red = color & 0x1F;
+            green = (color & 0x3E0) >> 5;
+            blue = (color & 0x7C00) >> 0xA;
+            red2 = targetColor & 0x1F;
+            green2 = (targetColor & 0x3E0) >> 5;
+            blue2 = (targetColor & 0x7C00) >> 0xA;
+            red = ((red2 - red) * intensity) >> 0xA;
+            green = ((green2 - green) * intensity) >> 0xA;
+            blue = ((blue2 - blue) * intensity) >> 0xA;
+            if (red > 0x1F) {
+                red = 0x1F;
             }
-            intensity = nextIntensity;
-            row = nextRow;
-        } while (row < palette->unk8);
+            if (green > 0x1F) {
+                green = 0x1F;
+            }
+            if (blue > 0x1F) {
+                blue = 0x1F;
+            }
+            *destination++ = red + (green << 5) + (blue << 0xA);
+            source++;
+            col++;
+        }
+        intensity = nextIntensity;
+        row = nextRow;
     }
 }
 
@@ -305,21 +295,17 @@ void sub_8063640(Palette* arg0, s32 arg1)
     if (row < height) {
         do {
             source = arg0->source + arg0->unk4;
-            col = 0;
-            if (col < arg0->unk6) {
-                do {
-                    color = *source;
-                    red = color & 0x1F;
-                    green = (color & 0x3E0) >> 5;
-                    blue = (color & 0x7C00) >> 0xA;
-                    red += (((0x1F - red - red) * intensity) >> 0xA);
-                    green += (((0x1F - green - green) * intensity) >> 0xA);
-                    blue += (((0x1F - blue - blue) * intensity) >> 0xA);
-                    *destination = red + (green << 5) + (blue << 0xA);
-                    destination++;
-                    source++;
-                    col++;
-                } while (col < arg0->unk6);
+            for (col = 0; col < arg0->unk6; col++) {
+                color = *source;
+                red = color & 0x1F;
+                green = (color & 0x3E0) >> 5;
+                blue = (color & 0x7C00) >> 0xA;
+                red += (((0x1F - red - red) * intensity) >> 0xA);
+                green += (((0x1F - green - green) * intensity) >> 0xA);
+                blue += (((0x1F - blue - blue) * intensity) >> 0xA);
+                *destination = red + (green << 5) + (blue << 0xA);
+                destination++;
+                source++;
             }
             intensity += step;
             row++;
@@ -351,30 +337,26 @@ void sub_8063704(Palette* arg0, s32 arg1)
     if (intensity < height) {
         do {
             source = arg0->source + arg0->unk4;
-            col = 0;
-            if (col < arg0->unk6) {
-                do {
-                    color = *source;
-                    red = color & 0x1F;
-                    green = (color & 0x3E0) >> 5;
-                    blue = (color & 0x7C00) >> 0xA;
-                    red += (((row * red) >> 0xA) * red) >> 5;
-                    green += (((row * green) >> 0xA) * green) >> 5;
-                    blue += (((row * blue) >> 0xA) * blue) >> 5;
-                    if (red > 0x1F) {
-                        red = 0x1F;
-                    }
-                    if (green > 0x1F) {
-                        green = 0x1F;
-                    }
-                    if (blue > 0x1F) {
-                        blue = 0x1F;
-                    }
-                    *destination = red + (green << 5) + (blue << 0xA);
-                    destination++;
-                    source++;
-                    col++;
-                } while (col < arg0->unk6);
+            for (col = 0; col < arg0->unk6; col++) {
+                color = *source;
+                red = color & 0x1F;
+                green = (color & 0x3E0) >> 5;
+                blue = (color & 0x7C00) >> 0xA;
+                red += (((row * red) >> 0xA) * red) >> 5;
+                green += (((row * green) >> 0xA) * green) >> 5;
+                blue += (((row * blue) >> 0xA) * blue) >> 5;
+                if (red > 0x1F) {
+                    red = 0x1F;
+                }
+                if (green > 0x1F) {
+                    green = 0x1F;
+                }
+                if (blue > 0x1F) {
+                    blue = 0x1F;
+                }
+                *destination = red + (green << 5) + (blue << 0xA);
+                destination++;
+                source++;
             }
             row += step;
             intensity++;

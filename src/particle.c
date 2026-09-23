@@ -78,13 +78,11 @@ void sub_804E530(ParticleSystem* arg0, unk32 arg1)
 
     count = arg0->count;
     particle = arg0->particles;
-    if (count-- != 0) {
-        do {
-            if (particle->sprite != NULL) {
-                sub_8061078(particle->sprite, arg1);
-            }
-            particle++;
-        } while (count-- != 0);
+    while (count-- != 0) {
+        if (particle->sprite != NULL) {
+            sub_8061078(particle->sprite, arg1);
+        }
+        particle++;
     }
 }
 

@@ -658,8 +658,7 @@ void sub_80594FC(BGLayer* layer, s32 x, s32 y, unk32 srcX, s32 srcY, s32 width, 
     }
     mapAddress += y * columnCount + x;
     srcX &= horizontalMask;
-    row = srcY;
-    while (row < srcY + height) {
+    for (row = srcY; row < srcY + height; row++) {
         unk32 rowOffset;
 
         rowOffset = (row & rowMask) << layer->field_5F;
@@ -672,7 +671,6 @@ void sub_80594FC(BGLayer* layer, s32 x, s32 y, unk32 srcX, s32 srcY, s32 width, 
             DmaCopy(3, mapAddress, screenAddress + rowOffset + srcX, width, 16);
         }
         mapAddress += columnCount;
-        row++;
     }
 }
 
@@ -841,12 +839,10 @@ void sub_8059934(void)
     _unk3000DE0 = zero = 0;
     _unk3000E40 = zero;
     _unk3000E3C = 0x20;
-    i = 0;
-    do {
+    for (i = 0; i <= 3; i++) {
         *GetBGLayerHOffsetPtr(i) = 0;
         *GetBGLayerVOffsetPtr(i) = 0;
-        i++;
-    } while (i <= 3);
+    }
     sub_8059B00(2, 0, 0x100, 0x100);
     sub_8059B00(3, 0, 0x100, 0x100);
 }
@@ -1088,13 +1084,11 @@ void sub_8059E5C(BGLayer* layer, unk32 width, unk8 height, unk32 column, unk32 r
     source = sourceAddress + sourceRow * (columnCount << 2);
     destination = (unk16*)(VRAM + (layer->screenBaseBlock << 11));
     destination += (row << layer->field_5F) + column;
-    if (height != 0) {
-        do {
-            *destination = *(unk16*)source; // TODO: fakematch? (unk16* cursor forms diverge)
-            source += columnCount * 2;
-            destination += 1 << layer->field_5F;
-            height--;
-        } while (height != 0);
+    while (height != 0) {
+        *destination = *(unk16*)source; // TODO: fakematch? (unk16* cursor forms diverge)
+        source += columnCount * 2;
+        destination += 1 << layer->field_5F;
+        height--;
     }
 }
 

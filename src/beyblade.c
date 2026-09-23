@@ -229,14 +229,12 @@ void allocateBeybladeObjectPalettes(void)
     s32 index;
 
     records = _gameData->actorData.records;
-    index = 0;
-    do {
+    for (index = 0; index <= 0x3B; index++) {
         if (records->block != NULL) {
             allocateBeyBladeActorPalette(index, records->unk4);
         }
         records++;
-        index++;
-    } while (index <= 0x3B);
+    }
 }
 
 const unk8* sub_80573C8(unk32 arg0)

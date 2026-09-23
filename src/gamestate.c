@@ -107,22 +107,19 @@ void sub_80512AC(void)
     unk32 available;
 
     _currentGameState->unk6EA = 0xFFFF;
-    index = 0;
-    do {
+    for (index = 0; index <= 0x37; index++) {
         state = sub_8051720(index);
         description = getLevelDescription(index);
         if ((state->unk0 & 2) == 0) {
             if (description->unk1C != 0) {
                 available = 1;
-                level = description->unk24;
-                while (level <= description->unk28) {
+                for (level = description->unk24; level <= description->unk28; level++) {
                     nextDescription = getLevelDescription(level);
                     prerequisiteState = sub_8051720(level);
                     if (prerequisiteState->unk4 > nextDescription->unk8) {
                         available = 0;
                         break;
                     }
-                    level++;
                 }
                 if (available != 0) {
                     state->unk0 |= 2;
@@ -135,8 +132,7 @@ void sub_80512AC(void)
                 }
             }
         }
-        index++;
-    } while (index <= 0x37);
+    }
 }
 
 unk32 sub_805137C(void)
@@ -146,15 +142,13 @@ unk32 sub_805137C(void)
     LevelState* state;
 
     result = 0;
-    index = 0;
-    do {
+    for (index = 0; index <= 0x37; index++) {
         state = sub_8051720(index);
         getLevelDescription(index);
         if ((state->unk0 & 2) != 0) {
             result = index;
         }
-        index++;
-    } while (index <= 0x37);
+    }
     return result;
 }
 
@@ -218,11 +212,9 @@ unk8 sub_8051558(void)
     save = &_currentGameState->unk6FC;
     xorSum = 0;
     ptr = &save->block0.magic;
-    i = 334;
-    do {
+    for (i = 334; i != -1; i--) {
         xorSum ^= *ptr++;
-        i--;
-    } while (i != -1);
+    }
 
     return xorSum == save->checksum && save->block0.magic == 0xDEAD;
 }
@@ -339,14 +331,11 @@ unk8 sub_8051744(void)
 {
     s32 index;
 
-    index = 0;
-    do {
-        if ((sub_8051720(index)->unk0 & 1) != 0) {
-            index++;
-        } else {
+    for (index = 0; index <= 0x37; index++) {
+        if ((sub_8051720(index)->unk0 & 1) == 0) {
             return 0;
         }
-    } while (index <= 0x37);
+    }
     return 1;
 }
 
@@ -443,13 +432,11 @@ unk32 sub_80518F0(void)
 
     value = sub_8051734()->unk10[0];
     count = 0;
-    if (value != 0) {
-        do {
-            if ((value & 1) != 0) {
-                count++;
-            }
-            value >>= 1;
-        } while (value != 0);
+    while (value != 0) {
+        if ((value & 1) != 0) {
+            count++;
+        }
+        value >>= 1;
     }
     return count;
 }

@@ -15,10 +15,10 @@ unk8 sub_804393C(Packet* arg0)
     checksum += arg0->packet.unk2_0;
     i = 0;
     data = arg0->packet.unk4;
-    do {
+    while (i <= 0xB) {
         checksum ^= data[i];
         i++;
-    } while (i <= 0xB);
+    }
     return checksum;
 }
 

@@ -747,14 +747,14 @@ void sub_8052A74(void)
     ptr = (unk32*)(CPU_WRAM_END - 0x60);
     count = 0;
     printf("Trace Interrupt Stack\n");
-    do {
+    while (count <= 0xF) {
         if (*ptr != 0) {
             count = 0;
         } else {
             count++;
         }
         ptr--;
-    } while (count <= 0xF);
+    }
     printf("intr stack start %x end %x\n\n", (unk32*)(CPU_WRAM_END - 0x60), ptr + 0x10);
 }
 
@@ -766,14 +766,14 @@ void sub_8052AB8(void)
     ptr = (unk32*)(CPU_WRAM_END - 0x140);
     count = 0;
     printf("Trace User Stack\n");
-    do {
+    while (count <= 0xF) {
         if (*ptr != 0) {
             count = 0;
         } else {
             count++;
         }
         ptr--;
-    } while (count <= 0xF);
+    }
     printf("user stack start %x end %x\n\n", (unk32*)(CPU_WRAM_END - 0x140), ptr + 0x10);
 }
 

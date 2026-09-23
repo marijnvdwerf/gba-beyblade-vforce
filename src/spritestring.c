@@ -60,11 +60,9 @@ unk32 sub_8064F84(const u8* str)
 
     c = *str;
     length = 1;
-    if (c != 0) {
-        do {
-            c = str[length];
-            length++;
-        } while (c != 0);
+    while (c != 0) {
+        c = str[length];
+        length++;
     }
     return length;
 }
@@ -105,14 +103,10 @@ ActorBlock* SpriteString_8064FE8(SpriteString* string, const u8* arg1, unk32 arg
     if (state == NULL) {
         nullsub_8("Error allocating actors for SpriteString");
     }
-    i = 0;
-    if (i < count) {
-        do {
-            actor = state->actor + i;
-            actor_8057C58(actor, argA, 0, 0, 0, 0, 0);
-            sub_80585C8(actor, 1);
-            i++;
-        } while (i < count);
+    for (i = 0; i < count; i++) {
+        actor = state->actor + i;
+        actor_8057C58(actor, argA, 0, 0, 0, 0, 0);
+        sub_80585C8(actor, 1);
     }
     sub_8064F9C(string, arg1, arg2, argB, state->actor, state->size, argC, argD);
     string->mode = argE;
@@ -181,13 +175,11 @@ unk8 sub_8065108(SpriteString* string)
     Actor* actor;
 
     count = 0;
-    index = 0;
-    while (index < string->count) {
+    for (index = 0; index < string->count; index++) {
         actor = &string->actors[index];
         if (actor->unk70 != 0) {
             count++;
         }
-        index++;
     }
     return count;
 }
@@ -246,8 +238,7 @@ void sub_8065140(SpriteString* string)
         x = (string->y - (string->width >> 1)) << 8;
         break;
     }
-    i = 0;
-    while (i < string->count) {
+    for (i = 0; i < string->count; i++) {
         if (string->text != NULL && string->text[i + textOffset] == ' ') {
             x += 0x500;
             textOffset++;
@@ -282,7 +273,6 @@ void sub_8065140(SpriteString* string)
             }
             x += advance;
         }
-        i++;
     }
 }
 
@@ -290,10 +280,8 @@ void sub_806530C(SpriteString* string)
 {
     u16 i;
 
-    i = 0;
-    while (i < string->count) {
+    for (i = 0; i < string->count; i++) {
         sub_80584B8(&string->actors[i]);
-        i++;
     }
 }
 
@@ -306,8 +294,7 @@ s32 sub_8065334(SpriteString* string)
 
     textOffset = 0;
     total = 0;
-    index = 0;
-    while (index < string->count) {
+    for (index = 0; index < string->count; index++) {
         actor = &string->actors[index];
         if (string->text != NULL && string->text[index + textOffset] == ' ') {
             total += 5;
@@ -320,7 +307,6 @@ s32 sub_8065334(SpriteString* string)
                 total += actor->unk10;
             }
         }
-        index++;
     }
     total = (string->scaleX * total) >> 8;
     return total;
@@ -330,10 +316,8 @@ void sub_80653B0(SpriteString* string)
 {
     u16 i;
 
-    i = 0;
-    while (i < string->count) {
+    for (i = 0; i < string->count; i++) {
         renderActor2(&string->actors[i]);
-        i++;
     }
 }
 
@@ -398,11 +382,9 @@ void sub_8065508(SpriteString* string)
     Actor* actor;
 
     value = string->x;
-    i = 0;
-    while (i < string->count) {
+    for (i = 0; i < string->count; i++) {
         actor = &string->actors[i];
         actor->unk70 = 0;
-        i++;
     }
     if (value < 0) {
         value = -value;

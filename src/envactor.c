@@ -121,21 +121,17 @@ void initLevelEnvironmentActors(u16 level)
     allocationField->effect = effect;
     allocationField->effectCount = effectCount;
     __fastMemoryClearARM(0, lineObjects, lineSize + effectSizeBytes + pointSize);
-    lineIndex = 0;
-    if (lineIndex < geometry.unk0->lineCount) {
-        do {
-            geometryLine = &geometry.unkC[lineIndex];
-            metadata = GetLineMetaData(&geometry, lineIndex);
-            if (metadata != NULL) {
-                metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xAF90);
-                if (metaobject != NULL) {
-                    pointEntry = &points[metaobject->unk8.word];
-                    pointEntry->geometry = geometryLine;
-                    pointEntry->line = lineIndex;
-                }
+    for (lineIndex = 0; lineIndex < geometry.unk0->lineCount; lineIndex++) {
+        geometryLine = &geometry.unkC[lineIndex];
+        metadata = GetLineMetaData(&geometry, lineIndex);
+        if (metadata != NULL) {
+            metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xAF90);
+            if (metaobject != NULL) {
+                pointEntry = &points[metaobject->unk8.word];
+                pointEntry->geometry = geometryLine;
+                pointEntry->line = lineIndex;
             }
-            lineIndex++;
-        } while (lineIndex < geometry.unk0->lineCount);
+        }
     }
     for (lineIndex = 0; lineIndex < selectedCount; lineIndex++) {
         lineObjects[selectedLines[lineIndex]].actor = actorBase;

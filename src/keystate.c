@@ -83,8 +83,7 @@ void updateKeyState(void)
     _unk3005DAC = 0;
     _unk3005DA4 = _keyInput;
     _keyInput = keyState;
-    i = 0;
-    do {
+    for (i = 0; i <= 9; i++) {
         if (((1 << i) & _unk3005DA0) > 0) {
             if (_unk3000E30[0] > _unk3005CB0[i].var04 + _unk3005CB0[i].var0C) {
                 _unk3005CB0[i].var10 = 1;
@@ -105,8 +104,7 @@ void updateKeyState(void)
             _unk3005CB0[i].var08 = timer - _unk3005CB0[i].var00;
             _unk3005DAC |= mask;
         }
-        i++;
-    } while (i <= 9);
+    }
 }
 
 void initKeyState(void)

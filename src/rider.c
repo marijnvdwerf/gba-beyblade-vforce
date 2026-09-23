@@ -126,12 +126,10 @@ void processRiderMetadata(RiderBase* rider, LevelGeometryAddresses* geometry, un
         metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 3, 0x59C3);
         if (metaobject != NULL) {
             metaId = metaobject->unk8.half;
-            i = 0;
-            while (i < geometry->unk0->count.splineCountWord) {
+            for (i = 0; i < geometry->unk0->count.splineCountWord; i++) {
                 if (geometry->unk14[i]->unkC == metaId) {
                     riderBase->unk218 = i;
                 }
-                i++;
             }
         }
 
@@ -185,16 +183,12 @@ void sub_804B4FC(LevelGeometryAddresses* target, RiderState* item)
     sub_804B8F0(&_gameData->base, target);
     *(vu16*)REG_VCOUNT;
     if (_gameData->unk1618 == 0) {
-        i = 0;
-        if (i < _gameData->unk430) {
-            do {
-                RiderBase* rider = &_gameData->unk42C[i];
+        for (i = 0; i < _gameData->unk430; i++) {
+            RiderBase* rider = &_gameData->unk42C[i];
 
-                if ((rider->unk3C8 & 2) != 0 || rider->unk210 != 0 || RiderHasFlag(rider, 2) != 0) {
-                    sub_804B8F0(rider, target);
-                }
-                i++;
-            } while (i < _gameData->unk430);
+            if ((rider->unk3C8 & 2) != 0 || rider->unk210 != 0 || RiderHasFlag(rider, 2) != 0) {
+                sub_804B8F0(rider, target);
+            }
         }
         *(vu16*)REG_VCOUNT;
     } else {
