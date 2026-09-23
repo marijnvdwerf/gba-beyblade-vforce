@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-24 (session 17, cont.): main aca6d8bd — all functions matched; loops flattened + folded; profile/ai/anim/animevent strings inlined; Credits table + 127 strings in credits.c (data12a.s split off); iwram.c split into iwram_sprite/tilemap/sound/fastmem/serial.c with the ADPCM tables and six diagnostics in C. US+EU green, baseline refreshed. drafts deleted. raw-decomp-11 (user's worktree) = main's flattening commits, nothing pending there. NO SOL TODAY (user: "Sol is illegal today") — opus for everything, luna only for the review comparison. One agent may still be running: the data-table ownership survey (opus, read-only).
+Last updated: 2026-09-24 (session 17, close): main 6e41c223 — all functions matched; loops flattened + folded; ALL ROM STRINGS ARE C LITERALS except src/strings_8756870.c ("EEPROM_V122", the prebuilt library's marker — stays). Every string-bearing data table is a typed non-const C table in its TU (.data model). New TUs: items.c (beyblade TU1), leveldata.c (data-only), iwram_{sprite,tilemap,sound,fastmem,serial}.c; levelhud.c merged into hud.c. US+EU green, baseline refreshed. drafts deleted; raw-decomp-11 (user's worktree) = main's flattening commits. NO SOL TODAY (user rule) — opus for all agents. No agents running.
 
 ## Session 17 (2026-09-23) — the last 11 iwram ARM functions
 
@@ -108,6 +108,59 @@ Last updated: 2026-09-24 (session 17, cont.): main aca6d8bd — all functions ma
   data12/data9/data8 table ownership per TU; then festate's tables
   (_806DB8C/_806E240/_806E31C/_806E8D8/_806E914/_806E97C…), TutorialPages,
   data9 LevelDescriptions etc.; hud/levelhud share "/" (likely one TU).
+
+- 2026-09-24, later — TABLE + STRING MIGRATION COMPLETE (all opus agents,
+  one worktree each, manager rebases + gated `&&` landing chains):
+  cf11564f tutorial `TutorialPages` (data12 split → data12b.s), levelselect
+  + dialogue screen tables (FrontendSubobject/FrontendSubobjectData typed;
+  FrontendFontData folded into FontStyle in common.h), beyblade TU2 (data9
+  tail + data8 head, 417 strings; 25 file-local name tables are `static`);
+  656c9dcb ITEMS.C = beyblade TU1 split (0x805703C–GetTalkingHead; proven
+  by 78 strings duplicated between the two pools; ItemDescriptionEntry /
+  TalkingHead typed); 07a306f4 hud+levelhud MERGED (one "/" object),
+  results.c (`_80788cc` split: int list stays asm, UnkStruct_80788E0 +
+  PAUSE array + 3 InputSequence singles; data9b.s = event/effects tables),
+  credits/transition/collection/menuobject no-string .data moves (data12a.s
+  gone); bd349e9a FESTATE (~70 tables in three source blocks A/B/C around
+  the literal-using functions; `_80691A4`+`_80691C4` and `_8069474`+`_8069494`
+  are ONE initializer each; FrontendMenuBlockData folded into FontStyle;
+  data12c.s = remainder); dcb1f027 LEVELDATA.C data-only TU (user choice
+  over main.c; LevelDescriptions + `_807582c` as LevelSlotText; 468
+  strings); 7f57b0c6 localized block = tutorial.c's TAIL (444 strings;
+  `_806E724` is FOUR variables — proven: single array first differs at
+  index 332; data12b.s keeps only the unowned blobs from 0x806EB10);
+  6e41c223 FRONTEND tail (`_LevelRowMusicTable` + `_806A3D0` + 42 language
+  arrays + `_806A77C` + `unk32 _806A824 = 0x15`; 211 strings;
+  `FrontendObject.unk8` is `void (*)()` because 31 handlers take 2 args and
+  8 take 3 — accepted; data12c.s now starts at background's `_806A828`).
+  RULES CONFIRMED EVERY TIME: an initializer's literals are emitted
+  reverse-first-occurrence, duplicates pooled per object, a table's strings
+  precede the literals of functions defined after it; simulate before
+  building (agents scripted it; all 11 pools matched first build).
+  `-Wunused -Werror` forbids `static` on unreferenced tables (e.g.
+  `_806E0B0`, `_806E6BC`, `_806E6E8`, `_806A3D0` are non-static globals).
+  MANAGER MISHAPS THIS ROUND (all caught): `git cherry-pick A..B C D` is a
+  rev-list union; a regex conflict resolver assumed an empty HEAD side and
+  committed markers into ld_script.ld once (grep before every commit); a
+  `;` in a landing chain fast-forwarded main on a red worktree build
+  (reset main to the last verified commit; chains are now one `&&` with
+  `||` diagnostics); "take HEAD" resolutions re-kept deleted strings files
+  / stale `const` externs three times — after any rebase grep CMake/ld for
+  `strings_` and headers for duplicate externs before building.
+  REMAINING ASM DATA (no strings — placement unmeasurable, decide by .text
+  order): data10 font metrics (owner unknown), data12.s head (FontStyles +
+  `_8068924…_806897C` palettes/motion data — festate or menuobject),
+  data12c.s (`_806A828` background ScreenLayout + `LevelDesigns` —
+  background/levelrow), data12b.s blobs (unreferenced), data11, audio1
+  (music `_807561C`), data9.s (`_80788cc` int list — gamestate), data9b.s
+  (event `_8078990`, effects `_8078a08…`), data8.s (layer `GlyphIndexes`,
+  IWRAM pointer table, `byte_807D980`, `Pal_807DA80`), dataB/7/C incbins.
+  NEXT: (a) skill fold (docs/learnings ~50 files + the .data/emission
+  rules above belong in .claude/skills/agbcc/SKILL.md) — opus; (b) optional
+  no-string table moves by .text order; (c) session-16 follow-ups
+  (motion.c helpers, include_asm.h leftovers, decompiler.md learnings
+  instruction); (d) tools/gen-report.py / objdiff units for the new TUs
+  are regenerated by cmake — verify the published progress numbers.
 
 ## Session 16 (2026-09-20) — Codex landings + the `drafts` branch
 
