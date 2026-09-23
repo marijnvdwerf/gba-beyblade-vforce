@@ -176,6 +176,7 @@ SECTIONS {
 		asm/data12a.s.o(.rodata);
 		src/credits.c.o(.data);
 		src/levelselect.c.o(.data);
+		src/dialogue.c.o(.data);
 		asm/data12.s.o(.rodata);
 		src/tutorial.c.o(.data);
 		asm/data12b.s.o(.rodata);
@@ -249,7 +250,6 @@ SECTIONS {
 		src/credits.c.o(.rodata);
 		src/levelselect.c.o(.rodata);
 		src/dialogue.c.o(.rodata);
-		src/strings_86fcf98.c.o(.rodata);
 		src/collection.c.o(.rodata);
 		src/profile.c.o(.rodata);
 		src/menuobject.c.o(.rodata);

@@ -12,6 +12,8 @@ typedef struct LevelSelectState {
     unk8 pad1F;
 } LevelSelectState;
 
+extern FrontendSubobjectData _8068770;
+
 void sub_80413FC(FrontendState*, unk32);
 void sub_8041078(LevelSelectState*);
 void sub_8041188(LevelSelectState*, LevelDescription*, LevelState*, unk32);

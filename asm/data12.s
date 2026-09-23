@@ -2,18 +2,6 @@
 
     .section .rodata
 
-_806879C:
-    .4byte 7
-    .byte 0, 0, 0, 0, 0, 0, 0, 0
-    .byte 0, 0, 0, 0
-    .4byte NULL
-    .4byte 1
-    .4byte _8068770
-    .byte 0, 0, 0, 0, 0, 0, 0, 0
-    .4byte _8068924
-
-    .4byte Str_86FCF98
-
 _80687C8:
     .4byte 8
     .byte 0, 0, 0, 0, 0, 0, 0, 0
@@ -116,7 +104,7 @@ global FontStyle_8068918
     .4byte NormalFontMeta
     .2byte 0, 14
 
-_8068924:
+global _8068924
     .4byte -256
     .4byte -256
 

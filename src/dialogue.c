@@ -10,12 +10,14 @@
 #include "gamestate.h"
 #include "include_asm.h"
 #include "language.h"
+#include "levelselect.h"
 #include "ram.h"
 #include "sprite.h"
 #include "teletype.h"
 #include "tutorial.h"
 
 extern const SpriteSheet SpriteSheet_821CB80;
+extern FrontendSelectionPalette _8068924;
 
 void teletypeDefaultUserCodeHandler(TeletypeState* state, unk32 command)
 {
@@ -90,6 +92,18 @@ void teletypeDefaultUserCodeHandler(TeletypeState* state, unk32 command)
         break;
     }
 }
+
+FrontendSubobject _806879C = { 7, { 0 }, NULL, 1, &_8068770, 0, NULL, &_8068924 };
+
+const unk8* _80687C4
+    = "{C14}Bring on the {C13}left{c} head{c}{A2}, and then the right head{a3}<\f>Now do{T} a "
+      "transition<\f>And now do a single flash {f}<\f>And {t1}now change to a different "
+      "screen{t2}<\f>And now change to yet a another screen{t3}<\f>And now start some repeated "
+      "flashing {f4}<\f>And a great deal of text right here. {t1}And a great deal of text right "
+      "here. And a great deal of text right here. And a great deal of text right here.<\f>And then "
+      "remove the right head{b}... <\f>But then replace the left head{A4}...<\f>And the start to "
+      "move it slowly{V16}...<\f>And then the right{a5}{v-32}<\f>Animate them both "
+      "now!{Q}{q}<\f>And then stop the left one{U}";
 
 void sub_80420C4(FrontendState* state, unk32 command)
 {
