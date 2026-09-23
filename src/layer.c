@@ -7,6 +7,7 @@
 #include <string.h>
 
 #include "include_asm.h"
+#include "iwram.h"
 #include "math.h"
 #include "memory.h"
 #include "system.h"
@@ -22,13 +23,10 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
 
 void sub_8059310(BGLayer* r0, s32 r1, s32 r2, s32 r3, s32 sp0, s32 sp4, s32 sp8);
 
-typedef void (*LayerCopyFunc)(BGLayer*, unk32, unk32, unk32, unk32, s32, unk32);
+typedef void (*LayerCopyFunc)(BGLayer*, s32, s32, unk32, s32, s32, s32);
 typedef void (*LayerClearFunc)(BGLayer*, unk32, unk32, unk32, unk32);
 
-extern void (*__sub_8756FC0)(BGLayer*, unk32, unk32, unk32, unk32, s32, unk32);
-extern void (*__sub_8757380)(BGLayer*, unk32, unk32, unk32, unk32);
-
-void sub_80594FC(BGLayer*, unk32, unk32, unk32, unk32, s32, unk32);
+void sub_80594FC(BGLayer*, s32, s32, unk32, s32, s32, s32);
 void sub_8059E5C(BGLayer*, unk32, unk8, unk32, unk32, s32);
 
 extern const unk8 GlyphIndexes[];
@@ -633,7 +631,7 @@ void sub_8059404(BGLayer* layer, unk32 x, unk32 y, unk32 srcX, unk32 srcY, s32 w
     }
 }
 
-void sub_80594FC(BGLayer* layer, unk32 x, unk32 y, unk32 srcX, unk32 srcY, s32 width, unk32 height)
+void sub_80594FC(BGLayer* layer, s32 x, s32 y, unk32 srcX, s32 srcY, s32 width, s32 height)
 {
     unk32 alignmentMask;
     unk8* mapAddress;

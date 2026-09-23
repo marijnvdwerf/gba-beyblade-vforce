@@ -3,13 +3,9 @@
 
 #include "common.h"
 #include "debug.h"
+#include "iwram.h"
 #include "language.h"
 #include "ram.h"
-
-typedef void CopyFn(const void*, void*, unk32);
-typedef void ClearFn(unk32, void*, unk32);
-extern CopyFn* __fastMemoryCopyARM;
-extern ClearFn* __fastMemoryClearARM;
 
 void initGame(void);
 void InitCurrentGameState(void);

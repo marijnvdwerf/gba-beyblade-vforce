@@ -44,7 +44,6 @@ s16 sub_805EEA4(const ScreenLayout*, unk16, s16);
 LevelGeometryAddresses* sub_805EEE0(CameraState*);
 void sub_805E8D8(CameraState*, const ScreenLayout*, unk16, CameraLayerOffsets*);
 void sub_805E8A0(CameraState*, const ScreenLayout*, unk16, CameraLayerOffsets*);
-extern void (*__sub_87576D8)(const unk32*, unk32, unk32, unk32, RiderTile*, const unk32*);
 void sub_805EEFC(CameraState*, const unk32**, const unk32**);
 void sub_805EF18(CameraState*, unk32, unk32, unk32, s32, unk32, RiderTile*);
 

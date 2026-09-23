@@ -6,31 +6,6 @@
 #include "memory.h"
 #include "unsorted.h"
 
-struct SoundStructE {
-    /* 0x00 */ unk8 pad00[4];
-    /* 0x04 */ unk32 var04;
-    /* 0x08 */ unk32 var08;
-    /* 0x0C */ unk8 pad0C[4];
-    /* 0x10 */ unk8 data[0];
-};
-
-typedef struct {
-    /* 0x00 */ SoundStructE* var00;
-    /* 0x04 */ unk8 (*var04)[];
-    /* 0x10 */ void* var08;
-    /* 0x0C */ unk32 var0C;
-    /* 0x10 */ unk16 var10;
-    /* 0x12 */ unk8 pad12[2];
-    /* 0x14 */ unk16 var14;
-    /* 0x16 */ u8 var16;
-    /* 0x17 */ unk8 var17;
-    /* 0x18 */ unk32 var18;
-    /* 0x1C */ void* var1C;
-    /* 0x20 */ void* var20;
-    /* 0x24 */ unk16 var24;
-    /* 0x26 */ unk8 pad26[2];
-} SoundStructA;
-
 typedef struct SoundStructC {
     u32 var00;
     unk32 var04;
@@ -66,12 +41,10 @@ extern AllocatedBlock* _soundMixerBlock;
 extern AllocatedBlock* _soundTableBlock;
 extern SoundStructC _unk3005E40;
 extern u16 _unk3005E4C;
-extern unk16 (*_soundMixerPlus)[];
 
-extern unk8 _unk3005E78;
 
 void (*__sub_87577B4)(SoundStructA*, unk32, unk32);
-void (*__sound_8757A64)(unk8*, unk32, unk32);
+s32 (*__sound_8757A64)(unk8*, s32, s32);
 
 #define FIXED_16_16(hz) ((hz) * 65536.0)
 
@@ -295,10 +268,10 @@ void allocateSoundTables(u32 arg0, u32 arg1)
     _soundTables = _soundTableBlock->address;
     _unk3005E28 = (void*)((uintptr_t)_soundTableBlock->address + 0x200);
 
-    _soundMixerPlus = (void*)((uintptr_t)_soundMixer + _unk3005E4C);
+    _soundMixerPlus = (s16*)((uintptr_t)_soundMixer + _unk3005E4C);
     _unk3005E04 = arg1;
 
-    _unk3005E24 = (SoundStructA(*)[2])(&(*_soundMixerPlus)[_unk3005E4C]);
+    _unk3005E24 = (SoundStructA(*)[2])(&_soundMixerPlus[_unk3005E4C]);
 
     DmaClear(3, 0, _soundMixer, bytes, 32);
     Sound_80623A8(arg0);
@@ -392,7 +365,7 @@ void Sound_80627A8(SoundStructA* arg0, unk32 arg1, unk32 arg2)
     }
 
     if (arg0->var00->var08 != 0) {
-        arg0->var04 = (unk8(*)[])(start + (current - end) % (end - start));
+        arg0->var04 = (s8*)(start + (current - end) % (end - start));
     } else {
         arg0->var16 = 0;
     }
@@ -460,10 +433,10 @@ static void Sound_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
     arg0->var14 = 0;
     arg0->var17 = 0;
     arg0->var10 = 256;
-    arg0->var04 = &arg1->data;
+    arg0->var04 = arg1->data;
 
     arg2 = (arg2 > 0x7F ? 0x7F : arg2);
-    arg0->var08 = (void*)(*_soundTables)[arg2];
+    arg0->var08 = (*_soundTables)[arg2];
 
     arg0->var0C = 0;
     arg0->var1C = NULL;
@@ -473,18 +446,24 @@ static void Sound_8062910(SoundStructA* arg0, SoundStructE* arg1, u32 arg2)
 
 static void Sound_8062950(SoundStructA* arg0, SoundStructE* (*segments)[], s16 (*order)[])
 {
-    SoundStructE* data = (*segments)[(*order)[0]];
+    SoundStructE** segmentData;
+    s16* orderData;
+    SoundStructE* data;
+
+    segmentData = *segments;
+    orderData = *order;
+    data = segmentData[orderData[0]];
 
     arg0->var16 = 1;
     arg0->var00 = data;
     arg0->var14 = 0;
     arg0->var17 = 0;
     arg0->var10 = 256;
-    arg0->var04 = &data->data;
-    arg0->var08 = (void*)(*_soundTables)[0];
+    arg0->var04 = data->data;
+    arg0->var08 = (*_soundTables)[0];
     arg0->var0C = 0;
-    arg0->var1C = segments;
-    arg0->var20 = order;
+    arg0->var1C = segmentData;
+    arg0->var20 = orderData;
     arg0->var24 = 1;
 }
 
@@ -597,7 +576,7 @@ void Sound_8062AF4(unk32 arg0, u32 arg1)
             arg1 = 127;
         }
 
-        var->var08 = (void*)(*_soundTables)[arg1];
+        var->var08 = (*_soundTables)[arg1];
     }
 }
 

@@ -4,6 +4,33 @@
 #include "common.h"
 
 typedef struct SoundStructE SoundStructE;
+typedef struct SoundStructA SoundStructA;
+
+struct SoundStructE {
+    unk8 var00;
+    unk8 pad01[3];
+    unk32 var04;
+    unk32 var08;
+    unk8 pad0C[4];
+    s8 data[0];
+};
+
+struct SoundStructA {
+    SoundStructE* var00;
+    s8* var04;
+    unk32 var08;
+    unk32 var0C;
+    unk16 var10;
+    unk8 pad12[2];
+    s16 var14;
+    u8 var16;
+    unk8 var17;
+    unk32 var18;
+    SoundStructE** var1C;
+    s16* var20;
+    unk16 var24;
+    unk8 pad26[2];
+};
 
 typedef struct {
     u8 var00;

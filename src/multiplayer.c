@@ -2,12 +2,11 @@
 
 #include "debug.h"
 #include "include_asm.h"
+#include "iwram.h"
 #include "memory.h"
 #include "ram.h"
 #include "system.h"
 #include "unsorted.h"
-
-extern void (*__sub_8757FCC)(void);
 
 void initMultiPlayer(unk32 numPlayers, s32 packetSize, unk16 serialMode)
 {
@@ -54,7 +53,7 @@ void initMultiPlayer(unk32 numPlayers, s32 packetSize, unk16 serialMode)
     _unk3005DC4->unk30 = bufD;
     _unk3005DC4->unk3C = (unk16*)bufA;
     _unk3005DC4->unk40 = bufB;
-    _unk3005DC4->unk34 = bufC;
+    _unk3005DC4->unk34 = (unk16*)bufC;
     _unk3005DC4->unk38 = bufD;
     __fastMemoryClearARM(0, bufA, totalSize);
     *(vu16*)REG_RCNT = 0;
@@ -172,8 +171,6 @@ void sub_80600B4(void)
     *(vu16*)REG_SIOMULTI3 = 0;
 }
 
-extern void (*__sub_8757CD0)(void);
-extern void (*__sub_8757D24)(void);
 void sub_8060404(void);
 void onSerialCommunication(void);
 

@@ -6,6 +6,7 @@
 #include "common.h"
 #include "geometry.h"
 #include "include_asm.h"
+#include "iwram.h"
 #include "layer.h"
 #include "system.h"
 

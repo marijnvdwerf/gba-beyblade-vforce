@@ -4,6 +4,7 @@
 
 #include "include_asm.h"
 #include "ram.h"
+#include "sound.h"
 #include "sprite.h"
 #include "unsorted.h"
 
@@ -28,6 +29,11 @@ typedef struct SpriteImageHeader {
     unk32 unk0;
     unk32 unk4;
 } SpriteImageHeader;
+
+typedef struct TileMapRow {
+    unk8 pad0[2];
+    s16 data[0];
+} TileMapRow;
 
 static inline const SpriteImageHeader* spriteSheetImageHeader(const SpriteSheet* sheet, unk32 frame)
 {
@@ -252,61 +258,21 @@ void oam_8756CC0(void)
         rotation = rotation->next;
     }
 }
-#if 0
-#include <agb/memory_map.h>
 
-typedef struct TileMapRowDraft8756FC0 {
-    unk8 pad0[2];
-    s16 data[1];
-} TileMapRowDraft8756FC0;
-
-typedef struct TileMapRowTableDraft8756FC0 {
-    TileMapRowDraft8756FC0* rows[1];
-} TileMapRowTableDraft8756FC0;
-
-typedef struct TileMapHeaderDraft8756FC0 {
-    unk8 pad0[0xC];
-    TileMapRowTableDraft8756FC0* rowTable;
-    unk8 pad10[0xA];
-    unk16 unk1A;
-    unk8 pad1C[4];
-} TileMapHeaderDraft8756FC0;
-
-typedef struct BGLayerDraft8756FC0 {
-    s32 columnCount;
-    s32 rowCount;
-    unk8 pad8[0x54];
-    unk8 screenBaseBlock;
-    unk8 pad5D[2];
-    unk8 field_5F;
-    unk8 field_60;
-    unk8 pad61[3];
-    unk16 var64;
-    unk8 pad66[2];
-    TileMapHeaderDraft8756FC0* var68;
-    unk8 pad6C[4];
-    const unk8* mapAddr;
-    unk8 pad74[8];
-    unk8 field_7C;
-    unk8 pad7D[0xB];
-} BGLayerDraft8756FC0;
-
-extern void (*__sub_8757494)(const s16*, s32, s32, unk32, unk16*, unk16);
-
-void sub_8756FC0(BGLayerDraft8756FC0* layer, s32 x, s32 y, unk32 srcX, s32 srcY, s32 width, s32 height)
+void sub_8756FC0(BGLayer* layer, s32 x, s32 y, unk32 srcX, s32 srcY, s32 width, s32 height)
 {
     const unk8* source;
     unk16* destination;
     s32 columns;
+    unk32 columnMask;
     unk32 rowMask;
     unk32 screenWidth;
     unk32 compressed;
-    TileMapRowTableDraft8756FC0* rowTable;
+    const unk32* rowTable;
     unk32 fill;
     s32 mapRow;
     unk32 flags;
     s32 rows;
-    unk32 split;
     const s16* rowData;
     unk32 destinationRow;
     s32 row;
@@ -315,15 +281,15 @@ void sub_8756FC0(BGLayerDraft8756FC0* layer, s32 x, s32 y, unk32 srcX, s32 srcY,
     source += (x + y * layer->columnCount) * 2;
     destination = (unk16*)(VRAM + (layer->screenBaseBlock << 11));
     columns = layer->columnCount;
-    compressed = layer->var64 & 2;
+    columnMask = (1 << layer->field_5F) - 1;
     flags = (layer->field_7C & 4) ? 2 : 0;
-    screenWidth = 1 << layer->field_5F;
-    rows = layer->rowCount;
-    rowTable = layer->var68->rowTable;
     rowMask = (1 << layer->field_60) - 1;
+    screenWidth = 1 << layer->field_5F;
+    compressed = layer->var64 & 2;
+    rows = layer->rowCount;
+    rowTable = (const unk32*)((const unk8*)layer->var68 + layer->var68->mapOffset);
     fill = layer->var68->unk1A;
-    srcX &= screenWidth - 1;
-    split = screenWidth - srcX;
+    srcX &= columnMask;
 
     for (row = srcY; row < srcY + height; row++) {
         mapRow = row;
@@ -338,35 +304,38 @@ void sub_8756FC0(BGLayerDraft8756FC0* layer, s32 x, s32 y, unk32 srcX, s32 srcY,
             }
             flags |= 1;
         } else {
-            unk32 valid = row < rows;
-            if (row < 0) {
-                valid = 0;
-            }
-            if (valid) {
+            if (row >= 0 && row < rows) {
                 flags |= 1;
             } else {
                 flags &= ~1;
             }
         }
-        rowData = rowTable->rows[mapRow]->data;
+        rowData = ((const TileMapRow*)((const unk8*)rowTable + rowTable[mapRow]))->data;
         destinationRow = (row & rowMask) << layer->field_5F;
         if (srcX + width > screenWidth) {
             if (compressed) {
                 if (flags & 1) {
-                    __sub_8757494(rowData, x, mapRow, split, destination + destinationRow + srcX, fill);
-                    __sub_8757494(rowData, x + split, mapRow, width - split, destination + destinationRow, fill);
+                    __sub_8757494(rowData, x, mapRow, screenWidth - srcX,
+                        destination + destinationRow + srcX, fill);
+                    __sub_8757494(rowData, x + (screenWidth - srcX), mapRow,
+                        width - (screenWidth - srcX), destination + destinationRow, fill);
                 } else {
-                    fastMemoryClear16ARM(fill, destination + destinationRow + srcX, split * 2);
-                    fastMemoryClear16ARM(fill, destination + destinationRow, (width - split) * 2);
+                    fastMemoryClear16ARM(
+                        fill, destination + destinationRow + srcX, (screenWidth - srcX) * 2);
+                    fastMemoryClear16ARM(
+                        fill, destination + destinationRow, (width - (screenWidth - srcX)) * 2);
                 }
             } else {
-                fastMemoryCopy16ARM(source, destination + destinationRow + srcX, split * 2);
-                fastMemoryCopy16ARM(source + split, destination + destinationRow, (width - split) * 2);
+                fastMemoryCopy16ARM(
+                    source, destination + destinationRow + srcX, (screenWidth - srcX) * 2);
+                fastMemoryCopy16ARM(source + (screenWidth - srcX), destination + destinationRow,
+                    (width - (screenWidth - srcX)) * 2);
             }
         } else {
             if (compressed) {
                 if (flags & 1) {
-                    __sub_8757494(rowData, x, mapRow, width, destination + destinationRow + srcX, fill);
+                    __sub_8757494(
+                        rowData, x, mapRow, width, destination + destinationRow + srcX, fill);
                 } else {
                     fastMemoryClear16ARM(fill, destination + destinationRow + srcX, width * 2);
                 }
@@ -377,52 +346,226 @@ void sub_8756FC0(BGLayerDraft8756FC0* layer, s32 x, s32 y, unk32 srcX, s32 srcY,
         source += columns * 2;
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/8756a00-iwram/8756fc0-sub_8756fc0.s");
-INCLUDE_ASM("asm/dump/8756a00-iwram/8757380-sub_8757380.s");
-INCLUDE_ASM("asm/dump/8756a00-iwram/8757494-sub_8757494.s");
-INCLUDE_ASM("asm/dump/8756a00-iwram/8757574-sub_8757574.s");
-INCLUDE_ASM("asm/dump/8756a00-iwram/87576d8-sub_87576d8.s");
-#if 0
-typedef struct SoundSample87577B4 SoundSample87577B4;
-typedef struct SoundChannel87577B4 SoundChannel87577B4;
 
-struct SoundSample87577B4 {
-    unk8 var00;
-    unk8 pad01[3];
-    unk32 var04;
-    unk32 var08;
-    unk8 pad0C[4];
-    s8 data[0];
-};
+void sub_8757380(BGLayer* layer, unk32 x, s32 y, unk32 width, s32 height)
+{
+    unk8* screenAddress;
+    unk32 rowMask;
+    unk32 screenWidth;
+    unk32 columnMask;
+    unk32 srcX;
+    unk32 fill;
+    unk32 rowOffset;
+    s32 row;
 
-struct SoundChannel87577B4 {
-    SoundSample87577B4* var00;
-    s8* var04;
-    unk32 var08;
-    unk32 var0C;
-    unk16 var10;
-    unk8 pad12[2];
-    s16 var14;
-    unk8 var16;
-    unk8 var17;
-    unk32 var18;
-    SoundSample87577B4** var1C;
-    s16* var20;
-    unk16 var24;
-    unk8 pad26[2];
-};
+    screenAddress = (unk8*)(VRAM + (layer->screenBaseBlock << 11));
+    fill = layer->var68->unk1A;
+    columnMask = (1 << layer->field_5F) - 1;
+    rowMask = (1 << layer->field_60) - 1;
+    screenWidth = 1 << layer->field_5F;
+    srcX = x & columnMask;
+    for (row = y; row < y + height; row++) {
+        rowOffset = (row & rowMask) << layer->field_5F;
+        if (srcX + width > screenWidth) {
+            fastMemoryClear16ARM(
+                fill, screenAddress + rowOffset * 2 + srcX * 2, (screenWidth - srcX) * 2);
+            fastMemoryClear16ARM(
+                fill, screenAddress + rowOffset * 2, (width - (screenWidth - srcX)) * 2);
+        } else {
+            fastMemoryClear16ARM(fill, screenAddress + rowOffset * 2 + srcX * 2, width * 2);
+        }
+    }
+}
 
-extern s16* _soundMixerPlus;
-extern unk8 _unk3005E78;
+void sub_8757494(const s16* source, s32 x, unk32 unused, s32 width, unk16* destination, unk16 fill)
+{
+    s32 run;
+    s32 runLength;
+    s32 position;
+    s32 copyCount;
+
+    position = 0;
+    do {
+        run = *source++;
+        runLength = run < 0 ? -run : run;
+        if (position + runLength > x) {
+            break;
+        }
+        if (run >= 0) {
+            source += runLength;
+        }
+        position += runLength;
+    } while (1);
+    if (run >= 0) {
+        source += x - position;
+    }
+    runLength -= x - position;
+    while (width > 0) {
+        if (runLength < width) {
+            copyCount = runLength;
+        } else {
+            copyCount = width;
+        }
+        if (run >= 0) {
+            fastMemoryCopy16ARM(source, destination, copyCount * 2);
+        } else {
+            fastMemoryClear16ARM(fill, destination, copyCount * 2);
+        }
+        width -= copyCount;
+        destination += copyCount;
+        if (run >= 0) {
+            source += runLength;
+        }
+        run = *source++;
+        runLength = run < 0 ? -run : run;
+    }
+}
+
+void sub_8757574(const unk32* tiles, const unk16* source, Tile4bpp* destination, s32 count)
+{
+    const unk32* tile;
+    unk32* output;
+    unk32 value;
+    unk32 pixel;
+    unk32 descriptor;
+    unk32 row;
+
+    while (count--) {
+        descriptor = *source++;
+        tile = &tiles[(descriptor & 0x3FF) * 2];
+        value = *tile++;
+        if ((descriptor & 0x800) != 0) {
+            output = &(*destination)[7];
+        } else {
+            output = &(*destination)[0];
+        }
+        row = 7;
+        do {
+            if ((descriptor & 0x400) != 0) {
+                pixel = (value & 1) != 0 ? 0x10000000 : 0;
+                if ((value & 2) != 0) {
+                    pixel |= 0x01000000;
+                }
+                if ((value & 4) != 0) {
+                    pixel |= 0x00100000;
+                }
+                if ((value & 8) != 0) {
+                    pixel |= 0x00010000;
+                }
+                if ((value & 0x10) != 0) {
+                    pixel |= 0x00001000;
+                }
+                if ((value & 0x20) != 0) {
+                    pixel |= 0x00000100;
+                }
+                if ((value & 0x40) != 0) {
+                    pixel |= 0x00000010;
+                }
+                if ((value & 0x80) != 0) {
+                    pixel |= 1;
+                }
+            } else {
+                pixel = value & 1;
+                if ((value & 2) != 0) {
+                    pixel |= 0x10;
+                }
+                if ((value & 4) != 0) {
+                    pixel |= 0x100;
+                }
+                if ((value & 8) != 0) {
+                    pixel |= 0x1000;
+                }
+                if ((value & 0x10) != 0) {
+                    pixel |= 0x10000;
+                }
+                if ((value & 0x20) != 0) {
+                    pixel |= 0x100000;
+                }
+                if ((value & 0x40) != 0) {
+                    pixel |= 0x1000000;
+                }
+                if ((value & 0x80) != 0) {
+                    pixel |= 0x10000000;
+                }
+            }
+            if ((descriptor & 0x800) != 0) {
+                *output-- = pixel;
+            } else {
+                *output++ = pixel;
+            }
+            if (row == 4) {
+                value = *tile++;
+            } else {
+                value >>= 8;
+            }
+        } while (row--);
+        destination++;
+    }
+}
+
+// TODO: fakematch?
+void sub_87576D8(const unk32* rowTable, unk32 xArg, unk32 row, unk32 countArg,
+    Tile4bpp* destination, const unk32* tiles)
+{
+    const s16* source;
+    s32 position;
+    s32 x;
+    s32 count;
+    s32 value;
+    s32 runLength;
+    s32 size;
+
+    source = (const s16*)rowTable;
+    x = xArg;
+    count = countArg;
+    source = ((const TileMapRow*)((const unk8*)source + rowTable[row]))->data;
+    position = 0;
+    do {
+        value = *source++;
+        runLength = value < 0 ? -value : value;
+        if (position + runLength > x) {
+            break;
+        }
+        if (value >= 0) {
+            source += runLength;
+        }
+        position += runLength;
+    } while (1);
+    if (value >= 0) {
+        source += x - position;
+    }
+    runLength -= x - position;
+    while (count > 0) {
+        if (runLength < count) {
+            size = runLength;
+        } else {
+            size = count;
+        }
+        if (value >= 0) {
+            sub_8757574(tiles, (const unk16*)source, destination, size);
+        } else {
+            fastMemoryClear16ARM(0, destination, size * sizeof(Tile4bpp));
+        }
+        count -= size;
+        destination += size;
+        if (value >= 0) {
+            source += runLength;
+        }
+        value = *source++;
+        runLength = value < 0 ? -value : value;
+    }
+}
+
 extern const s16 Unk_8755F00[][16];
 extern const unk8 Unk_8756520[][8];
 
-void sub_87577B4(SoundChannel87577B4* channel, unk32 arg1, unk32 arg2)
+// TODO: fakematch?
+void sub_87577B4(SoundStructA* channel, unk32 arg1, unk32 arg2)
 {
-    SoundSample87577B4* sample;
-    s8* source;
+    SoundStructE* sample;
+    SoundStructE* next;
     s16* destination;
+    s8* source;
     unk32 phase;
     unk32 step;
     unk32 scaled;
@@ -430,27 +573,22 @@ void sub_87577B4(SoundChannel87577B4* channel, unk32 arg1, unk32 arg2)
     s16 orderIndex;
     s32 endDistance;
     unk32 index;
-    unk32 nextIndex;
     s32 max;
-    s32 min;
     s32 position;
     unk8 predictor;
     unk8 value;
     s32 segmentIndex;
-    s32 count;
 
-    scaled = arg2 * channel->var10;
+    scaled = (channel->var10 * arg2) >> 12;
     phase = channel->var0C;
     destination = _soundMixerPlus;
     source = channel->var04;
     sample = channel->var00;
     step = channel->var08;
-    scaled >>= 12;
-    endDistance = source + (arg1 >> 1) - (sample->data + sample->var04 + 0x10);
-    count = arg1;
-    if (sample->var00 != 0) {
+    endDistance = source + (arg1 >> 1) - &sample->data[sample->var04];
+    if (sample->var00 == 0) {
         if (endDistance > 0) {
-            count = arg1 - (endDistance << 1);
+            arg1 -= endDistance << 1;
         }
     }
 
@@ -458,83 +596,89 @@ void sub_87577B4(SoundChannel87577B4* channel, unk32 arg1, unk32 arg2)
     if (_unk3005E78 != 1) {
         if (sample->var00 != 0) {
             if (sample->var00 == 1) {
-                if (count != 0) {
-                    do {
-                        mixed = *source * scaled;
-                        mixed += *destination;
-                        *destination++ = mixed;
-                        phase += step << 4;
-                        source += step >> 28;
-                        count--;
-                    } while (count >= 0);
+                if (arg1 != 0) {
+                    __asm__ volatile("1:\tldrsb r0, [%1]\n"
+                                     "\tldrsh r1, [%3]\n"
+                                     "\tadds %0, %0, %4, lsl #4\n"
+                                     "\tadc %1, %1, %4, lsr #28\n"
+                                     "\tmla r1, r0, %5, r1\n"
+                                     "\tstrh r1, [%3], #2\n"
+                                     "\tsubs %2, %2, #1\n"
+                                     "\tbpl 1b"
+                        : "+r"(phase), "+r"(source)
+                        : "r"(arg1), "r"(destination), "r"(step), "r"(scaled)
+                        : "r0", "r1", "cc", "memory");
                 }
             }
         }
     } else {
         if (sample->var00 != 0) {
             if (sample->var00 == 1) {
-                if (count != 0) {
-                    do {
-                        *destination++ = *source * scaled;
-                        phase += step << 4;
-                        source += step >> 28;
-                        count--;
-                    } while (count >= 0);
+                if (arg1 != 0) {
+                    __asm__ volatile("1:\tldrsb r0, [%1]\n"
+                                     "\tadds %0, %0, %4, lsl #4\n"
+                                     "\tadc %1, %1, %4, lsr #28\n"
+                                     "\tmul r0, %5, r0\n"
+                                     "\tstrh r0, [%3], #2\n"
+                                     "\tsubs %2, %2, #1\n"
+                                     "\tbpl 1b"
+                        : "+r"(phase), "+r"(source)
+                        : "r"(arg1), "r"(destination), "r"(step), "r"(scaled)
+                        : "r0", "cc", "memory");
                 }
             }
         } else {
-            count >>= 1;
-            count--;
+            arg1 >>= 1;
             position = channel->var14;
             predictor = channel->var17;
-            max = 0x7FF;
-            min = 0x80000000;
-            min >>= 20;
-            if (count != -1) {
-                do {
-                    value = *source++;
-                    value ^= 0xEC;
-                    index = value >> 4;
-                    position += Unk_8755F00[predictor][index];
-                    if (position >= max) {
-                        position = max;
-                    }
-                    if (position <= -0x801) {
-                        position = min;
-                    }
-                    *destination++ = scaled * (position >> 3);
-                    nextIndex = Unk_8756520[predictor][index & 7];
-                    position += Unk_8755F00[nextIndex][value & 0xF];
-                    if (position >= max) {
-                        position = max;
-                    }
-                    if (position <= -0x801) {
-                        position = min;
-                    }
-                    *destination++ = scaled * (position >> 3);
-                    predictor = Unk_8756520[nextIndex][value & 7];
-                    if (endDistance >= 0 && count == 0) {
-                        if (channel->var1C != NULL) {
-                            orderIndex = channel->var24++;
-                            segmentIndex = channel->var20[orderIndex];
-                            if (segmentIndex == -1) {
-                                channel->var24 = 1;
-                                segmentIndex = channel->var20[0];
-                            }
-                            sample = channel->var1C[segmentIndex];
-                            count = 0;
-                            if (segmentIndex != -1) {
-                                count = endDistance;
-                                source = sample->data;
-                                channel->var00 = sample;
-                            }
-                            endDistance = -1;
-                            position = 0;
-                            predictor = 0;
+            while (--arg1 != (unk32)-1) {
+                max = 0x7FF;
+                value = *source++;
+                value ^= 0xEC;
+                index = value >> 4;
+                position += Unk_8755F00[predictor][index];
+                if (position > max) {
+                    position = max;
+                }
+                if (position < -0x800) {
+                    position = -0x800;
+                }
+                mixed = position >> 3;
+                mixed *= scaled;
+                predictor = Unk_8756520[predictor][index & 7];
+                position += Unk_8755F00[predictor][value & 0xF];
+                if (position > max) {
+                    position = max;
+                }
+                *destination++ = mixed;
+                if (position < -0x800) {
+                    position = -0x800;
+                }
+                mixed = position >> 3;
+                mixed *= scaled;
+                predictor = Unk_8756520[predictor][value & 7];
+                *destination++ = mixed;
+                if (endDistance >= 0 && arg1 == 0) {
+                    if (channel->var1C != 0) {
+                        orderIndex = channel->var24++;
+                        segmentIndex = channel->var20[orderIndex];
+                        if (segmentIndex == -1) {
+                            channel->var24 = 1;
+                            segmentIndex = channel->var20[0];
                         }
+                        next = channel->var1C[segmentIndex];
+                        if (segmentIndex == -1) {
+                            arg1 = 0;
+                        } else {
+                            arg1 = endDistance;
+                            source = next->data;
+                            channel->var00 = next;
+                        }
+                        endDistance = -1;
+                        position = 0;
+                        predictor = 0;
                     }
-                    count--;
-                } while (count != -1);
+                }
             }
             channel->var17 = predictor;
             channel->var14 = position;
@@ -544,86 +688,72 @@ void sub_87577B4(SoundChannel87577B4* channel, unk32 arg1, unk32 arg2)
     channel->var0C = phase;
     channel->var04 = source;
 }
-#endif
-INCLUDE_ASM("asm/dump/8756a00-iwram/87577b4-sub_87577b4.s");
 
-#if 0
-void sound_8757A64(void* destinationArg, s32 length, s32 offset)
+// TODO: fakematch?
+s32 sound_8757A64(unk8* destinationArg, s32 length, s32 offset)
 {
-    extern s16(*_soundMixerPlus)[];
-    extern unk8 _unk3005E78;
-    unk8* destination;
+    unk8* cursor;
     s16* source;
-    s16 sample16;
     s32 sample;
+    unk32 hasLength;
 
-    source = &(*_soundMixerPlus)[offset];
-    destination = destinationArg;
-    if (destination != NULL && length != 0) {
+    hasLength = length != 0;
+    source = _soundMixerPlus + offset;
+    cursor = destinationArg;
+    sample = 0;
+    sample = (s32)cursor;
+    if (cursor != NULL && hasLength) {
         if (_unk3005E78 != 0) {
             do {
-                sample16 = *source++;
-                sample = sample16 >> 4;
-                if (sample < -128) {
-                    sample = ~0x7F;
-                }
-                if (sample > 127) {
-                    sample = 127;
-                }
-                *destination++ = sample;
+                sample = *source++;
+                sample >>= 4;
+                sample = sample < -128 ? (unk32)-128 : sample;
+                sample = sample > 127 ? 127 : (s16)sample;
+                *cursor++ = sample;
                 length--;
             } while (length >= 0);
+            return sample;
         } else {
-            length--;
-            if (length == -1) {
-                return;
+            while (--length != -1) {
+                *cursor++ = 0;
             }
-            do {
-                length--;
-                *destination++ = _unk3005E78;
-            } while (length != -1);
         }
     }
+    return sample;
 }
-#endif
-INCLUDE_ASM("asm/dump/8756a00-iwram/8757a64-sound_8757a64.s");
-#if 0
-void fastMemoryClearARM(unk32 value, void* destinationArg, unk32 byteCount)
-{
-    extern const unk8 Str_87566A8[];
-    extern void (*off_807D96C)(const unk8*);
-    unk32* destination;
-    unk32 count;
 
-    destination = destinationArg;
-    count = byteCount;
-    if (count == 0) {
+extern void (*off_807D96C)(const char*, ...);
+extern const char Str_87566A8[];
+
+// TODO: fakematch?
+void fastMemoryClearARM(unk32 fill, void* destination, unk32 byteCount)
+{
+    if (byteCount == 0) {
         return;
     }
-    if (count & 3) {
+    if (byteCount & 3) {
         off_807D96C(Str_87566A8);
         return;
     }
-    count >>= 2;
-    if (count & 1) {
-        *destination++ = value;
-    }
-    if (count & 2) {
-        *destination++ = value;
-        *destination++ = value;
-    }
-    count >>= 2;
-    while (count != 0) {
-        *destination++ = value;
-        *destination++ = value;
-        *destination++ = value;
-        *destination++ = value;
-        count--;
-    }
+    byteCount /= sizeof(unk32);
+    __asm__ volatile("mov r0, %1\n"
+                     "mov r1, %1\n"
+                     "mov r2, %1\n"
+                     "tst %0, #1\n"
+                     "strne r0, [%2], #4\n"
+                     "tst %0, #2\n"
+                     "stmneia %2!, {r0, r1}\n"
+                     "movs %0, %0, lsr #2\n"
+                     "beq 2f\n"
+                     "1: stmia %2!, {r0-r2, %1}\n"
+                     "subs %0, %0, #1\n"
+                     "bne 1b\n"
+                     "2:"
+        : "+r"(byteCount), "+r"(fill), "+r"(destination)
+        :
+        : "r0", "r1", "r2", "cc", "memory");
 }
-#endif
-INCLUDE_ASM("asm/dump/8756a00-iwram/3006fac-fastmemorycleararm.s");
-extern void (*off_807D96C)(const char*, ...);
+
 extern const char Str_87566F8[];
 
 // TODO: fakematch?
@@ -657,6 +787,7 @@ void fastMemoryCopyARM(const void* source, void* destination, unk32 bytes)
 
 extern const char Str_8756748[];
 
+// TODO: fakematch?
 void fastMemoryClear16ARM(unk32 fill, void* destination, unk32 byteCount)
 {
     if (byteCount == 0) {
@@ -710,37 +841,26 @@ void sub_8757CD0(void)
     state->unk0++;
 }
 
-#if 0
-typedef struct ReceivedWordDraft8757D24 {
-    unk16 value;
-} ReceivedWordDraft8757D24;
-
 void sub_8757D24(void)
 {
-    MultiPlayerState* state;
-    ReceivedWordDraft8757D24* destination;
-    unk32 count;
-    unk16 serialStatus;
+    unk16* destination;
+    unk8 count;
     unk16 index;
-    s16 value;
-    extern void (*__sub_8757E4C)(void);
+    unk16 value;
 
-    state = _unk3005DC4;
-    serialStatus = *(vu16*)REG_SIOCNT;
-    count = state->unk3;
-    if ((serialStatus & 0x40) != 0) {
-        state->unk14 |= 0x80;
+    count = _unk3005DC4->unk3;
+    if ((*(vu16*)REG_SIOCNT & 0x40) != 0) {
+        _unk3005DC4->unk14 |= 0x80;
     }
-    destination = _unk3005DC4->unk34;
-    destination += _unk3005DC4->unk1;
+    destination = _unk3005DC4->unk34 + _unk3005DC4->unk1;
     index = 0;
     while (index < count) {
         value = ((vu16*)REG_SIOMULTI0)[index];
-        if (value == -551 && index != 0) {
+        if (value == 0xFDD9 && index != 0) {
             _unk3005DC4->unk14 |= 0x40;
         }
-        destination->value = value;
-        destination += (_unk3005DC4->unk18 & ~1) >> 1;
+        *destination = value;
+        destination += _unk3005DC4->unk18 >> 1;
         index++;
     }
     _unk3005DC4->unk1++;
@@ -749,36 +869,32 @@ void sub_8757D24(void)
         _unk3000DF0[6] = __sub_8757E4C;
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/8756a00-iwram/8757d24-sub_8757d24.s");
 
-#if 0
 void sub_8757E4C(void)
 {
-    unk8* destination;
+    unk16* destination;
     unk8 count;
-    s16 value;
+    unk16 value;
     unk16 index;
-    extern void (*__fastMemoryCopyARM)(const void*, void*, unk32);
 
     count = _unk3005DC4->unk3;
-    index = 0;
     *(vu16*)REG_TM3CNT_H = 0;
     *(vu16*)REG_IE &= ~0x40;
-    destination = _unk3005DC4->unk34 + _unk3005DC4->unk1 * 2;
+    destination = _unk3005DC4->unk34 + _unk3005DC4->unk1;
+    index = 0;
     while (index < count) {
-        value = ((const volatile s16*)REG_SIOMULTI0)[index];
-        if ((unk16)value == 0xFDD9 && index != 0) {
+        value = ((vu16*)REG_SIOMULTI0)[index];
+        if (value == 0xFDD9 && index != 0) {
             _unk3005DC4->unk14 |= 0x40;
         }
+        *destination = value;
+        destination += _unk3005DC4->unk18 >> 1;
         index++;
-        *(s16*)destination = value;
-        destination += _unk3005DC4->unk18 & ~1;
     }
     if ((_unk3005DC4->unk14 & 0x40) == 0) {
-        __fastMemoryCopyARM(_unk3005DC4->unk34, _unk3005DC4->unk38, count * _unk3005DC4->unk18);
+        __fastMemoryCopyARM(_unk3005DC4->unk34, _unk3005DC4->unk38, _unk3005DC4->unk18 * count);
     }
-    *(vu16*)REG_SIOMLT_SEND = -551;
+    *(vu16*)REG_SIOMLT_SEND = 0xFDD9;
     *(vu16*)REG_SIOCNT |= 0x80;
     if ((*(vu16*)REG_SIOCNT & 0x40) != 0) {
         _unk3005DC4->unk14 |= 0x80;
@@ -786,64 +902,58 @@ void sub_8757E4C(void)
     _unk3005DC4->unk1 = 0;
     _unk3005DC4->unk14 |= 0x200;
 }
-#endif
 
-INCLUDE_ASM("asm/dump/8756a00-iwram/8757e4c-sub_8757e4c.s");
-#if 0
 void sub_8757FCC(void)
 {
     unk8 special;
     unk16 index;
-    s16 packetHalf;
-    unk8 value;
-    unk8* destination;
-    s16 serial;
-    unk16* source;
-    extern void (*__fastMemoryCopyARM)(const void*, void*, unk32);
+    unk16 count;
+    unk16 packetHalf;
+    unk16* destination;
+    unk16 serial;
 
     packetHalf = _unk3005DC4->unk18 >> 1;
-    value = _unk3005DC4->unk0;
     special = 0;
+    count = _unk3005DC4->unk3;
     _unk3005DC4->unk14 |= 0x20;
-    if (value >= (unk16)packetHalf) {
-        _unk3005DC4->unk0 = special;
+    if (_unk3005DC4->unk0 >= packetHalf) {
+        _unk3005DC4->unk0 = 0;
     } else {
-        _unk3005DC4->unk0 = value + 1;
+        _unk3005DC4->unk0++;
     }
+    destination = _unk3005DC4->unk34 + _unk3005DC4->unk1;
     index = 0;
-    destination = _unk3005DC4->unk34;
-    destination += _unk3005DC4->unk1 * 2;
-    while (index < _unk3005DC4->unk3) {
+    while (index < count) {
         serial = ((vu16*)REG_SIOMULTI0)[index];
-        if (index == 0 && (unk16)serial == 0xFDD9) {
+        if (index == 0 && serial == 0xFDD9) {
             special = 1;
             break;
         }
-        *(unk16*)destination = serial;
+        *destination = serial;
+        destination += _unk3005DC4->unk18 >> 1;
         index++;
-        destination += _unk3005DC4->unk18 & ~1;
     }
-    if (_unk3005DC4->unk0 < (unk16)packetHalf) {
-        *(vu16*)REG_SIODATA8 = _unk3005DC4->unk3C[_unk3005DC4->unk0];
-    } else {
-        *(vu16*)REG_SIODATA8 = 0xFDD9;
-    }
+    *(vu16*)REG_SIOMLT_SEND
+        = _unk3005DC4->unk0 < packetHalf ? _unk3005DC4->unk3C[_unk3005DC4->unk0] : 0xFDD9;
     if (special == 0) {
         _unk3005DC4->unk1++;
-    } else {
+    }
+    if (special != 0) {
+        MultiPlayerState* state;
+        unk16* source;
+
         source = _unk3005DC4->unk3C;
-        if (_unk3005DC4->unk1 != (unk16)packetHalf) {
+        if (_unk3005DC4->unk1 != packetHalf) {
             _unk3005DC4->unk14 |= 0x40;
         }
-        _unk3005DC4->unk1 = 0;
-        _unk3005DC4->unk3C = _unk3005DC4->unk40;
-        _unk3005DC4->unk40 = source;
+        state = _unk3005DC4;
+        state->unk1 = 0;
+        state->unk3C = state->unk40;
+        state->unk40 = source;
         _unk3005DC4->unk0 = 0;
-        (*__fastMemoryCopyARM)(_unk3005DC4->unk34, _unk3005DC4->unk38, _unk3005DC4->unk3 * (packetHalf * 2));
+        __fastMemoryCopyARM(_unk3005DC4->unk34, _unk3005DC4->unk38, (packetHalf << 1) * count);
     }
     if ((*(vu16*)REG_SIOCNT & 0x40) != 0) {
         _unk3005DC4->unk14 |= 0x80;
     }
 }
-#endif
-INCLUDE_ASM("asm/dump/8756a00-iwram/8757fcc-sub_8757fcc.s");

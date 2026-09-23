@@ -1018,7 +1018,7 @@ struct TileMapHeader {
     unk8 filler15[3];
     u8 var18;
     u8 colorMode;
-    unk8 filler1A[2];
+    unk16 unk1A;
     u16 columnCount;
     u16 rowCount;
 };
@@ -1182,7 +1182,7 @@ typedef struct MultiPlayerState {
     void* unk28;
     void* unk2C;
     void* unk30;
-    void* unk34;
+    unk16* unk34;
     void* unk38;
     unk16* unk3C;
     void* unk40;

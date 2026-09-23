@@ -24,6 +24,8 @@ extern s32 _unk30000E8;
 extern s32 _unk30000EC;
 extern s32 _unk30000F0;
 extern unk32 _unk30000F4;
+extern s16* _soundMixerPlus;
+extern unk8 _unk3005E78;
 
 struct MenuCallbackRecord;
 extern struct MenuCallbackRecord* _unk3005DC0;
