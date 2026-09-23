@@ -109,18 +109,19 @@ typedef struct UnkMotion {
     s32 unk14;
 } UnkMotion;
 
-typedef struct FrontendFontData {
+typedef struct FontStyle {
     const SpriteSheet* unk0;
     const unk8* unk4;
     unk16 unk8;
     unk8 unkA;
-} FrontendFontData;
+} FontStyle;
 
 typedef struct FrontendSubobjectData {
     s16 unk0;
     s16 unk2;
-    unk8 pad4[4];
-    FrontendFontData* unk8;
+    unk16 unk4;
+    unk16 unk6;
+    const FontStyle* unk8;
     const unk8* unkC[5];
     unk16 unk20;
     unk8 pad22[2];
@@ -133,7 +134,7 @@ typedef struct FrontendMenuObjectData {
     s16 unk2;
     unk8 pad4[2];
     s16 unk6;
-    const FrontendFontData* unk8;
+    const FontStyle* unk8;
     const struct MenuItemDescriptor* unkC;
     unk16 unk10;
     unk16 unk12;

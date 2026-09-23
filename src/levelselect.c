@@ -15,6 +15,7 @@
 #include "ram.h"
 #include "sprite.h"
 #include "spritetext.h"
+#include "teletype.h"
 #include "tutorial.h"
 #include "unsorted.h"
 
@@ -24,7 +25,31 @@ extern const SpriteSheet SpriteSheet_823AA74;
 extern const unk8 Pal_823B2BC[];
 extern const SpriteSheet SpriteSheet_823B4BC;
 extern const unk8 Pal_823BD04[];
-extern const SpriteTextPlacement _8068710[];
+extern FrontendSubobjectData _806E690;
+extern FrontendSelectionPalette _806893C;
+
+FrontendSubobjectData _80685E0[] = {
+    { 0x100, 24, 0x100, 24, &FontStyle_806890C, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 160 },
+    { 0x100, 56, 0x100, 56, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 160 },
+    { 0x100, 72, 0x100, 72, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 160 },
+    { 0x100, 92, 0x100, 92, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 90 },
+    { 0x100, 106, 0x100, 106, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 90 },
+    { 0x100, 106, 0x100, 106, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 90 },
+};
+
+FrontendSubobject _80686E8 = { 8, { 0 }, &_806E690, 6, _80685E0, 0, NULL, &_806893C };
+
+SpriteTextPlacement _8068710[] = {
+    { 4, 0x1A, 0xEC, 0 },
+    { 0x58, 0x3C, 0x90, 0 },
+    { 0x58, 0x50, 0x90, 0 },
+    { 0x58, 0x50, 0x90, 0 },
+    { 0x58, 0x5C, 0x90, 0 },
+    { 0x58, 0x68, 0x90, 0 },
+};
+
+FrontendSubobjectData _8068770
+    = { 0x100, 112, 0, 112, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 240 };
 
 void sub_8041078(LevelSelectState* state)
 {

@@ -512,7 +512,7 @@ void sub_804A72C(void)
     _gameData->tutorial.count = 0;
 }
 
-unk32 unref_804A744(BackgroundAsset* arg0, unk8 arg1, unk8 arg2, FrontendFontData* arg3)
+unk32 unref_804A744(BackgroundAsset* arg0, unk8 arg1, unk8 arg2, FontStyle* arg3)
 {
     unk16* dest;
     unk16 value;

@@ -5,16 +5,7 @@
 #include "sprite.h"
 
 typedef struct TeletypeState TeletypeState;
-typedef struct FontStyle FontStyle;
 typedef void (*TeletypeCallback)(TeletypeState*, unk32);
-
-struct FontStyle {
-    const SpriteSheet* unk0;
-    const unk8* unk4;
-    unk8 pad8[2];
-    unk8 unkA;
-    unk8 padB;
-};
 
 struct TeletypeState {
     const unk8* unk0;
@@ -55,6 +46,7 @@ struct TeletypeState {
     SpriteTextBlock unkEC;
 };
 
+extern const FontStyle FontStyle_806890C;
 extern const FontStyle FontStyle_80688B8;
 
 void sub_8063AD8(TeletypeState*, unk32);

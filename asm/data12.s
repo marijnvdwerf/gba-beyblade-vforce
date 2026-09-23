@@ -2,100 +2,6 @@
 
     .section .rodata
 
-_80685E0:
-    .byte  0,  1, 24,  0,  0,  1, 24,  0
-    .4byte FontStyle_806890C
-    .4byte Str_86FCF20, Str_86FCF20, Str_86FCF20, Str_86FCF20, Str_86FCF20
-    .byte 160,   0,   0,   0,   0,   0,   0,   0
-    .byte   0,   0,   0,   0
-
-    .byte  0,  1, 56,  0,  0,  1, 56,  0
-    .4byte FontStyle_80688B8
-    .4byte Str_86FCF20, Str_86FCF20, Str_86FCF20, Str_86FCF20, Str_86FCF20
-    .byte 160,   0,   0,   0,   0,   0,   0,   0
-    .byte   0,   0,   0,   0
-
-    .byte  0,  1, 72,  0,  0,  1, 72,  0
-    .4byte FontStyle_80688B8
-    .4byte Str_86FCF20, Str_86FCF20, Str_86FCF20, Str_86FCF20, Str_86FCF20
-    .byte 160,   0,   0,   0,   0,   0,   0,   0
-    .byte   0,   0,   0,   0
-
-    .byte  0,  1, 92,  0,  0,  1, 92,  0
-    .4byte FontStyle_80688B8
-    .4byte Str_86FCF20, Str_86FCF20, Str_86FCF20, Str_86FCF20, Str_86FCF20
-    .byte 90,  0,  0,  0,  0,  0,  0,  0
-    .byte  0,  0,  0,  0
-
-    .byte   0,   1, 106,   0,   0,   1, 106,   0
-    .4byte FontStyle_80688B8
-    .4byte Str_86FCF20, Str_86FCF20, Str_86FCF20, Str_86FCF20, Str_86FCF20
-    .byte 90,  0,  0,  0,  0,  0,  0,  0
-    .byte  0,  0,  0,  0
-
-    .byte   0,   1, 106,   0,   0,   1, 106,   0
-    .4byte FontStyle_80688B8
-    .4byte Str_86FCF20, Str_86FCF20, Str_86FCF20, Str_86FCF20, Str_86FCF20
-    .byte 90,  0,  0,  0,  0,  0,  0,  0
-    .byte  0,  0,  0,  0
-
-
-_80686E8:
-    .4byte 8
-    .byte 0, 0, 0, 0, 0, 0, 0, 0
-    .byte 0, 0, 0, 0
-    .4byte _806E690
-    .4byte 6
-    .4byte _80685E0
-    .byte 0, 0, 0, 0, 0, 0, 0, 0
-    .4byte _806893C
-
-global _8068710
-_8068710:
-    .4byte 0x4
-    .4byte 0x1A
-    .4byte 0xEC
-    .2byte 0
-    .byte 0, 0
-
-    .4byte 0x58
-    .4byte 0x3C
-    .4byte 0x90
-    .2byte 0
-    .byte 0, 0
-
-    .4byte 0x58
-    .4byte 0x50
-    .4byte 0x90
-    .2byte 0
-    .byte 0, 0
-
-    .4byte 0x58
-    .4byte 0x50
-    .4byte 0x90
-    .2byte 0
-    .byte 0, 0
-
-    .4byte 0x58
-    .4byte 0x5C
-    .4byte 0x90
-    .2byte 0
-    .byte 0, 0
-
-    .4byte 0x58
-    .4byte 0x68
-    .4byte 0x90
-    .2byte 0
-    .byte 0, 0
-
-_8068770:
-    .byte   0,   1, 112,   0,   0,   0, 112,   0
-    .4byte FontStyle_80688B8
-    .4byte Str_86FCF20, Str_86FCF20, Str_86FCF20, Str_86FCF20, Str_86FCF20
-    .byte 240,   0,   0,   0,   0,   0,   0,   0
-    .byte   0,   0,   0,   0
-
-
 _806879C:
     .4byte 7
     .byte 0, 0, 0, 0, 0, 0, 0, 0
@@ -222,7 +128,7 @@ _8068934:
     .4byte 240
     .4byte 0
 
-_806893C:
+global _806893C
     .4byte 0
     .4byte 160
 
