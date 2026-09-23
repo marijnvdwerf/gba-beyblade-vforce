@@ -195,17 +195,13 @@ ActorSequenceEntry* sub_8058038(Actor* actor, unk16 sequence)
 {
     ActorSequenceEntry* entry;
     unk32 index;
-    unk16 count;
 
     entry = (ActorSequenceEntry*)((unk8*)actor->unk0 + actor->unk0->unk18);
-    index = 0;
-    count = actor->unk28;
-    while (index < count) {
+    for (index = 0; index < actor->unk28; index++) {
         if (entry->unk0 == sequence) {
             return entry;
         }
         entry = (ActorSequenceEntry*)((unk8*)entry + entry->size);
-        index++;
     }
     return NULL;
 }
