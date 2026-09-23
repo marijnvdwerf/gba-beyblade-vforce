@@ -11,9 +11,8 @@
 #include "ram.h"
 #include "spritetext.h"
 #include "system.h"
+#include "tutorial.h"
 #include "version.h"
-
-extern FrontendSubobjectData _806E664;
 
 FrontendSubobject _8067D3C = { 8, { 0 }, &_806E664, 0, NULL, 0, NULL, &_806892C };
 

@@ -32,7 +32,6 @@ extern const SpriteSheet SpriteSheet_8247028;
 extern const SpriteSheet SpriteSheet_824B01C;
 extern const SpriteSheet SpriteSheet_82B1A84;
 extern const unk8 LargeFontMeta[];
-extern const unk8* _806DFD0[][5];
 
 extern const SpriteSheet SpriteSheet_825125C;
 extern const SpriteSheet SpriteSheet_82516A8;

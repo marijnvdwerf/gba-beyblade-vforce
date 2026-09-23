@@ -15,9 +15,9 @@
 #include "ram.h"
 #include "sprite.h"
 #include "spritetext.h"
+#include "tutorial.h"
 #include "unsorted.h"
 
-extern const unk8* _806E8B0[];
 extern const SpriteSheet SpriteSheet_823C150;
 extern const SpriteSheet SpriteSheet_823C260;
 extern const SpriteSheet SpriteSheet_823C2C8;

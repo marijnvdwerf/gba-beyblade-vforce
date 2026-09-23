@@ -19,8 +19,6 @@
 #include "tutorial.h"
 #include "unsorted.h"
 
-extern const unk8* _806EA5C[];
-extern const unk8* _806EA70[];
 extern const SpriteSheet SpriteSheet_823AA74;
 extern const unk8 Pal_823B2BC[];
 extern const SpriteSheet SpriteSheet_823B4BC;

@@ -13,6 +13,7 @@
 #include "riderphysics.h"
 #include "sprite.h"
 #include "spritetext.h"
+#include "tutorial.h"
 #include "unsorted.h"
 
 extern const SpriteSheet SpriteSheet_82B1A84;
@@ -29,9 +30,6 @@ extern const SpriteSheet SpriteSheet_8227954;
 extern const SpriteSheet SpriteSheet_8227C24;
 extern const SpriteSheet SpriteSheet_821DFF0;
 extern const SpriteSheet SpriteSheet_8224868;
-extern const unk8* _806E724[][5];
-extern const unk8* _806E774[];
-extern const unk8* _806E8C4[];
 
 void sub_804F37C(LevelHudData*);
 void sub_804F794(LevelHudData*);

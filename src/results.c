@@ -18,13 +18,9 @@
 #include "riderstate.h"
 #include "sprite.h"
 #include "spritetext.h"
+#include "tutorial.h"
 #include "unsorted.h"
 
-extern const unk8* _806E788[];
-extern const unk8* _806E79C[];
-extern const MenuItemDescriptor _806E7B0[];
-extern const MenuItemDescriptor _806E810[];
-extern const MenuItemDescriptor _806E870[];
 extern const SpriteSheet SpriteSheet_82B1A84;
 extern const unk8 LargeFontMeta[];
 extern const SpriteSheet SpriteSheet_82B05EC;
