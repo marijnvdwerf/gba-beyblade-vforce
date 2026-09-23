@@ -2555,20 +2555,13 @@ GeometryLine* sub_805E7C0(LevelGeometryAddresses* addresses, unk8 type, unk16 id
 GeometryLine* sub_805E804(LevelGeometryAddresses* addresses, unk8 type, unk16 startIndex)
 {
     unk16 index;
-    s32 count;
     GeometryLine* line;
 
     line = addresses->unkC + startIndex;
-    index = startIndex;
-    if (index < addresses->unk0->lineCount) {
-        count = addresses->unk0->lineCount;
-        do {
-            if (line->unkF == type) {
-                return line;
-            }
-            line++;
-            index++;
-        } while (index < count);
+    for (index = startIndex; index < addresses->unk0->lineCount; line++, index++) {
+        if (line->unkF == type) {
+            return line;
+        }
     }
     return NULL;
 }
