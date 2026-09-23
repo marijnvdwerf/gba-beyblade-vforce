@@ -417,21 +417,19 @@ void sub_8054FE0(void)
     nodeCount = _gameData->environmentActors.effectCount;
     actorContainer = _gameData->environmentActors.actorContainer;
     node = _gameData->environmentActors.effect;
-    if (actorCount-- != 0) {
-        actor = actorContainer;
-        do {
-            object = GetStruct4(actor->unkB4.lineIndex);
-            if (actor->unkB8 != NULL) {
-                sub_8060A94(actor->unkB8);
-            }
-            zero = 0;
-            actor->unkB8 = zero;
-            if (object->sprite != NULL) {
-                sub_8060A94(object->sprite);
-            }
-            object->sprite = zero;
-            actor++;
-        } while (actorCount-- != 0);
+    actor = actorContainer;
+    while (actorCount-- != 0) {
+        object = GetStruct4(actor->unkB4.lineIndex);
+        if (actor->unkB8 != NULL) {
+            sub_8060A94(actor->unkB8);
+        }
+        zero = 0;
+        actor->unkB8 = zero;
+        if (object->sprite != NULL) {
+            sub_8060A94(object->sprite);
+        }
+        object->sprite = zero;
+        actor++;
     }
     while (nodeCount-- != 0) {
         if (node->sprite != NULL) {
