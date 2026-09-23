@@ -13,6 +13,10 @@
 #include "system.h"
 #include "version.h"
 
+extern FrontendSubobjectData _806E664;
+
+FrontendSubobject _8067D3C = { 8, { 0 }, &_806E664, 0, NULL, 0, NULL, &_806892C };
+
 CreditsEntry Credits[] = {
     { "Television Animation", 0, 24, 14 },
     { "Director", 0, 16, 14 },

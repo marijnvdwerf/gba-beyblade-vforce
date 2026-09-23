@@ -173,10 +173,12 @@ SECTIONS {
     ALIGN(4)
     {
 		asm/data10.s.o(.rodata);
-		asm/data12a.s.o(.rodata);
 		src/credits.c.o(.data);
 		src/levelselect.c.o(.data);
 		src/dialogue.c.o(.data);
+		src/transition.c.o(.data);
+		src/collection.c.o(.data);
+		src/menuobject.c.o(.data);
 		asm/data12.s.o(.rodata);
 		src/tutorial.c.o(.data);
 		asm/data12b.s.o(.rodata);

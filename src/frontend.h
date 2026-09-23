@@ -37,9 +37,7 @@ extern const FrontendObject _8069FC8[];
 extern const SpriteSheet SpriteSheet_82B05EC;
 extern const unk8 ShadowFontMeta[];
 extern const unk8* _806E650[];
-extern const FrontendMotionData _8068840;
-extern const s32 _8068868[];
-extern const FrontendMotionData _8068890;
+extern FrontendSelectionPalette _806892C;
 
 FrontendState* sub_8048FCC(void);
 void sub_8049018(void);

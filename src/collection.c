@@ -23,6 +23,8 @@ extern const SpriteSheet SpriteSheet_823C260;
 extern const SpriteSheet SpriteSheet_823C2C8;
 extern const SpriteSheet SpriteSheet_82B1A84;
 
+FrontendSubobject _8068818 = { 8, { 0 }, NULL, 0, NULL, 0, NULL, &_806892C };
+
 void collectionListFrontendHandler(FrontendState* state, unk32 command)
 {
     s32 i;

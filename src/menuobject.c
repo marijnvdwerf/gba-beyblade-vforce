@@ -10,6 +10,12 @@
 #include "sprite.h"
 #include "spritetext.h"
 
+FrontendMotionData _8068840 = { 0, 0x40, 0, 4, 0, 0x100, 0, 0x10, 0, 2, 0 };
+
+s32 _8068868[] = { 0x200, 0, 0, 0, 0x800, 0, 0, 0, 0, 0 };
+
+FrontendMotionData _8068890 = { 0, -0x60, 0, 0, -0x400, -0x400, -0x40, 0, 0, 0, 0 };
+
 void sub_8043370(FrontendState* object)
 {
     FrontendMenuObjectData* data;

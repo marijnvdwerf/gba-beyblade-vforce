@@ -8,7 +8,26 @@
 #include "ram.h"
 #include "system.h"
 
-extern const TransitionImage _80687F0[];
+extern TileMapHeader TileMap_82B8F2C;
+extern unk8 Pal_82BB948[];
+extern TileMapHeader TileMap_82BBB48;
+extern unk8 Pal_82BFA24[];
+extern TileMapHeader TileMap_82BFC24;
+extern unk8 Pal_82C2F40[];
+extern TileMapHeader TileMap_82C3140;
+extern unk8 Pal_82C65DC[];
+extern TileMapHeader TileMap_82C67DC;
+extern unk8 Pal_82C90F8[];
+
+FrontendSubobject _80687C8 = { 8, { 0 }, NULL, 0, NULL, 0, NULL, &_806892C };
+
+TransitionImage _80687F0[] = {
+    { &TileMap_82B8F2C, Pal_82BB948 },
+    { &TileMap_82BBB48, Pal_82BFA24 },
+    { &TileMap_82BFC24, Pal_82C2F40 },
+    { &TileMap_82C3140, Pal_82C65DC },
+    { &TileMap_82C67DC, Pal_82C90F8 },
+};
 
 void sub_804257C(FrontendState* state, unk32 command)
 {
