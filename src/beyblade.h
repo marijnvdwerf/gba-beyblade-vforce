@@ -4,7 +4,7 @@
 #include "common.h"
 #include "ram.h"
 
-void* getBeyBladeActorDataForIndex(s32);
+const SpriteSheet* getBeyBladeActorDataForIndex(s32);
 void emptyBeybladeActorData(void);
 void deallocBeybladeActorData(void);
 BeybladeActorData* getBeybladeActorData(unk32);

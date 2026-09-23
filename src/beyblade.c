@@ -38,16 +38,16 @@ void deallocBeybladeActorData(void)
     }
 }
 
-extern unk32* RiderSpriteSheets[];
+extern const SpriteSheet* RiderSpriteSheets[];
 
-void* getBeyBladeActorDataForIndex(s32 index)
+const SpriteSheet* getBeyBladeActorDataForIndex(s32 index)
 {
     GameData* gameData;
     BeybladeActorCache* cache;
     BeybladeActorData* record;
     const BeybladeData* data;
-    unk32* spriteSheet;
-    void* result;
+    const SpriteSheet* spriteSheet;
+    const SpriteSheet* result;
     s32 bit;
 
     gameData = _gameData;
@@ -63,13 +63,13 @@ void* getBeyBladeActorDataForIndex(s32 index)
         if (record->block != NULL) {
             result = record->block->address;
         } else {
-            record->block = slowAllocate(*spriteSheet >> 8);
+            record->block = slowAllocate(spriteSheet->unk0 >> 8);
             if (record->block == NULL) {
                 printf("Unable to the allocate memory for decompression buffer in "
                        "getBeyBladeActorDataForIndex()\n");
             }
             result = record->block->address;
-            LZ77UnCompWram(spriteSheet, result);
+            LZ77UnCompWram(spriteSheet, record->block->address);
             bit = 0;
             while (((gameData->actorData.unk1E0 >> bit) & 1) != 0 && bit <= 0xF) {
                 bit++;
@@ -87,66 +87,66 @@ void* getBeyBladeActorDataForIndex(s32 index)
     return result;
 }
 
-extern unk32 SpriteSheet_8360A78[];
-extern unk32 SpriteSheet_8363FDC[];
-extern unk32 SpriteSheet_8367A90[];
-extern unk32 SpriteSheet_836B3FC[];
-extern unk32 SpriteSheet_836FA10[];
-extern unk32 SpriteSheet_8373534[];
-extern unk32 SpriteSheet_837720C[];
-extern unk32 SpriteSheet_837B0EC[];
-extern unk32 SpriteSheet_837F810[];
-extern unk32 SpriteSheet_8383214[];
-extern unk32 SpriteSheet_83878B0[];
-extern unk32 SpriteSheet_838C1A4[];
-extern unk32 SpriteSheet_838FA2C[];
-extern unk32 SpriteSheet_83944C4[];
-extern unk32 SpriteSheet_8397C68[];
-extern unk32 SpriteSheet_839B844[];
-extern unk32 SpriteSheet_839F11C[];
-extern unk32 SpriteSheet_83A2EA8[];
-extern unk32 SpriteSheet_83A6978[];
-extern unk32 SpriteSheet_83AA92C[];
-extern unk32 SpriteSheet_83AE7F8[];
-extern unk32 SpriteSheet_83B1FA8[];
-extern unk32 SpriteSheet_83B5A28[];
-extern unk32 SpriteSheet_83B9808[];
-extern unk32 SpriteSheet_83BE294[];
-extern unk32 SpriteSheet_83C2C88[];
-extern unk32 SpriteSheet_83C6A78[];
-extern unk32 SpriteSheet_83CBDC0[];
-extern unk32 SpriteSheet_83CF998[];
-extern unk32 SpriteSheet_83D3898[];
-extern unk32 SpriteSheet_83D70FC[];
-extern unk32 SpriteSheet_83DB684[];
-extern unk32 SpriteSheet_83DF918[];
-extern unk32 SpriteSheet_83E34B0[];
-extern unk32 SpriteSheet_83E74CC[];
-extern unk32 SpriteSheet_83EAA9C[];
-extern unk32 SpriteSheet_83F0DFC[];
-extern unk32 SpriteSheet_83F91DC[];
-extern unk32 SpriteSheet_83FCE88[];
-extern unk32 SpriteSheet_84008A4[];
-extern unk32 SpriteSheet_8404590[];
-extern unk32 SpriteSheet_8408670[];
-extern unk32 SpriteSheet_840E0DC[];
-extern unk32 SpriteSheet_8411E2C[];
-extern unk32 SpriteSheet_8417254[];
-extern unk32 SpriteSheet_841AE9C[];
-extern unk32 SpriteSheet_841F928[];
-extern unk32 SpriteSheet_84247A0[];
-extern unk32 SpriteSheet_8429150[];
-extern unk32 SpriteSheet_842CD98[];
-extern unk32 SpriteSheet_8431474[];
-extern unk32 SpriteSheet_843508C[];
-extern unk32 SpriteSheet_8439290[];
-extern unk32 SpriteSheet_843E5A4[];
-extern unk32 SpriteSheet_8444750[];
-extern unk32 SpriteSheet_8449280[];
-extern unk32 SpriteSheet_844D140[];
-extern unk32 SpriteSheet_8451208[];
-extern unk32 SpriteSheet_84568FC[];
-extern unk32 SpriteSheet_845B08C[];
+extern const SpriteSheet SpriteSheet_8360A78;
+extern const SpriteSheet SpriteSheet_8363FDC;
+extern const SpriteSheet SpriteSheet_8367A90;
+extern const SpriteSheet SpriteSheet_836B3FC;
+extern const SpriteSheet SpriteSheet_836FA10;
+extern const SpriteSheet SpriteSheet_8373534;
+extern const SpriteSheet SpriteSheet_837720C;
+extern const SpriteSheet SpriteSheet_837B0EC;
+extern const SpriteSheet SpriteSheet_837F810;
+extern const SpriteSheet SpriteSheet_8383214;
+extern const SpriteSheet SpriteSheet_83878B0;
+extern const SpriteSheet SpriteSheet_838C1A4;
+extern const SpriteSheet SpriteSheet_838FA2C;
+extern const SpriteSheet SpriteSheet_83944C4;
+extern const SpriteSheet SpriteSheet_8397C68;
+extern const SpriteSheet SpriteSheet_839B844;
+extern const SpriteSheet SpriteSheet_839F11C;
+extern const SpriteSheet SpriteSheet_83A2EA8;
+extern const SpriteSheet SpriteSheet_83A6978;
+extern const SpriteSheet SpriteSheet_83AA92C;
+extern const SpriteSheet SpriteSheet_83AE7F8;
+extern const SpriteSheet SpriteSheet_83B1FA8;
+extern const SpriteSheet SpriteSheet_83B5A28;
+extern const SpriteSheet SpriteSheet_83B9808;
+extern const SpriteSheet SpriteSheet_83BE294;
+extern const SpriteSheet SpriteSheet_83C2C88;
+extern const SpriteSheet SpriteSheet_83C6A78;
+extern const SpriteSheet SpriteSheet_83CBDC0;
+extern const SpriteSheet SpriteSheet_83CF998;
+extern const SpriteSheet SpriteSheet_83D3898;
+extern const SpriteSheet SpriteSheet_83D70FC;
+extern const SpriteSheet SpriteSheet_83DB684;
+extern const SpriteSheet SpriteSheet_83DF918;
+extern const SpriteSheet SpriteSheet_83E34B0;
+extern const SpriteSheet SpriteSheet_83E74CC;
+extern const SpriteSheet SpriteSheet_83EAA9C;
+extern const SpriteSheet SpriteSheet_83F0DFC;
+extern const SpriteSheet SpriteSheet_83F91DC;
+extern const SpriteSheet SpriteSheet_83FCE88;
+extern const SpriteSheet SpriteSheet_84008A4;
+extern const SpriteSheet SpriteSheet_8404590;
+extern const SpriteSheet SpriteSheet_8408670;
+extern const SpriteSheet SpriteSheet_840E0DC;
+extern const SpriteSheet SpriteSheet_8411E2C;
+extern const SpriteSheet SpriteSheet_8417254;
+extern const SpriteSheet SpriteSheet_841AE9C;
+extern const SpriteSheet SpriteSheet_841F928;
+extern const SpriteSheet SpriteSheet_84247A0;
+extern const SpriteSheet SpriteSheet_8429150;
+extern const SpriteSheet SpriteSheet_842CD98;
+extern const SpriteSheet SpriteSheet_8431474;
+extern const SpriteSheet SpriteSheet_843508C;
+extern const SpriteSheet SpriteSheet_8439290;
+extern const SpriteSheet SpriteSheet_843E5A4;
+extern const SpriteSheet SpriteSheet_8444750;
+extern const SpriteSheet SpriteSheet_8449280;
+extern const SpriteSheet SpriteSheet_844D140;
+extern const SpriteSheet SpriteSheet_8451208;
+extern const SpriteSheet SpriteSheet_84568FC;
+extern const SpriteSheet SpriteSheet_845B08C;
 extern const unk8 Pal_845EFA4[];
 extern const unk8 Pal_845F1A4[];
 extern const unk8 Pal_845F3A4[];
@@ -328,67 +328,67 @@ extern const SpriteSheet SpriteSheet_83438F0;
 extern const unk8 Pal_835A27C[];
 extern const SpriteSheet SpriteSheet_8343E80;
 
-unk32* RiderSpriteSheets[] = {
-    SpriteSheet_8360A78,
-    SpriteSheet_8363FDC,
-    SpriteSheet_8367A90,
-    SpriteSheet_836B3FC,
-    SpriteSheet_836FA10,
-    SpriteSheet_8373534,
-    SpriteSheet_837720C,
-    SpriteSheet_837B0EC,
-    SpriteSheet_837F810,
-    SpriteSheet_8383214,
-    SpriteSheet_83878B0,
-    SpriteSheet_838C1A4,
-    SpriteSheet_838FA2C,
-    SpriteSheet_83944C4,
-    SpriteSheet_8397C68,
-    SpriteSheet_839B844,
-    SpriteSheet_839F11C,
-    SpriteSheet_83A2EA8,
-    SpriteSheet_83A6978,
-    SpriteSheet_83AA92C,
-    SpriteSheet_83AE7F8,
-    SpriteSheet_83B1FA8,
-    SpriteSheet_83B5A28,
-    SpriteSheet_83B9808,
-    SpriteSheet_83BE294,
-    SpriteSheet_83C2C88,
-    SpriteSheet_83C6A78,
-    SpriteSheet_83CBDC0,
-    SpriteSheet_83CF998,
-    SpriteSheet_83D3898,
-    SpriteSheet_83D70FC,
-    SpriteSheet_83DB684,
-    SpriteSheet_83DF918,
-    SpriteSheet_83E34B0,
-    SpriteSheet_83E74CC,
-    SpriteSheet_83EAA9C,
-    SpriteSheet_83F0DFC,
-    SpriteSheet_83F91DC,
-    SpriteSheet_83FCE88,
-    SpriteSheet_84008A4,
-    SpriteSheet_8404590,
-    SpriteSheet_8408670,
-    SpriteSheet_840E0DC,
-    SpriteSheet_8411E2C,
-    SpriteSheet_8417254,
-    SpriteSheet_841AE9C,
-    SpriteSheet_841F928,
-    SpriteSheet_84247A0,
-    SpriteSheet_8429150,
-    SpriteSheet_842CD98,
-    SpriteSheet_8431474,
-    SpriteSheet_843508C,
-    SpriteSheet_8439290,
-    SpriteSheet_843E5A4,
-    SpriteSheet_8444750,
-    SpriteSheet_8449280,
-    SpriteSheet_844D140,
-    SpriteSheet_8451208,
-    SpriteSheet_84568FC,
-    SpriteSheet_845B08C,
+const SpriteSheet* RiderSpriteSheets[] = {
+    &SpriteSheet_8360A78,
+    &SpriteSheet_8363FDC,
+    &SpriteSheet_8367A90,
+    &SpriteSheet_836B3FC,
+    &SpriteSheet_836FA10,
+    &SpriteSheet_8373534,
+    &SpriteSheet_837720C,
+    &SpriteSheet_837B0EC,
+    &SpriteSheet_837F810,
+    &SpriteSheet_8383214,
+    &SpriteSheet_83878B0,
+    &SpriteSheet_838C1A4,
+    &SpriteSheet_838FA2C,
+    &SpriteSheet_83944C4,
+    &SpriteSheet_8397C68,
+    &SpriteSheet_839B844,
+    &SpriteSheet_839F11C,
+    &SpriteSheet_83A2EA8,
+    &SpriteSheet_83A6978,
+    &SpriteSheet_83AA92C,
+    &SpriteSheet_83AE7F8,
+    &SpriteSheet_83B1FA8,
+    &SpriteSheet_83B5A28,
+    &SpriteSheet_83B9808,
+    &SpriteSheet_83BE294,
+    &SpriteSheet_83C2C88,
+    &SpriteSheet_83C6A78,
+    &SpriteSheet_83CBDC0,
+    &SpriteSheet_83CF998,
+    &SpriteSheet_83D3898,
+    &SpriteSheet_83D70FC,
+    &SpriteSheet_83DB684,
+    &SpriteSheet_83DF918,
+    &SpriteSheet_83E34B0,
+    &SpriteSheet_83E74CC,
+    &SpriteSheet_83EAA9C,
+    &SpriteSheet_83F0DFC,
+    &SpriteSheet_83F91DC,
+    &SpriteSheet_83FCE88,
+    &SpriteSheet_84008A4,
+    &SpriteSheet_8404590,
+    &SpriteSheet_8408670,
+    &SpriteSheet_840E0DC,
+    &SpriteSheet_8411E2C,
+    &SpriteSheet_8417254,
+    &SpriteSheet_841AE9C,
+    &SpriteSheet_841F928,
+    &SpriteSheet_84247A0,
+    &SpriteSheet_8429150,
+    &SpriteSheet_842CD98,
+    &SpriteSheet_8431474,
+    &SpriteSheet_843508C,
+    &SpriteSheet_8439290,
+    &SpriteSheet_843E5A4,
+    &SpriteSheet_8444750,
+    &SpriteSheet_8449280,
+    &SpriteSheet_844D140,
+    &SpriteSheet_8451208,
+    &SpriteSheet_84568FC,
+    &SpriteSheet_845B08C,
 };
 
 const unk8* RiderPalettes[] = {
