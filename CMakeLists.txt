@@ -218,6 +218,7 @@ add_executable(rom
     src/hud.c
     src/iconmenu.c
     src/irq.c
+    src/items.c
     src/keystate.c
     src/language.c
     src/layer.c

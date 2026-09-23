@@ -2,13 +2,13 @@
 
 #include <agb/memory_map.h>
 
-#include "beyblade.h"
 #include "debug.h"
 #include "display.h"
 #include "effects.h"
 #include "frontend.h"
 #include "gamestate.h"
 #include "include_asm.h"
+#include "items.h"
 #include "language.h"
 #include "levelselect.h"
 #include "ram.h"

@@ -2,11 +2,11 @@
 
 #include <agb/types.h>
 
-#include "beyblade.h"
 #include "frontend.h"
 #include "gameinit.h"
 #include "gameloop.h"
 #include "gamestate.h"
+#include "items.h"
 #include "keystate.h"
 #include "menu.h"
 #include "menuobject.h"

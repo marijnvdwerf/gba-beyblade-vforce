@@ -122,6 +122,7 @@ SECTIONS {
         src/effects.c.o(.text);
         src/collision.c.o(.text);
         src/collectable.c.o(.text);
+        src/items.c.o(.text);
         src/beyblade.c.o(.text);
         src/battery.c.o(.text);
         src/ai.c.o(.text);

@@ -2,11 +2,11 @@
 
 #include <agb/memory_map.h>
 
-#include "beyblade.h"
 #include "debug.h"
 #include "effects.h"
 #include "frontend.h"
 #include "include_asm.h"
+#include "items.h"
 #include "keystate.h"
 #include "layer.h"
 #include "memory.h"

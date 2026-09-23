@@ -1,7 +1,7 @@
-#include "beyblade.h"
 #include "gamestate.h"
 #include "geometry.h"
 #include "include_asm.h"
+#include "items.h"
 #include "levelhud.h"
 #include "ram.h"
 #include "unsorted.h"

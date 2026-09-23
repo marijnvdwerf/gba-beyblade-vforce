@@ -3,6 +3,7 @@
 #include "battery.h"
 #include "beyblade.h"
 #include "include_asm.h"
+#include "items.h"
 #include "music.h"
 #include "ram.h"
 #include "sound.h"

@@ -8,6 +8,7 @@
 #include "collision.h"
 #include "geometry.h"
 #include "include_asm.h"
+#include "items.h"
 #include "levelhud.h"
 #include "memory.h"
 #include "particle.h"

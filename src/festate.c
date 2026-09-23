@@ -10,6 +10,7 @@
 #include "gamestate.h"
 #include "iconmenu.h"
 #include "include_asm.h"
+#include "items.h"
 #include "keystate.h"
 #include "language.h"
 #include "layer.h"

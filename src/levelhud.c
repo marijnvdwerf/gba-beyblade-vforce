@@ -1,8 +1,8 @@
 #include "levelhud.h"
 
-#include "beyblade.h"
 #include "gamestate.h"
 #include "include_asm.h"
+#include "items.h"
 #include "language.h"
 #include "motion.h"
 #include "ram.h"
