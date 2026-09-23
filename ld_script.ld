@@ -176,6 +176,8 @@ SECTIONS {
 		asm/data12a.s.o(.rodata);
 		src/credits.c.o(.data);
 		asm/data12.s.o(.rodata);
+		src/tutorial.c.o(.data);
+		asm/data12b.s.o(.rodata);
 		asm/data11.s.o(.rodata);
 		asm/audio1.s.o(.rodata);
 		asm/data9.s.o(.rodata);
@@ -253,7 +255,7 @@ SECTIONS {
 		src/menuobject.c.o(.rodata);
 		src/strings_86fd2e0.c.o(.rodata);
 		src/tutorial.c.o(.rodata);
-		src/strings_8723428.c.o(.rodata);
+		src/strings_87254d4.c.o(.rodata);
 		src/trail.c.o(.rodata);
 		src/projectile.c.o(.rodata);
 		src/particle.c.o(.rodata);

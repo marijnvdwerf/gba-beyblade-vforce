@@ -65,6 +65,7 @@ add_executable(rom
     asm/data11.s
     asm/data12.s
     asm/data12a.s
+    asm/data12b.s
     asm/data3.s
     asm/data6.s
     asm/data7.s
@@ -258,7 +259,7 @@ add_executable(rom
     src/strings_86fcf20.c
     src/strings_86fcf98.c
     src/strings_86fd2e0.c
-    src/strings_8723428.c
+    src/strings_87254d4.c
     src/strings_8727048.c
     src/strings_87270f8.c
     src/strings_87294ac.c
