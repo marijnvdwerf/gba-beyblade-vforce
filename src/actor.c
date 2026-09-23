@@ -769,12 +769,10 @@ void sub_8058838(Actor* actor)
 
     count = actor->unk74;
     if (count != -1) {
-        index = 0;
-        while (index < count) {
+        for (index = 0; index < count; index++) {
             entry = &actor->unk78[index];
             if (entry->unk8 != NULL) {
                 if (entry->unk0 == 0) {
-                    index++;
                     continue;
                 }
                 if (entry->unk4 <= 0) {
@@ -792,7 +790,6 @@ void sub_8058838(Actor* actor)
                     entry->unk0 = 0;
                 }
             }
-            index++;
         }
     }
 }
