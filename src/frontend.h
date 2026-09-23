@@ -20,7 +20,6 @@ extern const FrontendObject _8069FC8[];
 extern const SpriteSheet SpriteSheet_82B05EC;
 extern const unk8 ShadowFontMeta[];
 extern const unk8* _806E650[];
-extern FrontendSelectionPalette _806892C;
 extern FrontendSelectionPalette _8068924;
 extern FrontendSelectionPalette _806892C;
 extern FrontendSelectionPalette _8068934;
