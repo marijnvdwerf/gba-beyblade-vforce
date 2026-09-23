@@ -218,9 +218,9 @@ void sub_8063454(Palette* palette, unk16* targetPalette)
 void sub_8063544(
     Palette* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8)
 {
-    s32 intensity;
-    s32 step;
     s32 row;
+    s32 step;
+    s32 intensity;
     s32 col;
     s32 red;
     s32 green;
@@ -231,9 +231,9 @@ void sub_8063544(
     unk16* destination;
 
     step = (arg1 << 0xA >> 8) / arg0->unk8;
-    row = 0;
+    intensity = 0;
     destination = arg0->unkC.half;
-    for (intensity = 0; intensity < arg0->unk8; intensity++) {
+    for (row = 0; row < arg0->unk8; row++) {
         source = arg0->source + arg0->unk4;
         for (col = 0; col < arg0->unk6; col++) {
             color = *source;
@@ -245,13 +245,13 @@ void sub_8063544(
                 average = 0x1F;
             }
             if (average < arg2) {
-                red += ((arg3 - red) * row) >> 0xA;
-                green += ((arg4 - green) * row) >> 0xA;
-                blue += ((arg5 - blue) * row) >> 0xA;
+                red += ((arg3 - red) * intensity) >> 0xA;
+                green += ((arg4 - green) * intensity) >> 0xA;
+                blue += ((arg5 - blue) * intensity) >> 0xA;
             } else {
-                red += ((arg6 - red) * row) >> 0xA;
-                green += ((arg7 - green) * row) >> 0xA;
-                blue += ((arg8 - blue) * row) >> 0xA;
+                red += ((arg6 - red) * intensity) >> 0xA;
+                green += ((arg7 - green) * intensity) >> 0xA;
+                blue += ((arg8 - blue) * intensity) >> 0xA;
             }
             if (red > 0x1F) {
                 red = 0x1F;
@@ -266,7 +266,7 @@ void sub_8063544(
             destination++;
             source++;
         }
-        row += step;
+        intensity += step;
     }
 }
 
@@ -316,7 +316,7 @@ void sub_8063704(Palette* arg0, s32 arg1)
 {
     s16 height;
     s32 step;
-    s32 row;
+    s32 intensity;
     s32 numerator;
     s32 col;
     s32 red;
@@ -325,15 +325,15 @@ void sub_8063704(Palette* arg0, s32 arg1)
     u16 color;
     u16* source;
     unk16* destination;
-    s32 intensity;
+    s32 row;
 
     numerator = arg1 << 0xA >> 8;
     height = arg0->unk8;
     step = numerator / height;
-    intensity = 0;
     row = 0;
+    intensity = 0;
     destination = arg0->unkC.half;
-    if (intensity < height) {
+    if (row < height) {
         do {
             source = arg0->source + arg0->unk4;
             for (col = 0; col < arg0->unk6; col++) {
@@ -341,9 +341,9 @@ void sub_8063704(Palette* arg0, s32 arg1)
                 red = color & 0x1F;
                 green = (color & 0x3E0) >> 5;
                 blue = (color & 0x7C00) >> 0xA;
-                red += (((row * red) >> 0xA) * red) >> 5;
-                green += (((row * green) >> 0xA) * green) >> 5;
-                blue += (((row * blue) >> 0xA) * blue) >> 5;
+                red += (((intensity * red) >> 0xA) * red) >> 5;
+                green += (((intensity * green) >> 0xA) * green) >> 5;
+                blue += (((intensity * blue) >> 0xA) * blue) >> 5;
                 if (red > 0x1F) {
                     red = 0x1F;
                 }
@@ -357,9 +357,9 @@ void sub_8063704(Palette* arg0, s32 arg1)
                 destination++;
                 source++;
             }
-            row += step;
-            intensity++;
-        } while (intensity < arg0->unk8);
+            intensity += step;
+            row++;
+        } while (row < arg0->unk8);
     }
 }
 
