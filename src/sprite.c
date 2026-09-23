@@ -653,13 +653,11 @@ SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 size, u16 var22)
             _spritesFree -= size;
             block->count += size;
             cur->var22 = var22;
-            size--;
-            while (size != 0) {
+            while (--size != 0) {
                 cur = cur->next;
                 cur->var22 = var22;
                 cur->prev = prev;
                 prev = cur;
-                size--;
             }
             _spritesLeft = cur->next;
             if (last->next != NULL) {
