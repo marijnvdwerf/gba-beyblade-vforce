@@ -20,7 +20,8 @@
 #include "spritetext.h"
 #include "unsorted.h"
 
-extern const unk8* _806E724[];
+extern const unk8* _806E788[];
+extern const unk8* _806E79C[];
 extern const MenuItemDescriptor _806E7B0[];
 extern const MenuItemDescriptor _806E810[];
 extern const MenuItemDescriptor _806E870[];
@@ -100,10 +101,10 @@ void sub_8052B24(void)
     _gameData->unk8A0 = 0;
     allocFont(&font, &SpriteSheet_82B1A84, LargeFontMeta, -0xF0, 0, 0xF0, 2);
     if (_gameData->unk1640 != 0) {
-        table = &_806E724[0x1E];
+        table = _806E79C;
         sub_8061660(&font, table[getLanguage()], 0xE);
     } else {
-        table = &_806E724[0x19];
+        table = _806E788;
         sub_8061660(&font, table[getLanguage()], 0xE);
     }
 

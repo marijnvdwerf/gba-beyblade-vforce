@@ -1,10 +1,10 @@
 #include "hud.h"
 
-#include "items.h"
 #include "effects.h"
 #include "gameinit.h"
 #include "gamestate.h"
 #include "include_asm.h"
+#include "items.h"
 #include "language.h"
 #include "levelhud.h"
 #include "motion.h"
@@ -29,7 +29,8 @@ extern const SpriteSheet SpriteSheet_8227954;
 extern const SpriteSheet SpriteSheet_8227C24;
 extern const SpriteSheet SpriteSheet_821DFF0;
 extern const SpriteSheet SpriteSheet_8224868;
-extern const unk8* _806E724[];
+extern const unk8* _806E724[][5];
+extern const unk8* _806E774[];
 extern const unk8* _806E8C4[];
 
 void sub_804F37C(LevelHudData*);
@@ -637,7 +638,7 @@ void sub_804FC00(unk32 arg0)
     sub_804F84C(0);
     sub_804FD64();
     state->levelHud.flags |= 2;
-    table = _806E724;
+    table = _806E724[0];
     sub_8061660(hud, table[arg0 * 5 + getLanguage()], 0xD);
     motion = &state->levelHud.motion0;
     newMotionGroup(motion, &state->levelHud.text0.unk14, 2);
@@ -659,7 +660,7 @@ void getItem(unk32 item)
     getLevelDescription2();
     sub_804FD64();
     state->levelHud.flags |= 0x22;
-    table = &_806E724[0x14];
+    table = _806E774;
     sub_8061660(text0, table[getLanguage()], 0xD);
     sub_8061660(&state->levelHud.text1, sub_8057048(item), 0xC);
     motion = &state->levelHud.motion0;

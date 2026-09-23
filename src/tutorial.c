@@ -9,13 +9,19 @@
 #include "include_asm.h"
 #include "keystate.h"
 #include "layer.h"
+#include "menu.h"
 #include "music.h"
 #include "sprite.h"
 #include "spritetext.h"
+#include "teletype.h"
 #include "text.h"
 #include "unsorted.h"
 
 extern const unk8* const* _806A77C[];
+extern const SpriteSheet SpriteSheet_8282D3C;
+extern const SpriteSheet SpriteSheet_82875D4;
+extern FrontendMotionData _8068954;
+extern FrontendMotionData _806897C;
 
 typedef struct BackgroundAsset {
     BGLayer layer;
@@ -377,6 +383,386 @@ TutorialPage TutorialPages[] = {
                 "PAGE 3 TEXT GOES HERE" },
         },
     },
+};
+
+FrontendSubobjectData _806D9B8 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Select Language", "Seleccionar idioma", "Sprache auswählen", "Choix de la langue",
+        "Scegli la lingua" },
+    240, { 0 }, &_8068954, &_806897C };
+
+FrontendMenuItemData SubMenu_134666724[] = {
+    { &SpriteSheet_8282D3C, { "english", "english", "english", "english", "english" }, 0x2000,
+        0x2000, 0x100, 0x136, 0, 5 },
+    { &SpriteSheet_8282D3C, { "español", "español", "español", "español", "español" }, 0x2000,
+        0x2000, 0x100, 0x136, 2, 5 },
+    { &SpriteSheet_8282D3C, { "deutsch", "deutsch", "deutsch", "deutsch", "deutsch" }, 0x2000,
+        0x2000, 0x100, 0x136, 4, 5 },
+    { &SpriteSheet_8282D3C, { "français", "français", "français", "français", "français" }, 0x2000,
+        0x2000, 0x100, 0x136, 1, 5 },
+    { &SpriteSheet_8282D3C, { "italiano", "italiano", "italiano", "italiano", "italiano" }, 0x2000,
+        0x2000, 0x100, 0x136, 3, 5 },
+};
+
+FrontendSubobjectData _806DAD4 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Continue?", "¿Continuar?", "Fortfahren?", "Continuer?", "Vuoi continuare?" }, 240, { 0 },
+    &_8068954, &_806897C };
+
+FrontendMenuItemData SubMenu_134667008[] = {
+    { &SpriteSheet_82875D4, { "Yes", "sí", "Ja", "Oui", "sì" }, 0x2000, 0x2000, 0x100, 0x136, 9,
+        0x20 },
+    { &SpriteSheet_82875D4, { "No", "No", "Nein", "Non", "No" }, 0x2000, 0x2000, 0x100, 0x136, 0xA,
+        0x21 },
+};
+
+FrontendSubobjectData _806DB60 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Congratulations", "Enhorabuena", "Herzlichen Glückwunsch", "Félicitations",
+        "Congratulazioni" },
+    240, { 0 }, &_8068954, &_806897C };
+
+const unk8* _806DB8C[][5] = {
+    { "Result ", "Resultados ", "Ergebnisse ", "Résultats  ", "Risultati " },
+    { "Congratulations! You're the winner.", "¡Tú ganas!", "Du hast gewonnen!", "Tu as gagné !",
+        "Hai vinto!" },
+    { "You lost! Try again!", "¡Tú pierdes!", "Du hast verloren!", "Tu as perdu !", "Hai perso!" },
+    { "It's a draw!", "¡Es un empate!", "Unentschieden!", "Egalité !", "È un pareggio!" },
+};
+
+FrontendSubobjectData _806DBDC = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "You Lose!", "¡Tú pierdes!", "Du hast verloren!", "Tu as perdu!", "Hai perso!" }, 240, { 0 },
+    &_8068954, &_806897C };
+
+FrontendSubobjectData _806DC08 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Draw", "Empate", "Unentschieden", "Egalité", "Pareggio" }, 240, { 0 }, &_8068954,
+    &_806897C };
+
+FrontendSubobjectData _806DC34 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Continue?", "¿Continuar?", "Fortfahren?", "Continuer?", "Vuoi continuare?" }, 240, { 0 },
+    &_8068954, &_806897C };
+
+FrontendMenuItemData SubMenu_134667360[] = {
+    { &SpriteSheet_82875D4, { "Yes", "sí", "Ja", "Oui", "sì" }, 0x2000, 0x2000, 0x100, 0x136, 9,
+        0x20 },
+    { &SpriteSheet_82875D4, { "No", "No", "Nein", "Non", "No" }, 0x2000, 0x2000, 0x100, 0x136, 0xA,
+        0x21 },
+    { &SpriteSheet_82875D4,
+        { "BeyCollection", "BeyColección", "BeySammlung", "BeyCollection", "RACCOLTABEY" }, 0x2000,
+        0x2000, 0x100, 0x136, 1, 0x18 },
+    { &SpriteSheet_82875D4,
+        { "Save", "Guardar partida", "Spiel speichern", "Sauvegarder", "Salva partita" }, 0x2000,
+        0x2000, 0x100, 0x136, 0xD, 0x24 },
+};
+
+static FrontendMotionData _806DD20 = { 0, 0x40, 0, -4, 0, 0x500, 0, -0x10, 0x6C00, 2, 0x64 };
+
+static FrontendMotionData _806DD48 = { 0, 0x80, 0, 0x20 };
+
+FrontendSubobjectData _806DD70 = { 0, -32, 0, 8, &FontStyle_8068900,
+    { "PRESS START", "PULSA START", "START DRÜCKEN", "APPUIE SUR START", "PREMI START" }, 240,
+    { 0 }, &_806DD20, &_806DD48 };
+
+FrontendSubobjectData _806DD9C = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Main", "Menú principal", "Hauptmenü", "Menu principal", "Menu principale" }, 240, { 0 },
+    &_8068954, &_806897C };
+
+FrontendMenuItemData SubMenu_134667720[] = {
+    { &SpriteSheet_82875D4,
+        { "VForce Adventure", "VForce Aventura", "VForce Abenteuer", "VForce Aventure",
+            "AVVENTURA VFORCE" },
+        0x2000, 0x2000, 0x100, 0x136, 0, 0x17 },
+    { &SpriteSheet_82875D4,
+        { "BBA Multiplayer", "BBA Multijugador", "BBA Mehrspieler", " BBA Multijoueur",
+            "BBA Multigiocatore" },
+        0x2000, 0x2000, 0x100, 0x136, 2, 0x19 },
+    { &SpriteSheet_82875D4,
+        { "Beyworkshop", "BBeytaller", "Beywerkstatt", "Atelier Bey", "Negozio" }, 0x2000, 0x2000,
+        0x100, 0x136, 3, 0x1A },
+    { &SpriteSheet_82875D4, { "Options", "Opciones", "Optionen", "Options", "Opzioni" }, 0x2000,
+        0x2000, 0x100, 0x136, 4, 0x1B },
+    { &SpriteSheet_82875D4,
+        { "BeyCollection", "BeyColección", "BeySammlung", "BeyCollection", "RACCOLTABEY" }, 0x2000,
+        0x2000, 0x100, 0x136, 1, 0x18 },
+};
+
+FrontendMenuItemData SubMenu_134667960[] = {
+    { &SpriteSheet_82875D4, { "Audio", "Sonido", "Audio", "Audio", "Audio" }, 0x2000, 0x2000, 0x100,
+        0x136, 5, 0x1C },
+    { &SpriteSheet_82875D4,
+        { "Save Game", "Guardar partida", "Spiel speichern", "Sauvegarder la Partie",
+            "Salva partita" },
+        0x2000, 0x2000, 0x100, 0x136, 0xD, 0x24 },
+    { &SpriteSheet_82875D4, { "Credits", "Créditos", "Mitwirkende", "Crédits", "Riconoscimenti" },
+        0x2000, 0x2000, 0x100, 0x136, 0x11, 0x28 },
+    { &SpriteSheet_82875D4, { "Controls", "Controles", "Steuerung", "Commandes", "Comandi" },
+        0x2000, 0x2000, 0x100, 0x136, 6, 0x1D },
+};
+
+FrontendSubobjectData _806DF78 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Options", "Opciones", "Optionen", "Options", "Opzioni" }, 240, { 0 }, &_8068954, &_806897C };
+
+FrontendSubobjectData _806DFA4 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Audio", "Sonido", "Audio", "Audio", "Audio" }, 240, { 0 }, &_8068954, &_806897C };
+
+const unk8* _806DFD0[][5] = {
+    { "Sfx", "EFECTOS", "Sfx", "SONS", "Sfx" },
+    { "Music", "Música", "Musik", "MUSIQUE", "Musica" },
+};
+
+FrontendSubobjectData _806DFF8 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Collection", "Colección", "Sammlung", "Collection", "Raccolta" }, 240, { 0 }, &_8068954,
+    &_806897C };
+
+FrontendSubobjectData _806E024 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "SAVE GAME", "GUARDAR PARTIDA", "SPIEL SPEICHERN", "SAUVEGARDER LA PARTIE", "SALVA PARTITA" },
+    240, { 0 }, &_8068954, &_806897C };
+
+FrontendMenuItemData SubMenu_134668368[] = {
+    { &SpriteSheet_82875D4, { "Yes", "sí", "Ja", "Oui", "sì" }, 0x2000, 0x2000, 0x100, 0x136, 9,
+        0x20 },
+    { &SpriteSheet_82875D4, { "No", "No", "Nein", "Non", "No" }, 0x2000, 0x2000, 0x100, 0x136, 0xA,
+        0x21 },
+};
+
+FrontendSubobjectData _806E0B0 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "SAVING", "GUARDANDO", "SPEICHERVORGANG", "SAUVEGARDE", "SALVATAGGIO" }, 240, { 0 },
+    &_8068954, &_806897C };
+
+const unk8* _806E0DC[][5] = {
+    { "Saving. Do not turn the power off.", "Guardando. No apagues la consola.",
+        "Speichervorgang. Nicht ausschalten.", "Sauvegarde. Ne pas éteindre",
+        "Salvataggio. Non spegnere la console" },
+    { "Save successful. Press the A Button to continue.",
+        "Guardado con éxito. Pulsa el Botón A para continuar.",
+        "Speichern erfolgreich. Weiter mit dem A-Knopf.",
+        "Sauvegarde réussie. Appuie sur le bouton A pour continuer.",
+        "Salvataggio riuscito. Premi il pulsante A per continuare." },
+    { "Save failed.", "Error al guardar.", "Speichern fehlgeschlagen.", "Echec de la sauvegarde.",
+        "Salvataggio fallito." },
+    { "Warning! Saving will overwrite any previously saved game data.",
+        "Guardar sobrescribirá todos los datos de juego guardados anteriormente.",
+        "Warnung! Durch das Speichern wird der ältere Spielstand überschrieben.",
+        "Attention! Une nouvelle sauvegarde écrasera les données précédemment enregistrées.",
+        "Attenzione! Salvando si sovrascriveranno i dati precedentemente salvati." },
+};
+
+FrontendSubobjectData _806E12C = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "WARNING", "¡ATENCIÓN!", "WARNUNG", "AVERTISSEMENT", "ATTENZIONE" }, 240, { 0 }, &_8068954,
+    &_806897C };
+
+FrontendSubobjectData _806E158 = { 256, 74, 0, 74, &FontStyle_80688C4,
+    { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 208, { 0 }, NULL, NULL };
+
+FrontendSubobjectData _806E184 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "GAME", "PARTIDA", "SPIEL", "PARTIE", "partita" }, 240, { 0 }, &_8068954, &_806897C };
+
+FrontendMenuItemData SubMenu_134668720[] = {
+    { &SpriteSheet_82875D4,
+        { "Continue Game", "Continuar Partida", "SPIEL FORTFAHREN", "Continuer la partie",
+            "Continua Partita" },
+        0x2000, 0x2000, 0x100, 0x136, 0xC, 0x23 },
+    { &SpriteSheet_82875D4,
+        { "New Game", "Nueva Partida", "NEUES SPIEL", "Nouvelle Partie", "Nuova Partita" }, 0x2000,
+        0x2000, 0x100, 0x136, 0xB, 0x22 },
+    { &SpriteSheet_82875D4,
+        { "Load Game", "Cargar partida", "Spiel laden.", "Charger partie", "Carica partita" },
+        0x2000, 0x2000, 0x100, 0x136, 0xE, 0x25 },
+};
+
+const unk8* _806E240[][5] = {
+    { "beyblade", "beyblade", "beyblade", "beyblade", "beyblade" },
+    { "attack ring", "Anillo de ataque", "Power-Ring", "Anneau d'attaque", "Disco d'attacco" },
+    { "weight disk", "Pesa del disco", "Gewicht-Ring", "Disque lesté", "Peso" },
+    { "blade base", "Base del trompo", "Blade-Basis", "Base de Beyblade", "Base del Beyblade" },
+    { "spin gear", "Engranaje rotación", "Kreiselscheibe", "Engrenages",
+        "Meccanismo di rotazione" },
+    { "Attack", "Ataque", "Angriff", "Attaque", "Attacco" },
+    { "Defense", "Defensa", "Verteidigung", "Défense", "Difesa" },
+    { "Endurance", "Resistencia", "Ausdauer", "Endurance", "Resistenza" },
+    { "Spin: left", "Giro: a izquierda", "Drehrichtung: links", "Rotation: G", "Rotazione: sx" },
+    { "Spin: right", "Giro: a derecha", "Drehrichtung: rechts", "Rotation: D", "Rotazione: dx" },
+    { "Info", "Información", "Info", "Info", "Info" },
+};
+
+const unk8* _806E31C[][5] = {
+    { "Name: ", "Nombre: ", "Name: ", "Nom: ", "Nome: " },
+    { "Type: ", "Tipo: ", "Typ: ", "Type: ", "Tipo: " },
+    { "Bit Beast: ", "Bit Beast: ", "Bit Beast: ", "Bit Beast: ", "Bit Beast: " },
+};
+
+FrontendSubobjectData _806E358 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Select", "Seleccionar", "Auswählen", "Sélection", "Scegli" }, 240, { 0 }, &_8068954,
+    &_806897C };
+
+FrontendSubobjectData _806E384 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Breakdown", "Avería", "Unterbrechung", "Casse", "Spaccato" }, 240, { 0 }, &_8068954,
+    &_806897C };
+
+const unk8* _806E3B0[][5] = {
+    { "Please ensure Game Boy® Advance Game Link® Cable is connected",
+        "Asegurate de que el cable Game Link de Game Boy Advance esta conectado",
+        "Bitten prüfen, ob Game Boy Advance Game Link-Kabel angeschlossen ist.",
+        "Assure-toi de bien connecter le câble Game Boy Advance Game Link",
+        "Assicurati che il cavo Game Link per Game Boy Advance sia connesso" },
+};
+
+FrontendMenuItemData SubMenu_134669252[] = {
+    { &SpriteSheet_82875D4, { "Retry", "Reintentar", "Nochmal", "Réessayer", "Riprova" }, 0x2000,
+        0x2000, 0x100, 0x136, 9, 0x20 },
+    { &SpriteSheet_82875D4, { "Cancel", "Cancelar", "Abbrechen", "Annuler", "Annulla" }, 0x2000,
+        0x2000, 0x100, 0x136, 0xA, 0x21 },
+};
+
+FrontendSubobjectData _806E424 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Retry?", "¿Reintentar?", "Erneut versuchen?", "Réessayer?", "Vuoi riprovare?" }, 240, { 0 },
+    &_8068954, &_806897C };
+
+FrontendSubobjectData _806E450 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Game mode", "Modo de juego", "Spielmodus", "Mode de jeu", "Modalità di gioco" }, 240, { 0 },
+    &_8068954, &_806897C };
+
+FrontendMenuItemData SubMenu_134669436[] = {
+    { &SpriteSheet_82875D4, { "Race", "Carrera", "Rennen", "Course", "Gara" }, 0x2000, 0x2000,
+        0x100, 0x136, 0x10, 0x27 },
+    { &SpriteSheet_82875D4, { "Battle", "Batalla", "Kampf", "Combat", "Battaglia" }, 0x2000, 0x2000,
+        0x100, 0x136, 0xF, 0x26 },
+};
+
+FrontendSubobjectData _806E4DC = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Rounds", "Rondas", "Runden", "Rounds", "Round" }, 240, { 0 }, &_8068954, &_806897C };
+
+FrontendMenuItemData SubMenu_134669576[] = {
+    { &SpriteSheet_82875D4, { "1 Round", "1 Ronda", "1 Runde", "1 Round", "1 Round" }, 0x2000,
+        0x2000, 0x100, 0x136, 0x12, 0x29 },
+    { &SpriteSheet_82875D4, { "3 Rounds", "3 Rondas", "3 Runden", "3 Rounds", "3 Round" }, 0x2000,
+        0x2000, 0x100, 0x136, 0x13, 0x2A },
+    { &SpriteSheet_82875D4, { "5 Rounds", "5 Rondas", "5 Runden", "5 Rounds", "5 Round" }, 0x2000,
+        0x2000, 0x100, 0x136, 0x14, 0x2B },
+    { &SpriteSheet_82875D4, { "7 Rounds", "7 Rondas", "7 Runden", "7 Rounds", "7 Round" }, 0x2000,
+        0x2000, 0x100, 0x136, 0x15, 0x2C },
+    { &SpriteSheet_82875D4, { "9 Rounds", "9 Rondas", "9 Runden", "9 Rounds", "9 Round" }, 0x2000,
+        0x2000, 0x100, 0x136, 0x16, 0x2D },
+};
+
+FrontendSubobjectData _806E5F8 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Please wait...", "Espera, por favor...", "Bitte warten...", "Un instant...", "Attendi..." },
+    240, { 0 }, &_8068954, &_806897C };
+
+FrontendSubobjectData _806E624 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Well Done", "¡Bien hecho!", "Gut gemacht!", "Bien joué!", "Ben fatto!" }, 240, { 0 },
+    &_8068954, &_806897C };
+
+const unk8* _806E650[5] = { "Congratulations, you have unlocked ", "Enhorabuena, has desbloqueado ",
+    "Gratulation, neu freigeschaltet ", "Félicitations, tu as débloqué ",
+    "Congratulazioni, hai sbloccato " };
+
+FrontendSubobjectData _806E664 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Credits", "Créditos", "Mitwirkende", "Crédits", "Riconoscimenti" }, 240, { 0 }, &_8068954,
+    &_806897C };
+
+FrontendSubobjectData _806E690 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Map", "SUMARIO", "Karte", "Carte", "Mappa" }, 240, { 0 }, &_8068954, &_806897C };
+
+FrontendSubobjectData _806E6BC = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Collection", "Colección", "Sammlung", "Collection", "Raccolta" }, 240, { 0 }, &_8068954,
+    &_806897C };
+
+const unk8* _806E6E8[5]
+    = { "Let It Rip", "¡Adelante!", "Let It Rip", "Hyper vitesse!", "Pronti... lancio!" };
+
+const unk8* _806E6FC[5] = { "Round cleared!", "¡Ronda superada!", "Runde bestanden!",
+    "Round réussi!", "Round superato!" };
+
+const unk8* _806E710[5]
+    = { "Spin Out", "¡A girar!", "Kein Schwung mehr!", "Arrêt!", "Fine rotazione!" };
+
+const unk8* _806E724[4][5] = {
+    { "Metal Ball Defense", "Defensa de Bola Metálica", "Metal Ball Defense", "Metal Ball Defense",
+        "Difesa con le sfere metalliche" },
+    { "Tiger Claw", "Garra de Tigre", "Tiger Claw", "Tiger Claw", "Artiglio di tigre" },
+    { "Phantom Hurricane", "Huracán Fantasma", "Phantom Hurricane", "Phantom Hurricane",
+        "Attacco tifone" },
+    { "Fire Arrow", "Flecha Incendiaria", "Fire Arrow", "Flèche enflammée", "Freccia di fuoco" },
+};
+
+const unk8* _806E774[5] = { "You got:", "Has conseguido:", "Du hast:", "Tu as:", "Hai ottenuto:" };
+
+const unk8* _806E788[5] = { "Pause", "Pausa", "Pause", "En Pause", "Pausa" };
+
+const unk8* _806E79C[5] = { "Retry?", "¿Reintentar?", "Nochmal?", "Réessayer?", "Riprova?" };
+
+MenuItemDescriptor _806E7B0[] = {
+    { { "Resume", "Continuar", "Weiter", "Reprendre", "Riprendi" }, 0, NULL, 0, 0 },
+    { { "Exit", "Salir", "Beenden", "Quitter", "Esci" }, 0, NULL, 0, 2 },
+    { { NULL } },
+};
+
+MenuItemDescriptor _806E810[] = {
+    { { "Retry", "Reintentar", "Nochmal", "Réessayer", "Riprova" }, 0, NULL, 0, 0 },
+    { { "Exit", "Salir", "Beenden", "Quitter", "Esci" }, 0, NULL, 0, 2 },
+    { { NULL } },
+};
+
+MenuItemDescriptor _806E870[] = {
+    { { "Please wait...", "Espera, por favor...", "Bitte warten...", "Un instant...",
+          "Attendi..." },
+        0, NULL, 0, 0 },
+    { { NULL } },
+};
+
+const unk8* _806E8B0[5] = { "Name: ", "Nombre: ", "Name: ", "Nom: ", "Nome: " };
+
+const unk8* _806E8C4[5] = { "Perfect!", "¡Perfecto!", "Perfekt!", "Parfait!", "Perfetto!" };
+
+const unk8* _806E8D8[][5] = {
+    { "Results:", "Resultados:", "Ergebnisse:", "Résultats:", "Risultati:" },
+    { "Draws:", "Empates:", "Unentschieden:", "Matches nuls:", "Pareggi:" },
+    { "Remaining:", "Restante:", "Verbleibend:", "Restant:", "Restanti:" },
+};
+
+const unk8* _806E914[][5] = {
+    { "It's a draw!", "¡Es un empate!", "Unentschieden!", "Egalité!", "È un pareggio!" },
+    { "You win!", "¡Tú ganas!", "Du hast gewonnen!", "Tu as gagné!", "Hai vinto!" },
+    { "You lose!", "¡Tú pierdes!", "Du hast verloren!", "Tu as perdu!", "Hai perso!" },
+};
+
+FrontendSubobjectData _806E950 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Results", "Resultados", "Ergebnisse", "Résultats", "Risultati" }, 240, { 0 }, &_8068954,
+    &_806897C };
+
+const unk8* _806E97C[][5] = {
+    { "Time:", "Tiempo:", "Zeit:", "Temps:", "Tempo:" },
+    { "Best time: ", "Mejor tiempo: ", "Bestzeit: ", "Meil. temps: ", "Tempo migliore: " },
+    { "Attempts:", "Intentos:", "Versuche:", "Tentatives:", "Tentativi:" },
+    { "Items collected:", "Objetos recogidos:", "Eingesammelte Objekte:", "Objets ramassés:",
+        "Oggetti raccolti:" },
+    { "New best time!", "¡Nuevo mejor tiempo!", "Neue Bestzeit!", "Nouv. meil. temps!",
+        "Nuovo tempo migliore!" },
+    { "Round cleared!", "¡Ronda superada!", "Runde bestanden!", "Round réussi!",
+        "Round superato!" },
+    { "Round failed!", "¡Ronda no superada!", "Runde nicht bestanden!", "Round échoué!",
+        "Round fallito!" },
+    { "Par time: ", "Tiempo empatado: ", "Par-Zeit: ", "Temps prévu: ", "Tempo limite: " },
+    { "Items: ", "Objetos: ", "Gegenstände: ", "Objets: ", "Oggetti: " },
+};
+
+FrontendSubobjectData _806EA30 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Results", "Resultados", "Ergebnisse", "Résultats", "Risultati" }, 240, { 0 }, &_8068954,
+    &_806897C };
+
+const unk8* _806EA5C[5] = { "Race", "Carrera", "Rennen", "Course", "Gara" };
+
+const unk8* _806EA70[5] = { "Battle", "Batalla", "Kampf", "Combat", "Battaglia" };
+
+FrontendSubobjectData _806EA84 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Controls", "Controles", "Steuerung", "Commandes", "Comandi" }, 240, { 0 }, &_8068954,
+    &_806897C };
+
+FrontendMenuItemData SubMenu_134671024[] = {
+    { &SpriteSheet_82875D4,
+        { "2D Control", "2D Controles", "2D Steuerung", "Commandes 2D", "2D Comandi" }, 0x2000,
+        0x2000, 0x100, 0x136, 8, 0x1F },
+    { &SpriteSheet_82875D4,
+        { "3D Control", "3D Controles", "3D Steuerung", "Commandes 3D", "3D Comandi" }, 0x2000,
+        0x2000, 0x100, 0x136, 7, 0x1E },
 };
 
 void turorial_804A488(unk32 arg0)
