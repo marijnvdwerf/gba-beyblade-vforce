@@ -247,7 +247,7 @@ SECTIONS {
 		src/dialogue.c.o(.rodata);
 		src/strings_86fcf98.c.o(.rodata);
 		src/collection.c.o(.rodata);
-		src/strings_86fd2a4.c.o(.rodata);
+		src/profile.c.o(.rodata);
 		src/menuobject.c.o(.rodata);
 		src/strings_86fd2e0.c.o(.rodata);
 		src/tutorial.c.o(.rodata);
