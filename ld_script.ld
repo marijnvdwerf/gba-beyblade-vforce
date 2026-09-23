@@ -173,6 +173,8 @@ SECTIONS {
     ALIGN(4)
     {
 		asm/data10.s.o(.rodata);
+		asm/data12a.s.o(.rodata);
+		src/credits.c.o(.data);
 		asm/data12.s.o(.rodata);
 		asm/data11.s.o(.rodata);
 		asm/audio1.s.o(.rodata);
@@ -240,7 +242,6 @@ SECTIONS {
 		asm/dataB.s.o(.rodata);
 		asm/data7.s.o(.rodata);
 		asm/dataC.s.o(.rodata);
-		src/strings0.c.o(.rodata);
 		src/credits.c.o(.rodata);
 		src/strings_86fcf20.c.o(.rodata);
 		src/levelselect.c.o(.rodata);

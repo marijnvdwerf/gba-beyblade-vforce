@@ -60,6 +60,7 @@ add_executable(rom
     asm/data10.s
     asm/data11.s
     asm/data12.s
+    asm/data12a.s
     asm/data3.s
     asm/data5.s
     asm/data6.s
@@ -251,7 +252,6 @@ add_executable(rom
     src/trail.c
     src/transition.c
     src/tutorial.c
-    src/strings0.c
     src/strings_86fcf20.c
     src/strings_86fcf98.c
     src/strings_86fd2e0.c
