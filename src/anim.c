@@ -7,8 +7,6 @@
 #include "include_asm.h"
 #include "memory.h"
 
-extern const char Str_875566C[];
-
 typedef struct AnimFrameState AnimFrameState;
 
 typedef struct AnimFrameData {
@@ -136,7 +134,8 @@ void sub_805F0B4(AnimFrameState* state, AnimFrameData* data, AnimFrameData* shar
         }
     }
     if (state->unkC == NULL) {
-        printf(Str_875566C, state->unk0->unk4 << 5);
+        printf("Error allocating memory for transformed vertex buffer; requires %i\n",
+            state->unk0->unk4 << 5);
         state->unk10 = NULL;
     } else {
         state->unk10 = state->unkC->address;

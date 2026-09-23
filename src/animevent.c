@@ -70,20 +70,6 @@ typedef struct UnkAnimEventData {
 void sub_805FCC8(UnkAnimEventData* arg0);
 void sub_805FA4C(PolyTable* arg0);
 void sub_805FA68(PolyTable* arg0);
-extern const char Str_87556B0[];
-extern const char Str_87556F4[];
-extern const char Str_8755730[];
-extern const char Str_8755738[];
-extern const char Str_8755748[];
-extern const char Str_8755754[];
-extern const char Str_875575C[];
-extern const char Str_8755764[];
-extern const char Str_8755794[];
-extern const char Str_87557C8[];
-extern const char Str_87557FC[];
-extern const char Str_8755810[];
-extern const char Str_875581C[];
-extern const char Str_8755828[];
 
 void newPolyTable(PolyTable* arg0, u16 arg1, u16 arg2)
 {
@@ -93,10 +79,10 @@ void newPolyTable(PolyTable* arg0, u16 arg1, u16 arg2)
     arg0->unk10 = fastAllocate(arg2 << 2);
     arg0->unk14 = fastAllocate(arg1 << 2);
     if (arg0->unk10 == NULL) {
-        printf(Str_87556B0);
+        printf("Error allocating memory for PolysPerScan table in newPolyTable()\n");
     }
     if (arg0->unk14 == NULL) {
-        printf(Str_87556F4);
+        printf("Error allocating memory for PolyEntrys in newPolyTable()\n");
     }
     arg0->unk8 = arg0->unk10->address;
     arg0->unkC = arg0->unk14->address;
@@ -177,13 +163,13 @@ void sub_805FB60(PolyTable* arg0, unk16 arg1)
 
     bucket = &arg0->unk8[arg1];
     node = NULL;
-    nullsub_10(Str_8755730, arg1, Str_8755738, bucket->head);
-    nullsub_9(Str_8755748, bucket->tail);
+    nullsub_10("Scan ", arg1, "; startIndex ", bucket->head);
+    nullsub_9("endIndex ", bucket->tail);
     if (bucket->head != -1) {
         node = &arg0->unkC[bucket->head];
     }
     while (node != NULL) {
-        nullsub_10(Str_8755754, node->value, Str_875575C, node->next);
+        nullsub_10("poly ", node->value, ", next ", node->next);
         if (node->next != -1) {
             node = arg0->unkC + node->next;
         } else {
@@ -215,13 +201,15 @@ void sub_805FBE0(UnkAnimEventData* arg0, unk16 arg1, unk16 arg2, unk16 arg3, unk
     entriesSize = arg1 * sizeof(UnkAnimEventBucket);
     arg0->unk1C = fastAllocate(entriesSize + (arg1 >> 5) * sizeof(unk32) + arg1 * sizeof(unk16));
     if (arg0->unk28 == NULL) {
-        nullsub_9(Str_8755764, size + arg4 * sizeof(unk16));
+        nullsub_9("Error allocating memory for edge table entries ", size + arg4 * sizeof(unk16));
     }
     if (arg0->unk18 == NULL) {
-        nullsub_9(Str_8755794, arg2 * sizeof(UnkAnimEventRow));
+        nullsub_9(
+            "Error allocating memory for depth table entries ", arg2 * sizeof(UnkAnimEventRow));
     }
     if (arg0->unk1C == NULL) {
-        nullsub_9(Str_87557C8, entriesSize + (arg1 >> 5) * sizeof(unk32) + arg1 * sizeof(unk16));
+        nullsub_9("Error allocating memory for depth table entry list ",
+            entriesSize + (arg1 >> 5) * sizeof(unk32) + arg1 * sizeof(unk16));
     }
     arg0->unk20 = arg0->unk28->address;
     arg0->unk8 = arg0->unk18->address;
@@ -326,12 +314,12 @@ void sub_805FE68(UnkAnimEventData* arg0, unk16 arg1)
 
     bucket = &arg0->unkC[arg1];
     index = (unk16)bucket->head;
-    nullsub_9(Str_87557FC, arg1);
-    nullsub_10(Str_8755810, bucket->head, Str_875581C, bucket->tail);
+    nullsub_9("Depth Table: depth ", arg1);
+    nullsub_10("startIndex ", bucket->head, ", endIndex ", bucket->tail);
     if ((s16)index >= 0) {
         do {
             row = &arg0->unk8[(s16)index];
-            nullsub_10(Str_8755828, row->prev, Str_875575C, row->next);
+            nullsub_10("  previous ", row->prev, ", next ", row->next);
             index = (unk16)row->next;
         } while (row->next >= 0);
     }

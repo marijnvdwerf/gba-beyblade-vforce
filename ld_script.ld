@@ -286,7 +286,8 @@ SECTIONS {
 		src/text.c.o(.rodata);
 		src/geometry.c.o(.rodata);
 		src/render.c.o(.rodata);
-		src/strings_875566c.c.o(.rodata);
+		src/anim.c.o(.rodata);
+		src/animevent.c.o(.rodata);
 		src/multiplayer.c.o(.rodata);
 		src/sprite.c.o(.rodata);
 		src/spritetext.c.o(.rodata);
