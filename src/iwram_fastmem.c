@@ -1,7 +1,6 @@
 #include "iwram.h"
 
 extern void (*off_807D96C)(const char*, ...);
-extern const char Str_87566A8[];
 
 // TODO: fakematch?
 void fastMemoryClearARM(unk32 fill, void* destination, unk32 byteCount)
@@ -10,7 +9,8 @@ void fastMemoryClearARM(unk32 fill, void* destination, unk32 byteCount)
         return;
     }
     if (byteCount & 3) {
-        off_807D96C(Str_87566A8);
+        off_807D96C(
+            "Attempt to clear data in fastMemoryClearARM() with non-multiple of 4 length\n");
         return;
     }
     byteCount /= sizeof(unk32);
@@ -32,8 +32,6 @@ void fastMemoryClearARM(unk32 fill, void* destination, unk32 byteCount)
         : "r0", "r1", "r2", "cc", "memory");
 }
 
-extern const char Str_87566F8[];
-
 // TODO: fakematch?
 void fastMemoryCopyARM(const void* source, void* destination, unk32 bytes)
 {
@@ -41,7 +39,9 @@ void fastMemoryCopyARM(const void* source, void* destination, unk32 bytes)
         return;
     }
     if (bytes & 3) {
-        off_807D96C(Str_87566F8, bytes);
+        off_807D96C(
+            "Attempt to copy data in fastMemoryCopyARM() with non-multiple of 4 length (%i)\n",
+            bytes);
         return;
     }
     bytes /= sizeof(unk32);
@@ -63,8 +63,6 @@ void fastMemoryCopyARM(const void* source, void* destination, unk32 bytes)
         : "r0", "r1", "r2", "r3", "cc", "memory");
 }
 
-extern const char Str_8756748[];
-
 // TODO: fakematch?
 void fastMemoryClear16ARM(unk32 fill, void* destination, unk32 byteCount)
 {
@@ -72,7 +70,8 @@ void fastMemoryClear16ARM(unk32 fill, void* destination, unk32 byteCount)
         return;
     }
     if (byteCount & 1) {
-        off_807D96C(Str_8756748);
+        off_807D96C(
+            "Attempt to clear data in fastMemoryClear16ARM() with non-multiple of 2 length\n");
         return;
     }
     __asm__ volatile("mov %0, %0, lsr #1\n"
@@ -84,8 +83,6 @@ void fastMemoryClear16ARM(unk32 fill, void* destination, unk32 byteCount)
         : "r0", "r1", "r2", "cc", "memory");
 }
 
-extern const char Str_8756798[];
-
 // TODO: fakematch?
 void fastMemoryCopy16ARM(const void* source, void* destination, unk32 byteCount)
 {
@@ -93,7 +90,8 @@ void fastMemoryCopy16ARM(const void* source, void* destination, unk32 byteCount)
         return;
     }
     if (byteCount & 1) {
-        off_807D96C(Str_8756798);
+        off_807D96C(
+            "Attempt to copy data in fastMemoryCopy16ARM() with non-multiple of 2 length\n");
     } else {
         __asm__ volatile("mov %0, %0, lsr #1\n"
                          "1: ldrh r0, [%1], #2\n"
