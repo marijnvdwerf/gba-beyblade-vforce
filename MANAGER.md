@@ -8,8 +8,7 @@ description: Session rules for orchestrating decompilation subagents
 - Use the **Agent tool** only — never Workflow, never `subagent_type: "fork"`.
 - Default model: **gpt-5.6-luna** unless the user says otherwise.
 - **No Anthropic-model subagents (opus/sonnet/fable) until the user lifts
-  this** (2026-08-21). Reviews use gpt-5.6-luna; skill distillation uses
-  gpt-5.6-sol.
+  this** (2026-08-21). Reviews use gpt-5.6-luna.
 - Every agent prompt must say **"Do not spawn subagents."**
 - Follow `~/.claude/skills/prompting-codex/SKILL.md` when writing prompts.
 - Point agents to `.claude/agents/decompiler.md` for code style.
@@ -19,11 +18,9 @@ description: Session rules for orchestrating decompilation subagents
   Review + merge is done by the `review` agent (`.claude/agents/review.md`,
   luna, main checkout) once a decompiler agent's branch is FINISHED; the
   manager hands it only finished branches and spot-reads the merged diff.
-  Always ask for a learnings write-up (`docs/learnings/<function>.md`,
-  plus a proposed `.claude/skills/agbcc/SKILL.md` patch) *before* removing
-  a worktree. Learnings files are per-function; the skill is not — only
-  fold in repeatable, generic patterns, never function names or one-offs — an agent whose worktree is gone cannot be resumed. If it
-  happens anyway, recreating the worktree at the same path revives it.
+  Collect the agent's final report *before* removing a worktree — an agent
+  whose worktree is gone cannot be resumed. If it happens anyway, recreating
+  the worktree at the same path revives it.
 - Merging: commit in the worktree, `git merge` into main, take the delete
   on dump-file modify/delete conflicts, `clang-format -i` the touched src
   files, run `cmake --build --preset us --target compare`,
@@ -34,7 +31,7 @@ description: Session rules for orchestrating decompilation subagents
   consistent across TUs. It reads C only (`git diff main...<branch> -- src`; shape and field
   types only, no rename proposals — sub_*/unkNN names stay; it must not read
   asm) that writes the most natural C for each function to
-  `docs/learnings/review-<scope>.md`; send the decomp agent that path as its
+  `/tmp/review-<scope>.md`; send the decomp agent that path as its
   new goal and let it try to simplify while keeping the match. Reviewer
   output is shape advice only: any layout claim it makes (embedded array vs
   pointer, field widths) must be checked by the decomp agent against the asm
@@ -47,17 +44,12 @@ description: Session rules for orchestrating decompilation subagents
   concrete C, not adjectives.
 - Parallel agents: one file per worktree; ping all for status with one
   message each; relay findings between them via a shared file
-  (`docs/learnings/review-<date>.md`), not by pasting.
+  (`/tmp/review-<date>.md`), not by pasting.
 - `-g` is in the build (verified byte-neutral); `diff.ts` shows source
   lines and no match %; `.word` rows differing only in symbol display are
   noise — `compare` is the authority.
-- Skill maintenance is batched: the manager does NOT edit
-  `.claude/skills/agbcc/SKILL.md` by hand. New patterns go into the agents'
-  `docs/learnings/*.md`; periodically the `skill-fold` agent
-  (`.claude/agents/skill-fold.md`, gpt-5.6-sol, worktree) processes the batch
-  (folds generic measured patterns into the skill, then `git mv`s the consumed
-  files to `docs/learnings/processed/`). Pass session-specific INCLUDE/EXCLUDE
-  lists in the invocation. The manager only reviews its diff.
+- Measurements go in agent reports and, when generic, into
+  `.claude/skills/agbcc/SKILL.md` by the manager.
 - `HANDOVER.md` is the living state file for the next session (active
   agents, merged work, stuck points, next candidates). Update it on every
   merge, every agent start/finish, and every change of plan.

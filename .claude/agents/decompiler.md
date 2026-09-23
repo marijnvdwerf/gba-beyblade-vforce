@@ -31,9 +31,9 @@ function (`git add -A src asm && git commit`) — the manager merges your branch
   user, `diff.ts` each one, and reading the target asm of any that diverges
   (ldrsh/asr → that user was matched at the wrong width: fix it; ldrh →
   cite the instruction). A compiler diagnostic is never evidence either.
-- Learnings go in `docs/learnings/<scope>-<date>.md` (measured claims only;
-  per function: byte-required temps, signedness evidence, first divergence
-  of anything parked). Commit it with your last function.
+- There is no learnings directory: record measurements (per function:
+  byte-required temps, signedness evidence, first divergence of anything
+  parked, measured claims only) in your final report instead.
 - Final reply: per function matched/parked with one line on the shape,
   header changes, rule-breaking shapes (see above), final compare result,
   branch name and worktree path.
@@ -112,7 +112,7 @@ graph; the callgraph remains the reachability boundary.
   `REG_BLDALPHA`, `REG_BLDY`, `PLTT`, … — never `REG_x + N` or a raw address.
 - **Temporaries must earn their place.** Before committing, fold every
   single-use local / cached alias and rebuild; a temp that folds byte-identically
-  is removed. Only byte-required temps stay (record which, in your learnings).
+  is removed. Only byte-required temps stay (record which, in your report).
 - **Never emit fake symbols** (zero-size markers, `.NON_MATCHING` labels).
   If trailing bytes differ, the legitimate tool is file-scope
   `ASM_ZEROPAD` (the original zero-pads where agbcc emits `0xC046`).
@@ -121,7 +121,7 @@ graph; the callgraph remains the reachability boundary.
   fields and `*(u8*)&p->unkNN` on halfwords: find the real field shape.
   Tables walked with `base + i * SIZE` are arrays of a SIZE-byte struct —
   declare them as such and index.
-- **Unions only for proven differing-width accesses.** A union is allowed solely when the asm proves the same storage is written at one width and read at another (e.g. `strh` at +N in one function, `ldrb` at +N+1 in another — agbcc never narrows loads, so the original source uses two views of that storage). Cite both instructions in your learnings file, never in the source. Never use a union to paper over an unknown layout.
+- **Unions only for proven differing-width accesses.** A union is allowed solely when the asm proves the same storage is written at one width and read at another (e.g. `strh` at +N in one function, `ldrb` at +N+1 in another — agbcc never narrows loads, so the original source uses two views of that storage). Cite both instructions in your report, never in the source. Never use a union to paper over an unknown layout.
 - **Fields exist only when accessed.** Add a struct field only when the
   function you are matching reads or writes it. Never copy a draft's or
   raw-decomp's speculative layout into a header; untouched bytes are
@@ -130,7 +130,7 @@ graph; the callgraph remains the reachability boundary.
 - **No match-justification comments.** Never write comments like "agbcc
   requires this shape", "duplicate branches needed for the match", "keep
   shifts: masks load literals" — or any other comment (see NO COMMENTS below).
-  Put compiler observations in docs/learnings instead.
+  Put compiler observations in your report instead.
 - C90: declarations before statements. Run `clang-format -i` on every file
   you touched before committing/reporting (config in `.clang-format`).
 
@@ -159,30 +159,25 @@ graph; the callgraph remains the reachability boundary.
 - NO COMMENTS IN SOURCE. The only comment allowed anywhere in src/ is a
   struct-field offset marker (`unk32 unk1C8; /* 0x1C8 */`). No prose, no
   instruction citations, no "NONMATCHING" notes, no hypotheses, no compiler
-  observations — all of that goes in your docs/learnings file, keyed by
-  function and address. Justify unions and differing-width accesses there too.
+  observations — all of that goes in your report, keyed by function and
+  address. Justify unions and differing-width accesses there too.
 - NEVER throw away a near-miss. When you park a function, keep the best
   draft in the source file directly above its `INCLUDE_ASM` line inside a
   bare `#if 0` … `#endif` (the ROM still builds from the asm), and put the
   first divergence, the step table and any unproven layout the draft
-  assumes in your learnings file. Headers get NO field that only a parked
+  assumes in your report. Headers get NO field that only a parked
   draft uses (user decision 2026-09-06). A draft must still be properly typed:
   if it needs fields the header lacks, declare a scratch struct INSIDE its
   `#if 0` block (`typedef struct RiderDraft { … /* 0xNN */ } RiderDraft;`
   with the layout the asm proves) and use it only there.
-- Never read docs/learnings/processed/ (archive; some files are thousands of
-  lines and will exhaust your context). Read only learnings files that name a
-  function on your list (`rg -l <name> docs/learnings/*.md`).
-- Read docs/learnings/residual-analysis-2026-08-28.md before any near-miss
-  work (its GetLineIndexOfType "confirmed match" is retracted — everything in
-  it is hypothesis). Its thesis: the common cause is LIFETIME SHAPING — direct member/global
+- Near-miss residues are most often LIFETIME SHAPING: direct member/global
   expressions instead of cached aliases, pointer cursor + index both live,
   phase-scoped locals, separate head/cursor/predecessor/successor in list
   code, narrow arguments kept wide until the asm proves the conversion.
 - Near-miss checklist — run it BEFORE parking anything, one change per
   build, keep only what shrinks the diff, and record a step table (change →
   first divergent instruction / size delta) plus the final draft in your
-  learnings file. "Register allocation differed" alone is not a valid note.
+  report. "Register allocation differed" alone is not a valid note.
   1. Temp reduction: remove each temporary/alias one at a time; also try
      adding one named temporary per reused expression.
   2. Ternaries: `x = c ? a : b` vs if/else with a store per arm vs
@@ -208,10 +203,8 @@ graph; the callgraph remains the reachability boundary.
 - `uv run tools/callgraph.py <function>` — authoritative reachable call tree;
   🔴 leaves are not yet in C, and 🧭 nodes are ROM handler tables whose callback
   edges count as reachable.
-- Top-level `docs/learnings/*.md` files are unprocessed write-ups of what
-  actually moved a diff. Read that top-level glob and
-  `.claude/skills/agbcc/SKILL.md` before starting; `processed/` is history and
-  is not required reading.
+- `.claude/skills/agbcc/SKILL.md` is the distilled record of what actually
+  moved a diff; read it before starting.
 
 ## When diffs look impossible
 

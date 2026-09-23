@@ -13,7 +13,7 @@ Do not SendMessage. Run from the repository root; address worktrees with
 `git -C <path>` only.
 
 The rules you enforce are `.claude/agents/decompiler.md` (Code style and
-Matching technique). Read them first. Do not read `docs/learnings/processed/`.
+Matching technique). Read them first.
 
 ## Per branch
 
@@ -32,14 +32,11 @@ Matching technique). Read them first. Do not read `docs/learnings/processed/`.
      prototype in another `.c` is a finding); real parameter types, not
      `void*`; no duplicate typedef of an existing layout; struct sizes
      unchanged unless the diff proves the new size; signed types only where
-     the learnings cite evidence (asr/ldrsh/ldrsb/signed branch/call site);
+     the agent's report cites evidence (asr/ldrsh/ldrsb/signed branch/call site);
    - **parking hygiene**: `#if 0` drafts add NO header fields/types that
      committed C does not access, the untouched `INCLUDE_ASM` sits directly
      below the draft, the dump file is kept; matched functions have their
      dump deleted;
-   - **learnings**: `docs/learnings/<scope>-<date>.md` covers every function
-     the agent was assigned (matched or parked), measured claims only, a step
-     table for each parked one;
    - **shape**: is this the C a person would write? Flag shift/mask
      choreography that is a bitfield, duplicated arms that could be one,
      `switch (x - 1)` where `switch (x)` might do, and **temporaries**: every
@@ -50,7 +47,7 @@ Matching technique). Read them first. Do not read `docs/learnings/processed/`.
      to test, never assertions (you cannot build to verify).
 3. Write `/tmp/review-<branch>.md` (a scratch artifact, NOT in the repo —
    the decomp agent reads it from there): for each finding `file:line — what — rule — suggested
-   fix`; separate **BLOCKING** (levers, header pollution, missing learnings,
+   fix`; separate **BLOCKING** (levers, header pollution,
    dump bookkeeping) from **QUESTIONS** (shape alternatives to test) and
    **NITS** (formatting, naming). Keep sub_*/unkNN names — no renaming
    proposals.
