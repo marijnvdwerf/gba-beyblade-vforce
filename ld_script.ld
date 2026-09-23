@@ -294,7 +294,7 @@ SECTIONS {
 		src/spritetext.c.o(.rodata);
 		src/sound.c.o(.rodata);
 		src/actorheap.c.o(.rodata);
-		src/strings5.c.o(.rodata);
+		src/iwram_sprite.c.o(.rodata);
 		. = ALIGN(4);
 		src/iwram_sound.c.o(.rodata);
 		src/strings6.c.o(.rodata);

@@ -142,8 +142,6 @@ extern unk16 word_807D90C[];
 extern void (*off_807D938)(s32, s32);
 extern s32 (*off_807D934)(s32);
 extern s32 (*off_807D930)(const char*, ...);
-extern const char Str_8755EAC[];
-extern const char Str_8755EE0[];
 
 void oam_8756CC0(void)
 {
@@ -217,7 +215,7 @@ void oam_8756CC0(void)
         }
         sprite->var24 = charName;
         if (charName < 0) {
-            off_807D930(Str_8755EAC, size);
+            off_807D930("unable to allocate space in VRAM for sprites %i\n", size);
             sprite = sprite->next;
             oam++;
             continue;
@@ -225,7 +223,7 @@ void oam_8756CC0(void)
         *attribute2 = sprite->oam_attr_2 | (sprite->var24 & 0x3FF);
         if (uploaded != 0) {
             if (charName < _unk3005E6C) {
-                off_807D930(Str_8755EE0, charName, sprite->unk2C);
+                off_807D930("upload invalid char %i 0x%x\n", charName, sprite->unk2C);
             }
             ARM_sub_8756A84(sprite, one << sprite->var16, charName);
         }

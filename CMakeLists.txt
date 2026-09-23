@@ -264,7 +264,6 @@ add_executable(rom
     src/strings_87294ac.c
     src/strings_8729894.c
     src/strings_872af0c.c
-    src/strings5.c
     src/strings6.c
     src/strings_8756870.c
 )
