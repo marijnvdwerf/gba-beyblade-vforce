@@ -295,6 +295,9 @@ SECTIONS {
 		src/sound.c.o(.rodata);
 		src/actorheap.c.o(.rodata);
 		src/iwram_sprite.c.o(.rodata);
+		/* Unk_8755F00 (s16[][16]) sits at a word boundary in the ROM; agbcc only
+		 * 2-aligns an s16 array, so the alignment the old asm/data5.s carried
+		 * (.align 2) lives here. */
 		. = ALIGN(4);
 		src/iwram_sound.c.o(.rodata);
 		src/iwram_fastmem.c.o(.rodata);
