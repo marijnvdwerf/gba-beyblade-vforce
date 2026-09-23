@@ -91,7 +91,6 @@ void sub_8063220(Palette* palette, unk32 red, unk32 green, unk32 blue)
     }
     height--;
     while (height != -1) {
-
         source4 = source;
         col = 0;
         nextHeight = --height;
