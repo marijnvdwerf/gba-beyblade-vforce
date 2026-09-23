@@ -208,14 +208,9 @@ s32 sub_8060790(s32 arg0)
 
     entry = _unk3005DC8;
     prev = NULL;
-    if (entry != NULL && entry->var02 < arg0) {
-        do {
-            prev = entry;
-            entry = entry->next;
-            if (entry == NULL) {
-                break;
-            }
-        } while (entry->var02 < arg0);
+    while (entry != NULL && entry->var02 < arg0) {
+        prev = entry;
+        entry = entry->next;
     }
 
     if (entry == NULL) {
