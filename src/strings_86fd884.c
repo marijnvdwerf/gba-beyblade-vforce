@@ -1,26 +1,6 @@
 #include "common.h"
 #include "version.h"
 
-const char Str_86FD7F4[] = "BITS AND BOBS (ita)";
-
-const char Str_86FD808[] = "BITS AND BOBS (fre)";
-
-const char Str_86FD81C[] = "BITS AND BOBS (deu)";
-
-const char Str_86FD830[] = "BITS AND BOBS (spa)";
-
-const char Str_86FD844[] = "MAIN";
-
-const char Str_86FD84C[] = "TEXT (ita)";
-
-const char Str_86FD858[] = "TEXT (fre)";
-
-const char Str_86FD864[] = "TEXT (deu)";
-
-const char Str_86FD870[] = "TEXT (spa)";
-
-const char Str_86FD87C[] = "TEXT";
-
 const char Str_86FD884[]
     = "This text is a placeholder for level entry dialog sections. {C14}Bring on the {C13}left{c} "
       "head{c}{A2}, and then the right head{a3}<\f>Now do{T} a transition<\f>And now do a single "

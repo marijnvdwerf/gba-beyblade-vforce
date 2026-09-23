@@ -261,7 +261,7 @@ SECTIONS {
 		src/profile.c.o(.rodata);
 		src/menuobject.c.o(.rodata);
 		src/festate.c.o(.rodata);
-		src/strings_86fd7f4.c.o(.rodata);
+		src/strings_86fd884.c.o(.rodata);
 		src/tutorial.c.o(.rodata);
 		src/strings_87254d4.c.o(.rodata);
 		src/trail.c.o(.rodata);

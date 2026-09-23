@@ -39,6 +39,7 @@ extern const SpriteSheet SpriteSheet_82516A8;
 extern const SpriteSheet SpriteSheet_8251AF4;
 extern const SpriteSheet SpriteSheet_823C2C8;
 extern const SpriteSheet SpriteSheet_824F010;
+extern const SpriteSheet SpriteSheet_821AB38;
 extern const unk8 Pal_825105C[];
 extern const unk8* _806E240[][5];
 extern const unk8* _806E31C[][5];
@@ -2769,6 +2770,31 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
         return;
     }
 }
+
+FrontendSubobjectData _8069E38 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "MAIN", "BITS AND BOBS (spa)", "BITS AND BOBS (deu)", "BITS AND BOBS (fre)",
+        "BITS AND BOBS (ita)" },
+    240, { 0 }, &_8068954, &_806897C };
+
+FrontendSubobject _8069E64 = { 8, { 0 }, &_8069E38, 0, NULL, 0, NULL, &_806894C };
+
+FrontendMenuItemData SubMenu_134651532[5] = {
+    { &SpriteSheet_821AB38, { "TEXT", "TEXT (spa)", "TEXT (deu)", "TEXT (fre)", "TEXT (ita)" },
+        0x2000, 0x2000, 0x100, 0x136 },
+    { &SpriteSheet_821AB38, { "TEXT", "TEXT (spa)", "TEXT (deu)", "TEXT (fre)", "TEXT (ita)" },
+        0x2000, 0x2000, 0x100, 0x136 },
+    { &SpriteSheet_821AB38, { "TEXT", "TEXT (spa)", "TEXT (deu)", "TEXT (fre)", "TEXT (ita)" },
+        0x2000, 0x2000, 0x100, 0x136 },
+    { &SpriteSheet_821AB38, { "TEXT", "TEXT (spa)", "TEXT (deu)", "TEXT (fre)", "TEXT (ita)" },
+        0x2000, 0x2000, 0x100, 0x136 },
+    { &SpriteSheet_821AB38, { "TEXT", "TEXT (spa)", "TEXT (deu)", "TEXT (fre)", "TEXT (ita)" },
+        0x2000, 0x2000, 0x100, 0x136 },
+};
+
+FrontendMenuData _8069F7C
+    = { &FontStyle_8068900, 5, 0x3200, 0x7800, 0x5A00, 0, 0x7000, SubMenu_134651532 };
+
+FrontendSubobject _8069FA0 = { -1, { 0 }, NULL, 0, NULL, 0, NULL, &_8068944 };
 
 void sub_8047E5C(FrontendState* state, unk32 arg1)
 {
