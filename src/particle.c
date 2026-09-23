@@ -15,7 +15,6 @@ void allocateParticleSystem(
     AllocatedBlock* block;
     Particle* particle;
     unk32 bytes;
-    unk32 count;
 
     arg4 <<= 24;
     bytes = arg1 * 0x24;
@@ -29,7 +28,6 @@ void allocateParticleSystem(
     }
     arg0->unk30 = block;
     arg0->unk6 = 0;
-    count = arg1;
     arg0->count = arg1;
     arg0->unk0 = arg2;
     particle = NULL;
@@ -47,26 +45,23 @@ void allocateParticleSystem(
     arg0->unk14 = 0;
     arg0->unk10 = 0;
     if (particle != NULL) {
-        arg1--;
-        if (count != 0) {
-            do {
-                particle->sprite = allocSprite(0x80);
-                particle->unk22 = 0;
-                particle->unk20 = 0;
-                particle->unk1E = 0;
-                particle->unk1C = 0;
-                particle->unk1A = 0;
-                particle->unk14 = 0;
-                particle->unk12 = 0;
-                particle->unk10 = 0;
-                particle->unkC = 0;
-                particle->unk8 = 0;
-                particle->unk4 = 0;
-                if (particle->sprite != NULL) {
-                    LoadSpriteSheet(particle->sprite, arg2, 0, 0xA000, 0, 0, 0, 0);
-                }
-                particle++;
-            } while (arg1-- != 0);
+        while (arg1-- != 0) {
+            particle->sprite = allocSprite(0x80);
+            particle->unk22 = 0;
+            particle->unk20 = 0;
+            particle->unk1E = 0;
+            particle->unk1C = 0;
+            particle->unk1A = 0;
+            particle->unk14 = 0;
+            particle->unk12 = 0;
+            particle->unk10 = 0;
+            particle->unkC = 0;
+            particle->unk8 = 0;
+            particle->unk4 = 0;
+            if (particle->sprite != NULL) {
+                LoadSpriteSheet(particle->sprite, arg2, 0, 0xA000, 0, 0, 0, 0);
+            }
+            particle++;
         }
     }
 }
