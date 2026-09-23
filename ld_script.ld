@@ -107,7 +107,6 @@ SECTIONS {
         src/riderphysics.c.o(.text);
         src/particle.c.o(.text);
         src/hud.c.o(.text);
-        src/levelhud.c.o(.text);
         src/riderstate.c.o(.text);
         src/motion.c.o(.text);
         src/main.c.o(.text);
@@ -261,7 +260,7 @@ SECTIONS {
 		src/trail.c.o(.rodata);
 		src/projectile.c.o(.rodata);
 		src/particle.c.o(.rodata);
-		src/strings_8727048.c.o(.rodata);
+		src/hud.c.o(.rodata);
 		src/riderstate.c.o(.rodata);
 		src/motion.c.o(.rodata);
 		src/strings_87270f8.c.o(.rodata);

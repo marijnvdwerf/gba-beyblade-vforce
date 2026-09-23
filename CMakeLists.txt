@@ -222,7 +222,6 @@ add_executable(rom
     src/keystate.c
     src/language.c
     src/layer.c
-    src/levelhud.c
     src/levelrow.c
     src/levelselect.c
     src/libc.c
@@ -259,7 +258,6 @@ add_executable(rom
     src/tutorial.c
     src/strings_86fd2e0.c
     src/strings_87254d4.c
-    src/strings_8727048.c
     src/strings_87270f8.c
     src/strings_87294ac.c
     src/strings_8756870.c
