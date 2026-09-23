@@ -46,8 +46,11 @@ struct TeletypeState {
     SpriteTextBlock unkEC;
 };
 
-extern const FontStyle FontStyle_806890C;
 extern const FontStyle FontStyle_80688B8;
+extern const FontStyle FontStyle_80688C4;
+extern const FontStyle FontStyle_80688D0;
+extern const FontStyle FontStyle_8068900;
+extern const FontStyle FontStyle_806890C;
 
 void sub_8063AD8(TeletypeState*, unk32);
 TeletypeState* sub_8063E18(const unk8*, const FontStyle*, unk32, unk32, unk32, unk32, unk16);

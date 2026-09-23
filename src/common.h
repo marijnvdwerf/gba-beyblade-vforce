@@ -233,7 +233,6 @@ struct UnkMenuItem {
 typedef struct FrontendMenuData FrontendMenuData;
 typedef struct FrontendMenuItemData FrontendMenuItemData;
 typedef struct FrontendMenuItem FrontendMenuItem;
-typedef struct FrontendMenuBlockData FrontendMenuBlockData;
 
 struct FrontendMotionData {
     unk32 unk0;
@@ -255,7 +254,7 @@ typedef struct FrontendSelectionPalette {
 } FrontendSelectionPalette;
 
 struct FrontendMenuData {
-    FrontendMenuBlockData* address;
+    const FontStyle* address;
     s32 itemCount;
     s32 scale;
     unk32 x;
@@ -268,21 +267,13 @@ struct FrontendMenuData {
 
 struct FrontendMenuItemData {
     const SpriteSheet* spriteSheet;
-    const u8* labels[4];
-    unk8 pad14[4];
+    const u8* labels[5];
     unk32 unk18;
     unk32 unk1C;
     unk32 nextPosition;
     unk32 previousPosition;
     unk32 unk28;
     unk32 unk2C;
-};
-
-struct FrontendMenuBlockData {
-    const SpriteSheet* spriteSheet;
-    const unk8* font;
-    unk16 tileCount;
-    unk8 unkA;
 };
 
 struct FrontendMenuItem {

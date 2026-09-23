@@ -26,7 +26,6 @@ extern const unk8 Pal_823B2BC[];
 extern const SpriteSheet SpriteSheet_823B4BC;
 extern const unk8 Pal_823BD04[];
 extern FrontendSubobjectData _806E690;
-extern FrontendSelectionPalette _806893C;
 
 FrontendSubobjectData _80685E0[] = {
     { 0x100, 24, 0x100, 24, &FontStyle_806890C, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 160 },

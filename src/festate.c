@@ -23,6 +23,7 @@
 #include "ram.h"
 #include "riderphysics.h"
 #include "spritetext.h"
+#include "teletype.h"
 #include "tutorial.h"
 #include "unsorted.h"
 #include "version.h"
@@ -39,18 +40,144 @@ extern const SpriteSheet SpriteSheet_8251AF4;
 extern const SpriteSheet SpriteSheet_823C2C8;
 extern const SpriteSheet SpriteSheet_824F010;
 extern const unk8 Pal_825105C[];
-extern const char Str_86FD640[];
-extern const char Str_86FD68C[];
-extern const char Str_86FD6C8[];
-extern const char Str_86FD704[];
-extern const char Str_86FD740[];
-extern const char Str_86FD77C[];
-extern const char Str_86FD7B8[];
 extern const unk8* _806E240[][5];
 extern const unk8* _806E31C[][5];
-extern const FrontendMenuData _8069D50;
-extern const FrontendMenuData _8069D9C;
-extern const SpriteTextPlacement _80699DC[6][8];
+
+extern FrontendMenuItemData SubMenu_134666724[];
+extern FrontendMenuItemData SubMenu_134667008[];
+extern FrontendMenuItemData SubMenu_134667360[];
+extern FrontendMenuItemData SubMenu_134667720[];
+extern FrontendMenuItemData SubMenu_134667960[];
+extern FrontendMenuItemData SubMenu_134668368[];
+extern FrontendMenuItemData SubMenu_134668720[];
+extern FrontendMenuItemData SubMenu_134669252[];
+extern FrontendMenuItemData SubMenu_134669436[];
+extern FrontendMenuItemData SubMenu_134669576[];
+extern FrontendMenuItemData SubMenu_134671024[];
+extern FrontendSubobjectData _806D9B8;
+extern FrontendSubobjectData _806DAD4;
+extern FrontendSubobjectData _806DB60;
+extern FrontendSubobjectData _806DBDC;
+extern FrontendSubobjectData _806DC08;
+extern FrontendSubobjectData _806DC34;
+extern FrontendSubobjectData _806DD70;
+extern FrontendSubobjectData _806DD9C;
+extern FrontendSubobjectData _806DF78;
+extern FrontendSubobjectData _806DFA4;
+extern FrontendSubobjectData _806DFF8;
+extern FrontendSubobjectData _806E024;
+extern FrontendSubobjectData _806E12C;
+extern FrontendSubobjectData _806E158;
+extern FrontendSubobjectData _806E184;
+extern FrontendSubobjectData _806E358;
+extern FrontendSubobjectData _806E384;
+extern FrontendSubobjectData _806E424;
+extern FrontendSubobjectData _806E450;
+extern FrontendSubobjectData _806E4DC;
+extern FrontendSubobjectData _806E5F8;
+extern FrontendSubobjectData _806E624;
+extern FrontendSubobjectData _806E950;
+extern FrontendSubobjectData _806EA30;
+extern FrontendSubobjectData _806EA84;
+
+FrontendMenuData _80689A4
+    = { &FontStyle_8068900, 5, 0x3C00, 0x7800, 0x1400, 0, 0x7000, SubMenu_134666724, 0x168 };
+
+FrontendSubobject _80689C8 = { -1, { 0 }, &_806D9B8, 0, NULL, 0, NULL, &_806894C };
+
+MenuOptionSet _80689F0[2] = {
+    { { "available", "available (spa)", "available (deu)", "available (fre)", "available (ita)" } },
+    { { "locked", "locked (spa)", "locked (deu)", "locked (fre)", "locked (ita)" } },
+};
+
+MenuOptionSet _8068A18[26] = {
+    { { "1.1", "", "", "", "" } },
+    { { "1.2", "", "", "", "" } },
+    { { "1.3", "", "", "", "" } },
+    { { "1.4", "", "", "", "" } },
+    { { "1.5", "", "", "", "" } },
+    { { "2.1", "", "", "", "" } },
+    { { "2.2", "", "", "", "" } },
+    { { "2.3", "", "", "", "" } },
+    { { "2.4", "", "", "", "" } },
+    { { "2.5", "", "", "", "" } },
+    { { "3.1", "", "", "", "" } },
+    { { "3.2", "", "", "", "" } },
+    { { "3.3", "", "", "", "" } },
+    { { "3.4", "", "", "", "" } },
+    { { "3.5", "", "", "", "" } },
+    { { "4.1", "", "", "", "" } },
+    { { "4.2", "", "", "", "" } },
+    { { "4.3", "", "", "", "" } },
+    { { "4.4", "", "", "", "" } },
+    { { "4.5", "", "", "", "" } },
+    { { "5.1", "", "", "", "" } },
+    { { "5.2", "", "", "", "" } },
+    { { "5.3", "", "", "", "" } },
+    { { "5.4", "", "", "", "" } },
+    { { "5.5", "", "", "", "" } },
+    { { NULL, NULL, NULL, NULL, NULL } },
+};
+
+MenuItemDescriptor _8068C20[2] = {
+    { { "level", "level", "level", "level", "level" }, 1, _8068A18 },
+};
+
+FrontendMenuObjectData _8068C60
+    = { 0, -128, { 0 }, 0, &FontStyle_80688C4, _8068C20, 240, 11, 13, 15, 13, 15 };
+
+FrontendSubobjectData _8068C78 = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Level", "Level (spa)", "Level (deu)", "Level (fre)", "Level (ita)" }, 240, { 0 }, &_8068954,
+    &_806897C };
+
+FrontendSubobject _8068CA4 = { 8, { 0 }, &_8068C78, 0, NULL, 1, &_8068C60, &_8068934 };
+
+FrontendSubobjectData _8068CCC = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Results", "Results (spa)", "Results (deu)", "Results (fre)", "Results (ita)" }, 240, { 0 },
+    &_8068954, &_806897C };
+
+FrontendSubobject _8068CF8 = { 8, { 0 }, &_8068CCC, 0, NULL, 0, NULL, &_8068944 };
+
+FrontendSubobjectData _8068D20[10] = {
+    { 0x100, 40, 0x100, 40, &FontStyle_80688D0, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 86 },
+    { 0x100, 40, 0x100, 40, &FontStyle_80688C4, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 80 },
+    { 0x100, 52, 0x100, 52, &FontStyle_80688D0, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 86 },
+    { 0x100, 52, 0x100, 52, &FontStyle_80688C4, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 80 },
+    { 0x100, 64, 0x100, 64, &FontStyle_80688D0, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 86 },
+    { 0x100, 64, 0x100, 64, &FontStyle_80688C4, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 80 },
+    { 0x100, 76, 0x100, 76, &FontStyle_80688D0, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 86 },
+    { 0x100, 76, 0x100, 76, &FontStyle_80688C4, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 80 },
+    { 0x100, 96, 0x100, 96, &FontStyle_80688C4, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 240 },
+    { 0x100, 112, 0x100, 112, &FontStyle_80688C4, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 240 },
+};
+
+FrontendSubobject _8068ED8 = { 8, { 0 }, &_806EA30, 10, _8068D20, 0, NULL, &_8068944 };
+
+FrontendSubobjectData _8068F00[10] = {
+    { 0x100, 40, 0x100, 40, &FontStyle_80688D0, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 80 },
+    { 0x100, 40, 0x100, 40, &FontStyle_80688C4, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 80 },
+    { 0x100, 52, 0x100, 52, &FontStyle_80688D0, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 80 },
+    { 0x100, 52, 0x100, 52, &FontStyle_80688C4, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 80 },
+    { 0x100, 64, 0x100, 64, &FontStyle_80688D0, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 80 },
+    { 0x100, 64, 0x100, 64, &FontStyle_80688C4, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 80 },
+    { 0x100, 76, 0x100, 76, &FontStyle_80688D0, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 80 },
+    { 0x100, 76, 0x100, 76, &FontStyle_80688C4, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 80 },
+    { 0x100, 96, 0x100, 96, &FontStyle_80688C4, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 240 },
+    { 0x100, 112, 0x100, 112, &FontStyle_80688C4, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 240 },
+};
+
+FrontendSubobject _80690B8 = { 8, { 0 }, &_806E950, 10, _8068F00, 0, NULL, &_8068944 };
+
+FrontendSubobject _80690E0 = { 8, { 0 }, &_806DAD4, 0, NULL, 0, NULL, &_8068944 };
+
+FrontendMenuData _8069108
+    = { &FontStyle_8068900, 2, 0x3C00, 0x7800, 0x1400, 0, 0x7000, SubMenu_134667008, 0x168 };
+
+FrontendSubobject _806912C = { 8, { 0 }, &_806DB60, 0, NULL, 0, NULL, &_8068944 };
+
+FrontendSubobject _8069154 = { 8, { 0 }, &_806DBDC, 0, NULL, 0, NULL, &_8068944 };
+
+FrontendSubobject _806917C = { 8, { 0 }, &_806DC08, 0, NULL, 0, NULL, &_8068944 };
 
 void sub_8043A0C(FrontendState* state, u32 arg1, u32 arg2)
 {
@@ -109,7 +236,7 @@ void sub_8043AA0(FrontendState* state, u32 arg1)
         _unk3000160 = 0x800;
         _unk3000164 = 0xD800;
         menu = &state->menu;
-        newIconMenu(menu, _80689A4, 0);
+        newIconMenu(menu, &_80689A4, 0);
         sub_8050FEC(menu, 0x9600);
         _unk3000168 = 0;
         sub_8049168();
@@ -240,7 +367,7 @@ void sub_8043DB8(SpriteTextCleanup** arg0, LevelState* arg1, CurrentGameStateTai
         if (arg2->unk0 != 0) {
             sub_8061C48(arg0[1], (scale * arg2->unk0) >> 5, 0xF);
         } else {
-            sub_8061660(arg0[1], Str_86FD468, 0xF);
+            sub_8061660(arg0[1], "...", 0xF);
         }
     }
     if ((mask & 2) != 0) {
@@ -254,7 +381,7 @@ void sub_8043DB8(SpriteTextCleanup** arg0, LevelState* arg1, CurrentGameStateTai
     if ((mask & 8) != 0) {
         sub_8061660(arg0[6], _806E97C[3][language], 0xE);
         showNumber_2(arg0[7], (scale * arg2->unk8) >> 5, 0xF);
-        showString(arg0[7], Str_86FD46C, 0xF);
+        showString(arg0[7], " / ", 0xF);
         showNumber(arg0[7], description->unk1, 0xF);
     }
     if ((mask & 0x10) != 0 && (arg2->unkC & 4) != 0) {
@@ -410,7 +537,7 @@ void sub_8044314(SpriteTextCleanup** sprites, Packet* unused, s32 value, unk32 m
             difference = _currentGameState->unk6A6 - _currentGameState->unk6A8;
             difference -= value;
             showNumber_2(sprites[1], (value * count) >> 5, 0xF);
-            showString(sprites[1], Str_86FD470, 0xF);
+            showString(sprites[1], " - ", 0xF);
             showNumber(sprites[1], (difference * count) >> 5, 0xF);
             break;
         case 1:
@@ -595,7 +722,7 @@ void sub_80448F4(FrontendState* state, unk32 arg1)
         }
         _unk30001F8 = 0x800;
         _unk30001FC = 0xD800;
-        newIconMenu(&state->menu, _8069108, 0);
+        newIconMenu(&state->menu, &_8069108, 0);
         sub_8050FEC(&state->menu, 0x9600);
         _unk3000200 = 0;
         if (sub_805FFE4() == 0 || sub_8060070() == 0) {
@@ -716,7 +843,7 @@ void sub_8044C48(FrontendState* state, unk32 arg1)
         allocFont(&_unk3000248, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x78, 0xF0, 2);
         sub_8061660(&_unk3000248, _806DB8C[0][getLanguage()], 0xF);
         showNumber(&_unk3000248, value, 0xF);
-        showString(&_unk3000248, Str_86FD470, 0xF);
+        showString(&_unk3000248, " - ", 0xF);
         showNumber(&_unk3000248, difference, 0xF);
         break;
     case 7:
@@ -794,7 +921,7 @@ void sub_8044ED4(FrontendState* state, unk32 arg1)
         allocFont(&_unk30002C0, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x78, 0xF0, 2);
         sub_8061660(&_unk30002C0, _806DB8C[0][getLanguage()], 0xF);
         showNumber(&_unk30002C0, value, 0xF);
-        showString(&_unk30002C0, Str_86FD470, 0xF);
+        showString(&_unk30002C0, " - ", 0xF);
         showNumber(&_unk30002C0, difference, 0xF);
         break;
     case 7:
@@ -870,7 +997,7 @@ void sub_8045160(FrontendState* state, unk32 arg1, unk32 arg2)
         allocFont(&_unk3000338, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x78, 0xF0, 2);
         sub_8061660(&_unk3000338, _806DB8C[0][getLanguage()], 0xF);
         showNumber(&_unk3000338, value, 0xF);
-        showString(&_unk3000338, Str_86FD470, 0xF);
+        showString(&_unk3000338, " - ", 0xF);
         showNumber(&_unk3000338, value, 0xF);
         break;
     case 7:
@@ -910,6 +1037,225 @@ void sub_8045160(FrontendState* state, unk32 arg1, unk32 arg2)
         break;
     }
 }
+
+MenuItemDescriptor _80691A4[6] = {
+    { { "yes", "yes (spa)", "yes (deu)", "yes (fre)", "yes (ita)" } },
+    { { "no", "no (spa)", "no (deu)", "no (fre)", "no (ita)" } },
+};
+
+FrontendMenuObjectData _8069264
+    = { 0, -128, { 0 }, 0, &FontStyle_80688C4, _80691A4, 240, 12, 13, 15, 13, 15 };
+
+FrontendSubobject _806927C = { 8, { 0 }, &_806DC34, 0, NULL, 0, NULL, &_8068944 };
+
+FrontendMenuData _80692A4
+    = { &FontStyle_8068900, 4, 0x3C00, 0x7800, 0x1400, 0, 0x7000, SubMenu_134667360, 0x168 };
+
+FrontendSubobject _80692C8 = { -1, { 0 }, NULL, 0, NULL, 0, NULL, &_8068924 };
+
+FrontendSubobject _80692F0 = { -1 };
+
+FrontendSubobject _8069318 = { -1, { 0 }, &_806DD70, 0, NULL, 0, NULL, &_806892C };
+
+unk32 _8069340[14] = {
+    0,
+    0,
+    0,
+    64,
+    0x6800,
+    0,
+    2,
+    0,
+    0,
+    0,
+    -128,
+    0,
+    0,
+    0,
+};
+
+InputSequence _8069378 = { 4, { 32, 64, 0x200, 0x200 } };
+
+InputSequence _806938C = { 4, { 2, 0x200, 0x100, 128 } };
+
+InputSequence _80693A0 = { 4, { 16, 128, 0x100, 0x200 } };
+
+InputSequence _80693B4 = { 4, { 0x200, 32, 0x100, 16 } };
+
+InputSequence _80693C8 = { 4, { 2, 0x200, 2, 0x100 } };
+
+FrontendMenuData _80693DC
+    = { &FontStyle_8068900, 5, 0x3C00, 0x7800, 0x1400, 0, 0x7000, SubMenu_134667720, 0x168 };
+
+FrontendSubobject _8069400 = { 8, { 0 }, &_806DD9C, 0, NULL, 0, NULL, &_806894C };
+
+FrontendMenuData _8069428
+    = { &FontStyle_8068900, 4, 0x3C00, 0x7800, 0x1400, 0, 0x7000, SubMenu_134667960, 0x168 };
+
+FrontendSubobject _806944C = { 8, { 0 }, &_806DF78, 0, NULL, 0, NULL, &_806893C };
+
+MenuItemDescriptor _8069474[3] = {
+    { { "music volume", "music volume (spa)", "music volume (ger)", "music volume (fre)",
+        "music volume (ita)" } },
+    { { "sfx volume", "sfx volume (spa)", "sfx volume (ger)", "sfx volume (fre)",
+        "sfx volume (ita)" } },
+};
+
+FrontendMenuObjectData _80694D4
+    = { 0, -128, { 0 }, 0, &FontStyle_80688C4, _8069474, 240, 11, 13, 15, 13, 15 };
+
+FrontendSubobject _80694EC = { 8, { 0 }, &_806DFA4, 0, NULL, 0, NULL, &_8068944 };
+
+FrontendMenuData _8069514
+    = { &FontStyle_8068900, 2, 0x3C00, 0x7800, 0x1400, 0, 0x7000, SubMenu_134671024, 0x168 };
+
+FrontendSubobject _8069538 = { 8, { 0 }, &_806EA84, 0, NULL, 0, NULL, &_8068944 };
+
+MenuOptionSet _8069560[5] = {
+    { { "team 1", "team 1", "team 1", "team 1", "team 1" } },
+    { { "team 2", "team 2", "team 2", "team 2", "team 2" } },
+    { { "team 3", "team 3", "team 3", "team 3", "team 3" } },
+    { { "team 4", "team 4", "team 4", "team 4", "team 4" } },
+    { { NULL, NULL, NULL, NULL, NULL } },
+};
+
+MenuItemDescriptor _80695C4[2] = {
+    { { "team :", "team (spa) :", "team (ger) :", "team (fre) :", "team (ita) :" }, 1, _8069560 },
+};
+
+FrontendMenuObjectData _8069604
+    = { 0, -128, { 0 }, 0, &FontStyle_80688C4, _80695C4, 240, 11, 13, 15, 13, 15 };
+
+FrontendSubobjectData _806961C = { 4, -32, 4, 4, &FontStyle_806890C,
+    { "Team", "Team (spa)", "Team (deu)", "Team (fre)", "Team (ita)" }, 240, { 0 }, &_8068954,
+    &_806897C };
+
+FrontendSubobject _8069648 = { 8, { 0 }, &_806961C, 0, NULL, 1, &_8069604, &_8068934 };
+
+FrontendSubobjectData _8069670[3] = {
+    { 0x100, 24, 80, 24, &FontStyle_806890C, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 160 },
+    { 0x100, 64, 80, 64, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 160 },
+    { 0x100, 100, 80, 100, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 160 },
+};
+
+FrontendSubobject _80696F4 = { 8, { 0 }, &_806DFF8, 3, _8069670, 0, NULL, &_8068944 };
+
+FrontendSubobject _806971C = { 8, { 0 }, &_806E024, 0, NULL, 0, NULL, &_806893C };
+
+FrontendMenuData _8069744
+    = { &FontStyle_8068900, 2, 0x3C00, 0x7800, 0x1400, 0, 0x7000, SubMenu_134668368, 0x168 };
+
+FrontendSubobjectData _8069768
+    = { 0x100, 74, 0, 74, &FontStyle_80688C4, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 208 };
+
+FrontendSubobject _8069794 = { 8, { 0 }, &_806E024, 1, &_8069768, 0, NULL, &_806893C };
+
+FrontendSubobject _80697BC = { 8, { 0 }, &_806E12C, 1, &_806E158, 0, NULL, &_806893C };
+
+FrontendSubobject _80697E4 = { 8, { 0 }, &_806E184, 0, NULL, 0, NULL, &_806893C };
+
+FrontendMenuData _806980C
+    = { &FontStyle_8068900, 3, 0x3C00, 0x7800, 0x1400, 0, 0x7000, SubMenu_134668720, 0x168 };
+
+FrontendMenuData _8069830
+    = { &FontStyle_8068900, 2, 0x3C00, 0x7800, 0x1400, 0, 0x7000, SubMenu_134668720, 0x168 };
+
+FrontendSubobjectData _8069854[8] = {
+    { 0x100, 24, 0x100, 24, &FontStyle_8068900, { "TITLE", "\x8F", "\x8F", "\x8F", "\x8F" }, 240 },
+    { 0x100, 56, 0x100, 56, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 240 },
+    { 0x100, 72, 0x100, 72, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 240 },
+    { 0x100, 80, 0x100, 72, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 240 },
+    { 0x100, 88, 0x100, 88, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 240 },
+    { 0x100, 100, 0x100, 100, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 240 },
+    { 0x100, 112, 0x100, 112, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 240 },
+    { 0x100, 112, 0x100, 112, &FontStyle_80688B8, { "\x8F", "\x8F", "\x8F", "\x8F", "\x8F" }, 240 },
+};
+
+FrontendSubobject _80699B4 = { 8, { 0 }, &_806E358, 8, _8069854, 0, NULL, &_806893C };
+
+SpriteTextPlacement _80699DC[6][8] = {
+    {
+        { 4, 26, 236 },
+        { 88, 76, 148, 16 },
+        { 88, 88, 148 },
+        { 88, 112, 148, 16 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+    },
+    {
+        { 4, 26, 236 },
+        { 88, 70, 148, 16 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+        { 88, 84, 64, 1 },
+        { 88, 96, 64, 1 },
+        { 88, 108, 64, 1 },
+        { 0, 0, 240 },
+    },
+    {
+        { 4, 26, 236 },
+        { 88, 70, 148, 16 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+        { 88, 84, 64, 1 },
+        { 88, 96, 64, 1 },
+        { 88, 108, 64, 1 },
+        { 0, 0, 240 },
+    },
+    {
+        { 4, 26, 236 },
+        { 88, 70, 148, 16 },
+        { 0 },
+        { 0 },
+        { 88, 84, 64, 1 },
+        { 88, 96, 64, 1 },
+        { 88, 108, 64, 1 },
+        { 0 },
+    },
+    {
+        { 4, 26, 236 },
+        { 88, 94, 148, 16 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+    },
+    {
+        { 24, 26, 236 },
+        { 88, 66, 148 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+        { 0, 0, 240 },
+    },
+};
+
+FrontendSubobject _8069CDC = { 8, { 0 }, &_806E384, 0, NULL, 0, NULL, &_8068944 };
+
+FrontendMenuData _8069D04
+    = { &FontStyle_8068900, 2, 0x3C00, 0x7800, 0x1400, 0, 0x7000, SubMenu_134669252, 0x168 };
+
+FrontendSubobject _8069D28 = { 8, { 0 }, &_806E424, 0, NULL, 0, NULL, &_8068944 };
+
+FrontendMenuData _8069D50
+    = { &FontStyle_8068900, 2, 0x3C00, 0x7800, 0x1400, 0, 0x7000, SubMenu_134669436, 0x168 };
+
+FrontendSubobject _8069D74 = { 8, { 0 }, &_806E450, 0, NULL, 0, NULL, &_8068944 };
+
+FrontendMenuData _8069D9C
+    = { &FontStyle_8068900, 5, 0x3C00, 0x7800, 0x1400, 0, 0x7000, SubMenu_134669576, 0x168 };
+
+FrontendSubobject _8069DC0 = { 8, { 0 }, &_806E4DC, 0, NULL, 0, NULL, &_8068944 };
+
+FrontendSubobject _8069DE8 = { 8, { 0 }, &_806E5F8, 0, NULL, 0, NULL, &_8068944 };
+
+FrontendSubobject _8069E10 = { 8, { 0 }, &_806E624, 0, NULL, 0, NULL, &_8068944 };
 
 void sub_80453D8(FrontendState* state, u32 arg1)
 {
@@ -955,7 +1301,7 @@ void sub_804541C(FrontendState* state, u32 arg1)
         _unk3000374 = 0x800;
         _unk3000378.value = 0xD800;
         menu = &state->menu;
-        newIconMenu(menu, _80692A4, sub_805162C() == 0 ? 3 : 0);
+        newIconMenu(menu, &_80692A4, sub_805162C() == 0 ? 3 : 0);
         sub_8050FEC(menu, 0x9600);
         break;
     }
@@ -1050,11 +1396,11 @@ void sub_804568C(FrontendState* state, u32 arg1)
     switch (arg1) {
     case 0:
         sub_8049168();
-        sub_8057158(&_unk3000380, _80693A0);
-        sub_8057158(&_unk3000388, _8069378);
-        sub_8057158(&_unk3000390, _806938C);
-        sub_8057158(&_unk3000398, _80693B4);
-        sub_8057158(&_unk30003A0, _80693C8);
+        sub_8057158(&_unk3000380, &_80693A0);
+        sub_8057158(&_unk3000388, &_8069378);
+        sub_8057158(&_unk3000390, &_806938C);
+        sub_8057158(&_unk3000398, &_80693B4);
+        sub_8057158(&_unk30003A0, &_80693C8);
         break;
     case 1:
         resource = &_unk3000380;
@@ -1131,7 +1477,7 @@ void sub_8045848(FrontendState* state, u32 arg1)
         _unk30003B0 = 0x800;
         _unk30003B4 = 0xD800;
         menu = &state->menu;
-        newIconMenu(menu, _80693DC, 0);
+        newIconMenu(menu, &_80693DC, 0);
         sub_8050FEC(menu, 0x9600);
         sub_8049168();
         break;
@@ -1213,7 +1559,7 @@ void sub_8045A7C(FrontendState* state, u32 arg1)
         }
         _unk30003C0 = 0x800;
         _unk30003C4 = 0xD800;
-        newIconMenu(&state->menu, _8069428, 0);
+        newIconMenu(&state->menu, &_8069428, 0);
         sub_8050FEC(&state->menu, 0x9600);
         break;
     }
@@ -1460,7 +1806,7 @@ void sub_80461D8(FrontendState* state, u32 arg1)
         }
         _unk300046C = 0x800;
         _unk3000470 = 0xD800;
-        newIconMenu(&state->menu, _8069514, _currentGameState->unkC68 == 0 ? 1 : 0);
+        newIconMenu(&state->menu, &_8069514, _currentGameState->unkC68 == 0 ? 1 : 0);
         sub_8050FEC(&state->menu, 0x9600);
         break;
     case 7:
@@ -1678,7 +2024,7 @@ void sub_8046814(FrontendState* state, u32 arg1)
         }
         _unk30004AC = 0x800;
         _unk30004B0 = 0xD800;
-        newIconMenu(&state->menu, _8069108, 0);
+        newIconMenu(&state->menu, &_8069108, 0);
         sub_8050FEC(&state->menu, 0x9600);
         sub_8049168();
         break;
@@ -1836,11 +2182,11 @@ void sub_8046CC4(FrontendState* state, u32 arg1)
         _unk30004E0 = sub_80515E0();
         if (_unk30004E0 != 0 && sub_8051558() != 0) {
             value = sub_8051618() != 0 ? 2 : 0;
-            newIconMenu(&state->menu, _806980C, value);
+            newIconMenu(&state->menu, &_806980C, value);
         } else {
             unk32 result;
             result = sub_8051618() != 0;
-            newIconMenu(&state->menu, _8069830, result);
+            newIconMenu(&state->menu, &_8069830, result);
         }
         sub_8050FEC(&state->menu, 0x9600);
         break;
@@ -2159,7 +2505,7 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
             index++;
         }
         if (index == 0x3C) {
-            printf(Str_86FD640);
+            printf("Error, no Beyblades available for display in selectBladeFrontendHandler()\n");
         }
         _unk30004F0.unk34 = index;
         _unk30004F0.unk35 = 0;
@@ -2169,42 +2515,42 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
         if (sprite != NULL) {
             LoadSpriteSheet(sprite, &SpriteSheet_823BF04, 0xFFFF0000, 0x5400, 0, 0, 0, 0);
         } else {
-            printf(Str_86FD68C);
+            printf("cannot allocate sprite 1 in selectBladeFrontendHandler()\n");
         }
         sprite2 = allocSprite(0);
         _unk3000540 = sprite2;
         if (sprite2 != NULL) {
             LoadSpriteSheet(sprite2, &SpriteSheet_823BF04, 0x18000, 0x5400, 0, 0, 1, 0);
         } else {
-            printf(Str_86FD6C8);
+            printf("cannot allocate sprite 2 in selectBladeFrontendHandler()\n");
         }
         sprite3 = allocSprite(0);
         _unk3000544 = sprite3;
         if (sprite3 != NULL) {
             LoadSpriteSheet(sprite3, &SpriteSheet_823BF04, 0x18000, 0x1B00, 0, 0, 2, 2);
         } else {
-            printf(Str_86FD704);
+            printf("cannot allocate sprite 4 in selectBladeFrontendHandler()\n");
         }
         sprite4 = allocSprite(0);
         _unk30004F0.unk8 = sprite4;
         if (sprite4 != NULL) {
             LoadSpriteSheet(sprite4, &SpriteSheet_825125C, 0xAC00, 0xA000, 0, 0, 0, 0);
         } else {
-            printf(Str_86FD740);
+            printf("cannot allocate sprite 5 in selectBladeFrontendHandler()\n");
         }
         sprite5 = allocSprite(0);
         _unk30004F0.unkC = sprite5;
         if (sprite5 != NULL) {
             LoadSpriteSheet(sprite5, &SpriteSheet_82516A8, 0xAC00, 0xA000, 0, 0, 0, 0);
         } else {
-            printf(Str_86FD77C);
+            printf("cannot allocate sprite 6 in selectBladeFrontendHandler()\n");
         }
         sprite6 = allocSprite(0);
         _unk30004F0.unk10 = sprite6;
         if (sprite6 != NULL) {
             LoadSpriteSheet(sprite6, &SpriteSheet_8251AF4, 0xAC00, 0xA000, 0, 0, 0, 0);
         } else {
-            printf(Str_86FD7B8);
+            printf("cannot allocate sprite 7 in selectBladeFrontendHandler()\n");
         }
         _unk3000548 = 0x800;
         _unk300054C = 0xD800;
@@ -2524,7 +2870,7 @@ void sub_80480EC(FrontendState* state, unk32 arg1)
         _unk30005B8 = 0x800;
         _unk30005BC = 0xD800;
         menu = &state->menu;
-        newIconMenu(menu, _8069D04, 0);
+        newIconMenu(menu, &_8069D04, 0);
         sub_8050FEC(menu, 0x9600);
         sub_8049168();
         break;

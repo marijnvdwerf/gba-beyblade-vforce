@@ -180,6 +180,8 @@ SECTIONS {
 		src/collection.c.o(.data);
 		src/menuobject.c.o(.data);
 		asm/data12.s.o(.rodata);
+		src/festate.c.o(.data);
+		asm/data12c.s.o(.rodata);
 		src/tutorial.c.o(.data);
 		asm/data12b.s.o(.rodata);
 		asm/data11.s.o(.rodata);
@@ -258,7 +260,8 @@ SECTIONS {
 		src/collection.c.o(.rodata);
 		src/profile.c.o(.rodata);
 		src/menuobject.c.o(.rodata);
-		src/strings_86fd2e0.c.o(.rodata);
+		src/festate.c.o(.rodata);
+		src/strings_86fd7f4.c.o(.rodata);
 		src/tutorial.c.o(.rodata);
 		src/strings_87254d4.c.o(.rodata);
 		src/trail.c.o(.rodata);

@@ -65,8 +65,8 @@ void newIconMenu(FrontendMenu* menu, const FrontendMenuData* data, unk32 count)
         angle += menu->step;
         i++;
     }
-    allocFont(&menu->text, data->address->spriteSheet, data->address->font, data->unk14 >> 8,
-        data->unk18 >> 8, 0xF0, data->address->tileCount);
+    allocFont(&menu->text, data->address->unk0, data->address->unk4, data->unk14 >> 8,
+        data->unk18 >> 8, 0xF0, data->address->unk8);
     sub_8061660(&menu->text, menu->config->items[menu->selection].labels[getLanguage()],
         menu->config->address->unkA);
 }

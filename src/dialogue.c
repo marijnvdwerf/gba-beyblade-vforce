@@ -17,7 +17,6 @@
 #include "tutorial.h"
 
 extern const SpriteSheet SpriteSheet_821CB80;
-extern FrontendSelectionPalette _8068924;
 
 void teletypeDefaultUserCodeHandler(TeletypeState* state, unk32 command)
 {
