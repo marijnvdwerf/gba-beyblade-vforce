@@ -66,7 +66,6 @@ add_executable(rom
     asm/data12.s
     asm/data12b.s
     asm/data12c.s
-    asm/data3.s
     asm/data6.s
     asm/data7.s
     asm/data8.s
@@ -258,7 +257,6 @@ add_executable(rom
     src/trail.c
     src/transition.c
     src/tutorial.c
-    src/strings_8756870.c
 )
 
 target_link_libraries(rom PRIVATE agb)

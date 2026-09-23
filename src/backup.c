@@ -5,6 +5,13 @@
 
 #include "include_asm.h"
 
+const char EepromVersion[] = "EEPROM_V122";
+
+const BatteryBackupConfig Unk_875687C = { 0x200, 0x40, 0x300, 6 };
+const BatteryBackupConfig Unk_8756888 = { 0x2000, 0x400, 0x300, 14 };
+
+const unk16 Unk_8756894[] = { 10, 0xFFBD, 0xC2 };
+
 unk16 initBatteryBackup(u16 arg0)
 {
     unk32 result;

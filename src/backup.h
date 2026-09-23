@@ -21,11 +21,6 @@ extern unk8 _unk_3000DAC;
 extern unk16* _batteryBackupTimer_REG;
 extern unk16 _unk_3000DB4;
 
-extern const BatteryBackupConfig Unk_875687C;
-extern const BatteryBackupConfig Unk_8756888;
-
-extern const unk16 Unk_8756894[];
-
 unk16 initBatteryBackup(u16 arg0);
 void onTimer2Overflow(void);
 unk32 sub_806586C(u8 timerIndex, void (**isrOut)(void));

@@ -315,8 +315,7 @@ SECTIONS {
 		src/teletype.c.o(.rodata);
 		src/spritestring.c.o(.rodata);
 		src/spritestringactors.c.o(.rodata);
-		src/strings_8756870.c.o(.rodata);
-		asm/data3.s.o(.rodata);
+		src/backup.c.o(.rodata);
 
         *libgcc.a:_divdi3.o(.rodata);
     } =0
