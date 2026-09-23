@@ -4,17 +4,12 @@
 #include "beyblade.h"
 #include "include_asm.h"
 #include "items.h"
+#include "leveldata.h"
 #include "music.h"
 #include "ram.h"
 #include "sound.h"
 #include "unsorted.h"
 
-extern LevelDescription LevelDescriptions[];
-extern unk8 _807572c[];
-extern unk8 _807576c[];
-extern unk8 _80757ac[];
-extern unk8 _80757ec[];
-extern unk8 _807582c[][0x50];
 extern s32 _80788cc[];
 
 void sub_80510FC(void);
@@ -71,7 +66,7 @@ void sub_80510FC(void)
     }
     for (index = 0; index <= 9; index++) {
         slot = sub_80516E0(index);
-        slot->unk4 = _807582c[index];
+        slot->unk4 = &_807582c[index];
         slot->unk0 = 0;
         slot->unk2 = 0;
     }
@@ -280,9 +275,9 @@ void sub_8051688(unk32 value)
     _currentGameState->unk0 = value;
 }
 
-unk8* sub_8051694(void)
+LevelSlotText* sub_8051694(void)
 {
-    return _807582c[sub_80516B0()];
+    return &_807582c[sub_80516B0()];
 }
 
 unk32 sub_80516B0(void)
@@ -293,9 +288,9 @@ unk32 sub_80516B0(void)
     return value;
 }
 
-unk8* sub_80516C0(unk32 index)
+LevelSlotText* sub_80516C0(unk32 index)
 {
-    return _807582c[index];
+    return &_807582c[index];
 }
 
 void sub_80516D4(unk8 value)

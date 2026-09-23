@@ -1185,11 +1185,16 @@ typedef struct MultiPlayerAllocation {
     unk8 data[1];
 } MultiPlayerAllocation;
 
+typedef struct LevelSlotText {
+    const unk8* unk0[15];
+    unk32 unk3C[5]; /* 0x3C */
+} LevelSlotText;
+
 typedef struct LevelSlot {
     unk8 unk0;
     unk8 pad1;
     unk16 unk2;
-    void* unk4;
+    LevelSlotText* unk4;
 } LevelSlot;
 
 typedef struct LevelDescription {

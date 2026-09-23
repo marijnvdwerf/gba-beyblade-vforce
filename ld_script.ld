@@ -186,6 +186,7 @@ SECTIONS {
 		asm/data12b.s.o(.rodata);
 		asm/data11.s.o(.rodata);
 		asm/audio1.s.o(.rodata);
+		src/leveldata.c.o(.data);
 		asm/data9.s.o(.rodata);
 		src/results.c.o(.data);
 		asm/data9b.s.o(.rodata);
@@ -270,7 +271,7 @@ SECTIONS {
 		src/hud.c.o(.rodata);
 		src/riderstate.c.o(.rodata);
 		src/motion.c.o(.rodata);
-		src/strings_87270f8.c.o(.rodata);
+		src/leveldata.c.o(.rodata);
 		src/display.c.o(.rodata);
 		src/iconmenu.c.o(.rodata);
 		src/gamestate.c.o(.rodata);
