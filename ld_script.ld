@@ -185,12 +185,9 @@ SECTIONS {
 		asm/data11.s.o(.rodata);
 		asm/audio1.s.o(.rodata);
 		asm/data9.s.o(.rodata);
-<<<<<<< HEAD
-		src/items.c.o(.data);
-=======
 		src/results.c.o(.data);
 		asm/data9b.s.o(.rodata);
->>>>>>> 8dc14fce (Move results tables and their strings into results.c)
+		src/items.c.o(.data);
 		src/beyblade.c.o(.data);
 		asm/data8.s.o(.rodata);
 		asm/audio2.s.o(.rodata);
