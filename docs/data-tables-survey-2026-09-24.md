@@ -23,7 +23,6 @@ tutorial (TutorialPages + the localized tail), levelselect, dialogue, items.c
 (beyblade TU1), beyblade.c (TU2), results.c, festate.c (three source blocks),
 leveldata.c (data-only TU), frontend.c tail, credits.c. Also moved without
 strings: transition, collection, menuobject. The only strings file left is
-src/strings_8756870.c ("EEPROM_V122", the prebuilt library's marker — stays).
 
 ## Remaining asm data (no strings — placement cannot be measured from pools;
 ## decide by `.text` order)

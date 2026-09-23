@@ -5,7 +5,7 @@ Living document for the next manager session. Rules of engagement are in
 is stuck, and what to do next. Update it on every merge, agent start/finish
 and change of plan.
 
-Last updated: 2026-09-24 (session 17, close): main 6e41c223 — all functions matched; loops flattened + folded; ALL ROM STRINGS ARE C LITERALS except src/strings_8756870.c ("EEPROM_V122", the prebuilt library's marker — stays). Every string-bearing data table is a typed non-const C table in its TU (.data model). New TUs: items.c (beyblade TU1), leveldata.c (data-only), iwram_{sprite,tilemap,sound,fastmem,serial}.c; levelhud.c merged into hud.c. US+EU green, baseline refreshed. drafts deleted; raw-decomp-11 (user's worktree) = main's flattening commits. NO SOL TODAY (user rule) — opus for all agents. No agents running.
+Last updated: 2026-09-24 (session 17, close): main 6e41c223 — all functions matched; loops flattened + folded; ALL ROM STRINGS ARE C LITERALS — no src/strings*.c file is left; asm/data3.s is gone too. Every string-bearing data table is a typed non-const C table in its TU (.data model). New TUs: items.c (beyblade TU1), leveldata.c (data-only), iwram_{sprite,tilemap,sound,fastmem,serial}.c; levelhud.c merged into hud.c. US+EU green, baseline refreshed. drafts deleted; raw-decomp-11 (user's worktree) = main's flattening commits. NO SOL TODAY (user rule) — opus for all agents. No agents running.
 
 ## Session 17 (2026-09-23) — the last 11 iwram ARM functions
 
@@ -157,9 +157,14 @@ Last updated: 2026-09-24 (session 17, close): main 6e41c223 — all functions ma
   IWRAM pointer table, `byte_807D980`, `Pal_807DA80`), dataB/7/C incbins.
   DONE LATER THE SAME DAY: 2e700fff RiderSpriteSheets / getBeyBladeActorDataForIndex
   typed `const SpriteSheet*`; sub_804FC00's arg0 proven 0..3 (byte_807D7C0);
-  the EEPROM_V122 marker CANNOT move into backup.c — backup.c.o's -O1 build
-  emits 0x58 bytes of unreferenced .LC address words into .rodata that the
-  script currently discards; giving backup.c a .rodata line would place them.
+  EEPROM_V122 + asm/data3.s → backup.c (27155bd9, user's catch): backup.c.o's
+  -O1 build emits 22 `.LC` address words into .rodata, and those ARE the ROM's
+  `Unk_875689C` blob (same symbols, same order) — the script had been
+  discarding the compiler's copy and linking a hand transcription. Now
+  `src/backup.c.o(.rodata)` = EepromVersion + BatteryBackupConfig ×2 +
+  Unk_8756894 + the .LC table (0x8756870, 0x84 bytes); strings_8756870.c and
+  data3.s deleted. Lesson: a "discarded input section" in the map is a
+  question, not noise — check whether its bytes exist in the ROM.
   FINAL SKILL FOLD landed: docs/learnings/ (57 + 245 processed) DELETED, the
   skill-fold agent removed, decompiler/review/MANAGER.md now say measurements
   go in the agent's final REPORT and generic ones into SKILL.md by the manager.
