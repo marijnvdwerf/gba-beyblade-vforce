@@ -356,7 +356,7 @@ void sub_8060934(u16 arg0)
             entry->next = next;
             entry = next;
         }
-        next->next = NULL;
+        entry->next = NULL;
     }
 }
 
