@@ -3,7 +3,7 @@
 
 #include "common.h"
 
-void initBlockVariables(void);
+void initMemoryManagement(void);
 
 AllocatedBlock* fastAllocate(unk32 size);
 

@@ -10,34 +10,34 @@
 
 #define ewram ((unk8*)0x2000000)
 
-AllocatedBlock* _nextExramBlock = NULL;
-unk8 (*_exram)[EXRAM_SIZE] = NULL;
+AllocatedBlock* firstExramBlock = NULL;
+unk8 (*exram)[EXRAM_SIZE] = NULL;
 void* _unk3001158 = NULL;
-unk32 _exramBlocksUsed = 0;
-unk8 _wram[WRAM_SIZE] = { 0 };
-AllocatedBlock (*_wramBlocks)[BLOCK_COUNT] = NULL;
-AllocatedBlock* _nextWramBlock = NULL;
-unk32 _wramBlocksUsed = 0;
+unk32 exramBlocksUsed = 0;
+unk8 wram[WRAM_SIZE] = { 0 };
+AllocatedBlock (*wramBlocks)[BLOCK_COUNT] = NULL;
+AllocatedBlock* firstWramBlock = NULL;
+unk32 wramBlocksUsed = 0;
 void* _unk3005C8C = NULL;
-AllocatedBlock (*_exramBlocks)[BLOCK_COUNT] = NULL;
+AllocatedBlock (*exramBlocks)[BLOCK_COUNT] = NULL;
 
-AllocatedBlock* sub_805A53C(u32 size, unk8* base, unk32 capacity, AllocatedBlock* current,
-    AllocatedBlock* block, AllocatedBlock** nextBlockPtr);
+AllocatedBlock* insertAllocatedBlock(u32 size, unk8* base, unk32 capacity,
+    AllocatedBlock* firstBlock, AllocatedBlock* block, AllocatedBlock** firstBlockPtr);
 
-void initBlockVariables(void)
+void initMemoryManagement(void)
 {
     unk32 blockSize = sizeof(AllocatedBlock) * BLOCK_COUNT;
 
-    _wramBlocksUsed = 0;
-    _exramBlocksUsed = 0;
+    wramBlocksUsed = 0;
+    exramBlocksUsed = 0;
     _unk3005C8C = NULL;
     _unk3001158 = NULL;
-    _nextWramBlock = NULL;
-    _nextExramBlock = NULL;
+    firstWramBlock = NULL;
+    firstExramBlock = NULL;
 
-    _wramBlocks = (AllocatedBlock(*)[BLOCK_COUNT])ewram;
-    _exramBlocks = (AllocatedBlock(*)[BLOCK_COUNT])(ewram + blockSize);
-    _exram = (unk8(*)[EXRAM_SIZE])(ewram + blockSize + blockSize);
+    wramBlocks = (AllocatedBlock(*)[BLOCK_COUNT])ewram;
+    exramBlocks = (AllocatedBlock(*)[BLOCK_COUNT])(ewram + blockSize);
+    exram = (unk8(*)[EXRAM_SIZE])(ewram + blockSize + blockSize);
 }
 
 AllocatedBlock* getValidAllocatedBlock(AllocatedBlock (*)[], s32);
@@ -47,20 +47,20 @@ AllocatedBlock* fastAllocate(unk32 size)
     AllocatedBlock* block;
     AllocatedBlock* block2;
 
-    if (_nextWramBlock == NULL) {
-        _nextWramBlock = &(*_wramBlocks)[0];
-        _wramBlocksUsed = 0;
+    if (firstWramBlock == NULL) {
+        firstWramBlock = &(*wramBlocks)[0];
+        wramBlocksUsed = 0;
         _unk3005C8C = NULL;
     }
 
-    block = getValidAllocatedBlock(_wramBlocks, BLOCK_COUNT);
+    block = getValidAllocatedBlock(wramBlocks, BLOCK_COUNT);
     if (block == NULL) {
         printf("Error in fastAllocate(), unable to allocate %i bytes\n", size);
     }
 
-    block2 = sub_805A53C(size, _wram, sizeof(_wram), _nextWramBlock, block, &_nextWramBlock);
+    block2 = insertAllocatedBlock(size, wram, sizeof(wram), firstWramBlock, block, &firstWramBlock);
     if (block2 != NULL) {
-        _wramBlocksUsed += 1;
+        wramBlocksUsed += 1;
     }
 
     return block2;
@@ -71,20 +71,21 @@ AllocatedBlock* slowAllocate(unk32 size)
     AllocatedBlock* block;
     AllocatedBlock* block2;
 
-    if (_nextExramBlock == NULL) {
-        _nextExramBlock = &(*_exramBlocks)[0];
-        _exramBlocksUsed = 0;
+    if (firstExramBlock == NULL) {
+        firstExramBlock = &(*exramBlocks)[0];
+        exramBlocksUsed = 0;
         _unk3001158 = NULL;
     }
 
-    block = getValidAllocatedBlock(_exramBlocks, BLOCK_COUNT);
+    block = getValidAllocatedBlock(exramBlocks, BLOCK_COUNT);
     if (block == NULL) {
         printf("Error in slowAllocate(), unable to allocate %i bytes\n", size);
     }
 
-    block2 = sub_805A53C(size, (unk8*)_exram, EXRAM_SIZE, _nextExramBlock, block, &_nextExramBlock);
+    block2 = insertAllocatedBlock(
+        size, (unk8*)exram, EXRAM_SIZE, firstExramBlock, block, &firstExramBlock);
     if (block2 != NULL) {
-        _exramBlocksUsed += 1;
+        exramBlocksUsed += 1;
     }
 
     return block2;
@@ -102,15 +103,15 @@ void deallocateBlock(AllocatedBlock* block)
     if (previousBlock == NULL) {
         if (nextBlock == NULL) {
             if (block->address <= (void*)0x203FFFF) {
-                _nextExramBlock = NULL;
+                firstExramBlock = NULL;
             } else {
-                _nextWramBlock = NULL;
+                firstWramBlock = NULL;
             }
         } else {
             if (block->address <= (void*)0x203FFFF) {
-                _nextExramBlock = nextBlock;
+                firstExramBlock = nextBlock;
             } else {
-                _nextWramBlock = nextBlock;
+                firstWramBlock = nextBlock;
             }
 
             if (nextBlock != NULL) {
@@ -126,9 +127,9 @@ void deallocateBlock(AllocatedBlock* block)
     }
 
     if (block->address <= (void*)0x203FFFF) {
-        _exramBlocksUsed -= 1;
+        exramBlocksUsed -= 1;
     } else {
-        _wramBlocksUsed -= 1;
+        wramBlocksUsed -= 1;
     }
 
     block->size = 0;
@@ -137,8 +138,8 @@ void deallocateBlock(AllocatedBlock* block)
     block->previous = NULL;
 }
 
-AllocatedBlock* sub_805A53C(u32 size, unk8* base, unk32 capacity, AllocatedBlock* current,
-    AllocatedBlock* block, AllocatedBlock** nextBlockPtr)
+AllocatedBlock* insertAllocatedBlock(u32 size, unk8* base, unk32 capacity,
+    AllocatedBlock* firstBlock, AllocatedBlock* block, AllocatedBlock** firstBlockPtr)
 {
     u32 firstGap;
     u32 gap;
@@ -148,8 +149,8 @@ AllocatedBlock* sub_805A53C(u32 size, unk8* base, unk32 capacity, AllocatedBlock
     unk8* address;
     AllocatedBlock* cur;
 
-    address = current->address;
-    cur = current;
+    address = firstBlock->address;
+    cur = firstBlock;
     firstGap = 0;
     if (address != 0) {
         firstGap = address - base;
@@ -158,10 +159,10 @@ AllocatedBlock* sub_805A53C(u32 size, unk8* base, unk32 capacity, AllocatedBlock
     if (firstGap >= size) {
         block->address = base;
         block->previous = NULL;
-        block->next = current;
+        block->next = firstBlock;
         block->size = size;
         cur->previous = block;
-        *nextBlockPtr = block;
+        *firstBlockPtr = block;
         return block;
     }
 
@@ -230,7 +231,7 @@ AllocatedBlock* getValidAllocatedBlock(AllocatedBlock (*blockList)[], s32 count)
 void printTotalWramUsage(void)
 {
     u32 total = 0;
-    AllocatedBlock* block = _nextWramBlock;
+    AllocatedBlock* block = firstWramBlock;
 
     while (block != NULL) {
         printf("> %i %i\n", block->size, block->size % 4);
@@ -238,14 +239,14 @@ void printTotalWramUsage(void)
         block = block->next;
     }
 
-    printf("Total Wram usage %i, free %i, blocks used %i\n", total, WRAM_SIZE - total,
-        _wramBlocksUsed);
+    printf(
+        "Total Wram usage %i, free %i, blocks used %i\n", total, WRAM_SIZE - total, wramBlocksUsed);
 }
 
 void printTotalExramUsage(void)
 {
     u32 total = 0;
-    AllocatedBlock* block = _nextExramBlock;
+    AllocatedBlock* block = firstExramBlock;
 
     while (block != NULL) {
 
@@ -255,5 +256,5 @@ void printTotalExramUsage(void)
     }
 
     printf("Total Exram usage %i, free %i, blocks used %i\n", total, EXRAM_SIZE - total,
-        _exramBlocksUsed);
+        exramBlocksUsed);
 }

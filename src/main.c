@@ -30,7 +30,7 @@ void mainLoop(void)
     InitStuff_SetDispStat(0x8);
     EnableInterrupt(0x11);
     sub_805791C();
-    initBlockVariables();
+    initMemoryManagement();
     initKeyState();
     initBatteryBackup();
     initLanguages();

@@ -332,7 +332,7 @@ _gameData->unk428 = ridersBlock;
 
 ```c
 /* fastAllocate — memory.c */
-block = getValidAllocatedBlock(_wramBlocks, BLOCK_COUNT);
+block = getValidAllocatedBlock(wramBlocks, BLOCK_COUNT);
 if (block == NULL) {
     printf("Error in fastAllocate(), unable to allocate %i bytes\n", size);
 }
