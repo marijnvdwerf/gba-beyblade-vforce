@@ -128,7 +128,7 @@ void processRiderMetadata(RiderBase* rider, LevelGeometryAddresses* geometry, un
         metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 3, 0x59C3);
         if (metaobject != NULL) {
             metaId = metaobject->unk8.half;
-            for (i = 0; i < geometry->unk0->count.splineCountWord; i++) {
+            for (i = 0; i < geometry->unk0->splineCount; i++) {
                 if (geometry->unk14[i]->unkC == metaId) {
                     riderBase->unk218 = i;
                 }

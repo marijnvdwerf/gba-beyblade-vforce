@@ -1041,12 +1041,7 @@ struct ScreenLayout {
 
 struct LevelGeometryTable {
     s32 pointCount;
-
-    union {
-        s16 splineCount;
-        s32 splineCountWord;
-    } count;
-
+    s32 splineCount;
     s32 lineCount;
     unk32 padC;
     unk32 pointOffset;

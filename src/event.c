@@ -351,7 +351,7 @@ void processMetadata_5(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     actor = GetStruct4(lineIndex)->actor;
     found = NULL;
     if (actor != NULL) {
-        for (index = 0; index < arg0->unk0->count.splineCountWord; index++) {
+        for (index = 0; index < arg0->unk0->splineCount; index++) {
             if (arg0->unk14[index]->unkC == event->id) {
                 found = arg0->unk14[index];
                 splineIndex = index;

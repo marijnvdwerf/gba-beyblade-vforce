@@ -98,7 +98,7 @@ void initLevelEnvironmentActors(u16 level)
     actorSize = selectedCount * sizeof(Actor);
     lineSize = geometry.unk0->lineCount * sizeof(EnvironmentObject);
     effectSizeBytes = effectCount * sizeof(EnvironmentNode);
-    pointSize = geometry.unk0->count.splineCountWord * sizeof(EnvironmentPointEntry);
+    pointSize = geometry.unk0->splineCount * sizeof(EnvironmentPointEntry);
     allocationSize = actorSize + lineSize + effectSizeBytes + pointSize;
     block = slowAllocate(allocationSize);
     allocationField->block = block;

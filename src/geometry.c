@@ -19,8 +19,8 @@ void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable*
     arg0->unk4 = (GeometryPoint*)((unk8*)geometry + geometry->pointOffset);
     arg0->unk8 = (GeometrySpline*)((unk8*)geometry + geometry->splineOffset);
     arg0->unkC = (GeometryLine*)((unk8*)geometry + geometry->lineOffset);
-    count = geometry->count.splineCount;
-    if (geometry->count.splineCount > 0x40) {
+    count = geometry->splineCount;
+    if (count > 0x40) {
         count = 0x40;
         nullsub_8("Spline count for collision data exceeds maximum available");
     }
@@ -39,7 +39,7 @@ void newCollisionDataRam(
     unk32 lineBytes;
     unk32 bytes;
     unk16 normalizedFlags;
-    unk16 count;
+    s16 count;
     s16 i;
     unk8* cursor;
 
@@ -78,12 +78,12 @@ void newCollisionDataRam(
             addresses->unkC = (GeometryLine*)cursor;
         }
     }
-    count = addresses->unk0->count.splineCount;
-    if (addresses->unk0->count.splineCount > 0x40) {
+    count = addresses->unk0->splineCount;
+    if (count > 0x40) {
         count = 0x40;
         nullsub_8("Spline count for collision data exceeds maximum available");
     }
-    for (i = 0; i < (s16)count; i++) {
+    for (i = 0; i < count; i++) {
         addresses->unk14[i] = GetSplineAtIndex(addresses, i);
     }
     addresses->unk114 = NULL;
@@ -386,7 +386,7 @@ void sub_805BDBC(QuadTree* quadTree, LevelGeometryAddresses* geometry)
             node->unk14 = output;
             entryCount = 0;
             splineIndex = 0;
-            splineCount = geometry->unk0->count.splineCountWord;
+            splineCount = geometry->unk0->splineCount;
             nextNode = node + 1;
             nodeIndex = outerIndex + 1;
             if (entryCount < splineCount) {
@@ -429,7 +429,7 @@ void sub_805BDBC(QuadTree* quadTree, LevelGeometryAddresses* geometry)
                         } while (pointIndex < spline->pointCount);
                     }
                     splineIndex = nextSplineIndex;
-                } while (splineIndex < geometry->unk0->count.splineCountWord);
+                } while (splineIndex < geometry->unk0->splineCount);
             }
             node->unk2A = entryCount;
             node = nextNode;
@@ -1541,7 +1541,7 @@ void sub_805D488(Actor* actor, LevelGeometryAddresses* geometry, s32 x0, s32 y0,
     s32 i;
 
     if (actor->unk84 == -1) {
-        for (i = 0; i < geometry->unk0->count.splineCountWord; i++) {
+        for (i = 0; i < geometry->unk0->splineCount; i++) {
             spline = geometry->unk14[i];
             if (sub_805E18C(geometry, i, &result, x0 >> 5, y0 >> 5, x1 >> 5, y1 >> 5) == 1) {
                 lines = (GeometrySplineLine*)&spline->pointIndices[spline->pointCount];
@@ -1807,7 +1807,7 @@ GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses* arg0, s32 arg1)
 
     spline = arg0->unk8;
     index = 0;
-    count = arg0->unk0->count.splineCountWord;
+    count = arg0->unk0->splineCount;
     if (index < count) {
         limit = count;
         do {
@@ -1862,7 +1862,7 @@ unk32 sub_805DBF0(LevelGeometryAddresses* geometry, SplineConnection* output,
     s32 index;
 
     count = 0;
-    for (splineIndex = 0; splineIndex < geometry->unk0->count.splineCountWord; splineIndex++) {
+    for (splineIndex = 0; splineIndex < geometry->unk0->splineCount; splineIndex++) {
         spline = GetSplineAtIndex(geometry, splineIndex);
         if (spline == NULL) {
             break;
