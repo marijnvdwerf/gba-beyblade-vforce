@@ -12,6 +12,8 @@
 #define ID_DIALOG 0x2628 /* "Dialog" */
 #define ID_LANGUAGE 0xE084 /* "Language" */
 #define ID_FULLFAT 0x3E06 /* "FullFat" */
+#define ID_DRIGHTS 0xE1C1 /* "DRights" */
+#define ID_LEGALS 0x104 /* "Legals" */
 
 /* Line metadata object types */
 #define ID_COLLECTABLE 0x37AE /* "Collectable" */

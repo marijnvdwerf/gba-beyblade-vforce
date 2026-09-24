@@ -69,13 +69,14 @@ ScreenLayout _806A828[] = {
     [LAYOUT_11] = { 0x640B, { 0 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
     [LAYOUT_12] = { 0xBBA4, { 0 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC },
     [LAYOUT_13] = { 0xA694, { 0 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
-    [LAYOUT_14] = { 0xE1C1, { 0 }, { { &TileMap_DRights } }, 0, 0, 0, 0, { 0 }, Pal_825DBF0 },
+    [LAYOUT_DRIGHTS]
+    = { ID_DRIGHTS, { 0 }, { { &TileMap_DRights } }, 0, 0, 0, 0, { 0 }, Pal_825DBF0 },
     [LAYOUT_15] = { 0x65CB, { 0, 0, 0, 0, 0x10 }, { { &TileMap_825DDF0, 0, 0, 0xC } }, 0, 0, 0, 0,
         { 0 }, Pal_8266460, Pal_825B3C4 },
     [LAYOUT_LANGUAGE]
     = { ID_LANGUAGE, { 0, 0, 0, 0, 0x10 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_8266660 },
-    [LAYOUT_17] = { 0x104, { 0, 0, 0, 0, 0x10 }, { { &TileMap_8266860, 0, 0, 0xC } }, 0, 0, 0, 0,
-        { 0 }, Pal_826EB50 },
+    [LAYOUT_LEGALS] = { ID_LEGALS, { 0, 0, 0, 0, 0x10 }, { { &TileMap_8266860, 0, 0, 0xC } }, 0, 0,
+        0, 0, { 0 }, Pal_826EB50 },
     [LAYOUT_18] = { 0x4462, { 0, 0, 0, 0, 0x10 }, { { &TileMap_Atari, 0, 0, 0xC } }, 0, 0, 0, 0,
         { 0 }, Pal_82725E8 },
     [LAYOUT_FULLFAT] = { ID_FULLFAT, { 0, 0, 0, 0, 0x10 }, { { &TileMap_FullFat, 0, 0, 0xC } }, 0,
