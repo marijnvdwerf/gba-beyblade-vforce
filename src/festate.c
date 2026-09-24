@@ -866,9 +866,9 @@ void sub_8044C48(FrontendState* state, unk32 arg1)
         sub_80596AC(&state->bgLayers[3], -scrollDelta, 0);
         _unk3000210 += scrollDelta;
         if (((sub_8057C40() >> 4) & 3) == 0) {
-            _unk3000204->frame.word++;
-            if (_unk3000204->frame.word > 3) {
-                _unk3000204->frame.word = 0;
+            _unk3000204->frame++;
+            if (_unk3000204->frame > 3) {
+                _unk3000204->frame = 0;
             }
         }
         break;
@@ -944,9 +944,9 @@ void sub_8044ED4(FrontendState* state, unk32 arg1)
         sub_80596AC(&state->bgLayers[3], -scrollDelta, 0);
         _unk3000288 += scrollDelta;
         if (((sub_8057C40() >> 4) & 3) == 0) {
-            _unk300027C->frame.word++;
-            if (_unk300027C->frame.word > 3) {
-                _unk300027C->frame.word = 0;
+            _unk300027C->frame++;
+            if (_unk300027C->frame > 3) {
+                _unk300027C->frame = 0;
             }
         }
         break;
@@ -1020,9 +1020,9 @@ void sub_8045160(FrontendState* state, unk32 arg1, unk32 arg2)
         sub_80596AC(&state->bgLayers[3], -scrollDelta, 0);
         _unk3000300 += scrollDelta;
         if (((sub_8057C40() >> 4) & 3) == 0) {
-            _unk30002F4->frame.word++;
-            if (_unk30002F4->frame.word > 3) {
-                _unk30002F4->frame.word = 0;
+            _unk30002F4->frame++;
+            if (_unk30002F4->frame > 3) {
+                _unk30002F4->frame = 0;
             }
         }
         break;
@@ -1671,8 +1671,8 @@ void sub_8045CB4(FrontendState* state, unk32 arg1, unk32 arg2)
         _unk30003E8 = 0x3000;
         _unk3000458 = _currentGameState->unk6E4 >> 5;
         _unk300045C = _currentGameState->unk6E6 >> 5;
-        _unk30003DC->frame.word = _unk300045C;
-        _unk30003D8->frame.word = _currentGameState->unk6E4 >> 5;
+        _unk30003DC->frame = _unk300045C;
+        _unk30003D8->frame = _currentGameState->unk6E4 >> 5;
         allocFont(&_unk30003F8, &SpriteSheet_82B1A84, LargeFontMeta, 0x100, 0x38, 0xF0, 0);
         sub_8061660(&_unk30003F8, _806DFD0[0][getLanguage()], 0xE);
         allocFont(&_unk3000428, &SpriteSheet_82B1A84, LargeFontMeta, 0x100, 0x68, 0xF0, 0);
@@ -1757,28 +1757,28 @@ void sub_8045CB4(FrontendState* state, unk32 arg1, unk32 arg2)
         }
         if (_unk3005DA0 == 0x20) {
             if (_unk3000460 == 0) {
-                if (_unk30003D8->frame.word != 0) {
-                    _unk30003D8->frame.word--;
-                    sub_804B00C(_unk30003D8->frame.word << 5);
+                if (_unk30003D8->frame != 0) {
+                    _unk30003D8->frame--;
+                    sub_804B00C(_unk30003D8->frame << 5);
                     sub_804A310();
                 }
             } else {
-                if (_unk30003DC->frame.word != 0) {
-                    _unk30003DC->frame.word--;
-                    sub_804AFD4(_unk30003DC->frame.word << 5);
+                if (_unk30003DC->frame != 0) {
+                    _unk30003DC->frame--;
+                    sub_804AFD4(_unk30003DC->frame << 5);
                 }
             }
         } else if (_unk3005DA0 == 0x10) {
             if (_unk3000460 == 0) {
-                if (_unk30003D8->frame.word <= 9) {
-                    _unk30003D8->frame.word++;
-                    sub_804B00C(_unk30003D8->frame.word << 5);
+                if (_unk30003D8->frame <= 9) {
+                    _unk30003D8->frame++;
+                    sub_804B00C(_unk30003D8->frame << 5);
                     sub_804A310();
                 }
             } else {
-                if (_unk30003DC->frame.word <= 9) {
-                    _unk30003DC->frame.word++;
-                    sub_804AFD4(_unk30003DC->frame.word << 5);
+                if (_unk30003DC->frame <= 9) {
+                    _unk30003DC->frame++;
+                    sub_804AFD4(_unk30003DC->frame << 5);
                 }
             }
         }
@@ -2274,7 +2274,7 @@ void initBBCollectionSprite(FrontendBladeState* state)
         }
     }
     if (state->unk4 != NULL) {
-        state->unk4->frame.word = state->unk34;
+        state->unk4->frame = state->unk34;
     }
 }
 
@@ -2421,15 +2421,15 @@ void sub_804712C(FrontendBladeState* state)
     if (hasSprites != 0) {
         if (state->unk8 != NULL) {
             state->unk8->y = 0x5400;
-            state->unk8->frame.word = values[0] != 0 ? values[0] - 1 : 0;
+            state->unk8->frame = values[0] != 0 ? values[0] - 1 : 0;
         }
         if (state->unkC != NULL) {
             state->unkC->y = 0x6000;
-            state->unkC->frame.word = values[1] != 0 ? values[1] - 1 : 0;
+            state->unkC->frame = values[1] != 0 ? values[1] - 1 : 0;
         }
         if (state->unk10 != NULL) {
             state->unk10->y = 0x6C00;
-            state->unk10->frame.word = values[2] != 0 ? values[2] - 1 : 0;
+            state->unk10->frame = values[2] != 0 ? values[2] - 1 : 0;
         }
     }
 }
@@ -2443,13 +2443,13 @@ void sub_8047494(FrontendBladeState* state, const BeybladeData* blade, unk8 uplo
         sub_8060A60(state->unk0);
     }
     if (state->unk8 != NULL) {
-        state->unk8->frame.word = 0;
+        state->unk8->frame = 0;
     }
     if (state->unkC != NULL) {
-        state->unkC->frame.word = 0;
+        state->unkC->frame = 0;
     }
     if (state->unk10 != NULL) {
-        state->unk10->frame.word = 0;
+        state->unk10->frame = 0;
     }
     state->unk36 |= 1;
     if (uploadPalette != 0) {
@@ -2652,7 +2652,7 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
         if (sprite != NULL) {
             sprite->x += ((_unk3000554 - sprite->x) >> 2) - _unk30004E4;
             sprite->y += (_unk300055C - sprite->y) >> 3;
-            sprite->frame.word = (((sub_8057C40() >> 8) & 1) != 0) ? 2 : 3;
+            sprite->frame = (((sub_8057C40() >> 8) & 1) != 0) ? 2 : 3;
         }
         if (_unk3000539 != 0 && ((_unk30004E8 >> 8) > 0xFE) && _unk30004E4 == 0x10000) {
             _unk30004E4 = 0;
@@ -2825,7 +2825,7 @@ void sub_8047E5C(FrontendState* state, unk32 arg1)
         LoadSpriteSheet(_unk3000568, &SpriteSheet_8251F40, 0x10000, 0x3600, 0, 0, 0, 0);
         LoadSpriteSheet(_unk300056C, &SpriteSheet_8251F40, 0x18000, 0x3600, 0, 0, 0, 0);
         LoadSpriteSheet(_unk3000570, &SpriteSheet_8252994, 0x14000, 0x4000, 0, 0, 0, 0);
-        _unk3000570->frame.word = 8;
+        _unk3000570->frame = 8;
         _unk3000578 = 0;
         initialScroll = 0x10000;
         _unk300057C = initialScroll;
@@ -2845,9 +2845,9 @@ void sub_8047E5C(FrontendState* state, unk32 arg1)
         sub_80596AC(&state->bgLayers[3], -scrollDelta, 0);
         _unk300057C += scrollDelta;
         if (((sub_8057C40() >> 4) & 0xF) == 0) {
-            _unk3000570->frame.word++;
-            if (_unk3000570->frame.word > 0xA) {
-                _unk3000570->frame.word = 8;
+            _unk3000570->frame++;
+            if (_unk3000570->frame > 0xA) {
+                _unk3000570->frame = 8;
             }
         }
         break;
@@ -3191,10 +3191,10 @@ void sub_804868C(FrontendState* state, unk32 arg1)
 void sub_8048A74(FrontendSpriteTriple* arg0, s32 arg1)
 {
     if ((arg0->state & 1) != 0) {
-        arg0->sprite2->frame.word = arg0->timer & 3;
+        arg0->sprite2->frame = arg0->timer & 3;
     } else if ((arg0->state & 2) != 0) {
         if (arg0->timer <= 3) {
-            arg0->sprite2->frame.word = arg0->timer + 4;
+            arg0->sprite2->frame = arg0->timer + 4;
         }
     }
     if (((sub_8057C40() >> 4) & 0xF) == 0) {

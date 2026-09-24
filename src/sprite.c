@@ -540,7 +540,7 @@ void LoadSpriteSheet(SpriteEntry* dst, const SpriteSheet* source, unk32 x, unk32
     dst->oam_attr_2 |= (priority & 3) << 10;
     dst->unk28 = (const unk8*)source + (source->unk1C != 0 ? source->unk1C : source->unk10);
     dst->var16 = source->unk6;
-    dst->frame.word = frame;
+    dst->frame = frame;
     dst->unk1A = 0xFFFF;
     dst->flip_h_v = 0;
     dst->var20 = 0;

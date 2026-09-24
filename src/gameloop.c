@@ -74,7 +74,7 @@ void gameLoop(void)
         sprite = allocSprite(0);
         LoadSpriteSheet(sprite, &SpriteSheet_86FBC4C, 0x400, 0x8C00, 1, 0, 0, 0);
         if (sub_8051780(0x20) != 0) {
-            sprite->frame.word = 2;
+            sprite->frame = 2;
         }
     }
     if (sub_8051780(4) != 0 && _gameData->unk1618 != 0) {
@@ -211,9 +211,9 @@ void gameLoop(void)
         if (sub_8051780(2) != 0) {
             if (sub_8051780(8) == 0 && ((_unk3000E30[0] >> 3) & 0x3F) == 0) {
                 if (sub_8051780(0x20) != 0) {
-                    sprite->frame.word = sprite->frame.word == 2 ? 3 : 2;
+                    sprite->frame = sprite->frame == 2 ? 3 : 2;
                 } else {
-                    sprite->frame.word = sprite->frame.word == 0;
+                    sprite->frame = sprite->frame == 0;
                 }
             }
             if (sub_805AB58() == 0 || (~*(vu16*)REG_KEYINPUT & 9) != 0) {
@@ -228,13 +228,13 @@ void gameLoop(void)
                 while (((unk16) ~*(vu16*)REG_KEYINPUT & 2) != 0) {
                     VBlankIntrWait();
                     sub_80627F0();
-                    sprite->frame.word = 4;
+                    sprite->frame = 4;
                     __oam_8756CC0();
                 }
                 if (sub_8051780(0x20) != 0) {
-                    sprite->frame.word = 2;
+                    sprite->frame = 2;
                 } else {
-                    sprite->frame.word = 0;
+                    sprite->frame = 0;
                 }
             }
         }

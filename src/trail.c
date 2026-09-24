@@ -109,8 +109,8 @@ void sub_804A908(UnkTrail* trail)
                 entry->unkE = delay - 0x10;
             } else {
                 entry->unkE = (delay + 0x10) + entry->unk10;
-                sprite->frame.word++;
-                if (sprite->frame.word == entry->unk12 + entry->unk14) {
+                sprite->frame++;
+                if (sprite->frame == entry->unk12 + entry->unk14) {
                     if (entry->unk16 == trail->unk26) {
                         sub_804AB64(trail, entry, trail->unk24);
                     } else {
@@ -171,7 +171,7 @@ void sub_804A908(UnkTrail* trail)
         } else {
             entry->sprite->y = 0xA000;
         }
-        entry->sprite->frame.word = 0;
+        entry->sprite->frame = 0;
         entry->sprite->oam_attr_2 = (entry->sprite->oam_attr_2 & 0xFFF) | (trail->unk2C << 12);
         sub_8060F64(entry->sprite, 0x100, 0x100, angle);
         entry->unkC = trail->unk6;
@@ -203,7 +203,7 @@ void sub_804AB64(UnkTrail* trail, SpriteTrailEntry* entry, unk32 index)
     entry->unk16 = index;
     sprite = entry->sprite;
     entry->unk12 = frame->unk0;
-    sprite->frame.word = frame->unk0;
+    sprite->frame = frame->unk0;
     entry->unk14 = frame->unk2;
     entry->unkE = frame->unk4;
     entry->unk10 = frame->unk4;

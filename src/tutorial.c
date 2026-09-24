@@ -871,10 +871,10 @@ void sub_804A550(TutorialEntry* arg0)
             unk16 frame;
 
             frame = 0;
-            if (tutorial->unk138->frame.word == 0) {
+            if (tutorial->unk138->frame == 0) {
                 frame = 1;
             }
-            tutorial->unk138->frame.word = frame;
+            tutorial->unk138->frame = frame;
         }
         if ((_unk3005DA0 & 8) != 0) {
             done = 1;

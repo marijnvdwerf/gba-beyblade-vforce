@@ -12,10 +12,7 @@ struct SpriteEntry {
     u16 oam_attr_2;
     u16 var16;
 
-    union {
-        u16 word;
-        u8 b[2];
-    } __attribute__((packed)) frame;
+    u16 frame;
 
     unk16 unk1A;
     unk16 flip_h_v;

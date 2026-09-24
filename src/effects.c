@@ -421,25 +421,25 @@ void sub_805599C(EffectSprites* effect)
     }
     if ((effect->unk28 & 4) != 0) {
         if (((sub_8057C40() >> 4) & 7) == 0) {
-            if (effect->unk0->frame.word <= 1) {
-                effect->unk0->frame.word++;
+            if (effect->unk0->frame <= 1) {
+                effect->unk0->frame++;
             } else {
-                effect->unk0->frame.word = 0;
+                effect->unk0->frame = 0;
             }
         }
     } else {
-        effect->unk0->frame.word = 0;
+        effect->unk0->frame = 0;
     }
     if ((effect->unk2A & 4) != 0) {
         if (((sub_8057C40() >> 4) & 7) == 0) {
-            if (effect->unk4->frame.word <= 1) {
-                effect->unk4->frame.word++;
+            if (effect->unk4->frame <= 1) {
+                effect->unk4->frame++;
             } else {
-                effect->unk4->frame.word = 0;
+                effect->unk4->frame = 0;
             }
         }
     } else {
-        effect->unk4->frame.word = 0;
+        effect->unk4->frame = 0;
     }
 }
 

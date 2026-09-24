@@ -199,7 +199,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
                     showNumber(&_collectionListFont[_unk300010C], _unk3000110 + 1, 0xC);
                 }
 
-                _unk300012C[_unk300010C]->frame.word = sub_80570D4(_unk3000110) != 0
+                _unk300012C[_unk300010C]->frame = sub_80570D4(_unk3000110) != 0
                     ? sub_805703C(_unk3000110) << 1
                     : (sub_805703C(_unk3000110) << 1) + 1;
             } else {
@@ -217,7 +217,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
                     showNumber(&_collectionListFont[_unk300010C], _unk3000110 + 6, 0xC);
                 }
 
-                _unk300012C[_unk300010C]->frame.word = sub_80570D4(_unk3000110 + 5) != 0
+                _unk300012C[_unk300010C]->frame = sub_80570D4(_unk3000110 + 5) != 0
                     ? sub_805703C(_unk3000110 + 5) << 1
                     : (sub_805703C(_unk3000110 + 5) << 1) + 1;
                 _unk3000100 += 0xF00;

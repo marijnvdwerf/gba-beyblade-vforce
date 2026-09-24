@@ -138,7 +138,7 @@ void sub_804E594(ParticleSystem* system, s16 arg1, s16 arg2, unk16 arg3, unk16 a
     particle->unk1C = frame->unk0;
     particle->unk1E = frame->unk2;
     if (sprite != NULL) {
-        sprite->frame.word = particle->unk1C;
+        sprite->frame = particle->unk1C;
     }
     if (++system->unk6 >= system->count) {
         system->unk6 = 0;
@@ -185,7 +185,7 @@ void sub_804E6A4(ParticleSystem* system, s16 scale, s16 velocity, unk16 lifetime
     particle->unk1C = frameValue;
     particle->unk1E = frame->unk2;
     if (sprite != NULL) {
-        sprite->frame.word = particle->unk1C;
+        sprite->frame = particle->unk1C;
     }
     zero = 0;
     if (++system->unk6 >= system->count) {
@@ -222,7 +222,7 @@ void sub_804E7D4(ParticleSystem* system, unk32 offsetX, unk32 offsetY, unk32 off
     particle->unk1C = frame->unk0;
     particle->unk1E = frame->unk2;
     if (sprite != NULL) {
-        sprite->frame.word = particle->unk1C;
+        sprite->frame = particle->unk1C;
     }
     if (++system->unk6 >= system->count) {
         system->unk6 = 0;
@@ -269,7 +269,7 @@ void sub_804E910(ParticleSystem* system, s16 scale, unk16 velocity, unk16 spread
         particle->unk1C = frame->unk0;
         particle->unk1E = frame->unk2;
         if (sprite != NULL) {
-            sprite->frame.word = particle->unk1C;
+            sprite->frame = particle->unk1C;
         }
         particle++;
     }
@@ -342,9 +342,9 @@ void sub_804EA88(ParticleSystem* arg0)
                     particle->unk20 = timer - 0x10;
                 } else {
                     particle->unk20 = timer + (particle->unk22 - 0x10);
-                    sprite->frame.word++;
-                    if (sprite->frame.word >= particle->unk1C + particle->unk1E) {
-                        sprite->frame.word = particle->unk1C;
+                    sprite->frame++;
+                    if (sprite->frame >= particle->unk1C + particle->unk1E) {
+                        sprite->frame = particle->unk1C;
                     }
                 }
             }

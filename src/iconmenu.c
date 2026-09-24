@@ -126,9 +126,8 @@ void sub_8050C18(FrontendMenu* menu)
                     item->position = 4;
                 }
                 if ((menu->timer & 3) == 0) {
-                    sprite->frame.word = sprite->frame.word == item->data->unk2C
-                        ? item->data->unk28
-                        : item->data->unk2C;
+                    sprite->frame = sprite->frame == item->data->unk2C ? item->data->unk28
+                                                                       : item->data->unk2C;
                 }
             } else {
                 frameOffset = 0;

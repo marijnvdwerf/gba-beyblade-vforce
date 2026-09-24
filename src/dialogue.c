@@ -190,7 +190,7 @@ void sub_80420C4(FrontendState* state, unk32 command)
             }
             _unk3000EEC.unk0 = (_unk3000EEC.unk0 & 0xFFFFC3FF) | (count << 10);
         }
-        _unk30000D8->frame.word = (sub_8057C40() >> 8) & 1;
+        _unk30000D8->frame = (sub_8057C40() >> 8) & 1;
         if (sub_806417C(_unk300007C) != 0) {
             _unk30000D8->y = 0x8C00;
         } else {

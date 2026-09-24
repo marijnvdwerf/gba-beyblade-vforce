@@ -136,7 +136,7 @@ void renderActor(Actor* actor, unk32 arg1)
     actor->unkB8->flip_h_v = actor->unk31;
     actor->unkB8->x = x << 8;
     actor->unkB8->y = y << 8;
-    actor->unkB8->frame.word = actor->unk22;
+    actor->unkB8->frame = actor->unk22;
     actor->unkB8->var16 = actor->unk30;
     actor->unkB8->unk28 = (const unk8*)actor->unk0 + actor->unk0->unk10;
     actor->unkB8->unk10 = ((actor->unk38 & 3) << 14) | ((~actor->unk3A & 1) << 13) | 0x1000

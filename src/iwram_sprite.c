@@ -69,12 +69,12 @@ s32 ARM_sub_8756A84(SpriteEntry* sprite, unk16 byteCount, s32 objNo)
     s32 tileCount;
     unk32 shift;
 
-    source = sprite->unk28 + (sprite->frame.word << sprite->var16);
+    source = sprite->unk28 + (sprite->frame << sprite->var16);
     if (sprite->unk2C->unk1C == 0) {
         __fastMemoryCopyARM(source, (unk8*)(OBJ_MODE0_VRAM | ((objNo & 0x3FF) << 5)), byteCount);
     } else {
         savedMask = 0;
-        record = spriteSheetImageHeader(sprite->unk2C, sprite->frame.word);
+        record = spriteSheetImageHeader(sprite->unk2C, sprite->frame);
         mask = record->unk0;
         if (sprite->unk2C->unkD > 4) {
             savedMask = record->unk4;
@@ -198,12 +198,12 @@ void oam_8756CC0(void)
         }
         charName = sprite->var24;
         size = one << (sprite->var16 - 5);
-        if (sprite->frame.word != sprite->unk1A) {
+        if (sprite->frame != sprite->unk1A) {
             if (charName >= 0) {
                 off_807D938(charName, size);
                 charName = -1;
             }
-            sprite->unk1A = sprite->frame.word;
+            sprite->unk1A = sprite->frame;
         }
         if (charName < 0) {
             charName = off_807D934(size);

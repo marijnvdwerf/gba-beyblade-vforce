@@ -284,7 +284,7 @@ void renderEnvironmentActors(void)
             continue;
         }
         if (actor->unkB8 != NULL) {
-            object->sprite->frame.word = actor->unkB8->frame.word;
+            object->sprite->frame = actor->unkB8->frame;
         }
         if (actor->unk3C != NULL) {
             x -= actor->unk3C->field_40 >> 8;

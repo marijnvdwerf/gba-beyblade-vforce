@@ -215,10 +215,10 @@ void sub_804F05C(LevelHudData* arg0)
             }
         }
         if (state->unk118 != NULL) {
-            state->unk118->frame.word = temp <= 0x1A ? temp - 1 : 0x19;
+            state->unk118->frame = temp <= 0x1A ? temp - 1 : 0x19;
         }
         if (state->unk11C != NULL) {
-            state->unk11C->frame.word = temp - 0x1A;
+            state->unk11C->frame = temp - 0x1A;
         }
     }
     if (state->unk12A > 0xBD00) {
@@ -232,8 +232,8 @@ void sub_804F05C(LevelHudData* arg0)
         if (((_unk3000E30[0] >> 4) & 3) <= 1) {
             topMode = 1;
         }
-        top114->frame.word = topMode;
-        top110->frame.word = topMode;
+        top114->frame = topMode;
+        top110->frame = topMode;
     } else if (state->unk12A <= 0x2FFF) {
         SpriteEntry* low110;
         SpriteEntry* low114;
@@ -242,11 +242,11 @@ void sub_804F05C(LevelHudData* arg0)
         low110 = state->unk110;
         low114 = state->unk114;
         lowMode = (((_unk3000E30[0] >> 4) & 3) <= 1) ? 2 : 0;
-        low114->frame.word = lowMode;
-        low110->frame.word = lowMode;
+        low114->frame = lowMode;
+        low110->frame = lowMode;
     } else {
-        state->unk110->frame.word = 0;
-        state->unk114->frame.word = 0;
+        state->unk110->frame = 0;
+        state->unk114->frame = 0;
     }
     sprite110 = state->unk110;
     y = sprite110->y;
@@ -301,9 +301,9 @@ void sub_804F2A0(LevelHudData* arg0)
     if (state->unk120 != NULL) {
         if ((state->flags & 1) != 0) {
             sprite = state->unk120;
-            sprite->frame.word = ((_unk3000E30[0] >> 4) & 3) <= 1 ? state->unk12C - 1 : 5;
+            sprite->frame = ((_unk3000E30[0] >> 4) & 3) <= 1 ? state->unk12C - 1 : 5;
         } else {
-            state->unk120->frame.word = state->unk12C - 1;
+            state->unk120->frame = state->unk12C - 1;
         }
         if (state->unk118 != NULL) {
             state->unk120->y = state->unk110->y + 0x400;
@@ -378,8 +378,8 @@ void sub_804F478(LevelHudData* arg0)
                     sub_804ABFC(0xB);
                 }
                 mode = state->unk106 >> 7;
-                state->unkF4->frame.word = mode > 8 ? 8 : mode;
-                state->unkF8->frame.word = mode > 8 ? mode - 8 : 0;
+                state->unkF4->frame = mode > 8 ? 8 : mode;
+                state->unkF8->frame = mode > 8 ? mode - 8 : 0;
                 state->unk100->x = ((state->unkF4->x & 0xFFFFFF00) - 0x800) + (state->unk106 << 4);
                 value = state->unk104;
                 if (value <= 0x3B) {
@@ -413,11 +413,11 @@ void sub_804F478(LevelHudData* arg0)
 
                 mode4 = state->unk106 >> 7;
                 if ((state->unk104 & 3) <= 1) {
-                    state->unkF4->frame.word = 0;
-                    state->unkF8->frame.word = 0;
+                    state->unkF4->frame = 0;
+                    state->unkF8->frame = 0;
                 } else {
-                    state->unkF4->frame.word = mode4 > 8 ? 8 : mode4;
-                    state->unkF8->frame.word = mode4 > 8 ? mode4 - 8 : 0;
+                    state->unkF4->frame = mode4 > 8 ? 8 : mode4;
+                    state->unkF8->frame = mode4 > 8 ? mode4 - 8 : 0;
                 }
                 if (state->unk104 <= 0x3B) {
                     state->unk10C = 2;
@@ -551,9 +551,9 @@ void sub_804F9B4(void)
     state->levelHud.unkF4->y = -0x2000;
     state->levelHud.unkF8->y = -0x2000;
     state->levelHud.unk100->y = -0x2000;
-    state->levelHud.unkF4->frame.word = 0;
-    state->levelHud.unkF8->frame.word = 0;
-    state->levelHud.unk100->frame.word = 0;
+    state->levelHud.unkF4->frame = 0;
+    state->levelHud.unkF8->frame = 0;
+    state->levelHud.unk100->frame = 0;
 }
 
 void sub_804FA40(void)

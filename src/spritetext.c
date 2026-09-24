@@ -130,7 +130,7 @@ void sub_806123C(SpriteTextCleanup* text)
         }
         if (((advance - offset)
                 + (text->unk29
-                    + (widths != NULL ? char_width - widths[current->frame.word] : char_width)))
+                    + (widths != NULL ? char_width - widths[current->frame] : char_width)))
                 > font_width
             || count == 0) {
             if (count != 0) {
@@ -149,13 +149,13 @@ void sub_806123C(SpriteTextCleanup* text)
             case 1:
                 position = (next_line->unk1E & 0x7FFF) - offset;
                 position += text->unk29
-                    + (widths != NULL ? char_width - widths[next_line->frame.word] : char_width);
+                    + (widths != NULL ? char_width - widths[next_line->frame] : char_width);
                 adjustment = -(position << 8);
                 break;
             case 2:
                 position = (next_line->unk1E & 0x7FFF) - offset;
                 position += text->unk29
-                    + (widths != NULL ? char_width - widths[next_line->frame.word] : char_width);
+                    + (widths != NULL ? char_width - widths[next_line->frame] : char_width);
                 adjustment = -((position & ~1) << 7);
                 break;
             }
@@ -615,7 +615,7 @@ s32 sub_8061CB4(SpriteTextCleanup* arg0)
     case 1:
         result = arg0->unk14.next->x;
         if (arg0->unk20 != NULL) {
-            result += (arg0->unk24->unk4 - arg0->unk20[arg0->unk14.next->frame.word]) << 8;
+            result += (arg0->unk24->unk4 - arg0->unk20[arg0->unk14.next->frame]) << 8;
         }
         result += arg0->unk29;
         result -= arg0->unkC << 8;
@@ -623,7 +623,7 @@ s32 sub_8061CB4(SpriteTextCleanup* arg0)
     case 2:
         result = arg0->unk14.next->x;
         if (arg0->unk20 != NULL) {
-            result += (arg0->unk24->unk4 - arg0->unk20[arg0->unk14.next->frame.word]) << 8;
+            result += (arg0->unk24->unk4 - arg0->unk20[arg0->unk14.next->frame]) << 8;
         }
         result += arg0->unk29;
         base = arg0->unk14.prev->x;
@@ -660,14 +660,14 @@ s32 sub_8061D68(SpriteTextCleanup* text)
     case 1:
         result = text->unk14.next->x;
         if (text->unk20 != NULL) {
-            result += (text->unk24->unk4 - text->unk20[text->unk14.next->frame.word]) << 8;
+            result += (text->unk24->unk4 - text->unk20[text->unk14.next->frame]) << 8;
         }
         result += text->unk29;
         break;
     case 2:
         result = text->unk14.next->x;
         if (text->unk20 != NULL) {
-            result += (text->unk24->unk4 - text->unk20[text->unk14.next->frame.word]) << 8;
+            result += (text->unk24->unk4 - text->unk20[text->unk14.next->frame]) << 8;
         }
         result += text->unk29;
         base = text->unk14.prev->x;
@@ -692,7 +692,7 @@ unk32 sub_8061E08(SpriteTextCleanup* text)
     sprite = text->unk14.next;
     x = sprite->x;
     if (text->unk20 != NULL) {
-        x += (text->unk24->unk4 - text->unk20[sprite->frame.word]) << 8;
+        x += (text->unk24->unk4 - text->unk20[sprite->frame]) << 8;
     }
     x += text->unk29;
     return x;

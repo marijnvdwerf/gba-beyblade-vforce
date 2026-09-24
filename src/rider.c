@@ -470,7 +470,7 @@ void renderRider(RiderBase* rider)
         }
         rider->unk3C4->x = (screenX << 8) - 0x700;
         rider->unk3C4->y = (screenY << 8) - 0x1C00 + layer;
-        rider->unk3C4->frame.word = shift >= 0 ? shift : 8;
+        rider->unk3C4->frame = shift >= 0 ? shift : 8;
         rider->unk3C4->oam_attr_2
             = (rider->unk3C4->oam_attr_2 & 0xFFF) | ((0xF - rider->unk3D0) << 12);
     }
