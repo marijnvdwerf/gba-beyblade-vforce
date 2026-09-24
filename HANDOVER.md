@@ -252,6 +252,20 @@ Last updated: 2026-09-24 (session 17, close): main 6e41c223 — all functions ma
   Nintendo and Nelvana — not Atari/AtariLogo), 17 metadata ids, the level-name
   template. A 16-bit hash collides for any big dictionary: only targeted,
   handler-informed guesses count. A naming hunt is the user's call.
+  FRONTEND ENUMS + MORE NAMES (263730fe): common.h has `FrontendLayout` (LAYOUT_*, index
+  into _806A828) and `FrontendStateId` (STATE_*, index into _8069FC8; unnamed ones are
+  decimal STATE_n/LAYOUT_n); agbcc ACCEPTS GNU designated initializers (`[i] = {…}`,
+  gaps zero-filled) — both tables use them, one entry per line inside
+  `// clang-format off/on` (formatted once at ColumnLimit 100000); 92 state literals
+  → enum. Named layouts by hash: 0 Nintendo, 1 Nelvana, 2 Collection, 10 Dialog,
+  14 DRights 0xE1C1, 15 PressStart 0x65CB (title), 16 Language, 17 Legals 0x104,
+  18 Publisher 0x4462 (the Atari logo — role name), 19 FullFat. Unnamed: 3
+  (transition, not "Transition"), 4–9, 11 (menu background shared by 15 states,
+  not Menu/MainMenu/Background/…), 12, 13, 20. tools/bbmap2png.py renders .bbmap
+  (+palette, --tileset for maps borrowing tiles); every layer of _806A828 rendered
+  to /tmp/bbmap/bg (Collection's map renders black — check its palette source).
+  LevelDesigns names: template still unknown (brute force over ~60 prefixes ×
+  2 chars gave only chance hits; stage 8 is named differently).
   FINAL SKILL FOLD landed: docs/learnings/ (57 + 245 processed) DELETED, the
   skill-fold agent removed, decompiler/review/MANAGER.md now say measurements
   go in the agent's final REPORT and generic ones into SKILL.md by the manager.
