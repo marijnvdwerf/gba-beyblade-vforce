@@ -7,6 +7,7 @@
 #include "debug.h"
 #include "event.h"
 #include "geometry.h"
+#include "ids.h"
 #include "include_asm.h"
 #include "memory.h"
 #include "palette.h"
@@ -79,12 +80,12 @@ void initLevelEnvironmentActors(u16 level)
     for (lineIndex = 0; lineIndex < geometry.unk0->lineCount; lineIndex++) {
         metadata = GetLineMetaData(&geometry, lineIndex);
         if (metadata != NULL) {
-            metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 2, 0xD679);
+            metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 2, ID_ACTOR);
             if (metaobject != NULL) {
                 actorConfig = metaobject->unk8.spriteSheet;
                 actorConfigs[selectedCount] = actorConfig;
                 selectedLines[selectedCount++] = lineIndex;
-                metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xF4FA);
+                metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, ID_SHADOW);
                 if (metaobject != NULL) {
                     effectCount++;
                 }
@@ -181,20 +182,20 @@ void initLevelEnvironmentActors(u16 level)
             break;
         }
         actorBase->unk3C = display;
-        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 2, 0xFB93);
+        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 2, ID_SPRITE);
         if (metaobject != NULL) {
             sprite = allocSprite(lineIndex * 8 + 0x200);
             LoadSpriteSheet(sprite, metaobject->unk8.spriteSheet, 0, 0, 0, spriteLayer, 0, 0);
             lineObject->sprite = sprite;
             lineObject->unk8 = 0;
             lineObject->unkC = 0;
-            metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 4, 0xFB93);
+            metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 4, ID_SPRITE);
             if (metaobject != NULL) {
                 lineObject->unk8 = metaobject->unk8.transform.x;
                 lineObject->unkC = metaobject->unk8.transform.y;
             }
         }
-        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xF4FA);
+        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, ID_SHADOW);
         if (metaobject != NULL) {
             effect->x = (point0->x + point1->x) << 4;
             effect->y = (point0->y + point1->y) << 4;
@@ -205,7 +206,7 @@ void initLevelEnvironmentActors(u16 level)
             effect->actor = actorBase;
             effect++;
         }
-        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 4, 0xD679);
+        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 4, ID_ACTOR);
         if (metaobject != NULL) {
             actorBase->x += metaobject->unk8.transform.x << 8;
             actorBase->y += metaobject->unk8.transform.y << 8;
@@ -217,7 +218,7 @@ void initLevelEnvironmentActors(u16 level)
         } else {
             lineObject->unk3A = 0;
         }
-        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 0xE, 0xD679);
+        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 0xE, ID_ACTOR);
         if (metaobject != NULL) {
             ActorSetSpriteOffset(actorBase, metaobject->unk8.offset.x, metaobject->unk8.offset.y);
         }

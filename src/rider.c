@@ -7,6 +7,7 @@
 #include "camera.h"
 #include "collision.h"
 #include "geometry.h"
+#include "ids.h"
 #include "include_asm.h"
 #include "items.h"
 #include "levelhud.h"
@@ -93,29 +94,29 @@ void processRiderMetadata(RiderBase* rider, LevelGeometryAddresses* geometry, un
     riderBase = rider;
     metadata = GetLineMetaData(geometry, lineIndex);
     if (metadata != NULL) {
-        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0xD368);
+        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, ID_WEIGHT);
         if (metaobject != NULL) {
             riderBase->unk228 = metaobject->unk8.word;
         }
 
-        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x6ACE);
+        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, ID_ACCELERATION);
         if (metaobject != NULL) {
             riderBase->unk22A = metaobject->unk8.word;
         }
 
-        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x5BBE);
+        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, ID_FRICTION);
         if (metaobject != NULL) {
             value = metaobject->unk8.word;
             riderBase->unk52 = value;
             riderBase->unk50 = value;
         }
 
-        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x215D);
+        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, ID_AI_TARGET_RADIUS);
         if (metaobject != NULL) {
             riderBase->unk210 = metaobject->unk8.word * metaobject->unk8.word;
         }
 
-        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x3AB4);
+        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, ID_AI_TARGET_TIME);
         if (metaobject != NULL) {
             riderBase->unk21C = metaobject->unk8.word;
         }
@@ -125,7 +126,7 @@ void processRiderMetadata(RiderBase* rider, LevelGeometryAddresses* geometry, un
             riderBase->unk222 = metaobject->unk8.word;
         }
 
-        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 3, 0x59C3);
+        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 3, ID_AI_PATH);
         if (metaobject != NULL) {
             metaId = metaobject->unk8.half;
             for (i = 0; i < geometry->unk0->splineCount; i++) {
@@ -135,12 +136,12 @@ void processRiderMetadata(RiderBase* rider, LevelGeometryAddresses* geometry, un
             }
         }
 
-        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0xCF2C);
+        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, ID_AI_PATH_SPEED);
         if (metaobject != NULL) {
             riderBase->unk21A = metaobject->unk8.word;
         }
 
-        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0xD271);
+        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, ID_AI_BOSS);
         if (metaobject != NULL) {
             SetRiderFlag(riderBase, 8);
         }
@@ -155,7 +156,7 @@ void processRiderMetadata(RiderBase* rider, LevelGeometryAddresses* geometry, un
             rider->unk3D0 = metaobject->unk8.word;
         }
 
-        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x5CF);
+        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, ID_AI_RECHARGE_RATE);
         if (metaobject != NULL) {
             riderBase->unk22C = metaobject->unk8.word;
         }

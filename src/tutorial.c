@@ -7,6 +7,7 @@
 #include "frontend.h"
 #include "gamestate.h"
 #include "geometry.h"
+#include "ids.h"
 #include "include_asm.h"
 #include "iwram.h"
 #include "keystate.h"
@@ -116,7 +117,8 @@ void initTutorialManagement(u16 levelId)
             }
             line++;
             if (lineMetadata != 0) {
-                metaobject = getLineMetaobjectByTypeAndId(&geometry, lineMetadata, 1, 0x8CEC);
+                metaobject
+                    = getLineMetaobjectByTypeAndId(&geometry, lineMetadata, 1, ID_TUTORIAL_TRIGGER);
                 if (metaobject != NULL) {
                     entry->line = line;
                     entry->sprite = &TutorialPages[metaobject->unk8.word];

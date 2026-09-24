@@ -8,6 +8,7 @@
 #include "effects.h"
 #include "gameinit.h"
 #include "geometry.h"
+#include "ids.h"
 #include "include_asm.h"
 #include "memory.h"
 #include "music.h"
@@ -240,7 +241,7 @@ void processMetadata_1(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
             sub_8055734(0, NULL, NULL);
             sub_804ABFC(0xC);
             break;
-        case 0x8CEC:
+        case ID_TUTORIAL_TRIGGER:
             if (RiderHasFlag(rider, 0x4000000) == 0 && sub_8051780(4) == 0
                 && _gameData->unk161B == 0) {
                 turorial_804A488(lineIndex);
