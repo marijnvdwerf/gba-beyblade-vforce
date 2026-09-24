@@ -77,243 +77,243 @@ global LineDataE05S05
 LineDataE05S05_26:
     .2byte 8
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_82309EC
-    linedata_6 0x0B3F
-    linedata_18 0x0B3F
-    linedata_8 0x002D, 1, 0
-    linedata_4 0xB396, 0, 0, 900
-    linedata_7 0x0B3F, 3, 2
+    linedata_2 ID_ACTOR, SpriteSheet_82309EC
+    linedata_6 ID_LAUNCH_0
+    linedata_18 ID_LAUNCH_0
+    linedata_8 ID_NONE, 1, 0
+    linedata_4 ID_UNK_B396, 0, 0, 900
+    linedata_7 ID_LAUNCH_0, 3, 2
 
 LineDataE05S05_27:
     .2byte 8
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_82309EC
-    linedata_6 0x0B40
-    linedata_18 0x0B40
-    linedata_8 0x002D, 1, 0
-    linedata_4 0xB396, 0, 0, 900
-    linedata_7 0x0B40, 3, 2
+    linedata_2 ID_ACTOR, SpriteSheet_82309EC
+    linedata_6 ID_LAUNCH_1
+    linedata_18 ID_LAUNCH_1
+    linedata_8 ID_NONE, 1, 0
+    linedata_4 ID_UNK_B396, 0, 0, 900
+    linedata_7 ID_LAUNCH_1, 3, 2
 
 LineDataE05S05_28:
     .2byte 8
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_82309EC
-    linedata_6 0x0B41
-    linedata_18 0x0B41
-    linedata_8 0x002D, 1, 0
-    linedata_4 0xB396, 0, 0, 900
-    linedata_7 0x0B41, 3, 2
+    linedata_2 ID_ACTOR, SpriteSheet_82309EC
+    linedata_6 ID_LAUNCH_2
+    linedata_18 ID_LAUNCH_2
+    linedata_8 ID_NONE, 1, 0
+    linedata_4 ID_UNK_B396, 0, 0, 900
+    linedata_7 ID_LAUNCH_2, 3, 2
 
 LineDataE05S05_29:
     .2byte 8
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_82309EC
-    linedata_6 0x0B43
-    linedata_18 0x0B43
-    linedata_8 0x002D, 1, 0
-    linedata_4 0xB396, 0, 0, 900
-    linedata_7 0x0B43, 3, 2
+    linedata_2 ID_ACTOR, SpriteSheet_82309EC
+    linedata_6 ID_LAUNCH_4
+    linedata_18 ID_LAUNCH_4
+    linedata_8 ID_NONE, 1, 0
+    linedata_4 ID_UNK_B396, 0, 0, 900
+    linedata_7 ID_LAUNCH_4, 3, 2
 
 LineDataE05S05_30:
     .2byte 8
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_82309EC
-    linedata_6 0xA0DF
-    linedata_18 0xA0DF
-    linedata_8 0x002D, 1, 0
-    linedata_4 0xB396, 0, 0, 900
-    linedata_7 0xA0DF, 3, 2
+    linedata_2 ID_ACTOR, SpriteSheet_82309EC
+    linedata_6 ID_LAUNCH_40
+    linedata_18 ID_LAUNCH_40
+    linedata_8 ID_NONE, 1, 0
+    linedata_4 ID_UNK_B396, 0, 0, 900
+    linedata_7 ID_LAUNCH_40, 3, 2
 
 LineDataE05S05_31:
     .2byte 8
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_82309EC
-    linedata_6 0x0B44
-    linedata_18 0x0B44
-    linedata_8 0x002D, 1, 0
-    linedata_4 0xB396, 0, 0, 900
-    linedata_7 0x0B44, 3, 2
+    linedata_2 ID_ACTOR, SpriteSheet_82309EC
+    linedata_6 ID_LAUNCH_5
+    linedata_18 ID_LAUNCH_5
+    linedata_8 ID_NONE, 1, 0
+    linedata_4 ID_UNK_B396, 0, 0, 900
+    linedata_7 ID_LAUNCH_5, 3, 2
 
 LineDataE05S05_32:
     .2byte 6
     .align 2, 0
-    linedata_6 0x28E6
-    linedata_18 0x28E6
-    linedata_13 0x002D, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_7 0x28E6, 2, 1
+    linedata_6 ID_PLATFORM_1
+    linedata_18 ID_PLATFORM_1
+    linedata_13 ID_NONE, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_7 ID_PLATFORM_1, 2, 1
 
 LineDataE05S05_33:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_8227CEC
-    linedata_6 0x1997
-    linedata_18 0x1997
-    linedata_8 0x002D, 1, 2
-    linedata_13 0x002D, 0, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_1 0x2A39, 0
-    linedata_7 0x1997, 3, 3
+    linedata_2 ID_ACTOR, SpriteSheet_8227CEC
+    linedata_6 ID_CHARGE_1
+    linedata_18 ID_CHARGE_1
+    linedata_8 ID_NONE, 1, 2
+    linedata_13 ID_NONE, 0, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_1 ID_UNK_2A39, 0
+    linedata_7 ID_CHARGE_1, 3, 3
 
 LineDataE05S05_34:
     .2byte 10
     .align 2, 0
-    linedata_1 0xD368, 480
-    linedata_1 0x6ACE, 8
-    linedata_1 0x5BBE, 8
-    linedata_1 0x215D, 0
-    linedata_1 0x3AB4, 60
-    linedata_1 0x505B, 1000
-    linedata_3 0x59C3, 60661
-    linedata_1 0xCF2C, 1024
-    linedata_1 0xF0F8, 2
-    linedata_1 0x05CF, 3
+    linedata_1 ID_WEIGHT, 480
+    linedata_1 ID_ACCELERATION, 8
+    linedata_1 ID_FRICTION, 8
+    linedata_1 ID_AI_TARGET_RADIUS, 0
+    linedata_1 ID_AI_TARGET_TIME, 60
+    linedata_1 ID_UNK_505B, 1000
+    linedata_3 ID_AI_PATH, ID_PATH
+    linedata_1 ID_AI_PATH_SPEED, 1024
+    linedata_1 ID_UNK_F0F8, 2
+    linedata_1 ID_AI_RECHARGE_RATE, 3
 
 LineDataE05S05_35:
     .2byte 10
     .align 2, 0
-    linedata_1 0xD368, 480
-    linedata_1 0x6ACE, 8
-    linedata_1 0x5BBE, 8
-    linedata_1 0x215D, 0
-    linedata_1 0x3AB4, 60
-    linedata_1 0x505B, 1000
-    linedata_3 0x59C3, 16282
-    linedata_1 0xCF2C, 1024
-    linedata_1 0xF0F8, 2
-    linedata_1 0x05CF, 3
+    linedata_1 ID_WEIGHT, 480
+    linedata_1 ID_ACCELERATION, 8
+    linedata_1 ID_FRICTION, 8
+    linedata_1 ID_AI_TARGET_RADIUS, 0
+    linedata_1 ID_AI_TARGET_TIME, 60
+    linedata_1 ID_UNK_505B, 1000
+    linedata_3 ID_AI_PATH, ID_PATH_1
+    linedata_1 ID_AI_PATH_SPEED, 1024
+    linedata_1 ID_UNK_F0F8, 2
+    linedata_1 ID_AI_RECHARGE_RATE, 3
 
 LineDataE05S05_36:
     .2byte 10
     .align 2, 0
-    linedata_1 0xD368, 480
-    linedata_1 0x6ACE, 8
-    linedata_1 0x5BBE, 8
-    linedata_1 0x215D, 0
-    linedata_1 0x3AB4, 60
-    linedata_1 0x505B, 1000
-    linedata_3 0x59C3, 16283
-    linedata_1 0xCF2C, 1024
-    linedata_1 0xF0F8, 2
-    linedata_1 0x05CF, 3
+    linedata_1 ID_WEIGHT, 480
+    linedata_1 ID_ACCELERATION, 8
+    linedata_1 ID_FRICTION, 8
+    linedata_1 ID_AI_TARGET_RADIUS, 0
+    linedata_1 ID_AI_TARGET_TIME, 60
+    linedata_1 ID_UNK_505B, 1000
+    linedata_3 ID_AI_PATH, ID_PATH_2
+    linedata_1 ID_AI_PATH_SPEED, 1024
+    linedata_1 ID_UNK_F0F8, 2
+    linedata_1 ID_AI_RECHARGE_RATE, 3
 
 LineDataE05S05_37:
     .2byte 10
     .align 2, 0
-    linedata_1 0xD368, 480
-    linedata_1 0x6ACE, 8
-    linedata_1 0x5BBE, 8
-    linedata_1 0x215D, 0
-    linedata_1 0x3AB4, 60
-    linedata_1 0x505B, 1000
-    linedata_3 0x59C3, 16286
-    linedata_1 0xCF2C, 1024
-    linedata_1 0xF0F8, 2
-    linedata_1 0x05CF, 3
+    linedata_1 ID_WEIGHT, 480
+    linedata_1 ID_ACCELERATION, 8
+    linedata_1 ID_FRICTION, 8
+    linedata_1 ID_AI_TARGET_RADIUS, 0
+    linedata_1 ID_AI_TARGET_TIME, 60
+    linedata_1 ID_UNK_505B, 1000
+    linedata_3 ID_AI_PATH, ID_PATH_5
+    linedata_1 ID_AI_PATH_SPEED, 1024
+    linedata_1 ID_UNK_F0F8, 2
+    linedata_1 ID_AI_RECHARGE_RATE, 3
 
 LineDataE05S05_38:
     .2byte 10
     .align 2, 0
-    linedata_1 0xD368, 480
-    linedata_1 0x6ACE, 8
-    linedata_1 0x5BBE, 8
-    linedata_1 0x215D, 0
-    linedata_1 0x3AB4, 60
-    linedata_1 0x505B, 1000
-    linedata_3 0x59C3, 16287
-    linedata_1 0xCF2C, 1024
-    linedata_1 0xF0F8, 2
-    linedata_1 0x05CF, 3
+    linedata_1 ID_WEIGHT, 480
+    linedata_1 ID_ACCELERATION, 8
+    linedata_1 ID_FRICTION, 8
+    linedata_1 ID_AI_TARGET_RADIUS, 0
+    linedata_1 ID_AI_TARGET_TIME, 60
+    linedata_1 ID_UNK_505B, 1000
+    linedata_3 ID_AI_PATH, ID_PATH_6
+    linedata_1 ID_AI_PATH_SPEED, 1024
+    linedata_1 ID_UNK_F0F8, 2
+    linedata_1 ID_AI_RECHARGE_RATE, 3
 
 LineDataE05S05_39:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_82325B0
-    linedata_6 0xB9DE
-    linedata_18 0xB9DE
-    linedata_8 0x002D, 1, 2
-    linedata_10 0xD679, 0, 960
-    linedata_3 0x37AE, 15360
-    linedata_1 0x37AE, 89
-    linedata_13 0x002D, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_7 0xB9DE, 3, 5
+    linedata_2 ID_ACTOR, SpriteSheet_82325B0
+    linedata_6 ID_COLLECT
+    linedata_18 ID_COLLECT
+    linedata_8 ID_NONE, 1, 2
+    linedata_10 ID_ACTOR, 0, 960
+    linedata_3 ID_COLLECTABLE, ID_COLLECTION
+    linedata_1 ID_COLLECTABLE, 89
+    linedata_13 ID_NONE, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_7 ID_COLLECT, 3, 5
 
 LineDataE05S05_40:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_822D814
-    linedata_6 0xDD49
-    linedata_18 0xDD49
-    linedata_8 0x002D, 1, 2
-    linedata_10 0xD679, 0, 960
-    linedata_3 0x37AE, 15360
-    linedata_1 0x37AE, 11
-    linedata_13 0x002D, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_7 0xDD49, 3, 5
+    linedata_2 ID_ACTOR, SpriteSheet_822D814
+    linedata_6 ID_COLLECT_3
+    linedata_18 ID_COLLECT_3
+    linedata_8 ID_NONE, 1, 2
+    linedata_10 ID_ACTOR, 0, 960
+    linedata_3 ID_COLLECTABLE, ID_COLLECTION
+    linedata_1 ID_COLLECTABLE, 11
+    linedata_13 ID_NONE, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_7 ID_COLLECT_3, 3, 5
 
 LineDataE05S05_41:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_82371A0
-    linedata_6 0xDD48
-    linedata_18 0xDD48
-    linedata_8 0x002D, 1, 2
-    linedata_10 0xD679, 0, 960
-    linedata_3 0x37AE, 15360
-    linedata_1 0x37AE, 78
-    linedata_13 0x002D, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_7 0xDD48, 3, 5
+    linedata_2 ID_ACTOR, SpriteSheet_82371A0
+    linedata_6 ID_COLLECT_2
+    linedata_18 ID_COLLECT_2
+    linedata_8 ID_NONE, 1, 2
+    linedata_10 ID_ACTOR, 0, 960
+    linedata_3 ID_COLLECTABLE, ID_COLLECTION
+    linedata_1 ID_COLLECTABLE, 78
+    linedata_13 ID_NONE, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_7 ID_COLLECT_2, 3, 5
 
 LineDataE05S05_42:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_822D814
-    linedata_6 0xDD47
-    linedata_18 0xDD47
-    linedata_8 0x002D, 1, 2
-    linedata_10 0xD679, 0, 960
-    linedata_3 0x37AE, 15360
-    linedata_1 0x37AE, 51
-    linedata_13 0x002D, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_7 0xDD47, 3, 5
+    linedata_2 ID_ACTOR, SpriteSheet_822D814
+    linedata_6 ID_COLLECT_1
+    linedata_18 ID_COLLECT_1
+    linedata_8 ID_NONE, 1, 2
+    linedata_10 ID_ACTOR, 0, 960
+    linedata_3 ID_COLLECTABLE, ID_COLLECTION
+    linedata_1 ID_COLLECTABLE, 51
+    linedata_13 ID_NONE, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_7 ID_COLLECT_1, 3, 5
 
 LineDataE05S05_43:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_8227CEC
-    linedata_6 0xB304
-    linedata_18 0xB304
-    linedata_8 0x002D, 1, 2
-    linedata_13 0x002D, 0, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_1 0x2A39, 0
-    linedata_7 0xB304, 3, 3
+    linedata_2 ID_ACTOR, SpriteSheet_8227CEC
+    linedata_6 ID_CHARGE_11
+    linedata_18 ID_CHARGE_11
+    linedata_8 ID_NONE, 1, 2
+    linedata_13 ID_NONE, 0, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_1 ID_UNK_2A39, 0
+    linedata_7 ID_CHARGE_11, 3, 3
 
 LineDataE05S05_69:
     .2byte 8
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_822EC7C
-    linedata_2 0xFB93, SpriteSheet_822F00C
-    linedata_4 0xFB93, 0, 16, 0
-    linedata_1 0xBF84, 60
-    linedata_11 0xD679, 0x00, 0x00, 0x00, 0x00
-    linedata_18 0x28E6
-    linedata_5 0xA6B3, 0, 128, 0
-    linedata_7 0x28E6, 6, 1
+    linedata_2 ID_ACTOR, SpriteSheet_822EC7C
+    linedata_2 ID_SPRITE, SpriteSheet_822F00C
+    linedata_4 ID_SPRITE, 0, 16, 0
+    linedata_1 ID_UNK_BF84, 60
+    linedata_11 ID_ACTOR, 0x00, 0x00, 0x00, 0x00
+    linedata_18 ID_PLATFORM_1
+    linedata_5 ID_UNK_A6B3, 0, 128, 0
+    linedata_7 ID_PLATFORM_1, 6, 1
 
 LineDataE05S05_70:
     .2byte 8
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_822F4E0
-    linedata_2 0xFB93, SpriteSheet_822F830
-    linedata_4 0xFB93, 0, 16, 0
-    linedata_1 0xBF84, 60
-    linedata_11 0xD679, 0x00, 0x00, 0x00, 0x00
-    linedata_18 0x28E6
-    linedata_5 0xA6B3, 0, 128, 0
-    linedata_7 0x28E6, 6, 1
+    linedata_2 ID_ACTOR, SpriteSheet_822F4E0
+    linedata_2 ID_SPRITE, SpriteSheet_822F830
+    linedata_4 ID_SPRITE, 0, 16, 0
+    linedata_1 ID_UNK_BF84, 60
+    linedata_11 ID_ACTOR, 0x00, 0x00, 0x00, 0x00
+    linedata_18 ID_PLATFORM_1
+    linedata_5 ID_UNK_A6B3, 0, 128, 0
+    linedata_7 ID_PLATFORM_1, 6, 1
 
 LineDataE05S05_71:
     .2byte 3
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_822FEC4
-    linedata_2 0xFB93, SpriteSheet_8230398
-    linedata_4 0xFB93, -63, 16, 0
+    linedata_2 ID_ACTOR, SpriteSheet_822FEC4
+    linedata_2 ID_SPRITE, SpriteSheet_8230398
+    linedata_4 ID_SPRITE, -63, 16, 0
 

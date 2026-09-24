@@ -91,13 +91,13 @@ global LineDataE04S08
 LineDataE04S08_46:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_82325B0
-    linedata_6 0xDD48
-    linedata_18 0xDD48
-    linedata_8 0x002D, 1, 2
-    linedata_10 0xD679, 0, 960
-    linedata_3 0x37AE, 44080
-    linedata_1 0x37AE, 106
-    linedata_13 0x002D, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_7 0xDD48, 3, 5
+    linedata_2 ID_ACTOR, SpriteSheet_82325B0
+    linedata_6 ID_COLLECT_2
+    linedata_18 ID_COLLECT_2
+    linedata_8 ID_NONE, 1, 2
+    linedata_10 ID_ACTOR, 0, 960
+    linedata_3 ID_COLLECTABLE, ID_COLLECTION_0
+    linedata_1 ID_COLLECTABLE, 106
+    linedata_13 ID_NONE, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_7 ID_COLLECT_2, 3, 5
 

@@ -88,116 +88,116 @@ global LineDataE06S08
 LineDataE06S08_27:
     .2byte 11
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_82371A0
-    linedata_6 0xDD48
-    linedata_18 0xDD48
-    linedata_8 0x002D, 1, 2
-    linedata_10 0xD679, 0, 960
-    linedata_3 0x37AE, 44080
-    linedata_1 0x37AE, 77
-    linedata_13 0x002D, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_7 0xDD48, 3, 5
+    linedata_2 ID_ACTOR, SpriteSheet_82371A0
+    linedata_6 ID_COLLECT_2
+    linedata_18 ID_COLLECT_2
+    linedata_8 ID_NONE, 1, 2
+    linedata_10 ID_ACTOR, 0, 960
+    linedata_3 ID_COLLECTABLE, ID_COLLECTION_0
+    linedata_1 ID_COLLECTABLE, 77
+    linedata_13 ID_NONE, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_7 ID_COLLECT_2, 3, 5
 
 LineDataE06S08_32:
     .2byte 6
     .align 2, 0
-    linedata_6 0x28E6
-    linedata_18 0x28E6
-    linedata_13 0x002D, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_7 0x28E6, 2, 1
+    linedata_6 ID_PLATFORM_1
+    linedata_18 ID_PLATFORM_1
+    linedata_13 ID_NONE, 0, 0x8C, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_7 ID_PLATFORM_1, 2, 1
 
 LineDataE06S08_34:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_8227CEC
-    linedata_6 0x1997
-    linedata_18 0x1997
-    linedata_8 0x002D, 1, 2
-    linedata_13 0x002D, 0, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_1 0x2A39, 0
-    linedata_7 0x1997, 3, 3
+    linedata_2 ID_ACTOR, SpriteSheet_8227CEC
+    linedata_6 ID_CHARGE_1
+    linedata_18 ID_CHARGE_1
+    linedata_8 ID_NONE, 1, 2
+    linedata_13 ID_NONE, 0, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_1 ID_UNK_2A39, 0
+    linedata_7 ID_CHARGE_1, 3, 3
 
 LineDataE06S08_35:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_8227CEC
-    linedata_6 0x1998
-    linedata_18 0x1998
-    linedata_8 0x002D, 1, 2
-    linedata_13 0x002D, 0, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_1 0x2A39, 0
-    linedata_7 0x1998, 3, 3
+    linedata_2 ID_ACTOR, SpriteSheet_8227CEC
+    linedata_6 ID_CHARGE_2
+    linedata_18 ID_CHARGE_2
+    linedata_8 ID_NONE, 1, 2
+    linedata_13 ID_NONE, 0, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_1 ID_UNK_2A39, 0
+    linedata_7 ID_CHARGE_2, 3, 3
 
 LineDataE06S08_36:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_8227CEC
-    linedata_6 0xEA77
-    linedata_18 0xEA77
-    linedata_8 0x002D, 1, 2
-    linedata_13 0x002D, 0, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_1 0x2A39, 0
-    linedata_7 0xEA77, 3, 3
+    linedata_2 ID_ACTOR, SpriteSheet_8227CEC
+    linedata_6 ID_CHARGE_311
+    linedata_18 ID_CHARGE_311
+    linedata_8 ID_NONE, 1, 2
+    linedata_13 ID_NONE, 0, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_1 ID_UNK_2A39, 0
+    linedata_7 ID_CHARGE_311, 3, 3
 
 LineDataE06S08_37:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_8227CEC
-    linedata_6 0x1999
-    linedata_18 0x1999
-    linedata_8 0x002D, 1, 2
-    linedata_13 0x002D, 0, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_1 0x2A39, 0
-    linedata_7 0x1999, 3, 3
+    linedata_2 ID_ACTOR, SpriteSheet_8227CEC
+    linedata_6 ID_CHARGE_3
+    linedata_18 ID_CHARGE_3
+    linedata_8 ID_NONE, 1, 2
+    linedata_13 ID_NONE, 0, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_1 ID_UNK_2A39, 0
+    linedata_7 ID_CHARGE_3, 3, 3
 
 LineDataE06S08_38:
     .2byte 9
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_8227CEC
-    linedata_6 0x199A
-    linedata_18 0x199A
-    linedata_8 0x002D, 1, 2
-    linedata_13 0x002D, 0, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
-    linedata_1 0x2A39, 0
-    linedata_7 0x199A, 3, 3
+    linedata_2 ID_ACTOR, SpriteSheet_8227CEC
+    linedata_6 ID_CHARGE_4
+    linedata_18 ID_CHARGE_4
+    linedata_8 ID_NONE, 1, 2
+    linedata_13 ID_NONE, 0, 0x00, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00
+    linedata_1 ID_UNK_2A39, 0
+    linedata_7 ID_CHARGE_4, 3, 3
 
 LineDataE06S08_40:
     .2byte 1
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_8238608
+    linedata_2 ID_ACTOR, SpriteSheet_8238608
 
 LineDataE06S08_41:
     .2byte 1
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_8238608
+    linedata_2 ID_ACTOR, SpriteSheet_8238608
 
 LineDataE06S08_42:
     .2byte 6
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_8230398
-    linedata_1 0xBF84, 60
-    linedata_11 0xD679, 0x00, 0x00, 0x00, 0x00
-    linedata_18 0x28E6
-    linedata_5 0xA6B3, 0, 128, 0
-    linedata_7 0x28E6, 4, 1
+    linedata_2 ID_ACTOR, SpriteSheet_8230398
+    linedata_1 ID_UNK_BF84, 60
+    linedata_11 ID_ACTOR, 0x00, 0x00, 0x00, 0x00
+    linedata_18 ID_PLATFORM_1
+    linedata_5 ID_UNK_A6B3, 0, 128, 0
+    linedata_7 ID_PLATFORM_1, 4, 1
 
 LineDataE06S08_43:
     .2byte 6
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_8230398
-    linedata_1 0xBF84, 60
-    linedata_11 0xD679, 0x00, 0x00, 0x00, 0x00
-    linedata_18 0x28E6
-    linedata_5 0xA6B3, 0, 128, 0
-    linedata_7 0x28E6, 4, 1
+    linedata_2 ID_ACTOR, SpriteSheet_8230398
+    linedata_1 ID_UNK_BF84, 60
+    linedata_11 ID_ACTOR, 0x00, 0x00, 0x00, 0x00
+    linedata_18 ID_PLATFORM_1
+    linedata_5 ID_UNK_A6B3, 0, 128, 0
+    linedata_7 ID_PLATFORM_1, 4, 1
 
 LineDataE06S08_44:
     .2byte 1
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_8230398
+    linedata_2 ID_ACTOR, SpriteSheet_8230398
 
 LineDataE06S08_45:
     .2byte 1
     .align 2, 0
-    linedata_2 0xD679, SpriteSheet_8230398
+    linedata_2 ID_ACTOR, SpriteSheet_8230398
 

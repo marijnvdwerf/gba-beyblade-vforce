@@ -233,10 +233,10 @@ void processMetadata_1(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     rider = _unk3000C10;
     if (rider != NULL) {
         switch (event->id) {
-        case 0x4ECB:
+        case ID_UNK_4ECB:
             target->unk3C = event->unk8.word;
             break;
-        case 0x2A39:
+        case ID_UNK_2A39:
             rider->unk208 = 0xC00;
             sub_8055734(0, NULL, NULL);
             sub_804ABFC(0xC);
@@ -257,7 +257,7 @@ void processMetadata_2(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     Actor* actor;
     unk32 saved;
 
-    if (event->id == 0x524D) {
+    if (event->id == ID_UNK_524D) {
         actor = GetStruct4(lineIndex)->actor;
         if (actor != NULL) {
             saved = actor->unkB4.lineIndex;
@@ -281,10 +281,10 @@ void processMetadata_3(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
 
     target = GetStruct4(lineIndex);
     switch (event->id) {
-    case 0x4ECB:
+    case ID_UNK_4ECB:
         target->unk3E = event->unk8.word;
         break;
-    case 0x37AE:
+    case ID_COLLECTABLE:
         sub_8056E2C(lineIndex);
         sub_8055734(2, NULL, NULL);
         sub_80558E8(1);

@@ -121,7 +121,7 @@ void processRiderMetadata(RiderBase* rider, LevelGeometryAddresses* geometry, un
             riderBase->unk21C = metaobject->unk8.word;
         }
 
-        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x505B);
+        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, ID_UNK_505B);
         if (metaobject != NULL) {
             riderBase->unk222 = metaobject->unk8.word;
         }
@@ -146,12 +146,12 @@ void processRiderMetadata(RiderBase* rider, LevelGeometryAddresses* geometry, un
             SetRiderFlag(riderBase, 8);
         }
 
-        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x37AE);
+        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, ID_COLLECTABLE);
         if (metaobject != NULL) {
             rider->unk424 = metaobject->unk8.word;
         }
 
-        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0xF0F8);
+        metaobject = getLineMetaobjectByTypeAndId(geometry, metadata, 1, ID_UNK_F0F8);
         if (metaobject != NULL) {
             rider->unk3D0 = metaobject->unk8.word;
         }

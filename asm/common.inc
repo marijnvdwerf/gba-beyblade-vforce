@@ -1,6 +1,8 @@
     .ifndef _COMMON_INC_GUARD
     .set _COMMON_INC_GUARD, 1
 
+    .include "asm/ids.inc"
+
     .set NULL, 0
 
 	.set DISPCNT     , 0x4000000

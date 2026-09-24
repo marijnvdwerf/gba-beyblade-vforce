@@ -122,7 +122,7 @@ void initLevelEnvironmentActors(u16 level)
         geometryLine = &geometry.unkC[lineIndex];
         metadata = GetLineMetaData(&geometry, lineIndex);
         if (metadata != NULL) {
-            metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xAF90);
+            metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, ID_UNK_AF90);
             if (metaobject != NULL) {
                 pointEntry = &points[metaobject->unk8.word];
                 pointEntry->geometry = geometryLine;
@@ -165,7 +165,7 @@ void initLevelEnvironmentActors(u16 level)
             actorBase++;
             continue;
         }
-        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xF70C);
+        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, ID_UNK_F70C);
         if (metaobject != NULL) {
             actorType = metaobject->unk8.word;
         }
@@ -212,7 +212,7 @@ void initLevelEnvironmentActors(u16 level)
             actorBase->y += metaobject->unk8.transform.y << 8;
             actorBase->z += metaobject->unk8.transform.z << 8;
         }
-        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, 0xBF84);
+        metaobject = getLineMetaobjectByTypeAndId(&geometry, metadata, 1, ID_UNK_BF84);
         if (metaobject != NULL) {
             lineObject->unk3A = metaobject->unk8.word;
         } else {

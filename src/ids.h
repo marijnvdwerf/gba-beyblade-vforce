@@ -20,6 +20,15 @@
 #define ID_PUBLISHER 0x4462 /* "Publisher" */
 #define ID_PRESS_START 0x65CB /* "PressStart" */
 
+#define ID_UNK_1810 0x1810 /* LAYOUT_3: ending slideshow */
+#define ID_UNK_5D4C 0x5D4C /* LAYOUT_4: audio screen */
+#define ID_UNK_9068 0x9068 /* LAYOUT_5: multiplayer result */
+#define ID_UNK_8B71 0x8B71 /* LAYOUT_6: unused */
+#define ID_UNK_640B 0x640B /* LAYOUT_11: menu background (palette only) */
+#define ID_UNK_BBA4 0xBBA4 /* LAYOUT_12: palette only */
+#define ID_UNK_A694 0xA694 /* LAYOUT_13: palette only */
+#define ID_UNK_8F7D 0x8F7D /* LAYOUT_20: 3-layer menu backdrop */
+
 /* Line metadata object types */
 #define ID_COLLECTABLE 0x37AE /* "Collectable" */
 #define ID_TUTORIAL_TRIGGER 0x8CEC /* "TutorialTrigger" */
@@ -35,6 +44,15 @@
 #define ID_AI_TARGET_RADIUS 0x215D /* "AITargetRadius" */
 #define ID_AI_TARGET_TIME 0x3AB4 /* "AITargetTime" */
 #define ID_AI_RECHARGE_RATE 0x5CF /* "AIRechargeRate" */
+
+#define ID_UNK_2A39 0x2A39 /* refills spin power */
+#define ID_UNK_4ECB 0x4ECB /* type 1 delay, type 3 event fired after it */
+#define ID_UNK_505B 0x505B /* AI flee threshold */
+#define ID_UNK_524D 0x524D /* replaces the actor's sprite sheet */
+#define ID_UNK_AF90 0xAF90 /* environment actor's spline index */
+#define ID_UNK_BF84 0xBF84 /* pause at spline end */
+#define ID_UNK_F0F8 0xF0F8 /* AI spin-meter palette */
+#define ID_UNK_F70C 0xF70C /* environment actor's camera layer / priority */
 
 /* Level designs (LevelDesigns[].unk0): "E<episode> M<stage>" and "E<episode> Bonus",
  * both zero-based; see the trailing comments in src/leveldesigns.c. */
