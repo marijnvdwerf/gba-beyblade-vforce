@@ -25,49 +25,72 @@
 #include "unsorted.h"
 
 FrontendObject _8069FC8[] = {
-    { 0, &_8069FA0, sub_8043A0C, Background_8049A84, sub_8049CE8, sub_8049DE0 },
-    { 17, &_8069FA0, sub_8043A0C, Background_8049AF8, sub_8049DE0, sub_8049DE0 },
-    { 18, &_8069FA0, sub_8043A0C, Background_8049AF8, sub_8049DE0, sub_8049DE0 },
-    { 1, &_8069FA0, sub_8043A0C, Background_8049AF8, sub_8049DE0, sub_8049DE0 },
-    { 14, &_8069FA0, sub_8043A0C, Background_8049AF8, sub_8049DE0, sub_8049DE0 },
-    { 19, &_8069FA0, sub_8043A58, Background_8049AF8, sub_8049DE0, sub_8049DE0 },
-    { 16, &_80689C8, sub_8043AA0, Background_80498F8, sub_8049F9C, sub_8049DE0 },
-    { 15, &_8069318, sub_804568C, Background_8049AF8, sub_8049DE0, sub_8049DE0 },
-    { 20, &_80692C8, sub_8045638, Background_8049B68, sub_8049DE0, sub_8049F9C },
-    { 20, &_80692F0, sub_804566C, Background_80498F8, sub_8049F9C, sub_8049DE0 },
-    { 11, &_8069400, sub_8045848, Background_80498F8, sub_8049F9C, sub_8049F9C },
-    { 11, &_8068CA4, sub_8043CF8, Background_80498F8, sub_8049F9C, sub_8049F9C },
-    { 11, &_806944C, sub_8045A7C, Background_80498F8, sub_8049F9C, sub_8049F9C },
-    { 4, &_80694EC, sub_8045CB4, Background_8049A24, sub_8049F9C, sub_8049F9C },
-    { 11, &_8069538, sub_80461D8, Background_80498F8, sub_8049F9C, sub_8049F9C },
-    { 7, &_80699B4, selectBladeFrontendHandler, Background_8049A24, sub_8049FF8, sub_8049FF8 },
-    { 7, &_80696F4, sub_8046500, Background_8049A24, sub_8049F9C, sub_8049F9C },
-    { 9, &_8068ED8, sub_8044054, Background_8049A24, sub_8049F9C, sub_8049F9C },
-    { 11, &_8068CF8, sub_8043D84, Background_80498F8, sub_8049F9C, sub_8049F9C },
-    { 9, &_80690B8, sub_804444C, Background_8049A24, sub_8049F9C, sub_8049F9C },
-    { 11, &_806927C, sub_80453D8, Background_80498F8, sub_8049F9C, sub_8049F9C },
-    { 11, &_806927C, sub_804541C, Background_80498F8, sub_8049F9C, sub_8049F9C },
-    { 11, &_8069648, sub_8046424, Background_80498F8, sub_8049F9C, sub_8049F9C },
-    { 11, &_806971C, sub_8046814, Background_80498F8, sub_8049F9C, sub_8049F9C },
-    { 9, &_8069794, sub_8046A0C, Background_8049A24, sub_8049F9C, sub_8049F9C },
-    { 11, &_80697E4, sub_8046CC4, Background_80498F8, sub_8049F9C, sub_8049F9C },
-    { 9, &_8067D3C, creditsFrontendHandler, Background_8049A24, sub_8049FF8, sub_8049FF8 },
-    { 7, &_80686E8, sub_80413FC, Background_8049A24, sub_8049FF8, sub_8049FF8 },
-    { 10, &_806879C, sub_80420C4, Background_80499BC, sub_8049F58, sub_8049F58 },
-    { 9, &_8069CDC, sub_8047E5C, Background_8049A24, sub_8049F9C, sub_8049F9C },
-    { 11, &_8069D28, sub_80480EC, Background_80498F8, sub_8049F9C, sub_8049F9C },
-    { 9, &_8069DE8, sub_8048AE8, Background_8049A24, sub_8049F9C, sub_8049F9C },
-    { 11, &_8069D74, sub_8048310, Background_80498F8, sub_8049F9C, sub_8049F9C },
-    { 11, &_8069DC0, sub_804868C, Background_80498F8, sub_8049F9C, sub_8049F9C },
-    { 11, &_80690E0, sub_80448F4, Background_80498F8, sub_8049F9C, sub_8049F9C },
-    { 5, &_806912C, sub_8044C48, Background_8049A24, sub_8049F9C, sub_8049F9C },
-    { 5, &_8069154, sub_8044ED4, Background_8049A24, sub_8049F9C, sub_8049F9C },
-    { 5, &_806917C, sub_8045160, Background_8049A24, sub_8049F9C, sub_8049F9C },
-    { 9, &_8069E10, sub_8048D8C, Background_8049A24, sub_8049F9C, sub_8049F9C },
-    { 3, &_80687C8, sub_804257C, Background_80499BC, sub_8049F58, sub_8049F58 },
-    { 2, &_8068818, collectionListFrontendHandler, Background_8049A24, sub_8049FF8, sub_8049FF8 },
-    { 9, &_80697BC, sub_8046B94, Background_8049A24, sub_8049F9C, sub_8049F9C },
-    { 11, &_8069E64, nullsub_33, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_NINTENDO]
+    = { LAYOUT_NINTENDO, &_8069FA0, sub_8043A0C, Background_8049A84, sub_8049CE8, sub_8049DE0 },
+    [STATE_1] = { LAYOUT_17, &_8069FA0, sub_8043A0C, Background_8049AF8, sub_8049DE0, sub_8049DE0 },
+    [STATE_2] = { LAYOUT_18, &_8069FA0, sub_8043A0C, Background_8049AF8, sub_8049DE0, sub_8049DE0 },
+    [STATE_NELVANA]
+    = { LAYOUT_NELVANA, &_8069FA0, sub_8043A0C, Background_8049AF8, sub_8049DE0, sub_8049DE0 },
+    [STATE_4] = { LAYOUT_14, &_8069FA0, sub_8043A0C, Background_8049AF8, sub_8049DE0, sub_8049DE0 },
+    [STATE_FULLFAT]
+    = { LAYOUT_FULLFAT, &_8069FA0, sub_8043A58, Background_8049AF8, sub_8049DE0, sub_8049DE0 },
+    [STATE_LANGUAGE]
+    = { LAYOUT_LANGUAGE, &_80689C8, sub_8043AA0, Background_80498F8, sub_8049F9C, sub_8049DE0 },
+    [STATE_7] = { LAYOUT_15, &_8069318, sub_804568C, Background_8049AF8, sub_8049DE0, sub_8049DE0 },
+    [STATE_8] = { LAYOUT_20, &_80692C8, sub_8045638, Background_8049B68, sub_8049DE0, sub_8049F9C },
+    [STATE_9] = { LAYOUT_20, &_80692F0, sub_804566C, Background_80498F8, sub_8049F9C, sub_8049DE0 },
+    [STATE_10]
+    = { LAYOUT_11, &_8069400, sub_8045848, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_11]
+    = { LAYOUT_11, &_8068CA4, sub_8043CF8, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_12]
+    = { LAYOUT_11, &_806944C, sub_8045A7C, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_13] = { LAYOUT_4, &_80694EC, sub_8045CB4, Background_8049A24, sub_8049F9C, sub_8049F9C },
+    [STATE_14]
+    = { LAYOUT_11, &_8069538, sub_80461D8, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_SELECT_BLADE] = { LAYOUT_7, &_80699B4, selectBladeFrontendHandler, Background_8049A24,
+        sub_8049FF8, sub_8049FF8 },
+    [STATE_16] = { LAYOUT_7, &_80696F4, sub_8046500, Background_8049A24, sub_8049F9C, sub_8049F9C },
+    [STATE_17] = { LAYOUT_9, &_8068ED8, sub_8044054, Background_8049A24, sub_8049F9C, sub_8049F9C },
+    [STATE_18]
+    = { LAYOUT_11, &_8068CF8, sub_8043D84, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_19] = { LAYOUT_9, &_80690B8, sub_804444C, Background_8049A24, sub_8049F9C, sub_8049F9C },
+    [STATE_20]
+    = { LAYOUT_11, &_806927C, sub_80453D8, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_21]
+    = { LAYOUT_11, &_806927C, sub_804541C, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_22]
+    = { LAYOUT_11, &_8069648, sub_8046424, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_23]
+    = { LAYOUT_11, &_806971C, sub_8046814, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_24] = { LAYOUT_9, &_8069794, sub_8046A0C, Background_8049A24, sub_8049F9C, sub_8049F9C },
+    [STATE_25]
+    = { LAYOUT_11, &_80697E4, sub_8046CC4, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_CREDITS]
+    = { LAYOUT_9, &_8067D3C, creditsFrontendHandler, Background_8049A24, sub_8049FF8, sub_8049FF8 },
+    [STATE_27] = { LAYOUT_7, &_80686E8, sub_80413FC, Background_8049A24, sub_8049FF8, sub_8049FF8 },
+    [STATE_DIALOG]
+    = { LAYOUT_DIALOG, &_806879C, sub_80420C4, Background_80499BC, sub_8049F58, sub_8049F58 },
+    [STATE_29] = { LAYOUT_9, &_8069CDC, sub_8047E5C, Background_8049A24, sub_8049F9C, sub_8049F9C },
+    [STATE_30]
+    = { LAYOUT_11, &_8069D28, sub_80480EC, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_31] = { LAYOUT_9, &_8069DE8, sub_8048AE8, Background_8049A24, sub_8049F9C, sub_8049F9C },
+    [STATE_32]
+    = { LAYOUT_11, &_8069D74, sub_8048310, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_33]
+    = { LAYOUT_11, &_8069DC0, sub_804868C, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_34]
+    = { LAYOUT_11, &_80690E0, sub_80448F4, Background_80498F8, sub_8049F9C, sub_8049F9C },
+    [STATE_35] = { LAYOUT_5, &_806912C, sub_8044C48, Background_8049A24, sub_8049F9C, sub_8049F9C },
+    [STATE_36] = { LAYOUT_5, &_8069154, sub_8044ED4, Background_8049A24, sub_8049F9C, sub_8049F9C },
+    [STATE_37] = { LAYOUT_5, &_806917C, sub_8045160, Background_8049A24, sub_8049F9C, sub_8049F9C },
+    [STATE_38] = { LAYOUT_9, &_8069E10, sub_8048D8C, Background_8049A24, sub_8049F9C, sub_8049F9C },
+    [STATE_TRANSITION]
+    = { LAYOUT_3, &_80687C8, sub_804257C, Background_80499BC, sub_8049F58, sub_8049F58 },
+    [STATE_COLLECTION] = { LAYOUT_COLLECTION, &_8068818, collectionListFrontendHandler,
+        Background_8049A24, sub_8049FF8, sub_8049FF8 },
+    [STATE_41] = { LAYOUT_9, &_80697BC, sub_8046B94, Background_8049A24, sub_8049F9C, sub_8049F9C },
+    [STATE_42] = { LAYOUT_11, &_8069E64, nullsub_33, Background_80498F8, sub_8049F9C, sub_8049F9C },
 };
 
 const unk8* _806A3D0[25] = {
