@@ -9,5 +9,11 @@
         "**/expected/**": true,
         "**/.claude/**": true,
         "**/build/**": true
+    },
+    "C_Cpp.files.exclude": {
+        "**/expected/**": true,
+        "**/.claude/**": true,
+        "**/build/**": true,
+        "**/node_modules/**": true
     }
 }
