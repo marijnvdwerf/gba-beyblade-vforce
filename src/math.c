@@ -2,7 +2,7 @@
 
 #include <agb/bios.h>
 
-#include "include_asm.h"
+#include "common.h"
 
 #define SEQ2(f, i) f(i), f((i) + 1)
 #define SEQ4(f, i) SEQ2(f, i), SEQ2(f, (i) + 2)
@@ -67,7 +67,7 @@ const s16 SinTable[320] = { 0, 6, 12, 18, 25, 31, 37, 43, 49, 56, 62, 68, 74, 80
     251, 252, 253, 254, 254, 255, 255, 255 };
 
 /* 128 * acos((i - 128) / 128.0) / pi, truncated */
-const unk8 AcosTable[256] = { 128, 122, 120, 119, 117, 116, 115, 114, 113, 112, 111, 110, 110, 109,
+const u8 AcosTable[256] = { 128, 122, 120, 119, 117, 116, 115, 114, 113, 112, 111, 110, 110, 109,
     108, 108, 107, 106, 106, 105, 104, 104, 103, 103, 102, 102, 101, 101, 100, 100, 99, 99, 98, 98,
     97, 97, 96, 96, 95, 95, 94, 94, 94, 93, 93, 92, 92, 91, 91, 91, 90, 90, 89, 89, 89, 88, 88, 87,
     87, 87, 86, 86, 86, 85, 85, 84, 84, 84, 83, 83, 83, 82, 82, 82, 81, 81, 81, 80, 80, 80, 79, 79,
@@ -81,7 +81,7 @@ const unk8 AcosTable[256] = { 128, 122, 120, 119, 117, 116, 115, 114, 113, 112, 
     12, 11, 10, 8, 7, 5 };
 
 /* 0, 0, then 65536 * acos(j / 256.0) / pi for j = 0..255, truncated */
-const unk16 AcosTableHiRes[258] = { 0, 0, 32768, 32686, 32605, 32523, 32442, 32360, 32279, 32197,
+const u16 AcosTableHiRes[258] = { 0, 0, 32768, 32686, 32605, 32523, 32442, 32360, 32279, 32197,
     32115, 32034, 31952, 31871, 31789, 31708, 31626, 31544, 31463, 31381, 31300, 31218, 31136,
     31054, 30973, 30891, 30809, 30727, 30645, 30563, 30481, 30399, 30317, 30235, 30153, 30071,
     29989, 29906, 29824, 29742, 29659, 29577, 29495, 29412, 29329, 29247, 29164, 29081, 28999,
@@ -102,7 +102,7 @@ const unk16 AcosTableHiRes[258] = { 0, 0, 32768, 32686, 32605, 32523, 32442, 323
     9483, 9295, 9105, 8910, 8711, 8508, 8300, 8087, 7869, 7645, 7414, 7176, 6930, 6676, 6412, 6137,
     5849, 5547, 5228, 4889, 4525, 4129, 3692, 3196, 2609, 1844 };
 
-const unk16 ReciprocalTable[0x4000] = {
+const u16 ReciprocalTable[0x4000] = {
     0,
     RECIPROCAL(1),
     SEQ2(RECIPROCAL, 2),
@@ -120,7 +120,7 @@ const unk16 ReciprocalTable[0x4000] = {
     SEQ8192(RECIPROCAL, 8192),
 };
 
-s16 sub_8059FA0(s16 a, s16 b)
+s16 multiplyFixed(s16 a, s16 b)
 {
     s32 p = a * b;
 
@@ -128,12 +128,12 @@ s16 sub_8059FA0(s16 a, s16 b)
     return p;
 }
 
-s16 sub_8059FB8(s16 a, s16 b)
+s16 divideFixed(s16 a, s16 b)
 {
     return (a << 8) / b;
 }
 
-s32 sub_8059FD0(s32 a, s32 b)
+s32 divideByReciprocal(s32 a, s32 b)
 {
     s32 shift;
 
@@ -149,7 +149,7 @@ s32 sub_8059FD0(s32 a, s32 b)
     return (ReciprocalTable[b] * a) >> shift;
 }
 
-void sub_8059FF8(s32* arg0, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4)
+void setQuaternion(s32* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4)
 {
     arg0[0] = arg1;
     arg0[1] = arg2;
@@ -157,7 +157,7 @@ void sub_8059FF8(s32* arg0, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4)
     arg0[3] = arg4;
 }
 
-s32* sub_805A00C(s32 a, s32 b, s32 c, s32* out)
+s32* convertEulerToQuaternion(s32 a, s32 b, s32 c, s32* out)
 {
     s32 cosA;
     s32 cosB;
@@ -168,12 +168,12 @@ s32* sub_805A00C(s32 a, s32 b, s32 c, s32* out)
     s32 cosBcosC;
     s32 sinBsinC;
 
-    cosA = SinTable[(unk8)(a >> 1) + 0x40];
-    cosB = SinTable[(unk8)(b >> 1) + 0x40];
-    cosC = SinTable[(unk8)(c >> 1) + 0x40];
-    sinA = SinTable[(unk8)(a >> 1)];
-    sinB = SinTable[(unk8)(b >> 1)];
-    sinC = SinTable[(unk8)(c >> 1)];
+    cosA = SinTable[(u8)(a >> 1) + 0x40];
+    cosB = SinTable[(u8)(b >> 1) + 0x40];
+    cosC = SinTable[(u8)(c >> 1) + 0x40];
+    sinA = SinTable[(u8)(a >> 1)];
+    sinB = SinTable[(u8)(b >> 1)];
+    sinC = SinTable[(u8)(c >> 1)];
     cosBcosC = (cosB * cosC) >> 8;
     sinBsinC = (sinB * sinC) >> 8;
     out[3] = (cosA * cosBcosC + sinA * sinBsinC) >> 8;
@@ -183,7 +183,7 @@ s32* sub_805A00C(s32 a, s32 b, s32 c, s32* out)
     return out;
 }
 
-void sub_805A0DC(s32* q)
+void normaliseQuaternion(s32* q)
 {
     u16 length;
 
@@ -194,7 +194,7 @@ void sub_805A0DC(s32* q)
     q[3] = (q[3] << 8) / length;
 }
 
-s32* sub_805A148(s32* a, s32* b, s32* out)
+s32* multiplyQuaternions(s32* a, s32* b, s32* out)
 {
     s32 x;
     s32 y;
@@ -217,7 +217,7 @@ s32* sub_805A148(s32* a, s32* b, s32* out)
     return out;
 }
 
-void sub_805A1DC(s32* arg0, s32* arg1)
+void convertQuaternionToMatrix(s32* arg0, s32 (*arg1)[3])
 {
     s32 x;
     s32 y;
@@ -252,28 +252,28 @@ void sub_805A1DC(s32* arg0, s32* arg1)
     wx = w * x2 >> 8;
     wy = w * y2 >> 8;
     wz = w * z2 >> 8;
-    arg1[0] = 0x100 - (yy + zz);
-    arg1[1] = xy - wz;
-    arg1[2] = xz + wy;
-    arg1[3] = xy + wz;
-    arg1[4] = 0x100 - (xx + zz);
-    arg1[5] = yz - wx;
-    arg1[6] = xz - wy;
-    arg1[7] = yz + wx;
-    arg1[8] = 0x100 - (xx + yy);
+    arg1[0][0] = 0x100 - (yy + zz);
+    arg1[0][1] = xy - wz;
+    arg1[0][2] = xz + wy;
+    arg1[1][0] = xy + wz;
+    arg1[1][1] = 0x100 - (xx + zz);
+    arg1[1][2] = yz - wx;
+    arg1[2][0] = xz - wy;
+    arg1[2][1] = yz + wx;
+    arg1[2][2] = 0x100 - (xx + yy);
 }
 
-void sub_805A290(s32* vector, s32* matrix, s32* out)
+void multiplyVectorByMatrix(s32* vector, s32 (*matrix)[3], s32* out)
 {
-    out[0] = (vector[0] * matrix[0] + vector[1] * matrix[3] + vector[2] * matrix[6]) >> 8;
-    out[1] = (vector[0] * matrix[1] + vector[1] * matrix[4] + vector[2] * matrix[7]) >> 8;
-    out[2] = (vector[0] * matrix[2] + vector[1] * matrix[5] + vector[2] * matrix[8]) >> 8;
+    out[0] = (vector[0] * matrix[0][0] + vector[1] * matrix[1][0] + vector[2] * matrix[2][0]) >> 8;
+    out[1] = (vector[0] * matrix[0][1] + vector[1] * matrix[1][1] + vector[2] * matrix[2][1]) >> 8;
+    out[2] = (vector[0] * matrix[0][2] + vector[1] * matrix[1][2] + vector[2] * matrix[2][2]) >> 8;
 }
 
-void sub_805A2DC(s32 (*a)[3], s32 (*b)[3], s32 (*out)[3])
+void multiplyMatrices(s32 (*a)[3], s32 (*b)[3], s32 (*out)[3])
 {
-    unk16 i;
-    unk16 j;
+    u16 i;
+    u16 j;
 
     for (i = 0; i < 3; i++) {
         for (j = 0; j < 3; j++) {

@@ -1032,7 +1032,7 @@ unk32 rider_vs_rider_collision_804DB94(RiderBase* rider0, RiderBase* rider1)
 
 void sub_804DDF8(RiderBase* rider, Actor* other)
 {
-    s32 matrix[9];
+    s32 matrix[3][3];
     s32 vec0[4];
     s32 vec1[4];
     s32 vec2[4];
@@ -1068,12 +1068,12 @@ void sub_804DDF8(RiderBase* rider, Actor* other)
     q4 = table[angle2];
     angle2 += 0x40;
     q5 = table[angle2];
-    sub_8059FF8(vec0, 0, q0, 0, q1);
-    sub_8059FF8(vec1, 0, 0, q2, q3);
-    sub_8059FF8(vec2, 0, q4, 0, q5);
-    sub_805A148(vec0, vec1, vec3);
-    sub_805A148(vec3, vec2, rider->unk178);
-    sub_805A1DC(rider->unk178, matrix);
+    setQuaternion(vec0, 0, q0, 0, q1);
+    setQuaternion(vec1, 0, 0, q2, q3);
+    setQuaternion(vec2, 0, q4, 0, q5);
+    multiplyQuaternions(vec0, vec1, vec3);
+    multiplyQuaternions(vec3, vec2, rider->unk178);
+    convertQuaternionToMatrix(rider->unk178, matrix);
 
     if (sub_804E440(rider, 2) != 0 && RiderHasFlag(rider, 2) == 0) {
         rider->unk40 = other->unk40;
@@ -1082,9 +1082,9 @@ void sub_804DDF8(RiderBase* rider, Actor* other)
     if (RiderHasFlag(rider, 2) == 0) {
         x = rider->unk40 << 8;
         y = rider->unk44 << 8;
-        rider->unk78 = (matrix[0] * x + matrix[6] * y) >> 16;
-        rider->unk80 = (-(matrix[1] * x + matrix[7] * y)) >> 16;
-        rider->unk7C = (-(matrix[2] * x + matrix[8] * y)) >> 16;
+        rider->unk78 = (matrix[0][0] * x + matrix[2][0] * y) >> 16;
+        rider->unk80 = (-(matrix[0][1] * x + matrix[2][1] * y)) >> 16;
+        rider->unk7C = (-(matrix[0][2] * x + matrix[2][2] * y)) >> 16;
     }
     if (RiderHasFlag(rider, 2) == 0) {
         other->unk40 = rider->unk78;

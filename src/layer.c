@@ -977,17 +977,17 @@ void sub_8059B00(u8 layer, u8 angle, u16 xAngle, u16 yAngle)
         transform->unk2 = xAngle;
         transform->unk4 = yAngle;
         transform->unk0 = angle;
-        _unk3000D00[index].unk8
-            = sub_8059FA0(SinTable[transform->unk0 + 0x40], ScaleReciprocalTable[transform->unk2]);
+        _unk3000D00[index].unk8 = multiplyFixed(
+            SinTable[transform->unk0 + 0x40], ScaleReciprocalTable[transform->unk2]);
         matrixA = &_unk3000D00[index].unk8;
         _unk3000D00[index].unkC
-            = sub_8059FA0(SinTable[transform->unk0], ScaleReciprocalTable[transform->unk2]);
+            = multiplyFixed(SinTable[transform->unk0], ScaleReciprocalTable[transform->unk2]);
         matrixB = &_unk3000D00[index].unkC;
         _unk3000D00[index].unk10
-            = sub_8059FA0(-SinTable[transform->unk0], ScaleReciprocalTable[transform->unk4]);
+            = multiplyFixed(-SinTable[transform->unk0], ScaleReciprocalTable[transform->unk4]);
         matrixC = &_unk3000D00[index].unk10;
-        matrixD
-            = sub_8059FA0(SinTable[transform->unk0 + 0x40], ScaleReciprocalTable[transform->unk4]);
+        matrixD = multiplyFixed(
+            SinTable[transform->unk0 + 0x40], ScaleReciprocalTable[transform->unk4]);
         _unk3000D00[index].unk14 = matrixD;
         SetLayerTransform(layer, *matrixA, *matrixB, *matrixC, matrixD);
     }

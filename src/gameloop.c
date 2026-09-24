@@ -386,10 +386,10 @@ void sub_8052180(ActorEffectState* arg0, Sub8052140Data* arg1, unk32 arg2)
     q2[3] = cos2;
     {
         s32 q3[4] = { 0, sin3, 0, cos3 };
-        sub_805A148(q1, q0, tmp0);
-        sub_805A148(tmp0, q2, tmp1);
-        sub_805A148(tmp1, q3, tmp2);
-        sub_805A1DC(tmp2, arg1->unk34);
+        multiplyQuaternions(q1, q0, tmp0);
+        multiplyQuaternions(tmp0, q2, tmp1);
+        multiplyQuaternions(tmp1, q3, tmp2);
+        convertQuaternionToMatrix(tmp2, arg1->unk34);
     }
 }
 
