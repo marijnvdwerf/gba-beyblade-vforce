@@ -2,39 +2,6 @@
 
     .section .rodata
 
-global _8078990
-    .4byte nullsub_42 + 1
-    .4byte processMetadata_1 + 1
-    .4byte processMetadata_2 + 1
-    .4byte processMetadata_3 + 1
-    .4byte processMetadata_4 + 1
-    .4byte processMetadata_5 + 1
-    .4byte processMetadata_6 + 1
-    .4byte processMetadata_default + 1
-    .4byte processMetadata_8 + 1
-    .4byte processMetadata_9 + 1
-    .4byte processMetadata_A + 1
-    .4byte processMetadata_default + 1
-    .4byte processMetadata_C + 1
-    .4byte processMetadata_D + 1
-    .4byte processMetadata_E + 1
-    .4byte nullsub_14 + 1
-    .4byte processMetadata_10 + 1
-    .4byte nullsub_15 + 1
-    .4byte processMetadata_default + 1
-    .4byte processMetadata_default + 1
-    .4byte processMetadata_default + 1
-    .4byte processMetadata_default + 1
-    .4byte processMetadata_default + 1
-    .4byte processMetadata_default + 1
-    .4byte processMetadata_default + 1
-    .4byte processMetadata_default + 1
-    .4byte processMetadata_default + 1
-    .4byte processMetadata_default + 1
-    .4byte processMetadata_default + 1
-    .4byte processMetadata_default + 1
-.size _8078990, . - _8078990
-
 global _8078a08
 _8078a08:
     .byte 0x00, 0xF6, 0xFF, 0xFF, 0x00, 0x00, 0x00, 0x00

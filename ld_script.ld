@@ -191,6 +191,7 @@ SECTIONS {
 		src/leveldata.c.o(.data);
 		src/gamestate.c.o(.data);
 		src/results.c.o(.data);
+		src/event.c.o(.data);
 		asm/data9b.s.o(.rodata);
 		src/items.c.o(.data);
 		src/beyblade.c.o(.data);
