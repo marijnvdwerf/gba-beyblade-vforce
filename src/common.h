@@ -355,7 +355,7 @@ typedef enum FrontendLayout {
     LAYOUT_12,
     LAYOUT_13,
     LAYOUT_DRIGHTS = 14,
-    LAYOUT_15,
+    LAYOUT_PRESS_START = 15,
     LAYOUT_LANGUAGE = 16,
     LAYOUT_LEGALS = 17,
     LAYOUT_PUBLISHER = 18,

@@ -15,6 +15,7 @@
 #define ID_DRIGHTS 0xE1C1 /* "DRights" */
 #define ID_LEGALS 0x104 /* "Legals" */
 #define ID_PUBLISHER 0x4462 /* "Publisher" */
+#define ID_PRESS_START 0x65CB /* "PressStart" */
 
 /* Line metadata object types */
 #define ID_COLLECTABLE 0x37AE /* "Collectable" */
