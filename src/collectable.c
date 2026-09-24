@@ -1,5 +1,6 @@
 #include "gamestate.h"
 #include "geometry.h"
+#include "ids.h"
 #include "include_asm.h"
 #include "items.h"
 #include "levelhud.h"
@@ -38,7 +39,7 @@ void initCollectables(u16 levelId)
                 break;
             }
             if (lineMeta != NULL
-                && getLineMetaobjectByTypeAndId(&geometry, lineMeta, 3, 0x37AE) != NULL) {
+                && getLineMetaobjectByTypeAndId(&geometry, lineMeta, 3, ID_COLLECTABLE) != NULL) {
                 entry->geometry = line;
                 entry->line = i;
                 count++;
@@ -73,7 +74,7 @@ void sub_8056E2C(unk32 lineIndex)
         sub_804FE50();
         metadata = GetLineMetaData(geometry, entry->line);
         if (metadata != NULL) {
-            object = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x37AE);
+            object = getLineMetaobjectByTypeAndId(geometry, metadata, 1, ID_COLLECTABLE);
             if (object != NULL) {
                 getItem(object->unk8.word);
             }
@@ -105,7 +106,7 @@ void sub_8056EC0(void)
                 sub_8051640(0);
             }
             metadata = GetLineMetaData(geometry, cursor->line);
-            object = getLineMetaobjectByTypeAndId(geometry, metadata, 1, 0x37AE);
+            object = getLineMetaobjectByTypeAndId(geometry, metadata, 1, ID_COLLECTABLE);
             if (object != NULL) {
                 sub_8057104(object->unk8.word, 1);
             } else {

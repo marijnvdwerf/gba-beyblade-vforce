@@ -4,6 +4,7 @@
 #include "common.h"
 #include "display.h"
 #include "frontend.h"
+#include "ids.h"
 #include "include_asm.h"
 #include "layer.h"
 #include "levelrow.h"
@@ -45,9 +46,9 @@ extern TileMapHeader TileMap_8282578;
 extern TileMapHeader TileMap_8282A60;
 
 ScreenLayout _806A828[] = {
-    { 0x8C73, { 0 }, { { &Tilemap_Nintendo } }, 0, 0, 0, 0, { 0 }, Pal_82567C8 },
-    { 0xE3D1, { 0 }, { { &TileMap_Nelvana } }, 0, 0, 0, 0, { 0 }, Pal_825A44C },
-    { 0x3C00, { 0 }, { { &TileMap_825A64C } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825ADBC },
+    { ID_NINTENDO, { 0 }, { { &Tilemap_Nintendo } }, 0, 0, 0, 0, { 0 }, Pal_82567C8 },
+    { ID_NELVANA, { 0 }, { { &TileMap_Nelvana } }, 0, 0, 0, 0, { 0 }, Pal_825A44C },
+    { ID_COLLECTION, { 0 }, { { &TileMap_825A64C } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825ADBC },
     { 0x1810 },
     { 0x5D4C, { 0 }, { { &TileMap_825AFBC } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
     { 0x9068, { 0 }, { { &TileMap_825AFBC } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B5C4 },
@@ -55,7 +56,7 @@ ScreenLayout _806A828[] = {
     { 0x1E88, { 0 }, { { &TileMap_825B7C4 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
     { 0x40AD },
     { 0x10B0, { 0 }, { { &TileMap_825AFBC } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
-    { 0x2628, { 0 },
+    { ID_DIALOG, { 0 },
         { { &TileMap_82C92F8 }, { &TileMap_82C9BC4 }, { &TileMap_82CA490 }, { &TileMap_82CAD5C } },
         0, 0, 0, 0, { 0 }, Pal_82CB628, Pal_82CB828 },
     { 0x640B, { 0 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
@@ -64,12 +65,12 @@ ScreenLayout _806A828[] = {
     { 0xE1C1, { 0 }, { { &TileMap_DRights } }, 0, 0, 0, 0, { 0 }, Pal_825DBF0 },
     { 0x65CB, { 0, 0, 0, 0, 0x10 }, { { &TileMap_825DDF0, 0, 0, 0xC } }, 0, 0, 0, 0, { 0 },
         Pal_8266460, Pal_825B3C4 },
-    { 0xE084, { 0, 0, 0, 0, 0x10 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_8266660 },
+    { ID_LANGUAGE, { 0, 0, 0, 0, 0x10 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_8266660 },
     { 0x104, { 0, 0, 0, 0, 0x10 }, { { &TileMap_8266860, 0, 0, 0xC } }, 0, 0, 0, 0, { 0 },
         Pal_826EB50 },
     { 0x4462, { 0, 0, 0, 0, 0x10 }, { { &TileMap_Atari, 0, 0, 0xC } }, 0, 0, 0, 0, { 0 },
         Pal_82725E8 },
-    { 0x3E06, { 0, 0, 0, 0, 0x10 }, { { &TileMap_FullFat, 0, 0, 0xC } }, 0, 0, 0, 0, { 0 },
+    { ID_FULLFAT, { 0, 0, 0, 0, 0x10 }, { { &TileMap_FullFat, 0, 0, 0xC } }, 0, 0, 0, 0, { 0 },
         Pal_8274708 },
     { 0x8F7D, { 0 }, { { &TileMap_8274908 }, { &TileMap_8282578 }, { &TileMap_8282A60 } }, 3, 2, 1,
         0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
