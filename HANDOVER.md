@@ -266,6 +266,18 @@ Last updated: 2026-09-24 (session 17, close): main 6e41c223 — all functions ma
   to /tmp/bbmap/bg (Collection's map renders black — check its palette source).
   LevelDesigns names: template still unknown (brute force over ~60 prefixes ×
   2 chars gave only chance hits; stage 8 is named differently).
+  ID HUNT ROUND 2 (a5777f51, opus, evidence-first): LevelDesigns names are
+  "E<episode> M<stage>" (zero-based, space) and "E<episode> Bonus" for stage 8 —
+  all 56 reproduce; metadata types: TutorialTrigger 0x8CEC, Shadow 0xF4FA, Sprite
+  0xFB93, Actor 0xD679, Weight 0xD368, Acceleration 0x6ACE, Friction 0x5BBE, AIPath
+  0x59C3, AIPathSpeed 0xCF2C, AIBoss 0xD271, AITargetRadius 0x215D, AITargetTime
+  0x3AB4, AIRechargeRate 0x5CF; layouts 7 WideFrame, 8 BigFrame, 9 SmallFrame.
+  NOT applied (medium/low): AIType 0xF0F8, MapFrame 0x8B71 (layout 6),
+  MotionPause 0xBF84. Unresolved: layouts 3 (ending slideshow, STATE_TRANSITION
+  is really the ending), 4 (audio screen), 5 (multiplayer result), 11/12/13
+  (palette-only), 20 (3-layer menu backdrop); metadata 0x505B (AI flee threshold),
+  0xAF90 (spline index tag), 0xF70C (camera layer/priority). Tool: /tmp/ids/hash.py
+  (not in repo).
   FINAL SKILL FOLD landed: docs/learnings/ (57 + 245 processed) DELETED, the
   skill-fold agent removed, decompiler/review/MANAGER.md now say measurements
   go in the agent's final REPORT and generic ones into SKILL.md by the manager.
