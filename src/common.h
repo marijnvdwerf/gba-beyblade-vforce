@@ -339,8 +339,78 @@ typedef struct FrontendResource {
     const InputSequence* data;
 } FrontendResource;
 
+typedef enum FrontendLayout {
+    LAYOUT_NINTENDO,
+    LAYOUT_NELVANA = 1,
+    LAYOUT_COLLECTION = 2,
+    LAYOUT_3,
+    LAYOUT_4,
+    LAYOUT_5,
+    LAYOUT_6,
+    LAYOUT_7,
+    LAYOUT_8,
+    LAYOUT_9,
+    LAYOUT_DIALOG = 10,
+    LAYOUT_11,
+    LAYOUT_12,
+    LAYOUT_13,
+    LAYOUT_14,
+    LAYOUT_15,
+    LAYOUT_LANGUAGE = 16,
+    LAYOUT_17,
+    LAYOUT_18,
+    LAYOUT_FULLFAT = 19,
+    LAYOUT_20,
+} FrontendLayout;
+
+typedef enum FrontendStateId {
+    STATE_NINTENDO,
+    STATE_1,
+    STATE_2,
+    STATE_NELVANA = 3,
+    STATE_4,
+    STATE_FULLFAT = 5,
+    STATE_LANGUAGE = 6,
+    STATE_7,
+    STATE_8,
+    STATE_9,
+    STATE_10,
+    STATE_11,
+    STATE_12,
+    STATE_13,
+    STATE_14,
+    STATE_SELECT_BLADE = 15,
+    STATE_16,
+    STATE_17,
+    STATE_18,
+    STATE_19,
+    STATE_20,
+    STATE_21,
+    STATE_22,
+    STATE_23,
+    STATE_24,
+    STATE_25,
+    STATE_CREDITS = 26,
+    STATE_27,
+    STATE_DIALOG = 28,
+    STATE_29,
+    STATE_30,
+    STATE_31,
+    STATE_32,
+    STATE_33,
+    STATE_34,
+    STATE_35,
+    STATE_36,
+    STATE_37,
+    STATE_38,
+    STATE_TRANSITION = 39,
+    STATE_COLLECTION = 40,
+    STATE_41,
+    STATE_42,
+} FrontendStateId;
+
 typedef struct FrontendObject {
-    unk32 unk0;
+    FrontendLayout unk0;
     FrontendSubobject* unk4;
     void (*unk8)();
     void (*unkC)(void);
@@ -360,12 +430,12 @@ typedef struct FrontendTransition {
 } FrontendTransition;
 
 struct FrontendState {
-    s32 unk0;
-    s32 unk4;
-    unk32 unk8;
-    unk32 unkC;
-    unk32 unk10;
-    unk32 history[16]; /* 0x14 */
+    FrontendStateId unk0;
+    FrontendStateId unk4;
+    FrontendStateId unk8;
+    FrontendStateId unkC;
+    FrontendStateId unk10;
+    FrontendStateId history[16]; /* 0x14 */
     Palette paletteA; /* 0x54 */
     Palette paletteB; /* 0x68 */
     unk8 unk7C;
