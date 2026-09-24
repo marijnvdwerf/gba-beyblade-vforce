@@ -205,9 +205,31 @@ Last updated: 2026-09-24 (session 17, close): main 6e41c223 — all functions ma
   data12.s head (FontStyles + palettes/motion — menuobject/packet/festate),
   data10.s (font metrics — credits.c's leading .data or a font asset object),
   data8.s (Pal_807DA80), audio2/dataA/data6/data7/dataB/dataC (asset objects),
-  audio0.s + arm1.s + crt0.s (code). Squashed `debug` to one commit 5ec0f3a7 on
+  arm1.s + crt0.s (hand-written code); audio0.s is an ASSET object (17 SFX PCM
+  incbins + the SfxTable dword_8040CC4/off_8040CD4 bank descriptor, linked at the
+  front of .text with the level metadata objects), NOT code. Squashed `debug` to one commit 5ec0f3a7 on
   its fork point c87d887f (old history: branch debug-pre-squash); rebasing it onto
   main will conflict heavily (695 files; TU splits, deleted strings/data files).
+  LATER: 5dc211bb LevelDesigns → NEW data-only src/leveldesigns.c (user: neither
+  background nor levelrow uses it; `unk32 LevelDesignCount = 56` precedes the
+  56-entry table — a count variable of the same TU); data12c.s gone.
+  84ac4a80 UNIONS: five of seven width-view unions folded (CollectionSelection →
+  s32; LayerTransformValue → unk32 fields + implicit s16 arg conversion;
+  ProjectileSystem.unk7C → two s16, word test `a != 0 || b != 0` fuses back to one
+  word compare; SpriteEntry.frame → plain u16 (byte view had NO users);
+  LevelGeometryTable.count → s32 splineCount + newCollisionDataRam's count local
+  s16 by ldrsh/ble). KEPT with measured reasons: PaletteBuffer (every single-type
+  spelling needs casts at sub_8063830's halfword-indexed word walk),
+  Sub8052140Data.unkC (lone strh at +0xE beside word strs at +0xC: two halfword
+  fields → two strh at sub_8052534+0; one word field → ldrh/str RMW at
+  sub_8052140+0x20). Packet / LineMetaObjectValue / Actor.unkB4 are variant
+  records, untouched by decision. 1ccf5296 arm1.s: _renderFunctionOffsets/
+  _renderFunctionsEnd use plain .global (user keeps the NON_MATCHING marker on
+  the `global` macro for everything else). LAYOUT RULE (user): data at the top
+  of a file unless string order pins it after specific functions (festate,
+  tutorial, dialogue, beyblade) — event.c/effects.c were reordered accordingly.
+  .vscode: C_Cpp.files.exclude for build/expected (cpptools Find All References
+  was scanning the preprocessed *.c.o.i files).
   FINAL SKILL FOLD landed: docs/learnings/ (57 + 245 processed) DELETED, the
   skill-fold agent removed, decompiler/review/MANAGER.md now say measurements
   go in the agent's final REPORT and generic ones into SKILL.md by the manager.
