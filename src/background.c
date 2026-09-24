@@ -12,7 +12,68 @@
 #include "system.h"
 #include "unsorted.h"
 
-extern ScreenLayout _806A828[];
+extern TileMapHeader Tilemap_Nintendo;
+extern unk16 Pal_82567C8[];
+extern TileMapHeader TileMap_Nelvana;
+extern unk16 Pal_825A44C[];
+extern TileMapHeader TileMap_825A64C;
+extern unk16 Pal_825ABBC[];
+extern unk16 Pal_825ADBC[];
+extern TileMapHeader TileMap_825AFBC;
+extern unk16 Pal_825B3C4[];
+extern unk16 Pal_825B5C4[];
+extern TileMapHeader TileMap_825B7C4;
+extern TileMapHeader TileMap_82C92F8;
+extern TileMapHeader TileMap_82C9BC4;
+extern TileMapHeader TileMap_82CA490;
+extern TileMapHeader TileMap_82CAD5C;
+extern unk16 Pal_82CB628[];
+extern unk16 Pal_82CB828[];
+extern TileMapHeader TileMap_DRights;
+extern unk16 Pal_825DBF0[];
+extern TileMapHeader TileMap_825DDF0;
+extern unk16 Pal_8266460[];
+extern unk16 Pal_8266660[];
+extern TileMapHeader TileMap_8266860;
+extern unk16 Pal_826EB50[];
+extern TileMapHeader TileMap_Atari;
+extern unk16 Pal_82725E8[];
+extern TileMapHeader TileMap_FullFat;
+extern unk16 Pal_8274708[];
+extern TileMapHeader TileMap_8274908;
+extern TileMapHeader TileMap_8282578;
+extern TileMapHeader TileMap_8282A60;
+
+ScreenLayout _806A828[] = {
+    { 0x8C73, { 0 }, { { &Tilemap_Nintendo } }, 0, 0, 0, 0, { 0 }, Pal_82567C8 },
+    { 0xE3D1, { 0 }, { { &TileMap_Nelvana } }, 0, 0, 0, 0, { 0 }, Pal_825A44C },
+    { 0x3C00, { 0 }, { { &TileMap_825A64C } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825ADBC },
+    { 0x1810 },
+    { 0x5D4C, { 0 }, { { &TileMap_825AFBC } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
+    { 0x9068, { 0 }, { { &TileMap_825AFBC } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B5C4 },
+    { 0x8B71 },
+    { 0x1E88, { 0 }, { { &TileMap_825B7C4 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
+    { 0x40AD },
+    { 0x10B0, { 0 }, { { &TileMap_825AFBC } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
+    { 0x2628, { 0 },
+        { { &TileMap_82C92F8 }, { &TileMap_82C9BC4 }, { &TileMap_82CA490 }, { &TileMap_82CAD5C } },
+        0, 0, 0, 0, { 0 }, Pal_82CB628, Pal_82CB828 },
+    { 0x640B, { 0 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
+    { 0xBBA4, { 0 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC },
+    { 0xA694, { 0 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
+    { 0xE1C1, { 0 }, { { &TileMap_DRights } }, 0, 0, 0, 0, { 0 }, Pal_825DBF0 },
+    { 0x65CB, { 0, 0, 0, 0, 0x10 }, { { &TileMap_825DDF0, 0, 0, 0xC } }, 0, 0, 0, 0, { 0 },
+        Pal_8266460, Pal_825B3C4 },
+    { 0xE084, { 0, 0, 0, 0, 0x10 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_8266660 },
+    { 0x104, { 0, 0, 0, 0, 0x10 }, { { &TileMap_8266860, 0, 0, 0xC } }, 0, 0, 0, 0, { 0 },
+        Pal_826EB50 },
+    { 0x4462, { 0, 0, 0, 0, 0x10 }, { { &TileMap_Atari, 0, 0, 0xC } }, 0, 0, 0, 0, { 0 },
+        Pal_82725E8 },
+    { 0x3E06, { 0, 0, 0, 0, 0x10 }, { { &TileMap_FullFat, 0, 0, 0xC } }, 0, 0, 0, 0, { 0 },
+        Pal_8274708 },
+    { 0x8F7D, { 0 }, { { &TileMap_8274908 }, { &TileMap_8282578 }, { &TileMap_8282A60 } }, 3, 2, 1,
+        0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
+};
 
 void Background_80498D8(void)
 {
