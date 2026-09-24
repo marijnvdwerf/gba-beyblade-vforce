@@ -358,7 +358,7 @@ typedef enum FrontendLayout {
     LAYOUT_15,
     LAYOUT_LANGUAGE = 16,
     LAYOUT_LEGALS = 17,
-    LAYOUT_18,
+    LAYOUT_PUBLISHER = 18,
     LAYOUT_FULLFAT = 19,
     LAYOUT_20,
 } FrontendLayout;

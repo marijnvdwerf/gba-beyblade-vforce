@@ -14,6 +14,7 @@
 #define ID_FULLFAT 0x3E06 /* "FullFat" */
 #define ID_DRIGHTS 0xE1C1 /* "DRights" */
 #define ID_LEGALS 0x104 /* "Legals" */
+#define ID_PUBLISHER 0x4462 /* "Publisher" */
 
 /* Line metadata object types */
 #define ID_COLLECTABLE 0x37AE /* "Collectable" */
