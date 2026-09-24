@@ -57,7 +57,6 @@ add_executable(rom
     src/iwram_fastmem.c
     src/iwram_serial.c
     asm/audio0.s
-    asm/audio1.s
     asm/audio2.s
     asm/crt0.s
     asm/data10.s

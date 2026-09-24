@@ -9,7 +9,7 @@ typedef struct MusicTrack {
     s16 (*second)[];
 } MusicTrack;
 
-extern const MusicTrack _807561C[];
+extern MusicTrack _807561C[];
 
 void sub_804ACF0(void);
 void sub_804AD28(void);

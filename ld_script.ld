@@ -187,7 +187,7 @@ SECTIONS {
 		src/tutorial.c.o(.data);
 		asm/data12b.s.o(.rodata);
 		asm/data11.s.o(.rodata);
-		asm/audio1.s.o(.rodata);
+		src/music.c.o(.data);
 		src/leveldata.c.o(.data);
 		asm/data9.s.o(.rodata);
 		src/results.c.o(.data);
