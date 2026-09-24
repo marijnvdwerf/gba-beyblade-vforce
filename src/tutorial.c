@@ -598,13 +598,11 @@ FrontendSubobjectData _806E384 = { 4, -32, 4, 4, &FontStyle_806890C,
     { "Breakdown", "Avería", "Unterbrechung", "Casse", "Spaccato" }, 240, { 0 }, &_8068954,
     &_806897C };
 
-const unk8* _806E3B0[][5] = {
-    { "Please ensure Game Boy® Advance Game Link® Cable is connected",
-        "Asegurate de que el cable Game Link de Game Boy Advance esta conectado",
-        "Bitten prüfen, ob Game Boy Advance Game Link-Kabel angeschlossen ist.",
-        "Assure-toi de bien connecter le câble Game Boy Advance Game Link",
-        "Assicurati che il cavo Game Link per Game Boy Advance sia connesso" },
-};
+const unk8* _806E3B0[5] = { "Please ensure Game Boy® Advance Game Link® Cable is connected",
+    "Asegurate de que el cable Game Link de Game Boy Advance esta conectado",
+    "Bitten prüfen, ob Game Boy Advance Game Link-Kabel angeschlossen ist.",
+    "Assure-toi de bien connecter le câble Game Boy Advance Game Link",
+    "Assicurati che il cavo Game Link per Game Boy Advance sia connesso" };
 
 FrontendMenuItemData SubMenu_134669252[] = {
     { &SpriteSheet_82875D4, { "Retry", "Reintentar", "Nochmal", "Réessayer", "Riprova" }, 0x2000,

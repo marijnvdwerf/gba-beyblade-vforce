@@ -9,7 +9,7 @@ extern const unk8* _806DFD0[][5];
 extern const unk8* _806E0DC[][5];
 extern const unk8* _806E240[][5];
 extern const unk8* _806E31C[][5];
-extern const unk8* _806E3B0[][5];
+extern const unk8* _806E3B0[5];
 extern const unk8* _806E650[];
 extern FrontendSubobjectData _806E664;
 extern FrontendSubobjectData _806E690;

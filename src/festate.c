@@ -2831,7 +2831,7 @@ void sub_8047E5C(FrontendState* state, unk32 arg1)
         _unk300057C = initialScroll;
         sub_80596AC(&state->bgLayers[3], -initialScroll, 0);
         allocFont(&_unk3000580, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x69, 0xC8, 2);
-        sub_8061660(&_unk3000580, _806E3B0[0][getLanguage()], 0xF);
+        sub_8061660(&_unk3000580, _806E3B0[getLanguage()], 0xF);
         break;
     case 1:
         fontX = _unk3000580.x;

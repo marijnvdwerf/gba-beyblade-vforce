@@ -24,7 +24,7 @@ void sub_80431E8(unk8 arg0)
         *(vu32*)REG_TM2CNT_L = TMR_ENABLE | TMR_PRESCALER_1CK;
         break;
     }
-    _unk3000150[0] = arg0;
+    _unk3000150 = arg0;
 }
 
 void profile(const char* name)
@@ -42,7 +42,7 @@ void profile(const char* name)
     scale = 0;
     timer = (unk16) * (vu32*)REG_TM2CNT_L;
     *(vu32*)REG_TM2CNT_L = 0;
-    switch (_unk3000150[0]) {
+    switch (_unk3000150) {
     case 1:
         frameRate = 3.814f;
         scale = 1000;

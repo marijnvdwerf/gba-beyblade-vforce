@@ -10,7 +10,7 @@ extern const SpriteSheet SpriteSheet_8243874;
 extern const SpriteSheet SpriteSheet_8251F40;
 extern const SpriteSheet SpriteSheet_8252994;
 extern const unk8* _806DB8C[][5];
-extern const unk8* _806E3B0[][5];
+extern const unk8* _806E3B0[5];
 extern const unk8* _806E8D8[][5];
 extern const unk8* _806E914[][5];
 extern const unk8* _806E97C[][5];
