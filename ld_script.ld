@@ -183,7 +183,7 @@ SECTIONS {
 		src/festate.c.o(.data);
 		src/frontend.c.o(.data);
 		src/background.c.o(.data);
-		asm/data12c.s.o(.rodata);
+		src/leveldesigns.c.o(.data);
 		src/tutorial.c.o(.data);
 		asm/data12b.s.o(.rodata);
 		asm/data11.s.o(.rodata);

@@ -10,12 +10,12 @@
 #include "gamestate.h"
 #include "geometry.h"
 #include "include_asm.h"
+#include "leveldesigns.h"
 #include "music.h"
 #include "ram.h"
 #include "riderphysics.h"
 
 unk32 sub_80561EC(Actor*, LevelGeometryAddresses*, GeometryLine*);
-extern const ScreenLayout LevelDesigns[];
 extern unk8 def_94_4_AddWithBoundingAreaMessage(Actor*, LevelGeometryAddresses*, GeometryLine*);
 extern unk8 def_94_8_collision_8055F2C(Actor*, LevelGeometryAddresses*, GeometryLine*, unk16);
 

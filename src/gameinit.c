@@ -16,6 +16,7 @@
 #include "hud.h"
 #include "include_asm.h"
 #include "keystate.h"
+#include "leveldesigns.h"
 #include "levelhud.h"
 #include "math.h"
 #include "multiplayer.h"
@@ -25,8 +26,6 @@
 #include "spritetext.h"
 #include "tutorial.h"
 #include "unsorted.h"
-
-extern const ScreenLayout LevelDesigns[];
 
 void initGame(void)
 {

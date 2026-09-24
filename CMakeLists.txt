@@ -63,7 +63,6 @@ add_executable(rom
     asm/data11.s
     asm/data12.s
     asm/data12b.s
-    asm/data12c.s
     asm/data6.s
     asm/data7.s
     asm/data8.s
@@ -219,6 +218,7 @@ add_executable(rom
     src/language.c
     src/layer.c
     src/leveldata.c
+    src/leveldesigns.c
     src/levelrow.c
     src/levelselect.c
     src/libc.c
