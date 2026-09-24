@@ -192,6 +192,22 @@ Last updated: 2026-09-24 (session 17, close): main 6e41c223 — all functions ma
   incbins) link BEFORE credits.c(.rodata) with the level geometry objects —
   data-only asset objects, not any code TU's tables. User has not decided
   png→4bpp pipeline vs raw incbin vs C arrays (advised against arrays).
+  MORE .DATA MOVES (66b5b1e7, f7a92745): _806A828 ScreenLayout[21] → background.c
+  (nonzero 0x10 byte inside pad4 in five entries, kept as pad initializer; the lone
+  word 0x38 = 56 = LevelDesigns' entry count sits before LevelDesigns in data12c.s —
+  a count variable of LevelDesigns' owner); audio1.s → music.c (static Bgm*_segments/
+  _order + MusicTrack _807561C[]; odd halfword order lists pad naturally); data9.s
+  → gamestate.c (s32 _80788cc[] = {34,37,38,39,-1}); data9b.s → event.c
+  (EventHandler _8078990[30]) + effects.c (nine ProjectileTemplate[3] objects).
+  REMAINING ASM: data12c.s (count word + LevelDesigns — background or levelrow,
+  unmeasurable), data12b.s + data11.s (9 blobs + Unk_8074D3C pointer table +
+  word_8074D64 — positionally trail.c (103), particle.c reads word_8074D64),
+  data12.s head (FontStyles + palettes/motion — menuobject/packet/festate),
+  data10.s (font metrics — credits.c's leading .data or a font asset object),
+  data8.s (Pal_807DA80), audio2/dataA/data6/data7/dataB/dataC (asset objects),
+  audio0.s + arm1.s + crt0.s (code). Squashed `debug` to one commit 5ec0f3a7 on
+  its fork point c87d887f (old history: branch debug-pre-squash); rebasing it onto
+  main will conflict heavily (695 files; TU splits, deleted strings/data files).
   FINAL SKILL FOLD landed: docs/learnings/ (57 + 245 processed) DELETED, the
   skill-fold agent removed, decompiler/review/MANAGER.md now say measurements
   go in the agent's final REPORT and generic ones into SKILL.md by the manager.
