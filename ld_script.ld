@@ -189,7 +189,7 @@ SECTIONS {
 		asm/data11.s.o(.rodata);
 		src/music.c.o(.data);
 		src/leveldata.c.o(.data);
-		asm/data9.s.o(.rodata);
+		src/gamestate.c.o(.data);
 		src/results.c.o(.data);
 		asm/data9b.s.o(.rodata);
 		src/items.c.o(.data);

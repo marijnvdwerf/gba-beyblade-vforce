@@ -10,7 +10,7 @@
 #include "sound.h"
 #include "unsorted.h"
 
-extern s32 _80788cc[];
+s32 _80788cc[] = { 34, 37, 38, 39, -1 };
 
 void sub_80510FC(void);
 void sub_80513AC(void);
