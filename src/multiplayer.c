@@ -8,6 +8,11 @@
 #include "system.h"
 #include "unsorted.h"
 
+void (*__sub_8757CD0)(void) = sub_8757CD0;
+void (*__sub_8757D24)(void) = sub_8757D24;
+void (*__sub_8757E4C)(void) = sub_8757E4C;
+void (*__sub_8757FCC)(void) = sub_8757FCC;
+
 void initMultiPlayer(unk32 numPlayers, s32 packetSize, unk16 serialMode)
 {
     AllocatedBlock* block;
