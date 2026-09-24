@@ -236,6 +236,22 @@ Last updated: 2026-09-24 (session 17, close): main 6e41c223 — all functions ma
   data-only TUs → gamestate(115)). data11.s now holds only Unk_8074D3C, the pointer
   table over data12b.s's nine .bin blobs: an ASSET bank (like audio0's SFX bank),
   not a code TU's table.
+  ASSET ID HASH FOUND (a1c1e5e9): every 16-bit asset id (ScreenLayout.unk0, the line
+  metadata object ids passed to getLineMetaobjectByTypeAndId, the LevelDesigns ids) is
+  h = (h*37 + byte) & 0xFFFF over the asset's name, start 0 — proven by the user's
+  known plaintext "Collectable" = 0x37AE and by the LevelDesigns ids (stages 1–7 of
+  each episode consecutive; episode bases step by exactly 37^3 = 50653 mod 2^16, so
+  the level name has the episode digit three chars before its end; stage 8 has a
+  differently formed name; the exact template is still unknown). src/ids.h holds
+  HASH_STEP/HASH1..11 per-character macros (true constant expressions — agbcc folds
+  a "str"[i]-based macro in code but rejects it in initializers/case labels) and
+  the named ids: screens Nintendo 0x8C73, Nelvana 0xE3D1, Collection 0x3C00,
+  Dialog 0x2628, Language 0xE084, FullFat 0x3E06; metadata Collectable 0x37AE.
+  Unresolved: 15 screen ids (idx 3 transition, 9 credits/level-list background,
+  11 the generic menu background used by 15 handlers, 17/18 the two logos between
+  Nintendo and Nelvana — not Atari/AtariLogo), 17 metadata ids, the level-name
+  template. A 16-bit hash collides for any big dictionary: only targeted,
+  handler-informed guesses count. A naming hunt is the user's call.
   FINAL SKILL FOLD landed: docs/learnings/ (57 + 245 processed) DELETED, the
   skill-fold agent removed, decompiler/review/MANAGER.md now say measurements
   go in the agent's final REPORT and generic ones into SKILL.md by the manager.
