@@ -373,11 +373,11 @@ void sub_8058F60(BGLayer* layer)
         (layer->field_34 << 8) >> 16);
     SetBGOffset(layer->layerIndex,
         layer->field_4C
-            - (_unk3000D00[index].unk8.word * layer->field_48
-                - _unk3000D00[index].unk10.word * layer->field_4A),
+            - (_unk3000D00[index].unk8 * layer->field_48
+                - _unk3000D00[index].unk10 * layer->field_4A),
         layer->field_50
-            + (_unk3000D00[index].unkC.word * layer->field_48
-                - _unk3000D00[index].unk14.word * layer->field_4A));
+            + (_unk3000D00[index].unkC * layer->field_48
+                - _unk3000D00[index].unk14 * layer->field_4A));
     factor = layer->field_24;
     if (factor != 0) {
         a = (layer->field_2C * factor) >> 8;
@@ -963,9 +963,9 @@ void sub_8059B00(u8 layer, u8 angle, u16 xAngle, u16 yAngle)
     u8 index;
     LayerTransformRecord* transform;
     LayerTransformRecord* base;
-    LayerTransformValue* matrixB;
-    LayerTransformValue* matrixA;
-    LayerTransformValue* matrixC;
+    unk32* matrixB;
+    unk32* matrixA;
+    unk32* matrixC;
     s16 matrixD;
     u8 check;
 
@@ -977,19 +977,19 @@ void sub_8059B00(u8 layer, u8 angle, u16 xAngle, u16 yAngle)
         transform->unk2 = xAngle;
         transform->unk4 = yAngle;
         transform->unk0 = angle;
-        _unk3000D00[index].unk8.word
+        _unk3000D00[index].unk8
             = sub_8059FA0(SinTable[transform->unk0 + 0x40], ScaleReciprocalTable[transform->unk2]);
         matrixA = &_unk3000D00[index].unk8;
-        _unk3000D00[index].unkC.word
+        _unk3000D00[index].unkC
             = sub_8059FA0(SinTable[transform->unk0], ScaleReciprocalTable[transform->unk2]);
         matrixB = &_unk3000D00[index].unkC;
-        _unk3000D00[index].unk10.word
+        _unk3000D00[index].unk10
             = sub_8059FA0(-SinTable[transform->unk0], ScaleReciprocalTable[transform->unk4]);
         matrixC = &_unk3000D00[index].unk10;
         matrixD
             = sub_8059FA0(SinTable[transform->unk0 + 0x40], ScaleReciprocalTable[transform->unk4]);
-        _unk3000D00[index].unk14.word = matrixD;
-        SetLayerTransform(layer, matrixA->half, matrixB->half, matrixC->half, matrixD);
+        _unk3000D00[index].unk14 = matrixD;
+        SetLayerTransform(layer, *matrixA, *matrixB, *matrixC, matrixD);
     }
 }
 
