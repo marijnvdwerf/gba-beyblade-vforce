@@ -230,6 +230,7 @@ add_executable(rom
     src/motion.c
     src/multiplayer.c
     src/music.c
+    src/musictracks.c
     src/packet.c
     src/palette.c
     src/particle.c
