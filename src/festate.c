@@ -205,10 +205,10 @@ void sub_8043A58(FrontendState* state, u32 arg1, u32 arg2)
         if (state->transition.value == 0
             && (((_unk3005DA0 & 9) != 0 && arg2 > 0x7C) || arg2 == 0xF0)) {
 #if REGION == REGION_EU
-            sub_804924C(6);
-            sub_80490F8(8);
+            sub_804924C(STATE_LANGUAGE);
+            sub_80490F8(STATE_8);
 #else
-            sub_80490F8(7);
+            sub_80490F8(STATE_7);
 #endif
         }
         break;
@@ -273,7 +273,7 @@ void sub_8043AA0(FrontendState* state, u32 arg1)
         if (_unk3000168 != 0) {
             _unk3000168--;
             if (_unk3000168 == 0) {
-                sub_80490F8(7);
+                sub_80490F8(STATE_7);
             }
         }
         break;
@@ -317,20 +317,20 @@ void sub_8043CF8(FrontendState* state, u32 arg1)
         break;
     case 2:
         if (_unk3005DA0 == 2) {
-            sub_80490F8(10);
+            sub_80490F8(STATE_10);
         }
         break;
     case 5:
         sub_8051688(sub_805B210(&state->menuState));
-        sub_8049234(8);
+        sub_8049234(STATE_8);
         if (sub_8051780(1) != 0) {
-            sub_804924C(0x12);
+            sub_804924C(STATE_18);
         } else if (sub_8051780(0x100) != 0) {
-            sub_804924C(0x11);
+            sub_804924C(STATE_17);
         } else if (sub_8051780(4) != 0) {
-            sub_804924C(0x13);
+            sub_804924C(STATE_19);
         }
-        sub_80490F8(9);
+        sub_80490F8(STATE_9);
         break;
     }
 }
@@ -346,7 +346,7 @@ void sub_8043D84(FrontendState* state, u32 arg1)
         break;
     case 2:
         if (_unk3005DA0 == 1) {
-            sub_80490F8(0x14);
+            sub_80490F8(STATE_20);
         }
         break;
     }
@@ -456,9 +456,9 @@ void sub_8044054(FrontendState* state, unk32 arg1)
             if (_unk30001A8 != 0) {
                 sub_804ABFC(8);
                 if (_currentGameState->unk6EA >= 0) {
-                    sub_80490F8(0x26);
+                    sub_80490F8(STATE_38);
                 } else {
-                    sub_80490F8(0x15);
+                    sub_80490F8(STATE_21);
                 }
                 _unk300016C = 0x10000;
             } else {
@@ -683,13 +683,13 @@ void sub_804444C(FrontendState* state, unk32 arg1)
                 sub_8043960(packetState);
                 _unk30001AC = 0x10000;
                 if (_currentGameState->unk6A5 == _currentGameState->unk6A6 && value == difference) {
-                    sub_80490F8(0x25);
+                    sub_80490F8(STATE_37);
                 } else if (halfDifference - value <= 0) {
-                    sub_80490F8(0x23);
+                    sub_80490F8(STATE_35);
                 } else if (halfDifference - difference <= 0) {
-                    sub_80490F8(0x24);
+                    sub_80490F8(STATE_36);
                 } else {
-                    sub_80490F8(0x22);
+                    sub_80490F8(STATE_34);
                 }
                 sub_804ABFC(8);
             }
@@ -798,10 +798,10 @@ void sub_80448F4(FrontendState* state, unk32 arg1)
             sub_8050F98(&state->menu);
             if (state->menu.selection != 0) {
                 _unk3000200 = 1;
-                sub_80490F8(0xA);
+                sub_80490F8(STATE_10);
                 break;
             }
-            sub_80490F8(0x1B);
+            sub_80490F8(STATE_27);
         }
         break;
     }
@@ -877,7 +877,7 @@ void sub_8044C48(FrontendState* state, unk32 arg1)
             _unk3000208 = 0x10000;
             _unk3000278 = 0x10000;
             _unk300020C = 0x10000;
-            sub_80490F8(0xA);
+            sub_80490F8(STATE_10);
         }
         break;
     default:
@@ -955,7 +955,7 @@ void sub_8044ED4(FrontendState* state, unk32 arg1)
             _unk3000280 = 0x10000;
             _unk30002F0 = 0x10000;
             _unk3000284 = 0x10000;
-            sub_80490F8(0xA);
+            sub_80490F8(STATE_10);
         }
         break;
     default:
@@ -1031,7 +1031,7 @@ void sub_8045160(FrontendState* state, unk32 arg1, unk32 arg2)
             _unk30002F8 = 0x10000;
             _unk3000368 = 0x10000;
             _unk30002FC = 0x10000;
-            sub_80490F8(0xA);
+            sub_80490F8(STATE_10);
         }
         break;
     default:
@@ -1270,10 +1270,10 @@ void sub_80453D8(FrontendState* state, u32 arg1)
     case 5:
         switch (sub_805B240(&state->menuState)) {
         case 0:
-            sub_80490F8(0x16);
+            sub_80490F8(STATE_22);
             return;
         case 1:
-            sub_80490F8(0xA);
+            sub_80490F8(STATE_10);
             return;
         }
         break;
@@ -1343,16 +1343,16 @@ void sub_804541C(FrontendState* state, u32 arg1)
             selection = state->menu.selection;
             switch (selection) {
             case 0:
-                sub_80490F8(0x1B);
+                sub_80490F8(STATE_27);
                 break;
             case 1:
-                sub_80490F8(0xA);
+                sub_80490F8(STATE_10);
                 break;
             case 2:
-                sub_80490F8(0x28);
+                sub_80490F8(STATE_COLLECTION);
                 break;
             case 3:
-                sub_80490F8(0x29);
+                sub_80490F8(STATE_41);
                 break;
             }
         }
@@ -1446,8 +1446,8 @@ void sub_804568C(FrontendState* state, u32 arg1)
         break;
     case 2:
         if ((_unk3005DA0 & 9) != 0) {
-            sub_804924C(0xA);
-            sub_80490F8(8);
+            sub_804924C(STATE_10);
+            sub_80490F8(STATE_8);
         }
         break;
     case 7:
@@ -1520,21 +1520,21 @@ void sub_8045848(FrontendState* state, u32 arg1)
             switch (selection) {
             case 0:
                 sub_8051798(1);
-                sub_80490F8(0x19);
+                sub_80490F8(STATE_25);
                 break;
             case 2:
                 sub_8051798(1);
-                sub_80490F8(0xF);
+                sub_80490F8(STATE_SELECT_BLADE);
                 break;
             case 1:
                 sub_8051798(4);
-                sub_80490F8(0xF);
+                sub_80490F8(STATE_SELECT_BLADE);
                 break;
             case 4:
-                sub_80490F8(0x28);
+                sub_80490F8(STATE_COLLECTION);
                 break;
             case 3:
-                sub_80490F8(0xC);
+                sub_80490F8(STATE_12);
                 break;
             }
         }
@@ -1603,7 +1603,7 @@ void sub_8045A7C(FrontendState* state, u32 arg1)
             _unk30003C0 = 0xFFFF0000;
             _unk30003C4 = 0x1E000;
             sub_8050FC8(&state->menu);
-            sub_80490F8(0xA);
+            sub_80490F8(STATE_10);
         }
         if ((_unk3005DA0 & 1) != 0) {
             _unk30003C0 = 0xFFFF0000;
@@ -1612,16 +1612,16 @@ void sub_8045A7C(FrontendState* state, u32 arg1)
             selection = state->menu.selection;
             switch (selection) {
             case 0:
-                sub_80490F8(0xD);
+                sub_80490F8(STATE_13);
                 break;
             case 1:
-                sub_80490F8(0x29);
+                sub_80490F8(STATE_41);
                 break;
             case 2:
-                sub_80490F8(0x1A);
+                sub_80490F8(STATE_CREDITS);
                 break;
             case 3:
-                sub_80490F8(0xE);
+                sub_80490F8(STATE_14);
                 break;
             }
         }
@@ -1742,7 +1742,7 @@ void sub_8045CB4(FrontendState* state, unk32 arg1, unk32 arg2)
             _unk30003EC = 0x12C00;
             _unk30003C8 = 0x10000;
             _unk30003F0 = 0x11800;
-            sub_80490F8(0xC);
+            sub_80490F8(STATE_12);
             sub_804ABFC(8);
             break;
         }
@@ -1851,7 +1851,7 @@ void sub_80461D8(FrontendState* state, u32 arg1)
                 _currentGameState->unkC68 = 0;
                 break;
             }
-            sub_80490F8(0xC);
+            sub_80490F8(STATE_12);
         }
         if ((_unk3005DA0 & 2) != 0) {
             sub_8050FC8(&state->menu);
@@ -1872,11 +1872,11 @@ void sub_8046424(FrontendState* arg0, u32 arg1)
         break;
     case 2:
         if (_unk3005DA0 == 2) {
-            sub_80490F8(0xA);
+            sub_80490F8(STATE_10);
         }
         break;
     case 5:
-        sub_80490F8(0xF);
+        sub_80490F8(STATE_SELECT_BLADE);
         break;
     }
 }
@@ -2065,7 +2065,7 @@ void sub_8046814(FrontendState* state, u32 arg1)
             if (state->menu.selection != 0) {
                 sub_80490F8(_unk3000648);
             } else {
-                sub_80490F8(0x18);
+                sub_80490F8(STATE_24);
             }
             sub_8050F98(&state->menu);
         }
@@ -2130,10 +2130,10 @@ void sub_8046B94(FrontendState* state, u32 arg1)
         _unk30004C4 = 0;
         sub_80596AC(&state->bgLayers[3], _unk30004C8, 0);
         _unk30004CC = 0;
-        if (sub_804915C() == 0xC) {
-            _unk3000648 = 0xC;
+        if (sub_804915C() == STATE_12) {
+            _unk3000648 = STATE_12;
         } else {
-            _unk3000648 = 0x15;
+            _unk3000648 = STATE_21;
         }
         break;
     case 1:
@@ -2149,7 +2149,7 @@ void sub_8046B94(FrontendState* state, u32 arg1)
         break;
     case 2:
         if ((_unk3005DA0 & 1) != 0 || _unk30004CC > 0x258) {
-            sub_80490F8(0x17);
+            sub_80490F8(STATE_23);
             _unk30004C4 = -0x10000;
         }
         if ((_unk3005DA0 & 2) != 0) {
@@ -2234,9 +2234,9 @@ void sub_8046CC4(FrontendState* state, u32 arg1)
                 sub_80510FC();
             }
             if ((_currentGameState->unkC64 & 4) != 0) {
-                sub_80490F8(0xF);
+                sub_80490F8(STATE_SELECT_BLADE);
             } else {
-                sub_80490F8(0x1B);
+                sub_80490F8(STATE_27);
             }
         }
         break;
@@ -2683,11 +2683,11 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
             if (_unk300053B == 1) {
                 if (sub_8051780(4) != 0) {
                     sub_805185C(_unk30004F0.unk34);
-                    sub_80490F8(0x1F);
+                    sub_80490F8(STATE_31);
                     sub_804ABFC(8);
                 } else if ((_currentGameState->unkC64 & 4) != 0) {
                     sub_805185C(_unk30004F0.unk34);
-                    sub_80490F8(0x1B);
+                    sub_80490F8(STATE_27);
                     sub_804ABFC(8);
                 } else {
                     sub_804ABFC(9);
@@ -2867,7 +2867,7 @@ void sub_8047E5C(FrontendState* state, unk32 arg1)
         if (_unk3005DA0 == 1) {
             _unk3000574 = 0x10000;
             _unk3000578 = 0x10000;
-            sub_80490F8(0xA);
+            sub_80490F8(STATE_10);
         }
         break;
     default:
@@ -2936,7 +2936,7 @@ void sub_80480EC(FrontendState* state, unk32 arg1)
             sub_8050F98(&state->menu);
             switch (state->menu.selection) {
             case 0:
-                sub_80490F8(0x1F);
+                sub_80490F8(STATE_31);
                 break;
             case 1: {
                 GameData* gameData;
@@ -2946,7 +2946,7 @@ void sub_80480EC(FrontendState* state, unk32 arg1)
                 gameData->unk1619 = 0;
                 gameData->unk161A = 0;
                 sub_80600B4();
-                sub_80490F8(0xA);
+                sub_80490F8(STATE_10);
                 break;
             }
             }
@@ -3050,11 +3050,11 @@ void sub_8048310(FrontendState* state, unk32 arg1)
                 _unk30005C8 = 0xFFFF0000;
                 _unk30005CC = 0x1E000;
                 sub_8050F98(&state->menu);
-                sub_80490F8(0x21);
+                sub_80490F8(STATE_33);
             }
             sub_8043960(packetState);
         } else if (_unk3005DA0 == 1) {
-            sub_80490F8(0x21);
+            sub_80490F8(STATE_33);
         }
         return;
     default:
@@ -3169,18 +3169,18 @@ void sub_804868C(FrontendState* state, unk32 arg1)
                 _unk30005D8 = 0xFFFF0000;
                 _unk30005DC = 0x1E000;
                 sub_8050F98(&state->menu);
-                sub_80490F8(0x1B);
+                sub_80490F8(STATE_27);
             }
             if (record->packet.unk2_4 == 2) {
                 packetState->packet.unk2_4 = 2;
                 _unk30005D8 = 0xFFFF0000;
                 _unk30005DC = 0x1E000;
                 sub_8050FC8(&state->menu);
-                sub_80490F8(0x20);
+                sub_80490F8(STATE_32);
             }
             sub_8043960(packetState);
         } else if (_unk3005DA0 == 1) {
-            sub_80490F8(0x1B);
+            sub_80490F8(STATE_27);
         }
         return;
     default:
@@ -3277,7 +3277,7 @@ void sub_8048AE8(FrontendState* state, unk32 arg1, unk32 arg2)
             if (_gameData->unk1618 == 0) {
                 state->unk7F = 0;
                 sub_80600B4();
-                sub_80490F8(0xA);
+                sub_80490F8(STATE_10);
                 sub_804ABFC(9);
                 _unk30005E4 = 0x10000;
             }
@@ -3290,7 +3290,7 @@ void sub_8048AE8(FrontendState* state, unk32 arg1, unk32 arg2)
                 _unk30005F0.timer = 0;
             }
             if (--_unk30005E2 == 0) {
-                sub_80490F8(0x20);
+                sub_80490F8(STATE_32);
                 sub_804ABFC(8);
                 _unk30005E4 = 0x10000;
             }
@@ -3300,7 +3300,7 @@ void sub_8048AE8(FrontendState* state, unk32 arg1, unk32 arg2)
             state->unk7F = 0;
             _gameData->unk1618 = 0;
             sub_80600B4();
-            sub_80490F8(0x1E);
+            sub_80490F8(STATE_30);
             _unk30005E4 = 0x10000;
         }
         break;
@@ -3365,7 +3365,7 @@ void sub_8048D8C(FrontendState* state, u32 arg1)
             _unk3000604 = 0x10000;
             _unk3000640 = 0x10000;
             _unk3000608 = 0x10000;
-            sub_80490F8(0x15);
+            sub_80490F8(STATE_21);
         }
         break;
     }

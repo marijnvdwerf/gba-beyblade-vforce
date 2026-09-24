@@ -145,8 +145,8 @@ void sub_8052B24(void)
             if (packetSelection == 0 && sub_806008C() != 0) {
                 _gameData->unk1618 = packetSelection;
                 _gameData->unk1619 = 1;
-                sub_8049234(8);
-                sub_804924C(0x1D);
+                sub_8049234(STATE_8);
+                sub_804924C(STATE_29);
                 sub_8053E18(1);
                 done = 1;
                 target = 0xFFFF3800;

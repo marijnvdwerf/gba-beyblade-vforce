@@ -89,8 +89,8 @@ void sub_804257C(FrontendState* state, unk32 command)
         }
         if (_unk30000DD != 0 && (_unk30000E4 >> 8) == 0) {
             *(vu16*)REG_DISPCNT = 0;
-            sub_80490F8(8);
-            sub_804924C(0x1A);
+            sub_80490F8(STATE_8);
+            sub_804924C(STATE_CREDITS);
         }
         if (_unk30000DC != 0 && _unk30000DD == 0) {
             layer = &state->bgLayers[0];

@@ -392,10 +392,10 @@ void sub_8053B94(void)
             sub_8051640(0);
             if ((sub_8051744() << 24) != 0) {
                 StoreLevelVar14(0x29);
-                sub_8049234(0x1C);
+                sub_8049234(STATE_DIALOG);
             } else if (levelDescription->unk11 != 0) {
                 StoreLevelVar14(getLevelDescription2()->unk18);
-                sub_8049234(0x1C);
+                sub_8049234(STATE_DIALOG);
             }
         }
     }

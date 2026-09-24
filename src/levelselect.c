@@ -485,11 +485,11 @@ void sub_80413FC(FrontendState* state, unk32 arg1)
             if (_unk300006C == _unk3000070) {
                 if (sub_805FFE4() && sub_8060070()) {
                     if (_unk300005A == 1) {
-                        sub_804924C(0x13);
-                        sub_8049234(8);
-                        sub_80490F8(9);
+                        sub_804924C(STATE_19);
+                        sub_8049234(STATE_8);
+                        sub_80490F8(STATE_9);
                     } else {
-                        sub_80490F8(0x21);
+                        sub_80490F8(STATE_33);
                         sub_804ABFC(9);
                     }
                 } else {
@@ -500,17 +500,17 @@ void sub_80413FC(FrontendState* state, unk32 arg1)
                         sub_8051688(_unk3000074[_3000038.index]);
                         levelState = sub_8051734();
                         selectedDesc = getLevelDescription2();
-                        sub_8049234(8);
-                        sub_804924C(0x11);
+                        sub_8049234(STATE_8);
+                        sub_804924C(STATE_17);
                         if (selectedDesc->unk10 != 0 && !(levelState->unk0 & 1)) {
                             StoreLevelVar14(getLevelDescription2()->unk14);
                             StoreFunction(sub_8049DE0);
-                            sub_80490F8(0x1C);
+                            sub_80490F8(STATE_DIALOG);
                         } else {
-                            sub_80490F8(9);
+                            sub_80490F8(STATE_9);
                         }
                     } else {
-                        sub_80490F8(0xA);
+                        sub_80490F8(STATE_10);
                         sub_804ABFC(9);
                     }
                 }

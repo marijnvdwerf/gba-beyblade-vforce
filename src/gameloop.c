@@ -108,8 +108,8 @@ void gameLoop(void)
                 && sub_806008C() != 0) {
                 _gameData->unk1618 = vblankPending;
                 _gameData->unk1619 = 1;
-                sub_8049234(8);
-                sub_804924C(0x1D);
+                sub_8049234(STATE_8);
+                sub_804924C(STATE_29);
                 sub_8053E18(1);
             }
             sub_805000C(cleanup, rider);

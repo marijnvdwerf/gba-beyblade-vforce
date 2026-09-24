@@ -611,7 +611,7 @@ extern s32 _unk30004C8;
 extern s32 _unk30004CC;
 extern unk8 _unk30004C0;
 extern unk8 _unk30004C1;
-extern unk32 _unk3000648;
+extern FrontendStateId _unk3000648;
 extern SpriteEntry* _unk30004D0;
 extern SpriteEntry* _unk30004D4;
 extern s32 _unk30004D8;

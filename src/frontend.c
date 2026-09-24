@@ -2351,7 +2351,7 @@ void sub_80490CC(unk32 arg0, unk32 arg1)
     }
 }
 
-void sub_80490F8(unk32 arg0)
+void sub_80490F8(FrontendStateId arg0)
 {
     if (_unk3000650.unk0 != arg0 && _unk3000650.unk4 != arg0) {
         if (_unk3000650.unk0 != -1) {
@@ -2368,7 +2368,7 @@ void sub_80490F8(unk32 arg0)
     }
 }
 
-unk32 sub_804915C(void)
+FrontendStateId sub_804915C(void)
 {
     return _unk3000650.unk8;
 }
@@ -2432,22 +2432,22 @@ void sub_8049210(unk32 arg0)
     _unk3000650.unk7D = arg0 + 1;
 }
 
-void sub_8049234(unk32 arg0)
+void sub_8049234(FrontendStateId arg0)
 {
     _unk3000650.unkC = arg0;
 }
 
-unk32 sub_8049240(void)
+FrontendStateId sub_8049240(void)
 {
     return _unk3000650.unkC;
 }
 
-void sub_804924C(unk32 arg0)
+void sub_804924C(FrontendStateId arg0)
 {
     _unk3000650.unk10 = arg0;
 }
 
-unk32 sub_8049258(void)
+FrontendStateId sub_8049258(void)
 {
     return _unk3000650.unk10;
 }
@@ -2455,9 +2455,9 @@ unk32 sub_8049258(void)
 void sub_8049264(void)
 {
     _gameData->unkC26 = -1;
-    _unk3000650.unk4 = 0;
-    _unk3000650.unkC = 0;
-    sub_804924C(7);
+    _unk3000650.unk4 = STATE_NINTENDO;
+    _unk3000650.unkC = STATE_NINTENDO;
+    sub_804924C(STATE_7);
     _unk3000650.unk0 = -1;
     _unk3000650.unk8 = -1;
     _unk3000650.unk7C = 0;
@@ -2540,7 +2540,7 @@ unk32 sub_80493C8(void)
                 _gameData->unk1618 = 0;
                 _gameData->unk1619 = 1;
                 state->unk7F = 0;
-                sub_80490F8(0x1D);
+                sub_80490F8(STATE_29);
             } else {
                 result = 1;
             }

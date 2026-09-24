@@ -238,10 +238,10 @@ void sub_80420C4(FrontendState* state, unk32 command)
             *(vu16*)REG_DISPCNT = 0;
             if ((levelState->unk0 & 1) != 0) {
                 if (sub_8051744() != 0) {
-                    sub_80490F8(0x27);
+                    sub_80490F8(STATE_TRANSITION);
                 } else {
-                    sub_80490F8(8);
-                    sub_804924C(0x11);
+                    sub_80490F8(STATE_8);
+                    sub_804924C(STATE_17);
                 }
             } else {
                 sub_8048FE4();

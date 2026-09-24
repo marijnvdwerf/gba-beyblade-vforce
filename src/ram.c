@@ -240,7 +240,7 @@ s32 _unk300060C = 0;
 SpriteTextCleanup _unk3000610 = { 0 };
 s32 _unk3000640 = 0;
 unk32 _unk3000644 = 0;
-unk32 _unk3000648 = 0;
+FrontendStateId _unk3000648 = 0;
 unk8 _unk300064C[4] = { 0 };
 
 typedef struct FrontendStoragePlaceholder {

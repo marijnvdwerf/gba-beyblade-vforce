@@ -267,8 +267,8 @@ void creditsFrontendHandler(FrontendState* state, unk32 arg1)
         }
         if (_3000021 != 0 && _3000008 != 0) {
             _3000021 = 1;
-            if (sub_804915C() == 8) {
-                sub_80490F8(0xA);
+            if (sub_804915C() == STATE_8) {
+                sub_80490F8(STATE_10);
             } else {
                 sub_8049178();
             }
