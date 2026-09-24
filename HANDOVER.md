@@ -175,6 +175,23 @@ Last updated: 2026-09-24 (session 17, close): main 6e41c223 — all functions ma
   u16[2+256] = 65536·acos(j/256)/π (unreferenced) — literals, formulas in
   comments (not constant-foldable). `. = ALIGN(4)` before math.c rodata (s16
   array). Externs in math.h; renamed everywhere incl. asm/arm1.s.
+  DATA8.S FOLDED (6378ebab + 61bbc59a): by .data order (= .text order): GlyphIndexes →
+  layer.c; the four serial `__sub_*` pointers → multiplayer.c; the sprite/tilemap
+  pointer block (word_807D90C, off_807D930/934/938 = printf/sub_8060790/
+  freeSpriteVramLocation, __oam_8756CC0, __sub_8756FC0/380/494/76D8 + unlabelled
+  Thumb/ARM pointers off_807D92C/940/950/958/95C/960) → sprite.c; the sound/
+  fastmem block (__sub_87577B4, __sound_8757A64, off_807D96C, __fastMemory*,
+  off_807D978/97C) → sound.c; byte_807D980 = ASCII→glyph map → `GlyphMap` in
+  teletype.c (user: NOT libc, not language.c — it must be a user in the .data
+  window ≥ sound.c). Ownership of the tilemap block (sprite.c vs spritetext.c)
+  and fastmem block (sound.c vs actorheap/palette) is UNMEASURABLE — chosen by
+  reading. The ARM↔Thumb call pointers are plain initialized pointer variables;
+  the linker sets the Thumb bit, no `+1` in C. data8.s now holds only
+  Pal_807DA80 (asset; user: leave until the asset-pipeline decision).
+  ASSET FILES: data6/data7 (sprite-sheet incbins) and dataB/dataC (palette
+  incbins) link BEFORE credits.c(.rodata) with the level geometry objects —
+  data-only asset objects, not any code TU's tables. User has not decided
+  png→4bpp pipeline vs raw incbin vs C arrays (advised against arrays).
   FINAL SKILL FOLD landed: docs/learnings/ (57 + 245 processed) DELETED, the
   skill-fold agent removed, decompiler/review/MANAGER.md now say measurements
   go in the agent's final REPORT and generic ones into SKILL.md by the manager.
