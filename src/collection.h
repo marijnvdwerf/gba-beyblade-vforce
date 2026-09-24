@@ -9,11 +9,6 @@ typedef struct CollectionListData {
     SpriteTextCleanup unk104;
 } CollectionListData;
 
-typedef union CollectionSelection {
-    s32 word;
-    unk16 half[2];
-} CollectionSelection;
-
 extern s32 _unk30000F8;
 extern s32 _unk30000FC;
 extern s32 _unk3000100;
@@ -22,7 +17,7 @@ extern unk32 _unk3000108;
 extern s32 _unk300010C;
 extern s32 _unk3000110;
 
-extern CollectionSelection _unk3000114;
+extern s32 _unk3000114;
 extern s32 _unk3000118;
 extern s32 _unk300011C;
 extern AllocatedBlock* _collectionListFontBlock;

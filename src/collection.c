@@ -55,7 +55,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
         _unk3000108 = 0;
         _unk300010C = 0;
         _unk3000110 = 0;
-        _unk3000114.word = 0;
+        _unk3000114 = 0;
         _unk3000118 = 0;
         _unk300011C = 0;
         for (i = 0; i < 5; i++) {
@@ -121,19 +121,18 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
                 }
                 if (_unk3000138 != NULL) {
                     LoadSpriteSheet(_unk3000138,
-                        getDecompressorData(&_unk3000140, sub_8057094(_unk3000114.word)), 0x2900,
-                        0x800, 1, 0, 0, 0);
+                        getDecompressorData(&_unk3000140, sub_8057094(_unk3000114)), 0x2900, 0x800,
+                        1, 0, 0, 0);
                     _unk3000138->oam_attr_2 = (_unk3000138->oam_attr_2 & 0xFFF) | 0x3000;
-                    __fastMemoryCopyARM(
-                        sub_8057068(_unk3000114.word), (void*)(OBJ_PLTT + 0x60), 0x20);
-                    if (sub_80570D4(_unk3000114.word) != 0) {
+                    __fastMemoryCopyARM(sub_8057068(_unk3000114), (void*)(OBJ_PLTT + 0x60), 0x20);
+                    if (sub_80570D4(_unk3000114) != 0) {
                         sub_8061660(_unk3000128, _806E8B0[getLanguage()], 0xE);
-                        showString(_unk3000128, sub_8057048(_unk3000114.word), 0xF);
+                        showString(_unk3000128, sub_8057048(_unk3000114), 0xF);
                     } else {
                         sub_8061228(_unk3000128);
                     }
                 }
-                if (sub_805703C(_unk3000114.word) == 0 && sub_80570D4(_unk3000114.word) != 0) {
+                if (sub_805703C(_unk3000114) == 0 && sub_80570D4(_unk3000114) != 0) {
                     if (_unk300013C == NULL) {
                         _unk300013C = allocSprite(0);
                     } else {
@@ -144,8 +143,8 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
                     _unk300013C = NULL;
                 }
                 if (_unk300013C != NULL) {
-                    LoadSpriteSheet(_unk300013C, &SpriteSheet_823C2C8, 0x5800, 0x3700, 1, 0, 0,
-                        _unk3000114.half[0]);
+                    LoadSpriteSheet(
+                        _unk300013C, &SpriteSheet_823C2C8, 0x5800, 0x3700, 1, 0, 0, _unk3000114);
                 }
                 _unk300011C = 0x10;
             }
@@ -156,31 +155,31 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
             sub_80596AC(&state->bgLayers[3], scrollDelta, 0);
             _unk30000FC += scrollDelta;
         }
-        if ((_unk3005DA0 & 0x40) != 0 && _unk3000114.word != 0) {
-            _unk3000114.word -= 1;
+        if ((_unk3005DA0 & 0x40) != 0 && _unk3000114 != 0) {
+            _unk3000114 -= 1;
             _unk300011C = 0;
             sub_804ABFC(7);
         }
-        if ((_unk3005DA0 & 0x80) != 0 && _unk3000114.word <= 0x6B) {
-            _unk3000114.word += 1;
+        if ((_unk3005DA0 & 0x80) != 0 && _unk3000114 <= 0x6B) {
+            _unk3000114 += 1;
             _unk300011C = 0;
             sub_804ABFC(7);
         }
-        if ((_keyInput & 0x40) != 0 && _unk3000114.word != 0 && sub_805A914(6)->var08 > 0xF0) {
+        if ((_keyInput & 0x40) != 0 && _unk3000114 != 0 && sub_805A914(6)->var08 > 0xF0) {
             if (((sub_8057C40() >> 4) & 3) == 0) {
-                _unk3000114.word -= 1;
+                _unk3000114 -= 1;
                 _unk300011C = 0;
                 sub_804ABFC(7);
             }
         }
-        if ((_keyInput & 0x80) != 0 && _unk3000114.word <= 0x6B && sub_805A914(7)->var08 > 0xF0) {
+        if ((_keyInput & 0x80) != 0 && _unk3000114 <= 0x6B && sub_805A914(7)->var08 > 0xF0) {
             if (((sub_8057C40() >> 4) & 3) == 0) {
-                _unk3000114.word += 1;
+                _unk3000114 += 1;
                 _unk300011C = 0;
                 sub_804ABFC(7);
             }
         }
-        targetY = -0x400 - ((_unk3000114.word - 2) * 0xF00);
+        targetY = -0x400 - ((_unk3000114 - 2) * 0xF00);
         _unk3000108 = (targetY - _unk3000104) >> 2;
         _unk3000100 += _unk3000108;
         _unk3000104 += _unk3000108;
@@ -258,7 +257,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
             // TODO: figure out how to remove cast
             _unk3000134->x
                 = -_unk30000FC + 0x2600 + SinTable[0x40 + (unk8)((sub_8057C40() >> 7) * 0x20)];
-            rowY = _unk3000114.word * 0xF00;
+            rowY = _unk3000114 * 0xF00;
             _unk3000134->y = _unk3000104 + rowY + 0x5200;
         }
         if (_unk3000138 != NULL) {
