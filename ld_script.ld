@@ -10,6 +10,7 @@ SECTIONS {
     ALIGN(4)
     {
         src/ram.c.o(.data);
+        src/AgbEeprom.c.o(.bss);
         *libgcc.a:fp-bit.o(.bss);
         *libgcc.a:dp-bit.o(.bss);
         . = 0xDE0;
@@ -20,6 +21,7 @@ SECTIONS {
         . += 12;
         src/keystate.c.o(.data);
         src/ram3.c.o(.data);
+        src/AgbEeprom.c.o(COMMON);
 
         _iwram_code_start = .;
     }
@@ -153,7 +155,7 @@ SECTIONS {
         asm/arm1.s.o(.text);
         src/spritestring.c.o(.text);
         src/spritestringactors.c.o(.text);
-        src/backup.c.o(.text);
+        src/AgbEeprom.c.o(.text);
         *libgcc.a:_call_via_rX.o(.text);
         *libgcc.a:_divdi3.o(.text);
         *libgcc.a:_divsi3.o(.text);
@@ -327,7 +329,7 @@ SECTIONS {
 		src/teletype.c.o(.rodata);
 		src/spritestring.c.o(.rodata);
 		src/spritestringactors.c.o(.rodata);
-		src/backup.c.o(.rodata);
+		src/AgbEeprom.c.o(.rodata);
 
         *libgcc.a:_divdi3.o(.rodata);
     } =0

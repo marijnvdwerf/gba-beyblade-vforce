@@ -32,7 +32,7 @@ void mainLoop(void)
     sub_805791C();
     initBlockVariables();
     initKeyState();
-    initBattery();
+    initBatteryBackup();
     sub_8063A50();
 #if REGION == REGION_EU
     sub_8063A68(0, 0);

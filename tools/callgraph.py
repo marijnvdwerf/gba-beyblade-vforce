@@ -60,7 +60,7 @@ CALLBACKS = [
         "onTimer1Overflow",
         "Sound_onTimer1Overflow",
     ]),
-    ("_unk3000DF0[5]", ["onTimer2Overflow"]),
+    ("_unk3000DF0[5]", ["EepromTimerIntr"]),
     ("_unk3000DF0[6]", ["sub_8757D24", "sub_8757CD0", "sub_8757E4C"]),
     ("_unk3000DF0[7]", ["onSerialCommunication", "sub_8757FCC"]),
     # gameLoop.c: transition is initialized to sub_8052978 at its declaration.

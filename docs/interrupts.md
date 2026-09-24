@@ -22,7 +22,7 @@
 
 ## Dynamic re-installs
 
-- `sub_806586C` returns `onTimer2Overflow` through its ISR output pointer (`src/backup.c:37-45`). The backup setup installs that handler in `_unk3000DF0[5]`; `onTimer2Overflow` is C at `src/backup.c:24-35`.
+- `SetEepromTimerIntr` returns `EepromTimerIntr` through its ISR output pointer (`src/AgbEeprom.c:37-45`). The backup setup installs that handler in `_unk3000DF0[5]`; `EepromTimerIntr` is C at `src/AgbEeprom.c:24-35`.
 - The multiplayer setup writes `_unk3000DF0[7] = onSerialCommunication`, then `_unk3000DF0[6] = __sub_8757D24`, and enables the corresponding interrupts (`src/multiplayer.c:248-265`; the live function is `asm/dump/8057b80-debug/806014c.s`).
 - `sub_8757D24` later stores `__sub_8757E4C` into slot 6 (`asm/arm2.s:1825-1847`). It calls `sub_8757CD0` (`asm/arm2.s:1825-1830`).
 - `onSerialCommunication` later stores `__sub_8757FCC` into slot 7 (`asm/dump/8057b80-debug/8060454-onSerialCommunication.s:43-50`).
@@ -30,4 +30,4 @@
 
 ## Handler implementation status
 
-`onVBlank`, `onTimer1Overflow`, `Sound_onTimer1Overflow`, and `onTimer2Overflow` are C implementations. `onSerialCommunication` remains a Thumb dump at `asm/dump/8057b80-debug/8060454-onSerialCommunication.s`. `sub_8757D24`, `sub_8757CD0`, `sub_8757E4C`, and `sub_8757FCC` remain ARM assembly in `asm/arm2.s` (at `1735`, `1765`, `1863`, and `1984`, respectively).
+`onVBlank`, `onTimer1Overflow`, `Sound_onTimer1Overflow`, and `EepromTimerIntr` are C implementations. `onSerialCommunication` remains a Thumb dump at `asm/dump/8057b80-debug/8060454-onSerialCommunication.s`. `sub_8757D24`, `sub_8757CD0`, `sub_8757E4C`, and `sub_8757FCC` remain ARM assembly in `asm/arm2.s` (at `1735`, `1765`, `1863`, and `1984`, respectively).

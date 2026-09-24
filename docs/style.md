@@ -481,11 +481,12 @@ tutorial.c, motion.c
 
 ### Unknown / shared
 
-- `transition.c`, `backup.c`, `keystate.c`, `debug.c`, `profile.c`,
+- `transition.c`, `keystate.c`, `debug.c`, `profile.c`,
   `render.c`, `display.c` — too few matched functions to attribute
 - `gamestate.c` straddles B and C; its save/load functions use B-style
   block management but C-style `_currentGameState` access
-- The `libc.c` and `irq.c` files are SDK boilerplate, not team code
+- The `libc.c` and `irq.c` files are SDK boilerplate, and `AgbEeprom.c` is
+  Nintendo's EEPROM backup library (`AgbEeprom.o`), not team code
 
 ---
 

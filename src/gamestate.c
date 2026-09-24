@@ -225,7 +225,7 @@ unk8 sub_80515A4(void)
     size = 0x564;
     sub_80513AC();
     Sound_8062694();
-    result = sub_80574D0(data, 0, size);
+    result = writeToBatteryBackup(data, 0, size);
     Sound_80626E0();
     return result;
 }
@@ -239,7 +239,7 @@ unk8 sub_80515E0(void)
     data = &_currentGameState->unk6FC.block0;
     size = 0x564;
     Sound_8062694();
-    result = sub_8057568(0, data, size);
+    result = readFromBatteryBackup(0, data, size);
     Sound_80626E0();
     return result;
 }

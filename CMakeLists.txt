@@ -188,7 +188,7 @@ add_executable(rom
     src/anim.c
     src/animevent.c
     src/background.c
-    src/backup.c
+    src/AgbEeprom.c
     src/battery.c
     src/beyblade.c
     src/bios.c
@@ -273,7 +273,7 @@ target_compile_options(rom PRIVATE
 set_source_files_properties(src/libc.c PROPERTIES
     COMPILE_OPTIONS "--reset-flags;-O2")
 # Nintendo's prebuilt EEPROM_V122 library: matches only with pret agbcc -O1.
-set_source_files_properties(src/backup.c PROPERTIES
+set_source_files_properties(src/AgbEeprom.c PROPERTIES
     COMPILE_OPTIONS "--cc1=${AGBCC}/bin/agbcc;-O1;-fprologue-bugfix")
 set_source_files_properties(
     src/iwram_sprite.c

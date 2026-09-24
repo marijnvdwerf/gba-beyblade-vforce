@@ -1,19 +1,19 @@
 #include "battery.h"
 
-#include "backup.h"
+#include "AgbEeprom.h"
 #include "common.h"
 #include "debug.h"
 #include "ram.h"
 
-void initBattery(void)
+void initBatteryBackup(void)
 {
-    if (initBatteryBackup(0x40)) {
+    if (IdentifyEeprom(0x40)) {
         printf("An error occured in initBatteryBackup(), calling IdentifyEeprom()\n");
     }
-    sub_806586C(2, &_unk3000DF0[5]);
+    SetEepromTimerIntr(2, &_unk3000DF0[5]);
 }
 
-u32 sub_80574D0(BackupBlock* data, u32 index, s32 size)
+u32 writeToBatteryBackup(BackupBlock* data, u32 index, s32 size)
 {
     u32 result;
     u16 retry;
@@ -26,8 +26,8 @@ u32 sub_80574D0(BackupBlock* data, u32 index, s32 size)
     blockCount = (size + 7) >> 3;
     for (blockCount--; blockCount != -1; blockCount--) {
         for (retry = 7; retry != 0xFFFF; retry--) {
-            if (sub_8065AA0(batteryIndex, (unk16*)data) == 0) {
-                writeResult = writeToBatteryBackup(batteryIndex, (unk16*)data);
+            if (ProgramEepromDword(batteryIndex, (unk16*)data) == 0) {
+                writeResult = VerifyEepromDword(batteryIndex, (unk16*)data);
                 if (writeResult == 0) {
                     retry = 0;
                 }
@@ -44,7 +44,7 @@ u32 sub_80574D0(BackupBlock* data, u32 index, s32 size)
     return result;
 }
 
-u32 sub_8057568(u16 index, BackupBlock* data, s32 size)
+u32 readFromBatteryBackup(u16 index, BackupBlock* data, s32 size)
 {
     u32 result;
     s32 blockCount;
@@ -55,7 +55,7 @@ u32 sub_8057568(u16 index, BackupBlock* data, s32 size)
     blockCount = (size + 7) >> 3;
     for (blockCount--; blockCount != -1; blockCount--) {
         for (retry = 7; retry != 0xFFFF; retry--) {
-            readResult = sub_80659F0(index, (unk16*)data);
+            readResult = ReadEepromDword(index, (unk16*)data);
             if (readResult == 0) {
                 retry = 0;
             }

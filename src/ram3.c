@@ -49,4 +49,3 @@ unk8 _unk3005E78 = 0;
 u8 pad_3005E79[7] = { 0 };
 unk8 _unk3005E80[24] = { 0 };
 unk32 _unk3005E98 = 0;
-void* _unk_3005E9C = NULL;
