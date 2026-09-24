@@ -38,8 +38,7 @@ void initCollectables(u16 levelId)
                 printf("unable to add collectables in initCollectables()\n");
                 break;
             }
-            if (lineMeta != NULL
-                && getLineMetaobjectByTypeAndId(&geometry, lineMeta, 3, ID_COLLECTABLE) != NULL) {
+            if (lineMeta != NULL && getLineMetaobjectByTypeAndId(&geometry, lineMeta, 3, ID_COLLECTABLE) != NULL) {
                 entry->geometry = line;
                 entry->line = i;
                 count++;

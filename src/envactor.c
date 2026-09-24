@@ -105,8 +105,7 @@ void initLevelEnvironmentActors(u16 level)
     allocationField->block = block;
     allocationField->actorCount = selectedCount;
     if (block == NULL) {
-        printf("Error allocating %i bytes for buffer in initLevelEnvironmentActors()\n",
-            allocationSize);
+        printf("Error allocating %i bytes for buffer in initLevelEnvironmentActors()\n", allocationSize);
     }
     actorBase = block->address;
     allocationField->actorContainer = actorBase;
@@ -138,8 +137,7 @@ void initLevelEnvironmentActors(u16 level)
         point1 = &geometry.unk4[geometryLine->point1];
         actorType = 0;
         display = &_gameData->unk434.records[0];
-        actor_8057C58(actorBase, actorConfigs[lineIndex], display, point0->x >> 3, point0->y >> 3,
-            point0->z >> 3, -1);
+        actor_8057C58(actorBase, actorConfigs[lineIndex], display, point0->x >> 3, point0->y >> 3, point0->z >> 3, -1);
         actorBase->unk39 = 0;
         actorBase->unkB0 = convert3DCoordsto2DCoords;
         actorBase->unk68 = 0;
@@ -330,8 +328,7 @@ void renderEnvironmentActors(void)
             if (effect->actor->unk70 != 0) {
                 sprite = allocSprite(0x80);
                 if (sprite != NULL) {
-                    LoadSpriteSheet(
-                        sprite, effect->spriteSheet, x, y, effect->unk12 & 3, 0, 0, effect->unk10);
+                    LoadSpriteSheet(sprite, effect->spriteSheet, x, y, effect->unk12 & 3, 0, 0, effect->unk10);
                 }
                 effect->sprite = sprite;
             }
@@ -448,8 +445,7 @@ void sub_8054FE0(void)
     _gameData->environmentActors.points = NULL;
 }
 
-unk8 sub_80550B8(Actor* actor, LevelGeometryAddresses* geometry, GeometrySpline* spline,
-    s32 lineIndex, s32 pointIndex)
+unk8 sub_80550B8(Actor* actor, LevelGeometryAddresses* geometry, GeometrySpline* spline, s32 lineIndex, s32 pointIndex)
 {
     EnvironmentObject* object;
 

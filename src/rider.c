@@ -23,8 +23,7 @@ extern const SpriteSheet SpriteSheet_86FAF34;
 extern const SpriteSheet SpriteSheet_86FB40C;
 extern const SpriteSheet SpriteSheet_86FBA14;
 
-void initRider(
-    RiderBase* rider, CameraState* layer, unk32 x, unk32 y, unk32 z, unk32 arg5, unk32 arg6)
+void initRider(RiderBase* rider, CameraState* layer, unk32 x, unk32 y, unk32 z, unk32 arg5, unk32 arg6)
 {
     Actor* actor;
     Actor* shadow;
@@ -236,8 +235,7 @@ void sub_804B624(void)
         rider = candidate; // TODO: fakematch? (dead store, byte-required: rider-2026-09-14.md)
         riders[j] = (candidate->unk3CC & 4) == 0 ? candidate : NULL;
     }
-    count
-        = _gameData->unk430 + 1; // TODO: fakematch? (dead load, byte-required: rider-2026-09-14.md)
+    count = _gameData->unk430 + 1; // TODO: fakematch? (dead load, byte-required: rider-2026-09-14.md)
     for (j = 0; j < _gameData->unk430; j++) {
         rider = riders[j];
         if (rider != NULL) {
@@ -309,8 +307,7 @@ RiderBase* sub_804B7FC(RiderBase* rider)
         } else {
             candidate = &_gameData->base;
         }
-        if (candidate != rider && (candidate->unk3CC & 0xC) == 0
-            && RiderHasFlag(candidate, 2) == 0) {
+        if (candidate != rider && (candidate->unk3CC & 0xC) == 0 && RiderHasFlag(candidate, 2) == 0) {
             dx = (candidate->unk0->x >> 8) - x;
             dy = (candidate->unk0->y >> 8) - y;
             dz = (candidate->unk0->z >> 8) - z;
@@ -355,8 +352,7 @@ void sub_804B8F0(RiderBase* rider, LevelGeometryAddresses* target)
     sub_804D110(rider, &rider->unk238);
     x = actor->x >> 5;
     y = actor->y >> 5;
-    node = GetQuadTreeNodeForPos(
-        quadTree, (actor->x + actor->unk40) >> 5, (actor->y + actor->unk44) >> 5);
+    node = GetQuadTreeNodeForPos(quadTree, (actor->x + actor->unk40) >> 5, (actor->y + actor->unk44) >> 5);
     node2 = GetQuadTreeNodeForPos(quadTree, x, y);
     if (rider->unk238.unk84 == -1) {
         (void)*(vu16*)REG_VCOUNT;
@@ -377,8 +373,7 @@ void sub_804B8F0(RiderBase* rider, LevelGeometryAddresses* target)
                     entries[i] = &object->unk40;
                 }
             }
-            rider->unk11C
-                += sub_805CEB8(&rider->unk238, target, quadTree->unk4C, quadTree->unk48, entries);
+            rider->unk11C += sub_805CEB8(&rider->unk238, target, quadTree->unk4C, quadTree->unk48, entries);
         }
         sub_80561A0(actor, target);
         (void)*(vu16*)REG_VCOUNT;
@@ -472,8 +467,7 @@ void renderRider(RiderBase* rider)
         rider->unk3C4->x = (screenX << 8) - 0x700;
         rider->unk3C4->y = (screenY << 8) - 0x1C00 + layer;
         rider->unk3C4->frame = shift >= 0 ? shift : 8;
-        rider->unk3C4->oam_attr_2
-            = (rider->unk3C4->oam_attr_2 & 0xFFF) | ((0xF - rider->unk3D0) << 12);
+        rider->unk3C4->oam_attr_2 = (rider->unk3C4->oam_attr_2 & 0xFFF) | ((0xF - rider->unk3D0) << 12);
     }
     if (screenY + 0x40 > 0x108 || screenX < -0x40 || screenX > 0x118) {
         rider->unk3C8 &= 0xFFFD;
@@ -577,11 +571,9 @@ void sub_804BF3C(RiderBase* rider)
         }
     } else if (rowCount > tiles->unkC) {
         newRows = rowCount - tiles->unkC;
-        sub_805EF18(&_gameData->unk434, x, y + tiles->unkC, 4, newRows, rider->unk1C0 - 1,
-            rider->unk3D4[tiles->unkC]);
+        sub_805EF18(&_gameData->unk434, x, y + tiles->unkC, 4, newRows, rider->unk1C0 - 1, rider->unk3D4[tiles->unkC]);
     } else if (rowCount < tiles->unkC) {
-        __fastMemoryClearARM(
-            0, &rider->unk3D4[rowCount], (tiles->unkC - rowCount) * sizeof(RiderTileRow));
+        __fastMemoryClearARM(0, &rider->unk3D4[rowCount], (tiles->unkC - rowCount) * sizeof(RiderTileRow));
     }
     tiles->unk0 = x;
     tiles->unk4 = y;

@@ -5,8 +5,7 @@
 #include "memory.h"
 #include "trail.h"
 
-void newProjectileSystem(
-    ProjectileSystem* arg0, s32 arg1, const SpriteSheet* arg2, unk32 arg3, void* arg4)
+void newProjectileSystem(ProjectileSystem* arg0, s32 arg1, const SpriteSheet* arg2, unk32 arg3, void* arg4)
 {
     AllocatedBlock* block;
     ProjectileEntry* entry;
@@ -149,8 +148,7 @@ void sub_804C35C(ProjectileSystem* system, s32 x, s32 y, unk32 z)
     }
 }
 
-void sub_804C3D4(ProjectileSystem* system, unk32 xOffset, unk32 yOffset, unk32 zOffset,
-    const ProjectileTemplate* source)
+void sub_804C3D4(ProjectileSystem* system, unk32 xOffset, unk32 yOffset, unk32 zOffset, const ProjectileTemplate* source)
 {
     ProjectileEntry* entry;
     s32 count;

@@ -18,37 +18,23 @@
 #include "tutorial.h"
 #include "unsorted.h"
 
-typedef void (*EventHandler)(
-    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
+typedef void (*EventHandler)(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
 
 void nullsub_42(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
-void processMetadata_1(
-    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
-void processMetadata_2(
-    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
-void processMetadata_3(
-    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
-void processMetadata_4(
-    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
-void processMetadata_5(
-    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
-void processMetadata_default(
-    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
-void processMetadata_8(
-    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
-void processMetadata_9(
-    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
-void processMetadata_A(
-    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
-void processMetadata_C(
-    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
-void processMetadata_D(
-    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
-void processMetadata_E(
-    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
+void processMetadata_1(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
+void processMetadata_2(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
+void processMetadata_3(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
+void processMetadata_4(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
+void processMetadata_5(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
+void processMetadata_default(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
+void processMetadata_8(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
+void processMetadata_9(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
+void processMetadata_A(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
+void processMetadata_C(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
+void processMetadata_D(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
+void processMetadata_E(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
 void nullsub_14(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
-void processMetadata_10(
-    LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
+void processMetadata_10(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
 void nullsub_15(LevelGeometryAddresses*, GeometryLine*, unk32, LineMetadata*, LineMetaObject*);
 
 EventHandler _8078990[] = {
@@ -114,8 +100,7 @@ void initEventListeners(unk32 levelId)
         if (lineMetadata != NULL && getLineMetaObjectBytype(&geometry, lineMetadata, 7) != NULL) {
             listenerIds[listenerCount++] = i;
             if (listenerCount > maxListeners) {
-                printf("Error creating list of event listeners, local array size of %i too small\n",
-                    maxListeners);
+                printf("Error creating list of event listeners, local array size of %i too small\n", maxListeners);
             }
         }
     }
@@ -145,8 +130,7 @@ void deallocEventListeners(void)
     _gameData->unkCA8 = 0;
 }
 
-void processMetadata_6(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void processMetadata_6(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
     unk16 id;
 
@@ -211,20 +195,17 @@ void handleEventListeners(LevelGeometryAddresses* geometry, unk16 eventId)
     } while (count-- != 0);
 }
 
-void processMetadata_default(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void processMetadata_default(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
     GetStruct4(lineIndex);
     printf("instruction %i\n", lineIndex);
 }
 
-void nullsub_42(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void nullsub_42(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
 }
 
-void processMetadata_1(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void processMetadata_1(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
     EnvironmentObject* target;
     RiderBase* rider;
@@ -242,8 +223,7 @@ void processMetadata_1(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
             sub_804ABFC(0xC);
             break;
         case ID_TUTORIAL_TRIGGER:
-            if (RiderHasFlag(rider, 0x4000000) == 0 && sub_8051780(4) == 0
-                && _gameData->unk161B == 0) {
+            if (RiderHasFlag(rider, 0x4000000) == 0 && sub_8051780(4) == 0 && _gameData->unk161B == 0) {
                 turorial_804A488(lineIndex);
             }
             break;
@@ -251,8 +231,7 @@ void processMetadata_1(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-void processMetadata_2(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void processMetadata_2(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
     Actor* actor;
     unk32 saved;
@@ -264,8 +243,7 @@ void processMetadata_2(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
             if (actor->unkB8 != NULL) {
                 sub_8060A94(actor->unkB8);
             }
-            actor_8057C58(actor, event->unk8.spriteSheet, actor->unk3C, actor->x >> 8,
-                actor->y >> 8, actor->z >> 8, actor->unk70);
+            actor_8057C58(actor, event->unk8.spriteSheet, actor->unk3C, actor->x >> 8, actor->y >> 8, actor->z >> 8, actor->unk70);
             actor->unkB0 = convert3DCoordsto2DCoords;
             actor->unk68 = 0;
             actor->unkBC = 0x10;
@@ -274,8 +252,7 @@ void processMetadata_2(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-void processMetadata_3(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void processMetadata_3(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
     EnvironmentObject* target;
 
@@ -293,8 +270,7 @@ void processMetadata_3(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-void processMetadata_4(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void processMetadata_4(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
     RiderBase* rider;
     Actor* actor;
@@ -336,8 +312,7 @@ void processMetadata_4(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-void processMetadata_5(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void processMetadata_5(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
     GeometrySpline* found;
     GeometryPoint* point;
@@ -360,8 +335,7 @@ void processMetadata_5(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
             }
         }
         if (found == NULL) {
-            printf(
-                "Error; unable to attach actor to Spline: Spline with matching name not found\n");
+            printf("Error; unable to attach actor to Spline: Spline with matching name not found\n");
         } else {
             pointIndex = event->unk8.transform.z;
             point = GetPointAtSplineIndex(arg0, splineIndex, pointIndex);
@@ -380,8 +354,7 @@ void processMetadata_5(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-void processMetadata_8(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void processMetadata_8(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
     Actor* actor;
 
@@ -391,8 +364,7 @@ void processMetadata_8(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-void processMetadata_9(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void processMetadata_9(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
     Actor* actor;
 
@@ -404,8 +376,7 @@ void processMetadata_9(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-void processMetadata_A(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void processMetadata_A(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
     Actor* actor;
 
@@ -416,8 +387,7 @@ void processMetadata_A(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-void processMetadata_C(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void processMetadata_C(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
     Actor* actor;
 
@@ -429,14 +399,12 @@ void processMetadata_C(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-void processMetadata_D(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void processMetadata_D(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
     arg1->unk10 = event->unk8.unk0;
 }
 
-void processMetadata_E(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void processMetadata_E(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
     Actor* actor;
 
@@ -446,13 +414,11 @@ void processMetadata_E(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 l
     }
 }
 
-void nullsub_14(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void nullsub_14(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
 }
 
-void processMetadata_10(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void processMetadata_10(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
     Actor* actor;
 
@@ -464,8 +430,7 @@ void processMetadata_10(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 
     }
 }
 
-void nullsub_15(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex,
-    LineMetadata* arg3, LineMetaObject* event)
+void nullsub_15(LevelGeometryAddresses* arg0, GeometryLine* arg1, unk32 lineIndex, LineMetadata* arg3, LineMetaObject* event)
 {
 }
 

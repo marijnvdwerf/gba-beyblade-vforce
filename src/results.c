@@ -106,8 +106,7 @@ void sub_8052B24(void)
     }
 
     language = getLanguageTextIndex();
-    sub_805AD24(&menuData, &SpriteSheet_82B05EC, ShadowFontMeta, -0xC8, 0, 0xF0, 0xA, 0xD, 0xF, 0xA,
-        0xA, sub_8052B08, NULL, language);
+    sub_805AD24(&menuData, &SpriteSheet_82B05EC, ShadowFontMeta, -0xC8, 0, 0xF0, 0xA, 0xD, 0xF, 0xA, 0xA, sub_8052B08, NULL, language);
     state = &menuData;
     if (mode == 2) {
         allocateMenuItems(state, _806E870, 0);

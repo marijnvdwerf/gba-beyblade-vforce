@@ -7,8 +7,7 @@ void fastMemoryClearARM(unk32 fill, void* destination, unk32 byteCount)
         return;
     }
     if (byteCount & 3) {
-        off_807D96C(
-            "Attempt to clear data in fastMemoryClearARM() with non-multiple of 4 length\n");
+        off_807D96C("Attempt to clear data in fastMemoryClearARM() with non-multiple of 4 length\n");
         return;
     }
     byteCount /= sizeof(unk32);
@@ -37,9 +36,7 @@ void fastMemoryCopyARM(const void* source, void* destination, unk32 bytes)
         return;
     }
     if (bytes & 3) {
-        off_807D96C(
-            "Attempt to copy data in fastMemoryCopyARM() with non-multiple of 4 length (%i)\n",
-            bytes);
+        off_807D96C("Attempt to copy data in fastMemoryCopyARM() with non-multiple of 4 length (%i)\n", bytes);
         return;
     }
     bytes /= sizeof(unk32);
@@ -68,8 +65,7 @@ void fastMemoryClear16ARM(unk32 fill, void* destination, unk32 byteCount)
         return;
     }
     if (byteCount & 1) {
-        off_807D96C(
-            "Attempt to clear data in fastMemoryClear16ARM() with non-multiple of 2 length\n");
+        off_807D96C("Attempt to clear data in fastMemoryClear16ARM() with non-multiple of 2 length\n");
         return;
     }
     __asm__ volatile("mov %0, %0, lsr #1\n"
@@ -88,8 +84,7 @@ void fastMemoryCopy16ARM(const void* source, void* destination, unk32 byteCount)
         return;
     }
     if (byteCount & 1) {
-        off_807D96C(
-            "Attempt to copy data in fastMemoryCopy16ARM() with non-multiple of 2 length\n");
+        off_807D96C("Attempt to copy data in fastMemoryCopy16ARM() with non-multiple of 2 length\n");
     } else {
         __asm__ volatile("mov %0, %0, lsr #1\n"
                          "1: ldrh r0, [%1], #2\n"

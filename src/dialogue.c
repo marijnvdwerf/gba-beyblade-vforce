@@ -42,8 +42,7 @@ void teletypeDefaultUserCodeHandler(TeletypeState* state, unk32 command)
     case 0x61:
         sideA = code == 0x61;
         head = GetTalkingHead(value);
-        sub_8055C04(effects, sideA, sideA != 0 ? head->unk20 : head->unk18,
-            sideA != 0 ? head->unk24 : head->unk1C);
+        sub_8055C04(effects, sideA, sideA != 0 ? head->unk20 : head->unk18, sideA != 0 ? head->unk24 : head->unk1C);
         if (sub_8055C18(effects, sideA) != 0) {
             sub_8055B7C(effects, sideA);
             return;
@@ -131,13 +130,11 @@ void sub_80420C4(FrontendState* state, unk32 command)
         base[3].field_7C |= 3;
         base[3].field_14 = -0xC00;
         languageStrings += getLanguageTextIndex();
-        _unk300007C
-            = sub_8063E18(*languageStrings, &FontStyle_80688B8, 0x78, 0x800, 0x6400, 0xE000, 0);
+        _unk300007C = sub_8063E18(*languageStrings, &FontStyle_80688B8, 0x78, 0x800, 0x6400, 0xE000, 0);
         sub_8063F5C(_unk300007C, teletypeDefaultUserCodeHandler);
         _unk3000EE8 = &_unk3000080;
         _unk3000EEC.unk0 = 0;
-        sub_8055914(
-            &_unk3000080, GetTalkingHead(0)->unk18, GetTalkingHead(0)->unk20, 0x1700, 0x1700);
+        sub_8055914(&_unk3000080, GetTalkingHead(0)->unk18, GetTalkingHead(0)->unk20, 0x1700, 0x1700);
         _unk30000D4 = 0;
         _unk30000D5 = 0;
         _unk30000D6 = 0;

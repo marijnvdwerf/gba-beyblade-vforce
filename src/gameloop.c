@@ -104,8 +104,7 @@ void gameLoop(void)
         if (_gameData->unk1618 != 0) {
             *(vu16*)REG_VCOUNT;
             item = &_gameData->unk15D4[1 - isMultiplayer()];
-            if (sub_806014C(&_gameData->unk15D4[0], &_gameData->unk15C4, 1) == 0
-                && sub_806008C() != 0) {
+            if (sub_806014C(&_gameData->unk15D4[0], &_gameData->unk15C4, 1) == 0 && sub_806008C() != 0) {
                 _gameData->unk1618 = vblankPending;
                 _gameData->unk1619 = 1;
                 sub_8049234(STATE_8);
@@ -188,15 +187,11 @@ void gameLoop(void)
             fadeStep = 0;
             fadeDir = 0;
         }
-        if (fadeStep == 0 && (_unk3005DA0 & 8) != 0 && RiderHasFlag(rider, 0x20000) == 0
-            && _gameData->unk1618 != 0 && sub_8060040() != 0) {
+        if (fadeStep == 0 && (_unk3005DA0 & 8) != 0 && RiderHasFlag(rider, 0x20000) == 0 && _gameData->unk1618 != 0 && sub_8060040() != 0) {
             sub_8050184(cleanup, 1);
             _gameData->unk161A = 1;
         }
-        if ((fadeStep == 0 && (_unk3005DA0 & 8) != 0 && RiderHasFlag(rider, 0x20000) == 0
-                && (_gameData->unk1618 == 0 || sub_8060040() != 0))
-            || (_gameData->unk1618 != 0 && sub_8060040() == 0 && RiderHasFlag(rider, 0x20000) == 0
-                && sub_80501C8(item, 1) != 0)) {
+        if ((fadeStep == 0 && (_unk3005DA0 & 8) != 0 && RiderHasFlag(rider, 0x20000) == 0 && (_gameData->unk1618 == 0 || sub_8060040() != 0)) || (_gameData->unk1618 != 0 && sub_8060040() == 0 && RiderHasFlag(rider, 0x20000) == 0 && sub_80501C8(item, 1) != 0)) {
             if (sub_8051780(2) == 0) {
                 transition(6, 0);
                 sub_804B5C0();
@@ -219,12 +214,10 @@ void gameLoop(void)
             if (sub_805AB58() == 0 || (~*(vu16*)REG_KEYINPUT & 9) != 0) {
                 sub_8053E18(1);
             }
-            if (sub_805AB58() != 0 && fadeStep == 0 && sub_8051780(0x20) == 0
-                && ((unk16) ~*(vu16*)REG_KEYINPUT & 0x100) != 0) {
+            if (sub_805AB58() != 0 && fadeStep == 0 && sub_8051780(0x20) == 0 && ((unk16) ~*(vu16*)REG_KEYINPUT & 0x100) != 0) {
                 sub_805295C();
             }
-            if (sub_805AB58() != 0 && fadeStep == 0 && sub_8051780(0x20) == 0
-                && ((unk16) ~*(vu16*)REG_KEYINPUT & 2) != 0) {
+            if (sub_805AB58() != 0 && fadeStep == 0 && sub_8051780(0x20) == 0 && ((unk16) ~*(vu16*)REG_KEYINPUT & 2) != 0) {
                 while (((unk16) ~*(vu16*)REG_KEYINPUT & 2) != 0) {
                     VBlankIntrWait();
                     sub_80627F0();
@@ -254,9 +247,7 @@ void gameLoop(void)
             _gameData->unkC6C = 0;
         }
         if (_gameData->unkC6C > 0) {
-            if ((RiderHasFlag(rider, 0x400) == 0 && rider->unkB8 == NULL
-                    && RiderHasFlag(rider, 2) == 0)
-                || _gameData->unk1618 != 0) {
+            if ((RiderHasFlag(rider, 0x400) == 0 && rider->unkB8 == NULL && RiderHasFlag(rider, 2) == 0) || _gameData->unk1618 != 0) {
                 SetRiderFlag(rider, 0x400);
             } else if (_gameData->unk161B != 0) {
                 SetRiderFlag(rider, 0x400);
@@ -295,8 +286,7 @@ typedef struct ActorEffectCallbacks {
 
 void sub_8052180(ActorEffectState*, Sub8052140Data*, unk32);
 
-void sub_80520F4(
-    ActorEffectState* arg0, ActorEffectCallbacks* arg1, PolyTable* arg2, Sub8052140Data* arg3)
+void sub_80520F4(ActorEffectState* arg0, ActorEffectCallbacks* arg1, PolyTable* arg2, Sub8052140Data* arg3)
 {
     arg3->unk1A = arg0->unk40;
     sub_805FA68(arg2);
@@ -433,8 +423,7 @@ void sub_80522D4(Actor* actor, CameraState* camera)
     } else {
         delta[1] = actorPosition[1] - (state->records[0].field_44 + offset[1]);
     }
-    if (_gameData->unkB53 != 0 && (unk32)(delta[0] + 0x1FF) <= 0x3FE && delta[1] <= 0x1FF
-        && delta[1] > -0x200) {
+    if (_gameData->unkB53 != 0 && (unk32)(delta[0] + 0x1FF) <= 0x3FE && delta[1] <= 0x1FF && delta[1] > -0x200) {
         _gameData->unkB53 = 0;
         camera->unk224 = NULL;
     }
@@ -479,10 +468,8 @@ void sub_80522D4(Actor* actor, CameraState* camera)
             scale = camera->unk220->layers[i].unk14;
             record = &camera->records[i];
             if (record != &state->records[0]) {
-                record->field_14
-                    = state->records[0].field_14 + (state->records[0].field_14 * scale >> 5);
-                record->field_18
-                    = state->records[0].field_18 + (state->records[0].field_18 * scale >> 5);
+                record->field_14 = state->records[0].field_14 + (state->records[0].field_14 * scale >> 5);
+                record->field_18 = state->records[0].field_18 + (state->records[0].field_18 * scale >> 5);
             }
         }
     }
@@ -507,8 +494,7 @@ void sub_805253C(void)
     __fastMemoryClearARM(0, (void*)(VRAM + 0x12000), 0x800);
 }
 
-void sub_8052588(
-    Sub8052140Data* arg0, SpriteEntry* sprite, BGLayer* layer, RiderBase* rider, s32 rows)
+void sub_8052588(Sub8052140Data* arg0, SpriteEntry* sprite, BGLayer* layer, RiderBase* rider, s32 rows)
 {
     s32 x;
     s32 y;
@@ -544,12 +530,10 @@ void sub_8052588(
     } else {
         if (rows > tileState->unkC) {
             newRows = rows - tileState->unkC;
-            sub_805EF18(&_gameData->unk434, x, tileState->unkC + y, 8, newRows, index - 1,
-                (RiderTile*)(VRAM + 0x12000 + (tileState->unkC << 8)));
+            sub_805EF18(&_gameData->unk434, x, tileState->unkC + y, 8, newRows, index - 1, (RiderTile*)(VRAM + 0x12000 + (tileState->unkC << 8)));
             tileState->unkC = rows;
         } else if (rows < tileState->unkC) {
-            __fastMemoryClearARM(
-                0, (void*)(VRAM + 0x12000 + (rows << 8)), (tileState->unkC - rows) << 8);
+            __fastMemoryClearARM(0, (void*)(VRAM + 0x12000 + (rows << 8)), (tileState->unkC - rows) << 8);
         }
     }
 }
@@ -628,8 +612,7 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
             lineSprite = object->sprite;
         }
         overlap = 0;
-        if (x >= sprite->x && left < sprite->x + 0x2000 && y >= sprite->y
-            && top < sprite->y + 0x2000) {
+        if (x >= sprite->x && left < sprite->x + 0x2000 && y >= sprite->y && top < sprite->y + 0x2000) {
             overlap = 1;
         }
         found = overlap;
@@ -639,8 +622,7 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
             otherX = lineSprite->x + (sub_80610EC(lineSprite) << 8);
             otherY = lineSprite->y + (sub_8061110(lineSprite) << 8);
             otherFound = 0;
-            if (otherX >= sprite->x && otherLeft < sprite->x + 0x2000 && otherY >= sprite->y
-                && otherTop < sprite->y + 0x2000) {
+            if (otherX >= sprite->x && otherLeft < sprite->x + 0x2000 && otherY >= sprite->y && otherTop < sprite->y + 0x2000) {
                 otherFound = 1;
             }
             found = otherFound;
@@ -651,8 +633,7 @@ void sub_80526C8(GameData* gameData, SpriteEntry* sprite, Actor* targetActor)
                 sprite->oam_attr_2 |= currentSprite->oam_attr_2 & 0x0C00;
                 targetActor->unk3C = current->unk3C;
             }
-            if ((mainActor->x > minX && mainActor->y > minY)
-                || (mainActor->z >> 8) + 4 >= (minZ >> 8)) {
+            if ((mainActor->x > minX && mainActor->y > minY) || (mainActor->z >> 8) + 4 >= (minZ >> 8)) {
                 if (frame >= currentSprite->var22) {
                     frame = currentSprite->var22 - 3;
                 }

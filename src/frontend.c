@@ -2551,8 +2551,7 @@ void sub_8049458(void)
         sub_80493C8();
         sub_80490CC(1, _unk3000BFC);
         __oam_8756CC0();
-        if (_unk3000650.unk0 != _unk3000650.unk4
-            && _unk3000650.transition.value == _unk3000650.transition.unk586) {
+        if (_unk3000650.unk0 != _unk3000650.unk4 && _unk3000650.transition.value == _unk3000650.transition.unk586) {
             count = 0;
             sub_804967C();
         }
@@ -2680,8 +2679,7 @@ void sub_804967C(void)
             cursor = object->unk18;
             index = object->unk14;
             while (--index != -1) {
-                allocFont(destination, cursor->unk8->unk0, cursor->unk8->unk4, cursor->unk0,
-                    cursor->unk2, cursor->unk20, cursor->unk8->unk8);
+                allocFont(destination, cursor->unk8->unk0, cursor->unk8->unk4, cursor->unk0, cursor->unk2, cursor->unk20, cursor->unk8->unk8);
                 sub_8061660(destination, cursor->unkC[getLanguageTextIndex()], cursor->unk8->unkA);
                 cursor++;
                 destination++;
@@ -2690,17 +2688,12 @@ void sub_804967C(void)
     }
     if (object->unk10 != NULL) {
         motionData = object->unk10->unk24;
-        allocFont(&_unk3000650.unk428, object->unk10->unk8->unk0, object->unk10->unk8->unk4,
-            object->unk10->unk0, object->unk10->unk2, object->unk10->unk20,
-            object->unk10->unk8->unk8);
-        sub_8061660(&_unk3000650.unk428, object->unk10->unkC[getLanguageTextIndex()],
-            object->unk10->unk8->unkA);
+        allocFont(&_unk3000650.unk428, object->unk10->unk8->unk0, object->unk10->unk8->unk4, object->unk10->unk0, object->unk10->unk2, object->unk10->unk20, object->unk10->unk8->unk8);
+        sub_8061660(&_unk3000650.unk428, object->unk10->unkC[getLanguageTextIndex()], object->unk10->unk8->unkA);
         if (object->unk10->unk24 != NULL) {
             newMotionGroup(&_unk3000650.motion, &_unk3000650.unk428.unk14, motionData->unk24);
-            sub_80504E4(&_unk3000650.motion, motionData->unk0, motionData->unk4, motionData->unk8,
-                motionData->unkC);
-            sub_805052C(&_unk3000650.motion, motionData->unk10, motionData->unk14,
-                motionData->unk18, motionData->unk1C);
+            sub_80504E4(&_unk3000650.motion, motionData->unk0, motionData->unk4, motionData->unk8, motionData->unkC);
+            sub_805052C(&_unk3000650.motion, motionData->unk10, motionData->unk14, motionData->unk18, motionData->unk1C);
             sub_8050578(&_unk3000650.motion, motionData->unk20, motionData->unk26);
         }
     }

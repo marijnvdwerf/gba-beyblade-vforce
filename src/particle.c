@@ -10,8 +10,7 @@
 s16 word_8074D64[] = { 4, 1, -2, 6, 5, -10, 0xD, 7, 0, -15, 0xE, 9, 3, 1, -8, -3, 7, -9, -10, 0xB,
     -4, 9, 0xE, 3, -10, 0xD, 0xB, -4, 7, -9, 7, -6, 9, 0xE };
 
-void allocateParticleSystem(
-    ParticleSystem* arg0, s32 arg1, const SpriteSheet* arg2, BGLayer* arg3, unk32 arg4)
+void allocateParticleSystem(ParticleSystem* arg0, s32 arg1, const SpriteSheet* arg2, BGLayer* arg3, unk32 arg4)
 {
     AllocatedBlock* block;
     Particle* particle;
@@ -147,8 +146,7 @@ void sub_804E594(ParticleSystem* system, s16 arg1, s16 arg2, unk16 arg3, unk16 a
 }
 
 // TODO: fakematch?
-void sub_804E6A4(ParticleSystem* system, s16 scale, s16 velocity, unk16 lifetime, unk16 timer,
-    s16 sequence, s16 frameValue)
+void sub_804E6A4(ParticleSystem* system, s16 scale, s16 velocity, unk16 lifetime, unk16 timer, s16 sequence, s16 frameValue)
 {
     Particle* particle;
     SpriteEntry* sprite;
@@ -194,8 +192,7 @@ void sub_804E6A4(ParticleSystem* system, s16 scale, s16 velocity, unk16 lifetime
     }
 }
 
-void sub_804E7D4(ParticleSystem* system, unk32 offsetX, unk32 offsetY, unk32 offsetZ, s16 scale,
-    s16 velocity, unk16 lifetime, unk16 timer, s16 sequence)
+void sub_804E7D4(ParticleSystem* system, unk32 offsetX, unk32 offsetY, unk32 offsetZ, s16 scale, s16 velocity, unk16 lifetime, unk16 timer, s16 sequence)
 {
     Particle* particle;
     SpriteEntry* sprite;
@@ -230,8 +227,7 @@ void sub_804E7D4(ParticleSystem* system, unk32 offsetX, unk32 offsetY, unk32 off
     }
 }
 
-void sub_804E910(ParticleSystem* system, s16 scale, unk16 velocity, unk16 spread, unk16 lifetime,
-    unk16 timer, s16 sequence)
+void sub_804E910(ParticleSystem* system, s16 scale, unk16 velocity, unk16 spread, unk16 lifetime, unk16 timer, s16 sequence)
 {
     s32 count;
     Particle* particle;
@@ -331,8 +327,7 @@ void sub_804EA88(ParticleSystem* arg0)
                     screenY -= aux->field_44 & 0xFFFFFF00;
                 }
                 particle->unk1A--;
-                if (screenX > -0x400 && screenX <= 0xF3FF && screenY > -0x400 && screenY <= 0xA3FF
-                    && particle->unk1A != 0) {
+                if (screenX > -0x400 && screenX <= 0xF3FF && screenY > -0x400 && screenY <= 0xA3FF && particle->unk1A != 0) {
                     sprite->x = screenX - 0x400;
                     sprite->y = screenY - 0x400;
                 } else {

@@ -95,8 +95,7 @@ void sub_805F378(AnimFrameState*, s16);
 void sub_805F3A8(AnimFrameState*, s16);
 void sub_805F47C(AnimFrameState*);
 
-void sub_805F0B4(AnimFrameState* state, AnimFrameData* data, AnimFrameData* sharedData, unk32 arg3,
-    unk8 useSlowHeap)
+void sub_805F0B4(AnimFrameState* state, AnimFrameData* data, AnimFrameData* sharedData, unk32 arg3, unk8 useSlowHeap)
 {
     state->unk0 = data;
     state->unk4 = (unk8*)data + data->unk8;
@@ -134,8 +133,7 @@ void sub_805F0B4(AnimFrameState* state, AnimFrameData* data, AnimFrameData* shar
         }
     }
     if (state->unkC == NULL) {
-        printf("Error allocating memory for transformed vertex buffer; requires %i\n",
-            state->unk0->unk4 << 5);
+        printf("Error allocating memory for transformed vertex buffer; requires %i\n", state->unk0->unk4 << 5);
         state->unk10 = NULL;
     } else {
         state->unk10 = state->unkC->address;
@@ -211,8 +209,7 @@ void sub_805F258(AnimFrameState* arg0, unk16 arg1, unk16 arg2)
 
 typedef struct AnimFrameDrawInput AnimFrameDrawInput;
 
-typedef void (*AnimFrameDrawCallback)(
-    AnimFrameState*, unk32, unk32, AnimFrameDrawInput*, unk32, unk32, unk32, unk32);
+typedef void (*AnimFrameDrawCallback)(AnimFrameState*, unk32, unk32, AnimFrameDrawInput*, unk32, unk32, unk32, unk32);
 
 typedef struct AnimFrameDrawer {
     unk8 pad0[0x30];
@@ -224,16 +221,14 @@ struct AnimFrameDrawInput {
     s16 unk30;
 };
 
-void sub_805F27C(AnimFrameState* state, AnimFrameDrawer* drawer, unk32 arg2, unk32 arg3,
-    AnimFrameDrawInput* input)
+void sub_805F27C(AnimFrameState* state, AnimFrameDrawer* drawer, unk32 arg2, unk32 arg3, AnimFrameDrawInput* input)
 {
     s16 offset;
     s16 block;
     unk32 rows;
 
     if ((state->unk52 & 2) == 0) {
-        drawer->callback(
-            state, arg2, arg3, input, state->unk60, 0, 0x40, OBJ_MODE0_VRAM + (state->unk4E << 5));
+        drawer->callback(state, arg2, arg3, input, state->unk60, 0, 0x40, OBJ_MODE0_VRAM + (state->unk4E << 5));
         return;
     }
 
@@ -253,11 +248,9 @@ void sub_805F27C(AnimFrameState* state, AnimFrameDrawer* drawer, unk32 arg2, unk
         offset = rows;
     }
     if (state->unk4D == 0) {
-        drawer->callback(
-            state, arg2, arg3, input, state->unk60, 0, block, OBJ_MODE0_VRAM + (state->unk4E << 5));
+        drawer->callback(state, arg2, arg3, input, state->unk60, 0, block, OBJ_MODE0_VRAM + (state->unk4E << 5));
     } else {
-        drawer->callback(state, arg2, arg3, input, state->unk60, block, offset,
-            OBJ_MODE0_VRAM + (state->unk4E << 5) + ((block >> 3) << 9));
+        drawer->callback(state, arg2, arg3, input, state->unk60, block, offset, OBJ_MODE0_VRAM + (state->unk4E << 5) + ((block >> 3) << 9));
     }
 }
 

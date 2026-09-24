@@ -45,8 +45,7 @@ unk8 GlyphIndexes[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x
     0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02, 0x03, 0x04, 0x05, 0x06, 0x07, 0x08, 0x09, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00 };
 
-void sub_8058968(
-    BGLayer* layer, u8 layerIndex, TileMapHeader* header, u16 bgPriority, u16 flags, s32 x, s32 y)
+void sub_8058968(BGLayer* layer, u8 layerIndex, TileMapHeader* header, u16 bgPriority, u16 flags, s32 x, s32 y)
 {
     Struct3000CA0* object;
     u32 width;
@@ -73,8 +72,7 @@ void sub_8058968(
     width = 1 << layer->field_5F;
     height = 1 << layer->field_60;
     if (!(flags & 2)) {
-        sub_8059310(
-            layer, object->var00, object->var04, object->var10, object->var14, width, height);
+        sub_8059310(layer, object->var00, object->var04, object->var10, object->var14, width, height);
     }
 }
 
@@ -161,8 +159,7 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
     bgLayer->field_61 = header->var14;
 
     if (bgLayer->tileBytes != 0) {
-        __fastMemoryCopyARM(bgLayer->tileAddr,
-            (void*)(0x6000000 + (bgLayer->characterBaseBlock * 0x4000)), bgLayer->tileBytes);
+        __fastMemoryCopyARM(bgLayer->tileAddr, (void*)(0x6000000 + (bgLayer->characterBaseBlock * 0x4000)), bgLayer->tileBytes);
         _unk3000DE0 += 1;
         _unk3000DE0 += tileBlocks;
     } else {
@@ -190,9 +187,7 @@ void sub_8058AA8(BGLayer* bgLayer, u8 layerIndex, TileMapHeader* header, u16 bgP
     }
 
     layerCnt = GetBGLayerCntPtr(layerIndex);
-    *layerCnt = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
-        | ((bgPriority) << BG_PRIORITY_SHIFT)
-        | ((bgLayer->characterBaseBlock) << BG_CHAR_BASE_SHIFT) | (((colorMode & 1) ^ 0x1) << 7);
+    *layerCnt = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT) | ((bgPriority) << BG_PRIORITY_SHIFT) | ((bgLayer->characterBaseBlock) << BG_CHAR_BASE_SHIFT) | (((colorMode & 1) ^ 0x1) << 7);
 }
 
 void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriority)
@@ -288,9 +283,7 @@ void unref_8058C74(BGLayer* bgLayer, u8 layerIndex, u16 tileCount, u16 bgPriorit
     __fastMemoryClearARM(0, dest, var0);
 
     layerCnt = GetBGLayerCntPtr(layerIndex);
-    *layerCnt = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT)
-        | ((bgPriority) << BG_PRIORITY_SHIFT)
-        | ((bgLayer->characterBaseBlock) << BG_CHAR_BASE_SHIFT);
+    *layerCnt = ((bgLayer->screenBaseBlock) << BG_SCREEN_BASE_SHIFT) | ((bgPriority) << BG_PRIORITY_SHIFT) | ((bgLayer->characterBaseBlock) << BG_CHAR_BASE_SHIFT);
 }
 
 void sub_8058E18(BGLayer* layer, TileMapHeader* header)
@@ -322,8 +315,7 @@ void sub_8058E18(BGLayer* layer, TileMapHeader* header)
         height = layer->rowCount;
     }
     if ((layer->var64 & 2) == 0) {
-        sub_8059310(
-            layer, object->var00, object->var04, object->var10, object->var14, width, height);
+        sub_8059310(layer, object->var00, object->var04, object->var10, object->var14, width, height);
     }
 }
 
@@ -369,15 +361,8 @@ void sub_8058F60(BGLayer* layer)
     }
     layer->field_30 += layer->field_38;
     layer->field_34 += layer->field_3C;
-    sub_8059B00(layer->layerIndex, (layer->field_28 >> 8) & 0xFF, (layer->field_30 << 8) >> 16,
-        (layer->field_34 << 8) >> 16);
-    SetBGOffset(layer->layerIndex,
-        layer->field_4C
-            - (_unk3000D00[index].unk8 * layer->field_48
-                - _unk3000D00[index].unk10 * layer->field_4A),
-        layer->field_50
-            + (_unk3000D00[index].unkC * layer->field_48
-                - _unk3000D00[index].unk14 * layer->field_4A));
+    sub_8059B00(layer->layerIndex, (layer->field_28 >> 8) & 0xFF, (layer->field_30 << 8) >> 16, (layer->field_34 << 8) >> 16);
+    SetBGOffset(layer->layerIndex, layer->field_4C - (_unk3000D00[index].unk8 * layer->field_48 - _unk3000D00[index].unk10 * layer->field_4A), layer->field_50 + (_unk3000D00[index].unkC * layer->field_48 - _unk3000D00[index].unk14 * layer->field_4A));
     factor = layer->field_24;
     if (factor != 0) {
         a = (layer->field_2C * factor) >> 8;
@@ -398,8 +383,7 @@ void sub_8058F60(BGLayer* layer)
     }
 }
 
-void allocateActorMotionModifiers(
-    BGLayer* layer, BGLayerCallback callback, unk32 value, unk32 duration, unk32 callbackValue)
+void allocateActorMotionModifiers(BGLayer* layer, BGLayerCallback callback, unk32 value, unk32 duration, unk32 callbackValue)
 {
     BGLayerCallbackData* target;
     AllocatedBlock* block;
@@ -505,8 +489,7 @@ void sub_8059188(BGLayer* layer, BGLayer* source, unk8 layerIndex, unk16 bgPrior
     } else {
         sub_80594FC(layer, 0, 0, 0, 0, 1 << layer->field_5F, 1 << layer->field_60);
     }
-    *GetBGLayerCntPtr(layerIndex)
-        = (layer->screenBaseBlock << 8) | bgPriority | (layer->characterBaseBlock << 2);
+    *GetBGLayerCntPtr(layerIndex) = (layer->screenBaseBlock << 8) | bgPriority | (layer->characterBaseBlock << 2);
 }
 
 unk32 sub_8059284(BGLayer* bgLayer, unk16 bgPriority, unk16 flags)
@@ -633,8 +616,7 @@ void sub_8059404(BGLayer* layer, unk32 x, unk32 y, unk32 srcX, unk32 srcY, s32 w
     for (row = srcY; row < srcY + height; row++) {
         rowOffset = (row & rowMask) << layer->field_5F;
         if (srcX + width > horizontalStride) {
-            DmaCopy(3, mapAddress, screenAddress + rowOffset * 2 + srcX * 2,
-                (firstBytes = (horizontalStride - srcX) * 2), 16);
+            DmaCopy(3, mapAddress, screenAddress + rowOffset * 2 + srcX * 2, (firstBytes = (horizontalStride - srcX) * 2), 16);
             secondBytes = (width - (horizontalStride - srcX)) * 2;
             DmaCopy(3, mapAddress + firstBytes, screenAddress + rowOffset * 2, secondBytes, 16);
         } else {
@@ -677,8 +659,7 @@ void sub_80594FC(BGLayer* layer, s32 x, s32 y, unk32 srcX, s32 srcY, s32 width, 
 
         rowOffset = (row & rowMask) << layer->field_5F;
         if (srcX + width > horizontalStride) {
-            DmaCopy(3, mapAddress, screenAddress + rowOffset + srcX,
-                (firstWidth = horizontalStride - srcX),
+            DmaCopy(3, mapAddress, screenAddress + rowOffset + srcX, (firstWidth = horizontalStride - srcX),
                 16); // TODO: fakematch? (separate assignment differs at +0x72)
             DmaCopy(3, mapAddress + firstWidth, screenAddress + rowOffset, width - firstWidth, 16);
         } else {
@@ -777,14 +758,12 @@ void sub_80596AC(BGLayer* bgLayer, s32 deltaX, s32 deltaY)
 
     if (xDelta != 0 && !(bgLayer->field_7C & 1)) {
         unk32 height = 0x20;
-        sub_8059310(
-            bgLayer, xStart, bgLayer->var8->var04, xOffset, bgLayer->var8->var14, xAdjust, height);
+        sub_8059310(bgLayer, xStart, bgLayer->var8->var04, xOffset, bgLayer->var8->var14, xAdjust, height);
         bgLayer->var8->var10 += xDelta;
         bgLayer->var8->var00 += xDelta;
         bgLayer->var8->var08 += xDelta;
         if (bgLayer->field_7C & 8) {
-            if (bgLayer->var8->var08 >= bgLayer->columnCount
-                && bgLayer->var8->var00 >= bgLayer->columnCount) {
+            if (bgLayer->var8->var08 >= bgLayer->columnCount && bgLayer->var8->var00 >= bgLayer->columnCount) {
                 bgLayer->var8->var00 = bgLayer->var8->var00 - bgLayer->columnCount;
                 bgLayer->var8->var08 = bgLayer->var8->var08 - bgLayer->columnCount;
                 bgLayer->var8->var10 &= (1 << *flags) - 1;
@@ -801,14 +780,12 @@ void sub_80596AC(BGLayer* bgLayer, s32 deltaX, s32 deltaY)
     }
     if (yDelta != 0 && !(bgLayer->field_7C & 2)) {
         unk32 width = 0x20;
-        sub_8059310(
-            bgLayer, bgLayer->var8->var00, yStart, bgLayer->var8->var10, yOffset, width, yAdjust);
+        sub_8059310(bgLayer, bgLayer->var8->var00, yStart, bgLayer->var8->var10, yOffset, width, yAdjust);
         bgLayer->var8->var14 += yDelta;
         bgLayer->var8->var04 += yDelta;
         bgLayer->var8->var0C += yDelta;
         if (bgLayer->field_7C & 4) {
-            if (bgLayer->var8->var0C >= bgLayer->rowCount
-                && bgLayer->var8->var04 >= bgLayer->columnCount) {
+            if (bgLayer->var8->var0C >= bgLayer->rowCount && bgLayer->var8->var04 >= bgLayer->columnCount) {
                 bgLayer->var8->var04 = bgLayer->var8->var04 - bgLayer->rowCount;
                 bgLayer->var8->var0C = bgLayer->var8->var0C - bgLayer->rowCount;
                 bgLayer->field_10 = bgLayer->field_10 - (bgLayer->rowCount << 11);
@@ -977,17 +954,13 @@ void sub_8059B00(u8 layer, u8 angle, u16 xAngle, u16 yAngle)
         transform->unk2 = xAngle;
         transform->unk4 = yAngle;
         transform->unk0 = angle;
-        _unk3000D00[index].unk8 = multiplyFixed(
-            SinTable[transform->unk0 + 0x40], ScaleReciprocalTable[transform->unk2]);
+        _unk3000D00[index].unk8 = multiplyFixed(SinTable[transform->unk0 + 0x40], ScaleReciprocalTable[transform->unk2]);
         matrixA = &_unk3000D00[index].unk8;
-        _unk3000D00[index].unkC
-            = multiplyFixed(SinTable[transform->unk0], ScaleReciprocalTable[transform->unk2]);
+        _unk3000D00[index].unkC = multiplyFixed(SinTable[transform->unk0], ScaleReciprocalTable[transform->unk2]);
         matrixB = &_unk3000D00[index].unkC;
-        _unk3000D00[index].unk10
-            = multiplyFixed(-SinTable[transform->unk0], ScaleReciprocalTable[transform->unk4]);
+        _unk3000D00[index].unk10 = multiplyFixed(-SinTable[transform->unk0], ScaleReciprocalTable[transform->unk4]);
         matrixC = &_unk3000D00[index].unk10;
-        matrixD = multiplyFixed(
-            SinTable[transform->unk0 + 0x40], ScaleReciprocalTable[transform->unk4]);
+        matrixD = multiplyFixed(SinTable[transform->unk0 + 0x40], ScaleReciprocalTable[transform->unk4]);
         _unk3000D00[index].unk14 = matrixD;
         SetLayerTransform(layer, *matrixA, *matrixB, *matrixC, matrixD);
     }

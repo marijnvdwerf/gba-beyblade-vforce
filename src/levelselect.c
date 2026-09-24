@@ -66,8 +66,7 @@ void sub_8041078(LevelSelectState* state)
     }
 }
 
-void displayFrontendLevel(
-    LevelSelectState* state, LevelDescription* description, LevelState* levelState)
+void displayFrontendLevel(LevelSelectState* state, LevelDescription* description, LevelState* levelState)
 {
     const unk8* palette;
     const SpriteSheet* spriteSheet;
@@ -105,8 +104,7 @@ void displayFrontendLevel(
     }
 }
 
-void sub_8041188(LevelSelectState* state, LevelDescription* description, LevelState* levelState,
-    unk32 levelIndex)
+void sub_8041188(LevelSelectState* state, LevelDescription* description, LevelState* levelState, unk32 levelIndex)
 {
     unk32 language;
     LevelState* laterLevelState;
@@ -139,8 +137,7 @@ void sub_8041188(LevelSelectState* state, LevelDescription* description, LevelSt
     }
 }
 
-void sub_8041288(
-    LevelSelectState* state, LevelDescription* description, LevelState* levelState, s8 levelIndex)
+void sub_8041288(LevelSelectState* state, LevelDescription* description, LevelState* levelState, s8 levelIndex)
 {
     unk32 language;
 
@@ -333,14 +330,11 @@ void sub_80413FC(FrontendState* state, unk32 arg1)
                 sub_8041078(&_3000038);
                 sub_8041324(1);
 
-                displayFrontendLevel(&_3000038, getLevelDescription(_unk3000074[_3000038.index]),
-                    sub_8051720(_unk3000074[_3000038.index]));
+                displayFrontendLevel(&_3000038, getLevelDescription(_unk3000074[_3000038.index]), sub_8051720(_unk3000074[_3000038.index]));
 
-                sub_8041288(&_3000038, getLevelDescription(_unk3000074[_3000038.index]),
-                    sub_8051720(_unk3000074[_3000038.index]), _unk3000074[_3000038.index]);
+                sub_8041288(&_3000038, getLevelDescription(_unk3000074[_3000038.index]), sub_8051720(_unk3000074[_3000038.index]), _unk3000074[_3000038.index]);
 
-                sub_8041188(&_3000038, getLevelDescription(_unk3000074[_3000038.index]),
-                    sub_8051720(_unk3000074[_3000038.index]), _unk3000074[_3000038.index]);
+                sub_8041188(&_3000038, getLevelDescription(_unk3000074[_3000038.index]), sub_8051720(_unk3000074[_3000038.index]), _unk3000074[_3000038.index]);
 
                 _unk3000059 = 1;
             }
@@ -354,11 +348,9 @@ void sub_80413FC(FrontendState* state, unk32 arg1)
         }
 
         if (_unk3000059 != 0 && _unk3000058 != 0) {
-            displayFrontendLevel(&_3000038, getLevelDescription(_unk3000074[_3000038.index]),
-                sub_8051720(_unk3000074[_3000038.index]));
+            displayFrontendLevel(&_3000038, getLevelDescription(_unk3000074[_3000038.index]), sub_8051720(_unk3000074[_3000038.index]));
 
-            sub_8041188(&_3000038, getLevelDescription(_unk3000074[_3000038.index]),
-                sub_8051720(_unk3000074[_3000038.index]), _unk3000074[_3000038.index]);
+            sub_8041188(&_3000038, getLevelDescription(_unk3000074[_3000038.index]), sub_8051720(_unk3000074[_3000038.index]), _unk3000074[_3000038.index]);
 
             _unk3000058 = 0;
         }
@@ -374,13 +366,11 @@ void sub_80413FC(FrontendState* state, unk32 arg1)
         }
 
         if (_unk300005C != NULL) {
-            _unk300005C->x += ((_unk3000064 - _unk300005C->x) >> 2)
-                + SinTable[(sub_8057C40() & 0x1FE) / 2] - _300002C;
+            _unk300005C->x += ((_unk3000064 - _unk300005C->x) >> 2) + SinTable[(sub_8057C40() & 0x1FE) / 2] - _300002C;
         }
 
         if (_unk3000060 != NULL) {
-            _unk3000060->x += ((_unk3000068 - _unk3000060->x) >> 2)
-                - SinTable[(sub_8057C40() & 0x1FE) / 2] + _300002C;
+            _unk3000060->x += ((_unk3000068 - _unk3000060->x) >> 2) - SinTable[(sub_8057C40() & 0x1FE) / 2] + _300002C;
         }
 
         scrollDelta = (_300002C - _3000030) >> 2;
@@ -391,36 +381,31 @@ void sub_80413FC(FrontendState* state, unk32 arg1)
     case 2: {
         KeyState* ks;
 
-        if ((0x30 & _keyInput) != 0 && _unk300005A == 0
-            && (!sub_8060070() || (sub_805FFE4() && sub_8060070() && sub_8060040()))) {
+        if ((0x30 & _keyInput) != 0 && _unk300005A == 0 && (!sub_8060070() || (sub_805FFE4() && sub_8060070() && sub_8060040()))) {
             if ((0x20 & _keyInput) != 0) {
                 ks = sub_805A914(5);
-                if ((0x20 & _unk3005DA0) != 0
-                    || (ks->var08 > 0xF0 && !((sub_8057C40() >> 4) & 7))) {
+                if ((0x20 & _unk3005DA0) != 0 || (ks->var08 > 0xF0 && !((sub_8057C40() >> 4) & 7))) {
                     if (_3000038.index > 0) {
                         _3000038.index = _3000038.index - 1;
                     } else {
                         _3000038.index = _unk3000078 - 1;
                     }
                     sub_8041344(&_3000038, 0);
-                    sub_8041288(&_3000038, getLevelDescription(_unk3000074[_3000038.index]),
-                        sub_8051720(_unk3000074[_3000038.index]), _unk3000074[_3000038.index]);
+                    sub_8041288(&_3000038, getLevelDescription(_unk3000074[_3000038.index]), sub_8051720(_unk3000074[_3000038.index]), _unk3000074[_3000038.index]);
                     _unk3000070 = 0;
                     sub_804ABFC(7);
                 }
             }
             if ((0x10 & _keyInput) != 0) {
                 ks = sub_805A914(4);
-                if ((0x10 & _unk3005DA0) != 0
-                    || (ks->var08 > 0xF0 && !((sub_8057C40() >> 4) & 7))) {
+                if ((0x10 & _unk3005DA0) != 0 || (ks->var08 > 0xF0 && !((sub_8057C40() >> 4) & 7))) {
                     if (_3000038.index < (_unk3000078 - 1)) {
                         _3000038.index = _3000038.index + 1;
                     } else {
                         _3000038.index = 0;
                     }
                     sub_8041344(&_3000038, 0);
-                    sub_8041288(&_3000038, getLevelDescription(_unk3000074[_3000038.index]),
-                        sub_8051720(_unk3000074[_3000038.index]), _unk3000074[_3000038.index]);
+                    sub_8041288(&_3000038, getLevelDescription(_unk3000074[_3000038.index]), sub_8051720(_unk3000074[_3000038.index]), _unk3000074[_3000038.index]);
                     _unk3000070 = 0;
                     sub_804ABFC(7);
                 }
@@ -445,8 +430,7 @@ void sub_80413FC(FrontendState* state, unk32 arg1)
                 if (sub_8060040() == 0) {
                     if (playerData->packet.unk4[0] != _3000038.index) {
                         _3000038.index = playerData->packet.unk4[0];
-                        sub_8041288(&_3000038, getLevelDescription(_unk3000074[_3000038.index]),
-                            sub_8051720(_unk3000074[_3000038.index]), _unk3000074[_3000038.index]);
+                        sub_8041288(&_3000038, getLevelDescription(_unk3000074[_3000038.index]), sub_8051720(_unk3000074[_3000038.index]), _unk3000074[_3000038.index]);
                         _unk3000070 = 0;
                     }
                 }

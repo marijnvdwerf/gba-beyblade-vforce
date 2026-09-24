@@ -32,8 +32,7 @@ void getLevelGeometryAddresses(LevelGeometryAddresses* arg0, LevelGeometryTable*
     arg0->unk118 = 0;
 }
 
-void newCollisionDataRam(
-    LevelGeometryAddresses* addresses, LevelGeometryTable* geometry, unk16 flags)
+void newCollisionDataRam(LevelGeometryAddresses* addresses, LevelGeometryTable* geometry, unk16 flags)
 {
     unk32 pointBytes;
     unk32 lineBytes;
@@ -189,8 +188,7 @@ LineMetaObject* sub_805BAFC(LevelGeometryAddresses* arg0, LineMetadata* metadata
     return NULL;
 }
 
-LineMetaObject* getLineMetaObjectBytype(
-    LevelGeometryAddresses* arg0, LineMetadata* metadata, unk32 type)
+LineMetaObject* getLineMetaObjectBytype(LevelGeometryAddresses* arg0, LineMetadata* metadata, unk32 type)
 {
     LineMetaObject* ptr;
     s32 index;
@@ -209,8 +207,7 @@ LineMetaObject* getLineMetaObjectBytype(
     return NULL;
 }
 
-LineMetaObject* getLineMetaobjectByTypeAndId(
-    LevelGeometryAddresses* arg0, LineMetadata* metadata, unk32 type, unk32 id)
+LineMetaObject* getLineMetaobjectByTypeAndId(LevelGeometryAddresses* arg0, LineMetadata* metadata, unk32 type, unk32 id)
 {
     s32 index;
     s32 count;
@@ -237,14 +234,12 @@ LineMetaObject* getLineMetaobjectByTypeAndId(
     return NULL;
 }
 
-void initQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 arg2, unk16 arg3,
-    unk16 arg4, unk16 arg5)
+void initQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 arg2, unk16 arg3, unk16 arg4, unk16 arg5)
 {
     allocQuadTree(quadTree, geometry, arg2, arg3, arg4, arg5, 0);
 }
 
-void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 arg2, unk16 arg3,
-    unk16 nodeCount, unk16 arg5, QuadTreeLineFilter arg6)
+void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 arg2, unk16 arg3, unk16 nodeCount, unk16 arg5, QuadTreeLineFilter arg6)
 {
     AllocatedBlock* block;
     unk8* nodes;
@@ -309,8 +304,7 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
         allocationSize = arg5 << 2;
         quadTree->block28 = slowAllocate(allocationSize);
         if (quadTree->block28 == NULL) {
-            printf(
-                "Error allocating %i bytes for CollisionQuadtree dynamic areas\n", allocationSize);
+            printf("Error allocating %i bytes for CollisionQuadtree dynamic areas\n", allocationSize);
         } else {
             quadTree->unk4C = quadTree->block28->address;
             nodes = quadTree->block24->address;
@@ -325,21 +319,15 @@ void allocQuadTree(QuadTree* quadTree, LevelGeometryAddresses* geometry, unk16 a
             quadTree->unk3C = arg2;
             centerX = minX + ((maxX - minX) >> 1);
             centerY = minY + ((maxY - minY) >> 1);
-            quadTree->unk14[0] = initQuadTreeNode(
-                quadTree, quadTree->unk14[0], minX, minY, centerX, centerY, arg6);
-            quadTree->unk14[1] = initQuadTreeNode(
-                quadTree, quadTree->unk14[1], centerX, minY, maxX, centerY, arg6);
-            quadTree->unk14[2] = initQuadTreeNode(
-                quadTree, quadTree->unk14[2], minX, centerY, centerX, maxY, arg6);
-            quadTree->unk14[3] = initQuadTreeNode(
-                quadTree, quadTree->unk14[3], centerX, centerY, maxX, maxY, arg6);
+            quadTree->unk14[0] = initQuadTreeNode(quadTree, quadTree->unk14[0], minX, minY, centerX, centerY, arg6);
+            quadTree->unk14[1] = initQuadTreeNode(quadTree, quadTree->unk14[1], centerX, minY, maxX, centerY, arg6);
+            quadTree->unk14[2] = initQuadTreeNode(quadTree, quadTree->unk14[2], minX, centerY, centerX, maxY, arg6);
+            quadTree->unk14[3] = initQuadTreeNode(quadTree, quadTree->unk14[3], centerX, centerY, maxX, maxY, arg6);
             if (quadTree->unk3A >= quadTree->unk40) {
-                nullsub_10("Not enough space allocated for Quad-tree entries; required ",
-                    quadTree->unk40, ", ", quadTree->unk3A);
+                nullsub_10("Not enough space allocated for Quad-tree entries; required ", quadTree->unk40, ", ", quadTree->unk3A);
             }
             if (quadTree->unk38 >= quadTree->unk3E) {
-                nullsub_9(
-                    "Not enough space allocated for Quad-tree nodes; required ", quadTree->unk38);
+                nullsub_9("Not enough space allocated for Quad-tree nodes; required ", quadTree->unk38);
             }
             allocateDynamicBoundingAreas(quadTree, geometry);
             quadTree->unk42 = (quadTree->unk40 - quadTree->unk3A) >> 1;
@@ -414,9 +402,7 @@ void sub_805BDBC(QuadTree* quadTree, LevelGeometryAddresses* geometry)
                                 minY = point->y - 0x10;
                                 maxY = previous->y + 0x10;
                             }
-                            if (sub_805BF18(node->unk18, node->unk1C, node->unk20, node->unk24,
-                                    minX, minY, maxX, maxY)
-                                != 0) {
+                            if (sub_805BF18(node->unk18, node->unk1C, node->unk20, node->unk24, minX, minY, maxX, maxY) != 0) {
                                 output->unk0 = spline;
                                 output->unk4 = pointIndex - 1;
                                 output->unk6 = splineIndex;
@@ -513,9 +499,7 @@ void allocateDynamicBoundingAreas(QuadTree* quadTree, LevelGeometryAddresses* ge
             *output++ = index;
             count += 1;
             if (count > max) {
-                printf(
-                    "Error adding dynamic BoundingAreas to quadtree, exceeded the allocated %i\n",
-                    max);
+                printf("Error adding dynamic BoundingAreas to quadtree, exceeded the allocated %i\n", max);
                 break;
             }
             index++;
@@ -527,8 +511,7 @@ void allocateDynamicBoundingAreas(QuadTree* quadTree, LevelGeometryAddresses* ge
     quadTree->unk48 = count;
 }
 
-QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX, s32 minY, s32 maxX,
-    s32 maxY, QuadTreeLineFilter callback)
+QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX, s32 minY, s32 maxX, s32 maxY, QuadTreeLineFilter callback)
 {
     LevelGeometryAddresses* geometry;
     GeometryLine* line;
@@ -565,8 +548,7 @@ QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX,
         do {
             point0 = &points[line->point0];
             point1 = &points[line->point1];
-            if (line->unk11_3 == 0 && (callback == NULL || callback(geometry, line) != 0)
-                && line->point0 >= 0 && line->point1 >= 0) {
+            if (line->unk11_3 == 0 && (callback == NULL || callback(geometry, line) != 0) && line->point0 >= 0 && line->point1 >= 0) {
                 left = point0->x;
                 top = point0->y;
                 right = point1->x;
@@ -622,8 +604,7 @@ QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX,
             lineIndex += 1;
         } while (lineIndex < geometry->unk0->lineCount);
     }
-    if (selectedCount > quadTree->unk3C && containedCount < quadTree->unk3C && width > 0x7F
-        && height > 0x7F) {
+    if (selectedCount > quadTree->unk3C && containedCount < quadTree->unk3C && width > 0x7F && height > 0x7F) {
         s32 centerX;
         s32 centerY;
 
@@ -652,9 +633,7 @@ QuadTreeNode* initQuadTreeNode(QuadTree* quadTree, QuadTreeNode* node, s32 minX,
     node->unk10 = quadTree->unk30 + quadTree->unk3A;
     quadTree->unk3A = dynamicIndex;
     if (selectedCount > 0x20) {
-        printf(
-            "Warning: %i areas added to quadtree node; this exceeds the warning threshold (%i)\n",
-            selectedCount, 0x20);
+        printf("Warning: %i areas added to quadtree node; this exceeds the warning threshold (%i)\n", selectedCount, 0x20);
     }
     if (selectedCount == 0) {
         return NULL;
@@ -780,8 +759,7 @@ unk32 sub_805C444(LevelGeometryAddresses* geometry, Actor* actor, unk32 pointInd
     return result;
 }
 
-unk32 actor_805C48C(
-    Actor* actor, LevelGeometryAddresses* geometry, GeometryLine** output, unk16 capacity)
+unk32 actor_805C48C(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine** output, unk16 capacity)
 {
     s32 point0X;
     s32 point0Y;
@@ -1013,8 +991,7 @@ unk32 actor_805C48C(
     return count;
 }
 
-unk32 sub_805C9A4(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine** output,
-    unk16 capacity, QuadTreeNode* node)
+unk32 sub_805C9A4(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine** output, unk16 capacity, QuadTreeNode* node)
 {
     s32 point0X;
     s32 point0Y;
@@ -1246,8 +1223,7 @@ unk32 sub_805C9A4(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine**
     return count;
 }
 
-unk16 sub_805CEB8(Actor* rider, LevelGeometryAddresses* geometry, unk32* lineIndices,
-    unk16 lineCount, unk32** filtered)
+unk16 sub_805CEB8(Actor* rider, LevelGeometryAddresses* geometry, unk32* lineIndices, unk16 lineCount, unk32** filtered)
 {
     s32 point0X;
     s32 point0Y;
@@ -1558,11 +1534,9 @@ void sub_805D488(Actor* actor, LevelGeometryAddresses* geometry, s32 x0, s32 y0,
     }
 }
 
-unk8 sub_805E320(
-    LevelGeometryAddresses*, GeometrySplineIntersection*, s32, s32, s32, s32, GeometrySpline*, s32);
+unk8 sub_805E320(LevelGeometryAddresses*, GeometrySplineIntersection*, s32, s32, s32, s32, GeometrySpline*, s32);
 
-void sub_805D548(Actor* actor, LevelGeometryAddresses* geometry, QuadTreeNode* node, s32 x0, s32 y0,
-    s32 x1, s32 y1)
+void sub_805D548(Actor* actor, LevelGeometryAddresses* geometry, QuadTreeNode* node, s32 x0, s32 y0, s32 x1, s32 y1)
 {
     QuadTreeSplineEntry* entry;
     GeometrySplineIntersection result;
@@ -1575,17 +1549,14 @@ void sub_805D548(Actor* actor, LevelGeometryAddresses* geometry, QuadTreeNode* n
     if (actor->unk84 == -1) {
         for (i = 0; i < node->unk2A; i++) {
             spline = entry->unk0;
-            if (sub_805E320(
-                    geometry, &result, x0 >> 5, y0 >> 5, x1 >> 5, y1 >> 5, spline, entry->unk4)
-                == 1) {
+            if (sub_805E320(geometry, &result, x0 >> 5, y0 >> 5, x1 >> 5, y1 >> 5, spline, entry->unk4) == 1) {
                 lines = (GeometrySplineLine*)&spline->pointIndices[spline->pointCount];
                 if ((actor->unk8D & 1) == 0) {
                     sub_805C3BC(geometry, actor, i, (result.unk10 << 10) + result.unkC);
                 }
                 if (actor->callbacks.unk0 != NULL) {
                     callbacks = actor->callbacks.unk0;
-                    callbacks->unk0(
-                        actor, geometry, spline, entry->unk6, &lines[result.unk10], &result);
+                    callbacks->unk0(actor, geometry, spline, entry->unk6, &lines[result.unk10], &result);
                 }
             }
             entry++;
@@ -1722,8 +1693,7 @@ void sub_805D650(Actor* actor)
             }
             actor->unk40 = 0;
         } else {
-            delta = remaining
-                + (((velocity - Div(remaining << 8, lines[index].unkC)) * nextLine->unkC) >> 8);
+            delta = remaining + (((velocity - Div(remaining << 8, lines[index].unkC)) * nextLine->unkC) >> 8);
         }
     }
     previousPosition = actor->unk88;
@@ -1765,8 +1735,7 @@ void sub_805D650(Actor* actor)
         if (delta < 0 && newPosition - previousPosition < 0) {
             newPosition = 0x3FFFF - newPosition;
         }
-        sub_805C3BC(
-            actor->unk80, actor, connections[0].unk8, (newPosition >> 8) | (nextIndex << 10));
+        sub_805C3BC(actor->unk80, actor, connections[0].unk8, (newPosition >> 8) | (nextIndex << 10));
         transitionCallbacks = actor->callbacks.unk0;
         if (transitionCallbacks != NULL && transitionCallbacks->unkC != NULL) {
             transitionCallbacks->unkC(actor, actor->unk80, connections[0].unk8);
@@ -1848,8 +1817,7 @@ GeometryPoint* GetPointAtSplineIndex(LevelGeometryAddresses* arg0, s32 splineInd
     return NULL;
 }
 
-unk32 sub_805DBF0(LevelGeometryAddresses* geometry, SplineConnection* output,
-    GeometrySpline* target, unk16 capacity, unk32 pointIndex)
+unk32 sub_805DBF0(LevelGeometryAddresses* geometry, SplineConnection* output, GeometrySpline* target, unk16 capacity, unk32 pointIndex)
 {
     GeometrySpline* spline;
     GeometrySplineLine* lineStart;
@@ -1909,8 +1877,7 @@ unk32 sub_805DBF0(LevelGeometryAddresses* geometry, SplineConnection* output,
     return count;
 }
 
-GeometrySplineLine* GetSplineLineAtIndex(
-    LevelGeometryAddresses* arg0, s32 splineIndex, s32 lineIndex)
+GeometrySplineLine* GetSplineLineAtIndex(LevelGeometryAddresses* arg0, s32 splineIndex, s32 lineIndex)
 {
     GeometrySpline* spline;
     GeometrySplineLine* lines;
@@ -2110,8 +2077,7 @@ s32* sub_805DFD4(LevelGeometryAddresses* addresses, unk32 splineIndex, s32* resu
     return result;
 }
 
-s32* sub_805E068(
-    LevelGeometryAddresses* geometry, unk32 splineIndex, s32* result, s32 pointIndex, s32 position)
+s32* sub_805E068(LevelGeometryAddresses* geometry, unk32 splineIndex, s32* result, s32 pointIndex, s32 position)
 {
     unk32* pointIndices;
     GeometryPoint* point0;
@@ -2128,8 +2094,7 @@ s32* sub_805E068(
     return result;
 }
 
-unk8 sub_805E0D8(LevelGeometryAddresses* geometry, GeometrySpline* spline,
-    GeometrySplineIntersection* result, s32 segment, s32 x0, s32 y0, s32 x1, s32 y1)
+unk8 sub_805E0D8(LevelGeometryAddresses* geometry, GeometrySpline* spline, GeometrySplineIntersection* result, s32 segment, s32 x0, s32 y0, s32 x1, s32 y1)
 {
     unk32* pointIndices;
     GeometryPoint* point0;
@@ -2157,8 +2122,7 @@ unk8 sub_805E0D8(LevelGeometryAddresses* geometry, GeometrySpline* spline,
     if (denominator == 0) {
         return 0;
     }
-    fraction
-        = Div((((point0->y - y0) * xDelta + yDelta * x0 - point0->x * yDelta) << 10), denominator);
+    fraction = Div((((point0->y - y0) * xDelta + yDelta * x0 - point0->x * yDelta) << 10), denominator);
     intersectionX = point0->x + ((lineXDelta * fraction) >> 10);
     intersectionY = point0->y + ((lineYDelta * fraction) >> 10);
     result->unk0 = intersectionX;
@@ -2170,8 +2134,7 @@ unk8 sub_805E0D8(LevelGeometryAddresses* geometry, GeometrySpline* spline,
 
 unk32 sub_805E474(s32, s32, s32, s32, s32, s32, s32, s32);
 
-unk8 sub_805E18C(LevelGeometryAddresses* geometry, s32 splineIndex,
-    GeometrySplineIntersection* result, s32 x0, s32 y0, s32 x1, s32 y1)
+unk8 sub_805E18C(LevelGeometryAddresses* geometry, s32 splineIndex, GeometrySplineIntersection* result, s32 x0, s32 y0, s32 x1, s32 y1)
 {
     GeometrySpline* spline;
     unk32* pointIndices;
@@ -2237,8 +2200,7 @@ unk8 sub_805E18C(LevelGeometryAddresses* geometry, s32 splineIndex,
             overlap |= 2;
         }
         if (overlap == 3) {
-            intersection
-                = sub_805E474(x0, y0, x1, y1, previous->x, previous->y, current->x, current->y);
+            intersection = sub_805E474(x0, y0, x1, y1, previous->x, previous->y, current->x, current->y);
             if (intersection != 0) {
                 found = 1;
             }
@@ -2257,8 +2219,7 @@ unk8 sub_805E18C(LevelGeometryAddresses* geometry, s32 splineIndex,
     return found;
 }
 
-unk8 sub_805E320(LevelGeometryAddresses* geometry, GeometrySplineIntersection* result, s32 x0,
-    s32 y0, s32 x1, s32 y1, GeometrySpline* spline, s32 index)
+unk8 sub_805E320(LevelGeometryAddresses* geometry, GeometrySplineIntersection* result, s32 x0, s32 y0, s32 x1, s32 y1, GeometrySpline* spline, s32 index)
 {
     unk32* pointIndices;
     GeometryPoint* point0;
@@ -2357,8 +2318,7 @@ unk32 sub_805E474(s32 x0, s32 y0, s32 x1, s32 y1, s32 x2, s32 y2, s32 x3, s32 y3
     return cross0 >= 0 ? 1 : 2;
 }
 
-void sub_805E50C(ActorCollisionFunctions* arg0, ActorCollisionResponse arg1,
-    ActorCollisionOverlap arg2, ActorCollisionFilter arg3)
+void sub_805E50C(ActorCollisionFunctions* arg0, ActorCollisionResponse arg1, ActorCollisionOverlap arg2, ActorCollisionFilter arg3)
 {
     arg0->unk0 = arg1;
     arg0->unk4 = arg2;
@@ -2374,8 +2334,7 @@ unk32* sub_805E514(unk32* arg0, unk32 arg1, unk32 arg2, unk32 arg3, unk32 arg4)
     return arg0;
 }
 
-GeometryLine* sub_805E528(
-    LevelGeometryAddresses* addresses, GeometryLine* line, unk16 type, unk16 flags)
+GeometryLine* sub_805E528(LevelGeometryAddresses* addresses, GeometryLine* line, unk16 type, unk16 flags)
 {
     GeometryPoint* points;
     GeometryPoint* point0;
@@ -2445,8 +2404,7 @@ GeometryLine* sub_805E528(
     return NULL;
 }
 
-GeometryLine* sub_805E648(
-    LevelGeometryAddresses* addresses, GeometryLine* line, unk16 type, unk16 flags, unk8 sideFlag)
+GeometryLine* sub_805E648(LevelGeometryAddresses* addresses, GeometryLine* line, unk16 type, unk16 flags, unk8 sideFlag)
 {
     GeometryPoint* points;
     GeometryPoint* point0;

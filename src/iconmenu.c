@@ -58,18 +58,15 @@ void newIconMenu(FrontendMenu* menu, const FrontendMenuData* data, unk32 count)
         item->sprite = allocSprite(i == count ? 1 : 2);
         item->unk18 = 0;
         if (item->sprite != NULL) {
-            LoadSpriteSheet(item->sprite, itemData->spriteSheet, data->x - item->x + offsetX,
-                data->y - item->y + offsetY, 0, 2, 0, itemData->unk28);
+            LoadSpriteSheet(item->sprite, itemData->spriteSheet, data->x - item->x + offsetX, data->y - item->y + offsetY, 0, 2, 0, itemData->unk28);
         }
         item++;
         itemData++;
         angle += menu->step;
         i++;
     }
-    allocFont(&menu->text, data->address->unk0, data->address->unk4, data->unk14 >> 8,
-        data->unk18 >> 8, 0xF0, data->address->unk8);
-    sub_8061660(&menu->text, menu->config->items[menu->selection].labels[getLanguageTextIndex()],
-        menu->config->address->unkA);
+    allocFont(&menu->text, data->address->unk0, data->address->unk4, data->unk14 >> 8, data->unk18 >> 8, 0xF0, data->address->unk8);
+    sub_8061660(&menu->text, menu->config->items[menu->selection].labels[getLanguageTextIndex()], menu->config->address->unkA);
 }
 
 void sub_8050C18(FrontendMenu* menu)
@@ -126,8 +123,7 @@ void sub_8050C18(FrontendMenu* menu)
                     item->position = 4;
                 }
                 if ((menu->timer & 3) == 0) {
-                    sprite->frame = sprite->frame == item->data->unk2C ? item->data->unk28
-                                                                       : item->data->unk2C;
+                    sprite->frame = sprite->frame == item->data->unk2C ? item->data->unk28 : item->data->unk2C;
                 }
             } else {
                 frameOffset = 0;
@@ -188,8 +184,7 @@ void sub_8050DF8(FrontendMenu* menu, s32 index)
         selected->position = selectedData->previousPosition;
         menu->position = 0xFFFF - index * menu->step;
         menu->selection = index;
-        sub_8061660(
-            &menu->text, selectedData->labels[getLanguageTextIndex()], menu->config->address->unkA);
+        sub_8061660(&menu->text, selectedData->labels[getLanguageTextIndex()], menu->config->address->unkA);
     }
 }
 
@@ -221,8 +216,7 @@ void sub_8050E80(FrontendMenu* menu)
         next->position = nextData->previousPosition;
         menu->position = 0xFFFF - nextIndex * menu->step;
         menu->selection = nextIndex;
-        sub_8061660(
-            &menu->text, nextData->labels[getLanguageTextIndex()], menu->config->address->unkA);
+        sub_8061660(&menu->text, nextData->labels[getLanguageTextIndex()], menu->config->address->unkA);
     }
 }
 
@@ -254,8 +248,7 @@ void sub_8050F0C(FrontendMenu* menu)
         previous->position = previousData->previousPosition;
         menu->position = 0xFFFF - previousIndex * menu->step;
         menu->selection = previousIndex;
-        sub_8061660(
-            &menu->text, previousData->labels[getLanguageTextIndex()], menu->config->address->unkA);
+        sub_8061660(&menu->text, previousData->labels[getLanguageTextIndex()], menu->config->address->unkA);
     }
 }
 

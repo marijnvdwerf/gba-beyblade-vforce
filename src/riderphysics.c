@@ -100,9 +100,7 @@ void s_rider_804C4B4(RiderBase* rider, Actor* actor)
     rider->unk1BC = 0;
     rider->unk1C0 = 0;
     unused = rider->unkF4.unk0 + rider->unkF4.unk4 + rider->unkF4.unk8;
-    rider->unkF4.unkD = rider->unkF4.unkE = rider->unkF4.unkF = rider->unkF4.unk10
-        = rider->unkF4.unk12 = rider->unkF4.unk14 = rider->unkF4.unk18 = rider->unkF4.unk1C
-        = rider->unkF4.unk20 = rider->unkF4.unk24 = 0;
+    rider->unkF4.unkD = rider->unkF4.unkE = rider->unkF4.unkF = rider->unkF4.unk10 = rider->unkF4.unk12 = rider->unkF4.unk14 = rider->unkF4.unk18 = rider->unkF4.unk1C = rider->unkF4.unk20 = rider->unkF4.unk24 = 0;
     rider->unkF4.unkC_2 = rider->unkF4.unkC_1 = rider->unkF4.unkC_0 = 0;
     rider->unkF4.unk0 = rider->unkF4.unk4 = rider->unkF4.unk8 = 0;
     rider->unk1C2 = 0;
@@ -231,8 +229,7 @@ void RiderAI_804C8F0(RiderBase* rider)
         default:
             break;
         }
-    } else if ((RiderHasFlag(rider, 1) != 0 || RiderHasFlag(rider, 0x40) != 0)
-        && rider->unk20C != NULL) {
+    } else if ((RiderHasFlag(rider, 1) != 0 || RiderHasFlag(rider, 0x40) != 0) && rider->unk20C != NULL) {
         dx = ((rider->unk20C->unk0->x - rider->unk0->x) >> 2) - rider->unk40;
         dy = ((rider->unk20C->unk0->y - rider->unk0->y) >> 2) - rider->unk44;
         if (RiderHasFlag(rider, 0x40) != 0) {
@@ -421,11 +418,8 @@ void sub_804CB08(RiderBase* rider, Actor* actor)
         }
         angle = (rider->unk208 >> 2) + 0x154;
         if (rider->unk208 <= 0x8FF) {
-            rider->unk40
-                -= (((SinTable[(unk8)((rider->unk1FC * angle) >> 8)] + 0x1F) >> 6) * limit) >> 8;
-            rider->unk44
-                += (((SinTable[(unk8)((rider->unk1FC * angle) >> 8) + 0x40] + 0x1F) >> 6) * limit)
-                >> 8;
+            rider->unk40 -= (((SinTable[(unk8)((rider->unk1FC * angle) >> 8)] + 0x1F) >> 6) * limit) >> 8;
+            rider->unk44 += (((SinTable[(unk8)((rider->unk1FC * angle) >> 8) + 0x40] + 0x1F) >> 6) * limit) >> 8;
         }
     } else if (RiderHasFlag(rider, 0x4000000) == 0) {
         rider->unk52 = 5;
@@ -919,8 +913,7 @@ void sub_804DAA0(RiderBase* rider, RiderBase* other)
         rider = other;
         other = temp;
     }
-    if (RiderHasFlag(rider, 0x04000000) != 0 && RiderHasFlag(other, 0x04000000) == 0
-        && RiderHasFlag(rider, 1) == 0 && RiderHasFlag(rider, 0x40) == 0) {
+    if (RiderHasFlag(rider, 0x04000000) != 0 && RiderHasFlag(other, 0x04000000) == 0 && RiderHasFlag(rider, 1) == 0 && RiderHasFlag(rider, 0x40) == 0) {
         pos0 = rider->unk0;
         pos1 = other->unk0;
         x0 = pos0->x;

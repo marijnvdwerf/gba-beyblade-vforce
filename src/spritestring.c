@@ -66,8 +66,7 @@ unk32 sub_8064F84(const u8* str)
     return length;
 }
 
-void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthTable, Actor* actors,
-    u8 count, unk32 y, unk32 unk18)
+void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthTable, Actor* actors, u8 count, unk32 y, unk32 unk18)
 {
     unk32 scale;
 
@@ -91,8 +90,7 @@ void sub_8064F9C(SpriteString* string, const u8* text, unk32 x, const u8* widthT
     sub_8065088(string);
 }
 
-ActorBlock* SpriteString_8064FE8(SpriteString* string, const u8* arg1, unk32 arg2, u16 count,
-    void* argA, const u8* argB, unk32 argC, unk32 argD, u8 argE)
+ActorBlock* SpriteString_8064FE8(SpriteString* string, const u8* arg1, unk32 arg2, u16 count, void* argA, const u8* argB, unk32 argC, unk32 argD, u8 argE)
 {
     ActorBlock* state;
     u16 i;

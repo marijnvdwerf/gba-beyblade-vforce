@@ -33,9 +33,7 @@ void sub_8043370(FrontendState* object)
     if (data != NULL) {
         state = &object->menuState;
         language = getLanguageTextIndex();
-        sub_805AD24(state, data->unk8->unk0, data->unk8->unk4, data->unk0, data->unk2, data->unk10,
-            data->unk12, data->unk14, data->unk15, data->unk16, data->unk17, sub_8043604, 0,
-            language);
+        sub_805AD24(state, data->unk8->unk0, data->unk8->unk4, data->unk0, data->unk2, data->unk10, data->unk12, data->unk14, data->unk15, data->unk16, data->unk17, sub_8043604, 0, language);
         allocateMenuItems(state, data->unkC, 0);
         object->unk7E = 0;
         object->unk7D = 0;

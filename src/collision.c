@@ -22,13 +22,11 @@ extern unk8 def_94_8_collision_8055F2C(Actor*, LevelGeometryAddresses*, Geometry
 void sub_8055CB8(void)
 {
     withBoundingAreaCount = 0;
-    sub_805E50C(&_unk3000FC0, def_94_0_8055CFC, def_94_4_AddWithBoundingAreaMessage,
-        def_94_8_collision_8055F2C);
+    sub_805E50C(&_unk3000FC0, def_94_0_8055CFC, def_94_4_AddWithBoundingAreaMessage, def_94_8_collision_8055F2C);
     sub_805E514(_unk3000FD0, 0, 0, 0, 0);
 }
 
-unk8 def_94_0_8055CFC(
-    Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line, unk16 collisionMask)
+unk8 def_94_0_8055CFC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line, unk16 collisionMask)
 {
     RiderBase* rider;
 
@@ -46,8 +44,7 @@ unk8 def_94_0_8055CFC(
     }
 }
 
-void sub_8055D64(Actor* actor, RiderBase* rider, LevelGeometryAddresses* geometry,
-    GeometryLine* line, unk16 collisionMask, unk16 angle)
+void sub_8055D64(Actor* actor, RiderBase* rider, LevelGeometryAddresses* geometry, GeometryLine* line, unk16 collisionMask, unk16 angle)
 {
     s16 angleDelta;
     s16 direction;
@@ -122,8 +119,7 @@ void sub_8055F04(Actor* actor, RiderBase* rider, GeometryLine* line, unk16 colli
     sub_804E154(rider, 0, 0);
 }
 
-unk8 def_94_8_collision_8055F2C(
-    Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line, unk16 collisionMask)
+unk8 def_94_8_collision_8055F2C(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line, unk16 collisionMask)
 {
     CollisionResult result;
     RiderBase* rider;
@@ -256,8 +252,7 @@ void nullsub_6(Actor* actor, RiderBase* rider)
 {
 }
 
-unk8 sub_8056158(
-    Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line, unk16 collisionMask)
+unk8 sub_8056158(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line, unk16 collisionMask)
 {
     if (actor->z + actor->unk48 <= 0) {
         actor->z = 0;
@@ -265,8 +260,7 @@ unk8 sub_8056158(
     }
 }
 
-unk8 def_94_4_AddWithBoundingAreaMessage(
-    Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line)
+unk8 def_94_4_AddWithBoundingAreaMessage(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line)
 {
     if (withBoundingAreaCount > 0x1F) {
         printf("Error adding withinBoundingArea message to list\n");
@@ -377,8 +371,7 @@ unk32 sub_80561EC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* 
         }
         minDifference -= 0x1000;
         maxDifference += 0x1000;
-        if (line->unkD > rider->unk1C0 && difference >= minDifference
-            && difference < maxDifference) {
+        if (line->unkD > rider->unk1C0 && difference >= minDifference && difference < maxDifference) {
             rider->unk1C0 = line->unkD;
             SetRiderFlag(rider, 4);
         }
@@ -425,13 +418,11 @@ unk32 sub_80561EC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* 
             if (height == 0 || line->unk10 == 0) {
                 break;
             }
-            if ((actor->z < lowerZC && actor->z + actor->unk48 > lowerZC)
-                || (actor->z > upperZ && actor->z + actor->unk48 < upperZ)) {
+            if ((actor->z < lowerZC && actor->z + actor->unk48 > lowerZC) || (actor->z > upperZ && actor->z + actor->unk48 < upperZ)) {
                 lineIndex = sub_805BAC0(geometry, line);
                 if (lineIndex != -1) {
                     metadata = GetLineMetaData(geometry, lineIndex);
-                    if (metadata != NULL
-                        && getLineMetaObjectBytype(geometry, metadata, 6) != NULL) {
+                    if (metadata != NULL && getLineMetaObjectBytype(geometry, metadata, 6) != NULL) {
                         break;
                     }
                 }
@@ -492,8 +483,7 @@ unk32 sub_80561EC(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* 
     }
 }
 
-void sub_8056610(
-    LevelGeometryAddresses* geometry, GeometryLine* line, RiderBase* rider, CollisionResult* result)
+void sub_8056610(LevelGeometryAddresses* geometry, GeometryLine* line, RiderBase* rider, CollisionResult* result)
 {
     Actor* actor;
     s32 direction;
@@ -574,8 +564,7 @@ void sub_8056610(
     }
 }
 
-void sub_80567E4(
-    LevelGeometryAddresses* geometry, GeometryLine* line, Actor* actor, CollisionResult* result)
+void sub_80567E4(LevelGeometryAddresses* geometry, GeometryLine* line, Actor* actor, CollisionResult* result)
 {
     GeometryPoint* point0;
     GeometryPoint* point1;
@@ -648,8 +637,7 @@ void sub_80567E4(
     }
 }
 
-void sub_8056910(
-    LevelGeometryAddresses* geometry, GeometryLine* line, Actor* actor, CollisionResult* result)
+void sub_8056910(LevelGeometryAddresses* geometry, GeometryLine* line, Actor* actor, CollisionResult* result)
 {
     GeometryPoint* point0;
     GeometryPoint* point1;
@@ -818,8 +806,7 @@ unk8 sub_8056B54(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* l
     }
 }
 
-unk8 _return_false(
-    Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line, unk16 collisionMask)
+unk8 _return_false(Actor* actor, LevelGeometryAddresses* geometry, GeometryLine* line, unk16 collisionMask)
 {
     return 0;
 }

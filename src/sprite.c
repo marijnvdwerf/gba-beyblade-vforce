@@ -36,8 +36,6 @@ extern SpriteEntry* _spritesLeft;
 extern unk32 _spritesFree;
 extern SpriteEntry* _sprites;
 
-extern const char Str_8755A08[];
-
 s32 sub_8060790(s32);
 void freeSpriteVramLocation(s32, s32);
 
@@ -278,7 +276,7 @@ void freeSpriteVramLocation(s32 start, s32 size)
         }
         if (current->var00 > start) {
             if (freeEntry == NULL) {
-                printf(Str_8755A08);
+                printf("There are no free SpriteVramFree entries remaining on a call to freeSpriteVramLocation()\n");
                 return;
             }
             _unk3005DD8 = freeEntry->next;
@@ -312,9 +310,6 @@ void freeSpriteVramLocation(s32 start, s32 size)
         }
     }
 }
-
-const char Str_8755A08[]
-    = "There are no free SpriteVramFree entries remaining on a call to freeSpriteVramLocation()\n";
 
 void sub_80608CC(void)
 {
@@ -519,8 +514,7 @@ void sub_8060B38(SpriteRotationScaleEntry* spriteEntry)
     }
 }
 
-void LoadSpriteSheet(SpriteEntry* dst, const SpriteSheet* source, unk32 x, unk32 y, unk8 objMode,
-    unk8 priority, unk8 flip, unk16 frame)
+void LoadSpriteSheet(SpriteEntry* dst, const SpriteSheet* source, unk32 x, unk32 y, unk8 objMode, unk8 priority, unk8 flip, unk16 frame)
 {
     s8 sourceFlags;
     unk8 sourceByteC;
@@ -555,8 +549,7 @@ SpriteEntry* sub_8060C1C(SpriteTextBlock* block, unk16 size, unk16 var22)
     SpriteEntry* insertion;
 
     if (_spritesFree < size) {
-        printf("No sprites left for block, sprites left: %i, sprites requested: %i\n", _spritesFree,
-            size);
+        printf("No sprites left for block, sprites left: %i, sprites requested: %i\n", _spritesFree, size);
         return NULL;
     }
     _spritesFree -= size;
@@ -691,8 +684,7 @@ SpriteEntry* resizeSpriteBlock(SpriteTextBlock* block, u16 size, u16 var22)
     return sub_8060C1C(block, size, var22);
 }
 
-SpriteRotationScaleEntry* sub_8060E8C(
-    SpriteRotationScaleEntry* entry, u16 scaleX, u16 scaleY, u8 angle)
+SpriteRotationScaleEntry* sub_8060E8C(SpriteRotationScaleEntry* entry, u16 scaleX, u16 scaleY, u8 angle)
 {
     unk32 identity;
     s32 cosAngle;

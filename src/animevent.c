@@ -129,8 +129,7 @@ void sub_805FA8C(PolyTable* arg0, unk16 arg1, unk16 arg2)
     }
 }
 
-unk16 sub_805FAE8(PolyTable* arg0, unk32 arg1, PolyDispatchData* arg2, PolyDispatchCallbacks* arg3,
-    unk32 arg4, unk16 arg5)
+unk16 sub_805FAE8(PolyTable* arg0, unk32 arg1, PolyDispatchData* arg2, PolyDispatchCallbacks* arg3, unk32 arg4, unk16 arg5)
 {
     PolyBucket* bucket;
     PolyNode* node;
@@ -204,12 +203,10 @@ void sub_805FBE0(UnkAnimEventData* arg0, unk16 arg1, unk16 arg2, unk16 arg3, unk
         nullsub_9("Error allocating memory for edge table entries ", size + arg4 * sizeof(unk16));
     }
     if (arg0->unk18 == NULL) {
-        nullsub_9(
-            "Error allocating memory for depth table entries ", arg2 * sizeof(UnkAnimEventRow));
+        nullsub_9("Error allocating memory for depth table entries ", arg2 * sizeof(UnkAnimEventRow));
     }
     if (arg0->unk1C == NULL) {
-        nullsub_9("Error allocating memory for depth table entry list ",
-            entriesSize + (arg1 >> 5) * sizeof(unk32) + arg1 * sizeof(unk16));
+        nullsub_9("Error allocating memory for depth table entry list ", entriesSize + (arg1 >> 5) * sizeof(unk32) + arg1 * sizeof(unk16));
     }
     arg0->unk20 = arg0->unk28->address;
     arg0->unk8 = arg0->unk18->address;
@@ -301,8 +298,7 @@ void sub_805FE04(UnkAnimEventData* arg0)
     arg0->unk26 = 0;
     arg0->unk30 = 0;
     arg0->unk2E = 0;
-    DmaClear(3, -1, arg0->unk1C->address,
-        arg0->unk1C->size - ((arg0->unk6 >> 5) * 4 + arg0->unk6 * 2), 32);
+    DmaClear(3, -1, arg0->unk1C->address, arg0->unk1C->size - ((arg0->unk6 >> 5) * 4 + arg0->unk6 * 2), 32);
     DmaClear(3, 0, arg0->unk10, (arg0->unk6 >> 5) << 2, 32);
 }
 

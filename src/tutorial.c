@@ -117,8 +117,7 @@ void initTutorialManagement(u16 levelId)
             }
             line++;
             if (lineMetadata != 0) {
-                metaobject
-                    = getLineMetaobjectByTypeAndId(&geometry, lineMetadata, 1, ID_TUTORIAL_TRIGGER);
+                metaobject = getLineMetaobjectByTypeAndId(&geometry, lineMetadata, 1, ID_TUTORIAL_TRIGGER);
                 if (metaobject != NULL) {
                     entry->line = line;
                     entry->sprite = &TutorialPages[metaobject->unk8.word];
@@ -832,8 +831,7 @@ void sub_804A550(TutorialEntry* arg0)
     index = 0;
     done = 0;
     counter = 0;
-    sub_8061660(
-        &tutorial->fontData, arg0->sprite->languageStrings[0].strings[getLanguageTextIndex()], 0xF);
+    sub_8061660(&tutorial->fontData, arg0->sprite->languageStrings[0].strings[getLanguageTextIndex()], 0xF);
     if (tutorial->unk13C == NULL) {
         tutorial->unk13C = allocSprite(0);
         if (tutorial->unk13C != NULL) {
@@ -849,16 +847,14 @@ void sub_804A550(TutorialEntry* arg0)
             if (tutorial->unk138 == NULL) {
                 tutorial->unk138 = allocSprite(0);
                 if (tutorial->unk138 != NULL) {
-                    LoadSpriteSheet(
-                        tutorial->unk138, &SpriteSheet_821CB80, 0xDE00, 0x6E00, 0, 0, 0, 0);
+                    LoadSpriteSheet(tutorial->unk138, &SpriteSheet_821CB80, 0xDE00, 0x6E00, 0, 0, 0, 0);
                 }
             }
             if ((_unk3005DA0 & 1) != 0 || timer < -200) {
                 index++;
                 timer = 15;
                 if (index < arg0->sprite->languageCount[getLanguageTextIndex()]) {
-                    sub_8061660(&tutorial->fontData,
-                        arg0->sprite->languageStrings[index].strings[getLanguageTextIndex()], 0xF);
+                    sub_8061660(&tutorial->fontData, arg0->sprite->languageStrings[index].strings[getLanguageTextIndex()], 0xF);
                 } else {
                     done = 1;
                 }
@@ -913,8 +909,7 @@ unk32 unref_804A744(BackgroundAsset* arg0, unk8 arg1, unk8 arg2, FontStyle* arg3
         *dest = (i & 0x3FF) | value;
         dest++;
     }
-    __fastMemoryClearARM(
-        0, (void*)(VRAM + (arg0->renderer.layer->characterBaseBlock << 14)), 0x8000);
+    __fastMemoryClearARM(0, (void*)(VRAM + (arg0->renderer.layer->characterBaseBlock << 14)), 0x8000);
     sub_8059CC8(arg1, arg2);
     ToggleLayerVisibility(arg1, 1);
 }
@@ -926,8 +921,7 @@ void sub_804A7E8(BGLayer* arg0)
 
 void sub_804A7F8(BackgroundAsset* arg0)
 {
-    __fastMemoryClearARM(
-        0, (void*)(VRAM + (arg0->renderer.layer->characterBaseBlock << 14)), 0x8000);
+    __fastMemoryClearARM(0, (void*)(VRAM + (arg0->renderer.layer->characterBaseBlock << 14)), 0x8000);
 }
 
 void nullsub_32(void)

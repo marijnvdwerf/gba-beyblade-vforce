@@ -19,8 +19,7 @@ void sub_8058838(Actor*);
 void actor_8058638(Actor*);
 void renderActor(Actor*, unk32);
 
-void actor_8057C58(Actor* actor, const SpriteSheet* config, BGLayer* arg2, unk32 arg3, unk32 arg4,
-    unk32 arg5, unk32 arg6)
+void actor_8057C58(Actor* actor, const SpriteSheet* config, BGLayer* arg2, unk32 arg3, unk32 arg4, unk32 arg5, unk32 arg6)
 {
 
     actor->unk0 = config;
@@ -110,8 +109,7 @@ void renderActor(Actor* actor, unk32 arg1)
         x -= actor->unkA0 + actor->unkA4;
     }
     y -= actor->unkA2 + actor->unkA5;
-    if (actor->unk70 == 0 || x + ((actor->unk10 * actor->unk12) >> 8) < 0 || x > 0xEF
-        || y + ((actor->unk11 * actor->unk14) >> 8) < 0 || y > 0x9F) {
+    if (actor->unk70 == 0 || x + ((actor->unk10 * actor->unk12) >> 8) < 0 || x > 0xEF || y + ((actor->unk11 * actor->unk14) >> 8) < 0 || y > 0x9F) {
         if (actor->unkB8 != NULL) {
             sub_8060A94(actor->unkB8);
             actor->unkB8 = NULL;
@@ -139,15 +137,11 @@ void renderActor(Actor* actor, unk32 arg1)
     actor->unkB8->frame = actor->unk22;
     actor->unkB8->var16 = actor->unk30;
     actor->unkB8->unk28 = (const unk8*)actor->unk0 + actor->unk0->unk10;
-    actor->unkB8->unk10 = ((actor->unk38 & 3) << 14) | ((~actor->unk3A & 1) << 13) | 0x1000
-        | ((actor->unk39 & 3) << 10) | ((actor->unk38 & 0xC) << 28);
-    actor->unkB8->oam_attr_2 = (((actor->unk3A >> 1) & 0xF) << 12)
-        | ((actor->unk3C != NULL ? sub_8059CB4(actor->unk3C) + actor->unk3B : actor->unk3B) & 3)
-            << 10;
+    actor->unkB8->unk10 = ((actor->unk38 & 3) << 14) | ((~actor->unk3A & 1) << 13) | 0x1000 | ((actor->unk39 & 3) << 10) | ((actor->unk38 & 0xC) << 28);
+    actor->unkB8->oam_attr_2 = (((actor->unk3A >> 1) & 0xF) << 12) | ((actor->unk3C != NULL ? sub_8059CB4(actor->unk3C) + actor->unk3B : actor->unk3B) & 3) << 10;
     sub_8060F64(actor->unkB8, actor->unk12, actor->unk14, actor->unk16);
     if (actor->unkB8->unk30 != NULL) {
-        actor->unkB8->unk10 = (actor->unkB8->unk10 & 0xC1FFFFFF) | 0x100
-            | ((actor->unkB8->unk30->oamAddr & 0x3E0) << 20);
+        actor->unkB8->unk10 = (actor->unkB8->unk10 & 0xC1FFFFFF) | 0x100 | ((actor->unkB8->unk30->oamAddr & 0x3E0) << 20);
     }
 }
 
@@ -275,8 +269,7 @@ s32 sub_8058144(Actor* actor)
 {
     const ActorSequenceEntry* frameTable;
 
-    frameTable
-        = (const ActorSequenceEntry*)((const unk8*)actor->unk0 + actor->unk0->unk18 + actor->unk1C);
+    frameTable = (const ActorSequenceEntry*)((const unk8*)actor->unk0 + actor->unk0->unk18 + actor->unk1C);
     return actor->unk22 - GetSpriteSheetStructA(actor, frameTable->frames[0])->unk0;
 }
 
@@ -401,8 +394,7 @@ void sub_80582D0(Actor* actor, unk16 sequence, unk16 frame, unk16 callbackSequen
     }
 }
 
-void sub_805832C(
-    Actor* actor, unk16 sequence, unk16 frame, unk16 callbackSequence, unk16 frameSequence)
+void sub_805832C(Actor* actor, unk16 sequence, unk16 frame, unk16 callbackSequence, unk16 frameSequence)
 {
     const ActorSequenceEntry* entry;
     unk32 index;
@@ -436,8 +428,7 @@ void sub_8058390(Actor* actor, unk16 sequence, unk16 frame, unk16 callbackSequen
 
     cursor = (const unk8*)actor->unk0 + actor->unk0->unk18;
     for (index = 0; index < actor->unk28; index++) {
-        if (((const ActorSequenceEntry*)cursor)->unk0 == sequence
-            && frame < ((const ActorSequenceEntry*)cursor)->unk4) {
+        if (((const ActorSequenceEntry*)cursor)->unk0 == sequence && frame < ((const ActorSequenceEntry*)cursor)->unk4) {
             actor->unk2E = callbackSequence;
             frames = ((const ActorSequenceEntry*)cursor)->frames;
             ActorSetFrameSequence(actor, frames[frame]);
@@ -638,8 +629,7 @@ void actor_8058638(Actor* actor)
     sequence = &actor->unk0->sequences[actor->unk20];
     if ((actor->unk98 & 4) != 0) {
         frames = NULL;
-    } else if ((const unk16*)&actor->unk0->sequences[actor->unk0->unk8]
-        == (const unk16*)((const unk8*)actor->unk0 + actor->unk0->unk18)) {
+    } else if ((const unk16*)&actor->unk0->sequences[actor->unk0->unk8] == (const unk16*)((const unk8*)actor->unk0 + actor->unk0->unk18)) {
         frames = NULL;
     } else {
         frames = (const unk16*)&actor->unk0->sequences[actor->unk0->unk8];

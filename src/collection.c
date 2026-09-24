@@ -59,8 +59,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
         _unk3000118 = 0;
         _unk300011C = 0;
         for (i = 0; i < 5; i++) {
-            allocFont(&_collectionListFont[i], &SpriteSheet_82B05EC, ShadowFontMeta, 0x42,
-                i * 0xF + 0x56, 0xC8, 0);
+            allocFont(&_collectionListFont[i], &SpriteSheet_82B05EC, ShadowFontMeta, 0x42, i * 0xF + 0x56, 0xC8, 0);
             sub_80611FC(&_collectionListFont[i], 3);
             if (sub_80570D4(i) != 0) {
                 sub_8061660(&_collectionListFont[i], sub_8057048(i), 0xF);
@@ -71,8 +70,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
             _unk300012C[i] = allocSprite(0);
             if (_unk300012C[i] != NULL) {
                 frame = sub_80570D4(i) != 0 ? sub_805703C(i) << 1 : (sub_805703C(i) << 1) + 1;
-                LoadSpriteSheet(
-                    _unk300012C[i], &SpriteSheet_823C150, 0, (i << 10) + 0x5600, 0, 0, 0, frame);
+                LoadSpriteSheet(_unk300012C[i], &SpriteSheet_823C150, 0, (i << 10) + 0x5600, 0, 0, 0, frame);
             } else {
                 printf("out of sprites for icons in collectionListFrontendHandler()\n");
             }
@@ -120,9 +118,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
                     sub_8060A60(_unk3000138);
                 }
                 if (_unk3000138 != NULL) {
-                    LoadSpriteSheet(_unk3000138,
-                        getDecompressorData(&_unk3000140, sub_8057094(_unk3000114)), 0x2900, 0x800,
-                        1, 0, 0, 0);
+                    LoadSpriteSheet(_unk3000138, getDecompressorData(&_unk3000140, sub_8057094(_unk3000114)), 0x2900, 0x800, 1, 0, 0, 0);
                     _unk3000138->oam_attr_2 = (_unk3000138->oam_attr_2 & 0xFFF) | 0x3000;
                     __fastMemoryCopyARM(sub_8057068(_unk3000114), (void*)(OBJ_PLTT + 0x60), 0x20);
                     if (sub_80570D4(_unk3000114) != 0) {
@@ -143,8 +139,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
                     _unk300013C = NULL;
                 }
                 if (_unk300013C != NULL) {
-                    LoadSpriteSheet(
-                        _unk300013C, &SpriteSheet_823C2C8, 0x5800, 0x3700, 1, 0, 0, _unk3000114);
+                    LoadSpriteSheet(_unk300013C, &SpriteSheet_823C2C8, 0x5800, 0x3700, 1, 0, 0, _unk3000114);
                 }
                 _unk300011C = 0x10;
             }
@@ -199,9 +194,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
                     showNumber(&_collectionListFont[_unk300010C], _unk3000110 + 1, 0xC);
                 }
 
-                _unk300012C[_unk300010C]->frame = sub_80570D4(_unk3000110) != 0
-                    ? sub_805703C(_unk3000110) << 1
-                    : (sub_805703C(_unk3000110) << 1) + 1;
+                _unk300012C[_unk300010C]->frame = sub_80570D4(_unk3000110) != 0 ? sub_805703C(_unk3000110) << 1 : (sub_805703C(_unk3000110) << 1) + 1;
             } else {
                 _unk3000100 = 0;
                 _unk3000104 = 0;
@@ -210,16 +203,13 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
         if (_unk3000100 <= -0xF00) {
             if (_unk3000110 + 5 <= 0x6C) {
                 if (sub_80570D4(_unk3000110 + 5) != 0) {
-                    sub_8061660(
-                        &_collectionListFont[_unk300010C], sub_8057048(_unk3000110 + 5), 0xF);
+                    sub_8061660(&_collectionListFont[_unk300010C], sub_8057048(_unk3000110 + 5), 0xF);
                 } else {
                     sub_8061660(&_collectionListFont[_unk300010C], "No. ", 0xC);
                     showNumber(&_collectionListFont[_unk300010C], _unk3000110 + 6, 0xC);
                 }
 
-                _unk300012C[_unk300010C]->frame = sub_80570D4(_unk3000110 + 5) != 0
-                    ? sub_805703C(_unk3000110 + 5) << 1
-                    : (sub_805703C(_unk3000110 + 5) << 1) + 1;
+                _unk300012C[_unk300010C]->frame = sub_80570D4(_unk3000110 + 5) != 0 ? sub_805703C(_unk3000110 + 5) << 1 : (sub_805703C(_unk3000110 + 5) << 1) + 1;
                 _unk3000100 += 0xF00;
                 _unk3000110 += 1;
                 if (_unk300010C <= 3) {
@@ -237,8 +227,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
             if (slot > 4) {
                 slot -= 5;
             }
-            sub_8061844(
-                &_collectionListFont[slot], -(_unk30000FC >> 8) + 0x42, (_unk3000100 >> 8) + y);
+            sub_8061844(&_collectionListFont[slot], -(_unk30000FC >> 8) + 0x42, (_unk3000100 >> 8) + y);
 
             if (_unk300012C[slot] != NULL) {
                 _unk300012C[slot]->x = -_unk30000FC + 0x3600;
@@ -255,8 +244,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
         if (_unk3000134 != NULL) {
             s32 rowY;
             // TODO: figure out how to remove cast
-            _unk3000134->x
-                = -_unk30000FC + 0x2600 + SinTable[0x40 + (unk8)((sub_8057C40() >> 7) * 0x20)];
+            _unk3000134->x = -_unk30000FC + 0x2600 + SinTable[0x40 + (unk8)((sub_8057C40() >> 7) * 0x20)];
             rowY = _unk3000114 * 0xF00;
             _unk3000134->y = _unk3000104 + rowY + 0x5200;
         }

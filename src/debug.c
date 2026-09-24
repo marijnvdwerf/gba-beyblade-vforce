@@ -6,8 +6,7 @@
 #include "keystate.h"
 #include "unsorted.h"
 
-void assert(
-    unk8 condition, const char* message, const char* expression, const char* file, unk32 line)
+void assert(unk8 condition, const char* message, const char* expression, const char* file, unk32 line)
 {
     if (condition == 0) {
         printf("________________________________________________________\n");

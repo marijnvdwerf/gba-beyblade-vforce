@@ -550,12 +550,9 @@ typedef struct ActorSequenceEntry {
 
 struct LevelGeometryAddresses;
 struct GeometryLine;
-typedef unk8 (*ActorCollisionResponse)(
-    struct Actor*, struct LevelGeometryAddresses*, struct GeometryLine*, unk16);
-typedef unk8 (*ActorCollisionOverlap)(
-    struct Actor*, struct LevelGeometryAddresses*, struct GeometryLine*);
-typedef unk8 (*ActorCollisionFilter)(
-    struct Actor*, struct LevelGeometryAddresses*, struct GeometryLine*, unk16);
+typedef unk8 (*ActorCollisionResponse)(struct Actor*, struct LevelGeometryAddresses*, struct GeometryLine*, unk16);
+typedef unk8 (*ActorCollisionOverlap)(struct Actor*, struct LevelGeometryAddresses*, struct GeometryLine*);
+typedef unk8 (*ActorCollisionFilter)(struct Actor*, struct LevelGeometryAddresses*, struct GeometryLine*, unk16);
 
 typedef struct ActorCollisionFunctions {
     ActorCollisionResponse unk0;
@@ -1061,8 +1058,7 @@ typedef struct SplineMotionFlags {
 struct GeometrySplineIntersection;
 
 typedef struct ActorSplineCallbacks {
-    unk8 (*unk0)(Actor*, struct LevelGeometryAddresses*, GeometrySpline*, s32, GeometrySplineLine*,
-        struct GeometrySplineIntersection*);
+    unk8 (*unk0)(Actor*, struct LevelGeometryAddresses*, GeometrySpline*, s32, GeometrySplineLine*, struct GeometrySplineIntersection*);
     void (*unk4)(Actor*, struct LevelGeometryAddresses*, s32);
     unk8 (*unk8)(Actor*, struct LevelGeometryAddresses*, GeometrySpline*, s32, s32);
     void (*unkC)(Actor*, struct LevelGeometryAddresses*, unk32);

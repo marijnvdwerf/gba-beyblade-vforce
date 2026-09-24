@@ -73,8 +73,7 @@ ScreenLayout _806A828[] = {
 
 void Background_80498D8(void)
 {
-    *(vu16*)REG_BLDCNT
-        = BLD_BG1_1ST | BLD_A_BLEND_MODE | BLD_BG0_2ND | BLD_BG1_2ND | BLD_BG2_2ND | BLD_BG3_2ND;
+    *(vu16*)REG_BLDCNT = BLD_BG1_1ST | BLD_A_BLEND_MODE | BLD_BG0_2ND | BLD_BG1_2ND | BLD_BG2_2ND | BLD_BG3_2ND;
     *(vu16*)REG_BLDALPHA = (12 << 8) | (6 << 0);
 }
 
@@ -243,10 +242,8 @@ void sub_8049CE8(FrontendState* arg0, u32 arg1)
 {
     switch (arg1) {
     case 2:
-        sub_80637E4(
-            &_unk3000650.paletteA, _806A828[_unk3000650.unkB4->unk0].bgPalette, 0, 0x100, 0x10);
-        sub_80637E4(
-            &_unk3000650.paletteB, _806A828[_unk3000650.unkB4->unk0].spritePalette, 0, 0x100, 0x10);
+        sub_80637E4(&_unk3000650.paletteA, _806A828[_unk3000650.unkB4->unk0].bgPalette, 0, 0x100, 0x10);
+        sub_80637E4(&_unk3000650.paletteB, _806A828[_unk3000650.unkB4->unk0].spritePalette, 0, 0x100, 0x10);
         arg0->transition.value = 0x3E;
         arg0->transition.unk585 = 0xFE;
         arg0->transition.unk586 = 0;
@@ -256,10 +253,8 @@ void sub_8049CE8(FrontendState* arg0, u32 arg1)
         deallocate_80637CC(&_unk3000650.paletteA);
         break;
     case 4:
-        sub_8063830(
-            &_unk3000650.paletteA, BG_PLTT_PTR, arg0->transition.value >> 1, 0x1F, 0x1F, 0x1F);
-        sub_8063830(
-            &_unk3000650.paletteB, OBJ_PLTT_PTR, arg0->transition.value >> 1, 0x1F, 0x1F, 0x1F);
+        sub_8063830(&_unk3000650.paletteA, BG_PLTT_PTR, arg0->transition.value >> 1, 0x1F, 0x1F, 0x1F);
+        sub_8063830(&_unk3000650.paletteB, OBJ_PLTT_PTR, arg0->transition.value >> 1, 0x1F, 0x1F, 0x1F);
         break;
     }
 }
@@ -268,19 +263,15 @@ void sub_8049DE0(FrontendState* arg0, u32 arg1)
 {
     switch (arg1) {
     case 2:
-        sub_80637E4(
-            &_unk3000650.paletteA, _806A828[_unk3000650.unkB4->unk0].bgPalette, 0, 0x100, 0x10);
-        sub_80637E4(
-            &_unk3000650.paletteB, _806A828[_unk3000650.unkB4->unk0].spritePalette, 0, 0x100, 0x10);
+        sub_80637E4(&_unk3000650.paletteA, _806A828[_unk3000650.unkB4->unk0].bgPalette, 0, 0x100, 0x10);
+        sub_80637E4(&_unk3000650.paletteB, _806A828[_unk3000650.unkB4->unk0].spritePalette, 0, 0x100, 0x10);
         arg0->transition.value = 0x3E;
         arg0->transition.unk585 = 0xFE;
         arg0->transition.unk586 = 0;
         break;
     case 3:
-        sub_80637E4(
-            &_unk3000650.paletteA, _806A828[_unk3000650.unkB4->unk0].bgPalette, 0, 0x100, 0x10);
-        sub_80637E4(
-            &_unk3000650.paletteB, _806A828[_unk3000650.unkB4->unk0].spritePalette, 0, 0x100, 0x10);
+        sub_80637E4(&_unk3000650.paletteA, _806A828[_unk3000650.unkB4->unk0].bgPalette, 0, 0x100, 0x10);
+        sub_80637E4(&_unk3000650.paletteB, _806A828[_unk3000650.unkB4->unk0].spritePalette, 0, 0x100, 0x10);
         arg0->transition.value = 0;
         arg0->transition.unk585 = 2;
         arg0->transition.unk586 = 0x40;

@@ -183,8 +183,7 @@ void initRiders(void)
                         } else {
                             x += (SinTable[line->unk8 & 0xFF] * 0x20) >> 8;
                             y += -(SinTable[(line->unk8 & 0xFF) + 0x40] * 0x20) >> 8;
-                            printf("unable to find multiplayer starting point for rider %i\n",
-                                rider->unk3CE);
+                            printf("unable to find multiplayer starting point for rider %i\n", rider->unk3CE);
                         }
                     }
                     initRider(rider, &_gameData->unk434, x, y, z + 0x80, lineType, sub_8051820());
@@ -217,8 +216,7 @@ void initRiders(void)
                     printf("Warning, no more slots available to allocate Riders in initRiders()\n");
                     break;
                 }
-                initRider(
-                    rider, &_gameData->unk434, x, y, z, riderIndex + 1, (line->unk16 & 0xFFFF) - 1);
+                initRider(rider, &_gameData->unk434, x, y, z, riderIndex + 1, (line->unk16 & 0xFFFF) - 1);
                 processRiderMetadata(rider, &geometry, lineIndex);
                 SetRiderFlag(rider, 0x04000000);
                 riderIndex++;

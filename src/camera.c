@@ -25,8 +25,7 @@ void sub_805E878(CameraState* camera, const ScreenLayout* level, unk16 mode)
     sub_805E8D8(camera, level, mode, &offsets);
 }
 
-void sub_805E8A0(
-    CameraState* camera, const ScreenLayout* arg1, unk16 arg2, CameraLayerOffsets* arg3)
+void sub_805E8A0(CameraState* camera, const ScreenLayout* arg1, unk16 arg2, CameraLayerOffsets* arg3)
 {
     sub_805E8D8(camera, arg1, arg2, arg3);
 }
@@ -46,8 +45,7 @@ void sub_805E8B0(CameraState* camera, const ScreenLayout* level, unk16 mode, unk
     sub_805E8D8(camera, level, mode, &offsets);
 }
 
-void sub_805E8D8(
-    CameraState* camera, const ScreenLayout* level, unk16 mode, CameraLayerOffsets* offsets)
+void sub_805E8D8(CameraState* camera, const ScreenLayout* level, unk16 mode, CameraLayerOffsets* offsets)
 {
     s8 flags;
     s8 index;
@@ -79,14 +77,10 @@ void sub_805E8D8(
         y = offsets->layers[index].y;
         if (level->layers[index].unk0 != NULL) {
             flags |= 1 << index;
-            if (&camera->records[index] != first
-                && (level->layers[index].unk4 != 0 || level->layers[index].unk8 != 0)) {
-                sub_8058968(&camera->records[index], index, level->layers[index].unk0, 0x40,
-                    level->layers[index].unkC | 1, (origin->unk4 - level->layers[index].unk4) >> 8,
-                    (origin->unk8 - level->layers[index].unk8) >> 8);
+            if (&camera->records[index] != first && (level->layers[index].unk4 != 0 || level->layers[index].unk8 != 0)) {
+                sub_8058968(&camera->records[index], index, level->layers[index].unk0, 0x40, level->layers[index].unkC | 1, (origin->unk4 - level->layers[index].unk4) >> 8, (origin->unk8 - level->layers[index].unk8) >> 8);
             } else {
-                sub_8058968(&camera->records[index], index, level->layers[index].unk0, 0x40,
-                    level->layers[index].unkC | 1, x, y);
+                sub_8058968(&camera->records[index], index, level->layers[index].unk0, 0x40, level->layers[index].unkC | 1, x, y);
             }
         }
     }
@@ -161,26 +155,19 @@ void sub_805EBCC(CameraState* camera)
     state = nullsub_12(camera);
     actor = camera->unk224;
     sub_8058754(actor, actorPosition);
-    state->records[0].field_14
-        = (actorPosition[0] - (state->records[0].field_40 + ((0xA0 - (actor->unk10 >> 1)) << 8)))
-        >> 2;
-    state->records[0].field_18
-        = (actorPosition[1]
-              - (state->records[0].field_44 + ((actor->unkA2 + (0x50 - (actor->unk11 >> 1))) << 8)))
-        >> 2;
+    state->records[0].field_14 = (actorPosition[0] - (state->records[0].field_40 + ((0xA0 - (actor->unk10 >> 1)) << 8))) >> 2;
+    state->records[0].field_18 = (actorPosition[1] - (state->records[0].field_44 + ((actor->unkA2 + (0x50 - (actor->unk11 >> 1))) << 8))) >> 2;
     if (state->records[0].field_40 + state->records[0].field_14 < camera->unk35C) {
         state->records[0].field_14 = -state->records[0].field_40;
     }
     if (state->records[0].field_44 + state->records[0].field_18 < 0) {
         state->records[0].field_18 = -state->records[0].field_44;
     }
-    if (state->records[0].field_40 + state->records[0].field_14
-        > (state->records[0].columnCount << 11) - (camera->unk360 << 8)) {
+    if (state->records[0].field_40 + state->records[0].field_14 > (state->records[0].columnCount << 11) - (camera->unk360 << 8)) {
         right = state->records[0].field_40 + 0xF000;
         state->records[0].field_14 = (state->records[0].columnCount << 11) - right;
     }
-    if (state->records[0].field_44 + state->records[0].field_18
-        > (state->records[0].rowCount << 11) - 0xA000) {
+    if (state->records[0].field_44 + state->records[0].field_18 > (state->records[0].rowCount << 11) - 0xA000) {
         bottom = state->records[0].field_44 + 0xA000;
         state->records[0].field_18 = (state->records[0].rowCount << 11) - bottom;
     }
@@ -189,18 +176,15 @@ void sub_805EBCC(CameraState* camera)
             scale = camera->unk220->layers[i].unk14;
             record = &camera->records[i];
             if (record != &state->records[0]) {
-                record->field_14
-                    = state->records[0].field_14 + (state->records[0].field_14 * scale >> 5);
-                record->field_18
-                    = state->records[0].field_18 + (state->records[0].field_18 * scale >> 5);
+                record->field_14 = state->records[0].field_14 + (state->records[0].field_14 * scale >> 5);
+                record->field_18 = state->records[0].field_18 + (state->records[0].field_18 * scale >> 5);
                 if (record->field_40 + record->field_14 < camera->unk35C) {
                     record->field_14 = -record->field_40;
                 }
                 if (record->field_44 + record->field_18 < 0) {
                     record->field_18 = -record->field_44;
                 }
-                if (record->field_40 + record->field_14
-                    > (record->columnCount << 11) - (camera->unk360 << 8)) {
+                if (record->field_40 + record->field_14 > (record->columnCount << 11) - (camera->unk360 << 8)) {
                     right = record->field_40 + 0xF000;
                     record->field_14 = (record->columnCount << 11) - right;
                 }
@@ -227,24 +211,20 @@ void sub_805ED60(CameraState* camera, Actor* actor)
     state = nullsub_12(camera);
     sub_8058754(actor, actorPosition);
     camera->unk354 |= 1;
-    state->records[0].field_14
-        = actorPosition[0] - (state->records[0].field_40 + ((0xA0 - (actor->unk10 >> 1)) << 8));
+    state->records[0].field_14 = actorPosition[0] - (state->records[0].field_40 + ((0xA0 - (actor->unk10 >> 1)) << 8));
     actorY = actor->unkA2 + 0x50;
-    state->records[0].field_18
-        = actorPosition[1] - (state->records[0].field_44 + ((actorY - (actor->unk11 >> 1)) << 8));
+    state->records[0].field_18 = actorPosition[1] - (state->records[0].field_44 + ((actorY - (actor->unk11 >> 1)) << 8));
     if (state->records[0].field_40 + state->records[0].field_14 < 0) {
         state->records[0].field_14 = -state->records[0].field_40;
     }
     if (state->records[0].field_44 + state->records[0].field_18 < 0) {
         state->records[0].field_18 = -state->records[0].field_44;
     }
-    if (state->records[0].field_40 + state->records[0].field_14
-        > (state->records[0].columnCount << 11) - 0xF000) {
+    if (state->records[0].field_40 + state->records[0].field_14 > (state->records[0].columnCount << 11) - 0xF000) {
         right = state->records[0].field_40 + 0xF000;
         state->records[0].field_14 = (state->records[0].columnCount << 11) - right;
     }
-    if (state->records[0].field_44 + state->records[0].field_18
-        > (state->records[0].rowCount << 11) - 0xA000) {
+    if (state->records[0].field_44 + state->records[0].field_18 > (state->records[0].rowCount << 11) - 0xA000) {
         bottom = state->records[0].field_44 + 0xA000;
         state->records[0].field_18 = (state->records[0].rowCount << 11) - bottom;
     }
@@ -253,10 +233,8 @@ void sub_805ED60(CameraState* camera, Actor* actor)
             scale = camera->unk220->layers[i].unk14;
             record = &camera->records[i];
             if (record != &state->records[0]) {
-                record->field_14
-                    = state->records[0].field_14 + (state->records[0].field_14 * scale >> 5);
-                record->field_18
-                    = state->records[0].field_18 + (state->records[0].field_18 * scale >> 5);
+                record->field_14 = state->records[0].field_14 + (state->records[0].field_14 * scale >> 5);
+                record->field_18 = state->records[0].field_18 + (state->records[0].field_18 * scale >> 5);
             }
         }
     }
@@ -299,8 +277,7 @@ void sub_805EEFC(CameraState* camera, const unk32** arg1, const unk32** arg2)
     camera->unk368 = arg2;
 }
 
-void sub_805EF18(CameraState* camera, unk32 x, unk32 y, unk32 width, s32 count, unk32 index,
-    RiderTile* destination)
+void sub_805EF18(CameraState* camera, unk32 x, unk32 y, unk32 width, s32 count, unk32 index, RiderTile* destination)
 {
     const unk32** tableA;
     const unk32** tableB;

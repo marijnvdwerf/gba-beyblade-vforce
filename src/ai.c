@@ -46,9 +46,7 @@ void initAiManagement(void)
                        "maximum allowed index is %i\n",
                     (unk16)line->unk16, 0x20);
             } else if (management->lines[(unk16)line->unk16] != NULL) {
-                printf(
-                    "Warning: there are more than one AI target BoundingArea with the index %i\n",
-                    (unk16)line->unk16);
+                printf("Warning: there are more than one AI target BoundingArea with the index %i\n", (unk16)line->unk16);
             } else {
                 management->lines[(unk16)line->unk16] = line;
             }

@@ -352,8 +352,7 @@ void sub_80558E8(unk32 arg0)
     }
 }
 
-void sub_8055914(
-    EffectSprites* effect, const SpriteSheet* sheet0, const SpriteSheet* sheet1, unk32 y0, unk32 y1)
+void sub_8055914(EffectSprites* effect, const SpriteSheet* sheet0, const SpriteSheet* sheet1, unk32 y0, unk32 y1)
 {
     effect->unk28 = 0;
     effect->unk2A = 0;
@@ -549,8 +548,7 @@ void* getDecompressorData(DecompressorState* state, const void* source)
         data = state->block->address;
         LZ77UnCompWram(source, data);
     } else {
-        printf("Error allocating %i bytes for decompression buffer in getDecompressorData()\n",
-            state->size);
+        printf("Error allocating %i bytes for decompression buffer in getDecompressorData()\n", state->size);
     }
     state->data = data;
     return data;

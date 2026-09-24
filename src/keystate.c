@@ -146,8 +146,7 @@ void sub_805A930(UnkKeyInput* arg0, unk16* arg1)
 }
 
 // TODO: fakematch?
-void sub_805A93C(UnkKeyConfig* arg0, UnkKeySource* arg1, UnkKeyInput* arg2, unk32 arg3, unk16 arg4,
-    void (*arg5)(unk32), unk32 arg6)
+void sub_805A93C(UnkKeyConfig* arg0, UnkKeySource* arg1, UnkKeyInput* arg2, unk32 arg3, unk16 arg4, void (*arg5)(unk32), unk32 arg6)
 {
     UnkKeyInput* input;
     unk16 count;

@@ -102,8 +102,7 @@ void sub_8757FCC(void)
         *destination = serial;
         destination += _unk3005DC4->unk18 >> 1;
     }
-    *(vu16*)REG_SIOMLT_SEND
-        = _unk3005DC4->unk0 < packetHalf ? _unk3005DC4->unk3C[_unk3005DC4->unk0] : 0xFDD9;
+    *(vu16*)REG_SIOMLT_SEND = _unk3005DC4->unk0 < packetHalf ? _unk3005DC4->unk3C[_unk3005DC4->unk0] : 0xFDD9;
     if (special == 0) {
         _unk3005DC4->unk1++;
     }

@@ -283,8 +283,7 @@ void allocateSoundTables(u32 arg0, u32 arg1)
     Sound_80623A8(arg0);
 
     *(vu16*)REG_SOUNDCNT_X = SOUND_DMG_ON;
-    *(vu16*)REG_SOUNDCNT_H
-        = SOUND_A_MIX_FULL | ((SOUND_A_FIFO_RESET | SOUND_A_SO2_ON | SOUND_A_SO1_ON) << 8);
+    *(vu16*)REG_SOUNDCNT_H = SOUND_A_MIX_FULL | ((SOUND_A_FIFO_RESET | SOUND_A_SO2_ON | SOUND_A_SO1_ON) << 8);
 
     *(vu32*)REG_DMA1SAD = (uintptr_t)_soundMixer;
     *(vu32*)REG_DMA1DAD = REG_FIFO_A;
@@ -329,8 +328,7 @@ void Sound_8062694(void)
 void Sound_80626E0(void)
 {
     *(vu16*)REG_SOUNDCNT_X = SOUND_DMG_ON;
-    *(vu16*)REG_SOUNDCNT_H
-        = SOUND_A_MIX_FULL | ((SOUND_A_FIFO_RESET | SOUND_A_SO2_ON | SOUND_A_SO1_ON) << 8);
+    *(vu16*)REG_SOUNDCNT_H = SOUND_A_MIX_FULL | ((SOUND_A_FIFO_RESET | SOUND_A_SO2_ON | SOUND_A_SO1_ON) << 8);
 
     *(vu32*)REG_DMA1SAD = (uintptr_t)_soundMixer;
     *(vu32*)REG_DMA1DAD = REG_FIFO_A;
@@ -396,8 +394,7 @@ void sub_80627F0(void)
         }
         sub_8062C24();
         previousTimerPosition = _unk3000D94;
-        alignedFrameCount = (_unk3005E40.var08 + 1)
-            & -2; // TODO: fakematch? (dead value, byte-required: sub_80627F0-2026-09-15.md)
+        alignedFrameCount = (_unk3005E40.var08 + 1) & -2; // TODO: fakematch? (dead value, byte-required: sub_80627F0-2026-09-15.md)
         if (alignedFrameCount > 0x10000) {
             alignedFrameCount = 0x10000;
         }

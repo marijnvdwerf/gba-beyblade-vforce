@@ -20,8 +20,7 @@ extern unk8 sub_8061BA0(SpriteTextCleanup*, unk32, unk8);
 
 extern void sub_806123C(SpriteTextCleanup*);
 
-void allocFont(SpriteTextCleanup* arg0, const SpriteSheet* arg1, const unk8* arg2, s16 arg3,
-    s16 arg4, unk16 arg5, unk16 arg6)
+void allocFont(SpriteTextCleanup* arg0, const SpriteSheet* arg1, const unk8* arg2, s16 arg3, s16 arg4, unk16 arg5, unk16 arg6)
 {
     arg0->x = arg3 << 8;
     arg0->y = arg4 << 8;
@@ -128,11 +127,7 @@ void sub_806123C(SpriteTextCleanup* text)
         if ((current->unk1E & 0x8000) != 0) {
             marked = current;
         }
-        if (((advance - offset)
-                + (text->unk29
-                    + (widths != NULL ? char_width - widths[current->frame] : char_width)))
-                > font_width
-            || count == 0) {
+        if (((advance - offset) + (text->unk29 + (widths != NULL ? char_width - widths[current->frame] : char_width))) > font_width || count == 0) {
             if (count != 0) {
                 if (marked != NULL) {
                     next_line = marked->prev;
@@ -148,14 +143,12 @@ void sub_806123C(SpriteTextCleanup* text)
                 break;
             case 1:
                 position = (next_line->unk1E & 0x7FFF) - offset;
-                position += text->unk29
-                    + (widths != NULL ? char_width - widths[next_line->frame] : char_width);
+                position += text->unk29 + (widths != NULL ? char_width - widths[next_line->frame] : char_width);
                 adjustment = -(position << 8);
                 break;
             case 2:
                 position = (next_line->unk1E & 0x7FFF) - offset;
-                position += text->unk29
-                    + (widths != NULL ? char_width - widths[next_line->frame] : char_width);
+                position += text->unk29 + (widths != NULL ? char_width - widths[next_line->frame] : char_width);
                 adjustment = -((position & ~1) << 7);
                 break;
             }
@@ -733,8 +726,7 @@ unk8* sub_8061E94(unk8* ptr, unk8 value)
     return ptr + 1;
 }
 
-unk8* sub_8061E9C(
-    unk8* out, unk32 value, unk32 radix, unk32 zeroPad, s32 width, unk32 uppercase, unk32 arg6)
+unk8* sub_8061E9C(unk8* out, unk32 value, unk32 radix, unk32 zeroPad, s32 width, unk32 uppercase, unk32 arg6)
 {
     unk8 buffer[16];
     unk8 zeroPadValue;
@@ -904,8 +896,7 @@ void sub_80622D0(SpriteTextCleanup* arg0, unk8 arg1, const unk8* arg2, ...)
 
 void sub_80622E8(UnkMenuItem* item, SpriteTextCleanup* cleanup)
 {
-    allocFont(cleanup, item->text.unk24, item->text.unk20, (item->text.x << 8) >> 16,
-        (item->text.y << 8) >> 16, item->text.unkC, item->text.unk8);
+    allocFont(cleanup, item->text.unk24, item->text.unk20, (item->text.x << 8) >> 16, (item->text.y << 8) >> 16, item->text.unkC, item->text.unk8);
 }
 
 void sub_8062318(SpriteTextCleanup* arg0, unk8 arg1)

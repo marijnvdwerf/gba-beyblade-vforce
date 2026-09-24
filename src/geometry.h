@@ -12,8 +12,7 @@ void getLevelGeometryAddresses(LevelGeometryAddresses*, LevelGeometryTable*);
 void StoreMetadataAddr(LevelGeometryAddresses*, LineMetadata**);
 void newCollisionDataRam(LevelGeometryAddresses*, LevelGeometryTable*, unk16);
 void initQuadTree(QuadTree*, LevelGeometryAddresses*, unk16, unk16, unk16, unk16);
-void allocQuadTree(
-    QuadTree*, LevelGeometryAddresses*, unk16, unk16, unk16, unk16, QuadTreeLineFilter);
+void allocQuadTree(QuadTree*, LevelGeometryAddresses*, unk16, unk16, unk16, unk16, QuadTreeLineFilter);
 void allocateDynamicBoundingAreas(QuadTree*, LevelGeometryAddresses*);
 QuadTreeNode* initQuadTreeNode(QuadTree*, QuadTreeNode*, s32, s32, s32, s32, QuadTreeLineFilter);
 QuadTreeNode* GetQuadTreeNodeForPos(QuadTree*, s32, s32);
@@ -27,8 +26,7 @@ s32 GetLineIndexOfType(LevelGeometryAddresses*, unk8, unk16);
 unk32 sub_805BAC0(LevelGeometryAddresses*, GeometryLine*);
 void sub_805BA3C(LevelGeometryAddresses*);
 void deallocateQuadTree(QuadTree*);
-void sub_805E50C(
-    ActorCollisionFunctions*, ActorCollisionResponse, ActorCollisionOverlap, ActorCollisionFilter);
+void sub_805E50C(ActorCollisionFunctions*, ActorCollisionResponse, ActorCollisionOverlap, ActorCollisionFilter);
 unk32* sub_805E514(unk32*, unk32, unk32, unk32, unk32);
 GeometrySpline* GetSplineAtIndex(LevelGeometryAddresses*, s32);
 GeometryPoint* GetPointAtIndex(LevelGeometryAddresses*, s32);

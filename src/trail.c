@@ -11,8 +11,7 @@
 #include "sprite.h"
 #include "unsorted.h"
 
-void newSpriteTrail(
-    UnkTrail* arg0, const SpriteSheet* arg1, void* arg2, s32 arg3, unk32 arg4, u8 arg5, unk32 arg6)
+void newSpriteTrail(UnkTrail* arg0, const SpriteSheet* arg1, void* arg2, s32 arg3, unk32 arg4, u8 arg5, unk32 arg6)
 {
     AllocatedBlock* allocated;
     SpriteTrailEntry* sprites;

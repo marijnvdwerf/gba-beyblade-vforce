@@ -15,8 +15,7 @@ enum { TEXT_MAP_WIDTH_TILES = 32 };
 void sub_805B280(unk16* map, Tile4bpp* tiles, const unk32* data, s32 x, unk32 y);
 const Tile4bpp* sub_805B7F0(const SpriteSheet*, unk32);
 
-void sub_805B244(
-    TilemapTextRenderer* arg0, BGLayer* arg1, const SpriteSheet* arg2, const unk8* arg3, unk32 arg4)
+void sub_805B244(TilemapTextRenderer* arg0, BGLayer* arg1, const SpriteSheet* arg2, const unk8* arg3, unk32 arg4)
 {
     arg0->font = arg2;
     arg0->layer = arg1;
@@ -108,8 +107,7 @@ void sub_805B280(unk16* map, Tile4bpp* tiles, const unk32* data, s32 x, unk32 y)
 void sub_805B394(TilemapTextRenderer* arg0)
 {
     if (arg0->layer != NULL) {
-        __fastMemoryClearARM(
-            0, (void*)(VRAM + (arg0->layer->characterBaseBlock << 14)), arg0->layer->tileBytes);
+        __fastMemoryClearARM(0, (void*)(VRAM + (arg0->layer->characterBaseBlock << 14)), arg0->layer->tileBytes);
         __fastMemoryClearARM(0, (void*)(VRAM + (arg0->layer->screenBaseBlock << 11)), 0x800);
         arg0->nextTileIndex = 1;
     }
@@ -200,9 +198,7 @@ unk32 sub_805B41C(TilemapTextRenderer* renderer, s32 x, s32 y, unk8* string, unk
     }
     allocated = renderer->nextTileIndex - firstTile;
     if (allocated != 0) {
-        __fastMemoryClearARM(0,
-            (Tile4bpp*)(VRAM + (renderer->layer->characterBaseBlock << 14)) + firstTile,
-            allocated * sizeof(Tile4bpp));
+        __fastMemoryClearARM(0, (Tile4bpp*)(VRAM + (renderer->layer->characterBaseBlock << 14)) + firstTile, allocated * sizeof(Tile4bpp));
     }
     map = (unk16*)(VRAM + (layer->screenBaseBlock << 11));
     while ((character = *string++) != 0) {

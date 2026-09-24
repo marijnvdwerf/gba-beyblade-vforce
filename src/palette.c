@@ -79,8 +79,7 @@ void sub_8063220(Palette* palette, unk32 red, unk32 green, unk32 blue)
                 red2 -= (intensity * red2) >> 0xA;
                 green2 -= (intensity * green2) >> 0xA;
                 blue2 -= (intensity * blue2) >> 0xA;
-                *destination++ = redValue | (greenValue << 5) | (blueValue << 0xA) | (red2 << 0x10)
-                    | (green2 << 0x15) | (blue2 << 0x1A);
+                *destination++ = redValue | (greenValue << 5) | (blueValue << 0xA) | (red2 << 0x10) | (green2 << 0x15) | (blue2 << 0x1A);
                 col++;
             }
             intensity = nextIntensity;
@@ -145,8 +144,7 @@ void sub_8063220(Palette* palette, unk32 red, unk32 green, unk32 blue)
             if (blue2 < 0) {
                 blue2 = 0;
             }
-            *destination++ = redValue | (greenValue << 5) | (blueValue << 0xA) | (red2 << 0x10)
-                | (green2 << 0x15) | (blue2 << 0x1A);
+            *destination++ = redValue | (greenValue << 5) | (blueValue << 0xA) | (red2 << 0x10) | (green2 << 0x15) | (blue2 << 0x1A);
             source4++;
             col++;
         }
@@ -215,8 +213,7 @@ void sub_8063454(Palette* palette, unk16* targetPalette)
     }
 }
 
-void sub_8063544(
-    Palette* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8)
+void sub_8063544(Palette* arg0, s32 arg1, s32 arg2, s32 arg3, s32 arg4, s32 arg5, s32 arg6, s32 arg7, s32 arg8)
 {
     s32 row;
     s32 step;
@@ -433,8 +430,7 @@ void sub_8063830(Palette* arg0, unk16* arg1, s32 arg2, s32 arg3, s32 arg4, s32 a
             red2 -= (red2 * factor) >> 0xA;
             green2 -= (green2 * factor) >> 0xA;
             blue2 -= (blue2 * factor) >> 0xA;
-            *destination.word++ = red | (green << 5) | (blue << 0xA) | (red2 << 0x10)
-                | (green2 << 0x15) | (blue2 << 0x1A);
+            *destination.word++ = red | (green << 5) | (blue << 0xA) | (red2 << 0x10) | (green2 << 0x15) | (blue2 << 0x1A);
             width--;
         } while (width != -1);
         return;
@@ -494,8 +490,7 @@ void sub_8063830(Palette* arg0, unk16* arg1, s32 arg2, s32 arg3, s32 arg4, s32 a
         if (blue2 < 0) {
             blue2 = 0;
         }
-        *destination.word++ = red | (green << 5) | (blue << 0xA) | (red2 << 0x10) | (green2 << 0x15)
-            | (blue2 << 0x1A);
+        *destination.word++ = red | (green << 5) | (blue << 0xA) | (red2 << 0x10) | (green2 << 0x15) | (blue2 << 0x1A);
         source.word++;
         width--;
     } while (width != -1);

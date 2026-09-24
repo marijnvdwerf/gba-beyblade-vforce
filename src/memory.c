@@ -21,8 +21,7 @@ unk32 wramBlocksUsed = 0;
 void* _unk3005C8C = NULL;
 AllocatedBlock (*exramBlocks)[BLOCK_COUNT] = NULL;
 
-AllocatedBlock* insertAllocatedBlock(u32 size, unk8* base, unk32 capacity,
-    AllocatedBlock* firstBlock, AllocatedBlock* block, AllocatedBlock** firstBlockPtr);
+AllocatedBlock* insertAllocatedBlock(u32 size, unk8* base, unk32 capacity, AllocatedBlock* firstBlock, AllocatedBlock* block, AllocatedBlock** firstBlockPtr);
 
 void initMemoryManagement(void)
 {
@@ -82,8 +81,7 @@ AllocatedBlock* slowAllocate(unk32 size)
         printf("Error in slowAllocate(), unable to allocate %i bytes\n", size);
     }
 
-    block2 = insertAllocatedBlock(
-        size, (unk8*)exram, EXRAM_SIZE, firstExramBlock, block, &firstExramBlock);
+    block2 = insertAllocatedBlock(size, (unk8*)exram, EXRAM_SIZE, firstExramBlock, block, &firstExramBlock);
     if (block2 != NULL) {
         exramBlocksUsed += 1;
     }
@@ -138,8 +136,7 @@ void deallocateBlock(AllocatedBlock* block)
     block->previous = NULL;
 }
 
-AllocatedBlock* insertAllocatedBlock(u32 size, unk8* base, unk32 capacity,
-    AllocatedBlock* firstBlock, AllocatedBlock* block, AllocatedBlock** firstBlockPtr)
+AllocatedBlock* insertAllocatedBlock(u32 size, unk8* base, unk32 capacity, AllocatedBlock* firstBlock, AllocatedBlock* block, AllocatedBlock** firstBlockPtr)
 {
     u32 firstGap;
     u32 gap;
@@ -239,8 +236,7 @@ void printTotalWramUsage(void)
         block = block->next;
     }
 
-    printf(
-        "Total Wram usage %i, free %i, blocks used %i\n", total, WRAM_SIZE - total, wramBlocksUsed);
+    printf("Total Wram usage %i, free %i, blocks used %i\n", total, WRAM_SIZE - total, wramBlocksUsed);
 }
 
 void printTotalExramUsage(void)
@@ -255,6 +251,5 @@ void printTotalExramUsage(void)
         block = block->next;
     }
 
-    printf("Total Exram usage %i, free %i, blocks used %i\n", total, EXRAM_SIZE - total,
-        exramBlocksUsed);
+    printf("Total Exram usage %i, free %i, blocks used %i\n", total, EXRAM_SIZE - total, exramBlocksUsed);
 }

@@ -133,8 +133,7 @@ void newMotionGroup(MotionGroup* arg0, SpriteTextBlock* arg1, unk16 arg2)
     block = slowAllocate(size);
     arg0->block = block;
     if (block == NULL) {
-        printf(
-            "Unable to allocate %i bytes in newMotionGroup(), elements = %i\n", size, arg1->count);
+        printf("Unable to allocate %i bytes in newMotionGroup(), elements = %i\n", size, arg1->count);
         return;
     }
     target = block->address;

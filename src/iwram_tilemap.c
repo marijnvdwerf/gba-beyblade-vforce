@@ -63,27 +63,20 @@ void sub_8756FC0(BGLayer* layer, s32 x, s32 y, unk32 srcX, s32 srcY, s32 width, 
         if (srcX + width > screenWidth) {
             if (compressed) {
                 if (flags & 1) {
-                    __sub_8757494(rowData, x, mapRow, screenWidth - srcX,
-                        destination + destinationRow + srcX, fill);
-                    __sub_8757494(rowData, x + (screenWidth - srcX), mapRow,
-                        width - (screenWidth - srcX), destination + destinationRow, fill);
+                    __sub_8757494(rowData, x, mapRow, screenWidth - srcX, destination + destinationRow + srcX, fill);
+                    __sub_8757494(rowData, x + (screenWidth - srcX), mapRow, width - (screenWidth - srcX), destination + destinationRow, fill);
                 } else {
-                    fastMemoryClear16ARM(
-                        fill, destination + destinationRow + srcX, (screenWidth - srcX) * 2);
-                    fastMemoryClear16ARM(
-                        fill, destination + destinationRow, (width - (screenWidth - srcX)) * 2);
+                    fastMemoryClear16ARM(fill, destination + destinationRow + srcX, (screenWidth - srcX) * 2);
+                    fastMemoryClear16ARM(fill, destination + destinationRow, (width - (screenWidth - srcX)) * 2);
                 }
             } else {
-                fastMemoryCopy16ARM(
-                    source, destination + destinationRow + srcX, (screenWidth - srcX) * 2);
-                fastMemoryCopy16ARM(source + (screenWidth - srcX), destination + destinationRow,
-                    (width - (screenWidth - srcX)) * 2);
+                fastMemoryCopy16ARM(source, destination + destinationRow + srcX, (screenWidth - srcX) * 2);
+                fastMemoryCopy16ARM(source + (screenWidth - srcX), destination + destinationRow, (width - (screenWidth - srcX)) * 2);
             }
         } else {
             if (compressed) {
                 if (flags & 1) {
-                    __sub_8757494(
-                        rowData, x, mapRow, width, destination + destinationRow + srcX, fill);
+                    __sub_8757494(rowData, x, mapRow, width, destination + destinationRow + srcX, fill);
                 } else {
                     fastMemoryClear16ARM(fill, destination + destinationRow + srcX, width * 2);
                 }
@@ -115,10 +108,8 @@ void sub_8757380(BGLayer* layer, unk32 x, s32 y, unk32 width, s32 height)
     for (row = y; row < y + height; row++) {
         rowOffset = (row & rowMask) << layer->field_5F;
         if (srcX + width > screenWidth) {
-            fastMemoryClear16ARM(
-                fill, screenAddress + rowOffset * 2 + srcX * 2, (screenWidth - srcX) * 2);
-            fastMemoryClear16ARM(
-                fill, screenAddress + rowOffset * 2, (width - (screenWidth - srcX)) * 2);
+            fastMemoryClear16ARM(fill, screenAddress + rowOffset * 2 + srcX * 2, (screenWidth - srcX) * 2);
+            fastMemoryClear16ARM(fill, screenAddress + rowOffset * 2, (width - (screenWidth - srcX)) * 2);
         } else {
             fastMemoryClear16ARM(fill, screenAddress + rowOffset * 2 + srcX * 2, width * 2);
         }
@@ -252,8 +243,7 @@ void sub_8757574(const unk32* tiles, const unk16* source, Tile4bpp* destination,
 }
 
 // TODO: fakematch?
-void sub_87576D8(const unk32* rowTable, unk32 xArg, unk32 row, unk32 countArg,
-    Tile4bpp* destination, const unk32* tiles)
+void sub_87576D8(const unk32* rowTable, unk32 xArg, unk32 row, unk32 countArg, Tile4bpp* destination, const unk32* tiles)
 {
     const s16* source;
     s32 position;

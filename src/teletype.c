@@ -247,8 +247,7 @@ void sub_8063DF0(TeletypeState* state, const FontStyle* config)
     state->unkC2 = config->unk0->unk5;
 }
 
-TeletypeState* sub_8063E18(const unk8* string, const FontStyle* config, unk32 count, unk32 arg3,
-    unk32 arg4, unk32 arg5, unk16 arg6)
+TeletypeState* sub_8063E18(const unk8* string, const FontStyle* config, unk32 count, unk32 arg3, unk32 arg4, unk32 arg5, unk16 arg6)
 {
     AllocatedBlock* block;
     TeletypeState* state;
@@ -297,9 +296,7 @@ TeletypeState* sub_8063E18(const unk8* string, const FontStyle* config, unk32 co
     return state;
 }
 
-void sub_8063F40(TeletypeState* state, TeletypeCallback callback1,
-    void (*callback2)(TeletypeState*, unk8), void (*callback3)(TeletypeState*, const unk8*),
-    void (*callback4)(TeletypeState*, unk16))
+void sub_8063F40(TeletypeState* state, TeletypeCallback callback1, void (*callback2)(TeletypeState*, unk8), void (*callback3)(TeletypeState*, const unk8*), void (*callback4)(TeletypeState*, unk16))
 {
     state->unkDC = callback1;
     state->unkE4 = callback2;

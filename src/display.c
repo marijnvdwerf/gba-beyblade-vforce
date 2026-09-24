@@ -9,8 +9,7 @@
 extern unk8 _unk3000DE0;
 extern unk8 _unk3000E3C;
 
-void newLayerManagement(UnkStruct_sub1* data, BGLayer* records, ScreenLayout* layout,
-    unk16 initialDisplayControl, unk8 loadPalettes)
+void newLayerManagement(UnkStruct_sub1* data, BGLayer* records, ScreenLayout* layout, unk16 initialDisplayControl, unk8 loadPalettes)
 {
     LevelDesignLayer* layer;
     BGLayer* record;
@@ -34,12 +33,10 @@ void newLayerManagement(UnkStruct_sub1* data, BGLayer* records, ScreenLayout* la
                 layerIndex++;
             }
             if (layerIndex > 3) {
-                printf(
-                    "Unable to locate a suitable hardware background, in newLayerManagement()\n");
+                printf("Unable to locate a suitable hardware background, in newLayerManagement()\n");
             } else {
                 displayControl |= 1 << layerIndex;
-                sub_8058968(record, layerIndex, layer->unk0, colorMode != 0 ? 0x4040 : 0x40,
-                    layer->unkC | 1, -layer->unk4 >> 8, -layer->unk8 >> 8);
+                sub_8058968(record, layerIndex, layer->unk0, colorMode != 0 ? 0x4040 : 0x40, layer->unkC | 1, -layer->unk4 >> 8, -layer->unk8 >> 8);
                 switch (i) {
                 case 0:
                     layerMode = layout->unk74_0;
@@ -116,12 +113,10 @@ void sub_80508CC(UnkStruct_sub1* data, ScreenLayout* layout, unk8 loadPalettes)
                 layerIndex++;
             }
             if (layerIndex > 3) {
-                printf(
-                    "Unable to locate a suitable hardware background, in newLayerManagement()\n");
+                printf("Unable to locate a suitable hardware background, in newLayerManagement()\n");
             } else {
                 displayControl |= 1 << layerIndex;
-                sub_8058968(record, layerIndex, layer->unk0, colorMode != 0 ? 0x4040 : 0x40,
-                    layer->unkC | 1, -layer->unk4 >> 8, -layer->unk8 >> 8);
+                sub_8058968(record, layerIndex, layer->unk0, colorMode != 0 ? 0x4040 : 0x40, layer->unkC | 1, -layer->unk4 >> 8, -layer->unk8 >> 8);
                 switch (i) {
                 case 0:
                     layerMode = layout->unk74_0;

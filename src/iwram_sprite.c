@@ -31,12 +31,10 @@ static inline const SpriteImageHeader* spriteSheetImageHeader(const SpriteSheet*
     const unk8* data;
 
     data = (const unk8*)sheet;
-    return (const SpriteImageHeader*)(data + sheet->unk10
-        + ((const unk32*)(data + sheet->unk1C))[frame]);
+    return (const SpriteImageHeader*)(data + sheet->unk10 + ((const unk32*)(data + sheet->unk1C))[frame]);
 }
 
-static inline const unk8* spriteSheetImageData(
-    const SpriteSheet* sheet, const SpriteImageHeader* header)
+static inline const unk8* spriteSheetImageData(const SpriteSheet* sheet, const SpriteImageHeader* header)
 {
     return (const unk8*)header + (sheet->unkD & 0xFC);
 }
@@ -179,8 +177,7 @@ void oam_8756CC0(void)
         if (((x + 0x8000 > 0x17000u) | (y < -0x5000)) || y > 0xA000) {
             y = 0xA000;
         }
-        *destination++
-            = (flags | ((y >> 8) & 0xFF)) | (((x & 0x1FF00) << 8) | ((sprite->flip_h_v & 3) << 28));
+        *destination++ = (flags | ((y >> 8) & 0xFF)) | (((x & 0x1FF00) << 8) | ((sprite->flip_h_v & 3) << 28));
         *(unk16*)destination = sprite->oam_attr_2 | (sprite->var24 & 0x3FF);
         oam++;
         sprite = sprite->next;

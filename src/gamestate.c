@@ -74,8 +74,7 @@ void sub_80510FC(void)
     __fastMemoryCopyARM(_807576c, _currentGameState->unk5E4, 0x40);
     __fastMemoryCopyARM(_80757ac, _currentGameState->unk624, 0x40);
     __fastMemoryCopyARM(_80757ec, _currentGameState->unk664, 0x40);
-    _currentGameState->unk6A4 = _currentGameState->unk6A5 = _currentGameState->unk6A6
-        = _currentGameState->unk6A7 = _currentGameState->unk6A8 = _currentGameState->unk6A9 = 0;
+    _currentGameState->unk6A4 = _currentGameState->unk6A5 = _currentGameState->unk6A6 = _currentGameState->unk6A7 = _currentGameState->unk6A8 = _currentGameState->unk6A9 = 0;
     for (index = 0; index <= 0x6C; index++) {
         found = 0;
         for (j = 0; _80788cc[j] >= 0; j++) {

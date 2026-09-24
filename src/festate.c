@@ -187,8 +187,7 @@ void sub_8043A0C(FrontendState* state, u32 arg1, u32 arg2)
         sub_8049168();
         break;
     case 8:
-        if (state->transition.value == 0
-            && (((_unk3005DA0 & 9) != 0 && arg2 > 0x7C) || arg2 == 0xF0)) {
+        if (state->transition.value == 0 && (((_unk3005DA0 & 9) != 0 && arg2 > 0x7C) || arg2 == 0xF0)) {
             sub_80490F8(state->unk0 + 1);
         }
         break;
@@ -202,8 +201,7 @@ void sub_8043A58(FrontendState* state, u32 arg1, u32 arg2)
         sub_8049168();
         break;
     case 8:
-        if (state->transition.value == 0
-            && (((_unk3005DA0 & 9) != 0 && arg2 > 0x7C) || arg2 == 0xF0)) {
+        if (state->transition.value == 0 && (((_unk3005DA0 & 9) != 0 && arg2 > 0x7C) || arg2 == 0xF0)) {
 #if REGION == REGION_EU
             sub_804924C(STATE_LANGUAGE);
             sub_80490F8(STATE_8);
@@ -253,12 +251,10 @@ void sub_8043AA0(FrontendState* state, u32 arg1)
         break;
     case 1:
         if (_unk3000158 != NULL) {
-            _unk3000158->x
-                += ((_unk3000160 - _unk3000158->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk3000158->x += ((_unk3000160 - _unk3000158->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         if (_unk300015C != NULL) {
-            _unk300015C->x
-                += ((_unk3000164 - _unk300015C->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk300015C->x += ((_unk3000164 - _unk300015C->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->bgLayers[1]);
         menu = &state->menu;
@@ -470,8 +466,7 @@ void sub_8044054(FrontendState* state, unk32 arg1)
             }
         }
         if (_unk30001A8 == 0) {
-            sub_8043DB8(_unk3000180, levelState, &_currentGameState->unk6EC,
-                (_unk3000174 << 8) | _unk3000178);
+            sub_8043DB8(_unk3000180, levelState, &_currentGameState->unk6EC, (_unk3000174 << 8) | _unk3000178);
             if (_unk3000174 <= 0x3F) {
                 _unk3000178++;
                 progress = _unk3000178;
@@ -608,8 +603,7 @@ void sub_804444C(FrontendState* state, unk32 arg1)
     case 1:
         sub_804423C(_unk30001C8, _unk30001B0);
         sub_80439A0(&state->bgLayers[1]);
-        if (_unk30001B8 == 0 && sub_805FFE4() != 0 && sub_8060070() != 0
-            && sub_8043970(record, 7) != 0) {
+        if (_unk30001B8 == 0 && sub_805FFE4() != 0 && sub_8060070() != 0 && sub_8043970(record, 7) != 0) {
             _unk30001B8 = 1;
             if (_gameData->unk161B != 0) {
                 _unk30001BC = 0;
@@ -753,12 +747,10 @@ void sub_80448F4(FrontendState* state, unk32 arg1)
         break;
     case 1:
         if (_unk30001F0 != NULL) {
-            _unk30001F0->x
-                += ((_unk30001F8 - _unk30001F0->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30001F0->x += ((_unk30001F8 - _unk30001F0->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         if (_unk30001F4 != NULL) {
-            _unk30001F4->x
-                += ((_unk30001FC - _unk30001F4->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30001F4->x += ((_unk30001FC - _unk30001F4->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->bgLayers[1]);
         sub_8050C18(&state->menu);
@@ -1317,12 +1309,10 @@ void sub_804541C(FrontendState* state, u32 arg1)
         break;
     case 1:
         if (_unk300036C != NULL) {
-            _unk300036C->x
-                += ((_unk3000374 - _unk300036C->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk300036C->x += ((_unk3000374 - _unk300036C->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         if (_unk3000370 != NULL) {
-            _unk3000370->x += ((_unk3000378.value - _unk3000370->x) >> 3)
-                - SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk3000370->x += ((_unk3000378.value - _unk3000370->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->bgLayers[1]);
         menu = &state->menu;
@@ -1493,12 +1483,10 @@ void sub_8045848(FrontendState* state, u32 arg1)
         break;
     case 1:
         if (_unk30003A8 != NULL) {
-            _unk30003A8->x
-                += ((_unk30003B0 - _unk30003A8->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30003A8->x += ((_unk30003B0 - _unk30003A8->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         if (_unk30003AC != NULL) {
-            _unk30003AC->x
-                += ((_unk30003B4 - _unk30003AC->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30003AC->x += ((_unk30003B4 - _unk30003AC->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->bgLayers[1]);
         menu = &state->menu;
@@ -1577,12 +1565,10 @@ void sub_8045A7C(FrontendState* state, u32 arg1)
         FrontendMenu* menu;
 
         if (_unk30003B8 != NULL) {
-            _unk30003B8->x
-                += ((_unk30003C0 - _unk30003B8->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30003B8->x += ((_unk30003C0 - _unk30003B8->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         if (_unk30003BC != NULL) {
-            _unk30003BC->x
-                += ((_unk30003C4 - _unk30003BC->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30003BC->x += ((_unk30003C4 - _unk30003BC->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->bgLayers[1]);
         menu = &state->menu;
@@ -1710,14 +1696,12 @@ void sub_8045CB4(FrontendState* state, unk32 arg1, unk32 arg2)
         sub_80596AC(&state->bgLayers[3], -scroll, 0);
         _unk30003CC += scroll;
         if (_unk30003D0 != NULL) {
-            _unk30003D0->x += ((_unk30003E0 - _unk30003D0->x) >> 3)
-                + SinTable[((sub_8057C40() & 0x1FE) >> 1)] - _unk30003C8;
+            _unk30003D0->x += ((_unk30003E0 - _unk30003D0->x) >> 3) + SinTable[((sub_8057C40() & 0x1FE) >> 1)] - _unk30003C8;
             _unk30003D0->y += (_unk30003E8 - _unk30003D0->y) >> 2;
         }
         if (_unk30003D4 != NULL) {
             _unk30003D4->y += (_unk30003E8 - _unk30003D4->y) >> 2;
-            _unk30003D4->x += ((_unk30003E4 - _unk30003D4->x) >> 3)
-                - SinTable[((sub_8057C40() & 0x1FE) >> 1)] + _unk30003C8;
+            _unk30003D4->x += ((_unk30003E4 - _unk30003D4->x) >> 3) - SinTable[((sub_8057C40() & 0x1FE) >> 1)] + _unk30003C8;
         }
         _unk30003D8->x += (_unk30003EC - _unk30003D8->x) >> 2;
         _unk30003DC->x += (_unk30003EC - _unk30003DC->x) >> 2;
@@ -1821,12 +1805,10 @@ void sub_80461D8(FrontendState* state, u32 arg1)
         break;
     case 1:
         if (_unk3000464 != NULL) {
-            _unk3000464->x
-                += ((_unk300046C - _unk3000464->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk3000464->x += ((_unk300046C - _unk3000464->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         if (_unk3000468 != NULL) {
-            _unk3000468->x
-                += ((_unk3000470 - _unk3000468->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk3000468->x += ((_unk3000470 - _unk3000468->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->bgLayers[1]);
         sub_8050C18(&state->menu);
@@ -1958,12 +1940,10 @@ void sub_8046500(FrontendState* state, u32 arg1, u32 arg2)
     case 1:
         sub_80439A0(&state->bgLayers[1]);
         if (_unk3000494 != NULL) {
-            _unk3000494->x += ((_unk300049C - _unk3000494->x) >> 3)
-                + SinTable[(sub_8057C40() & 0x1FE) >> 1] - _unk3000474;
+            _unk3000494->x += ((_unk300049C - _unk3000494->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1] - _unk3000474;
         }
         if (_unk3000498 != NULL) {
-            _unk3000498->x += ((_unk30004A0 - _unk3000498->x) >> 3)
-                - SinTable[(sub_8057C40() & 0x1FE) >> 1] + _unk3000474;
+            _unk3000498->x += ((_unk30004A0 - _unk3000498->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1] + _unk3000474;
         }
         if (_unk3000491 != 0 && (_unk3000478.value >> 8) > 0xFE && _unk3000474 == 0x10000) {
             sub_8046468(&_unk3000480, sub_80570C0(_unk3000480.frame), 1);
@@ -2040,12 +2020,10 @@ void sub_8046814(FrontendState* state, u32 arg1)
         break;
     case 1:
         if (_unk30004A4 != NULL) {
-            _unk30004A4->x
-                += ((_unk30004AC - _unk30004A4->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30004A4->x += ((_unk30004AC - _unk30004A4->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         if (_unk30004A8 != NULL) {
-            _unk30004A8->x
-                += ((_unk30004B0 - _unk30004A8->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30004A8->x += ((_unk30004B0 - _unk30004A8->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->bgLayers[1]);
         sub_8050C18(&state->menu);
@@ -2109,8 +2087,7 @@ void sub_8046A0C(FrontendState* state, unk32 arg1)
         _unk30004BC++;
         break;
     case 2:
-        if (_unk30004C0 != 0
-            && (((_unk3005DA0 & 1) != 0 && _unk30004BC > 0x78) || _unk30004BC > 0x258)) {
+        if (_unk30004C0 != 0 && (((_unk3005DA0 & 1) != 0 && _unk30004BC > 0x78) || _unk30004BC > 0x258)) {
             sub_80490F8(_unk3000648);
             _unk30004B4 = 0xFFFF0000;
         }
@@ -2203,12 +2180,10 @@ void sub_8046CC4(FrontendState* state, u32 arg1)
         break;
     case 1: {
         if (_unk30004D0 != NULL) {
-            _unk30004D0->x
-                += ((_unk30004D8 - _unk30004D0->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30004D0->x += ((_unk30004D8 - _unk30004D0->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         if (_unk30004D4 != NULL) {
-            _unk30004D4->x
-                += ((_unk30004DC - _unk30004D4->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30004D4->x += ((_unk30004DC - _unk30004D4->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->bgLayers[1]);
         sub_8050C18(&state->menu);
@@ -2261,15 +2236,12 @@ void initBBCollectionSprite(FrontendBladeState* state)
     }
     if (state->unk0 != NULL) {
         if (category == 0) {
-            LoadSpriteSheet(state->unk0,
-                getDecompressorData(&state->decompressor, data->spriteSheet), 0x1000, 0x3C00, 1, 0,
-                0, 0);
+            LoadSpriteSheet(state->unk0, getDecompressorData(&state->decompressor, data->spriteSheet), 0x1000, 0x3C00, 1, 0, 0, 0);
             if (data->palette != NULL) {
                 __fastMemoryCopyARM(data->palette, (void*)OBJ_PLTT, 0x20);
             }
         } else {
-            LoadSpriteSheet(
-                state->unk0, &SpriteSheet_824F010, 0x1000, 0x3C00, 1, 0, 0, category - 1);
+            LoadSpriteSheet(state->unk0, &SpriteSheet_824F010, 0x1000, 0x3C00, 1, 0, 0, category - 1);
             __fastMemoryCopyARM(Pal_825105C, (void*)OBJ_PLTT, 0x20);
         }
     }
@@ -2641,12 +2613,10 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
             }
         }
         if (_unk300053C != NULL) {
-            _unk300053C->x += (((_unk3000548 - _unk300053C->x) >> 2)
-                + SinTable[(sub_8057C40() & 0x1FE) >> 1] - _unk30004E4);
+            _unk300053C->x += (((_unk3000548 - _unk300053C->x) >> 2) + SinTable[(sub_8057C40() & 0x1FE) >> 1] - _unk30004E4);
         }
         if (_unk3000540 != NULL) {
-            _unk3000540->x += (((_unk300054C - _unk3000540->x) >> 2)
-                - SinTable[(sub_8057C40() & 0x1FE) >> 1] + _unk30004E4);
+            _unk3000540->x += (((_unk300054C - _unk3000540->x) >> 2) - SinTable[(sub_8057C40() & 0x1FE) >> 1] + _unk30004E4);
         }
         sprite = _unk3000544;
         if (sprite != NULL) {
@@ -2701,9 +2671,7 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
         if ((_keyInput & 0x30) != 0 && _unk300053A != 0) {
             keyState5 = sub_805A914(5);
             keyState4 = sub_805A914(4);
-            if ((_unk3005DA0 & 0x20) != 0
-                || ((_keyInput & 0x20) != 0 && keyState5->var08 > 0xF0
-                    && ((sub_8057C40() >> 4) & 7) == 0)) {
+            if ((_unk3005DA0 & 0x20) != 0 || ((_keyInput & 0x20) != 0 && keyState5->var08 > 0xF0 && ((sub_8057C40() >> 4) & 7) == 0)) {
                 count = 0;
                 index = _unk30004F0.unk34 - 1;
                 if (index < 0) {
@@ -2722,9 +2690,7 @@ void selectBladeFrontendHandler(FrontendState* state, unk32 command, unk32 arg2)
                 sub_804712C(&_unk30004F0);
                 _unk3000564 = 0;
                 sub_804ABFC(7);
-            } else if ((_unk3005DA0 & 0x10) != 0
-                || ((_keyInput & 0x10) != 0 && keyState4->var08 > 0xF0
-                    && ((sub_8057C40() >> 4) & 7) == 0)) {
+            } else if ((_unk3005DA0 & 0x10) != 0 || ((_keyInput & 0x10) != 0 && keyState4->var08 > 0xF0 && ((sub_8057C40() >> 4) & 7) == 0)) {
                 count = 0;
                 index = _unk30004F0.unk34 + 1;
                 if (index > 0x3B) {
@@ -2911,12 +2877,10 @@ void sub_80480EC(FrontendState* state, unk32 arg1)
         break;
     case 1:
         if (_unk30005B0 != NULL) {
-            _unk30005B0->x
-                += ((_unk30005B8 - _unk30005B0->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30005B0->x += ((_unk30005B8 - _unk30005B0->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         if (_unk30005B4 != NULL) {
-            _unk30005B4->x
-                += ((_unk30005BC - _unk30005B4->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30005B4->x += ((_unk30005BC - _unk30005B4->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->bgLayers[1]);
         menu = &state->menu;
@@ -2999,17 +2963,14 @@ void sub_8048310(FrontendState* state, unk32 arg1)
         return;
     case 1:
         if (_unk30005C0 != NULL) {
-            _unk30005C0->x
-                += ((_unk30005C8 - _unk30005C0->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30005C0->x += ((_unk30005C8 - _unk30005C0->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         if (_unk30005C4 != NULL) {
-            _unk30005C4->x
-                += ((_unk30005CC - _unk30005C4->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30005C4->x += ((_unk30005CC - _unk30005C4->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->bgLayers[1]);
         sub_8050C18(&state->menu);
-        if (sub_805FFE4() != 0 && sub_8060070() != 0 && sub_8060040() != 0
-            && (_unk3005DA0 & 0x30) != 0) {
+        if (sub_805FFE4() != 0 && sub_8060070() != 0 && sub_8060040() != 0 && (_unk3005DA0 & 0x30) != 0) {
             if ((_unk3005DA0 & 0x20) != 0) {
                 sub_8050F0C(&state->menu);
             } else {
@@ -3106,17 +3067,14 @@ void sub_804868C(FrontendState* state, unk32 arg1)
         return;
     case 1:
         if (_unk30005D0 != NULL) {
-            _unk30005D0->x
-                += ((_unk30005D8 - _unk30005D0->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30005D0->x += ((_unk30005D8 - _unk30005D0->x) >> 3) + SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         if (_unk30005D4 != NULL) {
-            _unk30005D4->x
-                += ((_unk30005DC - _unk30005D4->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
+            _unk30005D4->x += ((_unk30005DC - _unk30005D4->x) >> 3) - SinTable[(sub_8057C40() & 0x1FE) >> 1];
         }
         sub_80439A0(&state->bgLayers[1]);
         sub_8050C18(&state->menu);
-        if (sub_805FFE4() != 0 && sub_8060070() != 0 && sub_8060040() != 0
-            && (_unk3005DA0 & 0x30) != 0) {
+        if (sub_805FFE4() != 0 && sub_8060070() != 0 && sub_8060040() != 0 && (_unk3005DA0 & 0x30) != 0) {
             if ((_unk3005DA0 & 0x20) != 0) {
                 sub_8050F0C(&state->menu);
             } else {

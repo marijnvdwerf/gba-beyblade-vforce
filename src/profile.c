@@ -68,6 +68,5 @@ void profile(const char* name)
     hundreds = fraction / 100;
     tenths = (fraction / 10) % 10;
     ones = fraction % 10;
-    printf("profile (%s): %d.%c%c%c ms\n", name, milliseconds, hundreds + '0', tenths + '0',
-        ones + '0');
+    printf("profile (%s): %d.%c%c%c ms\n", name, milliseconds, hundreds + '0', tenths + '0', ones + '0');
 }
