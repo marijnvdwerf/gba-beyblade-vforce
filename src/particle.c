@@ -7,7 +7,8 @@
 #include "ram.h"
 #include "sprite.h"
 
-extern const s16 word_8074D64[];
+s16 word_8074D64[] = { 4, 1, -2, 6, 5, -10, 0xD, 7, 0, -15, 0xE, 9, 3, 1, -8, -3, 7, -9, -10, 0xB,
+    -4, 9, 0xE, 3, -10, 0xD, 0xB, -4, 7, -9, 7, -6, 9, 0xE };
 
 void allocateParticleSystem(
     ParticleSystem* arg0, s32 arg1, const SpriteSheet* arg2, BGLayer* arg3, unk32 arg4)
