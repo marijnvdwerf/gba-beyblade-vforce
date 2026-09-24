@@ -45,46 +45,31 @@ extern TileMapHeader TileMap_8274908;
 extern TileMapHeader TileMap_8282578;
 extern TileMapHeader TileMap_8282A60;
 
+// clang-format off
 ScreenLayout _806A828[] = {
-    [LAYOUT_NINTENDO]
-    = { ID_NINTENDO, { 0 }, { { &Tilemap_Nintendo } }, 0, 0, 0, 0, { 0 }, Pal_82567C8 },
-    [LAYOUT_NELVANA]
-    = { ID_NELVANA, { 0 }, { { &TileMap_Nelvana } }, 0, 0, 0, 0, { 0 }, Pal_825A44C },
-    [LAYOUT_COLLECTION] = { ID_COLLECTION, { 0 }, { { &TileMap_825A64C } }, 0, 0, 0, 0, { 0 },
-        Pal_825ABBC, Pal_825ADBC },
+    [LAYOUT_NINTENDO] = { ID_NINTENDO, { 0 }, { { &Tilemap_Nintendo } }, 0, 0, 0, 0, { 0 }, Pal_82567C8 },
+    [LAYOUT_NELVANA] = { ID_NELVANA, { 0 }, { { &TileMap_Nelvana } }, 0, 0, 0, 0, { 0 }, Pal_825A44C },
+    [LAYOUT_COLLECTION] = { ID_COLLECTION, { 0 }, { { &TileMap_825A64C } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825ADBC },
     [LAYOUT_3] = { 0x1810 },
-    [LAYOUT_4]
-    = { 0x5D4C, { 0 }, { { &TileMap_825AFBC } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
-    [LAYOUT_5]
-    = { 0x9068, { 0 }, { { &TileMap_825AFBC } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B5C4 },
+    [LAYOUT_4] = { 0x5D4C, { 0 }, { { &TileMap_825AFBC } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
+    [LAYOUT_5] = { 0x9068, { 0 }, { { &TileMap_825AFBC } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B5C4 },
     [LAYOUT_6] = { 0x8B71 },
-    [LAYOUT_7]
-    = { 0x1E88, { 0 }, { { &TileMap_825B7C4 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
+    [LAYOUT_7] = { 0x1E88, { 0 }, { { &TileMap_825B7C4 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
     [LAYOUT_8] = { 0x40AD },
-    [LAYOUT_9]
-    = { 0x10B0, { 0 }, { { &TileMap_825AFBC } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
-    [LAYOUT_DIALOG] = { ID_DIALOG, { 0 },
-        { { &TileMap_82C92F8 }, { &TileMap_82C9BC4 }, { &TileMap_82CA490 }, { &TileMap_82CAD5C } },
-        0, 0, 0, 0, { 0 }, Pal_82CB628, Pal_82CB828 },
+    [LAYOUT_9] = { 0x10B0, { 0 }, { { &TileMap_825AFBC } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
+    [LAYOUT_DIALOG] = { ID_DIALOG, { 0 }, { { &TileMap_82C92F8 }, { &TileMap_82C9BC4 }, { &TileMap_82CA490 }, { &TileMap_82CAD5C } }, 0, 0, 0, 0, { 0 }, Pal_82CB628, Pal_82CB828 },
     [LAYOUT_11] = { 0x640B, { 0 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
     [LAYOUT_12] = { 0xBBA4, { 0 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC },
     [LAYOUT_13] = { 0xA694, { 0 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
-    [LAYOUT_DRIGHTS]
-    = { ID_DRIGHTS, { 0 }, { { &TileMap_DRights } }, 0, 0, 0, 0, { 0 }, Pal_825DBF0 },
-    [LAYOUT_15] = { 0x65CB, { 0, 0, 0, 0, 0x10 }, { { &TileMap_825DDF0, 0, 0, 0xC } }, 0, 0, 0, 0,
-        { 0 }, Pal_8266460, Pal_825B3C4 },
-    [LAYOUT_LANGUAGE]
-    = { ID_LANGUAGE, { 0, 0, 0, 0, 0x10 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_8266660 },
-    [LAYOUT_LEGALS] = { ID_LEGALS, { 0, 0, 0, 0, 0x10 }, { { &TileMap_8266860, 0, 0, 0xC } }, 0, 0,
-        0, 0, { 0 }, Pal_826EB50 },
-    [LAYOUT_18] = { 0x4462, { 0, 0, 0, 0, 0x10 }, { { &TileMap_Atari, 0, 0, 0xC } }, 0, 0, 0, 0,
-        { 0 }, Pal_82725E8 },
-    [LAYOUT_FULLFAT] = { ID_FULLFAT, { 0, 0, 0, 0, 0x10 }, { { &TileMap_FullFat, 0, 0, 0xC } }, 0,
-        0, 0, 0, { 0 }, Pal_8274708 },
-    [LAYOUT_20]
-    = { 0x8F7D, { 0 }, { { &TileMap_8274908 }, { &TileMap_8282578 }, { &TileMap_8282A60 } }, 3, 2,
-        1, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
+    [LAYOUT_DRIGHTS] = { ID_DRIGHTS, { 0 }, { { &TileMap_DRights } }, 0, 0, 0, 0, { 0 }, Pal_825DBF0 },
+    [LAYOUT_15] = { 0x65CB, { 0, 0, 0, 0, 0x10 }, { { &TileMap_825DDF0, 0, 0, 0xC } }, 0, 0, 0, 0, { 0 }, Pal_8266460, Pal_825B3C4 },
+    [LAYOUT_LANGUAGE] = { ID_LANGUAGE, { 0, 0, 0, 0, 0x10 }, { { 0 } }, 0, 0, 0, 0, { 0 }, Pal_825ABBC, Pal_8266660 },
+    [LAYOUT_LEGALS] = { ID_LEGALS, { 0, 0, 0, 0, 0x10 }, { { &TileMap_8266860, 0, 0, 0xC } }, 0, 0, 0, 0, { 0 }, Pal_826EB50 },
+    [LAYOUT_18] = { 0x4462, { 0, 0, 0, 0, 0x10 }, { { &TileMap_Atari, 0, 0, 0xC } }, 0, 0, 0, 0, { 0 }, Pal_82725E8 },
+    [LAYOUT_FULLFAT] = { ID_FULLFAT, { 0, 0, 0, 0, 0x10 }, { { &TileMap_FullFat, 0, 0, 0xC } }, 0, 0, 0, 0, { 0 }, Pal_8274708 },
+    [LAYOUT_20] = { 0x8F7D, { 0 }, { { &TileMap_8274908 }, { &TileMap_8282578 }, { &TileMap_8282A60 } }, 3, 2, 1, 0, { 0 }, Pal_825ABBC, Pal_825B3C4 },
 };
+// clang-format on
 
 void Background_80498D8(void)
 {
