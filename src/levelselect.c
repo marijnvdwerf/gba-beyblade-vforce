@@ -72,7 +72,7 @@ void displayFrontendLevel(
     const unk8* palette;
     const SpriteSheet* spriteSheet;
 
-    getLanguage();
+    getLanguageTextIndex();
     if (state->sprite == NULL) {
         state->sprite = allocSprite(1);
     } else {
@@ -114,7 +114,7 @@ void sub_8041188(LevelSelectState* state, LevelDescription* description, LevelSt
 
     laterLevelState = levelState;
     laterIndex = levelIndex;
-    language = getLanguage();
+    language = getLanguageTextIndex();
     if (description->unk1C != 0 && (levelState->unk0 & 2) == 0 && sub_8051780(4) == 0) {
         sub_8061228(state->rows[3]);
         sub_8061228(state->rows[4]);
@@ -144,7 +144,7 @@ void sub_8041288(
 {
     unk32 language;
 
-    language = getLanguage();
+    language = getLanguageTextIndex();
     if (sub_8051780(4) == 0) {
         sub_8061660(state->rows[1], description->unk68[language], 0xE);
         sub_8061660(state->rows[0], description->unk40[language], 0xE);

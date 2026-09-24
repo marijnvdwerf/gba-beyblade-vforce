@@ -299,7 +299,7 @@ void sub_8043AA0(FrontendState* state, u32 arg1)
                 value = 7;
                 break;
             }
-            sub_8063A7C(value);
+            setLanguage(value);
             _unk3000168 = 0x20;
         }
         break;
@@ -362,7 +362,7 @@ void sub_8043DB8(SpriteTextCleanup** arg0, LevelState* arg1, CurrentGameStateTai
     description = getLevelDescription2();
     scale = arg3 & 0xFF;
     mask = arg3 >> 8;
-    language = getLanguage();
+    language = getLanguageTextIndex();
     if ((mask & 1) != 0) {
         sub_8061660(arg0[0], _806E97C[0][language], 0xE);
         if (arg2->unk0 != 0) {
@@ -515,7 +515,7 @@ void sub_8044314(SpriteTextCleanup** sprites, Packet* unused, s32 value, unk32 m
 
     scale = value >> 5;
     count = (value & 0x1F) + 1;
-    language = getLanguage();
+    language = getLanguageTextIndex();
     if (count == 1) {
         switch (scale) {
         case 0:
@@ -840,9 +840,9 @@ void sub_8044C48(FrontendState* state, unk32 arg1)
             LoadSpriteSheet(_unk3000204, &SpriteSheet_823FF84, initialScroll, 0x2300, 0, 0, 0, 0);
         }
         allocFont(&_unk3000218, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xF0, 2);
-        sub_8061660(&_unk3000218, _806DB8C[1][getLanguage()], 0xF);
+        sub_8061660(&_unk3000218, _806DB8C[1][getLanguageTextIndex()], 0xF);
         allocFont(&_unk3000248, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x78, 0xF0, 2);
-        sub_8061660(&_unk3000248, _806DB8C[0][getLanguage()], 0xF);
+        sub_8061660(&_unk3000248, _806DB8C[0][getLanguageTextIndex()], 0xF);
         showNumber(&_unk3000248, value, 0xF);
         showString(&_unk3000248, " - ", 0xF);
         showNumber(&_unk3000248, difference, 0xF);
@@ -918,9 +918,9 @@ void sub_8044ED4(FrontendState* state, unk32 arg1)
             LoadSpriteSheet(_unk300027C, &SpriteSheet_82411A0, initialScroll, 0x2300, 0, 0, 0, 0);
         }
         allocFont(&_unk3000290, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xF0, 2);
-        sub_8061660(&_unk3000290, _806DB8C[2][getLanguage()], 0xF);
+        sub_8061660(&_unk3000290, _806DB8C[2][getLanguageTextIndex()], 0xF);
         allocFont(&_unk30002C0, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x78, 0xF0, 2);
-        sub_8061660(&_unk30002C0, _806DB8C[0][getLanguage()], 0xF);
+        sub_8061660(&_unk30002C0, _806DB8C[0][getLanguageTextIndex()], 0xF);
         showNumber(&_unk30002C0, value, 0xF);
         showString(&_unk30002C0, " - ", 0xF);
         showNumber(&_unk30002C0, difference, 0xF);
@@ -994,9 +994,9 @@ void sub_8045160(FrontendState* state, unk32 arg1, unk32 arg2)
             LoadSpriteSheet(_unk30002F4, &SpriteSheet_8243874, initialScroll, 0x2300, 0, 0, 0, 0);
         }
         allocFont(&_unk3000308, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xF0, 2);
-        sub_8061660(&_unk3000308, _806DB8C[3][getLanguage()], 0xF);
+        sub_8061660(&_unk3000308, _806DB8C[3][getLanguageTextIndex()], 0xF);
         allocFont(&_unk3000338, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x78, 0xF0, 2);
-        sub_8061660(&_unk3000338, _806DB8C[0][getLanguage()], 0xF);
+        sub_8061660(&_unk3000338, _806DB8C[0][getLanguageTextIndex()], 0xF);
         showNumber(&_unk3000338, value, 0xF);
         showString(&_unk3000338, " - ", 0xF);
         showNumber(&_unk3000338, value, 0xF);
@@ -1674,9 +1674,9 @@ void sub_8045CB4(FrontendState* state, unk32 arg1, unk32 arg2)
         _unk30003DC->frame = _unk300045C;
         _unk30003D8->frame = _currentGameState->unk6E4 >> 5;
         allocFont(&_unk30003F8, &SpriteSheet_82B1A84, LargeFontMeta, 0x100, 0x38, 0xF0, 0);
-        sub_8061660(&_unk30003F8, _806DFD0[0][getLanguage()], 0xE);
+        sub_8061660(&_unk30003F8, _806DFD0[0][getLanguageTextIndex()], 0xE);
         allocFont(&_unk3000428, &SpriteSheet_82B1A84, LargeFontMeta, 0x100, 0x68, 0xF0, 0);
-        sub_8061660(&_unk3000428, _806DFD0[1][getLanguage()], 0xE);
+        sub_8061660(&_unk3000428, _806DFD0[1][getLanguageTextIndex()], 0xE);
         break;
     case 7:
         if (_unk30003D0 != NULL) {
@@ -1887,7 +1887,7 @@ void sub_8046468(FrontendSelectionObject* arg0, const ItemDescriptionEntry* arg1
     unk8 mode;
 
     mode = arg2;
-    getLanguage();
+    getLanguageTextIndex();
     if ((arg0->unkE & 1) != 0) {
         sub_8060A60(arg0->sprite);
     }
@@ -2097,13 +2097,13 @@ void sub_8046A0C(FrontendState* state, unk32 arg1)
                 sub_8051640(1);
             }
             _unk30004C0 = arg1;
-            sub_8061660(sub_804A0E0(0), _806E0DC[result != 0 ? 1 : 2][getLanguage()], 0xF);
+            sub_8061660(sub_804A0E0(0), _806E0DC[result != 0 ? 1 : 2][getLanguageTextIndex()], 0xF);
         }
         delta = (_unk30004B4 - _unk30004B8) >> 2;
         sub_80596AC(&state->bgLayers[3], delta, 0);
         _unk30004B8 += delta;
         if (delta == 0 && _unk30004C1 == 0) {
-            sub_8061660(sub_804A0E0(0), _806E0DC[0][getLanguage()], 0xF);
+            sub_8061660(sub_804A0E0(0), _806E0DC[0][getLanguageTextIndex()], 0xF);
             _unk30004C1 = 1;
         }
         _unk30004BC++;
@@ -2138,7 +2138,7 @@ void sub_8046B94(FrontendState* state, u32 arg1)
         break;
     case 1:
         if (_unk30004CC == 1) {
-            sub_8061660(sub_804A0E0(0), _806E0DC[3][getLanguage()], 0xF);
+            sub_8061660(sub_804A0E0(0), _806E0DC[3][getLanguageTextIndex()], 0xF);
         }
         sub_80439A0(&state->bgLayers[1]);
         sub_8061844(sub_804A0E0(0), -(_unk30004C8 >> 8) + 0x10, 0x4A);
@@ -2348,7 +2348,7 @@ void sub_804712C(FrontendBladeState* state)
     unk32 hasSprites;
     const unk8* values;
 
-    language = getLanguage();
+    language = getLanguageTextIndex();
     index = state->unk34;
     getBeybladeData0(index);
     hasSprites = 0;
@@ -2438,7 +2438,7 @@ void sub_8047494(FrontendBladeState* state, const BeybladeData* blade, unk8 uplo
 {
     unk32 language;
 
-    language = getLanguage();
+    language = getLanguageTextIndex();
     if ((state->unk36 & 1) != 0) {
         sub_8060A60(state->unk0);
     }
@@ -2831,7 +2831,7 @@ void sub_8047E5C(FrontendState* state, unk32 arg1)
         _unk300057C = initialScroll;
         sub_80596AC(&state->bgLayers[3], -initialScroll, 0);
         allocFont(&_unk3000580, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x69, 0xC8, 2);
-        sub_8061660(&_unk3000580, _806E3B0[getLanguage()], 0xF);
+        sub_8061660(&_unk3000580, _806E3B0[getLanguageTextIndex()], 0xF);
         break;
     case 1:
         fontX = _unk3000580.x;
@@ -3336,8 +3336,8 @@ void sub_8048D8C(FrontendState* state, u32 arg1)
             LoadSpriteSheet(_unk3000600, description->unkC0, initialScroll, 0x2300, 0, 0, 0, 0);
         }
         allocFont(&_unk3000610, &SpriteSheet_82B05EC, ShadowFontMeta, 0x100, 0x6E, 0xD0, 2);
-        sub_8061660(&_unk3000610, _806E650[getLanguage()], 0xF);
-        showString(&_unk3000610, description->unk68[getLanguage()], 0xF);
+        sub_8061660(&_unk3000610, _806E650[getLanguageTextIndex()], 0xF);
+        showString(&_unk3000610, description->unk68[getLanguageTextIndex()], 0xF);
         break;
     }
     case 7:

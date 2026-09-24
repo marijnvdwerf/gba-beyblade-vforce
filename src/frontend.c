@@ -2682,7 +2682,7 @@ void sub_804967C(void)
             while (--index != -1) {
                 allocFont(destination, cursor->unk8->unk0, cursor->unk8->unk4, cursor->unk0,
                     cursor->unk2, cursor->unk20, cursor->unk8->unk8);
-                sub_8061660(destination, cursor->unkC[getLanguage()], cursor->unk8->unkA);
+                sub_8061660(destination, cursor->unkC[getLanguageTextIndex()], cursor->unk8->unkA);
                 cursor++;
                 destination++;
             }
@@ -2693,8 +2693,8 @@ void sub_804967C(void)
         allocFont(&_unk3000650.unk428, object->unk10->unk8->unk0, object->unk10->unk8->unk4,
             object->unk10->unk0, object->unk10->unk2, object->unk10->unk20,
             object->unk10->unk8->unk8);
-        sub_8061660(
-            &_unk3000650.unk428, object->unk10->unkC[getLanguage()], object->unk10->unk8->unkA);
+        sub_8061660(&_unk3000650.unk428, object->unk10->unkC[getLanguageTextIndex()],
+            object->unk10->unk8->unkA);
         if (object->unk10->unk24 != NULL) {
             newMotionGroup(&_unk3000650.motion, &_unk3000650.unk428.unk14, motionData->unk24);
             sub_80504E4(&_unk3000650.motion, motionData->unk0, motionData->unk4, motionData->unk8,

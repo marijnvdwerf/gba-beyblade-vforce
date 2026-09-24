@@ -99,13 +99,13 @@ void sub_8052B24(void)
     allocFont(&font, &SpriteSheet_82B1A84, LargeFontMeta, -0xF0, 0, 0xF0, 2);
     if (_gameData->unk1640 != 0) {
         table = _806E79C;
-        sub_8061660(&font, table[getLanguage()], 0xE);
+        sub_8061660(&font, table[getLanguageTextIndex()], 0xE);
     } else {
         table = _806E788;
-        sub_8061660(&font, table[getLanguage()], 0xE);
+        sub_8061660(&font, table[getLanguageTextIndex()], 0xE);
     }
 
-    language = getLanguage();
+    language = getLanguageTextIndex();
     sub_805AD24(&menuData, &SpriteSheet_82B05EC, ShadowFontMeta, -0xC8, 0, 0xF0, 0xA, 0xD, 0xF, 0xA,
         0xA, sub_8052B08, NULL, language);
     state = &menuData;

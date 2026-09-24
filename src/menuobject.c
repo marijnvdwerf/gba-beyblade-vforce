@@ -32,7 +32,7 @@ void sub_8043370(FrontendState* object)
     table = &_8068840;
     if (data != NULL) {
         state = &object->menuState;
-        language = getLanguage();
+        language = getLanguageTextIndex();
         sub_805AD24(state, data->unk8->unk0, data->unk8->unk4, data->unk0, data->unk2, data->unk10,
             data->unk12, data->unk14, data->unk15, data->unk16, data->unk17, sub_8043604, 0,
             language);

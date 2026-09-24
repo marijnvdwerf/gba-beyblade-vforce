@@ -68,7 +68,7 @@ void newIconMenu(FrontendMenu* menu, const FrontendMenuData* data, unk32 count)
     }
     allocFont(&menu->text, data->address->unk0, data->address->unk4, data->unk14 >> 8,
         data->unk18 >> 8, 0xF0, data->address->unk8);
-    sub_8061660(&menu->text, menu->config->items[menu->selection].labels[getLanguage()],
+    sub_8061660(&menu->text, menu->config->items[menu->selection].labels[getLanguageTextIndex()],
         menu->config->address->unkA);
 }
 
@@ -188,7 +188,8 @@ void sub_8050DF8(FrontendMenu* menu, s32 index)
         selected->position = selectedData->previousPosition;
         menu->position = 0xFFFF - index * menu->step;
         menu->selection = index;
-        sub_8061660(&menu->text, selectedData->labels[getLanguage()], menu->config->address->unkA);
+        sub_8061660(
+            &menu->text, selectedData->labels[getLanguageTextIndex()], menu->config->address->unkA);
     }
 }
 
@@ -220,7 +221,8 @@ void sub_8050E80(FrontendMenu* menu)
         next->position = nextData->previousPosition;
         menu->position = 0xFFFF - nextIndex * menu->step;
         menu->selection = nextIndex;
-        sub_8061660(&menu->text, nextData->labels[getLanguage()], menu->config->address->unkA);
+        sub_8061660(
+            &menu->text, nextData->labels[getLanguageTextIndex()], menu->config->address->unkA);
     }
 }
 
@@ -252,7 +254,8 @@ void sub_8050F0C(FrontendMenu* menu)
         previous->position = previousData->previousPosition;
         menu->position = 0xFFFF - previousIndex * menu->step;
         menu->selection = previousIndex;
-        sub_8061660(&menu->text, previousData->labels[getLanguage()], menu->config->address->unkA);
+        sub_8061660(
+            &menu->text, previousData->labels[getLanguageTextIndex()], menu->config->address->unkA);
     }
 }
 

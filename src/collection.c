@@ -126,7 +126,7 @@ void collectionListFrontendHandler(FrontendState* state, unk32 command)
                     _unk3000138->oam_attr_2 = (_unk3000138->oam_attr_2 & 0xFFF) | 0x3000;
                     __fastMemoryCopyARM(sub_8057068(_unk3000114), (void*)(OBJ_PLTT + 0x60), 0x20);
                     if (sub_80570D4(_unk3000114) != 0) {
-                        sub_8061660(_unk3000128, _806E8B0[getLanguage()], 0xE);
+                        sub_8061660(_unk3000128, _806E8B0[getLanguageTextIndex()], 0xE);
                         showString(_unk3000128, sub_8057048(_unk3000114), 0xF);
                     } else {
                         sub_8061228(_unk3000128);

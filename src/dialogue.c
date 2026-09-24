@@ -130,7 +130,7 @@ void sub_80420C4(FrontendState* state, unk32 command)
         base[3].field_24 = 0;
         base[3].field_7C |= 3;
         base[3].field_14 = -0xC00;
-        languageStrings += getLanguage();
+        languageStrings += getLanguageTextIndex();
         _unk300007C
             = sub_8063E18(*languageStrings, &FontStyle_80688B8, 0x78, 0x800, 0x6400, 0xE000, 0);
         sub_8063F5C(_unk300007C, teletypeDefaultUserCodeHandler);

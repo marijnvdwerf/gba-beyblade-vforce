@@ -33,17 +33,17 @@ void mainLoop(void)
     initBlockVariables();
     initKeyState();
     initBatteryBackup();
-    sub_8063A50();
+    initLanguages();
 #if REGION == REGION_EU
-    sub_8063A68(0, 0);
-    sub_8063A68(3, 1);
-    sub_8063A68(4, 2);
-    sub_8063A68(5, 3);
-    sub_8063A68(7, 4);
+    addLanguage(0, 0);
+    addLanguage(3, 1);
+    addLanguage(4, 2);
+    addLanguage(5, 3);
+    addLanguage(7, 4);
 #else
-    sub_8063A68(2, 0);
+    addLanguage(2, 0);
 #endif
-    sub_8063A7C(0);
+    setLanguage(0);
     initMultiPlayer(2, 16, 3);
     allocateSoundTables(11025, 2);
     Sound_8062B20(&dword_8040CC4);

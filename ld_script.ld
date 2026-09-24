@@ -21,6 +21,7 @@ SECTIONS {
         . += 12;
         src/keystate.c.o(.data);
         src/ram3.c.o(.data);
+        src/language.c.o(.data);
         src/AgbEeprom.c.o(COMMON);
 
         _iwram_code_start = .;

@@ -832,7 +832,8 @@ void sub_804A550(TutorialEntry* arg0)
     index = 0;
     done = 0;
     counter = 0;
-    sub_8061660(&tutorial->fontData, arg0->sprite->languageStrings[0].strings[getLanguage()], 0xF);
+    sub_8061660(
+        &tutorial->fontData, arg0->sprite->languageStrings[0].strings[getLanguageTextIndex()], 0xF);
     if (tutorial->unk13C == NULL) {
         tutorial->unk13C = allocSprite(0);
         if (tutorial->unk13C != NULL) {
@@ -855,9 +856,9 @@ void sub_804A550(TutorialEntry* arg0)
             if ((_unk3005DA0 & 1) != 0 || timer < -200) {
                 index++;
                 timer = 15;
-                if (index < arg0->sprite->languageCount[getLanguage()]) {
+                if (index < arg0->sprite->languageCount[getLanguageTextIndex()]) {
                     sub_8061660(&tutorial->fontData,
-                        arg0->sprite->languageStrings[index].strings[getLanguage()], 0xF);
+                        arg0->sprite->languageStrings[index].strings[getLanguageTextIndex()], 0xF);
                 } else {
                     done = 1;
                 }

@@ -1333,7 +1333,7 @@ const unk8* sub_8057048(unk32 arg0)
 {
     unk32 language;
 
-    language = getLanguage();
+    language = getLanguageTextIndex();
     return ItemNames[language][arg0];
 }
 

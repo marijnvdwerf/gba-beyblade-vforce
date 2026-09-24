@@ -2665,32 +2665,32 @@ const unk8* sub_80573C8(unk32 arg0)
 
 const unk8* sub_80573DC(unk32 arg0)
 {
-    return _807BFD8[getLanguage()][arg0];
+    return _807BFD8[getLanguageTextIndex()][arg0];
 }
 
 const unk8* sub_80573FC(unk32 arg0)
 {
-    return _807C49C[getLanguage()][arg0];
+    return _807C49C[getLanguageTextIndex()][arg0];
 }
 
 const unk8* sub_805741C(unk32 arg0)
 {
-    return _807C960[getLanguage()][arg0];
+    return _807C960[getLanguageTextIndex()][arg0];
 }
 
 const unk8* sub_805743C(unk32 arg0)
 {
-    return _807CE24[getLanguage()][arg0];
+    return _807CE24[getLanguageTextIndex()][arg0];
 }
 
 const unk8* sub_805745C(unk32 arg0)
 {
-    return _807D2E8[getLanguage()][arg0];
+    return _807D2E8[getLanguageTextIndex()][arg0];
 }
 
 const unk8* sub_805747C(unk32 arg0)
 {
-    return _807D7AC[getLanguage()][arg0];
+    return _807D7AC[getLanguageTextIndex()][arg0];
 }
 
 unk8 sub_805749C(unk32 arg0)

@@ -515,13 +515,13 @@ void sub_804F878(void)
     state->levelHud.flags |= 2;
     if (sub_8051780(4) != 0) {
         if (_currentGameState->unk6A4 == 2) {
-            sub_8061660(&hud->text0, description->unk94[getLanguage()], 0xD);
+            sub_8061660(&hud->text0, description->unk94[getLanguageTextIndex()], 0xD);
         } else {
-            sub_8061660(&hud->text0, description->unkA8[getLanguage()], 0xD);
+            sub_8061660(&hud->text0, description->unkA8[getLanguageTextIndex()], 0xD);
         }
     } else {
-        sub_8061660(&hud->text0, description->unk68[getLanguage()], 0xD);
-        sub_8061660(&state->levelHud.text1, description->unk7C[getLanguage()], 0xD);
+        sub_8061660(&hud->text0, description->unk68[getLanguageTextIndex()], 0xD);
+        sub_8061660(&state->levelHud.text1, description->unk7C[getLanguageTextIndex()], 0xD);
         motion = &state->levelHud.motion1;
         newMotionGroup(motion, &state->levelHud.text1.unk14, 2);
         sub_8050578(motion, 0x5800, 0x100);
@@ -569,7 +569,7 @@ void sub_804FA40(void)
     sub_804FD64();
     state->levelHud.flags |= 2;
     table = _806E6FC;
-    language = getLanguage();
+    language = getLanguageTextIndex();
     sub_8061660(hud, table[language], 0xD);
     motion = &state->levelHud.motion0;
     newMotionGroup(motion, &state->levelHud.text0.unk14, 2);
@@ -593,7 +593,7 @@ void sub_804FAD4(void)
     sub_804FD64();
     state->levelHud.flags |= 2;
     table = _806E710;
-    language = getLanguage();
+    language = getLanguageTextIndex();
     sub_8061660(hud, table[language], 0xB);
     motion = &state->levelHud.motion0;
     newMotionGroup(motion, &state->levelHud.text0.unk14, 2);
@@ -615,7 +615,7 @@ void sub_804FB6C(void)
     sub_804FD64();
     state->levelHud.flags |= 2;
     table = _806E8C4;
-    sub_8061660(hud, table[getLanguage()], 0xD);
+    sub_8061660(hud, table[getLanguageTextIndex()], 0xD);
     motion = &state->levelHud.motion0;
     newMotionGroup(motion, &state->levelHud.text0.unk14, 2);
     sub_8050578(motion, 0x4800, 0x100);
@@ -635,7 +635,7 @@ void sub_804FC00(unk32 arg0)
     sub_804F84C(0);
     sub_804FD64();
     state->levelHud.flags |= 2;
-    sub_8061660(hud, _806E724[arg0][getLanguage()], 0xD);
+    sub_8061660(hud, _806E724[arg0][getLanguageTextIndex()], 0xD);
     motion = &state->levelHud.motion0;
     newMotionGroup(motion, &state->levelHud.text0.unk14, 2);
     sub_8050578(motion, 0x4800, 0x100);
@@ -657,7 +657,7 @@ void getItem(unk32 item)
     sub_804FD64();
     state->levelHud.flags |= 0x22;
     table = _806E774;
-    sub_8061660(text0, table[getLanguage()], 0xD);
+    sub_8061660(text0, table[getLanguageTextIndex()], 0xD);
     sub_8061660(&state->levelHud.text1, sub_8057048(item), 0xC);
     motion = &state->levelHud.motion0;
     newMotionGroup(motion, &state->levelHud.text0.unk14, 2);
