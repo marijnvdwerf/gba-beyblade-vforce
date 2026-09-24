@@ -930,9 +930,11 @@ loc_8064E34:
     BX	LR
     arm_func_end render_09
 
-global _renderFunctionsEnd
+.global _renderFunctionsEnd
+_renderFunctionsEnd:
 
-global _renderFunctionOffsets
+.global _renderFunctionOffsets
+_renderFunctionOffsets:
     .4byte 0x1AC
     .4byte 0x60
     .4byte 0
