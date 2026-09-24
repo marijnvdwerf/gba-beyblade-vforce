@@ -2,25 +2,6 @@
 
 	.section .rodata
 
-    .align 2, 0
-global __sub_87577B4
-    .4byte sub_87577B4
-
-global __sound_8757A64
-    .4byte sound_8757A64
-
-global off_807D96C
-    .4byte printf + 1
-
-global __fastMemoryClearARM
-    .4byte fastMemoryClearARM
-
-global __fastMemoryCopyARM
-    .4byte fastMemoryCopyARM
-
-    .4byte fastMemoryClear16ARM
-    .4byte fastMemoryCopy16ARM
-
 global byte_807D980
     .byte    0, 0x5F, 0x60, 0x61, 0x62, 0x63, 0x64, 0x61
     .byte    0,    0,    0,    0,    0,    0,    0,    0

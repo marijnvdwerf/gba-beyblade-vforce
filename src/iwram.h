@@ -24,6 +24,7 @@ extern void (*__sub_8757494)(const s16*, s32, unk32, s32, unk16*, unk16);
 extern void (*__sub_87576D8)(const unk32*, unk32, unk32, unk32, Tile4bpp*, const unk32*);
 extern void (*__sub_87577B4)(SoundStructA*, unk32, unk32);
 extern s32 (*__sound_8757A64)(unk8*, s32, s32);
+extern unk32 (*off_807D96C)(const char*, ...);
 extern void (*__sub_8757CD0)(void);
 extern void (*__sub_8757D24)(void);
 extern void (*__sub_8757E4C)(void);

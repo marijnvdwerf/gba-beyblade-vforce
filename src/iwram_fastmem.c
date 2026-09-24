@@ -1,7 +1,5 @@
 #include "iwram.h"
 
-extern void (*off_807D96C)(const char*, ...);
-
 // TODO: fakematch?
 void fastMemoryClearARM(unk32 fill, void* destination, unk32 byteCount)
 {

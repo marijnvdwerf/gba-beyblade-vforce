@@ -2,7 +2,9 @@
 
 #include <agb/macro.h>
 
+#include "debug.h"
 #include "include_asm.h"
+#include "iwram.h"
 #include "memory.h"
 #include "unsorted.h"
 
@@ -42,9 +44,13 @@ extern AllocatedBlock* _soundTableBlock;
 extern SoundStructC _unk3005E40;
 extern u16 _unk3005E4C;
 
-
-void (*__sub_87577B4)(SoundStructA*, unk32, unk32);
-s32 (*__sound_8757A64)(unk8*, s32, s32);
+void (*__sub_87577B4)(SoundStructA*, unk32, unk32) = sub_87577B4;
+s32 (*__sound_8757A64)(unk8*, s32, s32) = sound_8757A64;
+unk32 (*off_807D96C)(const char*, ...) = printf;
+ClearFn* __fastMemoryClearARM = fastMemoryClearARM;
+CopyFn* __fastMemoryCopyARM = fastMemoryCopyARM;
+ClearFn* off_807D978 = fastMemoryClear16ARM;
+CopyFn* off_807D97C = fastMemoryCopy16ARM;
 
 #define FIXED_16_16(hz) ((hz) * 65536.0)
 
