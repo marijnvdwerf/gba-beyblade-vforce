@@ -8,6 +8,7 @@
 #include "gamestate.h"
 #include "geometry.h"
 #include "include_asm.h"
+#include "iwram.h"
 #include "keystate.h"
 #include "layer.h"
 #include "menu.h"
@@ -83,7 +84,6 @@ extern const unk8 ShadowFontMeta[];
 extern const SpriteSheet SpriteSheet_821CCC8;
 extern const SpriteSheet SpriteSheet_821CB80;
 extern TutorialPage TutorialPages[];
-extern void (*__oam_8756CC0)(void);
 
 void initTutorialManagement(u16 levelId)
 {

@@ -16,6 +16,7 @@
 #include "gamestate.h"
 #include "hud.h"
 #include "include_asm.h"
+#include "iwram.h"
 #include "keystate.h"
 #include "levelhud.h"
 #include "math.h"
@@ -37,7 +38,6 @@
 #include "unsorted.h"
 
 extern Sub8052140Data _unk3000F50;
-extern void (*__oam_8756CC0)(void);
 void sub_8052978(unk32, void (*)(void));
 void sub_8052140(Sub8052140Data*, unk32);
 void sub_805FA68(PolyTable*);

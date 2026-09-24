@@ -3,7 +3,9 @@
 #include <agb/memory_map.h>
 
 #include "common.h"
+#include "debug.h"
 #include "include_asm.h"
+#include "iwram.h"
 #include "math.h"
 #include "memory.h"
 #include "packet.h"
@@ -34,10 +36,27 @@ extern SpriteEntry* _spritesLeft;
 extern unk32 _spritesFree;
 extern SpriteEntry* _sprites;
 
-extern u16 word_807D90C[];
 extern const char Str_8755A08[];
 
+s32 sub_8060790(s32);
 void freeSpriteVramLocation(s32, s32);
+
+unk16 word_807D90C[16]
+    = { 0x404, 0x808, 0x1010, 0x2020, 0x804, 0x1004, 0x1008, 0x2010, 0x408, 0x410, 0x810, 0x1020 };
+void (*off_807D92C)(const char*, s32) = nullsub_9;
+unk32 (*off_807D930)(const char*, ...) = printf;
+s32 (*off_807D934)(s32) = sub_8060790;
+void (*off_807D938)(s32, s32) = freeSpriteVramLocation;
+void (*__oam_8756CC0)(void) = oam_8756CC0;
+unk32 (*off_807D940)(const char*, ...) = printf;
+void (*__sub_8756FC0)(BGLayer*, s32, s32, unk32, s32, s32, s32) = sub_8756FC0;
+void (*__sub_8757380)(BGLayer*, unk32, s32, unk32, s32) = sub_8757380;
+void (*__sub_8757494)(const s16*, s32, unk32, s32, unk16*, unk16) = sub_8757494;
+void (*off_807D950)(const unk32*, const unk16*, Tile4bpp*, s32) = sub_8757574;
+void (*__sub_87576D8)(const unk32*, unk32, unk32, unk32, Tile4bpp*, const unk32*) = sub_87576D8;
+void (*off_807D958)(const char*) = nullsub_8;
+void (*off_807D95C)(const char*, s32) = nullsub_9;
+unk32 (*off_807D960)(const char*, ...) = printf;
 
 void sub_80604D4(SpriteEntry* current)
 {

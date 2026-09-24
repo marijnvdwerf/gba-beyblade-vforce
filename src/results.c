@@ -7,6 +7,7 @@
 #include "gameloop.h"
 #include "gamestate.h"
 #include "items.h"
+#include "iwram.h"
 #include "keystate.h"
 #include "math.h"
 #include "menu.h"
@@ -26,7 +27,6 @@ extern const SpriteSheet SpriteSheet_82B1A84;
 extern const unk8 LargeFontMeta[];
 extern const SpriteSheet SpriteSheet_82B05EC;
 extern const unk8 ShadowFontMeta[];
-extern void (*__oam_8756CC0)(void);
 
 UnkStruct_80788E0 _80788E0 = {
     { "TRACK 1" },

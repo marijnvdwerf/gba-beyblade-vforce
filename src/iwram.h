@@ -17,6 +17,7 @@ typedef void ClearFn(unk32, void*, unk32);
 
 extern CopyFn* __fastMemoryCopyARM;
 extern ClearFn* __fastMemoryClearARM;
+extern void (*__oam_8756CC0)(void);
 extern void (*__sub_8756FC0)(BGLayer*, s32, s32, unk32, s32, s32, s32);
 extern void (*__sub_8757380)(BGLayer*, unk32, s32, unk32, s32);
 extern void (*__sub_8757494)(const s16*, s32, unk32, s32, unk16*, unk16);

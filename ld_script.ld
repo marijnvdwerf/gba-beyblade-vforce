@@ -195,6 +195,7 @@ SECTIONS {
 		src/beyblade.c.o(.data);
 		src/layer.c.o(.data);
 		src/multiplayer.c.o(.data);
+		src/sprite.c.o(.data);
 		asm/data8.s.o(.rodata);
 		asm/audio2.s.o(.rodata);
 		asm/dataA.s.o(.rodata);

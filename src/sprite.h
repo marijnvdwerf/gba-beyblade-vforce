@@ -40,6 +40,11 @@ struct SpriteRotationScaleEntry {
     unk8 pad1A[2];
 };
 
+extern unk16 word_807D90C[16];
+extern unk32 (*off_807D930)(const char*, ...);
+extern s32 (*off_807D934)(s32);
+extern void (*off_807D938)(s32, s32);
+
 void SpriteVRamFree(u32, u32);
 void* allocSprite(u16);
 void sub_8060A94(SpriteEntry*);

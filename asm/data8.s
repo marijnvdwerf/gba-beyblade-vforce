@@ -2,45 +2,6 @@
 
 	.section .rodata
 
-global word_807D90C
-    .2byte  0x404,  0x808, 0x1010, 0x2020,  0x804, 0x1004
-    .2byte 0x1008, 0x2010,  0x408,  0x410,  0x810, 0x1020
-    .2byte      0,      0,      0,      0
-
-    .4byte nullsub_9 + 1
-
-global off_807D930
-    .4byte printf + 1
-
-global off_807D934
-    .4byte sub_8060790 + 1
-
-global off_807D938
-    .4byte freeSpriteVramLocation + 1
-
-global __oam_8756CC0
-    .4byte oam_8756CC0
-
-    .4byte printf + 1
-
-global __sub_8756FC0
-    .4byte sub_8756FC0
-
-global __sub_8757380
-    .4byte sub_8757380
-
-global __sub_8757494
-    .4byte sub_8757494
-
-    .4byte sub_8757574
-
-global __sub_87576D8
-    .4byte sub_87576D8
-
-    .4byte nullsub_8 + 1
-    .4byte nullsub_9 + 1
-    .4byte printf + 1
-
     .align 2, 0
 global __sub_87577B4
     .4byte sub_87577B4

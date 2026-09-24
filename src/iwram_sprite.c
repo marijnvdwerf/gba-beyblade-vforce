@@ -1,6 +1,7 @@
 #include <agb/memory_map.h>
 
 #include "iwram.h"
+#include "sprite.h"
 #include "unsorted.h"
 
 typedef struct OamEntry {
@@ -137,11 +138,6 @@ s32 ARM_sub_8756A84(SpriteEntry* sprite, unk16 byteCount, s32 objNo)
     _unk3005E70++;
     return objNo;
 }
-
-extern unk16 word_807D90C[];
-extern void (*off_807D938)(s32, s32);
-extern s32 (*off_807D934)(s32);
-extern s32 (*off_807D930)(const char*, ...);
 
 void oam_8756CC0(void)
 {

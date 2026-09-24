@@ -10,6 +10,7 @@
 #include "display.h"
 #include "festate.h"
 #include "include_asm.h"
+#include "iwram.h"
 #include "keystate.h"
 #include "levelrow.h"
 #include "levelselect.h"
@@ -2427,8 +2428,6 @@ unk32 sub_8049258(void)
 {
     return _unk3000650.unk10;
 }
-
-extern void (*__oam_8756CC0)(void);
 
 void sub_8049264(void)
 {
