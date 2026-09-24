@@ -25,6 +25,8 @@ Screen entries are GBA text-BG entries (tile 0-9, hflip 10, vflip 11, palette
 bank 12-15 for 4bpp). A map with tileBytes == 0 has no tiles of its own: the
 game points it at character block 0, i.e. the tiles of the first layer in the
 same ScreenLayout that does carry tiles -- pass that file with --tileset.
+
+Colour 0 is always transparent.
 """
 
 from __future__ import annotations
@@ -158,7 +160,8 @@ def tile_pixels(tile: list[int], hflip: bool, vflip: bool) -> list[int]:
 
 
 def render_map(m: BBMap, tiles: list[list[int]], bpp: int, pal) -> Image.Image:
-    img = Image.new("RGB", (m.columns * 8, m.rows * 8))
+    # Colour 0 of every palette bank is always transparent on BG layers.
+    img = Image.new("RGBA", (m.columns * 8, m.rows * 8))
     px = img.load()
     missing = set()
     for ty, row in enumerate(m.screen_entries()):
@@ -170,6 +173,8 @@ def render_map(m: BBMap, tiles: list[list[int]], bpp: int, pal) -> Image.Image:
                 continue
             p = tile_pixels(tiles[idx], bool(entry & 0x400), bool(entry & 0x800))
             for i, c in enumerate(p):
+                if c == 0:
+                    continue
                 px[tx * 8 + (i & 7), ty * 8 + (i >> 3)] = pal[bank + c]
     if missing:
         print(
@@ -195,6 +200,41 @@ def scaled(img: Image.Image, n: int) -> Image.Image:
     return img if n == 1 else img.resize((img.width * n, img.height * n), Image.NEAREST)
 
 
+def render_file(
+    path: Path,
+    out: Path,
+    palette: Path | None = None,
+    tileset: Path | None = None,
+    tiles_out: Path | None = None,
+    scale: int = 1,
+) -> None:
+    m = BBMap(path.read_bytes())
+    print(
+        f"{path}: size={m.total_bytes:#x}{m.size_note} tiles@{m.tile_offset:#x}+{m.tile_bytes:#x} "
+        f"map@{m.map_offset:#x}+{m.map_bytes:#x} tileTable={m.tile_table_offset:#x} "
+        f"flags={m.flags:#x}{' (compressed)' if m.compressed else ''} colorMode={m.color_mode} "
+        f"({m.bpp}bpp) fill={m.fill:#06x} {m.columns}x{m.rows} tiles={m.tile_count}",
+        file=sys.stderr,
+    )
+
+    src = m
+    if tileset:
+        src = BBMap(tileset.read_bytes())
+        if src.bpp != m.bpp:
+            print(f"warning: tileset is {src.bpp}bpp, map is {m.bpp}bpp", file=sys.stderr)
+        print(f"using {src.tile_count} tiles from {tileset}", file=sys.stderr)
+    elif m.tile_count == 0:
+        print("warning: map has no tiles of its own; pass --tileset", file=sys.stderr)
+    tiles = decode_tiles(src.tile_data, m.bpp)
+    pal = load_palette(palette, m.bpp)
+
+    scaled(render_map(m, tiles, m.bpp, pal), scale).save(out)
+    print(f"wrote {out}", file=sys.stderr)
+    if tiles_out:
+        scaled(render_sheet(tiles, pal), scale).save(tiles_out)
+        print(f"wrote {tiles_out}", file=sys.stderr)
+
+
 def main() -> int:
     ap = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     ap.add_argument("bbmap", type=Path)
@@ -205,32 +245,8 @@ def main() -> int:
     ap.add_argument("--scale", type=int, default=1)
     args = ap.parse_args()
 
-    m = BBMap(args.bbmap.read_bytes())
-    print(
-        f"{args.bbmap}: size={m.total_bytes:#x}{m.size_note} tiles@{m.tile_offset:#x}+{m.tile_bytes:#x} "
-        f"map@{m.map_offset:#x}+{m.map_bytes:#x} tileTable={m.tile_table_offset:#x} "
-        f"flags={m.flags:#x}{' (compressed)' if m.compressed else ''} colorMode={m.color_mode} "
-        f"({m.bpp}bpp) fill={m.fill:#06x} {m.columns}x{m.rows} tiles={m.tile_count}",
-        file=sys.stderr,
-    )
-
-    src = m
-    if args.tileset:
-        src = BBMap(args.tileset.read_bytes())
-        if src.bpp != m.bpp:
-            print(f"warning: tileset is {src.bpp}bpp, map is {m.bpp}bpp", file=sys.stderr)
-        print(f"using {src.tile_count} tiles from {args.tileset}", file=sys.stderr)
-    elif m.tile_count == 0:
-        print("warning: map has no tiles of its own; pass --tileset", file=sys.stderr)
-    tiles = decode_tiles(src.tile_data, m.bpp)
-    pal = load_palette(args.palette, m.bpp)
-
     out = args.out or args.bbmap.with_suffix(".png")
-    scaled(render_map(m, tiles, m.bpp, pal), args.scale).save(out)
-    print(f"wrote {out}", file=sys.stderr)
-    if args.tiles:
-        scaled(render_sheet(tiles, pal), args.scale).save(args.tiles)
-        print(f"wrote {args.tiles}", file=sys.stderr)
+    render_file(args.bbmap, out, args.palette, args.tileset, args.tiles, args.scale)
     return 0
 
 
