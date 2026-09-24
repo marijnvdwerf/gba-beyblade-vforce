@@ -46,6 +46,8 @@ struct TeletypeState {
     SpriteTextBlock unkEC;
 };
 
+extern unk8 GlyphMap[];
+
 extern const FontStyle FontStyle_80688B8;
 extern const FontStyle FontStyle_80688C4;
 extern const FontStyle FontStyle_80688D0;

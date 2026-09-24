@@ -8,6 +8,7 @@
 #include "memory.h"
 #include "sprite.h"
 #include "spritestring.h"
+#include "teletype.h"
 #include "unsorted.h"
 
 enum { SPRITE_TEXT_BUFFER_SIZE = 0x800 };
@@ -18,7 +19,6 @@ extern unk8 sub_8061AE8(SpriteTextCleanup*, unk32, unk8);
 extern unk8 sub_8061BA0(SpriteTextCleanup*, unk32, unk8);
 
 extern void sub_806123C(SpriteTextCleanup*);
-extern const u8 byte_807D980[];
 
 void allocFont(SpriteTextCleanup* arg0, const SpriteSheet* arg1, const unk8* arg2, s16 arg3,
     s16 arg4, unk16 arg5, unk16 arg6)
@@ -265,7 +265,7 @@ u8 showString(SpriteTextCleanup* arg0, const u8* text, u8 mode)
             advance = arg0->unk28;
             extra = 0x8000;
         } else {
-            ch = byte_807D980[ch];
+            ch = GlyphMap[ch];
             LoadSpriteSheet(sprite, arg0->unk24, 0, 0, 0, load_flags, 0, ch);
             sub_8061168(sprite, mode);
             sub_8061130(sprite, arg0->unkE);

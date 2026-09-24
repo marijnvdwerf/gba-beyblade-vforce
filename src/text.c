@@ -7,11 +7,10 @@
 #include "include_asm.h"
 #include "layer.h"
 #include "system.h"
+#include "teletype.h"
 #include "unsorted.h"
 
 enum { TEXT_MAP_WIDTH_TILES = 32 };
-
-extern const unk8 byte_807D980[];
 
 void sub_805B280(unk16* map, Tile4bpp* tiles, const unk32* data, s32 x, unk32 y);
 const Tile4bpp* sub_805B7F0(const SpriteSheet*, unk32);
@@ -126,7 +125,7 @@ unk32 sub_805B3DC(const unk8* string, const unk8* arg1, unk32 arg2)
     while ((character = *string++) != 0) {
         width = 5;
         if (character != ' ') {
-            character = byte_807D980[character];
+            character = GlyphMap[character];
             width = arg2;
             if (arg1 != NULL) {
                 width -= arg1[character];
@@ -211,7 +210,7 @@ unk32 sub_805B41C(TilemapTextRenderer* renderer, s32 x, s32 y, unk8* string, unk
         if (character > ' ') {
             drawY = y;
             row = tileHeight;
-            character = byte_807D980[character];
+            character = GlyphMap[character];
             data = sub_805B7F0(renderer->font, character);
             advance = fontWidth;
             if (renderer->widthAdjustments != NULL) {

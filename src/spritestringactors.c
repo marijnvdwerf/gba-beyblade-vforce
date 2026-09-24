@@ -1,8 +1,7 @@
 #include "actor.h"
 #include "bios.h"
 #include "common.h"
-
-extern const u8 byte_807D980[];
+#include "teletype.h"
 
 unk32 sub_80655C0(SpriteString* string, s32 value, unk16 index, unk16 step, unk8 modeArg)
 {
@@ -56,7 +55,7 @@ void sub_80656B8(SpriteString* string)
     actor = string->actors;
     while (count != 0 && (character = *text++) != 0) {
         if (character != ' ') {
-            ActorSetFrame(actor, 0, byte_807D980[character]);
+            ActorSetFrame(actor, 0, GlyphMap[character]);
             actor->unk70 = -1;
             actor++;
             count--;

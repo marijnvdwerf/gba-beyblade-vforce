@@ -7,8 +7,7 @@
 #include "ram.h"
 #include "sprite.h"
 #include "system.h"
-
-extern const u8 byte_807D980[];
+#include "teletype.h"
 
 unk32 sub_8064F38(const u8* str)
 {
@@ -346,13 +345,13 @@ void sub_80653D8(SpriteString* string)
         if (spacing > 2 && remaining > 0) {
             spacing = spacing - 3;
             actor->unk70 = -1;
-            ActorSetFrame(actor, 0, byte_807D980[0x2C]);
+            ActorSetFrame(actor, 0, GlyphMap[0x2C]);
             count++;
         } else {
             if (remainder == 0 && remaining == 0 && count != 0) {
                 if (string->x < 0 && flag == 0) {
                     actor->unk70 = -1;
-                    ActorSetFrame(actor, 0, byte_807D980[0x2D]);
+                    ActorSetFrame(actor, 0, GlyphMap[0x2D]);
                     flag = 1;
                     count = count + 1;
                 } else {
@@ -391,7 +390,7 @@ void sub_8065508(SpriteString* string)
     sub_80655C0(string, remainder, string->count - 1, 2, 1);
     value = Div(value, 60);
     index = string->count;
-    ActorSetFrame(&string->actors[index - 3], 0, byte_807D980[':']);
+    ActorSetFrame(&string->actors[index - 3], 0, GlyphMap[':']);
     string->actors[string->count - 3].unk70 = -1;
     if (value != 0) {
         remainder = DivRem(value, 60);

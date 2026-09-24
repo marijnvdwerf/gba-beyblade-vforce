@@ -197,6 +197,7 @@ SECTIONS {
 		src/multiplayer.c.o(.data);
 		src/sprite.c.o(.data);
 		src/sound.c.o(.data);
+		src/teletype.c.o(.data);
 		asm/data8.s.o(.rodata);
 		asm/audio2.s.o(.rodata);
 		asm/dataA.s.o(.rodata);
