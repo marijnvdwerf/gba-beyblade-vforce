@@ -230,6 +230,12 @@ Last updated: 2026-09-24 (session 17, close): main 6e41c223 — all functions ma
   tutorial, dialogue, beyblade) — event.c/effects.c were reordered accordingly.
   .vscode: C_Cpp.files.exclude for build/expected (cpptools Find All References
   was scanning the preprocessed *.c.o.i files).
+  a56555d9 BGM track list → data-only src/musictracks.c (user: `_807561C` is its own
+  TU; music.c reads it via music.h); word_8074D64 → particle.c (possible only because
+  the track list is not music.c's — .data order tutorial(102) → particle(108) →
+  data-only TUs → gamestate(115)). data11.s now holds only Unk_8074D3C, the pointer
+  table over data12b.s's nine .bin blobs: an ASSET bank (like audio0's SFX bank),
+  not a code TU's table.
   FINAL SKILL FOLD landed: docs/learnings/ (57 + 245 processed) DELETED, the
   skill-fold agent removed, decompiler/review/MANAGER.md now say measurements
   go in the agent's final REPORT and generic ones into SKILL.md by the manager.
