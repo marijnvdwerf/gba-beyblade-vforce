@@ -192,7 +192,7 @@ SECTIONS {
 		src/gamestate.c.o(.data);
 		src/results.c.o(.data);
 		src/event.c.o(.data);
-		asm/data9b.s.o(.rodata);
+		src/effects.c.o(.data);
 		src/items.c.o(.data);
 		src/beyblade.c.o(.data);
 		src/layer.c.o(.data);
