@@ -190,14 +190,8 @@ typedef struct ProjectileSystem {
     unk16 unk78;
     s16 unk7A;
 
-    union {
-        unk32 word;
-
-        struct {
-            s16 unk7C;
-            s16 unk7E;
-        } parts;
-    } unk7C;
+    s16 unk7C;
+    s16 unk7E;
 
     unk32 unk80;
     unk32 unk84;

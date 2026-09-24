@@ -166,17 +166,17 @@ void sub_8055340(void)
         }
         *(vu16*)PLTT = 0;
     }
-    if (effect->unk7C.word != 0) {
-        effect->unk7C.parts.unk7C += (effect->unk7C.parts.unk7E - effect->unk7C.parts.unk7C) >> 3;
+    if (effect->unk7C != 0 || effect->unk7E != 0) {
+        effect->unk7C += (effect->unk7E - effect->unk7C) >> 3;
         *(vu16*)REG_WININ = 0;
         *(vu16*)(REG_WINOUT) = 0xFFFF;
         *(vu16*)REG_WIN0H = 0xF0;
         *(vu16*)REG_WIN1H = 0xF0;
-        *(vu16*)REG_WIN0V = effect->unk7C.parts.unk7C >> 4;
-        *(vu16*)REG_WIN1V = ((0xA0 - (effect->unk7C.parts.unk7C >> 4)) << 8) | 0xA0;
+        *(vu16*)REG_WIN0V = effect->unk7C >> 4;
+        *(vu16*)REG_WIN1V = ((0xA0 - (effect->unk7C >> 4)) << 8) | 0xA0;
         *(vu16*)REG_DISPCNT |= 0x6000;
-        if ((effect->unk7C.parts.unk7C >> 4) == 0) {
-            effect->unk7C.parts.unk7C = 0;
+        if ((effect->unk7C >> 4) == 0) {
+            effect->unk7C = 0;
             *(vu16*)REG_DISPCNT &= 0x9FFF;
         }
     }
@@ -184,26 +184,26 @@ void sub_8055340(void)
 
 void sub_80555F4(void)
 {
-    _gameData->projectileSystem.unk7C.parts.unk7E = 0x180;
+    _gameData->projectileSystem.unk7E = 0x180;
     _gameData->projectileSystem.unk76 = 1;
     _gameData->projectileSystem.unk78 = 1;
 }
 
 void sub_8055624(void)
 {
-    _gameData->projectileSystem.unk7C.parts.unk7E = 0;
+    _gameData->projectileSystem.unk7E = 0;
     _gameData->projectileSystem.unk78 = 0xFFFF;
     _gameData->projectileSystem.unk80 &= ~1;
 }
 
 void sub_805565C(void)
 {
-    _gameData->projectileSystem.unk7C.parts.unk7E = 0;
+    _gameData->projectileSystem.unk7E = 0;
 }
 
 void sub_8055674(void)
 {
-    _gameData->projectileSystem.unk7C.parts.unk7E = 0x560;
+    _gameData->projectileSystem.unk7E = 0x560;
 }
 
 void sub_805568C(void)
